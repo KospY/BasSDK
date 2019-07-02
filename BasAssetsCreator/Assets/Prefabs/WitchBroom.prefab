@@ -28,7 +28,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7974288657052442370}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: 135}
 --- !u!1 &473438471506844816
 GameObject:
@@ -85,7 +85,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 492048445281155347}
   m_LocalRotation: {x: -0.7086996, y: 0.00000024089238, z: 0.00000019859782, w: 0.70551044}
-  m_LocalPosition: {x: -0, y: -0.0329, z: -0.7166}
+  m_LocalPosition: {x: -0, y: -0.0329, z: -0.6104}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7974288657052442370}
@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactableId: 
-  axisLength: 0.38
+  axisLength: 0
   touchRadius: 0.1
   touchCenter: {x: 0, y: 0, z: 0}
   defaultGrabAxisRatio: 0
@@ -149,7 +149,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7974288657052442370}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: -230, y: 0, z: 0}
 --- !u!1 &2451602896805768475
 GameObject:
@@ -383,6 +383,36 @@ CapsuleCollider:
   m_Height: 1.674479
   m_Direction: 1
   m_Center: {x: 2.2851494e-10, y: -0.061666306, z: 3.8348998e-11}
+--- !u!1 &7852980139069240658
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9192818983396962466}
+  m_Layer: 0
+  m_Name: Whoosh2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9192818983396962466
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7852980139069240658}
+  m_LocalRotation: {x: -1, y: -0, z: -0, w: -0.00000035762784}
+  m_LocalPosition: {x: -0, y: -0.0375, z: -0.7424}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7974288657052442370}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: -180, y: 0, z: 0}
 --- !u!1 &7971414900314310644
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,6 +634,7 @@ Transform:
   - {fileID: 7974377261223810406}
   - {fileID: 4039376957725190879}
   - {fileID: 5898032382089693827}
+  - {fileID: 9192818983396962466}
   - {fileID: 7332751282348408552}
   - {fileID: 2198898621317337761}
   m_Father: {fileID: 0}
@@ -641,6 +672,7 @@ MonoBehaviour:
     - {fileID: 3565509493172123378}
   whooshPoints:
   - {fileID: 5898032382089693827}
+  - {fileID: 9192818983396962466}
   previewSize: 1.22
   preview: {fileID: 7332751282348408552}
   customReferences:
@@ -841,7 +873,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactableId: 
-  axisLength: 0.2
+  axisLength: 0
   touchRadius: 0.1
   touchCenter: {x: 0, y: 0, z: 0}
   defaultGrabAxisRatio: 0
