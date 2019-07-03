@@ -7,7 +7,7 @@ The Bas SDK is composed of 3 folders:
 # BasAssetsCreator
 An Unity project used to create assets bundles (compressed archive containing textures, meshes, sounds, etc...).
  
-# BasPlugins
+# Plugins
 A visual studio project example of a plugin.
 
 # ModFolderExample
