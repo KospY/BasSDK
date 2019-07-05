@@ -1,14 +1,8 @@
 # Blade and Sorcery official SDK
 
-This repository is still a work in progress and should evolve over time depending of game updates and community involvement ;)
+This SDK is used to create custom contents for the VR game "Blade and Sorcery".
+The game currently support JSON/data modding, custom assets and plugins support (custom c# code).
 
-The Bas SDK is composed of 3 folders:
+This repository is still a work in progress and should evolve over time depending of game updates and community involvement.
 
-# BasAssetsCreator
-An Unity project used to create assets bundles (compressed archive containing textures, meshes, sounds, etc...).
- 
-# Plugins
-A visual studio project example of a plugin.
-
-# ModFolderExample
-An example of finalized mod. The folder need to be dropped in [Blade & Sorcery folder]\BladeAndSorcery_Data\StreamingAssets to be loaded by the game.
+For more information about the SDK and how to use it, I recommend to join the game [Discord](https://discordapp.com/invite/bladeandsorcery) and check the [Wiki](https://github.com/KospY/BasSDK/wiki).
