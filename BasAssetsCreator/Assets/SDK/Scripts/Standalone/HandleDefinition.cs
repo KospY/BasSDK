@@ -60,10 +60,10 @@ namespace BS
             {
                 allowedOrientations.Add(new Orientation(Vector3.zero, HandSide.Both, HandSide.Both));
             }
-            handLeftMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/Prefabs/hand/handLeft.mat");
-            handRightMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/Prefabs/hand/handRight.mat");
-            handLeftMesh = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/hand/LeftHand.prefab").GetComponent<MeshFilter>().sharedMesh;
-            handRightMesh = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/hand/RightHand.prefab").GetComponent<MeshFilter>().sharedMesh;
+            //handLeftMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/Prefabs/hand/handLeft.mat");
+            //handRightMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/Prefabs/hand/handRight.mat");
+            //handLeftMesh = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/hand/LeftHand.prefab").GetComponent<MeshFilter>().sharedMesh;
+            //handRightMesh = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/hand/RightHand.prefab").GetComponent<MeshFilter>().sharedMesh;
 
         }
 
