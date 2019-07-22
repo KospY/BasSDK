@@ -28,8 +28,8 @@ namespace BS
             if (direction == Direction.Forward) Common.DrawGizmoArrow(this.transform.position, this.transform.forward * 0.05f, Color.red, 0.05f, 10);
             if (direction == Direction.ForwardAndBackward)
             {
-                ItemDefinition.DrawGizmoArrow(this.transform.position, this.transform.forward * 0.05f, Color.red, 0.05f, 10);
-                ItemDefinition.DrawGizmoArrow(this.transform.position, -this.transform.forward * 0.05f, Color.red, 0.05f, 10);
+                Common.DrawGizmoArrow(this.transform.position, this.transform.forward * 0.05f, Color.red, 0.05f, 10);
+                Common.DrawGizmoArrow(this.transform.position, -this.transform.forward * 0.05f, Color.red, 0.05f, 10);
             }
             // Penetration
             if (penetrationDepth > 0)

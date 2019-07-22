@@ -88,5 +88,23 @@ namespace BS
             Gizmos.DrawRay(pos + direction, right * arrowHeadLength);
             Gizmos.DrawRay(pos + direction, left * arrowHeadLength);
         }
+        public static void DrawGizmoCapsule(Vector3 pos, Vector3 direction, Color color, float capsuleLength, float capsuleRadius)
+        {
+
+            Gizmos.DrawWireSphere(pos + (direction.normalized) * capsuleLength, capsuleRadius);
+            Gizmos.DrawWireSphere(pos - (direction.normalized) * capsuleLength, capsuleRadius);
+
+            Gizmos.DrawRay((Vector3.right) * capsuleRadius, (Vector3.up) * capsuleLength);
+            Gizmos.DrawRay((Vector3.right) * capsuleRadius, (Vector3.down) * capsuleLength);
+
+            Gizmos.DrawRay((Vector3.left) * capsuleRadius, (Vector3.up) * capsuleLength);
+            Gizmos.DrawRay((Vector3.left) * capsuleRadius, (Vector3.down) * capsuleLength);
+
+            Gizmos.DrawRay((Vector3.forward) * capsuleRadius, (Vector3.up) * capsuleLength);
+            Gizmos.DrawRay((Vector3.forward) * capsuleRadius, (Vector3.down) * capsuleLength);
+
+            Gizmos.DrawRay((Vector3.back) * capsuleRadius, (Vector3.up) * capsuleLength);
+            Gizmos.DrawRay((Vector3.back) * capsuleRadius, (Vector3.down) * capsuleLength);
+        }
     }
 }

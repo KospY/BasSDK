@@ -22,6 +22,8 @@ namespace BS
         public HandleDefinition mainHandleRight;
         public HandleDefinition mainHandleLeft;
         public Transform flyDirRef;
+        public bool customCenterOfMass;
+        public Vector3 centerOfMass;
         public List<ColliderGroup> colliderGroups;
         public List<Transform> whooshPoints;
         public float previewSize = 1;
@@ -38,6 +40,7 @@ namespace BS
             public string name;
             public bool imbueMagic;
             public bool checkIndependently;
+            public PhysicMaterial ColliderMaterial;
             public List<Collider> colliders;
             public ColliderGroup(string name)
             {
@@ -76,6 +79,24 @@ namespace BS
 
         protected virtual void OnValidate()
         {
+            foreach (ColliderGroup colG in colliderGroups)
+            {
+                foreach (Collider col in colG.colliders)
+                {
+                    if (colG.ColliderMaterial)
+                    {
+                        col.material = colG.ColliderMaterial;
+                    }
+                }
+            }
+            if (customCenterOfMass)
+            {
+                this.GetComponent<Rigidbody>().centerOfMass = centerOfMass / 10;
+            }
+            else
+            {
+                centerOfMass = GetComponent<Rigidbody>().centerOfMass * 10;
+            }
             if (!this.gameObject.activeInHierarchy) return;
             holderPoint = this.transform.Find("HolderPoint");
             if (!holderPoint)
@@ -91,9 +112,18 @@ namespace BS
             }
             if (!preview)
             {
+                if (this.transform.Find("Preview")) { 
+                preview = this.transform.Find("Preview");
+                } else { 
                 preview = new GameObject("Preview").transform;
                 preview.SetParent(this.transform, false);
+                }
             }
+            else if (!preview.GetComponent<Preview>() && preview != this.transform)
+                {
+                    preview.gameObject.AddComponent(typeof(Preview));
+                }
+
             if (renderers == null || renderers.Count == 0) renderers = new List<Renderer>(this.GetComponentsInChildren<Renderer>());
 
             if (!mainHandleRight)
@@ -120,7 +150,7 @@ namespace BS
             }
 
             if (!mainHandleRight) mainHandleRight = this.GetComponentInChildren<HandleDefinition>();
-            if (colliderGroups == null)
+            if (colliderGroups == null || colliderGroups.Count == 0)
             {
                 colliderGroups = new List<ColliderGroup>();
                 ColliderGroup colliderGroup = new ColliderGroup("Default");
@@ -168,22 +198,12 @@ namespace BS
         }
 #endif
 
-        public static void DrawGizmoArrow(Vector3 pos, Vector3 direction, Color color, float arrowHeadLength = 0.25f, float arrowHeadAngle = 20.0f)
-        {
-            Gizmos.color = color;
-            Gizmos.DrawRay(pos, direction);
-            Vector3 right = Quaternion.LookRotation(direction) * Quaternion.Euler(0, 180 + arrowHeadAngle, 0) * new Vector3(0, 0, 1);
-            Vector3 left = Quaternion.LookRotation(direction) * Quaternion.Euler(0, 180 - arrowHeadAngle, 0) * new Vector3(0, 0, 1);
-            Gizmos.DrawRay(pos + direction, right * arrowHeadLength);
-            Gizmos.DrawRay(pos + direction, left * arrowHeadLength);
-        }
-
         protected virtual void OnDrawGizmosSelected()
         {
             Gizmos.DrawWireSphere(this.transform.TransformPoint(this.GetComponent<Rigidbody>().centerOfMass), 0.01f);
             Gizmos.matrix = holderPoint.transform.localToWorldMatrix;
-            DrawGizmoArrow(Vector3.zero, Vector3.forward * 0.1f, Common.HueColourValue(HueColorNames.Purple), 0.1f, 10);
-            DrawGizmoArrow(Vector3.zero, Vector3.up * 0.05f, Common.HueColourValue(HueColorNames.Green), 0.05f);
+            Common.DrawGizmoArrow(Vector3.zero, Vector3.forward * 0.1f, Common.HueColourValue(HueColorNames.Purple), 0.1f, 10);
+            Common.DrawGizmoArrow(Vector3.zero, Vector3.up * 0.05f, Common.HueColourValue(HueColorNames.Green), 0.05f);
             Gizmos.matrix = preview.localToWorldMatrix;
             Gizmos.DrawWireCube(Vector3.zero, new Vector3(previewSize, previewSize, 0));
         }

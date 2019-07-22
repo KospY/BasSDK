@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using UnityEditor;
 
 #if FULLGAME
 using Sirenix.OdinInspector;
@@ -15,7 +16,7 @@ namespace BS
         public List<Orientation> allowedOrientations = new List<Orientation>();
         public HandleDefinition releaseHandle;
 
-        public float reach;
+        public float reach = 0.5f;
         public Rigidbody customRigidBody;
         public HandleDefinition slideToUpHandle;
         public HandleDefinition slideToBottomHandle;
@@ -48,12 +49,22 @@ namespace BS
             return Catalog.current.GetDropdownAllID<InteractableHandle>();
         }
 #endif
+        Material handLeftMat;
+        Material handRightMat;
+        Mesh handLeftMesh;
+        Mesh handRightMesh;
+
         protected virtual void OnValidate()
         {
             if (allowedOrientations.Count == 0)
             {
                 allowedOrientations.Add(new Orientation(Vector3.zero, HandSide.Both, HandSide.Both));
             }
+            handLeftMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/Prefabs/hand/handLeft.mat");
+            handRightMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/Prefabs/hand/handRight.mat");
+            handLeftMesh = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/hand/LeftHand.prefab").GetComponent<MeshFilter>().sharedMesh;
+            handRightMesh = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/hand/RightHand.prefab").GetComponent<MeshFilter>().sharedMesh;
+
         }
 
         public float GetDefaultAxisPosition()
@@ -151,25 +162,56 @@ namespace BS
             }
             reach = farthestDamagerDist - GetDefaultAxisPosition();
         }
-
+        
         protected override void OnDrawGizmosSelected()
         {
+             Matrix4x4[] posMatrix = new Matrix4x4[1];
+            posMatrix[0] = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one);
+
+            Gizmos.color = Common.HueColourValue(HueColorNames.Yellow);
+            Gizmos.DrawWireSphere(this.transform.position, reach);
             base.OnDrawGizmosSelected();
             foreach (Orientation orientation in allowedOrientations)
             {
+                float ind = allowedOrientations.IndexOf(orientation);
                 if (orientation.allowedHand != HandSide.None)
                 {
-                    Gizmos.matrix = Matrix4x4.TRS(this.transform.TransformPoint(0, GetDefaultAxisPosition(), 0), this.transform.rotation * Quaternion.Euler(orientation.rotation), Vector3.one);
-                    if (orientation.allowedHand == HandSide.Both) Gizmos.color = Common.HueColourValue(HueColorNames.Purple);
-                    else if (orientation.allowedHand == HandSide.Right) Gizmos.color = Common.HueColourValue(HueColorNames.Green);
-                    else if (orientation.allowedHand == HandSide.Left) Gizmos.color = Common.HueColourValue(HueColorNames.Red);
+                    Gizmos.matrix = Matrix4x4.TRS(this.transform.TransformPoint(0.1f, GetDefaultAxisPosition(), ind / 15), this.transform.rotation * Quaternion.Euler(orientation.rotation), Vector3.one);
+
+                    if (orientation.allowedHand == HandSide.Both)
+                    {
+                        Common.DrawGizmoArrow(Vector3.zero, new Vector3(0.02f,0,0), Common.HueColourValue(HueColorNames.Green), 0.01f);
+                        Common.DrawGizmoArrow(Vector3.zero, new Vector3(-0.02f, 0, 0), Common.HueColourValue(HueColorNames.Red), 0.01f);
+                        Gizmos.color = Common.HueColourValue(HueColorNames.Purple);
+                    }
+                    else if (orientation.allowedHand == HandSide.Right)
+                    {
+                        Common.DrawGizmoArrow(Vector3.zero, new Vector3(0.02f, 0, 0), Common.HueColourValue(HueColorNames.Green), 0.01f);
+                        Gizmos.color = Common.HueColourValue(HueColorNames.Green);
+                    }
+                    else if (orientation.allowedHand == HandSide.Left)
+                    {
+                        Common.DrawGizmoArrow(Vector3.zero, new Vector3(-0.02f, 0, 0), Common.HueColourValue(HueColorNames.Red), 0.01f);
+                        Gizmos.color = Common.HueColourValue(HueColorNames.Red);
+                    }
+
                     Gizmos.DrawWireCube(Vector3.zero, new Vector3(0.01f, 0.05f, 0.01f));
                     Gizmos.DrawWireCube(new Vector3(0, 0.03f, 0.01f), new Vector3(0.01f, 0.01f, 0.03f));
                     if (orientation.isDefault != HandSide.None)
                     {
-                        if (orientation.isDefault == HandSide.Both) Gizmos.color = Common.HueColourValue(HueColorNames.Purple);
-                        else if (orientation.isDefault == HandSide.Right) Gizmos.color = Common.HueColourValue(HueColorNames.Green);
-                        else if (orientation.isDefault == HandSide.Left) Gizmos.color = Common.HueColourValue(HueColorNames.Red);
+                        if (orientation.isDefault == HandSide.Both)
+                        {
+                            Gizmos.color = Common.HueColourValue(HueColorNames.Purple);
+                        }
+                        else if (orientation.isDefault == HandSide.Right)
+                        {
+                            Gizmos.color = Common.HueColourValue(HueColorNames.Green);
+                        }
+                        else if (orientation.isDefault == HandSide.Left)
+                        {
+                            Gizmos.color = Common.HueColourValue(HueColorNames.Red);
+                        }
+
                         Gizmos.DrawWireSphere(new Vector3(0, 0.03f, 0.025f), 0.005f);
                     }
                 }
