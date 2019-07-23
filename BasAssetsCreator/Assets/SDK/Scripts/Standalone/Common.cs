@@ -95,8 +95,10 @@ namespace BS
             {
                 Gizmos.DrawRay(pos + direction, forward * arrowHeadLength);
                 Gizmos.DrawRay(pos + direction, backward * arrowHeadLength);
+#if UNITY_EDITOR
                 UnityEditor.Handles.color = color;
                 UnityEditor.Handles.DrawWireDisc(pos + new Vector3(0,arrowHeadLength*(1- Mathf.Cos(arrowHeadAngle * Mathf.Deg2Rad)),0), direction, arrowHeadLength * Mathf.Sin(arrowHeadAngle* Mathf.Deg2Rad));
+#endif
             }
         }
         public static void DrawGizmoCapsule(Vector3 pos, Vector3 direction, Color color, float capsuleLength, float capsuleRadius)
