@@ -20,7 +20,8 @@ namespace BS
         Pink,
         Red,
         Orange,
-        Yellow
+        Yellow,
+        White
     }
 
     public static class Common
@@ -72,6 +73,7 @@ namespace BS
          { HueColorNames.Red,     new Color32( 254 , 9 , 0, 255 ) },
          { HueColorNames.Orange, new Color32( 254 , 161 , 0, 255 ) },
          { HueColorNames.Yellow, new Color32( 254 , 224 , 0, 255 ) },
+         { HueColorNames.White, new Color32( 255 , 255 , 255, 255 ) },
         };
 
         public static Color32 HueColourValue(HueColorNames color)
@@ -79,18 +81,27 @@ namespace BS
             return (Color32)hueColourValues[color];
         }
 
-        public static void DrawGizmoArrow(Vector3 pos, Vector3 direction, Color color, float arrowHeadLength = 0.25f, float arrowHeadAngle = 20.0f)
+        public static void DrawGizmoArrow(Vector3 pos, Vector3 direction, Color color, float arrowHeadLength = 0.25f, float arrowHeadAngle = 20.0f, bool dim3 = false)
         {
             Gizmos.color = color;
             Gizmos.DrawRay(pos, direction);
             Vector3 right = Quaternion.LookRotation(direction) * Quaternion.Euler(0, 180 + arrowHeadAngle, 0) * new Vector3(0, 0, 1);
             Vector3 left = Quaternion.LookRotation(direction) * Quaternion.Euler(0, 180 - arrowHeadAngle, 0) * new Vector3(0, 0, 1);
+            Vector3 forward = Quaternion.LookRotation(direction) * Quaternion.Euler(180 + arrowHeadAngle, 0, 0) * new Vector3(0, 0, 1);
+            Vector3 backward = Quaternion.LookRotation(direction) * Quaternion.Euler(180 - arrowHeadAngle, 0, 0) * new Vector3(0, 0, 1);
             Gizmos.DrawRay(pos + direction, right * arrowHeadLength);
             Gizmos.DrawRay(pos + direction, left * arrowHeadLength);
+            if (dim3)
+            {
+                Gizmos.DrawRay(pos + direction, forward * arrowHeadLength);
+                Gizmos.DrawRay(pos + direction, backward * arrowHeadLength);
+                UnityEditor.Handles.color = color;
+                UnityEditor.Handles.DrawWireDisc(pos + new Vector3(0,arrowHeadLength*(1- Mathf.Cos(arrowHeadAngle * Mathf.Deg2Rad)),0), direction, arrowHeadLength * Mathf.Sin(arrowHeadAngle* Mathf.Deg2Rad));
+            }
         }
         public static void DrawGizmoCapsule(Vector3 pos, Vector3 direction, Color color, float capsuleLength, float capsuleRadius)
         {
-
+            Gizmos.color = color;
             Gizmos.DrawWireSphere(pos + (direction.normalized) * capsuleLength, capsuleRadius);
             Gizmos.DrawWireSphere(pos - (direction.normalized) * capsuleLength, capsuleRadius);
 

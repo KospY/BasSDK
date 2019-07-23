@@ -48,12 +48,18 @@ namespace BS
             Gizmos.matrix = this.transform.localToWorldMatrix;
             if (axisLength > 0)
             {
-                Common.DrawGizmoArrow(Vector3.zero, Vector3.up * (axisLength / 2), Common.HueColourValue(HueColorNames.Purple), 0.05f);
-                Common.DrawGizmoArrow(Vector3.zero, -Vector3.up * (axisLength / 2), Common.HueColourValue(HueColorNames.Purple), 0.05f);
+                Gizmos.color = Color.white;
+                Common.DrawGizmoArrow(Vector3.zero, Vector3.up * (axisLength / 2), Common.HueColourValue(HueColorNames.White), 0.05f);
+                Common.DrawGizmoArrow(Vector3.zero, -Vector3.up * (axisLength / 2), Common.HueColourValue(HueColorNames.White), 0.05f);
+                Common.DrawGizmoCapsule(Vector3.zero, Vector3.up * (axisLength / 2), Common.HueColourValue(HueColorNames.White), axisLength / 2, touchRadius);
+                Common.DrawGizmoCapsule(Vector3.zero, -Vector3.up * (axisLength / 2), Common.HueColourValue(HueColorNames.White), axisLength / 2, touchRadius);
             }
-            Gizmos.matrix = this.transform.localToWorldMatrix;
-            Gizmos.color = Color.white;
-            Gizmos.DrawWireSphere(touchCenter, touchRadius);
+            else
+            {
+                Gizmos.matrix = this.transform.localToWorldMatrix;
+                Gizmos.color = Color.white;
+                Gizmos.DrawWireSphere(touchCenter, touchRadius);
+            }
         }
     }
 }
