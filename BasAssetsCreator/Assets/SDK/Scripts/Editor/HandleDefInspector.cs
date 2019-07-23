@@ -118,7 +118,7 @@ public class HandleDefInspector : Editor
             {
                 handle.transform.position = (HandlePoint1 + HandlePoint2) / 2;
                 handle.axisLength = (HandlePoint1 - HandlePoint2).magnitude;
-                handle.transform.rotation = Quaternion.LookRotation(HandlePoint2 - HandlePoint1) * Quaternion.AngleAxis(-90, Vector3.right);
+                handle.transform.rotation = Quaternion.LookRotation(HandlePoint2 - HandlePoint1, Vector3.forward) * Quaternion.AngleAxis(-90, Vector3.right);
             }
         }
         else if (toolsHidden)
