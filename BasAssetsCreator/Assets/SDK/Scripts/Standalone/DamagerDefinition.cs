@@ -25,11 +25,15 @@ namespace BS
         {
             // Damage
             Gizmos.color = Color.red;
-            if (direction == Direction.Forward) Common.DrawGizmoArrow(this.transform.position, this.transform.forward * 0.05f, Color.red, 0.05f, 10);
+            if (direction == Direction.Forward)
+            {
+                Common.DrawGizmoArrow(this.transform.position, this.transform.forward * 0.05f, Color.red, 0.05f, 10, true);
+            }
+
             if (direction == Direction.ForwardAndBackward)
             {
-                Common.DrawGizmoArrow(this.transform.position, this.transform.forward * 0.05f, Color.red, 0.05f, 10);
-                Common.DrawGizmoArrow(this.transform.position, -this.transform.forward * 0.05f, Color.red, 0.05f, 10);
+                Common.DrawGizmoArrow(this.transform.position, this.transform.forward * 0.05f, Color.red, 0.05f, 10, true);
+                Common.DrawGizmoArrow(this.transform.position, -this.transform.forward * 0.05f, Color.red, 0.05f, 10, true);
             }
             // Penetration
             if (penetrationDepth > 0)
