@@ -11,8 +11,29 @@ public class DamagerDefInspector : Editor
     {
         BS.DamagerDefinition damager = (BS.DamagerDefinition)target;
         BS.ItemDefinition item = damager.transform.GetComponentInParent<BS.ItemDefinition>();
+        damager.transform.localScale = Vector3.one;
 
-        EditorGUILayout.HelpBox("This Damager is set up for "+damagerType+" damage.", MessageType.Info);
+        bool buttonsPressed = false;
+        if (centerTransform)
+        {
+            if (GUILayout.Button("Enable Point to Point transforms"))
+            {
+                centerTransform = false;
+                buttonsPressed = true;
+                damager.transform.hideFlags = HideFlags.NotEditable;
+            }
+        }
+        else
+        {
+            if (GUILayout.Button("Enable Center Transform"))
+            {
+                centerTransform = true;
+                buttonsPressed = true;
+                damager.transform.hideFlags = 0;
+            }
+        }
+
+        EditorGUILayout.HelpBox("This Damager is set up for " + damagerType + " damage.", MessageType.Info);
 
         base.OnInspectorGUI();
 
@@ -74,6 +95,98 @@ public class DamagerDefInspector : Editor
             }
         }
 
+        //POINTER POINT
+            if (damager.transform.hasChanged || GUI.changed || centerTransform || !buttonsPressed)
+            {
+                depthPoint = damager.transform.rotation * new Vector3(0, 0, -damager.penetrationDepth) + damager.transform.position;
+                lengthPoint1 = damager.transform.rotation * new Vector3(0, -damager.penetrationLength / 2, 0) + damager.transform.position;
+                lengthPoint2 = damager.transform.rotation * new Vector3(0, damager.penetrationLength / 2, 0) + damager.transform.position;
+                damager.transform.hasChanged = false;
+            }
+
+        MonoBehaviour.print(GUI.changed);
+    }
+    Vector3 depthPoint;
+    Vector3 lengthPoint1;
+    Vector3 lengthPoint2;
+    bool toolsHidden = false;
+    bool centerTransform;
+    Tool previousTool;
+    private void Awake()
+    {
+        BS.DamagerDefinition damager = (BS.DamagerDefinition)target;
+        depthPoint = damager.transform.rotation * new Vector3(0, 0, -damager.penetrationDepth) + damager.transform.position;
+        lengthPoint1 = damager.transform.rotation * new Vector3(0, damager.penetrationLength / 2, 0) + damager.transform.position;
+        lengthPoint2 = damager.transform.rotation * new Vector3(0, -damager.penetrationLength / 2, 0) + damager.transform.position;
+
+        damager.transform.hideFlags = HideFlags.NotEditable;
+    }
+    Quaternion axis;
+    private void OnSceneGUI()
+    {
+        BS.DamagerDefinition damager = (BS.DamagerDefinition)target;
+        //Handles.Label(lengthPoint1, "1");
+        //Handles.Label(lengthPoint2, "2");
+        if (toolsHidden && centerTransform)
+        {
+            Tools.current = previousTool;
+            toolsHidden = false;
+        }
+        if (damagerType == "Piercing" && !centerTransform && damager.penetrationDepth >= 0)
+        {
+            if (toolsHidden)
+            {
+                Tools.current = previousTool;
+                toolsHidden = false;
+            }
+            depthPoint = Handles.PositionHandle(depthPoint, Quaternion.identity);
+            if (!damager.transform.hasChanged)
+            {
+                damager.penetrationDepth = (depthPoint - damager.transform.position).magnitude;
+                damager.transform.rotation = Quaternion.LookRotation(depthPoint - damager.transform.position) * Quaternion.AngleAxis(180, Vector3.right);
+                damager.transform.hasChanged = false;
+            }
+        }
+        else if (damagerType == "Slashing" && !centerTransform && damager.penetrationDepth >= 0 && damager.penetrationLength >= 0)
+        {
+            if (Tools.current != Tool.None)
+            {
+                previousTool = Tools.current;
+                Tools.current = Tool.None;
+                toolsHidden = true;
+            }
+            lengthPoint1 = Handles.PositionHandle(lengthPoint1, Quaternion.identity);
+            lengthPoint2 = Handles.PositionHandle(lengthPoint2, Quaternion.identity);
+
+            damager.transform.position = (lengthPoint1 + lengthPoint2) / 2;
+            damager.penetrationLength = (lengthPoint1 - lengthPoint2).magnitude;
+            damager.transform.hasChanged = false;
+
+            if (Event.current.control)
+            {
+                axis = Handles.Disc(damager.transform.rotation, damager.transform.position, (lengthPoint1 - lengthPoint2), 0.02f, false, 15f);
+            }
+            else
+            {
+                axis = Handles.Disc(damager.transform.rotation, damager.transform.position, (lengthPoint1 - lengthPoint2), 0.02f, false, 0.1f);
+            }
+            damager.transform.rotation = Quaternion.LookRotation(lengthPoint1 - lengthPoint2, axis * Vector3.forward) * Quaternion.AngleAxis(-90, Vector3.right);
+        }
+        else if (toolsHidden)
+        {
+            Tools.current = previousTool;
+            toolsHidden = false;
+        }
 
     }
+
+    private void OnDisable()
+    {
+        if (toolsHidden)
+        {
+            Tools.current = previousTool;
+            toolsHidden = false;
+        }
+    }
+
 }
