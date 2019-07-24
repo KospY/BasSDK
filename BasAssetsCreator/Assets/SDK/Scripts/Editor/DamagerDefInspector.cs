@@ -103,8 +103,7 @@ public class DamagerDefInspector : Editor
                 lengthPoint2 = damager.transform.rotation * new Vector3(0, damager.penetrationLength / 2, 0) + damager.transform.position;
                 damager.transform.hasChanged = false;
             }
-
-        MonoBehaviour.print(GUI.changed);
+            
     }
     Vector3 depthPoint;
     Vector3 lengthPoint1;
@@ -125,8 +124,6 @@ public class DamagerDefInspector : Editor
     private void OnSceneGUI()
     {
         BS.DamagerDefinition damager = (BS.DamagerDefinition)target;
-        //Handles.Label(lengthPoint1, "1");
-        //Handles.Label(lengthPoint2, "2");
         if (toolsHidden && centerTransform)
         {
             Tools.current = previousTool;
