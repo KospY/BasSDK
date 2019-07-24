@@ -13,7 +13,7 @@ public class DamagerDefInspector : Editor
         BS.DamagerDefinition damager = (BS.DamagerDefinition)target;
         BS.ItemDefinition item = damager.transform.GetComponentInParent<BS.ItemDefinition>();
         damager.transform.localScale = Vector3.one;
-        
+
         bool buttonsPressed = false;
         if (centerTransform)
         {
@@ -97,27 +97,29 @@ public class DamagerDefInspector : Editor
                 EditorGUILayout.HelpBox("Slashing damagers must have Depth greater than zero.", MessageType.Warning);
             }
         }
-        pointToPointDisabled = false;
-        foreach (Transform parent in damager.transform.GetComponentsInParent<Transform>())
+
+        if (pointToPointDisabled)
         {
-            //if (parent.rotation != Quaternion.identity && parent.gameObject != damager.gameObject)
-            //{
-                //centerTransform = true;
-                //EditorGUILayout.HelpBox("Object " + parent.name + " is rotated. Please make sure all the parents of the damagers have rotation set to 0. Point-to-Point transform has been disabled.", MessageType.Warning);
-                //pointToPointDisabled = true;
-                //damager.transform.hideFlags = 0;
-            //}
+            foreach (Transform parent in damager.transform.GetComponentsInParent<Transform>())
+            {
+                if (parent.rotation != Quaternion.identity && parent.gameObject != damager.gameObject)
+                {
+                    EditorGUILayout.HelpBox("Object " + parent.name + " is rotated. Please make sure all the parents of the damagers have rotation set to 0. Point-to-Point transform has been disabled.", MessageType.Warning);
+                    damager.transform.hideFlags = 0;
+                }
+            }
+           
         }
 
         //POINTER POINT
         if (damager.transform.hasChanged || GUI.changed || centerTransform || !buttonsPressed)
-            {
-                depthPoint = damager.transform.rotation * new Vector3(0, 0, -damager.penetrationDepth) + damager.transform.position;
-                lengthPoint1 = damager.transform.rotation * new Vector3(0, -damager.penetrationLength / 2, 0) + damager.transform.position;
-                lengthPoint2 = damager.transform.rotation * new Vector3(0, damager.penetrationLength / 2, 0) + damager.transform.position;
-                damager.transform.hasChanged = false;
-            }
-            
+        {
+            depthPoint = damager.transform.rotation * new Vector3(0, 0, -damager.penetrationDepth) + damager.transform.position;
+            lengthPoint1 = damager.transform.rotation * new Vector3(0, -damager.penetrationLength / 2, 0) + damager.transform.position;
+            lengthPoint2 = damager.transform.rotation * new Vector3(0, damager.penetrationLength / 2, 0) + damager.transform.position;
+            damager.transform.hasChanged = false;
+        }
+
     }
     Vector3 depthPoint;
     Vector3 lengthPoint1;
@@ -128,6 +130,16 @@ public class DamagerDefInspector : Editor
     private void Awake()
     {
         BS.DamagerDefinition damager = (BS.DamagerDefinition)target;
+
+        foreach (Transform parent in damager.transform.GetComponentsInParent<Transform>())
+        {
+            if (parent.rotation != Quaternion.identity && parent.gameObject != damager.gameObject)
+            {
+                centerTransform = true;
+                pointToPointDisabled = true;
+           }
+        }
+        
         depthPoint = damager.transform.rotation * new Vector3(0, 0, -damager.penetrationDepth) + damager.transform.position;
         lengthPoint1 = damager.transform.rotation * new Vector3(0, -damager.penetrationLength / 2, 0) + damager.transform.position;
         lengthPoint2 = damager.transform.rotation * new Vector3(0, damager.penetrationLength / 2, 0) + damager.transform.position;

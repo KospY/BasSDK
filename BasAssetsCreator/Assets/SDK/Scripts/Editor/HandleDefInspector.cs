@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 [CustomEditor(typeof(BS.HandleDefinition))]
 public class HandleDefInspector : Editor
 {
-
+    bool pointToPointDisabled = false;
     public override void OnInspectorGUI()
     {
 
@@ -17,11 +17,13 @@ public class HandleDefInspector : Editor
         bool buttonsPressed = false;
         if (centerTransform)
         {
+            GUI.enabled = !pointToPointDisabled;
             if (GUILayout.Button("Enable Point to Point transforms"))
             {
                 centerTransform = false;
                 buttonsPressed = true;
             }
+            GUI.enabled = true;
         }
         else
         {
@@ -33,6 +35,11 @@ public class HandleDefInspector : Editor
         }
 
         base.OnInspectorGUI();
+
+        if (GUILayout.Button("Calculate Reach") && item)
+        {
+            handle.CalculateReach();
+        }
 
         if (handle.transform.localScale != Vector3.one)
         {
@@ -82,9 +89,16 @@ public class HandleDefInspector : Editor
             }
         }
 
-        if (GUILayout.Button("Calculate Reach") && item)
+        if (pointToPointDisabled)
         {
-            handle.CalculateReach();
+            foreach (Transform parent in handle.transform.GetComponentsInParent<Transform>())
+            {
+                if (parent.rotation != Quaternion.identity && parent.gameObject != handle.gameObject)
+                {
+                    EditorGUILayout.HelpBox("Object " + parent.name + " is rotated. Please make sure all the parents of the damagers have rotation set to 0. Point-to-Point transform has been disabled.", MessageType.Warning);
+                    handle.transform.hideFlags = 0;
+                }
+            }
         }
 
         //POINT TO POINT HANDLE TRANSFORM
@@ -105,6 +119,15 @@ public class HandleDefInspector : Editor
     private void OnEnable()
     {
         BS.HandleDefinition handle = (BS.HandleDefinition)target;
+
+        foreach (Transform parent in handle.transform.GetComponentsInParent<Transform>())
+        {
+            if (parent.rotation != Quaternion.identity && parent.gameObject != handle.gameObject)
+            {
+                centerTransform = true;
+                pointToPointDisabled = true;
+            }
+        }
 
         HandlePoint1 = handle.transform.rotation * new Vector3(0, handle.axisLength / 2, 0) + handle.transform.position;
         HandlePoint2 = handle.transform.rotation * new Vector3(0, -handle.axisLength / 2, 0) + handle.transform.position;
@@ -138,17 +161,32 @@ public class HandleDefInspector : Editor
                     axis = Handles.Disc(handle.transform.rotation, handle.transform.position, (HandlePoint1 - HandlePoint2), HandleUtility.GetHandleSize(handle.transform.position), false, 0.1f);
                 }
                 handle.transform.rotation = Quaternion.LookRotation(HandlePoint2 - HandlePoint1, axis * Vector3.forward) * Quaternion.AngleAxis(-90, Vector3.right);
-            } else
+            }
+            else
             {
                 axis = Handles.Disc(handle.transform.rotation, handle.transform.position, (HandlePoint1 - HandlePoint2), HandleUtility.GetHandleSize(handle.transform.position), false, 0.1f);
             }
-              
+
         }
         else if (toolsHidden)
         {
             Tools.current = previousTool;
             toolsHidden = false;
         }
+
+        if (pointToPointDisabled)
+        {
+            foreach (Transform parent in handle.transform.GetComponentsInParent<Transform>())
+            {
+                if (parent.rotation != Quaternion.identity && parent.gameObject != handle.gameObject)
+                {
+                    EditorGUILayout.HelpBox("Object " + parent.name + " is rotated. Please make sure all the parents of the damagers have rotation set to 0. Point-to-Point transform has been disabled.", MessageType.Warning);
+                    handle.transform.hideFlags = 0;
+                }
+            }
+
+        }
+
     }
 
     private void OnDisable()
@@ -165,27 +203,43 @@ public class HandleDefInspector : Editor
 [CustomEditor(typeof(BS.ParryDefinition))]
 public class ParryDefInspector : Editor
 {
+    bool pointToPointDisabled = false;
     public override void OnInspectorGUI()
     {
 
-        if (showCenterTransform)
+        if (centerTransform)
         {
+            GUI.enabled = !pointToPointDisabled;
             if (GUILayout.Button("Enable Point to Point transforms"))
             {
-                showCenterTransform = false;
+                centerTransform = false;
             }
+            GUI.enabled = true;
         }
         else
         {
             if (GUILayout.Button("Enable Center Transform"))
             {
-                showCenterTransform = true;
+                centerTransform = true;
             }
         }
 
         BS.ParryDefinition parry = (BS.ParryDefinition)target;
 
         base.OnInspectorGUI();
+
+        if (pointToPointDisabled)
+        {
+            foreach (Transform parent in parry.transform.GetComponentsInParent<Transform>())
+            {
+                if (parent.rotation != Quaternion.identity && parent.gameObject != parry.gameObject)
+                {
+                    EditorGUILayout.HelpBox("Object " + parent.name + " is rotated. Please make sure all the parents of the damagers have rotation set to 0. Point-to-Point transform has been disabled.", MessageType.Warning);
+                    parry.transform.hideFlags = 0;
+                }
+            }
+
+        }
 
         //POINT TO POINT HANDLE TRANSFORM
         if (GUI.changed || parry.transform.hasChanged || Event.current.type == EventType.MouseDown)
@@ -199,11 +253,20 @@ public class ParryDefInspector : Editor
     Tool previousTool;
     Vector3 HandlePoint1;
     Vector3 HandlePoint2;
-    bool showCenterTransform = false;
+    bool centerTransform = false;
 
     private void OnEnable()
     {
         BS.ParryDefinition parry = (BS.ParryDefinition)target;
+
+        foreach (Transform parent in parry.transform.GetComponentsInParent<Transform>())
+        {
+            if (parent.rotation != Quaternion.identity && parent.gameObject != parry.gameObject)
+            {
+                centerTransform = true;
+                pointToPointDisabled = true;
+            }
+        }
 
         HandlePoint1 = parry.transform.rotation * new Vector3(0, parry.length / 2, 0) + parry.transform.position;
         HandlePoint2 = parry.transform.rotation * new Vector3(0, -parry.length / 2, 0) + parry.transform.position;
@@ -212,7 +275,7 @@ public class ParryDefInspector : Editor
     {
         BS.ParryDefinition parry = (BS.ParryDefinition)target;
 
-        if (parry.length > 0 && !showCenterTransform)
+        if (parry.length > 0 && !centerTransform)
         {
             if (Tools.current != Tool.None)
             {
