@@ -100,13 +100,13 @@ public class DamagerDefInspector : Editor
         pointToPointDisabled = false;
         foreach (Transform parent in damager.transform.GetComponentsInParent<Transform>())
         {
-            if (parent.rotation != Quaternion.identity && parent.gameObject != damager.gameObject)
-            {
-                centerTransform = true;
-                EditorGUILayout.HelpBox("Object " + parent.name + " is rotated. Please make sure all the parents of the damagers have rotation set to 0. Point-to-Point transform has been disabled.", MessageType.Warning);
-                pointToPointDisabled = true;
-                damager.transform.hideFlags = 0;
-            }
+            //if (parent.rotation != Quaternion.identity && parent.gameObject != damager.gameObject)
+            //{
+                //centerTransform = true;
+                //EditorGUILayout.HelpBox("Object " + parent.name + " is rotated. Please make sure all the parents of the damagers have rotation set to 0. Point-to-Point transform has been disabled.", MessageType.Warning);
+                //pointToPointDisabled = true;
+                //damager.transform.hideFlags = 0;
+            //}
         }
 
         //POINTER POINT
@@ -129,8 +129,8 @@ public class DamagerDefInspector : Editor
     {
         BS.DamagerDefinition damager = (BS.DamagerDefinition)target;
         depthPoint = damager.transform.rotation * new Vector3(0, 0, -damager.penetrationDepth) + damager.transform.position;
-        lengthPoint1 = damager.transform.rotation * new Vector3(0, damager.penetrationLength / 2, 0) + damager.transform.position;
-        lengthPoint2 = damager.transform.rotation * new Vector3(0, -damager.penetrationLength / 2, 0) + damager.transform.position;
+        lengthPoint1 = damager.transform.rotation * new Vector3(0, -damager.penetrationLength / 2, 0) + damager.transform.position;
+        lengthPoint2 = damager.transform.rotation * new Vector3(0, damager.penetrationLength / 2, 0) + damager.transform.position;
 
         damager.transform.hideFlags = HideFlags.NotEditable;
     }
@@ -175,14 +175,14 @@ public class DamagerDefInspector : Editor
             damager.transform.position = (lengthPoint1 + lengthPoint2) / 2;
             damager.penetrationLength = (lengthPoint1 - lengthPoint2).magnitude;
             damager.transform.hasChanged = false;
-
+            Handles.color = Color.green;
             if (Event.current.control)
             {
-                axis = Handles.Disc(damager.transform.rotation, damager.transform.position, (lengthPoint1 - lengthPoint2), 0.02f, false, 15f);
+                axis = Handles.Disc(damager.transform.rotation, damager.transform.position, (lengthPoint1 - lengthPoint2), HandleUtility.GetHandleSize(damager.transform.position), false, 15f);
             }
             else
             {
-                axis = Handles.Disc(damager.transform.rotation, damager.transform.position, (lengthPoint1 - lengthPoint2), 0.02f, false, 0.1f);
+                axis = Handles.Disc(damager.transform.rotation, damager.transform.position, (lengthPoint1 - lengthPoint2), HandleUtility.GetHandleSize(damager.transform.position), false, 0.1f);
             }
             damager.transform.rotation = Quaternion.LookRotation(lengthPoint1 - lengthPoint2, axis * Vector3.forward) * Quaternion.AngleAxis(-90, Vector3.right);
         }

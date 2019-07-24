@@ -14,18 +14,21 @@ public class HandleDefInspector : Editor
         BS.HandleDefinition handle = (BS.HandleDefinition)target;
         BS.ItemDefinition item = handle.transform.GetComponentInParent<BS.ItemDefinition>();
 
-        if (showCenterTransform)
+        bool buttonsPressed = false;
+        if (centerTransform)
         {
             if (GUILayout.Button("Enable Point to Point transforms"))
             {
-                showCenterTransform = false;
+                centerTransform = false;
+                buttonsPressed = true;
             }
         }
         else
         {
             if (GUILayout.Button("Enable Center Transform"))
             {
-                showCenterTransform = true;
+                centerTransform = true;
+                buttonsPressed = true;
             }
         }
 
@@ -85,7 +88,7 @@ public class HandleDefInspector : Editor
         }
 
         //POINT TO POINT HANDLE TRANSFORM
-        if (GUI.changed || handle.transform.hasChanged || Event.current.type == EventType.MouseDown)
+        if (handle.transform.hasChanged || GUI.changed || centerTransform || !buttonsPressed)
         {
             HandlePoint1 = handle.transform.rotation * new Vector3(0, handle.axisLength / 2, 0) + handle.transform.position;
             HandlePoint2 = handle.transform.rotation * new Vector3(0, -handle.axisLength / 2, 0) + handle.transform.position;
@@ -96,7 +99,8 @@ public class HandleDefInspector : Editor
     Tool previousTool;
     Vector3 HandlePoint1;
     Vector3 HandlePoint2;
-    bool showCenterTransform = false;
+    Quaternion axis;
+    bool centerTransform = false;
 
     private void OnEnable()
     {
@@ -109,7 +113,7 @@ public class HandleDefInspector : Editor
     {
         BS.HandleDefinition handle = (BS.HandleDefinition)target;
 
-        if (handle.axisLength > 0 && !showCenterTransform)
+        if (handle.axisLength > 0 && !centerTransform)
         {
             if (Tools.current != Tool.None)
             {
@@ -119,12 +123,26 @@ public class HandleDefInspector : Editor
             }
             HandlePoint1 = Handles.DoPositionHandle(HandlePoint1, Quaternion.identity);
             HandlePoint2 = Handles.DoPositionHandle(HandlePoint2, Quaternion.identity);
+            Handles.color = Color.green;
             if (EditorWindow.mouseOverWindow && EditorWindow.mouseOverWindow.ToString() == " (UnityEditor.SceneView)")
             {
                 handle.transform.position = (HandlePoint1 + HandlePoint2) / 2;
                 handle.axisLength = (HandlePoint1 - HandlePoint2).magnitude;
-                handle.transform.rotation = Quaternion.LookRotation(HandlePoint2 - HandlePoint1, Vector3.forward) * Quaternion.AngleAxis(-90, Vector3.right);
+
+                if (Event.current.control)
+                {
+                    axis = Handles.Disc(handle.transform.rotation, handle.transform.position, (HandlePoint1 - HandlePoint2), HandleUtility.GetHandleSize(handle.transform.position), false, 15f);
+                }
+                else
+                {
+                    axis = Handles.Disc(handle.transform.rotation, handle.transform.position, (HandlePoint1 - HandlePoint2), HandleUtility.GetHandleSize(handle.transform.position), false, 0.1f);
+                }
+                handle.transform.rotation = Quaternion.LookRotation(HandlePoint2 - HandlePoint1, axis * Vector3.forward) * Quaternion.AngleAxis(-90, Vector3.right);
+            } else
+            {
+                axis = Handles.Disc(handle.transform.rotation, handle.transform.position, (HandlePoint1 - HandlePoint2), HandleUtility.GetHandleSize(handle.transform.position), false, 0.1f);
             }
+              
         }
         else if (toolsHidden)
         {
