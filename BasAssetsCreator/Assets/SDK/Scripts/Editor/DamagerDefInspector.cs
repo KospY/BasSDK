@@ -7,21 +7,24 @@ using UnityEditor;
 public class DamagerDefInspector : Editor
 {
     string damagerType = "";
+    bool pointToPointDisabled = false;
     public override void OnInspectorGUI()
     {
         BS.DamagerDefinition damager = (BS.DamagerDefinition)target;
         BS.ItemDefinition item = damager.transform.GetComponentInParent<BS.ItemDefinition>();
         damager.transform.localScale = Vector3.one;
-
+        
         bool buttonsPressed = false;
         if (centerTransform)
         {
+            GUI.enabled = !pointToPointDisabled;
             if (GUILayout.Button("Enable Point to Point transforms"))
             {
                 centerTransform = false;
                 buttonsPressed = true;
                 damager.transform.hideFlags = HideFlags.NotEditable;
             }
+            GUI.enabled = true;
         }
         else
         {
@@ -94,9 +97,20 @@ public class DamagerDefInspector : Editor
                 EditorGUILayout.HelpBox("Slashing damagers must have Depth greater than zero.", MessageType.Warning);
             }
         }
+        pointToPointDisabled = false;
+        foreach (Transform parent in damager.transform.GetComponentsInParent<Transform>())
+        {
+            if (parent.rotation != Quaternion.identity && parent.gameObject != damager.gameObject)
+            {
+                centerTransform = true;
+                EditorGUILayout.HelpBox("Object " + parent.name + " is rotated. Please make sure all the parents of the damagers have rotation set to 0. Point-to-Point transform has been disabled.", MessageType.Warning);
+                pointToPointDisabled = true;
+                damager.transform.hideFlags = 0;
+            }
+        }
 
         //POINTER POINT
-            if (damager.transform.hasChanged || GUI.changed || centerTransform || !buttonsPressed)
+        if (damager.transform.hasChanged || GUI.changed || centerTransform || !buttonsPressed)
             {
                 depthPoint = damager.transform.rotation * new Vector3(0, 0, -damager.penetrationDepth) + damager.transform.position;
                 lengthPoint1 = damager.transform.rotation * new Vector3(0, -damager.penetrationLength / 2, 0) + damager.transform.position;
@@ -136,7 +150,10 @@ public class DamagerDefInspector : Editor
                 Tools.current = previousTool;
                 toolsHidden = false;
             }
-            depthPoint = Handles.PositionHandle(depthPoint, Quaternion.identity);
+                Vector3 tempPoint = depthPoint;
+                tempPoint = Handles.PositionHandle(depthPoint, Quaternion.identity);
+            
+            depthPoint = tempPoint;
             if (!damager.transform.hasChanged)
             {
                 damager.penetrationDepth = (depthPoint - damager.transform.position).magnitude;
@@ -179,6 +196,7 @@ public class DamagerDefInspector : Editor
 
     private void OnDisable()
     {
+        EditorUtility.SetDirty(target);
         if (toolsHidden)
         {
             Tools.current = previousTool;

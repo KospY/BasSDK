@@ -169,12 +169,19 @@ public class ParryDefInspector : Editor
 
         base.OnInspectorGUI();
 
+        //POINT TO POINT HANDLE TRANSFORM
         if (GUI.changed || parry.transform.hasChanged || Event.current.type == EventType.MouseDown)
         {
             HandlePoint1 = parry.transform.rotation * new Vector3(0, parry.length / 2, 0) + parry.transform.position;
             HandlePoint2 = parry.transform.rotation * new Vector3(0, -parry.length / 2, 0) + parry.transform.position;
         }
     }
+
+    bool toolsHidden = false;
+    Tool previousTool;
+    Vector3 HandlePoint1;
+    Vector3 HandlePoint2;
+    bool showCenterTransform = false;
 
     private void OnEnable()
     {
@@ -183,17 +190,11 @@ public class ParryDefInspector : Editor
         HandlePoint1 = parry.transform.rotation * new Vector3(0, parry.length / 2, 0) + parry.transform.position;
         HandlePoint2 = parry.transform.rotation * new Vector3(0, -parry.length / 2, 0) + parry.transform.position;
     }
-
-    bool toolsHidden = false;
-    Tool previousTool;
-    bool showCenterTransform;
-    Vector3 HandlePoint1;
-    Vector3 HandlePoint2;
     private void OnSceneGUI()
     {
         BS.ParryDefinition parry = (BS.ParryDefinition)target;
 
-        if (!showCenterTransform && parry.length > 0)
+        if (parry.length > 0 && !showCenterTransform)
         {
             if (Tools.current != Tool.None)
             {
@@ -206,9 +207,8 @@ public class ParryDefInspector : Editor
             if (EditorWindow.mouseOverWindow && EditorWindow.mouseOverWindow.ToString() == " (UnityEditor.SceneView)")
             {
                 parry.transform.position = (HandlePoint1 + HandlePoint2) / 2;
-                parry.length = (HandlePoint2 - HandlePoint1).magnitude;
+                parry.length = (HandlePoint1 - HandlePoint2).magnitude;
                 parry.transform.rotation = Quaternion.LookRotation(HandlePoint2 - HandlePoint1, Vector3.forward) * Quaternion.AngleAxis(-90, Vector3.right);
-                
             }
         }
         else if (toolsHidden)
@@ -216,7 +216,6 @@ public class ParryDefInspector : Editor
             Tools.current = previousTool;
             toolsHidden = false;
         }
-
     }
 
     private void OnDisable()
@@ -226,7 +225,6 @@ public class ParryDefInspector : Editor
         {
             Tools.current = previousTool;
             toolsHidden = false;
-            
         }
     }
 }

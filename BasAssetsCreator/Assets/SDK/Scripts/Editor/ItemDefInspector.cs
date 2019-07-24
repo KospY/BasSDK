@@ -166,6 +166,19 @@ public class ItemDefInspector : Editor
 
     }
 
+    private void OnSceneGUI()
+    {
+        BS.ItemDefinition item = (BS.ItemDefinition)target;
+        if (item.customCenterOfMass)
+        {
+            item.transform.GetComponent<Rigidbody>().centerOfMass = Handles.PositionHandle(item.transform.GetComponent<Rigidbody>().centerOfMass + new Vector3(-0.025f,0.008f,0), Quaternion.identity) - new Vector3(-0.025f, 0.008f, 0);
+            item.centerOfMass = item.transform.GetComponent<Rigidbody>().centerOfMass * 10;
+        }
+    }
+    private void OnDisable()
+    {
+        EditorUtility.SetDirty(target);
+    }
 }
 
 [CustomEditor(typeof(BS.Preview))]
