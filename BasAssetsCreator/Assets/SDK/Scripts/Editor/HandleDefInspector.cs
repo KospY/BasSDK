@@ -79,6 +79,11 @@ public class HandleDefInspector : Editor
             }
         }
 
+        if (GUILayout.Button("Calculate Reach") && item)
+        {
+            handle.CalculateReach();
+        }
+
         //POINT TO POINT HANDLE TRANSFORM
         if (GUI.changed || handle.transform.hasChanged || Event.current.type == EventType.MouseDown)
         {
@@ -130,12 +135,98 @@ public class HandleDefInspector : Editor
 
     private void OnDisable()
     {
+        EditorUtility.SetDirty(target);
         if (toolsHidden)
         {
             Tools.current = previousTool;
             toolsHidden = false;
         }
     }
+}
 
+[CustomEditor(typeof(BS.ParryDefinition))]
+public class ParryDefInspector : Editor
+{
+    public override void OnInspectorGUI()
+    {
 
+        if (showCenterTransform)
+        {
+            if (GUILayout.Button("Enable Point to Point transforms"))
+            {
+                showCenterTransform = false;
+            }
+        }
+        else
+        {
+            if (GUILayout.Button("Enable Center Transform"))
+            {
+                showCenterTransform = true;
+            }
+        }
+
+        BS.ParryDefinition parry = (BS.ParryDefinition)target;
+
+        base.OnInspectorGUI();
+
+        if (GUI.changed || parry.transform.hasChanged || Event.current.type == EventType.MouseDown)
+        {
+            HandlePoint1 = parry.transform.rotation * new Vector3(0, parry.length / 2, 0) + parry.transform.position;
+            HandlePoint2 = parry.transform.rotation * new Vector3(0, -parry.length / 2, 0) + parry.transform.position;
+        }
+    }
+
+    private void OnEnable()
+    {
+        BS.ParryDefinition parry = (BS.ParryDefinition)target;
+
+        HandlePoint1 = parry.transform.rotation * new Vector3(0, parry.length / 2, 0) + parry.transform.position;
+        HandlePoint2 = parry.transform.rotation * new Vector3(0, -parry.length / 2, 0) + parry.transform.position;
+    }
+
+    bool toolsHidden = false;
+    Tool previousTool;
+    bool showCenterTransform;
+    Vector3 HandlePoint1;
+    Vector3 HandlePoint2;
+    private void OnSceneGUI()
+    {
+        BS.ParryDefinition parry = (BS.ParryDefinition)target;
+
+        if (!showCenterTransform && parry.length > 0)
+        {
+            if (Tools.current != Tool.None)
+            {
+                previousTool = Tools.current;
+                Tools.current = Tool.None;
+                toolsHidden = true;
+            }
+            HandlePoint1 = Handles.DoPositionHandle(HandlePoint1, Quaternion.identity);
+            HandlePoint2 = Handles.DoPositionHandle(HandlePoint2, Quaternion.identity);
+            if (EditorWindow.mouseOverWindow && EditorWindow.mouseOverWindow.ToString() == " (UnityEditor.SceneView)")
+            {
+                parry.transform.position = (HandlePoint1 + HandlePoint2) / 2;
+                parry.length = (HandlePoint2 - HandlePoint1).magnitude;
+                parry.transform.rotation = Quaternion.LookRotation(HandlePoint2 - HandlePoint1, Vector3.forward) * Quaternion.AngleAxis(-90, Vector3.right);
+                
+            }
+        }
+        else if (toolsHidden)
+        {
+            Tools.current = previousTool;
+            toolsHidden = false;
+        }
+
+    }
+
+    private void OnDisable()
+    {
+        EditorUtility.SetDirty(target);
+        if (toolsHidden)
+        {
+            Tools.current = previousTool;
+            toolsHidden = false;
+            
+        }
+    }
 }
