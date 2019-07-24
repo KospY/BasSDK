@@ -22,6 +22,7 @@ public class HandleDefInspector : Editor
             {
                 centerTransform = false;
                 buttonsPressed = true;
+                handle.transform.hideFlags = HideFlags.NotEditable;
             }
             GUI.enabled = true;
         }
@@ -31,6 +32,7 @@ public class HandleDefInspector : Editor
             {
                 centerTransform = true;
                 buttonsPressed = true;
+                handle.transform.hideFlags = 0;
             }
         }
 
@@ -131,6 +133,8 @@ public class HandleDefInspector : Editor
 
         HandlePoint1 = handle.transform.rotation * new Vector3(0, handle.axisLength / 2, 0) + handle.transform.position;
         HandlePoint2 = handle.transform.rotation * new Vector3(0, -handle.axisLength / 2, 0) + handle.transform.position;
+
+        handle.transform.hideFlags = HideFlags.NotEditable;
     }
     private void OnSceneGUI()
     {
@@ -147,6 +151,7 @@ public class HandleDefInspector : Editor
             HandlePoint1 = Handles.DoPositionHandle(HandlePoint1, Quaternion.identity);
             HandlePoint2 = Handles.DoPositionHandle(HandlePoint2, Quaternion.identity);
             Handles.color = Color.green;
+            try { 
             if (EditorWindow.mouseOverWindow && EditorWindow.mouseOverWindow.ToString() == " (UnityEditor.SceneView)")
             {
                 handle.transform.position = (HandlePoint1 + HandlePoint2) / 2;
@@ -166,7 +171,7 @@ public class HandleDefInspector : Editor
             {
                 axis = Handles.Disc(handle.transform.rotation, handle.transform.position, (HandlePoint1 - HandlePoint2), HandleUtility.GetHandleSize(handle.transform.position), false, 0.1f);
             }
-
+            } catch (Exception) { }
         }
         else if (toolsHidden)
         {
@@ -206,6 +211,7 @@ public class ParryDefInspector : Editor
     bool pointToPointDisabled = false;
     public override void OnInspectorGUI()
     {
+        BS.ParryDefinition parry = (BS.ParryDefinition)target;
 
         if (centerTransform)
         {
@@ -213,6 +219,7 @@ public class ParryDefInspector : Editor
             if (GUILayout.Button("Enable Point to Point transforms"))
             {
                 centerTransform = false;
+                parry.transform.hideFlags = HideFlags.NotEditable;
             }
             GUI.enabled = true;
         }
@@ -221,10 +228,9 @@ public class ParryDefInspector : Editor
             if (GUILayout.Button("Enable Center Transform"))
             {
                 centerTransform = true;
+                parry.transform.hideFlags = 0;
             }
         }
-
-        BS.ParryDefinition parry = (BS.ParryDefinition)target;
 
         base.OnInspectorGUI();
 
@@ -270,6 +276,8 @@ public class ParryDefInspector : Editor
 
         HandlePoint1 = parry.transform.rotation * new Vector3(0, parry.length / 2, 0) + parry.transform.position;
         HandlePoint2 = parry.transform.rotation * new Vector3(0, -parry.length / 2, 0) + parry.transform.position;
+
+        parry.transform.hideFlags = HideFlags.NotEditable;
     }
     private void OnSceneGUI()
     {
