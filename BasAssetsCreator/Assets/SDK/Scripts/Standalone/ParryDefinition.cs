@@ -4,16 +4,16 @@ namespace BS
 {
     public class ParryDefinition : MonoBehaviour
     {
-        public float lenght = 0.25f;
+        public float length = 0.25f;
 
         public Vector3 GetLineStart()
         {
-            return this.transform.position + (this.transform.up * lenght);
+            return this.transform.rotation * new Vector3(0, length / 2, 0) + this.transform.position;
         }
 
         public Vector3 GetLineEnd()
         {
-            return this.transform.position + (-this.transform.up * lenght);
+            return this.transform.rotation * new Vector3(0, -length / 2, 0) + this.transform.position;
         }
 
         void OnDrawGizmosSelected()
