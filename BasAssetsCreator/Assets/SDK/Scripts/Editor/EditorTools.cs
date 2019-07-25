@@ -121,11 +121,22 @@ public class EditorTools : EditorWindow
         AssetDatabase.Refresh();
         if (assetBundleBuilds.ToArray().Length > 0) {
             string bundleNames = "";
+            string s = "";
             foreach (AssetBundleBuild build in assetBundleBuilds)
             {
-                bundleNames = bundleNames + build.assetBundleName + ", ";
+                if (assetBundleBuilds[0].assetBundleName == build.assetBundleName)
+                {
+                    bundleNames = " "+build.assetBundleName;
+                } else if (assetBundleBuilds[assetBundleBuilds.Count -1].assetBundleName == build.assetBundleName) {
+                    s = "s";
+                    bundleNames = bundleNames + " and " + build.assetBundleName;
+                }
+                else {
+                    s = "s";
+                    bundleNames = bundleNames + ", " + build.assetBundleName;
+                }
             }
-        Debug.Log("Created Asset Bundles " + bundleNames + "in " + dir.FullName);
+        Debug.Log("Created Asset Bundle"+ s + bundleNames + " in " + dir.FullName);
         }
     }
 }
