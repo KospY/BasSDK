@@ -28,17 +28,19 @@ public class EditorTools : EditorWindow
             }
         }
     }
-     
+    Vector3 scroll0;
     private void OnGUI()
     {
         GUILayout.Space(10);
         GUILayout.Label(new GUIContent("  Select the following assets to export"), new GUIStyle("BoldLabel"));
         GUILayout.Space(10);
 
+        scroll0 = GUILayout.BeginScrollView(scroll0);
         foreach (string bundle in bundleNames)
         {
             exportBundle[bundle] = GUILayout.Toggle(exportBundle[bundle], bundle);
         }
+        GUILayout.EndScrollView();
 
         GUILayout.Space(10);
 
