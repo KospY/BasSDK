@@ -58,15 +58,12 @@ namespace BS
         {
             UnityWebRequest github = new UnityWebRequest(githubLink);
             
-
-            //Separator
             GUILayout.Space(10);
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
             scroll0 = GUILayout.BeginScrollView(scroll0); //SCROLL 0 START
 
             AssetBuilderMenu();
-
-            //Separator
+            
             GUILayout.EndScrollView(); //SCROLL 0 END
             GUILayout.Space(10);
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
@@ -130,7 +127,6 @@ namespace BS
                                 modExportDirectories[bundle] = file;
                                 EditorPrefs.SetString("ExportBundleDir" + bundle, modExportDirectories[bundle]);
                                 dropDownModDirSelect[bundle] = false;
-                                Debug.Log(bundle);
                             }
                         }
                     }
@@ -275,6 +271,7 @@ namespace BS
         public static string streamingassetsDirectory;
         public static string selectedModDirectory;
         Vector3 scroll2, scroll3;
+        public static string openJson = "";
 
         [MenuItem("Blade and Sorcery/Mod Configuration")]
         public static void ShowWindow()
@@ -398,7 +395,9 @@ namespace BS
                             GUILayout.BeginHorizontal();
                             if (GUILayout.Button("New Weapon"))
                             {
+                                openJson = "";
                                 EditorWindow.GetWindow<JsonBuilder>("Item JSON Builder");
+                                
                             }
                             GUILayout.FlexibleSpace();
                             GUILayout.EndHorizontal();
@@ -492,11 +491,15 @@ namespace BS
 
                 }
                 else
-                {
+                { //EDIT EXISTING WEAPON JSON
+                    if (!ModObject[ObjectKey]) { GUI.enabled = false; }
                     if (GUILayout.Button("Edit Weapon"))
                     {
-                        //EDIT WEAPON JSON
+                        openJson = file.FullName;
+                        JsonBuilder.prefabKey = ObjectKey;
+                        EditorWindow.GetWindow<JsonBuilder>("Item JSON Builder");  
                     }
+                    GUI.enabled = true;
                 }
 
                 if (ModObject[ObjectKey])

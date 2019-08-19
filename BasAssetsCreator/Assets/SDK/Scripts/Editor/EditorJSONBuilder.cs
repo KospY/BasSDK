@@ -10,17 +10,8 @@ namespace BS
     {
         public string modName;
         public string modDirectory;
-        JSONData jsondata = new JSONData();
-
-        private void OnFocus()
-        {
-            if (EditorToolsJSONConfig.selectedModDirectory != null)
-            {
-                modName = EditorToolsJSONConfig.selectedModDirectory.Substring(EditorToolsJSONConfig.selectedModDirectory.LastIndexOf('\\') + 1, EditorToolsJSONConfig.selectedModDirectory.Length - EditorToolsJSONConfig.selectedModDirectory.LastIndexOf('\\') - 1);
-
-                modDirectory = EditorToolsJSONConfig.selectedModDirectory;
-            }
-        }
+        public static JSONData jsondata = new JSONData();
+        bool initializedWithFile = false;
 
         Vector3 scroll4, scroll5;
         bool baseSelected = false;
@@ -28,13 +19,12 @@ namespace BS
         string selectedBase;
         string selectedBaseDir;
         bool loadedPrefab = false;
-        GameObject tempPrefab;
         string json;
         string jsonName;
+        GameObject tempPrefab;
         GameObject itemPrefab;
-
-        string[] slotOptions,bookCategories,itemCategories,weaponClass,weaponHandling,dodgeBehaviour,knockoutHit,knockoutThrow,damagerTypes,handleTypes,handlePoses,whooshSounds;
-
+        public static string prefabKey;
+        string[] slotOptions, bookCategories, itemCategories, weaponClass, weaponHandling, dodgeBehaviour, knockoutHit, knockoutThrow, damagerTypes, handleTypes, handlePoses, whooshSounds;
         [Serializable]
         public class JSONData
         {
@@ -170,22 +160,51 @@ namespace BS
             }
         }
 
+        private void OnFocus()
+        {
+            
+            if (EditorToolsJSONConfig.openJson != "") 
+            {
+                initializedWithFile = true;
+                selectedBaseDir = EditorToolsJSONConfig.openJson;
+                selectedBase = EditorToolsJSONConfig.openJson.Substring(EditorToolsJSONConfig.openJson.LastIndexOf('\\') + 1, EditorToolsJSONConfig.openJson.Length - EditorToolsJSONConfig.openJson.LastIndexOf('\\') - 1);
+                jsonName = selectedBase.Remove(selectedBase.IndexOf('.'));
+                baseSelected = true;
+                loadedPrefab = true;
+                LoadJSON(selectedBaseDir); 
+                itemPrefab = EditorToolsJSONConfig.ModObject[prefabKey];
+            } 
+
+            if (EditorToolsJSONConfig.selectedModDirectory != null)
+            {
+                modName = EditorToolsJSONConfig.selectedModDirectory.Substring(EditorToolsJSONConfig.selectedModDirectory.LastIndexOf('\\') + 1, EditorToolsJSONConfig.selectedModDirectory.Length - EditorToolsJSONConfig.selectedModDirectory.LastIndexOf('\\') - 1);
+
+                modDirectory = EditorToolsJSONConfig.selectedModDirectory;
+            }
+        }
+
         private void OnGUI()
         {
-            if (itemPrefab && !loadedPrefab)
+            if (!itemPrefab && initializedWithFile && prefabKey != null)
+            {
+                itemPrefab = EditorToolsJSONConfig.ModObject[prefabKey];
+            }
+            if (itemPrefab && !loadedPrefab && !initializedWithFile)   
             {
                 LoadPrefab();
                 loadedPrefab = true;
                 tempPrefab = itemPrefab;
             }
-            else if ((!itemPrefab && loadedPrefab) || tempPrefab != itemPrefab)
+            else if (((!itemPrefab && loadedPrefab) || tempPrefab != itemPrefab)&& !initializedWithFile) 
             {
                 loadedPrefab = false;
             }
-
+            
             GUILayout.Label("Creating item JSON for " + modName);
 
             EditorGUILayout.HelpBox("Base item is the file that will be used as a base to start editing your weapon JSON. Please select the item that more closely resembles your weapon.", MessageType.Info);
+
+
             if (!baseSelected)
             {
                 if (GUILayout.Button("Select Base Item", new GUIStyle("DropDownButton")))
@@ -221,37 +240,46 @@ namespace BS
             }
             else
             {
+
+                if (initializedWithFile)
+                {
+                    GUI.enabled = false;
+                }
                 GUILayout.BeginHorizontal();
                 if (GUILayout.Button("Base: " + selectedBase))
                 {
                 }
-                if (GUILayout.Button("Change Base"))
+                if (!initializedWithFile)
                 {
-                    selectedBase = "";
-                    baseSelected = false;
+                    if (GUILayout.Button("Change Base"))
+                    {
+                        selectedBase = "";
+                        baseSelected = false;
+                    }
                 }
                 GUILayout.EndHorizontal();
                 GUILayout.Space(10);
                 AddField("File Name", ref jsonName);
-
                 foreach (FileInfo file in new DirectoryInfo(modDirectory).GetFiles())
                 {
-                    if (file.Name == jsonName + ".json")
+                    if (!initializedWithFile && file.Name == jsonName + ".json")
                     {
                         EditorGUILayout.HelpBox("A file with that name already exists. It will be replaced", MessageType.Warning);
                     }
                 }
-
+                GUI.enabled = true;
                 GUILayout.Space(10);
                 AddField("Prefab", ref itemPrefab);
                 scroll5 = GUILayout.BeginScrollView(scroll5);
                 GUILayout.Space(5);
-
+                
+                try { 
                 DisplayWeaponInfo();
                 DisplayWeaponConfig();
                 DisplayWeaponDamagers();
                 DisplayWeaponHandles();
-                DisplayWeaponWhooshpoints();
+                DisplayWeaponWhooshpoints(); 
+                } catch (Exception) {Close();}
 
                 GUILayout.EndScrollView();
                 GUILayout.BeginHorizontal();
@@ -336,14 +364,29 @@ namespace BS
                 GUILayout.EndVertical();
                 GUILayout.EndHorizontal();
             }
+            
         }
 
         private void LoadJSON(string dir)
         {
             json = File.ReadAllText(dir);
             JsonUtility.FromJsonOverwrite(json, jsondata);
+            if (!initializedWithFile) { 
             jsondata.author = EditorPrefs.GetString("modAuthor");
-            jsondata.descriptions[0].text = "";
+            }
+            if (jsondata.displayNames.Count < 1)
+            {
+                jsondata.displayNames.Add(new JSONData.DisplayName());
+            }
+            if (jsondata.descriptions.Count < 1)
+            {
+                jsondata.descriptions.Add(new JSONData.Description());
+            }
+            if (jsondata.modules.Count < 1)
+            {
+                jsondata.modules.Add(new JSONData.Module());
+            }
+
 
             slotOptions = new string[10] { "None", "Potion", "Small", "Medium", "Large", "Head", "Shield", "Arrow", "Bolt", "Cork" };
             bookCategories = new string[16] { "Daggers", "Swords", "Axes", "Blunt", "Spears", "Bows", "Crossbows", "Shields", "Exotics", "Wands", "Firearms", "Potions", "Traps", "Funny", "Unknown", "Misc" };
@@ -391,6 +434,7 @@ namespace BS
             jsondata.Interactables = new List<JSONData.Interactable>(itemPrefab.GetComponentInChildren(typeof(ItemDefinition)).GetComponentsInChildren<HandleDefinition>().Length);
             jsondata.whooshs = new List<JSONData.Whoosh>(itemPrefab.GetComponentInChildren<ItemDefinition>().whooshPoints.Count);
 
+
             int damagerIndex = 0;
             foreach (DamagerDefinition damager in itemPrefab.GetComponentInChildren(typeof(ItemDefinition)).GetComponentsInChildren<BS.DamagerDefinition>())
             {
@@ -420,6 +464,7 @@ namespace BS
             GUILayout.BeginHorizontal();
             GUILayout.Space(20);
             GUILayout.BeginVertical();
+
             AddField("Displayed Name", ref jsondata.displayNames[0].text);
             AddField("Description", ref jsondata.descriptions[0].text, true);
             AddField("Mod Author", ref jsondata.author);
@@ -432,7 +477,7 @@ namespace BS
         bool itemDropdown = false;
         bool wpnDropdown = false;
         bool hndlngDropdown = false;
-        bool dodgeDropdown = false;
+        //bool dodgeDropdown = false;
         private void DisplayWeaponConfig()
         {
             GUILayout.Label("Weapon Config", new GUIStyle("BoldLabel"));
@@ -467,7 +512,7 @@ namespace BS
             jsondata.category = Array.IndexOf(itemCategories, category);
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
-
+            
             if (jsondata.category != 2) { GUI.enabled = false; }
             GUILayout.BeginHorizontal();
             GUILayout.Label("Weapon Type");
@@ -478,7 +523,7 @@ namespace BS
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
             GUI.enabled = true;
-
+            
             GUILayout.BeginHorizontal();
             GUILayout.Label("Weapon Handling");
             GUILayout.Space(56);
@@ -487,17 +532,18 @@ namespace BS
             jsondata.modules[0].weaponHandling = Array.IndexOf(weaponHandling, hndlng);
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
-
             GUILayout.Space(10);
             AddField("Mass", ref jsondata.mass);
             AddField("Drag", ref jsondata.drag);
             AddField("Angular Drag", ref jsondata.angularDrag);
             AddField("Use Gravity", ref jsondata.useGravity);
             AddField("Fly From Throw", ref jsondata.flyFromThrow);
+
             AddField("Dodge Behaviour", ref jsondata.modules[0].dodgeBehaviour, 3);
             GUILayout.Space(10);
             AddField("Enable Decals", ref jsondata.paintable);
             AddField("Enable Climbing Grip", ref jsondata.grippable);
+
             GUILayout.EndVertical();
             GUILayout.EndHorizontal();
             GUILayout.Space(5);
@@ -673,6 +719,7 @@ namespace BS
                 GUILayout.BeginVertical();
                 GUILayout.ExpandWidth(false);
                 GUILayout.ExpandHeight(true);
+                EditorStyles.textField.wordWrap = true;
                 var = EditorGUILayout.TextArea(var);
                 GUILayout.EndVertical();
             }
@@ -798,15 +845,27 @@ namespace BS
             json = JsonUtility.ToJson(jsondata, true).Replace("MONEYSIGN", "$");
 
             EditorToolsJSONConfig.AddPrefab(jsonName + ".json", AssetDatabase.GetAssetPath(itemPrefab));
-
-            EditorPrefs.SetString("modAuthor", jsondata.author);
-
-            if (!noAssetBundleOnPrefab && !noAuthorName && !noWeaponName && !noDamagerType && !noHandlePose && !noHandleType && !noWhooshFX)
+            if (!initializedWithFile)
             {
-                Debug.Log("JSON File \"" + jsonName + ".json\" created in directory " + modDirectory);
-                File.WriteAllText(modDirectory + "\\" + jsonName + ".json", json);
-                this.Close();
+                EditorPrefs.SetString("modAuthor", jsondata.author);
+                if (!noAssetBundleOnPrefab && !noAuthorName && !noWeaponName && !noDamagerType && !noHandlePose && !noHandleType && !noWhooshFX)
+                {
+                    Debug.Log("JSON File \"" + jsonName + ".json\" created in directory " + modDirectory);
+                    File.WriteAllText(modDirectory + "\\" + jsonName + ".json", json);
+                    Close();
+                }
+            } else
+            {
+                if (!noAssetBundleOnPrefab && !noAuthorName && !noWeaponName && !noDamagerType && !noHandlePose && !noHandleType && !noWhooshFX)
+                {
+                    Debug.Log("JSON File \"" + jsonName + ".json\" created in directory " + modDirectory);
+                    File.WriteAllText(selectedBaseDir, json);
+                    Close();
+                }
             }
+            
+            
+            
         }
         
     }
