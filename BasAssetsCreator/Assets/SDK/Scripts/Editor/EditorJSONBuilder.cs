@@ -10,7 +10,7 @@ namespace BS
     {
         public string modName;
         public string modDirectory;
-        public static JSONData jsondata = new JSONData();
+        JSONData jsondata = new JSONData();
         bool initializedWithFile = false;
 
         Vector3 scroll4, scroll5;
@@ -279,7 +279,7 @@ namespace BS
                 DisplayWeaponDamagers();
                 DisplayWeaponHandles();
                 DisplayWeaponWhooshpoints(); 
-                } catch (Exception) {Close();}
+                } catch (Exception e) { Debug.Log("Window closed. " + e); Close();}
 
                 GUILayout.EndScrollView();
                 GUILayout.BeginHorizontal();
