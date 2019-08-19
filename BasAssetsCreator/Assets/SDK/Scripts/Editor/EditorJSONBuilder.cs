@@ -842,6 +842,11 @@ namespace BS
                 }
             }
 
+            if (AssetImporter.GetAtPath(AssetDatabase.GetAssetPath(itemPrefab)).assetBundleName != "")
+            {
+                jsondata.prefabName = "@" + AssetImporter.GetAtPath(AssetDatabase.GetAssetPath(itemPrefab)).assetBundleName + ":" + AssetDatabase.GetAssetPath(itemPrefab).Substring(AssetDatabase.GetAssetPath(itemPrefab).LastIndexOf('/') + 1, AssetDatabase.GetAssetPath(itemPrefab).Length - AssetDatabase.GetAssetPath(itemPrefab).LastIndexOf('/') - 1);
+            }
+
             json = JsonUtility.ToJson(jsondata, true).Replace("MONEYSIGN", "$");
 
             EditorToolsJSONConfig.AddPrefab(jsonName + ".json", AssetDatabase.GetAssetPath(itemPrefab));
