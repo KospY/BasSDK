@@ -4,634 +4,810 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 
-public class JsonBuilder : EditorWindow
+namespace BS
 {
-    public string modName;
-    public string modDirectory;
-
-    private void OnFocus()
+    public class JsonBuilder : EditorWindow
     {
-        if (EditorTools.selectedModDirectory != null)
-        {
-            modName = EditorTools.selectedModDirectory.Substring(EditorTools.selectedModDirectory.LastIndexOf('\\') + 1, EditorTools.selectedModDirectory.Length - EditorTools.selectedModDirectory.LastIndexOf('\\') - 1);
+        public string modName;
+        public string modDirectory;
+        JSONData jsondata = new JSONData();
 
-            modDirectory = EditorTools.selectedModDirectory;
-        }
-    }
-
-    Vector3 scroll4,scroll5;
-    bool baseSelected = false;
-    bool expandBaseItemList = false;
-    string selectedBase;
-    string selectedBaseDir;
-    bool customHand = false;
-    bool loadedPrefab = false;
-    GameObject tempPrefab;
-    string json;
-
-    string jsonName;
-    GameObject itemPrefab;
-    string id, displayName, description, author, storageCategory;
-    bool purchasable, paintable, grippable, useGravity, flyFromThrow;
-    float mass, drag, angularDrag;
-    int version, slot, damagerCount, handleCount, whooshCount;
-    Damagers[] damagers;
-    Interactables[] interactables;
-    Whooshs[] whooshs;
-    [Serializable]
-    public class Damagers
-    {
-        public string transformName, damagerID;
-        public Damagers(string name)
+        private void OnFocus()
         {
-            transformName = name;
-        }
-    }
-    [Serializable]
-    public class Interactables
-    {
-        public string transformName, interactableID, handPoseID; bool overrideHandlePose;
-        public Interactables(string name)
-        {
-            transformName = name;
-        }
-    }
-    [Serializable]
-    public class Whooshs
-    {
-        public string transformName, fxID, trigger, minVelocity, maxVelocity;
-        public Whooshs(string name)
-        {
-            transformName = name;
-        }
-    }
-
-
-    private void OnGUI()
-    {
-        if (itemPrefab && !loadedPrefab)
-        {
-            LoadPrefab();
-            loadedPrefab = true;
-            tempPrefab = itemPrefab;
-        }
-        else if ((!itemPrefab && loadedPrefab) || tempPrefab != itemPrefab)
-        {
-            loadedPrefab = false;
-        }
-
-        GUILayout.Label("Creating item JSON for " + modName);
-
-        EditorGUILayout.HelpBox("Base item is the file that will be used as a base to start editing your weapon JSON. Please select the item that more closely resembles your weapon.", MessageType.Info);
-        if (!baseSelected)
-        {
-            if (GUILayout.Button("Select Base Item", new GUIStyle("DropDownButton")))
+            if (EditorToolsJSONConfig.selectedModDirectory != null)
             {
+                modName = EditorToolsJSONConfig.selectedModDirectory.Substring(EditorToolsJSONConfig.selectedModDirectory.LastIndexOf('\\') + 1, EditorToolsJSONConfig.selectedModDirectory.Length - EditorToolsJSONConfig.selectedModDirectory.LastIndexOf('\\') - 1);
+
+                modDirectory = EditorToolsJSONConfig.selectedModDirectory;
+            }
+        }
+
+        Vector3 scroll4, scroll5;
+        bool baseSelected = false;
+        bool expandBaseItemList = false;
+        string selectedBase;
+        string selectedBaseDir;
+        bool loadedPrefab = false;
+        GameObject tempPrefab;
+        string json;
+        string jsonName;
+        GameObject itemPrefab;
+
+        string[] slotOptions,bookCategories,itemCategories,weaponClass,weaponHandling,dodgeBehaviour,knockoutHit,knockoutThrow,damagerTypes,handleTypes,handlePoses,whooshSounds;
+
+        [Serializable]
+        public class JSONData
+        {
+            [Serializable]
+            public class DisplayName
+            {
+                public string language;
+                public string text;
+            }
+            [Serializable]
+            public class Description
+            {
+                public string language;
+                public string text;
+            }
+            public string MONEYSIGNtype = "BS.ItemData, Assembly-CSharp";
+            public string id;
+            public int version;
+            public int pooledCount;
+            public List<DisplayName> displayNames = new List<DisplayName>();
+            public List<Description> descriptions = new List<Description>();
+            public string author;
+            public double price;
+            public bool purchasable;
+            public int tier;
+            public int levelRequired;
+            public int slot;
+            public bool isStackable;
+            public int category;
+            public string storageCategory;
+            public string prefabName;
+            public double mass;
+            public double drag;
+            public double angularDrag;
+            public bool useGravity;
+            public bool overrideInertiaTensor;
+            public InertiaTensor inertiaTensor;
+            public int collisionMaxOverride;
+            public bool collisionEnterOnly;
+            public List<object> ignoredCollisionRagdollParts;
+            public int forceLayer;
+            public string audioSnapPath;
+            public bool flyFromThrow;
+            public double flyRotationSpeed;
+            public double flyThrowAngle;
+            public double telekinesisSafeDistance;
+            public bool telekinesisSpinEnabled;
+            public double telekinesisThrowRatio;
+            public int damageTransfer;
+            public bool paintable;
+            public bool grippable;
+            public List<object> customSnaps = new List<object>();
+            public List<Module> modules = new List<Module>();
+            public List<Damager> damagers = new List<Damager>();
+            public List<Interactable> Interactables = new List<Interactable>();
+            public List<Whoosh> whooshs = new List<Whoosh>();
+            [Serializable]
+            public class InertiaTensor
+            {
+                public double x;
+                public double y;
+                public double z;
+            }
+            [Serializable]
+            public class Module
+            {
+                public string MONEYSIGNtype = "BS.ItemModuleAI, Assembly-CSharp";
+                public int weaponClass;
+                public int weaponHandling;
+                public bool parryIgnoreRotation;
+                public double parryRotation;
+                public double parryDualRotation;
+                public double armResistanceMultiplier;
+                public ParryRevertAngleRange parryRevertAngleRange;
+                public ParryDefaultPosition parryDefaultPosition;
+                public ParryDefaultLeftRotation parryDefaultLeftRotation;
+                public ParryDefaultRightRotation parryDefaultRightRotation;
+                public bool allowDynamicHeight;
+                public int dodgeBehaviour;
+                public bool defenseHasPriority;
+                public bool attackIgnore;
+                public bool attackForceParryIgnoreRotation;
+                [Serializable]
+                public class ParryRevertAngleRange
+                {
+                    public double x;
+                    public double y;
+                }
+                [Serializable]
+                public class ParryDefaultPosition
+                {
+                    public double x;
+                    public double y;
+                    public double z;
+                }
+                [Serializable]
+                public class ParryDefaultLeftRotation
+                {
+                    public double x;
+                    public double y;
+                    public double z;
+                }
+                [Serializable]
+                public class ParryDefaultRightRotation
+                {
+                    public double x;
+                    public double y;
+                    public double z;
+                }
+            }
+            [Serializable]
+            public class Damager
+            {
+                public string transformName;
+                public string damagerID;
+            }
+            [Serializable]
+            public class Interactable
+            {
+                public string transformName;
+                public string interactableId;
+                public bool overrideHandPose;
+                public string handPoseId;
+            }
+            [Serializable]
+            public class Whoosh
+            {
+                public string transformName;
+                public string fxId;
+                public int trigger;
+                public double minVelocity;
+                public double maxVelocity;
+            }
+        }
+
+        private void OnGUI()
+        {
+            if (itemPrefab && !loadedPrefab)
+            {
+                LoadPrefab();
+                loadedPrefab = true;
+                tempPrefab = itemPrefab;
+            }
+            else if ((!itemPrefab && loadedPrefab) || tempPrefab != itemPrefab)
+            {
+                loadedPrefab = false;
+            }
+
+            GUILayout.Label("Creating item JSON for " + modName);
+
+            EditorGUILayout.HelpBox("Base item is the file that will be used as a base to start editing your weapon JSON. Please select the item that more closely resembles your weapon.", MessageType.Info);
+            if (!baseSelected)
+            {
+                if (GUILayout.Button("Select Base Item", new GUIStyle("DropDownButton")))
+                {
+                    if (expandBaseItemList)
+                    {
+                        expandBaseItemList = false;
+                    }
+                    else
+                    {
+                        expandBaseItemList = true;
+                    }
+                }
                 if (expandBaseItemList)
                 {
-                    expandBaseItemList = false;
-                }
-                else
-                {
-                    expandBaseItemList = true;
-                }
-            }
-            if (expandBaseItemList)
-            {
-                scroll4 = GUILayout.BeginScrollView(scroll4);
-                foreach (FileInfo file in new DirectoryInfo(EditorTools.streamingassetsDirectory + "\\Default\\Items").GetFiles())
-                {
-                    if (file.Name.StartsWith("Item_Weapon_"))
+                    scroll4 = GUILayout.BeginScrollView(scroll4);
+                    foreach (FileInfo file in new DirectoryInfo(EditorToolsJSONConfig.streamingassetsDirectory + "\\Default\\Items").GetFiles())
                     {
-                        if (GUILayout.Button(file.Name, new GUIStyle("Radio")))
+                        if (file.Name.StartsWith("Item_Weapon_"))
                         {
-                            selectedBase = file.Name;
-                            selectedBaseDir = file.FullName;
-                            jsonName = file.Name.Remove(file.Name.IndexOf('.'));
-                            baseSelected = true;
-                            LoadJSON(selectedBaseDir);
+                            if (GUILayout.Button(file.Name, new GUIStyle("Radio")))
+                            {
+                                selectedBase = file.Name;
+                                selectedBaseDir = file.FullName;
+                                jsonName = file.Name.Remove(file.Name.IndexOf('.'));
+                                baseSelected = true;
+                                LoadJSON(selectedBaseDir);
+                            }
                         }
                     }
+                    GUILayout.EndScrollView();
                 }
+            }
+            else
+            {
+                GUILayout.BeginHorizontal();
+                if (GUILayout.Button("Base: " + selectedBase))
+                {
+                }
+                if (GUILayout.Button("Change Base"))
+                {
+                    selectedBase = "";
+                    baseSelected = false;
+                }
+                GUILayout.EndHorizontal();
+                GUILayout.Space(10);
+                AddField("File Name", ref jsonName);
+
+                foreach (FileInfo file in new DirectoryInfo(modDirectory).GetFiles())
+                {
+                    if (file.Name == jsonName + ".json")
+                    {
+                        EditorGUILayout.HelpBox("A file with that name already exists. It will be replaced", MessageType.Warning);
+                    }
+                }
+
+                GUILayout.Space(10);
+                AddField("Prefab", ref itemPrefab);
+                scroll5 = GUILayout.BeginScrollView(scroll5);
+                GUILayout.Space(5);
+
+                DisplayWeaponInfo();
+                DisplayWeaponConfig();
+                DisplayWeaponDamagers();
+                DisplayWeaponHandles();
+                DisplayWeaponWhooshpoints();
+
                 GUILayout.EndScrollView();
+                GUILayout.BeginHorizontal();
+                GUILayout.FlexibleSpace();
+                GUILayout.BeginVertical();
+                if (!itemPrefab)
+                {
+                    EditorGUILayout.HelpBox("Please assign a Prefab before creating file.", MessageType.Warning);
+                    EditorGUI.BeginDisabledGroup(true);
+                    GUILayout.Button("Finish and Create");
+                    EditorGUI.EndDisabledGroup();
+                }
+                else if (noAssetBundleOnPrefab)
+                {
+                    EditorGUILayout.HelpBox("The prefab is not assigned to an AssetBundle.", MessageType.Error);
+                    if (GUILayout.Button("Retry"))
+                    {
+                        CreateJSON();
+                    }
+                }
+                else if (noAuthorName)
+                {
+                    EditorGUILayout.HelpBox("Author Name can not be empty.", MessageType.Error);
+                    if (GUILayout.Button("Retry"))
+                    {
+                        noAuthorName = false;
+                        CreateJSON();
+                    }
+                }
+                else if (noWeaponName)
+                {
+                    EditorGUILayout.HelpBox("Weapon Name can not be empty.", MessageType.Error);
+                    if (GUILayout.Button("Retry"))
+                    {
+                        noWeaponName = false;
+                        CreateJSON();
+                    }
+                } else if (noDamagerType)
+                {
+                    EditorGUILayout.HelpBox("Damager Types can not be empty.", MessageType.Error);
+                    if (GUILayout.Button("Retry"))
+                    {
+                        noDamagerType = false;
+                        CreateJSON();
+                    }
+                }
+                else if (noHandleType)
+                {
+                    EditorGUILayout.HelpBox("Interactable Types can not be empty.", MessageType.Error);
+                    if (GUILayout.Button("Retry"))
+                    {
+                        noHandleType = false;
+                        CreateJSON();
+                    }
+                }
+                else if (noHandlePose)
+                {
+                    EditorGUILayout.HelpBox("Hand Poses can not be empty and enabled.", MessageType.Error);
+                    if (GUILayout.Button("Retry"))
+                    {
+                        noHandlePose = false;
+                        CreateJSON();
+                    }
+                }
+                else if (noWhooshFX)
+                {
+                    EditorGUILayout.HelpBox("Whoosh FXs can not be empty.", MessageType.Error);
+                    if (GUILayout.Button("Retry"))
+                    {
+                        noWhooshFX = false;
+                        CreateJSON();
+                    }
+                }
+                else
+                {
+                    if (GUILayout.Button("Finish and Create"))
+                    {
+                        CreateJSON();
+
+                    }
+                }
+                GUILayout.EndVertical();
+                GUILayout.EndHorizontal();
             }
         }
-        else
+
+        private void LoadJSON(string dir)
         {
+            json = File.ReadAllText(dir);
+            JsonUtility.FromJsonOverwrite(json, jsondata);
+            jsondata.author = EditorPrefs.GetString("modAuthor");
+            jsondata.descriptions[0].text = "";
+
+            slotOptions = new string[10] { "None", "Potion", "Small", "Medium", "Large", "Head", "Shield", "Arrow", "Bolt", "Cork" };
+            bookCategories = new string[16] { "Daggers", "Swords", "Axes", "Blunt", "Spears", "Bows", "Crossbows", "Shields", "Exotics", "Wands", "Firearms", "Potions", "Traps", "Funny", "Unknown", "Misc" };
+            itemCategories = new string[7] { "Misc", "Apparel", "Weapon", "Quiver", "Potion", "Prop", "Body" };
+            weaponClass = new string[10] { "None", "Melee", "Bow", "Arrow", "Shield", "Wand", "Crossbow", "Bolt", "Fire Arm", "Rock" };
+            weaponHandling = new string[3] { "None", "One Handed", "Two Handed" };
+            dodgeBehaviour = new string[4] { "None", "Low Only", "Not Parrying", "Always" };
+            knockoutHit = new string[3] { "None", "Always", "Sometimes" };
+            knockoutThrow = new string[3] { "None", "Always", "Sometimes" };
+
+            List<string> dmgrTyps = new List<string>();
+            foreach (FileInfo file in new DirectoryInfo(EditorToolsJSONConfig.streamingassetsDirectory + "\\Default\\Damagers").GetFiles())
+            {
+                dmgrTyps.Add(file.Name.Substring(8, file.Name.Length - 13));
+            }
+            damagerTypes = dmgrTyps.ToArray();
+
+            List<string> hndlTyps = new List<string>();
+            foreach (FileInfo file in new DirectoryInfo(EditorToolsJSONConfig.streamingassetsDirectory + "\\Default\\Interactables").GetFiles())
+            {
+                hndlTyps.Add(file.Name.Substring(13, file.Name.Length - 18));
+            }
+            handleTypes = hndlTyps.ToArray();
+
+            List<string> hndlPse = new List<string>();
+            foreach (FileInfo file in new DirectoryInfo(EditorToolsJSONConfig.streamingassetsDirectory + "\\Default\\HandPoses").GetFiles())
+            {
+                hndlPse.Add(file.Name.Substring(9, file.Name.Length - 14));
+            }
+            handlePoses = hndlPse.ToArray();
+
+            List<string> wshFx = new List<string>();
+            foreach (FileInfo file in new DirectoryInfo(EditorToolsJSONConfig.streamingassetsDirectory + "\\Default\\FXs").GetFiles())
+            {
+                wshFx.Add(file.Name.Substring(3, file.Name.Length - 8));
+            }
+            whooshSounds = wshFx.ToArray();
+        }
+
+        private void LoadPrefab()
+        {
+            noAssetBundleOnPrefab = false;
+            jsondata.id = itemPrefab.GetComponentInChildren<ItemDefinition>().itemId;
+            jsondata.damagers = new List<JSONData.Damager>(itemPrefab.GetComponentInChildren(typeof(ItemDefinition)).GetComponentsInChildren<BS.DamagerDefinition>().Length);
+            jsondata.Interactables = new List<JSONData.Interactable>(itemPrefab.GetComponentInChildren(typeof(ItemDefinition)).GetComponentsInChildren<HandleDefinition>().Length);
+            jsondata.whooshs = new List<JSONData.Whoosh>(itemPrefab.GetComponentInChildren<ItemDefinition>().whooshPoints.Count);
+
+            int damagerIndex = 0;
+            foreach (DamagerDefinition damager in itemPrefab.GetComponentInChildren(typeof(ItemDefinition)).GetComponentsInChildren<BS.DamagerDefinition>())
+            {
+                jsondata.damagers.Add(new JSONData.Damager());
+                jsondata.damagers[damagerIndex].transformName = damager.name;
+                damagerIndex++;
+            }
+            int interactableIndex = 0;
+            foreach (HandleDefinition handle in itemPrefab.GetComponentInChildren(typeof(ItemDefinition)).GetComponentsInChildren<HandleDefinition>())
+            {
+                jsondata.Interactables.Add(new JSONData.Interactable());
+                jsondata.Interactables[interactableIndex].transformName = handle.name;
+                interactableIndex++;
+            }
+            int wooshIndex = 0;
+            foreach (Transform woosh in itemPrefab.GetComponentInChildren<ItemDefinition>().whooshPoints)
+            {
+                jsondata.whooshs.Add(new JSONData.Whoosh());
+                jsondata.whooshs[wooshIndex].transformName = woosh.name;
+                wooshIndex++;
+            }
+        }
+
+        private void DisplayWeaponInfo()
+        {
+            GUILayout.Label("Weapon Info", new GUIStyle("BoldLabel"));
             GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Base: " + selectedBase))
-            {
-            }
-            if (GUILayout.Button("Change Base"))
-            {
-                selectedBase = "";
-                baseSelected = false;
-            }
+            GUILayout.Space(20);
+            GUILayout.BeginVertical();
+            AddField("Displayed Name", ref jsondata.displayNames[0].text);
+            AddField("Description", ref jsondata.descriptions[0].text, true);
+            AddField("Mod Author", ref jsondata.author);
+            GUILayout.EndVertical();
             GUILayout.EndHorizontal();
-            GUILayout.Space(10);
-            AddField("File Name", ref jsonName);
-
-            foreach (FileInfo file in new DirectoryInfo(modDirectory).GetFiles())
-            {
-                if (file.Name == jsonName + ".json")
-                {
-                    EditorGUILayout.HelpBox("A file with that name already exists. It will be replaced", MessageType.Warning);
-                }
-            }
-
-            GUILayout.Space(10);
-            AddField("Prefab", ref itemPrefab);
-            scroll5 = GUILayout.BeginScrollView(scroll5);
             GUILayout.Space(5);
-            
-            DisplayWeaponInfo();
-            DisplayWeaponConfig();
-            DisplayWeaponDamagers();
-            DisplayWeaponHandles();
-            DisplayWeaponWhooshpoints();
-
-            GUILayout.EndScrollView();
+        }
+        bool slotDropdown = false;
+        bool bookDropdown = false;
+        bool itemDropdown = false;
+        bool wpnDropdown = false;
+        bool hndlngDropdown = false;
+        bool dodgeDropdown = false;
+        private void DisplayWeaponConfig()
+        {
+            GUILayout.Label("Weapon Config", new GUIStyle("BoldLabel"));
             GUILayout.BeginHorizontal();
-            GUILayout.FlexibleSpace();
+            GUILayout.Space(20);
             GUILayout.BeginVertical();
-            if (!itemPrefab)
-            {
-                EditorGUILayout.HelpBox("Please assign a Prefab before creating file.", MessageType.Warning);
-                EditorGUI.BeginDisabledGroup(true);
-                GUILayout.Button("Finish and Create");
-                EditorGUI.EndDisabledGroup();
-            }
-            else if (noAssetBundleOnPrefab)
-            {
-                EditorGUILayout.HelpBox("The prefab is not assigned to an AssetBundle.", MessageType.Error);
-                if (GUILayout.Button("Retry"))
-                {
-                    CreateJSON();
-                }
-            }
-            else if (noAuthorName)
-            {
-                EditorGUILayout.HelpBox("Author Name can not be empty.", MessageType.Error);
-                if (GUILayout.Button("Retry"))
-                {
-                    noAuthorName = false;
-                    CreateJSON();
-                }
-            }
-            else if (noModName)
-            {
-                EditorGUILayout.HelpBox("Mod Name can not be empty.", MessageType.Error);
-                if (GUILayout.Button("Retry"))
-                {
-                    noModName = false;
-                    CreateJSON();
-                }
-            }
-            else 
-            {
-                if (GUILayout.Button("Finish and Create"))
-                {
-                    CreateJSON();
+            AddField("Available in book", ref jsondata.purchasable);
 
+            if (!jsondata.purchasable) { GUI.enabled = false; }
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("Storage Book Category");
+            GUILayout.Space(20);
+            AddFieldDropdown("Select Category", ref jsondata.storageCategory, bookCategories, ref bookDropdown);
+            GUI.enabled = true;
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("Holster Slot");
+            GUILayout.Space(89);
+            string slot = slotOptions[jsondata.slot];
+            AddFieldDropdown("Select Slot", ref slot, slotOptions, ref slotDropdown);
+            jsondata.slot = Array.IndexOf(slotOptions, slot);
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("Item Type");
+            GUILayout.Space(96);
+            string category = itemCategories[jsondata.category];
+            AddFieldDropdown("Select Category", ref category, itemCategories, ref itemDropdown);
+            jsondata.category = Array.IndexOf(itemCategories, category);
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+
+            if (jsondata.category != 2) { GUI.enabled = false; }
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("Weapon Type");
+            GUILayout.Space(77);
+            string weapon = weaponClass[jsondata.modules[0].weaponClass];
+            AddFieldDropdown("Select Weapon Type", ref weapon, weaponClass, ref wpnDropdown);
+            jsondata.modules[0].weaponClass = Array.IndexOf(weaponClass, weapon);
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+            GUI.enabled = true;
+
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("Weapon Handling");
+            GUILayout.Space(56);
+            string hndlng = weaponHandling[jsondata.modules[0].weaponHandling];
+            AddFieldDropdown("Select Handling Mode", ref hndlng, weaponHandling, ref hndlngDropdown);
+            jsondata.modules[0].weaponHandling = Array.IndexOf(weaponHandling, hndlng);
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+
+            GUILayout.Space(10);
+            AddField("Mass", ref jsondata.mass);
+            AddField("Drag", ref jsondata.drag);
+            AddField("Angular Drag", ref jsondata.angularDrag);
+            AddField("Use Gravity", ref jsondata.useGravity);
+            AddField("Fly From Throw", ref jsondata.flyFromThrow);
+            AddField("Dodge Behaviour", ref jsondata.modules[0].dodgeBehaviour, 3);
+            GUILayout.Space(10);
+            AddField("Enable Decals", ref jsondata.paintable);
+            AddField("Enable Climbing Grip", ref jsondata.grippable);
+            GUILayout.EndVertical();
+            GUILayout.EndHorizontal();
+            GUILayout.Space(5);
+        }
+        Dictionary<string, bool> damDropdown = new Dictionary<string, bool>();
+        Dictionary<string, bool> hndlDropdown = new Dictionary<string, bool>();
+        Dictionary<string, bool> hndlHandDropdown = new Dictionary<string, bool>();
+        Dictionary<string, bool> wshSoundDropdown = new Dictionary<string, bool>();
+        Dictionary<string, bool> wshTriggDropdown = new Dictionary<string, bool>();
+        private void DisplayWeaponDamagers()
+        {
+            GUILayout.Label("Damagers", new GUIStyle("BoldLabel"));
+            GUILayout.BeginHorizontal();
+            GUILayout.Space(20);
+            GUILayout.BeginVertical();
+            if (itemPrefab)
+            {
+                try
+                {
+                    if (jsondata.damagers.Count > 0)
+                    {
+                        foreach (JSONData.Damager damager in jsondata.damagers)
+                        {
+
+                            GUILayout.BeginHorizontal();
+
+                            if (!damDropdown.ContainsKey(damager.transformName))
+                            {
+                                damDropdown[damager.transformName] = false;
+                            }
+                            bool drpdwn = damDropdown[damager.transformName];
+                            GUILayout.Label(damager.transformName);
+                            AddFieldDropdown("Select Damager Type", ref damager.damagerID,damagerTypes, ref drpdwn);
+                            damDropdown[damager.transformName] = drpdwn;
+
+                            GUILayout.FlexibleSpace();
+                            GUILayout.EndHorizontal();
+                        }
+                    }
+                    else
+                    {
+                        GUILayout.Label("There are no Damagers on this prefab.");
+                    }
                 }
+                catch (Exception) { }
+                //}
+                //catch (Exception)
+                //{
+                //    LoadPrefab();
+                //}
+            }
+            else
+            {
+                EditorGUILayout.HelpBox("Please assign a Prefab   ", MessageType.Warning);
             }
             GUILayout.EndVertical();
             GUILayout.EndHorizontal();
         }
-    }
-
-    private void LoadJSON(string dir)
-    {
-        json = File.ReadAllText(dir);
-        author = EditorPrefs.GetString("modAuthor");
-
-        FindInJSON(json, "purchasable", out purchasable);
-        FindInJSON(json, "slot", out slot);
-        FindInJSON(json, "storageCategory", out storageCategory);
-        FindInJSON(json, "mass", out mass);
-        FindInJSON(json, "drag", out drag);
-        FindInJSON(json, "angularDrag", out angularDrag);
-        FindInJSON(json, "flyFromThrow", out flyFromThrow);
-        FindInJSON(json, "useGravity", out useGravity);
-        FindInJSON(json, "paintable", out paintable);
-        FindInJSON(json, "grippable", out grippable);
-    }
-
-    private void LoadPrefab()
-    {
-        noAssetBundleOnPrefab = false;
-        id = itemPrefab.GetComponentInChildren<BS.ItemDefinition>().itemId;
-        damagers = new Damagers[itemPrefab.GetComponentInChildren(typeof(BS.ItemDefinition)).GetComponentsInChildren<BS.DamagerDefinition>().Length];
-        interactables = new Interactables[itemPrefab.GetComponentInChildren(typeof(BS.ItemDefinition)).GetComponentsInChildren<BS.HandleDefinition>().Length];
-        whooshs = new Whooshs[itemPrefab.GetComponentInChildren<BS.ItemDefinition>().whooshPoints.Count];
-    }
-
-    private void DisplayWeaponInfo()
-    {
-        GUILayout.Label("Weapon Info", new GUIStyle("BoldLabel"));
-        GUILayout.BeginHorizontal();
-        GUILayout.Space(20);
-        GUILayout.BeginVertical();
-        AddField("Displayed Name", ref displayName);
-        AddField("Description", ref description, true);
-        AddField("Mod Author", ref author);
-        GUILayout.EndVertical();
-        GUILayout.EndHorizontal();
-        GUILayout.Space(5);
-    }
-    private void DisplayWeaponConfig()
-    {
-        GUILayout.Label("Weapon Config", new GUIStyle("BoldLabel"));
-        GUILayout.BeginHorizontal();
-        GUILayout.Space(20);
-        GUILayout.BeginVertical();
-        AddField("Available in book", ref purchasable);
-        AddField("Holster Slot", ref slot);
-        AddField("Storage Category", ref storageCategory);
-        AddField("Mass", ref mass);
-        AddField("Drag", ref drag);
-        AddField("Angular Drag", ref angularDrag);
-        AddField("Use Gravity", ref useGravity);
-        AddField("Fly From Throw", ref flyFromThrow);
-        AddField("Enable Decals", ref paintable);
-        AddField("Enable Climbing Grip", ref grippable);
-        GUILayout.EndVertical();
-        GUILayout.EndHorizontal();
-        GUILayout.Space(5);
-    }
-    private void DisplayWeaponDamagers()
-    {
-        GUILayout.Label("Damagers", new GUIStyle("BoldLabel"));
-        GUILayout.BeginHorizontal();
-        GUILayout.Space(20);
-        GUILayout.BeginVertical();
-        if (itemPrefab)
+        private void DisplayWeaponHandles()
         {
-            try
+            GUILayout.Label("Handles", new GUIStyle("BoldLabel"));
+            GUILayout.BeginHorizontal();
+            GUILayout.Space(20);
+            GUILayout.BeginVertical();
+            if (itemPrefab)
             {
-                int damagerIndex = 0;
-                foreach (BS.DamagerDefinition damager in itemPrefab.GetComponentInChildren(typeof(BS.ItemDefinition)).GetComponentsInChildren<BS.DamagerDefinition>())
+                try
                 {
-                    damagers[damagerIndex] = new Damagers(damager.name);
-                    damagerIndex++;
-                }
-
-                if (damagers.Length > 0) { 
-                foreach (Damagers damager in damagers)
-                {
-                    GUILayout.BeginHorizontal();
-                    GUILayout.Label(damager.transformName);
-                    if (damager.damagerID != null)
+                    if (jsondata.Interactables.Count > 0)
                     {
-                        if (GUILayout.Button(damager.damagerID, new GUIStyle("DropDownButton")))
+                        foreach (JSONData.Interactable handle in jsondata.Interactables)
                         {
-                            //DAMAGER TYPE DROPDOWN
+                            GUILayout.BeginHorizontal();
+                            if (!hndlDropdown.ContainsKey(handle.transformName))
+                            {
+                                hndlDropdown[handle.transformName] = false;
+                            }
+                            bool drpdwn = hndlDropdown[handle.transformName];
+                            GUILayout.Label(handle.transformName);
+                            AddFieldDropdown("Select Interactable Type", ref handle.interactableId, handleTypes, ref drpdwn);
+                            hndlDropdown[handle.transformName] = drpdwn;
+                            if (handle.overrideHandPose)
+                            {
+                                handle.overrideHandPose = GUILayout.Toggle(handle.overrideHandPose, "");
+                                if (!hndlHandDropdown.ContainsKey(handle.transformName))
+                                {
+                                    hndlHandDropdown[handle.transformName] = false;
+                                }
+                                bool drpdwn2 = hndlHandDropdown[handle.transformName];
+                                AddFieldDropdown("Select Hand Pose", ref handle.handPoseId, handlePoses, ref drpdwn2);
+                                hndlHandDropdown[handle.transformName] = drpdwn2;
+                            }
+                            else
+                            {
+                                handle.overrideHandPose = GUILayout.Toggle(handle.overrideHandPose, "Custom Hand Pose");
+                                hndlHandDropdown[handle.transformName] = false;
+                            }
+                            GUILayout.FlexibleSpace();
+                            GUILayout.EndHorizontal();
                         }
                     }
                     else
                     {
-                        if (GUILayout.Button("Select Damager Type", new GUIStyle("DropDownButton")))
-                        {
-                            //DAMAGER TYPE DROPDOWN
-                        }
+                        GUILayout.Label("There are no Handles on this prefab.");
                     }
-                    GUILayout.FlexibleSpace();
-                    GUILayout.EndHorizontal();
                 }
-                }
-                else
-                {
-                    GUILayout.Label("There are no Damagers on this prefab.");
-                }
+                catch (Exception) { }
             }
-            catch (Exception) {
-                LoadPrefab();
-            }
-        }
-        else
-        {
-            EditorGUILayout.HelpBox("Please assign a Prefab   ", MessageType.Warning);
-        }
-        GUILayout.EndVertical();
-        GUILayout.EndHorizontal();
-    }
-    private void DisplayWeaponHandles()
-    {
-        GUILayout.Label("Handles", new GUIStyle("BoldLabel"));
-        GUILayout.BeginHorizontal();
-        GUILayout.Space(20);
-        GUILayout.BeginVertical();
-        if (itemPrefab)
-        {
-            try
+            else
             {
-                int handleIndex = 0;
-                foreach (BS.HandleDefinition handle in itemPrefab.GetComponentInChildren(typeof(BS.ItemDefinition)).GetComponentsInChildren<BS.HandleDefinition>())
+                EditorGUILayout.HelpBox("Please assign a Prefab   ", MessageType.Warning);
+            }
+            GUILayout.EndVertical();
+            GUILayout.EndHorizontal();
+        }
+        private void DisplayWeaponWhooshpoints()
+        {
+            GUILayout.Label("Whoosh Points", new GUIStyle("BoldLabel"));
+            GUILayout.BeginHorizontal();
+            GUILayout.Space(20);
+            GUILayout.BeginVertical();
+            if (itemPrefab)
+            {
+                try
                 {
-                    interactables[handleIndex] = new Interactables(handle.name);
-                    handleIndex++;
-                }
-
-                if (interactables.Length > 0) { 
-                foreach (Interactables handle in interactables)
-                {
-                    GUILayout.BeginHorizontal();
-                    GUILayout.Label(handle.transformName);
-                    if (handle.interactableID != null)
+                    if (jsondata.whooshs.Count > 0)
                     {
-                        if (GUILayout.Button(handle.interactableID, new GUIStyle("DropDownButton")))
+                        foreach (JSONData.Whoosh whoosh in jsondata.whooshs)
                         {
-                            //INTERACTABLE TYPE DROPDOWN
+                            GUILayout.BeginHorizontal();
+                            if (!wshSoundDropdown.ContainsKey(whoosh.transformName))
+                            {
+                                wshSoundDropdown[whoosh.transformName] = false;
+                            }
+                            bool whsh = wshSoundDropdown[whoosh.transformName];
+                            GUILayout.Label(whoosh.transformName);
+                            AddFieldDropdown("Sound Effect", ref whoosh.fxId, whooshSounds, ref whsh);
+                            wshSoundDropdown[whoosh.transformName] = whsh;
+                            
+                            GUILayout.FlexibleSpace();
+                            GUILayout.EndHorizontal();
                         }
                     }
                     else
                     {
-                        if (GUILayout.Button("Select Interactable Type", new GUIStyle("DropDownButton")))
-                        {
-                            //INTERACTABLE TYPE DROPDOWN
-                        }
+                        GUILayout.Label("There are no Whoosh points on this prefab.");
                     }
-                    if (customHand)
-                    {
-                        customHand = GUILayout.Toggle(customHand, "");
-                        if (GUILayout.Button("Select Hand Pose", new GUIStyle("DropDownButton")))
-                        {
-                            //HANDLE POSE DROPDOWN
-                        }
-                    }
-                    else
-                    {
-                        customHand = GUILayout.Toggle(customHand, "Custom Hand Pose");
-                    }
-                    GUILayout.FlexibleSpace();
-                    GUILayout.EndHorizontal();
                 }
-                }
-                else
-                {
-                    GUILayout.Label("There are no Handles on this prefab.");
-                }
+                catch (Exception) { }
             }
-            catch (Exception)
+            else
             {
-                LoadPrefab();
+                EditorGUILayout.HelpBox("Please assign a Prefab   ", MessageType.Warning);
             }
+            GUILayout.EndVertical();
+            GUILayout.EndHorizontal();
         }
-        else
+
+        //AddField Overloading
+        private void AddField(string label, ref GameObject var)
         {
-            EditorGUILayout.HelpBox("Please assign a Prefab   ", MessageType.Warning);
+            GUILayout.BeginHorizontal();
+            GUILayout.Label(label);
+            var = (GameObject)EditorGUILayout.ObjectField(itemPrefab, typeof(GameObject), false);
+            GUILayout.EndHorizontal();
         }
-        GUILayout.EndVertical();
-        GUILayout.EndHorizontal();
-    }
-    private void DisplayWeaponWhooshpoints()
-    {
-        GUILayout.Label("Whoosh Points", new GUIStyle("BoldLabel"));
-        GUILayout.BeginHorizontal();
-        GUILayout.Space(20);
-        GUILayout.BeginVertical();
-        if (itemPrefab)
+        private void AddField(string label, ref string var, bool alt = false)
         {
-            try
+            GUILayout.BeginHorizontal();
+            GUILayout.Label(label);
+            if (alt)
             {
-                int whooshIndex = 0;
-                foreach (Transform whoosh in itemPrefab.GetComponentInChildren<BS.ItemDefinition>().whooshPoints)
-                {
-                    whooshs[whooshIndex] = new Whooshs(whoosh.name);
-                    whooshIndex++;
-                }
-
-                if (whooshs.Length > 0)
-                {
-                    foreach (Whooshs whoosh in whooshs)
-                    {
-                        GUILayout.BeginHorizontal();
-                        GUILayout.Label(whoosh.transformName);
-                        if (GUILayout.Button("Sound Effect", new GUIStyle("DropDownButton")))
-                        {
-
-                        }
-                        if (GUILayout.Button("Trigger Type", new GUIStyle("DropDownButton")))
-                        {
-
-                        }
-                        GUILayout.FlexibleSpace();
-                        GUILayout.EndHorizontal();
-                    }
-                }
-                else
-                {
-                    GUILayout.Label("There are no Whoosh points on this prefab.");
-                }
+                GUILayout.BeginVertical();
+                GUILayout.ExpandWidth(false);
+                GUILayout.ExpandHeight(true);
+                var = EditorGUILayout.TextArea(var);
+                GUILayout.EndVertical();
             }
-            catch (Exception)
+            else
             {
-                LoadPrefab();
+                var = EditorGUILayout.TextField(var);
             }
-        }
-        else
-        {
-            EditorGUILayout.HelpBox("Please assign a Prefab   ", MessageType.Warning);
-        }
-        GUILayout.EndVertical();
-        GUILayout.EndHorizontal();
-    }
 
-    //FindInJSON Overloading
-    private void FindInJSON(string json, string key, out string value)
-    {
-        string text = json.Substring(json.IndexOf("\"" + key + "\": \"") + key.Length + 5).Substring(0, json.Substring(json.IndexOf("\"" + key + "\": \"") + key.Length + 5).IndexOf("\""));
-        //Debug.Log(text);
-        if (text != "$type" && text != "")
-        {
-            value = text;
+            GUILayout.EndHorizontal();
         }
-        else
+        private void AddField(string label, ref bool var)
         {
-            value = "key not found";
+            GUILayout.BeginHorizontal();
+            GUILayout.Label(label);
+            var = EditorGUILayout.Toggle(var);
+            GUILayout.EndHorizontal();
         }
-
-    }
-    private void FindInJSON(string json, string key, out int value)
-    {
-        string text = json.Substring(json.IndexOf("\"" + key + "\": ") + key.Length + 4).Substring(0, json.Substring(json.IndexOf("\"" + key + "\": ") + key.Length + 4).IndexOf(","));
-        //Debug.Log(text);
-        if (text != "$type" && text != "")
+        private void AddField(string label, ref double var, int max = -1)
         {
-            Int32.TryParse(text, out value);
+            GUILayout.BeginHorizontal();
+            GUILayout.Label(label);
+            var = EditorGUILayout.DoubleField(var);
+            if (max > 0 && var > max)
+            {
+                var = max;
+            }
+            else if (max > 0 && var < 0)
+            {
+                var = 0;
+            }
+            GUILayout.EndHorizontal();
         }
-        else
+        private void AddField(string label, ref int var, int max = -1)
         {
-            value = 0;
+            GUILayout.BeginHorizontal();
+            GUILayout.Label(label);
+            var = EditorGUILayout.IntField(var);
+            if (max > 0 && var > max)
+            {
+                var = max;
+            }
+            else if (max > 0 && var < 0)
+            {
+                var = 0;
+            }
+            GUILayout.EndHorizontal();
         }
-
-    }
-    private void FindInJSON(string json, string key, out float value)
-    {
-        string text = json.Substring(json.IndexOf("\"" + key + "\": ") + key.Length + 4).Substring(0, json.Substring(json.IndexOf("\"" + key + "\": ") + key.Length + 4).IndexOf(","));
-        //Debug.Log(text);
-        if (text != "$type" && text != "")
-        {
-            value = float.Parse(text.Replace(".",","));
-        }
-        else
-        {
-            value = 0;
-        }
-
-    }
-    private void FindInJSON(string json, string key, out bool value)
-    {
-        string text = json.Substring(json.IndexOf("\"" + key + "\": ") + key.Length + 4).Substring(0, json.Substring(json.IndexOf("\"" + key + "\": ") + key.Length + 4).IndexOf("e") + 1);
-        //Debug.Log(text);
-        if (text == "true")
-        {
-            value = true;
-        } else 
-        {
-            value = false;
-        }
-
-    }
-
-    //AddField Overloading
-    private void AddField(string label, ref GameObject var)
-    {
-        GUILayout.BeginHorizontal();
-        GUILayout.Label(label);
-        var = (GameObject)EditorGUILayout.ObjectField(itemPrefab, typeof(GameObject), false);
-        GUILayout.EndHorizontal();
-    }
-    private void AddField(string label, ref string var, bool alt = false)
-    {
-        GUILayout.BeginHorizontal();
-        GUILayout.Label(label);
-        if (alt)
+        private void AddFieldDropdown(string label, ref string var, string[] options, ref bool toggle)
         {
             GUILayout.BeginVertical();
-            GUILayout.ExpandWidth(false);
-            GUILayout.ExpandHeight(true);
-            var = EditorGUILayout.TextArea(var);
+            if (var == "" || var == null)
+            {
+                if (GUILayout.Button(label, new GUIStyle("DropDownButton")))
+                {
+                    if (toggle) { toggle = false; } else { toggle = true; }
+                }
+            }
+            else
+            {
+                if (GUILayout.Button(var, new GUIStyle("DropDownButton")))
+                {
+                    if (toggle) { toggle = false; } else { toggle = true; }
+                }
+            }
+            if (toggle)
+            {
+                foreach (string option in options)
+                {
+                    if (GUILayout.Button(option, new GUIStyle("Radio")))
+                    {
+                        var = option;
+                        toggle = false;
+                    }
+                }
+                GUILayout.Space(10);
+
+            }
             GUILayout.EndVertical();
-        } else
+        }
+
+        bool noAssetBundleOnPrefab, noAuthorName, noWeaponName, noDamagerType, noHandleType, noHandlePose, noWhooshFX;
+        private void CreateJSON()
         {
-            var = EditorGUILayout.TextField(var);
+            noAssetBundleOnPrefab = false;
+            noAuthorName = false;
+            noDamagerType = false;
+            noHandleType = false;
+            noHandlePose = false;
+            noWhooshFX = false;
+
+            json = File.ReadAllText(selectedBaseDir);
+
+            if (jsondata.displayNames[0].text == null || jsondata.displayNames[0].text == "")
+            {
+                noWeaponName = true;
+            }
+            foreach (JSONData.Damager damager in jsondata.damagers)
+            {
+                if (damager.damagerID == null || damager.damagerID == "")
+                {
+                    noDamagerType = true;
+                }
+            }
+            foreach (JSONData.Interactable handle in jsondata.Interactables)
+            {
+                if (handle.interactableId == null || handle.interactableId == "")
+                {
+                    noHandleType = true;
+                }
+                if ((handle.handPoseId == null || handle.handPoseId == "") && handle.overrideHandPose)
+                {
+                    noHandlePose = true;
+                }
+            }
+            foreach (JSONData.Whoosh whoosh in jsondata.whooshs)
+            {
+                if (whoosh.fxId == null || whoosh.fxId == "")
+                {
+                    noWhooshFX = true;
+                }
+            }
+
+            json = JsonUtility.ToJson(jsondata, true).Replace("MONEYSIGN", "$");
+
+            EditorToolsJSONConfig.AddPrefab(jsonName + ".json", AssetDatabase.GetAssetPath(itemPrefab));
+
+            EditorPrefs.SetString("modAuthor", jsondata.author);
+
+            if (!noAssetBundleOnPrefab && !noAuthorName && !noWeaponName && !noDamagerType && !noHandlePose && !noHandleType && !noWhooshFX)
+            {
+                Debug.Log("JSON File \"" + jsonName + ".json\" created in directory " + modDirectory);
+                File.WriteAllText(modDirectory + "\\" + jsonName + ".json", json);
+                this.Close();
+            }
         }
         
-        GUILayout.EndHorizontal();
-    }
-    private void AddField(string label, ref bool var)
-    {
-        GUILayout.BeginHorizontal();
-        GUILayout.Label(label);
-        var = EditorGUILayout.Toggle(var);
-        GUILayout.EndHorizontal();
-    }
-    private void AddField(string label, ref float var)
-    {
-        GUILayout.BeginHorizontal();
-        GUILayout.Label(label);
-        var = EditorGUILayout.FloatField(var);
-        GUILayout.EndHorizontal();
-    }
-    private void AddField(string label, ref int var)
-    {
-        GUILayout.BeginHorizontal();
-        GUILayout.Label(label);
-        var = EditorGUILayout.IntField(var);
-        GUILayout.EndHorizontal();
-    }
-
-    bool noAssetBundleOnPrefab;
-    bool noAuthorName;
-    bool noModName;
-    private void CreateJSON()
-    {
-        noAssetBundleOnPrefab = false;
-        noAuthorName = false;
-
-        json = File.ReadAllText(selectedBaseDir);
-
-        FindInJSON(json, "id", out string tempString);
-        json = json.Replace("\"id\": \"" + tempString+"\"", "\"id\": \"" + id + "\"");
-
-        if (displayName != null && displayName != "")
-        {
-            //NAME
-        }
-        else
-        {
-            noModName = true;
-        }
-        
-        
-            //DESCRIPTION
-        
-        
-        if (author != null && author != "")
-        {
-            FindInJSON(json, "author", out tempString);
-            json = json.Replace("\"author\": \"" + tempString + "\"", "\"author\": \"" + author + "\"");
-        }
-        else
-        {
-            noAuthorName = true;
-        }
-        //PRICE
-        FindInJSON(json, "purchasable", out bool tempBool);
-        json = json.Replace("\"purchasable\": " + tempBool, "\"purchasable\": " + purchasable);
-        //TIER
-        //LEVEL REQUIRED
-        FindInJSON(json, "slot", out int tempInt);
-        json = json.Replace("\"slot\": " + tempInt, "\"slot\": " + slot);
-        //IS STACKABLE
-        //CATEGORY
-        FindInJSON(json, "storageCategory", out tempString);
-        json = json.Replace("\"storageCategory\": \"" + tempString + "\"", "\"storageCategory\": \"" + storageCategory + "\"");
-        if (AssetImporter.GetAtPath(AssetDatabase.GetAssetPath(itemPrefab)).assetBundleName != "")
-        {
-            FindInJSON(json, "prefabName", out tempString);
-            json = json.Replace("\"prefabName\": \"" + tempString + "\"", "\"prefabName\": \"@" + AssetImporter.GetAtPath(AssetDatabase.GetAssetPath(itemPrefab)).assetBundleName + ":" + AssetDatabase.GetAssetPath(itemPrefab).Substring(AssetDatabase.GetAssetPath(itemPrefab).LastIndexOf('/') + 1, AssetDatabase.GetAssetPath(itemPrefab).Length - AssetDatabase.GetAssetPath(itemPrefab).LastIndexOf('/') - 1) + "\"");
-        }
-        else
-        {
-            noAssetBundleOnPrefab = true;
-        }
-        FindInJSON(json, "mass", out float tempFloat);
-        json = json.Replace(("\"mass\": " + tempFloat).Replace(',', '.'), ("\"mass\": " + mass).Replace(',', '.'));
-        FindInJSON(json, "drag", out tempFloat);
-        json = json.Replace(("\"drag\": " + tempFloat).Replace(',', '.'), ("\"drag\": " + drag).Replace(',', '.'));
-        FindInJSON(json, "angularDrag", out tempFloat);
-        json = json.Replace(("\"angularDrag\": " + tempFloat).Replace(',', '.'), ("\"angularDrag\": " + angularDrag).Replace(',', '.'));
-        FindInJSON(json, "useGravity", out tempBool);
-        json = json.Replace("\"useGravity\": " + tempBool, "\"useGravity\": " + useGravity);
-        FindInJSON(json, "flyFromThrow", out tempBool);
-        json = json.Replace("\"flyFromThrow\": " + tempBool, "\"uflyFromThrow\": " + flyFromThrow);
-        //FLY ROTATION SPEED
-        //FLY THROW ANGLE
-        //TELE SAFE DISTANCE
-        //TELE SPIN ENABLED
-        //TELE THROW RATIO
-        //DAMAGE TRANSFER
-        FindInJSON(json, "paintable", out tempBool);
-        json = json.Replace("\"paintable\": " + tempBool, "\"paintable\": " + paintable);
-        FindInJSON(json, "grippable", out tempBool);
-        json = json.Replace("\"grippable\": " + tempBool, "\"grippable\": " + grippable);
-
-        //DAMAGERS
-
-        //INTERACTABLES
-
-        //WHOOSHS
-
-        EditorTools.AddPrefab(jsonName+".json", AssetDatabase.GetAssetPath(itemPrefab));
-
-        EditorPrefs.SetString("modAuthor", author);
-
-        if (!noAssetBundleOnPrefab && !noAuthorName && !noModName) {
-            Debug.Log("JSON File \"" + jsonName + ".json\" created in directory " + modDirectory);
-            File.WriteAllText(modDirectory + "\\" + jsonName + ".json", json);
-            this.Close();
-        }
     }
 }
