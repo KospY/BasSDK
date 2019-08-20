@@ -10,7 +10,7 @@ namespace BS
     {
         public string modName;
         public string modDirectory;
-        JSONData jsondata = new JSONData();
+        JSONData jsondata = new JSONData(); 
         bool initializedWithFile = false;
 
         Vector3 scroll4, scroll5;
@@ -155,8 +155,8 @@ namespace BS
                 public string transformName;
                 public string fxId;
                 public int trigger;
-                public double minVelocity;
-                public double maxVelocity;
+                public double minVelocity = 5;
+                public double maxVelocity = 12;
             }
         }
 
@@ -477,7 +477,7 @@ namespace BS
         bool itemDropdown = false;
         bool wpnDropdown = false;
         bool hndlngDropdown = false;
-        //bool dodgeDropdown = false;
+        bool ddgDropdown = false;
         private void DisplayWeaponConfig()
         {
             GUILayout.Label("Weapon Config", new GUIStyle("BoldLabel"));
@@ -532,14 +532,22 @@ namespace BS
             jsondata.modules[0].weaponHandling = Array.IndexOf(weaponHandling, hndlng);
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
+
             GUILayout.Space(10);
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("Dodge Behaviour");
+            GUILayout.Space(56);
+            string dodge = dodgeBehaviour[jsondata.modules[0].dodgeBehaviour];
+            AddFieldDropdown("Dodge Behaviour", ref dodge, dodgeBehaviour, ref ddgDropdown);
+            jsondata.modules[0].dodgeBehaviour = Array.IndexOf(dodgeBehaviour, dodge);
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
             AddField("Mass", ref jsondata.mass);
             AddField("Drag", ref jsondata.drag);
             AddField("Angular Drag", ref jsondata.angularDrag);
             AddField("Use Gravity", ref jsondata.useGravity);
             AddField("Fly From Throw", ref jsondata.flyFromThrow);
 
-            AddField("Dodge Behaviour", ref jsondata.modules[0].dodgeBehaviour, 3);
             GUILayout.Space(10);
             AddField("Enable Decals", ref jsondata.paintable);
             AddField("Enable Climbing Grip", ref jsondata.grippable);
@@ -873,5 +881,102 @@ namespace BS
             
         }
         
+    }
+
+    public class ManifestBuilder : EditorWindow
+    {
+        Manifest jsondata = new Manifest();
+        string json;
+        bool hasManifest = false;
+        string directory;
+        [Serializable]
+        public class Manifest
+        {
+            public string Name;
+            public string Description;
+            public string Author;
+            public string ModVersion = "1.0";
+            public string GameVersion = "6.3";
+        }
+
+        public ManifestBuilder()
+        {
+            directory = EditorToolsJSONConfig.selectedModDirectory;
+            foreach (FileInfo file in new DirectoryInfo(directory).GetFiles())
+            {
+                if (file.Name == "manifest.json")
+                {
+                    hasManifest = true;
+                }
+            }
+            if (hasManifest)
+            {
+                LoadJSON(directory + "\\manifest.json");
+
+            }
+        }
+
+        private void LoadJSON(string dir)
+        {
+            json = File.ReadAllText(dir);
+            JsonUtility.FromJsonOverwrite(json, jsondata);
+        }
+
+        private void OnGUI()
+        {
+            GUILayout.Label("Editing mod info of " + directory.Substring(directory.LastIndexOf('\\')+1, directory.Length - directory.LastIndexOf('\\') - 1));
+
+            GUILayout.Space(10);
+
+            AddField("Mod Name", ref jsondata.Name);
+            GUILayout.Space(5);
+            AddField("Description", ref jsondata.Description, true);
+            GUILayout.Space(5);
+            AddField("Mod Author", ref jsondata.Author);
+            GUILayout.Space(5);
+            AddField("Mod Version", ref jsondata.ModVersion);
+            GUILayout.Space(5);
+            AddField("Game Version", ref jsondata.GameVersion);
+
+            GUILayout.FlexibleSpace();
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            if (GUILayout.Button("Save Info"))
+            {
+                CreateJSON();
+            }
+            GUILayout.EndHorizontal();
+        }
+
+        private void AddField(string label, ref string var, bool alt = false)
+        {
+            GUILayout.BeginHorizontal();
+            GUILayout.Label(label);
+            if (alt)
+            {
+                GUILayout.BeginVertical();
+                GUILayout.ExpandWidth(false);
+                GUILayout.ExpandHeight(true);
+                EditorStyles.textField.wordWrap = true;
+                var = EditorGUILayout.TextArea(var);
+                GUILayout.EndVertical();
+            }
+            else
+            {
+                var = EditorGUILayout.TextField(var);
+            }
+
+            GUILayout.EndHorizontal();
+        }
+
+        private void CreateJSON()
+        {
+            json = JsonUtility.ToJson(jsondata, true);
+            EditorPrefs.SetString("modAuthor", jsondata.Author);
+
+            File.WriteAllText(directory + "\\manifest.json", json);
+            Close();
+        }
+
     }
 }

@@ -356,21 +356,18 @@ namespace BS
                 else
                 {
                     GUILayout.BeginHorizontal();
+                    GUILayout.BeginVertical();
+                    GUILayout.BeginHorizontal();
                     GUILayout.Label("Currently editing " + selectedModDirectory.Substring(selectedModDirectory.LastIndexOf('\\') + 1, selectedModDirectory.Length - selectedModDirectory.LastIndexOf('\\') - 1));
-                    if (GUILayout.Button("Change"))
+                    
+                    if (GUILayout.Button("Back"))
                     {
                         selectedModDirectory = "";
                         EditorPrefs.SetString("selectedMod", selectedModDirectory);
                     }
                     else
                     {
-                        GUILayout.FlexibleSpace();
                         GUILayout.EndHorizontal();
-
-                        scroll3 = GUILayout.BeginScrollView(scroll3); //SCROLL 3 START
-
-                        GUILayout.Space(10);
-
                         //Check if there is a manifest.json file
                         bool hasManifest = false;
                         foreach (FileInfo file in new DirectoryInfo(selectedModDirectory).GetFiles())
@@ -380,6 +377,20 @@ namespace BS
                                 hasManifest = true;
                             }
                         }
+                        if (hasManifest) { 
+                        if (GUILayout.Button("Edit mod details"))
+                        {
+                            EditorWindow.GetWindow<ManifestBuilder>("Edit Mod Details");
+                        }
+                        }
+                        GUILayout.EndVertical();
+                        GUILayout.FlexibleSpace();
+                        GUILayout.EndHorizontal();
+
+                        scroll3 = GUILayout.BeginScrollView(scroll3); //SCROLL 3 START
+
+                        GUILayout.Space(10);
+                        
                         //Display mod items
                         if (hasManifest)
                         {
@@ -405,7 +416,11 @@ namespace BS
                         }
                         else
                         {
-                            EditorGUILayout.HelpBox("No manifest.json could be found. This tool is not for creating mod files from scratch. Please make sure you have made the proper JSON set up before configuring.", MessageType.Warning);
+                            EditorGUILayout.HelpBox("This folder does not have a Maifest.json file, would you like to create one?", MessageType.Warning);
+                            if (GUILayout.Button("Create new mod"))
+                            {
+                                EditorWindow.GetWindow<ManifestBuilder>("Create Mod file");
+                            }
                         }
                         GUILayout.EndScrollView(); //SCROLL 2 END
                     }
