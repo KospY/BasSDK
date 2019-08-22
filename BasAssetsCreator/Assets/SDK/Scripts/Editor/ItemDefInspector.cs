@@ -157,7 +157,7 @@ namespace BS
 
             if (noWhooshPoints)
             {
-                EditorGUILayout.HelpBox("There are no whoosh points assigned to this object. The item will now make air sounds when moving.", MessageType.Warning);
+                EditorGUILayout.HelpBox("There are no whoosh points assigned to this object. The item will not make air sounds when moving.", MessageType.Warning);
             }
 
             if (item.holderPoint == null)
