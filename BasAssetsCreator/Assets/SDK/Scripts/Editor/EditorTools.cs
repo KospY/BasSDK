@@ -377,11 +377,12 @@ namespace BS
                                 hasManifest = true;
                             }
                         }
-                        if (hasManifest) { 
-                        if (GUILayout.Button("Edit mod details"))
+                        if (hasManifest)
                         {
-                            EditorWindow.GetWindow<ManifestBuilder>("Edit Mod Details");
-                        }
+                            if (GUILayout.Button("Edit mod details"))
+                            {
+                                EditorWindow.GetWindow<ManifestBuilder>("Edit Mod Details");
+                            }
                         }
                         GUILayout.EndVertical();
                         GUILayout.FlexibleSpace();
@@ -467,7 +468,7 @@ namespace BS
 
         private void ModConfigOptions(FileInfo file)
         {
-            if (file.Extension == ".json" && file.Name != "manifest.json")
+            if (file.Extension == ".json" && file.Name != "manifest.json" && file.Name.Substring(0,5) == "Item_")
             {
                 string ObjectKey = selectedModDirectory.Substring(selectedModDirectory.LastIndexOf('\\') + 1, selectedModDirectory.Length - selectedModDirectory.LastIndexOf('\\') - 1) + "-" + file.Name;
                 ModObject[ObjectKey] = (GameObject)AssetDatabase.LoadAssetAtPath(EditorPrefs.GetString("Object" + ObjectKey), typeof(GameObject));

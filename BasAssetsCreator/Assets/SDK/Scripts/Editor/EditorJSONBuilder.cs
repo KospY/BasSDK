@@ -370,66 +370,75 @@ namespace BS
         private void LoadJSON(string dir)
         {
             json = File.ReadAllText(dir);
-            JsonUtility.FromJsonOverwrite(json, jsondata);
-            if (!initializedWithFile) { 
-            jsondata.author = EditorPrefs.GetString("modAuthor");
-            }
-            if (jsondata.displayNames.Count < 1)
+            JsonUtility.FromJsonOverwrite(json.Replace("$", "MONEYSIGN"), jsondata);
+            if (jsondata.MONEYSIGNtype == "BS.ItemData, Assembly-CSharp")
             {
-                jsondata.displayNames.Add(new JSONData.DisplayName());
-            }
-            if (jsondata.descriptions.Count < 1)
-            {
-                jsondata.descriptions.Add(new JSONData.Description());
-            }
-            if (jsondata.modules.Count < 1)
-            {
-                jsondata.modules.Add(new JSONData.Module());
-            }
+                if (!initializedWithFile)
+                {
+                    jsondata.author = EditorPrefs.GetString("modAuthor");
+                }
+                if (jsondata.displayNames.Count < 1)
+                {
+                    jsondata.displayNames.Add(new JSONData.DisplayName());
+                }
+                if (jsondata.descriptions.Count < 1)
+                {
+                    jsondata.descriptions.Add(new JSONData.Description());
+                }
+                if (jsondata.modules.Count < 1)
+                {
+                    jsondata.modules.Add(new JSONData.Module());
+                }
 
 
-            slotOptions = new string[10] { "None", "Potion", "Small", "Medium", "Large", "Head", "Shield", "Arrow", "Bolt", "Cork" };
-            bookCategories = new string[16] { "Daggers", "Swords", "Axes", "Blunt", "Spears", "Bows", "Crossbows", "Shields", "Exotics", "Wands", "Firearms", "Potions", "Traps", "Funny", "Unknown", "Misc" };
-            itemCategories = new string[7] { "Misc", "Apparel", "Weapon", "Quiver", "Potion", "Prop", "Body" };
-            weaponClass = new string[10] { "None", "Melee", "Bow", "Arrow", "Shield", "Wand", "Crossbow", "Bolt", "Fire Arm", "Rock" };
-            weaponHandling = new string[3] { "None", "One Handed", "Two Handed" };
-            dodgeBehaviour = new string[4] { "None", "Low Only", "Not Parrying", "Always" };
-            knockoutHit = new string[3] { "None", "Always", "Sometimes" };
-            knockoutThrow = new string[3] { "None", "Always", "Sometimes" };
+                slotOptions = new string[10] { "None", "Potion", "Small", "Medium", "Large", "Head", "Shield", "Arrow", "Bolt", "Cork" };
+                bookCategories = new string[16] { "Daggers", "Swords", "Axes", "Blunt", "Spears", "Bows", "Crossbows", "Shields", "Exotics", "Wands", "Firearms", "Potions", "Traps", "Funny", "Unknown", "Misc" };
+                itemCategories = new string[7] { "Misc", "Apparel", "Weapon", "Quiver", "Potion", "Prop", "Body" };
+                weaponClass = new string[10] { "None", "Melee", "Bow", "Arrow", "Shield", "Wand", "Crossbow", "Bolt", "Fire Arm", "Rock" };
+                weaponHandling = new string[3] { "None", "One Handed", "Two Handed" };
+                dodgeBehaviour = new string[4] { "None", "Low Only", "Not Parrying", "Always" };
+                knockoutHit = new string[3] { "None", "Always", "Sometimes" };
+                knockoutThrow = new string[3] { "None", "Always", "Sometimes" };
 
-            List<string> dmgrTyps = new List<string>();
-            foreach (FileInfo file in new DirectoryInfo(EditorToolsJSONConfig.streamingassetsDirectory + "\\Default\\Damagers").GetFiles())
-            {
-                dmgrTyps.Add(file.Name.Substring(8, file.Name.Length - 13));
-            }
-            damagerTypes = dmgrTyps.ToArray();
+                List<string> dmgrTyps = new List<string>();
+                foreach (FileInfo file in new DirectoryInfo(EditorToolsJSONConfig.streamingassetsDirectory + "\\Default\\Damagers").GetFiles())
+                {
+                    dmgrTyps.Add(file.Name.Substring(8, file.Name.Length - 13));
+                }
+                damagerTypes = dmgrTyps.ToArray();
 
-            List<string> hndlTyps = new List<string>();
-            foreach (FileInfo file in new DirectoryInfo(EditorToolsJSONConfig.streamingassetsDirectory + "\\Default\\Interactables").GetFiles())
-            {
-                hndlTyps.Add(file.Name.Substring(13, file.Name.Length - 18));
-            }
-            handleTypes = hndlTyps.ToArray();
+                List<string> hndlTyps = new List<string>();
+                foreach (FileInfo file in new DirectoryInfo(EditorToolsJSONConfig.streamingassetsDirectory + "\\Default\\Interactables").GetFiles())
+                {
+                    hndlTyps.Add(file.Name.Substring(13, file.Name.Length - 18));
+                }
+                handleTypes = hndlTyps.ToArray();
 
-            List<string> hndlPse = new List<string>();
-            foreach (FileInfo file in new DirectoryInfo(EditorToolsJSONConfig.streamingassetsDirectory + "\\Default\\HandPoses").GetFiles())
-            {
-                hndlPse.Add(file.Name.Substring(9, file.Name.Length - 14));
-            }
-            handlePoses = hndlPse.ToArray();
+                List<string> hndlPse = new List<string>();
+                foreach (FileInfo file in new DirectoryInfo(EditorToolsJSONConfig.streamingassetsDirectory + "\\Default\\HandPoses").GetFiles())
+                {
+                    hndlPse.Add(file.Name.Substring(9, file.Name.Length - 14));
+                }
+                handlePoses = hndlPse.ToArray();
 
-            List<string> wshFx = new List<string>();
-            foreach (FileInfo file in new DirectoryInfo(EditorToolsJSONConfig.streamingassetsDirectory + "\\Default\\FXs").GetFiles())
-            {
-                wshFx.Add(file.Name.Substring(3, file.Name.Length - 8));
+                List<string> wshFx = new List<string>();
+                foreach (FileInfo file in new DirectoryInfo(EditorToolsJSONConfig.streamingassetsDirectory + "\\Default\\FXs").GetFiles())
+                {
+                    wshFx.Add(file.Name.Substring(3, file.Name.Length - 8));
+                }
+                whooshSounds = wshFx.ToArray();
             }
-            whooshSounds = wshFx.ToArray();
         }
 
         private void LoadPrefab()
         {
             noAssetBundleOnPrefab = false;
             jsondata.id = itemPrefab.GetComponentInChildren<ItemDefinition>().itemId;
+            string defaultFx ="";
+            if (jsondata.whooshs.Count > 0)
+            {
+                defaultFx = jsondata.whooshs[0].fxId;
+            }
             jsondata.damagers = new List<JSONData.Damager>(itemPrefab.GetComponentInChildren(typeof(ItemDefinition)).GetComponentsInChildren<BS.DamagerDefinition>().Length);
             jsondata.Interactables = new List<JSONData.Interactable>(itemPrefab.GetComponentInChildren(typeof(ItemDefinition)).GetComponentsInChildren<HandleDefinition>().Length);
             jsondata.whooshs = new List<JSONData.Whoosh>(itemPrefab.GetComponentInChildren<ItemDefinition>().whooshPoints.Count);
@@ -454,6 +463,7 @@ namespace BS
             {
                 jsondata.whooshs.Add(new JSONData.Whoosh());
                 jsondata.whooshs[wooshIndex].transformName = woosh.name;
+                jsondata.whooshs[wooshIndex].fxId = defaultFx;
                 wooshIndex++;
             }
         }
@@ -876,11 +886,7 @@ namespace BS
                     Close();
                 }
             }
-            
-            
-            
         }
-        
     }
 
     public class ManifestBuilder : EditorWindow
