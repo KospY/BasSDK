@@ -8,9 +8,9 @@ namespace BS
     {
         public static LevelDefinition current;
         public Transform playerStart;
-        public List<Transform> spawnPoints;
         public List<CustomReference> customReferences;
         public bool loadDefaultCharIfNeeded = true;
+        protected bool initialized;
 
         [Serializable]
         public class CustomReference

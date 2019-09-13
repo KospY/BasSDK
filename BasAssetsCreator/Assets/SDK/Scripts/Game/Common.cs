@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace BS
@@ -42,6 +43,13 @@ namespace BS
         Bandits,
         Cult,
         Mercenary,
+    }
+
+    [Serializable]
+    public class CustomReference
+    {
+        public string name;
+        public Transform transform;
     }
 
     public static class Common

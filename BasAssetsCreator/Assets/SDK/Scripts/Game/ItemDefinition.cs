@@ -36,16 +36,7 @@ namespace BS
 #if FULLGAME
         public delegate void InitializedDelegate(Item interactiveObject);
         public event InitializedDelegate Initialized;
-#endif
 
-        [Serializable]
-        public class CustomReference
-        {
-            public string name;
-            public Transform transform;
-        }
-
-#if FULLGAME
         public List<ValueDropdownItem<string>> GetAllItemID()
         {
             return Catalog.current.GetDropdownAllID(Catalog.Category.Item);
