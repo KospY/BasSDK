@@ -14,6 +14,7 @@ namespace BS
         private static Dictionary<string, bool> dropDownModDirSelect = new Dictionary<string, bool>();
         List<string> bundleNames;
         List<AssetBundleBuild> assetBundleBuilds;
+        BuildAssetBundleOptions buildAssetBundleOptions;
         string assetBundleDirectory = "Assets/AssetBundles";
         string githubLink = "https://github.com/KospY/BasSDK";
         public static bool exportToModFolders;
@@ -130,7 +131,6 @@ namespace BS
                             }
                         }
                     }
-
                 }
                 catch (Exception)
                 {
@@ -145,6 +145,8 @@ namespace BS
             }
 
             GUILayout.Space(10);
+
+            buildAssetBundleOptions = (BuildAssetBundleOptions)EditorGUILayout.EnumPopup("Option", buildAssetBundleOptions);
 
             exportToModFolders = GUILayout.Toggle(exportToModFolders, "Export asset bundles to their respective Mod folders.");
             if (exportToModFolders != EditorPrefs.GetBool("exportToModFolders"))
@@ -206,7 +208,7 @@ namespace BS
                 }
             }
 
-            BuildPipeline.BuildAssetBundles(assetBundleDirectory, assetBundleBuilds.ToArray(), BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows);
+            BuildPipeline.BuildAssetBundles(assetBundleDirectory, assetBundleBuilds.ToArray(), buildAssetBundleOptions, BuildTarget.StandaloneWindows);
 
             bundleNames = new List<string>(AssetDatabase.GetAllAssetBundleNames());
 
