@@ -19,8 +19,10 @@ namespace BS
 #if FULLGAME
         protected void Awake()
         {
-            AudioSource audioSource = this.GetComponent<AudioSource>();
-            audioSource.outputAudioMixerGroup = GameManager.local.audioMixer.FindMatchingGroups(audioMixer.ToString())[0];
+            foreach (AudioSource audioSource in this.GetComponents<AudioSource>())
+            {
+                audioSource.outputAudioMixerGroup = GameManager.local.audioMixer.FindMatchingGroups(audioMixer.ToString())[0];
+            }
         }
 #endif
     }
