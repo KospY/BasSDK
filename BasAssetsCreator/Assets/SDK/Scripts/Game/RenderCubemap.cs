@@ -22,19 +22,12 @@ public class RenderCubemap : MonoBehaviour
         Cubemap cubemap = new Cubemap(size, defaultFormat, textureCreationFlags);
         Camera cam = this.gameObject.AddComponent<Camera>();
         cam.RenderToCubemap(cubemap);  
-        Material material = new Material(Shader.Find("Reflective/Rotated Specular"));
-        material.SetTexture("_Cube", cubemap);
-        material.SetColor("_Color", Color.black);
         string cubemapPath = this.gameObject.scene.path.Replace(".unity", ".cubemap");
-        string materialPath = this.gameObject.scene.path.Replace(".unity", ".mat");
         AssetDatabase.CreateAsset(cubemap, cubemapPath);
-        AssetDatabase.CreateAsset(material, materialPath);
         AssetImporter.GetAtPath(cubemapPath).SetAssetBundleNameAndVariant(assetBundleName, "");
-        AssetImporter.GetAtPath(materialPath).SetAssetBundleNameAndVariant(assetBundleName, "");
         DestroyImmediate(cam);
         EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         Debug.Log("Cubemap created in " + cubemapPath);
-        Debug.Log("Material created in " + materialPath);
     }
 }
 #endif
