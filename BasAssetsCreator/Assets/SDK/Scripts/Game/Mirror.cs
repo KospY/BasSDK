@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.XR;
 
 namespace BS
 {
@@ -8,17 +7,19 @@ namespace BS
         public ReflectionDirection reflectionDirection = ReflectionDirection.Up;
         [Range(0, 1)]
         public float quality = 1;
+        [Range(0, 1)]
+        public float Intensity = 1f;
+        public bool reflectionWithoutGI = true;
         public int maximumPerPixelLights = 2;
         public Color backgroundColor = Color.black;
         public LayerMask cullingMask = ~0;
         public Collider workingArea;
-        public GameObject mirrorMesh;
+        public MeshRenderer mirrorMesh;
         public MeshRenderer meshToHide;
 
         private Vector3 reflectionLocalDirection;
         private Vector3 reflectionWorldDirection;
         private Camera reflectionCamera;
-        private Material material;
         private RenderTexture leftEyeRenderTexture;
         private RenderTexture rightEyeRenderTexture;
 
