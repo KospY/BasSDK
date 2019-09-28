@@ -12,7 +12,7 @@ namespace BS
         public static Dictionary<string, bool> exportBundle = new Dictionary<string, bool>();
         public static Dictionary<string, string> modExportDirectories = new Dictionary<string, string>();
         private static Dictionary<string, bool> dropDownModDirSelect = new Dictionary<string, bool>();
-        List<string> bundleNames;
+        static List<string> bundleNames;
         List<AssetBundleBuild> assetBundleBuilds;
         BuildAssetBundleOptions buildAssetBundleOptions;
         string assetBundleDirectory = "Assets/AssetBundles";
@@ -58,13 +58,13 @@ namespace BS
         private void OnGUI()
         {
             UnityWebRequest github = new UnityWebRequest(githubLink);
-            
+
             GUILayout.Space(10);
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
             scroll0 = GUILayout.BeginScrollView(scroll0); //SCROLL 0 START
 
             AssetBuilderMenu();
-            
+
             GUILayout.EndScrollView(); //SCROLL 0 END
             GUILayout.Space(10);
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
@@ -183,7 +183,7 @@ namespace BS
             {
                 foreach (FileInfo file in dir.GetFiles("*.*"))
                 {
-                    if (file.Extension != ".bundle" || exportBundle[bundle])
+                    if ((file.Extension != ".assets" && file.Extension != ".maps") || exportBundle[bundle])
                     {
                         file.Delete();
                     }
@@ -216,12 +216,21 @@ namespace BS
             {
                 if (bundleNames.Contains(file.Name))
                 {
-                    file.MoveTo(file.FullName + ".bundle");
-                    if (modExportDirectories[file.Name.Substring(0, file.Name.Length - 7)].Length > 1)
+                    string ext = ".assets";
+                    foreach (string asset in AssetDatabase.GetAssetPathsFromAssetBundle(file.Name))
+                    {
+                        if (Path.GetExtension(asset).ToLower() == ".unity")
+                        {
+                            ext = ".maps";
+                            break;
+                        }
+                    }
+                    file.MoveTo(file.FullName + ext);
+                    if (modExportDirectories[Path.GetFileNameWithoutExtension(file.Name)].Length > 1)
                     {
                         if (exportToModFolders && modExportDirectories.ContainsKey(file.Name.Substring(0, file.Name.Length - 7)))
                         {
-                            file.CopyTo(modExportDirectories[file.Name.Substring(0, file.Name.Length - 7)] + "/" + file.Name, true);
+                            file.CopyTo(modExportDirectories[Path.GetFileNameWithoutExtension(file.Name)] + "/" + file.Name, true);
                             msgEnd = " and copied into mod folders";
                         }
                     }
@@ -230,7 +239,7 @@ namespace BS
                         msgEnd = ". Could not copy to mod folders";
                     }
                 }
-                else if (file.Extension != ".bundle")
+                else if (file.Extension != ".assets" && file.Extension != ".maps")
                 {
                     file.Delete();
                 }
@@ -361,7 +370,7 @@ namespace BS
                     GUILayout.BeginVertical();
                     GUILayout.BeginHorizontal();
                     GUILayout.Label("Currently editing " + selectedModDirectory.Substring(selectedModDirectory.LastIndexOf('\\') + 1, selectedModDirectory.Length - selectedModDirectory.LastIndexOf('\\') - 1));
-                    
+
                     if (GUILayout.Button("Back"))
                     {
                         selectedModDirectory = "";
@@ -393,7 +402,7 @@ namespace BS
                         scroll3 = GUILayout.BeginScrollView(scroll3); //SCROLL 3 START
 
                         GUILayout.Space(10);
-                        
+
                         //Display mod items
                         if (hasManifest)
                         {
@@ -411,7 +420,7 @@ namespace BS
                             {
                                 openJson = "";
                                 EditorWindow.GetWindow<JsonBuilder>("Item JSON Builder");
-                                
+
                             }
                             GUILayout.FlexibleSpace();
                             GUILayout.EndHorizontal();
@@ -470,7 +479,7 @@ namespace BS
 
         private void ModConfigOptions(FileInfo file)
         {
-            if (file.Extension == ".json" && file.Name != "manifest.json" && file.Name.Substring(0,5) == "Item_")
+            if (file.Extension == ".json" && file.Name != "manifest.json" && file.Name.Substring(0, 5) == "Item_")
             {
                 string ObjectKey = selectedModDirectory.Substring(selectedModDirectory.LastIndexOf('\\') + 1, selectedModDirectory.Length - selectedModDirectory.LastIndexOf('\\') - 1) + "-" + file.Name;
                 ModObject[ObjectKey] = (GameObject)AssetDatabase.LoadAssetAtPath(EditorPrefs.GetString("Object" + ObjectKey), typeof(GameObject));
@@ -515,7 +524,7 @@ namespace BS
                     {
                         openJson = file.FullName;
                         JsonBuilder.prefabKey = ObjectKey;
-                        EditorWindow.GetWindow<JsonBuilder>("Item JSON Builder");  
+                        EditorWindow.GetWindow<JsonBuilder>("Item JSON Builder");
                     }
                     GUI.enabled = true;
                 }
