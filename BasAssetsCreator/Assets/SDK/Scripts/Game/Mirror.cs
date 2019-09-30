@@ -10,7 +10,6 @@ namespace BS
         [Range(0, 1)]
         public float Intensity = 1f;
         public bool reflectionWithoutGI = true;
-        public int maximumPerPixelLights = 2;
         public Color backgroundColor = Color.black;
         public LayerMask cullingMask = ~0;
         public Collider workingArea;
