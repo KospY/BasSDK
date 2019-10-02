@@ -219,9 +219,15 @@ namespace BS
                     string ext = ".assets";
                     foreach (string asset in AssetDatabase.GetAssetPathsFromAssetBundle(file.Name))
                     {
-                        if (Path.GetExtension(asset).ToLower() == ".unity")
+                        Type assetType = AssetDatabase.GetMainAssetTypeAtPath(asset);
+                        if (assetType == typeof(SceneAsset))
                         {
                             ext = ".maps";
+                            break;
+                        }
+                        else if (assetType.FullName == "UMA.RaceData" || assetType.FullName == "UMA.SlotDataAsset" || assetType.FullName == "UMA.OverlayDataAsset")
+                        {
+                            ext = ".uma";
                             break;
                         }
                     }
