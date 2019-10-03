@@ -128,9 +128,9 @@ namespace BS
         public void CalculateReach()
         {
             float farthestDamagerDist = 0;
-            foreach (ColliderGroup colliderGroup in this.GetComponentInParent<ItemDefinition>().colliderGroups)
+            foreach (ColliderGroup colliderGroup in this.GetComponentInParent<ItemDefinition>().GetComponentsInChildren<ColliderGroup>())
             {
-                foreach (Collider collider in colliderGroup.colliders)
+                foreach (Collider collider in colliderGroup.GetComponentsInChildren<Collider>())
                 {
                     Vector3 farthestPoint = collider.ClosestPointOnBounds(this.transform.position + (this.transform.up.normalized * 10));
                     float dist = this.transform.InverseTransformPoint(farthestPoint).y;
@@ -148,8 +148,6 @@ namespace BS
             Matrix4x4[] posMatrix = new Matrix4x4[1];
             posMatrix[0] = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one);
 
-            Gizmos.color = Common.HueColourValue(HueColorNames.Yellow);
-            Gizmos.DrawWireSphere(this.transform.position, reach);
             base.OnDrawGizmosSelected();
             foreach (Orientation orientation in allowedOrientations)
             {

@@ -8,12 +8,12 @@ namespace BS
 
         public Vector3 GetLineStart()
         {
-            return this.transform.rotation * new Vector3(0, length / 2, 0) + this.transform.position;
+            return this.transform.position + (this.transform.up * length);
         }
 
         public Vector3 GetLineEnd()
         {
-            return this.transform.rotation * new Vector3(0, -length / 2, 0) + this.transform.position;
+            return this.transform.position + (-this.transform.up * length);
         }
 
         void OnDrawGizmosSelected()
