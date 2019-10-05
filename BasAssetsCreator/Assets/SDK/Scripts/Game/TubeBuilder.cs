@@ -86,7 +86,7 @@ namespace BS
             tube.transform.rotation = Quaternion.FromToRotation(tube.transform.TransformDirection(Vector3.up), target.position - this.transform.position) * tube.transform.rotation;
             float distance = Vector3.Distance(this.transform.position, target.position);
             tube.transform.localScale = new Vector3(radius, distance / 2, radius);
-            block.SetVector("_MainTex_ST", new Vector4(1, distance * tilingOffset, 0, 0));
+            block.SetVector("_BaseMap_ST", new Vector4(1, distance * tilingOffset, 0, 0));
             tube.SetPropertyBlock(block);
         }
 
