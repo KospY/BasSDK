@@ -11,7 +11,7 @@ public class RenderCubemap : MonoBehaviour
 #if UNITY_EDITOR
     public string assetBundleName;
     public int size = 128;
-    public UnityEngine.Experimental.Rendering.DefaultFormat defaultFormat = UnityEngine.Experimental.Rendering.DefaultFormat.HDR;
+    public UnityEngine.Experimental.Rendering.DefaultFormat defaultFormat = UnityEngine.Experimental.Rendering.DefaultFormat.LDR;
     public UnityEngine.Experimental.Rendering.TextureCreationFlags textureCreationFlags = UnityEngine.Experimental.Rendering.TextureCreationFlags.None;
 
     void OnValidate()
