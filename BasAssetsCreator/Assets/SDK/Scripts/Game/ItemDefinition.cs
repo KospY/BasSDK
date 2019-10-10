@@ -1,20 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-
-#if FULLGAME
-using Sirenix.OdinInspector;
-#endif
 
 namespace BS
 {
     [RequireComponent(typeof(Rigidbody))]
     public class ItemDefinition : MonoBehaviour
     {
-#if FULLGAME
-        [ValueDropdown("GetAllItemID")]
-#endif
         public string itemId;
         public Transform holderPoint;
         public Transform parryPoint;
@@ -22,6 +14,8 @@ namespace BS
         public HandleDefinition mainHandleLeft;
         public Transform flyDirRef;
         public Preview preview;
+        public bool useCustomCenterOfMass;
+        public Vector3 customCenterOfMass;
         public List<CustomReference> customReferences;
         public bool initialized { get; protected set; }
 
@@ -31,17 +25,6 @@ namespace BS
         public List<ColliderGroup> colliderGroups;
         [NonSerialized]
         public List<WhooshPoint> whooshPoints;
-
-
-#if FULLGAME
-        public delegate void InitializedDelegate(Item interactiveObject);
-        public event InitializedDelegate Initialized;
-
-        public List<ValueDropdownItem<string>> GetAllItemID()
-        {
-            return Catalog.current.GetDropdownAllID(Catalog.Category.Item);
-        }
-#endif
 
         public Transform GetCustomReference(string name)
         {
@@ -111,42 +94,15 @@ namespace BS
             {
                 mainHandleRight = this.GetComponentInChildren<HandleDefinition>();
             }
-        }
-
-#if FULLGAME
-        protected virtual void Awake()
-        {
-            renderers = new List<Renderer>(this.GetComponentsInChildren<Renderer>());
-            colliderGroups = new List<ColliderGroup>(this.GetComponentsInChildren<ColliderGroup>());
-            whooshPoints = new List<WhooshPoint>(this.GetComponentsInChildren<WhooshPoint>());
-        }
-
-        protected virtual void Start()
-        {
-            Init();
-        }
-
-        public virtual void Init()
-        {
-            if (!initialized && itemId != null && itemId != "" && itemId != "None")
+            if (useCustomCenterOfMass)
             {
-                Init(Catalog.current.GetData<ItemData>(itemId));
+                this.GetComponent<Rigidbody>().centerOfMass = customCenterOfMass;
+            }
+            else
+            {
+                this.GetComponent<Rigidbody>().ResetCenterOfMass();
             }
         }
-
-        public virtual Item Init(ItemData item)
-        { 
-            foreach (Item existingInteractiveObject in this.gameObject.GetComponents<Item>())
-            {
-                Destroy(existingInteractiveObject);
-            }
-            itemId = item.id;
-            initialized = true;
-            Item interactiveObject = item.CreateComponent(this.gameObject);
-            if (Initialized != null) Initialized.Invoke(interactiveObject);
-            return interactiveObject;
-        }
-#endif
 
         public static void DrawGizmoArrow(Vector3 pos, Vector3 direction, Vector3 upwards, Color color, float arrowHeadLength = 0.25f, float arrowHeadAngle = 20.0f)
         {
