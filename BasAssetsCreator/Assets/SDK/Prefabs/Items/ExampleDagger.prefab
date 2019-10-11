@@ -78,6 +78,8 @@ MonoBehaviour:
   mainHandleLeft: {fileID: 2788871644850521738}
   flyDirRef: {fileID: 4091382490106716}
   preview: {fileID: 6711182766296545077}
+  useCustomCenterOfMass: 0
+  customCenterOfMass: {x: 0, y: 0, z: 0}
   customReferences: []
 --- !u!1 &1239028543505822
 GameObject:
@@ -345,6 +347,7 @@ GameObject:
   - component: {fileID: 4366126420142432}
   - component: {fileID: 33079940209544448}
   - component: {fileID: 23570145205765366}
+  - component: {fileID: 5908585402032585260}
   m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
@@ -399,6 +402,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -411,6 +415,26 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &5908585402032585260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847237227098372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de48b3ae3f24015409da8220791b80c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shaderProperty: _BaseMap
+  radius: 0.1
+  depth: 1
+  opacity: 1
+  hardness: 1
+  normalFront: 0.2
+  normalBack: 0
+  normalFade: 0.01
 --- !u!1 &1887614722461326
 GameObject:
   m_ObjectHideFlags: 0

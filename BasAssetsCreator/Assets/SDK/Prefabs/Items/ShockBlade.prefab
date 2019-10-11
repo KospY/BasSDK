@@ -286,6 +286,7 @@ GameObject:
   - component: {fileID: 7974564761699966716}
   - component: {fileID: 7985872498212976184}
   - component: {fileID: 7995977883412302022}
+  - component: {fileID: 5200923321188467519}
   m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
@@ -340,6 +341,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -352,6 +354,26 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &5200923321188467519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7971399114216786912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de48b3ae3f24015409da8220791b80c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shaderProperty: _BaseMap
+  radius: 0.1
+  depth: 1
+  opacity: 1
+  hardness: 1
+  normalFront: 0.2
+  normalBack: 0
+  normalFade: 0.01
 --- !u!1 &7971414900314310644
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,6 +802,8 @@ MonoBehaviour:
   mainHandleLeft: {fileID: 725023219857694453}
   flyDirRef: {fileID: 7977285461457039812}
   preview: {fileID: 272054009186479997}
+  useCustomCenterOfMass: 0
+  customCenterOfMass: {x: 0, y: 0, z: 0}
   customReferences: []
 --- !u!54 &8767792618520088711
 Rigidbody:
