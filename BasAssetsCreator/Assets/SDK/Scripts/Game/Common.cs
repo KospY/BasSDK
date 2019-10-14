@@ -35,16 +35,6 @@ namespace BS
         Music,
     }
 
-    public enum Team
-    {
-        None,
-        Ignore,
-        Player,
-        Bandits,
-        Cult,
-        Mercenary,
-    }
-
     [Serializable]
     public class CustomReference
     {

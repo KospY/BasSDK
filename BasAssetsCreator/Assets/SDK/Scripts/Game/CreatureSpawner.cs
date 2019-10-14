@@ -8,7 +8,7 @@ namespace BS
         public string creatureId;
         public string containerID;
         public string brainId;
-        public Team team;
+        public int factionId;
 
         public bool pooled;
         public bool spawnOnStart = true;
