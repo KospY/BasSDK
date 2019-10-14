@@ -63,11 +63,11 @@ namespace BS
 
             foreach (Collider collider in item.GetComponentsInChildren<Collider>())
             {
-                if (!collider.sharedMaterial)
+                if (!collider.sharedMaterial && collider != item.customInertiaTensorCollider)
                 {
                     EditorGUILayout.HelpBox("Collider " + collider.name + " is missing a physics material and will not make sounds nor decals on impact.", MessageType.Warning);
                 }
-                if (!collider.GetComponentInParent<ColliderGroup>())
+                if (!collider.GetComponentInParent<ColliderGroup>() && collider != item.customInertiaTensorCollider)
                 {
                     EditorGUILayout.HelpBox("Collider " + collider.name + " do not have any Collider Group on parent.", MessageType.Warning);
                 }

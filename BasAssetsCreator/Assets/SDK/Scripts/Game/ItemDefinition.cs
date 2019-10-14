@@ -16,8 +16,10 @@ namespace BS
         public Preview preview;
         public bool useCustomCenterOfMass;
         public Vector3 customCenterOfMass;
+        public bool customInertiaTensor;
+        public CapsuleCollider customInertiaTensorCollider;
         public List<CustomReference> customReferences;
-        public bool initialized { get; protected set; }
+    
 
         [NonSerialized]
         public List<Renderer> renderers;
@@ -25,20 +27,6 @@ namespace BS
         public List<ColliderGroup> colliderGroups;
         [NonSerialized]
         public List<WhooshPoint> whooshPoints;
-
-        public Transform GetCustomReference(string name)
-        {
-            CustomReference customReference = customReferences.Find(cr => cr.name == name);
-            if (customReference != null)
-            {
-                return customReference.transform;
-            }
-            else
-            {
-                Debug.LogError("[" + itemId + "] Cannot find item definition custom reference " + name);
-                return null;
-            }
-        }
 
         protected virtual void OnValidate()
         {
@@ -67,7 +55,7 @@ namespace BS
             {
                 whoosh.gameObject.AddComponent<WhooshPoint>();
             }
-            
+
             if (!mainHandleRight)
             {
                 foreach (HandleDefinition handleDefinition in this.GetComponentsInChildren<HandleDefinition>())
@@ -101,6 +89,19 @@ namespace BS
             else
             {
                 this.GetComponent<Rigidbody>().ResetCenterOfMass();
+            }
+            if (customInertiaTensor)
+            {
+                if (customInertiaTensorCollider == null)
+                {
+                    customInertiaTensorCollider = new GameObject("InertiaTensorCollider").AddComponent<CapsuleCollider>();
+                    customInertiaTensorCollider.transform.SetParent(this.transform, false);
+                    customInertiaTensorCollider.radius = 0.05f;
+                    customInertiaTensorCollider.direction = 2;
+                }
+                customInertiaTensorCollider.enabled = false;
+                customInertiaTensorCollider.isTrigger = true;
+                customInertiaTensorCollider.gameObject.layer = 2;
             }
         }
 
