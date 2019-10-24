@@ -22,6 +22,10 @@ namespace BS
             [Header("Color")]
             public bool mainColor;
             public bool secondaryColor;
+            [Header("Color Parameter To Change")]
+            public bool startColor;
+            public bool emissionColor;
+            public bool baseMapColor;
             [Header("Intensity to duration (0 = disabled)")]
             public float minDuration;
             public float maxDuration;
@@ -33,14 +37,24 @@ namespace BS
             public float minSpeed;
             public float maxSpeed;
             public float randomRangeSpeed;
+            [Header("Intensity to size (0 = disabled)")]
+            public float minSize;
+            public float maxSize;
+            public Vector2 maxRandomConstantSizes;
             [Header("Intensity to emission rate (0 = disabled)")]
             public float minRate;
             public float maxRate;
             public float randomRangeRate;
+            [Header("Intensity to shape radius (0 = disabled)")]
+            public float minShapeRadius;
+            public float maxShapeRadius;
             [Header("Intensity to speed (0 = disabled)")]
             public short minBurst;
             public short maxBurst;
             public short randomRangeBurst;
+            [Header("Intensity to light intensity (0 = disabled)")]
+            public float minLightIntensity;
+            public float maxLightIntensity;
             [Header("Mesh")]
             public bool mesh;
             [Header("Spawn on collision")]
@@ -105,6 +119,22 @@ namespace BS
                     minMaxCurve.constantMax = speed + p.randomRangeSpeed;
                     mainModule.startSpeed = minMaxCurve;
                 }
+                if (p.maxSize > 0)
+                {
+                    mainModule.startSize = Mathf.Lerp(p.minSize, p.maxSize, value);
+                }
+                else if (Vector3.SqrMagnitude (p.maxRandomConstantSizes) > 0)
+                {
+                    minMaxCurve.mode = ParticleSystemCurveMode.TwoConstants;
+                    minMaxCurve.constantMin = Mathf.Lerp(p.minSize, p.maxRandomConstantSizes.x, value);
+                    minMaxCurve.constantMax = Mathf.Lerp(p.minSize, p.maxRandomConstantSizes.y, value);
+                    mainModule.startSize = minMaxCurve;
+                }
+                if (p.maxShapeRadius > 0)
+                {
+                    var shape = p.particleSystem.shape;
+                    shape.radius = Mathf.Lerp(p.minShapeRadius, p.maxShapeRadius, value);
+                }
                 if (p.maxRate > 0)
                 {
                     minMaxCurve.mode = ParticleSystemCurveMode.TwoConstants;
@@ -121,6 +151,11 @@ namespace BS
                     particleBurst.minCount = (short)(burst - p.randomRangeBurst);
                     particleBurst.maxCount = (short)(burst + p.randomRangeBurst);
                     p.particleSystem.emission.SetBurst(0, particleBurst);
+                }
+                if (p.maxLightIntensity > 0)
+                {
+                    var lights = p.particleSystem.lights;
+                    lights.intensityMultiplier = Mathf.Lerp(p.minLightIntensity, p.maxLightIntensity, value);
                 }
             }
         }
@@ -142,14 +177,19 @@ namespace BS
             foreach (ParticleInfo p in particles)
             {
                 ParticleSystem.MainModule mainModule = p.particleSystem.main;
+                Color finalColor = new Color();
+
                 if (p.mainColor)
-                {
-                    mainModule.startColor = mainColor;
-                }
+                    finalColor = mainColor;
                 else if (p.secondaryColor)
-                {
-                    mainModule.startColor = secondaryColor;
-                }
+                    finalColor = secondaryColor;
+
+                if (p.startColor)
+                    mainModule.startColor = finalColor;
+                else if (p.emissionColor)
+                    p.particleSystem.GetComponent<Renderer>().sharedMaterial.SetColor("_EmissionColor", finalColor);
+                else if (p.baseMapColor)
+                    p.particleSystem.GetComponent<Renderer>().sharedMaterial.SetColor("_BaseMap", finalColor);
             }
         }
 
