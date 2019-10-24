@@ -189,7 +189,7 @@ namespace BS
                 else if (p.emissionColor)
                     p.particleSystem.GetComponent<Renderer>().sharedMaterial.SetColor("_EmissionColor", finalColor);
                 else if (p.baseMapColor)
-                    p.particleSystem.GetComponent<Renderer>().sharedMaterial.SetColor("_BaseMap", finalColor);
+                    p.particleSystem.GetComponent<Renderer>().sharedMaterial.SetColor("_BaseColor", finalColor);
             }
         }
 
