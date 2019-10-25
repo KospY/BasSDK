@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BS
 {
-    public class ParticleController : MonoBehaviour
+    public class EffectParticle : Effect
     {
         public List<ParticleInfo> particles = new List<ParticleInfo>();
 
@@ -26,41 +26,41 @@ namespace BS
             public bool startColor;
             public bool emissionColor;
             public bool baseMapColor;
-            [Header("Intensity to duration (0 = disabled)")]
-            public float minDuration;
-            public float maxDuration;
-            [Header("Intensity to lifetime (0 = disabled)")]
-            public float minLifeTime;
-            public float maxLifeTime;
+            [Header("Intensity to duration")]
+            public bool duration;
+            public AnimationCurve curveDuration;
+            [Header("Intensity to lifetime")]
+            public bool lifeTime;
+            public AnimationCurve curveLifeTime;
             public float randomRangeLifeTime;
-            [Header("Intensity to speed (0 = disabled)")]
-            public float minSpeed;
-            public float maxSpeed;
+            [Header("Intensity to speed")]
+            public bool speed;
+            public AnimationCurve curveSpeed;
             public float randomRangeSpeed;
-            [Header("Intensity to size (0 = disabled)")]
-            public float minSize;
-            public float maxSize;
-            public Vector2 maxRandomConstantSizes;
-            [Header("Intensity to emission rate (0 = disabled)")]
-            public float minRate;
-            public float maxRate;
+            [Header("Intensity to size")]
+            public bool size;
+            public AnimationCurve curveSize;
+            public float randomRangeSize;
+            [Header("Intensity to emission rate")]
+            public bool rate;
+            public AnimationCurve curveRate;
             public float randomRangeRate;
-            [Header("Intensity to shape radius (0 = disabled)")]
-            public float minShapeRadius;
-            public float maxShapeRadius;
-            [Header("Intensity to speed (0 = disabled)")]
-            public short minBurst;
-            public short maxBurst;
+            [Header("Intensity to shape radius")]
+            public bool shapeRadius;
+            public AnimationCurve curveShapeRadius;
+            [Header("Intensity to speed")]
+            public bool burst;
+            public AnimationCurve curveBurst;
             public short randomRangeBurst;
-            [Header("Intensity to light intensity (0 = disabled)")]
-            public float minLightIntensity;
-            public float maxLightIntensity;
+            [Header("Intensity to light intensity")]
+            public bool lightIntensity;
+            public AnimationCurve curveLightIntensity;
             [Header("Mesh")]
             public bool mesh;
             [Header("Spawn on collision")]
             public string spawnEffectId;
             public LayerMask spawnLayerMask = ~0;
-            public float SpawnMaxGroundAngle = 45;
+            public float spawnMaxGroundAngle = 45;
             public float spawnEmitRate = 0.1f;
             public float spawnMinIntensity;
             public float spawnMaxIntensity;
@@ -82,85 +82,82 @@ namespace BS
             }
         }
 
-        public virtual void Play()
+        public override void Play()
         {
             rootParticleSystem.Play();
         }
 
-        public virtual void Stop()
+        public override void Stop()
         {
             rootParticleSystem.Stop();
         }
 
-        public virtual void SetIntensity(float value)
+        public override void SetIntensity(float value)
         {
             foreach (ParticleInfo p in particles)
             {
                 if (!p.particleSystem) continue;
                 ParticleSystem.MainModule mainModule = p.particleSystem.main;
 
-                if (p.maxDuration > 0 && !p.particleSystem.isPlaying)
+                if (p.duration && !p.particleSystem.isPlaying)
                 {
-                    mainModule.duration = Mathf.Lerp(p.minDuration, p.maxDuration, value);
+                    mainModule.duration = p.curveDuration.Evaluate(value);
                 }
-                if (p.maxLifeTime > 0)
+                if (p.lifeTime)
                 {
                     minMaxCurve.mode = ParticleSystemCurveMode.TwoConstants;
-                    float lifeTime = Mathf.Lerp(p.minLifeTime, p.maxLifeTime, value);
-                    minMaxCurve.constantMin = lifeTime - p.randomRangeLifeTime;
-                    minMaxCurve.constantMax = lifeTime + p.randomRangeLifeTime;
+                    float lifeTime = p.curveLifeTime.Evaluate(value);
+                    minMaxCurve.constantMin = Mathf.Clamp(lifeTime - p.randomRangeLifeTime, 0, Mathf.Infinity);
+                    minMaxCurve.constantMax = Mathf.Clamp(lifeTime, 0, Mathf.Infinity);
                     mainModule.startLifetime = minMaxCurve;
                 }
-                if (p.maxSpeed > 0)
+                if (p.speed)
                 {
                     minMaxCurve.mode = ParticleSystemCurveMode.TwoConstants;
-                    float speed = Mathf.Lerp(p.minSpeed, p.maxSpeed, value);
+                    float speed = p.curveSpeed.Evaluate(value);
                     minMaxCurve.constantMin = speed - p.randomRangeSpeed;
-                    minMaxCurve.constantMax = speed + p.randomRangeSpeed;
+                    minMaxCurve.constantMax = speed;
                     mainModule.startSpeed = minMaxCurve;
                 }
-                if (p.maxSize > 0)
-                {
-                    mainModule.startSize = Mathf.Lerp(p.minSize, p.maxSize, value);
-                }
-                else if (Vector3.SqrMagnitude (p.maxRandomConstantSizes) > 0)
+                if (p.size)
                 {
                     minMaxCurve.mode = ParticleSystemCurveMode.TwoConstants;
-                    minMaxCurve.constantMin = Mathf.Lerp(p.minSize, p.maxRandomConstantSizes.x, value);
-                    minMaxCurve.constantMax = Mathf.Lerp(p.minSize, p.maxRandomConstantSizes.y, value);
+                    float size = p.curveSize.Evaluate(value);
+                    minMaxCurve.constantMin = Mathf.Clamp(size - p.randomRangeSize, 0, Mathf.Infinity);
+                    minMaxCurve.constantMax = Mathf.Clamp(size, 0, Mathf.Infinity);
                     mainModule.startSize = minMaxCurve;
                 }
-                if (p.maxShapeRadius > 0)
+                if (p.shapeRadius)
                 {
                     var shape = p.particleSystem.shape;
-                    shape.radius = Mathf.Lerp(p.minShapeRadius, p.maxShapeRadius, value);
+                    shape.radius = p.curveShapeRadius.Evaluate(value);
                 }
-                if (p.maxRate > 0)
+                if (p.rate)
                 {
                     minMaxCurve.mode = ParticleSystemCurveMode.TwoConstants;
-                    float rate = Mathf.Lerp(p.minRate, p.maxRate, value);
-                    minMaxCurve.constantMin = rate - p.randomRangeRate;
-                    minMaxCurve.constantMax = rate + p.randomRangeRate;
+                    float rate = p.curveRate.Evaluate(value);
+                    minMaxCurve.constantMin = Mathf.Clamp(rate - p.randomRangeRate, 0, Mathf.Infinity);
+                    minMaxCurve.constantMax = Mathf.Clamp(rate, 0, Mathf.Infinity);
                     ParticleSystem.EmissionModule particleEmission = p.particleSystem.emission;
                     particleEmission.rateOverTime = minMaxCurve;
                 }
-                if (p.maxBurst > 0)
+                if (p.burst)
                 {
                     particleBurst.time = 0;
-                    short burst = (short)Mathf.Lerp(p.minBurst, p.maxBurst, value);
-                    particleBurst.minCount = (short)(burst - p.randomRangeBurst);
-                    particleBurst.maxCount = (short)(burst + p.randomRangeBurst);
+                    short burst = (short)p.curveBurst.Evaluate(value);
+                    particleBurst.minCount = (short)Mathf.Clamp(burst - p.randomRangeBurst, 0, Mathf.Infinity);
+                    particleBurst.maxCount = (short)Mathf.Clamp(burst, 0, Mathf.Infinity);
                     p.particleSystem.emission.SetBurst(0, particleBurst);
                 }
-                if (p.maxLightIntensity > 0)
+                if (p.lightIntensity)
                 {
                     var lights = p.particleSystem.lights;
-                    lights.intensityMultiplier = Mathf.Lerp(p.minLightIntensity, p.maxLightIntensity, value);
+                    lights.intensityMultiplier = p.curveLightIntensity.Evaluate(value);
                 }
             }
         }
 
-        public virtual void SetColor(Color mainColor)
+        public override void SetColor(Color mainColor)
         {
             foreach (ParticleInfo p in particles)
             {
@@ -172,7 +169,7 @@ namespace BS
             }
         }
 
-        public virtual void SetColor(Color mainColor, Color secondaryColor)
+        public override void SetColor(Color mainColor, Color secondaryColor)
         {
             foreach (ParticleInfo p in particles)
             {
@@ -193,7 +190,7 @@ namespace BS
             }
         }
 
-        public virtual void SetTarget(Transform transform)
+        public override void SetTarget(Transform transform)
         {
             foreach (ParticleInfo p in particles)
             {
@@ -201,7 +198,7 @@ namespace BS
             }
         }
 
-        public virtual void SetMesh(Mesh mesh)
+        public override void SetMesh(Mesh mesh)
         {
             foreach (ParticleInfo p in particles)
             {
@@ -211,6 +208,20 @@ namespace BS
                     shapeModule.mesh = mesh;
                 }
             }
+        }
+
+        public override void Despawn()
+        {
+#if FULLGAME
+            foreach (ParticleInfo p in particles)
+            {
+                p.particleSystem.Stop();
+            }
+            EffectInstance orgEffectInstance = effectInstance;
+            effectInstance = null;
+            //EffectModuleParticle.Despawn(this);
+            orgEffectInstance.OnEffectDespawn();
+#endif
         }
     }
 }

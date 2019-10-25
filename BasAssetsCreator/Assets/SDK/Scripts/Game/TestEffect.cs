@@ -21,13 +21,13 @@ namespace BS
         public Mesh mesh;
 
         protected ParticleSystem rootParticleSystem;
-        protected List<ParticleController> particleControllers = new List<ParticleController>();
+        protected List<EffectParticle> particleControllers = new List<EffectParticle>();
         protected List<VisualEffect> visualEffects = new List<VisualEffect>();
         protected List<LightController> lightControllers = new List<LightController>();
 
         private void OnValidate()
         {
-            particleControllers = new List<ParticleController>(this.GetComponentsInChildren<ParticleController>());
+            particleControllers = new List<EffectParticle>(this.GetComponentsInChildren<EffectParticle>());
             visualEffects = new List<VisualEffect>(this.GetComponentsInChildren<VisualEffect>());
             lightControllers = new List<LightController>(this.GetComponentsInChildren<LightController>());
             rootParticleSystem = this.GetComponent<ParticleSystem>();
@@ -41,7 +41,7 @@ namespace BS
                 rootParticleSystem.GetComponent<ParticleSystemRenderer>().enabled = false;
             }
 
-            foreach (ParticleController p in particleControllers)
+            foreach (EffectParticle p in particleControllers)
             {
                 p.SetIntensity(intensity);
                 p.SetColor(mainColor, secondaryColor);
