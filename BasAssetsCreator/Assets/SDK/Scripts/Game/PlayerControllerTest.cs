@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.XR;
 
-public class TestPlayer : MonoBehaviour
+public class PlayerControllerTest : MonoBehaviour
 {
     CharacterController characterController;
     public Transform head;
