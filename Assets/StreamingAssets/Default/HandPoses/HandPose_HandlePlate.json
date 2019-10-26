@@ -1,0 +1,23 @@
+{
+  "$type": "BS.HandPoseData, Assembly-CSharp",
+  "id": "HandlePlate",
+  "version": 2,
+  "allowThumbTracking": false,
+  "allowIndexTracking": false,
+  "allowMiddleTracking": true,
+  "allowRingTracking": true,
+  "allowPinkyTracking": true,
+  "indexNoTrigger": false,
+  "poses": [
+    {
+      "creatureType": 0,
+      "umaRace": "HumanMaleRogue",
+      "prefabPath": "HumanMalePlate"
+    },
+    {
+      "creatureType": 0,
+      "umaRace": "HumanFemaleRogue",
+      "prefabPath": "HumanFemalePlate"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "$type": "BS.CollisionData, Assembly-CSharp",
+  "id": "Metal_Metal",
+  "version": 3,
+  "physicMaterials": [
+    "Metal"
+  ],
+  "collidedPhysicMaterials": [
+    "Metal",
+    "Blade_Axe",
+    "Blade_Sword",
+    "Blade_Dagger",
+    "Blade_Hammer",
+    "Blade_Maul"
+  ],
+  "parenting": 0,
+  "align": 0,
+  "rotation": 0,
+  "standAlone": true,
+  "defaultEnterFXId": "HitMetal",
+  "defaultLoopFXId": "",
+  "defaultExitFXId": "",
+  "bluntHitFXId": "HitSwordOnMetal2",
+  "slashHitFXId": "HitSwordOnMetal2",
+  "slashEnterFXId": "",
+  "slashLoopFXId": "",
+  "slashExitFXId": "",
+  "pierceHitFXId": "HitSwordOnMetal2",
+  "pierceEnterFXId": "",
+  "pierceLoopFXId": "",
+  "pierceExitFXId": ""
+}

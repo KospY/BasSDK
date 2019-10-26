@@ -1,0 +1,57 @@
+{
+  "$type": "BS.ItemData, Assembly-CSharp",
+  "id": "LeatherShoulders",
+  "version": 4,
+  "pooledCount": 0,
+  "localizationId": null,
+  "displayName": "LeatherShoulders",
+  "description": null,
+  "author": "Unknown",
+  "price": 0.0,
+  "purchasable": false,
+  "tier": 0,
+  "levelRequired": 0,
+  "slot": 0,
+  "isStackable": false,
+  "category": 1,
+  "storageCategory": "",
+  "prefabName": "",
+  "mass": 1.0,
+  "drag": 1.0,
+  "angularDrag": 1.0,
+  "useGravity": true,
+  "collisionMaxOverride": 0,
+  "collisionEnterOnly": false,
+  "ignoredCollisionRagdollParts": [],
+  "forceLayer": 0,
+  "audioSnapPath": "",
+  "flyFromThrow": false,
+  "flyRotationSpeed": 2.0,
+  "flyThrowAngle": 0.0,
+  "telekinesisSafeDistance": 1.0,
+  "telekinesisSpinEnabled": true,
+  "telekinesisThrowRatio": 1.0,
+  "damageTransfer": 0,
+  "grippable": false,
+  "customSnaps": [],
+  "modules": [
+    {
+      "$type": "BS.ItemModuleApparel, Assembly-CSharp",
+      "armor": 0,
+      "umaSlot": 4,
+      "raceRecipes": [
+        {
+          "race": "HumanMale",
+          "recipe": "M_Leather Shoulders"
+        },
+        {
+          "race": "HumanFemale",
+          "recipe": "F_Leather Shoulders"
+        }
+      ]
+    }
+  ],
+  "damagers": [],
+  "Interactables": [],
+  "whooshs": []
+}

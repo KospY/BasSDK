@@ -1,0 +1,65 @@
+{
+  "$type": "BS.ItemData, Assembly-CSharp",
+  "id": "Quiver1",
+  "version": 4,
+  "pooledCount": 0,
+  "localizationId": "Quiver",
+  "displayName": "Quiver",
+  "description": "Often made of leather, wood or fur, the quiver can hold 12 arrows",
+  "author": "Kupatka",
+  "price": 0.0,
+  "purchasable": true,
+  "tier": 0,
+  "levelRequired": 0,
+  "slot": 4,
+  "isStackable": false,
+  "category": 3,
+  "storageCategory": "Bows",
+  "prefabName": "KupatkaQuiver",
+  "mass": 1.0,
+  "drag": 0.0,
+  "angularDrag": 0.05,
+  "useGravity": true,
+  "collisionMaxOverride": 0,
+  "collisionEnterOnly": false,
+  "ignoredCollisionRagdollParts": [],
+  "forceLayer": 0,
+  "audioSnapPath": "",
+  "flyFromThrow": false,
+  "flyRotationSpeed": 2.0,
+  "flyThrowAngle": 0.0,
+  "telekinesisSafeDistance": 1.0,
+  "telekinesisSpinEnabled": true,
+  "telekinesisThrowRatio": 1.0,
+  "damageTransfer": 0,
+  "grippable": true,
+  "customSnaps": [],
+  "modules": [
+    {
+      "$type": "BS.ItemModuleQuiver, Assembly-CSharp",
+      "quiverProjectileID": "Arrow1",
+      "quiverRespawnDelay": 0
+    }
+  ],
+  "damagers": [
+    {
+      "transformName": "Blunt",
+      "damagerID": "HandleBlunt"
+    }
+  ],
+  "Interactables": [
+    {
+      "transformName": "MainHandle",
+      "interactableId": "ObjectHandleHeavy",
+      "overrideHandPose": true,
+      "handPoseId": "HandleQuiver"
+    },
+    {
+      "transformName": "SideHandle",
+      "interactableId": "ObjectHandleHeavy",
+      "overrideHandPose": true,
+      "handPoseId": "HandleQuiver"
+    }
+  ],
+  "whooshs": []
+}

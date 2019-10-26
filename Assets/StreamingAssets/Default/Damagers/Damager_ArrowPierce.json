@@ -1,0 +1,81 @@
+{
+  "$type": "BS.DamagerData, Assembly-CSharp",
+  "id": "ArrowPierce",
+  "version": 0,
+  "type": 3,
+  "impulseMinMax": {
+    "x": 1.0,
+    "y": 5.0
+  },
+  "damageMinMax": {
+    "x": 5.0,
+    "y": 5.0
+  },
+  "recoilMinMax": {
+    "x": 0.5,
+    "y": 1.0
+  },
+  "maxVerticalAngle": 30.0,
+  "maxHorizontalAngle": 30.0,
+  "hitRagdollDelay": 0.0,
+  "playerDamageMultiplier": 0.5,
+  "throwedMultiplier": 1.0,
+  "badAngleDamageType": 0,
+  "badAngleDamage": 1.0,
+  "badAngleRecoilMultiplier": 0.0,
+  "knockoutOnHit": 0,
+  "knockoutOnThrow": 0,
+  "knockoutMinImpulse": 8.0,
+  "knockoutDurationMinMax": {
+    "x": 1.0,
+    "y": 2.0
+  },
+  "addForce": 150.0,
+  "addForceState": 0,
+  "addForceTargetType": 1,
+  "addForceMode": 5,
+  "addForceDuration": 0.1,
+  "addForceRagdollPartMultiplier": 1.0,
+  "addForceRagdollOtherMultiplier": 0.5,
+  "addForceSlowMoMultiplier": 1.0,
+  "addForceKnockoutOnly": false,
+  "addForceNormalize": false,
+  "penetrationMultiplier": 9.0,
+  "penetrationDamperMultiplier": 4000.0,
+  "penetrationSpring": 0.0,
+  "penetrationVelocityAdd": 0.0,
+  "penetrationDamperCurve": {
+    "keys": [
+      {
+        "time": 0.0,
+        "value": 0.5,
+        "inTangent": 1.43304741,
+        "outTangent": 1.43304741,
+        "inWeight": 0.0,
+        "outWeight": 0.0272479467,
+        "weightedMode": 0,
+        "tangentMode": 0
+      },
+      {
+        "time": 1.0,
+        "value": 0.918095231,
+        "inTangent": 0.935204148,
+        "outTangent": 0.935204148,
+        "inWeight": 0.033606112,
+        "outWeight": 0.0,
+        "weightedMode": 0,
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": 8,
+    "postWrapMode": 8
+  },
+  "penetrationFxExitDelay": 0.0,
+  "penetrationImpactVelocityAdd": 0.0,
+  "penetrationJointMaxForce": 1000.0,
+  "pierceExitOnMaxDepth": false,
+  "drawCutMaxDot": 0.2,
+  "drawCutMultiplier": 1.0,
+  "sliceMultiplier": 1.0
+}

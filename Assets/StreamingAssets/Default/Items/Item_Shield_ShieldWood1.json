@@ -1,0 +1,93 @@
+{
+  "$type": "BS.ItemData, Assembly-CSharp",
+  "id": "ShieldWood1",
+  "version": 4,
+  "pooledCount": 0,
+  "localizationId": "ShieldWood1",
+  "displayName": "Shield",
+  "description": "Small enough to carry but large enough to deflect arrows, the wooden shield provides a good all-around defense",
+  "author": "Kupatka",
+  "price": 35.0,
+  "purchasable": false,
+  "tier": 2,
+  "levelRequired": 0,
+  "slot": 6,
+  "isStackable": false,
+  "category": 7,
+  "storageCategory": "Shields",
+  "prefabName": "KupatkaShield1",
+  "mass": 2.0,
+  "drag": 1.0,
+  "angularDrag": 0.05,
+  "useGravity": true,
+  "collisionMaxOverride": 0,
+  "collisionEnterOnly": false,
+  "ignoredCollisionRagdollParts": [
+    1
+  ],
+  "forceLayer": 0,
+  "audioSnapPath": "",
+  "flyFromThrow": false,
+  "flyRotationSpeed": 2.0,
+  "flyThrowAngle": 0.0,
+  "telekinesisSafeDistance": 1.0,
+  "telekinesisSpinEnabled": false,
+  "telekinesisThrowRatio": 1.0,
+  "damageTransfer": 0,
+  "grippable": true,
+  "customSnaps": [],
+  "modules": [
+    {
+      "$type": "BS.ItemModuleAI, Assembly-CSharp",
+      "weaponClass": 4,
+      "weaponHandling": 1,
+      "parryIgnoreRotation": true,
+      "parryRotation": 180.0,
+      "parryDualRotation": 60.0,
+      "armResistanceMultiplier": 4.0,
+      "parryRevertAngleRange": {
+        "x": -80.0,
+        "y": -180.0
+      },
+      "parryDefaultPosition": {
+        "x": 0.0,
+        "y": -0.2,
+        "z": 0.0
+      },
+      "parryDefaultLeftRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 180.0
+      },
+      "parryDefaultRightRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "allowDynamicHeight": false,
+      "dodgeBehaviour": 1,
+      "defenseHasPriority": true,
+      "attackIgnore": true,
+      "attackForceParryIgnoreRotation": false
+    }
+  ],
+  "damagers": [
+    {
+      "transformName": "BluntMetal",
+      "damagerID": "HandleHeavyBlunt"
+    },
+    {
+      "transformName": "BluntWood",
+      "damagerID": "HandleHeavyBlunt"
+    }
+  ],
+  "Interactables": [
+    {
+      "transformName": "Handle",
+      "interactableId": "ObjectHandleShield",
+      "overrideHandPose": false,
+      "handPoseId": ""
+    }
+  ],
+  "whooshs": []
+}

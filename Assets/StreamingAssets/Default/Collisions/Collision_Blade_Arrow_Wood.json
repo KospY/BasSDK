@@ -1,0 +1,28 @@
+{
+  "$type": "BS.CollisionData, Assembly-CSharp",
+  "id": "Blade_Arrow_Wood",
+  "version": 3,
+  "physicMaterials": [
+    "Arrow"
+  ],
+  "collidedPhysicMaterials": [
+    "Wood",
+    "WoodHard"
+  ],
+  "parenting": 0,
+  "align": 0,
+  "rotation": 0,
+  "standAlone": false,
+  "defaultEnterFXId": "HitArrow",
+  "defaultLoopFXId": "",
+  "defaultExitFXId": "",
+  "bluntHitFXId": "",
+  "slashHitFXId": "",
+  "slashEnterFXId": "",
+  "slashLoopFXId": "",
+  "slashExitFXId": "",
+  "pierceHitFXId": "HitArrowWood",
+  "pierceEnterFXId": "PenWoodEnterSword",
+  "pierceLoopFXId": "PenWoodLoop",
+  "pierceExitFXId": "PenWoodExit"
+}

@@ -1,0 +1,140 @@
+{
+  "$type": "BS.EffectData, Assembly-CSharp",
+  "id": "TestLoop",
+  "version": 0,
+  "modules": [
+    {
+      "$type": "BS.EffectModuleAudio, Assembly-CSharp",
+      "audioContainerPath": "HitSwordOnMetal",
+      "randomPitch": false,
+      "pitchCurve": null,
+      "volumeCurve": null,
+      "loopFadeDelay": 0.0,
+      "audioMixer": 1,
+      "minDistance": 1.0,
+      "maxDistance": 500.0,
+      "step": 0
+    },
+    {
+      "$type": "BS.EffectModuleAudio, Assembly-CSharp",
+      "audioContainerPath": "Rubbing_Metal2",
+      "randomPitch": false,
+      "pitchCurve": {
+        "keys": [
+          {
+            "time": 0.0,
+            "value": 0.5,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          },
+          {
+            "time": 1.0,
+            "value": 1.5,
+            "inTangent": 2.0,
+            "outTangent": 2.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "volumeCurve": null,
+      "loopFadeDelay": 0.0,
+      "audioMixer": 1,
+      "minDistance": 1.0,
+      "maxDistance": 500.0,
+      "step": 1
+    },
+    {
+      "$type": "BS.EffectModuleAudio, Assembly-CSharp",
+      "audioContainerPath": "RubbingExit_Metal",
+      "randomPitch": false,
+      "pitchCurve": null,
+      "volumeCurve": null,
+      "loopFadeDelay": 0.0,
+      "audioMixer": 1,
+      "minDistance": 1.0,
+      "maxDistance": 500.0,
+      "step": 2
+    },
+    {
+      "$type": "BS.EffectModuleVfx, Assembly-CSharp",
+      "mainGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.0,
+              "g": 1.29820728,
+              "b": 2.99607849
+            },
+            "time": 0.008819715
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.0,
+              "g": 0.275497556,
+              "b": 1.04654014
+            },
+            "time": 0.132356763
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.0,
+              "g": 1.1147331,
+              "b": 1.41421354
+            },
+            "time": 0.52353704
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 3.677763,
+              "g": 0.433698416,
+              "b": 0.7009546
+            },
+            "time": 0.8882429
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.100007631
+          },
+          {
+            "alpha": 1.0,
+            "time": 0.7058824
+          },
+          {
+            "alpha": 0.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "secondaryGradient": null,
+      "vfxPath": "SpellChargeTest",
+      "lifeTime": 5.0,
+      "step": 0
+    }
+  ]
+}

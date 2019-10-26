@@ -1,0 +1,53 @@
+{
+  "$type": "BS.ItemData, Assembly-CSharp",
+  "id": "Hand",
+  "version": 4,
+  "pooledCount": 0,
+  "localizationId": null,
+  "displayName": "Hand",
+  "description": null,
+  "author": "Unknown",
+  "price": 0.0,
+  "purchasable": false,
+  "tier": 0,
+  "levelRequired": 0,
+  "slot": 0,
+  "isStackable": false,
+  "category": 6,
+  "storageCategory": "",
+  "prefabName": "Hand",
+  "mass": 0.8,
+  "drag": 0.0,
+  "angularDrag": 0.0,
+  "useGravity": false,
+  "collisionMaxOverride": 0,
+  "collisionEnterOnly": false,
+  "ignoredCollisionRagdollParts": [],
+  "forceLayer": 15,
+  "audioSnapPath": "",
+  "flyFromThrow": false,
+  "flyRotationSpeed": 2.0,
+  "flyThrowAngle": 0.0,
+  "telekinesisSafeDistance": 1.0,
+  "telekinesisSpinEnabled": true,
+  "telekinesisThrowRatio": 1.0,
+  "damageTransfer": 1,
+  "grippable": false,
+  "customSnaps": [],
+  "modules": [
+    {
+      "$type": "BS.ItemModuleHand, Assembly-CSharp",
+      "climbFree": false,
+      "gripMaxCloseWeight": 0.9,
+      "gripFXId": "GripAndGrab"
+    }
+  ],
+  "damagers": [
+    {
+      "transformName": "Blunt",
+      "damagerID": "Punch"
+    }
+  ],
+  "Interactables": [],
+  "whooshs": []
+}

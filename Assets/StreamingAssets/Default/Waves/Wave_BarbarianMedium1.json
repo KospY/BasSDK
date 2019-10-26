@@ -1,0 +1,172 @@
+{
+  "$type": "BS.WaveData, Assembly-CSharp",
+  "id": "BarbarianMedium1",
+  "version": 2,
+  "category": "3Medium",
+  "title": "Wave I",
+  "description": "Enemies:\nSwordsman\nShieldsman",
+  "loop": false,
+  "maxAlive": 4,
+  "alwaysAvailable": false,
+  "waveSelectors": [
+    "Arena"
+  ],
+  "playerHealthMultiplier": 1.0,
+  "enemiesHealthMultiplier": 1.0,
+  "groups": [
+    {
+      "reference": 0,
+      "creatureID": "Human",
+      "creatureTableID": "BarbarianSpawn3",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "BarbarianShield1",
+      "overrideBrain": true,
+      "overrideBrainId": "Human3Medium",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 0,
+      "minMaxCount": {
+        "x": 1,
+        "y": 1,
+        "magnitude": 1.41421354,
+        "sqrMagnitude": 2
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": -1,
+      "conditionThreshold": 0
+    },
+    {
+      "reference": 0,
+      "creatureID": "Human",
+      "creatureTableID": "BarbarianSpawn2",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "Barbarian1H",
+      "overrideBrain": true,
+      "overrideBrainId": "Human3Medium",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 0,
+      "minMaxCount": {
+        "x": 1,
+        "y": 1,
+        "magnitude": 1.41421354,
+        "sqrMagnitude": 2
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": 0,
+      "conditionThreshold": 0
+    },
+    {
+      "reference": 0,
+      "creatureID": "Human",
+      "creatureTableID": "BarbarianSpawn3",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "BarbarianShield1",
+      "overrideBrain": true,
+      "overrideBrainId": "Human3Medium",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 0,
+      "minMaxCount": {
+        "x": 1,
+        "y": 1,
+        "magnitude": 1.41421354,
+        "sqrMagnitude": 2
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": 0,
+      "conditionThreshold": 0
+    },
+    {
+      "reference": 0,
+      "creatureID": "Human",
+      "creatureTableID": "BarbarianSpawn4",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "Barbarian1H",
+      "overrideBrain": true,
+      "overrideBrainId": "Human3Medium",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 0,
+      "minMaxCount": {
+        "x": 2,
+        "y": 2,
+        "magnitude": 2.828427,
+        "sqrMagnitude": 8
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": 1,
+      "conditionThreshold": 0
+    },
+    {
+      "reference": 0,
+      "creatureID": "Human",
+      "creatureTableID": "",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "BarbarianShield1",
+      "overrideBrain": true,
+      "overrideBrainId": "Human3Medium",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 0,
+      "minMaxCount": {
+        "x": 2,
+        "y": 2,
+        "magnitude": 2.828427,
+        "sqrMagnitude": 8
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": 2,
+      "conditionThreshold": 0
+    },
+    {
+      "reference": 0,
+      "creatureID": "Human",
+      "creatureTableID": "",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "Barbarian1H",
+      "overrideBrain": true,
+      "overrideBrainId": "Human3Medium",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 0,
+      "minMaxCount": {
+        "x": 2,
+        "y": 2,
+        "magnitude": 2.828427,
+        "sqrMagnitude": 8
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": 3,
+      "conditionThreshold": 1
+    },
+    {
+      "reference": 0,
+      "creatureID": "Human",
+      "creatureTableID": "",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "BarbarianShield1",
+      "overrideBrain": true,
+      "overrideBrainId": "Human3Medium",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 0,
+      "minMaxCount": {
+        "x": 2,
+        "y": 2,
+        "magnitude": 2.828427,
+        "sqrMagnitude": 8
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": 4,
+      "conditionThreshold": 1
+    }
+  ]
+}

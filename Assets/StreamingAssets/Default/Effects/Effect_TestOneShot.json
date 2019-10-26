@@ -1,0 +1,169 @@
+{
+  "$type": "BS.EffectData, Assembly-CSharp",
+  "id": "TestOneShot",
+  "version": 0,
+  "modules": [
+    {
+      "$type": "BS.EffectModuleAudio, Assembly-CSharp",
+      "audioContainerPath": "HitMetal",
+      "randomPitch": false,
+      "pitchCurve": null,
+      "volumeCurve": null,
+      "loopFadeDelay": 0.0,
+      "audioMixer": 1,
+      "minDistance": 1.0,
+      "maxDistance": 500.0,
+      "step": 0
+    },
+    {
+      "$type": "BS.EffectModuleVfx, Assembly-CSharp",
+      "mainGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 1.0,
+              "g": 1.0,
+              "b": 1.0
+            },
+            "time": 0.0
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.7169812,
+              "g": 0.0913136452,
+              "b": 0.0913136452
+            },
+            "time": 0.6529488
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "secondaryGradient": null,
+      "vfxPath": "OneShot",
+      "lifeTime": 10.0,
+      "step": 0
+    },
+    {
+      "$type": "BS.EffectModuleDecal, Assembly-CSharp",
+      "materialPath": "@vfx:LightningBolt",
+      "lifeTime": 60.0,
+      "fadeRefreshSpeed": 0.1,
+      "size": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "sizeCurve": null,
+      "baseColorGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.0,
+              "g": 1.29820728,
+              "b": 2.99607849
+            },
+            "time": 0.008819715
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.0,
+              "g": 0.275497556,
+              "b": 1.04654014
+            },
+            "time": 0.132356763
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.0,
+              "g": 1.1147331,
+              "b": 1.41421354
+            },
+            "time": 0.52353704
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 3.677763,
+              "g": 0.433698416,
+              "b": 0.7009546
+            },
+            "time": 0.8882429
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.100007631
+          },
+          {
+            "alpha": 1.0,
+            "time": 0.7058824
+          },
+          {
+            "alpha": 0.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "emissionColorGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 1.0,
+              "g": 1.0,
+              "b": 1.0
+            },
+            "time": 0.0
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "time": 0.100007631
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 0.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "step": 0
+    }
+  ]
+}

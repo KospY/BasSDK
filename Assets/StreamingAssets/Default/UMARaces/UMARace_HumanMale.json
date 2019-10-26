@@ -1,0 +1,79 @@
+{
+  "$type": "BS.UMARace, Assembly-CSharp",
+  "id": "HumanMale",
+  "version": 2,
+  "raceName": "HumanMale",
+  "sex": 1,
+  "wardrobes": [
+    {
+      "slot": "Underwear",
+      "recipe": "MaleUnderwear"
+    }
+  ],
+  "headOffset": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+  },
+  "handFixedScale": true,
+  "handGlobalScale": {
+    "x": 0.93,
+    "y": 0.93,
+    "z": 0.93
+  },
+  "fingerBoneRotation": {
+    "x": 270.0,
+    "y": 90.0,
+    "z": 0.0
+  },
+  "fingerPositionOffset": {
+    "x": 0.0,
+    "y": -0.005,
+    "z": 0.0
+  },
+  "handRightPalmAxis": {
+    "x": -1.0,
+    "y": 0.0,
+    "z": 0.0
+  },
+  "handRightThumbAxis": {
+    "x": 0.0,
+    "y": 1.0,
+    "z": 0.0
+  },
+  "handRightGripPosition": {
+    "x": 0.07,
+    "y": -0.035,
+    "z": 0.015
+  },
+  "handRightGripRotation": {
+    "x": 0.0,
+    "y": 120.0,
+    "z": 82.0
+  },
+  "handLeftPalmAxis": {
+    "x": -1.0,
+    "y": 0.0,
+    "z": 0.0
+  },
+  "handLeftThumbAxis": {
+    "x": 0.0,
+    "y": -1.0,
+    "z": 0.0
+  },
+  "handLeftGripPosition": {
+    "x": -0.07,
+    "y": -0.035,
+    "z": 0.015
+  },
+  "handLeftGripRotation": {
+    "x": -180.0,
+    "y": 60.0,
+    "z": 98.0
+  },
+  "expressionAttackId": "Attack",
+  "expressionPainId": "Pain",
+  "expressionDeathId": "Death",
+  "expressionChokeId": "Choke",
+  "expressionAngryId": "Angry"
+}

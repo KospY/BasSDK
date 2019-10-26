@@ -1,0 +1,150 @@
+{
+  "$type": "BS.WaveData, Assembly-CSharp",
+  "id": "Test",
+  "version": 2,
+  "category": "2Easy",
+  "title": "Test",
+  "description": "",
+  "loop": true,
+  "maxAlive": 5,
+  "alwaysAvailable": false,
+  "waveSelectors": [
+    "Test"
+  ],
+  "playerHealthMultiplier": 1.0,
+  "enemiesHealthMultiplier": 1.0,
+  "groups": [
+    {
+      "reference": 0,
+      "creatureID": "HumanTest",
+      "creatureTableID": "BarbarianSpawn2",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": false,
+      "overrideContainerID": "Ranger_1H",
+      "overrideBrain": true,
+      "overrideBrainId": "Test",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 0,
+      "minMaxCount": {
+        "x": 1,
+        "y": 1,
+        "magnitude": 1.41421354,
+        "sqrMagnitude": 2
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": -1,
+      "conditionThreshold": 0
+    },
+    {
+      "reference": 0,
+      "creatureID": "HumanTest",
+      "creatureTableID": "BarbarianSpawn1",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": false,
+      "overrideContainerID": "Ranger_Shield1",
+      "overrideBrain": true,
+      "overrideBrainId": "Test",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 0,
+      "minMaxCount": {
+        "x": 1,
+        "y": 1,
+        "magnitude": 1.41421354,
+        "sqrMagnitude": 2
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": 0,
+      "conditionThreshold": 0
+    },
+    {
+      "reference": 0,
+      "creatureID": "HumanTest",
+      "creatureTableID": "BarbarianSpawn2",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": false,
+      "overrideContainerID": "Ranger_Shield2",
+      "overrideBrain": true,
+      "overrideBrainId": "Test",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 0,
+      "minMaxCount": {
+        "x": 1,
+        "y": 1,
+        "magnitude": 1.41421354,
+        "sqrMagnitude": 2
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": 1,
+      "conditionThreshold": 0
+    },
+    {
+      "reference": 0,
+      "creatureID": "HumanTest",
+      "creatureTableID": "BarbarianSpawn1",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": false,
+      "overrideContainerID": "Ranger_Bow",
+      "overrideBrain": true,
+      "overrideBrainId": "Test",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 0,
+      "minMaxCount": {
+        "x": 1,
+        "y": 1,
+        "magnitude": 1.41421354,
+        "sqrMagnitude": 2
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": 2,
+      "conditionThreshold": 0
+    },
+    {
+      "reference": 0,
+      "creatureID": "HumanTest",
+      "creatureTableID": "",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": false,
+      "overrideContainerID": "Ranger_1H",
+      "overrideBrain": true,
+      "overrideBrainId": "Test",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 0,
+      "minMaxCount": {
+        "x": 1,
+        "y": 1,
+        "magnitude": 1.41421354,
+        "sqrMagnitude": 2
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": 3,
+      "conditionThreshold": 0
+    },
+    {
+      "reference": 0,
+      "creatureID": "HumanTest",
+      "creatureTableID": "",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": false,
+      "overrideContainerID": "Ranger_Shield1",
+      "overrideBrain": true,
+      "overrideBrainId": "Test",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 0,
+      "minMaxCount": {
+        "x": 1,
+        "y": 1,
+        "magnitude": 1.41421354,
+        "sqrMagnitude": 2
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": 4,
+      "conditionThreshold": 0
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "$type": "BS.SpellData, Assembly-CSharp",
+  "id": "Lightning",
+  "version": 1,
+  "caption": "Lightning",
+  "runeString": "s",
+  "imageColor": {
+    "a": 1.0,
+    "r": 0.533333361,
+    "g": 0.5647059,
+    "b": 0.8745099
+  },
+  "rimColor": {
+    "a": 1.0,
+    "r": 0.7254902,
+    "g": 0.745098054,
+    "b": 0.941176534
+  },
+  "innerColor": {
+    "a": 1.0,
+    "r": 0.533333361,
+    "g": 0.5647059,
+    "b": 0.8745099
+  },
+  "audioContainerPath": "Spell_LightningSelect",
+  "audioPitch": 1.0,
+  "casts": [
+    {
+      "combinedSpell": null,
+      "modules": [
+        {
+          "$type": "BS.SpellModuleTest, Assembly-CSharp",
+          "focusEffectId": null,
+          "fingerEffectId": "SpellChargeTest"
+        }
+      ]
+    },
+    {
+      "combinedSpell": "Lightning",
+      "modules": []
+    }
+  ]
+}

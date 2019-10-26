@@ -1,0 +1,86 @@
+{
+  "$type": "BS.ItemData, Assembly-CSharp",
+  "id": "PotionHealth1",
+  "version": 4,
+  "pooledCount": 0,
+  "localizationId": "PotionHealth",
+  "displayName": "Health potion",
+  "description": "A potion used to restore your health",
+  "author": "Racknam",
+  "price": 0.0,
+  "purchasable": true,
+  "tier": 0,
+  "levelRequired": 0,
+  "slot": 1,
+  "isStackable": true,
+  "category": 4,
+  "storageCategory": "Potions",
+  "prefabName": "@items:PotionHealth",
+  "mass": 0.1,
+  "drag": 1.0,
+  "angularDrag": 0.05,
+  "useGravity": true,
+  "collisionMaxOverride": 0,
+  "collisionEnterOnly": false,
+  "ignoredCollisionRagdollParts": [],
+  "forceLayer": 0,
+  "audioSnapPath": "",
+  "flyFromThrow": false,
+  "flyRotationSpeed": 2.0,
+  "flyThrowAngle": 0.0,
+  "telekinesisSafeDistance": 0.5,
+  "telekinesisSpinEnabled": false,
+  "telekinesisThrowRatio": 1.0,
+  "damageTransfer": 0,
+  "grippable": true,
+  "customSnaps": [],
+  "modules": [
+    {
+      "$type": "BS.ItemModulePotion, Assembly-CSharp",
+      "liquids": [
+        {
+          "liquid": {
+            "type": 1,
+            "designation": "Heal",
+            "value": 15.0,
+            "color": {
+              "a": 0.9019608,
+              "r": 0.596288741,
+              "g": 0.0,
+              "b": 0.6037736
+            }
+          },
+          "level": 40.0
+        }
+      ],
+      "maxLevel": 40.0,
+      "collisionLayer": {
+        "value": 16385
+      },
+      "spawnWithCork": true,
+      "spawnCorkOnSnap": true,
+      "flowSpeed": 1.0,
+      "flowMinAngle": 70.0,
+      "flowMaxAngle": 100.0,
+      "corkItemId": "PotionCork",
+      "fxFlowLoopId": "PotionFlowLoop",
+      "fxFlowStopId": "PotionFlowStop",
+      "levelIndicatorPath": "PotionLevelIndicator"
+    }
+  ],
+  "damagers": [
+    {
+      "transformName": "Blunt",
+      "damagerID": "PropBlunt"
+    }
+  ],
+  "Interactables": [
+    {
+      "transformName": "Handle",
+      "interactableId": "ObjectHandleLight",
+      "overrideHandPose": true,
+      "handPoseId": "HandlePotion"
+    }
+  ],
+  "whooshs": []
+}

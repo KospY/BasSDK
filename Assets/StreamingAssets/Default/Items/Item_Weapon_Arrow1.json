@@ -1,0 +1,101 @@
+{
+  "$type": "BS.ItemData, Assembly-CSharp",
+  "id": "Arrow1",
+  "version": 4,
+  "pooledCount": 200,
+  "localizationId": "Arrow",
+  "displayName": "Arrow",
+  "description": "Usually consisting of a long, fin-stabilized shaft and pointed tip, the arrow is a penetrating projectile used with a bow",
+  "author": "Kupatka",
+  "price": 0.0,
+  "purchasable": true,
+  "tier": 1,
+  "levelRequired": 0,
+  "slot": 7,
+  "isStackable": false,
+  "category": 2,
+  "storageCategory": "Bows",
+  "prefabName": "Arrow1",
+  "mass": 0.1,
+  "drag": 0.0,
+  "angularDrag": 0.0,
+  "useGravity": true,
+  "collisionMaxOverride": 0,
+  "collisionEnterOnly": false,
+  "ignoredCollisionRagdollParts": [],
+  "forceLayer": 0,
+  "audioSnapPath": "",
+  "flyFromThrow": true,
+  "flyRotationSpeed": 5.0,
+  "flyThrowAngle": 30.0,
+  "telekinesisSafeDistance": 1.0,
+  "telekinesisSpinEnabled": false,
+  "telekinesisThrowRatio": 1.0,
+  "damageTransfer": 0,
+  "grippable": true,
+  "customSnaps": [],
+  "modules": [
+    {
+      "$type": "BS.ItemModuleAI, Assembly-CSharp",
+      "weaponClass": 3,
+      "weaponHandling": 1,
+      "parryIgnoreRotation": false,
+      "parryRotation": 90.0,
+      "parryDualRotation": 60.0,
+      "armResistanceMultiplier": 1.0,
+      "parryRevertAngleRange": {
+        "x": -80.0,
+        "y": -180.0
+      },
+      "parryDefaultPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "parryDefaultLeftRotation": {
+        "x": 25.0,
+        "y": -10.0,
+        "z": -65.0
+      },
+      "parryDefaultRightRotation": {
+        "x": 30.0,
+        "y": 5.0,
+        "z": 60.0
+      },
+      "allowDynamicHeight": false,
+      "dodgeBehaviour": 3,
+      "defenseHasPriority": false,
+      "attackIgnore": false,
+      "attackForceParryIgnoreRotation": true
+    }
+  ],
+  "damagers": [
+    {
+      "transformName": "Pierce",
+      "damagerID": "ArrowPierce"
+    }
+  ],
+  "Interactables": [
+    {
+      "transformName": "Handle",
+      "interactableId": "ObjectHandleArrowBack",
+      "overrideHandPose": false,
+      "handPoseId": ""
+    },
+    {
+      "transformName": "AxisHandle",
+      "interactableId": "ObjectHandleArrowAxis",
+      "overrideHandPose": false,
+      "handPoseId": ""
+    }
+  ],
+  "whooshs": [
+    {
+      "transformName": "Whoosh",
+      "fxId": "WhooshArrow",
+      "trigger": 2,
+      "minVelocity": 5.0,
+      "maxVelocity": 20.0
+    }
+  ]
+}

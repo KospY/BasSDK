@@ -1,0 +1,29 @@
+{
+  "$type": "BS.CollisionData, Assembly-CSharp",
+  "id": "Blade_SwordDagger_Wood",
+  "version": 3,
+  "physicMaterials": [
+    "Blade_Sword",
+    "Blade_Dagger"
+  ],
+  "collidedPhysicMaterials": [
+    "Wood",
+    "WoodHard"
+  ],
+  "parenting": 0,
+  "align": 0,
+  "rotation": 0,
+  "standAlone": false,
+  "defaultEnterFXId": "HitWood",
+  "defaultLoopFXId": "RubbingWood",
+  "defaultExitFXId": "",
+  "bluntHitFXId": "HitSwordOnWood",
+  "slashHitFXId": "HitSwordOnWood",
+  "slashEnterFXId": "PenWoodEnterSword",
+  "slashLoopFXId": "PenWoodLoop",
+  "slashExitFXId": "PenWoodExit",
+  "pierceHitFXId": "HitSwordOnWood",
+  "pierceEnterFXId": "PenWoodEnterSword",
+  "pierceLoopFXId": "PenWoodLoop",
+  "pierceExitFXId": "PenWoodExit"
+}

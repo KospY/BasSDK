@@ -1,0 +1,241 @@
+{
+  "actions": [
+    {
+      "name": "/actions/Default/in/GrabPinch",
+      "type": "boolean",
+      "requirement": "optional"
+    },
+    {
+      "name": "/actions/Default/in/GrabGrip",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/Default/in/Pose",
+      "type": "pose"
+    },
+    {
+      "name": "/actions/Default/in/SkeletonLeftHand",
+      "type": "skeleton",
+      "skeleton": "/skeleton/hand/left"
+    },
+    {
+      "name": "/actions/Default/in/SkeletonRightHand",
+      "type": "skeleton",
+      "skeleton": "/skeleton/hand/right"
+    },
+    {
+      "name": "/actions/Default/in/HeadsetOnHead",
+      "type": "boolean",
+      "requirement": "optional"
+    },
+    {
+      "name": "/actions/Default/in/Move",
+      "type": "vector2"
+    },
+    {
+      "name": "/actions/Default/in/Turn",
+      "type": "vector2"
+    },
+    {
+      "name": "/actions/Default/in/Menu",
+      "type": "boolean",
+      "requirement": "suggested"
+    },
+    {
+      "name": "/actions/Default/in/SpellSelector",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/Default/in/SlowTime",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/Default/in/Kick",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/Default/in/Jump",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/Default/in/ClickUI",
+      "type": "boolean",
+      "requirement": "suggested"
+    },
+    {
+      "name": "/actions/Default/in/Height",
+      "type": "vector2"
+    },
+    {
+      "name": "/actions/Default/in/ExternalView",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/Default/in/Screenshot",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/Default/in/ExternalViewLock",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/Default/in/ScrollUI",
+      "type": "vector2"
+    },
+    {
+      "name": "/actions/Default/in/Cast",
+      "type": "vector1"
+    },
+    {
+      "name": "/actions/Default/in/Use",
+      "type": "vector1"
+    },
+    {
+      "name": "/actions/Default/in/AlternateUse",
+      "type": "vector1"
+    },
+    {
+      "name": "/actions/Default/in/Telekinesis",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/Default/in/TelekinesisAxis",
+      "type": "vector2",
+      "requirement": "optional"
+    },
+    {
+      "name": "/actions/Default/in/TelekinesisPull",
+      "type": "vector1"
+    },
+    {
+      "name": "/actions/Default/in/TelekinesisRepel",
+      "type": "vector1"
+    },
+    {
+      "name": "/actions/Default/in/TelekinesisSpin",
+      "type": "boolean",
+      "requirement": "optional"
+    },
+    {
+      "name": "/actions/Default/in/TelekinesisRepel2",
+      "type": "boolean",
+      "requirement": "optional"
+    },
+    {
+      "name": "/actions/Default/in/AlternateUse2",
+      "type": "boolean",
+      "requirement": "optional"
+    },
+    {
+      "name": "/actions/Default/in/MovePress",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/Default/in/TurnPress",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/Default/out/Haptic",
+      "type": "vibration"
+    }
+  ],
+  "action_sets": [
+    {
+      "name": "/actions/Default",
+      "usage": "leftright"
+    }
+  ],
+  "default_bindings": [
+    {
+      "controller_type": "vive_controller",
+      "binding_url": "bindings_vive_controller.json"
+    },
+    {
+      "controller_type": "oculus_touch",
+      "binding_url": "bindings_oculus_touch.json"
+    },
+    {
+      "controller_type": "knuckles",
+      "binding_url": "bindings_knuckles.json"
+    },
+    {
+      "controller_type": "holographic_controller",
+      "binding_url": "bindings_holographic_controller.json"
+    },
+    {
+      "controller_type": "vive",
+      "binding_url": "binding_vive.json"
+    },
+    {
+      "controller_type": "vive_pro",
+      "binding_url": "binding_vive_pro.json"
+    },
+    {
+      "controller_type": "rift",
+      "binding_url": "binding_rift.json"
+    },
+    {
+      "controller_type": "holographic_hmd",
+      "binding_url": "binding_holographic_hmd.json"
+    },
+    {
+      "controller_type": "vive_tracker_camera",
+      "binding_url": "binding_vive_tracker_camera.json"
+    },
+    {
+      "controller_type": "vive_tracker_right_foot",
+      "binding_url": "steam_app_629730_binding_vive_tracker_right_foot.json"
+    },
+    {
+      "controller_type": "vive_tracker_left_foot",
+      "binding_url": "steam_app_629730_binding_vive_tracker_left_foot.json"
+    },
+    {
+      "controller_type": "vive_tracker_waist",
+      "binding_url": "steam_app_629730_binding_vive_tracker_waist.json"
+    },
+    {
+      "controller_type": "vive_cosmos_controller",
+      "binding_url": "bindings_vive_cosmos_controller.json"
+    }
+  ],
+  "localization": [
+    {
+      "language_tag": "en_US",
+      "/actions/Default/in/AlternateUse": "Alternate Use",
+      "/actions/Default/in/AlternateUse2": "Alternate Use (Button)",
+      "/actions/Default/in/Cast": "Cast",
+      "/actions/Default/in/ClickUI": "Click UI",
+      "/actions/Default/in/ExternalView": "External View",
+      "/actions/Default/in/ExternalViewLock": "External View Lock",
+      "/actions/Default/in/GrabGrip": "Grab (Grip)",
+      "/actions/Default/in/GrabPinch": "Grab (Pinch)",
+      "/actions/Default/in/Height": "External View Height",
+      "/actions/Default/in/Jump": "Jump",
+      "/actions/Default/in/Kick": "Kick",
+      "/actions/Default/in/Menu": "Menu",
+      "/actions/Default/in/Move": "Move",
+      "/actions/Default/in/Screenshot": "Screenshot",
+      "/actions/Default/in/ScrollUI": "Scroll UI",
+      "/actions/Default/in/SlowTime": "Slow Time",
+      "/actions/Default/in/SpellSelector": "Spell selection",
+      "/actions/Default/in/Telekinesis": "Telekinesis",
+      "/actions/Default/in/TelekinesisAxis": "Telekinesis (Axis)",
+      "/actions/Default/in/TelekinesisPull": "Telekinesis (Pull)",
+      "/actions/Default/in/TelekinesisRepel": "Telekinesis (Repel)",
+      "/actions/Default/in/TelekinesisRepel2": "Telekinesis (Repel Button)",
+      "/actions/Default/in/TelekinesisSpin": "Telekinesis (Spin)",
+      "/actions/Default/in/Turn": "Turn",
+      "/actions/Default/in/Use": "Use",
+      "/actions/default/in/GrabGrip": "Grab Grip",
+      "/actions/default/in/GrabPinch": "Grab Pinch",
+      "/actions/default/in/HeadsetOnHead": "Headset on head (proximity sensor)",
+      "/actions/default/in/Move": "Move",
+      "/actions/default/in/SkeletonLeftHand": "Skeleton (Left)",
+      "/actions/default/in/SkeletonRightHand": "Skeleton (Right)",
+      "/actions/default/out/Haptic": "Haptic",
+      "/actions/Default/in/TurnPress": "Turn (Press)",
+      "/actions/Default/in/MovePress": "Move (Press)"
+    }
+  ]
+}

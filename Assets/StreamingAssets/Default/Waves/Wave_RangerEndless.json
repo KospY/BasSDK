@@ -1,0 +1,106 @@
+{
+  "$type": "BS.WaveData, Assembly-CSharp",
+  "id": "RangerEndless",
+  "version": 2,
+  "category": "7Special",
+  "title": "Endless",
+  "description": "Endless waves of random enemies",
+  "loop": true,
+  "maxAlive": 5,
+  "alwaysAvailable": false,
+  "waveSelectors": [
+    "Canyon"
+  ],
+  "playerHealthMultiplier": 1.0,
+  "enemiesHealthMultiplier": 1.0,
+  "groups": [
+    {
+      "reference": 1,
+      "creatureID": "",
+      "creatureTableID": "RangerRandomAll",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": false,
+      "overrideContainerID": "",
+      "overrideBrain": false,
+      "overrideBrainId": "Human1VeryEasy",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 1,
+      "minMaxCount": {
+        "x": 1,
+        "y": 3,
+        "magnitude": 3.1622777,
+        "sqrMagnitude": 10
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": -1,
+      "conditionThreshold": 0
+    },
+    {
+      "reference": 1,
+      "creatureID": "",
+      "creatureTableID": "RangerRandomAll",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": false,
+      "overrideContainerID": "",
+      "overrideBrain": false,
+      "overrideBrainId": "Human3Medium",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 1,
+      "minMaxCount": {
+        "x": 2,
+        "y": 3,
+        "magnitude": 3.60555124,
+        "sqrMagnitude": 13
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": 0,
+      "conditionThreshold": 1
+    },
+    {
+      "reference": 1,
+      "creatureID": "",
+      "creatureTableID": "RangerRandomAll",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": false,
+      "overrideContainerID": "",
+      "overrideBrain": false,
+      "overrideBrainId": "Human4Hard",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 1,
+      "minMaxCount": {
+        "x": 2,
+        "y": 3,
+        "magnitude": 3.60555124,
+        "sqrMagnitude": 13
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": 1,
+      "conditionThreshold": 2
+    },
+    {
+      "reference": 1,
+      "creatureID": "",
+      "creatureTableID": "RangerRandomAll",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": false,
+      "overrideContainerID": "",
+      "overrideBrain": false,
+      "overrideBrainId": "",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 1,
+      "minMaxCount": {
+        "x": 3,
+        "y": 3,
+        "magnitude": 4.2426405,
+        "sqrMagnitude": 18
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": 2,
+      "conditionThreshold": 1
+    }
+  ]
+}

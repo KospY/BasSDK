@@ -1,0 +1,85 @@
+{
+  "$type": "BS.ItemData, Assembly-CSharp",
+  "id": "Chair1",
+  "version": 4,
+  "pooledCount": 0,
+  "localizationId": "Chair",
+  "displayName": "Chair",
+  "description": "No description",
+  "author": "Unknown",
+  "price": 0.0,
+  "purchasable": false,
+  "tier": 0,
+  "levelRequired": 0,
+  "slot": 0,
+  "isStackable": false,
+  "category": 5,
+  "storageCategory": "",
+  "prefabName": "Props\\Chair1",
+  "mass": 20.0,
+  "drag": 1.0,
+  "angularDrag": 1.0,
+  "useGravity": true,
+  "collisionMaxOverride": 0,
+  "collisionEnterOnly": false,
+  "ignoredCollisionRagdollParts": [],
+  "forceLayer": 16,
+  "audioSnapPath": "",
+  "flyFromThrow": false,
+  "flyRotationSpeed": 2.0,
+  "flyThrowAngle": 0.0,
+  "telekinesisSafeDistance": 1.0,
+  "telekinesisSpinEnabled": false,
+  "telekinesisThrowRatio": 1.0,
+  "damageTransfer": 0,
+  "grippable": true,
+  "customSnaps": [],
+  "modules": null,
+  "damagers": [
+    {
+      "transformName": "Blunt",
+      "damagerID": "PropBluntHeavy"
+    }
+  ],
+  "Interactables": [
+    {
+      "transformName": "TopHandle",
+      "interactableId": "ObjectHandleProp",
+      "overrideHandPose": true,
+      "handPoseId": "HandlePlank"
+    },
+    {
+      "transformName": "BottomHandleA",
+      "interactableId": "ObjectHandleProp",
+      "overrideHandPose": true,
+      "handPoseId": "HandlePlank"
+    },
+    {
+      "transformName": "BottomHandleB",
+      "interactableId": "ObjectHandleProp",
+      "overrideHandPose": true,
+      "handPoseId": "HandlePlank"
+    },
+    {
+      "transformName": "BackHandleA",
+      "interactableId": "ObjectHandleProp",
+      "overrideHandPose": true,
+      "handPoseId": "HandlePlankLarge"
+    },
+    {
+      "transformName": "BackHandleB",
+      "interactableId": "ObjectHandleProp",
+      "overrideHandPose": true,
+      "handPoseId": "HandlePlankLarge"
+    }
+  ],
+  "whooshs": [
+    {
+      "transformName": "Whoosh",
+      "fxId": "WhooshSwordHeavy",
+      "trigger": 0,
+      "minVelocity": 5.0,
+      "maxVelocity": 12.0
+    }
+  ]
+}

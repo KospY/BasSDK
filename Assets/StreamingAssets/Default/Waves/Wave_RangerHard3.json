@@ -1,0 +1,216 @@
+{
+  "$type": "BS.WaveData, Assembly-CSharp",
+  "id": "RangerHard3",
+  "version": 2,
+  "category": "4Hard",
+  "title": "Wave III",
+  "description": "Enemies:\nSwordsman\nShieldsman\nArcher",
+  "loop": false,
+  "maxAlive": 6,
+  "alwaysAvailable": false,
+  "waveSelectors": [
+    "Canyon"
+  ],
+  "playerHealthMultiplier": 1.0,
+  "enemiesHealthMultiplier": 1.0,
+  "groups": [
+    {
+      "reference": 0,
+      "creatureID": "Human",
+      "creatureTableID": "",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "Ranger_Shield2",
+      "overrideBrain": true,
+      "overrideBrainId": "Human4Hard",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 0,
+      "minMaxCount": {
+        "x": 2,
+        "y": 2,
+        "magnitude": 2.828427,
+        "sqrMagnitude": 8
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": -1,
+      "conditionThreshold": 0
+    },
+    {
+      "reference": 0,
+      "creatureID": "Human",
+      "creatureTableID": "",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "Ranger_Bow",
+      "overrideBrain": true,
+      "overrideBrainId": "Human4Hard",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 0,
+      "minMaxCount": {
+        "x": 2,
+        "y": 2,
+        "magnitude": 2.828427,
+        "sqrMagnitude": 8
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": -1,
+      "conditionThreshold": 0
+    },
+    {
+      "reference": 0,
+      "creatureID": "Human",
+      "creatureTableID": "",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "Ranger_1H",
+      "overrideBrain": true,
+      "overrideBrainId": "Human4Hard",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 0,
+      "minMaxCount": {
+        "x": 2,
+        "y": 2,
+        "magnitude": 2.828427,
+        "sqrMagnitude": 8
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": -1,
+      "conditionThreshold": 0
+    },
+    {
+      "reference": 0,
+      "creatureID": "Human",
+      "creatureTableID": "",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "Ranger_Shield2",
+      "overrideBrain": true,
+      "overrideBrainId": "Human4Hard",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 0,
+      "minMaxCount": {
+        "x": 3,
+        "y": 3,
+        "magnitude": 4.2426405,
+        "sqrMagnitude": 18
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": 0,
+      "conditionThreshold": 1
+    },
+    {
+      "reference": 0,
+      "creatureID": "Human",
+      "creatureTableID": "",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "Ranger_Bow",
+      "overrideBrain": true,
+      "overrideBrainId": "Human4Hard",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 0,
+      "minMaxCount": {
+        "x": 2,
+        "y": 2,
+        "magnitude": 2.828427,
+        "sqrMagnitude": 8
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": 1,
+      "conditionThreshold": 1
+    },
+    {
+      "reference": 0,
+      "creatureID": "Human",
+      "creatureTableID": "",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "Ranger_1H",
+      "overrideBrain": true,
+      "overrideBrainId": "Human4Hard",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 0,
+      "minMaxCount": {
+        "x": 2,
+        "y": 2,
+        "magnitude": 2.828427,
+        "sqrMagnitude": 8
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": 2,
+      "conditionThreshold": 1
+    },
+    {
+      "reference": 0,
+      "creatureID": "Human",
+      "creatureTableID": "",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "Ranger_Shield2",
+      "overrideBrain": true,
+      "overrideBrainId": "Human4Hard",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 0,
+      "minMaxCount": {
+        "x": 3,
+        "y": 3,
+        "magnitude": 4.2426405,
+        "sqrMagnitude": 18
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": 3,
+      "conditionThreshold": 1
+    },
+    {
+      "reference": 0,
+      "creatureID": "Human",
+      "creatureTableID": "",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "Ranger_Bow",
+      "overrideBrain": true,
+      "overrideBrainId": "Human4Hard",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 0,
+      "minMaxCount": {
+        "x": 3,
+        "y": 3,
+        "magnitude": 4.2426405,
+        "sqrMagnitude": 18
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": 4,
+      "conditionThreshold": 1
+    },
+    {
+      "reference": 0,
+      "creatureID": "Human",
+      "creatureTableID": "",
+      "overrideTeam": false,
+      "team": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "Ranger_Shield2",
+      "overrideBrain": true,
+      "overrideBrainId": "Human4Hard",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 0,
+      "minMaxCount": {
+        "x": 3,
+        "y": 3,
+        "magnitude": 4.2426405,
+        "sqrMagnitude": 18
+      },
+      "spawnPointIndex": -1,
+      "conditionStepIndex": 5,
+      "conditionThreshold": 0
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "$type": "BS.ItemData, Assembly-CSharp",
+  "id": "Bow1",
+  "version": 4,
+  "pooledCount": 0,
+  "localizationId": "Bow",
+  "displayName": "Bow",
+  "description": "A staple of combat since ancient times, the bow is a lethal and effective long range weapon",
+  "author": "Kupatka",
+  "price": 0.0,
+  "purchasable": true,
+  "tier": 1,
+  "levelRequired": 0,
+  "slot": 4,
+  "isStackable": false,
+  "category": 2,
+  "storageCategory": "Bows",
+  "prefabName": "KupatkaBow3",
+  "mass": 1.0,
+  "drag": 0.0,
+  "angularDrag": 0.05,
+  "useGravity": true,
+  "collisionMaxOverride": 0,
+  "collisionEnterOnly": false,
+  "ignoredCollisionRagdollParts": [],
+  "forceLayer": 0,
+  "audioSnapPath": "",
+  "flyFromThrow": false,
+  "flyRotationSpeed": 2.0,
+  "flyThrowAngle": 0.0,
+  "telekinesisSafeDistance": 1.0,
+  "telekinesisSpinEnabled": true,
+  "telekinesisThrowRatio": 1.0,
+  "damageTransfer": 0,
+  "grippable": true,
+  "customSnaps": [],
+  "modules": [
+    {
+      "$type": "BS.ItemModuleAI, Assembly-CSharp",
+      "weaponClass": 2,
+      "weaponHandling": 2,
+      "parryIgnoreRotation": false,
+      "parryRotation": 90.0,
+      "parryDualRotation": 60.0,
+      "armResistanceMultiplier": 2.0,
+      "parryRevertAngleRange": {
+        "x": -80.0,
+        "y": -180.0
+      },
+      "parryDefaultPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "parryDefaultLeftRotation": {
+        "x": 25.0,
+        "y": -10.0,
+        "z": -65.0
+      },
+      "parryDefaultRightRotation": {
+        "x": 30.0,
+        "y": 5.0,
+        "z": 60.0
+      },
+      "allowDynamicHeight": false,
+      "dodgeBehaviour": 3,
+      "defenseHasPriority": true,
+      "attackIgnore": false,
+      "attackForceParryIgnoreRotation": false
+    },
+    {
+      "$type": "BS.ItemModuleBow, Assembly-CSharp",
+      "animationPullName": "ranged_03_draw",
+      "maxPull": 0.76,
+      "minPull": 0.01,
+      "pullMultiplier": 1.15,
+      "pullOffset": 0.0,
+      "unnockVelocity": 4.0,
+      "unrestExceedOffset": 0.0,
+      "unnockOffset": 0.15,
+      "velocityMultiplier": 1.5,
+      "nockUnockDelay": 0.5,
+      "baseShootVelocity": 24.0,
+      "audioShootMinPull": 0.1,
+      "audioShootPitchRange": 0.1,
+      "audioDrawPullSpeed": 0.02
+    }
+  ],
+  "damagers": [
+    {
+      "transformName": "Blunt",
+      "damagerID": "HandleBlunt"
+    }
+  ],
+  "Interactables": [
+    {
+      "transformName": "Handle",
+      "interactableId": "ObjectHandleBow",
+      "overrideHandPose": false,
+      "handPoseId": ""
+    },
+    {
+      "transformName": "HandleString",
+      "interactableId": "ObjectHandleBowString",
+      "overrideHandPose": false,
+      "handPoseId": ""
+    }
+  ],
+  "whooshs": []
+}

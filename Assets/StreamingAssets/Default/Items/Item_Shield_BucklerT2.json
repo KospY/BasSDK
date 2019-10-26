@@ -1,0 +1,111 @@
+{
+  "$type": "BS.ItemData, Assembly-CSharp",
+  "id": "BucklerT2",
+  "version": 4,
+  "pooledCount": 0,
+  "localizationId": "BucklerT2",
+  "displayName": "Armored buckler",
+  "description": "The small size and maneuverability of the buckler make it valuable when dealing with light blades",
+  "author": "Rhacknam",
+  "price": 0.0,
+  "purchasable": true,
+  "tier": 2,
+  "levelRequired": 0,
+  "slot": 3,
+  "isStackable": false,
+  "category": 7,
+  "storageCategory": "Shields",
+  "prefabName": "@items:wpn_buckler_t2",
+  "mass": 2.0,
+  "drag": 0.4,
+  "angularDrag": 0.05,
+  "useGravity": true,
+  "collisionMaxOverride": 0,
+  "collisionEnterOnly": false,
+  "ignoredCollisionRagdollParts": [
+    1
+  ],
+  "forceLayer": 0,
+  "audioSnapPath": "",
+  "flyFromThrow": false,
+  "flyRotationSpeed": 3.0,
+  "flyThrowAngle": 0.0,
+  "telekinesisSafeDistance": 1.0,
+  "telekinesisSpinEnabled": false,
+  "telekinesisThrowRatio": 1.0,
+  "damageTransfer": 0,
+  "grippable": true,
+  "customSnaps": [
+    {
+      "holderName": "HipsRight",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.03,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 180.0
+      }
+    }
+  ],
+  "modules": [
+    {
+      "$type": "BS.ItemModuleAI, Assembly-CSharp",
+      "weaponClass": 4,
+      "weaponHandling": 1,
+      "parryIgnoreRotation": true,
+      "parryRotation": 0.0,
+      "parryDualRotation": 60.0,
+      "armResistanceMultiplier": 3.0,
+      "parryRevertAngleRange": {
+        "x": -80.0,
+        "y": -180.0
+      },
+      "parryDefaultPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "parryDefaultLeftRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "parryDefaultRightRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "allowDynamicHeight": false,
+      "dodgeBehaviour": 2,
+      "defenseHasPriority": true,
+      "attackIgnore": true,
+      "attackForceParryIgnoreRotation": false
+    }
+  ],
+  "damagers": [
+    {
+      "transformName": "BluntMetal",
+      "damagerID": "Punch"
+    }
+  ],
+  "Interactables": [
+    {
+      "transformName": "Handle",
+      "interactableId": "ObjectHandleShield",
+      "overrideHandPose": false,
+      "handPoseId": "HandleShield"
+    }
+  ],
+  "whooshs": [
+    {
+      "transformName": "Whoosh",
+      "fxId": "WhooshSwordLight",
+      "trigger": 0,
+      "minVelocity": 5.0,
+      "maxVelocity": 12.0
+    }
+  ]
+}
