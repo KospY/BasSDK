@@ -83,7 +83,7 @@ namespace BS
 
             if (this.gameObject.scene.name.ToLower() == "master")
             {
-                data = Catalog.current.GetData<LevelData>("Master");
+                data = Catalog.GetData<LevelData>("Master");
             }
             else
             {
@@ -144,7 +144,7 @@ namespace BS
                     Creature playerCreature = null;
                     try
                     {
-                        playerCreature = Catalog.current.GetData<CreatureData>(Catalog.current.gameData.defaultPlayerCreatureID).Instantiate(playerStart.position, playerStart.rotation);
+                        playerCreature = Catalog.GetData<CreatureData>(Catalog.gameData.defaultPlayerCreatureID).Instantiate(playerStart.position, playerStart.rotation);
                         playerCreature.container.containerID = null;
                         playerCreature.loadUmaPreset = false;
                         playerCreature.container.content = GameManager.playerData.inventory;

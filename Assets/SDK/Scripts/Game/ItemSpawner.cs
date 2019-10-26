@@ -18,7 +18,7 @@ namespace BS
 #if ProjectCore
         public List<ValueDropdownItem<string>> GetAllItemID()
         {
-            return Catalog.current.GetDropdownAllID(Catalog.Category.Item);
+            return Catalog.GetDropdownAllID(Catalog.Category.Item);
         }
 
         protected void Start()
@@ -31,7 +31,7 @@ namespace BS
         {
             if (itemId != "" && itemId != null)
             {
-                Item item = Catalog.current.GetData<ItemData>(itemId).Spawn(pooled);
+                Item item = Catalog.GetData<ItemData>(itemId).Spawn(pooled);
                 item.transform.MoveAlign(item.definition.holderPoint, this.transform);
                 return item;
             }

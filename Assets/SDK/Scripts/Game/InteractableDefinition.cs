@@ -21,7 +21,7 @@ namespace BS
 #if ProjectCore
         public List<ValueDropdownItem<string>> GetAllInteractableID()
         {
-            return Catalog.current.GetDropdownAllID(Catalog.Category.Interactable);
+            return Catalog.GetDropdownAllID(Catalog.Category.Interactable);
         }
 #endif
         protected virtual void Awake()
@@ -29,7 +29,7 @@ namespace BS
 #if ProjectCore
             if (interactableId != null && interactableId != "" && interactableId != "None")
             {
-                InteractableData interactableData = Catalog.current.GetData<InteractableData>(interactableId);
+                InteractableData interactableData = Catalog.GetData<InteractableData>(interactableId);
                 if (interactableData != null) Load(interactableData.Clone() as InteractableData);
             }
 #endif

@@ -23,7 +23,7 @@ namespace BS
 
         public new List<ValueDropdownItem<string>> GetAllInteractableID()
         {
-            return Catalog.current.GetDropdownAllID<InteractableHandle>();
+            return Catalog.GetDropdownAllID<InteractableHandle>();
         }
 
         protected override void Awake()

@@ -117,7 +117,7 @@ namespace BS
 
         public List<ValueDropdownItem<string>> GetAllItemID()
         {
-            return Catalog.current.GetDropdownAllID(Catalog.Category.Item);
+            return Catalog.GetDropdownAllID(Catalog.Category.Item);
         }
 #endif
 
@@ -236,7 +236,7 @@ namespace BS
         {
             if (!initialized && itemId != null && itemId != "" && itemId != "None")
             {
-                Init(Catalog.current.GetData<ItemData>(itemId));
+                Init(Catalog.GetData<ItemData>(itemId));
             }
         }
 

@@ -27,7 +27,7 @@ namespace BS
         public List<ValueDropdownItem<string>> GetAllPageGroupsId()
         {
             List<ValueDropdownItem<string>> dropdownList = new List<ValueDropdownItem<string>>();
-            foreach (TextData.PageGroup pageGroup in Catalog.current.GetTextData().pageGroups)
+            foreach (TextData.PageGroup pageGroup in Catalog.GetTextData().pageGroups)
             {
                 dropdownList.Add(new ValueDropdownItem<string>(pageGroup.id, pageGroup.id));
             }
@@ -47,7 +47,7 @@ namespace BS
         {
             if (pageGroupId != null)
             {
-                TextData.PageGroup pageGroup = Catalog.current.GetTextData().GetPageGroup(pageGroupId);
+                TextData.PageGroup pageGroup = Catalog.GetTextData().GetPageGroup(pageGroupId);
                 title.text = pageGroup.title;
                 if (pageGroup != null)
                 {
@@ -75,7 +75,7 @@ namespace BS
                 }
                 else
                 {
-                    text.text = Catalog.current.GetString("Unknown");
+                    text.text = Catalog.GetString("Unknown");
                     image.sprite = null;
                     buttonPrevious.gameObject.SetActive(false);
                     buttonNext.gameObject.SetActive(false);
@@ -83,7 +83,7 @@ namespace BS
             }
             else
             {
-                text.text = Catalog.current.GetString("Unknown");
+                text.text = Catalog.GetString("Unknown");
                 image.sprite = null;
                 buttonPrevious.gameObject.SetActive(false);
                 buttonNext.gameObject.SetActive(false);
@@ -95,7 +95,7 @@ namespace BS
         [Button]
         public void Next()
         {
-            TextData.PageGroup pageGroup = Catalog.current.GetTextData().GetPageGroup(pageGroupId);
+            TextData.PageGroup pageGroup = Catalog.GetTextData().GetPageGroup(pageGroupId);
             if (pageGroupId == "Tips" && GameManager.playerData != null)
             {
                 GameManager.playerData.tipIndex++;
@@ -113,7 +113,7 @@ namespace BS
         [Button]
         public void Previous()
         {
-            TextData.PageGroup pageGroup = Catalog.current.GetTextData().GetPageGroup(pageGroupId);
+            TextData.PageGroup pageGroup = Catalog.GetTextData().GetPageGroup(pageGroupId);
             if (pageGroupId == "Tips" && GameManager.playerData != null)
             {
                 GameManager.playerData.tipIndex--;

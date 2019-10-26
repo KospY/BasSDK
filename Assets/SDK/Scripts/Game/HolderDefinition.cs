@@ -18,7 +18,7 @@ namespace BS
 #if ProjectCore
         public new List<ValueDropdownItem<string>> GetAllInteractableID()
         {
-            return Catalog.current.GetDropdownAllID<InteractableHolder>();
+            return Catalog.GetDropdownAllID<InteractableHolder>();
         }
 #endif
 

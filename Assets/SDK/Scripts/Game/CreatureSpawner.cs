@@ -30,22 +30,22 @@ namespace BS
 #if ProjectCore
         public List<ValueDropdownItem<string>> GetAllCreatureID()
         {
-            return Catalog.current.GetDropdownAllID(Catalog.Category.Creature);
+            return Catalog.GetDropdownAllID(Catalog.Category.Creature);
         }
 
         public List<ValueDropdownItem<string>> GetAllContainerID()
         {
-            return Catalog.current.GetDropdownAllID(Catalog.Category.Container);
+            return Catalog.GetDropdownAllID(Catalog.Category.Container);
         }
 
         public List<ValueDropdownItem<string>> GetAllBrainID()
         {
-            return Catalog.current.GetDropdownAllID(Catalog.Category.Brain);
+            return Catalog.GetDropdownAllID(Catalog.Category.Brain);
         }
 
         public List<ValueDropdownItem<int>> GetAllFactionID()
         {
-            return Catalog.current.gameData.GetFactions();
+            return Catalog.gameData.GetFactions();
         }
 
         protected void Start()
@@ -58,7 +58,7 @@ namespace BS
         {
             if (creatureId != "" && creatureId != null)
             {
-                CreatureData creatureData = Catalog.current.GetData<CreatureData>(creatureId).Clone() as CreatureData;
+                CreatureData creatureData = Catalog.GetData<CreatureData>(creatureId).Clone() as CreatureData;
                 creatureData.factionId = factionId;
                 if (brainId != "" && brainId != null && brainId != "None") creatureData.brainId = brainId;
                 if (containerID != "" && containerID != null && containerID != "None") creatureData.containerID = containerID;
