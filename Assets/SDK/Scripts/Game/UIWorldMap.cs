@@ -8,7 +8,7 @@ namespace BS
         public Transform locations;
         public Transform canvasDetails;
 
-#if FULLGAME
+#if ProjectCore
         protected void Awake()
         {
             GameObject canvasGameObject = Instantiate(Resources.Load("UI/WorldMap"), this.transform.position, this.transform.rotation, this.transform) as GameObject;

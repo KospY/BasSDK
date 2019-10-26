@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+#if ProjectCore
+using Sirenix.OdinInspector;
+#else
 using EasyButtons;
+#endif
 
 namespace BS
 {
@@ -10,6 +14,13 @@ namespace BS
         public List<Transform> slots = new List<Transform>();
         public List<ItemDefinition> startObjects = new List<ItemDefinition>();
         public List<Collider> ignoredColliders = new List<Collider>();
+
+#if ProjectCore
+        public new List<ValueDropdownItem<string>> GetAllInteractableID()
+        {
+            return Catalog.current.GetDropdownAllID<InteractableHolder>();
+        }
+#endif
 
         protected virtual void OnValidate()
         {

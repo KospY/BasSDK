@@ -1,5 +1,9 @@
-﻿using EasyButtons;
-using UnityEngine;
+﻿using UnityEngine;
+#if ProjectCore
+using Sirenix.OdinInspector;
+#else
+using EasyButtons;
+#endif
 
 namespace BS
 {
@@ -8,7 +12,7 @@ namespace BS
         public int rungCount = 1;
         public float rungHeight = 0.5f;
         public GameObject rungPrefab;
- 
+
         [Button]
         protected virtual void CreateRungs()
         {

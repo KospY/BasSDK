@@ -12,7 +12,7 @@ namespace BS
             if (id == null || id == "") id = this.gameObject.scene.name;
         }
 
-#if FULLGAME
+#if ProjectCore
         protected void Awake()
         {
             GameObject canvasGameObject = Instantiate(Resources.Load("UI/WaveSelector"), this.transform.position, this.transform.rotation, this.transform) as GameObject;

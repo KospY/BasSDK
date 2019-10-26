@@ -2,11 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#if ProjectCore
+using Sirenix.OdinInspector;
+#endif
+
 namespace BS
 {
     [RequireComponent(typeof(Rigidbody))]
     public class ItemDefinition : MonoBehaviour
     {
+#if ProjectCore
+        [ValueDropdown("GetAllItemID")]
+#endif
         public string itemId;
         public Transform holderPoint;
         public Transform parryPoint;
@@ -19,14 +26,114 @@ namespace BS
         public bool customInertiaTensor;
         public CapsuleCollider customInertiaTensorCollider;
         public List<CustomReference> customReferences;
-    
+
+        public bool initialized { get; protected set; }
 
         [NonSerialized]
         public List<Renderer> renderers;
         [NonSerialized]
+        public List<Paintable> paintables;
+        [NonSerialized]
         public List<ColliderGroup> colliderGroups;
         [NonSerialized]
         public List<WhooshPoint> whooshPoints;
+
+#if ProjectCore
+        [NonSerialized, ShowInInspector]
+        public Vector3 customInertiaTensorPos;
+        [NonSerialized, ShowInInspector]
+        public Quaternion customInertiaTensorRot;
+        [NonSerialized, ShowInInspector]
+        public List<SavedValue> savedValues;
+
+
+        [Serializable]
+        public class SavedValue
+        {
+            [ValueDropdown("GetSavedValuesID")]
+            public string id;
+            public string value;
+            public SavedValue(string id, string value)
+            {
+                this.id = id;
+                this.value = value;
+            }
+
+            public List<ValueDropdownItem<string>> GetSavedValuesID()
+            {
+                List<ValueDropdownItem<string>> dropdownList = new List<ValueDropdownItem<string>>();
+                foreach (SavedValueID savedValueID in Enum.GetValues(typeof(SavedValueID)))
+                {
+                    dropdownList.Add(new ValueDropdownItem<string>(savedValueID.ToString(), savedValueID.ToString()));
+                }
+                return dropdownList;
+            }
+        }
+
+        public void SetSavedValue(string id, string value)
+        {
+            if (savedValues == null) savedValues = new List<SavedValue>();
+            bool foundId = false;
+            for (int i = savedValues.Count - 1; i >= 0; i--)
+            {
+                if (savedValues[i].id == id)
+                {
+                    if (value == null || value == "")
+                    {
+                        savedValues.RemoveAt(i);
+                    }
+                    else
+                    {
+                        savedValues[i].value = value;
+                    }
+                    foundId = true;
+                }
+            }
+            if (!foundId && value != null && value != "")
+            {
+                savedValues.Add(new SavedValue(id, value));
+            }
+        }
+
+        public bool TryGetSavedValue(string id, out string value)
+        {
+            if (savedValues != null)
+            {
+                for (int i = savedValues.Count - 1; i >= 0; i--)
+                {
+                    if (savedValues[i].id == id)
+                    {
+                        value = savedValues[i].value;
+                        return true;
+                    }
+                }
+            }
+            value = null;
+            return false;
+        }
+
+        public delegate void InitializedDelegate(Item interactiveObject);
+        public event InitializedDelegate Initialized;
+
+        public List<ValueDropdownItem<string>> GetAllItemID()
+        {
+            return Catalog.current.GetDropdownAllID(Catalog.Category.Item);
+        }
+#endif
+
+        public Transform GetCustomReference(string name)
+        {
+            CustomReference customReference = customReferences.Find(cr => cr.name == name);
+            if (customReference != null)
+            {
+                return customReference.transform;
+            }
+            else
+            {
+                Debug.LogError("[" + itemId + "] Cannot find item definition custom reference " + name);
+                return null;
+            }
+        }
 
         protected virtual void OnValidate()
         {
@@ -104,6 +211,94 @@ namespace BS
                 customInertiaTensorCollider.gameObject.layer = 2;
             }
         }
+
+#if ProjectCore
+        protected virtual void Awake()
+        {
+            renderers = new List<Renderer>();
+            foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())
+            {
+                if (!(renderer is SkinnedMeshRenderer) && !(renderer is MeshRenderer)) continue;
+                renderers.Add(renderer);
+            }
+            paintables = new List<Paintable>(this.GetComponentsInChildren<Paintable>());
+            colliderGroups = new List<ColliderGroup>(this.GetComponentsInChildren<ColliderGroup>());
+            whooshPoints = new List<WhooshPoint>(this.GetComponentsInChildren<WhooshPoint>());
+            if (customInertiaTensorCollider) CalculateCustomInertiaTensor();
+        }
+
+        protected virtual void Start()
+        {
+            Init();
+        }
+
+        public virtual void Init()
+        {
+            if (!initialized && itemId != null && itemId != "" && itemId != "None")
+            {
+                Init(Catalog.current.GetData<ItemData>(itemId));
+            }
+        }
+
+        public virtual Item Init(ItemData item)
+        {
+            foreach (Item existingInteractiveObject in this.gameObject.GetComponents<Item>())
+            {
+                Destroy(existingInteractiveObject);
+            }
+            itemId = item.id;
+            initialized = true;
+            Item interactiveObject = item.CreateComponent(this.gameObject);
+            if (Initialized != null) Initialized.Invoke(interactiveObject);
+            return interactiveObject;
+        }
+
+        [Button]
+        public void SetCustomInertiaTensor()
+        {
+            Rigidbody rb = this.GetComponent<Rigidbody>();
+            rb.inertiaTensor = customInertiaTensorPos;
+            rb.inertiaTensorRotation = customInertiaTensorRot;
+        }
+
+        [Button]
+        public virtual void ResetInertiaTensor()
+        {
+            this.GetComponent<Rigidbody>().ResetInertiaTensor();
+        }
+
+        [Button]
+        public void CalculateCustomInertiaTensor()
+        {
+            Rigidbody rb = this.GetComponent<Rigidbody>();
+            if (!customInertiaTensorCollider)
+            {
+                Debug.LogWarning("Cannot calculate custom inertia tensor because no custom collider has been set on " + itemId);
+                rb.ResetInertiaTensor();
+                return;
+            }
+            List<Collider> orgColliders = new List<Collider>();
+            foreach (Collider collider in rb.GetComponentsInChildren<Collider>())
+            {
+                if (collider.isTrigger || customInertiaTensorCollider == collider) continue;
+                collider.enabled = false;
+                orgColliders.Add(collider);
+            }
+            customInertiaTensorCollider.enabled = true;
+            customInertiaTensorCollider.isTrigger = false;
+            rb.ResetInertiaTensor();
+
+            customInertiaTensorPos = rb.inertiaTensor;
+            customInertiaTensorRot = rb.inertiaTensorRotation;
+
+            customInertiaTensorCollider.isTrigger = true;
+            customInertiaTensorCollider.enabled = false;
+            foreach (Collider collider in orgColliders)
+            {
+                collider.enabled = true;
+            }
+        }
+#endif
 
         public static void DrawGizmoArrow(Vector3 pos, Vector3 direction, Vector3 upwards, Color color, float arrowHeadLength = 0.25f, float arrowHeadAngle = 20.0f)
         {

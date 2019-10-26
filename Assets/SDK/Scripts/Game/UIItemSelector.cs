@@ -6,7 +6,7 @@ namespace BS
     {
         public Transform spawnPoint;
 
-#if FULLGAME
+#if ProjectCore
         protected void Awake()
         {
             GameObject canvasGameObject = Instantiate(Resources.Load("UI/ItemSpawner"), this.transform.position, this.transform.rotation, this.transform) as GameObject;

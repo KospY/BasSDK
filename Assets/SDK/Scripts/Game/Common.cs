@@ -24,7 +24,7 @@ namespace BS
         Yellow,
         White
     }
-
+    
     public enum AudioMixerNames
     {
         Master,
@@ -115,7 +115,7 @@ namespace BS
                 Gizmos.DrawRay(pos + direction, backward * arrowHeadLength);
 #if UNITY_EDITOR
                 UnityEditor.Handles.color = color;
-                UnityEditor.Handles.DrawWireDisc(pos + new Vector3(0,arrowHeadLength*(1- Mathf.Cos(arrowHeadAngle * Mathf.Deg2Rad)),0), direction, arrowHeadLength * Mathf.Sin(arrowHeadAngle* Mathf.Deg2Rad));
+                UnityEditor.Handles.DrawWireDisc(pos + new Vector3(0, arrowHeadLength * (1 - Mathf.Cos(arrowHeadAngle * Mathf.Deg2Rad)), 0), direction, arrowHeadLength * Mathf.Sin(arrowHeadAngle * Mathf.Deg2Rad));
 #endif
             }
         }

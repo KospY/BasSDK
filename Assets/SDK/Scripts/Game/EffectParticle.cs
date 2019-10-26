@@ -212,15 +212,18 @@ namespace BS
 
         public override void Despawn()
         {
-#if FULLGAME
-            foreach (ParticleInfo p in particles)
+#if ProjectCore
+            if (Application.isPlaying)
             {
-                p.particleSystem.Stop();
+                foreach (ParticleInfo p in particles)
+                {
+                    p.particleSystem.Stop();
+                }
+                EffectInstance orgEffectInstance = effectInstance;
+                effectInstance = null;
+                //EffectModuleParticle.Despawn(this);
+                orgEffectInstance.OnEffectDespawn();
             }
-            EffectInstance orgEffectInstance = effectInstance;
-            effectInstance = null;
-            //EffectModuleParticle.Despawn(this);
-            orgEffectInstance.OnEffectDespawn();
 #endif
         }
     }

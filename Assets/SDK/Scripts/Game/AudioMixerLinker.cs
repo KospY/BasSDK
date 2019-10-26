@@ -16,7 +16,7 @@ namespace BS
             Music,
         }
 
-#if FULLGAME
+#if ProjectCore
         protected void Awake()
         {
             foreach (AudioSource audioSource in this.GetComponents<AudioSource>())

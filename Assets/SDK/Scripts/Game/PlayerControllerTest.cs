@@ -13,10 +13,15 @@ public class PlayerControllerTest : MonoBehaviour
 
     void Awake()
     {
+#if ProjectCore
+        Destroy(this.gameObject);
+#else
         characterController = GetComponent<CharacterController>();
         XRDevice.SetTrackingSpaceType(TrackingSpaceType.RoomScale);
+#endif
     }
 
+#if !ProjectCore
     void FixedUpdate()
     {
         characterController.center = new Vector3(this.transform.InverseTransformPoint(head.position).x, 0, this.transform.InverseTransformPoint(head.position).z);
@@ -38,4 +43,5 @@ public class PlayerControllerTest : MonoBehaviour
         characterController.Move(head.TransformDirection(moveDirection) * Time.deltaTime);
         this.transform.RotateAround(head.position, Vector3.up, Input.GetAxis("Turn"));
     }
+#endif
 }

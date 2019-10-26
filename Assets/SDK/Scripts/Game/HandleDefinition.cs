@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+#if ProjectCore
+using Sirenix.OdinInspector;
+#else
 using EasyButtons;
+#endif
 
 namespace BS
 {
