@@ -4,5 +4,16 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
-  m_configObjects: {}
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Private/Core/_Game/Scenes/Master.unity
+    guid: a596671fbfbbdd54a8c7f8a754621a4a
+  - enabled: 1
+    path: Assets/Private/Core/_Game/Scenes/CharacterSelection.unity
+    guid: 2e68ae4fb707ae440b1286a74717a009
+  - enabled: 1
+    path: Assets/Private/Core/_Game/Scenes/Test.unity
+    guid: 8433453f81ad62343af85593c03a66b6
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 8df601990f9f3f94dbc51acf617d96f3,
+      type: 2}
