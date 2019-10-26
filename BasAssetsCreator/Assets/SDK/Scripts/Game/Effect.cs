@@ -6,8 +6,12 @@ namespace BS
     public class Effect : MonoBehaviour
     {
 #if FULLGAME
+        [NonSerialized]
         public EffectInstance effectInstance;
 #endif
+        [NonSerialized]
+        public float spawnTime;
+
         public Category category = Category.Start;
         public enum Category
         {
