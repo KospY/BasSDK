@@ -65,6 +65,12 @@ namespace BS
         Z,
     }
 
+    public enum TagFilter
+    {
+        AllExcept,
+        NoneExcept,
+    }
+
     [Serializable]
     public class CustomReference
     {
