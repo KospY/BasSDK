@@ -35,12 +35,12 @@ namespace BS
 
         }
 
-        public virtual void SetColor(Color mainColor)
+        public virtual void SetMainGradient(Gradient gradient)
         {
 
         }
 
-        public virtual void SetColor(Color mainColor, Color secondaryColor)
+        public virtual void SetSecondaryGradient(Gradient gradient)
         {
 
         }
@@ -51,6 +51,11 @@ namespace BS
         }
 
         public virtual void SetMesh(Mesh mesh)
+        {
+
+        }
+
+        public virtual void SetCollider(Collider collider)
         {
 
         }

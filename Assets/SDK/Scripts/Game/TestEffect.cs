@@ -15,26 +15,22 @@ namespace BS
         [Range(0, 1)]
         public float intensity;
 
-        [ColorUsage(true, true)]
-        public Color mainColor = Color.white;
-        [ColorUsage(true, true)]
-        public Color secondaryColor = Color.white;
+        public Gradient mainGradient;
+        public Gradient secondaryGradient;
 
         public Transform target;
 
         public Mesh mesh;
+        public new Collider collider;
 
         protected ParticleSystem rootParticleSystem;
-        protected List<EffectParticle> particleControllers = new List<EffectParticle>();
-        protected List<VisualEffect> visualEffects = new List<VisualEffect>();
-        protected List<LightController> lightControllers = new List<LightController>();
+        protected List<Effect> effects = new List<Effect>();
 
         private void OnValidate()
         {
-            particleControllers = new List<EffectParticle>(this.GetComponentsInChildren<EffectParticle>());
-            visualEffects = new List<VisualEffect>(this.GetComponentsInChildren<VisualEffect>());
-            lightControllers = new List<LightController>(this.GetComponentsInChildren<LightController>());
             rootParticleSystem = this.GetComponent<ParticleSystem>();
+            effects = new List<Effect>(this.GetComponentsInChildren<Effect>());
+
             if (!rootParticleSystem)
             {
                 rootParticleSystem = this.gameObject.AddComponent<ParticleSystem>();
@@ -45,38 +41,14 @@ namespace BS
                 rootParticleSystem.GetComponent<ParticleSystemRenderer>().enabled = false;
             }
 
-            foreach (EffectParticle p in particleControllers)
+            foreach (Effect effect in effects)
             {
-                p.SetIntensity(intensity);
-                p.SetColor(mainColor, secondaryColor);
-                p.SetTarget(transform);
-                p.SetMesh(mesh);
-
-            }
-            foreach (VisualEffect vfx in visualEffects)
-            {
-                vfx.SetFloat("Intensity", intensity);
-                vfx.SetVector4("MainColor", new Vector4(mainColor.r, mainColor.g, mainColor.b, mainColor.a));
-                vfx.SetVector4("SecondaryColor", new Vector4(secondaryColor.r, secondaryColor.g, secondaryColor.b, secondaryColor.a));
-                if (mesh) vfx.SetMesh("Mesh", mesh);
-            }
-            foreach (LightController lc in lightControllers)
-            {
-                lc.SetIntensity(intensity);
-                lc.SetColor(mainColor);
-            }
-        }
-
-        protected void Update()
-        {
-            if (target)
-            {
-                foreach (VisualEffect vfx in visualEffects)
-                {
-                    vfx.SetVector3("Target_position", target.position);
-                    vfx.SetVector3("Target_angles", target.eulerAngles);
-                    vfx.SetVector3("Target_scale", target.localScale);
-                }
+                effect.SetIntensity(intensity);
+                effect.SetMainGradient(mainGradient);
+                effect.SetSecondaryGradient(secondaryGradient);
+                effect.SetTarget(transform);
+                if (mesh) effect.SetMesh(mesh);
+                if (collider) effect.SetCollider(collider);
             }
         }
 
@@ -84,13 +56,9 @@ namespace BS
         public virtual void Play()
         {
             rootParticleSystem.Play();
-            foreach (VisualEffect vfx in visualEffects)
+            foreach (Effect effect in effects)
             {
-                vfx.Play();
-            }
-            foreach (LightController lc in lightControllers)
-            {
-                lc.SetActive(true);
+                effect.Play();
             }
         }
 
@@ -98,13 +66,9 @@ namespace BS
         public virtual void Stop()
         {
             rootParticleSystem.Stop();
-            foreach (VisualEffect vfx in visualEffects)
+            foreach (Effect effect in effects)
             {
-                vfx.Stop();
-            }
-            foreach (LightController lc in lightControllers)
-            {
-                lc.SetActive(false);
+                effect.Stop();
             }
         }
     }

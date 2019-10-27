@@ -51,9 +51,14 @@ namespace BS
             vfx.SetFloat("Intensity", value);
         }
 
-        public override void SetColor(Color mainColor)
+        public override void SetMainGradient(Gradient gradient)
         {
-            vfx.SetVector4("Color", new Vector4(mainColor.r, mainColor.g, mainColor.b, mainColor.a));
+            vfx.SetGradient("MainGradient", gradient);
+        }
+
+        public override void SetSecondaryGradient(Gradient gradient)
+        {
+            vfx.SetGradient("SecondaryGradient", gradient);
         }
 
         public override void SetTarget(Transform target)
