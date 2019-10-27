@@ -16,7 +16,7 @@ namespace BS
         protected bool isReceiving;
         protected Collider colliderReceiver;
 
-        public delegate void ReceptionEvent(LiquidContainer.Content content);
+        public delegate void ReceptionEvent(ItemModulePotion.Content content);
         public event ReceptionEvent OnReceptionEvent;
 
         void Awake()
@@ -64,7 +64,7 @@ namespace BS
             if ((Time.time - lastEffectTime) > effectRate)
             {
                 if (liquidContainer.liquids == null) Debug.LogError("liquidcontainer content is null " + liquidContainer.name);
-                foreach (LiquidContainer.Content content in liquidContainer.liquids)
+                foreach (ItemModulePotion.Content content in liquidContainer.liquids)
                 {
                     OnReceptionEvent?.Invoke(content);
                 }
