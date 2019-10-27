@@ -57,6 +57,14 @@ namespace BS
         LiquidFlow,
     }
 
+    public enum Cardinal
+    {
+        XYZ,
+        XZ,
+        X,
+        Z,
+    }
+
     [Serializable]
     public class CustomReference
     {
