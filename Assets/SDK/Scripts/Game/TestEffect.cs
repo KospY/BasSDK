@@ -13,8 +13,11 @@ namespace BS
         [Range(0, 1)]
         public float intensity;
 
+        public bool useMainGradient;
         [GradientUsage(true)]
         public Gradient mainGradient;
+
+        public bool useSecondaryGradient;
         [GradientUsage(true)]
         public Gradient secondaryGradient;
 
@@ -44,8 +47,8 @@ namespace BS
             foreach (Effect effect in effects)
             {
                 effect.SetIntensity(intensity);
-                effect.SetMainGradient(mainGradient);
-                effect.SetSecondaryGradient(secondaryGradient);
+                if (useMainGradient) effect.SetMainGradient(mainGradient);
+                if (useSecondaryGradient) effect.SetSecondaryGradient(secondaryGradient);
                 if (target) effect.SetTarget(target);
                 if (mesh) effect.SetMesh(mesh);
                 if (collider) effect.SetCollider(collider);
