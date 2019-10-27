@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-#if ProjectCore
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
 using EasyButtons;

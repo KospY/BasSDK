@@ -25,8 +25,10 @@ namespace BS
 
         [Header("Size")]
         public bool useBaseColorGradient;
+        [GradientUsage(true)]
         public Gradient baseColorGradient;
         public bool useEmissionColorGradient;
+        [GradientUsage(true)]
         public Gradient emissionColorGradient;
 
         private void OnValidate()

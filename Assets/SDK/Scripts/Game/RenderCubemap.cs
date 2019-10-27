@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
-
 #if UNITY_EDITOR
-using EasyButtons;
 using UnityEditor;
 using UnityEditor.SceneManagement;
+#endif
+
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#else
+using EasyButtons;
 #endif
 
 public class RenderCubemap : MonoBehaviour

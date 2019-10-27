@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-#if ProjectCore
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
 using EasyButtons;

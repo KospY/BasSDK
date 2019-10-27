@@ -7,7 +7,6 @@ namespace BS
     [ExecuteInEditMode]
     public class EffectVfx : Effect
     {
-        [NonSerialized]
         public VisualEffect vfx;
         public float lifeTime = 5;
         public Transform targetTransform;
@@ -20,6 +19,7 @@ namespace BS
 
         private void OnValidate()
         {
+            vfx = this.GetComponent<VisualEffect>();
             SetTarget(targetTransform);
         }
 

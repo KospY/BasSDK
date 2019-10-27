@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
-using System;
 using System.Collections.Generic;
-using UnityEngine.Experimental.VFX;
-#if ProjectCore
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
 using EasyButtons;
@@ -15,7 +13,9 @@ namespace BS
         [Range(0, 1)]
         public float intensity;
 
+        [GradientUsage(true)]
         public Gradient mainGradient;
+        [GradientUsage(true)]
         public Gradient secondaryGradient;
 
         public Transform target;
@@ -46,14 +46,14 @@ namespace BS
                 effect.SetIntensity(intensity);
                 effect.SetMainGradient(mainGradient);
                 effect.SetSecondaryGradient(secondaryGradient);
-                effect.SetTarget(transform);
+                if (target) effect.SetTarget(target);
                 if (mesh) effect.SetMesh(mesh);
                 if (collider) effect.SetCollider(collider);
             }
         }
 
         [Button]
-        public virtual void Play()
+        public void Play()
         {
             rootParticleSystem.Play();
             foreach (Effect effect in effects)
@@ -63,7 +63,7 @@ namespace BS
         }
 
         [Button]
-        public virtual void Stop()
+        public void Stop()
         {
             rootParticleSystem.Stop();
             foreach (Effect effect in effects)
