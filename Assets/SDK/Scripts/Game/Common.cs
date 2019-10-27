@@ -35,6 +35,28 @@ namespace BS
         Music,
     }
 
+    public enum LayerName
+    {
+        None,
+        Default,
+        PlayerLocomotion,
+        BodyLocomotion,
+        Touch,
+        MovingObject,
+        DroppedObject,
+        NPCGrabbedObject,
+        TouchObject,
+        Avatar,
+        NPC,
+        FPVHide,
+        LocomotionOnly,
+        Ragdoll,
+        PostProcess,
+        PlayerHandAndFoot,
+        PlayerLocomotionObject,
+        LiquidFlow,
+    }
+
     [Serializable]
     public class CustomReference
     {
