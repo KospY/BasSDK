@@ -33,7 +33,7 @@ namespace BS
         private void Awake()
         {
             Init();
-            foreach (ParticleInfo p in particles)
+            foreach (EffectParticleChild p in childs)
             {
                 if (p.spawnEffectId != null && p.spawnEffectId != "")
                 {
