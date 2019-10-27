@@ -111,7 +111,7 @@ namespace BS
         {
             Init();
         }
-
+#if ProjectCore
         private void Awake()
         {
             Init();
@@ -124,7 +124,7 @@ namespace BS
                 }
             }
         }
-
+#endif
         private void Init()
         {
             rootParticleSystem = this.GetComponent<ParticleSystem>();
@@ -139,6 +139,7 @@ namespace BS
             }
             foreach (ParticleInfo p in particles)
             {
+                if (!p.particleSystem) continue;
                 p.renderer = p.particleSystem.GetComponent<ParticleSystemRenderer>();
                 p.materialPropertyBlock = new MaterialPropertyBlock();
             }
@@ -249,6 +250,7 @@ namespace BS
             currentMainGradient = gradient;
             foreach (ParticleInfo p in particles)
             {
+                if (!p.particleSystem) continue;
                 ParticleSystem.MainModule mainModule = p.particleSystem.main;
                 if (p.linkStartColor == ParticleInfo.LinkedGradient.Main)
                 {
@@ -265,6 +267,7 @@ namespace BS
             currentSecondaryGradient = gradient;
             foreach (ParticleInfo p in particles)
             {
+                if (!p.particleSystem) continue;
                 ParticleSystem.MainModule mainModule = p.particleSystem.main;
                 if (p.linkStartColor == ParticleInfo.LinkedGradient.Secondary)
                 {
@@ -280,6 +283,7 @@ namespace BS
         {
             foreach (ParticleInfo p in particles)
             {
+                if (!p.particleSystem) continue;
                 if (p.mesh)
                 {
                     ParticleSystem.ShapeModule shapeModule = p.particleSystem.shape;
@@ -292,6 +296,7 @@ namespace BS
         {
             foreach (ParticleInfo p in particles)
             {
+                if (!p.particleSystem) continue;
                 if (p.mesh)
                 {
                     ParticleSystem.ShapeModule shapeModule = p.particleSystem.shape;
@@ -319,6 +324,7 @@ namespace BS
         {
             foreach (ParticleInfo p in particles)
             {
+                if (!p.particleSystem) continue;
                 p.particleSystem.Stop();
             }
 #if ProjectCore
