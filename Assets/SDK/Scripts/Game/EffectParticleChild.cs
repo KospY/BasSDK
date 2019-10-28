@@ -18,15 +18,6 @@ namespace BS
             Secondary,
         }
 
-        [Header("Main Gradient to ")]
-        public bool mainColor;
-        public bool secondaryColor;
-
-        [Header("Color Parameter To Change")]
-        public bool startColor;
-        public bool emissionColor;
-        public bool baseMapColor;
-
         [Header("Intensity to duration")]
         public bool duration;
         public AnimationCurve curveDuration;
