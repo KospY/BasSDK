@@ -61,7 +61,10 @@ namespace BS
             rootParticleSystem.Play();
             foreach (Effect effect in effects)
             {
-                effect.Play();
+                if (effect.step != Effect.Step.End)
+                {
+                    effect.Play();
+                }
             }
         }
 
@@ -71,7 +74,14 @@ namespace BS
             rootParticleSystem.Stop();
             foreach (Effect effect in effects)
             {
-                effect.Stop();
+                if (effect.step == Effect.Step.End)
+                {
+                    effect.Play();
+                }
+                else
+                {
+                    effect.Stop();
+                }
             }
         }
     }
