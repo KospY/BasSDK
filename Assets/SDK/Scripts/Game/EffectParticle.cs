@@ -7,6 +7,7 @@ namespace BS
     public class EffectParticle : Effect
     {
         public int poolCount = 50;
+        public float lifeTime = 5;
 
         [NonSerialized]
         public List<EffectParticleChild> childs = new List<EffectParticleChild>();
@@ -67,11 +68,16 @@ namespace BS
         public override void Play()
         {
             rootParticleSystem.Play();
+            if (step != Step.Loop)
+            {
+                Invoke("Despawn", lifeTime);
+            }
         }
 
         public override void Stop()
         {
             rootParticleSystem.Stop();
+            Invoke("Despawn", lifeTime);
         }
 
         public override void SetIntensity(float value)
@@ -244,10 +250,8 @@ namespace BS
 
         public override void Despawn()
         {
-            foreach (EffectParticleChild p in childs)
-            {
-                p.particleSystem.Stop();
-            }
+            rootParticleSystem.Stop();
+            CancelInvoke();
 #if ProjectCore
             if (Application.isPlaying)
             {
