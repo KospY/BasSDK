@@ -29,18 +29,20 @@ public class PlayerControllerTest : MonoBehaviour
 
     void Update()
     {
+        Vector3 moveDirection = Quaternion.Euler(0, head.transform.rotation.eulerAngles.y, 0) * new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        moveDirection *= speed;
+        if (moveDirection.magnitude < 0.1f) moveDirection = Vector3.zero;
+
         if (characterController.isGrounded)
         {
-            moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
-            moveDirection *= speed;
-
             if (Input.GetButton("Jump"))
             {
                 moveDirection.y = jumpSpeed;
             }
         }
         moveDirection.y -= gravity * Time.deltaTime;
-        characterController.Move(head.TransformDirection(moveDirection) * Time.deltaTime);
+
+        characterController.Move(moveDirection * Time.deltaTime);
         this.transform.RotateAround(head.position, Vector3.up, Input.GetAxis("Turn"));
     }
 #endif
