@@ -1,592 +1,562 @@
 {
-    "gameVersion": "7,0",
-    "minModVersion": "7,0",
-    "defaultJSONFolder": "Default",
-    "savesFolder": "Default",
-    "overrideCharactersOnStart": false,
-    "disableCharacterCustomization": false,
-    "disableCharacterDeletion": false,
-    "overrideOptionsOnStart": false,
-    "hideMenuOptions": false,
-    "loadMods": true,
-    "defaultPlayerCreatureID": "PlayerDefault",
-    "defaultPlayerStorageContainerID": "PlayerStorageDefault",
-    "defaultPlayerRackContainerID": "PlayerRackDefault",
-    "levelHome": "Home",
-    "levelHomeModeName": "",
-    "levelCharSelection": "CharacterSelection",
-    "levelCharSelectionModeName": "",
-    "uma": {
-        "initialScaleFactor": 2,
-        "defaultMaleRaceId": "HumanMale2",
-        "defaultFemaleRaceId": "HumanFemale2",
-        "defaultMaleHair": "MaleHair11",
-        "defaultFemaleHair": "FemaleHair14",
-        "defaultMaleBeard": "MaleBeard7",
-        "defaultMaleBrow": "MaleBrow01",
-        "defaultFemaleBrow": "FemaleBrow01",
-        "assetBundles": []
+  "gameVersion": "7,0",
+  "minModVersion": "7,0",
+  "defaultJSONFolder": "Default",
+  "savesFolder": "Default",
+  "overrideCharactersOnStart": false,
+  "disableCharacterCustomization": false,
+  "disableCharacterDeletion": false,
+  "overrideOptionsOnStart": false,
+  "hideMenuOptions": false,
+  "loadMods": true,
+  "defaultPlayerCreatureID": "PlayerDefault",
+  "defaultPlayerStorageContainerID": "PlayerStorageDefault",
+  "defaultPlayerRackContainerID": "PlayerRackDefault",
+  "levelHome": "Home",
+  "levelHomeModeName": "",
+  "levelCharSelection": "CharacterSelection",
+  "levelCharSelectionModeName": "",
+  "uma": {
+    "initialScaleFactor": 2,
+    "defaultMaleRaceId": "HumanMale2",
+    "defaultFemaleRaceId": "HumanFemale2",
+    "defaultMaleHair": "MaleHair11",
+    "defaultFemaleHair": "FemaleHair14",
+    "defaultMaleBeard": "MaleBeard7",
+    "defaultMaleBrow": "MaleBrow01",
+    "defaultFemaleBrow": "FemaleBrow01",
+    "assetBundles": []
+  },
+  "experience": {
+    "actions": {
+      "decapitation": 80,
+      "dismemberment": 60,
+      "cutThroat": 60,
+      "slashHeadOrNeck": 30,
+      "pierceHeadOrNeck": 50,
+      "pierceTorso": 40,
+      "bluntHead": 40,
+      "punchOrKick": 30,
+      "ragdollHit": 60,
+      "staticBlunt": 40,
+      "staticSlash": 60,
+      "staticPierce": 70,
+      "shocked": 20,
+      "burned": 20,
+      "frozen": 20,
+      "drained": 30,
+      "poisoned": 40,
+      "throwDecapitation": 90,
+      "throwDismemberment": 70,
+      "throwSlashHeadOrNeck": 40,
+      "throwPierceHeadOrNeck": 60,
+      "throwPierce": 50,
+      "throwBlunt": 50
     },
-    "experience": {
-        "actions": {
-            "decapitation": 80,
-            "dismemberment": 60,
-            "cutThroat": 60,
-            "slashHeadOrNeck": 30,
-            "pierceHeadOrNeck": 50,
-            "pierceTorso": 40,
-            "bluntHead": 40,
-            "punchOrKick": 30,
-            "ragdollHit": 60,
-            "staticBlunt": 40,
-            "staticSlash": 60,
-            "staticPierce": 70,
-            "shocked": 20,
-            "burned": 20,
-            "frozen": 20,
-            "drained": 30,
-            "poisoned": 40,
-            "throwDecapitation": 90,
-            "throwDismemberment": 70,
-            "throwSlashHeadOrNeck": 40,
-            "throwPierceHeadOrNeck": 60,
-            "throwPierce": 50,
-            "throwBlunt": 50
-        },
-        "modifiers": {
-            "flying": 50,
-            "grabbed": 30,
-            "shocked": 20,
-            "onGround": 0,
-            "unarmed": 0,
-            "dead": 0
-        },
-        "aiDifficulty": 50,
-        "apparelTier": 80,
-        "weaponTier": 20,
-        "shieldTier": 50,
-        "historyMaxSameAction": -30,
-        "historyMaxSameActionAndModifier": -60,
-        "historyMultiKill": 20,
-        "historyMinTime": 2.0,
-        "historyMaxTime": 30.0,
-        "historyMaxCount": 20
+    "modifiers": {
+      "flying": 50,
+      "grabbed": 30,
+      "shocked": 20,
+      "onGround": 0,
+      "unarmed": 0,
+      "dead": 0
     },
-    "honor": {
-        "max": 1000,
-        "actions": {
-            "decapitation": 2,
-            "dismemberment": 0,
-            "cutThroat": 2,
-            "slashHeadOrNeck": 1,
-            "pierceHeadOrNeck": 1,
-            "pierceTorso": 0,
-            "bluntHead": 1,
-            "punchOrKick": 3,
-            "ragdollHit": 3,
-            "staticBlunt": 1,
-            "staticSlash": 0,
-            "staticPierce": 0,
-            "shocked": -1,
-            "burned": -1,
-            "frozen": -1,
-            "drained": -2,
-            "poisoned": -2,
-            "throwDecapitation": 1,
-            "throwDismemberment": 0,
-            "throwSlashHeadOrNeck": 1,
-            "throwPierceHeadOrNeck": 1,
-            "throwPierce": 0,
-            "throwBlunt": 1
-        },
-        "modifiers": {
-            "flying": 0,
-            "grabbed": 0,
-            "shocked": 1,
-            "onGround": -3,
-            "unarmed": -5,
-            "dead": -3
-        }
+    "aiDifficulty": 50,
+    "apparelTier": 80,
+    "weaponTier": 20,
+    "shieldTier": 50,
+    "historyMaxSameAction": -30,
+    "historyMaxSameActionAndModifier": -60,
+    "historyMultiKill": 20,
+    "historyMinTime": 2.0,
+    "historyMaxTime": 30.0,
+    "historyMaxCount": 20
+  },
+  "honor": {
+    "max": 1000,
+    "actions": {
+      "decapitation": 2,
+      "dismemberment": 0,
+      "cutThroat": 2,
+      "slashHeadOrNeck": 1,
+      "pierceHeadOrNeck": 1,
+      "pierceTorso": 0,
+      "bluntHead": 1,
+      "punchOrKick": 3,
+      "ragdollHit": 3,
+      "staticBlunt": 1,
+      "staticSlash": 0,
+      "staticPierce": 0,
+      "shocked": -1,
+      "burned": -1,
+      "frozen": -1,
+      "drained": -2,
+      "poisoned": -2,
+      "throwDecapitation": 1,
+      "throwDismemberment": 0,
+      "throwSlashHeadOrNeck": 1,
+      "throwPierceHeadOrNeck": 1,
+      "throwPierce": 0,
+      "throwBlunt": 1
     },
-    "score": {
-        "hitReceived": -4,
-        "waveReached": 5
-    },
-    "factions": [
-        {
-            "id": -1,
-            "name": "Passive",
-            "attackBehaviour": 2
-        },
-        {
-            "id": 0,
-            "name": "None",
-            "attackBehaviour": 3
-        },
-        {
-            "id": 1,
-            "name": "Ignore",
-            "attackBehaviour": 1
-        },
-        {
-            "id": 2,
-            "name": "Player",
-            "attackBehaviour": 0
-        },
-        {
-            "id": 3,
-            "name": "Bandits",
-            "attackBehaviour": 0
-        },
-        {
-            "id": 4,
-            "name": "Cult",
-            "attackBehaviour": 0
-        },
-        {
-            "id": 5,
-            "name": "Mercenary",
-            "attackBehaviour": 0
-        }
-    ],
-    "storageIcons": [
-        {
-            "name": "Daggers",
-            "iconPath": "plain-dagger"
-        },
-        {
-            "name": "Swords",
-            "iconPath": "sword"
-        },
-        {
-            "name": "Axes",
-            "iconPath": "war-axe"
-        },
-        {
-            "name": "Spears",
-            "iconPath": "spear"
-        },
-        {
-            "name": "Blunt",
-            "iconPath": "thor-hammer"
-        },
-        {
-            "name": "Exotics",
-            "iconPath": "shuriken"
-        },
-        {
-            "name": "Bows",
-            "iconPath": "high-shot"
-        },
-        {
-            "name": "Crossbow",
-            "iconPath": "crossbow"
-        },
-        {
-            "name": "Firearms",
-            "iconPath": "blunderbuss"
-        },
-        {
-            "name": "Staves",
-            "iconPath": "crystal-wand"
-        },
-        {
-            "name": "Shields",
-            "iconPath": "round-shield"
-        },
-        {
-            "name": "Potions",
-            "iconPath": "round-bottom-flask"
-        },
-        {
-            "name": "Misc",
-            "iconPath": "swap-bag"
-        },
-        {
-            "name": "Traps",
-            "iconPath": "wolf-trap"
-        },
-        {
-            "name": "Funny",
-            "iconPath": "monkey"
-        },
-        {
-            "name": "Unknown",
-            "iconPath": "Question"
-        }
-    ],
-    "damageIcons": [
-        {
-            "name": "Blunt",
-            "iconPath": "Blunt"
-        },
-        {
-            "name": "Pierce",
-            "iconPath": "Pierce"
-        },
-        {
-            "name": "Slash",
-            "iconPath": "Slash"
-        }
-    ],
-    "itemIconResolution": 512,
-    "playerSelfDamageMultiplier": false,
-    "throwVelocity": 2.0,
-    "throwMultiplier": 2.0,
-    "collisionEnterVelocityRange": {
-        "x": 0.5,
-        "y": 6.0
-    },
-    "collisionStayVelocityRange": {
-        "x": 0.5,
-        "y": 3.0
-    },
-    "maxObjectCollision": 10,
-    "maxCollisionStayCheckPerFrame": 100,
-    "cleanDeadLastInteractionDelay": 7,
-    "cleanObjectsLastInteractionDelay": 7,
-    "errorAudioContainerPath": "Errors",
-    "waveAudioContainerPath": "WaveRound",
-    "waveAudioVolume": 0.5,
-    "ragdollSelfCollision": false,
-    "collisionDetection": {
-        "grabbed": 0,
-        "dropped": 0,
-        "throwed": 2,
-        "telekinesis": 0,
-        "npcAttack": 0,
-        "kick": 2
-    },
-    "haptics": {
-        "hit": {
-            "curveIntensity": {
-                "serializedVersion": "2",
-                "m_Curve": [
-                    {
-                        "serializedVersion": "3",
-                        "time": 0.0,
-                        "value": 1.0,
-                        "inSlope": -0.011141928844153881,
-                        "outSlope": -0.011141928844153881,
-                        "tangentMode": 0,
-                        "weightedMode": 0,
-                        "inWeight": 0.3333333432674408,
-                        "outWeight": 0.12951333820819856
-                    },
-                    {
-                        "serializedVersion": "3",
-                        "time": 1.0,
-                        "value": 0.0,
-                        "inSlope": -2.927797317504883,
-                        "outSlope": -2.927797317504883,
-                        "tangentMode": 0,
-                        "weightedMode": 0,
-                        "inWeight": 0.021193087100982667,
-                        "outWeight": 0.3333333432674408
-                    }
-                ],
-                "m_PreInfinity": 2,
-                "m_PostInfinity": 2,
-                "m_RotationOrder": 4
-            },
-            "curvePeriod": {
-                "serializedVersion": "2",
-                "m_Curve": [
-                    {
-                        "serializedVersion": "3",
-                        "time": 0.0,
-                        "value": 0.05000000074505806,
-                        "inSlope": 0.0,
-                        "outSlope": 0.0,
-                        "tangentMode": 0,
-                        "weightedMode": 0,
-                        "inWeight": 0.0,
-                        "outWeight": 0.0
-                    },
-                    {
-                        "serializedVersion": "3",
-                        "time": 1.0,
-                        "value": 0.07000000029802323,
-                        "inSlope": 0.03464650735259056,
-                        "outSlope": 0.03464650735259056,
-                        "tangentMode": 0,
-                        "weightedMode": 0,
-                        "inWeight": 0.040816307067871097,
-                        "outWeight": 0.0
-                    }
-                ],
-                "m_PreInfinity": 2,
-                "m_PostInfinity": 2,
-                "m_RotationOrder": 4
-            },
-            "duration": 0.30000001192092898
-        },
-        "bowShoot": {
-            "curveIntensity": {
-                "serializedVersion": "2",
-                "m_Curve": [
-                    {
-                        "serializedVersion": "3",
-                        "time": 0.0,
-                        "value": 1.0,
-                        "inSlope": 0.016438322141766549,
-                        "outSlope": 0.016438322141766549,
-                        "tangentMode": 0,
-                        "weightedMode": 0,
-                        "inWeight": 0.3333333432674408,
-                        "outWeight": 0.3333333432674408
-                    },
-                    {
-                        "serializedVersion": "3",
-                        "time": 1.0,
-                        "value": 0.0,
-                        "inSlope": -2.8025918006896974,
-                        "outSlope": -2.8025918006896974,
-                        "tangentMode": 0,
-                        "weightedMode": 0,
-                        "inWeight": 0.027248263359069825,
-                        "outWeight": 0.3333333432674408
-                    }
-                ],
-                "m_PreInfinity": 2,
-                "m_PostInfinity": 2,
-                "m_RotationOrder": 4
-            },
-            "curvePeriod": {
-                "serializedVersion": "2",
-                "m_Curve": [
-                    {
-                        "serializedVersion": "3",
-                        "time": 0.0,
-                        "value": 0.05000000074505806,
-                        "inSlope": 0.0,
-                        "outSlope": 0.0,
-                        "tangentMode": 0,
-                        "weightedMode": 0,
-                        "inWeight": 0.0,
-                        "outWeight": 0.0
-                    },
-                    {
-                        "serializedVersion": "3",
-                        "time": 1.0,
-                        "value": 0.07000000029802323,
-                        "inSlope": 0.05073954537510872,
-                        "outSlope": 0.05073954537510872,
-                        "tangentMode": 0,
-                        "weightedMode": 0,
-                        "inWeight": 0.039246439933776858,
-                        "outWeight": 0.0
-                    }
-                ],
-                "m_PreInfinity": 2,
-                "m_PostInfinity": 2,
-                "m_RotationOrder": 4
-            },
-            "duration": 0.30000001192092898
-        },
-        "telekinesisThrow": {
-            "curveIntensity": {
-                "serializedVersion": "2",
-                "m_Curve": [
-                    {
-                        "serializedVersion": "3",
-                        "time": 0.0,
-                        "value": 1.0,
-                        "inSlope": -0.006894191261380911,
-                        "outSlope": -0.006894191261380911,
-                        "tangentMode": 0,
-                        "weightedMode": 0,
-                        "inWeight": 0.0,
-                        "outWeight": 0.11538461595773697
-                    },
-                    {
-                        "serializedVersion": "3",
-                        "time": 1.0,
-                        "value": 0.0,
-                        "inSlope": -2.712127923965454,
-                        "outSlope": -2.712127923965454,
-                        "tangentMode": 0,
-                        "weightedMode": 0,
-                        "inWeight": 0.020408153533935548,
-                        "outWeight": 0.0
-                    }
-                ],
-                "m_PreInfinity": 2,
-                "m_PostInfinity": 2,
-                "m_RotationOrder": 4
-            },
-            "curvePeriod": {
-                "serializedVersion": "2",
-                "m_Curve": [
-                    {
-                        "serializedVersion": "3",
-                        "time": 0.0,
-                        "value": 0.05000000074505806,
-                        "inSlope": 0.0,
-                        "outSlope": 0.0,
-                        "tangentMode": 0,
-                        "weightedMode": 0,
-                        "inWeight": 0.0,
-                        "outWeight": 0.0
-                    },
-                    {
-                        "serializedVersion": "3",
-                        "time": 1.0,
-                        "value": 0.10000000149011612,
-                        "inSlope": 0.0,
-                        "outSlope": 0.0,
-                        "tangentMode": 0,
-                        "weightedMode": 0,
-                        "inWeight": 0.0,
-                        "outWeight": 0.0
-                    }
-                ],
-                "m_PreInfinity": 2,
-                "m_PostInfinity": 2,
-                "m_RotationOrder": 4
-            },
-            "duration": 0.5
-        },
-        "spellSelected": {
-            "curveIntensity": {
-                "serializedVersion": "2",
-                "m_Curve": [
-                    {
-                        "serializedVersion": "3",
-                        "time": 0.0,
-                        "value": 0.10000000149011612,
-                        "inSlope": 0.0,
-                        "outSlope": 0.0,
-                        "tangentMode": 0,
-                        "weightedMode": 0,
-                        "inWeight": 0.0,
-                        "outWeight": 0.0
-                    },
-                    {
-                        "serializedVersion": "3",
-                        "time": 1.0,
-                        "value": 0.0,
-                        "inSlope": -0.1500643938779831,
-                        "outSlope": -0.1500643938779831,
-                        "tangentMode": 0,
-                        "weightedMode": 0,
-                        "inWeight": 0.03622803837060928,
-                        "outWeight": 0.0
-                    }
-                ],
-                "m_PreInfinity": 2,
-                "m_PostInfinity": 2,
-                "m_RotationOrder": 4
-            },
-            "curvePeriod": {
-                "serializedVersion": "2",
-                "m_Curve": [
-                    {
-                        "serializedVersion": "3",
-                        "time": 0.0,
-                        "value": 0.05000000074505806,
-                        "inSlope": 0.0,
-                        "outSlope": 0.0,
-                        "tangentMode": 0,
-                        "weightedMode": 0,
-                        "inWeight": 0.0,
-                        "outWeight": 0.0
-                    },
-                    {
-                        "serializedVersion": "3",
-                        "time": 1.0,
-                        "value": 0.05000000074505806,
-                        "inSlope": 0.0,
-                        "outSlope": 0.0,
-                        "tangentMode": 0,
-                        "weightedMode": 0,
-                        "inWeight": 0.0,
-                        "outWeight": 0.0
-                    }
-                ],
-                "m_PreInfinity": 2,
-                "m_PostInfinity": 2,
-                "m_RotationOrder": 4
-            },
-            "duration": 0.25
-        },
-        "telekinesisIntensity": {
-            "x": 0.05000000074505806,
-            "y": 0.20000000298023225
-        },
-        "telekinesisViveCosmosMultiplier": 0.10000000149011612,
-        "telekinesisPeriod": {
-            "x": 0.05999999865889549,
-            "y": 0.029999999329447748
-        },
-        "telekinesisFocus": 0.10000000149011612,
-        "bowDrawPeriod": 0.019999999552965165,
-        "bowDrawIntensity": 0.800000011920929,
-        "rubbingPeriod": 0.019999999552965165,
-        "rubbingIntensity": 0.800000011920929,
-        "penetrationPeriod": 0.009999999776482582,
-        "penetrationIntensity": 0.8999999761581421
-    },
-    "slowMotionScale": 0.5,
-    "slowMotionConsumption": 30.0,
-    "slowMotionEnterCurve": {
-        "serializedVersion": "2",
-        "m_Curve": [
-            {
-                "serializedVersion": "3",
-                "time": 0.0,
-                "value": 1.0,
-                "inSlope": Infinity,
-                "outSlope": -9.472559928894043,
-                "tangentMode": 1,
-                "weightedMode": 0,
-                "inWeight": 0.3333333432674408,
-                "outWeight": 0.3333333432674408
-            },
-            {
-                "serializedVersion": "3",
-                "time": 0.30000001192092898,
-                "value": 0.0,
-                "inSlope": 0.05932328477501869,
-                "outSlope": 0.05932328477501869,
-                "tangentMode": 0,
-                "weightedMode": 0,
-                "inWeight": 0.3333333432674408,
-                "outWeight": 0.3333333432674408
-            }
-        ],
-        "m_PreInfinity": 2,
-        "m_PostInfinity": 2,
-        "m_RotationOrder": 4
-    },
-    "slowMotionExitCurve": {
-        "serializedVersion": "2",
-        "m_Curve": [
-            {
-                "serializedVersion": "3",
-                "time": 0.0,
-                "value": 0.0,
-                "inSlope": 0.0,
-                "outSlope": 0.0,
-                "tangentMode": 0,
-                "weightedMode": 0,
-                "inWeight": 0.3333333432674408,
-                "outWeight": 0.3333333432674408
-            },
-            {
-                "serializedVersion": "3",
-                "time": 0.699999988079071,
-                "value": 1.0,
-                "inSlope": 4.697199821472168,
-                "outSlope": Infinity,
-                "tangentMode": 1,
-                "weightedMode": 0,
-                "inWeight": 0.3333333432674408,
-                "outWeight": 0.3333333432674408
-            }
-        ],
-        "m_PreInfinity": 2,
-        "m_PostInfinity": 2,
-        "m_RotationOrder": 4
+    "modifiers": {
+      "flying": 0,
+      "grabbed": 0,
+      "shocked": 1,
+      "onGround": -3,
+      "unarmed": -5,
+      "dead": -3
     }
+  },
+  "score": {
+    "hitReceived": -4,
+    "waveReached": 5
+  },
+  "factions": [
+    {
+      "id": -1,
+      "name": "Passive",
+      "attackBehaviour": 2
+    },
+    {
+      "id": 0,
+      "name": "None",
+      "attackBehaviour": 3
+    },
+    {
+      "id": 1,
+      "name": "Ignore",
+      "attackBehaviour": 1
+    },
+    {
+      "id": 2,
+      "name": "Player",
+      "attackBehaviour": 0
+    },
+    {
+      "id": 3,
+      "name": "Bandits",
+      "attackBehaviour": 0
+    },
+    {
+      "id": 4,
+      "name": "Cult",
+      "attackBehaviour": 0
+    },
+    {
+      "id": 5,
+      "name": "Mercenary",
+      "attackBehaviour": 0
+    }
+  ],
+  "storageIcons": [
+    {
+      "name": "Daggers",
+      "iconPath": "plain-dagger"
+    },
+    {
+      "name": "Swords",
+      "iconPath": "sword"
+    },
+    {
+      "name": "Axes",
+      "iconPath": "war-axe"
+    },
+    {
+      "name": "Spears",
+      "iconPath": "spear"
+    },
+    {
+      "name": "Blunt",
+      "iconPath": "thor-hammer"
+    },
+    {
+      "name": "Exotics",
+      "iconPath": "shuriken"
+    },
+    {
+      "name": "Bows",
+      "iconPath": "high-shot"
+    },
+    {
+      "name": "Crossbow",
+      "iconPath": "crossbow"
+    },
+    {
+      "name": "Firearms",
+      "iconPath": "blunderbuss"
+    },
+    {
+      "name": "Staves",
+      "iconPath": "crystal-wand"
+    },
+    {
+      "name": "Shields",
+      "iconPath": "round-shield"
+    },
+    {
+      "name": "Potions",
+      "iconPath": "round-bottom-flask"
+    },
+    {
+      "name": "Misc",
+      "iconPath": "swap-bag"
+    },
+    {
+      "name": "Traps",
+      "iconPath": "wolf-trap"
+    },
+    {
+      "name": "Funny",
+      "iconPath": "monkey"
+    },
+    {
+      "name": "Unknown",
+      "iconPath": "Question"
+    }
+  ],
+  "damageIcons": [
+    {
+      "name": "Blunt",
+      "iconPath": "Blunt"
+    },
+    {
+      "name": "Pierce",
+      "iconPath": "Pierce"
+    },
+    {
+      "name": "Slash",
+      "iconPath": "Slash"
+    }
+  ],
+  "itemIconResolution": 512,
+  "playerSelfDamageMultiplier": false,
+  "throwVelocity": 2.0,
+  "throwMultiplier": 2.0,
+  "collisionEnterVelocityRange": {
+    "x": 0.5,
+    "y": 6.0
+  },
+  "collisionStayVelocityRange": {
+    "x": 0.5,
+    "y": 3.0
+  },
+  "maxObjectCollision": 10,
+  "maxCollisionStayCheckPerFrame": 100,
+  "cleanDeadLastInteractionDelay": 7,
+  "cleanObjectsLastInteractionDelay": 7,
+  "errorAudioContainerPath": "Errors",
+  "waveAudioContainerPath": "WaveRound",
+  "waveAudioVolume": 0.5,
+  "ragdollSelfCollision": false,
+  "collisionDetection": {
+    "grabbed": 0,
+    "dropped": 0,
+    "throwed": 2,
+    "telekinesis": 0,
+    "npcAttack": 0,
+    "kick": 2
+  },
+  "haptics": {
+    "hit": {
+      "curveIntensity": {
+        "keys": [
+          {
+            "time": 0.0,
+            "value": 1.0,
+            "inTangent": -0.0111419288,
+            "outTangent": -0.0111419288,
+            "inWeight": 0.333333343,
+            "outWeight": 0.129513338,
+            "weightedMode": 0,
+            "tangentMode": 0
+          },
+          {
+            "time": 1.0,
+            "value": 0.0,
+            "inTangent": -2.92779732,
+            "outTangent": -2.92779732,
+            "inWeight": 0.0211930871,
+            "outWeight": 0.333333343,
+            "weightedMode": 0,
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "curvePeriod": {
+        "keys": [
+          {
+            "time": 0.0,
+            "value": 0.05,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          },
+          {
+            "time": 1.0,
+            "value": 0.07,
+            "inTangent": 0.0346465074,
+            "outTangent": 0.0346465074,
+            "inWeight": 0.0408163071,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "duration": 0.3
+    },
+    "bowShoot": {
+      "curveIntensity": {
+        "keys": [
+          {
+            "time": 0.0,
+            "value": 1.0,
+            "inTangent": 0.0164383221,
+            "outTangent": 0.0164383221,
+            "inWeight": 0.333333343,
+            "outWeight": 0.333333343,
+            "weightedMode": 0,
+            "tangentMode": 0
+          },
+          {
+            "time": 1.0,
+            "value": 0.0,
+            "inTangent": -2.8025918,
+            "outTangent": -2.8025918,
+            "inWeight": 0.0272482634,
+            "outWeight": 0.333333343,
+            "weightedMode": 0,
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "curvePeriod": {
+        "keys": [
+          {
+            "time": 0.0,
+            "value": 0.05,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          },
+          {
+            "time": 1.0,
+            "value": 0.07,
+            "inTangent": 0.0507395454,
+            "outTangent": 0.0507395454,
+            "inWeight": 0.03924644,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "duration": 0.3
+    },
+    "telekinesisThrow": {
+      "curveIntensity": {
+        "keys": [
+          {
+            "time": 0.0,
+            "value": 1.0,
+            "inTangent": -0.00689419126,
+            "outTangent": -0.00689419126,
+            "inWeight": 0.0,
+            "outWeight": 0.115384616,
+            "weightedMode": 0,
+            "tangentMode": 0
+          },
+          {
+            "time": 1.0,
+            "value": 0.0,
+            "inTangent": -2.712128,
+            "outTangent": -2.712128,
+            "inWeight": 0.0204081535,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "curvePeriod": {
+        "keys": [
+          {
+            "time": 0.0,
+            "value": 0.05,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          },
+          {
+            "time": 1.0,
+            "value": 0.1,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "duration": 0.5
+    },
+    "spellSelected": {
+      "curveIntensity": {
+        "keys": [
+          {
+            "time": 0.0,
+            "value": 0.1,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          },
+          {
+            "time": 1.0,
+            "value": 0.0,
+            "inTangent": -0.1500644,
+            "outTangent": -0.1500644,
+            "inWeight": 0.03622804,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "curvePeriod": {
+        "keys": [
+          {
+            "time": 0.0,
+            "value": 0.05,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          },
+          {
+            "time": 1.0,
+            "value": 0.05,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "duration": 0.25
+    },
+    "telekinesisIntensity": {
+      "x": 0.05,
+      "y": 0.2
+    },
+    "telekinesisViveCosmosMultiplier": 0.1,
+    "telekinesisPeriod": {
+      "x": 0.06,
+      "y": 0.03
+    },
+    "telekinesisFocus": 0.1,
+    "bowDrawPeriod": 0.02,
+    "bowDrawIntensity": 0.8,
+    "rubbingPeriod": 0.02,
+    "rubbingIntensity": 0.8,
+    "penetrationPeriod": 0.01,
+    "penetrationIntensity": 0.9
+  },
+  "slowMotionScale": 0.5,
+  "slowMotionConsumption": 30.0,
+  "slowMotionEnterCurve": {
+    "keys": [
+      {
+        "time": 0.0,
+        "value": 1.0,
+        "inTangent": "Infinity",
+        "outTangent": -9.47256,
+        "inWeight": 0.333333343,
+        "outWeight": 0.333333343,
+        "weightedMode": 0,
+        "tangentMode": 1
+      },
+      {
+        "time": 0.3,
+        "value": 0.0,
+        "inTangent": 0.0593232848,
+        "outTangent": 0.0593232848,
+        "inWeight": 0.333333343,
+        "outWeight": 0.333333343,
+        "weightedMode": 0,
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": 8,
+    "postWrapMode": 8
+  },
+  "slowMotionExitCurve": {
+    "keys": [
+      {
+        "time": 0.0,
+        "value": 0.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.333333343,
+        "outWeight": 0.333333343,
+        "weightedMode": 0,
+        "tangentMode": 0
+      },
+      {
+        "time": 0.7,
+        "value": 1.0,
+        "inTangent": 4.6972,
+        "outTangent": "Infinity",
+        "inWeight": 0.333333343,
+        "outWeight": 0.333333343,
+        "weightedMode": 0,
+        "tangentMode": 1
+      }
+    ],
+    "length": 2,
+    "preWrapMode": 8,
+    "postWrapMode": 8
+  }
 }
