@@ -1,0 +1,144 @@
+{
+  "$type": "BS.EffectData, Assembly-CSharp",
+  "id": "GravityBall",
+  "version": 0,
+  "modules": [
+    {
+      "$type": "BS.EffectModuleAudio, Assembly-CSharp",
+      "audioContainerPath": "HitSwordOnMetal",
+      "randomPitch": false,
+      "pitchCurve": {
+        "keys": [],
+        "length": 0,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "volumeCurve": {
+        "keys": [],
+        "length": 0,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "loopFadeDelay": 0.0,
+      "audioMixer": 1,
+      "minDistance": 1.0,
+      "maxDistance": 500.0,
+      "step": 0
+    },
+    {
+      "$type": "BS.EffectModuleAudio, Assembly-CSharp",
+      "audioContainerPath": "Rubbing_Metal2",
+      "randomPitch": false,
+      "pitchCurve": {
+        "keys": [],
+        "length": 0,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "volumeCurve": {
+        "keys": [],
+        "length": 0,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "loopFadeDelay": 0.0,
+      "audioMixer": 1,
+      "minDistance": 1.0,
+      "maxDistance": 500.0,
+      "step": 1
+    },
+    {
+      "$type": "BS.EffectModuleAudio, Assembly-CSharp",
+      "audioContainerPath": "RubbingExit_Metal",
+      "randomPitch": false,
+      "pitchCurve": {
+        "keys": [],
+        "length": 0,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "volumeCurve": {
+        "keys": [],
+        "length": 0,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "loopFadeDelay": 0.0,
+      "audioMixer": 1,
+      "minDistance": 1.0,
+      "maxDistance": 500.0,
+      "step": 2
+    },
+    {
+      "$type": "BS.EffectModuleParticle, Assembly-CSharp",
+      "effectParticlePath": "@vfx:GravityBall",
+      "mainGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.329411775,
+              "g": 1.56862748,
+              "b": 1.38039219
+            },
+            "time": 0.0
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.6901961,
+              "g": 3.890196,
+              "b": 3.26274514
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "secondaryGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.329411775,
+              "g": 1.56862748,
+              "b": 1.38039219
+            },
+            "time": 0.0
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.6901961,
+              "g": 3.890196,
+              "b": 3.26274514
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "step": 1
+    }
+  ]
+}

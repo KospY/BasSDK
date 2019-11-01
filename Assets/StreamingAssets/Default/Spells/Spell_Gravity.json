@@ -1,7 +1,7 @@
 {
-  "$type": "BS.SpellData, Assembly-CSharp",
+  "$type": "BS.SpellCastData, Assembly-CSharp",
   "id": "Gravity",
-  "version": 1,
+  "version": 0,
   "caption": "Gravity",
   "runeString": "z",
   "imageColor": {
@@ -24,10 +24,11 @@
   },
   "audioContainerPath": "",
   "audioPitch": 1.0,
-  "casts": [
+  "modules": [
     {
-      "combinedSpell": null,
-      "modules": []
+      "$type": "BS.SpellCastGravity, Assembly-CSharp",
+      "focusEffectId": "GravityBallFinger",
+      "fingerEffectId": "GravityBall"
     }
   ]
 }

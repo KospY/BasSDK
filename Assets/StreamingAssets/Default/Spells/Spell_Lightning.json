@@ -1,7 +1,7 @@
 {
-  "$type": "BS.SpellData, Assembly-CSharp",
+  "$type": "BS.SpellCastData, Assembly-CSharp",
   "id": "Lightning",
-  "version": 1,
+  "version": 0,
   "caption": "Lightning",
   "runeString": "s",
   "imageColor": {
@@ -24,20 +24,5 @@
   },
   "audioContainerPath": "Spell_LightningSelect",
   "audioPitch": 1.0,
-  "casts": [
-    {
-      "combinedSpell": null,
-      "modules": [
-        {
-          "$type": "BS.SpellModuleTest, Assembly-CSharp",
-          "focusEffectId": null,
-          "fingerEffectId": "SpellChargeTest"
-        }
-      ]
-    },
-    {
-      "combinedSpell": "Lightning",
-      "modules": []
-    }
-  ]
+  "modules": null
 }

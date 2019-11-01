@@ -7,8 +7,18 @@
       "$type": "BS.EffectModuleAudio, Assembly-CSharp",
       "audioContainerPath": "HitMetal",
       "randomPitch": false,
-      "pitchCurve": null,
-      "volumeCurve": null,
+      "pitchCurve": {
+        "keys": [],
+        "length": 0,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "volumeCurve": {
+        "keys": [],
+        "length": 0,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
       "loopFadeDelay": 0.0,
       "audioMixer": 1,
       "minDistance": 1.0,
@@ -17,7 +27,7 @@
     },
     {
       "$type": "BS.EffectModuleVfx, Assembly-CSharp",
-      "vfxPath": "OneShot",
+      "vfxPath": null,
       "lifeTime": 10.0,
       "mainGradient": {
         "colorKeys": [
@@ -65,7 +75,12 @@
         "y": 1.0,
         "z": 1.0
       },
-      "sizeCurve": null,
+      "sizeCurve": {
+        "keys": [],
+        "length": 0,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
       "baseColorGradient": {
         "colorKeys": [
           {
@@ -164,6 +179,14 @@
         "mode": 0
       },
       "step": 0
+    },
+    {
+      "$type": "BS.EffectModuleVfx, Assembly-CSharp",
+      "vfxPath": null,
+      "lifeTime": 0.0,
+      "mainGradient": null,
+      "secondaryGradient": null,
+      "step": 1
     }
   ]
 }
