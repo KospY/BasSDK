@@ -12,13 +12,20 @@ namespace BS
         [NonSerialized]
         public float spawnTime;
 
-        public Step step = Step.Start;
+        public Step step = Step.Loop;
         public enum Step
         {
             Start,
             Loop,
             End,
         }
+
+        [Header("Mesh Display")]
+        public bool meshDisplay;
+
+        [Header("Intensity to mesh size")]
+        public bool meshSize;
+        public AnimationCurve curveMeshSize;
 
         public virtual void Play()
         {
@@ -32,7 +39,11 @@ namespace BS
 
         public virtual void SetIntensity(float value)
         {
-
+            if (meshSize)
+            {
+                float meshSizeValue = curveMeshSize.Evaluate(value);
+                transform.localScale = new Vector3(meshSizeValue, meshSizeValue, meshSizeValue);
+            }
         }
 
         public virtual void SetMainGradient(Gradient gradient)
@@ -46,6 +57,11 @@ namespace BS
         }
 
         public virtual void SetTarget(Transform transform)
+        {
+
+        }
+
+        public virtual void SetSize(float value)
         {
 
         }

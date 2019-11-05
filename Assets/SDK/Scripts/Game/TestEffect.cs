@@ -29,7 +29,7 @@ namespace BS
         protected ParticleSystem rootParticleSystem;
         protected List<Effect> effects = new List<Effect>();
 
-        private void OnValidate()
+        public void OnValidate()
         {
             rootParticleSystem = this.GetComponent<ParticleSystem>();
             effects = new List<Effect>(this.GetComponentsInChildren<Effect>());
@@ -58,6 +58,7 @@ namespace BS
         [Button]
         public void Play()
         {
+            Debug.Log("Play : " + this.transform.name);
             rootParticleSystem.Play();
             foreach (Effect effect in effects)
             {

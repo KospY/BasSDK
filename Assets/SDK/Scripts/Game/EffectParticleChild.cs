@@ -51,6 +51,10 @@ namespace BS
         public AnimationCurve curveBurst;
         public short randomRangeBurst;
 
+        [Header("Intensity to velocity over lifetime")]
+        public bool velocityOverLifetime;
+        public AnimationCurve curvevelocityOverLifetime;
+
         [Header("Intensity to light intensity")]
         public bool lightIntensity;
         public AnimationCurve curveLightIntensity;

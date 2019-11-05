@@ -72,17 +72,24 @@ namespace BS
             {
                 Invoke("Despawn", lifeTime);
             }
+            if (meshDisplay)
+                gameObject.GetComponent<MeshRenderer>().enabled = true;
         }
 
         public override void Stop()
         {
             rootParticleSystem.Stop();
             Invoke("Despawn", lifeTime);
+            if (meshDisplay)
+                gameObject.GetComponent<MeshRenderer>().enabled = false;
         }
 
         public override void SetIntensity(float value)
         {
             currentValue = value;
+
+            base.SetIntensity(value);
+
             foreach (EffectParticleChild p in childs)
             {
                 ParticleSystem.MainModule mainModule = p.particleSystem.main;
@@ -136,6 +143,14 @@ namespace BS
                     particleBurst.minCount = (short)Mathf.Clamp(burst - p.randomRangeBurst, 0, Mathf.Infinity);
                     particleBurst.maxCount = (short)Mathf.Clamp(burst, 0, Mathf.Infinity);
                     p.particleSystem.emission.SetBurst(0, particleBurst);
+                }
+                if (p.velocityOverLifetime)
+                {
+                    float rate = p.curvevelocityOverLifetime.Evaluate(value);
+                    minMaxCurve.constantMin = Mathf.Clamp(rate, 0, Mathf.Infinity);
+                    minMaxCurve.constantMax = Mathf.Clamp(rate, 0, Mathf.Infinity);
+                    ParticleSystem.VelocityOverLifetimeModule velocityModule = p.particleSystem.velocityOverLifetime;
+                    velocityModule.speedModifier = minMaxCurve;
                 }
                 if (p.lightIntensity)
                 {
