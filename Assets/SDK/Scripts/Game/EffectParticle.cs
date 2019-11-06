@@ -84,8 +84,6 @@ namespace BS
         {
             currentValue = value;
 
-            base.SetIntensity(value);
-
             foreach (EffectParticleChild p in childs)
             {
                 ParticleSystem.MainModule mainModule = p.particleSystem.main;

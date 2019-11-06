@@ -19,7 +19,7 @@ namespace BS
         [NonSerialized]
         public float spawnTime;
 
-        public Step step = Step.Loop;
+        public Step step = Step.Start;
         public enum Step
         {
             Start,
@@ -63,6 +63,11 @@ namespace BS
         }
 
         public virtual void SetMesh(Mesh mesh)
+        {
+
+        }
+
+        public virtual void SetMeshRenderer(MeshRenderer meshRenderer)
         {
 
         }
