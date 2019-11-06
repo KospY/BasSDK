@@ -26,12 +26,9 @@ namespace BS
 
         protected MaterialPropertyBlock materialPropertyBlock;
 
-        [NonSerialized]
-        public float currentValue;
-        [NonSerialized, GradientUsage(true)]
-        public Gradient currentMainGradient;
-        [NonSerialized, GradientUsage(true)]
-        public Gradient currentSecondaryGradient;
+        protected float currentValue;
+        protected Gradient currentMainGradient;
+        protected Gradient currentSecondaryGradient;
 
         private void OnValidate()
         {

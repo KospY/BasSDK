@@ -72,23 +72,17 @@ namespace BS
             {
                 Invoke("Despawn", lifeTime);
             }
-            if (meshDisplay)
-                gameObject.GetComponent<MeshRenderer>().enabled = true;
         }
 
         public override void Stop()
         {
             rootParticleSystem.Stop();
             Invoke("Despawn", lifeTime);
-            if (meshDisplay)
-                gameObject.GetComponent<MeshRenderer>().enabled = false;
         }
 
         public override void SetIntensity(float value)
         {
             currentValue = value;
-
-            base.SetIntensity(value);
 
             foreach (EffectParticleChild p in childs)
             {

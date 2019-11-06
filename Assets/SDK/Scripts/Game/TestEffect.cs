@@ -47,13 +47,13 @@ namespace BS
 
             foreach (Effect effect in effects)
             {
-                effect.SetIntensity(intensity);
-                if (useMainGradient) effect.SetMainGradient(mainGradient);
-                if (useSecondaryGradient) effect.SetSecondaryGradient(secondaryGradient);
                 if (target) effect.SetTarget(target);
                 if (mesh) effect.SetMesh(mesh);
                 if (meshRenderer) effect.SetMeshRenderer(meshRenderer);
                 if (collider) effect.SetCollider(collider);
+                if (useMainGradient) effect.SetMainGradient(mainGradient);
+                if (useSecondaryGradient) effect.SetSecondaryGradient(secondaryGradient);
+                effect.SetIntensity(intensity);
             }
         }
 
