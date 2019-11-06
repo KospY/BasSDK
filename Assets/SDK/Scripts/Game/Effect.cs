@@ -71,6 +71,11 @@ namespace BS
 
         }
 
+        public virtual void SetMeshRenderer(MeshRenderer meshRenderer)
+        {
+
+        }
+
         public virtual void SetCollider(Collider collider)
         {
 

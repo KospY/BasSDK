@@ -24,6 +24,7 @@ namespace BS
         public Transform target;
 
         public Mesh mesh;
+        public MeshRenderer meshRenderer;
         public new Collider collider;
 
         protected ParticleSystem rootParticleSystem;
@@ -51,6 +52,7 @@ namespace BS
                 if (useSecondaryGradient) effect.SetSecondaryGradient(secondaryGradient);
                 if (target) effect.SetTarget(target);
                 if (mesh) effect.SetMesh(mesh);
+                if (meshRenderer) effect.SetMeshRenderer(meshRenderer);
                 if (collider) effect.SetCollider(collider);
             }
         }
