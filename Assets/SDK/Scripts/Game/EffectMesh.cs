@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+<<<<<<< HEAD
 using System;
 using UnityEngine.Experimental.VFX;
 
@@ -12,6 +13,13 @@ namespace BS
 
         protected MeshRenderer rend;
 
+=======
+
+namespace BS
+{
+    public class EffectMesh : Effect
+    {
+>>>>>>> 161ab9314674b1aed558019947bd768cd083a382
         [Header("Mesh Display")]
         public bool meshDisplay;
 
@@ -19,6 +27,7 @@ namespace BS
         public bool meshSize;
         public AnimationCurve curveMeshSize;
 
+<<<<<<< HEAD
         [NonSerialized]
         public float currentValue;
 
@@ -110,5 +119,33 @@ namespace BS
                 }
     #endif
         }
+=======
+
+        public override void Play()
+        {
+            if (meshDisplay)
+            {
+                gameObject.GetComponent<MeshRenderer>().enabled = true;
+            }
+        }
+
+        public override void Stop()
+        {
+            if (meshDisplay)
+            {
+                gameObject.GetComponent<MeshRenderer>().enabled = false;
+            }
+        }
+
+
+        public override void SetIntensity(float value)
+        {
+            if (meshSize)
+            {
+                float meshSizeValue = curveMeshSize.Evaluate(value);
+                transform.localScale = new Vector3(meshSizeValue, meshSizeValue, meshSizeValue);
+            }
+        }
+>>>>>>> 161ab9314674b1aed558019947bd768cd083a382
     }
 }
