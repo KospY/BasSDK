@@ -72,16 +72,12 @@ namespace BS
             {
                 Invoke("Despawn", lifeTime);
             }
-            if (meshDisplay)
-                gameObject.GetComponent<MeshRenderer>().enabled = true;
         }
 
         public override void Stop()
         {
             rootParticleSystem.Stop();
             Invoke("Despawn", lifeTime);
-            if (meshDisplay)
-                gameObject.GetComponent<MeshRenderer>().enabled = false;
         }
 
         public override void SetIntensity(float value)
@@ -160,25 +156,26 @@ namespace BS
 
                 // Set start color gradient
                 ParticleSystem.MinMaxGradient minMaxGradient = mainModule.startColor;
-                if (p.linkStartGradient == EffectParticleChild.LinkedGradient.Main && currentMainGradient != null)
+                if (p.linkStartGradient == LinkedGradient.Main && currentMainGradient != null)
                 {
                     minMaxGradient.mode = ParticleSystemGradientMode.Gradient;
                     minMaxGradient.gradient = currentMainGradient;
                 }
 
-                if (p.linkStartGradient == EffectParticleChild.LinkedGradient.Secondary && currentSecondaryGradient != null)
+                if (p.linkStartGradient == LinkedGradient.Secondary && currentSecondaryGradient != null)
                 {
                     minMaxGradient.mode = ParticleSystemGradientMode.Gradient;
                     minMaxGradient.gradient = currentSecondaryGradient;
                 }
 
                 // Set start color
-                if (p.linkStartColor == EffectParticleChild.LinkedGradient.Main && currentMainGradient != null)
+                if (p.linkStartColor == LinkedGradient.Main && currentMainGradient != null)
                 {
                     minMaxGradient.mode = ParticleSystemGradientMode.Color;
-                    minMaxGradient.color = currentMainGradient.Evaluate(value);
+                    Color newColor = currentMainGradient.Evaluate(value);
+                    minMaxGradient.color = new Color(newColor.r, newColor.g, newColor.b, minMaxGradient.color.a);
                 }
-                if (p.linkStartColor == EffectParticleChild.LinkedGradient.Secondary && currentSecondaryGradient != null)
+                if (p.linkStartColor == LinkedGradient.Secondary && currentSecondaryGradient != null)
                 {
                     minMaxGradient.mode = ParticleSystemGradientMode.Color;
                     minMaxGradient.color = currentSecondaryGradient.Evaluate(value);
@@ -187,23 +184,23 @@ namespace BS
 
                 // Set material color
                 bool updatePropertyBlock = false;
-                if (p.linkBaseColor == EffectParticleChild.LinkedGradient.Main && currentMainGradient != null)
+                if (p.linkBaseColor == LinkedGradient.Main && currentMainGradient != null)
                 {
                     p.materialPropertyBlock.SetColor("_BaseColor", currentMainGradient.Evaluate(value));
                     updatePropertyBlock = true;
                 }
-                else if (p.linkBaseColor == EffectParticleChild.LinkedGradient.Secondary && currentSecondaryGradient != null)
+                else if (p.linkBaseColor == LinkedGradient.Secondary && currentSecondaryGradient != null)
                 {
                     p.materialPropertyBlock.SetColor("_BaseColor", currentSecondaryGradient.Evaluate(value));
                     updatePropertyBlock = true;
                 }
 
-                if (p.linkEmissionColor == EffectParticleChild.LinkedGradient.Main && currentMainGradient != null)
+                if (p.linkEmissionColor == LinkedGradient.Main && currentMainGradient != null)
                 {
                     p.materialPropertyBlock.SetColor("_EmissionColor", currentMainGradient.Evaluate(value));
                     updatePropertyBlock = true;
                 }
-                else if (p.linkEmissionColor == EffectParticleChild.LinkedGradient.Secondary && currentSecondaryGradient != null)
+                else if (p.linkEmissionColor == LinkedGradient.Secondary && currentSecondaryGradient != null)
                 {
                     p.materialPropertyBlock.SetColor("_EmissionColor", currentSecondaryGradient.Evaluate(value));
                     updatePropertyBlock = true;

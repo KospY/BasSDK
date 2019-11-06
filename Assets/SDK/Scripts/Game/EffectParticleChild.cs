@@ -11,13 +11,6 @@ namespace BS
         public LinkedGradient linkEmissionColor = LinkedGradient.None;
         public LinkedGradient linkBaseColor = LinkedGradient.None;
 
-        public enum LinkedGradient
-        {
-            None,
-            Main,
-            Secondary,
-        }
-
         [Header("Intensity to duration")]
         public bool duration;
         public AnimationCurve curveDuration;
