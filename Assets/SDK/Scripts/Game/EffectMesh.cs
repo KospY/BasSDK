@@ -1,25 +1,13 @@
 ﻿using UnityEngine;
-<<<<<<< HEAD
 using System;
-using UnityEngine.Experimental.VFX;
 
 namespace BS
 {
-    [ExecuteInEditMode]
     public class EffectMesh : Effect
     {
         [Header("Color Gradient")]
         public LinkedGradient linkBaseColor = LinkedGradient.None;
 
-        protected MeshRenderer rend;
-
-=======
-
-namespace BS
-{
-    public class EffectMesh : Effect
-    {
->>>>>>> 161ab9314674b1aed558019947bd768cd083a382
         [Header("Mesh Display")]
         public bool meshDisplay;
 
@@ -27,7 +15,6 @@ namespace BS
         public bool meshSize;
         public AnimationCurve curveMeshSize;
 
-<<<<<<< HEAD
         [NonSerialized]
         public float currentValue;
 
@@ -38,6 +25,8 @@ namespace BS
 
         [NonSerialized]
         public MaterialPropertyBlock materialPropertyBlock;
+
+        protected MeshRenderer rend;
 
         private void OnValidate()
         {
@@ -109,7 +98,7 @@ namespace BS
         public override void Despawn()
         {
             rend.enabled = false;
-    #if ProjectCore
+#if ProjectCore
                 if (Application.isPlaying)
                 {
                     EffectInstance orgEffectInstance = effectInstance;
@@ -117,35 +106,7 @@ namespace BS
                     EffectModuleVfx.Despawn(this);
                     orgEffectInstance.OnEffectDespawn();
                 }
-    #endif
+#endif
         }
-=======
-
-        public override void Play()
-        {
-            if (meshDisplay)
-            {
-                gameObject.GetComponent<MeshRenderer>().enabled = true;
-            }
-        }
-
-        public override void Stop()
-        {
-            if (meshDisplay)
-            {
-                gameObject.GetComponent<MeshRenderer>().enabled = false;
-            }
-        }
-
-
-        public override void SetIntensity(float value)
-        {
-            if (meshSize)
-            {
-                float meshSizeValue = curveMeshSize.Evaluate(value);
-                transform.localScale = new Vector3(meshSizeValue, meshSizeValue, meshSizeValue);
-            }
-        }
->>>>>>> 161ab9314674b1aed558019947bd768cd083a382
     }
 }
