@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -56,10 +57,6 @@ namespace BS
             [Button]
             public void PlayEffect()
             {
-                foreach (TestEffect effect in effects)
-                {
-                    effect.Play();
-                }
                 //Animation
                 if (animations.Count != 0)
                 {
@@ -73,15 +70,37 @@ namespace BS
                     }
                 }
 
+                foreach (TestEffect effect in effects)
+                {
+                    effect.Play();
+                }
             }
+            /*
+            private IEnumerator PlayEffectActions()
+            {
+                //Animation
+                if (animations.Count != 0)
+                {
+                    foreach (EffectAnim anim in animations)
+                    {
+                        if (anim.animator != null && anim.animTrigger != null)
+                        {
+                            anim.animator.enabled = true;
+                            anim.animator.SetTrigger(anim.animTrigger);
+                        }
+                    }
+                }
+
+                yield return new WaitForSeconds(0.001f);
+                foreach (TestEffect effect in effects)
+                {
+                    effect.Play();
+                }
+            }*/
 
             [Button]
             public void StopEffect()
             {
-                foreach (TestEffect effect in effects)
-                {
-                    effect.Stop();
-                }
                 //Animation
                 foreach (EffectAnim anim in animations)
                 {
@@ -90,6 +109,12 @@ namespace BS
                         anim.animator.enabled = false;
                     }
                 }
+
+                foreach (TestEffect effect in effects)
+                {
+                    effect.Stop();
+                }
+
             }
 
             public void CheckIntensityChange()

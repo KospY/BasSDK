@@ -7,6 +7,7 @@ namespace BS
     {
         [Header("Color Gradient")]
         public LinkedGradient linkBaseColor = LinkedGradient.None;
+        public LinkedGradient linkEmissionColor = LinkedGradient.None;
 
         [Header("Mesh Display")]
         public bool meshDisplay;
@@ -36,36 +37,34 @@ namespace BS
 
         private void Awake()
         {
-            rend = GetComponent<MeshRenderer>();
-            rend.enabled = false;
+            if (meshDisplay)
+            {
+                rend = GetComponent<MeshRenderer>();
+                rend.enabled = false;
+            }
+                
         }
 
         public override void Play()
         {
-            rend.enabled = true;
             if (meshDisplay)
-                gameObject.GetComponent<MeshRenderer>().enabled = true;
+                rend.enabled = true;
         }
 
         public override void Stop()
         {
-            rend.enabled = false;
             if (meshDisplay)
-                gameObject.GetComponent<MeshRenderer>().enabled = false;
+                rend.enabled = false;
         }
 
         public override void SetIntensity(float value)
         {
-            Debug.Log("value: " + value);
-
             currentValue = value;
 
             if (meshSize)
             {
                 float meshSizeValue = curveMeshSize.Evaluate(value);
-                Debug.Log("meshSizeValue : " + meshSizeValue);
                 transform.localScale = new Vector3(meshSizeValue, meshSizeValue, meshSizeValue);
-                Debug.Log("transform.localScale : " + transform.localScale);
             }
 
             // Set material color
@@ -80,6 +79,17 @@ namespace BS
                 materialPropertyBlock.SetColor("_BaseColor", currentSecondaryGradient.Evaluate(value));
                 updatePropertyBlock = true;
             }
+            if (linkEmissionColor == LinkedGradient.Main && currentMainGradient != null)
+            {
+                materialPropertyBlock.SetColor("_EmissionColor", currentMainGradient.Evaluate(value));
+                updatePropertyBlock = true;
+            }
+            else if (linkEmissionColor == LinkedGradient.Secondary && currentSecondaryGradient != null)
+            {
+                materialPropertyBlock.SetColor("_EmissionColor", currentSecondaryGradient.Evaluate(value));
+                updatePropertyBlock = true;
+            }
+
             if (updatePropertyBlock) rend.SetPropertyBlock(materialPropertyBlock);
         }
 
