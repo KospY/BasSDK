@@ -108,7 +108,7 @@ namespace BS
             if (imbueMesh)
             {
                 Gizmos.color = Color.red;
-                Gizmos.DrawMesh(imbueMesh);
+                Gizmos.DrawMesh(imbueMesh, this.transform.position, this.transform.rotation, this.transform.lossyScale);
             }
         }
 
