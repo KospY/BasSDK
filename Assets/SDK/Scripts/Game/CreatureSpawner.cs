@@ -25,6 +25,7 @@ namespace BS
 #endif
 
         public bool pooled;
+        public float spawnDelay;
         public bool spawnOnStart = true;
 
 #if ProjectCore
@@ -50,7 +51,17 @@ namespace BS
 
         protected void Start()
         {
-            if (spawnOnStart) Spawn();
+            if (spawnOnStart)
+            {
+                if (spawnDelay > 0)
+                {
+                    Invoke("Spawn", spawnDelay);
+                }
+                else
+                {
+                    Spawn();
+                }
+            }
         }
 
         [Button]

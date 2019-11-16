@@ -60,7 +60,7 @@ namespace BS
             foreach (EffectParticleChild child in childs)
             {
                 child.particleSystem = child.GetComponent<ParticleSystem>();
-                child.renderer = child.particleSystem.GetComponent<ParticleSystemRenderer>();
+                child.particleRenderer = child.particleSystem.GetComponent<ParticleSystemRenderer>();
                 child.materialPropertyBlock = new MaterialPropertyBlock();
             }
         }
@@ -154,26 +154,26 @@ namespace BS
 
                 // Set start color gradient
                 ParticleSystem.MinMaxGradient minMaxGradient = mainModule.startColor;
-                if (p.linkStartGradient == LinkedGradient.Main && currentMainGradient != null)
+                if (p.linkStartGradient == EffectTarget.Main && currentMainGradient != null)
                 {
                     minMaxGradient.mode = ParticleSystemGradientMode.Gradient;
                     minMaxGradient.gradient = currentMainGradient;
                 }
 
-                if (p.linkStartGradient == LinkedGradient.Secondary && currentSecondaryGradient != null)
+                if (p.linkStartGradient == EffectTarget.Secondary && currentSecondaryGradient != null)
                 {
                     minMaxGradient.mode = ParticleSystemGradientMode.Gradient;
                     minMaxGradient.gradient = currentSecondaryGradient;
                 }
 
                 // Set start color
-                if (p.linkStartColor == LinkedGradient.Main && currentMainGradient != null)
+                if (p.linkStartColor == EffectTarget.Main && currentMainGradient != null)
                 {
                     minMaxGradient.mode = ParticleSystemGradientMode.Color;
                     Color newColor = currentMainGradient.Evaluate(value);
                     minMaxGradient.color = new Color(newColor.r, newColor.g, newColor.b, minMaxGradient.color.a);
                 }
-                if (p.linkStartColor == LinkedGradient.Secondary && currentSecondaryGradient != null)
+                if (p.linkStartColor == EffectTarget.Secondary && currentSecondaryGradient != null)
                 {
                     minMaxGradient.mode = ParticleSystemGradientMode.Color;
                     minMaxGradient.color = currentSecondaryGradient.Evaluate(value);
@@ -182,28 +182,28 @@ namespace BS
 
                 // Set material color
                 bool updatePropertyBlock = false;
-                if (p.linkBaseColor == LinkedGradient.Main && currentMainGradient != null)
+                if (p.linkBaseColor == EffectTarget.Main && currentMainGradient != null)
                 {
                     p.materialPropertyBlock.SetColor("_BaseColor", currentMainGradient.Evaluate(value));
                     updatePropertyBlock = true;
                 }
-                else if (p.linkBaseColor == LinkedGradient.Secondary && currentSecondaryGradient != null)
+                else if (p.linkBaseColor == EffectTarget.Secondary && currentSecondaryGradient != null)
                 {
                     p.materialPropertyBlock.SetColor("_BaseColor", currentSecondaryGradient.Evaluate(value));
                     updatePropertyBlock = true;
                 }
 
-                if (p.linkEmissionColor == LinkedGradient.Main && currentMainGradient != null)
+                if (p.linkEmissionColor == EffectTarget.Main && currentMainGradient != null)
                 {
                     p.materialPropertyBlock.SetColor("_EmissionColor", currentMainGradient.Evaluate(value));
                     updatePropertyBlock = true;
                 }
-                else if (p.linkEmissionColor == LinkedGradient.Secondary && currentSecondaryGradient != null)
+                else if (p.linkEmissionColor == EffectTarget.Secondary && currentSecondaryGradient != null)
                 {
                     p.materialPropertyBlock.SetColor("_EmissionColor", currentSecondaryGradient.Evaluate(value));
                     updatePropertyBlock = true;
                 }
-                if (updatePropertyBlock) p.renderer.SetPropertyBlock(p.materialPropertyBlock);
+                if (updatePropertyBlock) p.particleRenderer.SetPropertyBlock(p.materialPropertyBlock);
             }
         }
 
@@ -232,11 +232,32 @@ namespace BS
             }
         }
 
+        public override void SetRenderer(Renderer renderer, bool secondary)
+        {
+            foreach (EffectParticleChild p in childs)
+            {
+                if ((p.useRenderer == EffectTarget.Main && !secondary) || (p.useRenderer == EffectTarget.Secondary && secondary))
+                {
+                    ParticleSystem.ShapeModule shapeModule = p.particleSystem.shape;
+                    if (renderer is MeshRenderer)
+                    {
+                        shapeModule.shapeType = ParticleSystemShapeType.MeshRenderer;
+                        shapeModule.meshRenderer = renderer as MeshRenderer;
+                    }
+                    if (renderer is SkinnedMeshRenderer)
+                    {
+                        shapeModule.shapeType = ParticleSystemShapeType.SkinnedMeshRenderer;
+                        shapeModule.skinnedMeshRenderer = renderer as SkinnedMeshRenderer;
+                    }
+                }
+            }
+        }
+
         public override void SetCollider(Collider collider)
         {
             foreach (EffectParticleChild p in childs)
             {
-                if (p.mesh)
+                if (p.collider)
                 {
                     ParticleSystem.ShapeModule shapeModule = p.particleSystem.shape;
                     if (collider is SphereCollider)

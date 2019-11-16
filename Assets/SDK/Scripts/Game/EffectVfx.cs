@@ -66,6 +66,12 @@ namespace BS
             vfx.SetMesh("Mesh", mesh);
         }
 
+        public override void SetRenderer(Renderer renderer, bool secondary)
+        {
+            //vfx.SetMesh("Mesh", renderer.GetComponent<MeshFilter>().sharedMesh);
+            // Todo (waiting Mesh sampling) https://forum.unity.com/threads/visual-effect-graph-spawn-particles-from-skinned-mesh-surface.651748/
+        }
+
         public override void SetTarget(Transform target)
         {
             targetTransform = target;

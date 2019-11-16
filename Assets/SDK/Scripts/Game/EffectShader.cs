@@ -5,11 +5,12 @@ namespace BS
 {
     public class EffectShader : Effect
     {
-        public LinkedGradient linkBaseColor = LinkedGradient.None;
-        public LinkedGradient linkEmissionColor = LinkedGradient.None;
+        public EffectTarget linkBaseColor = EffectTarget.None;
+        public EffectTarget linkEmissionColor = EffectTarget.None;
 
         public float lifeTime = 0;
         public float refreshSpeed = 0.1f;
+        public bool useSecondaryRenderer;
 
         [NonSerialized]
         public new Renderer renderer;
@@ -55,9 +56,12 @@ namespace BS
             if (value == 1) Despawn();
         }
 
-        public override void SetRenderer(Renderer renderer)
+        public override void SetRenderer(Renderer renderer, bool secondary)
         {
-            this.renderer = renderer;
+            if ((useSecondaryRenderer && secondary) || (!useSecondaryRenderer && !secondary))
+            {
+                this.renderer = renderer;
+            }
         }
 
         public override void SetIntensity(float value)
@@ -65,19 +69,19 @@ namespace BS
             currentValue = value;
             if (renderer && renderer.isVisible)
             {
-                if (linkBaseColor == LinkedGradient.Main)
+                if (linkBaseColor == EffectTarget.Main)
                 {
                     materialPropertyBlock.SetColor(colorPropertyID, currentMainGradient.Evaluate(value));
                 }
-                else if (linkBaseColor == LinkedGradient.Secondary)
+                else if (linkBaseColor == EffectTarget.Secondary)
                 {
                     materialPropertyBlock.SetColor(colorPropertyID, currentSecondaryGradient.Evaluate(value));
                 }
-                if (linkEmissionColor == LinkedGradient.Main)
+                if (linkEmissionColor == EffectTarget.Main)
                 {
                     materialPropertyBlock.SetColor(emissionPropertyID, currentMainGradient.Evaluate(value));
                 }    
-                else if (linkEmissionColor == LinkedGradient.Secondary)
+                else if (linkEmissionColor == EffectTarget.Secondary)
                 {
                     materialPropertyBlock.SetColor(emissionPropertyID, currentSecondaryGradient.Evaluate(value));
                 }

@@ -72,7 +72,7 @@ namespace BS
         NoneExcept,
     }
 
-    public enum LinkedGradient
+    public enum EffectTarget
     {
         None,
         Main,

@@ -6,10 +6,10 @@ namespace BS
     public class EffectParticleChild : MonoBehaviour
     {
         [Header("Color Gradient")]
-        public LinkedGradient linkStartColor = LinkedGradient.None;
-        public LinkedGradient linkStartGradient = LinkedGradient.None;
-        public LinkedGradient linkEmissionColor = LinkedGradient.None;
-        public LinkedGradient linkBaseColor = LinkedGradient.None;
+        public EffectTarget linkStartColor = EffectTarget.None;
+        public EffectTarget linkStartGradient = EffectTarget.None;
+        public EffectTarget linkEmissionColor = EffectTarget.None;
+        public EffectTarget linkBaseColor = EffectTarget.None;
 
         [Header("Intensity to duration")]
         public bool duration;
@@ -55,6 +55,9 @@ namespace BS
         [Header("Mesh")]
         public bool mesh;
 
+        [Header("Renderer")]
+        public EffectTarget useRenderer = EffectTarget.None;
+
         [Header("Collider")]
         public new bool collider;
 
@@ -69,7 +72,7 @@ namespace BS
         public bool useSecondaryGradient;
 
         [NonSerialized]
-        public new ParticleSystemRenderer renderer;
+        public ParticleSystemRenderer particleRenderer;
         [NonSerialized]
         public MaterialPropertyBlock materialPropertyBlock;
         [NonSerialized]

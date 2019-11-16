@@ -31,7 +31,8 @@ namespace BS
         public Transform target;
 
         public Mesh mesh;
-        public new Renderer renderer;
+        public Renderer mainRenderer;
+        public Renderer secondaryRenderer;
         public new Collider collider;
 
 #if ProjectCore
@@ -70,7 +71,8 @@ namespace BS
                 if (useSecondaryGradient) effectInstance.SetSecondaryGradient(secondaryGradient);
                 if (target) effectInstance.SetTarget(target);
                 if (mesh) effectInstance.SetMesh(mesh);
-                if (renderer) effectInstance.SetRenderer(renderer);
+                if (mainRenderer) effectInstance.SetRenderer(mainRenderer, false);
+                if (secondaryRenderer) effectInstance.SetRenderer(secondaryRenderer, true);
                 if (collider) effectInstance.SetCollider(collider);
                 effectInstance.Play();
                 return effectInstance;

@@ -60,7 +60,7 @@ namespace BS
 
         }
 
-        public virtual void SetRenderer(Renderer renderer)
+        public virtual void SetRenderer(Renderer renderer, bool secondary)
         {
 
         }
