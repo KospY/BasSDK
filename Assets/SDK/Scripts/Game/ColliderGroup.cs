@@ -14,7 +14,7 @@ namespace BS
         [Tooltip("Set if the colliders are imbuable like a blade or crystal")]
         public ImbueMagic imbueMagic = ImbueMagic.None;
         [Tooltip("(Optional) Use a mesh instead of collider(s) to apply imbue vfx and particles effects")]
-        public Mesh imbueMesh;
+        public Renderer imbueRenderer;
         [Tooltip("(Optional) Set a renderer to use to apply imbue shader emissive effects")]
         public Renderer imbueEmissionRenderer;
         [Tooltip("Create a collision event for each collider hit (true) or for the whole group (false)")]
@@ -43,10 +43,9 @@ namespace BS
         }
 #endif
 
-        [Button("Generate imbue mesh (Test)")]
+        [Button("Generate imbue mesh")]
         public void GenerateImbueMesh()
         {
-            imbueMesh = null;
             colliders = new List<Collider>(this.GetComponentsInChildren<Collider>());
 
             List<CombineInstance> combines = new List<CombineInstance>();
@@ -89,10 +88,10 @@ namespace BS
                 }
                 CombineInstance combineInstance = new CombineInstance();
                 combineInstance.mesh = GenerateCubeMesh(scale);
-                combineInstance.transform = collider.transform.localToWorldMatrix;
+                combineInstance.transform = this.transform.worldToLocalMatrix * collider.transform.localToWorldMatrix;
                 combines.Add(combineInstance);
             }
-            imbueMesh = new Mesh();
+            Mesh imbueMesh = new Mesh();
             imbueMesh.name = "GeneratedMesh";
             imbueMesh.CombineMeshes(combines.ToArray());
             int i = 0;
@@ -101,15 +100,10 @@ namespace BS
                 collider.transform.localScale = orgScales[i];
                 i++;
             }
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            if (imbueMesh)
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawMesh(imbueMesh, this.transform.position, this.transform.rotation, this.transform.lossyScale);
-            }
+            MeshFilter meshFilter = new GameObject("ImbueGeneratedMesh").AddComponent<MeshFilter>();
+            meshFilter.transform.SetParent(this.transform);
+            meshFilter.sharedMesh = imbueMesh;
+            imbueRenderer = meshFilter.gameObject.AddComponent<MeshRenderer>();
         }
 
         private Mesh GenerateCubeMesh(Vector3 size)
