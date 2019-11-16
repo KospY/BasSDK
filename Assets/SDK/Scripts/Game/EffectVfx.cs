@@ -61,6 +61,11 @@ namespace BS
             vfx.SetGradient("SecondaryGradient", gradient);
         }
 
+        public override void SetMesh(Mesh mesh)
+        {
+            vfx.SetMesh("Mesh", mesh);
+        }
+
         public override void SetTarget(Transform target)
         {
             targetTransform = target;

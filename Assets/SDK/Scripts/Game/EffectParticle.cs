@@ -226,6 +226,7 @@ namespace BS
                 if (p.mesh)
                 {
                     ParticleSystem.ShapeModule shapeModule = p.particleSystem.shape;
+                    shapeModule.shapeType = ParticleSystemShapeType.Mesh;
                     shapeModule.mesh = mesh;
                 }
             }
@@ -240,20 +241,27 @@ namespace BS
                     ParticleSystem.ShapeModule shapeModule = p.particleSystem.shape;
                     if (collider is SphereCollider)
                     {
+                        shapeModule.shapeType = ParticleSystemShapeType.Sphere;
                         shapeModule.radius = (collider as SphereCollider).radius * collider.transform.lossyScale.magnitude;
+                        shapeModule.position = p.transform.InverseTransformPoint(collider.transform.TransformPoint((collider as SphereCollider).center));
                     }
                     else if (collider is CapsuleCollider)
                     {
+                        shapeModule.shapeType = ParticleSystemShapeType.Box;
                         float height = (collider as CapsuleCollider).height;
                         float radius = (collider as CapsuleCollider).radius;
                         if ((collider as CapsuleCollider).direction == 0) shapeModule.scale = new Vector3(height * collider.transform.lossyScale.x, radius * collider.transform.lossyScale.y, radius * collider.transform.lossyScale.z);
                         if ((collider as CapsuleCollider).direction == 1) shapeModule.scale = new Vector3(radius * collider.transform.lossyScale.x, height * collider.transform.lossyScale.y, radius * collider.transform.lossyScale.z);
                         if ((collider as CapsuleCollider).direction == 2) shapeModule.scale = new Vector3(radius * collider.transform.lossyScale.x, radius * collider.transform.lossyScale.y, height * collider.transform.lossyScale.z);
+                        shapeModule.position = p.transform.InverseTransformPoint(collider.transform.TransformPoint((collider as CapsuleCollider).center));
                     }
                     else if (collider is BoxCollider)
                     {
+                        shapeModule.shapeType = ParticleSystemShapeType.Box;
                         shapeModule.scale = new Vector3((collider as BoxCollider).size.x * collider.transform.lossyScale.x, (collider as BoxCollider).size.y * collider.transform.lossyScale.y, (collider as BoxCollider).size.z * collider.transform.lossyScale.z);
+                        shapeModule.position = p.transform.InverseTransformPoint(collider.transform.TransformPoint((collider as BoxCollider).center));
                     }
+                    shapeModule.rotation = (p.transform.rotation * Quaternion.Inverse(collider.transform.rotation)).eulerAngles;
                 }
             }
         }

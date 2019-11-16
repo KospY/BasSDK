@@ -23,8 +23,7 @@ namespace BS
 
         public Transform target;
 
-        public Mesh mesh;
-        public MeshRenderer meshRenderer;
+        public new Renderer renderer;
         public new Collider collider;
 
         protected ParticleSystem rootParticleSystem;
@@ -48,8 +47,7 @@ namespace BS
             foreach (Effect effect in effects)
             {
                 if (target) effect.SetTarget(target);
-                if (mesh) effect.SetMesh(mesh);
-                if (meshRenderer) effect.SetMeshRenderer(meshRenderer);
+                if (renderer) effect.SetRenderer(renderer);
                 if (collider) effect.SetCollider(collider);
                 if (useMainGradient) effect.SetMainGradient(mainGradient);
                 if (useSecondaryGradient) effect.SetSecondaryGradient(secondaryGradient);

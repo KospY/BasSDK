@@ -3,7 +3,7 @@ using System;
 
 namespace BS
 {
-    public class EffectMeshChanger : Effect
+    public class EffectShader : Effect
     {
         public LinkedGradient linkBaseColor = LinkedGradient.None;
         public LinkedGradient linkEmissionColor = LinkedGradient.None;
@@ -11,15 +11,8 @@ namespace BS
         public float lifeTime = 0;
         public float refreshSpeed = 0.1f;
 
-        public enum LinkedGradient
-        {
-            None,
-            Main,
-            Secondary,
-        }
-
         [NonSerialized]
-        public MeshRenderer meshRenderer;
+        public new Renderer renderer;
 
         protected static int colorPropertyID;
         protected static int emissionPropertyID;
@@ -32,10 +25,7 @@ namespace BS
 
         private void OnValidate()
         {
-            if (!meshRenderer) meshRenderer = this.GetComponent<MeshRenderer>();
-            materialPropertyBlock = new MaterialPropertyBlock();
-            if (colorPropertyID == 0) colorPropertyID = Shader.PropertyToID("_Color");
-            if (emissionPropertyID == 0) emissionPropertyID = Shader.PropertyToID("_EmissionColor");
+            Awake();
         }
 
         private void Awake()
@@ -65,15 +55,15 @@ namespace BS
             if (value == 1) Despawn();
         }
 
-        public override void SetMeshRenderer(MeshRenderer meshRenderer)
+        public override void SetRenderer(Renderer renderer)
         {
-            this.meshRenderer = meshRenderer;
+            this.renderer = renderer;
         }
 
         public override void SetIntensity(float value)
         {
             currentValue = value;
-            if (meshRenderer.isVisible)
+            if (renderer && renderer.isVisible)
             {
                 if (linkBaseColor == LinkedGradient.Main)
                 {
@@ -91,7 +81,7 @@ namespace BS
                 {
                     materialPropertyBlock.SetColor(emissionPropertyID, currentSecondaryGradient.Evaluate(value));
                 }
-                meshRenderer.SetPropertyBlock(materialPropertyBlock);
+                renderer.SetPropertyBlock(materialPropertyBlock);
             }
         }
 
@@ -114,7 +104,7 @@ namespace BS
 #if ProjectCore
             EffectInstance orgEffectInstance = effectInstance;
             effectInstance = null;
-            //EffectModuleDecal.Despawn(this);
+            EffectModuleShader.Despawn(this);
             orgEffectInstance.OnEffectDespawn();
 #endif
         }

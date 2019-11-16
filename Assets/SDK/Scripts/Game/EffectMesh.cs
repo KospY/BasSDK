@@ -27,11 +27,11 @@ namespace BS
         [NonSerialized]
         public MaterialPropertyBlock materialPropertyBlock;
 
-        protected MeshRenderer rend;
+        protected new Renderer renderer;
 
         private void OnValidate()
         {
-            rend = GetComponent<MeshRenderer>();
+            renderer = GetComponent<Renderer>();
             materialPropertyBlock = new MaterialPropertyBlock();
         }
 
@@ -39,8 +39,8 @@ namespace BS
         {
             if (meshDisplay)
             {
-                rend = GetComponent<MeshRenderer>();
-                rend.enabled = false;
+                renderer = GetComponent<Renderer>();
+                renderer.enabled = false;
             }
                 
         }
@@ -48,13 +48,22 @@ namespace BS
         public override void Play()
         {
             if (meshDisplay)
-                rend.enabled = true;
+            {
+                renderer.enabled = true;
+            }
         }
 
         public override void Stop()
         {
             if (meshDisplay)
-                rend.enabled = false;
+            {
+                renderer.enabled = false;
+            }
+        }
+
+        public override void SetRenderer(Renderer renderer)
+        {
+            this.renderer = renderer;
         }
 
         public override void SetIntensity(float value)
@@ -90,7 +99,7 @@ namespace BS
                 updatePropertyBlock = true;
             }
 
-            if (updatePropertyBlock) rend.SetPropertyBlock(materialPropertyBlock);
+            if (updatePropertyBlock) renderer.SetPropertyBlock(materialPropertyBlock);
         }
 
         public override void SetMainGradient(Gradient gradient)
@@ -107,13 +116,13 @@ namespace BS
 
         public override void Despawn()
         {
-            rend.enabled = false;
+            renderer.enabled = false;
 #if ProjectCore
                 if (Application.isPlaying)
                 {
                     EffectInstance orgEffectInstance = effectInstance;
                     effectInstance = null;
-                    EffectModuleVfx.Despawn(this);
+                    //EffectModuleMesh.Despawn(this);
                     orgEffectInstance.OnEffectDespawn();
                 }
 #endif

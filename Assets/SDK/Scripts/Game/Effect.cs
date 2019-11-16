@@ -3,13 +3,6 @@ using UnityEngine;
 
 namespace BS
 {
-    public enum LinkedGradient
-    {
-        None,
-        Main,
-        Secondary,
-    }
-
     public class Effect : MonoBehaviour
     {
 #if ProjectCore
@@ -67,7 +60,7 @@ namespace BS
 
         }
 
-        public virtual void SetMeshRenderer(MeshRenderer meshRenderer)
+        public virtual void SetRenderer(Renderer renderer)
         {
 
         }

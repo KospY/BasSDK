@@ -55,6 +55,7 @@ namespace BS
         PlayerHandAndFoot,
         PlayerLocomotionObject,
         LiquidFlow,
+        Zone,
     }
 
     public enum Cardinal
@@ -69,6 +70,13 @@ namespace BS
     {
         AllExcept,
         NoneExcept,
+    }
+
+    public enum LinkedGradient
+    {
+        None,
+        Main,
+        Secondary,
     }
 
     [Serializable]
