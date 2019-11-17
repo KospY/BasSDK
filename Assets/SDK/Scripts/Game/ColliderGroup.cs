@@ -87,7 +87,7 @@ namespace BS
                     collider.transform.localScale = new Vector3(maxSize, maxSize, maxSize);
                 }
                 CombineInstance combineInstance = new CombineInstance();
-                combineInstance.mesh = GenerateCubeMesh(scale);
+                combineInstance.mesh = collider is MeshCollider ? (collider as MeshCollider).sharedMesh : GenerateCubeMesh(scale);
                 combineInstance.transform = this.transform.worldToLocalMatrix * collider.transform.localToWorldMatrix;
                 combines.Add(combineInstance);
             }
