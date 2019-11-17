@@ -236,9 +236,9 @@ namespace BS
         {
             foreach (EffectParticleChild p in childs)
             {
+                ParticleSystem.ShapeModule shapeModule = p.particleSystem.shape;
                 if ((p.useRenderer == EffectTarget.Main && !secondary) || (p.useRenderer == EffectTarget.Secondary && secondary))
                 {
-                    ParticleSystem.ShapeModule shapeModule = p.particleSystem.shape;
                     if (renderer is MeshRenderer)
                     {
                         shapeModule.shapeType = ParticleSystemShapeType.MeshRenderer;
@@ -259,6 +259,8 @@ namespace BS
             {
                 if (p.collider)
                 {
+                    ParticleSystem.MainModule mainModule = p.particleSystem.main;
+                    mainModule.scalingMode = ParticleSystemScalingMode.Hierarchy;
                     ParticleSystem.ShapeModule shapeModule = p.particleSystem.shape;
                     if (collider is SphereCollider)
                     {
@@ -281,14 +283,22 @@ namespace BS
                         shapeModule.shapeType = ParticleSystemShapeType.Box;
                         shapeModule.scale = new Vector3((collider as BoxCollider).size.x * collider.transform.lossyScale.x, (collider as BoxCollider).size.y * collider.transform.lossyScale.y, (collider as BoxCollider).size.z * collider.transform.lossyScale.z);
                         shapeModule.position = p.transform.InverseTransformPoint(collider.transform.TransformPoint((collider as BoxCollider).center));
+                        shapeModule.scale = (collider as BoxCollider).size;
                     }
-                    shapeModule.rotation = (p.transform.rotation * Quaternion.Inverse(collider.transform.rotation)).eulerAngles;
+                    shapeModule.rotation = (Quaternion.Inverse(p.transform.rotation) * collider.transform.rotation).eulerAngles;
                 }
             }
         }
 
         public override void Despawn()
         {
+            foreach (EffectParticleChild p in childs)
+            {
+                ParticleSystem.ShapeModule shapeModule = p.particleSystem.shape;
+                shapeModule.position = Vector3.zero;
+                shapeModule.rotation = Vector3.zero;
+                shapeModule.scale = Vector3.one;
+            }
             rootParticleSystem.Stop();
             CancelInvoke();
 #if ProjectCore
