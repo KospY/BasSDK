@@ -88,6 +88,13 @@ namespace BS
 
     public static class Common
     {
+        public static string GetStringBetween(this string text, string start, string end)
+        {
+            int pFrom = text.IndexOf(start) + start.Length;
+            int pTo = text.LastIndexOf(end);
+            return text.Substring(pFrom, pTo - pFrom);
+        }
+
         public static void MoveAlign(this Transform transform, Transform child, Transform target, Transform parent = null)
         {
             transform.MoveAlign(child, target.position, target.rotation, parent);
