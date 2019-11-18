@@ -5,12 +5,13 @@ namespace BS
 {
     public class EffectMesh : Effect
     {
+        public int poolCount = 20;
+        public float lifeTime = 5;
+        public float refreshSpeed = 0.1f;
+
         [Header("Color Gradient")]
         public EffectTarget linkBaseColor = EffectTarget.None;
         public EffectTarget linkEmissionColor = EffectTarget.None;
-
-        [Header("Mesh Display")]
-        public bool meshDisplay;
 
         [Header("Intensity to mesh size")]
         public bool meshSize;
@@ -37,28 +38,29 @@ namespace BS
 
         private void Awake()
         {
-            if (meshDisplay)
-            {
-                renderer = GetComponent<Renderer>();
-                renderer.enabled = false;
-            }
-                
+            renderer = GetComponent<Renderer>();
+            renderer.enabled = false;
         }
 
         public override void Play()
         {
-            if (meshDisplay)
+            renderer.enabled = true;
+            if (step != Step.Loop && lifeTime > 0)
             {
-                renderer.enabled = true;
+                InvokeRepeating("UpdateLifeTime", 0, refreshSpeed);
             }
         }
 
         public override void Stop()
         {
-            if (meshDisplay)
-            {
-                renderer.enabled = false;
-            }
+            renderer.enabled = false;
+        }
+
+        protected void UpdateLifeTime()
+        {
+            float value = Mathf.Clamp01((Time.time - spawnTime) / lifeTime);
+            SetIntensity(value);
+            if (value == 1) Despawn();
         }
 
         public override void SetIntensity(float value)
@@ -111,15 +113,16 @@ namespace BS
 
         public override void Despawn()
         {
+            CancelInvoke();
             renderer.enabled = false;
 #if ProjectCore
-                if (Application.isPlaying)
-                {
-                    EffectInstance orgEffectInstance = effectInstance;
-                    effectInstance = null;
-                    //EffectModuleMesh.Despawn(this);
-                    orgEffectInstance.OnEffectDespawn();
-                }
+            if (Application.isPlaying)
+            {
+                EffectInstance orgEffectInstance = effectInstance;
+                effectInstance = null;
+                EffectModuleMesh.Despawn(this);
+                orgEffectInstance.OnEffectDespawn();
+            }
 #endif
         }
     }
