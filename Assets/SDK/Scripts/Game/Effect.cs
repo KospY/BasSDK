@@ -5,10 +5,9 @@ namespace BS
 {
     public class Effect : MonoBehaviour
     {
-#if ProjectCore
         [NonSerialized]
         public EffectInstance effectInstance;
-#endif
+
         [NonSerialized]
         public float spawnTime;
 
