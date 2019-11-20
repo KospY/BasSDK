@@ -17,6 +17,8 @@ namespace BS
         public Renderer imbueEffectRenderer;
         [Tooltip("(Optional) Set a renderer to use to apply imbue shader emissive effects")]
         public Renderer imbueEmissionRenderer;
+        [Tooltip("Set the position and direction of the released imbue energy (ie shoot direction)")]
+        public Transform imbueShoot;
         [Tooltip("Create a collision event for each collider hit (true) or for the whole group (false)")]
         public bool checkIndependently;
         [NonSerialized]
