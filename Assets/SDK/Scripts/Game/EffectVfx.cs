@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System;
-using UnityEngine.Experimental.VFX;
+using UnityEngine.VFX;
 
 namespace BS
 {
