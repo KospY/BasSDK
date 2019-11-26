@@ -154,7 +154,7 @@ namespace BS
             reflectionCamera.targetTexture = side == Side.Left ? leftEyeRenderTexture : rightEyeRenderTexture;
 
             // Setting depth texture on LWRP setting will break mirror when render scale in below 1.0
-            LightweightRenderPipeline.RenderSingleCamera(context, reflectionCamera);
+            UnityEngine.Rendering.Universal.UniversalRenderPipeline.RenderSingleCamera(context, reflectionCamera);
 
             //material.SetTexture(side == Side.Left ? "_LeftEye" : "_RightEye", side == Side.Left ? leftEyeRenderTexture : rightEyeRenderTexture);
             mirrorMesh.material.SetTexture(side == Side.Left ? "_LeftEye" : "_RightEye", side == Side.Left ? leftEyeRenderTexture : rightEyeRenderTexture);
