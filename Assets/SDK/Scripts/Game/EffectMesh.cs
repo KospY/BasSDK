@@ -32,12 +32,13 @@ namespace BS
 
         private void OnValidate()
         {
-            renderer = GetComponent<Renderer>();
             materialPropertyBlock = new MaterialPropertyBlock();
+            renderer = GetComponent<Renderer>();
         }
 
         private void Awake()
         {
+            materialPropertyBlock = new MaterialPropertyBlock();
             renderer = GetComponent<Renderer>();
             renderer.enabled = false;
         }
@@ -54,6 +55,7 @@ namespace BS
         public override void Stop()
         {
             renderer.enabled = false;
+            Despawn();
         }
 
         protected void UpdateLifeTime()
