@@ -67,6 +67,7 @@ namespace BS
 
         public override void Play()
         {
+            CancelInvoke();
             rootParticleSystem.Play();
             if (step != Step.Loop)
             {
@@ -170,13 +171,28 @@ namespace BS
                 if (p.linkStartColor == EffectTarget.Main && currentMainGradient != null)
                 {
                     minMaxGradient.mode = ParticleSystemGradientMode.Color;
-                    Color newColor = currentMainGradient.Evaluate(value);
-                    minMaxGradient.color = new Color(newColor.r, newColor.g, newColor.b, minMaxGradient.color.a);
+                    if (p.ignoreAlpha)
+                    {
+                        Color newColor = currentMainGradient.Evaluate(value);
+                        minMaxGradient.color = new Color(newColor.r, newColor.g, newColor.b, minMaxGradient.color.a);
+                    }
+                    else
+                    {
+                        minMaxGradient.color = currentMainGradient.Evaluate(value);
+                    }
                 }
                 if (p.linkStartColor == EffectTarget.Secondary && currentSecondaryGradient != null)
                 {
                     minMaxGradient.mode = ParticleSystemGradientMode.Color;
-                    minMaxGradient.color = currentSecondaryGradient.Evaluate(value);
+                    if (p.ignoreAlpha)
+                    {
+                        Color newColor = currentSecondaryGradient.Evaluate(value);
+                        minMaxGradient.color = new Color(newColor.r, newColor.g, newColor.b, minMaxGradient.color.a);
+                    }
+                    else
+                    {
+                        minMaxGradient.color = currentSecondaryGradient.Evaluate(value);
+                    }
                 }
                 mainModule.startColor = minMaxGradient;
 
@@ -292,13 +308,6 @@ namespace BS
 
         public override void Despawn()
         {
-            foreach (EffectParticleChild p in childs)
-            {
-                ParticleSystem.ShapeModule shapeModule = p.particleSystem.shape;
-                shapeModule.position = Vector3.zero;
-                shapeModule.rotation = Vector3.zero;
-                shapeModule.scale = Vector3.one;
-            }
             rootParticleSystem.Stop();
             CancelInvoke();
 #if ProjectCore

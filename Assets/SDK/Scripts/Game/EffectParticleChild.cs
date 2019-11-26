@@ -10,6 +10,7 @@ namespace BS
         public EffectTarget linkStartGradient = EffectTarget.None;
         public EffectTarget linkEmissionColor = EffectTarget.None;
         public EffectTarget linkBaseColor = EffectTarget.None;
+        public bool ignoreAlpha;
 
         [Header("Intensity to duration")]
         public bool duration;
