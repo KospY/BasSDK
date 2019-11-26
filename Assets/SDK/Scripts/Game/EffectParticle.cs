@@ -273,9 +273,9 @@ namespace BS
                         shapeModule.shapeType = ParticleSystemShapeType.Box;
                         float height = (collider as CapsuleCollider).height;
                         float radius = (collider as CapsuleCollider).radius;
-                        if ((collider as CapsuleCollider).direction == 0) shapeModule.scale = new Vector3(height * collider.transform.lossyScale.x, radius * collider.transform.lossyScale.y, radius * collider.transform.lossyScale.z);
-                        if ((collider as CapsuleCollider).direction == 1) shapeModule.scale = new Vector3(radius * collider.transform.lossyScale.x, height * collider.transform.lossyScale.y, radius * collider.transform.lossyScale.z);
-                        if ((collider as CapsuleCollider).direction == 2) shapeModule.scale = new Vector3(radius * collider.transform.lossyScale.x, radius * collider.transform.lossyScale.y, height * collider.transform.lossyScale.z);
+                        if ((collider as CapsuleCollider).direction == 0) shapeModule.scale = new Vector3(height * collider.transform.lossyScale.x, radius * Mathf.Max(collider.transform.lossyScale.y, collider.transform.lossyScale.z), radius * Mathf.Max(collider.transform.lossyScale.y, collider.transform.lossyScale.z));
+                        if ((collider as CapsuleCollider).direction == 1) shapeModule.scale = new Vector3(radius * Mathf.Max(collider.transform.lossyScale.x, collider.transform.lossyScale.z), height * collider.transform.lossyScale.y, radius * Mathf.Max(collider.transform.lossyScale.x, collider.transform.lossyScale.z));
+                        if ((collider as CapsuleCollider).direction == 2) shapeModule.scale = new Vector3(radius * Mathf.Max(collider.transform.lossyScale.x, collider.transform.lossyScale.y), radius * Mathf.Max(collider.transform.lossyScale.x, collider.transform.lossyScale.y), height * collider.transform.lossyScale.z);
                         shapeModule.position = p.transform.InverseTransformPoint(collider.transform.TransformPoint((collider as CapsuleCollider).center));
                     }
                     else if (collider is BoxCollider)
