@@ -45,7 +45,11 @@ namespace BS
                 shapeModule.enabled = false;
                 rootParticleSystem.GetComponent<ParticleSystemRenderer>().enabled = false;
             }
+            Refresh();
+        }
 
+        public void Refresh()
+        {
             foreach (Effect effect in effects)
             {
                 if (target) effect.SetTarget(target);
@@ -63,6 +67,7 @@ namespace BS
         public void Play()
         {
             Debug.Log("Play : " + this.transform.name);
+            Refresh();
             rootParticleSystem.Play();
             foreach (Effect effect in effects)
             {
