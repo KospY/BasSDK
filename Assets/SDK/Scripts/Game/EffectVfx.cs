@@ -53,12 +53,14 @@ namespace BS
 
         public override void SetMainGradient(Gradient gradient)
         {
-            vfx.SetGradient("MainGradient", gradient);
+            if (gradient != null && vfx.HasGradient("MainGradient")) vfx.SetGradient("MainGradient", gradient);
+            else vfx.ResetOverride("MainGradient");
         }
 
         public override void SetSecondaryGradient(Gradient gradient)
         {
-            vfx.SetGradient("SecondaryGradient", gradient);
+            if (gradient != null && vfx.HasGradient("SecondaryGradient")) vfx.SetGradient("SecondaryGradient", gradient);
+            else vfx.ResetOverride("SecondaryGradient");
         }
 
         public override void SetMesh(Mesh mesh)
