@@ -62,6 +62,11 @@ namespace BS
         [Header("Collider")]
         public new bool collider;
 
+        [Header("Mesh Target")]
+        public bool useMeshTarget;
+        public MeshFilter targetMesh;
+        public GameObject targetTransform;
+
         [Header("Spawn on collision")]
         public string spawnEffectId;
         public LayerMask spawnLayerMask = ~0;
