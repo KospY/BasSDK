@@ -36,12 +36,12 @@ namespace BS
             paintableTexture.Clear(paintableTexture.Texture, Color.black);
         }
 
-        public void Paint(P3dPaintDecal.Command command, Vector3 position, Quaternion rotation, Texture texture, Color color, P3dBlendMode blendMode)
+        public void Paint(P3dPaintDecal.Command command, Vector3 position, Quaternion rotation, Texture texture, Color color, MaterialData.PaintBlendMode blendMode)
         {
             float finalOpacity = opacity + (1.0f - opacity);
             float angle = Random.Range(-180.0f, 180.0f);
             command.SetLocation(position, rotation, Vector2.one, radius, texture, depth);
-            command.SetMaterial(blendMode, texture, hardness, normalBack, normalFront, normalFade, color, finalOpacity, null);
+            command.SetMaterial((P3dBlendMode)(int)blendMode, texture, hardness, normalBack, normalFront, normalFade, color, finalOpacity, null);
             P3dPaintableManager.SubmitAll(command, false, -1, -1, null, paintableTexture, null, null);
         }
 #endif
