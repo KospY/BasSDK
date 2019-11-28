@@ -23,9 +23,6 @@ TagManager:
   - Kick
   - ParryMagic
   - PointerActive
-  - IgnoreTK
-  - IgnoreTKLeft
-  - IgnoreTKRight
   - Potion
   - Small
   - Medium
@@ -35,6 +32,14 @@ TagManager:
   - Arrow
   - Bolt
   - Cork
+  - Heavy
+  - TkDefault
+  - TkRagdoll
+  - TkDefaultLeft
+  - TkDefaultRight
+  - TkRagdollLeft
+  - TkRagdollRight
+  - Light
   layers:
   - Default
   - TransparentFX
@@ -52,12 +57,12 @@ TagManager:
   - Ragdoll
   - LiquidFlow
   - LocomotionOnly
-  - 
+  - PostProcess
   - NoLocomotion
   - Highlighter
   - LoadingCamera
   - None
-  - PostProcess
+  - 
   - PlayerLocomotion
   - BodyLocomotion
   - NPCGrabbedObject
