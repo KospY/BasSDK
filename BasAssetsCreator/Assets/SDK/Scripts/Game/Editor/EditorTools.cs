@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 
 namespace BS
 {
-    public class EditorToolsAssetBuilder : EditorWindow
+    public class EditorToolsAssetBundleBuilder : EditorWindow
     {
         public static Dictionary<string, bool> exportBundle = new Dictionary<string, bool>();
         public static Dictionary<string, string> modExportDirectories = new Dictionary<string, string>();
@@ -15,15 +15,16 @@ namespace BS
         static List<string> bundleNames;
         List<AssetBundleBuild> assetBundleBuilds;
         BuildAssetBundleOptions buildAssetBundleOptions;
-        string assetBundleDirectory = "Assets/AssetBundles";
-        string githubLink = "https://github.com/KospY/BasSDK";
+        readonly string assetBundleDirectory = "Assets/AssetBundles";
+        string streamingAssetsDirectory = "";
+        readonly string githubLink = "https://github.com/KospY/BasSDK";
         public static bool exportToModFolders;
         Vector3 scroll0, scroll1;
 
         [MenuItem("Blade and Sorcery/Asset Bundle Builder")]
         public static void ShowWindow()
         {   //Opens window from toolbar
-            EditorWindow.GetWindow<EditorToolsAssetBuilder>("B&S Asset Bundle Builder");
+            EditorWindow.GetWindow<EditorToolsAssetBundleBuilder>("B&S Asset Bundle Builder");
         }
 
         private void OnFocus()
@@ -74,6 +75,10 @@ namespace BS
         private void AssetBuilderMenu()
         {
             scroll1 = GUILayout.BeginScrollView(scroll1); //SCROLL 1 START
+            if (streamingAssetsDirectory == "")
+            {
+                streamingAssetsDirectory = EditorPrefs.GetString("streamingassetsDir", streamingAssetsDirectory);
+            }
 
             //Displays header text 1
             GUILayout.Label(new GUIContent("Select the following asset bundles to export"), new GUIStyle("BoldLabel"));
@@ -85,15 +90,16 @@ namespace BS
             {
                 GUILayout.BeginHorizontal();
                 exportBundle[bundle] = GUILayout.Toggle(exportBundle[bundle], bundle);
-                EditorGUI.BeginDisabledGroup(EditorToolsJSONConfig.streamingassetsDirectory == null || EditorToolsJSONConfig.streamingassetsDirectory == "" || EditorToolsJSONConfig.streamingassetsDirectory.Substring(EditorToolsJSONConfig.streamingassetsDirectory.LastIndexOf('/') + 1, EditorToolsJSONConfig.streamingassetsDirectory.Length - EditorToolsJSONConfig.streamingassetsDirectory.LastIndexOf('/') - 1) != "StreamingAssets");
+                EditorGUI.BeginDisabledGroup(!exportBundle[bundle] || streamingAssetsDirectory == null || streamingAssetsDirectory == "" || streamingAssetsDirectory.Substring(streamingAssetsDirectory.LastIndexOf('/') + 1, streamingAssetsDirectory.Length - streamingAssetsDirectory.LastIndexOf('/') - 1) != "StreamingAssets");
 
                 GUILayout.BeginVertical();
                 try
                 {
                     if (modExportDirectories[bundle] == null || modExportDirectories[bundle] == "")
                     {
-                        if (GUILayout.Button("Target mod", new GUIStyle("DropDownButton")))
+                        if (GUILayout.Button("Select target mod", new GUIStyle("DropDownButton")))
                         {
+                            streamingAssetsDirectory = EditorPrefs.GetString("streamingassetsDir", streamingAssetsDirectory);
                             if (dropDownModDirSelect[bundle])
                             {
                                 dropDownModDirSelect[bundle] = false;
@@ -109,6 +115,7 @@ namespace BS
                     {
                         if (GUILayout.Button("Target mod: " + modExportDirectories[bundle].Substring(modExportDirectories[bundle].LastIndexOf('\\') + 1, modExportDirectories[bundle].Length - modExportDirectories[bundle].LastIndexOf('\\') - 1), new GUIStyle("DropDownButton")))
                         {
+                            streamingAssetsDirectory = EditorPrefs.GetString("streamingassetsDir", streamingAssetsDirectory);
                             if (dropDownModDirSelect[bundle])
                             {
                                 dropDownModDirSelect[bundle] = false;
@@ -121,7 +128,7 @@ namespace BS
                     }
                     if (dropDownModDirSelect[bundle])
                     {
-                        foreach (string file in Directory.EnumerateDirectories(EditorToolsJSONConfig.streamingassetsDirectory))
+                        foreach (string file in Directory.EnumerateDirectories(streamingAssetsDirectory))
                         {
                             if (GUILayout.Button(file.Substring(file.LastIndexOf('\\') + 1, file.Length - file.LastIndexOf('\\') - 1), new GUIStyle("radio")))
                             {
@@ -183,7 +190,7 @@ namespace BS
             {
                 foreach (FileInfo file in dir.GetFiles("*.*"))
                 {
-                    if ((file.Extension != ".assets" && file.Extension != ".maps") || exportBundle[bundle])
+                    if ((file.Extension != ".assets" && file.Extension != ".maps" && file.Extension != ".uma") || exportBundle[bundle])
                     {
                         file.Delete();
                     }
@@ -231,10 +238,11 @@ namespace BS
                             break;
                         }
                     }
+
                     file.MoveTo(file.FullName + ext);
                     if (modExportDirectories[Path.GetFileNameWithoutExtension(file.Name)].Length > 1)
                     {
-                        if (exportToModFolders && modExportDirectories.ContainsKey(file.Name.Substring(0, file.Name.Length - 7)))
+                        if (exportToModFolders && modExportDirectories.ContainsKey(file.Name.Substring(0, file.Name.Length - ext.Length)))
                         {
                             file.CopyTo(modExportDirectories[Path.GetFileNameWithoutExtension(file.Name)] + "/" + file.Name, true);
                             msgEnd = " and copied into mod folders";
@@ -245,13 +253,11 @@ namespace BS
                         msgEnd = ". Could not copy to mod folders";
                     }
                 }
-                else if (file.Extension != ".assets" && file.Extension != ".maps")
+                else if (file.Extension != ".assets" && file.Extension != ".maps" && file.Extension != ".uma")
                 {
                     file.Delete();
                 }
-                //Debug.Log(file.Name.Substring(0, file.Name.Length - 7));
             }
-
             AssetDatabase.Refresh();
             if (assetBundleBuilds.ToArray().Length > 0)
             {
@@ -285,7 +291,7 @@ namespace BS
         public static Dictionary<string, bool> folderShown = new Dictionary<string, bool>();
         public static Dictionary<string, GameObject> ModObject = new Dictionary<string, GameObject>();
         List<string> modFolders = new List<string>();
-        public static string streamingassetsDirectory;
+        public static string streamingAssetsDirectory;
         public static string selectedModDirectory;
         Vector3 scroll2, scroll3;
         public static string openJson = "";
@@ -298,13 +304,13 @@ namespace BS
 
         private void OnFocus()
         {
-            streamingassetsDirectory = EditorPrefs.GetString("streamingassetsDir", streamingassetsDirectory);
+            streamingAssetsDirectory = EditorPrefs.GetString("streamingassetsDir", streamingAssetsDirectory);
             selectedModDirectory = EditorPrefs.GetString("selectedMod", selectedModDirectory);
         }
 
         private void OnDisable()
         {
-            EditorPrefs.SetString("streamingassetsDir", streamingassetsDirectory);
+            EditorPrefs.SetString("streamingassetsDir", streamingAssetsDirectory);
         }
 
         private void OnGUI()
@@ -318,21 +324,21 @@ namespace BS
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
             GUILayout.FlexibleSpace();
         }
-
+        public bool selectedName;
         private void JSONConfigMenu()
         {
             //Displays header text 2
             GUILayout.Label(new GUIContent("Configure mod"), new GUIStyle("BoldLabel"));
             GUILayout.Space(5);
 
-            if (streamingassetsDirectory != null && streamingassetsDirectory != "" && streamingassetsDirectory.Substring(streamingassetsDirectory.LastIndexOf('/') + 1, streamingassetsDirectory.Length - streamingassetsDirectory.LastIndexOf('/') - 1) == "StreamingAssets")
+            if (streamingAssetsDirectory != null && streamingAssetsDirectory != "" && streamingAssetsDirectory.Substring(streamingAssetsDirectory.LastIndexOf('/') + 1, streamingAssetsDirectory.Length - streamingAssetsDirectory.LastIndexOf('/') - 1) == "StreamingAssets")
             {
-                if (GUILayout.Button(streamingassetsDirectory, new GUIStyle("textField")))
+                if (GUILayout.Button(streamingAssetsDirectory, new GUIStyle("textField")))
                 {
-                    streamingassetsDirectory = EditorUtility.OpenFolderPanel("Select streamingassets folder", "", "");
+                    streamingAssetsDirectory = EditorUtility.OpenFolderPanel("Select streamingassets folder", "", "");
                 }
                 modFolders.Clear();
-                foreach (string file in Directory.EnumerateDirectories(streamingassetsDirectory))
+                foreach (string file in Directory.EnumerateDirectories(streamingAssetsDirectory))
                 {
                     modFolders.Add(file);
                 }
@@ -347,13 +353,17 @@ namespace BS
                 //MOD FOLDER SELECTION LIST
                 if (selectedModDirectory == null || selectedModDirectory == "")
                 {
-                    GUILayout.Label("Select mod to set up:");
+                    GUILayout.Label("Select mod to set up or Create a new one");
+                    if (GUILayout.Button("Create New Mod"))
+                    {
+                        CreateWindow<ManifestBuilder>();
+                    }
                     GUILayout.Space(5);
                     int modIndex = 0;
                     scroll2 = GUILayout.BeginScrollView(scroll2); //SCROLL 2 START
                     foreach (string mod in modFolders)
                     {
-                        if (mod.Substring(mod.LastIndexOf('\\') + 1, mod.Length - mod.LastIndexOf('\\') - 1) != "Default" && !mod.Substring(mod.LastIndexOf('\\') + 1, mod.Length - mod.LastIndexOf('\\') - 1).StartsWith("_"))
+                        if (mod.Substring(mod.LastIndexOf('\\') + 1, mod.Length - mod.LastIndexOf('\\') - 1) != "Default" && mod.Substring(mod.LastIndexOf('\\') + 1, mod.Length - mod.LastIndexOf('\\') - 1) != "SteamVR" && !mod.Substring(mod.LastIndexOf('\\') + 1, mod.Length - mod.LastIndexOf('\\') - 1).StartsWith("_"))
                         {
                             GUILayout.BeginHorizontal();
                             GUILayout.Space(10);
@@ -425,7 +435,7 @@ namespace BS
                             if (GUILayout.Button("New Weapon"))
                             {
                                 openJson = "";
-                                EditorWindow.GetWindow<JsonBuilder>("Item JSON Builder");
+                                EditorWindow.GetWindow<WeaponJsonBuilder>("Item JSON Builder");
 
                             }
                             GUILayout.FlexibleSpace();
@@ -452,23 +462,23 @@ namespace BS
                 EditorGUIUtility.labelWidth = GUI.skin.label.CalcSize(new GUIContent()).x;
                 EditorStyles.helpBox.stretchWidth = false;
                 EditorGUILayout.HelpBox("", MessageType.Warning, false);
-                if (streamingassetsDirectory.Substring(streamingassetsDirectory.LastIndexOf('/') + 1, streamingassetsDirectory.Length - streamingassetsDirectory.LastIndexOf('/') - 1) != "StreamingAssets")
+                if (streamingAssetsDirectory.Substring(streamingAssetsDirectory.LastIndexOf('/') + 1, streamingAssetsDirectory.Length - streamingAssetsDirectory.LastIndexOf('/') - 1) != "StreamingAssets")
                 {
                     EditorGUILayout.BeginVertical();
                     if (GUILayout.Button("Unable to find StreamingAssets. Please try again"))
                     {
-                        streamingassetsDirectory = EditorUtility.OpenFolderPanel("Select streamingassets folder", "", "");
-                        EditorPrefs.SetString("streamingassetsDir", streamingassetsDirectory);
+                        streamingAssetsDirectory = EditorUtility.OpenFolderPanel("Select streamingassets folder", "", "");
+                        EditorPrefs.SetString("streamingassetsDir", streamingAssetsDirectory);
                     }
-                    GUILayout.Label(streamingassetsDirectory);
+                    GUILayout.Label(streamingAssetsDirectory);
                     EditorGUILayout.EndVertical();
                 }
                 else
                 {
                     if (GUILayout.Button("The mod folder directory has not been selected"))
                     {
-                        streamingassetsDirectory = EditorUtility.OpenFolderPanel("Select streamingassets folder", "", "");
-                        EditorPrefs.SetString("streamingassetsDir", streamingassetsDirectory);
+                        streamingAssetsDirectory = EditorUtility.OpenFolderPanel("Select streamingassets folder", "", "");
+                        EditorPrefs.SetString("streamingassetsDir", streamingAssetsDirectory);
                     }
                 }
                 GUILayout.EndHorizontal();
@@ -529,8 +539,8 @@ namespace BS
                     if (GUILayout.Button("Edit Weapon"))
                     {
                         openJson = file.FullName;
-                        JsonBuilder.prefabKey = ObjectKey;
-                        EditorWindow.GetWindow<JsonBuilder>("Item JSON Builder");
+                        WeaponJsonBuilder.prefabKey = ObjectKey;
+                        EditorWindow.GetWindow<WeaponJsonBuilder>("Item JSON Builder");
                     }
                     GUI.enabled = true;
                 }

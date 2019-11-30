@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace BS
 {
-    public class JsonBuilder : EditorWindow
+    public class WeaponJsonBuilder : EditorWindow
     {
         public string modName;
         public string modDirectory;
@@ -28,24 +28,12 @@ namespace BS
         [Serializable]
         public class JSONData
         {
-            [Serializable]
-            public class DisplayName
-            {
-                public string language;
-                public string text;
-            }
-            [Serializable]
-            public class Description
-            {
-                public string language;
-                public string text;
-            }
             public string MONEYSIGNtype = "BS.ItemData, Assembly-CSharp";
             public string id;
             public int version;
             public int pooledCount;
-            public List<DisplayName> displayNames = new List<DisplayName>();
-            public List<Description> descriptions = new List<Description>();
+            public string displayName;
+            public string description;
             public string author;
             public double price;
             public bool purchasable;
@@ -74,7 +62,6 @@ namespace BS
             public bool telekinesisSpinEnabled;
             public double telekinesisThrowRatio;
             public int damageTransfer;
-            public bool paintable;
             public bool grippable;
             public List<object> customSnaps = new List<object>();
             public List<Module> modules = new List<Module>();
@@ -221,7 +208,7 @@ namespace BS
                 if (expandBaseItemList)
                 {
                     scroll4 = GUILayout.BeginScrollView(scroll4);
-                    foreach (FileInfo file in new DirectoryInfo(EditorToolsJSONConfig.streamingassetsDirectory + "\\Default\\Items").GetFiles())
+                    foreach (FileInfo file in new DirectoryInfo(EditorToolsJSONConfig.streamingAssetsDirectory + "\\Default\\Items").GetFiles())
                     {
                         if (file.Name.StartsWith("Item_Weapon_"))
                         {
@@ -272,14 +259,16 @@ namespace BS
                 AddField("Prefab", ref itemPrefab);
                 scroll5 = GUILayout.BeginScrollView(scroll5);
                 GUILayout.Space(5);
-                
-                try { 
-                DisplayWeaponInfo();
-                DisplayWeaponConfig();
-                DisplayWeaponDamagers();
-                DisplayWeaponHandles();
-                DisplayWeaponWhooshpoints(); 
-                } catch (Exception e) { Debug.Log("Window closed. " + e); Close();}
+
+                try
+                {
+                    DisplayWeaponInfo();
+                    DisplayWeaponConfig();
+                    DisplayWeaponDamagers();
+                    DisplayWeaponHandles();
+                    DisplayWeaponWhooshpoints();
+                }
+                catch (Exception e) { Debug.Log("Window closed. " + e); Close(); }
 
                 GUILayout.EndScrollView();
                 GUILayout.BeginHorizontal();
@@ -358,7 +347,6 @@ namespace BS
                     if (GUILayout.Button("Finish and Create"))
                     {
                         CreateJSON();
-
                     }
                 }
                 GUILayout.EndVertical();
@@ -377,14 +365,6 @@ namespace BS
                 {
                     jsondata.author = EditorPrefs.GetString("modAuthor");
                 }
-                if (jsondata.displayNames.Count < 1)
-                {
-                    jsondata.displayNames.Add(new JSONData.DisplayName());
-                }
-                if (jsondata.descriptions.Count < 1)
-                {
-                    jsondata.descriptions.Add(new JSONData.Description());
-                }
                 if (jsondata.modules.Count < 1)
                 {
                     jsondata.modules.Add(new JSONData.Module());
@@ -401,28 +381,28 @@ namespace BS
                 knockoutThrow = new string[3] { "None", "Always", "Sometimes" };
 
                 List<string> dmgrTyps = new List<string>();
-                foreach (FileInfo file in new DirectoryInfo(EditorToolsJSONConfig.streamingassetsDirectory + "\\Default\\Damagers").GetFiles())
+                foreach (FileInfo file in new DirectoryInfo(EditorToolsJSONConfig.streamingAssetsDirectory + "\\Default\\Damagers").GetFiles())
                 {
                     dmgrTyps.Add(file.Name.Substring(8, file.Name.Length - 13));
                 }
                 damagerTypes = dmgrTyps.ToArray();
 
                 List<string> hndlTyps = new List<string>();
-                foreach (FileInfo file in new DirectoryInfo(EditorToolsJSONConfig.streamingassetsDirectory + "\\Default\\Interactables").GetFiles())
+                foreach (FileInfo file in new DirectoryInfo(EditorToolsJSONConfig.streamingAssetsDirectory + "\\Default\\Interactables").GetFiles())
                 {
                     hndlTyps.Add(file.Name.Substring(13, file.Name.Length - 18));
                 }
                 handleTypes = hndlTyps.ToArray();
 
                 List<string> hndlPse = new List<string>();
-                foreach (FileInfo file in new DirectoryInfo(EditorToolsJSONConfig.streamingassetsDirectory + "\\Default\\HandPoses").GetFiles())
+                foreach (FileInfo file in new DirectoryInfo(EditorToolsJSONConfig.streamingAssetsDirectory + "\\Default\\HandPoses").GetFiles())
                 {
                     hndlPse.Add(file.Name.Substring(9, file.Name.Length - 14));
                 }
                 handlePoses = hndlPse.ToArray();
 
                 List<string> wshFx = new List<string>();
-                foreach (FileInfo file in new DirectoryInfo(EditorToolsJSONConfig.streamingassetsDirectory + "\\Default\\FXs").GetFiles())
+                foreach (FileInfo file in new DirectoryInfo(EditorToolsJSONConfig.streamingAssetsDirectory + "\\Default\\FXs").GetFiles())
                 {
                     wshFx.Add(file.Name.Substring(3, file.Name.Length - 8));
                 }
@@ -434,14 +414,13 @@ namespace BS
         {
             noAssetBundleOnPrefab = false;
             jsondata.id = itemPrefab.GetComponentInChildren<ItemDefinition>().itemId;
-            string defaultFx ="";
+            string defaultFx = "";
             if (jsondata.whooshs.Count > 0)
             {
                 defaultFx = jsondata.whooshs[0].fxId;
             }
             jsondata.damagers = new List<JSONData.Damager>(itemPrefab.GetComponentInChildren(typeof(ItemDefinition)).GetComponentsInChildren<BS.DamagerDefinition>().Length);
             jsondata.Interactables = new List<JSONData.Interactable>(itemPrefab.GetComponentInChildren(typeof(ItemDefinition)).GetComponentsInChildren<HandleDefinition>().Length);
-            jsondata.whooshs = new List<JSONData.Whoosh>(itemPrefab.GetComponentInChildren<ItemDefinition>().whooshPoints.Count);
 
 
             int damagerIndex = 0;
@@ -458,13 +437,14 @@ namespace BS
                 jsondata.Interactables[interactableIndex].transformName = handle.name;
                 interactableIndex++;
             }
-            int wooshIndex = 0;
-            foreach (WhooshPoint woosh in itemPrefab.GetComponentsInChildren<WhooshPoint>())
+            int whooshIndex = 0;
+            jsondata.whooshs.Clear();
+            foreach (WhooshPoint whoosh in itemPrefab.GetComponentInChildren(typeof(ItemDefinition)).GetComponentsInChildren<WhooshPoint>())
             {
                 jsondata.whooshs.Add(new JSONData.Whoosh());
-                jsondata.whooshs[wooshIndex].transformName = woosh.name;
-                jsondata.whooshs[wooshIndex].fxId = defaultFx;
-                wooshIndex++;
+                jsondata.whooshs[whooshIndex].transformName = whoosh.name;
+                jsondata.whooshs[whooshIndex].fxId = defaultFx;
+                whooshIndex++;
             }
         }
 
@@ -475,13 +455,14 @@ namespace BS
             GUILayout.Space(20);
             GUILayout.BeginVertical();
 
-            AddField("Displayed Name", ref jsondata.displayNames[0].text);
-            AddField("Description", ref jsondata.descriptions[0].text, true);
+            AddField("Displayed Name", ref jsondata.displayName);
+            AddField("Description", ref jsondata.description, true);
             AddField("Mod Author", ref jsondata.author);
             GUILayout.EndVertical();
             GUILayout.EndHorizontal();
             GUILayout.Space(5);
         }
+
         bool slotDropdown = false;
         bool bookDropdown = false;
         bool itemDropdown = false;
@@ -557,15 +538,13 @@ namespace BS
             AddField("Angular Drag", ref jsondata.angularDrag);
             AddField("Use Gravity", ref jsondata.useGravity);
             AddField("Fly From Throw", ref jsondata.flyFromThrow);
-
-            GUILayout.Space(10);
-            AddField("Enable Decals", ref jsondata.paintable);
             AddField("Enable Climbing Grip", ref jsondata.grippable);
 
             GUILayout.EndVertical();
             GUILayout.EndHorizontal();
             GUILayout.Space(5);
         }
+
         Dictionary<string, bool> damDropdown = new Dictionary<string, bool>();
         Dictionary<string, bool> hndlDropdown = new Dictionary<string, bool>();
         Dictionary<string, bool> hndlHandDropdown = new Dictionary<string, bool>();
@@ -594,7 +573,7 @@ namespace BS
                             }
                             bool drpdwn = damDropdown[damager.transformName];
                             GUILayout.Label(damager.transformName);
-                            AddFieldDropdown("Select Damager Type", ref damager.damagerID,damagerTypes, ref drpdwn);
+                            AddFieldDropdown("Select Damager Type", ref damager.damagerID, damagerTypes, ref drpdwn);
                             damDropdown[damager.transformName] = drpdwn;
 
                             GUILayout.FlexibleSpace();
@@ -606,12 +585,9 @@ namespace BS
                         GUILayout.Label("There are no Damagers on this prefab.");
                     }
                 }
-                catch (Exception) { }
-                //}
-                //catch (Exception)
-                //{
-                //    LoadPrefab();
-                //}
+                catch (Exception e) {
+                    Debug.Log(e);
+                }
             }
             else
             {
@@ -620,6 +596,7 @@ namespace BS
             GUILayout.EndVertical();
             GUILayout.EndHorizontal();
         }
+
         private void DisplayWeaponHandles()
         {
             GUILayout.Label("Handles", new GUIStyle("BoldLabel"));
@@ -677,6 +654,7 @@ namespace BS
             GUILayout.EndVertical();
             GUILayout.EndHorizontal();
         }
+
         private void DisplayWeaponWhooshpoints()
         {
             GUILayout.Label("Whoosh Points", new GUIStyle("BoldLabel"));
@@ -685,13 +663,14 @@ namespace BS
             GUILayout.BeginVertical();
             if (itemPrefab)
             {
-                try
+                if (jsondata.whooshs.Count > 0)
                 {
-                    if (jsondata.whooshs.Count > 0)
+
+                    foreach (JSONData.Whoosh whoosh in jsondata.whooshs)
                     {
-                        foreach (JSONData.Whoosh whoosh in jsondata.whooshs)
+                        GUILayout.BeginHorizontal();
+                        if (whoosh.transformName != null)
                         {
-                            GUILayout.BeginHorizontal();
                             if (!wshSoundDropdown.ContainsKey(whoosh.transformName))
                             {
                                 wshSoundDropdown[whoosh.transformName] = false;
@@ -700,17 +679,17 @@ namespace BS
                             GUILayout.Label(whoosh.transformName);
                             AddFieldDropdown("Sound Effect", ref whoosh.fxId, whooshSounds, ref whsh);
                             wshSoundDropdown[whoosh.transformName] = whsh;
-                            
-                            GUILayout.FlexibleSpace();
-                            GUILayout.EndHorizontal();
                         }
+                        GUILayout.FlexibleSpace();
+                        GUILayout.EndHorizontal();
                     }
-                    else
-                    {
-                        GUILayout.Label("There are no Whoosh points on this prefab.");
-                    }
+
                 }
-                catch (Exception) { }
+                else
+                {
+                    GUILayout.Label("There are no Whoosh points on this prefab.");
+                }
+
             }
             else
             {
@@ -830,7 +809,7 @@ namespace BS
 
             json = File.ReadAllText(selectedBaseDir);
 
-            if (jsondata.displayNames[0].text == null || jsondata.displayNames[0].text == "")
+            if (jsondata.displayName == null || jsondata.displayName == "")
             {
                 noWeaponName = true;
             }
@@ -856,6 +835,7 @@ namespace BS
             {
                 if (whoosh.fxId == null || whoosh.fxId == "")
                 {
+                    
                     noWhooshFX = true;
                 }
             }
@@ -891,18 +871,19 @@ namespace BS
 
     public class ManifestBuilder : EditorWindow
     {
-        Manifest jsondata = new Manifest();
+        public Manifest jsondata = new Manifest();
         string json;
         bool hasManifest = false;
         string directory;
+
         [Serializable]
         public class Manifest
         {
-            public string Name;
-            public string Description;
-            public string Author;
+            public string Name = "Mod Name";
+            public string Description = "Description of Mod";
+            public string Author = "Your Name";
             public string ModVersion = "1.0";
-            public string GameVersion = "6.3";
+            public string GameVersion = "7.0";
         }
 
         public ManifestBuilder()
@@ -918,7 +899,6 @@ namespace BS
             if (hasManifest)
             {
                 LoadJSON(directory + "\\manifest.json");
-
             }
         }
 
@@ -974,15 +954,30 @@ namespace BS
 
             GUILayout.EndHorizontal();
         }
-
-        private void CreateJSON()
+        public void CreateJSON()
         {
             json = JsonUtility.ToJson(jsondata, true);
             EditorPrefs.SetString("modAuthor", jsondata.Author);
-
-            File.WriteAllText(directory + "\\manifest.json", json);
+            CreateFolder(jsondata.Name);
+            string NewModFolderPath = GetNewModDirecotry();
+            File.WriteAllText(NewModFolderPath + "\\manifest.json", json);
             Close();
         }
-
+        public void CreateFolder(string modName)
+        {
+            string directory;
+            directory = EditorToolsJSONConfig.streamingAssetsDirectory;
+            Debug.Log("Attempting to get directory...");
+            Directory.CreateDirectory(directory + "/" + modName);
+            string modDir = directory + "/" + modName;
+            Debug.Log("Successfully Created Mod Folder Called " + modName);
+            EditorToolsJSONConfig.selectedModDirectory = modDir;
+            EditorPrefs.SetString("selectedMod", modDir);
+        }
+        public string GetNewModDirecotry()
+        {
+            ManifestBuilder builder = GetWindow<ManifestBuilder>();
+            return EditorToolsJSONConfig.streamingAssetsDirectory + "/" + builder.jsondata.Name;
+        }
     }
 }
