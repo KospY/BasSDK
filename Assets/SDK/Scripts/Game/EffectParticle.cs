@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Random = UnityEngine.Random;
 
 namespace BS
 {
@@ -81,72 +79,6 @@ namespace BS
         {
             rootParticleSystem.Stop();
             Invoke("Despawn", lifeTime);
-        }
-        public void Update()
-        {
-            foreach (EffectParticleChild p in childs)
-            {
-                if (p.useMeshTarget && p.targetTransform != null && p.targetMesh != null)
-                {
-                    Debug.Log("particle target");
-
-
-                    Mesh mesh = p.targetMesh.sharedMesh;
-
-                    Matrix4x4 localToWorld = p.targetMesh.transform.localToWorldMatrix;
-
-                    //for (int i = 0; i < p.targetMesh.vertices.Length; ++i)
-                    Vector3[] vertices;
-                    vertices = mesh.vertices;
-
-                    float closestSqrDistance = 1000;
-                    Vector3 closestVertexPos = new Vector3();
-                    Vector3 closestMiddlepoint = new Vector3();
-                    float closestMiddleSqrDistance = 1000;
-
-                    for (int i = 0; i < vertices.Length; ++i)
-                    {
-                        Vector3 world_v = localToWorld.MultiplyPoint3x4(vertices[i]);
-                        Vector3 directionVector = world_v - transform.position;
-                        float sqrDistance = directionVector.sqrMagnitude;
-
-
-                        Vector3 middlePoint = new Vector3();
-                        //Point is farer
-                        if (sqrDistance > closestSqrDistance)
-                        {
-                            float distancePercent = closestSqrDistance / sqrDistance;
-                            //middlePoint = closestVertexPos + (world_v - closestVertexPos)/2.0f;
-                            middlePoint = closestVertexPos + (world_v - closestVertexPos) * distancePercent;
-                        }
-                        else
-                        {
-                            float distancePercent = sqrDistance / closestSqrDistance;
-                            //middlePoint = closestVertexPos + (closestVertexPos - world_v) / 2.0f;
-                            middlePoint = closestVertexPos + (closestVertexPos - world_v) * distancePercent;
-                        }
-
-
-                        Vector3 middleDirectionVector = middlePoint - transform.position;
-                        float middleSqrDistance = middleDirectionVector.sqrMagnitude;
-
-                        if (middleSqrDistance < closestMiddleSqrDistance)
-                        {
-                            closestMiddleSqrDistance = middleSqrDistance;
-                            closestMiddlepoint = middlePoint;
-                        }
-
-                        if (sqrDistance < closestSqrDistance)
-                        {
-                            closestSqrDistance = sqrDistance;
-                            closestVertexPos = world_v;
-                        }
-                    }
-
-                    p.targetTransform.transform.position = closestMiddlepoint;
-
-                }
-            }
         }
 
         public override void SetIntensity(float value)
