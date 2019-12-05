@@ -26,11 +26,11 @@ namespace BS
         public bool useSizeCurve;
         public AnimationCurve sizeCurve;
 
-        [Header("Size")]
-        public bool useBaseColorGradient;
+        [Header("Gradient")]
+        public EffectTarget linkBaseColor = EffectTarget.None;
+        public EffectTarget linkEmissionColor = EffectTarget.None;
         [GradientUsage(true)]
         public Gradient baseColorGradient;
-        public bool useEmissionColorGradient;
         [GradientUsage(true)]
         public Gradient emissionColorGradient;
 
@@ -38,6 +38,8 @@ namespace BS
         {
             materialPropertyBlock = new MaterialPropertyBlock();
             meshRenderer = this.GetComponent<MeshRenderer>();
+            if (colorPropertyID == 0) colorPropertyID = Shader.PropertyToID("_Color");
+            if (emissionPropertyID == 0) emissionPropertyID = Shader.PropertyToID("_EmissionColor");
         }
 
         private void Awake()
@@ -70,6 +72,7 @@ namespace BS
         {
             playTime = Time.time;
             CancelInvoke();
+            meshRenderer.transform.localScale = Vector3.one;
             meshRenderer.transform.localScale = new Vector3(size.x / meshRenderer.transform.lossyScale.x, size.y / meshRenderer.transform.lossyScale.y, size.z / meshRenderer.transform.lossyScale.z);
             if (step != Step.Loop)
             {
@@ -85,24 +88,48 @@ namespace BS
 
         protected void UpdateLifeTime()
         {
-            float value = Mathf.Clamp01((Time.time - playTime) / lifeTime);
+            float value = Mathf.Clamp01(1 - ((Time.time - playTime) / lifeTime));
             SetIntensity(value);
-            if (value == 1) Despawn();
+            if (value == 0) Despawn();
+        }
+
+        public override void SetMainGradient(Gradient gradient)
+        {
+            if (linkBaseColor == EffectTarget.Main)
+            {
+                baseColorGradient = gradient;
+            }
+            if (linkEmissionColor == EffectTarget.Main)
+            {
+                emissionColorGradient = gradient;
+            }
+        }
+
+        public override void SetSecondaryGradient(Gradient gradient)
+        {
+            if (linkBaseColor == EffectTarget.Secondary)
+            {
+                baseColorGradient = gradient;
+            }
+            if (linkEmissionColor == EffectTarget.Secondary)
+            {
+                emissionColorGradient = gradient;
+            }
         }
 
         public override void SetIntensity(float value)
         {
             if (meshRenderer.isVisible)
             {
-                if (useBaseColorGradient)
+                if (linkBaseColor != EffectTarget.None)
                 {
                     materialPropertyBlock.SetColor(colorPropertyID, baseColorGradient.Evaluate(value));
                 }
-                if (useEmissionColorGradient)
+                if (linkEmissionColor != EffectTarget.None)
                 {
                     materialPropertyBlock.SetColor(emissionPropertyID, emissionColorGradient.Evaluate(value));
                 }
-                if (useBaseColorGradient || useEmissionColorGradient)
+                if (linkBaseColor != EffectTarget.None || linkEmissionColor != EffectTarget.None)
                 {
                     meshRenderer.SetPropertyBlock(materialPropertyBlock);
                 }

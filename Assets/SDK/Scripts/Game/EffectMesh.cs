@@ -65,9 +65,9 @@ namespace BS
 
         protected void UpdateLifeTime()
         {
-            float value = Mathf.Clamp01((Time.time - playTime) / lifeTime);
+            float value = Mathf.Clamp01(1 - ((Time.time - playTime) / lifeTime));
             SetIntensity(value);
-            if (value == 1) Despawn();
+            if (value == 0) Despawn();
         }
 
         public override void SetIntensity(float value)
