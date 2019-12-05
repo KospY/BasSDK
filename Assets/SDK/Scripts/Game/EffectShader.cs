@@ -13,7 +13,9 @@ namespace BS
         public bool useSecondaryRenderer;
 
         [NonSerialized]
-        public new Renderer renderer;
+        public float playTime;
+
+        protected new Renderer renderer;
 
         protected static int colorPropertyID;
         protected static int emissionPropertyID;
@@ -38,6 +40,8 @@ namespace BS
 
         public override void Play()
         {
+            CancelInvoke();
+            playTime = Time.time;
             if (step != Step.Loop && lifeTime > 0)
             {
                 InvokeRepeating("UpdateLifeTime", 0, refreshSpeed);
@@ -51,7 +55,7 @@ namespace BS
 
         protected void UpdateLifeTime()
         {
-            float value = Mathf.Clamp01((Time.time - spawnTime) / lifeTime);
+            float value = Mathf.Clamp01((Time.time - playTime) / lifeTime);
             SetIntensity(value);
             if (value == 1) Despawn();
         }
@@ -61,6 +65,7 @@ namespace BS
             if ((useSecondaryRenderer && secondary) || (!useSecondaryRenderer && !secondary))
             {
                 this.renderer = renderer;
+
             }
         }
 
@@ -80,7 +85,7 @@ namespace BS
                 if (linkEmissionColor == EffectTarget.Main)
                 {
                     materialPropertyBlock.SetColor(emissionPropertyID, currentMainGradient.Evaluate(value));
-                }    
+                }
                 else if (linkEmissionColor == EffectTarget.Secondary)
                 {
                     materialPropertyBlock.SetColor(emissionPropertyID, currentSecondaryGradient.Evaluate(value));

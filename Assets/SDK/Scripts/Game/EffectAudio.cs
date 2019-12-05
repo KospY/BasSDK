@@ -25,6 +25,7 @@ namespace BS
 
         public override void Play()
         {
+            CancelInvoke();
             audioSource.loop = step == Step.Loop ? true : false;
             if (randomPitch)
             {
@@ -44,7 +45,7 @@ namespace BS
                 StopAllCoroutines();
                 StartCoroutine(AudioFadeOut());
             }
-            else
+            else if (step == Step.Loop)
             {
                 audioSource.Stop();
                 Despawn();

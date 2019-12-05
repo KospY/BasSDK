@@ -9,6 +9,9 @@ namespace BS
         public float lifeTime = 5;
         public float refreshSpeed = 0.1f;
 
+        [NonSerialized]
+        public float playTime;
+
         [Header("Color Gradient")]
         public EffectTarget linkBaseColor = EffectTarget.None;
         public EffectTarget linkEmissionColor = EffectTarget.None;
@@ -45,6 +48,8 @@ namespace BS
 
         public override void Play()
         {
+            CancelInvoke();
+            playTime = Time.time;
             renderer.enabled = true;
             if (step != Step.Loop && lifeTime > 0)
             {
@@ -60,7 +65,7 @@ namespace BS
 
         protected void UpdateLifeTime()
         {
-            float value = Mathf.Clamp01((Time.time - spawnTime) / lifeTime);
+            float value = Mathf.Clamp01((Time.time - playTime) / lifeTime);
             SetIntensity(value);
             if (value == 1) Despawn();
         }

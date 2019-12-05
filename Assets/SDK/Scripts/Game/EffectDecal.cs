@@ -18,6 +18,9 @@ namespace BS
         public float lifeTime = 60;
         public float fadeRefreshSpeed = 0.1f;
 
+        [NonSerialized]
+        public float playTime;
+
         [Header("Size")]
         public Vector3 size = new Vector3(1, 1, 1);
         public bool useSizeCurve;
@@ -33,23 +36,26 @@ namespace BS
 
         private void OnValidate()
         {
-
+            materialPropertyBlock = new MaterialPropertyBlock();
+            meshRenderer = this.GetComponent<MeshRenderer>();
         }
 
         private void Awake()
         {
             materialPropertyBlock = new MaterialPropertyBlock();
 
-            if (!defaultCubeMesh)
-            {
-                MeshFilter primitiveMeshFilter = GameObject.CreatePrimitive(PrimitiveType.Cube).GetComponent<MeshFilter>();
-                defaultCubeMesh = primitiveMeshFilter.sharedMesh;
-                Destroy(primitiveMeshFilter.gameObject);
-            }
-
             MeshFilter meshFilter = this.GetComponent<MeshFilter>();
-            if (!meshFilter) meshFilter = this.gameObject.AddComponent<MeshFilter>();
-            meshFilter.mesh = defaultCubeMesh;
+            if (!meshFilter)
+            {
+                if (!defaultCubeMesh)
+                {
+                    MeshFilter primitiveMeshFilter = GameObject.CreatePrimitive(PrimitiveType.Cube).GetComponent<MeshFilter>();
+                    defaultCubeMesh = primitiveMeshFilter.sharedMesh;
+                    Destroy(primitiveMeshFilter.gameObject);
+                }
+                meshFilter = this.gameObject.AddComponent<MeshFilter>();
+                meshFilter.mesh = defaultCubeMesh;
+            }
 
             meshRenderer = this.GetComponent<MeshRenderer>();
             if (!meshRenderer) meshRenderer = this.gameObject.AddComponent<MeshRenderer>();
@@ -62,6 +68,8 @@ namespace BS
 
         public override void Play()
         {
+            playTime = Time.time;
+            CancelInvoke();
             meshRenderer.transform.localScale = new Vector3(size.x / meshRenderer.transform.lossyScale.x, size.y / meshRenderer.transform.lossyScale.y, size.z / meshRenderer.transform.lossyScale.z);
             if (step != Step.Loop)
             {
@@ -77,7 +85,7 @@ namespace BS
 
         protected void UpdateLifeTime()
         {
-            float value = Mathf.Clamp01((Time.time - spawnTime) / lifeTime);
+            float value = Mathf.Clamp01((Time.time - playTime) / lifeTime);
             SetIntensity(value);
             if (value == 1) Despawn();
         }

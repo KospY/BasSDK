@@ -77,6 +77,7 @@ namespace BS
 
         public override void Stop()
         {
+            CancelInvoke();
             rootParticleSystem.Stop();
             Invoke("Despawn", lifeTime);
         }

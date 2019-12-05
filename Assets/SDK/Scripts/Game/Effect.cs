@@ -8,9 +8,6 @@ namespace BS
         [NonSerialized]
         public EffectInstance effectInstance;
 
-        [NonSerialized]
-        public float spawnTime;
-
         public Step step = Step.Start;
         public enum Step
         {
