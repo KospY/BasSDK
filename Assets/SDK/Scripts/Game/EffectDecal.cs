@@ -83,7 +83,10 @@ namespace BS
 
         public override void Stop()
         {
-            Despawn();
+            if (step == Step.Loop || Application.isEditor)
+            {
+                Despawn();
+            }
         }
 
         protected void UpdateLifeTime()
