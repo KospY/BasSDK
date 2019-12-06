@@ -210,6 +210,17 @@ namespace BS
                     updatePropertyBlock = true;
                 }
 
+                if (p.linkTintColor == EffectTarget.Main && currentMainGradient != null)
+                {
+                    p.materialPropertyBlock.SetColor("_TintColor", currentMainGradient.Evaluate(value));
+                    updatePropertyBlock = true;
+                }
+                else if (p.linkTintColor == EffectTarget.Secondary && currentSecondaryGradient != null)
+                {
+                    p.materialPropertyBlock.SetColor("_TintColor", currentSecondaryGradient.Evaluate(value));
+                    updatePropertyBlock = true;
+                }
+                
                 if (p.linkEmissionColor == EffectTarget.Main && currentMainGradient != null)
                 {
                     p.materialPropertyBlock.SetColor("_EmissionColor", currentMainGradient.Evaluate(value));
