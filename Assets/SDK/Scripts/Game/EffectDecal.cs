@@ -37,7 +37,7 @@ namespace BS
         private void OnValidate()
         {
             materialPropertyBlock = new MaterialPropertyBlock();
-            meshRenderer = this.GetComponent<MeshRenderer>();
+            meshRenderer = this.GetComponentInChildren<MeshRenderer>();
             if (colorPropertyID == 0) colorPropertyID = Shader.PropertyToID("_Color");
             if (emissionPropertyID == 0) emissionPropertyID = Shader.PropertyToID("_EmissionColor");
         }
@@ -46,7 +46,7 @@ namespace BS
         {
             materialPropertyBlock = new MaterialPropertyBlock();
 
-            MeshFilter meshFilter = this.GetComponent<MeshFilter>();
+            MeshFilter meshFilter = this.GetComponentInChildren<MeshFilter>();
             if (!meshFilter)
             {
                 if (!defaultCubeMesh)
@@ -55,12 +55,21 @@ namespace BS
                     defaultCubeMesh = primitiveMeshFilter.sharedMesh;
                     Destroy(primitiveMeshFilter.gameObject);
                 }
-                meshFilter = this.gameObject.AddComponent<MeshFilter>();
+                Transform meshTransform = this.transform.Find("Mesh");
+                if (!meshTransform)
+                {
+                    meshTransform = new GameObject("Mesh").transform;
+                    meshTransform.SetParent(this.transform);
+                    meshTransform.localPosition = Vector3.zero;
+                    meshTransform.rotation = Quaternion.LookRotation(this.transform.up, this.transform.forward);
+                    meshTransform.localScale = Vector3.one;
+                }
+                meshFilter = meshTransform.gameObject.AddComponent<MeshFilter>();
                 meshFilter.mesh = defaultCubeMesh;
             }
 
-            meshRenderer = this.GetComponent<MeshRenderer>();
-            if (!meshRenderer) meshRenderer = this.gameObject.AddComponent<MeshRenderer>();
+            meshRenderer = this.GetComponentInChildren<MeshRenderer>();
+            if (!meshRenderer) meshRenderer = meshFilter.gameObject.AddComponent<MeshRenderer>();
 
             if (colorPropertyID == 0) colorPropertyID = Shader.PropertyToID("_Color");
             if (emissionPropertyID == 0) emissionPropertyID = Shader.PropertyToID("_EmissionColor");
@@ -81,9 +90,9 @@ namespace BS
             meshRenderer.enabled = true;
         }
 
-        public override void Stop()
+        public override void Stop(bool loopOnly = false)
         {
-            if (step == Step.Loop || Application.isEditor)
+            if (!loopOnly || (loopOnly && step == Step.Loop))
             {
                 Despawn();
             }
