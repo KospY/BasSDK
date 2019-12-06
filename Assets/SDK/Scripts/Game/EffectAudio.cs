@@ -38,14 +38,14 @@ namespace BS
             audioSource.Play();
         }
 
-        public override void Stop()
+        public override void Stop(bool loopOnly = false)
         {
             if (loopFadeDelay > 0)
             {
                 StopAllCoroutines();
                 StartCoroutine(AudioFadeOut());
             }
-            else if (step == Step.Loop)
+            else if (!loopOnly || (loopOnly && step == Step.Loop))
             {
                 audioSource.Stop();
                 Despawn();

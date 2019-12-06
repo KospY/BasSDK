@@ -75,7 +75,7 @@ namespace BS
             }
         }
 
-        public override void Stop()
+        public override void Stop(bool loopOnly = false)
         {
             CancelInvoke();
             rootParticleSystem.Stop();

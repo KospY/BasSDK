@@ -21,7 +21,7 @@ namespace BS
 
         }
 
-        public virtual void Stop()
+        public virtual void Stop(bool loopOnly = false)
         {
 
         }
