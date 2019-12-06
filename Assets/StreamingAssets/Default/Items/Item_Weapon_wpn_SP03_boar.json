@@ -1,33 +1,34 @@
 {
   "$type": "BS.ItemData, Assembly-CSharp",
-  "id": "MaceShortT2",
+  "id": "wpn_SP03_boar",
   "version": 4,
   "pooledCount": 0,
-  "localizationId": "MaceShortT2",
-  "displayName": "Trench mace",
-  "description": "Crude but effective, the club can be used to stun and batter opponents, knocking them out of the fight",
+  "localizationId": "wpn_SP03_boar",
+  "displayName": "Boar Spear",
+  "description": "Some folks say that once, a drunk king died because he didn't bother to bring one of them with him",
   "author": "Glitch",
   "price": 0.0,
   "purchasable": true,
-  "tier": 2,
+  "tier": 3,
   "levelRequired": 0,
-  "slot": 3,
+  "slot": 4,
   "isStackable": false,
   "category": 2,
-  "storageCategory": "Blunt",
-  "prefabName": "@items:wpn_maceshort_t2",
-  "mass": 1.5,
-  "drag": 1.0,
+  "storageCategory": "Spears",
+  "prefabName": "@items:wpn_SP03_boar",
+  "mass": 1.2,
+  "drag": 0.4,
   "angularDrag": 0.05,
   "useGravity": true,
   "collisionMaxOverride": 0,
   "collisionEnterOnly": false,
+  "collisionNoMinVelocityCheck": false,
   "ignoredCollisionRagdollParts": [],
   "forceLayer": 0,
   "audioSnapPath": "SnapOther",
-  "flyFromThrow": false,
-  "flyRotationSpeed": 2.0,
-  "flyThrowAngle": 60.0,
+  "flyFromThrow": true,
+  "flyRotationSpeed": 5.0,
+  "flyThrowAngle": 30.0,
   "telekinesisSafeDistance": 1.0,
   "telekinesisSpinEnabled": true,
   "telekinesisThrowRatio": 1.0,
@@ -38,7 +39,7 @@
     {
       "$type": "BS.ItemModuleAI, Assembly-CSharp",
       "weaponClass": 1,
-      "weaponHandling": 1,
+      "weaponHandling": 2,
       "parryIgnoreRotation": false,
       "parryRotation": 90.0,
       "parryDualRotation": 60.0,
@@ -76,25 +77,25 @@
     },
     {
       "transformName": "Blunt",
-      "damagerID": "MaceBlunt"
+      "damagerID": "HandleHeavyBlunt"
     },
     {
-      "transformName": "HandleBlunt",
-      "damagerID": "HandleBlunt"
+      "transformName": "Slash",
+      "damagerID": "DaggerSlash"
     }
   ],
   "Interactables": [
     {
       "transformName": "Handle",
       "interactableId": "ObjectHandleHeavy",
-      "overrideHandPose": false,
-      "handPoseId": ""
+      "overrideHandPose": true,
+      "handPoseId": "HandleLarge"
     }
   ],
   "whooshs": [
     {
       "transformName": "Whoosh",
-      "fxId": "WhooshSwordLight",
+      "fxId": "WhooshSwordHeavy",
       "trigger": 0,
       "minVelocity": 5.0,
       "maxVelocity": 12.0

@@ -1,27 +1,28 @@
 {
   "$type": "BS.ItemData, Assembly-CSharp",
-  "id": "SmallShieldT1",
+  "id": "wpn_SHB02_armored",
   "version": 4,
   "pooledCount": 0,
-  "localizationId": "SmallShieldT1",
-  "displayName": "Round shield",
-  "description": "Small enough to carry but large enough to deflect arrows, the wooden shield provides a good all-around defense",
+  "localizationId": "wpn_SHB02_armored",
+  "displayName": "Armored buckler",
+  "description": "The small size and maneuverability of the buckler make it valuable when dealing with light blades",
   "author": "Rhacknam",
   "price": 0.0,
   "purchasable": true,
-  "tier": 0,
+  "tier": 2,
   "levelRequired": 0,
-  "slot": 4,
+  "slot": 3,
   "isStackable": false,
   "category": 7,
   "storageCategory": "Shields",
-  "prefabName": "@items:wpn_shield_small_t1",
-  "mass": 3.0,
+  "prefabName": "@items:wpn_SHB02_armored",
+  "mass": 2.0,
   "drag": 0.4,
   "angularDrag": 0.05,
   "useGravity": true,
   "collisionMaxOverride": 0,
   "collisionEnterOnly": false,
+  "collisionNoMinVelocityCheck": false,
   "ignoredCollisionRagdollParts": [
     1
   ],
@@ -37,29 +38,16 @@
   "grippable": true,
   "customSnaps": [
     {
-      "holderName": "BackLeft",
+      "holderName": "HipsRight",
       "localPosition": {
         "x": 0.0,
         "y": 0.03,
-        "z": 0.05
+        "z": 0.0
       },
       "localRotation": {
         "x": 0.0,
         "y": 0.0,
-        "z": 0.0
-      }
-    },
-    {
-      "holderName": "BackRight",
-      "localPosition": {
-        "x": 0.1,
-        "y": 0.03,
-        "z": 0.05
-      },
-      "localRotation": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
+        "z": 180.0
       }
     }
   ],
@@ -92,7 +80,7 @@
         "z": 0.0
       },
       "allowDynamicHeight": false,
-      "dodgeBehaviour": 1,
+      "dodgeBehaviour": 2,
       "defenseHasPriority": true,
       "attackIgnore": true,
       "attackForceParryIgnoreRotation": false
@@ -101,11 +89,7 @@
   "damagers": [
     {
       "transformName": "BluntMetal",
-      "damagerID": "HandleHeavyBlunt"
-    },
-    {
-      "transformName": "BluntWood",
-      "damagerID": "HandleHeavyBlunt"
+      "damagerID": "Punch"
     }
   ],
   "Interactables": [
@@ -113,13 +97,13 @@
       "transformName": "Handle",
       "interactableId": "ObjectHandleShield",
       "overrideHandPose": false,
-      "handPoseId": "HandleSmall"
+      "handPoseId": "HandleShield"
     }
   ],
   "whooshs": [
     {
       "transformName": "Whoosh",
-      "fxId": "WhooshSwordHeavy",
+      "fxId": "WhooshSwordLight",
       "trigger": 0,
       "minVelocity": 5.0,
       "maxVelocity": 12.0

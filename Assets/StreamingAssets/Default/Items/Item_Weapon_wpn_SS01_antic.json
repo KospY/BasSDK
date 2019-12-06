@@ -1,33 +1,34 @@
 {
   "$type": "BS.ItemData, Assembly-CSharp",
-  "id": "Mace1",
+  "id": "wpn_SS01_antic",
   "version": 4,
   "pooledCount": 0,
-  "localizationId": "Mace1",
-  "displayName": "Trench mace",
-  "description": "Crude but effective, the club can be used to stun and batter opponents, knocking them out of the fight",
-  "author": "Kupatka",
+  "localizationId": "wpn_SS01_antic",
+  "displayName": "Antique Sword",
+  "description": "The sword of a forgotten king, old but still sharp",
+  "author": "Rhacknam",
   "price": 0.0,
-  "purchasable": false,
-  "tier": 2,
+  "purchasable": true,
+  "tier": 1,
   "levelRequired": 0,
   "slot": 3,
   "isStackable": false,
   "category": 2,
-  "storageCategory": "Blunt",
-  "prefabName": "KupatkaBlunt01",
-  "mass": 1.5,
+  "storageCategory": "Swords",
+  "prefabName": "@items:wpn_SS01_antic",
+  "mass": 1.0,
   "drag": 1.0,
   "angularDrag": 0.05,
   "useGravity": true,
   "collisionMaxOverride": 0,
   "collisionEnterOnly": false,
+  "collisionNoMinVelocityCheck": false,
   "ignoredCollisionRagdollParts": [],
   "forceLayer": 0,
-  "audioSnapPath": "SnapOther",
+  "audioSnapPath": "SnapSword",
   "flyFromThrow": false,
-  "flyRotationSpeed": 2.0,
-  "flyThrowAngle": 60.0,
+  "flyRotationSpeed": 3.0,
+  "flyThrowAngle": 0.0,
   "telekinesisSafeDistance": 1.0,
   "telekinesisSpinEnabled": true,
   "telekinesisThrowRatio": 1.0,
@@ -72,14 +73,14 @@
   "damagers": [
     {
       "transformName": "Pierce",
-      "damagerID": "DaggerPierce"
+      "damagerID": "SwordPierce"
+    },
+    {
+      "transformName": "Slash",
+      "damagerID": "SwordSlash"
     },
     {
       "transformName": "Blunt",
-      "damagerID": "MaceBlunt"
-    },
-    {
-      "transformName": "HandleBlunt",
       "damagerID": "HandleBlunt"
     }
   ],

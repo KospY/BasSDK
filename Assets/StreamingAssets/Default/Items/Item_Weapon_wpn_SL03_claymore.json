@@ -1,33 +1,34 @@
 {
   "$type": "BS.ItemData, Assembly-CSharp",
-  "id": "DualBladeStaffT3",
+  "id": "wpn_SL03_claymore",
   "version": 4,
   "pooledCount": 0,
-  "localizationId": "DualBladeStaffT3",
-  "displayName": "Dual blade staff",
-  "description": "This unorthodox weapon can be wielded with one hand of two, with two bladed ends posing maximum threat",
+  "localizationId": "wpn_SL03_claymore",
+  "displayName": "Claymore",
+  "description": "As deadly as it is heavy, with its long blade and distinctive style of cross-hilt, the claymore was designed to be wielded by strong elite warriors.",
   "author": "Glitch",
   "price": 0.0,
   "purchasable": true,
-  "tier": 3,
+  "tier": 2,
   "levelRequired": 0,
   "slot": 4,
   "isStackable": false,
   "category": 2,
-  "storageCategory": "Exotics",
-  "prefabName": "@items:DualBladeStaffT3",
-  "mass": 1.5,
+  "storageCategory": "Swords",
+  "prefabName": "@items:wpn_SL03_claymore",
+  "mass": 3.0,
   "drag": 1.0,
   "angularDrag": 0.05,
   "useGravity": true,
   "collisionMaxOverride": 0,
   "collisionEnterOnly": false,
+  "collisionNoMinVelocityCheck": false,
   "ignoredCollisionRagdollParts": [],
   "forceLayer": 0,
-  "audioSnapPath": "SnapOther",
-  "flyFromThrow": true,
-  "flyRotationSpeed": 5.0,
-  "flyThrowAngle": 30.0,
+  "audioSnapPath": "SnapHeavy",
+  "flyFromThrow": false,
+  "flyRotationSpeed": 3.0,
+  "flyThrowAngle": 0.0,
   "telekinesisSafeDistance": 1.0,
   "telekinesisSpinEnabled": true,
   "telekinesisThrowRatio": 1.0,
@@ -71,45 +72,37 @@
   ],
   "damagers": [
     {
-      "transformName": "PierceA",
+      "transformName": "Pierce",
       "damagerID": "SwordPierce"
     },
     {
-      "transformName": "SlashA",
-      "damagerID": "SwordSlash"
+      "transformName": "Slash",
+      "damagerID": "SwordHeavySlash"
     },
     {
       "transformName": "Blunt",
       "damagerID": "HandleHeavyBlunt"
-    },
-    {
-      "transformName": "PierceB",
-      "damagerID": "SwordPierce"
-    },
-    {
-      "transformName": "SlashB",
-      "damagerID": "SwordSlash"
     }
   ],
   "Interactables": [
     {
       "transformName": "Handle",
       "interactableId": "ObjectHandleHeavy",
-      "overrideHandPose": true,
-      "handPoseId": "HandleLarge"
+      "overrideHandPose": false,
+      "handPoseId": ""
     }
   ],
   "whooshs": [
     {
-      "transformName": "WhooshA",
-      "fxId": "WhooshSwordLight",
+      "transformName": "Whoosh",
+      "fxId": "WhooshSwordHeavy",
       "trigger": 0,
       "minVelocity": 5.0,
       "maxVelocity": 12.0
     },
     {
-      "transformName": "WhooshB",
-      "fxId": "WhooshSwordLight",
+      "transformName": "Whoosh2",
+      "fxId": "WhooshSwordHeavy",
       "trigger": 0,
       "minVelocity": 5.0,
       "maxVelocity": 12.0

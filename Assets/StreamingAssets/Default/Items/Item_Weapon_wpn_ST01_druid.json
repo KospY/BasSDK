@@ -1,33 +1,34 @@
 {
   "$type": "BS.ItemData, Assembly-CSharp",
-  "id": "ShortswordT2",
+  "id": "wpn_ST01_druid",
   "version": 4,
   "pooledCount": 0,
-  "localizationId": "ShortswordT2",
-  "displayName": "Short Sword",
-  "description": "The perfect match for one handed combat",
-  "author": "Rhacknam",
+  "localizationId": "wpn_ST01_druid",
+  "displayName": "Druid's staff",
+  "description": "... as the crystal rose from the tree, both of them seemed bonded by the universe itself",
+  "author": "Glitch",
   "price": 0.0,
   "purchasable": true,
-  "tier": 2,
+  "tier": 1,
   "levelRequired": 0,
-  "slot": 3,
+  "slot": 4,
   "isStackable": false,
   "category": 2,
-  "storageCategory": "Swords",
-  "prefabName": "@items:wpn_sword_short_t2",
-  "mass": 1.1,
+  "storageCategory": "Staves",
+  "prefabName": "@items:wpn_ST01_druid",
+  "mass": 1.0,
   "drag": 1.0,
   "angularDrag": 0.05,
   "useGravity": true,
   "collisionMaxOverride": 0,
   "collisionEnterOnly": false,
+  "collisionNoMinVelocityCheck": false,
   "ignoredCollisionRagdollParts": [],
   "forceLayer": 0,
-  "audioSnapPath": "SnapSword",
-  "flyFromThrow": false,
-  "flyRotationSpeed": 3.0,
-  "flyThrowAngle": 0.0,
+  "audioSnapPath": "SnapOther",
+  "flyFromThrow": true,
+  "flyRotationSpeed": 5.0,
+  "flyThrowAngle": 30.0,
   "telekinesisSafeDistance": 1.0,
   "telekinesisSpinEnabled": true,
   "telekinesisThrowRatio": 1.0,
@@ -37,8 +38,8 @@
   "modules": [
     {
       "$type": "BS.ItemModuleAI, Assembly-CSharp",
-      "weaponClass": 1,
-      "weaponHandling": 1,
+      "weaponClass": 5,
+      "weaponHandling": 2,
       "parryIgnoreRotation": false,
       "parryRotation": 90.0,
       "parryDualRotation": 60.0,
@@ -71,30 +72,26 @@
   ],
   "damagers": [
     {
-      "transformName": "Pierce",
-      "damagerID": "SwordPierce"
+      "transformName": "BluntHandle",
+      "damagerID": "MaceBlunt"
     },
     {
-      "transformName": "Slash",
-      "damagerID": "SwordSlash"
-    },
-    {
-      "transformName": "Blunt",
-      "damagerID": "HandleBlunt"
+      "transformName": "BluntCrystal",
+      "damagerID": "MaceBlunt"
     }
   ],
   "Interactables": [
     {
       "transformName": "Handle",
       "interactableId": "ObjectHandleHeavy",
-      "overrideHandPose": false,
-      "handPoseId": ""
+      "overrideHandPose": true,
+      "handPoseId": "HandleLarge"
     }
   ],
   "whooshs": [
     {
       "transformName": "Whoosh",
-      "fxId": "WhooshSwordLight",
+      "fxId": "WhooshSwordHeavy",
       "trigger": 0,
       "minVelocity": 5.0,
       "maxVelocity": 12.0

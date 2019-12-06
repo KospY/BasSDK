@@ -1,33 +1,34 @@
 {
   "$type": "BS.ItemData, Assembly-CSharp",
-  "id": "ClaymoreT2",
+  "id": "wpn_MS02_small",
   "version": 4,
   "pooledCount": 0,
-  "localizationId": "ClaymoreT2",
-  "displayName": "Claymore",
-  "description": "With its long blade and distinctive style of cross-hilt, the claymore was designed to wield with two hands",
+  "localizationId": "wpn_MS02_small",
+  "displayName": "Trench mace",
+  "description": "Crude but effective, the club can be used to stun and batter opponents, knocking them out of the fight",
   "author": "Glitch",
   "price": 0.0,
   "purchasable": true,
   "tier": 2,
   "levelRequired": 0,
-  "slot": 4,
+  "slot": 3,
   "isStackable": false,
   "category": 2,
-  "storageCategory": "Swords",
-  "prefabName": "@items:ClaymoreT2",
-  "mass": 3.0,
+  "storageCategory": "Blunt",
+  "prefabName": "@items:wpn_MS02_small",
+  "mass": 1.5,
   "drag": 1.0,
   "angularDrag": 0.05,
   "useGravity": true,
   "collisionMaxOverride": 0,
   "collisionEnterOnly": false,
+  "collisionNoMinVelocityCheck": false,
   "ignoredCollisionRagdollParts": [],
   "forceLayer": 0,
-  "audioSnapPath": "SnapHeavy",
+  "audioSnapPath": "SnapOther",
   "flyFromThrow": false,
-  "flyRotationSpeed": 3.0,
-  "flyThrowAngle": 0.0,
+  "flyRotationSpeed": 2.0,
+  "flyThrowAngle": 60.0,
   "telekinesisSafeDistance": 1.0,
   "telekinesisSpinEnabled": true,
   "telekinesisThrowRatio": 1.0,
@@ -38,7 +39,7 @@
     {
       "$type": "BS.ItemModuleAI, Assembly-CSharp",
       "weaponClass": 1,
-      "weaponHandling": 2,
+      "weaponHandling": 1,
       "parryIgnoreRotation": false,
       "parryRotation": 90.0,
       "parryDualRotation": 60.0,
@@ -72,15 +73,15 @@
   "damagers": [
     {
       "transformName": "Pierce",
-      "damagerID": "SwordPierce"
-    },
-    {
-      "transformName": "Slash",
-      "damagerID": "SwordHeavySlash"
+      "damagerID": "DaggerPierce"
     },
     {
       "transformName": "Blunt",
-      "damagerID": "HandleHeavyBlunt"
+      "damagerID": "MaceBlunt"
+    },
+    {
+      "transformName": "HandleBlunt",
+      "damagerID": "HandleBlunt"
     }
   ],
   "Interactables": [
@@ -94,14 +95,7 @@
   "whooshs": [
     {
       "transformName": "Whoosh",
-      "fxId": "WhooshSwordHeavy",
-      "trigger": 0,
-      "minVelocity": 5.0,
-      "maxVelocity": 12.0
-    },
-    {
-      "transformName": "Whoosh2",
-      "fxId": "WhooshSwordHeavy",
+      "fxId": "WhooshSwordLight",
       "trigger": 0,
       "minVelocity": 5.0,
       "maxVelocity": 12.0

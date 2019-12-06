@@ -1,33 +1,34 @@
 {
   "$type": "BS.ItemData, Assembly-CSharp",
-  "id": "WristBlade",
+  "id": "wpn_AL02_northern",
   "version": 4,
   "pooledCount": 0,
-  "localizationId": "WristBlade",
-  "displayName": "Wrist blade",
-  "description": "No description",
+  "localizationId": "wpn_AL02_northern",
+  "displayName": "Northern Axe",
+  "description": "Usually wielded by strong warrior, the efficiency of this long axe is quite renowned",
   "author": "Glitch",
   "price": 0.0,
   "purchasable": true,
-  "tier": 4,
+  "tier": 3,
   "levelRequired": 0,
-  "slot": 2,
+  "slot": 4,
   "isStackable": false,
   "category": 2,
-  "storageCategory": "Exotics",
-  "prefabName": "@items:WristBlade",
-  "mass": 1.0,
+  "storageCategory": "Axes",
+  "prefabName": "@items:wpn_AL02_northern",
+  "mass": 4.0,
   "drag": 1.0,
   "angularDrag": 0.05,
   "useGravity": true,
   "collisionMaxOverride": 0,
   "collisionEnterOnly": false,
+  "collisionNoMinVelocityCheck": false,
   "ignoredCollisionRagdollParts": [],
   "forceLayer": 0,
-  "audioSnapPath": "SnapDagger",
+  "audioSnapPath": "SnapOther",
   "flyFromThrow": false,
-  "flyRotationSpeed": 3.0,
-  "flyThrowAngle": 145.0,
+  "flyRotationSpeed": 2.0,
+  "flyThrowAngle": 60.0,
   "telekinesisSafeDistance": 1.0,
   "telekinesisSpinEnabled": true,
   "telekinesisThrowRatio": 1.0,
@@ -38,7 +39,7 @@
     {
       "$type": "BS.ItemModuleAI, Assembly-CSharp",
       "weaponClass": 1,
-      "weaponHandling": 1,
+      "weaponHandling": 2,
       "parryIgnoreRotation": false,
       "parryRotation": 90.0,
       "parryDualRotation": 60.0,
@@ -63,7 +64,7 @@
         "z": 60.0
       },
       "allowDynamicHeight": false,
-      "dodgeBehaviour": 3,
+      "dodgeBehaviour": 2,
       "defenseHasPriority": false,
       "attackIgnore": false,
       "attackForceParryIgnoreRotation": false
@@ -71,30 +72,26 @@
   ],
   "damagers": [
     {
-      "transformName": "Pierce",
-      "damagerID": "DaggerPierce"
-    },
-    {
       "transformName": "Slash",
-      "damagerID": "DaggerSlash"
+      "damagerID": "AxeHeavySlash"
     },
     {
       "transformName": "Blunt",
-      "damagerID": "Punch"
+      "damagerID": "HandleHeavyBlunt"
     }
   ],
   "Interactables": [
     {
       "transformName": "Handle",
-      "interactableId": "ObjectHandleWristBlade",
+      "interactableId": "ObjectHandleHeavy",
       "overrideHandPose": false,
-      "handPoseId": "HandleWristBlade"
+      "handPoseId": ""
     }
   ],
   "whooshs": [
     {
       "transformName": "Whoosh",
-      "fxId": "WhooshSwordLight",
+      "fxId": "WhooshSwordHeavy",
       "trigger": 0,
       "minVelocity": 5.0,
       "maxVelocity": 12.0

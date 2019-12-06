@@ -1,36 +1,37 @@
 {
   "$type": "BS.ItemData, Assembly-CSharp",
-  "id": "ShortswordT1",
+  "id": "wpn_ML02_Maul",
   "version": 4,
   "pooledCount": 0,
-  "localizationId": "ShortswordT1",
-  "displayName": "Antique Sword",
-  "description": "The sword of a forgotten king",
-  "author": "Rhacknam",
+  "localizationId": "wpn_ML02_Maul",
+  "displayName": "Maul",
+  "description": "With its weight and size, the maul can crush through armor and bones alike",
+  "author": "Glitch",
   "price": 0.0,
   "purchasable": true,
-  "tier": 1,
+  "tier": 4,
   "levelRequired": 0,
-  "slot": 3,
+  "slot": 4,
   "isStackable": false,
   "category": 2,
-  "storageCategory": "Swords",
-  "prefabName": "@items:wpn_sword_short_t1",
-  "mass": 1.0,
+  "storageCategory": "Blunt",
+  "prefabName": "@items:wpn_ML02_Maul",
+  "mass": 7.0,
   "drag": 1.0,
   "angularDrag": 0.05,
   "useGravity": true,
   "collisionMaxOverride": 0,
   "collisionEnterOnly": false,
+  "collisionNoMinVelocityCheck": false,
   "ignoredCollisionRagdollParts": [],
   "forceLayer": 0,
-  "audioSnapPath": "SnapSword",
+  "audioSnapPath": "SnapHeavy",
   "flyFromThrow": false,
-  "flyRotationSpeed": 3.0,
-  "flyThrowAngle": 0.0,
+  "flyRotationSpeed": 2.0,
+  "flyThrowAngle": 120.0,
   "telekinesisSafeDistance": 1.0,
   "telekinesisSpinEnabled": true,
-  "telekinesisThrowRatio": 1.0,
+  "telekinesisThrowRatio": 1.5,
   "damageTransfer": 0,
   "grippable": true,
   "customSnaps": [],
@@ -38,7 +39,7 @@
     {
       "$type": "BS.ItemModuleAI, Assembly-CSharp",
       "weaponClass": 1,
-      "weaponHandling": 1,
+      "weaponHandling": 2,
       "parryIgnoreRotation": false,
       "parryRotation": 90.0,
       "parryDualRotation": 60.0,
@@ -71,30 +72,26 @@
   ],
   "damagers": [
     {
-      "transformName": "Pierce",
-      "damagerID": "SwordPierce"
-    },
-    {
-      "transformName": "Slash",
-      "damagerID": "SwordSlash"
-    },
-    {
       "transformName": "Blunt",
-      "damagerID": "HandleBlunt"
+      "damagerID": "Maul"
+    },
+    {
+      "transformName": "BluntHandle",
+      "damagerID": "HandleHeavyBlunt"
     }
   ],
   "Interactables": [
     {
       "transformName": "Handle",
       "interactableId": "ObjectHandleHeavy",
-      "overrideHandPose": false,
-      "handPoseId": ""
+      "overrideHandPose": true,
+      "handPoseId": "HandleLarge"
     }
   ],
   "whooshs": [
     {
       "transformName": "Whoosh",
-      "fxId": "WhooshSwordLight",
+      "fxId": "WhooshSwordHeavy",
       "trigger": 0,
       "minVelocity": 5.0,
       "maxVelocity": 12.0

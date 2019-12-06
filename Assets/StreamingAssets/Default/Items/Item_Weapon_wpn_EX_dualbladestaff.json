@@ -1,36 +1,37 @@
 {
   "$type": "BS.ItemData, Assembly-CSharp",
-  "id": "HeavyAxe1",
+  "id": "wpn_EX_dualbladestaff",
   "version": 4,
   "pooledCount": 0,
-  "localizationId": "HeavyAxe1",
-  "displayName": "Bardiche",
-  "description": "A descendant of the Dane axe, the cleaver style blade of the bardiche makes it suitable for hacking and slashing",
-  "author": "Kupatka",
+  "localizationId": "wpn_EX_dualbladestaff",
+  "displayName": "Dual blade staff",
+  "description": "This unorthodox weapon can be wielded with one hand of two, with two bladed ends posing maximum threat",
+  "author": "Glitch",
   "price": 0.0,
-  "purchasable": false,
-  "tier": 1,
+  "purchasable": true,
+  "tier": 3,
   "levelRequired": 0,
   "slot": 4,
   "isStackable": false,
   "category": 2,
-  "storageCategory": "Axes",
-  "prefabName": "KupatkaAxe",
-  "mass": 5.0,
+  "storageCategory": "Exotics",
+  "prefabName": "@items:wpn_EX_dualbladestaff",
+  "mass": 1.5,
   "drag": 1.0,
   "angularDrag": 0.05,
   "useGravity": true,
   "collisionMaxOverride": 0,
   "collisionEnterOnly": false,
+  "collisionNoMinVelocityCheck": false,
   "ignoredCollisionRagdollParts": [],
   "forceLayer": 0,
-  "audioSnapPath": "SnapHeavy",
-  "flyFromThrow": false,
-  "flyRotationSpeed": 2.0,
-  "flyThrowAngle": 120.0,
+  "audioSnapPath": "SnapOther",
+  "flyFromThrow": true,
+  "flyRotationSpeed": 5.0,
+  "flyThrowAngle": 30.0,
   "telekinesisSafeDistance": 1.0,
   "telekinesisSpinEnabled": true,
-  "telekinesisThrowRatio": 1.5,
+  "telekinesisThrowRatio": 1.0,
   "damageTransfer": 0,
   "grippable": true,
   "customSnaps": [],
@@ -71,36 +72,45 @@
   ],
   "damagers": [
     {
-      "transformName": "Pierce",
+      "transformName": "PierceA",
       "damagerID": "SwordPierce"
     },
     {
-      "transformName": "Slash",
-      "damagerID": "AxeHeavySlash"
+      "transformName": "SlashA",
+      "damagerID": "SwordSlash"
     },
     {
       "transformName": "Blunt",
       "damagerID": "HandleHeavyBlunt"
+    },
+    {
+      "transformName": "PierceB",
+      "damagerID": "SwordPierce"
+    },
+    {
+      "transformName": "SlashB",
+      "damagerID": "SwordSlash"
     }
   ],
   "Interactables": [
     {
       "transformName": "Handle",
       "interactableId": "ObjectHandleHeavy",
-      "overrideHandPose": false,
-      "handPoseId": ""
-    },
-    {
-      "transformName": "Handle2",
-      "interactableId": "ObjectHandleHeavy",
-      "overrideHandPose": false,
-      "handPoseId": ""
+      "overrideHandPose": true,
+      "handPoseId": "HandleLarge"
     }
   ],
   "whooshs": [
     {
-      "transformName": "Whoosh",
-      "fxId": "WhooshSwordHeavy",
+      "transformName": "WhooshA",
+      "fxId": "WhooshSwordLight",
+      "trigger": 0,
+      "minVelocity": 5.0,
+      "maxVelocity": 12.0
+    },
+    {
+      "transformName": "WhooshB",
+      "fxId": "WhooshSwordLight",
       "trigger": 0,
       "minVelocity": 5.0,
       "maxVelocity": 12.0

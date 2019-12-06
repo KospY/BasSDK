@@ -1,31 +1,32 @@
 {
   "$type": "BS.ItemData, Assembly-CSharp",
-  "id": "Dagger1",
+  "id": "wpn_EX_wristblade",
   "version": 4,
   "pooledCount": 0,
-  "localizationId": "Dagger1",
-  "displayName": "Dagger",
-  "description": "A favourite of rogues, the sharp tip of the dagger makes it primarily a stabbing and thrusting weapon",
-  "author": "Hardidea ",
+  "localizationId": "wpn_EX_wristblade",
+  "displayName": "Wrist blade",
+  "description": "Elegant and deadly, the wristblade is a modern weapon for civilized ages",
+  "author": "Glitch",
   "price": 0.0,
-  "purchasable": false,
-  "tier": 2,
+  "purchasable": true,
+  "tier": 4,
   "levelRequired": 0,
   "slot": 2,
   "isStackable": false,
   "category": 2,
-  "storageCategory": "Daggers",
-  "prefabName": "DaggerN5",
+  "storageCategory": "Exotics",
+  "prefabName": "@items:wpn_EX_wristblade",
   "mass": 1.0,
   "drag": 1.0,
   "angularDrag": 0.05,
   "useGravity": true,
   "collisionMaxOverride": 0,
   "collisionEnterOnly": false,
+  "collisionNoMinVelocityCheck": false,
   "ignoredCollisionRagdollParts": [],
   "forceLayer": 0,
   "audioSnapPath": "SnapDagger",
-  "flyFromThrow": true,
+  "flyFromThrow": false,
   "flyRotationSpeed": 3.0,
   "flyThrowAngle": 145.0,
   "telekinesisSafeDistance": 1.0,
@@ -80,15 +81,15 @@
     },
     {
       "transformName": "Blunt",
-      "damagerID": "HandleBlunt"
+      "damagerID": "Punch"
     }
   ],
   "Interactables": [
     {
       "transformName": "Handle",
-      "interactableId": "ObjectHandleLight",
+      "interactableId": "ObjectHandleWristBlade",
       "overrideHandPose": false,
-      "handPoseId": ""
+      "handPoseId": "HandleWristBlade"
     }
   ],
   "whooshs": [

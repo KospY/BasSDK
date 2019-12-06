@@ -1,0 +1,129 @@
+{
+  "$type": "BS.ItemData, Assembly-CSharp",
+  "id": "wpn_SHS01_round",
+  "version": 4,
+  "pooledCount": 0,
+  "localizationId": "wpn_SHS01_round",
+  "displayName": "Round shield",
+  "description": "Small enough to carry but large enough to deflect arrows, the wooden shield provides a good all-around defense",
+  "author": "Rhacknam",
+  "price": 0.0,
+  "purchasable": true,
+  "tier": 0,
+  "levelRequired": 0,
+  "slot": 4,
+  "isStackable": false,
+  "category": 7,
+  "storageCategory": "Shields",
+  "prefabName": "@items:wpn_SHS01_round",
+  "mass": 3.0,
+  "drag": 0.4,
+  "angularDrag": 0.05,
+  "useGravity": true,
+  "collisionMaxOverride": 0,
+  "collisionEnterOnly": false,
+  "collisionNoMinVelocityCheck": false,
+  "ignoredCollisionRagdollParts": [
+    1
+  ],
+  "forceLayer": 0,
+  "audioSnapPath": "",
+  "flyFromThrow": false,
+  "flyRotationSpeed": 3.0,
+  "flyThrowAngle": 0.0,
+  "telekinesisSafeDistance": 1.0,
+  "telekinesisSpinEnabled": false,
+  "telekinesisThrowRatio": 1.0,
+  "damageTransfer": 0,
+  "grippable": true,
+  "customSnaps": [
+    {
+      "holderName": "BackLeft",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.03,
+        "z": 0.05
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      }
+    },
+    {
+      "holderName": "BackRight",
+      "localPosition": {
+        "x": 0.1,
+        "y": 0.03,
+        "z": 0.05
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      }
+    }
+  ],
+  "modules": [
+    {
+      "$type": "BS.ItemModuleAI, Assembly-CSharp",
+      "weaponClass": 4,
+      "weaponHandling": 1,
+      "parryIgnoreRotation": true,
+      "parryRotation": 0.0,
+      "parryDualRotation": 60.0,
+      "armResistanceMultiplier": 3.0,
+      "parryRevertAngleRange": {
+        "x": -80.0,
+        "y": -180.0
+      },
+      "parryDefaultPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "parryDefaultLeftRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "parryDefaultRightRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "allowDynamicHeight": false,
+      "dodgeBehaviour": 1,
+      "defenseHasPriority": true,
+      "attackIgnore": true,
+      "attackForceParryIgnoreRotation": false
+    }
+  ],
+  "damagers": [
+    {
+      "transformName": "BluntMetal",
+      "damagerID": "HandleHeavyBlunt"
+    },
+    {
+      "transformName": "BluntWood",
+      "damagerID": "HandleHeavyBlunt"
+    }
+  ],
+  "Interactables": [
+    {
+      "transformName": "Handle",
+      "interactableId": "ObjectHandleShield",
+      "overrideHandPose": false,
+      "handPoseId": "HandleSmall"
+    }
+  ],
+  "whooshs": [
+    {
+      "transformName": "Whoosh",
+      "fxId": "WhooshSwordHeavy",
+      "trigger": 0,
+      "minVelocity": 5.0,
+      "maxVelocity": 12.0
+    }
+  ]
+}

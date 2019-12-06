@@ -1,36 +1,37 @@
 {
   "$type": "BS.ItemData, Assembly-CSharp",
-  "id": "MaulT4",
+  "id": "wpn_MS01_nailclub",
   "version": 4,
   "pooledCount": 0,
-  "localizationId": "MaulT4",
-  "displayName": "Maul",
-  "description": "With its weight and size, the maul can crush through armor and bones alike",
-  "author": "Glitch",
+  "localizationId": "wpn_MS01_nailclub",
+  "displayName": "Trench mace",
+  "description": "Crude but effective, the club can be used to stun and strike down opponents, to knock them out of the fight or simply to bash their head off",
+  "author": "wpn_MS01_nailclub",
   "price": 0.0,
-  "purchasable": true,
-  "tier": 4,
+  "purchasable": false,
+  "tier": 2,
   "levelRequired": 0,
-  "slot": 4,
+  "slot": 3,
   "isStackable": false,
   "category": 2,
   "storageCategory": "Blunt",
-  "prefabName": "@items:MaulT4",
-  "mass": 7.0,
+  "prefabName": "@items:wpn_MS01_nailclub",
+  "mass": 1.5,
   "drag": 1.0,
   "angularDrag": 0.05,
   "useGravity": true,
   "collisionMaxOverride": 0,
   "collisionEnterOnly": false,
+  "collisionNoMinVelocityCheck": false,
   "ignoredCollisionRagdollParts": [],
   "forceLayer": 0,
-  "audioSnapPath": "SnapHeavy",
+  "audioSnapPath": "SnapOther",
   "flyFromThrow": false,
   "flyRotationSpeed": 2.0,
-  "flyThrowAngle": 120.0,
+  "flyThrowAngle": 60.0,
   "telekinesisSafeDistance": 1.0,
   "telekinesisSpinEnabled": true,
-  "telekinesisThrowRatio": 1.5,
+  "telekinesisThrowRatio": 1.0,
   "damageTransfer": 0,
   "grippable": true,
   "customSnaps": [],
@@ -38,7 +39,7 @@
     {
       "$type": "BS.ItemModuleAI, Assembly-CSharp",
       "weaponClass": 1,
-      "weaponHandling": 2,
+      "weaponHandling": 1,
       "parryIgnoreRotation": false,
       "parryRotation": 90.0,
       "parryDualRotation": 60.0,
@@ -72,25 +73,25 @@
   "damagers": [
     {
       "transformName": "Blunt",
-      "damagerID": "Maul"
+      "damagerID": "MaceBlunt"
     },
     {
       "transformName": "BluntHandle",
-      "damagerID": "HandleHeavyBlunt"
+      "damagerID": "HandleBlunt"
     }
   ],
   "Interactables": [
     {
       "transformName": "Handle",
       "interactableId": "ObjectHandleHeavy",
-      "overrideHandPose": true,
-      "handPoseId": "HandleLarge"
+      "overrideHandPose": false,
+      "handPoseId": ""
     }
   ],
   "whooshs": [
     {
       "transformName": "Whoosh",
-      "fxId": "WhooshSwordHeavy",
+      "fxId": "WhooshSwordLight",
       "trigger": 0,
       "minVelocity": 5.0,
       "maxVelocity": 12.0
