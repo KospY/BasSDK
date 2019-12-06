@@ -182,6 +182,8 @@
       "sliceSeparationForce": 0.0,
       "sliceParentFXId": "",
       "sliceChildFXId": "",
+      "sliceJointBreakForce": 5000.0,
+      "sliceDamage": 999999.0,
       "handles": [],
       "colliders": [
         {
@@ -252,6 +254,8 @@
       "sliceSeparationForce": 0.0,
       "sliceParentFXId": "SliceFleshParent",
       "sliceChildFXId": "SliceFleshChild",
+      "sliceJointBreakForce": 5000.0,
+      "sliceDamage": 999999.0,
       "handles": [],
       "colliders": [
         {
@@ -322,6 +326,8 @@
       "sliceSeparationForce": 0.0,
       "sliceParentFXId": "SliceFleshParent",
       "sliceChildFXId": "SliceFleshChild",
+      "sliceJointBreakForce": 5000.0,
+      "sliceDamage": 999999.0,
       "handles": [],
       "colliders": [
         {
@@ -392,6 +398,8 @@
       "sliceSeparationForce": 0.0,
       "sliceParentFXId": "SliceFleshParent",
       "sliceChildFXId": "SliceFleshChild",
+      "sliceJointBreakForce": 3000.0,
+      "sliceDamage": 999999.0,
       "handles": [
         {
           "axisLength": 0.0,
@@ -546,6 +554,8 @@
       "sliceSeparationForce": 0.0,
       "sliceParentFXId": "SliceFleshParent",
       "sliceChildFXId": "SliceFleshChild",
+      "sliceJointBreakForce": 3000.0,
+      "sliceDamage": 999999.0,
       "handles": [
         {
           "axisLength": 0.0,
@@ -700,7 +710,51 @@
       "sliceSeparationForce": 0.0,
       "sliceParentFXId": "SliceFleshParent",
       "sliceChildFXId": "SliceFleshChild",
-      "handles": [],
+      "sliceJointBreakForce": 3200.0,
+      "sliceDamage": 999999.0,
+      "handles": [
+        {
+          "axisLength": 0.0,
+          "touchRadius": 0.1,
+          "touchCenter": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "localPosition": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "localRotation": {
+            "x": 180.0,
+            "y": -120.0,
+            "z": 90.0
+          },
+          "ikAnchorOffset": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "allowedOrientations": [
+            {
+              "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "positionOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "allowedHand": 3,
+              "isDefault": 3
+            }
+          ],
+          "interactableRagdollID": "HumanTK"
+        }
+      ],
       "colliders": [
         {
           "colliderType": 0,
@@ -770,7 +824,51 @@
       "sliceSeparationForce": 0.0,
       "sliceParentFXId": "SliceFleshParent",
       "sliceChildFXId": "SliceFleshChild",
-      "handles": [],
+      "sliceJointBreakForce": 3200.0,
+      "sliceDamage": 999999.0,
+      "handles": [
+        {
+          "axisLength": 0.0,
+          "touchRadius": 0.1,
+          "touchCenter": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "localPosition": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "localRotation": {
+            "x": 180.0,
+            "y": -120.0,
+            "z": 90.0
+          },
+          "ikAnchorOffset": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "allowedOrientations": [
+            {
+              "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "positionOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "allowedHand": 3,
+              "isDefault": 3
+            }
+          ],
+          "interactableRagdollID": "HumanTK"
+        }
+      ],
       "colliders": [
         {
           "colliderType": 0,
@@ -840,6 +938,8 @@
       "sliceSeparationForce": 0.0,
       "sliceParentFXId": "",
       "sliceChildFXId": "",
+      "sliceJointBreakForce": 5000.0,
+      "sliceDamage": 999999.0,
       "handles": [],
       "colliders": [
         {
@@ -910,6 +1010,8 @@
       "sliceSeparationForce": 0.0,
       "sliceParentFXId": "",
       "sliceChildFXId": "",
+      "sliceJointBreakForce": 5000.0,
+      "sliceDamage": 999999.0,
       "handles": [],
       "colliders": [
         {
@@ -980,6 +1082,8 @@
       "sliceSeparationForce": 150.0,
       "sliceParentFXId": "SliceFleshParent",
       "sliceChildFXId": "SliceFleshChild",
+      "sliceJointBreakForce": 3000.0,
+      "sliceDamage": 999999.0,
       "handles": [],
       "colliders": [
         {
@@ -1050,6 +1154,8 @@
       "sliceSeparationForce": 5.0,
       "sliceParentFXId": "SliceFleshParent",
       "sliceChildFXId": "SliceFleshChild",
+      "sliceJointBreakForce": 2500.0,
+      "sliceDamage": 999999.0,
       "handles": [
         {
           "axisLength": 0.0,
@@ -1323,6 +1429,8 @@
       "sliceSeparationForce": 0.0,
       "sliceParentFXId": "",
       "sliceChildFXId": "",
+      "sliceJointBreakForce": 5000.0,
+      "sliceDamage": 999999.0,
       "handles": [
         {
           "axisLength": 0.0,
@@ -1477,6 +1585,8 @@
       "sliceSeparationForce": 0.0,
       "sliceParentFXId": "",
       "sliceChildFXId": "",
+      "sliceJointBreakForce": 5000.0,
+      "sliceDamage": 999999.0,
       "handles": [
         {
           "axisLength": 0.0,
@@ -1631,6 +1741,8 @@
       "sliceSeparationForce": 0.0,
       "sliceParentFXId": "SliceFleshParent",
       "sliceChildFXId": "SliceFleshChild",
+      "sliceJointBreakForce": 3000.0,
+      "sliceDamage": 999999.0,
       "handles": [],
       "colliders": [
         {
@@ -1701,6 +1813,8 @@
       "sliceSeparationForce": 0.0,
       "sliceParentFXId": "SliceFleshParent",
       "sliceChildFXId": "SliceFleshChild",
+      "sliceJointBreakForce": 3000.0,
+      "sliceDamage": 999999.0,
       "handles": [],
       "colliders": [
         {
@@ -1771,6 +1885,8 @@
       "sliceSeparationForce": 0.0,
       "sliceParentFXId": "SliceFleshParent",
       "sliceChildFXId": "SliceFleshChild",
+      "sliceJointBreakForce": 3100.0,
+      "sliceDamage": 999999.0,
       "handles": [
         {
           "axisLength": 0.0,
@@ -1925,6 +2041,8 @@
       "sliceSeparationForce": 0.0,
       "sliceParentFXId": "SliceFleshParent",
       "sliceChildFXId": "SliceFleshChild",
+      "sliceJointBreakForce": 3100.0,
+      "sliceDamage": 999999.0,
       "handles": [
         {
           "axisLength": 0.0,
@@ -2079,7 +2197,65 @@
       "sliceSeparationForce": 0.0,
       "sliceParentFXId": "SliceFleshParent",
       "sliceChildFXId": "SliceFleshChild",
-      "handles": [],
+      "sliceJointBreakForce": 3200.0,
+      "sliceDamage": 999999.0,
+      "handles": [
+        {
+          "axisLength": 0.0,
+          "touchRadius": 0.1,
+          "touchCenter": {
+            "x": 0.0,
+            "y": 0.08,
+            "z": 0.0
+          },
+          "localPosition": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "localRotation": {
+            "x": -90.0,
+            "y": 0.0,
+            "z": 90.0
+          },
+          "ikAnchorOffset": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "allowedOrientations": [
+            {
+              "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "positionOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "allowedHand": 2,
+              "isDefault": 2
+            },
+            {
+              "rotation": {
+                "x": 180.0,
+                "y": 180.0,
+                "z": 0.0
+              },
+              "positionOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "allowedHand": 1,
+              "isDefault": 1
+            }
+          ],
+          "interactableRagdollID": "HumanTK"
+        }
+      ],
       "colliders": [
         {
           "colliderType": 0,
@@ -2149,7 +2325,65 @@
       "sliceSeparationForce": 0.0,
       "sliceParentFXId": "SliceFleshParent",
       "sliceChildFXId": "SliceFleshChild",
-      "handles": [],
+      "sliceJointBreakForce": 3200.0,
+      "sliceDamage": 999999.0,
+      "handles": [
+        {
+          "axisLength": 0.0,
+          "touchRadius": 0.1,
+          "touchCenter": {
+            "x": 0.0,
+            "y": 0.08,
+            "z": 0.0
+          },
+          "localPosition": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "localRotation": {
+            "x": 90.0,
+            "y": 0.0,
+            "z": 90.0
+          },
+          "ikAnchorOffset": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "allowedOrientations": [
+            {
+              "rotation": {
+                "x": 180.0,
+                "y": 180.0,
+                "z": 0.0
+              },
+              "positionOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "allowedHand": 2,
+              "isDefault": 2
+            },
+            {
+              "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "positionOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "allowedHand": 1,
+              "isDefault": 1
+            }
+          ],
+          "interactableRagdollID": "HumanTK"
+        }
+      ],
       "colliders": [
         {
           "colliderType": 0,

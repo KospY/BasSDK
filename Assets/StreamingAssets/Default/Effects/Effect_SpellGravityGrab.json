@@ -1,0 +1,190 @@
+{
+  "$type": "BS.EffectData, Assembly-CSharp",
+  "id": "SpellGravityGrab",
+  "version": 0,
+  "modules": [
+    {
+      "$type": "BS.EffectModuleAudio, Assembly-CSharp",
+      "audioContainerPath": "Telekinesis",
+      "randomPitch": false,
+      "pitchCurve": {
+        "keys": [
+          {
+            "time": 0.0,
+            "value": 1.0,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.333333343,
+            "outWeight": 0.333333343,
+            "weightedMode": 0,
+            "tangentMode": 0
+          },
+          {
+            "time": 1.0,
+            "value": 3.0,
+            "inTangent": 4.6972,
+            "outTangent": "Infinity",
+            "inWeight": 0.333333343,
+            "outWeight": 0.333333343,
+            "weightedMode": 0,
+            "tangentMode": 1
+          }
+        ],
+        "length": 2,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "volumeCurve": {
+        "keys": [
+          {
+            "time": 0.0,
+            "value": 1.0,
+            "inTangent": 0.5,
+            "outTangent": 0.5,
+            "inWeight": 0.0,
+            "outWeight": 0.333333343,
+            "weightedMode": 0,
+            "tangentMode": 34
+          },
+          {
+            "time": 1.0,
+            "value": 1.5,
+            "inTangent": 0.5,
+            "outTangent": 0.5,
+            "inWeight": 0.333333343,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 34
+          }
+        ],
+        "length": 2,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "loopFadeDelay": 0.0,
+      "audioMixer": 1,
+      "minDistance": 1.0,
+      "maxDistance": 500.0,
+      "step": 1
+    },
+    {
+      "$type": "BS.EffectModuleParticle, Assembly-CSharp",
+      "effectParticlePath": "@vfx:GravityGrab1",
+      "mainGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.745283,
+              "g": 0.249599516,
+              "b": 0.745283
+            },
+            "time": 0.0
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 1.04417181,
+              "g": 0.394891381,
+              "b": 1.64150941
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "secondaryGradient": null,
+      "step": 1
+    },
+    {
+      "$type": "BS.EffectModuleVfx, Assembly-CSharp",
+      "vfxPath": "@vfx:GravityGrab2",
+      "lifeTime": 5.0,
+      "mainGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.745283,
+              "g": 0.249599516,
+              "b": 0.745283
+            },
+            "time": 0.0
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 1.04417181,
+              "g": 0.394891381,
+              "b": 1.64150941
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "secondaryGradient": null,
+      "step": 1
+    },
+    {
+      "$type": "BS.EffectModuleVfx, Assembly-CSharp",
+      "vfxPath": "GravityGrabStart",
+      "lifeTime": 5.0,
+      "mainGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.745283,
+              "g": 0.249599516,
+              "b": 0.745283
+            },
+            "time": 0.0
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 1.04417181,
+              "g": 0.394891381,
+              "b": 1.64150941
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "secondaryGradient": null,
+      "step": 0
+    }
+  ]
+}

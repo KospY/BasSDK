@@ -1,0 +1,240 @@
+{
+  "$type": "BS.EffectData, Assembly-CSharp",
+  "id": "SpellFireCharge",
+  "version": 0,
+  "modules": [
+    {
+      "$type": "BS.EffectModuleAudio, Assembly-CSharp",
+      "audioContainerPath": "SpellFireChargeStart",
+      "randomPitch": false,
+      "pitchCurve": null,
+      "volumeCurve": null,
+      "loopFadeDelay": 0.0,
+      "audioMixer": 1,
+      "minDistance": 1.0,
+      "maxDistance": 500.0,
+      "step": 0
+    },
+    {
+      "$type": "BS.EffectModuleParticle, Assembly-CSharp",
+      "effectParticlePath": "@vfx:FireCharge",
+      "mainGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.7490196,
+              "g": 1.785802E-07,
+              "b": 0.0
+            },
+            "time": 0.00588998245
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 2.99607849,
+              "g": 0.03137255,
+              "b": 0.0
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "secondaryGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.00118826737,
+              "g": 0.000827432261,
+              "b": 0.0
+            },
+            "time": 0.00294499123
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.339622617,
+              "g": 0.0777343959,
+              "b": 0.07208972
+            },
+            "time": 0.158831164
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 3.21111727,
+              "g": 1.37859488,
+              "b": 0.0
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "step": 1
+    },
+    {
+      "$type": "BS.EffectModuleAudio, Assembly-CSharp",
+      "audioContainerPath": "SpellFireChargeLoop",
+      "randomPitch": false,
+      "pitchCurve": null,
+      "volumeCurve": null,
+      "loopFadeDelay": 0.0,
+      "audioMixer": 1,
+      "minDistance": 1.0,
+      "maxDistance": 500.0,
+      "step": 1
+    },
+    {
+      "$type": "BS.EffectModuleMesh, Assembly-CSharp",
+      "effectMeshPath": "@vfx:FireBallMarbleA",
+      "lifeTime": 5.0,
+      "refreshSpeed": 0.1,
+      "linkBaseColor": 2,
+      "linkEmissionColor": 0,
+      "mainGradient": null,
+      "secondaryGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 2.943396,
+              "g": 1.52804267,
+              "b": 1.20790315
+            },
+            "time": 0.0
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 2.943396,
+              "g": 1.52804267,
+              "b": 1.20790315
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "step": 1
+    },
+    {
+      "$type": "BS.EffectModuleMesh, Assembly-CSharp",
+      "effectMeshPath": "@vfx:FireBallMarbleB",
+      "lifeTime": 5.0,
+      "refreshSpeed": 0.1,
+      "linkBaseColor": 2,
+      "linkEmissionColor": 0,
+      "mainGradient": null,
+      "secondaryGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 2.943396,
+              "g": 1.52804267,
+              "b": 1.20790315
+            },
+            "time": 0.0
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 2.943396,
+              "g": 1.52804267,
+              "b": 1.20790315
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "step": 1
+    },
+    {
+      "$type": "BS.EffectModuleMesh, Assembly-CSharp",
+      "effectMeshPath": "@vfx:FireBallMarbleA",
+      "lifeTime": 5.0,
+      "refreshSpeed": 0.1,
+      "linkBaseColor": 2,
+      "linkEmissionColor": 0,
+      "mainGradient": null,
+      "secondaryGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 2.943396,
+              "g": 1.52804267,
+              "b": 1.20790315
+            },
+            "time": 0.0
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 2.943396,
+              "g": 1.52804267,
+              "b": 1.20790315
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "step": 1
+    }
+  ]
+}

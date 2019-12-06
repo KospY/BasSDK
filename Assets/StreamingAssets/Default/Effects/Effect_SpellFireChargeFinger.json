@@ -1,0 +1,56 @@
+{
+  "$type": "BS.EffectData, Assembly-CSharp",
+  "id": "SpellFireChargeFinger",
+  "version": 0,
+  "modules": [
+    {
+      "$type": "BS.EffectModuleVfx, Assembly-CSharp",
+      "vfxPath": "@vfx:FireChargeFinger",
+      "lifeTime": 5.0,
+      "mainGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.00118826737,
+              "g": 0.000827432261,
+              "b": 0.0
+            },
+            "time": 0.00294499123
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.339622617,
+              "g": 0.0777343959,
+              "b": 0.07208972
+            },
+            "time": 0.158831164
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 3.21111727,
+              "g": 1.37859488,
+              "b": 0.0
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "secondaryGradient": null,
+      "step": 1
+    }
+  ]
+}

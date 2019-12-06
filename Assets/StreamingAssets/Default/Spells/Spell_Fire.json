@@ -24,5 +24,19 @@
   },
   "audioContainerPath": "",
   "audioPitch": 1.0,
-  "modules": null
+  "module": {
+    "$type": "BS.SpellCastFire, Assembly-CSharp",
+    "effectId": "SpellFireCharge",
+    "fingerEffectId": "SpellFireChargeFinger",
+    "throwEffectId": null,
+    "fireBalleffectId": "SpellFireball",
+    "projectileId": "MagicProjectile",
+    "fireBallVelocity": 15.0,
+    "playerGuided": true,
+    "closeHandPoseId": "ChargeClose",
+    "openHandPoseId": "ChargeOpen",
+    "imbueRate": 5.0,
+    "imbueRadius": 0.2,
+    "imbueEffectId": "ImbueFire"
+  }
 }

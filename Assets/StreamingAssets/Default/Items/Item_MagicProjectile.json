@@ -1,0 +1,99 @@
+{
+  "$type": "BS.ItemData, Assembly-CSharp",
+  "id": "MagicProjectile",
+  "version": 4,
+  "pooledCount": 200,
+  "localizationId": "",
+  "displayName": "Magic",
+  "description": "",
+  "author": "",
+  "price": 0.0,
+  "purchasable": false,
+  "tier": 0,
+  "levelRequired": 0,
+  "slot": 0,
+  "isStackable": false,
+  "category": 0,
+  "storageCategory": "Unknown",
+  "prefabName": "MagicProjectile",
+  "mass": 1.0,
+  "drag": 0.0,
+  "angularDrag": 0.0,
+  "useGravity": false,
+  "collisionMaxOverride": 0,
+  "collisionEnterOnly": false,
+  "collisionNoMinVelocityCheck": true,
+  "ignoredCollisionRagdollParts": [],
+  "forceLayer": 0,
+  "audioSnapPath": "",
+  "flyFromThrow": true,
+  "flyRotationSpeed": 5.0,
+  "flyThrowAngle": 30.0,
+  "telekinesisSafeDistance": 1.0,
+  "telekinesisSpinEnabled": false,
+  "telekinesisThrowRatio": 1.0,
+  "damageTransfer": 0,
+  "grippable": true,
+  "customSnaps": [],
+  "modules": [
+    {
+      "$type": "BS.ItemModuleAI, Assembly-CSharp",
+      "weaponClass": 3,
+      "weaponHandling": 1,
+      "parryIgnoreRotation": false,
+      "parryRotation": 90.0,
+      "parryDualRotation": 60.0,
+      "armResistanceMultiplier": 1.0,
+      "parryRevertAngleRange": {
+        "x": -80.0,
+        "y": -180.0
+      },
+      "parryDefaultPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "parryDefaultLeftRotation": {
+        "x": 25.0,
+        "y": -10.0,
+        "z": -65.0
+      },
+      "parryDefaultRightRotation": {
+        "x": 30.0,
+        "y": 5.0,
+        "z": 60.0
+      },
+      "allowDynamicHeight": false,
+      "dodgeBehaviour": 3,
+      "defenseHasPriority": false,
+      "attackIgnore": false,
+      "attackForceParryIgnoreRotation": true
+    },
+    {
+      "$type": "BS.ItemModuleMagicProjectile, Assembly-CSharp"
+    }
+  ],
+  "damagers": [
+    {
+      "transformName": "Damager",
+      "damagerID": "Fireball"
+    }
+  ],
+  "Interactables": [
+    {
+      "transformName": "Handle",
+      "interactableId": "ObjectHandleTKOnly",
+      "overrideHandPose": false,
+      "handPoseId": ""
+    }
+  ],
+  "whooshs": [
+    {
+      "transformName": "Whoosh",
+      "fxId": "WhooshArrow",
+      "trigger": 2,
+      "minVelocity": 5.0,
+      "maxVelocity": 20.0
+    }
+  ]
+}

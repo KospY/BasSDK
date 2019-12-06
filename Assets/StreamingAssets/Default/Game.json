@@ -1,6 +1,6 @@
 {
-  "gameVersion": "7,0",
-  "minModVersion": "7,0",
+  "gameVersion": "8,0",
+  "minModVersion": "8,0",
   "defaultJSONFolder": "Default",
   "savesFolder": "Default",
   "overrideCharactersOnStart": false,
@@ -16,6 +16,48 @@
   "levelHomeModeName": "",
   "levelCharSelection": "CharacterSelection",
   "levelCharSelectionModeName": "",
+  "tierModifiers": [
+    {
+      "imbueBladeEnergyMax": 2.0,
+      "imbueBladeEnergyRate": 1.0,
+      "imbueBladeEnergyLoss": 1.0,
+      "imbueCrystalEnergyMax": 50.0,
+      "imbueCrystalEnergyRate": 5.0,
+      "imbueCrystalEnergyLoss": 0.0
+    },
+    {
+      "imbueBladeEnergyMax": 10.0,
+      "imbueBladeEnergyRate": 1.0,
+      "imbueBladeEnergyLoss": 1.0,
+      "imbueCrystalEnergyMax": 100.0,
+      "imbueCrystalEnergyRate": 5.0,
+      "imbueCrystalEnergyLoss": 0.0
+    },
+    {
+      "imbueBladeEnergyMax": 20.0,
+      "imbueBladeEnergyRate": 1.0,
+      "imbueBladeEnergyLoss": 1.0,
+      "imbueCrystalEnergyMax": 150.0,
+      "imbueCrystalEnergyRate": 5.0,
+      "imbueCrystalEnergyLoss": 0.0
+    },
+    {
+      "imbueBladeEnergyMax": 30.0,
+      "imbueBladeEnergyRate": 1.0,
+      "imbueBladeEnergyLoss": 1.0,
+      "imbueCrystalEnergyMax": 200.0,
+      "imbueCrystalEnergyRate": 5.0,
+      "imbueCrystalEnergyLoss": 0.0
+    },
+    {
+      "imbueBladeEnergyMax": 40.0,
+      "imbueBladeEnergyRate": 1.0,
+      "imbueBladeEnergyLoss": 1.0,
+      "imbueCrystalEnergyMax": 300.0,
+      "imbueCrystalEnergyRate": 5.0,
+      "imbueCrystalEnergyLoss": 0.0
+    }
+  ],
   "uma": {
     "initialScaleFactor": 2,
     "defaultMaleRaceId": "HumanMale2",
@@ -31,6 +73,7 @@
     "actions": {
       "decapitation": 80,
       "dismemberment": 60,
+      "magicDismemberment": 0,
       "cutThroat": 60,
       "slashHeadOrNeck": 30,
       "pierceHeadOrNeck": 50,
@@ -77,6 +120,7 @@
     "actions": {
       "decapitation": 2,
       "dismemberment": 0,
+      "magicDismemberment": 0,
       "cutThroat": 2,
       "slashHeadOrNeck": 1,
       "pierceHeadOrNeck": 1,
