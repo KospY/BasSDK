@@ -68,18 +68,20 @@ namespace BS
         public override void Play()
         {
             CancelInvoke();
-            rootParticleSystem.Play();
+            rootParticleSystem.Play(true);
             if (step != Step.Loop)
             {
                 Invoke("Despawn", lifeTime);
             }
         }
-
         public override void Stop(bool loopOnly = false)
         {
-            CancelInvoke();
-            rootParticleSystem.Stop();
-            Invoke("Despawn", lifeTime);
+            if (!loopOnly || (loopOnly && step == Step.Loop))
+            {
+                CancelInvoke();
+                rootParticleSystem.Stop();
+                Invoke("Despawn", lifeTime);
+            }
         }
 
         public override void SetIntensity(float value)
@@ -220,7 +222,7 @@ namespace BS
                     p.materialPropertyBlock.SetColor("_TintColor", currentSecondaryGradient.Evaluate(value));
                     updatePropertyBlock = true;
                 }
-                
+
                 if (p.linkEmissionColor == EffectTarget.Main && currentMainGradient != null)
                 {
                     p.materialPropertyBlock.SetColor("_EmissionColor", currentMainGradient.Evaluate(value));
