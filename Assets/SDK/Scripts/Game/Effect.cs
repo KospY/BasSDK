@@ -8,6 +8,10 @@ namespace BS
         [NonSerialized]
         public EffectInstance effectInstance;
 
+#if ProjectCore
+        [NonSerialized]
+        public EffectModule module;
+#endif
         public Step step = Step.Start;
         public enum Step
         {
