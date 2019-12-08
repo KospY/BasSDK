@@ -79,6 +79,7 @@ namespace BS
 
         public override void Play()
         {
+            #if ProjectCore
             // Stencil
             if (effectInstance.item)
             {
@@ -102,7 +103,7 @@ namespace BS
             {
                 meshRenderer.material.SetInt("_StencilRef", 0);
             }
-
+#endif
             playTime = Time.time;
             CancelInvoke();
             meshRenderer.transform.localScale = Vector3.one;
