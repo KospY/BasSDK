@@ -79,6 +79,30 @@ namespace BS
 
         public override void Play()
         {
+            // Stencil
+            if (effectInstance.item)
+            {
+                if (!(module as EffectModuleDecal).allowItem)
+                {
+                    Despawn();
+                    return;
+                }
+                meshRenderer.material.SetInt("_StencilRef", effectInstance.item.stencilReference);
+            }
+            else if (effectInstance.ragdollPart && !effectInstance.ragdollPart.ragdoll.creature.body.player)
+            {
+                if (!(module as EffectModuleDecal).allowRagdollPart)
+                {
+                    Despawn();
+                    return;
+                }
+                meshRenderer.material.SetInt("_StencilRef", effectInstance.ragdollPart.ragdoll.creature.stencilReference);
+            }
+            else
+            {
+                meshRenderer.material.SetInt("_StencilRef", 0);
+            }
+
             playTime = Time.time;
             CancelInvoke();
             meshRenderer.transform.localScale = Vector3.one;
