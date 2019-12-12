@@ -15,7 +15,8 @@ namespace BS
 
         protected MaterialPropertyBlock materialPropertyBlock;
 
-        public float lifeTime = 60;
+        public float baseLifeTime = 60;
+        public float emissionLifeTime = 10;
         public float fadeRefreshSpeed = 0.1f;
 
         [NonSerialized]
@@ -125,9 +126,21 @@ namespace BS
 
         protected void UpdateLifeTime()
         {
-            float value = Mathf.Clamp01(1 - ((Time.time - playTime) / lifeTime));
-            SetIntensity(value);
-            if (value == 0) Despawn();
+            float baseValue = Mathf.Clamp01(1 - ((Time.time - playTime) / baseLifeTime));
+            if (linkBaseColor != EffectTarget.None)
+            {
+                materialPropertyBlock.SetColor(colorPropertyID, baseColorGradient.Evaluate(baseValue));
+            }
+            if (linkEmissionColor != EffectTarget.None)
+            {
+                float emissionValue = Mathf.Clamp01(1 - ((Time.time - playTime) / emissionLifeTime));
+                materialPropertyBlock.SetColor(emissionPropertyID, emissionColorGradient.Evaluate(emissionValue));
+            }
+            if (linkBaseColor != EffectTarget.None || linkEmissionColor != EffectTarget.None)
+            {
+                meshRenderer.SetPropertyBlock(materialPropertyBlock);
+            }
+            if (baseValue == 0) Despawn();
         }
 
         public override void SetMainGradient(Gradient gradient)
