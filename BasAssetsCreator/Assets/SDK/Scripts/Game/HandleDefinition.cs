@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using EasyButtons;
+using UnityEditor;
 
 namespace BS
 {
@@ -123,31 +124,50 @@ namespace BS
             }
             return false;
         }
-
-        [Button("Calculate Reach")]
+        
         public void CalculateReach()
         {
             float farthestDamagerDist = 0;
-            foreach (ColliderGroup colliderGroup in this.GetComponentInParent<ItemDefinition>().GetComponentsInChildren<ColliderGroup>())
+            Vector3[] farthestPoint = new Vector3[6];
+            float dist = 0;
+            foreach (ColliderGroup colliderGroup in GetComponentInParent<ItemDefinition>().GetComponentsInChildren<ColliderGroup>())
             {
                 foreach (Collider collider in colliderGroup.GetComponentsInChildren<Collider>())
                 {
-                    Vector3 farthestPoint = collider.ClosestPointOnBounds(this.transform.position + (this.transform.up.normalized * 10));
-                    float dist = this.transform.InverseTransformPoint(farthestPoint).y;
+                    for (int i = 0; i < 5; i++)
+                    {
+                        Vector3 displacePoint = new Vector3(1,0,0);
+                        if (i == 1) { displacePoint = new Vector3(-1, 0, 0); }
+                        else if (i == 2) { displacePoint = new Vector3(0, 1, 0); }
+                        else if (i == 3) { displacePoint = new Vector3(0, -1, 0); }
+                        else if (i == 4) { displacePoint = new Vector3(0, 0, 1); }
+                        else if (i == 5) { displacePoint = new Vector3(0, 0, -1); }
+
+                        farthestPoint[i] = collider.ClosestPointOnBounds(transform.position + displacePoint*50);
+                        if ((transform.position - farthestPoint[i]).magnitude > dist)
+                        {
+                            dist = (transform.position - farthestPoint[i]).magnitude;
+                        }
+                    }
                     if (dist > farthestDamagerDist)
                     {
                         farthestDamagerDist = dist;
                     }
                 }
             }
-            reach = farthestDamagerDist - GetDefaultAxisLocalPosition();
+            reach = farthestDamagerDist;
         }
 
         protected override void OnDrawGizmosSelected()
         {
             Matrix4x4[] posMatrix = new Matrix4x4[1];
             posMatrix[0] = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one);
-
+            if (Selection.activeObject == gameObject)
+            {
+                Gizmos.color = Common.HueColourValue(HueColorNames.Yellow);
+                Gizmos.DrawWireSphere(transform.position, reach);
+                Gizmos.color = Common.HueColourValue(HueColorNames.White);
+            }
             base.OnDrawGizmosSelected();
             foreach (Orientation orientation in allowedOrientations)
             {

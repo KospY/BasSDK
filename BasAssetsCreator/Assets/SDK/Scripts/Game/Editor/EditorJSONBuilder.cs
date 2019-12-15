@@ -10,7 +10,7 @@ namespace BS
     {
         public string modName;
         public string modDirectory;
-        JSONData jsondata = new JSONData(); 
+        JSONData jsondata = new JSONData();
         bool initializedWithFile = false;
 
         Vector3 scroll4, scroll5;
@@ -149,8 +149,8 @@ namespace BS
 
         private void OnFocus()
         {
-            
-            if (EditorToolsJSONConfig.openJson != "") 
+
+            if (EditorToolsJSONConfig.openJson != "")
             {
                 initializedWithFile = true;
                 selectedBaseDir = EditorToolsJSONConfig.openJson;
@@ -158,9 +158,9 @@ namespace BS
                 jsonName = selectedBase.Remove(selectedBase.IndexOf('.'));
                 baseSelected = true;
                 loadedPrefab = true;
-                LoadJSON(selectedBaseDir); 
+                LoadJSON(selectedBaseDir);
                 itemPrefab = EditorToolsJSONConfig.ModObject[prefabKey];
-            } 
+            }
 
             if (EditorToolsJSONConfig.selectedModDirectory != null)
             {
@@ -176,17 +176,17 @@ namespace BS
             {
                 itemPrefab = EditorToolsJSONConfig.ModObject[prefabKey];
             }
-            if (itemPrefab && !loadedPrefab && !initializedWithFile)   
+            if (itemPrefab && !loadedPrefab && !initializedWithFile)
             {
                 LoadPrefab();
                 loadedPrefab = true;
                 tempPrefab = itemPrefab;
             }
-            else if (((!itemPrefab && loadedPrefab) || tempPrefab != itemPrefab)&& !initializedWithFile) 
+            else if (((!itemPrefab && loadedPrefab) || tempPrefab != itemPrefab) && !initializedWithFile)
             {
                 loadedPrefab = false;
             }
-            
+
             GUILayout.Label("Creating item JSON for " + modName);
 
             EditorGUILayout.HelpBox("Base item is the file that will be used as a base to start editing your weapon JSON. Please select the item that more closely resembles your weapon.", MessageType.Info);
@@ -306,7 +306,8 @@ namespace BS
                         noWeaponName = false;
                         CreateJSON();
                     }
-                } else if (noDamagerType)
+                }
+                else if (noDamagerType)
                 {
                     EditorGUILayout.HelpBox("Damager Types can not be empty.", MessageType.Error);
                     if (GUILayout.Button("Retry"))
@@ -352,7 +353,7 @@ namespace BS
                 GUILayout.EndVertical();
                 GUILayout.EndHorizontal();
             }
-            
+
         }
 
         private void LoadJSON(string dir)
@@ -503,7 +504,7 @@ namespace BS
             jsondata.category = Array.IndexOf(itemCategories, category);
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
-            
+
             if (jsondata.category != 2) { GUI.enabled = false; }
             GUILayout.BeginHorizontal();
             GUILayout.Label("Weapon Type");
@@ -514,7 +515,7 @@ namespace BS
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
             GUI.enabled = true;
-            
+
             GUILayout.BeginHorizontal();
             GUILayout.Label("Weapon Handling");
             GUILayout.Space(56);
@@ -585,7 +586,8 @@ namespace BS
                         GUILayout.Label("There are no Damagers on this prefab.");
                     }
                 }
-                catch (Exception e) {
+                catch (Exception e)
+                {
                     Debug.Log(e);
                 }
             }
@@ -835,7 +837,7 @@ namespace BS
             {
                 if (whoosh.fxId == null || whoosh.fxId == "")
                 {
-                    
+
                     noWhooshFX = true;
                 }
             }
@@ -857,7 +859,8 @@ namespace BS
                     File.WriteAllText(modDirectory + "\\" + jsonName + ".json", json);
                     Close();
                 }
-            } else
+            }
+            else
             {
                 if (!noAssetBundleOnPrefab && !noAuthorName && !noWeaponName && !noDamagerType && !noHandlePose && !noHandleType && !noWhooshFX)
                 {
@@ -867,6 +870,16 @@ namespace BS
                 }
             }
         }
+    }
+
+    public class MapJsonBuilder : EditorWindow
+    {
+
+        public class JSONData
+        {
+            public string MONEYSIGNtype = "BS.LevelData, Assembly-CSharp";
+        }
+
     }
 
     public class ManifestBuilder : EditorWindow
@@ -910,7 +923,7 @@ namespace BS
 
         private void OnGUI()
         {
-            GUILayout.Label("Editing mod info of " + directory.Substring(directory.LastIndexOf('\\')+1, directory.Length - directory.LastIndexOf('\\') - 1));
+            GUILayout.Label("Editing mod info of " + directory.Substring(directory.LastIndexOf('\\') + 1, directory.Length - directory.LastIndexOf('\\') - 1));
 
             GUILayout.Space(10);
 

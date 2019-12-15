@@ -14,6 +14,7 @@ namespace BS
         public HandleDefinition mainHandleLeft;
         public Transform flyDirRef;
         public Preview preview;
+        private WhooshPoint whoosh;
         public bool useCustomCenterOfMass;
         public Vector3 customCenterOfMass;
         public bool customInertiaTensor;
@@ -30,35 +31,45 @@ namespace BS
 
         protected virtual void OnValidate()
         {
-            if (!this.gameObject.activeInHierarchy) return;
-            holderPoint = this.transform.Find("HolderPoint");
+            if (!gameObject.activeInHierarchy) return;
+            holderPoint = transform.Find("HolderPoint");
             if (!holderPoint)
             {
                 holderPoint = new GameObject("HolderPoint").transform;
-                holderPoint.SetParent(this.transform, false);
+                holderPoint.SetParent(transform, false);
             }
-            parryPoint = this.transform.Find("ParryPoint");
+            parryPoint = transform.Find("ParryPoint");
             if (!parryPoint)
             {
                 parryPoint = new GameObject("ParryPoint").transform;
-                parryPoint.SetParent(this.transform, false);
+                parryPoint.SetParent(transform, false);
             }
-            preview = this.GetComponentInChildren<Preview>();
-            if (!preview && this.transform.Find("Preview")) preview = this.transform.Find("Preview").gameObject.AddComponent<Preview>();
+            preview = GetComponentInChildren<Preview>();
+            if (!preview && transform.Find("Preview")) preview = transform.Find("Preview").gameObject.AddComponent<Preview>();
             if (!preview)
             {
-                preview = new GameObject("Preview").AddComponent<Preview>();
-                preview.transform.SetParent(this.transform, false);
+                preview = new GameObject("Preview").AddComponent<Preview>();  
+                preview.transform.SetParent(transform, false);
             }
-            Transform whoosh = this.transform.Find("Whoosh");
-            if (whoosh && !whoosh.GetComponent<WhooshPoint>())
+            whoosh = GetComponentInChildren<WhooshPoint>();
+            if (!whoosh && transform.Find("Whoosh")) whoosh = transform.Find("Whoosh").gameObject.AddComponent<WhooshPoint>();
+            if (!whoosh)
+            { 
+                whoosh = new GameObject("Whoosh").AddComponent<WhooshPoint>();
+                whoosh.transform.SetParent(transform, false); 
+            }
+
+            foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>())
             {
-                whoosh.gameObject.AddComponent<WhooshPoint>();
+                if (!GetComponent<Paintable>())
+                {
+                    mesh.gameObject.AddComponent<Paintable>();
+                }
             }
 
             if (!mainHandleRight)
             {
-                foreach (HandleDefinition handleDefinition in this.GetComponentsInChildren<HandleDefinition>())
+                foreach (HandleDefinition handleDefinition in GetComponentsInChildren<HandleDefinition>())
                 {
                     if (handleDefinition.IsAllowed(Side.Right))
                     {
@@ -69,7 +80,7 @@ namespace BS
             }
             if (!mainHandleLeft)
             {
-                foreach (HandleDefinition handleDefinition in this.GetComponentsInChildren<HandleDefinition>())
+                foreach (HandleDefinition handleDefinition in GetComponentsInChildren<HandleDefinition>())
                 {
                     if (handleDefinition.IsAllowed(Side.Left))
                     {
@@ -80,28 +91,40 @@ namespace BS
             }
             if (!mainHandleRight)
             {
-                mainHandleRight = this.GetComponentInChildren<HandleDefinition>();
+                mainHandleRight = GetComponentInChildren<HandleDefinition>();
             }
             if (useCustomCenterOfMass)
             {
-                this.GetComponent<Rigidbody>().centerOfMass = customCenterOfMass;
+                GetComponent<Rigidbody>().centerOfMass = customCenterOfMass;
             }
             else
             {
-                this.GetComponent<Rigidbody>().ResetCenterOfMass();
+                GetComponent<Rigidbody>().ResetCenterOfMass();
             }
             if (customInertiaTensor)
             {
                 if (customInertiaTensorCollider == null)
                 {
+                    Transform foundInertiaTensor = GetComponentInParent<ItemDefinition>().transform.Find("InertiaTensorCollider");
+                    if (foundInertiaTensor)
+                    {
+                        customInertiaTensorCollider = foundInertiaTensor.GetComponent<CapsuleCollider>();
+                    }
+                }
+                if (customInertiaTensorCollider == null)
+                {
                     customInertiaTensorCollider = new GameObject("InertiaTensorCollider").AddComponent<CapsuleCollider>();
-                    customInertiaTensorCollider.transform.SetParent(this.transform, false);
-                    customInertiaTensorCollider.radius = 0.05f;
-                    customInertiaTensorCollider.direction = 2;
+                    customInertiaTensorCollider.transform.SetParent(transform, false);
+                    customInertiaTensorCollider.radius = 0.05f; 
+                    customInertiaTensorCollider.direction = 2; 
                 }
                 customInertiaTensorCollider.enabled = false;
                 customInertiaTensorCollider.isTrigger = true;
                 customInertiaTensorCollider.gameObject.layer = 2;
+            }
+            else
+            {
+                customInertiaTensorCollider = null;
             }
         }
 
@@ -117,7 +140,7 @@ namespace BS
 
         protected virtual void OnDrawGizmosSelected()
         {
-            Gizmos.DrawWireSphere(this.transform.TransformPoint(this.GetComponent<Rigidbody>().centerOfMass), 0.01f);
+            Gizmos.DrawWireSphere(transform.TransformPoint(GetComponent<Rigidbody>().centerOfMass), 0.01f);
             Gizmos.matrix = holderPoint.transform.localToWorldMatrix;
             DrawGizmoArrow(Vector3.zero, Vector3.forward * 0.1f, Vector3.up, Common.HueColourValue(HueColorNames.Purple), 0.1f, 10);
             DrawGizmoArrow(Vector3.zero, Vector3.up * 0.05f, Vector3.up, Common.HueColourValue(HueColorNames.Green), 0.05f);

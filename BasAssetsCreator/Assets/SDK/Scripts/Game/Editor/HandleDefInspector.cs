@@ -20,20 +20,30 @@ namespace BS
             HandleDefinition handle = (HandleDefinition)target;
             ItemDefinition item = handle.transform.GetComponentInParent<ItemDefinition>();
 
-            if (centerTransform)
+            if (handle.axisLength > 0)
             {
-                if (GUILayout.Button("Enable Point to Point transforms"))
+                if (centerTransform)
                 {
-                    centerTransform = false;
-                    handle.transform.hideFlags = HideFlags.NotEditable;
+                    if (GUILayout.Button("Enable Point to Point transforms"))
+                    {
+                        centerTransform = false;
+                        //handle.transform.hideFlags = HideFlags.NotEditable;
+                    }
+                }
+                else
+                {
+                    if (GUILayout.Button("Enable Center Transform"))
+                    {
+                        centerTransform = true;
+                        //handle.transform.hideFlags = 0;
+                    }
                 }
             }
             else
             {
-                if (GUILayout.Button("Enable Center Transform"))
+                if (!centerTransform)
                 {
                     centerTransform = true;
-                    handle.transform.hideFlags = 0;
                 }
             }
 
@@ -91,6 +101,13 @@ namespace BS
                     EditorGUILayout.HelpBox("Handle orientation " + i + " must have 'Is Default' set to None or Right if 'Allowed Hand' is set to Right.", MessageType.Warning);
                 }
             }
+
+            if (!centerTransform)
+            {
+                HandlePoint1 = handle.transform.position + (handle.transform.up * (handle.axisLength * 0.5f));
+                HandlePoint2 = handle.transform.position + (handle.transform.up * -(handle.axisLength * 0.5f));
+            }
+
         }
 
         private void OnEnable()
@@ -100,10 +117,12 @@ namespace BS
             HandlePoint1 = handle.transform.position + (handle.transform.up * (handle.axisLength * 0.5f));
             HandlePoint2 = handle.transform.position + (handle.transform.up * -(handle.axisLength * 0.5f));
 
-            handle.transform.hideFlags = HideFlags.NotEditable;
+            //handle.transform.hideFlags = HideFlags.NotEditable;
         }
+        
         private void OnSceneGUI()
         {
+
             HandleDefinition handle = (HandleDefinition)target;
 
             if (handle.axisLength > 0 && !centerTransform)
@@ -114,12 +133,18 @@ namespace BS
                     Tools.current = Tool.None;
                     toolsHidden = true;
                 }
-                HandlePoint1 = Handles.DoPositionHandle(HandlePoint1, Quaternion.LookRotation(handle.transform.forward, handle.transform.up));
-                HandlePoint2 = Handles.DoPositionHandle(HandlePoint2, Quaternion.LookRotation(handle.transform.forward, handle.transform.up));
+                
+                EditorGUI.BeginChangeCheck();
+                HandlePoint1 = Handles.DoPositionHandle(HandlePoint1, Quaternion.LookRotation(Vector3.forward, Vector3.up));
+                HandlePoint2 = Handles.DoPositionHandle(HandlePoint2, Quaternion.LookRotation(Vector3.forward, Vector3.up));
+                if (EditorGUI.EndChangeCheck())
+                {
+                    Undo.RecordObject(target, "Moved Handle");
+                }
                 Handles.color = Color.green;
                 try
                 {
-                    if (EditorWindow.mouseOverWindow && EditorWindow.mouseOverWindow.ToString() == " (UnityEditor.SceneView)")
+                    if (EditorWindow.focusedWindow && EditorWindow.focusedWindow.ToString() == " (UnityEditor.SceneView)")
                     {
                         handle.transform.position = Vector3.Lerp(HandlePoint1, HandlePoint2, 0.5f);
                         handle.axisLength = (HandlePoint1 - HandlePoint2).magnitude;

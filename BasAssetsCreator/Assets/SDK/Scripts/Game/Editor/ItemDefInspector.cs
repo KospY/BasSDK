@@ -7,11 +7,21 @@ namespace BS
     [CustomEditor(typeof(ItemDefinition))]
     public class ItemDefInspector : Editor
     {
+        bool showCenterOfMassHandle = false;
+
         public override void OnInspectorGUI()
         {
             ItemDefinition item = (ItemDefinition)target;
 
             base.OnInspectorGUI();
+
+            if (item.useCustomCenterOfMass)
+            {
+                if (GUILayout.Button("Move Center of Mass " + showCenterOfMassHandle))
+                {
+                    showCenterOfMassHandle = !showCenterOfMassHandle;
+                }
+            }
 
             if (item.itemId == "")
             {
@@ -100,6 +110,16 @@ namespace BS
             if (target)
             {
                 EditorUtility.SetDirty(target);
+                showCenterOfMassHandle = false;
+            }
+        }
+        private void OnSceneGUI()
+        {
+            ItemDefinition item = (ItemDefinition)target;
+            if (showCenterOfMassHandle)
+            {
+                item.customCenterOfMass = Handles.DoPositionHandle(item.customCenterOfMass, Quaternion.LookRotation(item.transform.forward, item.transform.up));
+                item.GetComponent<Rigidbody>().centerOfMass = item.customCenterOfMass;
             }
         }
     }

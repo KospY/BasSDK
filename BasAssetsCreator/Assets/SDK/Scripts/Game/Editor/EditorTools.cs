@@ -41,19 +41,15 @@ namespace BS
         private void OnDisable()
         {
             //Saves current bundle list selection
-            foreach (string bundle in bundleNames)
+            try 
             {
-                try
+                foreach (string bundle in bundleNames)
                 {
                     EditorPrefs.SetBool("ExportBundle" + bundle, exportBundle[bundle]);
                     EditorPrefs.SetString("ExportBundleDir" + bundle, modExportDirectories[bundle]);
                 }
-                catch (Exception)
-                {
-                    EditorPrefs.SetBool("ExportBundle" + bundle, true);
-                    EditorPrefs.SetString("ExportBundleDir" + bundle, null);
-                }
             }
+            catch (Exception) { }
         }
 
         private void OnGUI()
@@ -90,8 +86,12 @@ namespace BS
             {
                 GUILayout.BeginHorizontal();
                 exportBundle[bundle] = GUILayout.Toggle(exportBundle[bundle], bundle);
+                if (EditorPrefs.GetBool("ExportBundle" + bundle) != exportBundle[bundle])
+                {
+                    EditorPrefs.SetBool("ExportBundle" + bundle, exportBundle[bundle]);
+                }
                 EditorGUI.BeginDisabledGroup(!exportBundle[bundle] || streamingAssetsDirectory == null || streamingAssetsDirectory == "" || streamingAssetsDirectory.Substring(streamingAssetsDirectory.LastIndexOf('/') + 1, streamingAssetsDirectory.Length - streamingAssetsDirectory.LastIndexOf('/') - 1) != "StreamingAssets");
-
+                
                 GUILayout.BeginVertical();
                 try
                 {
@@ -435,9 +435,15 @@ namespace BS
                             if (GUILayout.Button("New Weapon"))
                             {
                                 openJson = "";
-                                EditorWindow.GetWindow<WeaponJsonBuilder>("Item JSON Builder");
+                                EditorWindow.GetWindow<WeaponJsonBuilder>("Weapon JSON Builder");
 
                             }
+                            //if (GUILayout.Button("New Map"))
+                            //{
+                            //    openJson = "";
+                            //    EditorWindow.GetWindow<MapJsonBuilder>("Map JSON Builder");
+
+                            //}
                             GUILayout.FlexibleSpace();
                             GUILayout.EndHorizontal();
 

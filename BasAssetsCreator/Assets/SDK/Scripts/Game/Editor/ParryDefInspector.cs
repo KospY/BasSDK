@@ -21,7 +21,7 @@ namespace BS
                 if (GUILayout.Button("Enable Point to Point transforms"))
                 {
                     centerTransform = false;
-                    parry.transform.hideFlags = HideFlags.NotEditable;
+                    //parry.transform.hideFlags = HideFlags.NotEditable;
                 }
             }
             else
@@ -29,10 +29,17 @@ namespace BS
                 if (GUILayout.Button("Enable Center Transform"))
                 {
                     centerTransform = true;
-                    parry.transform.hideFlags = 0;
+                    //parry.transform.hideFlags = 0;
                 }
             }
             base.OnInspectorGUI();
+
+            if (!centerTransform)
+            {
+                HandlePoint1 = parry.GetLineStart();
+                HandlePoint2 = parry.GetLineEnd();
+            }
+
         }
 
         private void OnEnable()
@@ -40,7 +47,7 @@ namespace BS
             ParryTargetDefinition parry = (ParryTargetDefinition)target;
             HandlePoint1 = parry.GetLineStart();
             HandlePoint2 = parry.GetLineEnd();
-            parry.transform.hideFlags = HideFlags.NotEditable;
+            //parry.transform.hideFlags = HideFlags.NotEditable;
         }
         private void OnSceneGUI()
         {
@@ -54,9 +61,10 @@ namespace BS
                     Tools.current = Tool.None;
                     toolsHidden = true;
                 }
-                HandlePoint1 = Handles.DoPositionHandle(HandlePoint1, Quaternion.LookRotation(HandlePoint1 - HandlePoint2));
-                HandlePoint2 = Handles.DoPositionHandle(HandlePoint2, Quaternion.LookRotation(HandlePoint1 - HandlePoint2));
-                if (EditorWindow.mouseOverWindow && EditorWindow.mouseOverWindow.ToString() == " (UnityEditor.SceneView)")
+                Undo.RecordObject(this, "Moved Handle");
+                HandlePoint1 = Handles.DoPositionHandle(HandlePoint1, Quaternion.LookRotation(Vector3.forward, Vector3.up));
+                HandlePoint2 = Handles.DoPositionHandle(HandlePoint2, Quaternion.LookRotation(Vector3.forward, Vector3.up));
+                if (EditorWindow.focusedWindow && EditorWindow.focusedWindow.ToString() == " (UnityEditor.SceneView)")
                 {
                     parry.transform.position = Vector3.Lerp(HandlePoint1, HandlePoint2, 0.5f);
                     parry.length = (HandlePoint1 - HandlePoint2).magnitude / 2;
