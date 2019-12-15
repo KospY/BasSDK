@@ -19,7 +19,7 @@ namespace BS
         string selectedBase;
         string selectedBaseDir;
         bool loadedPrefab = false;
-        string json;
+        string json, jsonModules;
         string jsonName;
         GameObject tempPrefab;
         GameObject itemPrefab;
@@ -231,6 +231,18 @@ namespace BS
                 if (initializedWithFile)
                 {
                     GUI.enabled = false;
+                    if (itemPrefab.GetComponentInChildren(typeof(ItemDefinition)).GetComponentsInChildren<WhooshPoint>().Length != jsondata.whooshs.Count)
+                    {
+                        int whooshIndex = 0;
+                        jsondata.whooshs.Clear();
+                        foreach (WhooshPoint whoosh in itemPrefab.GetComponentInChildren(typeof(ItemDefinition)).GetComponentsInChildren<WhooshPoint>())
+                        {
+                            jsondata.whooshs.Add(new JSONData.Whoosh());
+                            jsondata.whooshs[whooshIndex].transformName = whoosh.name;
+                            jsondata.whooshs[whooshIndex].fxId = "";
+                            whooshIndex++;
+                        }
+                    }
                 }
                 GUILayout.BeginHorizontal();
                 if (GUILayout.Button("Base: " + selectedBase))
@@ -359,6 +371,7 @@ namespace BS
         private void LoadJSON(string dir)
         {
             json = File.ReadAllText(dir);
+            jsonModules = json.Substring(json.IndexOf("modules")-1).Substring(0, json.Substring(json.IndexOf("modules") - 1).IndexOf("],")+2);
             JsonUtility.FromJsonOverwrite(json.Replace("$", "MONEYSIGN"), jsondata);
             if (jsondata.MONEYSIGNtype == "BS.ItemData, Assembly-CSharp")
             {
@@ -505,35 +518,36 @@ namespace BS
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
 
-            if (jsondata.category != 2) { GUI.enabled = false; }
-            GUILayout.BeginHorizontal();
-            GUILayout.Label("Weapon Type");
-            GUILayout.Space(77);
-            string weapon = weaponClass[jsondata.modules[0].weaponClass];
-            AddFieldDropdown("Select Weapon Type", ref weapon, weaponClass, ref wpnDropdown);
-            jsondata.modules[0].weaponClass = Array.IndexOf(weaponClass, weapon);
-            GUILayout.FlexibleSpace();
-            GUILayout.EndHorizontal();
-            GUI.enabled = true;
+            //if (jsondata.category != 2) { GUI.enabled = false; }
+            //GUILayout.BeginHorizontal();
+            //GUILayout.Label("Weapon Type");
+            //GUILayout.Space(77);
+            //string weapon = weaponClass[jsondata.modules[0].weaponClass];
+            //AddFieldDropdown("Select Weapon Type", ref weapon, weaponClass, ref wpnDropdown);
+            //jsondata.modules[0].weaponClass = Array.IndexOf(weaponClass, weapon);
+            //GUILayout.FlexibleSpace();
+            //GUILayout.EndHorizontal();
+            //GUI.enabled = true;
 
-            GUILayout.BeginHorizontal();
-            GUILayout.Label("Weapon Handling");
-            GUILayout.Space(56);
-            string hndlng = weaponHandling[jsondata.modules[0].weaponHandling];
-            AddFieldDropdown("Select Handling Mode", ref hndlng, weaponHandling, ref hndlngDropdown);
-            jsondata.modules[0].weaponHandling = Array.IndexOf(weaponHandling, hndlng);
-            GUILayout.FlexibleSpace();
-            GUILayout.EndHorizontal();
+            //GUILayout.BeginHorizontal();
+            //GUILayout.Label("Weapon Handling");
+            //GUILayout.Space(56);
+            //string hndlng = weaponHandling[jsondata.modules[0].weaponHandling];
+            //AddFieldDropdown("Select Handling Mode", ref hndlng, weaponHandling, ref hndlngDropdown);
+            //jsondata.modules[0].weaponHandling = Array.IndexOf(weaponHandling, hndlng);
+            //GUILayout.FlexibleSpace();
+            //GUILayout.EndHorizontal();
 
-            GUILayout.Space(10);
-            GUILayout.BeginHorizontal();
-            GUILayout.Label("Dodge Behaviour");
-            GUILayout.Space(56);
-            string dodge = dodgeBehaviour[jsondata.modules[0].dodgeBehaviour];
-            AddFieldDropdown("Dodge Behaviour", ref dodge, dodgeBehaviour, ref ddgDropdown);
-            jsondata.modules[0].dodgeBehaviour = Array.IndexOf(dodgeBehaviour, dodge);
-            GUILayout.FlexibleSpace();
-            GUILayout.EndHorizontal();
+            //GUILayout.Space(10);
+            //GUILayout.BeginHorizontal();
+            //GUILayout.Label("Dodge Behaviour");
+            //GUILayout.Space(56);
+            //string dodge = dodgeBehaviour[jsondata.modules[0].dodgeBehaviour];
+            //AddFieldDropdown("Dodge Behaviour", ref dodge, dodgeBehaviour, ref ddgDropdown);
+            //jsondata.modules[0].dodgeBehaviour = Array.IndexOf(dodgeBehaviour, dodge);
+            //GUILayout.FlexibleSpace();
+            //GUILayout.EndHorizontal();
+
             AddField("Mass", ref jsondata.mass);
             AddField("Drag", ref jsondata.drag);
             AddField("Angular Drag", ref jsondata.angularDrag);
@@ -808,9 +822,9 @@ namespace BS
             noHandleType = false;
             noHandlePose = false;
             noWhooshFX = false;
-
+            
             json = File.ReadAllText(selectedBaseDir);
-
+            
             if (jsondata.displayName == null || jsondata.displayName == "")
             {
                 noWeaponName = true;
@@ -847,7 +861,15 @@ namespace BS
                 jsondata.prefabName = "@" + AssetImporter.GetAtPath(AssetDatabase.GetAssetPath(itemPrefab)).assetBundleName + ":" + AssetDatabase.GetAssetPath(itemPrefab).Substring(AssetDatabase.GetAssetPath(itemPrefab).LastIndexOf('/') + 1, AssetDatabase.GetAssetPath(itemPrefab).Length - AssetDatabase.GetAssetPath(itemPrefab).LastIndexOf('/') - 1);
             }
 
-            json = JsonUtility.ToJson(jsondata, true).Replace("MONEYSIGN", "$");
+            if (initializedWithFile)
+            {
+                jsondata.modules.Clear();
+                json = JsonUtility.ToJson(jsondata, true).Replace("MONEYSIGN", "$").Replace("\"modules\": [],", jsonModules);
+            }
+            else
+            {
+                json = JsonUtility.ToJson(jsondata, true).Replace("MONEYSIGN", "$");
+            }
 
             EditorToolsJSONConfig.AddPrefab(jsonName + ".json", AssetDatabase.GetAssetPath(itemPrefab));
             if (!initializedWithFile)

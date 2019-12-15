@@ -162,12 +162,14 @@ namespace BS
         {
             Matrix4x4[] posMatrix = new Matrix4x4[1];
             posMatrix[0] = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one);
+#if UNITY_EDITOR
             if (Selection.activeObject == gameObject)
             {
                 Gizmos.color = Common.HueColourValue(HueColorNames.Yellow);
                 Gizmos.DrawWireSphere(transform.position, reach);
                 Gizmos.color = Common.HueColourValue(HueColorNames.White);
             }
+#endif
             base.OnDrawGizmosSelected();
             foreach (Orientation orientation in allowedOrientations)
             {

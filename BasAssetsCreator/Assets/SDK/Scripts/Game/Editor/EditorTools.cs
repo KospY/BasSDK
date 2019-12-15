@@ -299,7 +299,7 @@ namespace BS
         [MenuItem("Blade and Sorcery/Mod Configuration")]
         public static void ShowWindow()
         {   //Opens window from toolbar
-            EditorWindow.GetWindow<EditorToolsJSONConfig>("B&S Mod Configuration");
+            GetWindow<EditorToolsJSONConfig>("B&S Mod Configuration");
         }
 
         private void OnFocus()
@@ -546,7 +546,7 @@ namespace BS
                     {
                         openJson = file.FullName;
                         WeaponJsonBuilder.prefabKey = ObjectKey;
-                        EditorWindow.GetWindow<WeaponJsonBuilder>("Item JSON Builder");
+                        GetWindow<WeaponJsonBuilder>("Item JSON Builder");
                     }
                     GUI.enabled = true;
                 }
