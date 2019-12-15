@@ -61,7 +61,7 @@ namespace BS
 
             foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>())
             {
-                if (!GetComponent<Paintable>())
+                if (!mesh.GetComponent<Paintable>())
                 {
                     mesh.gameObject.AddComponent<Paintable>();
                 }
