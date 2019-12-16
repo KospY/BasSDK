@@ -7,12 +7,12 @@ namespace BS
     [CustomEditor(typeof(HandleDefinition))]
     public class HandleDefInspector : Editor
     {
-        bool toolsHidden = false;
-        Tool previousTool;
-        Vector3 HandlePoint1;
-        Vector3 HandlePoint2;
+        Vector3 handlePoint1;
+        Vector3 handlePoint2;
         Quaternion axis;
+        bool toolsHidden = false;
         bool centerTransform = true;
+        Tool previousTool;
 
         public override void OnInspectorGUI()
         {
@@ -104,8 +104,8 @@ namespace BS
 
             if (!centerTransform)
             {
-                HandlePoint1 = handle.transform.position + (handle.transform.up * (handle.axisLength * 0.5f));
-                HandlePoint2 = handle.transform.position + (handle.transform.up * -(handle.axisLength * 0.5f));
+                handlePoint1 = handle.transform.position + (handle.transform.up * (handle.axisLength * 0.5f));
+                handlePoint2 = handle.transform.position + (handle.transform.up * -(handle.axisLength * 0.5f));
             }
 
         }
@@ -114,8 +114,8 @@ namespace BS
         {
             HandleDefinition handle = (HandleDefinition)target;
 
-            HandlePoint1 = handle.transform.position + (handle.transform.up * (handle.axisLength * 0.5f));
-            HandlePoint2 = handle.transform.position + (handle.transform.up * -(handle.axisLength * 0.5f));
+            handlePoint1 = handle.transform.position + (handle.transform.up * (handle.axisLength * 0.5f));
+            handlePoint2 = handle.transform.position + (handle.transform.up * -(handle.axisLength * 0.5f));
 
             //handle.transform.hideFlags = HideFlags.NotEditable;
         }
@@ -135,8 +135,8 @@ namespace BS
                 }
                 
                 EditorGUI.BeginChangeCheck();
-                HandlePoint1 = Handles.DoPositionHandle(HandlePoint1, Quaternion.LookRotation(Vector3.forward, Vector3.up));
-                HandlePoint2 = Handles.DoPositionHandle(HandlePoint2, Quaternion.LookRotation(Vector3.forward, Vector3.up));
+                handlePoint1 = Handles.DoPositionHandle(handlePoint1, Quaternion.LookRotation(Vector3.forward, Vector3.up));
+                handlePoint2 = Handles.DoPositionHandle(handlePoint2, Quaternion.LookRotation(Vector3.forward, Vector3.up));
                 if (EditorGUI.EndChangeCheck())
                 {
                     Undo.RecordObject(target, "Moved Handle");
@@ -146,22 +146,22 @@ namespace BS
                 {
                     if (EditorWindow.focusedWindow && EditorWindow.focusedWindow.ToString() == " (UnityEditor.SceneView)")
                     {
-                        handle.transform.position = Vector3.Lerp(HandlePoint1, HandlePoint2, 0.5f);
-                        handle.axisLength = (HandlePoint1 - HandlePoint2).magnitude;
+                        handle.transform.position = Vector3.Lerp(handlePoint1, handlePoint2, 0.5f);
+                        handle.axisLength = (handlePoint1 - handlePoint2).magnitude;
 
                         if (Event.current.control)
                         {
-                            axis = Handles.Disc(handle.transform.rotation, handle.transform.position, (HandlePoint1 - HandlePoint2), HandleUtility.GetHandleSize(handle.transform.position), false, 15f);
+                            axis = Handles.Disc(handle.transform.rotation, handle.transform.position, (handlePoint1 - handlePoint2), HandleUtility.GetHandleSize(handle.transform.position), false, 15f);
                         }
                         else
                         {
-                            axis = Handles.Disc(handle.transform.rotation, handle.transform.position, (HandlePoint1 - HandlePoint2), HandleUtility.GetHandleSize(handle.transform.position), false, 0.1f);
+                            axis = Handles.Disc(handle.transform.rotation, handle.transform.position, (handlePoint1 - handlePoint2), HandleUtility.GetHandleSize(handle.transform.position), false, 0.1f);
                         }
-                        handle.transform.rotation = Quaternion.LookRotation(HandlePoint2 - HandlePoint1, axis * Vector3.forward) * Quaternion.AngleAxis(-90, Vector3.right);
+                        handle.transform.rotation = Quaternion.LookRotation(handlePoint2 - handlePoint1, axis * Vector3.forward) * Quaternion.AngleAxis(-90, Vector3.right);
                     }
                     else
                     {
-                        axis = Handles.Disc(handle.transform.rotation, handle.transform.position, (HandlePoint1 - HandlePoint2), HandleUtility.GetHandleSize(handle.transform.position), false, 0.1f);
+                        axis = Handles.Disc(handle.transform.rotation, handle.transform.position, (handlePoint1 - handlePoint2), HandleUtility.GetHandleSize(handle.transform.position), false, 0.1f);
                     }
                 }
                 catch (Exception) { }
