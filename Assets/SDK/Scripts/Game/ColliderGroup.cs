@@ -49,6 +49,10 @@ namespace BS
                 {
                     collider.material = CatalogData.GetPrefab<PhysicMaterial>("PhysicMaterials", "Metal");
                 }
+                else if (collider.material.name.Contains("WoodHard"))
+                {
+                    collider.material = CatalogData.GetPrefab<PhysicMaterial>("PhysicMaterials", "Wood");
+                }
             }
             ItemDefinition itemDefinition = this.GetComponentInParent<ItemDefinition>();
             itemDefinition.Initialized += OnItemInitialized;
