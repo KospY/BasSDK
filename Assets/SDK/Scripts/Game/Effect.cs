@@ -29,7 +29,7 @@ namespace BS
 
         }
 
-        public virtual void SetIntensity(float value)
+        public virtual void SetIntensity(float value, bool loopOnly = false)
         {
 
         }
@@ -68,6 +68,19 @@ namespace BS
         {
 
         }
+
+        public virtual void CollisionStay(Vector3 position, Quaternion rotation, float intensity)
+        {
+            this.transform.position = position;
+            this.transform.rotation = rotation;
+            SetIntensity(intensity, true);
+        }
+
+        public virtual void CollisionStay(float intensity)
+        {
+            SetIntensity(intensity, true);
+        }
+
 
         public virtual void Despawn()
         {

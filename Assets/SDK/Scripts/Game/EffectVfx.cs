@@ -46,9 +46,12 @@ namespace BS
             stopping = true;
         }
 
-        public override void SetIntensity(float value)
+        public override void SetIntensity(float value, bool loopOnly = false)
         {
-            vfx.SetFloat("Intensity", value);
+            if (!loopOnly || (loopOnly && step == Step.Loop))
+            {
+                vfx.SetFloat("Intensity", value);
+            }
         }
 
         public override void SetMainGradient(Gradient gradient)

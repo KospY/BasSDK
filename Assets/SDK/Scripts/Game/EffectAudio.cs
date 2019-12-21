@@ -52,10 +52,13 @@ namespace BS
             }
         }
 
-        public override void SetIntensity(float value)
+        public override void SetIntensity(float value, bool loopOnly = false)
         {
-            audioSource.pitch = pitchCurve.Evaluate(value);
-            audioSource.volume = volumeCurve.Evaluate(value);
+            if (!loopOnly || (loopOnly && step == Step.Loop))
+            {
+                audioSource.pitch = pitchCurve.Evaluate(value);
+                audioSource.volume = volumeCurve.Evaluate(value);
+            }
         }
 
         protected IEnumerator AudioFadeOut()

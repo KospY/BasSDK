@@ -69,28 +69,31 @@ namespace BS
             }
         }
 
-        public override void SetIntensity(float value)
+        public override void SetIntensity(float value, bool loopOnly = false)
         {
-            currentValue = value;
-            if (renderer && renderer.isVisible)
+            if (!loopOnly || (loopOnly && step == Step.Loop))
             {
-                if (linkBaseColor == EffectTarget.Main)
+                currentValue = value;
+                if (renderer && renderer.isVisible)
                 {
-                    materialPropertyBlock.SetColor(colorPropertyID, currentMainGradient.Evaluate(value));
+                    if (linkBaseColor == EffectTarget.Main)
+                    {
+                        materialPropertyBlock.SetColor(colorPropertyID, currentMainGradient.Evaluate(value));
+                    }
+                    else if (linkBaseColor == EffectTarget.Secondary)
+                    {
+                        materialPropertyBlock.SetColor(colorPropertyID, currentSecondaryGradient.Evaluate(value));
+                    }
+                    if (linkEmissionColor == EffectTarget.Main)
+                    {
+                        materialPropertyBlock.SetColor(emissionPropertyID, currentMainGradient.Evaluate(value));
+                    }
+                    else if (linkEmissionColor == EffectTarget.Secondary)
+                    {
+                        materialPropertyBlock.SetColor(emissionPropertyID, currentSecondaryGradient.Evaluate(value));
+                    }
+                    renderer.SetPropertyBlock(materialPropertyBlock);
                 }
-                else if (linkBaseColor == EffectTarget.Secondary)
-                {
-                    materialPropertyBlock.SetColor(colorPropertyID, currentSecondaryGradient.Evaluate(value));
-                }
-                if (linkEmissionColor == EffectTarget.Main)
-                {
-                    materialPropertyBlock.SetColor(emissionPropertyID, currentMainGradient.Evaluate(value));
-                }
-                else if (linkEmissionColor == EffectTarget.Secondary)
-                {
-                    materialPropertyBlock.SetColor(emissionPropertyID, currentSecondaryGradient.Evaluate(value));
-                }
-                renderer.SetPropertyBlock(materialPropertyBlock);
             }
         }
 

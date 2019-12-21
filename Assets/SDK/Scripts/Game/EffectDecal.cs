@@ -127,18 +127,21 @@ namespace BS
         protected void UpdateLifeTime()
         {
             float baseValue = Mathf.Clamp01(1 - ((Time.time - playTime) / baseLifeTime));
-            if (linkBaseColor != EffectTarget.None)
+            if (meshRenderer.isVisible)
             {
-                materialPropertyBlock.SetColor(colorPropertyID, baseColorGradient.Evaluate(baseValue));
-            }
-            if (linkEmissionColor != EffectTarget.None)
-            {
-                float emissionValue = Mathf.Clamp01(1 - ((Time.time - playTime) / emissionLifeTime));
-                materialPropertyBlock.SetColor(emissionPropertyID, emissionColorGradient.Evaluate(emissionValue));
-            }
-            if (linkBaseColor != EffectTarget.None || linkEmissionColor != EffectTarget.None)
-            {
-                meshRenderer.SetPropertyBlock(materialPropertyBlock);
+                if (linkBaseColor != EffectTarget.None)
+                {
+                    materialPropertyBlock.SetColor(colorPropertyID, baseColorGradient.Evaluate(baseValue));
+                }
+                if (linkEmissionColor != EffectTarget.None)
+                {
+                    float emissionValue = Mathf.Clamp01(1 - ((Time.time - playTime) / emissionLifeTime));
+                    materialPropertyBlock.SetColor(emissionPropertyID, emissionColorGradient.Evaluate(emissionValue));
+                }
+                if (linkBaseColor != EffectTarget.None || linkEmissionColor != EffectTarget.None)
+                {
+                    meshRenderer.SetPropertyBlock(materialPropertyBlock);
+                }
             }
             if (baseValue == 0) Despawn();
         }
@@ -167,9 +170,9 @@ namespace BS
             }
         }
 
-        public override void SetIntensity(float value)
+        public override void SetIntensity(float value, bool loopOnly = false)
         {
-            if (meshRenderer.isVisible)
+            if ((!loopOnly || (loopOnly && step == Step.Loop)) && meshRenderer.isVisible)
             {
                 if (linkBaseColor != EffectTarget.None)
                 {
@@ -190,6 +193,11 @@ namespace BS
                     meshRenderer.transform.localScale = new Vector3((eval / meshRenderer.transform.lossyScale.x) * size.x, (eval / meshRenderer.transform.lossyScale.y) * size.y, (eval / meshRenderer.transform.lossyScale.z) * size.z);
                 }
             }
+        }
+
+        public override void CollisionStay(Vector3 position, Quaternion rotation, float intensity)
+        {
+            // Prevent decal to move when rubbing
         }
 
         public override void Despawn()

@@ -84,156 +84,159 @@ namespace BS
             }
         }
 
-        public override void SetIntensity(float value)
+        public override void SetIntensity(float value, bool loopOnly = false)
         {
-            currentValue = value;
-
-            foreach (EffectParticleChild p in childs)
+            if (!loopOnly || (loopOnly && step == Step.Loop))
             {
-                ParticleSystem.MainModule mainModule = p.particleSystem.main;
+                currentValue = value;
 
-                if (p.duration && !p.particleSystem.isPlaying)
+                foreach (EffectParticleChild p in childs)
                 {
-                    mainModule.duration = p.curveDuration.Evaluate(value);
-                }
-                if (p.lifeTime)
-                {
-                    minMaxCurve.mode = ParticleSystemCurveMode.TwoConstants;
-                    float lifeTime = p.curveLifeTime.Evaluate(value);
-                    minMaxCurve.constantMin = Mathf.Clamp(lifeTime - p.randomRangeLifeTime, 0, Mathf.Infinity);
-                    minMaxCurve.constantMax = Mathf.Clamp(lifeTime, 0, Mathf.Infinity);
-                    mainModule.startLifetime = minMaxCurve;
-                }
-                if (p.speed)
-                {
-                    minMaxCurve.mode = ParticleSystemCurveMode.TwoConstants;
-                    float speed = p.curveSpeed.Evaluate(value);
-                    minMaxCurve.constantMin = speed - p.randomRangeSpeed;
-                    minMaxCurve.constantMax = speed;
-                    mainModule.startSpeed = minMaxCurve;
-                }
-                if (p.size)
-                {
-                    minMaxCurve.mode = ParticleSystemCurveMode.TwoConstants;
-                    float size = p.curveSize.Evaluate(value);
-                    minMaxCurve.constantMin = Mathf.Clamp(size - p.randomRangeSize, 0, Mathf.Infinity);
-                    minMaxCurve.constantMax = Mathf.Clamp(size, 0, Mathf.Infinity);
-                    mainModule.startSize = minMaxCurve;
-                }
-                if (p.shapeRadius)
-                {
-                    var shape = p.particleSystem.shape;
-                    shape.radius = p.curveShapeRadius.Evaluate(value);
-                }
-                if (p.rate)
-                {
-                    minMaxCurve.mode = ParticleSystemCurveMode.TwoConstants;
-                    float rate = p.curveRate.Evaluate(value);
-                    minMaxCurve.constantMin = Mathf.Clamp(rate - p.randomRangeRate, 0, Mathf.Infinity);
-                    minMaxCurve.constantMax = Mathf.Clamp(rate, 0, Mathf.Infinity);
-                    ParticleSystem.EmissionModule particleEmission = p.particleSystem.emission;
-                    particleEmission.rateOverTime = minMaxCurve;
-                }
-                if (p.burst)
-                {
-                    particleBurst.time = 0;
-                    short burst = (short)p.curveBurst.Evaluate(value);
-                    particleBurst.minCount = (short)Mathf.Clamp(burst - p.randomRangeBurst, 0, Mathf.Infinity);
-                    particleBurst.maxCount = (short)Mathf.Clamp(burst, 0, Mathf.Infinity);
-                    p.particleSystem.emission.SetBurst(0, particleBurst);
-                }
-                if (p.velocityOverLifetime)
-                {
-                    float rate = p.curvevelocityOverLifetime.Evaluate(value);
-                    minMaxCurve.constantMin = Mathf.Clamp(rate, 0, Mathf.Infinity);
-                    minMaxCurve.constantMax = Mathf.Clamp(rate, 0, Mathf.Infinity);
-                    ParticleSystem.VelocityOverLifetimeModule velocityModule = p.particleSystem.velocityOverLifetime;
-                    velocityModule.speedModifier = minMaxCurve;
-                }
-                if (p.lightIntensity)
-                {
-                    var lights = p.particleSystem.lights;
-                    lights.intensityMultiplier = p.curveLightIntensity.Evaluate(value);
-                }
+                    ParticleSystem.MainModule mainModule = p.particleSystem.main;
 
-                // Set start color gradient
-                ParticleSystem.MinMaxGradient minMaxGradient = mainModule.startColor;
-                if (p.linkStartGradient == EffectTarget.Main && currentMainGradient != null)
-                {
-                    minMaxGradient.mode = ParticleSystemGradientMode.Gradient;
-                    minMaxGradient.gradient = currentMainGradient;
-                }
-
-                if (p.linkStartGradient == EffectTarget.Secondary && currentSecondaryGradient != null)
-                {
-                    minMaxGradient.mode = ParticleSystemGradientMode.Gradient;
-                    minMaxGradient.gradient = currentSecondaryGradient;
-                }
-
-                // Set start color
-                if (p.linkStartColor == EffectTarget.Main && currentMainGradient != null)
-                {
-                    minMaxGradient.mode = ParticleSystemGradientMode.Color;
-                    if (p.ignoreAlpha)
+                    if (p.duration && !p.particleSystem.isPlaying)
                     {
-                        Color newColor = currentMainGradient.Evaluate(value);
-                        minMaxGradient.color = new Color(newColor.r, newColor.g, newColor.b, minMaxGradient.color.a);
+                        mainModule.duration = p.curveDuration.Evaluate(value);
                     }
-                    else
+                    if (p.lifeTime)
                     {
-                        minMaxGradient.color = currentMainGradient.Evaluate(value);
+                        minMaxCurve.mode = ParticleSystemCurveMode.TwoConstants;
+                        float lifeTime = p.curveLifeTime.Evaluate(value);
+                        minMaxCurve.constantMin = Mathf.Clamp(lifeTime - p.randomRangeLifeTime, 0, Mathf.Infinity);
+                        minMaxCurve.constantMax = Mathf.Clamp(lifeTime, 0, Mathf.Infinity);
+                        mainModule.startLifetime = minMaxCurve;
                     }
-                }
-                if (p.linkStartColor == EffectTarget.Secondary && currentSecondaryGradient != null)
-                {
-                    minMaxGradient.mode = ParticleSystemGradientMode.Color;
-                    if (p.ignoreAlpha)
+                    if (p.speed)
                     {
-                        Color newColor = currentSecondaryGradient.Evaluate(value);
-                        minMaxGradient.color = new Color(newColor.r, newColor.g, newColor.b, minMaxGradient.color.a);
+                        minMaxCurve.mode = ParticleSystemCurveMode.TwoConstants;
+                        float speed = p.curveSpeed.Evaluate(value);
+                        minMaxCurve.constantMin = speed - p.randomRangeSpeed;
+                        minMaxCurve.constantMax = speed;
+                        mainModule.startSpeed = minMaxCurve;
                     }
-                    else
+                    if (p.size)
                     {
-                        minMaxGradient.color = currentSecondaryGradient.Evaluate(value);
+                        minMaxCurve.mode = ParticleSystemCurveMode.TwoConstants;
+                        float size = p.curveSize.Evaluate(value);
+                        minMaxCurve.constantMin = Mathf.Clamp(size - p.randomRangeSize, 0, Mathf.Infinity);
+                        minMaxCurve.constantMax = Mathf.Clamp(size, 0, Mathf.Infinity);
+                        mainModule.startSize = minMaxCurve;
                     }
-                }
-                mainModule.startColor = minMaxGradient;
+                    if (p.shapeRadius)
+                    {
+                        var shape = p.particleSystem.shape;
+                        shape.radius = p.curveShapeRadius.Evaluate(value);
+                    }
+                    if (p.rate)
+                    {
+                        minMaxCurve.mode = ParticleSystemCurveMode.TwoConstants;
+                        float rate = p.curveRate.Evaluate(value);
+                        minMaxCurve.constantMin = Mathf.Clamp(rate - p.randomRangeRate, 0, Mathf.Infinity);
+                        minMaxCurve.constantMax = Mathf.Clamp(rate, 0, Mathf.Infinity);
+                        ParticleSystem.EmissionModule particleEmission = p.particleSystem.emission;
+                        particleEmission.rateOverTime = minMaxCurve;
+                    }
+                    if (p.burst)
+                    {
+                        particleBurst.time = 0;
+                        short burst = (short)p.curveBurst.Evaluate(value);
+                        particleBurst.minCount = (short)Mathf.Clamp(burst - p.randomRangeBurst, 0, Mathf.Infinity);
+                        particleBurst.maxCount = (short)Mathf.Clamp(burst, 0, Mathf.Infinity);
+                        p.particleSystem.emission.SetBurst(0, particleBurst);
+                    }
+                    if (p.velocityOverLifetime)
+                    {
+                        float rate = p.curvevelocityOverLifetime.Evaluate(value);
+                        minMaxCurve.constantMin = Mathf.Clamp(rate, 0, Mathf.Infinity);
+                        minMaxCurve.constantMax = Mathf.Clamp(rate, 0, Mathf.Infinity);
+                        ParticleSystem.VelocityOverLifetimeModule velocityModule = p.particleSystem.velocityOverLifetime;
+                        velocityModule.speedModifier = minMaxCurve;
+                    }
+                    if (p.lightIntensity)
+                    {
+                        var lights = p.particleSystem.lights;
+                        lights.intensityMultiplier = p.curveLightIntensity.Evaluate(value);
+                    }
 
-                // Set material color
-                bool updatePropertyBlock = false;
-                if (p.linkBaseColor == EffectTarget.Main && currentMainGradient != null)
-                {
-                    p.materialPropertyBlock.SetColor("_BaseColor", currentMainGradient.Evaluate(value));
-                    updatePropertyBlock = true;
-                }
-                else if (p.linkBaseColor == EffectTarget.Secondary && currentSecondaryGradient != null)
-                {
-                    p.materialPropertyBlock.SetColor("_BaseColor", currentSecondaryGradient.Evaluate(value));
-                    updatePropertyBlock = true;
-                }
+                    // Set start color gradient
+                    ParticleSystem.MinMaxGradient minMaxGradient = mainModule.startColor;
+                    if (p.linkStartGradient == EffectTarget.Main && currentMainGradient != null)
+                    {
+                        minMaxGradient.mode = ParticleSystemGradientMode.Gradient;
+                        minMaxGradient.gradient = currentMainGradient;
+                    }
 
-                if (p.linkTintColor == EffectTarget.Main && currentMainGradient != null)
-                {
-                    p.materialPropertyBlock.SetColor("_TintColor", currentMainGradient.Evaluate(value));
-                    updatePropertyBlock = true;
-                }
-                else if (p.linkTintColor == EffectTarget.Secondary && currentSecondaryGradient != null)
-                {
-                    p.materialPropertyBlock.SetColor("_TintColor", currentSecondaryGradient.Evaluate(value));
-                    updatePropertyBlock = true;
-                }
+                    if (p.linkStartGradient == EffectTarget.Secondary && currentSecondaryGradient != null)
+                    {
+                        minMaxGradient.mode = ParticleSystemGradientMode.Gradient;
+                        minMaxGradient.gradient = currentSecondaryGradient;
+                    }
 
-                if (p.linkEmissionColor == EffectTarget.Main && currentMainGradient != null)
-                {
-                    p.materialPropertyBlock.SetColor("_EmissionColor", currentMainGradient.Evaluate(value));
-                    updatePropertyBlock = true;
+                    // Set start color
+                    if (p.linkStartColor == EffectTarget.Main && currentMainGradient != null)
+                    {
+                        minMaxGradient.mode = ParticleSystemGradientMode.Color;
+                        if (p.ignoreAlpha)
+                        {
+                            Color newColor = currentMainGradient.Evaluate(value);
+                            minMaxGradient.color = new Color(newColor.r, newColor.g, newColor.b, minMaxGradient.color.a);
+                        }
+                        else
+                        {
+                            minMaxGradient.color = currentMainGradient.Evaluate(value);
+                        }
+                    }
+                    if (p.linkStartColor == EffectTarget.Secondary && currentSecondaryGradient != null)
+                    {
+                        minMaxGradient.mode = ParticleSystemGradientMode.Color;
+                        if (p.ignoreAlpha)
+                        {
+                            Color newColor = currentSecondaryGradient.Evaluate(value);
+                            minMaxGradient.color = new Color(newColor.r, newColor.g, newColor.b, minMaxGradient.color.a);
+                        }
+                        else
+                        {
+                            minMaxGradient.color = currentSecondaryGradient.Evaluate(value);
+                        }
+                    }
+                    mainModule.startColor = minMaxGradient;
+
+                    // Set material color
+                    bool updatePropertyBlock = false;
+                    if (p.linkBaseColor == EffectTarget.Main && currentMainGradient != null)
+                    {
+                        p.materialPropertyBlock.SetColor("_BaseColor", currentMainGradient.Evaluate(value));
+                        updatePropertyBlock = true;
+                    }
+                    else if (p.linkBaseColor == EffectTarget.Secondary && currentSecondaryGradient != null)
+                    {
+                        p.materialPropertyBlock.SetColor("_BaseColor", currentSecondaryGradient.Evaluate(value));
+                        updatePropertyBlock = true;
+                    }
+
+                    if (p.linkTintColor == EffectTarget.Main && currentMainGradient != null)
+                    {
+                        p.materialPropertyBlock.SetColor("_TintColor", currentMainGradient.Evaluate(value));
+                        updatePropertyBlock = true;
+                    }
+                    else if (p.linkTintColor == EffectTarget.Secondary && currentSecondaryGradient != null)
+                    {
+                        p.materialPropertyBlock.SetColor("_TintColor", currentSecondaryGradient.Evaluate(value));
+                        updatePropertyBlock = true;
+                    }
+
+                    if (p.linkEmissionColor == EffectTarget.Main && currentMainGradient != null)
+                    {
+                        p.materialPropertyBlock.SetColor("_EmissionColor", currentMainGradient.Evaluate(value));
+                        updatePropertyBlock = true;
+                    }
+                    else if (p.linkEmissionColor == EffectTarget.Secondary && currentSecondaryGradient != null)
+                    {
+                        p.materialPropertyBlock.SetColor("_EmissionColor", currentSecondaryGradient.Evaluate(value));
+                        updatePropertyBlock = true;
+                    }
+                    if (updatePropertyBlock) p.particleRenderer.SetPropertyBlock(p.materialPropertyBlock);
                 }
-                else if (p.linkEmissionColor == EffectTarget.Secondary && currentSecondaryGradient != null)
-                {
-                    p.materialPropertyBlock.SetColor("_EmissionColor", currentSecondaryGradient.Evaluate(value));
-                    updatePropertyBlock = true;
-                }
-                if (updatePropertyBlock) p.particleRenderer.SetPropertyBlock(p.materialPropertyBlock);
             }
         }
 
