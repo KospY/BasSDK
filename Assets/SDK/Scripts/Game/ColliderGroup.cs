@@ -34,15 +34,38 @@ namespace BS
 #if ProjectCore
         [NonSerialized]
         public Imbue imbue;
+        [NonSerialized]
+        public Item item;
 
         protected void Awake()
-        {
+        {   
             colliders = new List<Collider>(this.GetComponentsInChildren<Collider>());
+            foreach (Collider collider in colliders)
+            {
+                // For compatibility with old prefab
+                if (collider.material.name.Contains("Blade_"))
+                {
+                    collider.material = CatalogData.GetPrefab<PhysicMaterial>("PhysicMaterials", "Metal");
+                }
+            }
+            ItemDefinition itemDefinition = this.GetComponentInParent<ItemDefinition>();
+            itemDefinition.Initialized += OnItemInitialized;
+        }
+
+        protected void Start()
+        {   
             if (imbueMagic != ImbueMagic.None)
             {
                 imbue = this.gameObject.AddComponent<Imbue>();
             }
         }
+
+        public void OnItemInitialized(Item item)
+        {
+            this.item = item;
+            item.definition.Initialized -= OnItemInitialized;
+        }
+
 #endif
 
         [Button("Generate imbue mesh")]
