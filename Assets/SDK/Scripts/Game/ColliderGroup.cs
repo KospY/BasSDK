@@ -19,8 +19,6 @@ namespace BS
         public Renderer imbueEmissionRenderer;
         [Tooltip("Set the position and direction of the released imbue energy (ie shoot direction)")]
         public Transform imbueShoot;
-        [Tooltip("Allow colliders to be penetrated by other weapons (depending on material")]
-        public bool allowPenetration;
         [Tooltip("Create a collision event for each collider hit (true) or for the whole group (false)")]
         public bool checkIndependently;
         [NonSerialized]
