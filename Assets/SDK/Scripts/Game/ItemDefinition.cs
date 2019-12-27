@@ -112,7 +112,7 @@ namespace BS
             return false;
         }
 
-        public delegate void InitializedDelegate(Item interactiveObject);
+        public delegate void InitializedDelegate(Item item);
         public event InitializedDelegate Initialized;
 
         public List<ValueDropdownItem<string>> GetAllItemID()

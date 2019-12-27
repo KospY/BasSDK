@@ -70,40 +70,43 @@ namespace BS
             if (value == 0) Despawn();
         }
 
-        public override void SetIntensity(float value)
+        public override void SetIntensity(float value, bool loopOnly = false)
         {
-            currentValue = value;
+            if (!loopOnly || (loopOnly && step == Step.Loop))
+            {
+                currentValue = value;
 
-            if (meshSize)
-            {
-                float meshSizeValue = curveMeshSize.Evaluate(value);
-                transform.localScale = new Vector3(meshSizeValue, meshSizeValue, meshSizeValue);
-            }
+                if (meshSize)
+                {
+                    float meshSizeValue = curveMeshSize.Evaluate(value);
+                    transform.localScale = new Vector3(meshSizeValue, meshSizeValue, meshSizeValue);
+                }
 
-            // Set material color
-            bool updatePropertyBlock = false;
-            if (linkBaseColor == EffectTarget.Main && currentMainGradient != null)
-            {
-                materialPropertyBlock.SetColor("_BaseColor", currentMainGradient.Evaluate(value));
-                updatePropertyBlock = true;
-            }
-            else if (linkBaseColor == EffectTarget.Secondary && currentSecondaryGradient != null)
-            {
-                materialPropertyBlock.SetColor("_BaseColor", currentSecondaryGradient.Evaluate(value));
-                updatePropertyBlock = true;
-            }
-            if (linkEmissionColor == EffectTarget.Main && currentMainGradient != null)
-            {
-                materialPropertyBlock.SetColor("_EmissionColor", currentMainGradient.Evaluate(value));
-                updatePropertyBlock = true;
-            }
-            else if (linkEmissionColor == EffectTarget.Secondary && currentSecondaryGradient != null)
-            {
-                materialPropertyBlock.SetColor("_EmissionColor", currentSecondaryGradient.Evaluate(value));
-                updatePropertyBlock = true;
-            }
+                // Set material color
+                bool updatePropertyBlock = false;
+                if (linkBaseColor == EffectTarget.Main && currentMainGradient != null)
+                {
+                    materialPropertyBlock.SetColor("_BaseColor", currentMainGradient.Evaluate(value));
+                    updatePropertyBlock = true;
+                }
+                else if (linkBaseColor == EffectTarget.Secondary && currentSecondaryGradient != null)
+                {
+                    materialPropertyBlock.SetColor("_BaseColor", currentSecondaryGradient.Evaluate(value));
+                    updatePropertyBlock = true;
+                }
+                if (linkEmissionColor == EffectTarget.Main && currentMainGradient != null)
+                {
+                    materialPropertyBlock.SetColor("_EmissionColor", currentMainGradient.Evaluate(value));
+                    updatePropertyBlock = true;
+                }
+                else if (linkEmissionColor == EffectTarget.Secondary && currentSecondaryGradient != null)
+                {
+                    materialPropertyBlock.SetColor("_EmissionColor", currentSecondaryGradient.Evaluate(value));
+                    updatePropertyBlock = true;
+                }
 
-            if (updatePropertyBlock) renderer.SetPropertyBlock(materialPropertyBlock);
+                if (updatePropertyBlock) renderer.SetPropertyBlock(materialPropertyBlock);
+            }
         }
 
         public override void SetMainGradient(Gradient gradient)

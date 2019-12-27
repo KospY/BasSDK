@@ -12,8 +12,8 @@ namespace BS
         public Vector3 mirrorAxis = new Vector3(1, -1, 1);
 
         public Side side = Side.Right;
-        public Vector3 gripLocalPosition = new Vector3(-0.08f, -0.04f, 0.015f);
-        public Vector3 gripLocalRotation = new Vector3(0, 120, 90);
+        public Vector3 gripLocalPosition = new Vector3(-0.08f, -0.025f, 0.01f);
+        public Vector3 gripLocalRotation = new Vector3(0, 120, 85);
         public HandleDefinition handleReference;
 
         [HideInInspector]

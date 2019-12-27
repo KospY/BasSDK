@@ -19,6 +19,8 @@ namespace BS
         public Renderer imbueEmissionRenderer;
         [Tooltip("Set the position and direction of the released imbue energy (ie shoot direction)")]
         public Transform imbueShoot;
+        [Tooltip("Prevent child colliders to be penetrated by other weapons (depending on material")]
+        public bool impenetrable = true;
         [Tooltip("Create a collision event for each collider hit (true) or for the whole group (false)")]
         public bool checkIndependently;
         [NonSerialized]
@@ -34,15 +36,42 @@ namespace BS
 #if ProjectCore
         [NonSerialized]
         public Imbue imbue;
+        [NonSerialized]
+        public Item item;
 
         protected void Awake()
-        {
+        {   
             colliders = new List<Collider>(this.GetComponentsInChildren<Collider>());
+            foreach (Collider collider in colliders)
+            {
+                // For compatibility with old prefab
+                if (collider.material.name.Contains("Blade_"))
+                {
+                    collider.material = CatalogData.GetPrefab<PhysicMaterial>("PhysicMaterials", "Metal");
+                }
+                else if (collider.material.name.Contains("WoodHard"))
+                {
+                    collider.material = CatalogData.GetPrefab<PhysicMaterial>("PhysicMaterials", "Wood");
+                }
+            }
+            ItemDefinition itemDefinition = this.GetComponentInParent<ItemDefinition>();
+            itemDefinition.Initialized += OnItemInitialized;
+        }
+
+        protected void Start()
+        {   
             if (imbueMagic != ImbueMagic.None)
             {
                 imbue = this.gameObject.AddComponent<Imbue>();
             }
         }
+
+        public void OnItemInitialized(Item item)
+        {
+            this.item = item;
+            item.definition.Initialized -= OnItemInitialized;
+        }
+
 #endif
 
         [Button("Generate imbue mesh")]
