@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Timeline;
+using UnityEngine.Playables;
 using System.Collections;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -47,6 +49,30 @@ namespace BS
                     foreach (EffectAnim anim in animations)
                         anim.animator.speed = 1f;
                 }
+            }
+
+            [Header("Timelines")]
+            public PlayableDirector director;
+            public TimelineAsset timeline;
+
+
+            [Button]
+            public void Play_Pause()
+            {
+                if (director == null) { return; }
+
+                if (director.state == PlayState.Playing)
+                    director.Pause();
+                else
+                    director.Play();
+            }
+
+            [Button]
+            public void Stop()
+            {
+                if (director == null) { return; }
+                director.Stop();
+                director.playableGraph.GetRootPlayable(0).
             }
 
 

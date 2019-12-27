@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
 using EasyButtons;
 #endif
+
+
 
 namespace BS
 {
@@ -66,7 +69,6 @@ namespace BS
         [Button]
         public void Play()
         {
-            Debug.Log("Play : " + this.transform.name);
             Refresh();
             rootParticleSystem.Play();
             foreach (Effect effect in effects)
@@ -75,6 +77,27 @@ namespace BS
                 {
                     effect.Play();
                 }
+            }
+        }
+
+        public void TestIntensity(float duration)
+        {
+            Play();
+            StartCoroutine (TestIntensityAction(duration));
+
+        }
+
+        private IEnumerator TestIntensityAction (float duration)
+        {
+            float startTime = Time.time;
+            float t = 0;
+
+            while (t <= 1)
+            {
+                t = (Time.time - startTime) / duration;
+                intensity = Mathf.Lerp(0f, 1f, t);
+                Refresh();
+                yield return null;
             }
         }
 
