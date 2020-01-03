@@ -82,23 +82,30 @@ namespace BS
         {
             #if ProjectCore
             // Stencil
-            if (effectInstance.item)
+            if (effectInstance.collisionHandler)
             {
-                if (!(module as EffectModuleDecal).allowItem)
+                if (effectInstance.collisionHandler.item)
                 {
-                    Despawn();
-                    return;
+                    if (!(module as EffectModuleDecal).allowItem)
+                    {
+                        Despawn();
+                        return;
+                    }
+                    meshRenderer.material.SetInt("_StencilRef", effectInstance.collisionHandler.item.stencilReference);
                 }
-                meshRenderer.material.SetInt("_StencilRef", effectInstance.item.stencilReference);
-            }
-            else if (effectInstance.ragdollPart && !effectInstance.ragdollPart.ragdoll.creature.body.player)
-            {
-                if (!(module as EffectModuleDecal).allowRagdollPart)
+                else if (effectInstance.collisionHandler.ragdollPart && !effectInstance.collisionHandler.ragdollPart.ragdoll.creature.body.player)
                 {
-                    Despawn();
-                    return;
+                    if (!(module as EffectModuleDecal).allowRagdollPart)
+                    {
+                        Despawn();
+                        return;
+                    }
+                    meshRenderer.material.SetInt("_StencilRef", effectInstance.collisionHandler.ragdollPart.ragdoll.creature.stencilReference);
                 }
-                meshRenderer.material.SetInt("_StencilRef", effectInstance.ragdollPart.ragdoll.creature.stencilReference);
+                else
+                {
+                    meshRenderer.material.SetInt("_StencilRef", 0);
+                }
             }
             else
             {
@@ -205,10 +212,13 @@ namespace BS
             CancelInvoke();
             meshRenderer.enabled = false;
 #if ProjectCore
-            EffectInstance orgEffectInstance = effectInstance;
-            effectInstance = null;
-            EffectModuleDecal.Despawn(this);
-            orgEffectInstance.OnEffectDespawn();
+            if (Application.isPlaying && effectInstance != null)
+            {
+                EffectInstance orgEffectInstance = effectInstance;
+                effectInstance = null;
+                EffectModuleDecal.Despawn(this);
+                orgEffectInstance.OnEffectDespawn();
+            }
 #endif
         }
     }

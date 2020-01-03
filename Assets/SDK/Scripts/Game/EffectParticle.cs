@@ -328,7 +328,7 @@ namespace BS
             rootParticleSystem.Stop();
             CancelInvoke();
 #if ProjectCore
-            if (Application.isPlaying)
+            if (Application.isPlaying && effectInstance != null)
             {
                 EffectInstance orgEffectInstance = effectInstance;
                 effectInstance = null;

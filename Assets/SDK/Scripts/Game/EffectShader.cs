@@ -114,10 +114,13 @@ namespace BS
             CancelInvoke();
             SetIntensity(0);
 #if ProjectCore
-            EffectInstance orgEffectInstance = effectInstance;
-            effectInstance = null;
-            EffectModuleShader.Despawn(this);
-            orgEffectInstance.OnEffectDespawn();
+            if (Application.isPlaying && effectInstance != null)
+            {
+                EffectInstance orgEffectInstance = effectInstance;
+                effectInstance = null;
+                EffectModuleShader.Despawn(this);
+                orgEffectInstance.OnEffectDespawn();
+            }
 #endif
         }
     }

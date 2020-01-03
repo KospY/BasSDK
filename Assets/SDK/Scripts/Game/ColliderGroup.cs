@@ -37,7 +37,7 @@ namespace BS
         [NonSerialized]
         public Imbue imbue;
         [NonSerialized]
-        public Item item;
+        public CollisionHandler collisionHandler;
 
         protected void Awake()
         {   
@@ -54,22 +54,15 @@ namespace BS
                     collider.material = CatalogData.GetPrefab<PhysicMaterial>("PhysicMaterials", "Wood");
                 }
             }
-            ItemDefinition itemDefinition = this.GetComponentInParent<ItemDefinition>();
-            itemDefinition.Initialized += OnItemInitialized;
         }
 
         protected void Start()
-        {   
+        {
+            collisionHandler = this.GetComponentInParent<CollisionHandler>();
             if (imbueMagic != ImbueMagic.None)
             {
                 imbue = this.gameObject.AddComponent<Imbue>();
             }
-        }
-
-        public void OnItemInitialized(Item item)
-        {
-            this.item = item;
-            item.definition.Initialized -= OnItemInitialized;
         }
 
 #endif

@@ -81,7 +81,6 @@ namespace BS
             SetIntensity(intensity, true);
         }
 
-
         public virtual void Despawn()
         {
 

@@ -154,7 +154,7 @@ namespace BS
                         LoadingCamera.SetState(LoadingCamera.State.Error);
                         throw;
                     }
-
+                    
                     if (playerCreature.umaCharacter)
                     {
                         try
