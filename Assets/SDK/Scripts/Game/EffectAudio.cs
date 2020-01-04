@@ -26,6 +26,7 @@ namespace BS
         public override void Play()
         {
             CancelInvoke();
+            StopAllCoroutines();
             audioSource.loop = step == Step.Loop ? true : false;
             if (randomPitch)
             {
@@ -78,12 +79,10 @@ namespace BS
             StopAllCoroutines();
             audioSource.Stop();
 #if ProjectCore
-            if (Application.isPlaying && effectInstance != null)
+            if (Application.isPlaying)
             {
-                EffectInstance orgEffectInstance = effectInstance;
-                effectInstance = null;
                 EffectModuleAudio.Despawn(this);
-                orgEffectInstance.OnEffectDespawn();
+                InvokeDespawnCallback();
             }
 #endif
         }

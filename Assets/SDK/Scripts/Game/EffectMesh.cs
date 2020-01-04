@@ -126,12 +126,10 @@ namespace BS
             CancelInvoke();
             renderer.enabled = false;
 #if ProjectCore
-            if (Application.isPlaying && effectInstance != null)
+            if (Application.isPlaying)
             {
-                EffectInstance orgEffectInstance = effectInstance;
-                effectInstance = null;
                 EffectModuleMesh.Despawn(this);
-                orgEffectInstance.OnEffectDespawn();
+                InvokeDespawnCallback();
             }
 #endif
         }

@@ -65,7 +65,6 @@ namespace BS
             if ((useSecondaryRenderer && secondary) || (!useSecondaryRenderer && !secondary))
             {
                 this.renderer = renderer;
-
             }
         }
 
@@ -114,12 +113,10 @@ namespace BS
             CancelInvoke();
             SetIntensity(0);
 #if ProjectCore
-            if (Application.isPlaying && effectInstance != null)
+            if (Application.isPlaying)
             {
-                EffectInstance orgEffectInstance = effectInstance;
-                effectInstance = null;
                 EffectModuleShader.Despawn(this);
-                orgEffectInstance.OnEffectDespawn();
+                InvokeDespawnCallback();
             }
 #endif
         }

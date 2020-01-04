@@ -5,8 +5,8 @@ namespace BS
 {
     public class Effect : MonoBehaviour
     {
-        [NonSerialized]
-        public EffectInstance effectInstance;
+        public DespawnCallback despawnCallback;
+        public delegate void DespawnCallback(Effect effect);
 
         [NonSerialized]
         public EffectModule module;
@@ -84,6 +84,15 @@ namespace BS
         public virtual void Despawn()
         {
 
+        }
+
+        protected void InvokeDespawnCallback()
+        {
+            if (despawnCallback != null)
+            {
+                despawnCallback.Invoke(this);
+                despawnCallback = null;
+            }
         }
     }
 }

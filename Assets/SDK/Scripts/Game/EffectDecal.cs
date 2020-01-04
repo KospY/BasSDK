@@ -78,29 +78,28 @@ namespace BS
             meshRenderer.enabled = false;
         }
 
-        public override void Play()
+        public void SetStencil(CollisionHandler collisionHandler)
         {
-            #if ProjectCore
-            // Stencil
-            if (effectInstance.collisionHandler)
+#if ProjectCore
+            if (collisionHandler)
             {
-                if (effectInstance.collisionHandler.item)
+                if (collisionHandler.item)
                 {
                     if (!(module as EffectModuleDecal).allowItem)
                     {
                         Despawn();
                         return;
                     }
-                    meshRenderer.material.SetInt("_StencilRef", effectInstance.collisionHandler.item.stencilReference);
+                    meshRenderer.material.SetInt("_StencilRef", collisionHandler.item.stencilReference);
                 }
-                else if (effectInstance.collisionHandler.ragdollPart && !effectInstance.collisionHandler.ragdollPart.ragdoll.creature.body.player)
+                else if (collisionHandler.ragdollPart && !collisionHandler.ragdollPart.ragdoll.creature.body.player)
                 {
                     if (!(module as EffectModuleDecal).allowRagdollPart)
                     {
                         Despawn();
                         return;
                     }
-                    meshRenderer.material.SetInt("_StencilRef", effectInstance.collisionHandler.ragdollPart.ragdoll.creature.stencilReference);
+                    meshRenderer.material.SetInt("_StencilRef", collisionHandler.ragdollPart.ragdoll.creature.stencilReference);
                 }
                 else
                 {
@@ -112,6 +111,10 @@ namespace BS
                 meshRenderer.material.SetInt("_StencilRef", 0);
             }
 #endif
+        }
+
+        public override void Play()
+        {
             playTime = Time.time;
             CancelInvoke();
             meshRenderer.transform.localScale = Vector3.one;
@@ -212,12 +215,10 @@ namespace BS
             CancelInvoke();
             meshRenderer.enabled = false;
 #if ProjectCore
-            if (Application.isPlaying && effectInstance != null)
+            if (Application.isPlaying)
             {
-                EffectInstance orgEffectInstance = effectInstance;
-                effectInstance = null;
                 EffectModuleDecal.Despawn(this);
-                orgEffectInstance.OnEffectDespawn();
+                InvokeDespawnCallback();
             }
 #endif
         }

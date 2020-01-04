@@ -60,7 +60,7 @@ namespace BS
         }
 
         [Button]
-        public EffectInstance Spawn()
+        public void Spawn()
         {
             if (effectId != "" && effectId != null)
             {
@@ -75,19 +75,13 @@ namespace BS
                 if (secondaryRenderer) effectInstance.SetRenderer(secondaryRenderer, true);
                 if (collider) effectInstance.SetCollider(collider);
                 effectInstance.Play();
-                return effectInstance;
             }
-            return null;
         }
 
         [Button]
         public void Stop()
         {
-            if (effectInstance != null)
-            {
-                effectInstance.Stop();
-                effectInstance = null;
-            }
+            effectInstance.Stop();
         }
 #endif
     }

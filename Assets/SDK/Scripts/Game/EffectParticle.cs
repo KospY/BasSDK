@@ -10,6 +10,9 @@ namespace BS
         public float lifeTime = 5;
 
         [NonSerialized]
+        public float playTime;
+
+        [NonSerialized]
         public List<EffectParticleChild> childs = new List<EffectParticleChild>();
 
         [NonSerialized]
@@ -73,6 +76,7 @@ namespace BS
             {
                 Invoke("Despawn", lifeTime);
             }
+            playTime = Time.time;
         }
         public override void Stop(bool loopOnly = false)
         {
@@ -328,12 +332,10 @@ namespace BS
             rootParticleSystem.Stop();
             CancelInvoke();
 #if ProjectCore
-            if (Application.isPlaying && effectInstance != null)
+            if (Application.isPlaying)
             {
-                EffectInstance orgEffectInstance = effectInstance;
-                effectInstance = null;
                 EffectModuleParticle.Despawn(this);
-                orgEffectInstance.OnEffectDespawn();
+                InvokeDespawnCallback();
             }
 #endif
         }

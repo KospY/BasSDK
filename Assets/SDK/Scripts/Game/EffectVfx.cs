@@ -98,9 +98,9 @@ namespace BS
         {
             if (hasTarget)
             {
-                vfx.SetVector3(positionId, targetTransform.position);
-                vfx.SetVector3(positionAngles, targetTransform.eulerAngles);
-                vfx.SetVector3(positionScale, targetTransform.localScale);
+                if (vfx.HasVector3(positionId)) vfx.SetVector3(positionId, targetTransform.position);
+                if (vfx.HasVector3(positionAngles)) vfx.SetVector3(positionAngles, targetTransform.eulerAngles);
+                if (vfx.HasVector3(positionScale)) vfx.SetVector3(positionScale, targetTransform.localScale);
             }
             if (stopping && vfx.aliveParticleCount == 0)
             {
@@ -115,12 +115,10 @@ namespace BS
             vfx.Stop();
             vfx.enabled = false;
 #if ProjectCore
-            if (Application.isPlaying && effectInstance != null)
+            if (Application.isPlaying)
             {
-                EffectInstance orgEffectInstance = effectInstance;
-                effectInstance = null;
                 EffectModuleVfx.Despawn(this);
-                orgEffectInstance.OnEffectDespawn();
+                InvokeDespawnCallback();
             }
 #endif
         }
