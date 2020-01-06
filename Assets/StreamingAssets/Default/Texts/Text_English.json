@@ -2,96 +2,6 @@
   "$type": "BS.TextData, Assembly-CSharp",
   "id": "English",
   "version": 1,
-  "pageGroups": [
-    {
-      "id": "Tips",
-      "title": "Tips",
-      "pages": [
-        {
-          "text": "If you are new to VR or not used to smooth locomotion, it's recommended to do short game session first to avoid motion sickness. \nFor the majority of players, motion sickness progressivly disappear overtime to the point that it should not be a problem anymore.",
-          "spritePath": null
-        },
-        {
-          "text": "The \"lag\" or \"delay\" while moving your weapon are done on purpose to give a feeling of weight and to allow physic based interactions. \nPractice different weapons and adjust your speed relative to them. After some time it will feel natural and you should not even notice it anymore.",
-          "spritePath": null
-        },
-        {
-          "text": "Some weapons will require you to handle them with both hands to move them effectively.",
-          "spritePath": null
-        },
-        {
-          "text": "You can sheath up to 4 objects/weapons on you by dropping them over your left or right shoulder or on each side of your hips. \nYou can practice doing it by looking at yourself in the mirror in the home.\r\nBe aware that some objects are restricted to hips or back only.",
-          "spritePath": null
-        },
-        {
-          "text": "All grabbed objects use physics so you can't move them through obstacles, stuck objects will be automatically dropped if your hand goes too far (can be changed in the options).",
-          "spritePath": null
-        },
-        {
-          "text": "You can hold some objects at different positions or rotations along the handle. If the hand position does not suit you, just grab it elsewhere or use the trigger button to slide your hand along the handle.",
-          "spritePath": null
-        },
-        {
-          "text": "Daggers, axes and spears can be used as ranged weapons. Practice throwing them using slow motion as you will get better force and precision as a result.",
-          "spritePath": null
-        },
-        {
-          "text": "Piercing weapons such as daggers, axes, spears and arrows can be used to penetrate flesh or wood.",
-          "spritePath": null
-        },
-        {
-          "text": "To select a spell, press the corresponding controller button (see inputs in the menu) then move your hand over one of the orbs and release.",
-          "spritePath": null
-        },
-        {
-          "text": "Your remaining health and mana can be checked by looking at your wrist.",
-          "spritePath": null
-        },
-        {
-          "text": "Potions can be used to restore your health.",
-          "spritePath": null
-        },
-        {
-          "text": "Slowing time gives you more force.",
-          "spritePath": null
-        },
-        {
-          "text": "To grab an equipped quiver, press the trigger while hovering on it and grab (with the grip button)",
-          "spritePath": null
-        }
-      ]
-    },
-    {
-      "id": "Inputs",
-      "title": "Inputs help",
-      "pages": [
-        {
-          "text": "Unknown controllers",
-          "spritePath": "InputMenuViveWand"
-        },
-        {
-          "text": "For more information about inputs, open the menu by pressing Y and go to the \"controller inputs\" section",
-          "spritePath": "InputMenuOculus"
-        },
-        {
-          "text": "For more information about inputs, open the menu by pressing left menu button while pressing touchpad center and go to the \"controller inputs\" section",
-          "spritePath": "InputMenuViveWand"
-        },
-        {
-          "text": "For more information about inputs, open the menu by pressing the left menu button and go to the \"controller inputs\" section",
-          "spritePath": "InputMenuWMR"
-        },
-        {
-          "text": "For more information about inputs, open the menu by pressing B and go to the \"controller inputs\" section",
-          "spritePath": "InputMenuIndex"
-        },
-        {
-          "text": "For more information about inputs, open the menu by pressing Y and go to the \"controller inputs\" section",
-          "spritePath": "InputMenuCosmos"
-        }
-      ]
-    }
-  ],
   "strings": [
     {
       "id": "Notes",
@@ -688,6 +598,96 @@
       "id": "WristBlade",
       "name": "Wrist blade",
       "description": "No description"
+    }
+  ],
+  "pageGroups": [
+    {
+      "id": "Tips",
+      "title": "Tips",
+      "pages": [
+        {
+          "text": "If you are new to VR or not used to smooth locomotion, it's recommended to do short game session first to avoid motion sickness. \nFor the majority of players, motion sickness progressivly disappear overtime to the point that it should not be a problem anymore.",
+          "spritePath": null
+        },
+        {
+          "text": "The \"lag\" or \"delay\" while moving your weapon are done on purpose to give a feeling of weight and to allow physic based interactions. \nPractice different weapons and adjust your speed relative to them. After some time it will feel natural and you should not even notice it anymore.",
+          "spritePath": null
+        },
+        {
+          "text": "Some weapons will require you to handle them with both hands to move them effectively.",
+          "spritePath": null
+        },
+        {
+          "text": "You can sheath up to 4 objects/weapons on you by dropping them over your left or right shoulder or on each side of your hips. \nYou can practice doing it by looking at yourself in the mirror in the home.\r\nBe aware that some objects are restricted to hips or back only.",
+          "spritePath": null
+        },
+        {
+          "text": "All grabbed objects use physics so you can't move them through obstacles, stuck objects will be automatically dropped if your hand goes too far (can be changed in the options).",
+          "spritePath": null
+        },
+        {
+          "text": "You can hold some objects at different positions or rotations along the handle. If the hand position does not suit you, just grab it elsewhere or use the trigger button to slide your hand along the handle.",
+          "spritePath": null
+        },
+        {
+          "text": "Daggers, axes and spears can be used as ranged weapons. Practice throwing them using slow motion as you will get better force and precision as a result.",
+          "spritePath": null
+        },
+        {
+          "text": "Piercing weapons such as daggers, axes, spears and arrows can be used to penetrate flesh or wood.",
+          "spritePath": null
+        },
+        {
+          "text": "To select a spell, press the corresponding controller button (see inputs in the menu) then move your hand over one of the orbs and release.",
+          "spritePath": null
+        },
+        {
+          "text": "Your remaining health and mana can be checked by looking at your wrist.",
+          "spritePath": null
+        },
+        {
+          "text": "Potions can be used to restore your health.",
+          "spritePath": null
+        },
+        {
+          "text": "Slowing time gives you more force.",
+          "spritePath": null
+        },
+        {
+          "text": "To grab an equipped quiver, press the trigger while hovering on it and grab (with the grip button)",
+          "spritePath": null
+        }
+      ]
+    },
+    {
+      "id": "Inputs",
+      "title": "Inputs help",
+      "pages": [
+        {
+          "text": "Unknown controllers",
+          "spritePath": "InputMenuViveWand"
+        },
+        {
+          "text": "For more information about inputs, open the menu by pressing Y and go to the \"controller inputs\" section",
+          "spritePath": "InputMenuOculus"
+        },
+        {
+          "text": "For more information about inputs, open the menu by pressing left menu button while pressing touchpad center and go to the \"controller inputs\" section",
+          "spritePath": "InputMenuViveWand"
+        },
+        {
+          "text": "For more information about inputs, open the menu by pressing the left menu button and go to the \"controller inputs\" section",
+          "spritePath": "InputMenuWMR"
+        },
+        {
+          "text": "For more information about inputs, open the menu by pressing B and go to the \"controller inputs\" section",
+          "spritePath": "InputMenuIndex"
+        },
+        {
+          "text": "For more information about inputs, open the menu by pressing Y and go to the \"controller inputs\" section",
+          "spritePath": "InputMenuCosmos"
+        }
+      ]
     }
   ]
 }

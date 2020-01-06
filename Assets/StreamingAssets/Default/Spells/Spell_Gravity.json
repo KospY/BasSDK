@@ -1,7 +1,29 @@
 {
-  "$type": "BS.SpellCastData, Assembly-CSharp",
+  "$type": "BS.SpellCastGravity, Assembly-CSharp",
   "id": "Gravity",
   "version": 0,
+  "liftCurve": {
+    "keys": [],
+    "length": 0,
+    "preWrapMode": 8,
+    "postWrapMode": 8
+  },
+  "radius": 4.0,
+  "liftMinForce": 0.05,
+  "liftMaxForce": 0.3,
+  "liftSlowDownRange": 0.5,
+  "throwDefaultForce": 22.0,
+  "throwRagdollLimbForce": 6.0,
+  "randomTorqueRange": {
+    "x": 0.2,
+    "y": 0.2,
+    "z": 0.2
+  },
+  "effectId": "SpellGravityBall",
+  "fingerEffectId": "SpellGravityBallFinger",
+  "throwEffectId": "SpellTelekinesisPush",
+  "closeHandPoseId": "ChargeClose",
+  "openHandPoseId": "ChargeOpen",
   "caption": "Gravity",
   "runeString": "z",
   "imageColor": {
@@ -24,27 +46,9 @@
   },
   "audioContainerPath": "",
   "audioPitch": 1.0,
-  "module": {
-    "$type": "BS.SpellCastGravity, Assembly-CSharp",
-    "liftCurve": null,
-    "radius": 4.0,
-    "liftMinForce": 0.05,
-    "liftMaxForce": 0.3,
-    "liftSlowDownRange": 0.5,
-    "throwDefaultForce": 22.0,
-    "throwRagdollLimbForce": 6.0,
-    "randomTorqueRange": {
-      "x": 0.2,
-      "y": 0.2,
-      "z": 0.2
-    },
-    "effectId": "SpellGravityBall",
-    "fingerEffectId": "SpellGravityBallFinger",
-    "throwEffectId": "SpellTelekinesisPush",
-    "closeHandPoseId": "ChargeClose",
-    "openHandPoseId": "ChargeOpen",
-    "imbueRate": 5.0,
-    "imbueRadius": 0.2,
-    "imbueEffectId": "ImbueGravity"
-  }
+  "imbueRate": 5.0,
+  "imbueRadius": 0.2,
+  "imbueBladeEffectId": "ImbueGravity",
+  "imbueCrystalEffectId": "ImbueGravity",
+  "imbueMaterialId": null
 }

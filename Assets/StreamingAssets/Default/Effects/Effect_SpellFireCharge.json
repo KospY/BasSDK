@@ -2,6 +2,7 @@
   "$type": "BS.EffectData, Assembly-CSharp",
   "id": "SpellFireCharge",
   "version": 0,
+  "category": "Spell",
   "modules": [
     {
       "$type": "BS.EffectModuleAudio, Assembly-CSharp",
@@ -101,7 +102,7 @@
       "randomPitch": false,
       "pitchCurve": null,
       "volumeCurve": null,
-      "loopFadeDelay": 0.0,
+      "loopFadeDelay": 1.0,
       "audioMixer": 1,
       "minDistance": 1.0,
       "maxDistance": 500.0,

@@ -2,6 +2,7 @@
   "$type": "BS.EffectData, Assembly-CSharp",
   "id": "SpellTelekinesisPush",
   "version": 0,
+  "category": "Spell",
   "modules": [
     {
       "$type": "BS.EffectModuleAudio, Assembly-CSharp",
@@ -17,7 +18,7 @@
     },
     {
       "$type": "BS.EffectModuleParticle, Assembly-CSharp",
-      "effectParticlePath": "@vfx:Telekinesis Small Push",
+      "effectParticlePath": "@vfx:TelekinesisPush",
       "mainGradient": {
         "colorKeys": [
           {

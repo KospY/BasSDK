@@ -39,7 +39,89 @@
   "damagers": [
     {
       "transformName": "Blunt",
-      "damagerID": "PropBluntHeavy"
+      "damagerID": "PropBluntHeavy",
+      "damagerData": {
+        "id": "PropBluntHeavy",
+        "version": 0,
+        "type": 1,
+        "impulseMinMax": {
+          "x": 4.0,
+          "y": 20.0
+        },
+        "damageMinMax": {
+          "x": 5.0,
+          "y": 20.0
+        },
+        "recoilMinMax": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "maxVerticalAngle": 0.0,
+        "maxHorizontalAngle": 0.0,
+        "hitRagdollDelay": 0.2,
+        "playerDamageMultiplier": 1.0,
+        "throwedMultiplier": 2.0,
+        "badAngleDamageType": 0,
+        "badAngleDamage": 1.0,
+        "badAngleRecoilMultiplier": 0.0,
+        "knockoutOnHit": 1,
+        "knockoutOnThrow": 2,
+        "knockoutMinImpulse": 8.0,
+        "knockoutDurationMinMax": {
+          "x": 1.0,
+          "y": 2.0
+        },
+        "addForce": 0.0,
+        "addForceState": 1,
+        "addForceTargetType": 2,
+        "addForceMode": 1,
+        "addForceDuration": 0.0,
+        "addForceRagdollPartMultiplier": 1.0,
+        "addForceRagdollOtherMultiplier": 0.0,
+        "addForceSlowMoMultiplier": 1.0,
+        "addForceKnockoutOnly": false,
+        "addForceNormalize": false,
+        "penetrationImpulseVelocity": 3.0,
+        "penetrationDamperMultiplier": 2000.0,
+        "penetrationSpring": 0.0,
+        "penetrationVelocityAdd": 0.0,
+        "penetrationDamperCurve": {
+          "keys": [
+            {
+              "time": 0.0,
+              "value": 0.5,
+              "inTangent": 1.43304741,
+              "outTangent": 1.43304741,
+              "inWeight": 0.0,
+              "outWeight": 0.0272479467,
+              "weightedMode": 0,
+              "tangentMode": 0
+            },
+            {
+              "time": 1.0,
+              "value": 0.918095231,
+              "inTangent": 0.935204148,
+              "outTangent": 0.935204148,
+              "inWeight": 0.033606112,
+              "outWeight": 0.0,
+              "weightedMode": 0,
+              "tangentMode": 0
+            }
+          ],
+          "length": 2,
+          "preWrapMode": 8,
+          "postWrapMode": 8
+        },
+        "penetrationFxExitDelay": 0.0,
+        "penetrationImpactVelocityAdd": 0.0,
+        "penetrationJointMaxForce": 1000.0,
+        "pierceExitOnMaxDepth": false,
+        "drawCut": false,
+        "drawCutMaxDot": 0.2,
+        "drawCutRelativeVelocity": 2.0,
+        "drawCutImpulseVelocity": 1.0,
+        "sliceImpulseVelocity": 10.0
+      }
     }
   ],
   "Interactables": [

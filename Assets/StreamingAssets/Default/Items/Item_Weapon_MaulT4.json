@@ -1,0 +1,264 @@
+{
+  "$type": "BS.ItemData, Assembly-CSharp",
+  "id": "MaulT4",
+  "version": 4,
+  "pooledCount": 0,
+  "localizationId": "MaulT4",
+  "displayName": "Maul",
+  "description": "With its weight and size, the maul can crush through armor and bones alike",
+  "author": "Glitch",
+  "price": 0.0,
+  "purchasable": true,
+  "tier": 4,
+  "levelRequired": 0,
+  "slot": 4,
+  "isStackable": false,
+  "category": 2,
+  "storageCategory": "Blunt",
+  "prefabName": "@items:wpn_ML02_Maul",
+  "mass": 7.0,
+  "drag": 1.0,
+  "angularDrag": 0.05,
+  "useGravity": true,
+  "collisionMaxOverride": 0,
+  "collisionEnterOnly": false,
+  "collisionNoMinVelocityCheck": false,
+  "ignoredCollisionRagdollParts": [],
+  "forceLayer": 0,
+  "audioSnapPath": "SnapHeavy",
+  "flyFromThrow": false,
+  "flyRotationSpeed": 2.0,
+  "flyThrowAngle": 120.0,
+  "telekinesisSafeDistance": 1.0,
+  "telekinesisSpinEnabled": true,
+  "telekinesisThrowRatio": 1.5,
+  "damageTransfer": 0,
+  "grippable": true,
+  "customSnaps": [],
+  "modules": [
+    {
+      "$type": "BS.ItemModuleAI, Assembly-CSharp",
+      "weaponClass": 1,
+      "weaponHandling": 2,
+      "parryIgnoreRotation": false,
+      "parryRotation": 90.0,
+      "parryDualRotation": 60.0,
+      "armResistanceMultiplier": 3.0,
+      "parryRevertAngleRange": {
+        "x": -80.0,
+        "y": -180.0
+      },
+      "parryDefaultPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "parryDefaultLeftRotation": {
+        "x": 25.0,
+        "y": -10.0,
+        "z": -65.0
+      },
+      "parryDefaultRightRotation": {
+        "x": 30.0,
+        "y": 5.0,
+        "z": 60.0
+      },
+      "allowDynamicHeight": false,
+      "dodgeBehaviour": 2,
+      "defenseHasPriority": false,
+      "attackIgnore": false,
+      "attackForceParryIgnoreRotation": false
+    }
+  ],
+  "damagers": [
+    {
+      "transformName": "Blunt",
+      "damagerID": "Maul",
+      "damagerData": {
+        "id": "Maul",
+        "version": 0,
+        "type": 1,
+        "impulseMinMax": {
+          "x": 16.0,
+          "y": 70.0
+        },
+        "damageMinMax": {
+          "x": 10.0,
+          "y": 30.0
+        },
+        "recoilMinMax": {
+          "x": 0.9,
+          "y": 1.0
+        },
+        "maxVerticalAngle": 0.0,
+        "maxHorizontalAngle": 0.0,
+        "hitRagdollDelay": 0.2,
+        "playerDamageMultiplier": 1.0,
+        "throwedMultiplier": 2.0,
+        "badAngleDamageType": 0,
+        "badAngleDamage": 1.0,
+        "badAngleRecoilMultiplier": 0.0,
+        "knockoutOnHit": 2,
+        "knockoutOnThrow": 2,
+        "knockoutMinImpulse": 50.0,
+        "knockoutDurationMinMax": {
+          "x": 1.0,
+          "y": 2.0
+        },
+        "addForce": 170.0,
+        "addForceState": 1,
+        "addForceTargetType": 2,
+        "addForceMode": 5,
+        "addForceDuration": 0.15,
+        "addForceRagdollPartMultiplier": 2.0,
+        "addForceRagdollOtherMultiplier": 0.5,
+        "addForceSlowMoMultiplier": 1.1,
+        "addForceKnockoutOnly": true,
+        "addForceNormalize": false,
+        "penetrationImpulseVelocity": 3.0,
+        "penetrationDamperMultiplier": 2000.0,
+        "penetrationSpring": 0.0,
+        "penetrationVelocityAdd": 0.0,
+        "penetrationDamperCurve": {
+          "keys": [
+            {
+              "time": 0.0,
+              "value": 0.5,
+              "inTangent": 1.43304741,
+              "outTangent": 1.43304741,
+              "inWeight": 0.0,
+              "outWeight": 0.0272479467,
+              "weightedMode": 0,
+              "tangentMode": 0
+            },
+            {
+              "time": 1.0,
+              "value": 0.918095231,
+              "inTangent": 0.935204148,
+              "outTangent": 0.935204148,
+              "inWeight": 0.033606112,
+              "outWeight": 0.0,
+              "weightedMode": 0,
+              "tangentMode": 0
+            }
+          ],
+          "length": 2,
+          "preWrapMode": 8,
+          "postWrapMode": 8
+        },
+        "penetrationFxExitDelay": 0.0,
+        "penetrationImpactVelocityAdd": 0.0,
+        "penetrationJointMaxForce": 1000.0,
+        "pierceExitOnMaxDepth": false,
+        "drawCut": false,
+        "drawCutMaxDot": 0.2,
+        "drawCutRelativeVelocity": 2.0,
+        "drawCutImpulseVelocity": 1.0,
+        "sliceImpulseVelocity": 10.0
+      }
+    },
+    {
+      "transformName": "BluntHandle",
+      "damagerID": "HandleHeavyBlunt",
+      "damagerData": {
+        "id": "HandleHeavyBlunt",
+        "version": 0,
+        "type": 1,
+        "impulseMinMax": {
+          "x": 4.0,
+          "y": 8.0
+        },
+        "damageMinMax": {
+          "x": 1.0,
+          "y": 2.0
+        },
+        "recoilMinMax": {
+          "x": 0.5,
+          "y": 1.0
+        },
+        "maxVerticalAngle": 0.0,
+        "maxHorizontalAngle": 0.0,
+        "hitRagdollDelay": 0.2,
+        "playerDamageMultiplier": 1.0,
+        "throwedMultiplier": 2.0,
+        "badAngleDamageType": 0,
+        "badAngleDamage": 1.0,
+        "badAngleRecoilMultiplier": 0.0,
+        "knockoutOnHit": 1,
+        "knockoutOnThrow": 1,
+        "knockoutMinImpulse": 15.0,
+        "knockoutDurationMinMax": {
+          "x": 1.0,
+          "y": 2.0
+        },
+        "addForce": 50.0,
+        "addForceState": 1,
+        "addForceTargetType": 2,
+        "addForceMode": 1,
+        "addForceDuration": 0.0,
+        "addForceRagdollPartMultiplier": 1.0,
+        "addForceRagdollOtherMultiplier": 0.0,
+        "addForceSlowMoMultiplier": 1.0,
+        "addForceKnockoutOnly": false,
+        "addForceNormalize": false,
+        "penetrationImpulseVelocity": 3.0,
+        "penetrationDamperMultiplier": 2000.0,
+        "penetrationSpring": 0.0,
+        "penetrationVelocityAdd": 0.0,
+        "penetrationDamperCurve": {
+          "keys": [
+            {
+              "time": 0.0,
+              "value": 0.5,
+              "inTangent": 1.43304741,
+              "outTangent": 1.43304741,
+              "inWeight": 0.0,
+              "outWeight": 0.0272479467,
+              "weightedMode": 0,
+              "tangentMode": 0
+            },
+            {
+              "time": 1.0,
+              "value": 0.918095231,
+              "inTangent": 0.935204148,
+              "outTangent": 0.935204148,
+              "inWeight": 0.033606112,
+              "outWeight": 0.0,
+              "weightedMode": 0,
+              "tangentMode": 0
+            }
+          ],
+          "length": 2,
+          "preWrapMode": 8,
+          "postWrapMode": 8
+        },
+        "penetrationFxExitDelay": 0.0,
+        "penetrationImpactVelocityAdd": 0.0,
+        "penetrationJointMaxForce": 1000.0,
+        "pierceExitOnMaxDepth": false,
+        "drawCut": false,
+        "drawCutMaxDot": 0.2,
+        "drawCutRelativeVelocity": 2.0,
+        "drawCutImpulseVelocity": 1.0,
+        "sliceImpulseVelocity": 10.0
+      }
+    }
+  ],
+  "Interactables": [
+    {
+      "transformName": "Handle",
+      "interactableId": "ObjectHandleHeavy",
+      "overrideHandPose": true,
+      "handPoseId": "HandleLarge"
+    }
+  ],
+  "whooshs": [
+    {
+      "transformName": "Whoosh",
+      "fxId": "WhooshSwordHeavy",
+      "trigger": 0,
+      "minVelocity": 5.0,
+      "maxVelocity": 12.0
+    }
+  ]
+}

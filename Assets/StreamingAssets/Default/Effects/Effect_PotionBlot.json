@@ -1,0 +1,55 @@
+{
+  "$type": "BS.EffectData, Assembly-CSharp",
+  "id": "PotionBlot",
+  "version": 0,
+  "category": "Misc",
+  "modules": [
+    {
+      "$type": "BS.EffectModuleDecal, Assembly-CSharp",
+      "materialPath": "@vfx:LiquidBlot",
+      "baseLifeTime": 30.0,
+      "emissionLifeTime": 10.0,
+      "fadeRefreshSpeed": 0.1,
+      "priority": 0,
+      "allowItem": false,
+      "allowRagdollPart": false,
+      "size": {
+        "x": 0.2,
+        "y": 0.2,
+        "z": 0.2
+      },
+      "sizeCurve": {
+        "keys": [
+          {
+            "time": 0.0,
+            "value": 0.02,
+            "inTangent": 0.888179541,
+            "outTangent": 0.5348409,
+            "inWeight": 0.0,
+            "outWeight": 0.122546583,
+            "weightedMode": 2,
+            "tangentMode": 1
+          },
+          {
+            "time": 2.0,
+            "value": 0.15,
+            "inTangent": 0.00289345626,
+            "outTangent": 0.00442182459,
+            "inWeight": 0.6610479,
+            "outWeight": 0.0,
+            "weightedMode": 1,
+            "tangentMode": 1
+          }
+        ],
+        "length": 2,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "linkBaseColor": 0,
+      "linkEmissionColor": 0,
+      "mainGradient": null,
+      "secondaryGradient": null,
+      "step": 0
+    }
+  ]
+}

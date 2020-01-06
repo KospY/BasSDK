@@ -1,0 +1,178 @@
+{
+  "$type": "BS.EffectData, Assembly-CSharp",
+  "id": "ImbueFireBlade",
+  "version": 0,
+  "category": "Imbue",
+  "modules": [
+    {
+      "$type": "BS.EffectModuleShader, Assembly-CSharp",
+      "linkBaseColor": 0,
+      "linkEmissionColor": 2,
+      "lifeTime": 5.0,
+      "refreshSpeed": 0.1,
+      "useSecondaryRenderer": true,
+      "mainGradient": null,
+      "secondaryGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "time": 0.0
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.339622617,
+              "g": 0.0777343959,
+              "b": 0.07208972
+            },
+            "time": 0.149996191
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 3.21111727,
+              "g": 1.37859488,
+              "b": 0.0
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "step": 1
+    },
+    {
+      "$type": "BS.EffectModuleParticle, Assembly-CSharp",
+      "effectParticlePath": "@vfx:FireImbueBlade",
+      "mainGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.7490196,
+              "g": 1.785802E-07,
+              "b": 0.0
+            },
+            "time": 0.00588998245
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 2.99607849,
+              "g": 0.03137255,
+              "b": 0.0
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "secondaryGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.00118826737,
+              "g": 0.000827432261,
+              "b": 0.0
+            },
+            "time": 0.00294499123
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.339622617,
+              "g": 0.0777343959,
+              "b": 0.07208972
+            },
+            "time": 0.158831164
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 3.21111727,
+              "g": 1.37859488,
+              "b": 0.0
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "step": 1
+    },
+    {
+      "$type": "BS.EffectModuleAudio, Assembly-CSharp",
+      "audioContainerPath": "ImbueFireLoop",
+      "randomPitch": false,
+      "pitchCurve": null,
+      "volumeCurve": {
+        "keys": [
+          {
+            "time": 0.0,
+            "value": 0.0,
+            "inTangent": 1.0,
+            "outTangent": 1.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 34
+          },
+          {
+            "time": 1.0,
+            "value": 1.0,
+            "inTangent": 1.0,
+            "outTangent": 1.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 34
+          }
+        ],
+        "length": 2,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "loopFadeDelay": 0.0,
+      "audioMixer": 1,
+      "minDistance": 1.0,
+      "maxDistance": 500.0,
+      "step": 1
+    }
+  ]
+}

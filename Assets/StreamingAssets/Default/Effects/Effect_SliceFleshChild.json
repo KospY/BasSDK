@@ -1,0 +1,36 @@
+{
+  "$type": "BS.EffectData, Assembly-CSharp",
+  "id": "SliceFleshChild",
+  "version": 0,
+  "category": "Penetration",
+  "modules": [
+    {
+      "$type": "BS.EffectModuleParticle, Assembly-CSharp",
+      "effectParticlePath": "SliceFleshChild",
+      "mainGradient": null,
+      "secondaryGradient": null,
+      "step": 0
+    },
+    {
+      "$type": "BS.EffectModuleDecal, Assembly-CSharp",
+      "materialPath": "@vfx:BloodDrop",
+      "baseLifeTime": 15.0,
+      "emissionLifeTime": 10.0,
+      "fadeRefreshSpeed": 0.1,
+      "priority": 0,
+      "allowItem": false,
+      "allowRagdollPart": false,
+      "size": {
+        "x": 0.2,
+        "y": 0.2,
+        "z": 0.2
+      },
+      "sizeCurve": null,
+      "linkBaseColor": 0,
+      "linkEmissionColor": 0,
+      "mainGradient": null,
+      "secondaryGradient": null,
+      "step": 0
+    }
+  ]
+}
