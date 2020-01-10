@@ -69,6 +69,11 @@ namespace BS
 
         }
 
+        public virtual void SetCollisionHandler(CollisionHandler collisionHandler)
+        {
+
+        }
+
         public virtual void CollisionStay(Vector3 position, Quaternion rotation, float intensity)
         {
             this.transform.position = position;

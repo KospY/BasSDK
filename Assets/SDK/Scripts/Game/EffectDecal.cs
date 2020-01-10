@@ -78,7 +78,7 @@ namespace BS
             meshRenderer.enabled = false;
         }
 
-        public void SetStencil(CollisionHandler collisionHandler)
+        public override void SetCollisionHandler(CollisionHandler collisionHandler)
         {
 #if ProjectCore
             if (collisionHandler)
