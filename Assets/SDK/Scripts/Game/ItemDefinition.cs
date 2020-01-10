@@ -36,11 +36,11 @@ namespace BS
         [NonSerialized]
         public List<ColliderGroup> colliderGroups;
         [NonSerialized]
-        public List<CollisionHandler> collisionHandlers;
-        [NonSerialized]
         public List<WhooshPoint> whooshPoints;
 
 #if ProjectCore
+        [NonSerialized]
+        public List<CollisionHandler> collisionHandlers;
         [NonSerialized, ShowInInspector]
         public Vector3 customInertiaTensorPos;
         [NonSerialized, ShowInInspector]

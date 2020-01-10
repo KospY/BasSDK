@@ -78,9 +78,9 @@ namespace BS
             meshRenderer.enabled = false;
         }
 
+#if ProjectCore
         public override void SetCollisionHandler(CollisionHandler collisionHandler)
         {
-#if ProjectCore
             if (collisionHandler)
             {
                 if (collisionHandler.item)
@@ -110,9 +110,9 @@ namespace BS
             {
                 meshRenderer.material.SetInt("_StencilRef", 0);
             }
-#endif
-        }
 
+    }
+#endif
         public override void Play()
         {
             playTime = Time.time;
