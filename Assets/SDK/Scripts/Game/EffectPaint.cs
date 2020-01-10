@@ -16,8 +16,9 @@ namespace BS
         protected static int emissionPropertyID;
 
         public Material material;
-
+#if ProjectCore
         public MaterialData.PaintBlendMode blendMode;
+#endif
         public float radius = 0.1f;
         public bool useRadiusCurve;
         public AnimationCurve radiusCurve;

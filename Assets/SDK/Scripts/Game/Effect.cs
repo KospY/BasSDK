@@ -7,10 +7,10 @@ namespace BS
     {
         public DespawnCallback despawnCallback;
         public delegate void DespawnCallback(Effect effect);
-
+#if ProjectCore
         [NonSerialized]
         public EffectModule module;
-
+#endif
         public Step step = Step.Start;
         public enum Step
         {
@@ -68,12 +68,12 @@ namespace BS
         {
 
         }
-
+#if ProjectCore
         public virtual void SetCollisionHandler(CollisionHandler collisionHandler)
         {
 
         }
-
+#endif
         public virtual void CollisionStay(Vector3 position, Quaternion rotation, float intensity)
         {
             this.transform.position = position;
