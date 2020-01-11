@@ -7,10 +7,10 @@ namespace BS
     {
         public DespawnCallback despawnCallback;
         public delegate void DespawnCallback(Effect effect);
-#if ProjectCore
+
         [NonSerialized]
         public EffectModule module;
-#endif
+
         public Step step = Step.Start;
         public enum Step
         {
