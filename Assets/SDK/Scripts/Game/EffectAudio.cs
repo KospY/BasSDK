@@ -32,7 +32,7 @@ namespace BS
             {
                 audioSource.pitch = pitchCurve.Evaluate(UnityEngine.Random.Range(0f, 1f));
             }
-            if (!audioSource.loop)
+            if (step != Step.Loop)
             {
                 Invoke("Despawn", audioSource.clip.length + 1);
             }
@@ -48,7 +48,6 @@ namespace BS
             }
             else if (!loopOnly || (loopOnly && step == Step.Loop))
             {
-                audioSource.Stop();
                 Despawn();
             }
         }
@@ -69,7 +68,6 @@ namespace BS
                 audioSource.volume -= Time.deltaTime / loopFadeDelay;
                 yield return new WaitForEndOfFrame();
             }
-            audioSource.Stop();
             Despawn();
         }
 
