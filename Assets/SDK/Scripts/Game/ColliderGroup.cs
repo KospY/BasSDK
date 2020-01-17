@@ -11,26 +11,49 @@ namespace BS
 {
     public class ColliderGroup : MonoBehaviour
     {
-        [Tooltip("Set if the colliders are imbuable like a blade or crystal")]
-        public ImbueMagic imbueMagic = ImbueMagic.None;
         [Tooltip("(Optional) Use a mesh instead of collider(s) to apply imbue vfx and particles effects")]
         public Renderer imbueEffectRenderer;
         [Tooltip("(Optional) Set a renderer to use to apply imbue shader emissive effects")]
         public Renderer imbueEmissionRenderer;
-        [Tooltip("Set the position and direction of the released imbue energy (ie shoot direction)")]
+        [Tooltip("Spawn position and direction of projectiles/spells")]
         public Transform imbueShoot;
-        [Tooltip("Prevent child colliders to be penetrated by other weapons (depending on material")]
-        public bool impenetrable = true;
-        [Tooltip("Create a collision event for each collider hit (true) or for the whole group (false)")]
-        public bool checkIndependently;
+
+        [NonSerialized]
+        public ImbueMagic imbueMagic = ImbueMagic.None;
+        [NonSerialized]
+        public Type type = Type.Default;
+        [NonSerialized]
+        public CollisionHandling collisionHandling = CollisionHandling.ByGroup;
+        [NonSerialized]
+        public bool penetrable = false;
+
         [NonSerialized]
         public List<Collider> colliders;
+
+        public enum CollisionHandling
+        {
+            ByGroup,
+            ByCollider,
+        }
 
         public enum ImbueMagic
         {
             None,
             Blade,
             Crystal,
+        }
+
+        public enum Type
+        {
+            Default = (1 << 0),
+            Blade = (1 << 1),
+            Shield = (1 << 2),
+            Head = (1 << 3),
+            Neck = (1 << 4),
+            Torso = (1 << 5),
+            Arms = (1 << 6),
+            Heart = (1 << 7),
+            Legs = (1 << 8),
         }
 
 #if ProjectCore
@@ -48,10 +71,23 @@ namespace BS
                 if (collider.material.name.Contains("Blade_"))
                 {
                     collider.material = CatalogData.GetPrefab<PhysicMaterial>("PhysicMaterials", "Metal");
+                    type = Type.Blade;
+                    imbueMagic = ImbueMagic.Blade;
                 }
                 else if (collider.material.name.Contains("WoodHard"))
                 {
                     collider.material = CatalogData.GetPrefab<PhysicMaterial>("PhysicMaterials", "Wood");
+                }
+                else if (collider.material.name.Contains("ShieldWood"))
+                {
+                    collider.material = CatalogData.GetPrefab<PhysicMaterial>("PhysicMaterials", "Wood");
+                    type = Type.Shield;
+                }
+                else if (collider.material.name.Contains("ShieldMetal"))
+                {
+                    collider.material = CatalogData.GetPrefab<PhysicMaterial>("PhysicMaterials", "Metal");
+                    type = Type.Shield;
+                    imbueMagic = ImbueMagic.Blade;
                 }
             }
         }
