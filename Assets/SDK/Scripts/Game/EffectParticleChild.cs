@@ -42,7 +42,7 @@ namespace BS
         public bool shapeRadius;
         public AnimationCurve curveShapeRadius;
 
-        [Header("Intensity to speed")]
+        [Header("Intensity to burst")]
         public bool burst;
         public AnimationCurve curveBurst;
         public short randomRangeBurst;
