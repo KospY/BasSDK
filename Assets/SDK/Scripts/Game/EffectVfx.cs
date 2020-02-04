@@ -11,6 +11,11 @@ namespace BS
         public float lifeTime = 5;
         public Transform targetTransform;
 
+
+        [Header("Intensity to Emitter Size")]
+        public bool emitSize;
+        public AnimationCurve curveEmitSize;
+
         protected bool stopping;
         protected bool hasTarget;
         protected int positionId;
@@ -51,6 +56,11 @@ namespace BS
             if (!loopOnly || (loopOnly && step == Step.Loop))
             {
                 vfx.SetFloat("Intensity", value);
+            }
+
+            if (emitSize)
+            {
+                vfx.SetFloat("Emitter Size", curveEmitSize.Evaluate(value));
             }
         }
 

@@ -74,6 +74,17 @@ namespace BS
         [Button]
         public void AlignObject()
         {
+            AlignObject(false);
+        }
+
+        [Button]
+        public void AlignObjectInverse()
+        {
+            AlignObject(true);
+        }
+
+        public void AlignObject(bool reverse = false)
+        {
             ItemDefinition objectDefinition = handleReference.GetComponentInParent<ItemDefinition>();
 
             Vector3 orgHandleLocalPostion = handleReference.transform.localPosition;
@@ -81,7 +92,7 @@ namespace BS
 
             handleReference.transform.position = handleReference.GetDefaultAxisPosition(side);
             handleReference.transform.position = handleReference.transform.TransformPoint(handleReference.GetDefaultOrientation(side).positionOffset);
-            handleReference.transform.rotation = handleReference.transform.rotation * Quaternion.Euler(handleReference.GetDefaultOrientation(side).rotation);
+            handleReference.transform.rotation = handleReference.transform.rotation * Quaternion.Euler(reverse ? handleReference.GetDefaultOrientation(side).rotation + new Vector3(180, 0, 0) : handleReference.GetDefaultOrientation(side).rotation);
             handleReference.transform.position = handleReference.transform.TransformPoint(new Vector3(side == Side.Right ? handleReference.ikAnchorOffset.x : -handleReference.ikAnchorOffset.x, handleReference.ikAnchorOffset.y, handleReference.ikAnchorOffset.z));
 
             if (objectDefinition != null) objectDefinition.transform.MoveAlign(handleReference.transform, this.transform.TransformPoint(gripLocalPosition), this.transform.rotation * Quaternion.Euler(gripLocalRotation));

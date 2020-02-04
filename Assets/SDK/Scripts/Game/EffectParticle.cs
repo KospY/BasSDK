@@ -19,7 +19,6 @@ namespace BS
         public ParticleSystem rootParticleSystem;
 
         protected ParticleSystem.MinMaxCurve minMaxCurve = new ParticleSystem.MinMaxCurve();
-        protected ParticleSystem.Burst particleBurst = new ParticleSystem.Burst();
 
         [NonSerialized]
         public float currentValue;
@@ -142,11 +141,10 @@ namespace BS
                     }
                     if (p.burst)
                     {
-                        particleBurst.time = 0;
                         short burst = (short)p.curveBurst.Evaluate(value);
-                        particleBurst.minCount = (short)Mathf.Clamp(burst - p.randomRangeBurst, 0, Mathf.Infinity);
-                        particleBurst.maxCount = (short)Mathf.Clamp(burst, 0, Mathf.Infinity);
-                        p.particleSystem.emission.SetBurst(0, particleBurst);
+                        ParticleSystem.Burst particleBurst = new ParticleSystem.Burst(0, (short)Mathf.Clamp(burst - p.randomRangeBurst, 0, Mathf.Infinity), (short)Mathf.Clamp(burst, 0, Mathf.Infinity));
+                        ParticleSystem.EmissionModule particleEmission = p.particleSystem.emission;
+                        particleEmission.SetBurst(0, particleBurst);
                     }
                     if (p.velocityOverLifetime)
                     {
