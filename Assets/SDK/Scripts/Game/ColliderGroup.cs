@@ -21,8 +21,6 @@ namespace BS
         [NonSerialized]
         public ImbueMagic imbueMagic = ImbueMagic.None;
         [NonSerialized]
-        public Type type = Type.Default;
-        [NonSerialized]
         public CollisionHandling collisionHandling = CollisionHandling.ByGroup;
         [NonSerialized]
         public bool penetrable = false;
@@ -43,19 +41,6 @@ namespace BS
             Crystal,
         }
 
-        public enum Type
-        {
-            Default = (1 << 0),
-            Blade = (1 << 1),
-            Shield = (1 << 2),
-            Head = (1 << 3),
-            Neck = (1 << 4),
-            Torso = (1 << 5),
-            Arms = (1 << 6),
-            Heart = (1 << 7),
-            Legs = (1 << 8),
-        }
-
 #if ProjectCore
         [NonSerialized]
         public Imbue imbue;
@@ -70,8 +55,7 @@ namespace BS
                 // For compatibility with old prefab
                 if (collider.material.name.Contains("Blade_"))
                 {
-                    collider.material = CatalogData.GetPrefab<PhysicMaterial>("PhysicMaterials", "Metal");
-                    type = Type.Blade;
+                    collider.material = CatalogData.GetPrefab<PhysicMaterial>("PhysicMaterials", "Blade");
                     imbueMagic = ImbueMagic.Blade;
                 }
                 else if (collider.material.name.Contains("WoodHard"))
@@ -81,12 +65,10 @@ namespace BS
                 else if (collider.material.name.Contains("ShieldWood"))
                 {
                     collider.material = CatalogData.GetPrefab<PhysicMaterial>("PhysicMaterials", "Wood");
-                    type = Type.Shield;
                 }
                 else if (collider.material.name.Contains("ShieldMetal"))
                 {
                     collider.material = CatalogData.GetPrefab<PhysicMaterial>("PhysicMaterials", "Metal");
-                    type = Type.Shield;
                     imbueMagic = ImbueMagic.Blade;
                 }
             }
