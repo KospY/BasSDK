@@ -35,20 +35,12 @@ namespace BS
         {
             Init();
         }
-#if ProjectCore
+
         private void Awake()
         {
             Init();
-            foreach (EffectParticleChild p in childs)
-            {
-                if (p.spawnEffectId != null && p.spawnEffectId != "")
-                {
-                    ParticleCollisionSpawner particleCollisionSpawner = p.particleSystem.gameObject.AddComponent<ParticleCollisionSpawner>();
-                    particleCollisionSpawner.Init(p);
-                }
-            }
         }
-#endif
+
         private void Init()
         {
             rootParticleSystem = this.GetComponent<ParticleSystem>();
@@ -67,6 +59,12 @@ namespace BS
                 child.particleSystem = child.GetComponent<ParticleSystem>();
                 child.particleRenderer = child.particleSystem.GetComponent<ParticleSystemRenderer>();
                 child.materialPropertyBlock = new MaterialPropertyBlock();
+#if ProjectCore
+                if (child.emitEffectOnCollision)
+                {
+                    child.particleCollisionSpawner = child.particleSystem.gameObject.AddComponent<ParticleCollisionSpawner>();
+                }
+#endif
             }
         }
 

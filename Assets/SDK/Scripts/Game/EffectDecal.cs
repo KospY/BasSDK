@@ -182,7 +182,7 @@ namespace BS
 
         public override void SetIntensity(float value, bool loopOnly = false)
         {
-            if ((!loopOnly || (loopOnly && step == Step.Loop)) && meshRenderer.isVisible)
+            if (!loopOnly || (loopOnly && step == Step.Loop))
             {
                 if (linkBaseColor != EffectTarget.None)
                 {

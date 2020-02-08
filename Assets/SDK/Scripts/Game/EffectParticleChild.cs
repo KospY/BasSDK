@@ -12,6 +12,8 @@ namespace BS
         public EffectTarget linkBaseColor = EffectTarget.None;
         public EffectTarget linkTintColor = EffectTarget.None;
 
+        public bool emitEffectOnCollision;
+
         public bool ignoreAlpha;
 
         [Header("Intensity to duration")]
@@ -63,22 +65,17 @@ namespace BS
 
         [Header("Collider")]
         public new bool collider;
-
-        [Header("Spawn on collision")]
-        public string spawnEffectId;
-        public LayerMask spawnLayerMask = ~0;
-        public float spawnMaxGroundAngle = 45;
-        public float spawnEmitRate = 0.1f;
-        public float spawnMinIntensity;
-        public float spawnMaxIntensity;
-        public bool useMainGradient;
-        public bool useSecondaryGradient;
-
+  
         [NonSerialized]
         public ParticleSystemRenderer particleRenderer;
         [NonSerialized]
         public MaterialPropertyBlock materialPropertyBlock;
         [NonSerialized]
         public new ParticleSystem particleSystem;
+
+#if ProjectCore
+        [NonSerialized]
+        public ParticleCollisionSpawner particleCollisionSpawner;
+#endif
     }
 }
