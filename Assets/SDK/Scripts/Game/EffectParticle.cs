@@ -9,7 +9,7 @@ namespace BS
         public int poolCount = 50;
         public float lifeTime = 5;
 
-        public AnimationCurve intensityCurve;
+        public AnimationCurve intensityCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
 
         [NonSerialized]
         public float playTime;
@@ -21,7 +21,6 @@ namespace BS
         public ParticleSystem rootParticleSystem;
 
         protected ParticleSystem.MinMaxCurve minMaxCurve = new ParticleSystem.MinMaxCurve();
-        protected ParticleSystem.Burst particleBurst = new ParticleSystem.Burst();
 
         [NonSerialized]
         public float currentValue;
@@ -114,7 +113,7 @@ namespace BS
                     {
                         minMaxCurve.mode = ParticleSystemCurveMode.TwoConstants;
                         float speed = p.curveSpeed.Evaluate(currentValue);
-                        minMaxCurve.constantMin = speed - p.randomRangeSpeed;
+                        minMaxCurve.constantMin = minMaxCurve.constantMin = Mathf.Clamp(speed - p.randomRangeSpeed, 0, Mathf.Infinity);
                         minMaxCurve.constantMax = speed;
                         mainModule.startSpeed = minMaxCurve;
                     }
@@ -142,11 +141,10 @@ namespace BS
                     }
                     if (p.burst)
                     {
-                        particleBurst.time = 0;
-                        short burst = (short)p.curveBurst.Evaluate(currentValue);
-                        particleBurst.minCount = (short)Mathf.Clamp(burst - p.randomRangeBurst, 0, Mathf.Infinity);
-                        particleBurst.maxCount = (short)Mathf.Clamp(burst, 0, Mathf.Infinity);
-                        p.particleSystem.emission.SetBurst(0, particleBurst);
+                        short burst = (short)p.curveBurst.Evaluate(value);
+                        ParticleSystem.Burst particleBurst = new ParticleSystem.Burst(0, (short)Mathf.Clamp(burst - p.randomRangeBurst, 0, Mathf.Infinity), (short)Mathf.Clamp(burst, 0, Mathf.Infinity));
+                        ParticleSystem.EmissionModule particleEmission = p.particleSystem.emission;
+                        particleEmission.SetBurst(0, particleBurst);
                     }
                     if (p.velocityOverLifetime)
                     {
