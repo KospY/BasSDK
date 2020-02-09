@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-#if ProjectCore
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #endif
 
