@@ -144,7 +144,7 @@ namespace BS
                     Creature playerCreature = null;
                     try
                     {
-                        playerCreature = Catalog.GetData<CreatureData>(Catalog.gameData.defaultPlayerCreatureID).Instantiate(playerStart.position, playerStart.rotation);
+                        playerCreature = Catalog.GetData<CreatureData>(GameManager.playerData.creatureId).Instantiate(playerStart.position, playerStart.rotation);
                         playerCreature.container.containerID = null;
                         playerCreature.loadUmaPreset = false;
                         playerCreature.container.content = GameManager.playerData.inventory;
