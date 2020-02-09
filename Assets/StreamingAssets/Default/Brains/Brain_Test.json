@@ -131,8 +131,8 @@
     "movebreakRange": 1.0,
     "turnIfTargetGroundedOnly": false,
     "strafeMinMaxDelay": {
-      "x": 2.0,
-      "y": 6.0
+      "x": 0.0,
+      "y": 0.0
     },
     "id": "BS.ActionStrafe",
     "status": 0,
@@ -170,7 +170,8 @@
       "postWrapMode": 8
     },
     "maxVelocity": 3.0,
-    "fallMinImpulseVelocity": 8.0,
+    "fallMinImpactVelocity": 8.0,
+    "unpinDistance": 0.3,
     "id": "BS.ActionDying",
     "status": 0,
     "navSpeedMultiplier": 0.0

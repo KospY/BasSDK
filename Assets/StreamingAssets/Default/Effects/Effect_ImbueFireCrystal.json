@@ -59,6 +59,7 @@
     {
       "$type": "BS.EffectModuleParticle, Assembly-CSharp",
       "effectParticlePath": "@vfx:FireImbueCrystal",
+      "intensityCurve": null,
       "mainGradient": {
         "colorKeys": [
           {
@@ -134,6 +135,16 @@
         ],
         "mode": 0
       },
+      "collisionEffectId": null,
+      "collisionLayerMask": {
+        "value": -1
+      },
+      "collisionMaxGroundAngle": 45.0,
+      "collisionEmitRate": 0.2,
+      "collisionMinIntensity": 0.0,
+      "collisionMaxIntensity": 1.0,
+      "collisionUseMainGradient": false,
+      "collisionUseSecondaryGradient": false,
       "step": 1
     }
   ]

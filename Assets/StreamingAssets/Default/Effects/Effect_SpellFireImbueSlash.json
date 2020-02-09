@@ -1,0 +1,292 @@
+{
+  "$type": "BS.EffectData, Assembly-CSharp",
+  "id": "SpellFireImbueSlash",
+  "version": 0,
+  "category": "Spell",
+  "modules": [
+    {
+      "$type": "BS.EffectModuleParticle, Assembly-CSharp",
+      "effectParticlePath": "@vfx:FireImbueImpact.prefab",
+      "intensityCurve": null,
+      "mainGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.339622617,
+              "g": 0.0777343959,
+              "b": 0.07208972
+            },
+            "time": 0.0
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 11.9843159,
+              "g": 2.76078415,
+              "b": 0.0
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "secondaryGradient": null,
+      "collisionEffectId": null,
+      "collisionLayerMask": {
+        "value": -1
+      },
+      "collisionMaxGroundAngle": 45.0,
+      "collisionEmitRate": 0.2,
+      "collisionMinIntensity": 0.0,
+      "collisionMaxIntensity": 1.0,
+      "collisionUseMainGradient": false,
+      "collisionUseSecondaryGradient": false,
+      "step": 0
+    },
+    {
+      "$type": "BS.EffectModuleAudio, Assembly-CSharp",
+      "audioContainerPath": "SpellFireImbueHit",
+      "randomPitch": false,
+      "pitchCurve": null,
+      "volumeCurve": null,
+      "loopFadeDelay": 0.0,
+      "audioMixer": 1,
+      "minDistance": 1.0,
+      "maxDistance": 500.0,
+      "step": 0
+    },
+    {
+      "$type": "BS.EffectModuleDecal, Assembly-CSharp",
+      "materialPath": "@vfx:FireSlash.mat",
+      "baseLifeTime": 60.0,
+      "emissionLifeTime": 10.0,
+      "fadeRefreshSpeed": 0.1,
+      "priority": 0,
+      "allowItem": false,
+      "allowRagdollPart": false,
+      "size": {
+        "x": 0.2,
+        "y": 0.2,
+        "z": 0.2
+      },
+      "sizeCurve": null,
+      "linkBaseColor": 1,
+      "linkEmissionColor": 2,
+      "mainGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 1.0,
+              "g": 1.0,
+              "b": 1.0
+            },
+            "time": 0.0117647061
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 1.0,
+              "g": 1.0,
+              "b": 1.0
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 0.0,
+            "time": 0.00294499123
+          },
+          {
+            "alpha": 1.0,
+            "time": 0.758831143
+          }
+        ],
+        "mode": 0
+      },
+      "secondaryGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "time": 0.0529488064
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.873554468,
+              "g": 0.261011839,
+              "b": 0.152459979
+            },
+            "time": 0.311772346
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 1.84430265,
+              "g": 0.657280564,
+              "b": 0.09656032
+            },
+            "time": 0.582360566
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 4.237095,
+              "g": 1.90780187,
+              "b": 0.820798457
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 0.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 0.490196079,
+            "time": 0.117647059
+          },
+          {
+            "alpha": 0.4862745,
+            "time": 0.391180277
+          },
+          {
+            "alpha": 1.0,
+            "time": 0.9323568
+          }
+        ],
+        "mode": 0
+      },
+      "step": 0
+    },
+    {
+      "$type": "BS.EffectModulePaint, Assembly-CSharp",
+      "materialPath": "@vfx:FireSlash.mat",
+      "blendMode": 0,
+      "radius": 0.1,
+      "useRadiusCurve": false,
+      "radiusCurve": null,
+      "depth": 1.0,
+      "opacity": 1.0,
+      "hardness": 1.0,
+      "normalFront": 1.0,
+      "normalBack": 0.0,
+      "normalFade": 0.5,
+      "allowItem": false,
+      "allowRagdollPart": true,
+      "linkBaseColor": 1,
+      "linkEmissionColor": 2,
+      "mainGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 1.0,
+              "g": 1.0,
+              "b": 1.0
+            },
+            "time": 0.0117647061
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 1.0,
+              "g": 1.0,
+              "b": 1.0
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 0.0,
+            "time": 0.00294499123
+          },
+          {
+            "alpha": 1.0,
+            "time": 0.758831143
+          }
+        ],
+        "mode": 0
+      },
+      "secondaryGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "time": 0.0529488064
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.873554468,
+              "g": 0.261011839,
+              "b": 0.152459979
+            },
+            "time": 0.311772346
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 1.84430265,
+              "g": 0.657280564,
+              "b": 0.09656032
+            },
+            "time": 0.582360566
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 4.237095,
+              "g": 1.90780187,
+              "b": 0.820798457
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 0.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 0.490196079,
+            "time": 0.117647059
+          },
+          {
+            "alpha": 0.4862745,
+            "time": 0.391180277
+          },
+          {
+            "alpha": 1.0,
+            "time": 0.9323568
+          }
+        ],
+        "mode": 0
+      },
+      "step": 0
+    }
+  ]
+}

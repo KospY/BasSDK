@@ -9,7 +9,8 @@
   "overrideOptionsOnStart": false,
   "hideMenuOptions": false,
   "loadMods": true,
-  "defaultPlayerCreatureID": "PlayerDefault",
+  "defaultPlayerMaleCreatureID": "PlayerDefaultMale",
+  "defaultPlayerFemaleCreatureID": "PlayerDefaultFemale",
   "defaultPlayerStorageContainerID": "PlayerStorageDefault",
   "defaultPlayerRackContainerID": "PlayerRackDefault",
   "levelHome": "Home",
@@ -27,32 +28,32 @@
     },
     {
       "imbueBladeEnergyMax": 10.0,
-      "imbueBladeEnergyRate": 1.0,
-      "imbueBladeEnergyLoss": 1.0,
+      "imbueBladeEnergyRate": 1.25,
+      "imbueBladeEnergyLoss": 0.75,
       "imbueCrystalEnergyMax": 100.0,
       "imbueCrystalEnergyRate": 5.0,
       "imbueCrystalEnergyLoss": 0.0
     },
     {
       "imbueBladeEnergyMax": 20.0,
-      "imbueBladeEnergyRate": 1.0,
-      "imbueBladeEnergyLoss": 1.0,
+      "imbueBladeEnergyRate": 2.0,
+      "imbueBladeEnergyLoss": 0.5,
       "imbueCrystalEnergyMax": 150.0,
       "imbueCrystalEnergyRate": 5.0,
       "imbueCrystalEnergyLoss": 0.0
     },
     {
       "imbueBladeEnergyMax": 30.0,
-      "imbueBladeEnergyRate": 1.0,
-      "imbueBladeEnergyLoss": 1.0,
+      "imbueBladeEnergyRate": 3.0,
+      "imbueBladeEnergyLoss": 0.25,
       "imbueCrystalEnergyMax": 200.0,
       "imbueCrystalEnergyRate": 5.0,
       "imbueCrystalEnergyLoss": 0.0
     },
     {
       "imbueBladeEnergyMax": 40.0,
-      "imbueBladeEnergyRate": 1.0,
-      "imbueBladeEnergyLoss": 1.0,
+      "imbueBladeEnergyRate": 4.0,
+      "imbueBladeEnergyLoss": 0.1,
       "imbueCrystalEnergyMax": 300.0,
       "imbueCrystalEnergyRate": 5.0,
       "imbueCrystalEnergyLoss": 0.0
@@ -60,8 +61,8 @@
   ],
   "uma": {
     "initialScaleFactor": 2,
-    "defaultMaleRaceId": "HumanMale2",
-    "defaultFemaleRaceId": "HumanFemale2",
+    "defaultMaleRaceId": "HumanMale",
+    "defaultFemaleRaceId": "HumanFemale",
     "defaultMaleHair": "MaleHair11",
     "defaultFemaleHair": "FemaleHair14",
     "defaultMaleBeard": "MaleBeard7",
@@ -278,12 +279,16 @@
   "throwVelocity": 2.0,
   "throwMultiplier": 2.0,
   "collisionEnterVelocityRange": {
-    "x": 0.5,
-    "y": 6.0
+    "x": 0.25,
+    "y": 15.0
   },
   "collisionStayVelocityRange": {
-    "x": 0.5,
+    "x": 0.25,
     "y": 3.0
+  },
+  "penetrationVelocityEffectRange": {
+    "x": 0.0,
+    "y": 1.0
   },
   "maxObjectCollision": 10,
   "maxCollisionStayCheckPerFrame": 100,

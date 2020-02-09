@@ -11,8 +11,13 @@
   "poses": [
     {
       "creatureType": 0,
-      "umaRace": "HumanMaleRogue",
-      "prefabPath": "HumanMaleHat"
+      "umaRaceId": "HumanMale",
+      "prefabPath": "@handposes:HumanMale_Hat"
+    },
+    {
+      "creatureType": 0,
+      "umaRaceId": "HumanFemale",
+      "prefabPath": "@handposes:HumanFemale_Hat"
     }
   ]
 }

@@ -70,29 +70,72 @@
     },
     {
       "$type": "BS.EffectModuleParticle, Assembly-CSharp",
-      "effectParticlePath": "HitFleshLight",
+      "effectParticlePath": "@vfx:HitFlesh",
+      "intensityCurve": null,
       "mainGradient": null,
       "secondaryGradient": null,
+      "collisionEffectId": "DropBlood",
+      "collisionLayerMask": {
+        "value": 1
+      },
+      "collisionMaxGroundAngle": 45.0,
+      "collisionEmitRate": 0.2,
+      "collisionMinIntensity": 0.0,
+      "collisionMaxIntensity": 1.0,
+      "collisionUseMainGradient": false,
+      "collisionUseSecondaryGradient": false,
       "step": 0
     },
     {
-      "$type": "BS.EffectModuleDecal, Assembly-CSharp",
-      "materialPath": "@vfx:BloodBlunt",
-      "baseLifeTime": 0.0,
-      "emissionLifeTime": 10.0,
-      "fadeRefreshSpeed": 0.1,
-      "priority": 0,
+      "$type": "BS.EffectModulePaint, Assembly-CSharp",
+      "materialPath": "@vfx:BloodBlunt.mat",
+      "blendMode": 0,
+      "radius": 0.1,
+      "useRadiusCurve": false,
+      "radiusCurve": null,
+      "depth": 1.0,
+      "opacity": 1.0,
+      "hardness": 1.0,
+      "normalFront": 1.0,
+      "normalBack": 0.0,
+      "normalFade": 0.5,
       "allowItem": false,
-      "allowRagdollPart": false,
-      "size": {
-        "x": 0.1,
-        "y": 0.1,
-        "z": 0.1
-      },
-      "sizeCurve": null,
-      "linkBaseColor": 0,
+      "allowRagdollPart": true,
+      "linkBaseColor": 1,
       "linkEmissionColor": 0,
-      "mainGradient": null,
+      "mainGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.6886792,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "time": 0.0
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.392156869,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 0.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
       "secondaryGradient": null,
       "step": 0
     }

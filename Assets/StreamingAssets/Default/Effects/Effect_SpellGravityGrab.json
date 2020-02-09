@@ -71,6 +71,7 @@
     {
       "$type": "BS.EffectModuleParticle, Assembly-CSharp",
       "effectParticlePath": "@vfx:GravityGrab1",
+      "intensityCurve": null,
       "mainGradient": {
         "colorKeys": [
           {
@@ -105,6 +106,16 @@
         "mode": 0
       },
       "secondaryGradient": null,
+      "collisionEffectId": null,
+      "collisionLayerMask": {
+        "value": -1
+      },
+      "collisionMaxGroundAngle": 45.0,
+      "collisionEmitRate": 0.2,
+      "collisionMinIntensity": 0.0,
+      "collisionMaxIntensity": 1.0,
+      "collisionUseMainGradient": false,
+      "collisionUseSecondaryGradient": false,
       "step": 1
     },
     {

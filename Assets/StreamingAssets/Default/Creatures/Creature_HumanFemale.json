@@ -1,0 +1,179 @@
+{
+  "$type": "BS.CreatureData, Assembly-CSharp",
+  "id": "HumanFemale",
+  "version": 5,
+  "displayName": "{Human}",
+  "prefabName": "UMANPC",
+  "health": 50,
+  "baseXP": 20,
+  "containerID": "Barbarian1H",
+  "factionId": 3,
+  "type": 0,
+  "paintable": true,
+  "paintableMaterialProperties": [
+    {
+      "materialIndex": 0,
+      "propertyType": 0,
+      "propertyName": "_BaseMap"
+    }
+  ],
+  "handItemId": "Hand",
+  "footItemId": "Foot",
+  "footTrackedItemId": "FootTracked",
+  "ragdollID": "Human",
+  "ragdollUsePhysics": true,
+  "ragdollKillVelocityRange": {
+    "x": 5.0,
+    "y": 20.0
+  },
+  "ragdollKillDamageRange": {
+    "x": 2,
+    "y": 100,
+    "magnitude": 100.02,
+    "sqrMagnitude": 10004
+  },
+  "sliceFillPath": "SliceFlesh",
+  "umaPresetID": "HumanFemale",
+  "brainId": "Human3Medium",
+  "avoidancePriority": 10,
+  "mana": 100.0,
+  "manaRate": 5.0,
+  "spells": [],
+  "forceMaxPosition": 3000.0,
+  "forceMaxRotation": 300.0,
+  "forcePositionSpringDamper": {
+    "x": 5000.0,
+    "y": 100.0
+  },
+  "forceRotationSpringDamper": {
+    "x": 1000.0,
+    "y": 50.0
+  },
+  "forcePositionSpringDamper2HMult": {
+    "x": 2.0,
+    "y": 1.0
+  },
+  "forceSpringDamper2HNoDomMult": {
+    "x": 2.0,
+    "y": 1.5
+  },
+  "forceRotationSpringDamper2HMult": {
+    "x": 2.0,
+    "y": 2.0
+  },
+  "climbingForceMaxPosition": 3000.0,
+  "climbingForceMaxRotation": 100.0,
+  "climbingForcePositionSpringDamperMult": {
+    "x": 1.0,
+    "y": 3.0
+  },
+  "gripForceMaxPosition": 3000.0,
+  "gripForceMaxRotation": 100.0,
+  "gripForcePositionSpringDamperMult": {
+    "x": 1.0,
+    "y": 1.0
+  },
+  "gripForceRotationSpringDamperMult": {
+    "x": 0.5,
+    "y": 1.0
+  },
+  "holders": [
+    {
+      "interactableHolderId": "HolderBack",
+      "name": "BackRight",
+      "axisLength": 0.0,
+      "touchRadius": 0.18,
+      "touchCenter": {
+        "x": 0.0,
+        "y": -0.05,
+        "z": -0.05
+      },
+      "bone": 8,
+      "localPosition": {
+        "x": -0.3,
+        "y": 0.13,
+        "z": -0.1
+      },
+      "localRotation": {
+        "x": 15.0,
+        "y": 104.0,
+        "z": -75.0
+      }
+    },
+    {
+      "interactableHolderId": "HolderBack",
+      "name": "BackLeft",
+      "axisLength": 0.0,
+      "touchRadius": 0.18,
+      "touchCenter": {
+        "x": 0.0,
+        "y": -0.05,
+        "z": -0.05
+      },
+      "bone": 8,
+      "localPosition": {
+        "x": -0.3,
+        "y": -0.13,
+        "z": -0.1
+      },
+      "localRotation": {
+        "x": 345.0,
+        "y": 102.0,
+        "z": -105.0
+      }
+    },
+    {
+      "interactableHolderId": "HolderHips",
+      "name": "HipsRight",
+      "axisLength": 0.0,
+      "touchRadius": 0.15,
+      "touchCenter": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "bone": 0,
+      "localPosition": {
+        "x": -0.12,
+        "y": 0.225,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 353.0,
+        "y": 90.0,
+        "z": 180.0
+      }
+    },
+    {
+      "interactableHolderId": "HolderHips",
+      "name": "HipsLeft",
+      "axisLength": 0.0,
+      "touchRadius": 0.15,
+      "touchCenter": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "bone": 0,
+      "localPosition": {
+        "x": -0.15,
+        "y": -0.225,
+        "z": 0.012
+      },
+      "localRotation": {
+        "x": 7.0,
+        "y": 90.0,
+        "z": 180.0
+      }
+    }
+  ],
+  "locomotionMass": 1.0,
+  "locomotionSpeed": 3.0,
+  "locomotionAirSpeed": 2.0,
+  "locomotionJumpForce": 0.3,
+  "locomotionJumpClimbMultiplier": 0.8,
+  "locomotionJumpMaxDuration": 0.6,
+  "locomotionBackwardSpeedMult": 0.8,
+  "locomotionStrafeSpeedMult": 0.8,
+  "locomotionRunSpeedMult": 2.0
+}

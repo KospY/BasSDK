@@ -6,24 +6,34 @@
   "sex": 2,
   "wardrobes": [
     {
-      "slot": "UnderwearBottom",
-      "recipe": "FemaleUndiesBottom"
+      "slot": "Underwear",
+      "recipe": "Female Human Underwear"
     },
     {
-      "slot": "UnderwearTop",
-      "recipe": "FemaleUndiesTop"
+      "slot": "Hair",
+      "recipe": "Female Human Hair 01"
     }
   ],
-  "headOffset": {
+  "headSlots": [
+    "Human Female_Eyebrows",
+    "Human Female_Eyelashes",
+    "Human Female_Head",
+    "Human Female_Inner Eyes",
+    "Human Female_Mouth",
+    "Human Female_Outer Eyes",
+    "Human Female_Teeth",
+    "Human Female_Tongue"
+  ],
+  "eyeCameraOffset": {
     "x": 0.0,
     "y": 0.0,
     "z": 0.0
   },
-  "handFixedScale": true,
+  "handFixedScale": false,
   "handGlobalScale": {
-    "x": 1.1,
-    "y": 1.1,
-    "z": 1.1
+    "x": 0.9,
+    "y": 0.9,
+    "z": 0.9
   },
   "fingerBoneRotation": {
     "x": 270.0,
@@ -32,7 +42,7 @@
   },
   "fingerPositionOffset": {
     "x": 0.0,
-    "y": -0.005,
+    "y": -0.008,
     "z": 0.0
   },
   "thumbPositionOffset": {
@@ -51,14 +61,14 @@
     "z": 0.0
   },
   "handRightGripPosition": {
-    "x": 0.07,
-    "y": -0.035,
-    "z": 0.015
+    "x": 0.08,
+    "y": -0.025,
+    "z": 0.01
   },
   "handRightGripRotation": {
     "x": 0.0,
     "y": 120.0,
-    "z": 82.0
+    "z": 85.0
   },
   "handLeftPalmAxis": {
     "x": -1.0,
@@ -71,14 +81,19 @@
     "z": 0.0
   },
   "handLeftGripPosition": {
-    "x": -0.07,
-    "y": -0.035,
-    "z": 0.015
+    "x": -0.08,
+    "y": -0.025,
+    "z": 0.01
   },
   "handLeftGripRotation": {
     "x": -180.0,
     "y": 60.0,
-    "z": 98.0
+    "z": 95.0
+  },
+  "toeDirection": {
+    "x": 0.0,
+    "y": -90.0,
+    "z": -90.0
   },
   "expressionAttackId": "Attack",
   "expressionPainId": "Pain",

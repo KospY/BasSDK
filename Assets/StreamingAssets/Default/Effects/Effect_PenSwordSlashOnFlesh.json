@@ -69,34 +69,6 @@
       "step": 0
     },
     {
-      "$type": "BS.EffectModuleParticle, Assembly-CSharp",
-      "effectParticlePath": "HitFleshLight",
-      "mainGradient": null,
-      "secondaryGradient": null,
-      "step": 0
-    },
-    {
-      "$type": "BS.EffectModuleDecal, Assembly-CSharp",
-      "materialPath": "@vfx:BloodSlash",
-      "baseLifeTime": 0.0,
-      "emissionLifeTime": 10.0,
-      "fadeRefreshSpeed": 0.1,
-      "priority": 0,
-      "allowItem": false,
-      "allowRagdollPart": false,
-      "size": {
-        "x": 0.22,
-        "y": 0.22,
-        "z": 0.15
-      },
-      "sizeCurve": null,
-      "linkBaseColor": 0,
-      "linkEmissionColor": 0,
-      "mainGradient": null,
-      "secondaryGradient": null,
-      "step": 0
-    },
-    {
       "$type": "BS.EffectModuleAudio, Assembly-CSharp",
       "audioContainerPath": "PenFleshLoop",
       "randomPitch": false,
@@ -158,13 +130,6 @@
       "audioMixer": 1,
       "minDistance": 1.0,
       "maxDistance": 500.0,
-      "step": 1
-    },
-    {
-      "$type": "BS.EffectModuleParticle, Assembly-CSharp",
-      "effectParticlePath": "Particle_StickLoop_Flesh",
-      "mainGradient": null,
-      "secondaryGradient": null,
       "step": 1
     },
     {
@@ -233,10 +198,39 @@
     },
     {
       "$type": "BS.EffectModuleParticle, Assembly-CSharp",
-      "effectParticlePath": "Particle_StickExit_Flesh",
+      "effectParticlePath": "@vfx:HitFleshLoopExit",
+      "intensityCurve": null,
       "mainGradient": null,
       "secondaryGradient": null,
+      "collisionEffectId": "DropBlood",
+      "collisionLayerMask": {
+        "value": 1
+      },
+      "collisionMaxGroundAngle": 45.0,
+      "collisionEmitRate": 0.2,
+      "collisionMinIntensity": 0.0,
+      "collisionMaxIntensity": 1.0,
+      "collisionUseMainGradient": false,
+      "collisionUseSecondaryGradient": false,
       "step": 2
+    },
+    {
+      "$type": "BS.EffectModuleParticle, Assembly-CSharp",
+      "effectParticlePath": "@vfx:HitFleshLoop",
+      "intensityCurve": null,
+      "mainGradient": null,
+      "secondaryGradient": null,
+      "collisionEffectId": "DropBlood",
+      "collisionLayerMask": {
+        "value": 1
+      },
+      "collisionMaxGroundAngle": 45.0,
+      "collisionEmitRate": 0.2,
+      "collisionMinIntensity": 0.0,
+      "collisionMaxIntensity": 1.0,
+      "collisionUseMainGradient": false,
+      "collisionUseSecondaryGradient": false,
+      "step": 1
     }
   ]
 }

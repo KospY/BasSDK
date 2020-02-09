@@ -11,8 +11,18 @@
   "poses": [
     {
       "creatureType": 0,
-      "umaRace": "HumanMaleRogue",
+      "umaRaceId": "HumanMale",
       "prefabPath": "HumanMaleChargeClose"
+    },
+    {
+      "creatureType": 0,
+      "umaRaceId": null,
+      "prefabPath": "@handposes:HumanMale_ChargeClose"
+    },
+    {
+      "creatureType": 0,
+      "umaRaceId": "HumanFemale",
+      "prefabPath": "@handposes:HumanFemale_ChargeClose"
     }
   ]
 }

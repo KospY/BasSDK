@@ -70,9 +70,20 @@
     },
     {
       "$type": "BS.EffectModuleParticle, Assembly-CSharp",
-      "effectParticlePath": "LiquidFlow",
+      "effectParticlePath": "@vfx:LiquidFlow",
+      "intensityCurve": null,
       "mainGradient": null,
       "secondaryGradient": null,
+      "collisionEffectId": "PotionBlot",
+      "collisionLayerMask": {
+        "value": 1
+      },
+      "collisionMaxGroundAngle": 45.0,
+      "collisionEmitRate": 0.1,
+      "collisionMinIntensity": 1.0,
+      "collisionMaxIntensity": 1.0,
+      "collisionUseMainGradient": false,
+      "collisionUseSecondaryGradient": false,
       "step": 1
     },
     {

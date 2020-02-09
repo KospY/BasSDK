@@ -11,14 +11,40 @@
       "emissionLifeTime": 10.0,
       "fadeRefreshSpeed": 0.1,
       "priority": 0,
-      "allowItem": false,
-      "allowRagdollPart": false,
+      "allowItem": true,
+      "allowRagdollPart": true,
       "size": {
-        "x": 0.1,
-        "y": 0.1,
-        "z": 0.1
+        "x": 0.5,
+        "y": 0.5,
+        "z": 0.5
       },
-      "sizeCurve": null,
+      "sizeCurve": {
+        "keys": [
+          {
+            "time": 0.0,
+            "value": 0.1,
+            "inTangent": 2.0,
+            "outTangent": 2.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          },
+          {
+            "time": 1.0,
+            "value": 1.0,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
       "linkBaseColor": 0,
       "linkEmissionColor": 0,
       "mainGradient": null,

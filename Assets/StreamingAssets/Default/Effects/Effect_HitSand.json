@@ -7,7 +7,7 @@
     {
       "$type": "BS.EffectModuleAudio, Assembly-CSharp",
       "audioContainerPath": "HitSand",
-      "randomPitch": false,
+      "randomPitch": true,
       "pitchCurve": {
         "keys": [
           {
@@ -38,8 +38,8 @@
       "volumeCurve": {
         "keys": [
           {
-            "time": 0.0,
-            "value": 0.1,
+            "time": 0.1,
+            "value": 0.0,
             "inTangent": 0.0,
             "outTangent": 0.0,
             "inWeight": 0.0,
@@ -70,9 +70,46 @@
     },
     {
       "$type": "BS.EffectModuleParticle, Assembly-CSharp",
-      "effectParticlePath": "FootstepSand",
+      "effectParticlePath": "@vfx:HitSand",
+      "intensityCurve": {
+        "keys": [
+          {
+            "time": 0.1,
+            "value": 0.0,
+            "inTangent": 2.0,
+            "outTangent": 2.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          },
+          {
+            "time": 1.0,
+            "value": 1.0,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
       "mainGradient": null,
       "secondaryGradient": null,
+      "collisionEffectId": null,
+      "collisionLayerMask": {
+        "value": -1
+      },
+      "collisionMaxGroundAngle": 45.0,
+      "collisionEmitRate": 0.2,
+      "collisionMinIntensity": 0.0,
+      "collisionMaxIntensity": 1.0,
+      "collisionUseMainGradient": false,
+      "collisionUseSecondaryGradient": false,
       "step": 0
     }
   ]

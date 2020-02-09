@@ -84,6 +84,88 @@
       "minDistance": 1.0,
       "maxDistance": 500.0,
       "step": 1
+    },
+    {
+      "$type": "BS.EffectModuleParticle, Assembly-CSharp",
+      "effectParticlePath": "@vfx:GravityImbueBlade",
+      "intensityCurve": null,
+      "mainGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "time": 0.0
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 1.17803621,
+              "g": 0.4441776,
+              "b": 1.84430265
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "secondaryGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.0,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "time": 0.0
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 1.17803621,
+              "g": 0.4441776,
+              "b": 1.84430265
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "collisionEffectId": null,
+      "collisionLayerMask": {
+        "value": -1
+      },
+      "collisionMaxGroundAngle": 45.0,
+      "collisionEmitRate": 0.2,
+      "collisionMinIntensity": 0.0,
+      "collisionMaxIntensity": 1.0,
+      "collisionUseMainGradient": false,
+      "collisionUseSecondaryGradient": false,
+      "step": 1
     }
   ]
 }

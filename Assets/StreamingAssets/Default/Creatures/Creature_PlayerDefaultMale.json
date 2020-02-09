@@ -1,0 +1,207 @@
+{
+  "$type": "BS.CreatureData, Assembly-CSharp",
+  "id": "PlayerDefaultMale",
+  "version": 5,
+  "displayName": "{Human}",
+  "prefabName": "UMAPlayer",
+  "health": 100,
+  "baseXP": 0,
+  "containerID": "PlayerDefault",
+  "factionId": 2,
+  "type": 0,
+  "paintable": true,
+  "paintableMaterialProperties": [
+    {
+      "materialIndex": 0,
+      "propertyType": 0,
+      "propertyName": "_BaseMap"
+    }
+  ],
+  "handItemId": "Hand",
+  "footItemId": "Foot",
+  "footTrackedItemId": "FootTracked",
+  "ragdollID": "Human",
+  "ragdollUsePhysics": false,
+  "ragdollKillVelocityRange": {
+    "x": 5.0,
+    "y": 20.0
+  },
+  "ragdollKillDamageRange": {
+    "x": 2,
+    "y": 100,
+    "magnitude": 100.02,
+    "sqrMagnitude": 10004
+  },
+  "sliceFillPath": "SliceFlesh",
+  "umaPresetID": "HumanMale",
+  "brainId": "",
+  "avoidancePriority": 10,
+  "mana": 100.0,
+  "manaRate": 10.0,
+  "spells": [
+    "SlowTime",
+    "Telekinesis",
+    "Lightning",
+    "Gravity",
+    "Fire"
+  ],
+  "forceMaxPosition": 3000.0,
+  "forceMaxRotation": 250.0,
+  "forcePositionSpringDamper": {
+    "x": 5000.0,
+    "y": 100.0
+  },
+  "forceRotationSpringDamper": {
+    "x": 1000.0,
+    "y": 50.0
+  },
+  "forcePositionSpringDamper2HMult": {
+    "x": 2.0,
+    "y": 1.0
+  },
+  "forceSpringDamper2HNoDomMult": {
+    "x": 2.0,
+    "y": 1.5
+  },
+  "forceRotationSpringDamper2HMult": {
+    "x": 2.0,
+    "y": 2.0
+  },
+  "climbingForceMaxPosition": 2000.0,
+  "climbingForceMaxRotation": 100.0,
+  "climbingForcePositionSpringDamperMult": {
+    "x": 1.0,
+    "y": 3.0
+  },
+  "gripForceMaxPosition": 2000.0,
+  "gripForceMaxRotation": 100.0,
+  "gripForcePositionSpringDamperMult": {
+    "x": 0.5,
+    "y": 0.5
+  },
+  "gripForceRotationSpringDamperMult": {
+    "x": 0.1,
+    "y": 0.1
+  },
+  "holders": [
+    {
+      "interactableHolderId": "HolderPlayerBackRight",
+      "name": "BackRight",
+      "axisLength": 0.0,
+      "touchRadius": 0.18,
+      "touchCenter": {
+        "x": 0.0,
+        "y": -0.05,
+        "z": -0.05
+      },
+      "bone": 8,
+      "localPosition": {
+        "x": -0.3,
+        "y": 0.13,
+        "z": -0.13
+      },
+      "localRotation": {
+        "x": 15.0,
+        "y": 93.0,
+        "z": 270.0
+      }
+    },
+    {
+      "interactableHolderId": "HolderPlayerBackLeft",
+      "name": "BackLeft",
+      "axisLength": 0.0,
+      "touchRadius": 0.18,
+      "touchCenter": {
+        "x": 0.0,
+        "y": -0.05,
+        "z": -0.05
+      },
+      "bone": 8,
+      "localPosition": {
+        "x": -0.3,
+        "y": -0.13,
+        "z": -0.13
+      },
+      "localRotation": {
+        "x": 345.0,
+        "y": 95.0,
+        "z": 270.0
+      }
+    },
+    {
+      "interactableHolderId": "HolderPlayerHips",
+      "name": "HipsRight",
+      "axisLength": 0.0,
+      "touchRadius": 0.15,
+      "touchCenter": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "bone": 0,
+      "localPosition": {
+        "x": -0.09,
+        "y": 0.215,
+        "z": 0.01
+      },
+      "localRotation": {
+        "x": 353.0,
+        "y": 83.0,
+        "z": 180.0
+      }
+    },
+    {
+      "interactableHolderId": "HolderPlayerHips",
+      "name": "HipsLeft",
+      "axisLength": 0.0,
+      "touchRadius": 0.15,
+      "touchCenter": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "bone": 0,
+      "localPosition": {
+        "x": -0.09,
+        "y": -0.215,
+        "z": 0.01
+      },
+      "localRotation": {
+        "x": 7.0,
+        "y": 83.0,
+        "z": 180.0
+      }
+    },
+    {
+      "interactableHolderId": "HolderPlayerHead",
+      "name": "Default",
+      "axisLength": 0.0,
+      "touchRadius": 0.15,
+      "touchCenter": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "bone": 10,
+      "localPosition": {
+        "x": -0.14,
+        "y": 0.0,
+        "z": 0.02
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 90.0,
+        "z": 90.0
+      }
+    }
+  ],
+  "locomotionMass": 70.0,
+  "locomotionSpeed": 3.0,
+  "locomotionAirSpeed": 2.0,
+  "locomotionJumpForce": 0.3,
+  "locomotionJumpClimbMultiplier": 0.8,
+  "locomotionJumpMaxDuration": 0.6,
+  "locomotionBackwardSpeedMult": 0.4,
+  "locomotionStrafeSpeedMult": 0.4,
+  "locomotionRunSpeedMult": 2.0
+}

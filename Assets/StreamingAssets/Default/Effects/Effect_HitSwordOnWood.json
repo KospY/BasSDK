@@ -135,8 +135,19 @@
     {
       "$type": "BS.EffectModuleParticle, Assembly-CSharp",
       "effectParticlePath": "@vfx:HitWood",
+      "intensityCurve": null,
       "mainGradient": null,
       "secondaryGradient": null,
+      "collisionEffectId": null,
+      "collisionLayerMask": {
+        "value": -1
+      },
+      "collisionMaxGroundAngle": 45.0,
+      "collisionEmitRate": 0.2,
+      "collisionMinIntensity": 0.0,
+      "collisionMaxIntensity": 1.0,
+      "collisionUseMainGradient": false,
+      "collisionUseSecondaryGradient": false,
       "step": 0
     },
     {

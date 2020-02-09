@@ -1,0 +1,61 @@
+{
+  "$type": "BS.EffectData, Assembly-CSharp",
+  "id": "HitDamagerBlood",
+  "version": 0,
+  "category": "Hit",
+  "modules": [
+    {
+      "$type": "BS.EffectModulePaint, Assembly-CSharp",
+      "materialPath": "@vfx:PaintBlood.mat",
+      "blendMode": 0,
+      "radius": 0.07,
+      "useRadiusCurve": false,
+      "radiusCurve": null,
+      "depth": 1.0,
+      "opacity": 1.0,
+      "hardness": 1.0,
+      "normalFront": 1.0,
+      "normalBack": 0.0,
+      "normalFade": 0.5,
+      "allowItem": true,
+      "allowRagdollPart": false,
+      "linkBaseColor": 1,
+      "linkEmissionColor": 0,
+      "mainGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.6886792,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "time": 0.0
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.392156869,
+              "g": 0.0,
+              "b": 0.0
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 0.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "secondaryGradient": null,
+      "step": 0
+    }
+  ]
+}

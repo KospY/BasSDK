@@ -36,6 +36,14 @@
   "grippable": true,
   "customSnaps": [],
   "modules": null,
+  "colliderGroups": [
+    {
+      "transformName": "Colliders",
+      "imbueMagic": 0,
+      "collisionHandling": 0,
+      "allowPenetration": true
+    }
+  ],
   "damagers": [],
   "Interactables": [
     {
@@ -66,7 +74,7 @@
   "whooshs": [
     {
       "transformName": "Whoosh",
-      "fxId": "WhooshSwordLight",
+      "effectId": "WhooshSwordLight",
       "trigger": 0,
       "minVelocity": 5.0,
       "maxVelocity": 12.0
