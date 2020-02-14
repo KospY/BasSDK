@@ -20,6 +20,10 @@ namespace BS
         public bool meshSize;
         public AnimationCurve curveMeshSize;
 
+        [Header("Intensity to mesh rotation Y")]
+        public bool meshRotY;
+        public AnimationCurve curveMeshrotY;
+
         [NonSerialized]
         public float currentValue;
 
@@ -50,7 +54,8 @@ namespace BS
         {
             CancelInvoke();
             playTime = Time.time;
-            renderer.enabled = true;
+            if (renderer != null)
+                renderer.enabled = true;
             if (step != Step.Loop && lifeTime > 0)
             {
                 InvokeRepeating("UpdateLifeTime", 0, refreshSpeed);
@@ -59,7 +64,8 @@ namespace BS
 
         public override void Stop(bool loopOnly = false)
         {
-            renderer.enabled = false;
+            if (renderer != null)
+                renderer.enabled = false;
             Despawn();
         }
 
@@ -80,6 +86,12 @@ namespace BS
                 {
                     float meshSizeValue = curveMeshSize.Evaluate(value);
                     transform.localScale = new Vector3(meshSizeValue, meshSizeValue, meshSizeValue);
+                }
+
+                if (meshRotY)
+                {
+                    float meshRotYValue = curveMeshrotY.Evaluate(value);
+                    transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, meshRotYValue, transform.localEulerAngles.z);
                 }
 
                 // Set material color
@@ -105,7 +117,7 @@ namespace BS
                     updatePropertyBlock = true;
                 }
 
-                if (updatePropertyBlock) renderer.SetPropertyBlock(materialPropertyBlock);
+                if (renderer != null &&updatePropertyBlock) renderer.SetPropertyBlock(materialPropertyBlock);
             }
         }
 
@@ -124,7 +136,8 @@ namespace BS
         public override void Despawn()
         {
             CancelInvoke();
-            renderer.enabled = false;
+            if (renderer != null)
+                renderer.enabled = false;
 #if ProjectCore
             if (Application.isPlaying)
             {
