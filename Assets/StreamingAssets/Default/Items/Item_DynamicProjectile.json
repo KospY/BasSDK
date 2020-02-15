@@ -110,70 +110,21 @@
           "preWrapMode": 8,
           "postWrapMode": 8
         },
-        "velocityRecoilCurve": {
-          "keys": [
-            {
-              "time": 0.0,
-              "value": 1.0,
-              "inTangent": 0.0,
-              "outTangent": 0.0,
-              "inWeight": 0.0,
-              "outWeight": 0.0,
-              "weightedMode": 0,
-              "tangentMode": 0
-            },
-            {
-              "time": 1.0,
-              "value": 1.0,
-              "inTangent": 0.0,
-              "outTangent": 0.0,
-              "inWeight": 0.0,
-              "outWeight": 0.0,
-              "weightedMode": 0,
-              "tangentMode": 0
-            }
-          ],
-          "length": 2,
-          "preWrapMode": 8,
-          "postWrapMode": 8
-        },
+        "recoilMin": 1.0,
+        "recoilMax": 1.0,
         "maxVerticalAngle": 0.0,
         "maxHorizontalAngle": 0.0,
-        "hitRagdollDelay": 0.0,
+        "hitDelayByCollider": 0.1,
         "playerDamageMultiplier": 0.5,
         "throwedMultiplier": 1.0,
         "badAngleDamage": 0.0,
         "badAngleRecoilMultiplier": 0.0,
-        "knockoutOnHit": 0,
-        "knockoutOnThrow": 0,
-        "knockoutOnMaxVelocityDamageOnly": false,
-        "velocityKnockoutDurationCurve": {
-          "keys": [
-            {
-              "time": 8.0,
-              "value": 0.0,
-              "inTangent": 0.0,
-              "outTangent": 0.0,
-              "inWeight": 0.0,
-              "outWeight": 0.0,
-              "weightedMode": 0,
-              "tangentMode": 0
-            },
-            {
-              "time": 12.0,
-              "value": 2.0,
-              "inTangent": 0.0,
-              "outTangent": 0.0,
-              "inWeight": 0.0,
-              "outWeight": 0.0,
-              "weightedMode": 0,
-              "tangentMode": 0
-            }
-          ],
-          "length": 2,
-          "preWrapMode": 8,
-          "postWrapMode": 8
-        },
+        "knockout": 0,
+        "knockoutMinVelocity": 12.0,
+        "knockoutForcedMinVelocity": "Infinity",
+        "knockoutThrowMinVelocity": "Infinity",
+        "knockoutThrowForcedMinVelocity": "Infinity",
+        "knockoutDuration": 1.0,
         "addForce": 260.0,
         "addForceState": 2,
         "addForceTargetType": 2,
@@ -184,24 +135,25 @@
         "addForceSlowMoMultiplier": 1.1,
         "addForceKnockoutOnly": false,
         "addForceNormalize": false,
-        "penetration": false,
-        "penetrationDamageMultiplier": 1.0,
+        "penetrationAllowed": false,
+        "penetrationAllowSlide": true,
+        "penetrationSize": 0,
         "penetrationMinVelocity": 3.0,
+        "penetrationMaxNormalAngle": 60.0,
+        "penetrationDamageMultiplier": 1.0,
         "penetrationDamperIn": 5000.0,
         "penetrationDamperOut": 1000.0,
-        "penetrationThrowResistance": 500.0,
+        "penetrationStartDamperOut": 10000.0,
+        "penetrationDurationToFullDamper": 0.2,
         "penetrationShortDepth": 0.1,
         "penetrationShortDepthAngle": 30.0,
         "penetrationExitOnMaxDepth": false,
-        "penetrationMaxNormalAngle": 60.0,
-        "penetrationPressure": true,
-        "penetrationPressureForce": 5.0,
-        "drawCut": false,
-        "drawCutVelocityPressureForceCurve": {
+        "penetrationPressureAllowed": false,
+        "penetrationPressureForceCurve": {
           "keys": [
             {
               "time": 0.0,
-              "value": 6.0,
+              "value": 5.0,
               "inTangent": 0.0,
               "outTangent": 0.0,
               "inWeight": 0.0,
@@ -224,8 +176,9 @@
           "preWrapMode": 8,
           "postWrapMode": 8
         },
-        "drawCutMaxDot": 0.2,
-        "sliceImpactVelocity": 10.0
+        "penetrationPressureMaxDot": 0.2,
+        "dismembermentAllowed": false,
+        "dismembermentMinVelocity": 10.0
       }
     }
   ],

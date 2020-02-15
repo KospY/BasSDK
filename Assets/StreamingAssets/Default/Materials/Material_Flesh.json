@@ -4,6 +4,20 @@
   "version": 2,
   "physicMaterialHash": -118083127,
   "xpReference": null,
+  "idMapColors": [
+    {
+      "a": 1.0,
+      "r": 1.0,
+      "g": 0.0,
+      "b": 0.0
+    },
+    {
+      "a": 1.0,
+      "r": 1.0,
+      "g": 1.0,
+      "b": 0.0
+    }
+  ],
   "collisions": [
     {
       "targetMaterialId": null,
@@ -17,29 +31,25 @@
       "modifiers": [
         {
           "category": 2,
-          "shape": 256,
+          "shape": 128,
           "defaultEffectId": "Punch",
           "combinedEffectId": null,
           "combinedIgnoredEffects": [],
+          "minVelocityMultiplier": 1.0,
           "damageMultiplier": 1.0,
-          "velocityMultiplier": 1.0,
           "useDamageRangeForIntensity": false,
           "allowPenetration": false,
           "penetrationEffectId": null,
           "penetrationCombinedEffectId": null,
           "penetrationCombinedIgnoredEffects": null,
+          "penetrationCombined2EffectId": null,
+          "penetrationCombined2IgnoredEffects": null,
           "penetrationMinVelocityMultiplier": 1.0,
           "penetrationDamperMultiplier": 1.0,
-          "penetrationThrowResistanceMultiplier": 1.0,
-          "penetrationExtraVelocityDepth": false,
-          "penetrationExtraVelocityDepthCurve": null,
-          "allowPressure": false,
-          "pressureForceMultiplier": 1.0,
-          "allowDrawCut": false,
-          "drawCutVelocityMultiplier": 1.0,
-          "drawCutForceMultiplier": 1.0,
-          "allowDismemberment": false,
-          "sliceImpulseMultiplier": 1.0
+          "penetrationVelocityMaxDepth": false,
+          "penetrationVelocityMaxDepthCurve": null,
+          "pressureAllowed": false,
+          "pressureForceMultiplier": 1.0
         },
         {
           "category": 2,
@@ -47,25 +57,21 @@
           "defaultEffectId": "RagdollHit",
           "combinedEffectId": null,
           "combinedIgnoredEffects": [],
+          "minVelocityMultiplier": 1.0,
           "damageMultiplier": 1.0,
-          "velocityMultiplier": 1.0,
           "useDamageRangeForIntensity": true,
           "allowPenetration": false,
           "penetrationEffectId": null,
           "penetrationCombinedEffectId": null,
           "penetrationCombinedIgnoredEffects": null,
+          "penetrationCombined2EffectId": null,
+          "penetrationCombined2IgnoredEffects": null,
           "penetrationMinVelocityMultiplier": 1.0,
           "penetrationDamperMultiplier": 1.0,
-          "penetrationThrowResistanceMultiplier": 1.0,
-          "penetrationExtraVelocityDepth": false,
-          "penetrationExtraVelocityDepthCurve": null,
-          "allowPressure": false,
-          "pressureForceMultiplier": 1.0,
-          "allowDrawCut": false,
-          "drawCutVelocityMultiplier": 1.0,
-          "drawCutForceMultiplier": 1.0,
-          "allowDismemberment": false,
-          "sliceImpulseMultiplier": 1.0
+          "penetrationVelocityMaxDepth": false,
+          "penetrationVelocityMaxDepthCurve": null,
+          "pressureAllowed": false,
+          "pressureForceMultiplier": 1.0
         }
       ]
     }
