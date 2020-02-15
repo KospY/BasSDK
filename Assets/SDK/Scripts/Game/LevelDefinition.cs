@@ -159,7 +159,7 @@ namespace BS
                     {
                         try
                         {
-                            playerCreature.umaCharacter.LoadUmaPreset(GameManager.playerData.umaPreset, null);
+                            playerCreature.umaCharacter.LoadUmaPreset(GameManager.playerData.umaPreset, null, playerCreature.container);
                         }
                         catch (Exception e)
                         {
