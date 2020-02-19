@@ -6,7 +6,7 @@
   "modules": [
     {
       "$type": "BS.EffectModuleAudio, Assembly-CSharp",
-      "audioContainerPath": "RagdollDefault",
+      "audioContainerPath": "@audio:RagdollDefault",
       "randomPitch": false,
       "pitchCurve": {
         "keys": [
@@ -70,7 +70,7 @@
     },
     {
       "$type": "BS.EffectModuleAudio, Assembly-CSharp",
-      "audioContainerPath": "SmashHead",
+      "audioContainerPath": "@audio:SmashHead",
       "randomPitch": false,
       "pitchCurve": {
         "keys": [

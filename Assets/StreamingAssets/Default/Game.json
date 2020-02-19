@@ -61,6 +61,7 @@
   ],
   "uma": {
     "initialScaleFactor": 2,
+    "fastGeneration": false,
     "defaultMaleRaceId": "HumanMale",
     "defaultFemaleRaceId": "HumanFemale",
     "defaultMaleHair": "MaleHair11",
@@ -294,9 +295,10 @@
   "maxCollisionStayCheckPerFrame": 100,
   "cleanDeadLastInteractionDelay": 7,
   "cleanObjectsLastInteractionDelay": 7,
-  "creatureConvertMaterialToLitExtended": false,
-  "errorAudioContainerPath": "Errors",
-  "waveAudioContainerPath": "WaveRound",
+  "creatureConvertMaterialToLitExtended": true,
+  "audioSlowMotionPath": "@audio:SlowMotion",
+  "errorAudioContainerPath": "@audio:Errors",
+  "waveAudioContainerPath": "@audio:WaveRound",
   "waveAudioVolume": 0.5,
   "ragdollSelfCollision": false,
   "collisionDetection": {

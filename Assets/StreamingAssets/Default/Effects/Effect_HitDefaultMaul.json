@@ -6,7 +6,7 @@
   "modules": [
     {
       "$type": "BS.EffectModuleAudio, Assembly-CSharp",
-      "audioContainerPath": "HitMetal",
+      "audioContainerPath": "@audio:HitMetal",
       "randomPitch": false,
       "pitchCurve": {
         "keys": [
@@ -90,7 +90,7 @@
     },
     {
       "$type": "BS.EffectModuleAudio, Assembly-CSharp",
-      "audioContainerPath": "HitMaulDefault",
+      "audioContainerPath": "@audio:HitMaulDefault",
       "randomPitch": false,
       "pitchCurve": {
         "keys": [

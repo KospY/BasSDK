@@ -6,7 +6,7 @@
   "modules": [
     {
       "$type": "BS.EffectModuleAudio, Assembly-CSharp",
-      "audioContainerPath": "LiquidFlowLoop",
+      "audioContainerPath": "@audio:LiquidFlowLoop",
       "randomPitch": false,
       "pitchCurve": {
         "keys": [
@@ -88,7 +88,7 @@
     },
     {
       "$type": "BS.EffectModuleAudio, Assembly-CSharp",
-      "audioContainerPath": "LiquidFlowStop",
+      "audioContainerPath": "@audio:LiquidFlowStop",
       "randomPitch": false,
       "pitchCurve": {
         "keys": [

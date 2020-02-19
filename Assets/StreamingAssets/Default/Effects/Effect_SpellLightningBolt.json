@@ -6,7 +6,7 @@
   "modules": [
     {
       "$type": "BS.EffectModuleAudio, Assembly-CSharp",
-      "audioContainerPath": "Spell_LightningBolt",
+      "audioContainerPath": "@audio:Spell_LightningBolt",
       "randomPitch": false,
       "pitchCurve": {
         "keys": [
@@ -70,13 +70,13 @@
     },
     {
       "$type": "BS.EffectModuleParticle, Assembly-CSharp",
-      "effectParticlePath": "Particle_Hit_Lightning",
+      "effectParticlePath": "@vfx:HitLightning",
       "intensityCurve": null,
       "mainGradient": null,
       "secondaryGradient": null,
       "collisionEffectId": null,
       "collisionLayerMask": {
-        "value": -1
+        "value": -2097353
       },
       "collisionMaxGroundAngle": 45.0,
       "collisionEmitRate": 0.2,

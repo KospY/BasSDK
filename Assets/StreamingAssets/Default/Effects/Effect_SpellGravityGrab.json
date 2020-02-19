@@ -6,7 +6,7 @@
   "modules": [
     {
       "$type": "BS.EffectModuleAudio, Assembly-CSharp",
-      "audioContainerPath": "Telekinesis",
+      "audioContainerPath": "@audio:Telekinesis",
       "randomPitch": false,
       "pitchCurve": {
         "keys": [
@@ -108,7 +108,7 @@
       "secondaryGradient": null,
       "collisionEffectId": null,
       "collisionLayerMask": {
-        "value": -1
+        "value": -2097353
       },
       "collisionMaxGroundAngle": 45.0,
       "collisionEmitRate": 0.2,
@@ -120,7 +120,7 @@
     },
     {
       "$type": "BS.EffectModuleVfx, Assembly-CSharp",
-      "vfxPath": "@vfx:GravityGrab2",
+      "vfxPath": "@vfx:GravityGrab2.vfx",
       "lifeTime": 5.0,
       "mainGradient": {
         "colorKeys": [
@@ -160,7 +160,7 @@
     },
     {
       "$type": "BS.EffectModuleVfx, Assembly-CSharp",
-      "vfxPath": "GravityGrabStart",
+      "vfxPath": "@vfx:GravityGrabStart.vfx",
       "lifeTime": 5.0,
       "mainGradient": {
         "colorKeys": [
