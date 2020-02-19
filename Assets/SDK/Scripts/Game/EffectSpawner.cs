@@ -1,20 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
-#if ProjectCore
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
+#else
+using EasyButtons;
 #endif
 
 namespace BS
 {
     public class EffectSpawner : MonoBehaviour
     {
-#if ProjectCore
+#if ODIN_INSPECTOR
         [ValueDropdown("GetAllEffectID")]
-        public string effectId;
-#else
-        public string effectId;
 #endif
+        public string effectId;
+
         public bool spawnOnStart = true;
 
         [Range(0, 1)]
@@ -35,15 +36,14 @@ namespace BS
         public Renderer secondaryRenderer;
         public new Collider collider;
 
-#if ProjectCore
-
         protected EffectInstance effectInstance;
 
+#if ODIN_INSPECTOR
         public List<ValueDropdownItem<string>> GetAllEffectID()
         {
             return Catalog.GetDropdownAllID(Catalog.Category.Effect);
         }
-
+#endif
         private void OnValidate()
         {
             if (effectInstance != null)
@@ -83,6 +83,6 @@ namespace BS
         {
             effectInstance.Stop();
         }
-#endif
+
     }
 }

@@ -76,13 +76,11 @@ namespace BS
             CancelInvoke();
             StopAllCoroutines();
             audioSource.Stop();
-#if ProjectCore
             if (Application.isPlaying)
             {
                 EffectModuleAudio.Despawn(this);
                 InvokeDespawnCallback();
             }
-#endif
         }
     }
 }

@@ -70,7 +70,7 @@ namespace BS
         public override void Play()
         {
             CancelInvoke();
-            if (currentValue > 0) rootParticleSystem.Play(true);
+            rootParticleSystem.Play(true);
             if (step != Step.Loop)
             {
                 Invoke("Despawn", lifeTime);

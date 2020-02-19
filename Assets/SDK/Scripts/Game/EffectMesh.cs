@@ -54,8 +54,16 @@ namespace BS
         {
             CancelInvoke();
             playTime = Time.time;
-            if (renderer != null)
-                renderer.enabled = true;
+            if (renderer != null) renderer.enabled = true;
+
+            if (linkEmissionColor != EffectTarget.None && renderer != null)
+            {
+                foreach (Material material in renderer.materials)
+                {
+                    material.EnableKeyword("_EMISSION");
+                }
+            }
+
             if (step != Step.Loop && lifeTime > 0)
             {
                 InvokeRepeating("UpdateLifeTime", 0, refreshSpeed);
@@ -117,7 +125,7 @@ namespace BS
                     updatePropertyBlock = true;
                 }
 
-                if (renderer != null &&updatePropertyBlock) renderer.SetPropertyBlock(materialPropertyBlock);
+                if (renderer != null && updatePropertyBlock) renderer.SetPropertyBlock(materialPropertyBlock);
             }
         }
 

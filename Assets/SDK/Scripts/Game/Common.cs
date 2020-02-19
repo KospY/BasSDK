@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BS
@@ -88,6 +89,14 @@ namespace BS
 
     public static class Common
     {
+        public static AudioClip GetRandomAudioClip(List<AudioClip> audioClips)
+        {
+            if (audioClips.Count == 0) return null;
+            if (audioClips.Count == 1) return audioClips[0];
+            int index = UnityEngine.Random.Range(0, audioClips.Count);
+            return audioClips[index];
+        }
+
         public static string GetStringBetween(this string text, string start, string end)
         {
             int pFrom = text.IndexOf(start) + start.Length;

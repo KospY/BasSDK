@@ -67,6 +67,17 @@ namespace BS
             }
         }
 
+        public void DestroyPaintComponents()
+        {
+            foreach (MaterialProperty materialProperty in materialProperties)
+            {
+                Destroy(materialProperty.paintableTexture);
+            }
+            if (materialCloner) Destroy(materialCloner);
+            P3dPaintable p3dPaintable = this.gameObject.GetComponent<P3dPaintable>();
+            if (p3dPaintable) Destroy(p3dPaintable);
+        }
+
         [Button]
         public void Clear()
         {
