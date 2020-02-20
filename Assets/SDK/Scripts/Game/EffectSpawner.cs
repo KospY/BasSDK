@@ -16,6 +16,13 @@ namespace BS
 #endif
         public string effectId;
 
+        public bool autoIntensity;
+#if ODIN_INSPECTOR
+        [ShowIf("autoIntensity")]
+#endif
+        public AnimationCurve intensityCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
+        protected float playTime;
+
         public bool spawnOnStart = true;
 
         [Range(0, 1)]
@@ -59,6 +66,15 @@ namespace BS
             if (spawnOnStart) Spawn();
         }
 
+        protected void Update()
+        {
+            if (autoIntensity && effectInstance != null && effectInstance.effects.Count > 0)
+            {
+                intensity = Mathf.Clamp01(intensityCurve.Evaluate(Time.time - playTime));
+                effectInstance.SetIntensity(intensity);
+            }
+        }
+
         [Button]
         public void Spawn()
         {
@@ -77,7 +93,10 @@ namespace BS
             {
                 EffectData effectData = Catalog.GetData<EffectData>(effectId);
                 effectInstance = effectData.Spawn(this.transform.position, this.transform.rotation, this.transform);
+
+                if (autoIntensity) intensity = Mathf.Clamp01(intensityCurve.Evaluate(0));
                 effectInstance.SetIntensity(intensity);
+
                 if (useMainGradient) effectInstance.SetMainGradient(mainGradient);
                 if (useSecondaryGradient) effectInstance.SetSecondaryGradient(secondaryGradient);
                 if (target) effectInstance.SetTarget(target);
@@ -86,6 +105,7 @@ namespace BS
                 if (secondaryRenderer) effectInstance.SetRenderer(secondaryRenderer, true);
                 if (collider) effectInstance.SetCollider(collider);
                 effectInstance.Play();
+                playTime = Time.time;
             }
         }
 
