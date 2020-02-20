@@ -12,6 +12,9 @@ namespace BS
         public float loopFadeDelay;
 
         [NonSerialized]
+        public float playTime;
+
+        [NonSerialized]
         public AudioSource audioSource;
 
         private void Awake()
@@ -37,6 +40,7 @@ namespace BS
                 Invoke("Despawn", audioSource.clip.length + 1);
             }
             audioSource.Play();
+            playTime = Time.time;
         }
 
         public override void Stop(bool loopOnly = false)

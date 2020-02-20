@@ -11,6 +11,8 @@ namespace BS
         public float lifeTime = 5;
         public Transform targetTransform;
 
+        [NonSerialized]
+        public float playTime;
 
         [Header("Intensity to Emitter Size")]
         public bool emitSize;
@@ -43,6 +45,7 @@ namespace BS
             {
                 Invoke("Despawn", lifeTime);
             }
+            playTime = Time.time;
         }
 
         public override void Stop(bool loopOnly = false)
@@ -124,13 +127,11 @@ namespace BS
             CancelInvoke();
             vfx.Stop();
             vfx.enabled = false;
-#if ProjectCore
             if (Application.isPlaying)
             {
                 EffectModuleVfx.Despawn(this);
                 InvokeDespawnCallback();
             }
-#endif
         }
     }
 }

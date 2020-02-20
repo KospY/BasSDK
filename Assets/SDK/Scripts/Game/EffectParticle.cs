@@ -329,13 +329,11 @@ namespace BS
         {
             rootParticleSystem.Stop();
             CancelInvoke();
-#if ProjectCore
             if (Application.isPlaying)
             {
                 EffectModuleParticle.Despawn(this);
                 InvokeDespawnCallback();
             }
-#endif
         }
     }
 }

@@ -62,6 +62,17 @@ namespace BS
         [Button]
         public void Spawn()
         {
+            if (!Application.isPlaying)
+            {
+                Debug.LogError("Press play to use the effect Spawner!");
+                return;
+            }
+
+            if (effectInstance != null && effectInstance.effects.Count > 0)
+            {
+                effectInstance.Despawn();
+            }
+
             if (effectId != "" && effectId != null)
             {
                 EffectData effectData = Catalog.GetData<EffectData>(effectId);
@@ -81,6 +92,7 @@ namespace BS
         [Button]
         public void Stop()
         {
+            if (!Application.isPlaying) return;
             effectInstance.Stop();
         }
 

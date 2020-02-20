@@ -144,15 +144,12 @@ namespace BS
         public override void Despawn()
         {
             CancelInvoke();
-            if (renderer != null)
-                renderer.enabled = false;
-#if ProjectCore
+            if (renderer != null) renderer.enabled = false;
             if (Application.isPlaying)
             {
                 EffectModuleMesh.Despawn(this);
                 InvokeDespawnCallback();
             }
-#endif
         }
     }
 }
