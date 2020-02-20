@@ -20,10 +20,10 @@ namespace BS
         public static bool exportToModFolders;
         Vector3 scroll0, scroll1;
 
-        [MenuItem("Blade and Sorcery/Asset Bundle Builder")]
+        [MenuItem("Game/Asset Bundle Builder")]
         public static void ShowWindow()
         {   //Opens window from toolbar
-            EditorWindow.GetWindow<EditorToolsAssetBuilder>("B&S Asset Bundle Builder");
+            EditorWindow.GetWindow<EditorToolsAssetBuilder>("Asset Bundle Builder");
         }
 
         private void OnFocus()
@@ -290,10 +290,10 @@ namespace BS
         Vector3 scroll2, scroll3;
         public static string openJson = "";
 
-        [MenuItem("Blade and Sorcery/Mod Configuration")]
+        [MenuItem("Game/Mod Configuration")]
         public static void ShowWindow()
         {   //Opens window from toolbar
-            EditorWindow.GetWindow<EditorToolsJSONConfig>("B&S Mod Configuration");
+            EditorWindow.GetWindow<EditorToolsJSONConfig>("Mod Configuration");
         }
 
         private void OnFocus()
