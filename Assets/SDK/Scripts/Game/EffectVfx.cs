@@ -12,6 +12,9 @@ namespace BS
         public float lifeTime = 5;
         public Transform targetTransform;
 
+        public bool useSecondaryRenderer;
+
+        public bool usePointCache = false;
         public int pointCacheMapSize = 512;
         public int pointCachePointCount = 4096;
         public int pointCacheSeed = 0;
@@ -88,7 +91,7 @@ namespace BS
 
         public override void SetMesh(Mesh mesh)
         {
-            if (vfx.HasTexture("PositionMap"))
+            if (usePointCache)
             {
                 PointCacheGenerator.PCache pCache = PointCacheGenerator.ComputePCacheFromMesh(mesh, pointCacheMapSize, pointCachePointCount, pointCacheSeed, pointCacheDistribution, pointCacheBakeMode);
                 vfx.SetTexture("PositionMap", pCache.positionMap);
@@ -102,18 +105,20 @@ namespace BS
 
         public override void SetRenderer(Renderer renderer, bool secondary)
         {
-            Mesh mesh = renderer.GetComponent<MeshFilter>().sharedMesh;
-            if (vfx.HasTexture("PositionMap"))
+            if ((useSecondaryRenderer && secondary) || (!useSecondaryRenderer && !secondary))
             {
-                PointCacheGenerator.PCache pCache = PointCacheGenerator.ComputePCacheFromMesh(mesh, pointCacheMapSize, pointCachePointCount, pointCacheSeed, pointCacheDistribution, pointCacheBakeMode);
-                vfx.SetTexture("PositionMap", pCache.positionMap);
-                if (vfx.HasTexture("NormalMap")) vfx.SetTexture("NormalMap", pCache.normalMap);
+                Mesh mesh = renderer.GetComponent<MeshFilter>().sharedMesh;
+                if (usePointCache)
+                {
+                    PointCacheGenerator.PCache pCache = PointCacheGenerator.ComputePCacheFromMesh(mesh, pointCacheMapSize, pointCachePointCount, pointCacheSeed, pointCacheDistribution, pointCacheBakeMode);
+                    vfx.SetTexture("PositionMap", pCache.positionMap);
+                    if (vfx.HasTexture("NormalMap")) vfx.SetTexture("NormalMap", pCache.normalMap);
+                }
+                else
+                {
+                    vfx.SetMesh("Mesh", mesh);
+                }
             }
-            else
-            {
-                vfx.SetMesh("Mesh", mesh);
-            }
-
         }
 
         public override void SetTarget(Transform target)
