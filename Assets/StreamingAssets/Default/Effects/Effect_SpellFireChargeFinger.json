@@ -8,6 +8,7 @@
       "$type": "BS.EffectModuleVfx, Assembly-CSharp",
       "vfxPath": "@vfx:FireChargeFinger.vfx",
       "lifeTime": 5.0,
+      "useSecondaryRenderer": false,
       "mainGradient": {
         "colorKeys": [
           {
@@ -51,6 +52,12 @@
         "mode": 0
       },
       "secondaryGradient": null,
+      "usePointCache": false,
+      "pointCacheMapSize": 512,
+      "pointCachePointCount": 4096,
+      "pointCacheSeed": 0,
+      "pointCacheDistribution": 2,
+      "pointCacheBakeMode": 1,
       "step": 1
     }
   ]

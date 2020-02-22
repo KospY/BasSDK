@@ -8,8 +8,15 @@
       "$type": "BS.EffectModuleVfx, Assembly-CSharp",
       "vfxPath": "@vfx:VfxImbueTransfer",
       "lifeTime": 5.0,
+      "useSecondaryRenderer": false,
       "mainGradient": null,
       "secondaryGradient": null,
+      "usePointCache": true,
+      "pointCacheMapSize": 512,
+      "pointCachePointCount": 4096,
+      "pointCacheSeed": 0,
+      "pointCacheDistribution": 2,
+      "pointCacheBakeMode": 1,
       "step": 1
     }
   ]
