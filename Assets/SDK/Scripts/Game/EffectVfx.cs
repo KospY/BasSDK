@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using UnityEngine.VFX;
+using System.Collections.Generic;
 
 namespace BS
 {
@@ -10,6 +11,12 @@ namespace BS
         public VisualEffect vfx;
         public float lifeTime = 5;
         public Transform targetTransform;
+
+        public int pointCacheMapSize = 512;
+        public int pointCachePointCount = 4096;
+        public int pointCacheSeed = 0;
+        public PointCacheGenerator.Distribution pointCacheDistribution = PointCacheGenerator.Distribution.RandomUniformArea;
+        public PointCacheGenerator.MeshBakeMode pointCacheBakeMode = PointCacheGenerator.MeshBakeMode.Triangle;
 
         [NonSerialized]
         public float playTime;
@@ -81,13 +88,32 @@ namespace BS
 
         public override void SetMesh(Mesh mesh)
         {
-            vfx.SetMesh("Mesh", mesh);
+            if (vfx.HasTexture("PositionMap"))
+            {
+                PointCacheGenerator.PCache pCache = PointCacheGenerator.ComputePCacheFromMesh(mesh, pointCacheMapSize, pointCachePointCount, pointCacheSeed, pointCacheDistribution, pointCacheBakeMode);
+                vfx.SetTexture("PositionMap", pCache.positionMap);
+                if (vfx.HasTexture("NormalMap")) vfx.SetTexture("NormalMap", pCache.normalMap);
+            }
+            else
+            {
+                vfx.SetMesh("Mesh", mesh);
+            }
         }
 
         public override void SetRenderer(Renderer renderer, bool secondary)
         {
-            //vfx.SetMesh("Mesh", renderer.GetComponent<MeshFilter>().sharedMesh);
-            // Todo (waiting Mesh sampling) https://forum.unity.com/threads/visual-effect-graph-spawn-particles-from-skinned-mesh-surface.651748/
+            Mesh mesh = renderer.GetComponent<MeshFilter>().sharedMesh;
+            if (vfx.HasTexture("PositionMap"))
+            {
+                PointCacheGenerator.PCache pCache = PointCacheGenerator.ComputePCacheFromMesh(mesh, pointCacheMapSize, pointCachePointCount, pointCacheSeed, pointCacheDistribution, pointCacheBakeMode);
+                vfx.SetTexture("PositionMap", pCache.positionMap);
+                if (vfx.HasTexture("NormalMap")) vfx.SetTexture("NormalMap", pCache.normalMap);
+            }
+            else
+            {
+                vfx.SetMesh("Mesh", mesh);
+            }
+
         }
 
         public override void SetTarget(Transform target)
