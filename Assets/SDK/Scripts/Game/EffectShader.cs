@@ -41,11 +41,12 @@ namespace BS
         public override void Play()
         {
             CancelInvoke();
-            playTime = Time.time;
             if (step != Step.Loop && lifeTime > 0)
             {
                 InvokeRepeating("UpdateLifeTime", 0, refreshSpeed);
             }
+            SetIntensity(currentValue);
+            playTime = Time.time;
         }
 
         public override void Stop(bool loopOnly = false)
@@ -112,13 +113,11 @@ namespace BS
         {
             CancelInvoke();
             SetIntensity(0);
-#if ProjectCore
             if (Application.isPlaying)
             {
                 EffectModuleShader.Despawn(this);
                 InvokeDespawnCallback();
             }
-#endif
         }
     }
 }
