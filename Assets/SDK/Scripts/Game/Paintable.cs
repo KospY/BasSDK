@@ -87,13 +87,13 @@ namespace BS
             }
         }
 
-        public void Paint(P3dPaintDecal.Command command, MaterialProperty.PropertyType propertyType)
+        public void Paint(P3dCommandDecal command, MaterialProperty.PropertyType propertyType)
         {
             foreach (MaterialProperty materialProperty in materialProperties)
             {
                 if (materialProperty.propertyType == propertyType)
                 {
-                    P3dPaintableManager.SubmitAll(command, false, -1, -1, null, materialProperty.paintableTexture, null, null);
+                    P3dPaintableManager.Submit(command, null, materialProperty.paintableTexture);
                 }
             }
         }

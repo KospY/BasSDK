@@ -17,7 +17,7 @@ namespace BS
 
         public Material material;
 #if ProjectCore
-        public MaterialData.PaintBlendMode blendMode;
+        public EffectModulePaint.PaintBlendMode blendMode;
 #endif
         public float radius = 0.1f;
         public bool useRadiusCurve;
@@ -25,6 +25,7 @@ namespace BS
         public float depth = 1;
         public float opacity = 1;
         public float hardness = 1;
+        public float wrapping = 1;
         public float normalFront = 1f;
         public float normalBack = 0;
         public float normalFade = 0.5f;
@@ -41,9 +42,6 @@ namespace BS
         public Gradient emissionColorGradient;
 
 #if ProjectCore
-        protected PaintIn3D.P3dPaintDecal.Command paintBaseCommand = new PaintIn3D.P3dPaintDecal.Command();
-        protected PaintIn3D.P3dPaintDecal.Command paintNormalCommand = new PaintIn3D.P3dPaintDecal.Command();
-        protected PaintIn3D.P3dPaintDecal.Command paintEmissionCommand = new PaintIn3D.P3dPaintDecal.Command();
         protected CollisionHandler collisionHandler;
 
         private void Awake()
@@ -104,21 +102,27 @@ namespace BS
                 {
                     if (baseTexture)
                     {
-                        paintBaseCommand.SetLocation(this.transform.position, Quaternion.LookRotation(-this.transform.forward, this.transform.up), Vector2.one, radius, baseTexture, depth);
-                        paintBaseCommand.SetMaterial((PaintIn3D.P3dBlendMode)(int)blendMode, baseTexture, hardness, normalBack, normalFront, normalFade, baseColorGradient.Evaluate(1), opacity + (1.0f - opacity), null);
-                        paintable.Paint(paintBaseCommand, Paintable.MaterialProperty.PropertyType.Base);
+                        PaintIn3D.P3dCommandDecal.Instance.SetState(false, 0);
+                        PaintIn3D.P3dCommandDecal.Instance.SetLocation(this.transform.position);
+                        PaintIn3D.P3dCommandDecal.Instance.SetShape(Quaternion.LookRotation(-this.transform.forward, this.transform.up), new Vector3(radius, radius, radius), 0);
+                        PaintIn3D.P3dCommandDecal.Instance.SetMaterial(EffectModulePaint.GetP3dBlendMode(blendMode), baseTexture, null, PaintIn3D.P3dChannel.Alpha, hardness, wrapping, normalBack, normalFront, normalFade, baseColorGradient.Evaluate(1), opacity, null, Matrix4x4.identity, 1);
+                        paintable.Paint(PaintIn3D.P3dCommandDecal.Instance, Paintable.MaterialProperty.PropertyType.Base);
                     }
                     if (normalTexture)
                     {
-                        paintBaseCommand.SetLocation(this.transform.position, Quaternion.LookRotation(-this.transform.forward, this.transform.up), Vector2.one, radius, normalTexture, depth);
-                        paintBaseCommand.SetMaterial((PaintIn3D.P3dBlendMode)(int)blendMode, normalTexture, hardness, normalBack, normalFront, normalFade, baseColorGradient.Evaluate(1), opacity + (1.0f - opacity), null);
-                        paintable.Paint(paintBaseCommand, Paintable.MaterialProperty.PropertyType.Normal);
+                        PaintIn3D.P3dCommandDecal.Instance.SetState(false, 0);
+                        PaintIn3D.P3dCommandDecal.Instance.SetLocation(this.transform.position);
+                        PaintIn3D.P3dCommandDecal.Instance.SetShape(Quaternion.LookRotation(-this.transform.forward, this.transform.up), new Vector3(radius, radius, radius), 0);
+                        PaintIn3D.P3dCommandDecal.Instance.SetMaterial(EffectModulePaint.GetP3dBlendMode(blendMode), normalTexture, null, PaintIn3D.P3dChannel.Alpha, hardness, wrapping, normalBack, normalFront, normalFade, baseColorGradient.Evaluate(1), opacity, null, Matrix4x4.identity, 1);
+                        paintable.Paint(PaintIn3D.P3dCommandDecal.Instance, Paintable.MaterialProperty.PropertyType.Normal);
                     }
                     if (emissionTexture)
                     {
-                        paintBaseCommand.SetLocation(this.transform.position, Quaternion.LookRotation(-this.transform.forward, this.transform.up), Vector2.one, radius, emissionTexture, depth);
-                        paintBaseCommand.SetMaterial((PaintIn3D.P3dBlendMode)(int)blendMode, emissionTexture, hardness, normalBack, normalFront, normalFade, baseColorGradient.Evaluate(1), opacity + (1.0f - opacity), null);
-                        paintable.Paint(paintBaseCommand, Paintable.MaterialProperty.PropertyType.Emission);
+                        PaintIn3D.P3dCommandDecal.Instance.SetState(false, 0);
+                        PaintIn3D.P3dCommandDecal.Instance.SetLocation(this.transform.position);
+                        PaintIn3D.P3dCommandDecal.Instance.SetShape(Quaternion.LookRotation(-this.transform.forward, this.transform.up), new Vector3(radius, radius, radius), 0);
+                        PaintIn3D.P3dCommandDecal.Instance.SetMaterial(EffectModulePaint.GetP3dBlendMode(blendMode), emissionTexture, null, PaintIn3D.P3dChannel.Alpha, hardness, wrapping, normalBack, normalFront, normalFade, baseColorGradient.Evaluate(1), opacity, null, Matrix4x4.identity, 1);
+                        paintable.Paint(PaintIn3D.P3dCommandDecal.Instance, Paintable.MaterialProperty.PropertyType.Emission);
                     }
                 }
                 Invoke("Despawn", 2);
