@@ -10,7 +10,56 @@
       "intensityCurve": null,
       "lifeTime": 5.0,
       "useSecondaryRenderer": false,
-      "mainGradient": null,
+      "mainGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 1.49803925,
+              "g": 1.49803925,
+              "b": 1.49803925
+            },
+            "time": 0.0
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 1.72079539,
+              "g": 1.72079539,
+              "b": 1.72079539
+            },
+            "time": 0.485297918
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.0,
+              "g": 3.99999952,
+              "b": 2.75574446
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 0.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 0.21765469
+          },
+          {
+            "alpha": 1.0,
+            "time": 0.7499962
+          },
+          {
+            "alpha": 0.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
       "secondaryGradient": null,
       "usePointCache": true,
       "pointCacheMapSize": 512,
