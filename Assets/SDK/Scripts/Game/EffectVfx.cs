@@ -12,6 +12,8 @@ namespace BS
         public float lifeTime = 5;
         public Transform targetTransform;
 
+        public AnimationCurve intensityCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
+
         public bool useSecondaryRenderer;
 
         public bool usePointCache = false;
@@ -68,12 +70,12 @@ namespace BS
         {
             if (!loopOnly || (loopOnly && step == Step.Loop))
             {
-                vfx.SetFloat("Intensity", value);
+                vfx.SetFloat("Intensity", intensityCurve.Evaluate(value));
             }
 
             if (emitSize)
             {
-                vfx.SetFloat("Emitter Size", curveEmitSize.Evaluate(value));
+                vfx.SetFloat("Emitter Size", curveEmitSize.Evaluate(intensityCurve.Evaluate(value)));
             }
         }
 
@@ -93,9 +95,16 @@ namespace BS
         {
             if (usePointCache)
             {
-                PointCacheGenerator.PCache pCache = PointCacheGenerator.ComputePCacheFromMesh(mesh, pointCacheMapSize, pointCachePointCount, pointCacheSeed, pointCacheDistribution, pointCacheBakeMode);
-                vfx.SetTexture("PositionMap", pCache.positionMap);
-                if (vfx.HasTexture("NormalMap")) vfx.SetTexture("NormalMap", pCache.normalMap);
+                if (mesh.isReadable)
+                {
+                    PointCacheGenerator.PCache pCache = PointCacheGenerator.ComputePCacheFromMesh(mesh, pointCacheMapSize, pointCachePointCount, pointCacheSeed, pointCacheDistribution, pointCacheBakeMode);
+                    vfx.SetTexture("PositionMap", pCache.positionMap);
+                    if (vfx.HasTexture("NormalMap")) vfx.SetTexture("NormalMap", pCache.normalMap);
+                }
+                else
+                {
+                    Debug.LogError("Cannot access vertices on mesh " + mesh.name + " for generating point cache (isReadable is false; Read/Write must be enabled in import settings)");
+                }
             }
             else
             {
@@ -110,15 +119,27 @@ namespace BS
                 Mesh mesh = renderer.GetComponent<MeshFilter>().sharedMesh;
                 if (usePointCache)
                 {
-                    PointCacheGenerator.PCache pCache = PointCacheGenerator.ComputePCacheFromMesh(mesh, pointCacheMapSize, pointCachePointCount, pointCacheSeed, pointCacheDistribution, pointCacheBakeMode);
-                    vfx.SetTexture("PositionMap", pCache.positionMap);
-                    if (vfx.HasTexture("NormalMap")) vfx.SetTexture("NormalMap", pCache.normalMap);
+                    if (mesh.isReadable)
+                    {
+                        PointCacheGenerator.PCache pCache = PointCacheGenerator.ComputePCacheFromMesh(mesh, pointCacheMapSize, pointCachePointCount, pointCacheSeed, pointCacheDistribution, pointCacheBakeMode);
+                        vfx.SetTexture("PositionMap", pCache.positionMap);
+                        if (vfx.HasTexture("NormalMap")) vfx.SetTexture("NormalMap", pCache.normalMap);
+                    }
+                    else
+                    {
+                        Debug.LogError("Cannot access vertices on mesh " + mesh.name + " for generating point cache (isReadable is false; Read/Write must be enabled in import settings)");
+                    }
                 }
                 else
                 {
                     vfx.SetMesh("Mesh", mesh);
                 }
             }
+        }
+
+        public override void SetCollider(Collider collider)
+        {
+            // Computer point cache from collider
         }
 
         public override void SetTarget(Transform target)

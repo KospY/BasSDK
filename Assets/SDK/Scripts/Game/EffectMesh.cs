@@ -9,6 +9,8 @@ namespace BS
         public float lifeTime = 5;
         public float refreshSpeed = 0.1f;
 
+        public AnimationCurve intensityCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
+
         [NonSerialized]
         public float playTime;
 
@@ -88,7 +90,7 @@ namespace BS
         {
             if (!loopOnly || (loopOnly && step == Step.Loop))
             {
-                currentValue = value;
+                currentValue = intensityCurve.Evaluate(value);
 
                 if (meshSize)
                 {
