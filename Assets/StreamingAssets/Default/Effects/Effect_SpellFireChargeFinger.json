@@ -7,6 +7,33 @@
     {
       "$type": "BS.EffectModuleVfx, Assembly-CSharp",
       "vfxPath": "@vfx:FireChargeFinger.vfx",
+      "intensityCurve": {
+        "keys": [
+          {
+            "time": 0.0,
+            "value": 0.2,
+            "inTangent": 0.198511645,
+            "outTangent": 0.198511645,
+            "inWeight": 0.0,
+            "outWeight": 0.0450281426,
+            "weightedMode": 0,
+            "tangentMode": 0
+          },
+          {
+            "time": 1.0,
+            "value": 1.0,
+            "inTangent": 1.07195342,
+            "outTangent": 1.07195342,
+            "inWeight": 0.0515947342,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
       "lifeTime": 5.0,
       "useSecondaryRenderer": false,
       "mainGradient": {
