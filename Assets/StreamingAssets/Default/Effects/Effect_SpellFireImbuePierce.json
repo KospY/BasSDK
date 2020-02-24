@@ -6,7 +6,7 @@
   "modules": [
     {
       "$type": "BS.EffectModuleParticle, Assembly-CSharp",
-      "effectParticlePath": "@vfx:FireImbueImpact.prefab",
+      "effectParticlePath": "@vfx:FireImbueImpact",
       "intensityCurve": null,
       "mainGradient": {
         "colorKeys": [
@@ -68,7 +68,7 @@
     },
     {
       "$type": "BS.EffectModuleDecal, Assembly-CSharp",
-      "materialPath": "@vfx:FirePierce.mat",
+      "materialPath": "@vfx:FirePierce",
       "baseLifeTime": 60.0,
       "emissionLifeTime": 10.0,
       "fadeRefreshSpeed": 0.1,
@@ -179,7 +179,7 @@
     },
     {
       "$type": "BS.EffectModulePaint, Assembly-CSharp",
-      "materialPath": "@vfx:FirePierce.mat",
+      "materialPath": "@vfx:FirePierce",
       "blendMode": 0,
       "radius": 0.1,
       "useRadiusCurve": false,
