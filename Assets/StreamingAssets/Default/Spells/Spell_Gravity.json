@@ -2,6 +2,7 @@
   "$type": "BS.SpellCastGravity, Assembly-CSharp",
   "id": "Gravity",
   "version": 0,
+  "throwEffectId": "SpellTelekinesisPush",
   "liftCurve": {
     "keys": [],
     "length": 0,
@@ -14,16 +15,24 @@
   "liftSlowDownRange": 0.5,
   "throwDefaultForce": 22.0,
   "throwRagdollLimbForce": 6.0,
+  "hitItemZeroGravityDuration": 5.0,
+  "hitRagdollZeroGravityDuration": 5.0,
   "randomTorqueRange": {
     "x": 0.2,
     "y": 0.2,
     "z": 0.2
   },
-  "effectId": "SpellGravityBall",
+  "chargeEffectId": "SpellGravityBall",
   "fingerEffectId": "SpellGravityBallFinger",
-  "throwEffectId": "SpellTelekinesisPush",
   "closeHandPoseId": "ChargeClose",
   "openHandPoseId": "ChargeOpen",
+  "imbueEnabled": true,
+  "imbueRate": 5.0,
+  "imbueRadius": 0.2,
+  "imbueBladeEffectId": "ImbueGravity",
+  "imbueTransferEffectId": "ImbueGravityTransfer",
+  "imbueCrystalEffectId": "ImbueGravity",
+  "imbueMaterialId": "",
   "caption": "Gravity",
   "runeString": "z",
   "imageColor": {
@@ -45,11 +54,5 @@
     "b": 0.7686275
   },
   "audioContainerPath": "",
-  "audioPitch": 1.0,
-  "imbueRate": 5.0,
-  "imbueRadius": 0.2,
-  "imbueBladeEffectId": "ImbueGravity",
-  "imbueTransferEffectId": "ImbueGravityTransfer",
-  "imbueCrystalEffectId": "ImbueGravity",
-  "imbueMaterialId": ""
+  "audioPitch": 1.0
 }

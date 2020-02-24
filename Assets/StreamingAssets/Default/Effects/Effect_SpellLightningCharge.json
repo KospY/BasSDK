@@ -1,0 +1,284 @@
+{
+  "$type": "BS.EffectData, Assembly-CSharp",
+  "id": "SpellLightningCharge",
+  "version": 0,
+  "category": "Spell",
+  "modules": [
+    {
+      "$type": "BS.EffectModuleAudio, Assembly-CSharp",
+      "audioContainerPath": "@audio:SpellLightningChargeStart",
+      "randomPitch": false,
+      "pitchCurve": null,
+      "volumeCurve": null,
+      "loopFadeDelay": 0.0,
+      "audioMixer": 1,
+      "minDistance": 1.0,
+      "maxDistance": 500.0,
+      "step": 0
+    },
+    {
+      "$type": "BS.EffectModuleAudio, Assembly-CSharp",
+      "audioContainerPath": "@audio:SpellLightningChargeLoop",
+      "randomPitch": false,
+      "pitchCurve": {
+        "keys": [
+          {
+            "time": 0.0,
+            "value": 0.8,
+            "inTangent": 0.0934191048,
+            "outTangent": 0.0934191048,
+            "inWeight": 0.0,
+            "outWeight": 0.0478424057,
+            "weightedMode": 0,
+            "tangentMode": 0
+          },
+          {
+            "time": 1.0,
+            "value": 1.2,
+            "inTangent": 0.949734747,
+            "outTangent": 0.949734747,
+            "inWeight": 0.0478423834,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "volumeCurve": null,
+      "loopFadeDelay": 1.0,
+      "audioMixer": 1,
+      "minDistance": 1.0,
+      "maxDistance": 500.0,
+      "step": 1
+    },
+    {
+      "$type": "BS.EffectModuleMesh, Assembly-CSharp",
+      "effectMeshPath": "@vfx:FireBallMarbleC",
+      "intensityCurve": {
+        "keys": [
+          {
+            "time": 0.0,
+            "value": 0.2,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          },
+          {
+            "time": 1.0,
+            "value": 1.0,
+            "inTangent": 2.0,
+            "outTangent": 2.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "lifeTime": 5.0,
+      "refreshSpeed": 0.1,
+      "linkBaseColor": 2,
+      "linkEmissionColor": 0,
+      "mainGradient": null,
+      "secondaryGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.5803922,
+              "g": 1.86666667,
+              "b": 2.99607849
+            },
+            "time": 0.0
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.5803922,
+              "g": 1.86666667,
+              "b": 2.99607849
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "step": 1
+    },
+    {
+      "$type": "BS.EffectModuleMesh, Assembly-CSharp",
+      "effectMeshPath": "@vfx:FireBallMarbleB",
+      "intensityCurve": {
+        "keys": [
+          {
+            "time": 0.0,
+            "value": 0.2,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          },
+          {
+            "time": 1.0,
+            "value": 1.0,
+            "inTangent": 2.0,
+            "outTangent": 2.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "lifeTime": 5.0,
+      "refreshSpeed": 0.1,
+      "linkBaseColor": 2,
+      "linkEmissionColor": 0,
+      "mainGradient": null,
+      "secondaryGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.5803922,
+              "g": 1.86666667,
+              "b": 2.99607849
+            },
+            "time": 0.0
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.5803922,
+              "g": 1.86666667,
+              "b": 2.99607849
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "step": 1
+    },
+    {
+      "$type": "BS.EffectModuleMesh, Assembly-CSharp",
+      "effectMeshPath": "@vfx:FireBallMarbleA",
+      "intensityCurve": {
+        "keys": [
+          {
+            "time": 0.0,
+            "value": 0.2,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          },
+          {
+            "time": 1.0,
+            "value": 1.0,
+            "inTangent": 2.0,
+            "outTangent": 2.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": 0,
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": 8,
+        "postWrapMode": 8
+      },
+      "lifeTime": 5.0,
+      "refreshSpeed": 0.1,
+      "linkBaseColor": 2,
+      "linkEmissionColor": 0,
+      "mainGradient": null,
+      "secondaryGradient": {
+        "colorKeys": [
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.5803922,
+              "g": 1.86666667,
+              "b": 2.99607849
+            },
+            "time": 0.0
+          },
+          {
+            "color": {
+              "a": 1.0,
+              "r": 0.5803922,
+              "g": 1.86666667,
+              "b": 2.99607849
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": 0
+      },
+      "step": 1
+    },
+    {
+      "$type": "BS.EffectModuleVfx, Assembly-CSharp",
+      "vfxPath": "@vfx:LightningCharge",
+      "intensityCurve": null,
+      "lifeTime": 5.0,
+      "useSecondaryRenderer": false,
+      "mainGradient": null,
+      "secondaryGradient": null,
+      "usePointCache": false,
+      "pointCacheMapSize": 512,
+      "pointCachePointCount": 4096,
+      "pointCacheSeed": 0,
+      "pointCacheDistribution": 2,
+      "pointCacheBakeMode": 1,
+      "step": 1
+    }
+  ]
+}

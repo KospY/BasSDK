@@ -2,16 +2,23 @@
   "$type": "BS.SpellCastFire, Assembly-CSharp",
   "id": "Fire",
   "version": 0,
-  "effectId": "SpellFireCharge",
-  "fingerEffectId": "SpellFireChargeFinger",
   "throwEffectId": null,
   "fireBalleffectId": "SpellFireball",
   "projectileId": "DynamicProjectile",
   "projectileDamagerId": "Fireball",
   "fireBallVelocity": 15.0,
   "playerGuided": true,
+  "chargeEffectId": "SpellFireCharge",
+  "fingerEffectId": "SpellFireChargeFinger",
   "closeHandPoseId": "ChargeClose",
   "openHandPoseId": "ChargeOpen",
+  "imbueEnabled": true,
+  "imbueRate": 5.0,
+  "imbueRadius": 0.2,
+  "imbueBladeEffectId": "ImbueFireBlade",
+  "imbueTransferEffectId": "ImbueFireTransfer",
+  "imbueCrystalEffectId": "ImbueFireCrystal",
+  "imbueMaterialId": "SpellFire",
   "caption": "Fire",
   "runeString": "f",
   "imageColor": {
@@ -33,11 +40,5 @@
     "b": 0.623529434
   },
   "audioContainerPath": "",
-  "audioPitch": 1.0,
-  "imbueRate": 5.0,
-  "imbueRadius": 0.2,
-  "imbueBladeEffectId": "ImbueFireBlade",
-  "imbueTransferEffectId": "ImbueFireTransfer",
-  "imbueCrystalEffectId": "ImbueFireCrystal",
-  "imbueMaterialId": "SpellFire"
+  "audioPitch": 1.0
 }

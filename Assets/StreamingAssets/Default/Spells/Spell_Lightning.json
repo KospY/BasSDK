@@ -1,7 +1,18 @@
 {
-  "$type": "BS.SpellCastData, Assembly-CSharp",
+  "$type": "BS.SpellCastLightning, Assembly-CSharp",
   "id": "Lightning",
   "version": 0,
+  "chargeEffectId": "SpellLightningCharge",
+  "fingerEffectId": "SpellLightningChargeFinger",
+  "closeHandPoseId": "ChargeClose",
+  "openHandPoseId": "ChargeOpen",
+  "imbueEnabled": true,
+  "imbueRate": 1.0,
+  "imbueRadius": 0.2,
+  "imbueBladeEffectId": null,
+  "imbueTransferEffectId": null,
+  "imbueCrystalEffectId": null,
+  "imbueMaterialId": null,
   "caption": "Lightning",
   "runeString": "s",
   "imageColor": {
@@ -23,11 +34,5 @@
     "b": 0.8745099
   },
   "audioContainerPath": "@audio:Spell_LightningSelect",
-  "audioPitch": 1.0,
-  "imbueRate": 1.0,
-  "imbueRadius": 0.2,
-  "imbueBladeEffectId": null,
-  "imbueTransferEffectId": null,
-  "imbueCrystalEffectId": null,
-  "imbueMaterialId": null
+  "audioPitch": 1.0
 }
