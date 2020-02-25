@@ -68,7 +68,8 @@ namespace BS
 
         public override void SetIntensity(float value, bool loopOnly = false)
         {
-            if (!loopOnly || (loopOnly && step == Step.Loop))
+            if (vfx.HasFloat ("Intensity")
+                && (!loopOnly || (loopOnly && step == Step.Loop)))
             {
                 vfx.SetFloat("Intensity", intensityCurve.Evaluate(value));
             }
