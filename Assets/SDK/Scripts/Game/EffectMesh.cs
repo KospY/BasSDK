@@ -36,31 +36,41 @@ namespace BS
 
         [NonSerialized]
         public MaterialPropertyBlock materialPropertyBlock;
-
-        protected new Renderer renderer;
+        [NonSerialized]
+        public MeshFilter meshFilter;
+        [NonSerialized]
+        public MeshRenderer meshRenderer;
 
         private void OnValidate()
         {
             materialPropertyBlock = new MaterialPropertyBlock();
-            renderer = GetComponent<Renderer>();
+            meshRenderer = GetComponent<MeshRenderer>();
         }
 
         private void Awake()
         {
             materialPropertyBlock = new MaterialPropertyBlock();
-            renderer = GetComponent<Renderer>();
-            renderer.enabled = false;
+
+            meshFilter = this.GetComponent<MeshFilter>();
+            if (!meshFilter) meshFilter = this.gameObject.AddComponent<MeshFilter>();
+
+            meshRenderer = this.GetComponent<MeshRenderer>();
+            if (!meshRenderer) meshRenderer = this.gameObject.AddComponent<MeshRenderer>();
+            meshRenderer.enabled = false;
         }
 
         public override void Play()
         {
             CancelInvoke();
             playTime = Time.time;
-            if (renderer != null) renderer.enabled = true;
-
-            if (linkEmissionColor != EffectTarget.None && renderer != null)
+            if (meshRenderer != null)
             {
-                foreach (Material material in renderer.materials)
+                meshRenderer.enabled = true;
+            }
+
+            if (linkEmissionColor != EffectTarget.None && meshRenderer != null)
+            {
+                foreach (Material material in meshRenderer.materials)
                 {
                     material.EnableKeyword("_EMISSION");
                 }
@@ -74,8 +84,10 @@ namespace BS
 
         public override void Stop(bool loopOnly = false)
         {
-            if (renderer != null)
-                renderer.enabled = false;
+            if (meshRenderer != null)
+            {
+                meshRenderer.enabled = false;
+            }
             Despawn();
         }
 
@@ -127,7 +139,7 @@ namespace BS
                     updatePropertyBlock = true;
                 }
 
-                if (renderer != null && updatePropertyBlock) renderer.SetPropertyBlock(materialPropertyBlock);
+                if (meshRenderer != null && updatePropertyBlock) meshRenderer.SetPropertyBlock(materialPropertyBlock);
             }
         }
 
@@ -146,7 +158,7 @@ namespace BS
         public override void Despawn()
         {
             CancelInvoke();
-            if (renderer != null) renderer.enabled = false;
+            if (meshRenderer != null) meshRenderer.enabled = false;
             if (Application.isPlaying)
             {
                 EffectModuleMesh.Despawn(this);
