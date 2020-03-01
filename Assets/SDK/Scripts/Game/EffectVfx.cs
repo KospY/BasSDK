@@ -70,7 +70,7 @@ namespace BS
         {
             if (!loopOnly || (loopOnly && step == Step.Loop))
             {
-                vfx.SetFloat("Intensity", intensityCurve.Evaluate(value));
+                if (vfx.HasFloat("Intensity")) vfx.SetFloat("Intensity", intensityCurve.Evaluate(value));
             }
 
             if (emitSize)
