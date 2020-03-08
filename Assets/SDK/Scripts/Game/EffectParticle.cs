@@ -14,6 +14,9 @@ namespace BS
         [NonSerialized]
         public float playTime;
 
+        public bool useScaleCurve;
+        public AnimationCurve scaleCurve;
+
         [NonSerialized]
         public List<EffectParticleChild> childs = new List<EffectParticleChild>();
 
@@ -92,6 +95,12 @@ namespace BS
             if (!loopOnly || (loopOnly && step == Step.Loop))
             {
                 currentValue = intensityCurve.Evaluate(value);
+
+                if (useScaleCurve)
+                {
+                    float scale = scaleCurve.Evaluate(value);
+                    transform.localScale = new Vector3(scale, scale, scale);
+                }
 
                 foreach (EffectParticleChild p in childs)
                 {
