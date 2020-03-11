@@ -26,7 +26,7 @@ namespace BS
         public bool meshRotY;
         public AnimationCurve curveMeshrotY;
 
-        [NonSerialized]
+        //[NonSerialized]
         public float currentValue;
 
         [NonSerialized, GradientUsage(true)]
@@ -106,13 +106,13 @@ namespace BS
 
                 if (meshSize)
                 {
-                    float meshSizeValue = curveMeshSize.Evaluate(value);
+                    float meshSizeValue = curveMeshSize.Evaluate(currentValue);
                     transform.localScale = new Vector3(meshSizeValue, meshSizeValue, meshSizeValue);
                 }
 
                 if (meshRotY)
                 {
-                    float meshRotYValue = curveMeshrotY.Evaluate(value);
+                    float meshRotYValue = curveMeshrotY.Evaluate(currentValue);
                     transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, meshRotYValue, transform.localEulerAngles.z);
                 }
 
@@ -120,22 +120,22 @@ namespace BS
                 bool updatePropertyBlock = false;
                 if (linkBaseColor == EffectTarget.Main && currentMainGradient != null)
                 {
-                    materialPropertyBlock.SetColor("_BaseColor", currentMainGradient.Evaluate(value));
+                    materialPropertyBlock.SetColor("_BaseColor", currentMainGradient.Evaluate(currentValue));
                     updatePropertyBlock = true;
                 }
                 else if (linkBaseColor == EffectTarget.Secondary && currentSecondaryGradient != null)
                 {
-                    materialPropertyBlock.SetColor("_BaseColor", currentSecondaryGradient.Evaluate(value));
+                    materialPropertyBlock.SetColor("_BaseColor", currentSecondaryGradient.Evaluate(currentValue));
                     updatePropertyBlock = true;
                 }
                 if (linkEmissionColor == EffectTarget.Main && currentMainGradient != null)
                 {
-                    materialPropertyBlock.SetColor("_EmissionColor", currentMainGradient.Evaluate(value));
+                    materialPropertyBlock.SetColor("_EmissionColor", currentMainGradient.Evaluate(currentValue));
                     updatePropertyBlock = true;
                 }
                 else if (linkEmissionColor == EffectTarget.Secondary && currentSecondaryGradient != null)
                 {
-                    materialPropertyBlock.SetColor("_EmissionColor", currentSecondaryGradient.Evaluate(value));
+                    materialPropertyBlock.SetColor("_EmissionColor", currentSecondaryGradient.Evaluate(currentValue));
                     updatePropertyBlock = true;
                 }
 
