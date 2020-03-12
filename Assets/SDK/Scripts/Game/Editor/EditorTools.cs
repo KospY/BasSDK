@@ -20,6 +20,11 @@ namespace BS
         public static bool exportToModFolders;
         Vector3 scroll0, scroll1;
 
+        private bool check = false;
+
+        public string copyPath = "";
+        private string defaultCopyPath = "D:/";
+
         [MenuItem("Game/Asset Bundle Builder")]
         public static void ShowWindow()
         {   //Opens window from toolbar
@@ -33,6 +38,8 @@ namespace BS
             {
                 exportBundle[bundle] = EditorPrefs.GetBool("ExportBundle" + bundle, true);
                 modExportDirectories[bundle] = EditorPrefs.GetString("ExportBundleDir" + bundle, null);
+                copyPath = EditorPrefs.GetString("CopyPath", defaultCopyPath);
+
             }
             exportToModFolders = EditorPrefs.GetBool("exportToModFolders", exportToModFolders);
         }
@@ -77,6 +84,37 @@ namespace BS
 
             //Displays header text 1
             GUILayout.Label(new GUIContent("Select the following asset bundles to export"), new GUIStyle("BoldLabel"));
+            GUILayout.Space(5);
+
+            if (GUILayout.Button("Check / Uncheck all"))
+            {
+                check = !check;
+
+                foreach (string bundle in bundleNames)
+                {
+                    exportBundle[bundle] = check;
+                }
+            }
+
+            GUILayout.Space(5);
+
+            if (GUILayout.Button("Change copy folder..."))
+            {
+                try
+                {
+                    copyPath = EditorUtility.OpenFolderPanel("AssetBundle copy path", "", "");
+
+                    Debug.Log("New path set for AssetBundle copy : " + copyPath);
+                }
+                catch
+                {
+                    copyPath = defaultCopyPath;
+                    Debug.LogError("Error opening folder. Resetting to default path (" + defaultCopyPath +" .");
+                }
+                EditorPrefs.SetString("CopyPath", copyPath);
+            }
+            GUILayout.Label("Current copy path : " + copyPath);
+
             GUILayout.Space(5);
 
             //Displays asset bundle list
@@ -232,6 +270,13 @@ namespace BS
                         }
                     }
                     file.MoveTo(file.FullName + ext);
+
+                    if (copyPath != null || copyPath != "")
+                    {
+                        file.CopyTo(copyPath + "/" + file.Name, true);
+                        Debug.Log("Copied bundle " + file.Name + " to " + copyPath + ".");
+                    }
+
                     if (modExportDirectories[Path.GetFileNameWithoutExtension(file.Name)].Length > 1)
                     {
                         if (exportToModFolders && modExportDirectories.ContainsKey(file.Name.Substring(0, file.Name.Length - 7)))
