@@ -14,6 +14,9 @@ namespace BS
 
         public AnimationCurve intensityCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
 
+        public bool useScaleCurve;
+        public AnimationCurve scaleCurve;
+
         public bool useSecondaryRenderer;
 
         public bool usePointCache = false;
@@ -71,6 +74,12 @@ namespace BS
             if (!loopOnly || (loopOnly && step == Step.Loop))
             {
                 if (vfx.HasFloat("Intensity")) vfx.SetFloat("Intensity", intensityCurve.Evaluate(value));
+            }
+
+            if (useScaleCurve)
+            {
+                float scale = scaleCurve.Evaluate(value);
+                transform.localScale = new Vector3(scale, scale, scale);
             }
 
             if (emitSize)
