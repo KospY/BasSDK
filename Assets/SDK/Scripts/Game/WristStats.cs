@@ -59,12 +59,12 @@ namespace BS
 
         void UpdateLife()
         {
-            lifeEffectSpawner.intensity = Mathf.CeilToInt((creature.health.currentHealth) / creature.health.maxHealth);
+            lifeEffectSpawner.intensity = Mathf.CeilToInt(creature.health.currentHealth) / creature.health.maxHealth;
         }
 
         void UpdateMana()
         {
-            manaEffectSpawner.intensity = Mathf.CeilToInt((creature.mana.currentMana) / creature.mana.maxMana);
+            manaEffectSpawner.intensity = Mathf.CeilToInt(creature.mana.currentMana) / creature.mana.maxMana;
         }
 
         void Update()
