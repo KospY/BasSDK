@@ -14,8 +14,28 @@ namespace BS
         [NonSerialized]
         public float playTime;
 
+        [Header("Low pass filter")]
+        public bool useLowPassFilter;
+        public AnimationCurve lowPassCutoffFrequencyCurve = new AnimationCurve(new Keyframe(0, 22000), new Keyframe(1, 22000));
+        public AnimationCurve lowPassResonanceQCurve = new AnimationCurve(new Keyframe(0, 1), new Keyframe(1, 1));
+
+        [Header("High pass filter")]
+        public bool useHighPassFilter;
+        public AnimationCurve highPassCutoffFrequencyCurve = new AnimationCurve(new Keyframe(0, 10), new Keyframe(1, 10));
+        public AnimationCurve highPassResonanceQCurve = new AnimationCurve(new Keyframe(0, 1), new Keyframe(1, 1));
+
+        [Header("Reverb filter")]
+        public bool useReverbFilter;
+        public AnimationCurve reverbDryLevelCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 0));
+
         [NonSerialized]
         public AudioSource audioSource;
+        [NonSerialized]
+        public AudioLowPassFilter lowPassFilter;
+        [NonSerialized]
+        public AudioHighPassFilter highPassFilter;
+        [NonSerialized]
+        public AudioReverbFilter reverbFilter;
 
         private void Awake()
         {
@@ -24,6 +44,16 @@ namespace BS
             audioSource.spatialBlend = 1;
             audioSource.playOnAwake = false;
             audioSource.spatialize = true;
+            lowPassFilter = this.GetComponent<AudioLowPassFilter>();
+            if (!lowPassFilter) lowPassFilter = this.gameObject.AddComponent<AudioLowPassFilter>();
+            lowPassFilter.enabled = false;
+            highPassFilter = this.GetComponent<AudioHighPassFilter>();
+            if (!highPassFilter) highPassFilter = this.gameObject.AddComponent<AudioHighPassFilter>();
+            highPassFilter.enabled = false;
+            reverbFilter = this.GetComponent<AudioReverbFilter>();
+            if (!reverbFilter) reverbFilter = this.gameObject.AddComponent<AudioReverbFilter>();
+            reverbFilter.reverbPreset = AudioReverbPreset.Off;
+            reverbFilter.enabled = false;
         }
 
         public override void Play()
@@ -62,6 +92,20 @@ namespace BS
             {
                 audioSource.pitch = pitchCurve.Evaluate(value);
                 audioSource.volume = volumeCurve.Evaluate(value);
+                if (useLowPassFilter)
+                {
+                    lowPassFilter.cutoffFrequency = lowPassCutoffFrequencyCurve.Evaluate(value);
+                    lowPassFilter.lowpassResonanceQ = lowPassResonanceQCurve.Evaluate(value);
+                }
+                if (useHighPassFilter)
+                {
+                    highPassFilter.cutoffFrequency = highPassCutoffFrequencyCurve.Evaluate(value);
+                    highPassFilter.highpassResonanceQ = highPassResonanceQCurve.Evaluate(value);
+                }
+                if (useLowPassFilter)
+                {
+                    reverbFilter.dryLevel = reverbDryLevelCurve.Evaluate(value);
+                }
             }
         }
 
