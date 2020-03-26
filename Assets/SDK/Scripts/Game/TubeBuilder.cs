@@ -82,6 +82,7 @@ namespace BS
 
         protected virtual void UpdateTube()
         {
+            if (!target) return;
             tube.transform.position = Vector3.Lerp(this.transform.position, target.transform.position, 0.5f);
             tube.transform.rotation = Quaternion.FromToRotation(tube.transform.TransformDirection(Vector3.up), target.position - this.transform.position) * tube.transform.rotation;
             float distance = Vector3.Distance(this.transform.position, target.position);
