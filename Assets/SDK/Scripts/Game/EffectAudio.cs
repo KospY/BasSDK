@@ -6,6 +6,8 @@ namespace BS
 {
     public class EffectAudio : Effect
     {
+        public AudioContainer audioContainer;
+
         public bool randomPitch;
         public AnimationCurve pitchCurve;
         public AnimationCurve volumeCurve;
@@ -13,6 +15,11 @@ namespace BS
 
         [NonSerialized]
         public float playTime;
+
+        [Header("Random play")]
+        public bool randomPlay;
+        public float randomMinTime = 2;
+        public float randomMaxTime = 5;
 
         [Header("Low pass filter")]
         public bool useLowPassFilter;
@@ -60,7 +67,7 @@ namespace BS
         {
             CancelInvoke();
             StopAllCoroutines();
-            audioSource.loop = step == Step.Loop ? true : false;
+
             if (randomPitch)
             {
                 audioSource.pitch = pitchCurve.Evaluate(UnityEngine.Random.Range(0f, 1f));
@@ -69,12 +76,37 @@ namespace BS
             {
                 Invoke("Despawn", audioSource.clip.length + 1);
             }
-            audioSource.Play();
+
+            audioSource.clip = Common.GetRandomAudioClip(audioContainer.sounds);
+
+            if (randomPlay)
+            {
+                audioSource.loop = false;
+                audioSource.clip = Common.GetRandomAudioClip(audioContainer.sounds);
+                float randomDelay = UnityEngine.Random.Range(randomMinTime, randomMaxTime);
+                Invoke("RandomPlay", randomDelay);
+            }
+            else
+            {
+                audioSource.loop = step == Step.Loop ? true : false;
+                audioSource.Play();
+            }
+
             playTime = Time.time;
+        }
+
+        protected void RandomPlay()
+        {
+            audioSource.clip = Common.GetRandomAudioClip(audioContainer.sounds);
+            if (!audioSource.isPlaying) audioSource.Play();
+            float randomDelay = UnityEngine.Random.Range(randomMinTime, randomMaxTime);
+            Invoke("RandomPlay", randomDelay);
+            Debug.Log(randomDelay);
         }
 
         public override void Stop(bool loopOnly = false)
         {
+            CancelInvoke("RandomPlay");
             if (loopFadeDelay > 0)
             {
                 StopAllCoroutines();
