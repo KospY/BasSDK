@@ -114,6 +114,9 @@ public static class PointCacheGenerator
 
         computeShader.Dispatch(0, mapSize / 8, mapSize / 8, 1);
 
+        positionBuffer.Dispose();
+        normalBuffer.Dispose();
+
         return pCache;
     }
 
