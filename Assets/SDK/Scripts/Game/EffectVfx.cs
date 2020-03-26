@@ -115,7 +115,7 @@ namespace BS
                     Debug.LogError("Cannot access vertices on mesh " + mesh.name + " for generating point cache (isReadable is false; Read/Write must be enabled in import settings)");
                 }
             }
-            else
+            else if (vfx.HasMesh("Mesh"))
             {
                 vfx.SetMesh("Mesh", mesh);
             }
