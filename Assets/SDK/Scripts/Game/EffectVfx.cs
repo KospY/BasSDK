@@ -12,7 +12,7 @@ namespace BS
         public float lifeTime = 5;
         public Transform targetTransform;
 
-        public AnimationCurve intensityCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
+        public AnimationCurve intensityCurve = new AnimationCurve(new Keyframe(0, 0, 1, 1), new Keyframe(1, 1, 1, 1));
 
         public bool useScaleCurve;
         public AnimationCurve scaleCurve;

@@ -9,7 +9,7 @@ namespace BS
         public float lifeTime = 5;
         public float refreshSpeed = 0.1f;
 
-        public AnimationCurve intensityCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
+        public AnimationCurve intensityCurve = new AnimationCurve(new Keyframe(0, 0, 1, 1), new Keyframe(1, 1, 1, 1));
 
         [NonSerialized]
         public float playTime;
