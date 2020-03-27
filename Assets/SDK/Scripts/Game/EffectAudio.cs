@@ -68,6 +68,8 @@ namespace BS
             CancelInvoke();
             StopAllCoroutines();
 
+            audioSource.clip = Common.GetRandomAudioClip(audioContainer.sounds);
+
             if (randomPitch)
             {
                 audioSource.pitch = pitchCurve.Evaluate(UnityEngine.Random.Range(0f, 1f));
@@ -76,8 +78,6 @@ namespace BS
             {
                 Invoke("Despawn", audioSource.clip.length + 1);
             }
-
-            audioSource.clip = Common.GetRandomAudioClip(audioContainer.sounds);
 
             if (randomPlay)
             {
