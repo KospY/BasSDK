@@ -9,7 +9,7 @@ namespace BS
         public int poolCount = 50;
         public float lifeTime = 5;
 
-        public AnimationCurve intensityCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
+        public AnimationCurve intensityCurve = new AnimationCurve(new Keyframe(0, 0, 1, 1), new Keyframe(1, 1, 1, 1));
 
         [NonSerialized]
         public float playTime;
