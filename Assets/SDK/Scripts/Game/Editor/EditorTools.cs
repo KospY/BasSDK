@@ -271,10 +271,10 @@ namespace BS
                     }
                     file.MoveTo(file.FullName + ext);
 
-                    if (copyPath != "" || copyPath != String.Empty)
+                    if (copyPath != null || copyPath != "")
                     {
                         file.CopyTo(copyPath + "/" + file.Name, true);
-                        Debug.Log("Copied file " + file.Name + " to " + copyPath + ".");
+                        Debug.Log("Copied bundle " + file.Name + " to " + copyPath + ".");
                     }
 
                     if (modExportDirectories[Path.GetFileNameWithoutExtension(file.Name)].Length > 1)

@@ -20,24 +20,39 @@ namespace BS
         public Vector3 localRotation;
 
         protected bool isShown = true;
-        protected int lastManaValue;
-        protected int lastHealthValue;
+        protected float lastManaValue;
+        protected float lastHealthValue;
 
-        [BoxGroup("Elements")]
-        public EffectSpawner lifeEffectSpawner;
-        [BoxGroup("Elements")]
-        public EffectSpawner manaEffectSpawner;
-        [BoxGroup("Elements")]
-        public EffectSpawner focusEffectSpawner;
+        [BoxGroup("Effects"), ValueDropdown("GetAllEffectID")]
+        public string lifeEffectId;
+        [BoxGroup("Effects")]
+        public Transform lifeEffectParent;
+        [BoxGroup("Effects"), ValueDropdown("GetAllEffectID")]
+        public string manaEffectId;
+        [BoxGroup("Effects")]
+        public Transform manaEffectParent;
+        [BoxGroup("Effects"), ValueDropdown("GetAllEffectID")]
+        public string focusEffectId;
+        [BoxGroup("Effects")]
+        public Transform focusEffectParent;
 
-        [BoxGroup("FX positions")]
-        public Vector3 manaPosition;
-        [BoxGroup("FX positions")]
-        public Vector3 manaRotation;
+        private EffectData lifeEffectData;
+        private EffectData manaEffectData;
+        private EffectData focusEffectData;
+
+        private EffectInstance lifeEffectInstance;
+        private EffectInstance manaEffectInstance;
+        private EffectInstance focusEffectInstance;
 
         public bool initialized = false;
+        public List<ValueDropdownItem<string>> GetAllEffectID()
+        {
+            return Catalog.GetDropdownAllID(Catalog.Category.Effect);
+        }
+
 #if ProjectCore
         protected Creature creature;
+
 
         public void Init()
         {
@@ -54,17 +69,21 @@ namespace BS
             this.transform.localPosition = localPosition;
             this.transform.localRotation = Quaternion.Euler(localRotation);
 
+            lifeEffectData = Catalog.GetData<EffectData>(lifeEffectId);
+            manaEffectData = Catalog.GetData<EffectData>(manaEffectId);
+            focusEffectData = Catalog.GetData<EffectData>(focusEffectId);
+
             initialized = true;
         }
 
         void UpdateLife()
         {
-            lifeEffectSpawner.intensity = Mathf.CeilToInt(creature.health.currentHealth) / creature.health.maxHealth;
+            lifeEffectInstance.SetIntensity(creature.health.currentHealth / creature.health.maxHealth);
         }
 
         void UpdateMana()
         {
-            manaEffectSpawner.intensity = Mathf.CeilToInt(creature.mana.currentMana) / creature.mana.maxMana;
+            manaEffectInstance.SetIntensity(creature.mana.currentMana / creature.mana.maxMana);
         }
 
         void Update()
@@ -93,16 +112,14 @@ namespace BS
             {
                 if (creature.health)
                 {
-                    int healthInt = Mathf.CeilToInt(creature.health.currentHealth);
-                    if (lastHealthValue != healthInt)
+                    if (lastHealthValue != creature.health.currentHealth)
                     {
                         UpdateLife();
                     }
                 }
                 if (creature.mana)
                 {
-                    int manaInt = Mathf.CeilToInt(creature.mana.currentMana);
-                    if (lastManaValue != manaInt)
+                    if (lastManaValue != creature.mana.currentMana)
                     {
                         UpdateMana();
                     }
@@ -113,19 +130,22 @@ namespace BS
         [Button]
         void Show(bool active)
         {
-            lifeEffectSpawner.gameObject.SetActive(active);
-            manaEffectSpawner.gameObject.SetActive(active);
-            focusEffectSpawner.gameObject.SetActive(active);
+            if (active)
+            {
+                lifeEffectInstance = lifeEffectData.Spawn(lifeEffectParent);
+                manaEffectInstance = manaEffectData.Spawn(manaEffectParent);
+                focusEffectInstance = focusEffectData.Spawn(focusEffectParent);
 
-            lifeEffectSpawner.Spawn();
-            manaEffectSpawner.Spawn();
-            focusEffectSpawner.Spawn();
-
-            manaEffectSpawner.transform.GetChild(0).localRotation = Quaternion.Euler(manaRotation);
-            manaEffectSpawner.transform.GetChild(1).localRotation = Quaternion.Euler(manaRotation);
-
-            manaEffectSpawner.transform.GetChild(0).localPosition = manaPosition;
-            manaEffectSpawner.transform.GetChild(1).localPosition = manaPosition;
+                lifeEffectInstance.Play();
+                manaEffectInstance.Play();
+                focusEffectInstance.Play();
+            }
+            else
+            {
+                if (lifeEffectInstance != null) lifeEffectInstance.Stop();
+                if (manaEffectInstance != null) manaEffectInstance.Stop();
+                if (focusEffectInstance != null) focusEffectInstance.Stop();
+            }
         }
 #endif
     }
