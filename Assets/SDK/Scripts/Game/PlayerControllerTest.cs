@@ -15,10 +15,10 @@ public class PlayerControllerTest : MonoBehaviour
 
     void Awake()
     {
-        Time.fixedDeltaTime = Time.timeScale / XRDevice.refreshRate;
 #if ProjectCore
         Destroy(this.gameObject);
 #else
+        Time.fixedDeltaTime = Time.timeScale / XRDevice.refreshRate;
         rigidbody = GetComponent<Rigidbody>();
         collider = GetComponent<CapsuleCollider>();
         XRDevice.SetTrackingSpaceType(TrackingSpaceType.RoomScale);
