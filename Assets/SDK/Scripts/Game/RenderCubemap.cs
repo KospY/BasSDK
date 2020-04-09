@@ -32,6 +32,8 @@ public class RenderCubemap : MonoBehaviour
         string cubemapPath = this.gameObject.scene.path.Replace(".unity", ".cubemap");
         AssetDatabase.CreateAsset(cubemap, cubemapPath);
         AssetImporter.GetAtPath(cubemapPath).SetAssetBundleNameAndVariant(assetBundleName, "");
+        UnityEngine.Rendering.Universal.UniversalAdditionalCameraData cameraData = cam.GetComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>();
+        if (cameraData) DestroyImmediate(cameraData);
         DestroyImmediate(cam);
         EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         Debug.Log("Cubemap created in " + cubemapPath);
