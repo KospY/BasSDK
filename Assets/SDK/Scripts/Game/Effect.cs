@@ -44,6 +44,11 @@ namespace BS
 
         }
 
+        public virtual void SetSource(Transform transform)
+        {
+
+        }
+
         public virtual void SetTarget(Transform transform)
         {
 

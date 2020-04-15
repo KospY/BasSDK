@@ -10,6 +10,7 @@ namespace BS
     {
         public VisualEffect vfx;
         public float lifeTime = 5;
+        public Transform sourceTransform;
         public Transform targetTransform;
 
         public AnimationCurve intensityCurve = new AnimationCurve(new Keyframe(0, 0, 1, 1), new Keyframe(1, 1, 1, 1));
@@ -34,10 +35,16 @@ namespace BS
         public AnimationCurve curveEmitSize;
 
         protected bool stopping;
+
         protected bool hasTarget;
-        protected int positionId;
-        protected int positionAngles;
-        protected int positionScale;
+        protected int tgtPositionId;
+        protected int tgtPositionAngles;
+        protected int tgtPositionScale;
+
+        protected bool hasSource;
+        protected int srcPositionId;
+        protected int srcPositionAngles;
+        protected int srcPositionScale;
 
         private void OnValidate()
         {
@@ -55,6 +62,10 @@ namespace BS
         public override void Play()
         {
             vfx.enabled = true;
+            if (vfx.HasInt("Seed"))
+            {
+                vfx.SetInt("Seed", UnityEngine.Random.Range(0, 10000));
+            }
             vfx.Play();
             if (step != Step.Loop)
             {
@@ -151,16 +162,33 @@ namespace BS
             // Computer point cache from collider
         }
 
+        public override void SetSource(Transform source)
+        {
+            sourceTransform = source;
+            if (source && vfx.HasVector3("Source_position"))
+            {
+                srcPositionId = Shader.PropertyToID("Source_position");
+                srcPositionAngles = Shader.PropertyToID("Source_angles");
+                srcPositionScale = Shader.PropertyToID("Source_scale");
+                hasSource = true;
+                UpdateSource();
+            }
+            else
+            {
+                hasSource = false;
+            }
+        }
+
         public override void SetTarget(Transform target)
         {
             targetTransform = target;
             if (target && vfx.HasVector3("Target_position"))
             {
-                positionId = Shader.PropertyToID("Target_position");
-                positionAngles = Shader.PropertyToID("Target_angles");
-                positionScale = Shader.PropertyToID("Target_scale");
+                tgtPositionId = Shader.PropertyToID("Target_position");
+                tgtPositionAngles = Shader.PropertyToID("Target_angles");
+                tgtPositionScale = Shader.PropertyToID("Target_scale");
                 hasTarget = true;
-                Update();
+                UpdateTarget();
             }
             else
             {
@@ -170,16 +198,32 @@ namespace BS
 
         public void Update()
         {
-            if (hasTarget)
-            {
-                if (vfx.HasVector3(positionId)) vfx.SetVector3(positionId, targetTransform.position);
-                if (vfx.HasVector3(positionAngles)) vfx.SetVector3(positionAngles, targetTransform.eulerAngles);
-                if (vfx.HasVector3(positionScale)) vfx.SetVector3(positionScale, targetTransform.localScale);
-            }
+            UpdateSource();
+            UpdateTarget();
             if (stopping && vfx.aliveParticleCount == 0)
             {
                 stopping = false;
                 Despawn();
+            }
+        }
+
+        public void UpdateSource()
+        {
+            if (hasSource && sourceTransform)
+            {
+                if (vfx.HasVector3(srcPositionId)) vfx.SetVector3(srcPositionId, sourceTransform.position);
+                if (vfx.HasVector3(srcPositionAngles)) vfx.SetVector3(srcPositionAngles, sourceTransform.eulerAngles);
+                if (vfx.HasVector3(srcPositionScale)) vfx.SetVector3(srcPositionScale, sourceTransform.localScale);
+            }
+        }
+
+        public void UpdateTarget()
+        {
+            if (hasTarget && targetTransform)
+            {
+                if (vfx.HasVector3(tgtPositionId)) vfx.SetVector3(tgtPositionId, targetTransform.position);
+                if (vfx.HasVector3(tgtPositionAngles)) vfx.SetVector3(tgtPositionAngles, targetTransform.eulerAngles);
+                if (vfx.HasVector3(tgtPositionScale)) vfx.SetVector3(tgtPositionScale, targetTransform.localScale);
             }
         }
 
