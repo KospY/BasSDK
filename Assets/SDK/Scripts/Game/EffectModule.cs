@@ -18,7 +18,7 @@ namespace BS
 
         }
 
-        public virtual Effect Spawn()
+        public virtual Effect Spawn(EffectData effectData)
         {
             return null;
         }

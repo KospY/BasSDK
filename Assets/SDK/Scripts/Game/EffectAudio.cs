@@ -8,6 +8,9 @@ namespace BS
     {
         public AudioContainer audioContainer;
 
+        public float globalVolume = 1;
+        public float globalPitch = 1;
+
         public bool randomPitch;
         public AnimationCurve pitchCurve;
         public AnimationCurve volumeCurve;
@@ -74,6 +77,8 @@ namespace BS
             {
                 audioSource.pitch = pitchCurve.Evaluate(UnityEngine.Random.Range(0f, 1f));
             }
+            audioSource.pitch *= globalPitch;
+
             if (step != Step.Loop)
             {
                 Invoke("Despawn", audioSource.clip.length + 1);
@@ -122,8 +127,8 @@ namespace BS
         {
             if (!loopOnly || (loopOnly && step == Step.Loop))
             {
-                audioSource.pitch = pitchCurve.Evaluate(value);
-                audioSource.volume = volumeCurve.Evaluate(value);
+                audioSource.pitch = pitchCurve.Evaluate(value) * globalPitch;
+                audioSource.volume = volumeCurve.Evaluate(value) * globalVolume;
                 if (useLowPassFilter)
                 {
                     lowPassFilter.cutoffFrequency = lowPassCutoffFrequencyCurve.Evaluate(value);
