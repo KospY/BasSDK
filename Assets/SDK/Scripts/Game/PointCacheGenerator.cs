@@ -27,6 +27,53 @@ public static class PointCacheGenerator
     {
         public RenderTexture positionMap;
         public RenderTexture normalMap;
+        public Mesh mesh;
+        public int mapSize;
+        public ComputeBuffer positionBuffer;
+        public ComputeBuffer normalBuffer;
+        public List<Vector3> positions;
+        public List<Vector3> normals;
+
+        public void Update(SkinnedMeshRenderer skinnedMeshRenderer)
+        {
+            skinnedMeshRenderer.BakeMesh(mesh);
+            mesh.GetVertices(positions);
+            mesh.GetNormals(normals);
+            int vcount = positions.Count;
+            int vcount_x3 = vcount * 3;
+
+            if (positionBuffer.count != vcount_x3)
+            {
+                positionBuffer.Dispose();
+                normalBuffer.Dispose();
+                positionBuffer = new ComputeBuffer(vcount_x3, sizeof(float));
+                normalBuffer = new ComputeBuffer(vcount_x3, sizeof(float));
+            }
+
+            computeShader.SetInt("VertexCount", vcount);
+
+            positionBuffer.SetData(positions);
+            normalBuffer.SetData(normals);
+
+            computeShader.SetBuffer(0, "PositionBuffer", positionBuffer);
+            computeShader.SetBuffer(0, "NormalBuffer", normalBuffer);
+
+            computeShader.SetTexture(0, "PositionMap", positionMap);
+            computeShader.SetTexture(0, "NormalMap", normalMap);
+
+            computeShader.Dispatch(0, mapSize / 8, mapSize / 8, 1);
+        }
+
+        public void Dispose()
+        {
+            if (positionBuffer != null)
+            {
+                positionBuffer.Dispose();
+                normalBuffer.Dispose();
+                positionBuffer = null;
+                normalBuffer = null;
+            }
+        }
     }
 
     public static PCache ComputePCacheFromMesh(Mesh mesh, int mapSize = 512, int pointCount = 4096, int seed = 0, Distribution distribution = Distribution.RandomUniformArea, MeshBakeMode meshBakeMode = MeshBakeMode.Triangle)
@@ -45,7 +92,7 @@ public static class PointCacheGenerator
         PCache pCache = new PCache();
 
         // From PointCacheBakeTool
-        var meshCache = ComputeDataCache(mesh);
+        MeshData meshCache = ComputeDataCache(mesh);
 
         Picker picker = null;
         if (distribution == Distribution.Sequential)
@@ -76,14 +123,16 @@ public static class PointCacheGenerator
         }
         if (picker == null) throw new InvalidOperationException("Unable to find picker");
 
-        var positions = new List<Vector3>();
-        var normals = new List<Vector3>();
+        pCache.mesh = mesh;
+        pCache.mapSize = mapSize;
+        pCache.positions = new List<Vector3>();
+        pCache.normals = new List<Vector3>();
 
         for (int i = 0; i < pointCount; ++i)
         {
             var vertex = picker.GetNext();
-            positions.Add(vertex.position);
-            normals.Add(vertex.normal);
+            pCache.positions.Add(vertex.position);
+            pCache.normals.Add(vertex.normal);
         }
 
         // From SMRVFX
@@ -95,27 +144,24 @@ public static class PointCacheGenerator
         pCache.normalMap.Create();
 
         // Transfer data
-        var vcount = positions.Count;
+        var vcount = pCache.positions.Count;
         var vcount_x3 = vcount * 3;
 
-        ComputeBuffer positionBuffer = new ComputeBuffer(vcount_x3, sizeof(float));
-        ComputeBuffer normalBuffer = new ComputeBuffer(vcount_x3, sizeof(float));
+        pCache.positionBuffer = new ComputeBuffer(vcount_x3, sizeof(float));
+        pCache.normalBuffer = new ComputeBuffer(vcount_x3, sizeof(float));
 
         computeShader.SetInt("VertexCount", vcount);
 
-        positionBuffer.SetData(positions);
-        normalBuffer.SetData(normals);
+        pCache.positionBuffer.SetData(pCache.positions);
+        pCache.normalBuffer.SetData(pCache.normals);
 
-        computeShader.SetBuffer(0, "PositionBuffer", positionBuffer);
-        computeShader.SetBuffer(0, "NormalBuffer", normalBuffer);
+        computeShader.SetBuffer(0, "PositionBuffer", pCache.positionBuffer);
+        computeShader.SetBuffer(0, "NormalBuffer", pCache.normalBuffer);
 
         computeShader.SetTexture(0, "PositionMap", pCache.positionMap);
         computeShader.SetTexture(0, "NormalMap", pCache.normalMap);
 
-        computeShader.Dispatch(0, mapSize / 8, mapSize / 8, 1);
-
-        positionBuffer.Dispose();
-        normalBuffer.Dispose();
+        computeShader.Dispatch(0, pCache.mapSize / 8, pCache.mapSize / 8, 1);
 
         return pCache;
     }
