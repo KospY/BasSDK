@@ -21,11 +21,15 @@ namespace BS
         public bool useSecondaryRenderer;
 
         public bool usePointCache = false;
+        public bool pointCacheSkinnedMeshUpdate = false;
         public int pointCacheMapSize = 512;
         public int pointCachePointCount = 4096;
         public int pointCacheSeed = 0;
         public PointCacheGenerator.Distribution pointCacheDistribution = PointCacheGenerator.Distribution.RandomUniformArea;
         public PointCacheGenerator.MeshBakeMode pointCacheBakeMode = PointCacheGenerator.MeshBakeMode.Triangle;
+
+        protected PointCacheGenerator.PCache pCache;
+        protected SkinnedMeshRenderer pointCacheSkinnedMeshRenderer;
 
         [NonSerialized]
         public float playTime;
@@ -33,6 +37,7 @@ namespace BS
         [Header("Intensity to Emitter Size")]
         public bool emitSize;
         public AnimationCurve curveEmitSize;
+
 
         protected bool stopping;
 
@@ -117,7 +122,7 @@ namespace BS
             {
                 if (mesh.isReadable)
                 {
-                    PointCacheGenerator.PCache pCache = PointCacheGenerator.ComputePCacheFromMesh(mesh, pointCacheMapSize, pointCachePointCount, pointCacheSeed, pointCacheDistribution, pointCacheBakeMode);
+                    pCache = PointCacheGenerator.ComputePCacheFromMesh(mesh, pointCacheMapSize, pointCachePointCount, pointCacheSeed, pointCacheDistribution, pointCacheBakeMode);
                     vfx.SetTexture("PositionMap", pCache.positionMap);
                     if (vfx.HasTexture("NormalMap")) vfx.SetTexture("NormalMap", pCache.normalMap);
                 }
@@ -136,14 +141,20 @@ namespace BS
         {
             if ((useSecondaryRenderer && secondary) || (!useSecondaryRenderer && !secondary))
             {
-                Mesh mesh = renderer.GetComponent<MeshFilter>().sharedMesh;
+                Mesh mesh = renderer is SkinnedMeshRenderer ? (renderer as SkinnedMeshRenderer).sharedMesh : renderer.GetComponent<MeshFilter>().sharedMesh;
                 if (usePointCache)
                 {
                     if (mesh.isReadable)
                     {
-                        PointCacheGenerator.PCache pCache = PointCacheGenerator.ComputePCacheFromMesh(mesh, pointCacheMapSize, pointCachePointCount, pointCacheSeed, pointCacheDistribution, pointCacheBakeMode);
+                        if (renderer is SkinnedMeshRenderer)
+                        {
+                            mesh = new Mesh();
+                            (renderer as SkinnedMeshRenderer).BakeMesh(mesh);
+                            pointCacheSkinnedMeshRenderer = renderer as SkinnedMeshRenderer;
+                        }
+                        pCache = PointCacheGenerator.ComputePCacheFromMesh(mesh, pointCacheMapSize, pointCachePointCount, pointCacheSeed, pointCacheDistribution, pointCacheBakeMode);
                         vfx.SetTexture("PositionMap", pCache.positionMap);
-                        if (vfx.HasTexture("NormalMap")) vfx.SetTexture("NormalMap", pCache.normalMap);
+                        if (vfx.HasTexture("NormalMap")) vfx.SetTexture("NormalMap", pCache.normalMap);        
                     }
                     else
                     {
@@ -198,6 +209,10 @@ namespace BS
 
         public void Update()
         {
+            if (pointCacheSkinnedMeshUpdate)
+            {
+                pCache.Update(pointCacheSkinnedMeshRenderer);
+            }
             UpdateSource();
             UpdateTarget();
             if (stopping && vfx.aliveParticleCount == 0)
@@ -229,6 +244,12 @@ namespace BS
 
         public override void Despawn()
         {
+            if (pCache != null)
+            {
+                pCache.Dispose();
+                pCache = null;
+            }
+            pointCacheSkinnedMeshRenderer = null;
             CancelInvoke();
             vfx.Stop();
             vfx.enabled = false;
