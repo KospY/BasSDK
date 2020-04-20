@@ -21,6 +21,15 @@ namespace BS
         [NonSerialized]
         public ImbueMagic imbueMagic = ImbueMagic.None;
         [NonSerialized]
+        public float deflectmaxAngleCollision = 0;
+        [NonSerialized]
+        public float deflectmaxAngleTarget = 0;
+        [NonSerialized]
+        public float deflectSpreadHeight = 1; // z rotation
+        [NonSerialized]
+        public float deflectSpreadWidth = 1; // y rotation
+
+        [NonSerialized]
         public CollisionHandling collisionHandling = CollisionHandling.ByGroup;
         [NonSerialized]
         public bool penetrable = false;
