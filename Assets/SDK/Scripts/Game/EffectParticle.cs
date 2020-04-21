@@ -14,6 +14,7 @@ namespace BS
         [NonSerialized]
         public float playTime;
 
+        public bool renderInLateUpdate;
         public bool useScaleCurve;
         public AnimationCurve scaleCurve;
 
@@ -87,6 +88,17 @@ namespace BS
                 CancelInvoke();
                 rootParticleSystem.Stop();
                 Invoke("Despawn", lifeTime);
+            }
+        }
+
+        protected void LateUpdate()
+        {
+            if (renderInLateUpdate && playTime > 0)
+            {
+                foreach (EffectParticleChild p in childs)
+                {
+                    p.particleSystem.Simulate(Time.deltaTime, true, false, false);
+                }
             }
         }
 
@@ -336,6 +348,7 @@ namespace BS
 
         public override void Despawn()
         {
+            playTime = 0;
             rootParticleSystem.Stop();
             CancelInvoke();
             if (Application.isPlaying)
