@@ -209,16 +209,20 @@ namespace BS
 
         public void Update()
         {
-            if (pointCacheSkinnedMeshUpdate)
-            {
-                pCache.Update(pointCacheSkinnedMeshRenderer);
-            }
             UpdateSource();
             UpdateTarget();
             if (stopping && vfx.aliveParticleCount == 0)
             {
                 stopping = false;
                 Despawn();
+            }
+        }
+
+        public void LateUpdate()
+        {
+            if (pointCacheSkinnedMeshUpdate)
+            {
+                pCache.Update(pointCacheSkinnedMeshRenderer);
             }
         }
 
