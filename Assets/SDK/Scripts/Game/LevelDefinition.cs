@@ -15,6 +15,9 @@ namespace BS
         public Transform playerStart;
         public List<CustomReference> customReferences;
         public bool loadDefaultCharIfNeeded = true;
+
+        [NonSerialized]
+        public AudioSource music;
         [NonSerialized]
         public bool initialized;
 
@@ -189,8 +192,25 @@ namespace BS
                     throw;
                 }
             }
+
+            if (data.musicAudioContainer)
+            {
+                music = this.gameObject.AddComponent<AudioSource>();
+                music.clip = data.musicAudioContainer.PickAudioClip();
+                music.Play();
+                if (data.musicAudioContainer.sounds.Count > 1)
+                {
+                    Invoke("MusicChange", music.clip.length);
+                }
+            }
+
             LoadingCamera.SetState(LoadingCamera.State.Disabled);
             initialized = true;
+        }
+
+        public virtual void MusicChange()
+        {
+            music.clip = data.musicAudioContainer.PickAudioClip();
         }
 
         public virtual void OnLevelUnload()
