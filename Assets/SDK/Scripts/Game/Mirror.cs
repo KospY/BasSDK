@@ -87,11 +87,11 @@ namespace BS
                     reflectionCamera.backgroundColor = backgroundColor;
                     reflectionCamera.cullingMask = cullingMask;
                 }
-                if (mirrorMesh.material)
+                if (mirrorMesh.sharedMaterial)
                 {
-                    if (reflectionWithoutGI) mirrorMesh.material.EnableKeyword("_FULLMIRROR");
-                    else mirrorMesh.material.DisableKeyword("_FULLMIRROR");
-                    mirrorMesh.material.SetFloat("_ReflectionIntensity", Intensity);
+                    if (reflectionWithoutGI) mirrorMesh.sharedMaterial.EnableKeyword("_FULLMIRROR");
+                    else mirrorMesh.sharedMaterial.DisableKeyword("_FULLMIRROR");
+                    mirrorMesh.sharedMaterial.SetFloat("_ReflectionIntensity", Intensity);
                 }
             }
         }
