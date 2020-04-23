@@ -81,6 +81,12 @@ namespace BS
 
         protected virtual IEnumerator OnLevelStartedCoroutine()
         {
+            VolumetricFogAndMist2.VolumetricFogManager volumetricFogManager = GameObject.FindObjectOfType<VolumetricFogAndMist2.VolumetricFogManager>();
+            if (volumetricFogManager)
+            {
+                volumetricFogManager.gameObject.SetActive(false);
+            }
+
             // Wait game to initalize
             while (!GameManager.initialized) yield return new WaitForEndOfFrame();
 
@@ -202,6 +208,11 @@ namespace BS
                 {
                     Invoke("MusicChange", music.clip.length);
                 }
+            }
+            
+            if (volumetricFogManager)
+            {
+                volumetricFogManager.gameObject.SetActive(true);
             }
 
             LoadingCamera.SetState(LoadingCamera.State.Disabled);
