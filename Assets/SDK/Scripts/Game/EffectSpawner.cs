@@ -36,6 +36,7 @@ namespace BS
         [GradientUsage(true)]
         public Gradient secondaryGradient;
 
+        public Transform source;
         public Transform target;
 
         public Mesh mesh;
@@ -99,6 +100,7 @@ namespace BS
 
                 if (useMainGradient) effectInstance.SetMainGradient(mainGradient);
                 if (useSecondaryGradient) effectInstance.SetSecondaryGradient(secondaryGradient);
+                if (source) effectInstance.SetTarget(source);
                 if (target) effectInstance.SetTarget(target);
                 if (mesh) effectInstance.SetMesh(mesh);
                 if (mainRenderer) effectInstance.SetRenderer(mainRenderer, false);
