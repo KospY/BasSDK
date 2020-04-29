@@ -25,6 +25,8 @@ namespace BS
         [NonSerialized]
         public float deflectmaxAngleTarget = 0;
         [NonSerialized]
+        public float deflectSpeedMultiplier = 2.0f;
+        [NonSerialized]
         public float deflectSpreadHeight = 1; // z rotation
         [NonSerialized]
         public float deflectSpreadWidth = 1; // y rotation
