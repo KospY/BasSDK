@@ -16,6 +16,7 @@ namespace BS
 
         [Header("Color Gradient")]
         public EffectTarget linkBaseColor = EffectTarget.None;
+        public EffectTarget linkTintColor = EffectTarget.None;
         public EffectTarget linkEmissionColor = EffectTarget.None;
 
         [Header("Intensity to mesh size")]
@@ -118,7 +119,17 @@ namespace BS
 
                 // Set material color
                 bool updatePropertyBlock = false;
-                if (linkBaseColor == EffectTarget.Main && currentMainGradient != null)
+                if (linkTintColor == EffectTarget.Main && currentMainGradient != null)
+                {
+                    materialPropertyBlock.SetColor("_TintColor", currentMainGradient.Evaluate(currentValue));
+                    updatePropertyBlock = true;
+                }
+                else if (linkTintColor == EffectTarget.Secondary && currentSecondaryGradient != null)
+                {
+                    materialPropertyBlock.SetColor("_TintColor", currentSecondaryGradient.Evaluate(currentValue));
+                    updatePropertyBlock = true;
+                }
+                else if (linkBaseColor == EffectTarget.Main && currentMainGradient != null)
                 {
                     materialPropertyBlock.SetColor("_BaseColor", currentMainGradient.Evaluate(currentValue));
                     updatePropertyBlock = true;
