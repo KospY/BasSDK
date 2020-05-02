@@ -131,6 +131,13 @@ namespace BS
         {
             Preview preview = (Preview)target;
             EditorGUILayout.HelpBox("The dark blue arrow points towards the viewer.", MessageType.Info);
+
+            if (GUILayout.Button("Align with camera"))
+            {
+                Preview script = target as Preview;
+                script.Align();
+
+            }
         }
     }
 
