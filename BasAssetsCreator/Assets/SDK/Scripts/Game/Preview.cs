@@ -17,23 +17,7 @@ namespace BS
             Common.DrawGizmoArrow(Vector3.zero, (Vector3.up * 0.3f) / this.transform.lossyScale.y, Common.HueColourValue(HueColorNames.Green), 0.15f / this.transform.lossyScale.y);
         }
 
-
-        [ExecuteInEditMode]
-        public void Align()
-        {
-            Debug.Log("Trying to align object with camera");
-
-           
-            SceneView.RepaintAll();
-
-
-            Debug.Log(SceneView.lastActiveSceneView.camera.transform.position);
-            SceneView.lastActiveSceneView.camera.transform.position -= 2*transform.position;
-            Debug.Log(SceneView.lastActiveSceneView.camera.transform.position);
-            
-            transform.LookAt(-SceneView.lastActiveSceneView.camera.transform.position);
-            SceneView.lastActiveSceneView.camera.transform.position += 2*transform.position;
-            
-        }
+       
+   
     }
 }

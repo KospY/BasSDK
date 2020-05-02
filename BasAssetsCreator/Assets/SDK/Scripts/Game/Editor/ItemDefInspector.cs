@@ -135,7 +135,14 @@ namespace BS
             if (GUILayout.Button("Align with camera"))
             {
                 Preview script = target as Preview;
-                script.Align();
+
+
+                SceneView.RepaintAll();
+
+                SceneView.lastActiveSceneView.camera.transform.position -= 2 * script.transform.position;
+
+                script.transform.LookAt(-SceneView.lastActiveSceneView.camera.transform.position);
+                SceneView.lastActiveSceneView.camera.transform.position += 2 * script.transform.position;
 
             }
         }
