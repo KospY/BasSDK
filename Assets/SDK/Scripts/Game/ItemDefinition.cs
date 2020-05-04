@@ -61,6 +61,11 @@ namespace BS
                 this.value = value;
             }
 
+            public SavedValue Clone()
+            {
+                return MemberwiseClone() as SavedValue;
+            }
+
             public List<ValueDropdownItem<string>> GetSavedValuesID()
             {
                 List<ValueDropdownItem<string>> dropdownList = new List<ValueDropdownItem<string>>();
