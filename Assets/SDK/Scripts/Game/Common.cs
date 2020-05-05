@@ -80,6 +80,18 @@ namespace BS
         Secondary,
     }
 
+    public enum AnimEffectType
+    {
+        None,
+        Shock,
+        ShockDead,
+        Burning,
+        Choke,
+        Choke1h,
+        ChokeLifted,
+        ChokeLifted1h,
+    }
+
     [Serializable]
     public class CustomReference
     {
