@@ -14,11 +14,12 @@ namespace BS
 
         public List<RagdollPartDefinition> ignoredParts;
 
-        protected RagdollDefinition ragdollDefinition;
+        protected CreatureDefinition creatureDefinition;
 
+#if ProjectCore
         public void Awake()
         {
-            ragdollDefinition = this.GetComponentInParent<RagdollDefinition>();
+            creatureDefinition = this.GetComponentInParent<CreatureDefinition>();
             rb = this.GetComponent<Rigidbody>();
             foreach (RagdollPartDefinition part in ignoredParts)
             {
@@ -32,4 +33,5 @@ namespace BS
             }
         }
     }
+#endif
 }
