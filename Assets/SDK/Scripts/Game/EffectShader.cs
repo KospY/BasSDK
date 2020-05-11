@@ -113,11 +113,13 @@ namespace BS
         {
             CancelInvoke();
             SetIntensity(0);
+#if ProjectCore
             if (Application.isPlaying)
             {
                 EffectModuleShader.Despawn(this);
                 InvokeDespawnCallback();
             }
+#endif
         }
     }
 }

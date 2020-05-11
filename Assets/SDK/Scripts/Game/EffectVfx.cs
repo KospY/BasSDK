@@ -257,11 +257,13 @@ namespace BS
             CancelInvoke();
             vfx.Stop();
             vfx.enabled = false;
+#if ProjectCore
             if (Application.isPlaying)
             {
                 EffectModuleVfx.Despawn(this);
                 InvokeDespawnCallback();
             }
+#endif
         }
     }
 }

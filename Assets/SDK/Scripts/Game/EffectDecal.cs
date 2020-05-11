@@ -214,11 +214,13 @@ namespace BS
         {
             CancelInvoke();
             meshRenderer.enabled = false;
+#if ProjectCore
             if (Application.isPlaying)
             {
                 EffectModuleDecal.Despawn(this);
                 InvokeDespawnCallback();
             }
+#endif
         }
     }
 }
