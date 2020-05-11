@@ -26,26 +26,29 @@ namespace BS
         protected float lastManaValue;
         protected float lastHealthValue;
 
-        [BoxGroup("Effects"), ValueDropdown("GetAllEffectID")]
+#if ODIN_INSPECTOR
+        [ValueDropdown("GetAllEffectID")]
+#endif
         public string lifeEffectId;
-        [BoxGroup("Effects")]
         public Transform lifeEffectParent;
-        [BoxGroup("Effects"), ValueDropdown("GetAllEffectID")]
+#if ODIN_INSPECTOR
+        [ValueDropdown("GetAllEffectID")]
+#endif
         public string manaEffectId;
-        [BoxGroup("Effects")]
         public Transform manaEffectParent;
-        [BoxGroup("Effects"), ValueDropdown("GetAllEffectID")]
+#if ODIN_INSPECTOR
+        [ValueDropdown("GetAllEffectID")]
+#endif
         public string focusEffectId;
-        [BoxGroup("Effects")]
         public Transform focusEffectParent;
 
         public bool initialized = false;
+
+#if ProjectCore
         public List<ValueDropdownItem<string>> GetAllEffectID()
         {
             return Catalog.GetDropdownAllID(Catalog.Category.Effect);
         }
-
-#if ProjectCore
 
         private EffectData lifeEffectData;
         private EffectData manaEffectData;
