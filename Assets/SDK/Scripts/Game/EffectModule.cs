@@ -18,7 +18,7 @@ namespace BS
 
         }
 
-#if ProjectCore
+#if ODIN_INSPECTOR
 
         public virtual Effect Spawn(EffectData effectData)
         {
