@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using BS;
-using Sirenix.OdinInspector;
 using UnityEngine.UI;
-using System;
+
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#else
+using EasyButtons;
+#endif
 
 namespace BS
 {
@@ -36,14 +39,6 @@ namespace BS
         [BoxGroup("Effects")]
         public Transform focusEffectParent;
 
-        private EffectData lifeEffectData;
-        private EffectData manaEffectData;
-        private EffectData focusEffectData;
-
-        private EffectInstance lifeEffectInstance;
-        private EffectInstance manaEffectInstance;
-        private EffectInstance focusEffectInstance;
-
         public bool initialized = false;
         public List<ValueDropdownItem<string>> GetAllEffectID()
         {
@@ -51,6 +46,14 @@ namespace BS
         }
 
 #if ProjectCore
+
+        private EffectData lifeEffectData;
+        private EffectData manaEffectData;
+        private EffectData focusEffectData;
+
+        private EffectInstance lifeEffectInstance;
+        private EffectInstance manaEffectInstance;
+        private EffectInstance focusEffectInstance;
         protected Creature creature;
 
 

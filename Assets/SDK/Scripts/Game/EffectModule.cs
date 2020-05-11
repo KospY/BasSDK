@@ -18,9 +18,12 @@ namespace BS
 
         }
 
+#if ProjectCore
+
         public virtual Effect Spawn(EffectData effectData)
         {
             return null;
         }
+#endif
     }
 }
