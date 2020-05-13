@@ -92,6 +92,14 @@ namespace BS
         ChokeLifted1h,
     }
 
+    public enum SavedValueID
+    {
+        Rack,
+        Holder,
+        PotionFill,
+        Ammo,
+    }
+
     [Serializable]
     public class CustomReference
     {
