@@ -19,40 +19,11 @@ namespace BS
         public Transform imbueShoot;
 
         [NonSerialized]
-        public ImbueMagic imbueMagic = ImbueMagic.None;
-        [NonSerialized]
-        public float deflectmaxAngleCollision = 0;
-        [NonSerialized]
-        public float deflectmaxAngleTarget = 0;
-        [NonSerialized]
-        public float deflectSpeedMultiplier = 2.0f;
-        [NonSerialized]
-        public float deflectSpreadHeight = 1; // z rotation
-        [NonSerialized]
-        public float deflectSpreadWidth = 1; // y rotation
-
-        [NonSerialized]
-        public CollisionHandling collisionHandling = CollisionHandling.ByGroup;
-        [NonSerialized]
-        public bool penetrable = false;
-
-        [NonSerialized]
         public List<Collider> colliders;
 
-        public enum CollisionHandling
-        {
-            ByGroup,
-            ByCollider,
-        }
-
-        public enum ImbueMagic
-        {
-            None,
-            Blade,
-            Crystal,
-        }
-
 #if ProjectCore
+        [NonSerialized, ShowInInspector]
+        public ColliderGroupData data;
         [NonSerialized]
         public Imbue imbue;
         [NonSerialized]
@@ -61,13 +32,28 @@ namespace BS
         protected void Awake()
         {   
             colliders = new List<Collider>(this.GetComponentsInChildren<Collider>());
+        }
+
+        protected void Start()
+        {
+            collisionHandler = this.GetComponentInParent<CollisionHandler>();
+            
+            if (data == null)
+            {
+                data = new ColliderGroupData();
+            }
+
+            if (data.imbueMagic != ColliderGroupData.ImbueMagic.None)
+            {
+                imbue = this.gameObject.AddComponent<Imbue>();
+            }
             foreach (Collider collider in colliders)
             {
                 // For compatibility with old prefab
                 if (collider.material.name.Contains("Blade_"))
                 {
                     collider.material = CatalogData.GetPrefab<PhysicMaterial>("PhysicMaterials", "Blade");
-                    imbueMagic = ImbueMagic.Blade;
+                    data.imbueMagic = ColliderGroupData.ImbueMagic.Blade;
                 }
                 else if (collider.material.name.Contains("WoodHard"))
                 {
@@ -80,20 +66,15 @@ namespace BS
                 else if (collider.material.name.Contains("ShieldMetal"))
                 {
                     collider.material = CatalogData.GetPrefab<PhysicMaterial>("PhysicMaterials", "Metal");
-                    imbueMagic = ImbueMagic.Blade;
+                    data.imbueMagic = ColliderGroupData.ImbueMagic.Blade;
                 }
             }
         }
 
-        protected void Start()
+        public void Load(ColliderGroupData colliderGroupData)
         {
-            collisionHandler = this.GetComponentInParent<CollisionHandler>();
-            if (imbueMagic != ImbueMagic.None)
-            {
-                imbue = this.gameObject.AddComponent<Imbue>();
-            }
+            data = colliderGroupData.Clone() as ColliderGroupData;
         }
-
 #endif
 
         [Button("Generate imbue mesh")]
