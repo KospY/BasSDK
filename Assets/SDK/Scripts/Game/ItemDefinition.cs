@@ -38,16 +38,8 @@ namespace BS
         [NonSerialized]
         public List<WhooshPoint> whooshPoints;
 
-#if ProjectCore
-        [NonSerialized]
-        public List<CollisionHandler> collisionHandlers;
-        [NonSerialized, ShowInInspector]
-        public Vector3 customInertiaTensorPos;
-        [NonSerialized, ShowInInspector]
-        public Quaternion customInertiaTensorRot;
         [NonSerialized, ShowInInspector]
         public List<SavedValue> savedValues;
-
 
         [Serializable]
         public class SavedValue
@@ -76,6 +68,14 @@ namespace BS
                 return dropdownList;
             }
         }
+
+#if ProjectCore
+        [NonSerialized]
+        public List<CollisionHandler> collisionHandlers;
+        [NonSerialized, ShowInInspector]
+        public Vector3 customInertiaTensorPos;
+        [NonSerialized, ShowInInspector]
+        public Quaternion customInertiaTensorRot;
 
         public void SetSavedValue(string id, string value)
         {
