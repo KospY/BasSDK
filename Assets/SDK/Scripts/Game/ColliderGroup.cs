@@ -32,28 +32,12 @@ namespace BS
         protected void Awake()
         {   
             colliders = new List<Collider>(this.GetComponentsInChildren<Collider>());
-        }
-
-        protected void Start()
-        {
-            collisionHandler = this.GetComponentInParent<CollisionHandler>();
-            
-            if (data == null)
-            {
-                data = new ColliderGroupData();
-            }
-
-            if (data.imbueMagic != ColliderGroupData.ImbueMagic.None)
-            {
-                imbue = this.gameObject.AddComponent<Imbue>();
-            }
             foreach (Collider collider in colliders)
             {
                 // For compatibility with old prefab
                 if (collider.material.name.Contains("Blade_"))
                 {
                     collider.material = CatalogData.GetPrefab<PhysicMaterial>("PhysicMaterials", "Blade");
-                    data.imbueMagic = ColliderGroupData.ImbueMagic.Blade;
                 }
                 else if (collider.material.name.Contains("WoodHard"))
                 {
@@ -66,14 +50,29 @@ namespace BS
                 else if (collider.material.name.Contains("ShieldMetal"))
                 {
                     collider.material = CatalogData.GetPrefab<PhysicMaterial>("PhysicMaterials", "Metal");
-                    data.imbueMagic = ColliderGroupData.ImbueMagic.Blade;
                 }
             }
+            data = new ColliderGroupData();
+            data.id = "Default";
+        }
+
+        protected void Start()
+        {
+            collisionHandler = this.GetComponentInParent<CollisionHandler>();
         }
 
         public void Load(ColliderGroupData colliderGroupData)
         {
             data = colliderGroupData.Clone() as ColliderGroupData;
+
+            if (data.imbueMagic != ColliderGroupData.ImbueMagic.None)
+            {
+                imbue = this.gameObject.AddComponent<Imbue>();
+            }
+            else if (imbue)
+            {
+                Destroy(imbue);
+            }
         }
 #endif
 

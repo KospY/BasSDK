@@ -245,21 +245,21 @@ namespace BS
         {
             if (!initialized && itemId != null && itemId != "" && itemId != "None")
             {
-                Init(Catalog.GetData<ItemData>(itemId));
+                Init(Catalog.GetData<ItemPhysic>(itemId));
             }
         }
 
-        public virtual Item Init(ItemData item)
+        public virtual Item Init(ItemPhysic itemData)
         {
             foreach (Item existingInteractiveObject in this.gameObject.GetComponents<Item>())
             {
                 Destroy(existingInteractiveObject);
             }
-            itemId = item.id;
+            itemId = itemData.id;
             initialized = true;
-            Item interactiveObject = item.CreateComponent(this.gameObject);
-            if (Initialized != null) Initialized.Invoke(interactiveObject);
-            return interactiveObject;
+            Item item = itemData.CreateComponent(this.gameObject);
+            if (Initialized != null) Initialized.Invoke(item);
+            return item;
         }
 
         [Button]
