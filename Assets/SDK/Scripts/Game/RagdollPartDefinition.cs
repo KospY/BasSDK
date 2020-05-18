@@ -16,7 +16,6 @@ namespace BS
 
         protected CreatureDefinition creatureDefinition;
 
-#if ProjectCore
         public void Awake()
         {
             creatureDefinition = this.GetComponentInParent<CreatureDefinition>();
@@ -32,6 +31,5 @@ namespace BS
                 }
             }
         }
-#endif
     }
 }
