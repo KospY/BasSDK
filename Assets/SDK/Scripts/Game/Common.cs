@@ -34,6 +34,7 @@ namespace BS
         UI,
         Voice,
         Music,
+        SlowMotion,
     }
 
     public enum LayerName
