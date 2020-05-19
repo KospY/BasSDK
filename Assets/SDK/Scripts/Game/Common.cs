@@ -11,7 +11,7 @@ namespace BS
         Left,
     }
 
-    public enum HueColorNames
+    public enum HueColorName
     {
         Lime,
         Green,
@@ -26,7 +26,7 @@ namespace BS
         White
     }
     
-    public enum AudioMixerNames
+    public enum AudioMixerName
     {
         Master,
         Effect,
@@ -162,20 +162,20 @@ namespace BS
         }
 
         private static Hashtable hueColourValues = new Hashtable{
-         { HueColorNames.Lime,     new Color32( 166 , 254 , 0, 255 ) },
-         { HueColorNames.Green,     new Color32( 0 , 254 , 111, 255 ) },
-         { HueColorNames.Aqua,     new Color32( 0 , 201 , 254, 255 ) },
-         { HueColorNames.Blue,     new Color32( 0 , 122 , 254, 255 ) },
-         { HueColorNames.Navy,     new Color32( 60 , 0 , 254, 255 ) },
-         { HueColorNames.Purple, new Color32( 143 , 0 , 254, 255 ) },
-         { HueColorNames.Pink,     new Color32( 232 , 0 , 254, 255 ) },
-         { HueColorNames.Red,     new Color32( 254 , 9 , 0, 255 ) },
-         { HueColorNames.Orange, new Color32( 254 , 161 , 0, 255 ) },
-         { HueColorNames.Yellow, new Color32( 254 , 224 , 0, 255 ) },
-         { HueColorNames.White, new Color32( 255 , 255 , 255, 255 ) },
+         { HueColorName.Lime,     new Color32( 166 , 254 , 0, 255 ) },
+         { HueColorName.Green,     new Color32( 0 , 254 , 111, 255 ) },
+         { HueColorName.Aqua,     new Color32( 0 , 201 , 254, 255 ) },
+         { HueColorName.Blue,     new Color32( 0 , 122 , 254, 255 ) },
+         { HueColorName.Navy,     new Color32( 60 , 0 , 254, 255 ) },
+         { HueColorName.Purple, new Color32( 143 , 0 , 254, 255 ) },
+         { HueColorName.Pink,     new Color32( 232 , 0 , 254, 255 ) },
+         { HueColorName.Red,     new Color32( 254 , 9 , 0, 255 ) },
+         { HueColorName.Orange, new Color32( 254 , 161 , 0, 255 ) },
+         { HueColorName.Yellow, new Color32( 254 , 224 , 0, 255 ) },
+         { HueColorName.White, new Color32( 255 , 255 , 255, 255 ) },
         };
 
-        public static Color32 HueColourValue(HueColorNames color)
+        public static Color32 HueColourValue(HueColorName color)
         {
             return (Color32)hueColourValues[color];
         }

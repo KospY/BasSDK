@@ -50,16 +50,16 @@ namespace BS
             if (slots.Count == 0)
             {
                 Gizmos.matrix = this.transform.localToWorldMatrix;
-                Common.DrawGizmoArrow(Vector3.zero, Vector3.forward * 0.1f, Common.HueColourValue(HueColorNames.Purple), 0.1f, 10);
-                Common.DrawGizmoArrow(Vector3.zero, Vector3.up * 0.05f, Common.HueColourValue(HueColorNames.Green), 0.05f);
+                Common.DrawGizmoArrow(Vector3.zero, Vector3.forward * 0.1f, Common.HueColourValue(HueColorName.Purple), 0.1f, 10);
+                Common.DrawGizmoArrow(Vector3.zero, Vector3.up * 0.05f, Common.HueColourValue(HueColorName.Green), 0.05f);
             }
             else
             {
                 foreach (Transform slot in slots)
                 {
                     Gizmos.matrix = slot.localToWorldMatrix;
-                    Common.DrawGizmoArrow(Vector3.zero, Vector3.forward * 0.1f / 2, Common.HueColourValue(HueColorNames.Purple), 0.1f / 2, 10 / 2);
-                    Common.DrawGizmoArrow(Vector3.zero, Vector3.up * 0.05f / 2, Common.HueColourValue(HueColorNames.Green), 0.05f / 2);
+                    Common.DrawGizmoArrow(Vector3.zero, Vector3.forward * 0.1f / 2, Common.HueColourValue(HueColorName.Purple), 0.1f / 2, 10 / 2);
+                    Common.DrawGizmoArrow(Vector3.zero, Vector3.up * 0.05f / 2, Common.HueColourValue(HueColorName.Green), 0.05f / 2);
                 }
             }
         }
