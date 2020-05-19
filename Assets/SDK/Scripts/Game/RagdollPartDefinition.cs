@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#else
+using EasyButtons;
+#endif
+
 namespace BS
 {
     public class RagdollPartDefinition : MonoBehaviour
@@ -31,5 +37,14 @@ namespace BS
                 }
             }
         }
+
+        [Button]
+        public void SetPositionToBone()
+        {
+            this.transform.position = meshBone.position;
+            this.transform.rotation = meshBone.rotation;
+            this.transform.localScale = meshBone.localScale;
+        }
+
     }
 }
