@@ -1,5 +1,5 @@
 {
-  "$type": "BS.ItemData, Assembly-CSharp",
+  "$type": "BS.ItemPhysic, Assembly-CSharp",
   "id": "WitchBroom",
   "version": 4,
   "pooledCount": 0,
@@ -14,7 +14,9 @@
   "slot": 3,
   "isStackable": false,
   "category": 2,
-  "storageCategory": "Funny",
+  "categoryPath": [
+    "Funny"
+  ],
   "prefabName": "@witchbroom:WitchBroom",
   "mass": 1.0,
   "drag": 1.0,
