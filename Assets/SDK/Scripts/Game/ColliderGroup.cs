@@ -65,7 +65,7 @@ namespace BS
         {
             data = colliderGroupData.Clone() as ColliderGroupData;
 
-            if (data.imbueMagic != ColliderGroupData.ImbueMagic.None)
+            if (data.imbueType != ColliderGroupData.ImbueType.None)
             {
                 imbue = this.gameObject.AddComponent<Imbue>();
             }
