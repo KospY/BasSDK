@@ -3,8 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.SceneManagement;
-#if ProjectCore
+using UnityEditor;
+
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
+#else
+using EasyButtons;
 #endif
 
 namespace BS
@@ -26,6 +30,12 @@ namespace BS
         {
             public string name;
             public List<Transform> transforms;
+        }
+
+        [Button]
+        public static void CheckLightMapMode()
+        {
+            Debug.Log("Lightmap mode: " + LightmapSettings.lightmapsMode);
         }
 
 #if ProjectCore
