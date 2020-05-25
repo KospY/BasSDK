@@ -8,6 +8,7 @@ namespace BS
         public Direction direction = Direction.All;
         public float penetrationLength = 0;
         public float penetrationDepth = 0f;
+        public float penetrationContactMaxRadius = 0;
 
         public enum Direction
         {
@@ -37,7 +38,7 @@ namespace BS
                 Gizmos.color = Color.yellow;
                 if (direction == Direction.Forward) Gizmos.DrawLine(this.transform.position, GetMaxDepthPosition(false));
                 if (direction == Direction.ForwardAndBackward) Gizmos.DrawLine(this.transform.position + this.transform.forward * penetrationDepth, this.transform.position - this.transform.forward * penetrationDepth);
-
+                Gizmos.DrawWireSphere(this.transform.position, penetrationContactMaxRadius);
                 if (penetrationLength > 0)
                 {
                     Gizmos.DrawRay(this.transform.position, this.transform.up * (penetrationLength * 0.5f));
