@@ -54,7 +54,12 @@ namespace BS
 
         private void Awake()
         {
-            if (!XRSettings.enabled) return;
+            if (!XRSettings.enabled)
+            {
+                this.enabled = false;
+                return;
+            }
+     
             local = this;
             mirrorMesh.material = GameManager.local.mirrorMaterial;
             reflectionCamera = new GameObject("ReflectionCamera").AddComponent<Camera>();
