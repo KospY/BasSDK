@@ -36,6 +36,8 @@ namespace BS
         [NonSerialized]
         public List<ColliderGroup> colliderGroups;
         [NonSerialized]
+        public List<EffectHinge> effectHinges;
+        [NonSerialized]
         public List<WhooshPoint> whooshPoints;
 
         [NonSerialized, ShowInInspector]
@@ -231,6 +233,7 @@ namespace BS
             paintables = new List<Paintable>(this.GetComponentsInChildren<Paintable>());
             colliderGroups = new List<ColliderGroup>(this.GetComponentsInChildren<ColliderGroup>());
             whooshPoints = new List<WhooshPoint>(this.GetComponentsInChildren<WhooshPoint>());
+            effectHinges = new List<EffectHinge>(this.GetComponentsInChildren<EffectHinge>());
             collisionHandlers = new List<CollisionHandler>(this.GetComponentsInChildren<CollisionHandler>());
             if (collisionHandlers.Count == 0) collisionHandlers.Add(this.gameObject.AddComponent<CollisionHandler>());
             if (customInertiaTensorCollider) CalculateCustomInertiaTensor();
