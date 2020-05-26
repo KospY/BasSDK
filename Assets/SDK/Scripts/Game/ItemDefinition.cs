@@ -42,7 +42,10 @@ namespace ThunderRoad
         [NonSerialized]
         public List<WhooshPoint> whooshPoints;
 
-        [NonSerialized, ShowInInspector]
+#if ODIN_INSPECTOR
+        [ShowInInspector]
+#endif
+        [NonSerialized]
         public List<SavedValue> savedValues;
 
         [Serializable]
