@@ -1,14 +1,19 @@
 ﻿using UnityEngine;
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#else
+using EasyButtons;
+#endif
 
 namespace ThunderRoad
 {
     public class DamagerDefinition : MonoBehaviour
     {
         public ColliderGroup colliderGroup;
+        public Collider colliderOnly;
         public Direction direction = Direction.All;
         public float penetrationLength = 0;
         public float penetrationDepth = 0f;
-        public float penetrationContactMaxRadius = 0;
 
         public enum Direction
         {
@@ -20,6 +25,12 @@ namespace ThunderRoad
         public Vector3 GetMaxDepthPosition(bool reverted)
         {
             return this.transform.position + ((reverted ? this.transform.forward : -this.transform.forward) * penetrationDepth);
+        }
+
+        [ContextMenu("Set colliderOnly from this")]
+        public void GetColliderOnlyFromThis()
+        {
+            colliderOnly = this.GetComponent<Collider>();
         }
 
         protected void OnDrawGizmosSelected()
@@ -38,7 +49,6 @@ namespace ThunderRoad
                 Gizmos.color = Color.yellow;
                 if (direction == Direction.Forward) Gizmos.DrawLine(this.transform.position, GetMaxDepthPosition(false));
                 if (direction == Direction.ForwardAndBackward) Gizmos.DrawLine(this.transform.position + this.transform.forward * penetrationDepth, this.transform.position - this.transform.forward * penetrationDepth);
-                Gizmos.DrawWireSphere(this.transform.position, penetrationContactMaxRadius);
                 if (penetrationLength > 0)
                 {
                     Gizmos.DrawRay(this.transform.position, this.transform.up * (penetrationLength * 0.5f));
