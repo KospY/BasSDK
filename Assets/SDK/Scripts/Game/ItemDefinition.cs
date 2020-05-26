@@ -4,6 +4,8 @@ using UnityEngine;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
+#else
+using EasyButtons;
 #endif
 
 namespace ThunderRoad
@@ -46,7 +48,9 @@ namespace ThunderRoad
         [Serializable]
         public class SavedValue
         {
+#if ProjectCore
             [ValueDropdown("GetSavedValuesID")]
+#endif
             public string id;
             public string value;
             public SavedValue(string id, string value)
@@ -59,7 +63,7 @@ namespace ThunderRoad
             {
                 return MemberwiseClone() as SavedValue;
             }
-
+#if ProjectCore
             public List<ValueDropdownItem<string>> GetSavedValuesID()
             {
                 List<ValueDropdownItem<string>> dropdownList = new List<ValueDropdownItem<string>>();
@@ -69,6 +73,7 @@ namespace ThunderRoad
                 }
                 return dropdownList;
             }
+#endif
         }
 
 #if ProjectCore
