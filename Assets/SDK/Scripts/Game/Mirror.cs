@@ -3,7 +3,7 @@ using UnityEngine.XR;
 using UnityEngine.Rendering.LWRP;
 using UnityEngine.Rendering;
 
-namespace BS
+namespace ThunderRoad
 {
     public class Mirror : MonoBehaviour
     {

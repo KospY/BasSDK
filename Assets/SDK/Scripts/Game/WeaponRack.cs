@@ -6,7 +6,7 @@ using System.Collections;
 using Sirenix.OdinInspector;
 #endif
 
-namespace BS
+namespace ThunderRoad
 {
     public class WeaponRack : MonoBehaviour
     {

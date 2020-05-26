@@ -2,7 +2,7 @@
 using System;
 using System.Collections;
 
-namespace BS
+namespace ThunderRoad
 {
     public class EffectAudio : Effect
     {

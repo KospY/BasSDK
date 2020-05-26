@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 using EasyButtons;
 #endif
 
-namespace BS
+namespace ThunderRoad
 {
     [ExecuteInEditMode]
     public class EffectPaint : Effect

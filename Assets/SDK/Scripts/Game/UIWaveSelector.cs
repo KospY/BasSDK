@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace BS
+namespace ThunderRoad
 {
     public class UIWaveSelector : MonoBehaviour
     {

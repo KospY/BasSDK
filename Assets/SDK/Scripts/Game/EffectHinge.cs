@@ -1,7 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace BS
+namespace ThunderRoad
 {
     public class EffectHinge : MonoBehaviour
     {

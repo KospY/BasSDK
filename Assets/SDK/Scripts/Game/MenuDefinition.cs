@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace BS
+namespace ThunderRoad
 {
     public class MenuDefinition : MonoBehaviour
     {

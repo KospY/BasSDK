@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace BS
+namespace ThunderRoad
 {
     public class JsonBuilder : EditorWindow
     {
@@ -439,13 +439,13 @@ namespace BS
             {
                 defaultFx = jsondata.whooshs[0].fxId;
             }
-            jsondata.damagers = new List<JSONData.Damager>(itemPrefab.GetComponentInChildren(typeof(ItemDefinition)).GetComponentsInChildren<BS.DamagerDefinition>().Length);
+            jsondata.damagers = new List<JSONData.Damager>(itemPrefab.GetComponentInChildren(typeof(ItemDefinition)).GetComponentsInChildren<ThunderRoad.DamagerDefinition>().Length);
             jsondata.Interactables = new List<JSONData.Interactable>(itemPrefab.GetComponentInChildren(typeof(ItemDefinition)).GetComponentsInChildren<HandleDefinition>().Length);
             jsondata.whooshs = new List<JSONData.Whoosh>(itemPrefab.GetComponentInChildren<ItemDefinition>().whooshPoints.Count);
 
 
             int damagerIndex = 0;
-            foreach (DamagerDefinition damager in itemPrefab.GetComponentInChildren(typeof(ItemDefinition)).GetComponentsInChildren<BS.DamagerDefinition>())
+            foreach (DamagerDefinition damager in itemPrefab.GetComponentInChildren(typeof(ItemDefinition)).GetComponentsInChildren<ThunderRoad.DamagerDefinition>())
             {
                 jsondata.damagers.Add(new JSONData.Damager());
                 jsondata.damagers[damagerIndex].transformName = damager.name;

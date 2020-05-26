@@ -9,7 +9,7 @@ using EasyButtons;
 
 
 
-namespace BS
+namespace ThunderRoad
 {
     public class TestEffect : MonoBehaviour
     {

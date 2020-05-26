@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-namespace BS
+namespace ThunderRoad
 {
     [CustomEditor(typeof(DamagerDefinition))]
     public class DamagerDefInspector : Editor
@@ -17,7 +17,7 @@ namespace BS
         public override void OnInspectorGUI()
         {
             DamagerDefinition damager = (DamagerDefinition)target;
-            ItemDefinition item = damager.transform.GetComponentInParent<BS.ItemDefinition>();
+            ItemDefinition item = damager.transform.GetComponentInParent<ThunderRoad.ItemDefinition>();
             damager.transform.localScale = Vector3.one;
 
             if (centerTransform)
@@ -58,7 +58,7 @@ namespace BS
             if (damager.penetrationLength == 0 && damager.penetrationDepth == 0)
             {
                 damagerType = "Blunt";
-                if (damager.direction != BS.DamagerDefinition.Direction.All)
+                if (damager.direction != ThunderRoad.DamagerDefinition.Direction.All)
                 {
                     EditorGUILayout.HelpBox("Direction for Blunt damagers should be set to 'All'", MessageType.Warning);
                 }
@@ -66,7 +66,7 @@ namespace BS
             else if (damager.penetrationLength == 0 && damager.penetrationDepth != 0)
             {
                 damagerType = "Piercing";
-                if (damager.direction != BS.DamagerDefinition.Direction.Forward)
+                if (damager.direction != ThunderRoad.DamagerDefinition.Direction.Forward)
                 {
                     EditorGUILayout.HelpBox("Direction for Piercing damagers should be set to 'Forward'", MessageType.Warning);
                 }
@@ -74,7 +74,7 @@ namespace BS
             else
             {
                 damagerType = "Slashing";
-                if (damager.direction == BS.DamagerDefinition.Direction.All)
+                if (damager.direction == ThunderRoad.DamagerDefinition.Direction.All)
                 {
                     EditorGUILayout.HelpBox("Direction for Slicing damagers should be set to 'Forward' or 'Forward and Backward'", MessageType.Warning);
                 }
@@ -87,7 +87,7 @@ namespace BS
 
         private void Awake()
         {
-            DamagerDefinition damager = (BS.DamagerDefinition)target;
+            DamagerDefinition damager = (ThunderRoad.DamagerDefinition)target;
 
             depthPoint = damager.GetMaxDepthPosition(false);
             lengthPoint1 = damager.transform.position + (damager.transform.up * (damager.penetrationLength * 0.5f));

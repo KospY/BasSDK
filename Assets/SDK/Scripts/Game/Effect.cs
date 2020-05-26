@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace BS
+namespace ThunderRoad
 {
     public class Effect : MonoBehaviour
     {

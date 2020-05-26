@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace BS
+namespace ThunderRoad
 {
     [CreateAssetMenu(fileName = "AudioContainer", menuName = "Audio/AudioContainer")]
     public class AudioContainer : ScriptableObject

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace BS
+namespace ThunderRoad
 {
     public class ZoneViewEnabler : MonoBehaviour
     {

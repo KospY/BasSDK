@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace BS
+namespace ThunderRoad
 {
     [CustomEditor(typeof(HandleDefinition))]
     public class HandleDefInspector : Editor

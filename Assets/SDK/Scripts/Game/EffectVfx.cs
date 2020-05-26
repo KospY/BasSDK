@@ -3,7 +3,7 @@ using System;
 using UnityEngine.VFX;
 using System.Collections.Generic;
 
-namespace BS
+namespace ThunderRoad
 {
     [ExecuteInEditMode]
     public class EffectVfx : Effect

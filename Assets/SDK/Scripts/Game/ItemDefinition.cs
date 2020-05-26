@@ -6,7 +6,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 #endif
 
-namespace BS
+namespace ThunderRoad
 {
     [RequireComponent(typeof(Rigidbody))]
     public class ItemDefinition : MonoBehaviour

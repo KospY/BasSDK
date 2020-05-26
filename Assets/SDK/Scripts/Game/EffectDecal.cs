@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System;
 
-namespace BS
+namespace ThunderRoad
 {
     [ExecuteInEditMode]
     public class EffectDecal : Effect

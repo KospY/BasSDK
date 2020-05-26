@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BS
+namespace ThunderRoad
 {
     public class EffectParticle : Effect
     {

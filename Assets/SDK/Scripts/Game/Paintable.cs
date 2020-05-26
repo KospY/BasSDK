@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 using PaintIn3D;
 #endif
 
-namespace BS
+namespace ThunderRoad
 {
     public class Paintable : MonoBehaviour
     {

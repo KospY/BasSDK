@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Networking;
 
-namespace BS
+namespace ThunderRoad
 {
     public class EditorToolsAssetBuilder : EditorWindow
     {

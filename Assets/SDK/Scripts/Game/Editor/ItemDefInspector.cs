@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace BS
+namespace ThunderRoad
 {
     [CustomEditor(typeof(ItemDefinition))]
     public class ItemDefInspector : Editor

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 #endif
 
-namespace BS
+namespace ThunderRoad
 {
     public class CreatureSpawner : MonoBehaviour
     {

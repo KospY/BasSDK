@@ -4,7 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 #endif
 
-namespace BS
+namespace ThunderRoad
 {
     public class EffectModule
     {

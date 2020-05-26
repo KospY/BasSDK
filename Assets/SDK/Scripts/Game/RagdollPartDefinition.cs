@@ -8,7 +8,7 @@ using Sirenix.OdinInspector;
 using EasyButtons;
 #endif
 
-namespace BS
+namespace ThunderRoad
 {
     public class RagdollPartDefinition : MonoBehaviour
     {
