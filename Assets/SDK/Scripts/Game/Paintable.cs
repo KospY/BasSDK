@@ -13,6 +13,11 @@ namespace BS
         public List<MaterialProperty> materialProperties = new List<MaterialProperty>();
         public bool cloneMaterial;
 
+#if ProjectCore
+        [NonSerialized]
+        public P3dPaintable p3dPaintable;
+#endif
+
         [Serializable]
         public class MaterialProperty
         {
@@ -53,6 +58,8 @@ namespace BS
                 materialCloner.Activate();
             }
 
+            p3dPaintable = this.gameObject.AddComponent<P3dPaintable>();
+
             foreach (MaterialProperty materialProperty in materialProperties)
             {
                 Material material = P3dHelper.GetMaterial(this.gameObject, materialProperty.materialIndex);
@@ -74,7 +81,6 @@ namespace BS
                 Destroy(materialProperty.paintableTexture);
             }
             if (materialCloner) Destroy(materialCloner);
-            P3dPaintable p3dPaintable = this.gameObject.GetComponent<P3dPaintable>();
             if (p3dPaintable) Destroy(p3dPaintable);
         }
 
@@ -93,7 +99,9 @@ namespace BS
             {
                 if (materialProperty.propertyType == propertyType)
                 {
-                    P3dPaintableManager.Submit(command, null, materialProperty.paintableTexture);
+                    command.ClearMask();
+                    command.ApplyAspect(materialProperty.paintableTexture.Current);
+                    P3dPaintableManager.Submit(command, p3dPaintable, materialProperty.paintableTexture);
                 }
             }
         }
