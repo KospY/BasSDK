@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8530308240657879001}
   - component: {fileID: 135727820820918867}
   - component: {fileID: 1819507842663811720}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 135727820820918867}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -134,7 +135,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7489640367196355695}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &956256687923995856
 GameObject:
@@ -165,7 +166,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7489640367196355695}
-  m_RootOrder: 1
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7503590467282760272
 MonoBehaviour:
@@ -179,7 +180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 7119658537730724402}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 0}
   direction: 0
   penetrationLength: 0
   penetrationDepth: 0
@@ -194,7 +196,7 @@ GameObject:
   - component: {fileID: 2896413496726618933}
   - component: {fileID: 6628183972618552867}
   - component: {fileID: 2365254374159301974}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +243,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 6628183972618552867}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -256,7 +259,7 @@ GameObject:
   - component: {fileID: 2247491567205572355}
   - component: {fileID: 4730515828356934388}
   - component: {fileID: 4302207284845335433}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,7 +306,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 4730515828356934388}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -362,7 +366,7 @@ GameObject:
   - component: {fileID: 3888589731246321890}
   - component: {fileID: 6499420987266946307}
   - component: {fileID: 6550341768202353340}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +413,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 6499420987266946307}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -424,7 +429,7 @@ GameObject:
   - component: {fileID: 3622573011779240430}
   - component: {fileID: 8235738467138464994}
   - component: {fileID: 6458532177654641056}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -471,7 +476,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 8235738467138464994}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -563,6 +569,54 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.08012316, y: 0.039934784, z: 1.8997927}
   m_Center: {x: 0, y: -0.022606313, z: -0.0010695457}
+--- !u!1 &2291447194795672300
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 958373569894034622}
+  - component: {fileID: 6540721642520833531}
+  m_Layer: 0
+  m_Name: Colliders
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &958373569894034622
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2291447194795672300}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 5173993602372730479}
+  - {fileID: 5175369890627856885}
+  m_Father: {fileID: 7489640367196355695}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6540721642520833531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2291447194795672300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5920f8522c41c44d907427b6b8829d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  imbueEffectRenderer: {fileID: 6691923414527620889}
+  imbueEmissionRenderer: {fileID: 6691923414527620889}
+  imbueShoot: {fileID: 0}
 --- !u!1 &2353839230583718110
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,7 +628,7 @@ GameObject:
   - component: {fileID: 7681342857307231174}
   - component: {fileID: 7184496553685392788}
   - component: {fileID: 5383323470416581791}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -621,7 +675,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 7184496553685392788}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -636,7 +691,7 @@ GameObject:
   - component: {fileID: 6575663480084700426}
   - component: {fileID: 2975180479241569628}
   - component: {fileID: 2834929157889521057}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -683,7 +738,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 2975180479241569628}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -716,7 +772,7 @@ Transform:
   m_LocalScale: {x: 3.041388, y: 3.041388, z: 3.041388}
   m_Children: []
   m_Father: {fileID: 7489640367196355695}
-  m_RootOrder: 6
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 45, y: 45, z: 0}
 --- !u!114 &2915424777506050286
 MonoBehaviour:
@@ -730,7 +786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ae7335b74c780247b479af08f26b062, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 3.0413885
+  size: 3.041389
 --- !u!1 &3489744850466831150
 GameObject:
   m_ObjectHideFlags: 0
@@ -742,7 +798,7 @@ GameObject:
   - component: {fileID: 4355551772536530393}
   - component: {fileID: 7706104785502804098}
   - component: {fileID: 7579926980172090815}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -789,7 +845,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 7706104785502804098}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -804,7 +861,7 @@ GameObject:
   - component: {fileID: 1299223512862137524}
   - component: {fileID: 1235513707818982673}
   - component: {fileID: 8728490331900542490}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -851,7 +908,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 1235513707818982673}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -866,7 +924,7 @@ GameObject:
   - component: {fileID: 1707739193806722059}
   - component: {fileID: 8878535993278235223}
   - component: {fileID: 846412367201353248}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -913,7 +971,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 8878535993278235223}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -1016,7 +1075,7 @@ GameObject:
   - component: {fileID: 5541669948869605411}
   - component: {fileID: 5386436533386174812}
   - component: {fileID: 7062875958074542400}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1063,7 +1122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 5386436533386174812}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -1165,6 +1225,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1200,7 +1261,7 @@ GameObject:
   - component: {fileID: 7857864997838222994}
   - component: {fileID: 9187839067722788905}
   - component: {fileID: 7305475250123375312}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1247,7 +1308,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 9187839067722788905}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -1304,7 +1366,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5173993602372730479}
-  - component: {fileID: 7119658537730724402}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -1319,7 +1380,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5177351708708459509}
-  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
+  m_LocalRotation: {x: 1, y: -0, z: -0, w: 0}
   m_LocalPosition: {x: 0, y: 0.524, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1337,23 +1398,9 @@ Transform:
   - {fileID: 7276710048787586734}
   - {fileID: 5986292170609288733}
   - {fileID: 2810934124152608152}
-  m_Father: {fileID: 7489640367196355695}
-  m_RootOrder: 2
+  m_Father: {fileID: 958373569894034622}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
---- !u!114 &7119658537730724402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5177351708708459509}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5920f8522c41c44d907427b6b8829d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  imbueMagic: 1
-  checkIndependently: 0
 --- !u!1 &5177917414973133123
 GameObject:
   m_ObjectHideFlags: 0
@@ -1365,7 +1412,7 @@ GameObject:
   - component: {fileID: 5175236168719306275}
   - component: {fileID: 5059970864195633669}
   - component: {fileID: 1016916783339935997}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1412,7 +1459,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 5059970864195633669}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -1425,7 +1473,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5175369890627856885}
-  - component: {fileID: 1226038671251043978}
   m_Layer: 0
   m_Name: Spikes
   m_TagString: Untagged
@@ -1440,7 +1487,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5178840633056368339}
-  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
+  m_LocalRotation: {x: 1, y: -0, z: -0, w: 0}
   m_LocalPosition: {x: 0, y: 0.4444, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1469,23 +1516,9 @@ Transform:
   - {fileID: 8207706462320391794}
   - {fileID: 8530308240657879001}
   - {fileID: 1707739193806722059}
-  m_Father: {fileID: 7489640367196355695}
-  m_RootOrder: 3
+  m_Father: {fileID: 958373569894034622}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
---- !u!114 &1226038671251043978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5178840633056368339}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5920f8522c41c44d907427b6b8829d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  imbueMagic: 1
-  checkIndependently: 1
 --- !u!1 &5207281752468185291
 GameObject:
   m_ObjectHideFlags: 0
@@ -1514,7 +1547,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7489640367196355695}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5519117048040686039
 GameObject:
@@ -1615,7 +1648,7 @@ GameObject:
   - component: {fileID: 2787964194290873024}
   - component: {fileID: 1707061358794408217}
   - component: {fileID: 5483422513035124168}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1662,7 +1695,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 1707061358794408217}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -1677,7 +1711,7 @@ GameObject:
   - component: {fileID: 3513412196140566414}
   - component: {fileID: 4480712717010248904}
   - component: {fileID: 5527404028186636546}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1724,7 +1758,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 4480712717010248904}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -1739,7 +1774,7 @@ GameObject:
   - component: {fileID: 4095217038213616739}
   - component: {fileID: 1484650239675835458}
   - component: {fileID: 8522726053923792407}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1786,7 +1821,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 1484650239675835458}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -1864,12 +1900,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8266906011668672982}
-  - {fileID: 332266655744982880}
-  - {fileID: 5173993602372730479}
-  - {fileID: 5175369890627856885}
   - {fileID: 1140952508968582183}
   - {fileID: 4151762838535396829}
   - {fileID: 1653995925359260849}
+  - {fileID: 958373569894034622}
+  - {fileID: 332266655744982880}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1910,6 +1945,8 @@ MonoBehaviour:
   preview: {fileID: 2915424777506050286}
   useCustomCenterOfMass: 0
   customCenterOfMass: {x: 0, y: 0, z: 0}
+  customInertiaTensor: 0
+  customInertiaTensorCollider: {fileID: 0}
   customReferences: []
 --- !u!1 &6180759239442585427
 GameObject:
@@ -1922,7 +1959,7 @@ GameObject:
   - component: {fileID: 1956418731451454143}
   - component: {fileID: 7389198853297077368}
   - component: {fileID: 3941848653162393204}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1969,7 +2006,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 7389198853297077368}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -2028,7 +2066,7 @@ GameObject:
   - component: {fileID: 3236498440418960321}
   - component: {fileID: 3225582575073462896}
   - component: {fileID: 7112469017411317343}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2075,7 +2113,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 3225582575073462896}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -2090,7 +2129,7 @@ GameObject:
   - component: {fileID: 5837446175776590636}
   - component: {fileID: 2188868656956974881}
   - component: {fileID: 152887044169984944}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2137,7 +2176,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 2188868656956974881}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -2196,7 +2236,7 @@ GameObject:
   - component: {fileID: 8207706462320391794}
   - component: {fileID: 7220970886622559181}
   - component: {fileID: 1888181855862371638}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2243,7 +2283,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 7220970886622559181}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -2258,7 +2299,7 @@ GameObject:
   - component: {fileID: 2050033127009477954}
   - component: {fileID: 1645241657723783371}
   - component: {fileID: 2866826798174561926}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2305,7 +2346,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 1645241657723783371}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -2320,7 +2362,7 @@ GameObject:
   - component: {fileID: 2540258823116462147}
   - component: {fileID: 2897751352206065910}
   - component: {fileID: 6826611776126705193}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2367,7 +2409,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 2897751352206065910}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -2382,7 +2425,7 @@ GameObject:
   - component: {fileID: 8524816328475345885}
   - component: {fileID: 5835317375217790783}
   - component: {fileID: 7067991405900287176}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2429,7 +2472,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 5835317375217790783}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -2444,7 +2488,7 @@ GameObject:
   - component: {fileID: 3198468163816757532}
   - component: {fileID: 1344498934449393286}
   - component: {fileID: 8721008737818194040}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2491,7 +2535,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 1344498934449393286}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
@@ -2506,7 +2551,7 @@ GameObject:
   - component: {fileID: 351895432123423552}
   - component: {fileID: 7929896041144995788}
   - component: {fileID: 5455769120067898806}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2553,7 +2598,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5521b9ce7f713346bd3827deeb7af38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderGroup: {fileID: 1226038671251043978}
+  colliderGroup: {fileID: 6540721642520833531}
+  colliderOnly: {fileID: 7929896041144995788}
   direction: 1
   penetrationLength: 0
   penetrationDepth: 0.35
