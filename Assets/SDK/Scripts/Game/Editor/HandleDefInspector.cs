@@ -44,6 +44,11 @@ namespace ThunderRoad
                 handle.CalculateReach();
             }
 
+            if (GUILayout.Button("Update to new orientations") && item)
+            {
+                handle.UpdateOrientations();
+            }
+
             if (handle.transform.localScale != Vector3.one)
             {
                 EditorGUILayout.HelpBox("Handle object scale must be set to 1.", MessageType.Error);
@@ -67,29 +72,6 @@ namespace ThunderRoad
             if (handle.slideToHandleOffset <= 0)
             {
                 EditorGUILayout.HelpBox("Slide to handle offset must be a positive number.", MessageType.Error);
-            }
-
-            foreach (HandleDefinition.Orientation orientations in handle.allowedOrientations)
-            {
-                for (int i = 0; i < handle.allowedOrientations.Count; i++)
-                {
-                    if (handle.allowedOrientations.IndexOf(orientations) < i && handle.allowedOrientations[i].rotation == handle.allowedOrientations[handle.allowedOrientations.IndexOf(orientations)].rotation && handle.allowedOrientations[i].allowedHand == handle.allowedOrientations[handle.allowedOrientations.IndexOf(orientations)].allowedHand && handle.allowedOrientations[i].isDefault == handle.allowedOrientations[handle.allowedOrientations.IndexOf(orientations)].isDefault)
-                    {
-                        EditorGUILayout.HelpBox("Allowed orientations " + handle.allowedOrientations.IndexOf(orientations) + " and " + i + " are equal.", MessageType.Warning);
-                    }
-                }
-            }
-
-            for (int i = 0; i < handle.allowedOrientations.Count; i++)
-            {
-                if (handle.allowedOrientations[i].allowedHand == HandleDefinition.HandSide.Left && (handle.allowedOrientations[i].isDefault == HandleDefinition.HandSide.Right || handle.allowedOrientations[i].isDefault == HandleDefinition.HandSide.Both))
-                {
-                    EditorGUILayout.HelpBox("Handle orientation " + i + " must have 'Is Default' set to None or Left if 'Allowed Hand' is set to Left.", MessageType.Warning);
-                }
-                if (handle.allowedOrientations[i].allowedHand == HandleDefinition.HandSide.Right && (handle.allowedOrientations[i].isDefault == HandleDefinition.HandSide.Left || handle.allowedOrientations[i].isDefault == HandleDefinition.HandSide.Both))
-                {
-                    EditorGUILayout.HelpBox("Handle orientation " + i + " must have 'Is Default' set to None or Right if 'Allowed Hand' is set to Right.", MessageType.Warning);
-                }
             }
         }
 

@@ -9,12 +9,12 @@ namespace ThunderRoad
 {
     public class HandPoseDefinition : MonoBehaviour
     {
-        public Vector3 mirrorAxis = new Vector3(1, -1, 1);
-
-        public Side side = Side.Right;
         public Vector3 gripLocalPosition = new Vector3(-0.08f, -0.025f, 0.01f);
         public Vector3 gripLocalRotation = new Vector3(0, 120, 85);
+
+        public Side side = Side.Right;
         public HandleDefinition handleReference;
+        public int handleOrientationIndex = 0;
 
         [HideInInspector]
         public Transform thumbDistal;
@@ -74,32 +74,89 @@ namespace ThunderRoad
         [Button]
         public void AlignObject()
         {
-            AlignObject(false);
-        }
+            Animator animator = this.GetComponentInParent<Animator>();
+            Transform rightHandBone = animator.GetBoneTransform(HumanBodyBones.RightHand);
+            Transform leftHandBone = animator.GetBoneTransform(HumanBodyBones.LeftHand);
 
-        [Button]
-        public void AlignObjectInverse()
-        {
-            AlignObject(true);
-        }
+            if (this.transform.parent.parent != rightHandBone)
+            {
+                Debug.LogError("HandPoseDefinition is not correctly placed, should be HandRightBone/BodyHand/HandPoseDefinition");
+                return;
+            }
 
-        public void AlignObject(bool reverse = false)
-        {
-            ItemDefinition objectDefinition = handleReference.GetComponentInParent<ItemDefinition>();
+            handleReference.UpdateOrientations();
+            HandleOrientation handleOrientation = handleReference.orientationDefaultRight;
+            if (side == Side.Left) handleOrientation = handleReference.orientationDefaultLeft;
 
-            Vector3 orgHandleLocalPostion = handleReference.transform.localPosition;
-            Quaternion orgHandleLocalRotation = handleReference.transform.localRotation;
+            if (handleOrientationIndex > 0)
+            {
+                int i = 0;
+                foreach (HandleOrientation ho in handleReference.orientations)
+                {
+                    if (handleReference.orientationDefaultLeft == ho) continue;
+                    if (handleReference.orientationDefaultRight == ho) continue;
+                    if (ho.side == side)
+                    {
+                        if ((handleOrientationIndex - 1) == i) handleOrientation = ho;
+                        i++;
+                    }
+                }
+            }
 
-            handleReference.transform.position = handleReference.GetDefaultAxisPosition(side);
-            handleReference.transform.position = handleReference.transform.TransformPoint(handleReference.GetDefaultOrientation(side).positionOffset);
-            handleReference.transform.rotation = handleReference.transform.rotation * Quaternion.Euler(reverse ? handleReference.GetDefaultOrientation(side).rotation + new Vector3(180, 0, 0) : handleReference.GetDefaultOrientation(side).rotation);
-            handleReference.transform.position = handleReference.transform.TransformPoint(new Vector3(side == Side.Right ? handleReference.ikAnchorOffset.x : -handleReference.ikAnchorOffset.x, handleReference.ikAnchorOffset.y, handleReference.ikAnchorOffset.z));
+            if (handleOrientation)
+            {
+                ItemDefinition objectDefinition = handleReference.GetComponentInParent<ItemDefinition>();
 
-            if (objectDefinition != null) objectDefinition.transform.MoveAlign(handleReference.transform, this.transform.TransformPoint(gripLocalPosition), this.transform.rotation * Quaternion.Euler(gripLocalRotation));
-            else handleReference.transform.root.MoveAlign(handleReference.transform, this.transform.TransformPoint(gripLocalPosition), this.transform.rotation * Quaternion.Euler(gripLocalRotation));
+                Transform objectGrip = new GameObject("ObjectGrip").transform;
+                objectGrip.SetParent(objectDefinition ? objectDefinition.transform : handleReference.transform.root);
+                objectGrip.position = handleOrientation.transform.position + (handleOrientation.handleDefinition.transform.up * handleOrientation.handleDefinition.GetDefaultAxisLocalPosition());
+                objectGrip.rotation = handleOrientation.transform.rotation;
 
-            handleReference.transform.localPosition = orgHandleLocalPostion;
-            handleReference.transform.localRotation = orgHandleLocalRotation;
+                Transform alignObject = handleReference.transform.root;
+                if (objectDefinition != null) alignObject = objectDefinition.transform;
+
+                Transform handGripRight = this.transform.parent.Find("HandGrip");
+                if (!handGripRight)
+                {
+                    handGripRight = new GameObject("HandGrip").transform;
+                    handGripRight.SetParent(this.transform.parent);
+                }
+                handGripRight.localPosition = gripLocalPosition;
+                handGripRight.localRotation = Quaternion.Euler(gripLocalRotation);
+
+                if (side == Side.Right)
+                {
+                    alignObject.MoveAlign(objectGrip, handGripRight.position, handGripRight.rotation);
+                }
+                else
+                {
+                    Transform bodyHandLeft = leftHandBone.Find("BodyHand");
+                    if (!bodyHandLeft)
+                    {
+                        bodyHandLeft = new GameObject("BodyHand").transform;
+                        bodyHandLeft.SetParent(leftHandBone);
+                        bodyHandLeft.localPosition = Vector3.zero;
+                        bodyHandLeft.localRotation = Quaternion.Euler(90, 0, 0);
+                    }
+                    Transform handGripLeft = bodyHandLeft.Find("HandGrip");
+                    if (!handGripLeft)
+                    {
+                        handGripLeft = new GameObject("HandGrip").transform;
+                        handGripLeft.SetParent(bodyHandLeft);
+                    }
+                    handGripLeft.localPosition = gripLocalPosition;
+                    handGripLeft.localRotation = Quaternion.Euler(gripLocalRotation);
+                    handGripLeft.MirrorRelativeToParent(new Vector3(-1, 1, 1));
+                    handGripLeft.localScale = Vector3.one;
+                    alignObject.MoveAlign(objectGrip, handGripLeft.position, handGripLeft.rotation);
+                }
+
+                DestroyImmediate(objectGrip.gameObject);
+            }
+            else
+            {
+                Debug.LogError("No orientation set on the handle!");
+            }
         }
 
         [Button]
@@ -146,6 +203,7 @@ namespace ThunderRoad
         protected virtual void CopyToAnimator()
         {
             Animator animator = this.GetComponentInParent<Animator>();
+            // Right
             animator.GetBoneTransform(HumanBodyBones.RightThumbProximal).position = thumbProximal.position;
             animator.GetBoneTransform(HumanBodyBones.RightThumbProximal).rotation = thumbProximal.rotation;
             animator.GetBoneTransform(HumanBodyBones.RightThumbIntermediate).position = thumbIntermediate.position;
@@ -180,12 +238,53 @@ namespace ThunderRoad
             animator.GetBoneTransform(HumanBodyBones.RightLittleIntermediate).rotation = littleIntermediate.rotation;
             animator.GetBoneTransform(HumanBodyBones.RightLittleDistal).position = littleDistal.position;
             animator.GetBoneTransform(HumanBodyBones.RightLittleDistal).rotation = littleDistal.rotation;
+
+            // Left
+            HandPoseDefinition leftPose = Instantiate(this.gameObject, animator.GetBoneTransform(HumanBodyBones.LeftHand)).GetComponent<HandPoseDefinition>();
+            leftPose.transform.localPosition = Vector3.zero;
+            leftPose.transform.localRotation = Quaternion.Euler(90, 0, 180);
+            leftPose.Mirror();
+            animator.GetBoneTransform(HumanBodyBones.LeftThumbProximal).position = leftPose.thumbProximal.position;
+            animator.GetBoneTransform(HumanBodyBones.LeftThumbProximal).rotation = leftPose.thumbProximal.rotation;
+            animator.GetBoneTransform(HumanBodyBones.LeftThumbIntermediate).position = leftPose.thumbIntermediate.position;
+            animator.GetBoneTransform(HumanBodyBones.LeftThumbIntermediate).rotation = leftPose.thumbIntermediate.rotation;
+            animator.GetBoneTransform(HumanBodyBones.LeftThumbDistal).position = leftPose.thumbDistal.position;
+            animator.GetBoneTransform(HumanBodyBones.LeftThumbDistal).rotation = leftPose.thumbDistal.rotation;
+
+            animator.GetBoneTransform(HumanBodyBones.LeftIndexProximal).position = leftPose.indexProximal.position;
+            animator.GetBoneTransform(HumanBodyBones.LeftIndexProximal).rotation = leftPose.indexProximal.rotation;
+            animator.GetBoneTransform(HumanBodyBones.LeftIndexIntermediate).position = leftPose.indexIntermediate.position;
+            animator.GetBoneTransform(HumanBodyBones.LeftIndexIntermediate).rotation = leftPose.indexIntermediate.rotation;
+            animator.GetBoneTransform(HumanBodyBones.LeftIndexDistal).position = leftPose.indexDistal.position;
+            animator.GetBoneTransform(HumanBodyBones.LeftIndexDistal).rotation = leftPose.indexDistal.rotation;
+
+            animator.GetBoneTransform(HumanBodyBones.LeftMiddleProximal).position = leftPose.middleProximal.position;
+            animator.GetBoneTransform(HumanBodyBones.LeftMiddleProximal).rotation = leftPose.middleProximal.rotation;
+            animator.GetBoneTransform(HumanBodyBones.LeftMiddleIntermediate).position = leftPose.middleIntermediate.position;
+            animator.GetBoneTransform(HumanBodyBones.LeftMiddleIntermediate).rotation = leftPose.middleIntermediate.rotation;
+            animator.GetBoneTransform(HumanBodyBones.LeftMiddleDistal).position = leftPose.middleDistal.position;
+            animator.GetBoneTransform(HumanBodyBones.LeftMiddleDistal).rotation = leftPose.middleDistal.rotation;
+
+            animator.GetBoneTransform(HumanBodyBones.LeftRingProximal).position = leftPose.ringProximal.position;
+            animator.GetBoneTransform(HumanBodyBones.LeftRingProximal).rotation = leftPose.ringProximal.rotation;
+            animator.GetBoneTransform(HumanBodyBones.LeftRingIntermediate).position = leftPose.ringIntermediate.position;
+            animator.GetBoneTransform(HumanBodyBones.LeftRingIntermediate).rotation = leftPose.ringIntermediate.rotation;
+            animator.GetBoneTransform(HumanBodyBones.LeftRingDistal).position = leftPose.ringDistal.position;
+            animator.GetBoneTransform(HumanBodyBones.LeftRingDistal).rotation = leftPose.ringDistal.rotation;
+
+            animator.GetBoneTransform(HumanBodyBones.LeftLittleProximal).position = leftPose.littleProximal.position;
+            animator.GetBoneTransform(HumanBodyBones.LeftLittleProximal).rotation = leftPose.littleProximal.rotation;
+            animator.GetBoneTransform(HumanBodyBones.LeftLittleIntermediate).position = leftPose.littleIntermediate.position;
+            animator.GetBoneTransform(HumanBodyBones.LeftLittleIntermediate).rotation = leftPose.littleIntermediate.rotation;
+            animator.GetBoneTransform(HumanBodyBones.LeftLittleDistal).position = leftPose.littleDistal.position;
+            animator.GetBoneTransform(HumanBodyBones.LeftLittleDistal).rotation = leftPose.littleDistal.rotation;
+            DestroyImmediate(leftPose.gameObject);
         }
 
         [Button]
         public void Mirror()
         {
-            this.transform.Mirror(mirrorAxis);
+            this.transform.MirrorChilds(new Vector3(1, -1, 1));
         }
 
         protected virtual void OnDrawGizmosSelected()

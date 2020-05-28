@@ -14,7 +14,12 @@ namespace ThunderRoad
         [Range(-1, 1)]
         public float defaultGrabAxisRatio;
         public Vector3 ikAnchorOffset;
-        public List<Orientation> allowedOrientations = new List<Orientation>();
+
+        [NonSerialized]
+        public List<HandleOrientation> orientations;
+        public HandleOrientation orientationDefaultRight;
+        public HandleOrientation orientationDefaultLeft;
+
         public HandleDefinition releaseHandle;
 
         public float reach = 0.5f;
@@ -22,6 +27,9 @@ namespace ThunderRoad
         public HandleDefinition slideToUpHandle;
         public HandleDefinition slideToBottomHandle;
         public float slideToHandleOffset = 0.01f;
+
+        [Obsolete, Header("Obsolete! Use child HandleOrientation instead")]
+        public List<Orientation> allowedOrientations = new List<Orientation>();
 
         public enum HandSide
         {
@@ -47,12 +55,67 @@ namespace ThunderRoad
             }
         }
 
-        protected virtual void OnValidate()
+        [Button("Update Orientations")]
+        public virtual void UpdateOrientations()
         {
-            if (allowedOrientations.Count == 0)
+            orientations = new List<HandleOrientation>(this.GetComponentsInChildren<HandleOrientation>());
+            CheckOrientations();
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
+            orientations = new List<HandleOrientation>(this.GetComponentsInChildren<HandleOrientation>());
+            CheckOrientations();
+            allowedOrientations.Clear();
+        }
+
+        public virtual void CheckOrientations()
+        {
+            if (orientations.Count == 0)
             {
-                allowedOrientations.Add(new Orientation(Vector3.zero, Vector3.zero, HandSide.Both, HandSide.Both));
+                if (allowedOrientations.Count > 0)
+                {
+                    foreach (Orientation allowedOrientation in allowedOrientations)
+                    {
+                        if (allowedOrientation.allowedHand == HandSide.Both || allowedOrientation.allowedHand == HandSide.Right)
+                        {
+                            HandleOrientation handleOrientation = AddOrientation(Side.Right, allowedOrientation.positionOffset, Quaternion.Euler(allowedOrientation.rotation));
+                            if (orientationDefaultRight == null && (allowedOrientation.isDefault == HandSide.Both || allowedOrientation.isDefault == HandSide.Right))
+                            {
+                                orientationDefaultRight = handleOrientation;
+                            }
+                        }
+                        if (allowedOrientation.allowedHand == HandSide.Both || allowedOrientation.allowedHand == HandSide.Left)
+                        {
+                            HandleOrientation handleOrientation = AddOrientation(Side.Left, allowedOrientation.positionOffset, Quaternion.Euler(allowedOrientation.rotation));
+                            if (orientationDefaultLeft == null && (allowedOrientation.isDefault == HandSide.Both || allowedOrientation.isDefault == HandSide.Left))
+                            {
+                                orientationDefaultLeft = handleOrientation;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    orientationDefaultRight = AddOrientation(Side.Right, Vector3.zero, Quaternion.identity);
+                    orientationDefaultLeft = AddOrientation(Side.Left, Vector3.zero, Quaternion.identity);
+                }
             }
+        }
+
+        public virtual HandleOrientation AddOrientation(Side side, Vector3 position, Quaternion rotation)
+        {
+            GameObject orient = new GameObject("Orient");
+            orient.transform.SetParent(this.transform);
+            orient.transform.localPosition = position;
+            orient.transform.localRotation = rotation;
+            orient.transform.localScale = Vector3.one;
+            HandleOrientation handleOrientation = orient.AddComponent<HandleOrientation>();
+            handleOrientation.side = side;
+            handleOrientation.UpdateName();
+            orientations.Add(handleOrientation);
+            return handleOrientation;
         }
 
         public virtual float GetDefaultAxisLocalPosition()
@@ -66,31 +129,29 @@ namespace ThunderRoad
             return this.transform.TransformPoint(0, GetDefaultAxisLocalPosition(), 0);
         }
 
-        public virtual Orientation GetDefaultOrientation(Side side)
+        public virtual HandleOrientation GetDefaultOrientation(Side side)
         {
-            foreach (Orientation orientation in allowedOrientations)
+            if (side == Side.Right && orientationDefaultRight)
             {
-                if (side == Side.Right && (orientation.allowedHand == HandSide.Both || orientation.allowedHand == HandSide.Right) && (orientation.isDefault == HandSide.Both || orientation.isDefault == HandSide.Right))
-                {
-                    return orientation;
-                }
-                if (side == Side.Left && (orientation.allowedHand == HandSide.Both || orientation.allowedHand == HandSide.Left) && (orientation.isDefault == HandSide.Both || orientation.isDefault == HandSide.Left))
-                {
-                    return orientation;
-                }
+                return orientationDefaultRight;
             }
+            if (side == Side.Left && orientationDefaultLeft)
+            {
+                return orientationDefaultLeft;
+            }
+            Debug.LogError("No default orientation found! Please check the prefab " + this.transform.parent.name + "/" + this.name);
             return null;
         }
 
-        public virtual Orientation GetNearestOrientation(Transform grip, Side side)
+        public virtual HandleOrientation GetNearestOrientation(Transform grip, Side side)
         {
             float higherDot = -1;
-            Orientation orientationResult = null;
-            foreach (Orientation orientation in allowedOrientations)
+            HandleOrientation orientationResult = null;
+            foreach (HandleOrientation orientation in orientations)
             {
-                if (orientation.allowedHand == HandSide.Both || (side == Side.Right && orientation.allowedHand == HandSide.Right) || (side == Side.Left && orientation.allowedHand == HandSide.Left))
+                if (orientation.side == side)
                 {
-                    float dot = Vector3.Dot(grip.forward, (this.transform.rotation * Quaternion.Euler(orientation.rotation)) * Vector3.forward) + Vector3.Dot(grip.up, (this.transform.rotation * Quaternion.Euler(orientation.rotation)) * Vector3.up);
+                    float dot = Vector3.Dot(grip.forward, orientation.transform.rotation * Vector3.forward) + Vector3.Dot(grip.up, orientation.transform.rotation * Vector3.up);
                     if (dot > higherDot)
                     {
                         higherDot = dot;
@@ -114,13 +175,9 @@ namespace ThunderRoad
 
         public bool IsAllowed(Side side)
         {
-            foreach (Orientation orientation in allowedOrientations)
+            foreach (HandleOrientation orientation in orientations)
             {
-                if (side == Side.Right && (orientation.allowedHand == HandSide.Both || orientation.allowedHand == HandSide.Right))
-                {
-                    return true;
-                }
-                if (side == Side.Left && (orientation.allowedHand == HandSide.Both || orientation.allowedHand == HandSide.Left))
+                if (side == orientation.side)
                 {
                     return true;
                 }
@@ -149,63 +206,7 @@ namespace ThunderRoad
 
         protected override void OnDrawGizmosSelected()
         {
-            Matrix4x4[] posMatrix = new Matrix4x4[1];
-            posMatrix[0] = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one);
 
-            base.OnDrawGizmosSelected();
-            foreach (Orientation orientation in allowedOrientations)
-            {
-                for (int i = 0; i < 2; i++)
-                {
-                    float displace = 0.1f;
-                    float ind = allowedOrientations.IndexOf(orientation);
-                    if (i == 1 && ind == 0)
-                    {
-                        displace = 0;
-                    }
-                    if (orientation.allowedHand != HandSide.None && (i == 0 || displace == 0))
-                    {
-                        Gizmos.matrix = Matrix4x4.TRS(this.transform.TransformPoint(displace, GetDefaultAxisLocalPosition(), ind / 15), this.transform.rotation * Quaternion.Euler(orientation.rotation), Vector3.one);
-
-                        if (orientation.allowedHand == HandSide.Both)
-                        {
-                            Common.DrawGizmoArrow(Vector3.zero, new Vector3(0.02f, 0, 0), Common.HueColourValue(HueColorName.Green), 0.01f);
-                            Common.DrawGizmoArrow(Vector3.zero, new Vector3(-0.02f, 0, 0), Common.HueColourValue(HueColorName.Red), 0.01f);
-                            Gizmos.color = Common.HueColourValue(HueColorName.Purple);
-                        }
-                        else if (orientation.allowedHand == HandSide.Right)
-                        {
-                            Common.DrawGizmoArrow(Vector3.zero, new Vector3(0.02f, 0, 0), Common.HueColourValue(HueColorName.Green), 0.01f);
-                            Gizmos.color = Common.HueColourValue(HueColorName.Green);
-                        }
-                        else if (orientation.allowedHand == HandSide.Left)
-                        {
-                            Common.DrawGizmoArrow(Vector3.zero, new Vector3(-0.02f, 0, 0), Common.HueColourValue(HueColorName.Red), 0.01f);
-                            Gizmos.color = Common.HueColourValue(HueColorName.Red);
-                        }
-
-                        Gizmos.DrawWireCube(Vector3.zero, new Vector3(0.01f, 0.05f, 0.01f));
-                        Gizmos.DrawWireCube(new Vector3(0, 0.03f, 0.01f), new Vector3(0.01f, 0.01f, 0.03f));
-                        if (orientation.isDefault != HandSide.None)
-                        {
-                            if (orientation.isDefault == HandSide.Both)
-                            {
-                                Gizmos.color = Common.HueColourValue(HueColorName.Purple);
-                            }
-                            else if (orientation.isDefault == HandSide.Right)
-                            {
-                                Gizmos.color = Common.HueColourValue(HueColorName.Green);
-                            }
-                            else if (orientation.isDefault == HandSide.Left)
-                            {
-                                Gizmos.color = Common.HueColourValue(HueColorName.Red);
-                            }
-
-                            Gizmos.DrawWireSphere(new Vector3(0, 0.03f, 0.025f), 0.005f);
-                        }
-                    }
-                }
-            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace ThunderRoad
@@ -25,7 +26,7 @@ namespace ThunderRoad
         Yellow,
         White
     }
-    
+
     public enum AudioMixerName
     {
         Master,
@@ -142,7 +143,7 @@ namespace ThunderRoad
             if (parent) transform.transform.SetParent(parent, true);
         }
 
-        public static void Mirror(this Transform transform, Vector3 mirrorAxis)
+        public static void MirrorChilds(this Transform transform, Vector3 mirrorAxis)
         {
             foreach (Transform child in transform.GetComponentsInChildren<Transform>())
             {
@@ -156,9 +157,24 @@ namespace ThunderRoad
                 child.SetParent(mirror, true);
                 mirror.localScale = Vector3.Scale(mirrorAxis, transform.localScale);
                 child.SetParent(orgParent, true);
-                GameObject.Destroy(mirror.gameObject);
+                if (UnityEngine.Application.isPlaying) GameObject.Destroy(mirror.gameObject);
+                else GameObject.DestroyImmediate(mirror.gameObject);
                 child.localScale = Vector3.Scale(mirrorAxis, transform.localScale);
             }
+        }
+
+        public static void MirrorRelativeToParent(this Transform transform, Vector3 mirrorAxis)
+        {
+            Transform root = new GameObject("MirrorRoot").transform;
+            root.SetParent(transform.parent);
+            root.localPosition = Vector3.zero;
+            root.localRotation = Quaternion.identity;
+            root.localScale = Vector3.one;
+            transform.SetParent(root, true);
+            root.MirrorChilds(mirrorAxis);
+            transform.SetParent(root.parent, true);
+            if (UnityEngine.Application.isPlaying) GameObject.Destroy(root.gameObject);
+            else GameObject.DestroyImmediate(root.gameObject);
         }
 
         private static Hashtable hueColourValues = new Hashtable{
