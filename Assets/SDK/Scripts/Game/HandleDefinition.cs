@@ -55,23 +55,16 @@ namespace ThunderRoad
             }
         }
 
-        [Button("Update Orientations")]
-        public virtual void UpdateOrientations()
-        {
-            orientations = new List<HandleOrientation>(this.GetComponentsInChildren<HandleOrientation>());
-            CheckOrientations();
-        }
-
         protected override void Awake()
         {
             base.Awake();
-            orientations = new List<HandleOrientation>(this.GetComponentsInChildren<HandleOrientation>());
             CheckOrientations();
-            allowedOrientations.Clear();
         }
 
+        [Button("Update Orientations")]
         public virtual void CheckOrientations()
         {
+            orientations = new List<HandleOrientation>(this.GetComponentsInChildren<HandleOrientation>());
             if (orientations.Count == 0)
             {
                 if (allowedOrientations.Count > 0)
@@ -98,8 +91,11 @@ namespace ThunderRoad
                 }
                 else
                 {
-                    orientationDefaultRight = AddOrientation(Side.Right, Vector3.zero, Quaternion.identity);
-                    orientationDefaultLeft = AddOrientation(Side.Left, Vector3.zero, Quaternion.identity);
+                    if (!Application.isPlaying)
+                    {
+                        orientationDefaultRight = AddOrientation(Side.Right, Vector3.zero, Quaternion.identity);
+                        orientationDefaultLeft = AddOrientation(Side.Left, Vector3.zero, Quaternion.identity);
+                    }
                 }
             }
         }

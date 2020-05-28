@@ -46,7 +46,7 @@ namespace ThunderRoad
 
             if (GUILayout.Button("Update to new orientations") && item)
             {
-                handle.UpdateOrientations();
+                handle.CheckOrientations();
             }
 
             if (handle.transform.localScale != Vector3.one)

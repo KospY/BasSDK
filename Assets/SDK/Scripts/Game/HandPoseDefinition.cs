@@ -84,7 +84,7 @@ namespace ThunderRoad
                 return;
             }
 
-            handleReference.UpdateOrientations();
+            handleReference.CheckOrientations();
             HandleOrientation handleOrientation = handleReference.orientationDefaultRight;
             if (side == Side.Left) handleOrientation = handleReference.orientationDefaultLeft;
 
