@@ -23,8 +23,6 @@ namespace ThunderRoad
         public Vector3 localRotation;
 
         protected bool isShown = true;
-        protected float lastManaValue;
-        protected float lastHealthValue;
 
 #if ODIN_INSPECTOR
         [ValueDropdown("GetAllEffectID")]
@@ -82,16 +80,6 @@ namespace ThunderRoad
             initialized = true;
         }
 
-        void UpdateLife()
-        {
-            lifeEffectInstance.SetIntensity(creature.health.currentHealth / creature.health.maxHealth);
-        }
-
-        void UpdateMana()
-        {
-            manaEffectInstance.SetIntensity(creature.mana.currentMana / creature.mana.maxMana);
-        }
-
         void Update()
         {
             if (!creature.centerEyes) return;
@@ -118,16 +106,19 @@ namespace ThunderRoad
             {
                 if (creature.health)
                 {
-                    if (lastHealthValue != creature.health.currentHealth)
-                    {
-                        UpdateLife();
-                    }
+                    lifeEffectInstance.SetIntensity(creature.health.currentHealth / creature.health.maxHealth);
                 }
                 if (creature.mana)
                 {
-                    if (lastManaValue != creature.mana.currentMana)
+                    manaEffectInstance.SetIntensity(creature.mana.currentMana / creature.mana.maxMana);
+                    if (creature.body.player)
                     {
-                        UpdateMana();
+                        // Time rune vfx is separated in 3 bars
+                        // 0 -> 0
+                        // 0.25 -> 1
+                        // 0.50 -> 2
+                        // 0.75 -> 3
+                        focusEffectInstance.SetIntensity(Mathf.Lerp(0, 0.75f, creature.mana.currentFocus / creature.mana.maxFocus));
                     }
                 }
             }
