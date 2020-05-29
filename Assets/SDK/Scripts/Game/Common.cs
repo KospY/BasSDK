@@ -12,6 +12,31 @@ namespace ThunderRoad
         Left,
     }
 
+    public enum LayerType
+    {
+        Touch,
+        Body,
+        Ragdoll,
+        Object,
+        Stair,
+        Avatar,
+        AvatarObject,
+        FloatingHand,
+        Damage,
+        Creature,
+        UI,
+        Player,
+    }
+
+    public enum AxisDirection
+    {
+        None,
+        Up,
+        Down,
+        Left,
+        Right,
+    }
+
     public enum HueColorName
     {
         Lime,
@@ -102,6 +127,21 @@ namespace ThunderRoad
         Ammo,
     }
 
+    public enum Finger
+    {
+        Thumb,
+        Index,
+        Middle,
+        Ring,
+        Little,
+    }
+
+    public enum EventTime
+    {
+        OnStart,
+        OnEnd,
+    }
+
     [Serializable]
     public class CustomReference
     {
@@ -111,14 +151,6 @@ namespace ThunderRoad
 
     public static class Common
     {
-        public static AudioClip GetRandomAudioClip(List<AudioClip> audioClips)
-        {
-            if (audioClips.Count == 0) return null;
-            if (audioClips.Count == 1) return audioClips[0];
-            int index = UnityEngine.Random.Range(0, audioClips.Count);
-            return audioClips[index];
-        }
-
         public static string GetStringBetween(this string text, string start, string end)
         {
             int pFrom = text.IndexOf(start) + start.Length;

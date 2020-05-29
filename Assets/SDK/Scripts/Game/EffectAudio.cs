@@ -71,7 +71,13 @@ namespace ThunderRoad
             CancelInvoke();
             StopAllCoroutines();
 
-            audioSource.clip = Common.GetRandomAudioClip(audioContainer.sounds);
+            audioSource.clip = audioContainer.PickAudioClip();
+
+            if (audioSource.clip == null)
+            {
+                Debug.LogError("Picked audio from audioContainer [" + audioContainer.name + "] is null ");
+                return;
+            }
 
             if (randomPitch)
             {
@@ -87,7 +93,7 @@ namespace ThunderRoad
             if (randomPlay)
             {
                 audioSource.loop = false;
-                audioSource.clip = Common.GetRandomAudioClip(audioContainer.sounds);
+                audioSource.clip = audioContainer.PickAudioClip();
                 float randomDelay = UnityEngine.Random.Range(randomMinTime, randomMaxTime);
                 Invoke("RandomPlay", randomDelay);
             }
@@ -102,7 +108,7 @@ namespace ThunderRoad
 
         protected void RandomPlay()
         {
-            audioSource.clip = Common.GetRandomAudioClip(audioContainer.sounds);
+            audioSource.clip = audioContainer.PickAudioClip();
             if (!audioSource.isPlaying) audioSource.Play();
             float randomDelay = UnityEngine.Random.Range(randomMinTime, randomMaxTime);
             Invoke("RandomPlay", randomDelay);

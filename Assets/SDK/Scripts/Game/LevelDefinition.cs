@@ -140,7 +140,7 @@ namespace ThunderRoad
                     {
                         player = Instantiate(Resources.Load("Player", typeof(Player)) as Player, playerStart.position, playerStart.rotation);
                         player.morphology = GameManager.playerData.morphology;
-                        GameManager.local.FirePlayerSpawnedEvent(player);
+                        EventManager.InvokePlayerSpawned(player);
                     }
 
                     if (player && Application.platform != RuntimePlatform.Android)

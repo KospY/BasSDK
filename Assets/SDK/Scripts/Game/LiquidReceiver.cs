@@ -28,7 +28,7 @@ namespace ThunderRoad
 
         void Start()
         {
-            colliderReceiver.gameObject.SetLayerRecursively(VRManager.GetLayer(LayerName.LiquidFlow));
+            colliderReceiver.gameObject.SetLayerRecursively(GameManager.GetLayer(LayerName.LiquidFlow));
         }
 
         void Update()
