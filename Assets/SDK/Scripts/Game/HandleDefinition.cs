@@ -202,7 +202,7 @@ namespace ThunderRoad
 
         protected override void OnDrawGizmosSelected()
         {
-
+            base.OnDrawGizmosSelected();
         }
     }
 }
