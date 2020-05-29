@@ -106,11 +106,11 @@ namespace ThunderRoad
             {
                 if (creature.health)
                 {
-                    lifeEffectInstance.SetIntensity(creature.health.currentHealth / creature.health.maxHealth);
+                    lifeEffectInstance.SetIntensity(creature.health.maxHealth == Mathf.Infinity ? 1 : (creature.health.currentHealth / creature.health.maxHealth));
                 }
                 if (creature.mana)
                 {
-                    manaEffectInstance.SetIntensity(creature.mana.currentMana / creature.mana.maxMana);
+                    manaEffectInstance.SetIntensity(creature.mana.maxMana == Mathf.Infinity ? 1 : (creature.mana.currentMana / creature.mana.maxMana));
                     if (creature.body.player)
                     {
                         // Time rune vfx is separated in 3 bars
@@ -118,7 +118,7 @@ namespace ThunderRoad
                         // 0.25 -> 1
                         // 0.50 -> 2
                         // 0.75 -> 3
-                        focusEffectInstance.SetIntensity(Mathf.Lerp(0, 0.75f, creature.mana.currentFocus / creature.mana.maxFocus));
+                        focusEffectInstance.SetIntensity(Mathf.Lerp(0, 0.75f, creature.mana.maxFocus == Mathf.Infinity ? 1 : (creature.mana.currentFocus / creature.mana.maxFocus)));
                     }
                 }
             }
