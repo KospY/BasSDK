@@ -212,6 +212,7 @@ namespace ThunderRoad
             if (data.musicAudioContainer)
             {
                 music = this.gameObject.AddComponent<AudioSource>();
+                music.outputAudioMixerGroup = GameManager.GetAudioMixerGroup(AudioMixerName.Music);
                 music.clip = data.musicAudioContainer.PickAudioClip();
                 music.Play();
                 if (data.musicAudioContainer.sounds.Count > 1)
