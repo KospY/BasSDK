@@ -38,7 +38,7 @@ namespace ThunderRoad
         [NonSerialized]
         public List<ColliderGroup> colliderGroups;
         [NonSerialized]
-        public List<EffectHinge> effectHinges;
+        public List<HingeEffect> effectHinges;
         [NonSerialized]
         public List<WhooshPoint> whooshPoints;
 
@@ -241,7 +241,7 @@ namespace ThunderRoad
             paintables = new List<Paintable>(this.GetComponentsInChildren<Paintable>());
             colliderGroups = new List<ColliderGroup>(this.GetComponentsInChildren<ColliderGroup>());
             whooshPoints = new List<WhooshPoint>(this.GetComponentsInChildren<WhooshPoint>());
-            effectHinges = new List<EffectHinge>(this.GetComponentsInChildren<EffectHinge>());
+            effectHinges = new List<HingeEffect>(this.GetComponentsInChildren<HingeEffect>());
             collisionHandlers = new List<CollisionHandler>(this.GetComponentsInChildren<CollisionHandler>());
             if (collisionHandlers.Count == 0) collisionHandlers.Add(this.gameObject.AddComponent<CollisionHandler>());
             if (customInertiaTensorCollider) CalculateCustomInertiaTensor();
