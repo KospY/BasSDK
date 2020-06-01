@@ -41,7 +41,7 @@ namespace ThunderRoad
         public override void Play()
         {
             CancelInvoke();
-            if (step != Step.Loop && lifeTime > 0)
+            if ((step == Step.Start || step == Step.End) && lifeTime > 0)
             {
                 InvokeRepeating("UpdateLifeTime", 0, refreshSpeed);
             }
@@ -49,7 +49,12 @@ namespace ThunderRoad
             playTime = Time.time;
         }
 
-        public override void Stop(bool loopOnly = false)
+        public override void Stop()
+        {
+            SetIntensity(0);
+        }
+
+        public override void End(bool loopOnly = false)
         {
             Despawn();
         }

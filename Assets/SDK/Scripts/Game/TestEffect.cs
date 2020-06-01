@@ -113,7 +113,7 @@ namespace ThunderRoad
                 }
                 else
                 {
-                    effect.Stop();
+                    effect.End();
                 }
             }
         }

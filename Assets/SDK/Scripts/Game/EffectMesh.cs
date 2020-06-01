@@ -77,13 +77,21 @@ namespace ThunderRoad
                 }
             }
 
-            if (step != Step.Loop && lifeTime > 0)
+            if ((step == Step.Start || step == Step.End) && lifeTime > 0)
             {
                 InvokeRepeating("UpdateLifeTime", 0, refreshSpeed);
             }
         }
 
-        public override void Stop(bool loopOnly = false)
+        public override void Stop()
+        {
+            if (meshRenderer != null)
+            {
+                meshRenderer.enabled = false;
+            }
+        }
+
+        public override void End(bool loopOnly = false)
         {
             if (meshRenderer != null)
             {

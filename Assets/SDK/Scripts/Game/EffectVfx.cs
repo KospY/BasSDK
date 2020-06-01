@@ -72,14 +72,19 @@ namespace ThunderRoad
                 vfx.SetInt("Seed", UnityEngine.Random.Range(0, 10000));
             }
             vfx.Play();
-            if (step != Step.Loop)
+            if (step == Step.Start || step == Step.End)
             {
                 Invoke("Despawn", lifeTime);
             }
             playTime = Time.time;
         }
 
-        public override void Stop(bool loopOnly = false)
+        public override void Stop()
+        {
+            vfx.Stop();
+        }
+
+        public override void End(bool loopOnly = false)
         {
             vfx.Stop();
             stopping = true;

@@ -17,14 +17,22 @@ namespace ThunderRoad
             Start,
             Loop,
             End,
+            Custom,
         }
+
+        public int stepCustomHashId;
 
         public virtual void Play()
         {
 
         }
 
-        public virtual void Stop(bool loopOnly = false)
+        public virtual void Stop()
+        {
+
+        }
+
+        public virtual void End(bool loopOnly = false)
         {
 
         }

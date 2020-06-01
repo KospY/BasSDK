@@ -9,9 +9,15 @@ namespace ThunderRoad
     public class EffectModule
     {
 #if ODIN_INSPECTOR
-        [BoxGroup("Effect")]
+        [BoxGroup("Module")]
 #endif
         public Effect.Step step = Effect.Step.Start;
+#if ODIN_INSPECTOR
+        [BoxGroup("Module"), ShowIf("step", Effect.Step.Custom)]
+#endif
+        public string stepCustomId;
+        [BoxGroup("Module")]
+        public bool disabled;
 
         public virtual void Refresh()
         {

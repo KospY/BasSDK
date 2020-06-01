@@ -85,7 +85,7 @@ namespace ThunderRoad
             }
             audioSource.pitch *= globalPitch;
 
-            if (step != Step.Loop)
+            if (step == Step.Start || step == Step.End)
             {
                 Invoke("Despawn", audioSource.clip.length + 1);
             }
@@ -115,7 +115,12 @@ namespace ThunderRoad
             Debug.Log(randomDelay);
         }
 
-        public override void Stop(bool loopOnly = false)
+        public override void Stop()
+        {
+            audioSource.Stop();
+        }
+
+        public override void End(bool loopOnly = false)
         {
             CancelInvoke("RandomPlay");
             if (loopFadeDelay > 0)

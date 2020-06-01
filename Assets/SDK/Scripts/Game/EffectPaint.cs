@@ -126,7 +126,10 @@ namespace ThunderRoad
                         paintable.Paint(PaintIn3D.P3dCommandDecal.Instance, Paintable.MaterialProperty.PropertyType.Emission);
                     }
                 }
-                Invoke("Despawn", 2);
+                if (step == Step.Start || step == Step.End)
+                {
+                    Invoke("Despawn", 2);
+                }
             }
             else
             {

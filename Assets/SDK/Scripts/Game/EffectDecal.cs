@@ -111,7 +111,7 @@ namespace ThunderRoad
                 meshRenderer.material.SetInt("_StencilRef", 0);
             }
 
-    }
+        }
 #endif
         public override void Play()
         {
@@ -119,14 +119,19 @@ namespace ThunderRoad
             CancelInvoke();
             meshRenderer.transform.localScale = Vector3.one;
             meshRenderer.transform.localScale = new Vector3(size.x / meshRenderer.transform.lossyScale.x, size.y / meshRenderer.transform.lossyScale.y, size.z / meshRenderer.transform.lossyScale.z);
-            if (step != Step.Loop)
+            if (step == Step.Start || step == Step.End)
             {
                 InvokeRepeating("UpdateLifeTime", 0, fadeRefreshSpeed);
             }
             meshRenderer.enabled = true;
         }
 
-        public override void Stop(bool loopOnly = false)
+        public override void Stop()
+        {
+            meshRenderer.enabled = false;
+        }
+
+        public override void End(bool loopOnly = false)
         {
             if (!loopOnly || (loopOnly && step == Step.Loop))
             {
