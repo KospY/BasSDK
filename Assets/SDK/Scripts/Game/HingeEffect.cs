@@ -8,7 +8,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
-    public class EffectHinge : MonoBehaviour
+    public class HingeEffect : MonoBehaviour
     {
         public new HingeJoint hingeJoint;
 
@@ -23,7 +23,7 @@ namespace ThunderRoad
 
         private void OnDisable()
         {
-            effectInstance.Stop();
+            effectInstance.End();
             loaded = false;
         }
 
