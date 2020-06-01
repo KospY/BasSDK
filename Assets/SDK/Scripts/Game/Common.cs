@@ -158,6 +158,22 @@ namespace ThunderRoad
             return text.Substring(pFrom, pTo - pFrom);
         }
 
+        public static void SetParentOrigin(this Transform transform, Transform parent)
+        {
+            transform.parent = parent;
+            transform.localPosition = Vector3.zero;
+            transform.localRotation = Quaternion.identity;
+            transform.localScale = Vector3.one;
+        }
+
+        public static void SetParentOrigin(this Transform transform, Transform parent, Vector3? localPosition = null, Quaternion? localRotation = null, Vector3? localScale = null)
+        {
+            transform.parent = parent;
+            transform.localPosition = localPosition != null ? Vector3.zero : (Vector3)localPosition;
+            transform.localRotation = localRotation != null ? Quaternion.identity : (Quaternion)localRotation;
+            transform.localScale = localScale != null ? Vector3.one : (Vector3)localScale;
+        }
+
         public static void MoveAlign(this Transform transform, Transform child, Transform target, Transform parent = null)
         {
             transform.MoveAlign(child, target.position, target.rotation, parent);
