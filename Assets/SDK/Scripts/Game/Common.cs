@@ -139,6 +139,14 @@ namespace ThunderRoad
         OnEnd,
     }
 
+    public enum DamageType
+    {
+        Pierce,
+        Slash,
+        Blunt,
+        Energy,
+    }
+
     [Serializable]
     public class CustomReference
     {
