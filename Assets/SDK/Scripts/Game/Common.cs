@@ -156,6 +156,15 @@ namespace ThunderRoad
 
     public static class Common
     {
+        public static void SetLayerRecursively(this GameObject obj, int layer)
+        {
+            obj.layer = layer;
+            foreach (Transform child in obj.transform)
+            {
+                child.gameObject.SetLayerRecursively(layer);
+            }
+        }
+
         public static string GetStringBetween(this string text, string start, string end)
         {
             int pFrom = text.IndexOf(start) + start.Length;
