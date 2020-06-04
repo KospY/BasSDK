@@ -114,9 +114,6 @@ namespace ThunderRoad
         ShockDead,
         Burning,
         Choke,
-        Choke1h,
-        ChokeLifted,
-        ChokeLifted1h,
     }
 
     public enum SavedValueID
@@ -140,6 +137,14 @@ namespace ThunderRoad
     {
         OnStart,
         OnEnd,
+    }
+
+    public enum DamageType
+    {
+        Pierce,
+        Slash,
+        Blunt,
+        Energy,
     }
 
     [Serializable]
