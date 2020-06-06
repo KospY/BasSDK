@@ -189,12 +189,14 @@ namespace ThunderRoad
                 exportBundle[bundle] = GUILayout.Toggle(exportBundle[bundle], bundle);
                 //EditorGUI.BeginDisabledGroup(EditorToolsJSONConfig.streamingassetsDirectory == null || EditorToolsJSONConfig.streamingassetsDirectory == "" || EditorToolsJSONConfig.streamingassetsDirectory.Substring(EditorToolsJSONConfig.streamingassetsDirectory.LastIndexOf('/') + 1, EditorToolsJSONConfig.streamingassetsDirectory.Length - EditorToolsJSONConfig.streamingassetsDirectory.LastIndexOf('/') - 1) != "StreamingAssets");
 
+
+
                 GUILayout.BeginVertical();
                 try
                 {
                     if (modExportDirectories[bundle] == null || modExportDirectories[bundle] == "")
                     {
-                        if (GUILayout.Button("Target mod", new GUIStyle("DropDownButton")))
+                        if (GUILayout.Button("Target mod     ", new GUIStyle("DropDownButton")))
                         {
                             if (dropDownModDirSelect[bundle])
                             {
@@ -209,7 +211,7 @@ namespace ThunderRoad
                     }
                     else
                     {
-                        if (GUILayout.Button("Target mod: " + modExportDirectories[bundle].Substring(modExportDirectories[bundle].LastIndexOf('\\') + 1, modExportDirectories[bundle].Length - modExportDirectories[bundle].LastIndexOf('\\') - 1), new GUIStyle("DropDownButton")))
+                        if (GUILayout.Button("Target mod: " + modExportDirectories[bundle].Substring(modExportDirectories[bundle].LastIndexOf('\\') + 1, modExportDirectories[bundle].Length - modExportDirectories[bundle].LastIndexOf('\\') - 1)+"     ", new GUIStyle("DropDownButton")))
                         {
                             if (dropDownModDirSelect[bundle])
                             {
@@ -223,13 +225,23 @@ namespace ThunderRoad
                     }
                     if (dropDownModDirSelect[bundle])
                     {
+                        if (GUILayout.Button("None", new GUIStyle("radio")))
+                        {
+                            modExportDirectories[bundle] = null;
+                            EditorPrefs.SetString("ExportBundleDir" + bundle, modExportDirectories[bundle]);
+                            dropDownModDirSelect[bundle] = false;
+                        }
                         foreach (string file in Directory.EnumerateDirectories(streamingassetsDirectory))
                         {
-                            if (GUILayout.Button(file.Substring(file.LastIndexOf('\\') + 1, file.Length - file.LastIndexOf('\\') - 1), new GUIStyle("radio")))
+                            string fileName = file.Substring(file.LastIndexOf('\\') + 1, file.Length - file.LastIndexOf('\\') - 1);
+                            if (!fileName.Equals("Default") && !fileName.Equals("SteamVR") && fileName[0] != '_')
                             {
-                                modExportDirectories[bundle] = file;
-                                EditorPrefs.SetString("ExportBundleDir" + bundle, modExportDirectories[bundle]);
-                                dropDownModDirSelect[bundle] = false;
+                                if (GUILayout.Button(fileName, new GUIStyle("radio")))
+                                {
+                                    modExportDirectories[bundle] = file;
+                                    EditorPrefs.SetString("ExportBundleDir" + bundle, modExportDirectories[bundle]);
+                                    dropDownModDirSelect[bundle] = false;
+                                }
                             }
                         }
                     }
@@ -335,11 +347,11 @@ namespace ThunderRoad
                     }
                     file.MoveTo(file.FullName + ext);
 
-                    if (copyPath != null || copyPath != "")
-                    {
-                        file.CopyTo(copyPath + "/" + file.Name, true);
-                        Debug.Log("Copied bundle " + file.Name + " to " + copyPath + ".");
-                    }
+                    //if (copyPath != null || copyPath != "")
+                    //{
+                    //    file.CopyTo(copyPath + "/" + file.Name, true);
+                    //    Debug.Log("Copied bundle " + file.Name + " to " + copyPath + ".");
+                    //}
 
                     if (modExportDirectories[Path.GetFileNameWithoutExtension(file.Name)].Length > 4)
                     {
