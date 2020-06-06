@@ -98,32 +98,40 @@ namespace ThunderRoad
 
             GUILayout.Space(5);
 
-            if (GUILayout.Button("Change copy folder..."))
-            {
-                try
-                {
-                    copyPath = EditorUtility.OpenFolderPanel("AssetBundle copy path", "", "");
+            //having a generic copy path resulted in the assetbundles being copied into the root directory if not set
+            //the idea of copying paths is to move them to their individual mod folders, that is done by the drop down menus and tick boxes.
 
-                    Debug.Log("New path set for AssetBundle copy : " + copyPath);
-                }
-                catch
-                {
-                    copyPath = defaultCopyPath;
-                    Debug.LogError("Error opening folder. Resetting to default path (" + defaultCopyPath +" .");
-                }
-                EditorPrefs.SetString("CopyPath", copyPath);
+            //if (GUILayout.Button("Change copy folder..."))
+            //{
+            //    try
+            //    {
+            //        copyPath = EditorUtility.OpenFolderPanel("AssetBundle copy path", "", "");
+
+            //        Debug.Log("New path set for AssetBundle copy : " + copyPath);
+            //    }
+            //    catch
+            //    {
+            //        copyPath = defaultCopyPath;
+            //        Debug.LogError("Error opening folder. Resetting to default path (" + defaultCopyPath +" .");
+            //    }
+            //    EditorPrefs.SetString("CopyPath", copyPath);
+            //}
+            //GUILayout.Label("Current copy path : " + copyPath);
+
+            if (EditorToolsJSONConfig.streamingassetsDirectory == null || EditorToolsJSONConfig.streamingassetsDirectory == "" || EditorToolsJSONConfig.streamingassetsDirectory.Substring(EditorToolsJSONConfig.streamingassetsDirectory.LastIndexOf('/') + 1, EditorToolsJSONConfig.streamingassetsDirectory.Length - EditorToolsJSONConfig.streamingassetsDirectory.LastIndexOf('/') - 1) != "StreamingAssets")
+            {
+                GUILayout.Space(5);
+                EditorGUILayout.HelpBox("The streamingassets folder may not be set, please check the Mod Configuration window", MessageType.Warning);
             }
-            GUILayout.Label("Current copy path : " + copyPath);
 
             GUILayout.Space(5);
 
             //Displays asset bundle list
-
             foreach (string bundle in bundleNames)
             {
                 GUILayout.BeginHorizontal();
                 exportBundle[bundle] = GUILayout.Toggle(exportBundle[bundle], bundle);
-                EditorGUI.BeginDisabledGroup(EditorToolsJSONConfig.streamingassetsDirectory == null || EditorToolsJSONConfig.streamingassetsDirectory == "" || EditorToolsJSONConfig.streamingassetsDirectory.Substring(EditorToolsJSONConfig.streamingassetsDirectory.LastIndexOf('/') + 1, EditorToolsJSONConfig.streamingassetsDirectory.Length - EditorToolsJSONConfig.streamingassetsDirectory.LastIndexOf('/') - 1) != "StreamingAssets");
+                //EditorGUI.BeginDisabledGroup(EditorToolsJSONConfig.streamingassetsDirectory == null || EditorToolsJSONConfig.streamingassetsDirectory == "" || EditorToolsJSONConfig.streamingassetsDirectory.Substring(EditorToolsJSONConfig.streamingassetsDirectory.LastIndexOf('/') + 1, EditorToolsJSONConfig.streamingassetsDirectory.Length - EditorToolsJSONConfig.streamingassetsDirectory.LastIndexOf('/') - 1) != "StreamingAssets");
 
                 GUILayout.BeginVertical();
                 try
@@ -277,7 +285,7 @@ namespace ThunderRoad
                         Debug.Log("Copied bundle " + file.Name + " to " + copyPath + ".");
                     }
 
-                    if (modExportDirectories[Path.GetFileNameWithoutExtension(file.Name)].Length > 1)
+                    if (modExportDirectories[Path.GetFileNameWithoutExtension(file.Name)].Length > 4)
                     {
                         if (exportToModFolders && modExportDirectories.ContainsKey(file.Name.Substring(0, file.Name.Length - 7)))
                         {
