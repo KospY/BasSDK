@@ -16,7 +16,9 @@ namespace ThunderRoad
         [BoxGroup("Module"), ShowIf("step", Effect.Step.Custom)]
 #endif
         public string stepCustomId;
+#if ODIN_INSPECTOR
         [BoxGroup("Module")]
+#endif
         public bool disabled;
 
         public virtual void Refresh()
