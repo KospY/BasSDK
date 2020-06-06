@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -146,8 +147,11 @@ namespace ThunderRoad
             meshFilter.transform.localRotation = Quaternion.identity;
             meshFilter.transform.localScale = Vector3.one;
             meshFilter.sharedMesh = imbueMesh;
+            //creates a directory and saves the mesh as an asset
+#if (UNITY_EDITOR)
             System.IO.Directory.CreateDirectory("Assets/Private/Generated Meshes");
-            UnityEditor.AssetDatabase.CreateAsset(imbueMesh, "Assets/Private/Generated Meshes/ImbueGeneratedMesh" + this.name);
+            AssetDatabase.CreateAsset(imbueMesh, "Assets/Private/Generated Meshes/ImbueGeneratedMesh" + name);
+#endif
             imbueEffectRenderer = meshFilter.gameObject.AddComponent<MeshRenderer>();
         }
 
