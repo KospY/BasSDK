@@ -867,7 +867,8 @@ namespace ThunderRoad
 
             json = JsonUtility.ToJson(jsondata, true).Replace("MONEYSIGN", "$");
 
-            EditorToolsJSONConfig.AddPrefab(jsonName + ".json", AssetDatabase.GetAssetPath(itemPrefab));
+            //EditorToolsJSONConfig.AddPrefab(jsonName + ".json", AssetDatabase.GetAssetPath(itemPrefab));
+
             if (!initializedWithFile)
             {
                 EditorPrefs.SetString("modAuthor", jsondata.author);
