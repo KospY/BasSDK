@@ -146,6 +146,8 @@ namespace ThunderRoad
             meshFilter.transform.localRotation = Quaternion.identity;
             meshFilter.transform.localScale = Vector3.one;
             meshFilter.sharedMesh = imbueMesh;
+            System.IO.Directory.CreateDirectory("Assets/Private/Generated Meshes");
+            UnityEditor.AssetDatabase.CreateAsset(imbueMesh, "Assets/Private/Generated Meshes/ImbueGeneratedMesh" + this.name);
             imbueEffectRenderer = meshFilter.gameObject.AddComponent<MeshRenderer>();
         }
 
