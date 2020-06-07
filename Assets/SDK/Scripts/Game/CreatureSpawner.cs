@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 #if ProjectCore
 using Sirenix.OdinInspector;
 #endif
@@ -26,6 +27,11 @@ namespace ThunderRoad
 
         public bool pooled;
         public float spawnDelay;
+        public int spawnCount = 1;
+
+        public int rowCount = 10;
+        public float rowSpace = 1;
+        public float delayBetweenSpawn = 0.5f;
         public bool spawnOnStart = true;
 
 #if ProjectCore
@@ -65,17 +71,30 @@ namespace ThunderRoad
         }
 
         [Button]
-        public Creature Spawn()
+        public void Spawn()
         {
             if (creatureId != "" && creatureId != null)
             {
-                CreatureData creatureData = Catalog.GetData<CreatureData>(creatureId).Clone() as CreatureData;
-                creatureData.factionId = factionId;
-                if (brainId != "" && brainId != null && brainId != "None") creatureData.brainId = brainId;
-                if (containerID != "" && containerID != null && containerID != "None") creatureData.containerID = containerID;
-                return creatureData.Spawn(this.transform.position, this.transform.rotation, pooled);
+                StartCoroutine(SpawnCoroutine());
             }
-            return null;
+        }
+
+        IEnumerator SpawnCoroutine()
+        {
+            for (int i = 0; i < spawnCount; i++)
+            {
+                Spawn(this.transform.position + (this.transform.right * rowSpace * (i % rowCount)) + (this.transform.forward * rowSpace * Mathf.FloorToInt((i / rowCount))));
+                yield return new WaitForSeconds(delayBetweenSpawn);
+            }
+        }
+
+        public void Spawn(Vector3 position)
+        {
+            CreatureData creatureData = Catalog.GetData<CreatureData>(creatureId).Clone() as CreatureData;
+            creatureData.factionId = factionId;
+            if (brainId != "" && brainId != null && brainId != "None") creatureData.brainId = brainId;
+            if (containerID != "" && containerID != null && containerID != "None") creatureData.containerID = containerID;
+            creatureData.Spawn(position, this.transform.rotation, pooled);
         }
 #endif
     }
