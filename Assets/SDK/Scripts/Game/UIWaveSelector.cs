@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace ThunderRoad
 {
@@ -19,6 +20,12 @@ namespace ThunderRoad
             canvasGameObject.name = "WaveSelector";
             canvasGameObject.GetComponentInChildren<UIPageWaves>().id = id;
             canvasGameObject.GetComponentInChildren<UIPageWaves>().spawnLocation = spawnLocation;
+            foreach (ScrollRect scrollRect in this.GetComponentsInChildren<ScrollRect>(true))
+            {
+                // Prevent performance issue (will be enabled when the pointer go on it)
+                scrollRect.enabled = false;
+            }
+            this.gameObject.SetActive(false);
         }
 #endif
 

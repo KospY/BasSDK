@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace ThunderRoad
 {
@@ -20,6 +21,17 @@ namespace ThunderRoad
                 worldMap.locations.Add(child);
             }
             GameObject mapDetailGameObject = Instantiate(Resources.Load("UI/MapDetail"), canvasDetails.position, canvasDetails.rotation, canvasDetails) as GameObject;
+            foreach (ScrollRect scrollRect in this.GetComponentsInChildren<ScrollRect>(true))
+            {
+                // Prevent performance issue (will be enabled when the pointer go on it)
+                scrollRect.enabled = false;
+            }
+            worldMap.Init();
+        }
+
+        private void Start()
+        {
+            canvasDetails.gameObject.SetActive(false);
         }
 #endif
 

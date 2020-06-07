@@ -219,6 +219,7 @@ Transform:
   - {fileID: 2479158510084862028}
   - {fileID: 1224495964177560976}
   - {fileID: 5709185020816243862}
+  - {fileID: 3799387990540536650}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90.00001, z: 0}
@@ -283,3 +284,125 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: ProtoLevel
   spawnLocation: {fileID: 0}
+--- !u!1 &8310858555572954879
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3799387990540536650}
+  - component: {fileID: 1681760831275424347}
+  - component: {fileID: 3787589501618873046}
+  m_Layer: 0
+  m_Name: Zone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3799387990540536650
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8310858555572954879}
+  m_LocalRotation: {x: 0.00000008940697, y: 0.8141155, z: -0.580703, w: -0.00000008940697}
+  m_LocalPosition: {x: 0.006000002, y: 1.1626, z: 0.036500007}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 226236215893875970}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1681760831275424347
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8310858555572954879}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 4
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3787589501618873046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8310858555572954879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a5a332dc4144db488ad4600e1b266a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navSpeedModifier: 0
+  runSpeed: 0
+  killPlayer: 0
+  killNPC: 0
+  despawnNPC: 0
+  despawnItem: 0
+  despawnDelay: 0
+  spawnEffect: 0
+  effectID: 
+  effectMassCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  effectVelocityCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  effectOrientation: {x: 0, y: 0, z: 1}
+  teleportPlayer: 0
+  teleportItem: 0
+  customTeleportTarget: {fileID: 0}
+  playerEnterEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5709185020816243863}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  playerExitEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5709185020816243863}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  creatureEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  creatureExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  itemEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  itemExitEvent:
+    m_PersistentCalls:
+      m_Calls: []

@@ -572,6 +572,7 @@ Transform:
   - {fileID: 4631947363279268492}
   - {fileID: 4631947361901900606}
   - {fileID: 7146005667915018963}
+  - {fileID: 2281507248014967770}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 180.00002}
@@ -3597,6 +3598,128 @@ Transform:
   m_Father: {fileID: 4631947361348527351}
   m_RootOrder: 60
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4893284537331311477
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2281507248014967770}
+  - component: {fileID: 1045882792390488757}
+  - component: {fileID: 7929880522556142042}
+  m_Layer: 0
+  m_Name: Zone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2281507248014967770
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4893284537331311477}
+  m_LocalRotation: {x: -0.000000019232075, y: -0, z: 0.2588191, w: 0.9659258}
+  m_LocalPosition: {x: -0.48220018, y: -0.41919985, z: -0.04399994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4631947361472002419}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1045882792390488757
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4893284537331311477}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 4
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7929880522556142042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4893284537331311477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a5a332dc4144db488ad4600e1b266a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navSpeedModifier: 0
+  runSpeed: 0
+  killPlayer: 0
+  killNPC: 0
+  despawnNPC: 0
+  despawnItem: 0
+  despawnDelay: 0
+  spawnEffect: 0
+  effectID: 
+  effectMassCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  effectVelocityCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  effectOrientation: {x: 0, y: 0, z: 1}
+  teleportPlayer: 0
+  teleportItem: 0
+  customTeleportTarget: {fileID: 0}
+  playerEnterEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4631947363279268493}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  playerExitEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4631947363279268493}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  creatureEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  creatureExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  itemEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  itemExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6335071994223104117
 GameObject:
   m_ObjectHideFlags: 0
