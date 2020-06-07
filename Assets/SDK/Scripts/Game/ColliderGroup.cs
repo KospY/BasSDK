@@ -149,8 +149,11 @@ namespace ThunderRoad
             meshFilter.sharedMesh = imbueMesh;
             //creates a directory and saves the mesh as an asset
 #if (UNITY_EDITOR)
-            System.IO.Directory.CreateDirectory("Assets/Private/Generated Meshes");
-            AssetDatabase.CreateAsset(imbueMesh, "Assets/Private/Generated Meshes/ImbueGeneratedMesh" + name);
+            if (!Application.isPlaying)
+            {
+                System.IO.Directory.CreateDirectory("Assets/Private/Generated Meshes");
+                AssetDatabase.CreateAsset(imbueMesh, "Assets/Private/Generated Meshes/ImbueGeneratedMesh" + name);
+            }
 #endif
             imbueEffectRenderer = meshFilter.gameObject.AddComponent<MeshRenderer>();
         }
