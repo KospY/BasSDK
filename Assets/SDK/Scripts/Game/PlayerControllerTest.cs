@@ -1,29 +1,32 @@
 ﻿using UnityEngine;
 using UnityEngine.XR;
 
-public class PlayerControllerTest : MonoBehaviour
+namespace ThunderRoad
 {
-    public Transform head;
-    public float moveSpeed = 4.0f;
-    public float turnSpeed = 4.0f;
-    public float jumpForce = 20;
 
-    protected new Rigidbody rigidbody;
-    protected new CapsuleCollider collider;
-
-    private Vector3 moveDirection = Vector3.zero;
-
-    void Awake()
+    public class PlayerControllerTest : MonoBehaviour
     {
+        public Transform head;
+        public float moveSpeed = 4.0f;
+        public float turnSpeed = 4.0f;
+        public float jumpForce = 20;
+
+        protected new Rigidbody rigidbody;
+        protected new CapsuleCollider collider;
+
+        private Vector3 moveDirection = Vector3.zero;
+
+        void Awake()
+        {
 #if ProjectCore
-        Destroy(this.gameObject);
+            Destroy(this.gameObject);
 #else
         Time.fixedDeltaTime = Time.timeScale / XRDevice.refreshRate;
         rigidbody = GetComponent<Rigidbody>();
         collider = GetComponent<CapsuleCollider>();
         XRDevice.SetTrackingSpaceType(TrackingSpaceType.RoomScale);
 #endif
-    }
+        }
 
 #if !ProjectCore
     void FixedUpdate()
@@ -48,4 +51,28 @@ public class PlayerControllerTest : MonoBehaviour
         }
     }
 #endif
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.layer == LayerMask.NameToLayer("Zone"))
+            {
+                Zone zone = other.GetComponent<Zone>();
+                if (zone.teleportPlayer)
+                {
+                    this.transform.position = zone.customTeleportTarget ? zone.customTeleportTarget.position : LevelDefinition.current.playerStart.position;
+                    this.transform.rotation = zone.customTeleportTarget ? zone.customTeleportTarget.rotation : LevelDefinition.current.playerStart.rotation;
+                }
+                zone.playerEnterEvent.Invoke(this);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.layer == LayerMask.NameToLayer("Zone"))
+            {
+                Zone zone = other.GetComponent<Zone>();
+                zone.playerExitEvent.Invoke(this);
+            }
+        }
+    }
 }
