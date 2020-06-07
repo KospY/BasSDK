@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!55 &1
+PhysicsManager:
+  m_ObjectHideFlags: 0
+  serializedVersion: 13
+  m_Gravity: {x: 0, y: -9.81, z: 0}
+  m_DefaultMaterial: {fileID: 0}
+  m_BounceThreshold: 2
+  m_SleepThreshold: 0.01
+  m_DefaultContactOffset: 0.01
+  m_DefaultSolverIterations: 6
+  m_DefaultSolverVelocityIterations: 1
+  m_QueriesHitBackfaces: 0
+  m_QueriesHitTriggers: 1
+  m_EnableAdaptiveForce: 1
+  m_ClothInterCollisionDistance: 0
+  m_ClothInterCollisionStiffness: 0
+  m_ContactsGeneration: 1
+  m_LayerCollisionMatrix: c93dc28cc8000000c8000000ffffffffc80c0000c8000000ffffffffffffffffc9010000c8020002d93c03a1d93c03adc93c42a9c93c03a9c8400200c800c000c82c0000c97c008cc8000000c8000000c8000000c8000000c9908020c980c000c83c008dc8020002c9080221c93802a9c8000000c83c400cc8000000c93c0289
+  m_AutoSimulation: 1
+  m_AutoSyncTransforms: 1
+  m_ReuseCollisionCallbacks: 1
+  m_ClothInterCollisionSettingsToggle: 0
+  m_ClothGravity: {x: 0, y: -9.81, z: 0}
+  m_ContactPairsMode: 0
+  m_BroadphaseType: 0
+  m_WorldBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 250, y: 250, z: 250}
+  m_WorldSubdivisions: 8
+  m_FrictionType: 0
+  m_EnableEnhancedDeterminism: 0
+  m_EnableUnifiedHeightmaps: 1
+  m_SolverType: 0
+  m_DefaultMaxAngularSpeed: 7
