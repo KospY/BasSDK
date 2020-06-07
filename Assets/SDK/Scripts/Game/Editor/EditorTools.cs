@@ -188,10 +188,15 @@ namespace ThunderRoad
                 GUILayout.BeginHorizontal();
                 exportBundle[bundle] = GUILayout.Toggle(exportBundle[bundle], bundle);
                 //EditorGUI.BeginDisabledGroup(EditorToolsJSONConfig.streamingassetsDirectory == null || EditorToolsJSONConfig.streamingassetsDirectory == "" || EditorToolsJSONConfig.streamingassetsDirectory.Substring(EditorToolsJSONConfig.streamingassetsDirectory.LastIndexOf('/') + 1, EditorToolsJSONConfig.streamingassetsDirectory.Length - EditorToolsJSONConfig.streamingassetsDirectory.LastIndexOf('/') - 1) != "StreamingAssets");
-
-
-
+                
                 GUILayout.BeginVertical();
+
+                if (!modExportDirectories.ContainsKey(bundle) || !dropDownModDirSelect.ContainsKey(bundle))
+                {
+                    dropDownModDirSelect[bundle] = false;
+                    modExportDirectories[bundle] = EditorPrefs.GetString("ExportBundleDir" + bundle, null);
+
+                }
                 try
                 {
                     if (modExportDirectories[bundle] == null || modExportDirectories[bundle] == "")
@@ -246,14 +251,15 @@ namespace ThunderRoad
                         }
                     }
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     dropDownModDirSelect[bundle] = false;
                     modExportDirectories[bundle] = EditorPrefs.GetString("ExportBundleDir" + bundle, null);
+                    Debug.LogError("Error fetching mod directories: " + e);
                 }
-                GUILayout.EndVertical();
 
-                EditorGUI.EndDisabledGroup();
+                GUILayout.EndVertical();
+               // EditorGUI.EndDisabledGroup();
                 GUILayout.FlexibleSpace();
                 GUILayout.EndHorizontal();
             }
@@ -353,9 +359,9 @@ namespace ThunderRoad
                     //    Debug.Log("Copied bundle " + file.Name + " to " + copyPath + ".");
                     //}
 
-                    if (modExportDirectories[Path.GetFileNameWithoutExtension(file.Name)].Length > 4)
+                    if (modExportDirectories[Path.GetFileNameWithoutExtension(file.Name)].Length > "C:/".Length)
                     {
-                        if (exportToModFolders && modExportDirectories.ContainsKey(file.Name.Substring(0, file.Name.Length - 7)))
+                        if (exportToModFolders && modExportDirectories.ContainsKey(file.Name.Substring(0, file.Name.Length - ext.Length)))
                         {
                             file.CopyTo(modExportDirectories[Path.GetFileNameWithoutExtension(file.Name)] + "/" + file.Name, true);
                             msgEnd = " and copied into mod folders";
@@ -363,10 +369,11 @@ namespace ThunderRoad
                     }
                     else
                     {
+                        Debug.LogWarning("Could not fetch directory for assetbundle "+ file.Name);
                         msgEnd = ". Could not copy to mod folders";
                     }
                 }
-                else if (file.Extension != ".assets" && file.Extension != ".maps")
+                else if (file.Extension != ".assets" && file.Extension != ".maps" && file.Extension != ".uma")
                 {
                     file.Delete();
                 }
