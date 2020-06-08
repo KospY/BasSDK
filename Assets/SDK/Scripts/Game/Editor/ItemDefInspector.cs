@@ -134,15 +134,12 @@ namespace ThunderRoad
 
             if (GUILayout.Button("Align with camera"))
             {
-                Preview script = target as Preview;
-
-
                 SceneView.RepaintAll();
 
-                SceneView.lastActiveSceneView.camera.transform.position -= 2 * script.transform.position;
+                SceneView.lastActiveSceneView.camera.transform.position -= 2 * preview.transform.position;
 
-                script.transform.LookAt(-SceneView.lastActiveSceneView.camera.transform.position);
-                SceneView.lastActiveSceneView.camera.transform.position += 2 * script.transform.position;
+                preview.transform.LookAt(-SceneView.lastActiveSceneView.camera.transform.position);
+                SceneView.lastActiveSceneView.camera.transform.position += 2 * preview.transform.position;
 
             }
         }
