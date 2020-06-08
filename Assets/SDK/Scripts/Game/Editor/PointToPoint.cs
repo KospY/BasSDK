@@ -12,12 +12,17 @@ namespace ThunderRoad
         protected bool toolsHidden = false;
         protected bool centerTransform = true;
         protected Tool previousTool;
-        protected bool centerRotation;
         protected MonoBehaviour script;
 
-        protected void PointToPointButton(float length)
+        protected void PointToPointButton(Vector3 pointStart, Vector3 pointEnd){
+            PointToPointButton(0, pointStart, pointEnd, false);
+        }
+        protected void PointToPointButton(float length){
+            PointToPointButton(length, Vector3.zero, Vector3.zero, true);
+        }
+        private void PointToPointButton(float length, Vector3 pointStart, Vector3 pointEnd, bool useLength)
         {
-            if (length > 0)
+            if (length > 0 || !useLength)
             {
                 if (centerTransform)
                 {
@@ -35,26 +40,30 @@ namespace ThunderRoad
                     }
                 }
             }
-            else
-            {
-                if (!centerTransform)
-                {
-                    centerTransform = true;
-                }
-            }
             if (!centerTransform)
             {
-                ResetPoints(length);
+                if (useLength)
+                {
+                    ResetPoints(length);
+                } else
+                {
+                    ResetPoints(pointStart, pointEnd);
+                }
             }
         }
 
+        protected void ResetPoints(Vector3 pointStart, Vector3 pointEnd)
+        {
+            lengthPoint1 = pointStart;
+            lengthPoint2 = pointEnd;
+        }
         protected void ResetPoints(float length)
         {
             lengthPoint1 = script.transform.position + (script.transform.up * (length * 0.5f));
             lengthPoint2 = script.transform.position + (script.transform.up * -(length * 0.5f));
         }
-
-        protected void UpdatePoints(ref float length)
+        
+        protected void UpdatePoints(ref float length, bool hideRotation = false)
         {
             if (length > 0 && !centerTransform)
             {
@@ -71,9 +80,10 @@ namespace ThunderRoad
                 {
                     Undo.RecordObject(target, "Moved Handle");
                 }
-                Handles.color = Color.green;
-                try
+                if (!hideRotation)
                 {
+                    Handles.color = Color.green;
+
                     if (EditorWindow.focusedWindow && EditorWindow.focusedWindow.ToString() == " (UnityEditor.SceneView)")
                     {
                         script.transform.position = Vector3.Lerp(lengthPoint1, lengthPoint2, 0.5f);
@@ -94,7 +104,15 @@ namespace ThunderRoad
                         axis = Handles.Disc(script.transform.rotation, script.transform.position, (lengthPoint1 - lengthPoint2), HandleUtility.GetHandleSize(script.transform.position), false, 0.1f);
                     }
                 }
-                catch (Exception) { }
+                else
+                {
+                    if (EditorWindow.focusedWindow && EditorWindow.focusedWindow.ToString() == " (UnityEditor.SceneView)")
+                    {
+                        script.transform.position = Vector3.Lerp(lengthPoint1, lengthPoint2, 0.5f);
+                        length = (lengthPoint1 - lengthPoint2).magnitude / 2;
+                        script.transform.rotation = Quaternion.LookRotation(lengthPoint2 - lengthPoint1, Vector3.forward) * Quaternion.AngleAxis(-90, Vector3.right);
+                    }
+                }
             }
             else if (toolsHidden)
             {
