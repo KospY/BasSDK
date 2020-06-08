@@ -49,6 +49,11 @@ namespace ThunderRoad
                 handle.CheckOrientations();
             }
 
+            if (handle.allowedOrientations.Count > 0)
+            {
+                EditorGUILayout.HelpBox("The allowed orientations list is obsolete, Use child HandleOrientation instead.", MessageType.Warning);
+            }
+
             if (handle.transform.localScale != Vector3.one)
             {
                 EditorGUILayout.HelpBox("Handle object scale must be set to 1.", MessageType.Error);
