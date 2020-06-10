@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace ThunderRoad
@@ -14,19 +15,24 @@ namespace ThunderRoad
         }
 
 #if ProjectCore
+
+        UIPageWaves uiPageWaves;
+
         protected void Awake()
         {
-            GameObject canvasGameObject = Instantiate(Resources.Load("UI/WaveSelector"), this.transform.position, this.transform.rotation, this.transform) as GameObject;
-            canvasGameObject.name = "WaveSelector";
-            canvasGameObject.GetComponentInChildren<UIPageWaves>().id = id;
-            canvasGameObject.GetComponentInChildren<UIPageWaves>().spawnLocation = spawnLocation;
-            foreach (ScrollRect scrollRect in this.GetComponentsInChildren<ScrollRect>(true))
-            {
-                // Prevent performance issue (will be enabled when the pointer go on it)
-                scrollRect.enabled = false;
-            }
+            uiPageWaves = Instantiate(Resources.Load("UI/WaveSelector", typeof(UIPageWaves)), this.transform.position, this.transform.rotation, this.transform) as UIPageWaves;
+            uiPageWaves.name = "WaveSelector";
+            uiPageWaves.id = id;
+            uiPageWaves.spawnLocation = spawnLocation;
+            uiPageWaves.Init();
+        }
+
+        protected void Start()
+        {
+            uiPageWaves.RegisterModuleWave();
             this.gameObject.SetActive(false);
         }
+
 #endif
 
         protected void OnDrawGizmos()

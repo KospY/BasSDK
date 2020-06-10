@@ -10,14 +10,10 @@ namespace ThunderRoad
 #if ProjectCore
         protected void Awake()
         {
-            GameObject canvasGameObject = Instantiate(Resources.Load("UI/ItemSpawner"), this.transform.position, this.transform.rotation, this.transform) as GameObject;
-            canvasGameObject.name = "ItemSpawner";
-            canvasGameObject.GetComponent<Inventory>().spawnPoint = spawnPoint;
-            foreach (ScrollRect scrollRect in this.GetComponentsInChildren<ScrollRect>(true))
-            {
-                // Prevent performance issue (will be enabled when the pointer go on it)
-                scrollRect.enabled = false;
-            }    
+            Inventory inventory = Instantiate(Resources.Load("UI/ItemSpawner", typeof(Inventory)), this.transform.position, this.transform.rotation, this.transform) as Inventory;
+            inventory.name = "ItemSpawner";
+            inventory.spawnPoint = spawnPoint;
+            inventory.Init();
         }
 
         private void Start()
