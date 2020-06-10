@@ -33,7 +33,7 @@ namespace ThunderRoad
             {
                 data = effectHingeData;
                 EffectData effectData = Catalog.GetData<EffectData>(effectHingeData.effectId);
-                effectInstance = effectData.Spawn(this.transform.position, this.transform.rotation, this.transform);
+                effectInstance = effectData.Spawn(this.transform.position, this.transform.rotation, this.transform, pooled: false);
                 effectInstance.SetIntensity(0);
                 effectInstance.Play();
                 jointRb = hingeJoint.GetComponent<Rigidbody>();

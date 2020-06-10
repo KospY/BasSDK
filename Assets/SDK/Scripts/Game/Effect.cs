@@ -8,6 +8,8 @@ namespace ThunderRoad
         public DespawnCallback despawnCallback;
         public delegate void DespawnCallback(Effect effect);
 
+        public bool isPooled;
+
         [NonSerialized]
         public EffectModule module;
 

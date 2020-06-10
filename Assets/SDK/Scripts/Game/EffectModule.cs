@@ -28,7 +28,7 @@ namespace ThunderRoad
 
 #if ODIN_INSPECTOR
 
-        public virtual Effect Spawn(EffectData effectData)
+        public virtual Effect Spawn(EffectData effectData, bool pooled)
         {
             return null;
         }
