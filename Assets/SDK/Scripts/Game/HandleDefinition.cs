@@ -171,6 +171,7 @@ namespace ThunderRoad
 
         public bool IsAllowed(Side side)
         {
+            CheckOrientations();
             foreach (HandleOrientation orientation in orientations)
             {
                 if (side == orientation.side)
