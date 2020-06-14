@@ -23,7 +23,6 @@ namespace ThunderRoad
 
         private bool check = false;
 
-        public string copyPath = "";
         private string defaultCopyPath = "D:/";
 
         [MenuItem("Game/Asset Bundle Builder")]
@@ -36,15 +35,13 @@ namespace ThunderRoad
         {
             //Loads steamingassets directory
             streamingassetsDirectory = EditorPrefs.GetString("streamingassetsDir", streamingassetsDirectory);
-            
+
             //Loads saved state of bundle list
             bundleNames = new List<string>(AssetDatabase.GetAllAssetBundleNames());
             foreach (string bundle in bundleNames)
             {
                 exportBundle[bundle] = EditorPrefs.GetBool("ExportBundle" + bundle, true);
                 modExportDirectories[bundle] = EditorPrefs.GetString("ExportBundleDir" + bundle, null);
-                copyPath = EditorPrefs.GetString("CopyPath", defaultCopyPath);
-
             }
             exportToModFolders = EditorPrefs.GetBool("exportToModFolders", exportToModFolders);
         }
@@ -91,7 +88,7 @@ namespace ThunderRoad
 
         private void StreamingAssetsSelector()
         {
-         
+
             if (streamingassetsDirectory != null && streamingassetsDirectory != "" && streamingassetsDirectory.Substring(streamingassetsDirectory.LastIndexOf('/') + 1, streamingassetsDirectory.Length - streamingassetsDirectory.LastIndexOf('/') - 1) == "StreamingAssets")
             {
                 //Displays header text
@@ -157,22 +154,7 @@ namespace ThunderRoad
             //having a generic copy path resulted in the assetbundles being copied into the root directory if not set
             //the idea of copying paths is to move them to their individual mod folders, that is done by the drop down menus and tick boxes.
 
-            //if (GUILayout.Button("Change copy folder..."))
-            //{
-            //    try
-            //    {
-            //        copyPath = EditorUtility.OpenFolderPanel("AssetBundle copy path", "", "");
 
-            //        Debug.Log("New path set for AssetBundle copy : " + copyPath);
-            //    }
-            //    catch
-            //    {
-            //        copyPath = defaultCopyPath;
-            //        Debug.LogError("Error opening folder. Resetting to default path (" + defaultCopyPath +" .");
-            //    }
-            //    EditorPrefs.SetString("CopyPath", copyPath);
-            //}
-            //GUILayout.Label("Current copy path : " + copyPath);
 
             if (streamingassetsDirectory == null || streamingassetsDirectory == "" || streamingassetsDirectory.Substring(streamingassetsDirectory.LastIndexOf('/') + 1, streamingassetsDirectory.Length - streamingassetsDirectory.LastIndexOf('/') - 1) != "StreamingAssets")
             {
@@ -188,7 +170,7 @@ namespace ThunderRoad
                 GUILayout.BeginHorizontal();
                 exportBundle[bundle] = GUILayout.Toggle(exportBundle[bundle], bundle);
                 //EditorGUI.BeginDisabledGroup(EditorToolsJSONConfig.streamingassetsDirectory == null || EditorToolsJSONConfig.streamingassetsDirectory == "" || EditorToolsJSONConfig.streamingassetsDirectory.Substring(EditorToolsJSONConfig.streamingassetsDirectory.LastIndexOf('/') + 1, EditorToolsJSONConfig.streamingassetsDirectory.Length - EditorToolsJSONConfig.streamingassetsDirectory.LastIndexOf('/') - 1) != "StreamingAssets");
-                
+
                 GUILayout.BeginVertical();
 
                 if (!modExportDirectories.ContainsKey(bundle) || !dropDownModDirSelect.ContainsKey(bundle))
@@ -216,7 +198,7 @@ namespace ThunderRoad
                     }
                     else
                     {
-                        if (GUILayout.Button("Target mod: " + modExportDirectories[bundle].Substring(modExportDirectories[bundle].LastIndexOf('\\') + 1, modExportDirectories[bundle].Length - modExportDirectories[bundle].LastIndexOf('\\') - 1)+"     ", new GUIStyle("DropDownButton")))
+                        if (GUILayout.Button("Target mod: " + modExportDirectories[bundle].Substring(modExportDirectories[bundle].LastIndexOf('\\') + 1, modExportDirectories[bundle].Length - modExportDirectories[bundle].LastIndexOf('\\') - 1) + "     ", new GUIStyle("DropDownButton")))
                         {
                             if (dropDownModDirSelect[bundle])
                             {
@@ -249,6 +231,25 @@ namespace ThunderRoad
                                 }
                             }
                         }
+
+                        if (GUILayout.Button("Custom path...", new GUIStyle("radio")))
+                        {
+                            try
+                            {
+                                modExportDirectories[bundle] = EditorUtility.OpenFolderPanel(bundle + " copy path", "", "");
+
+                                Debug.Log("New path set for the " + bundle + " bundle copy : " + modExportDirectories[bundle]);
+
+                                dropDownModDirSelect[bundle] = false;
+                            }
+                            catch
+                            {
+                                modExportDirectories[bundle] = defaultCopyPath;
+
+                                Debug.LogError("Error opening folder for bundle " + bundle + ". Resetting to default path (" + defaultCopyPath + ").");
+                            }
+                            EditorPrefs.SetString("ExportBundleDir" + bundle, modExportDirectories[bundle]);
+                        }
                     }
                 }
                 catch (Exception e)
@@ -259,7 +260,7 @@ namespace ThunderRoad
                 }
 
                 GUILayout.EndVertical();
-               // EditorGUI.EndDisabledGroup();
+                // EditorGUI.EndDisabledGroup();
                 GUILayout.FlexibleSpace();
                 GUILayout.EndHorizontal();
             }
@@ -353,12 +354,6 @@ namespace ThunderRoad
                     }
                     file.MoveTo(file.FullName + ext);
 
-                    //if (copyPath != null || copyPath != "")
-                    //{
-                    //    file.CopyTo(copyPath + "/" + file.Name, true);
-                    //    Debug.Log("Copied bundle " + file.Name + " to " + copyPath + ".");
-                    //}
-
                     if (modExportDirectories[Path.GetFileNameWithoutExtension(file.Name)].Length > "C:/".Length)
                     {
                         if (exportToModFolders && modExportDirectories.ContainsKey(file.Name.Substring(0, file.Name.Length - ext.Length)))
@@ -369,7 +364,7 @@ namespace ThunderRoad
                     }
                     else
                     {
-                        Debug.LogWarning("Could not fetch directory for assetbundle "+ file.Name);
+                        Debug.LogWarning("Could not fetch directory for assetbundle " + file.Name);
                         msgEnd = ". Could not copy to mod folders";
                     }
                 }
@@ -402,7 +397,7 @@ namespace ThunderRoad
                         bundleNames = bundleNames + ", " + build.assetBundleName;
                     }
                 }
-                Debug.Log("Created Asset Bundle" + s + bundleNames + " in " + dir.FullName + msgEnd);
+                Debug.Log("Created Asset Bundle" + s + bundleNames /*+ " in " + dir.FullName*/ + msgEnd);
             }
         }
 
