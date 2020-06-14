@@ -130,6 +130,11 @@ namespace ThunderRoad
                     pCache = PointCacheGenerator.ComputePCacheFromMesh(mesh, pointCacheMapSize, pointCachePointCount, pointCacheSeed, pointCacheDistribution, pointCacheBakeMode);
                     vfx.SetTexture("PositionMap", pCache.positionMap);
                     if (vfx.HasTexture("NormalMap")) vfx.SetTexture("NormalMap", pCache.normalMap);
+                    if (!pointCacheSkinnedMeshUpdate)
+                    {
+                        pCache.Dispose();
+                        pCache = null;
+                    }
                 }
                 else
                 {
@@ -159,7 +164,12 @@ namespace ThunderRoad
                         }
                         pCache = PointCacheGenerator.ComputePCacheFromMesh(mesh, pointCacheMapSize, pointCachePointCount, pointCacheSeed, pointCacheDistribution, pointCacheBakeMode);
                         vfx.SetTexture("PositionMap", pCache.positionMap);
-                        if (vfx.HasTexture("NormalMap")) vfx.SetTexture("NormalMap", pCache.normalMap);        
+                        if (vfx.HasTexture("NormalMap")) vfx.SetTexture("NormalMap", pCache.normalMap);  
+                        if (!pointCacheSkinnedMeshUpdate)
+                        {
+                            pCache.Dispose();
+                            pCache = null;
+                        }
                     }
                     else
                     {
