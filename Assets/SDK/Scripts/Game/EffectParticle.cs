@@ -36,7 +36,10 @@ namespace ThunderRoad
 
         private void OnValidate()
         {
-            Init();
+            if (!Application.isPlaying)
+            {
+                Init();
+            }
         }
 
         private void Awake()

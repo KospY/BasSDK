@@ -18,16 +18,17 @@ namespace ThunderRoad
 
         public virtual void OnValidate()
         {
-            if (Application.isEditor)
-            {
-                UnityEngine.Object[] asset = Resources.LoadAll("Hand");
-                for (int i = 0; i < asset.Length; i++)
-                {
-                    if (asset[i] is Mesh) handMesh = asset[i] as Mesh;
-                }
-            }
             if (!Application.isPlaying)
             {
+                if (Application.isEditor)
+                {
+                    UnityEngine.Object[] asset = Resources.LoadAll("Hand");
+                    for (int i = 0; i < asset.Length; i++)
+                    {
+                        if (asset[i] is Mesh) handMesh = asset[i] as Mesh;
+                    }
+                }
+
                 handleDefinition = this.GetComponentInParent<HandleDefinition>();
                 UpdateName();
             }

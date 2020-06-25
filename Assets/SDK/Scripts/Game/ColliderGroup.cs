@@ -141,24 +141,21 @@ namespace ThunderRoad
                 collider.transform.localScale = orgScales[i];
                 i++;
             }
-
             MeshFilter meshFilter = new GameObject("ImbueGeneratedMesh").AddComponent<MeshFilter>();
             meshFilter.transform.SetParent(this.transform);
             meshFilter.transform.localPosition = Vector3.zero;
             meshFilter.transform.localRotation = Quaternion.identity;
             meshFilter.transform.localScale = Vector3.one;
             meshFilter.sharedMesh = imbueMesh;
-            imbueEffectRenderer = meshFilter.gameObject.AddComponent<MeshRenderer>();
-            meshFilter.gameObject.SetActive(false);
             //creates a directory and saves the mesh as an asset
 #if (UNITY_EDITOR)
             if (!Application.isPlaying)
             {
                 System.IO.Directory.CreateDirectory("Assets/Private/Generated Meshes");
-                AssetDatabase.CreateAsset(imbueMesh, "Assets/Private/Generated Meshes/Imbue" + GetComponentInParent<ItemDefinition>().itemId + name);
-                EditorUtility.SetDirty(meshFilter.gameObject);
+                AssetDatabase.CreateAsset(imbueMesh, "Assets/Private/Generated Meshes/ImbueGeneratedMesh" + name);
             }
 #endif
+            imbueEffectRenderer = meshFilter.gameObject.AddComponent<MeshRenderer>();
         }
 
         private Mesh GenerateCubeMesh(Vector3 size)

@@ -63,14 +63,20 @@ namespace ThunderRoad
             foreach (MaterialProperty materialProperty in materialProperties)
             {
                 Material material = P3dHelper.GetMaterial(this.gameObject, materialProperty.materialIndex);
-                Texture orgTexture = material.GetTexture(materialProperty.propertyName);
-
-                materialProperty.paintableTexture = this.gameObject.AddComponent<P3dPaintableTexture>();
-                materialProperty.paintableTexture.Slot = new P3dSlot(materialProperty.materialIndex, materialProperty.propertyName);
-                materialProperty.paintableTexture.Texture = orgTexture;
-                materialProperty.paintableTexture.Height = orgTexture.height;
-                materialProperty.paintableTexture.Width = orgTexture.width;
-                materialProperty.paintableTexture.Activate();
+                if (material)
+                {
+                    Texture orgTexture = material.GetTexture(materialProperty.propertyName);
+                    materialProperty.paintableTexture = this.gameObject.AddComponent<P3dPaintableTexture>();
+                    materialProperty.paintableTexture.Slot = new P3dSlot(materialProperty.materialIndex, materialProperty.propertyName);
+                    materialProperty.paintableTexture.Texture = orgTexture;
+                    materialProperty.paintableTexture.Height = orgTexture.height;
+                    materialProperty.paintableTexture.Width = orgTexture.width;
+                    materialProperty.paintableTexture.Activate();
+                }
+                else
+                {
+                    Debug.LogWarning("Paintable material index [" + materialProperty.materialIndex + "] not found");
+                }
             }
         }
 

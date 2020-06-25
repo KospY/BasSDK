@@ -85,7 +85,7 @@ namespace ThunderRoad
             {
                 if (collisionHandler.item)
                 {
-                    if (!(module as EffectModuleDecal).allowItem)
+                    if (!(module as EffectModuleDecal).allowItem || !collisionHandler.item.data.allowDecals)
                     {
                         Despawn();
                         return;

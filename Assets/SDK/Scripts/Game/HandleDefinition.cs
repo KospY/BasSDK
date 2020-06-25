@@ -14,7 +14,7 @@ namespace ThunderRoad
         [Range(-1, 1)]
         public float defaultGrabAxisRatio;
         public Vector3 ikAnchorOffset;
-
+        
         [NonSerialized]
         public List<HandleOrientation> orientations;
         public HandleOrientation orientationDefaultRight;
@@ -141,7 +141,7 @@ namespace ThunderRoad
 
         public virtual HandleOrientation GetNearestOrientation(Transform grip, Side side)
         {
-            float higherDot = -1;
+            float higherDot = -Mathf.Infinity;
             HandleOrientation orientationResult = null;
             foreach (HandleOrientation orientation in orientations)
             {
@@ -171,7 +171,6 @@ namespace ThunderRoad
 
         public bool IsAllowed(Side side)
         {
-            CheckOrientations();
             foreach (HandleOrientation orientation in orientations)
             {
                 if (side == orientation.side)

@@ -168,9 +168,10 @@ namespace ThunderRoad
         }
 
         public override void Despawn()
-        {
+        {  
             CancelInvoke();
 #if ProjectCore
+            collisionHandler = null;
             if (Application.isPlaying)
             {
                 EffectModulePaint.Despawn(this);

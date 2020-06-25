@@ -25,7 +25,7 @@ namespace ThunderRoad
         public int factionId;
 #endif
 
-        public bool pooled;
+        public bool pooled = true;
         public float spawnDelay;
         public int spawnCount = 1;
 
