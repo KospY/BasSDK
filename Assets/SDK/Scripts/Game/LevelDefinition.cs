@@ -69,7 +69,6 @@ namespace ThunderRoad
                     Debug.LogError("No character found in saves");
                     GameManager.playerData = new CharacterData("Temp", "Temp");
                 }
-                GameManager.playerData.UpdateVersion();
             }
         }
 
