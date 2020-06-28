@@ -24,8 +24,7 @@ namespace ThunderRoad
         [Header("FX")]
         public bool spawnEffect;
         public string effectID;
-        public AnimationCurve effectMassCurve;
-        public AnimationCurve effectVelocityCurve;
+        public AnimationCurve effectMassVelocityCurve;
         public Vector3 effectOrientation = Vector3.forward;
 
         [Header("Teleport")]
