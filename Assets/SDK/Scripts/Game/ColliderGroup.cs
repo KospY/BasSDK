@@ -18,6 +18,8 @@ namespace ThunderRoad
         public Renderer imbueEmissionRenderer;
         [Tooltip("Spawn position and direction of projectiles/spells")]
         public Transform imbueShoot;
+        [Tooltip("Position used to calculate speed for whoosh effects")]
+        public Transform whooshPoint;
 
         [NonSerialized]
         public List<Collider> colliders;
@@ -33,8 +35,29 @@ namespace ThunderRoad
         protected void Awake()
         {   
             colliders = new List<Collider>(this.GetComponentsInChildren<Collider>());
+
+            Vector3 collidersCentroid = Vector3.zero;
             foreach (Collider collider in colliders)
             {
+                if (!whooshPoint)
+                {
+                    if (collider is CapsuleCollider)
+                    {
+                        collidersCentroid += collider.transform.TransformPoint((collider as CapsuleCollider).center);
+                    }
+                    else if (collider is SphereCollider)
+                    {
+                        collidersCentroid += collider.transform.TransformPoint((collider as SphereCollider).center);
+                    }
+                    else if (collider is BoxCollider)
+                    {
+                        collidersCentroid += collider.transform.TransformPoint((collider as BoxCollider).center);
+                    }
+                    else if (collider is MeshCollider)
+                    {
+                        collidersCentroid += (collider as MeshCollider).transform.position;
+                    }
+                }
                 // For compatibility with old prefab
                 if (collider.material.name.Contains("Blade_"))
                 {
@@ -52,6 +75,12 @@ namespace ThunderRoad
                 {
                     collider.material = CatalogData.GetPrefab<PhysicMaterial>("PhysicMaterials", "Metal");
                 }
+            }
+            if (!whooshPoint)
+            {
+                whooshPoint = new GameObject("WhooshPoint").transform;
+                whooshPoint.SetParentOrigin(this.transform);
+                whooshPoint.position = collidersCentroid / colliders.Count;
             }
             data = new ColliderGroupData();
             data.id = "Default";

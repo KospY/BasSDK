@@ -44,6 +44,11 @@ namespace ThunderRoad
 
         }
 
+        public virtual void SetSpeed(float value, bool loopOnly = false)
+        {
+
+        }
+
         public virtual void SetMainGradient(Gradient gradient)
         {
 

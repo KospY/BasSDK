@@ -107,6 +107,12 @@ namespace ThunderRoad
         Secondary,
     }
 
+    public enum EffectLink
+    {
+        Intensity,
+        Speed,
+    }
+
     public enum AnimEffectType
     {
         None,

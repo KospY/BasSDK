@@ -15,6 +15,7 @@ namespace ThunderRoad
         public AnimationCurve pitchCurve;
         public AnimationCurve volumeCurve;
         public float loopFadeDelay;
+        public EffectLink effectLink = EffectLink.Intensity;
 
         [NonSerialized]
         public float playTime;
@@ -136,6 +137,22 @@ namespace ThunderRoad
 
         public override void SetIntensity(float value, bool loopOnly = false)
         {
+            if (effectLink == EffectLink.Intensity)
+            {
+                SetVariation(value, loopOnly);
+            }
+        }
+
+        public override void SetSpeed(float value, bool loopOnly = false)
+        {
+            if (effectLink == EffectLink.Speed)
+            {
+                SetVariation(value, loopOnly);
+            }
+        }
+
+        public void SetVariation(float value, bool loopOnly = false)
+        {
             if (!loopOnly || (loopOnly && step == Step.Loop))
             {
                 audioSource.pitch = pitchCurve.Evaluate(value) * globalPitch;
@@ -157,7 +174,7 @@ namespace ThunderRoad
             }
         }
 
-        protected IEnumerator AudioFadeOut()
+            protected IEnumerator AudioFadeOut()
         {
             while (audioSource.volume > 0)
             {
