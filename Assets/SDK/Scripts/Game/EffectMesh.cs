@@ -66,7 +66,7 @@ namespace ThunderRoad
         private IEnumerator MeshSizeCoroutine()
         {
             float meshSizeValue;
-            while (aliveTime < curveMeshSize.GetLastTime())
+            while (aliveTime < GetLastTime(curveMeshrotY))
             {
                 meshSizeValue = curveMeshSize.Evaluate(aliveTime);
                 transform.localScale = new Vector3(meshSizeValue, meshSizeValue, meshSizeValue);
@@ -80,7 +80,7 @@ namespace ThunderRoad
         private IEnumerator MeshRotationCoroutine()
         {
             float meshRotYValue;
-            while (aliveTime < curveMeshrotY.GetLastTime())
+            while (aliveTime < GetLastTime(curveMeshrotY))
             {
                 meshRotYValue = curveMeshrotY.Evaluate(aliveTime);
                 transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, meshRotYValue, transform.localEulerAngles.z);
@@ -88,6 +88,11 @@ namespace ThunderRoad
             }
 
             yield return true;
+        }
+
+        private float GetLastTime(AnimationCurve animationCurve)
+        {
+                return (animationCurve.length == 0) ? 0 : animationCurve[animationCurve.length - 1].time;
         }
 
         private void Update()
