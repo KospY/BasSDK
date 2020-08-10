@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#else
 using EasyButtons;
+#endif
 
 namespace ThunderRoad
 {
@@ -35,6 +39,9 @@ namespace ThunderRoad
         [NonSerialized]
         public List<WhooshPoint> whooshPoints;
 
+#if ODIN_INSPECTOR
+        [ShowInInspector]
+#endif
         [NonSerialized]
         public List<SavedValue> savedValues;
 

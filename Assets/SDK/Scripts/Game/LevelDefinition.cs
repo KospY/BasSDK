@@ -5,7 +5,11 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#else
 using EasyButtons;
+#endif
 
 namespace ThunderRoad
 {

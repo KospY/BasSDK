@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#else
 using EasyButtons;
+#endif
 
 namespace ThunderRoad
 {
