@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ThunderRoad
 {
@@ -162,6 +163,18 @@ namespace ThunderRoad
 
     public static class Common
     {
+        public static int GetIndexByName(this Dropdown dropDown, string name)
+        {
+            if (dropDown == null) { return -1; } // or exception
+            if (string.IsNullOrEmpty(name) == true) { return -1; }
+            List<Dropdown.OptionData> list = dropDown.options;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].text.Equals(name)) { return i; }
+            }
+            return -1;
+        }
+
         public static void SetLayerRecursively(this GameObject obj, int layer)
         {
             obj.layer = layer;

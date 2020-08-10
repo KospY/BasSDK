@@ -70,6 +70,12 @@ namespace ThunderRoad
                     GameManager.playerData = new CharacterData("Temp", "Temp");
                 }
             }
+            if (GameManager.forcePlayerHeight > 0)
+            {
+                GameManager.playerData.morphology.height = GameManager.forcePlayerHeight;
+                GameManager.playerData.morphology.eyesHeight = Morphology.GetEyesHeight(GameManager.forcePlayerHeight);
+            }
+
         }
 
         protected virtual void Start()
