@@ -189,13 +189,6 @@ namespace ThunderRoad
             CancelInvoke();
             StopAllCoroutines();
             audioSource.Stop();
-#if ProjectCore
-            if (Application.isPlaying)
-            {
-                EffectModuleAudio.Despawn(this);
-                InvokeDespawnCallback();
-            }
-#endif
         }
     }
 }

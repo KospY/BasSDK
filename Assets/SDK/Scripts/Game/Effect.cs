@@ -88,12 +88,6 @@ namespace ThunderRoad
         {
 
         }
-#if ProjectCore
-        public virtual void SetCollisionHandler(CollisionHandler collisionHandler)
-        {
-
-        }
-#endif
         public virtual void CollisionStay(Vector3 position, Quaternion rotation, float intensity)
         {
             this.transform.position = position;

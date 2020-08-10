@@ -73,9 +73,5 @@ namespace ThunderRoad
         [NonSerialized]
         public new ParticleSystem particleSystem;
 
-#if ProjectCore
-        [NonSerialized]
-        public ParticleCollisionSpawner particleCollisionSpawner;
-#endif
     }
 }

@@ -9,26 +9,6 @@ namespace ThunderRoad
         public Transform locations;
         public Transform canvasDetails;
 
-#if ProjectCore
-        protected void Awake()
-        {
-            GameObject canvasGameObject = Instantiate(Resources.Load("UI/WorldMap"), this.transform.position, this.transform.rotation, this.transform) as GameObject;
-            canvasGameObject.name = "WorldMap";
-            WorldMap worldMap = canvasGameObject.GetComponent<WorldMap>();
-            worldMap.mapId = mapId;
-            foreach (Transform child in locations)
-            {
-                worldMap.locations.Add(child);
-            }
-            GameObject mapDetailGameObject = Instantiate(Resources.Load("UI/MapDetail"), canvasDetails.position, canvasDetails.rotation, canvasDetails) as GameObject;
-            worldMap.Init();
-        }
-
-        private void Start()
-        {
-            canvasDetails.gameObject.SetActive(false);
-        }
-#endif
 
         protected void OnDrawGizmos()
         {

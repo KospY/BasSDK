@@ -1,11 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-#if ODIN_INSPECTOR
-using Sirenix.OdinInspector;
-#else
 using EasyButtons;
-#endif
 
 namespace ThunderRoad
 {
@@ -15,12 +11,6 @@ namespace ThunderRoad
         public List<ItemDefinition> startObjects = new List<ItemDefinition>();
         public List<Collider> ignoredColliders = new List<Collider>();
 
-#if ProjectCore
-        public new List<ValueDropdownItem<string>> GetAllInteractableID()
-        {
-            return Catalog.GetDropdownAllID<InteractableHolder>();
-        }
-#endif
 
         protected virtual void OnValidate()
         {

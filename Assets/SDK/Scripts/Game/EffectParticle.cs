@@ -65,12 +65,6 @@ namespace ThunderRoad
                 child.particleSystem = child.GetComponent<ParticleSystem>();
                 child.particleRenderer = child.particleSystem.GetComponent<ParticleSystemRenderer>();
                 child.materialPropertyBlock = new MaterialPropertyBlock();
-#if ProjectCore
-                if (Application.isPlaying && child.emitEffectOnCollision)
-                {
-                    child.particleCollisionSpawner = child.particleSystem.gameObject.AddComponent<ParticleCollisionSpawner>();
-                }
-#endif
             }
         }
 
@@ -360,13 +354,6 @@ namespace ThunderRoad
             playTime = 0;
             rootParticleSystem.Stop();
             CancelInvoke();
-#if ProjectCore
-            if (Application.isPlaying)
-            {
-                EffectModuleParticle.Despawn(this);
-                InvokeDespawnCallback();
-            }
-#endif
         }
     }
 }

@@ -2,11 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-#if ODIN_INSPECTOR
-using Sirenix.OdinInspector;
-#else
 using EasyButtons;
-#endif
 
 namespace ThunderRoad
 {
@@ -24,87 +20,6 @@ namespace ThunderRoad
         [NonSerialized]
         public List<Collider> colliders;
 
-#if ProjectCore
-        [NonSerialized, ShowInInspector]
-        public ColliderGroupData data;
-        [NonSerialized]
-        public Imbue imbue;
-        [NonSerialized]
-        public CollisionHandler collisionHandler;
-
-        protected void Awake()
-        {   
-            colliders = new List<Collider>(this.GetComponentsInChildren<Collider>());
-
-            Vector3 collidersCentroid = Vector3.zero;
-            foreach (Collider collider in colliders)
-            {
-                if (!whooshPoint)
-                {
-                    if (collider is CapsuleCollider)
-                    {
-                        collidersCentroid += collider.transform.TransformPoint((collider as CapsuleCollider).center);
-                    }
-                    else if (collider is SphereCollider)
-                    {
-                        collidersCentroid += collider.transform.TransformPoint((collider as SphereCollider).center);
-                    }
-                    else if (collider is BoxCollider)
-                    {
-                        collidersCentroid += collider.transform.TransformPoint((collider as BoxCollider).center);
-                    }
-                    else if (collider is MeshCollider)
-                    {
-                        collidersCentroid += (collider as MeshCollider).transform.position;
-                    }
-                }
-                // For compatibility with old prefab
-                if (collider.material.name.Contains("Blade_"))
-                {
-                    collider.material = CatalogData.GetPrefab<PhysicMaterial>("PhysicMaterials", "Blade");
-                }
-                else if (collider.material.name.Contains("WoodHard"))
-                {
-                    collider.material = CatalogData.GetPrefab<PhysicMaterial>("PhysicMaterials", "Wood");
-                }
-                else if (collider.material.name.Contains("ShieldWood"))
-                {
-                    collider.material = CatalogData.GetPrefab<PhysicMaterial>("PhysicMaterials", "Wood");
-                }
-                else if (collider.material.name.Contains("ShieldMetal"))
-                {
-                    collider.material = CatalogData.GetPrefab<PhysicMaterial>("PhysicMaterials", "Metal");
-                }
-            }
-            if (!whooshPoint)
-            {
-                whooshPoint = new GameObject("WhooshPoint").transform;
-                whooshPoint.SetParentOrigin(this.transform);
-                whooshPoint.position = collidersCentroid / colliders.Count;
-            }
-            data = new ColliderGroupData();
-            data.id = "Default";
-        }
-
-        protected void Start()
-        {
-            collisionHandler = this.GetComponentInParent<CollisionHandler>();
-        }
-
-        public void Load(ColliderGroupData colliderGroupData)
-        {
-            data = colliderGroupData.Clone() as ColliderGroupData;
-
-            if (data.imbueType != ColliderGroupData.ImbueType.None)
-            {
-                imbue = this.gameObject.AddComponent<Imbue>();
-            }
-            else if (imbue)
-            {
-                Destroy(imbue);
-            }
-        }
-#endif
 
         [Button("Generate imbue mesh")]
         public void GenerateImbueMesh()
