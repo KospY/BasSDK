@@ -19,6 +19,7 @@ namespace ThunderRoad
         public Transform playerStart;
         public List<CustomReference> customReferences;
         public bool loadDefaultCharIfNeeded = true;
+        public State state = State.None;
 
         [NonSerialized]
         public AudioSource music;
@@ -30,6 +31,13 @@ namespace ThunderRoad
         {
             public string name;
             public List<Transform> transforms;
+        }
+
+        public enum State
+        {
+            None,
+            Failure,
+            Success,
         }
 
         [Button]
