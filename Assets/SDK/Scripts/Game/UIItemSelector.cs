@@ -7,21 +7,6 @@ namespace ThunderRoad
     {
         public Transform spawnPoint;
 
-#if ProjectCore
-        protected void Awake()
-        {
-            Inventory inventory = Instantiate(Resources.Load("UI/ItemSpawner", typeof(Inventory)), this.transform.position, this.transform.rotation, this.transform) as Inventory;
-            inventory.name = "ItemSpawner";
-            inventory.spawnPoint = spawnPoint;
-            inventory.Init();
-        }
-
-        private void Start()
-        {
-            this.gameObject.SetActive(false);
-        }
-
-#endif
 
         protected void OnDrawGizmos()
         {

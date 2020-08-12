@@ -18,17 +18,12 @@ namespace ThunderRoad
 
         void Awake()
         {
-#if ProjectCore
-            Destroy(this.gameObject);
-#else
         Time.fixedDeltaTime = Time.timeScale / XRDevice.refreshRate;
         rigidbody = GetComponent<Rigidbody>();
         collider = GetComponent<CapsuleCollider>();
         XRDevice.SetTrackingSpaceType(TrackingSpaceType.RoomScale);
-#endif
         }
 
-#if !ProjectCore
     void FixedUpdate()
     {
         collider.center = new Vector3(this.transform.InverseTransformPoint(head.position).x, 0, this.transform.InverseTransformPoint(head.position).z);
@@ -50,7 +45,6 @@ namespace ThunderRoad
             rigidbody.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
         }
     }
-#endif
 
         private void OnTriggerEnter(Collider other)
         {

@@ -78,41 +78,6 @@ namespace ThunderRoad
             meshRenderer.enabled = false;
         }
 
-#if ProjectCore
-        public override void SetCollisionHandler(CollisionHandler collisionHandler)
-        {
-            if (collisionHandler)
-            {
-                if (collisionHandler.item)
-                {
-                    if (!(module as EffectModuleDecal).allowItem || !collisionHandler.item.data.allowDecals)
-                    {
-                        Despawn();
-                        return;
-                    }
-                    meshRenderer.material.SetInt("_StencilRef", collisionHandler.item.stencilReference);
-                }
-                else if (collisionHandler.ragdollPart && !collisionHandler.ragdollPart.ragdoll.creature.body.player)
-                {
-                    if (!(module as EffectModuleDecal).allowRagdollPart)
-                    {
-                        Despawn();
-                        return;
-                    }
-                    meshRenderer.material.SetInt("_StencilRef", collisionHandler.ragdollPart.ragdoll.creature.stencilReference);
-                }
-                else
-                {
-                    meshRenderer.material.SetInt("_StencilRef", 0);
-                }
-            }
-            else
-            {
-                meshRenderer.material.SetInt("_StencilRef", 0);
-            }
-
-        }
-#endif
         public override void Play()
         {
             playTime = Time.time;
@@ -219,13 +184,6 @@ namespace ThunderRoad
         {
             CancelInvoke();
             meshRenderer.enabled = false;
-#if ProjectCore
-            if (Application.isPlaying)
-            {
-                EffectModuleDecal.Despawn(this);
-                InvokeDespawnCallback();
-            }
-#endif
         }
     }
 }

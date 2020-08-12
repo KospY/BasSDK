@@ -57,8 +57,8 @@ namespace ThunderRoad
 
         protected override void Awake()
         {
-            base.Awake();
             CheckOrientations();
+            base.Awake();
         }
 
         [Button("Update Orientations")]

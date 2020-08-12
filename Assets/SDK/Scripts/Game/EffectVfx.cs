@@ -279,13 +279,6 @@ namespace ThunderRoad
             vfx.Stop();
             lookAtTarget = false;
             vfx.enabled = false;
-#if ProjectCore
-            if (Application.isPlaying)
-            {
-                EffectModuleVfx.Despawn(this);
-                InvokeDespawnCallback();
-            }
-#endif
         }
     }
 }

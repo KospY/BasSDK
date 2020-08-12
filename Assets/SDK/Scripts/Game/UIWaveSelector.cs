@@ -14,26 +14,6 @@ namespace ThunderRoad
             if (id == null || id == "") id = this.gameObject.scene.name;
         }
 
-#if ProjectCore
-
-        UIPageWaves uiPageWaves;
-
-        protected void Awake()
-        {
-            uiPageWaves = Instantiate(Resources.Load("UI/WaveSelector", typeof(UIPageWaves)), this.transform.position, this.transform.rotation, this.transform) as UIPageWaves;
-            uiPageWaves.name = "WaveSelector";
-            uiPageWaves.id = id;
-            uiPageWaves.spawnLocation = spawnLocation;
-            uiPageWaves.Init();
-        }
-
-        protected void Start()
-        {
-            uiPageWaves.RegisterModuleWave();
-            this.gameObject.SetActive(false);
-        }
-
-#endif
 
         protected void OnDrawGizmos()
         {

@@ -15,12 +15,6 @@ namespace ThunderRoad
         public List<ItemDefinition> startObjects = new List<ItemDefinition>();
         public List<Collider> ignoredColliders = new List<Collider>();
 
-#if ProjectCore
-        public new List<ValueDropdownItem<string>> GetAllInteractableID()
-        {
-            return Catalog.GetDropdownAllID<InteractableHolder>();
-        }
-#endif
 
         protected virtual void OnValidate()
         {
