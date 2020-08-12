@@ -14,7 +14,7 @@ namespace ThunderRoad
         [Range(-1, 1)]
         public float defaultGrabAxisRatio;
         public Vector3 ikAnchorOffset;
-        
+
         [NonSerialized]
         public List<HandleOrientation> orientations = new List<HandleOrientation>();
         public HandleOrientation orientationDefaultRight;
@@ -91,11 +91,8 @@ namespace ThunderRoad
                 }
                 else
                 {
-                    if (!Application.isPlaying)
-                    {
-                        orientationDefaultRight = AddOrientation(Side.Right, Vector3.zero, Quaternion.identity);
-                        orientationDefaultLeft = AddOrientation(Side.Left, Vector3.zero, Quaternion.identity);
-                    }
+                    orientationDefaultRight = AddOrientation(Side.Right, Vector3.zero, Quaternion.identity);
+                    orientationDefaultLeft = AddOrientation(Side.Left, Vector3.zero, Quaternion.identity);
                 }
             }
         }
