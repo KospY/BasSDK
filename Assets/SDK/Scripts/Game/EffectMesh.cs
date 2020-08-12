@@ -66,7 +66,7 @@ namespace ThunderRoad
         private IEnumerator MeshSizeCoroutine()
         {
             float meshSizeValue;
-            while (aliveTime < GetLastTime(curveMeshrotY))
+            while (aliveTime < GetLastTime(curveMeshSize))
             {
                 meshSizeValue = curveMeshSize.Evaluate(aliveTime);
                 transform.localScale = new Vector3(meshSizeValue, meshSizeValue, meshSizeValue);
