@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections;
 
 namespace ThunderRoad
 {
@@ -13,6 +14,8 @@ namespace ThunderRoad
 
         [NonSerialized]
         public float playTime;
+
+        private float aliveTime = 0.0f;
 
         [Header("Color Gradient")]
         public EffectTarget linkBaseColor = EffectTarget.None;
@@ -67,7 +70,6 @@ namespace ThunderRoad
             {
                 meshSizeValue = curveMeshSize.Evaluate(aliveTime);
                 transform.localScale = new Vector3(meshSizeValue, meshSizeValue, meshSizeValue);
-                Debug.Log("MESH SIZE RUNNING");
                 yield return new WaitForEndOfFrame();
             }
 
@@ -89,7 +91,7 @@ namespace ThunderRoad
 
         private float GetLastTime(AnimationCurve animationCurve)
         {
-                return (animationCurve.length == 0) ? 0 : animationCurve[animationCurve.length - 1].time;
+            return (animationCurve.length == 0) ? 0 : animationCurve[animationCurve.length - 1].time;
         }
 
         private void Update()
@@ -118,6 +120,16 @@ namespace ThunderRoad
             {
                 InvokeRepeating("UpdateLifeTime", 0, refreshSpeed);
             }
+
+            if (meshSize && curveMeshSize != null)
+            {
+                StartCoroutine("MeshSizeCoroutine");
+            }
+
+            if (meshRotY && curveMeshrotY != null)
+            {
+                StartCoroutine("MeshRotationCoroutine");
+            }
         }
 
         public override void Stop()
@@ -126,6 +138,7 @@ namespace ThunderRoad
             {
                 meshRenderer.enabled = false;
             }
+            aliveTime = 0.0f;
         }
 
         public override void End(bool loopOnly = false)
@@ -148,20 +161,6 @@ namespace ThunderRoad
         {
             if (!loopOnly || (loopOnly && step == Step.Loop))
             {
-                currentValue = intensityCurve.Evaluate(value);
-
-                if (meshSize)
-                {
-                    float meshSizeValue = curveMeshSize.Evaluate(currentValue);
-                    transform.localScale = new Vector3(meshSizeValue, meshSizeValue, meshSizeValue);
-                }
-
-                if (meshRotY)
-                {
-                    float meshRotYValue = curveMeshrotY.Evaluate(currentValue);
-                    transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, meshRotYValue, transform.localEulerAngles.z);
-                }
-
                 // Set material color
                 bool updatePropertyBlock = false;
                 if (linkTintColor == EffectTarget.Main && currentMainGradient != null)
@@ -215,6 +214,7 @@ namespace ThunderRoad
         {
             CancelInvoke();
             if (meshRenderer != null) meshRenderer.enabled = false;
+            aliveTime = 0.0f;
         }
     }
 }
