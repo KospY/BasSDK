@@ -16,7 +16,7 @@ namespace ThunderRoad
         public Vector3 ikAnchorOffset;
         
         [NonSerialized]
-        public List<HandleOrientation> orientations;
+        public List<HandleOrientation> orientations = new List<HandleOrientation>();
         public HandleOrientation orientationDefaultRight;
         public HandleOrientation orientationDefaultLeft;
 
