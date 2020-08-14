@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using UnityEngine.SocialPlatforms;
 
 namespace ThunderRoad
 {
@@ -22,12 +23,22 @@ namespace ThunderRoad
         public EffectTarget linkTintColor = EffectTarget.None;
         public EffectTarget linkEmissionColor = EffectTarget.None;
 
+        public Vector3 meshSize = Vector3.one;
+        public float meshSizeFadeDuration;
+        protected bool meshSizeFading;
+        protected Coroutine meshSizeFadeCoroutine;
+
+        public Vector3 meshRotation;
+        public float meshRotationFadeDuration;
+        protected bool meshRotationFading;
+        protected Coroutine meshRotationFadeCoroutine;
+
         [Header("Intensity to mesh size")]
-        public bool meshSize;
+        public bool meshSizeFromIntensity;
         public AnimationCurve curveMeshSize;
 
         [Header("Intensity to mesh rotation Y")]
-        public bool meshRotY;
+        public bool meshRotationFromIntensity;
         public AnimationCurve curveMeshrotY;
 
         [NonSerialized]
@@ -63,29 +74,53 @@ namespace ThunderRoad
             meshRenderer.enabled = false;
         }
 
-        private IEnumerator MeshSizeCoroutine()
+        private IEnumerator MeshSizeFadeCoroutine(bool fadeIn = true)
         {
+            meshSizeFading = true;
             float meshSizeValue;
-            while (aliveTime < GetLastTime(curveMeshSize))
+            float time = 0;
+            while (time < meshSizeFadeDuration)
             {
-                meshSizeValue = curveMeshSize.Evaluate(aliveTime);
-                transform.localScale = new Vector3(meshSizeValue, meshSizeValue, meshSizeValue);
+                if (meshSizeFromIntensity)
+                {
+                    meshSizeValue = curveMeshSize.Evaluate(currentValue);
+                    if (fadeIn) transform.localScale = Vector3.Lerp(Vector3.zero, new Vector3(meshSizeValue, meshSizeValue, meshSizeValue), time / meshSizeFadeDuration);
+                    else transform.localScale = Vector3.Lerp(new Vector3(meshSizeValue, meshSizeValue, meshSizeValue), Vector3.zero, time / meshSizeFadeDuration);
+                }
+                else
+                {
+                    if (fadeIn) transform.localScale = Vector3.Lerp(Vector3.zero, meshSize, time / meshSizeFadeDuration);
+                    else transform.localScale = Vector3.Lerp(meshSize, Vector3.zero, time / meshSizeFadeDuration);
+                }
+                time += Time.deltaTime;
                 yield return new WaitForEndOfFrame();
             }
-
+            meshSizeFading = false;
             yield return true;
         }
 
-        private IEnumerator MeshRotationCoroutine()
+        private IEnumerator MeshRotationFadeCoroutine(bool fadeIn = true)
         {
+            meshRotationFading = true;
             float meshRotYValue;
-            while (aliveTime < GetLastTime(curveMeshrotY))
+            float time = 0;
+            while (time < meshRotationFadeDuration)
             {
-                meshRotYValue = curveMeshrotY.Evaluate(aliveTime);
-                transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, meshRotYValue, transform.localEulerAngles.z);
+                if (meshRotationFromIntensity)
+                {
+                    meshRotYValue = curveMeshrotY.Evaluate(currentValue);
+                    if (fadeIn) transform.localEulerAngles = Vector3.Lerp(Vector3.zero, new Vector3(transform.localEulerAngles.x, meshRotYValue, transform.localEulerAngles.x), time / meshSizeFadeDuration);
+                    transform.localEulerAngles = Vector3.Lerp(new Vector3(transform.localEulerAngles.x, meshRotYValue, transform.localEulerAngles.x), Vector3.zero, time / meshSizeFadeDuration);
+                }
+                else
+                {
+                    if (fadeIn) transform.localEulerAngles = Vector3.Lerp(Vector3.zero, meshRotation, time / meshSizeFadeDuration);
+                    transform.localEulerAngles = Vector3.Lerp(meshRotation, Vector3.zero, time / meshSizeFadeDuration);
+                }
+                time += Time.deltaTime;
                 yield return new WaitForEndOfFrame();
             }
-
+            meshRotationFading = false;
             yield return true;
         }
 
@@ -121,14 +156,14 @@ namespace ThunderRoad
                 InvokeRepeating("UpdateLifeTime", 0, refreshSpeed);
             }
 
-            if (meshSize && curveMeshSize != null)
+            if (meshSizeFadeDuration > 0)
             {
-                StartCoroutine("MeshSizeCoroutine");
+                meshSizeFadeCoroutine = StartCoroutine(MeshSizeFadeCoroutine());
             }
 
-            if (meshRotY && curveMeshrotY != null)
+            if (meshRotationFadeDuration > 0)
             {
-                StartCoroutine("MeshRotationCoroutine");
+                meshRotationFadeCoroutine = StartCoroutine(MeshRotationFadeCoroutine());
             }
         }
 
@@ -143,11 +178,25 @@ namespace ThunderRoad
 
         public override void End(bool loopOnly = false)
         {
-            if (meshRenderer != null)
+            if (meshSizeFadeDuration > 0)
             {
-                meshRenderer.enabled = false;
+                StopCoroutine(meshSizeFadeCoroutine);
+                meshSizeFadeCoroutine = StartCoroutine(MeshSizeFadeCoroutine(false));
             }
-            Despawn();
+            if (meshRotationFadeDuration > 0)
+            {
+                StopCoroutine(meshRotationFadeCoroutine);
+                meshRotationFadeCoroutine = StartCoroutine(MeshRotationFadeCoroutine(false));
+            }
+            if (meshSizeFadeDuration > 0 || meshRotationFadeDuration > 0)
+            {
+                Invoke("Despawn", meshSizeFadeDuration);
+            }
+            else
+            {
+                if (meshRenderer != null) meshRenderer.enabled = false;
+                Despawn();
+            }
         }
 
         protected void UpdateLifeTime()
@@ -161,6 +210,20 @@ namespace ThunderRoad
         {
             if (!loopOnly || (loopOnly && step == Step.Loop))
             {
+                currentValue = intensityCurve.Evaluate(value);
+
+                if (meshSizeFromIntensity && !meshSizeFading)
+                {
+                    float meshSizeValue = curveMeshSize.Evaluate(currentValue);
+                    transform.localScale = new Vector3(meshSizeValue, meshSizeValue, meshSizeValue);
+                }
+
+                if (meshRotationFromIntensity && !meshRotationFading)
+                {
+                    float meshRotYValue = curveMeshrotY.Evaluate(currentValue);
+                    transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, meshRotYValue, transform.localEulerAngles.z);
+                }
+
                 // Set material color
                 bool updatePropertyBlock = false;
                 if (linkTintColor == EffectTarget.Main && currentMainGradient != null)
@@ -212,6 +275,10 @@ namespace ThunderRoad
 
         public override void Despawn()
         {
+            StopCoroutine(MeshSizeFadeCoroutine());
+            StopCoroutine(MeshRotationFadeCoroutine());
+            meshSizeFading = false;
+            meshRotationFading = false;
             CancelInvoke();
             if (meshRenderer != null) meshRenderer.enabled = false;
             aliveTime = 0.0f;
