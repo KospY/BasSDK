@@ -15,6 +15,8 @@ namespace ThunderRoad
     {
         [Range(0, 1)]
         public float intensity;
+        [Range(0, 1)]
+        public float speed;
 
         public bool useMainGradient;
         [GradientUsage(true)]
@@ -63,6 +65,7 @@ namespace ThunderRoad
                 if (useMainGradient) effect.SetMainGradient(mainGradient);
                 if (useSecondaryGradient) effect.SetSecondaryGradient(secondaryGradient);
                 effect.SetIntensity(intensity);
+                effect.SetSpeed(speed);
             }
         }
 
