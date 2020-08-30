@@ -304,7 +304,7 @@ namespace ThunderRoad
             {
                 foreach (FileInfo file in dir.GetFiles("*.*"))
                 {
-                    if ((file.Extension != ".assets" && file.Extension != ".maps") || exportBundle[bundle])
+                    if ((file.Extension != ".assets" && file.Extension != ".level") || exportBundle[bundle])
                     {
                         file.Delete();
                     }
@@ -343,12 +343,7 @@ namespace ThunderRoad
                         Type assetType = AssetDatabase.GetMainAssetTypeAtPath(asset);
                         if (assetType == typeof(SceneAsset))
                         {
-                            ext = ".maps";
-                            break;
-                        }
-                        else if (assetType.FullName == "UMA.RaceData" || assetType.FullName == "UMA.SlotDataAsset" || assetType.FullName == "UMA.OverlayDataAsset")
-                        {
-                            ext = ".uma";
+                            ext = ".level";
                             break;
                         }
                     }
@@ -368,7 +363,7 @@ namespace ThunderRoad
                         msgEnd = ". Could not copy to mod folders";
                     }
                 }
-                else if (file.Extension != ".assets" && file.Extension != ".maps" && file.Extension != ".uma")
+                else if (file.Extension != ".assets" && file.Extension != ".level")
                 {
                     file.Delete();
                 }
