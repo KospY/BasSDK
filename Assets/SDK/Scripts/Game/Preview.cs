@@ -2,6 +2,7 @@
 
 namespace ThunderRoad
 {
+    [AddComponentMenu("ThunderRoad/Items/Preview")]
     public class Preview : MonoBehaviour
     {
         public float size = 1;

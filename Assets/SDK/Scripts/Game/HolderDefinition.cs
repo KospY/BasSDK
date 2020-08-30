@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -9,6 +10,8 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [AddComponentMenu("ThunderRoad/Holder")]
+    [RequireComponent(typeof(Rigidbody))]
     public class HolderDefinition : InteractableDefinition
     {
         public List<Transform> slots = new List<Transform>();
@@ -21,11 +24,6 @@ namespace ThunderRoad
             if (slots.Count == 0) slots.Add(this.transform);
         }
 
-        protected override void Awake()
-        {
-            base.Awake();
-            if (slots.Count == 0) slots.Add(this.transform);
-        }
 
         [Button("Align start object")]
         public void AlignObject()
@@ -57,5 +55,7 @@ namespace ThunderRoad
                 }
             }
         }
+
+
     }
 }

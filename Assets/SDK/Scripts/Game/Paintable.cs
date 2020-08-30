@@ -2,8 +2,16 @@
 using System.Collections.Generic;
 using System;
 
+
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#else
+using EasyButtons;
+#endif
+
 namespace ThunderRoad
 {
+    [AddComponentMenu("ThunderRoad/Paintable")]
     public class Paintable : MonoBehaviour
     {
         public List<MaterialProperty> materialProperties = new List<MaterialProperty>();

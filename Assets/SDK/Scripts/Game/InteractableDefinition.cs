@@ -1,20 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#else
+using EasyButtons;
+#endif
 
 namespace ThunderRoad
 {
     public class InteractableDefinition : MonoBehaviour
     {
+#if ODIN_INSPECTOR
+        [ValueDropdown("GetAllInteractableID")]
+#endif
         public string interactableId;
 
         public float axisLength = 0;
         public float touchRadius = 0.1f;
         public Vector3 touchCenter;
 
-        protected virtual void Awake()
-        {
-        }
         protected virtual void OnDrawGizmosSelected()
         {
             Gizmos.matrix = this.transform.localToWorldMatrix;
@@ -33,5 +39,6 @@ namespace ThunderRoad
                 Gizmos.DrawWireSphere(touchCenter, touchRadius);
             }
         }
+
     }
 }
