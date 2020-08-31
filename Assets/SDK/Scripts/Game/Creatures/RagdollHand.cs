@@ -68,6 +68,7 @@ namespace ThunderRoad
             if (!grip) grip = CreateDefaultGrip();
             IconManager.SetIcon(this.gameObject, IconManager.LabelIcon.Red);
             if (editPose == null) editPose = new EditPose(this);
+            if (editPose.ragdollHand == null) editPose = new EditPose(this);
             if (creature == null) creature = this.GetComponentInParent<Creature>();
             if (creature)
             {
@@ -265,8 +266,8 @@ namespace ThunderRoad
                 OpenPose,
                 ClosePose,
             }
-
-            protected RagdollHand ragdollHand;
+            [NonSerialized]
+            public RagdollHand ragdollHand;
             protected HandleDefinition previousHandle;
 
             public EditPose(RagdollHand ragdollHand)
