@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using Chabuk.ManikinMono;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
+using Chabuk.ManikinMono;
 #else
 using EasyButtons;
 #endif
@@ -53,12 +53,6 @@ namespace ThunderRoad
         public RagdollFoot footLeft;
         [NonSerialized]
         public RagdollFoot footRight;
-        [NonSerialized]
-        public ManikinPartList manikinParts;
-        [NonSerialized]
-        public ManikinLocations manikinLocations;
-        [NonSerialized]
-        protected ManikinLocations.JsonWardrobeLocations orgWardrobeLocations;
 
     }
 }
