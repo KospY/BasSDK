@@ -46,5 +46,27 @@ namespace ThunderRoad
             RightFoot,
         }
 
+        [Button]
+        public void SetPositionToBone()
+        {
+            this.transform.position = meshBone.position;
+            this.transform.rotation = meshBone.rotation;
+            this.transform.localScale = meshBone.localScale;
+        }
+
+        [Button]
+        public void FindBoneFromName()
+        {
+            ragdoll = this.GetComponentInParent<Ragdoll>();
+            foreach (Transform child in ragdoll.meshRig.GetComponentsInChildren<Transform>())
+            {
+                if (child.name == this.name)
+                {
+                    meshBone = child;
+                    return;
+                }
+            }
+        }
+
     }
 }
