@@ -30,6 +30,15 @@ namespace ThunderRoad
 
         public List<RagdollPart> ignoredParts;
 
+        [NonSerialized]
+        public Rigidbody rb;
+        [NonSerialized]
+        public Ragdoll ragdoll;
+        [NonSerialized]
+        public ColliderGroup colliderGroup;
+        [NonSerialized]
+        public CollisionHandler collisionHandler;
+
         public enum Type
         {
             None,
