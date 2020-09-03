@@ -13,19 +13,20 @@ MonoBehaviour:
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: 
   m_DefaultGroup: 6df50a1ed8cb32c4996cfa69fd5e28b3
-  m_BuildRemoteCatalog: 0
+  m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
   m_DisableCatalogUpdateOnStart: 0
   m_UniqueBundleIds: 0
   m_RemoteCatalogBuildPath:
-    m_Id: ce15733c007f6d84a9cd434894e23ab1
+    m_Id: 353164b711226764a9829862b4777bf8
   m_RemoteCatalogLoadPath:
-    m_Id: f0d6e0cdd8192a84f819089abb779b64
+    m_Id: 94d88ce5c41049b488753c8ec3325bf8
   m_overridePlayerVersion: 
   m_GroupAssets:
   - {fileID: 11400000, guid: fbe88945f5fd22549a3b2283780ee7c2, type: 2}
   - {fileID: 11400000, guid: 3b80179327efa964fb2aa5b51511fbda, type: 2}
   - {fileID: 11400000, guid: 4468c04b81f9afa4b8ce0d71627d5b2e, type: 2}
+  - {fileID: 11400000, guid: daa87c33f5c336640ab6ddaca16a1bc7, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -37,31 +38,26 @@ MonoBehaviour:
       m_Id: beb5d4ddf477d9144afd1a99cbaaca60
       m_ProfileName: Default
       m_Values:
-      - m_Id: abbd1974c112fc746a25a9683fba571d
-        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
       - m_Id: ce15733c007f6d84a9cd434894e23ab1
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
       - m_Id: f0d6e0cdd8192a84f819089abb779b64
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
-      - m_Id: 351b5f39f98fea94096b8e4be5069cb0
-        m_Value: ServerData/[BuildTarget]
-      - m_Id: 2485d59ff7753f9448950c39f31f6d98
-        m_Value: http://localhost/[BuildTarget]
+      - m_Id: 353164b711226764a9829862b4777bf8
+        m_Value: E:\Dev\ThunderRoad\Assets\StreamingAssets\Default\Bundles\Addressable
+      - m_Id: 94d88ce5c41049b488753c8ec3325bf8
+        m_Value: '{UnityEngine.Application.streamingAssetsPath}/Default/Bundles/Addressable'
     m_ProfileEntryNames:
-    - m_Id: abbd1974c112fc746a25a9683fba571d
-      m_Name: BuildTarget
-      m_InlineUsage: 0
     - m_Id: ce15733c007f6d84a9cd434894e23ab1
       m_Name: LocalBuildPath
       m_InlineUsage: 0
     - m_Id: f0d6e0cdd8192a84f819089abb779b64
       m_Name: LocalLoadPath
       m_InlineUsage: 0
-    - m_Id: 351b5f39f98fea94096b8e4be5069cb0
-      m_Name: RemoteBuildPath
+    - m_Id: 353164b711226764a9829862b4777bf8
+      m_Name: GameBuildPath
       m_InlineUsage: 0
-    - m_Id: 2485d59ff7753f9448950c39f31f6d98
-      m_Name: RemoteLoadPath
+    - m_Id: 94d88ce5c41049b488753c8ec3325bf8
+      m_Name: GameLoadPath
       m_InlineUsage: 0
     m_ProfileVersion: 1
   m_LabelTable:
