@@ -163,6 +163,11 @@ namespace ThunderRoad
 
     public static class Common
     {
+        public static Vector3 GetRowPosition(Transform transform, int index, float rowCount, float rowSpace)
+        {
+            return transform.position + (transform.right * rowSpace * (index % rowCount)) + (transform.forward * rowSpace * Mathf.FloorToInt((index / rowCount)));
+        }
+
         public static int GetIndexByName(this Dropdown dropDown, string name)
         {
             if (dropDown == null) { return -1; } // or exception
