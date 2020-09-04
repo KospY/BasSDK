@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.AddressableAssets;
+using System.Collections;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -18,6 +21,7 @@ namespace ThunderRoad
         public string creatureId;
 
         public Animator animator;
+        public Container container;
         public Transform centerEyes;
         public Vector3 eyeCameraOffset;
 
@@ -31,8 +35,6 @@ namespace ThunderRoad
         public Ragdoll ragdoll;
         [NonSerialized]
         public Brain brain;
-        [NonSerialized]
-        public Container container;
         [NonSerialized]
         public Locomotion locomotion;
         [NonSerialized]

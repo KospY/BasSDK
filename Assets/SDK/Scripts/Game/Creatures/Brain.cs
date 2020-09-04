@@ -12,7 +12,6 @@ using EasyButtons;
 namespace ThunderRoad
 {
     [AddComponentMenu("ThunderRoad/Creatures/Brain")]
-    [RequireComponent(typeof(Creature))]
     [RequireComponent(typeof(NavMeshAgent))]
     public class Brain : MonoBehaviour
     {

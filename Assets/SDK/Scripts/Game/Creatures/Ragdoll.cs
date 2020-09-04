@@ -13,7 +13,6 @@ using EasyButtons;
 namespace ThunderRoad
 {
     [AddComponentMenu("ThunderRoad/Creatures/Ragdoll")]
-    [RequireComponent(typeof(Creature))]
     public class Ragdoll : MonoBehaviour
     {
         public Transform meshRig;
