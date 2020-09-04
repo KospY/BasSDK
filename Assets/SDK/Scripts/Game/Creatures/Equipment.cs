@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System;
 using System.Linq;
-using Chabuk.ManikinMono;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
+using Chabuk.ManikinMono;
 #else
 using EasyButtons;
 #endif
@@ -18,6 +18,5 @@ namespace ThunderRoad
         public bool equipWeaponsOnLoad = true;
         public bool equipWardrobesOnLoad = true;
         public bool refreshStanceForPlayer;
-
     }
 }
