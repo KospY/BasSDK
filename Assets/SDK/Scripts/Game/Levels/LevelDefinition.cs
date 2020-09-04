@@ -46,5 +46,12 @@ namespace ThunderRoad
             Debug.Log("Lightmap mode: " + LightmapSettings.lightmapsMode);
         }
 
+        [Button]
+        public static void TetrahedralizeLightProbes()
+        {
+            // Fix light probes being wrong!!!
+            LightProbes.Tetrahedralize();
+        }
+
     }
 }
