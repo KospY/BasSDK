@@ -329,7 +329,13 @@ namespace ThunderRoad
                 }
             }
 
+#if UNITY_ANDROID
+            BuildPipeline.BuildAssetBundles(assetBundleDirectory, assetBundleBuilds.ToArray(), buildAssetBundleOptions, BuildTarget.Android);
+#elif UNITY_PS4
+            BuildPipeline.BuildAssetBundles(assetBundleDirectory, assetBundleBuilds.ToArray(), buildAssetBundleOptions, BuildTarget.PS4);
+#else
             BuildPipeline.BuildAssetBundles(assetBundleDirectory, assetBundleBuilds.ToArray(), buildAssetBundleOptions, BuildTarget.StandaloneWindows);
+#endif
 
             bundleNames = new List<string>(AssetDatabase.GetAllAssetBundleNames());
 
