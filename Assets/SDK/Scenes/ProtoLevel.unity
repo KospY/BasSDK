@@ -3414,7 +3414,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &881423498
 Transform:
   m_ObjectHideFlags: 0
@@ -3518,6 +3518,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AltarSandBook
+      objectReference: {fileID: 0}
+    - target: {fileID: 4704103929108086110, guid: fd91cbe1205ad674ba299e04325eded5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5457060822985413376, guid: fd91cbe1205ad674ba299e04325eded5,
         type: 3}
@@ -6300,7 +6305,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1703646720
 Transform:
   m_ObjectHideFlags: 0
@@ -6987,7 +6992,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1865473822
 Transform:
   m_ObjectHideFlags: 0
@@ -8588,6 +8593,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LadderBuilder
       objectReference: {fileID: 0}
+    - target: {fileID: 4704479535056158078, guid: c58b2972826cad146bbc4f9effd8cfc0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c58b2972826cad146bbc4f9effd8cfc0, type: 3}
 --- !u!4 &4705342408734498542 stripped
@@ -8779,6 +8789,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000,
         type: 0}
+    - target: {fileID: 5979525077630978646, guid: d3a0bc109b3da6c4d82d347118b4a363,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7489640367196355695, guid: d3a0bc109b3da6c4d82d347118b4a363,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8853,6 +8868,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mirror
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918939482241427606, guid: 8a3ef22e485293248b00ca745575fabe,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4920910436772895888, guid: 8a3ef22e485293248b00ca745575fabe,
         type: 3}
