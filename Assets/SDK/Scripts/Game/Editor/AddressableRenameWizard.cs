@@ -10,24 +10,19 @@ using UnityEditor.AddressableAssets.Settings;
 
 public class AddressableRenameWizard : ScriptableWizard
 {
-    public string prefix0;
-    public string prefix1;
-    public string prefix2;
-    public string postfix0;
+    public string append;
+    public string search;
+    public string replace;
 
-    public bool prependFolderName = false;
-
-    static string info = "Example format, all optional; {prefix0}.{prefix1}.{prefix2}.{FolderName}.{AssetName}.{postfix}";
+    static string info = "Append : Add text at begining, Search / Replace : Search and text and replace it";
 
     [MenuItem("Assets/Addressable Rename Wizard")]
     static void CreateWizard()
     {
         AddressableRenameWizard wizard = ScriptableWizard.DisplayWizard<AddressableRenameWizard>("Rename Adressables", "Apply");
-        wizard.prefix0 = EditorPrefs.GetString("ARW_Prefix0");
-        wizard.prefix1 = EditorPrefs.GetString("ARW_Prefix1");
-        wizard.prefix2 = EditorPrefs.GetString("ARW_Prefix2");
-        wizard.postfix0 = EditorPrefs.GetString("ARW_Postfix0");
-        wizard.prependFolderName = EditorPrefs.GetBool("ARW_Prepend", false);
+        wizard.append = EditorPrefs.GetString("ARW_append");
+        wizard.search = EditorPrefs.GetString("ARW_search");
+        wizard.replace = EditorPrefs.GetString("ARW_replace");
     }
 
     void OnWizardUpdate()
@@ -42,11 +37,9 @@ public class AddressableRenameWizard : ScriptableWizard
     protected override bool DrawWizardGUI()
     {
         EditorGUI.BeginChangeCheck();
-        prefix0 = EditorGUILayout.TextField(new GUIContent("Prefix0"), prefix0);
-        prefix1 = EditorGUILayout.TextField(new GUIContent("Prefix1"), prefix1);
-        prefix2 = EditorGUILayout.TextField(new GUIContent("Prefix2"), prefix2);
-        postfix0 = EditorGUILayout.TextField(new GUIContent("Postfix0"), postfix0);
-        prependFolderName = EditorGUILayout.Toggle(new GUIContent("Prepend Folder Name"),prependFolderName);
+        append = EditorGUILayout.TextField(new GUIContent("Append"), append);
+        search = EditorGUILayout.TextField(new GUIContent("Search"), search);
+        replace = EditorGUILayout.TextField(new GUIContent("Replace"), replace);
         EditorGUILayout.HelpBox(info, MessageType.Info);
         return EditorGUI.EndChangeCheck();
     }
@@ -54,11 +47,9 @@ public class AddressableRenameWizard : ScriptableWizard
     void OnWizardCreate()
     {
         //save/update any editor prefs we have changed
-        EditorPrefs.SetString("ARW_Prefix0", prefix0);
-        EditorPrefs.SetString("ARW_Prefix1", prefix1);
-        EditorPrefs.SetString("ARW_Prefix2", prefix2);
-        EditorPrefs.SetString("ARW_Postfix0", postfix0);
-        EditorPrefs.SetBool("ARW_Prepend", prependFolderName);
+        EditorPrefs.SetString("ARW_append", append);
+        EditorPrefs.SetString("ARW_search", search);
+        EditorPrefs.SetString("ARW_replace", replace);
 
         string[] assetGUIDs = Selection.assetGUIDs;
         if(assetGUIDs != null)
@@ -71,25 +62,17 @@ public class AddressableRenameWizard : ScriptableWizard
             }
 
             var entries = new List<AddressableAssetEntry>();
-            StringBuilder newAddress = new StringBuilder(50);
-
             foreach (string assetGUID in assetGUIDs)
             {
                 AddressableAssetEntry entry = settings.FindAssetEntry(assetGUID);
                 if (entry != null)
                 {
-                    string assetName = Path.GetFileNameWithoutExtension(entry.AssetPath);
-                    string folderName = Path.GetFileName(Path.GetDirectoryName(entry.AssetPath));
-                    newAddress.Clear();
-
-                    if (!string.IsNullOrEmpty(prefix0)) { newAddress.Append(prefix0); newAddress.Append("."); }
-                    if (!string.IsNullOrEmpty(prefix1)) { newAddress.Append(prefix1); newAddress.Append("."); }
-                    if (!string.IsNullOrEmpty(prefix2)) { newAddress.Append(prefix2); newAddress.Append("."); }
-                    if (prependFolderName) { newAddress.Append(folderName); newAddress.Append("."); }
-                    newAddress.Append(assetName);
-                    if (!string.IsNullOrEmpty(postfix0)) { newAddress.Append("."); newAddress.Append(postfix0); }
-
-                    entry.SetAddress(newAddress.ToString(), false);
+                    string newAddress = append + entry.address;
+                    if (!string.IsNullOrEmpty(search))
+                    {
+                        newAddress = newAddress.Replace(search, replace);
+                    }
+                    entry.SetAddress(newAddress, false);
                     entries.Add(entry);
                 }
                 else
