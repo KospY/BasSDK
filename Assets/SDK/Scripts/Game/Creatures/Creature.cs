@@ -56,5 +56,6 @@ namespace ThunderRoad
         [NonSerialized]
         public RagdollFoot footRight;
 
+
     }
 }

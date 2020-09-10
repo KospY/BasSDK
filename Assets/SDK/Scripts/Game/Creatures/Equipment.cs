@@ -18,5 +18,6 @@ namespace ThunderRoad
         public bool equipWeaponsOnLoad = true;
         public bool equipWardrobesOnLoad = true;
         public bool refreshStanceForPlayer;
+
     }
 }
