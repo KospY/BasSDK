@@ -2,6 +2,11 @@
 using UnityEngine;
 using System.Collections;
 
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#else
+using EasyButtons;
+#endif
 
 namespace ThunderRoad
 {
