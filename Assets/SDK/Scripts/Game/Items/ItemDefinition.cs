@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -16,6 +17,7 @@ namespace ThunderRoad
     public class ItemDefinition : MonoBehaviour
     {
         public string itemId;
+        public bool loadOnStart;
         public Transform holderPoint;
         public Transform parryPoint;
         public HandleDefinition mainHandleRight;
@@ -44,6 +46,22 @@ namespace ThunderRoad
 #endif
         [NonSerialized]
         public List<SavedValue> savedValues;
+
+        [Serializable]
+        public class IconMarker
+        {
+            public string damagerId;
+            public Vector2 position;
+            public float directionAngle;
+            public DamagerDefinition.Direction direction;
+            public IconMarker(string damagerId, Vector2 position, DamagerDefinition.Direction direction, float directionAngle)
+            {
+                this.damagerId = damagerId;
+                this.position = position;
+                this.direction = direction;
+                this.directionAngle = directionAngle;
+            }
+        }
 
         [Serializable]
         public class SavedValue

@@ -123,26 +123,15 @@ namespace ThunderRoad
             }
         }
     }
-
+    /*
     [CustomEditor(typeof(Preview))]
     public class PreviewInspector : Editor
     {
         public override void OnInspectorGUI()
         {
-            Preview preview = (Preview)target;
             EditorGUILayout.HelpBox("The dark blue arrow points towards the viewer.", MessageType.Info);
-
-            if (GUILayout.Button("Align with camera"))
-            {
-                SceneView.RepaintAll();
-
-                SceneView.lastActiveSceneView.camera.transform.position -= 2 * preview.transform.position;
-
-                preview.transform.LookAt(-SceneView.lastActiveSceneView.camera.transform.position);
-                SceneView.lastActiveSceneView.camera.transform.position += 2 * preview.transform.position;
-
-            }
+            base.OnInspectorGUI();
         }
-    }
+    }*/
 
 }
