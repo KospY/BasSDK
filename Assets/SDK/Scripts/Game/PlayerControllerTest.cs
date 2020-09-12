@@ -53,8 +53,8 @@ namespace ThunderRoad
                 Zone zone = other.GetComponent<Zone>();
                 if (zone.teleportPlayer)
                 {
-                    this.transform.position = zone.customTeleportTarget ? zone.customTeleportTarget.position : LevelDefinition.current.playerStart.position;
-                    this.transform.rotation = zone.customTeleportTarget ? zone.customTeleportTarget.rotation : LevelDefinition.current.playerStart.rotation;
+                    this.transform.position = zone.customTeleportTarget ? zone.customTeleportTarget.position : Level.current.playerStart.position;
+                    this.transform.rotation = zone.customTeleportTarget ? zone.customTeleportTarget.rotation : Level.current.playerStart.rotation;
                 }
                 zone.playerEnterEvent.Invoke(this);
             }

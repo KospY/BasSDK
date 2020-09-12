@@ -15,18 +15,18 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
-    public class LevelDefinition : MonoBehaviour
+    public class Level : MonoBehaviour
     {
-        public static LevelDefinition current;
+        public static Level current;
         public Transform playerStart;
         public List<CustomReference> customReferences;
-        public bool loadDefaultCharIfNeeded = true;
-        public State state = State.None;
 
+        [NonSerialized]
+        public State state = State.None;
         [NonSerialized]
         public AudioSource music;
         [NonSerialized]
-        public bool initialized;
+        public bool loaded;
 
         [Serializable]
         public class CustomReference
