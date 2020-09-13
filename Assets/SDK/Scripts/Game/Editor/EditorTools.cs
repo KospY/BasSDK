@@ -25,7 +25,7 @@ namespace ThunderRoad
 
         private string defaultCopyPath = "D:/";
 
-        [MenuItem("Game/Asset Bundle Builder")]
+        [MenuItem("ThunderRoad (SDK)/Asset Bundle Builder")]
         public static void ShowWindow()
         {   //Opens window from toolbar
             EditorWindow.GetWindow<EditorToolsAssetBuilder>("Asset Bundle Builder");
