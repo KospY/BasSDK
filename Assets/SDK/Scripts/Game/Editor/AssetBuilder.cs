@@ -27,6 +27,9 @@ namespace ThunderRoad
         public static ExportTo exportTo = ExportTo.Game;
         public static bool runGameAfterBuild;
 
+        public delegate void BuildEvent(EventTime eventTime);
+        public static event BuildEvent OnBuildEvent;
+
         public enum ExportTo
         {
             Game,
@@ -114,7 +117,7 @@ namespace ThunderRoad
                 style.normal.textColor = Color.red;
                 GUILayout.Label(new GUIContent("Current platefrom is not Android, please switch to Android in the build settings"), style);
             }
-            else if (exportTo != ExportTo.Android && EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android)
+            else if (exportTo == ExportTo.Game && EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android)
             {
                 GUIStyle style = new GUIStyle(EditorStyles.label);
                 style.normal.textColor = Color.red;
@@ -165,12 +168,12 @@ namespace ThunderRoad
         {
             if (exportTo == ExportTo.Android && EditorUserBuildSettings.activeBuildTarget != BuildTarget.Android)
             {
-                Debug.LogError("Cannot deploy to android device has the plateform selected is not android");
+                Debug.LogError("Cannot deploy to android device as the plateform selected is not android");
                 return;
             }
-            else if (exportTo != ExportTo.Android && EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android)
+            else if (exportTo == ExportTo.Game && EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android)
             {
-                Debug.LogError("Cannot deploy to Windows has the plateform selected is Android");
+                Debug.LogError("Cannot deploy to Windows as the plateform selected is Android");
                 return;
             }
 
@@ -212,6 +215,8 @@ namespace ThunderRoad
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
 
+            if (OnBuildEvent != null) OnBuildEvent.Invoke(EventTime.OnStart);
+
             BuildCache.PurgeCache(true);
             AddressableAssetSettings.CleanPlayerContent();
             AddressableAssetSettings.CleanPlayerContent(AddressableAssetSettingsDefaultObject.Settings.ActivePlayerDataBuilder);
@@ -248,6 +253,7 @@ namespace ThunderRoad
                 Debug.Log("Copy file [" + filePath + "] to " + Path.Combine(destinationPath, Path.GetFileName(filePath)));
                 File.Copy(filePath, Path.Combine(destinationPath, Path.GetFileName(filePath)), true);
             }
+            if (OnBuildEvent != null) OnBuildEvent.Invoke(EventTime.OnEnd);
             System.Media.SystemSounds.Asterisk.Play();
         }
     }
