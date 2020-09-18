@@ -12,7 +12,7 @@ using EasyButtons;
 namespace ThunderRoad
 {
     [AddComponentMenu("ThunderRoad/Handle")]
-    public class HandleDefinition : InteractableDefinition
+    public class Handle : Interactable
     {
         [Range(-1, 1)]
         public float defaultGrabAxisRatio;
@@ -23,15 +23,15 @@ namespace ThunderRoad
         public HandleOrientation orientationDefaultRight;
         public HandleOrientation orientationDefaultLeft;
 
-        public HandleDefinition releaseHandle;
+        public Handle releaseHandle;
 
         public float reach = 0.5f;
         public Rigidbody customRigidBody;
-        public HandleDefinition slideToUpHandle;
-        public HandleDefinition slideToBottomHandle;
+        public Handle slideToUpHandle;
+        public Handle slideToBottomHandle;
         public float slideToHandleOffset = 0.01f;
 
-        public HandleDefinition moveToHandle;
+        public Handle moveToHandle;
         public float moveToHandleAxisPos = 0;
 
         [Obsolete, Header("Obsolete! Use child HandleOrientation instead")]
@@ -183,7 +183,7 @@ namespace ThunderRoad
         public void CalculateReach()
         {
             float farthestDamagerDist = 0;
-            foreach (ColliderGroup colliderGroup in this.GetComponentInParent<ItemDefinition>().GetComponentsInChildren<ColliderGroup>())
+            foreach (ColliderGroup colliderGroup in this.GetComponentInParent<Item>().GetComponentsInChildren<ColliderGroup>())
             {
                 foreach (Collider collider in colliderGroup.GetComponentsInChildren<Collider>())
                 {

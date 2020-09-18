@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace ThunderRoad
 {
-    public class ParryTargetDefinition : MonoBehaviour
+    public class ParryTarget : MonoBehaviour
     {
         public float length = 0.25f;
 
@@ -21,5 +22,6 @@ namespace ThunderRoad
             Gizmos.color = Color.white;
             Gizmos.DrawLine(GetLineStart(), GetLineEnd());
         }
+
     }
 }

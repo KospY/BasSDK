@@ -221,7 +221,7 @@ namespace ThunderRoad
             AddressableAssetSettings.CleanPlayerContent();
             AddressableAssetSettings.CleanPlayerContent(AddressableAssetSettingsDefaultObject.Settings.ActivePlayerDataBuilder);
             AddressableAssetSettings.BuildPlayerContent();
-            
+
             string buildPath = Path.Combine(Directory.GetCurrentDirectory(), Addressables.BuildPath);
 
             string catalogPath = Path.Combine(buildPath, "catalog.json");

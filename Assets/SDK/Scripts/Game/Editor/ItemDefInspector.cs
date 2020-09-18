@@ -4,14 +4,14 @@ using UnityEditor;
 
 namespace ThunderRoad
 {
-    [CustomEditor(typeof(ItemDefinition))]
+    [CustomEditor(typeof(Item))]
     public class ItemDefInspector : Editor
     {
         bool showCenterOfMassHandle = false;
 
         public override void OnInspectorGUI()
         {
-            ItemDefinition item = (ItemDefinition)target;
+            Item item = (Item)target;
 
             base.OnInspectorGUI();
 
@@ -115,7 +115,7 @@ namespace ThunderRoad
         }
         private void OnSceneGUI()
         {
-            ItemDefinition item = (ItemDefinition)target;
+            Item item = (Item)target;
             if (showCenterOfMassHandle)
             {
                 item.customCenterOfMass = Handles.DoPositionHandle(item.customCenterOfMass, Quaternion.LookRotation(item.transform.forward, item.transform.up));

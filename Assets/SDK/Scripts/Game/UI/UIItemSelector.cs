@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace ThunderRoad
@@ -6,6 +7,7 @@ namespace ThunderRoad
     public class UIItemSelector : MonoBehaviour
     {
         public Transform spawnPoint;
+        public string menuAddress = "Bas.WorldMenu.ItemSelector";
 
 
         protected void OnDrawGizmos()

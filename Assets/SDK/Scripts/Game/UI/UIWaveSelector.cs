@@ -7,6 +7,7 @@ namespace ThunderRoad
     public class UIWaveSelector : MonoBehaviour
     {
         public string id;
+        public string menuAddress = "Bas.WorldMenu.WaveSelector";
         public SpawnLocation spawnLocation;
 
         void OnValidate()

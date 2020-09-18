@@ -4,17 +4,17 @@ using System;
 
 namespace ThunderRoad
 {
-    [CustomEditor(typeof(DamagerDefinition))]
+    [CustomEditor(typeof(Damager))]
     public class DamagerDefInspector : PointToPoint
     {
         Vector3 depthPoint;
         string damagerType = "";
-        DamagerDefinition damager;
+        Damager damager;
 
         public override void OnInspectorGUI()
         {
-            script = damager = (DamagerDefinition)target;
-            ItemDefinition item = damager.transform.GetComponentInParent<ThunderRoad.ItemDefinition>();
+            script = damager = (Damager)target;
+            Item item = damager.transform.GetComponentInParent<ThunderRoad.Item>();
             damager.transform.localScale = Vector3.one;
 
             PointToPointButton(damager.penetrationLength);
@@ -40,7 +40,7 @@ namespace ThunderRoad
             if (damager.penetrationLength == 0 && damager.penetrationDepth == 0)
             {
                 damagerType = "Blunt";
-                if (damager.direction != ThunderRoad.DamagerDefinition.Direction.All)
+                if (damager.direction != ThunderRoad.Damager.Direction.All)
                 {
                     EditorGUILayout.HelpBox("Direction for Blunt damagers should be set to 'All'", MessageType.Warning);
                 }
@@ -48,7 +48,7 @@ namespace ThunderRoad
             else if (damager.penetrationLength == 0 && damager.penetrationDepth != 0)
             {
                 damagerType = "Piercing";
-                if (damager.direction != ThunderRoad.DamagerDefinition.Direction.Forward)
+                if (damager.direction != ThunderRoad.Damager.Direction.Forward)
                 {
                     EditorGUILayout.HelpBox("Direction for Piercing damagers should be set to 'Forward'", MessageType.Warning);
                 }
@@ -56,7 +56,7 @@ namespace ThunderRoad
             else
             {
                 damagerType = "Slashing";
-                if (damager.direction == ThunderRoad.DamagerDefinition.Direction.All)
+                if (damager.direction == ThunderRoad.Damager.Direction.All)
                 {
                     EditorGUILayout.HelpBox("Direction for Slicing damagers should be set to 'Forward' or 'Forward and Backward'", MessageType.Warning);
                 }
@@ -69,14 +69,14 @@ namespace ThunderRoad
 
         private void OnEnable()
         {
-            script = damager = (DamagerDefinition)target;
+            script = damager = (Damager)target;
             depthPoint = damager.GetMaxDepthPosition(false);
             ResetPoints(damager.penetrationLength);
         }
         
         private void OnSceneGUI()
         {
-            script = damager = (DamagerDefinition)target;
+            script = damager = (Damager)target;
             UpdatePoints(ref damager.penetrationLength);
         }
     }

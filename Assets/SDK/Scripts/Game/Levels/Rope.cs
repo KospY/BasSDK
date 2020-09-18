@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ThunderRoad
 {
-    public class RopeDefinition : HandleDefinition
+    public class Rope : Handle
     {
         public Transform ropeStart;
         public Transform ropeTarget;

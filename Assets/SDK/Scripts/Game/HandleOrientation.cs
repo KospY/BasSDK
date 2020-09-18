@@ -13,7 +13,7 @@ namespace ThunderRoad
     {
         public Side side = Side.Right;
         [NonSerialized]
-        public HandleDefinition handleDefinition;
+        public Handle handle;
         protected Mesh handMesh;
 
         public virtual void OnValidate()
@@ -29,38 +29,38 @@ namespace ThunderRoad
                     }
                 }
 
-                handleDefinition = this.GetComponentInParent<HandleDefinition>();
+                handle = this.GetComponentInParent<Handle>();
                 UpdateName();
             }
         }
 
         private void Awake()
         {
-            handleDefinition = this.GetComponentInParent<HandleDefinition>();
-            if (handleDefinition == null)
+            handle = this.GetComponentInParent<Handle>();
+            if (handle == null)
             {
-                Debug.LogError("No HandleDefinition found for HandleOrientation " + this.name);
+                Debug.LogError("No Handle found for HandleOrientation " + this.name);
             }
         }
 
         public void UpdateName()
         {
-            if (handleDefinition)
+            if (handle)
             {
                 if (side == Side.Right)
                 {
-                    this.name = "OrientRight" + (handleDefinition.orientationDefaultRight == this ? "_Default" : "");
+                    this.name = "OrientRight" + (handle.orientationDefaultRight == this ? "_Default" : "");
                 }
                 else if (side == Side.Left)
                 {
-                    this.name = "OrientLeft" + (handleDefinition.orientationDefaultLeft == this ? "_Default" : "");
+                    this.name = "OrientLeft" + (handle.orientationDefaultLeft == this ? "_Default" : "");
                 }
             }
         }
 
         protected void OnDrawGizmosSelected()
         {
-            Gizmos.matrix = Matrix4x4.TRS(handleDefinition.transform.TransformPoint(this.transform.localPosition.x, this.transform.localPosition.y + handleDefinition.GetDefaultAxisLocalPosition(), this.transform.localPosition.z), this.transform.rotation, Vector3.one);
+            Gizmos.matrix = Matrix4x4.TRS(handle.transform.TransformPoint(this.transform.localPosition.x, this.transform.localPosition.y + handle.GetDefaultAxisLocalPosition(), this.transform.localPosition.z), this.transform.rotation, Vector3.one);
             float size = 35;
 
             if (side == Side.Right)
@@ -77,7 +77,7 @@ namespace ThunderRoad
             Gizmos.color = Common.HueColourValue(HueColorName.Yellow);
             Gizmos.DrawWireSphere(new Vector3(0, 0, 0), 0.002f);
 
-            Gizmos.matrix = Matrix4x4.TRS(handleDefinition.transform.TransformPoint(0, handleDefinition.GetDefaultAxisLocalPosition(), 0), this.transform.rotation, Vector3.one);
+            Gizmos.matrix = Matrix4x4.TRS(handle.transform.TransformPoint(0, handle.GetDefaultAxisLocalPosition(), 0), this.transform.rotation, Vector3.one);
             Gizmos.color = Common.HueColourValue(HueColorName.Purple);
             Gizmos.DrawWireSphere(new Vector3(0, 0, 0), 0.005f);
             Gizmos.DrawWireSphere(new Vector3(0, 0, 0), 0.001f);

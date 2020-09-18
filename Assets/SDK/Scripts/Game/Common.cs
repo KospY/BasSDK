@@ -198,7 +198,7 @@ namespace ThunderRoad
 
         public static void SetParentOrigin(this Transform transform, Transform parent)
         {
-            transform.parent = parent;
+            transform.SetParent(parent);
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
             transform.localScale = Vector3.one;

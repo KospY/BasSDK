@@ -4,15 +4,15 @@ using UnityEditor;
 
 namespace ThunderRoad
 {
-    [CustomEditor(typeof(HandleDefinition))]
+    [CustomEditor(typeof(Handle))]
     public class HandleDefInspector : PointToPoint
     {
-        HandleDefinition handle;
+        Handle handle;
 
         public override void OnInspectorGUI()
         {
-            script = handle = (HandleDefinition)target;
-            ItemDefinition item = handle.transform.GetComponentInParent<ItemDefinition>();
+            script = handle = (Handle)target;
+            Item item = handle.transform.GetComponentInParent<Item>();
 
             PointToPointButton(handle.axisLength);
 
@@ -61,12 +61,12 @@ namespace ThunderRoad
 
         private void OnEnable()
         {
-            script = handle = (HandleDefinition)target;
+            script = handle = (Handle)target;
             ResetPoints(handle.axisLength);
         }
         private void OnSceneGUI()
         {
-            script = handle = (HandleDefinition)target;
+            script = handle = (Handle)target;
             UpdatePoints(ref handle.axisLength);
         }
     }

@@ -255,8 +255,8 @@ namespace ThunderRoad
         [Serializable]
         public class EditPose
         {
-            public ItemDefinition grabItem;
-            public HandleDefinition grabHandle;
+            public Item grabItem;
+            public Handle grabHandle;
             public int handleOrientationIndex;
             public Grip useGripFrom = Grip.Current;
 
@@ -268,7 +268,7 @@ namespace ThunderRoad
             }
             [NonSerialized]
             public RagdollHand ragdollHand;
-            protected HandleDefinition previousHandle;
+            protected Handle previousHandle;
 
             public EditPose(RagdollHand ragdollHand)
             {
@@ -283,7 +283,7 @@ namespace ThunderRoad
                 
                 if (previousHandle && previousHandle != grabHandle)
                 {
-                    ItemDefinition previousItem = previousHandle.GetComponentInParent<ItemDefinition>();
+                    Item previousItem = previousHandle.GetComponentInParent<Item>();
                     if (previousItem)
                     {
                         previousItem.transform.localPosition = new Vector3(0, 100, 0);
@@ -324,13 +324,13 @@ namespace ThunderRoad
                     }
                 }
 
-                ItemDefinition objectDefinition = grabHandle.GetComponentInParent<ItemDefinition>();
+                Item item = grabHandle.GetComponentInParent<Item>();
                 Transform alignObject = grabHandle.transform.root;
-                if (objectDefinition != null) alignObject = objectDefinition.transform;
+                if (item != null) alignObject = item.transform;
 
                 Transform objectGrip = new GameObject("ObjectGrip").transform;
-                objectGrip.SetParent(objectDefinition ? objectDefinition.transform : grabHandle.transform.root);
-                objectGrip.position = handleOrientation.transform.position + (handleOrientation.handleDefinition.transform.up * handleOrientation.handleDefinition.GetDefaultAxisLocalPosition());
+                objectGrip.SetParent(item ? item.transform : grabHandle.transform.root);
+                objectGrip.position = handleOrientation.transform.position + (handleOrientation.handle.transform.up * handleOrientation.handle.GetDefaultAxisLocalPosition());
                 objectGrip.rotation = handleOrientation.transform.rotation;
 
                 alignObject.MoveAlign(objectGrip, ragdollHand.grip.position, ragdollHand.grip.rotation);

@@ -69,6 +69,10 @@ namespace ThunderRoad
 
         public override void Play()
         {
+            if (!audioContainer)
+            {
+                return;
+            }
             CancelInvoke();
             StopAllCoroutines();
 

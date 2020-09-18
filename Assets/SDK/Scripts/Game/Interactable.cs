@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using UnityEngine.AddressableAssets;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -10,7 +11,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
-    public class InteractableDefinition : MonoBehaviour
+    public class Interactable : MonoBehaviour
     {
 #if ODIN_INSPECTOR
         [ValueDropdown("GetAllInteractableID")]

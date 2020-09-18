@@ -1,4 +1,9 @@
 ﻿using UnityEngine;
+using System;
+using System.Collections.Generic;
+using System.Collections;
+
+
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -7,7 +12,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
-    public class DamagerDefinition : MonoBehaviour
+    public class Damager : MonoBehaviour
     {
         public ColliderGroup colliderGroup;
         public Collider colliderOnly;
@@ -37,11 +42,11 @@ namespace ThunderRoad
         {
             // Damage
             Gizmos.color = Color.red;
-            if (direction == Direction.Forward) ItemDefinition.DrawGizmoArrow(this.transform.position, this.transform.forward * 0.05f, this.transform.right, Color.red, 0.05f, 10);
+            if (direction == Direction.Forward) Item.DrawGizmoArrow(this.transform.position, this.transform.forward * 0.05f, this.transform.right, Color.red, 0.05f, 10);
             if (direction == Direction.ForwardAndBackward)
             {
-                ItemDefinition.DrawGizmoArrow(this.transform.position + this.transform.forward * penetrationDepth, this.transform.forward * 0.05f, this.transform.right, Color.red, 0.05f, 10);
-                ItemDefinition.DrawGizmoArrow(this.transform.position + -this.transform.forward * penetrationDepth, -this.transform.forward * 0.05f, this.transform.right, Color.red, 0.05f, 10);
+                Item.DrawGizmoArrow(this.transform.position + this.transform.forward * penetrationDepth, this.transform.forward * 0.05f, this.transform.right, Color.red, 0.05f, 10);
+                Item.DrawGizmoArrow(this.transform.position + -this.transform.forward * penetrationDepth, -this.transform.forward * 0.05f, this.transform.right, Color.red, 0.05f, 10);
             }
             // Penetration
             if (penetrationDepth > 0)
@@ -56,5 +61,6 @@ namespace ThunderRoad
                 }
             }
         }
+
     }
 }

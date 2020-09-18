@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ThunderRoad
 {
-    public class MenuDefinition : MonoBehaviour
+    public class Menu : MonoBehaviour
     {
         public Transform page1;
         public Transform page2;
@@ -18,7 +18,7 @@ namespace ThunderRoad
             }
             else
             {
-                Debug.LogError("Cannot find menu definition custom reference " + name);
+                Debug.LogError("Cannot find menu custom reference " + name);
                 return null;
             }
         }

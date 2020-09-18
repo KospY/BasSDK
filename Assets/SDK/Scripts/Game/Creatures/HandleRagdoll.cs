@@ -10,7 +10,7 @@ using EasyButtons;
 namespace ThunderRoad
 {
     [AddComponentMenu("ThunderRoad/Creatures/Handle ragdoll")]
-    public class HandleRagdoll : HandleDefinition
+    public class HandleRagdoll : Handle
     {
     }
 }

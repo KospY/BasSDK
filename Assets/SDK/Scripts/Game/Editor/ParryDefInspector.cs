@@ -4,14 +4,14 @@ using UnityEditor;
 
 namespace ThunderRoad
 {
-    [CustomEditor(typeof(ParryTargetDefinition))]
+    [CustomEditor(typeof(ParryTarget))]
     public class ParryDefInspector : PointToPoint
     {
-        ParryTargetDefinition parry;
+        ParryTarget parry;
 
         public override void OnInspectorGUI()
         {
-            script = parry = (ParryTargetDefinition)target;
+            script = parry = (ParryTarget)target;
 
             PointToPointButton(parry.GetLineStart(), parry.GetLineEnd());
 
@@ -26,12 +26,12 @@ namespace ThunderRoad
 
         private void OnEnable()
         {
-            script = parry = (ParryTargetDefinition)target;
+            script = parry = (ParryTarget)target;
             ResetPoints(parry.GetLineStart(), parry.GetLineEnd());
         }
         private void OnSceneGUI()
         {
-            script = parry = (ParryTargetDefinition)target;
+            script = parry = (ParryTarget)target;
             UpdatePoints(ref parry.length, true);
         }
     }

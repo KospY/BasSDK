@@ -1,5 +1,5 @@
 ﻿using UnityEditor;
- 
+
 public class DisableModelMaterialImport : AssetPostprocessor
 {
     public void OnPreprocessModel()

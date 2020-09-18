@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using System.Collections;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #endif
@@ -21,9 +22,15 @@ namespace ThunderRoad
 #endif
         public bool disabled;
 
-        public virtual void Refresh()
+        public virtual IEnumerator Refresh(EffectData effectData)
         {
+            yield return new WaitForEndOfFrame();
+        }
 
+        [Button]
+        public virtual void Clean()
+        {
+         
         }
 
 #if ODIN_INSPECTOR

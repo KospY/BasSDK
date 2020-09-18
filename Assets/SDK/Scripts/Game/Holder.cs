@@ -14,10 +14,10 @@ namespace ThunderRoad
 {
     [AddComponentMenu("ThunderRoad/Holder")]
     [RequireComponent(typeof(Rigidbody))]
-    public class HolderDefinition : InteractableDefinition
+    public class Holder : Interactable
     {
         public List<Transform> slots = new List<Transform>();
-        public List<ItemDefinition> startObjects = new List<ItemDefinition>();
+        public List<Item> startObjects = new List<Item>();
         public List<Collider> ignoredColliders = new List<Collider>();
 
 
@@ -30,7 +30,7 @@ namespace ThunderRoad
         [Button("Align start object")]
         public void AlignObject()
         {
-            foreach (ItemDefinition startObject in startObjects)
+            foreach (Item startObject in startObjects)
             {
                 if (slots.ElementAtOrDefault(startObjects.IndexOf(startObject)) != null) startObject.transform.MoveAlign(startObject.holderPoint ? startObject.holderPoint : startObject.transform, slots[startObjects.IndexOf(startObject)].transform);
                 else Debug.LogError("Slot " + startObjects.IndexOf(startObject) + " do not exist!!");

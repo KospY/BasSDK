@@ -14,14 +14,14 @@ namespace ThunderRoad
 {
     [AddComponentMenu("ThunderRoad/Items/Item")]
     [RequireComponent(typeof(Rigidbody))]
-    public class ItemDefinition : MonoBehaviour
+    public class Item : MonoBehaviour
     {
         public string itemId;
         public bool loadOnStart;
         public Transform holderPoint;
         public Transform parryPoint;
-        public HandleDefinition mainHandleRight;
-        public HandleDefinition mainHandleLeft;
+        public Handle mainHandleRight;
+        public Handle mainHandleLeft;
         public Transform flyDirRef;
         public Preview preview;
         public bool useCustomCenterOfMass;
@@ -53,8 +53,8 @@ namespace ThunderRoad
             public string damagerId;
             public Vector2 position;
             public float directionAngle;
-            public DamagerDefinition.Direction direction;
-            public IconMarker(string damagerId, Vector2 position, DamagerDefinition.Direction direction, float directionAngle)
+            public Damager.Direction direction;
+            public IconMarker(string damagerId, Vector2 position, Damager.Direction direction, float directionAngle)
             {
                 this.damagerId = damagerId;
                 this.position = position;
@@ -90,7 +90,7 @@ namespace ThunderRoad
             }
             else
             {
-                Debug.LogError("[" + itemId + "] Cannot find item definition custom reference " + name);
+                Debug.LogError("[" + itemId + "] Cannot find item custom reference " + name);
                 return null;
             }
         }
@@ -125,29 +125,29 @@ namespace ThunderRoad
 
             if (!mainHandleRight)
             {
-                foreach (HandleDefinition handleDefinition in this.GetComponentsInChildren<HandleDefinition>())
+                foreach (Handle handle in this.GetComponentsInChildren<Handle>())
                 {
-                    if (handleDefinition.IsAllowed(Side.Right))
+                    if (handle.IsAllowed(Side.Right))
                     {
-                        mainHandleRight = handleDefinition;
+                        mainHandleRight = handle;
                         break;
                     }
                 }
             }
             if (!mainHandleLeft)
             {
-                foreach (HandleDefinition handleDefinition in this.GetComponentsInChildren<HandleDefinition>())
+                foreach (Handle handle in this.GetComponentsInChildren<Handle>())
                 {
-                    if (handleDefinition.IsAllowed(Side.Left))
+                    if (handle.IsAllowed(Side.Left))
                     {
-                        mainHandleLeft = handleDefinition;
+                        mainHandleLeft = handle;
                         break;
                     }
                 }
             }
             if (!mainHandleRight)
             {
-                mainHandleRight = this.GetComponentInChildren<HandleDefinition>();
+                mainHandleRight = this.GetComponentInChildren<Handle>();
             }
             if (useCustomCenterOfMass)
             {
