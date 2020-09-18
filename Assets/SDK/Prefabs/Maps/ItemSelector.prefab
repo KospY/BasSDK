@@ -25,12 +25,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1254146005}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.0000001395744, y: 0.7071069, z: -0.70710677, w: -0.0000001192093}
+  m_LocalPosition: {x: 0.0007499988, y: -0.00066667167, z: 0.029583327}
+  m_LocalScale: {x: 0.83333313, y: 0.83333325, z: 0.83333325}
   m_Children: []
-  m_Father: {fileID: 4767630656671091938}
-  m_RootOrder: 2
+  m_Father: {fileID: 4767630655195829536}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &1254146007
 SphereCollider:
@@ -66,13 +66,7 @@ MonoBehaviour:
   despawnDelay: 0
   spawnEffect: 0
   effectID: 
-  effectMassCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  effectVelocityCurve:
+  effectMassVelocityCurve:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
@@ -275,6 +269,7 @@ Transform:
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_Children:
   - {fileID: 4767630654885368814}
+  - {fileID: 1254146006}
   m_Father: {fileID: 4767630656671091938}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 45.000004}
@@ -291,6 +286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 4767630654885368814}
+  menuAddress: Bas.WorldMenu.ItemSelector
 --- !u!1 &4767630656671091939
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,7 +316,6 @@ Transform:
   m_Children:
   - {fileID: 4767630655195829536}
   - {fileID: 3228855234860285562}
-  - {fileID: 1254146006}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 135, z: 0}
