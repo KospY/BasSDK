@@ -56,7 +56,7 @@ namespace ThunderRoad
 
         [Header("Ground detection")]
         public LayerMask groundLayer = 1 << 0;
-        public GroundDetection raycastGroundDetection = GroundDetection.Raycast;
+        public static GroundDetection groundDetection = GroundDetection.Collision;
         public float groundRaycastOffset = 0.001f;
         public float groundMaxAngle = 45f;
 

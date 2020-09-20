@@ -38,6 +38,9 @@ namespace ThunderRoad
         public float fallRotationSpringForce = 50.0f;
         public float fallRotationDamperForce = 0.0f;
         public float groundRotationSpringForce = 20.0f;
+        public float fallCheckCycleSpeed = 1;
+        public float fallHeight = 3;
+        public float fallOnGroundMaxVelocity = 1;
 
         [Header("Destabilized")]
         public float destabilizedSpringRotationMultiplier = 0.5f;

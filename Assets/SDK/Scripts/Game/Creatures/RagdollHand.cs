@@ -280,7 +280,7 @@ namespace ThunderRoad
             {
                 if (grabItem) grabHandle = ragdollHand.side == Side.Right ? grabItem.mainHandleRight : grabItem.mainHandleLeft;
                 if (!grabHandle) return;
-                
+
                 if (previousHandle && previousHandle != grabHandle)
                 {
                     Item previousItem = previousHandle.GetComponentInParent<Item>();
@@ -300,7 +300,7 @@ namespace ThunderRoad
                 {
                     ragdollHand.SetGripFromOpenPose();
                 }
-                else if(useGripFrom == Grip.ClosePose)
+                else if (useGripFrom == Grip.ClosePose)
                 {
                     ragdollHand.SetGripFromClosePose();
                 }

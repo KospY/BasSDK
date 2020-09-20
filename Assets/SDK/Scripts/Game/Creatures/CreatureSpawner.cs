@@ -19,6 +19,7 @@ namespace ThunderRoad
         public float rowSpace = 1;
         public float delayBetweenSpawn = 0.5f;
         public bool spawnOnStart = true;
+        public Transform[] points;
 
     }
 }
