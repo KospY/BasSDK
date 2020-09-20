@@ -58,7 +58,9 @@ namespace ThunderRoad
         {
             Game,
             Project,
+#if PrivateSDK
             Android,
+#endif
         }
 
         public enum Action
@@ -202,19 +204,6 @@ namespace ThunderRoad
                 }
             }
 
-            if (exportTo == ExportTo.Android && EditorUserBuildSettings.activeBuildTarget != BuildTarget.Android)
-            {
-                GUIStyle style = new GUIStyle(EditorStyles.label);
-                style.normal.textColor = Color.red;
-                GUILayout.Label(new GUIContent("Current plateform is not Android, please switch to Android in the build settings"), style);
-            }
-            else if (exportTo == ExportTo.Game && EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android)
-            {
-                GUIStyle style = new GUIStyle(EditorStyles.label);
-                style.normal.textColor = Color.red;
-                GUILayout.Label(new GUIContent("Current plateform is not Windows, please switch to Windows in the build settings"), style);
-            }
-
             if (exportTo == ExportTo.Game)
             {
                 GUILayout.BeginHorizontal();
@@ -243,17 +232,6 @@ namespace ThunderRoad
         static void Build(Action behaviour)
         {
             // Check error
-            if (exportTo == ExportTo.Android && EditorUserBuildSettings.activeBuildTarget != BuildTarget.Android)
-            {
-                Debug.LogError("Cannot deploy to android device as the plateform selected is not android");
-                return;
-            }
-            else if (exportTo == ExportTo.Game && EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android)
-            {
-                Debug.LogError("Cannot deploy to Windows as the plateform selected is Android");
-                return;
-            }
-
             if (exportTo == ExportTo.Project && !Directory.Exists(Path.Combine(projectPath, "Assets/StreamingAssets")))
             {
                 Debug.LogError("Cannot deploy to project dir as the folder doesn't seem to be an Unity project");
@@ -278,9 +256,11 @@ namespace ThunderRoad
             }
             if (exportTo == ExportTo.Android)
             {
-                if (!EditorPrefs.HasKey("AndroidSdkRoot") || !File.Exists(Path.Combine(EditorPrefs.GetString("AndroidSdkRoot"), "platform - tools") + "adb.exe"))
+                string adbPath = Path.Combine(EditorPrefs.GetString("AndroidSdkRoot"), "platform-tools", "adb.exe");
+                if (!EditorPrefs.HasKey("AndroidSdkRoot") || !File.Exists(adbPath))
                 {
                     Debug.LogError("Android SDK is not installed!");
+                    Debug.LogError("Path not found " + adbPath);
                     return;
                 }
             }
@@ -374,14 +354,16 @@ namespace ThunderRoad
 
                 if (exportTo == ExportTo.Android)
                 {
+                    string buildFullPath = Path.Combine(Directory.GetCurrentDirectory(), "BuildStaging", "AddressableAssets", "Android");
+                    string adbPath = Path.Combine(EditorPrefs.GetString("AndroidSdkRoot"), "platform-tools", "adb.exe");
                     System.Diagnostics.Process process = new System.Diagnostics.Process();
-                    process.StartInfo.FileName = Path.Combine(EditorPrefs.GetString("AndroidSdkRoot"), "platform - tools") + "/adb.exe";
+                    process.StartInfo.FileName = adbPath;
                     string destinationPath = "/sdcard/Android/data/com.Warpfrog." + gameName + "/files/mods/" + exportFolderName;
-                    process.StartInfo.Arguments = "push " + BuildPath + "/. " + destinationPath;
+                    process.StartInfo.Arguments = "push " + buildFullPath + "/. " + destinationPath;
                     // for default: obb : /sdcard/Android/obb/" + PlayerSettings.applicationIdentifier + "/main.1.com.Warpfrog.BladeAndSorcery.obb");
                     process.Start();
                     process.WaitForExit();
-                    Debug.Log("Pushed files to " + destinationPath);
+                    Debug.Log(adbPath + " " + process.StartInfo.Arguments);
                 }
                 Debug.Log("Export done");
             }
