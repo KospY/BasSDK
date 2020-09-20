@@ -20,7 +20,7 @@ namespace ThunderRoad
             {
                 string buildtarget = "Windows";
                 if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android) buildtarget = "Android";
-                return (Path.Combine("BuildStaging", "AddressableAssets", exportFolderName, buildtarget));
+                return (Path.Combine("BuildStaging", "AddressableAssets", buildtarget, exportFolderName));
             }
         }
 
@@ -286,7 +286,10 @@ namespace ThunderRoad
                         bundledAssetGroupSchema.BundleNaming = BundledAssetGroupSchema.BundleNamingStyle.NoHash;
                         bundledAssetGroupSchema.BundleNaming = BundledAssetGroupSchema.BundleNamingStyle.NoHash;
                         AddressableAssetSettingsDefaultObject.Settings.profileSettings.SetValue(group.Settings.activeProfileId, "LocalBuildPath", "[ThunderRoad.ModBuilder.BuildPath]");
-                        AddressableAssetSettingsDefaultObject.Settings.profileSettings.SetValue(group.Settings.activeProfileId, "LocalLoadPath", (toDefault ? "{ThunderRoad.Catalog.DefaultPath}/" : "{ThunderRoad.Catalog.ModPath}/") + exportFolderName);
+                        AddressableAssetSettingsDefaultObject.Settings.profileSettings.SetValue(group.Settings.activeProfileId, "LocalLoadPath", (toDefault ? "{ThunderRoad.FileManager.aaDefaultPath}/" : "{ThunderRoad.FileManager.aaModPath}/") + exportFolderName);
+                        /* TODO: OBB support (zip file uncompressed and adb push to obb folder)
+                            AddressableAssetSettingsDefaultObject.Settings.profileSettings.SetValue(group.Settings.activeProfileId, "LocalLoadPath", "{ThunderRoad.FileManager.obbPath}/" + exportFolderName + "{ThunderRoad.FileManager.obbPathEnd}");
+                        */
                     }
                 }
             }
@@ -298,11 +301,19 @@ namespace ThunderRoad
             {
                 Debug.Log("Build path is: " + BuildPath);
                 if (OnBuildEvent != null) OnBuildEvent.Invoke(EventTime.OnStart);
+
+                // Clean build path
+                if (Directory.Exists(BuildPath))
+                {
+                    foreach (string filePath in Directory.GetFiles(BuildPath, "*.*", SearchOption.AllDirectories)) File.Delete(filePath);
+                }
+
                 BuildCache.PurgeCache(true);
                 AddressableAssetSettings.CleanPlayerContent();
                 AddressableAssetSettings.CleanPlayerContent(AddressableAssetSettingsDefaultObject.Settings.ActivePlayerDataBuilder);
                 AddressableAssetSettings.BuildPlayerContent();
                 Debug.Log("Build done");
+
                 if (OnBuildEvent != null) OnBuildEvent.Invoke(EventTime.OnEnd);
             }
 
@@ -340,8 +351,8 @@ namespace ThunderRoad
                     Debug.Log("Copied addressable asset folder " + buildFullPath + " to " + destinationAssetsPath);
 
                     // Copy json catalog to destination path
-                    CopyDirectory(catalogFullPath, destinationCatalogPath);
-                    Debug.Log("Copied catalog folder " + catalogFullPath + " to " + destinationCatalogPath);
+                    //CopyDirectory(catalogFullPath, destinationCatalogPath);
+                    //Debug.Log("Copied catalog folder " + catalogFullPath + " to " + destinationCatalogPath);
                 }
 
                 if ((exportTo == ExportTo.Game || exportTo == ExportTo.Android) && runGameAfterBuild)
