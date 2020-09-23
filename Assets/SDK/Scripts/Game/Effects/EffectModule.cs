@@ -33,6 +33,11 @@ namespace ThunderRoad
          
         }
 
+        public virtual bool IsEnabled()
+        {
+            return !disabled;
+        }
+
 #if ODIN_INSPECTOR
 
         public virtual Effect Spawn(EffectData effectData, bool pooled)
