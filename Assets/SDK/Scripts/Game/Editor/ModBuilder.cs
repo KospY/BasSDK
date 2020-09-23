@@ -14,7 +14,7 @@ namespace ThunderRoad
 {
     public class ModBuilder : EditorWindow
     {
-        public static string BuildPath
+        public static string buildPath
         {
             get
             {
@@ -24,7 +24,7 @@ namespace ThunderRoad
             }
         }
 
-        public static string CatalogPath
+        public static string catalogPath
         {
             get
             {
@@ -78,14 +78,14 @@ namespace ThunderRoad
 
         private void OnFocus()
         {
-            projectPath = EditorPrefs.GetString("TR.ProjectPath");
-            gamePath = EditorPrefs.GetString("TR.GamePath");
-            exportFolderName = EditorPrefs.HasKey("TR.ExportFolderName") ? EditorPrefs.GetString("TR.ExportFolderName") : "MyMod";
-            exportTo = (ExportTo)EditorPrefs.GetInt("TR.ExportTo");
-            toDefault = EditorPrefs.GetBool("TR.ToDefault");
-            runGameAfterBuild = EditorPrefs.GetBool("TR.RunGameAfterBuild");
-            gameName = (SupportedGame)EditorPrefs.GetInt("TR.GameName");
-            action = (Action)EditorPrefs.GetInt("TR.Action");
+            projectPath = EditorPrefs.GetString("TRMB.ProjectPath");
+            gamePath = EditorPrefs.GetString("TRMB.GamePath");
+            exportFolderName = EditorPrefs.HasKey("TRMB.ExportFolderName") ? EditorPrefs.GetString("TRMB.ExportFolderName") : "MyMod";
+            exportTo = (ExportTo)EditorPrefs.GetInt("TRMB.ExportTo");
+            toDefault = EditorPrefs.GetBool("TRMB.ToDefault");
+            runGameAfterBuild = EditorPrefs.GetBool("TRMB.RunGameAfterBuild");
+            gameName = (SupportedGame)EditorPrefs.GetInt("TRMB.GameName");
+            action = (Action)EditorPrefs.GetInt("TRMB.Action");
         }
 
         private void OnGUI()
@@ -147,14 +147,14 @@ namespace ThunderRoad
             string newModeName = GUILayout.TextField(exportFolderName, 25);
             if (newModeName != exportFolderName)
             {
-                EditorPrefs.SetString("TR.ExportFolderName", newModeName);
+                EditorPrefs.SetString("TRMB.ExportFolderName", newModeName);
                 exportFolderName = newModeName;
             }
 
             Action newAction = (Action)EditorGUILayout.EnumPopup("", action, GUILayout.Width(150));
             if (newAction != action)
             {
-                EditorPrefs.SetInt("TR.Action", (int)newAction);
+                EditorPrefs.SetInt("TRMB.Action", (int)newAction);
                 action = newAction;
             }
 
@@ -162,7 +162,7 @@ namespace ThunderRoad
             bool newToDefault = GUILayout.Toggle(toDefault, new GUIContent("Default", "Export files and set catalog bundle paths to default folder (Warpfrog devs only!)"), GUILayout.Width(80));
             if (newToDefault != toDefault)
             {
-                EditorPrefs.SetBool("TR.ToDefault", newToDefault);
+                EditorPrefs.SetBool("TRMB.ToDefault", newToDefault);
                 toDefault = newToDefault;
             }
 #endif
@@ -176,7 +176,7 @@ namespace ThunderRoad
             ExportTo newExportTo = (ExportTo)EditorGUILayout.EnumPopup("Export to", exportTo);
             if (newExportTo != exportTo)
             {
-                EditorPrefs.SetInt("TR.ExportTo", (int)newExportTo);
+                EditorPrefs.SetInt("TRMB.ExportTo", (int)newExportTo);
                 exportTo = newExportTo;
             }
 
@@ -184,7 +184,7 @@ namespace ThunderRoad
             bool newRunGameAfterBuild = GUILayout.Toggle(runGameAfterBuild, "Run game after build", GUILayout.Width(150));
             if (newRunGameAfterBuild != runGameAfterBuild)
             {
-                EditorPrefs.SetBool("TR.RunGameAfterBuild", newRunGameAfterBuild);
+                EditorPrefs.SetBool("TRMB.RunGameAfterBuild", newRunGameAfterBuild);
                 runGameAfterBuild = newRunGameAfterBuild;
             }
             EditorGUI.EndDisabledGroup();
@@ -199,7 +199,7 @@ namespace ThunderRoad
                 SupportedGame newGameName = (SupportedGame)EditorGUILayout.EnumPopup("Game name", gameName);
                 if (newGameName != gameName)
                 {
-                    EditorPrefs.SetInt("TR.GameName", (int)newGameName);
+                    EditorPrefs.SetInt("TRMB.GameName", (int)newGameName);
                     gameName = newGameName;
                 }
             }
@@ -211,7 +211,7 @@ namespace ThunderRoad
                 if (GUILayout.Button(gamePath, new GUIStyle("textField")))
                 {
                     gamePath = EditorUtility.OpenFolderPanel("Select game folder", "", "");
-                    EditorPrefs.SetString("TR.GamePath", gamePath);
+                    EditorPrefs.SetString("TRMB.GamePath", gamePath);
                 }
                 GUILayout.EndHorizontal();
             }
@@ -223,7 +223,7 @@ namespace ThunderRoad
                 if (GUILayout.Button(projectPath, new GUIStyle("textField")))
                 {
                     projectPath = EditorUtility.OpenFolderPanel("Select project folder", "", "");
-                    EditorPrefs.SetString("TR.ProjectPath", projectPath);
+                    EditorPrefs.SetString("TRMB.ProjectPath", projectPath);
                 }
                 GUILayout.EndHorizontal();
             }
@@ -299,13 +299,13 @@ namespace ThunderRoad
             // Build
             if (behaviour == Action.BuildAndExport || behaviour == Action.BuildOnly)
             {
-                Debug.Log("Build path is: " + BuildPath);
+                Debug.Log("Build path is: " + buildPath);
                 if (OnBuildEvent != null) OnBuildEvent.Invoke(EventTime.OnStart);
 
                 // Clean build path
-                if (Directory.Exists(BuildPath))
+                if (Directory.Exists(buildPath))
                 {
-                    foreach (string filePath in Directory.GetFiles(BuildPath, "*.*", SearchOption.AllDirectories)) File.Delete(filePath);
+                    foreach (string filePath in Directory.GetFiles(buildPath, "*.*", SearchOption.AllDirectories)) File.Delete(filePath);
                 }
 
                 BuildCache.PurgeCache(true);
@@ -323,14 +323,14 @@ namespace ThunderRoad
                 if (exportTo == ExportTo.Game || exportTo == ExportTo.Project)
                 {
                     // Get paths
-                    string buildFullPath = Path.Combine(Directory.GetCurrentDirectory(), BuildPath);
-                    string catalogFullPath = Path.Combine(Directory.GetCurrentDirectory(), CatalogPath);
+                    string buildFullPath = Path.Combine(Directory.GetCurrentDirectory(), buildPath);
+                    string catalogFullPath = Path.Combine(Directory.GetCurrentDirectory(), catalogPath);
                     string destinationAssetsPath = "";
                     string destinationCatalogPath = "";
                     if (exportTo == ExportTo.Project)
                     {
-                        destinationAssetsPath = Path.Combine(projectPath, BuildPath);
-                        destinationCatalogPath = Path.Combine(projectPath, CatalogPath);
+                        destinationAssetsPath = Path.Combine(projectPath, buildPath);
+                        destinationCatalogPath = Path.Combine(projectPath, catalogPath);
                     }
                     else if (exportTo == ExportTo.Game)
                     {
@@ -366,20 +366,24 @@ namespace ThunderRoad
                 if (exportTo == ExportTo.Android)
                 {
                     string buildFullPath = Path.Combine(Directory.GetCurrentDirectory(), "BuildStaging", "AddressableAssets", "Android");
-                    string adbPath = Path.Combine(EditorPrefs.GetString("AndroidSdkRoot"), "platform-tools", "adb.exe");
                     System.Diagnostics.Process process = new System.Diagnostics.Process();
-                    process.StartInfo.FileName = adbPath;
+                    process.StartInfo.FileName = GetAdbPath();
                     string destinationPath = "/sdcard/Android/data/com.Warpfrog." + gameName + "/files/mods/" + exportFolderName;
                     process.StartInfo.Arguments = "push " + buildFullPath + "/. " + destinationPath;
                     // for default: obb : /sdcard/Android/obb/" + PlayerSettings.applicationIdentifier + "/main.1.com.Warpfrog.BladeAndSorcery.obb");
                     process.Start();
                     process.WaitForExit();
-                    Debug.Log(adbPath + " " + process.StartInfo.Arguments);
+                    Debug.Log(GetAdbPath() + " " + process.StartInfo.Arguments);
                 }
                 Debug.Log("Export done");
             }
             // The end
             System.Media.SystemSounds.Asterisk.Play();
+        }
+
+        public static string GetAdbPath()
+        {
+            return Path.Combine(EditorPrefs.GetString("AndroidSdkRoot"), "platform-tools", "adb.exe");
         }
 
         private static void CopyDirectory(string strSource, string strDestination, string searchPattern = "*.*")
