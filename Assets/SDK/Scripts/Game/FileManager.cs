@@ -12,6 +12,17 @@ namespace ThunderRoad
         public static string modFolderName = "Mods";
         public static bool useObb = false;
 
+        public class ReadFile
+        {
+            public string text;
+            public string path;
+            public ReadFile(string text, string path)
+            {
+                this.text = text;
+                this.path = path;
+            }
+        }
+
         public enum Source
         {
             Default,
@@ -53,22 +64,6 @@ namespace ThunderRoad
             return Directory.GetFiles(obbPath, "*.obb", SearchOption.TopDirectoryOnly);
         }
 
-        public static List<string> GetValidModJsons(string searchPattern = "*.*")
-        {
-            List<string> validJsons = new List<string>();
-            string[] modFolders = GetFolderNames(Type.JSONCatalog, Source.Mods);
-            foreach (string modFolder in modFolders)
-            {
-                if (modFolder.StartsWith("_") || (!FileExist(Type.JSONCatalog, Source.Mods, modFolder + "/manifest.json") && !Catalog.forceLoadMods.Contains(modFolder.ToLower()))) continue;
-                string[] files = FileManager.GetFilePaths(Type.JSONCatalog, Source.Mods, modFolder, searchPattern);
-                foreach (string modJson in files)
-                {
-                    validJsons.Add(modJson);
-                }
-            }
-            return validJsons;
-        }
-
         public static string GetFullPath(Type type, Source source, string relativePath = "")
         {
             if (Application.isEditor)
@@ -77,6 +72,12 @@ namespace ThunderRoad
                 {
                     if (type == Type.AddressableAssets)
                     {
+#if UNITY_EDITOR
+                        if (UnityEditor.EditorUserBuildSettings.activeBuildTarget == UnityEditor.BuildTarget.Android)
+                        {
+                            return Path.Combine(Application.dataPath.Replace("/Assets", ""), "BuildStaging/AddressableAssets/Android", relativePath);
+                        }
+#endif
                         return Path.Combine(Application.dataPath.Replace("/Assets", ""), "BuildStaging/AddressableAssets/Windows", relativePath);
                     }
                     else if (type == Type.JSONCatalog)
@@ -86,11 +87,22 @@ namespace ThunderRoad
                     }
                 }
             }
+            else if (Application.platform == RuntimePlatform.Android)
+            {
+                if (source == Source.Default)
+                {
+                    return Path.Combine(Application.streamingAssetsPath, defaultFolderName, relativePath);
+                }
+                else if (source == Source.Mods)
+                {
+                    return Path.Combine(Application.persistentDataPath, modFolderName, relativePath);
+                }
+            }
             else
             {
                 if (source == Source.Default)
                 {
-                    return Path.Combine(Application.persistentDataPath, defaultFolderName, relativePath);
+                    return Path.Combine(Application.streamingAssetsPath, defaultFolderName, relativePath);
                 }
                 else if (source == Source.Mods)
                 {
@@ -114,21 +126,56 @@ namespace ThunderRoad
             }
         }
 
-        public static string[] GetFullFolderPaths(Type type, Source source, string localPath = "")
+        public static List<string> GetValidModJsons(string searchPattern = "*.*")
         {
-            if (Application.platform == RuntimePlatform.Android && source == Source.Default)
+            List<string> validJsons = new List<string>();
+            string[] modFolders = GetFolderNames(Type.JSONCatalog, Source.Mods);
+            foreach (string modFolder in modFolders)
             {
-                Debug.LogError("Listing folders in APK/OBB is not supported!");
-                return null;
+                if (modFolder.StartsWith("_") || (!FileExist(Type.JSONCatalog, Source.Mods, modFolder + "/manifest.json") && !Catalog.forceLoadMods.Contains(modFolder.ToLower()))) continue;
+                string[] files = GetFilePaths(Type.JSONCatalog, Source.Mods, modFolder, searchPattern);
+                foreach (string modJson in files)
+                {
+                    validJsons.Add(modJson);
+                }
+            }
+            return validJsons;
+        }
+
+
+        public static ReadFile[] ReadFiles(Type type, Source source, string localPath = "", string searchPattern = "*.*")
+        {
+            string folderPath = GetFullPath(type, source, localPath);
+
+            if (folderPath.StartsWith("jar:"))
+            {
+                // Looking into a jar file
+                if (source == Source.Mods)
+                {
+                    Debug.LogError("Listing jar files outside of default folders is not supported!");
+                    return null;
+                }
+                if (BetterStreamingAssets.Root == null) BetterStreamingAssets.Initialize();
+                string typeSourceLocalPath = Path.Combine(defaultFolderName, localPath);
+                List<ReadFile> readFiles = new List<ReadFile>();
+                foreach (string path in BetterStreamingAssets.GetFiles(typeSourceLocalPath, searchPattern, SearchOption.AllDirectories))
+                {
+                    readFiles.Add(new ReadFile(BetterStreamingAssets.ReadAllText(path), path));
+                }
+                return readFiles.ToArray();
             }
             else
             {
-                string fullPath = GetFullPath(type, source, localPath);
-                return Directory.GetDirectories(fullPath);
+                List<ReadFile> readFiles = new List<ReadFile>();
+                foreach (string filePath in Directory.GetFiles(folderPath, searchPattern, SearchOption.AllDirectories))
+                {
+                    readFiles.Add(new ReadFile(File.ReadAllText(filePath), filePath));
+                }
+                return readFiles.ToArray();
             }
         }
 
-        public static string[] GetFilePaths(Type type, Source source, string localPath = null, string searchPattern = "*.*")
+        public static string[] GetFilePaths(Type type, Source source, string localPath = "", string searchPattern = "*.*")
         {
             if (Application.platform == RuntimePlatform.Android && source == Source.Default)
             {
@@ -137,7 +184,8 @@ namespace ThunderRoad
                 List<string> filePaths = new List<string>();
                 foreach (string path in BetterStreamingAssets.GetFiles(typeSourceLocalPath, searchPattern, SearchOption.AllDirectories))
                 {
-                    filePaths.Add(path);
+                    string relativePath = path.Substring(path.IndexOf('/') + 1);
+                    filePaths.Add(relativePath);
                 }
                 return filePaths.ToArray();
             }
