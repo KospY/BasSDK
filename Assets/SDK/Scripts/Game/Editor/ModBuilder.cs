@@ -192,7 +192,7 @@ namespace ThunderRoad
             GUILayout.EndHorizontal();
 
             GUILayout.Space(5);
-
+#if PrivateSDK
             if (exportTo == ExportTo.Android)
             {
                 GUILayout.Space(5);
@@ -203,7 +203,7 @@ namespace ThunderRoad
                     gameName = newGameName;
                 }
             }
-
+#endif
             if (exportTo == ExportTo.Game)
             {
                 GUILayout.BeginHorizontal();
@@ -254,6 +254,7 @@ namespace ThunderRoad
                     return;
                 }
             }
+#if PrivateSDK
             if (exportTo == ExportTo.Android)
             {
                 string adbPath = Path.Combine(EditorPrefs.GetString("AndroidSdkRoot"), "platform-tools", "adb.exe");
@@ -264,7 +265,7 @@ namespace ThunderRoad
                     return;
                 }
             }
-
+#endif
             // Configure stereo rendering
             if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android)
             {
@@ -355,14 +356,14 @@ namespace ThunderRoad
                     //Debug.Log("Copied catalog folder " + catalogFullPath + " to " + destinationCatalogPath);
                 }
 
-                if ((exportTo == ExportTo.Game || exportTo == ExportTo.Android) && runGameAfterBuild)
+                if ((exportTo == ExportTo.Game) && runGameAfterBuild)
                 {
                     System.Diagnostics.Process process = new System.Diagnostics.Process();
                     process.StartInfo.FileName = Path.Combine(gamePath, gameName + ".exe");
                     process.Start();
                     Debug.Log("Start game: " + process.StartInfo.FileName + " " + process.StartInfo.Arguments);
                 }
-
+#if PrivateSDK
                 if (exportTo == ExportTo.Android)
                 {
                     string buildFullPath = Path.Combine(Directory.GetCurrentDirectory(), "BuildStaging", "AddressableAssets", "Android");
@@ -374,7 +375,17 @@ namespace ThunderRoad
                     process.Start();
                     process.WaitForExit();
                     Debug.Log(GetAdbPath() + " " + process.StartInfo.Arguments);
+
+                    if (runGameAfterBuild)
+                    {
+                        process = new System.Diagnostics.Process();
+                        process.StartInfo.FileName = GetAdbPath();
+                        process.StartInfo.Arguments = "shell am start -n " + PlayerSettings.applicationIdentifier + "/com.unity3d.player.UnityPlayerActivity";
+                        process.Start();
+                        Debug.Log("Start game: " + process.StartInfo.FileName + " " + process.StartInfo.Arguments);
+                    }
                 }
+#endif
                 Debug.Log("Export done");
             }
             // The end
