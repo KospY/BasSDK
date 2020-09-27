@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.XR;
-using UnityEngine.Rendering.LWRP;
 using UnityEngine.Rendering;
 
 namespace ThunderRoad

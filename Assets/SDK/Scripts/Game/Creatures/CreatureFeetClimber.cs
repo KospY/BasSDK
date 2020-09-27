@@ -20,8 +20,6 @@ namespace ThunderRoad
         public float sweepMaxHorizontalAngle = 30;
 
         public float sphereCastRadius = 0.05f;
-        public float sweepDistance = 1;
-
         public float moveOutWeight = 0.2f;
 
         public float legLenghtMultiplier = 1.3f;
