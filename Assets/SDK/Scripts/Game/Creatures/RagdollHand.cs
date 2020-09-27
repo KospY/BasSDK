@@ -97,6 +97,11 @@ namespace ThunderRoad
             GameObject otherFingers = Instantiate(palmCollider.gameObject, otherHand.transform);
             otherFingers.name = palmCollider.name;
             otherFingers.transform.MirrorChilds(new Vector3(1, -1, 1));
+            // Dirty fix to avoid negative scale
+            foreach (Transform transform in otherFingers.GetComponentsInChildren<Transform>())
+            {
+                transform.localScale = Vector3.one;
+            }
             otherHand.SetupFingers();
         }
 
