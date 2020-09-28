@@ -77,5 +77,20 @@ namespace ThunderRoad
             }
         }
 
+        protected virtual void Awake()
+        {
+            rb = this.GetComponent<Rigidbody>();
+            foreach (RagdollPart part in ignoredParts)
+            {
+                foreach (Collider thisCollider in this.GetComponentsInChildren<Collider>(true))
+                {
+                    foreach (Collider ignoredCollider in part.GetComponentsInChildren<Collider>(true))
+                    {
+                        Physics.IgnoreCollision(thisCollider, ignoredCollider, true);
+                    }
+                }
+            }
+        }
+
     }
 }

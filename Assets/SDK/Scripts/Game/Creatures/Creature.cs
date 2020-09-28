@@ -56,6 +56,54 @@ namespace ThunderRoad
         [NonSerialized]
         public RagdollFoot footRight;
 
+#if PrivateSDK
+        protected virtual void Awake()
+        {
+            locomotion = this.GetComponentInChildren<Locomotion>();
+            Rigidbody locomotionRb = locomotion.GetComponent<Rigidbody>();
+            locomotionRb.isKinematic = true;
+            this.gameObject.AddComponent<RagdollTester>();
+            foreach (SkinnedMeshRenderer smr in this.GetComponentsInChildren<SkinnedMeshRenderer>())
+            {
+                smr.updateWhenOffscreen = true;
+            }
+        }
+#else
+        protected virtual void Awake()
+        {
+            locomotion = this.GetComponentInChildren<Locomotion>();
+            Rigidbody locomotionRb = locomotion.GetComponent<Rigidbody>();
+            locomotionRb.isKinematic = true;
+
+            ragdoll = this.GetComponentInChildren<Ragdoll>();
+
+            foreach (RagdollPart ragdollPart in this.GetComponentsInChildren<RagdollPart>())
+            {
+                Rigidbody ragdollPartRb = ragdollPart.GetComponent<Rigidbody>();
+                ragdollPartRb.isKinematic = true;
+                ragdollPart.transform.SetParent(ragdollPart.meshBone);
+                ragdollPart.SetPositionToBone();
+            }
+            foreach (SkinnedMeshRenderer smr in this.GetComponentsInChildren<SkinnedMeshRenderer>())
+            {
+                smr.updateWhenOffscreen = true;
+            }
+        }
+
+        [Button]
+        protected virtual void SetRagdoll()
+        {
+            animator.enabled = false;
+            foreach (RagdollPart ragdollPart in this.GetComponentsInChildren<RagdollPart>())
+            {
+                ragdollPart.transform.SetParent(ragdoll.transform, true);
+                ragdollPart.meshBone.SetParentOrigin(ragdollPart.transform);
+                Rigidbody ragdollPartRb = ragdollPart.GetComponent<Rigidbody>();
+                ragdollPartRb.isKinematic = false;
+            }
+        }
+#endif
+
 
     }
 }
