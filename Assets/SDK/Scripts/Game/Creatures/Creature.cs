@@ -56,26 +56,78 @@ namespace ThunderRoad
         [NonSerialized]
         public RagdollFoot footRight;
 
-#if PrivateSDK
-        protected virtual void Awake()
+        [Header("Animation")]
+        public float animationDampTime = 0.1f;
+
+        [Header("Fall")]
+        public float fallAliveAnimationHeight = 0.5f;
+        public float fallAliveDestabilizeHeight = 3;
+        public float groundStabilizationMaxVelocity = 1;
+        public float groundStabilizationMinDuration = 3;
+
+        public bool toogleTPose;
+
+        [Header("Movement")]
+        public bool stepEnabled;
+        public float stepSpeed = 3f;
+        public float stepThreshold = 0.2f;
+
+        public float stationaryVelocityThreshold = 0.01f;
+
+        public bool turnRelativeToHand = true;
+        public float headMinAngle = 30;
+        public float headMaxAngle = 80;
+        public float handToBodyRotationMaxVelocity = 2;
+        public float handToBodyRotationMaxAngle = 30;
+        public float turnSpeed = 6;
+        public float turnAnimSpeed = 0.007f;
+
+        public static int hashIsBusy, hashFeminity, hashHeight, hashStrafe, hashTurn, hashSpeed, hashFalling, hashGetUp, hashTstance, hashStaticIdle;
+        public static bool hashInitialized;
+
+
+
+        protected void Awake()
         {
-            locomotion = this.GetComponentInChildren<Locomotion>();
-            Rigidbody locomotionRb = locomotion.GetComponent<Rigidbody>();
-            locomotionRb.isKinematic = true;
+#if PrivateSDK
             this.gameObject.AddComponent<RagdollTester>();
+#endif
+
             foreach (SkinnedMeshRenderer smr in this.GetComponentsInChildren<SkinnedMeshRenderer>())
             {
                 smr.updateWhenOffscreen = true;
             }
-        }
-#else
-        protected virtual void Awake()
-        {
-            locomotion = this.GetComponentInChildren<Locomotion>();
+
+            animator.applyRootMotion = false;
+            animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+            animator.enabled = false;
+            ragdoll = this.GetComponentInChildren<Ragdoll>();
+
+            brain = this.GetComponentInChildren<Brain>();
+            equipment = this.GetComponentInChildren<Equipment>();
+            if (!container) container = this.GetComponentInChildren<Container>();
+
+            locomotion = this.GetComponent<Locomotion>();
+            mana = this.GetComponent<Mana>();
+            climber = this.GetComponentInChildren<CreatureFeetClimber>();
+            speak = this.GetComponentInChildren<CreatureSpeak>();
+
+            foreach (RagdollHand hand in this.GetComponentsInChildren<RagdollHand>())
+            {
+                if (hand.side == Side.Right) handRight = hand;
+                if (hand.side == Side.Left) handLeft = hand;
+            }
+            foreach (RagdollFoot foot in this.GetComponentsInChildren<RagdollFoot>())
+            {
+                if (foot.side == Side.Right) footRight = foot;
+                if (foot.side == Side.Left) footLeft = foot;
+            }
+
+            if (!hashInitialized) InitAnimatorHashs();
+
+#if !PrivateSDK
             Rigidbody locomotionRb = locomotion.GetComponent<Rigidbody>();
             locomotionRb.isKinematic = true;
-
-            ragdoll = this.GetComponentInChildren<Ragdoll>();
 
             foreach (RagdollPart ragdollPart in this.GetComponentsInChildren<RagdollPart>())
             {
@@ -84,12 +136,55 @@ namespace ThunderRoad
                 ragdollPart.transform.SetParent(ragdollPart.meshBone);
                 ragdollPart.SetPositionToBone();
             }
-            foreach (SkinnedMeshRenderer smr in this.GetComponentsInChildren<SkinnedMeshRenderer>())
+#endif
+
+        }
+
+        protected void InitAnimatorHashs()
+        {
+            hashFeminity = Animator.StringToHash("Feminity");
+            hashHeight = Animator.StringToHash("Height");
+            hashStrafe = Animator.StringToHash("Strafe");
+            hashTurn = Animator.StringToHash("Turn");
+            hashSpeed = Animator.StringToHash("Speed");
+            hashFalling = Animator.StringToHash("Falling");
+            hashGetUp = Animator.StringToHash("GetUp");
+            hashIsBusy = Animator.StringToHash("IsBusy");
+            hashTstance = Animator.StringToHash("TStance");
+            hashStaticIdle = Animator.StringToHash("StaticIdle");
+            hashInitialized = true;
+        }
+
+        protected void Update()
+        {
+            UpdateAnimation();
+        }
+
+        public virtual void UpdateAnimation()
+        {
+            // Apply locomotion animations
+            if (locomotion.isEnabled && locomotion.isGrounded && (locomotion.horizontalSpeed + Mathf.Abs(locomotion.angularSpeed)) > stationaryVelocityThreshold)
             {
-                smr.updateWhenOffscreen = true;
+                locomotion.SetCapsuleCollider(this.transform.InverseTransformPoint(ragdoll.headPart.transform.position).y);
+                Vector3 stepLocalVelocity = this.transform.InverseTransformDirection(locomotion.velocity);
+                animator.SetFloat(hashStrafe, stepLocalVelocity.x, animationDampTime, Time.deltaTime);
+                animator.SetFloat(hashTurn, locomotion.angularSpeed * turnAnimSpeed, animationDampTime, Time.deltaTime);
+                animator.SetFloat(hashSpeed, stepLocalVelocity.z, animationDampTime, Time.deltaTime);
+            }
+            else
+            {
+                animator.SetFloat(hashStrafe, 0, animationDampTime, Time.deltaTime);
+                animator.SetFloat(hashTurn, 0, animationDampTime, Time.deltaTime);
+                animator.SetFloat(hashSpeed, 0, animationDampTime, Time.deltaTime);
             }
         }
 
+        public virtual float GetAnimatorHeightRatio()
+        {
+            return animator.GetFloat(hashHeight);
+        }
+
+#if !PrivateSDK
         [Button]
         protected virtual void SetRagdoll()
         {

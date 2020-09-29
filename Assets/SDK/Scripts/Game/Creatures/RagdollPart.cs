@@ -80,9 +80,15 @@ namespace ThunderRoad
         protected virtual void Awake()
         {
             rb = this.GetComponent<Rigidbody>();
+            colliderGroup = this.GetComponentInChildren<ColliderGroup>();
+            this.gameObject.layer = LayerMask.NameToLayer(LayerName.NPC.ToString());
+            foreach (Collider collider in colliderGroup.GetComponentsInChildren<Collider>(true))
+            {
+                collider.gameObject.layer = LayerMask.NameToLayer(LayerName.NPC.ToString());
+            }
             foreach (RagdollPart part in ignoredParts)
             {
-                foreach (Collider thisCollider in this.GetComponentsInChildren<Collider>(true))
+                foreach (Collider thisCollider in colliderGroup.GetComponentsInChildren<Collider>(true))
                 {
                     foreach (Collider ignoredCollider in part.GetComponentsInChildren<Collider>(true))
                     {
