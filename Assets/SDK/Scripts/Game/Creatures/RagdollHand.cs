@@ -12,6 +12,9 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+#if UNITY_EDITOR
+    [ExecuteInEditMode]
+#endif
     [AddComponentMenu("ThunderRoad/Creatures/Ragdoll hand")]
     public class RagdollHand : RagdollPart
     {
@@ -22,6 +25,9 @@ namespace ThunderRoad
 
         public bool meshFixedScale = true;
         public Vector3 meshGlobalScale = Vector3.one;
+
+        public Vector3 axisThumb = Vector3.up;
+        public Vector3 axisPalm = Vector3.left;
 
         public Collider touchCollider;
 
@@ -255,6 +261,17 @@ namespace ThunderRoad
         public float littleCloseWeight;
 
 
+        private void Update()
+        {
+#if UNITY_EDITOR
+            if (editPose.alignLock)
+            {
+                editPose.AlignTestItem();
+            }
+#endif
+        }
+
+
         public EditPose editPose;
 
         [Serializable]
@@ -264,7 +281,9 @@ namespace ThunderRoad
             public Handle grabHandle;
             public int handleOrientationIndex;
             public Grip useGripFrom = Grip.Current;
-
+#if UNITY_EDITOR
+            public bool alignLock;
+#endif
             public enum Grip
             {
                 Current,
