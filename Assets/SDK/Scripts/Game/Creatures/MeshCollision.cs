@@ -3,6 +3,7 @@ using UnityEngine;
 using System;
 using Unity.Collections;
 
+
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -11,10 +12,13 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+
+
     public class MeshCollision : MonoBehaviour
     {
         public SkinnedMeshRenderer skinnedMeshRenderer;
         public PhysicMaterial defaultPhysicMaterial;
         public Texture2D idMap;
+
     }
 }

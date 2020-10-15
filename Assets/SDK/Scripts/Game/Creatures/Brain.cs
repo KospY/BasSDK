@@ -71,6 +71,7 @@ namespace ThunderRoad
             navMeshAgent.stoppingDistance = 0;
         }
 
+
         protected void InitAnimatorHashs()
         {
             hashAim = Animator.StringToHash("Aim");
