@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -16,6 +17,7 @@ namespace ThunderRoad
     {
         [Header("Part")]
         public Transform meshBone;
+        public Transform[] additionalMeshBones;
         public Type type;
         public bool sliceAllowed;
         public float sliceWidth = 0.04f;
@@ -30,6 +32,8 @@ namespace ThunderRoad
 
         public List<RagdollPart> ignoredParts;
 
+        [NonSerialized]
+        public bool bodyDamagerIsAttack;
         [NonSerialized]
         public Rigidbody rb;
         [NonSerialized]
