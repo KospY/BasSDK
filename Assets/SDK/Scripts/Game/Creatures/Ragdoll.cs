@@ -69,7 +69,6 @@ namespace ThunderRoad
         [Header("Collision")]
         public float collisionMinDelay = 0.2f;
         public float collisionMinVelocity = 2.0f;
-        public float collisionRagdollMinVelocity = 6.0f;
 
         [Header("Grab")]
         public float grabThrowMinVelocity = 2.0f;
@@ -77,7 +76,6 @@ namespace ThunderRoad
         public float grabFallHeightMultiplier = 0.3f;
 
         [Header("Misc")]
-        public bool collisionCheckIdMap;
         public bool allowSelfDamage;
         public bool grippable = true;
 
