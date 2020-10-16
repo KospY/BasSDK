@@ -82,7 +82,11 @@ namespace ThunderRoad
                 if (closePose) closePoseFingers = closePose.GetFingers(side);
                 if (openPose && closePose)
                 {
-                    UpdatePoses();
+                    UpdatePoseThumb(globalRatio ? closeWeight : thumbCloseWeight);
+                    UpdatePoseIndex(globalRatio ? closeWeight : indexCloseWeight);
+                    UpdatePoseMiddle(globalRatio ? closeWeight : middleCloseWeight);
+                    UpdatePoseRing(globalRatio ? closeWeight : ringCloseWeight);
+                    UpdatePoseLittle(globalRatio ? closeWeight : littleCloseWeight);
                 }
             }
         }
@@ -392,38 +396,39 @@ namespace ThunderRoad
             grip.localScale = Vector3.one;
         }
 
-        public virtual void UpdatePoses()
+        public void SetCloseWeight(float weight)
         {
-            UpdatePoseThumb();
-            UpdatePoseIndex();
-            UpdatePoseMiddle();
-            UpdatePoseRing();
-            UpdatePoseLittle();
+            closeWeight = weight;
+            UpdatePoseThumb(closeWeight);
+            UpdatePoseIndex(closeWeight);
+            UpdatePoseMiddle(closeWeight);
+            UpdatePoseRing(closeWeight);
+            UpdatePoseLittle(closeWeight);
         }
 
-        public void UpdatePoseThumb(bool force = false)
+        public void UpdatePoseThumb(float weight)
         {
-            UpdateFinger(fingerThumb, openPoseFingers.thumb, closePoseFingers.thumb, globalRatio ? closeWeight : thumbCloseWeight);
+            UpdateFinger(fingerThumb, openPoseFingers.thumb, closePoseFingers.thumb, weight);
         }
 
-        public void UpdatePoseIndex(bool force = false)
+        public void UpdatePoseIndex(float weight)
         {
-            UpdateFinger(fingerIndex, openPoseFingers.index, closePoseFingers.index, globalRatio ? closeWeight : indexCloseWeight);
+            UpdateFinger(fingerIndex, openPoseFingers.index, closePoseFingers.index, weight);
         }
 
-        public void UpdatePoseMiddle(bool force = false)
+        public void UpdatePoseMiddle(float weight)
         {
-            UpdateFinger(fingerMiddle, openPoseFingers.middle, closePoseFingers.middle, globalRatio ? closeWeight : middleCloseWeight);
+            UpdateFinger(fingerMiddle, openPoseFingers.middle, closePoseFingers.middle, weight);
         }
 
-        public void UpdatePoseRing(bool force = false)
+        public void UpdatePoseRing(float weight)
         {
-            UpdateFinger(fingerRing, openPoseFingers.ring, closePoseFingers.ring, globalRatio ? closeWeight : ringCloseWeight);
+            UpdateFinger(fingerRing, openPoseFingers.ring, closePoseFingers.ring, weight);
         }
 
-        public void UpdatePoseLittle(bool force = false)
+        public void UpdatePoseLittle(float weight)
         {
-            UpdateFinger(fingerLittle, openPoseFingers.little, closePoseFingers.little, globalRatio ? closeWeight : littleCloseWeight);
+            UpdateFinger(fingerLittle, openPoseFingers.little, closePoseFingers.little, weight);
         }
 
         public virtual void UpdateFinger(Finger finger, HandPose.Finger openPoseFinger, HandPose.Finger closePoseFinger, float ratio)

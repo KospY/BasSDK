@@ -32,6 +32,8 @@ namespace ThunderRoad
 
         public List<RagdollPart> ignoredParts;
 
+        protected bool initialized;
+        
         [NonSerialized]
         public bool bodyDamagerIsAttack;
         [NonSerialized]
