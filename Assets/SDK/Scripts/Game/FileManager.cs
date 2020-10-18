@@ -132,7 +132,14 @@ namespace ThunderRoad
             string[] modFolders = GetFolderNames(Type.JSONCatalog, Source.Mods);
             foreach (string modFolder in modFolders)
             {
-                if (modFolder.StartsWith("_") || (!FileExist(Type.JSONCatalog, Source.Mods, modFolder + "/manifest.json") && !Catalog.forceLoadMods.Contains(modFolder.ToLower()))) continue;
+                if (Catalog.loadModFolders.Count > 0)
+                {
+                    if (!Catalog.loadModFolders.Contains(modFolder.ToLower())) continue;
+                }
+                else if (modFolder.StartsWith("_") || (!FileExist(Type.JSONCatalog, Source.Mods, modFolder + "/manifest.json")))
+                {
+                    continue;
+                }
                 string[] files = GetFilePaths(Type.JSONCatalog, Source.Mods, modFolder, searchPattern);
                 foreach (string modJson in files)
                 {

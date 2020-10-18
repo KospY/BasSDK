@@ -31,6 +31,8 @@ namespace ThunderRoad
         public static bool hashInitialized;
 
         [NonSerialized]
+        public bool rotate;
+        [NonSerialized]
         public float navRemainingDistance;
         [NonSerialized]
         public NavigationState navState = NavigationState.Done;
@@ -109,13 +111,18 @@ namespace ThunderRoad
 
         void UpdateNavigation()
         {
-            if (turnTarget != null && (navState != NavigationState.Moving || navMeshAgent.updateRotation == false))
+            if (turnTarget != null && (navState != NavigationState.Moving || rotate == false))
             {
                 Vector3 targetDirection = new Vector3(turnTarget.position.x, creature.transform.position.y, turnTarget.position.z) - creature.transform.position;
                 float targetAngle = Vector3.SignedAngle(creature.transform.forward, targetDirection, creature.transform.up);
                 creature.transform.Rotate(creature.transform.up, targetAngle * creature.locomotion.turnSpeed * Time.deltaTime);
             }
-
+            else if (rotate)
+            {
+                Vector3 targetDirection = navMeshAgent.desiredVelocity.normalized;
+                float targetAngle = Vector3.SignedAngle(creature.transform.forward, targetDirection, creature.transform.up);
+                creature.transform.Rotate(creature.transform.up, targetAngle * creature.locomotion.turnSpeed * Time.deltaTime);
+            }
             if (navState == NavigationState.Done || navState == NavigationState.Failed) return;
             if (navMeshAgent.pathPending)
             {
@@ -154,7 +161,7 @@ namespace ThunderRoad
             if (navMeshAgent.enabled == false) navMeshAgent.enabled = true;
             this.useAcceleration = useAcceleration;
             navRange = range;
-            navMeshAgent.updateRotation = withRotation;
+            rotate = withRotation;
             //navMeshAgent.nextPosition = navMeshAgent.transform.position;
             navMeshAgent.nextPosition = creature.transform.position; //fix for navmesh moving alone
             navMeshAgent.SetDestination(position);
@@ -179,7 +186,6 @@ namespace ThunderRoad
             navRemainingDistance = 0;
             navState = NavigationState.Done;
             navPosition = Vector3.zero;
-            navMeshAgent.updateRotation = false;
             OnNavigationEnded();
         }
 

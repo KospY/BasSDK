@@ -406,6 +406,7 @@ namespace ThunderRoad
             UpdatePoseLittle(closeWeight);
         }
 
+
         public void UpdatePoseThumb(float weight)
         {
             UpdateFinger(fingerThumb, openPoseFingers.thumb, closePoseFingers.thumb, weight);

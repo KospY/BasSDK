@@ -64,7 +64,6 @@ namespace ThunderRoad
 
         [Header("Ground distance check")]
         public float raycastLenght = 5f;
-        public float raycastOffset = 0.01f;
 
         [NonSerialized]
         public Rigidbody rb;
@@ -92,6 +91,10 @@ namespace ThunderRoad
         public float verticalSpeed;
         [NonSerialized]
         public float angularSpeed;
+
+#if ODIN_INSPECTOR
+        [ShowInInspector]
+#endif
         [NonSerialized]
         public bool isGrounded;
 
