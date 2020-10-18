@@ -345,15 +345,21 @@ namespace ThunderRoad
 
                     // Clean destination path
                     foreach (string filePath in Directory.GetFiles(destinationAssetsPath, "*.*", SearchOption.AllDirectories)) File.Delete(filePath);
-                    //foreach (string filePath in Directory.GetFiles(destinationCatalogPath, "*.*", SearchOption.AllDirectories)) File.Delete(filePath);
+                    if (exportTo == ExportTo.Game)
+                    {
+                        foreach (string filePath in Directory.GetFiles(destinationCatalogPath, "*.*", SearchOption.AllDirectories)) File.Delete(filePath);
+                    }
 
                     // Copy addressable assets to destination path
                     CopyDirectory(buildFullPath, destinationAssetsPath);
                     Debug.Log("Copied addressable asset folder " + buildFullPath + " to " + destinationAssetsPath);
 
-                    // Copy json catalog to destination path
-                    //CopyDirectory(catalogFullPath, destinationCatalogPath);
-                    //Debug.Log("Copied catalog folder " + catalogFullPath + " to " + destinationCatalogPath);
+                    if (exportTo == ExportTo.Game)
+                    {
+                        // Copy json catalog to destination path
+                        CopyDirectory(catalogFullPath, destinationCatalogPath);
+                        Debug.Log("Copied catalog folder " + catalogFullPath + " to " + destinationCatalogPath);
+                    }
                 }
 
                 if ((exportTo == ExportTo.Game) && runGameAfterBuild)
