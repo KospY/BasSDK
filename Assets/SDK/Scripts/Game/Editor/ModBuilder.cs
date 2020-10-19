@@ -39,6 +39,7 @@ namespace ThunderRoad
         public static string exportFolderName;
         public static ExportTo exportTo = ExportTo.Game;
         public static bool runGameAfterBuild;
+        public static string runGameArguments;
 
         public static Action action = Action.BuildOnly;
         public static SupportedGame gameName = SupportedGame.BladeAndSorcery;
@@ -84,6 +85,7 @@ namespace ThunderRoad
             exportTo = (ExportTo)EditorPrefs.GetInt("TRMB.ExportTo");
             toDefault = EditorPrefs.GetBool("TRMB.ToDefault");
             runGameAfterBuild = EditorPrefs.GetBool("TRMB.RunGameAfterBuild");
+            runGameArguments = EditorPrefs.GetString("TRMB.RunGameArguments");
             gameName = (SupportedGame)EditorPrefs.GetInt("TRMB.GameName");
             action = (Action)EditorPrefs.GetInt("TRMB.Action");
         }
@@ -190,6 +192,20 @@ namespace ThunderRoad
             EditorGUI.EndDisabledGroup();
 
             GUILayout.EndHorizontal();
+
+            if (runGameAfterBuild && exportTo == ExportTo.Game)
+            {
+                GUILayout.Space(5);
+                GUILayout.BeginHorizontal();
+                GUILayout.Label(new GUIContent("Arguments"), new GUIStyle("BoldLabel"), GUILayout.Width(150));
+                string newRunGameArguments = GUILayout.TextField(runGameArguments, 25);
+                if (newRunGameArguments != runGameArguments)
+                {
+                    EditorPrefs.SetString("TRMB.RunGameArguments", newRunGameArguments);
+                    runGameArguments = newRunGameArguments;
+                }
+                GUILayout.EndHorizontal();
+            }
 
             GUILayout.Space(5);
 #if PrivateSDK
@@ -366,6 +382,7 @@ namespace ThunderRoad
                 {
                     System.Diagnostics.Process process = new System.Diagnostics.Process();
                     process.StartInfo.FileName = Path.Combine(gamePath, gameName + ".exe");
+                    process.StartInfo.Arguments = runGameArguments;
                     process.Start();
                     Debug.Log("Start game: " + process.StartInfo.FileName + " " + process.StartInfo.Arguments);
                 }
