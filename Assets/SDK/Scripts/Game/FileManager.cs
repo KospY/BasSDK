@@ -174,9 +174,12 @@ namespace ThunderRoad
             else
             {
                 List<ReadFile> readFiles = new List<ReadFile>();
-                foreach (string filePath in Directory.GetFiles(folderPath, searchPattern, SearchOption.AllDirectories))
+                if (Directory.Exists(folderPath))
                 {
-                    readFiles.Add(new ReadFile(File.ReadAllText(filePath), filePath));
+                    foreach (string filePath in Directory.GetFiles(folderPath, searchPattern, SearchOption.AllDirectories))
+                    {
+                        readFiles.Add(new ReadFile(File.ReadAllText(filePath), filePath));
+                    }
                 }
                 return readFiles.ToArray();
             }
