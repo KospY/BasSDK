@@ -32,6 +32,26 @@ namespace ThunderRoad
             }
         }
 
+        [InitializeOnLoad]
+        public class Startup
+        {
+            static Startup()
+            {
+                string catalogFullPath = Path.Combine(Directory.GetCurrentDirectory(), "BuildStaging/Catalog");
+                if (!Directory.Exists(catalogFullPath))
+                {
+                    Directory.CreateDirectory(catalogFullPath);
+                    Debug.Log("Created folder " + catalogFullPath);
+                }
+                string buildFullPath = Path.Combine(Directory.GetCurrentDirectory(), "BuildStaging/AddressableAssets");
+                if (!Directory.Exists(buildFullPath))
+                {
+                    Directory.CreateDirectory(buildFullPath);
+                    Debug.Log("Created folder " + buildFullPath);
+                }
+            }
+        }
+
         public static string projectPath;
         public static string gamePath;
 
