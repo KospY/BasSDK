@@ -89,9 +89,7 @@ namespace ThunderRoad
 
         protected void Awake()
         {
-#if PrivateSDK
-            this.gameObject.AddComponent<RagdollTester>();
-#endif
+
 
             foreach (SkinnedMeshRenderer smr in this.GetComponentsInChildren<SkinnedMeshRenderer>())
             {
