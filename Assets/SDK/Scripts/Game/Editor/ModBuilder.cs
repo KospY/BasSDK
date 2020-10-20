@@ -104,6 +104,17 @@ namespace ThunderRoad
                 GUILayout.Label(new GUIContent("Included addressable group(s)"), new GUIStyle("BoldLabel"));
                 GUILayout.Space(5);
 
+                if (GUILayout.Button("Refresh available groups") && AddressableAssetSettingsDefaultObject.Settings != null)
+                {
+                    foreach (AddressableAssetGroup aaGroup in GetAllInstances<AddressableAssetGroup>())
+                    {
+                        if (AddressableAssetSettingsDefaultObject.Settings.groups.Contains(aaGroup)) continue;
+                        AddressableAssetSettingsDefaultObject.Settings.groups.Add(aaGroup);
+                    }
+                }
+
+                GUILayout.Space(5);
+
                 if (AddressableAssetSettingsDefaultObject.Settings != null)
                 {
                     foreach (AddressableAssetGroup group in AddressableAssetSettingsDefaultObject.Settings.groups)
@@ -140,6 +151,19 @@ namespace ThunderRoad
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
             if (GUILayout.Button(action == Action.BuildOnly ? "Build" : (action == Action.ExportOnly ? "Export" : "Build and export"))) Build(action);
+        }
+
+        public static T[] GetAllInstances<T>() where T : ScriptableObject
+        {
+            string[] guids = AssetDatabase.FindAssets("t:" + typeof(T).Name);
+            T[] a = new T[guids.Length];
+            for (int i = 0; i < guids.Length; i++)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guids[i]);
+                a[i] = AssetDatabase.LoadAssetAtPath<T>(path);
+            }
+            return a;
+
         }
 
         static void ExportFolderGUI()
