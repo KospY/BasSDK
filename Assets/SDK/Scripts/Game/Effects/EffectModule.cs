@@ -44,13 +44,13 @@ namespace ThunderRoad
             return !disabled;
         }
 
-#if ODIN_INSPECTOR
-
+#if PrivateSDK
         public virtual Effect Spawn(EffectData effectData, bool pooled)
         {
             return null;
         }
 #endif
+
         protected T EditorLoad<T>(string address) where T : UnityEngine.Object
         {
             if (address == null || address == "") return null;

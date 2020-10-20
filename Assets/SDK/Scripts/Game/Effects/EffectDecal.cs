@@ -184,6 +184,7 @@ namespace ThunderRoad
         {
             CancelInvoke();
             meshRenderer.enabled = false;
+            InvokeDespawnCallback();
             if (Application.isPlaying)
             {
                 Destroy(this.gameObject);

@@ -354,6 +354,7 @@ namespace ThunderRoad
             playTime = 0;
             rootParticleSystem.Stop();
             CancelInvoke();
+            InvokeDespawnCallback();
             if (Application.isPlaying)
             {
                 Destroy(this.gameObject);

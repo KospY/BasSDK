@@ -193,6 +193,7 @@ namespace ThunderRoad
             CancelInvoke();
             StopAllCoroutines();
             audioSource.Stop();
+            InvokeDespawnCallback();
             if (Application.isPlaying)
             {
                 Destroy(this.gameObject);

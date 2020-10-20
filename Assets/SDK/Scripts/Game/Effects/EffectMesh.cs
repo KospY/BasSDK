@@ -281,6 +281,7 @@ namespace ThunderRoad
             meshRotationFading = false;
             CancelInvoke();
             if (meshRenderer != null) meshRenderer.enabled = false;
+            InvokeDespawnCallback();
             if (Application.isPlaying)
             {
                 Destroy(this.gameObject);

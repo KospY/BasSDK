@@ -118,6 +118,7 @@ namespace ThunderRoad
         {
             CancelInvoke();
             SetIntensity(0);
+            InvokeDespawnCallback();
             if (Application.isPlaying)
             {
                 Destroy(this.gameObject);
