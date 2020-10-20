@@ -1,8 +1,11 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
+#else
+using EasyButtons;
 #endif
 
 namespace ThunderRoad
@@ -22,11 +25,12 @@ namespace ThunderRoad
 #endif
         public bool disabled;
 
+#if PrivateSDK
         public virtual IEnumerator Refresh(EffectData effectData)
         {
             yield return new WaitForEndOfFrame();
         }
-
+#endif
         [Button]
         public virtual void Clean()
         {

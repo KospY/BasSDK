@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
-using Chabuk.ManikinMono;
+
+
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
