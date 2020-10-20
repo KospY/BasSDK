@@ -108,6 +108,7 @@ namespace ThunderRoad
                 {
                     foreach (AddressableAssetGroup group in AddressableAssetSettingsDefaultObject.Settings.groups)
                     {
+                        if (group == null) continue;
                         BundledAssetGroupSchema bundledAssetGroupSchema = group.GetSchema<BundledAssetGroupSchema>();
                         if (bundledAssetGroupSchema != null)
                         {
