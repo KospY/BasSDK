@@ -1,6 +1,8 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -26,7 +28,7 @@ namespace ThunderRoad
         public bool disabled;
 
 #if PrivateSDK
-        public virtual IEnumerator Refresh(EffectData effectData)
+        public virtual IEnumerator Refresh(EffectData effectData, bool editorLoad = false)
         {
             yield return new WaitForEndOfFrame();
         }
@@ -49,5 +51,48 @@ namespace ThunderRoad
             return null;
         }
 #endif
+        protected T EditorLoad<T>(string address) where T : UnityEngine.Object
+        {
+            if (address == null || address == "") return null;
+#if UNITY_EDITOR
+            string subAddress = null;
+            if (address.Contains("["))
+            {
+                subAddress = address.Split('[', ']')[1];
+                address = address.Split('[', ']')[0];
+            }
+
+            UnityEditor.AddressableAssets.Settings.AddressableAssetSettings settings = UnityEditor.AddressableAssets.AddressableAssetSettingsDefaultObject.Settings;
+            List<UnityEditor.AddressableAssets.Settings.AddressableAssetEntry> allEntries = new List<UnityEditor.AddressableAssets.Settings.AddressableAssetEntry>(settings.groups.SelectMany(g => g.entries));
+            UnityEditor.AddressableAssets.Settings.AddressableAssetEntry foundEntry = allEntries.FirstOrDefault(e => e.address == address);
+
+            if (foundEntry != null)
+            {
+                if (subAddress != null)
+                {
+                    UnityEngine.Object[] objects = UnityEditor.AssetDatabase.LoadAllAssetRepresentationsAtPath(foundEntry.AssetPath); //loads all sub-assets from one asset
+
+                    if (objects.Length > 0)
+                    {
+                        for (int i = 0; i < objects.Length; i++) // loop on all sub-assets loaded
+                        {
+                            if (objects[i].name == subAddress && objects[i].GetType() == typeof(T)) // if the name AND the type match we found it
+                            {
+                                return (objects[i]) as T;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    return UnityEditor.AssetDatabase.LoadAssetAtPath<T>(foundEntry.AssetPath);
+                }
+            }
+            return null;
+#else    
+            Debug.LogError("Can't load addressable asset with editor load option!");
+            return null;
+#endif
+        }
     }
 }

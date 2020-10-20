@@ -118,6 +118,14 @@ namespace ThunderRoad
         {
             CancelInvoke();
             SetIntensity(0);
+            if (Application.isPlaying)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                DestroyImmediate(this.gameObject);
+            }
         }
     }
 }

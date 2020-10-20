@@ -74,6 +74,14 @@ namespace ThunderRoad
         public override void Despawn()
         {
             CancelInvoke();
+            if (Application.isPlaying)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                DestroyImmediate(this.gameObject);
+            }
         }
     }
 }

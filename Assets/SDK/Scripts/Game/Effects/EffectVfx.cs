@@ -279,6 +279,14 @@ namespace ThunderRoad
             vfx.Stop();
             lookAtTarget = false;
             vfx.enabled = false;
+            if (Application.isPlaying)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                DestroyImmediate(this.gameObject);
+            }
         }
     }
 }

@@ -354,6 +354,14 @@ namespace ThunderRoad
             playTime = 0;
             rootParticleSystem.Stop();
             CancelInvoke();
+            if (Application.isPlaying)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                DestroyImmediate(this.gameObject);
+            }
         }
     }
 }

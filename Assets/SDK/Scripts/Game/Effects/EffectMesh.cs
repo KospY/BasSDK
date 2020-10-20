@@ -281,6 +281,14 @@ namespace ThunderRoad
             meshRotationFading = false;
             CancelInvoke();
             if (meshRenderer != null) meshRenderer.enabled = false;
+            if (Application.isPlaying)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                DestroyImmediate(this.gameObject);
+            }
             aliveTime = 0.0f;
         }
     }
