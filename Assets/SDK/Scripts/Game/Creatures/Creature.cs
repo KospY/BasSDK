@@ -42,7 +42,7 @@ namespace ThunderRoad
         [NonSerialized]
         public CreatureSpeak speak;
         [NonSerialized]
-        public CreatureFeetClimber climber;
+        public FeetClimber climber;
         [NonSerialized]
         public LiquidReceiver liquidReceiver;
         [NonSerialized]
@@ -109,7 +109,7 @@ namespace ThunderRoad
 
             locomotion = this.GetComponent<Locomotion>();
             mana = this.GetComponent<Mana>();
-            climber = this.GetComponentInChildren<CreatureFeetClimber>();
+            climber = this.GetComponentInChildren<FeetClimber>();
             speak = this.GetComponentInChildren<CreatureSpeak>();
 
             foreach (RagdollHand hand in this.GetComponentsInChildren<RagdollHand>())
