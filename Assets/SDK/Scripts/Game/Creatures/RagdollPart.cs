@@ -17,7 +17,7 @@ namespace ThunderRoad
     {
         [Header("Part")]
         public Transform meshBone;
-        public Transform[] additionalMeshBones;
+        public Transform[] linkedMeshBones;
         public Type type;
         public bool sliceAllowed;
         public float sliceWidth = 0.04f;
