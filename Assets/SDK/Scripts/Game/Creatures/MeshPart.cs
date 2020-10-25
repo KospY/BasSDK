@@ -14,7 +14,7 @@ namespace ThunderRoad
 {
 
 
-    public class MeshCollision : MonoBehaviour
+    public class MeshPart : MonoBehaviour
     {
         public SkinnedMeshRenderer skinnedMeshRenderer;
         public PhysicMaterial defaultPhysicMaterial;
