@@ -60,6 +60,7 @@ namespace ThunderRoad
         public static ExportTo exportTo = ExportTo.Game;
         public static bool runGameAfterBuild;
         public static string runGameArguments;
+        public static bool cleanDestination = true;
 
         public static Action action = Action.BuildOnly;
         public static SupportedGame gameName = SupportedGame.BladeAndSorcery;
@@ -105,6 +106,7 @@ namespace ThunderRoad
             exportTo = (ExportTo)EditorPrefs.GetInt("TRMB.ExportTo");
             toDefault = EditorPrefs.GetBool("TRMB.ToDefault");
             runGameAfterBuild = EditorPrefs.GetBool("TRMB.RunGameAfterBuild");
+            cleanDestination = EditorPrefs.GetBool("TRMB.CleanDestination");
             runGameArguments = EditorPrefs.GetString("TRMB.RunGameArguments");
             gameName = (SupportedGame)EditorPrefs.GetInt("TRMB.GameName");
             action = (Action)EditorPrefs.GetInt("TRMB.Action");
@@ -235,6 +237,14 @@ namespace ThunderRoad
                 runGameAfterBuild = newRunGameAfterBuild;
             }
             EditorGUI.EndDisabledGroup();
+
+            bool newCleanDestination = GUILayout.Toggle(cleanDestination, "Clean destination", GUILayout.Width(150));
+            if (newCleanDestination != cleanDestination)
+            {
+                EditorPrefs.SetBool("TRMB.CleanDestination", newCleanDestination);
+                cleanDestination = newCleanDestination;
+            }
+
 
             GUILayout.EndHorizontal();
 
@@ -405,10 +415,21 @@ namespace ThunderRoad
                     if (!File.Exists(destinationCatalogPath)) Directory.CreateDirectory(destinationCatalogPath);
 
                     // Clean destination path
-                    foreach (string filePath in Directory.GetFiles(destinationAssetsPath, "*.*", SearchOption.AllDirectories)) File.Delete(filePath);
-                    if (exportTo == ExportTo.Game)
+                    if (cleanDestination)
                     {
-                        foreach (string filePath in Directory.GetFiles(destinationCatalogPath, "*.*", SearchOption.AllDirectories)) File.Delete(filePath);
+                        foreach (string filePath in Directory.GetFiles(destinationAssetsPath, "*.*", SearchOption.AllDirectories)) File.Delete(filePath);
+                        if (exportTo == ExportTo.Game)
+                        {
+                            foreach (string filePath in Directory.GetFiles(destinationCatalogPath, "*.*", SearchOption.AllDirectories)) File.Delete(filePath);
+                        }
+                    }
+                    else
+                    {
+                        foreach (string filePath in Directory.GetFiles(destinationAssetsPath, "catalog_*.json", SearchOption.AllDirectories)) File.Delete(filePath);
+                        if (exportTo == ExportTo.Game)
+                        {
+                            foreach (string filePath in Directory.GetFiles(destinationCatalogPath, "catalog_*.json", SearchOption.AllDirectories)) File.Delete(filePath);
+                        }
                     }
 
                     // Copy addressable assets to destination path
