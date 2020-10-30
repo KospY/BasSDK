@@ -122,6 +122,12 @@ namespace ThunderRoad
                 {
                     meshRenderer.SetPropertyBlock(materialPropertyBlock);
                 }
+                if (useSizeCurve)
+                {
+                    float eval = sizeCurve.Evaluate(Time.time - playTime);
+                    meshRenderer.transform.localScale = Vector3.one;
+                    meshRenderer.transform.localScale = new Vector3((eval / meshRenderer.transform.lossyScale.x) * size.x, (eval / meshRenderer.transform.lossyScale.y) * size.y, (eval / meshRenderer.transform.lossyScale.z) * size.z);
+                }
             }
             if (baseValue == 0) Despawn();
         }
