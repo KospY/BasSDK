@@ -8,7 +8,7 @@ namespace ThunderRoad
     {
         public AudioContainer audioContainer;
 
-        public float globalVolume = 1;
+        public float globalVolumeDb = 0;
         public float globalPitch = 1;
 
         public bool randomPitch;
@@ -160,7 +160,7 @@ namespace ThunderRoad
             if (!loopOnly || (loopOnly && step == Step.Loop))
             {
                 audioSource.pitch = pitchCurve.Evaluate(value) * globalPitch;
-                audioSource.volume = volumeCurve.Evaluate(value) * globalVolume;
+                audioSource.volume = volumeCurve.Evaluate(value) * DecibelToLinear(globalVolumeDb);
                 if (useLowPassFilter)
                 {
                     lowPassFilter.cutoffFrequency = lowPassCutoffFrequencyCurve.Evaluate(value);
@@ -178,7 +178,7 @@ namespace ThunderRoad
             }
         }
 
-            protected IEnumerator AudioFadeOut()
+        protected IEnumerator AudioFadeOut()
         {
             while (audioSource.volume > 0)
             {
@@ -187,6 +187,27 @@ namespace ThunderRoad
             }
             Despawn();
         }
+
+        public static float LinearToDecibel(float linear)
+        {
+            float dB;
+            if (linear != 0)
+            {
+                dB = 20.0f * Mathf.Log10(linear);
+            }
+            else
+            {
+                dB = -144.0f;
+            }
+            return dB;
+        }
+
+        public static float DecibelToLinear(float dB)
+        {
+            float linear = Mathf.Pow(10.0f, dB / 20.0f);
+            return linear;
+        }
+
 
         public override void Despawn()
         {
