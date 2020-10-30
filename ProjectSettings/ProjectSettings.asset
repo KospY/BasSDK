@@ -171,7 +171,7 @@ PlayerSettings:
     Android: com.Warpfrog.BladeAndSorcery
     Standalone: com.Warpfrog.BladeAndSorcery
   buildNumber: {}
-  AndroidBundleVersionCode: 1
+  AndroidBundleVersionCode: 2
   AndroidMinSdkVersion: 23
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 0
@@ -233,6 +233,7 @@ PlayerSettings:
   metalEditorSupport: 1
   metalAPIValidation: 1
   iOSRenderExtraFrameOnPause: 0
+  iosCopyPluginsCodeInsteadOfSymlink: 0
   appleDeveloperTeamID: 
   iOSManualSigningProvisioningProfileID: 
   tvOSManualSigningProvisioningProfileID: 
@@ -248,15 +249,15 @@ PlayerSettings:
   AndroidTargetArchitectures: 1
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: '{inproject}: '
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: '{inproject}: BuildStaging/Bas.keystore'
+  AndroidKeyaliasName: key
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
   AndroidEnableTango: 0
   androidEnableBanner: 1
   androidUseLowAccuracyLocation: 0
-  androidUseCustomKeystore: 0
+  androidUseCustomKeystore: 1
   m_AndroidBanners:
   - width: 320
     height: 180
@@ -427,6 +428,7 @@ PlayerSettings:
     m_Enabled: 1
     m_Devices:
     - Oculus
+    - OpenVR
   openGLRequireES31: 1
   openGLRequireES31AEP: 0
   openGLRequireES32: 0
@@ -690,6 +692,7 @@ PlayerSettings:
   platformArchitecture: {}
   scriptingBackend:
     Android: 0
+    Standalone: 0
   il2cppCompilerConfiguration: {}
   managedStrippingLevel: {}
   incrementalIl2cppBuild: {}
