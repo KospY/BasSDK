@@ -20,6 +20,7 @@ namespace ThunderRoad
         public bool useAcceleration;
         public float acceleration = 0.3f;
         public float actionCycleSpeed = 1;
+        
 
         [NonSerialized]
         public Creature creature;
@@ -44,6 +45,8 @@ namespace ThunderRoad
         public Vector3 navPosition;
         [NonSerialized]
         public Transform turnTarget;
+        [NonSerialized]
+        public bool IsAttacking = false;
         protected float navRange;
 
         public enum NavigationState

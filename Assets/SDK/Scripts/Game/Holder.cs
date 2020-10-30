@@ -16,6 +16,8 @@ namespace ThunderRoad
     [RequireComponent(typeof(Rigidbody))]
     public class Holder : Interactable
     {
+        public static bool showHudHighlighter = true;
+
         public List<Transform> slots = new List<Transform>();
         public List<Item> startObjects = new List<Item>();
         public List<Collider> ignoredColliders = new List<Collider>();
