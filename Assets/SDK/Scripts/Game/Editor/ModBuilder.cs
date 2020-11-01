@@ -443,6 +443,13 @@ namespace ThunderRoad
                         // Copy json catalog to destination path
                         CopyDirectory(catalogFullPath, destinationCatalogPath);
                         Debug.Log("Copied catalog folder " + catalogFullPath + " to " + destinationCatalogPath);
+                        // Copy plugin dll if any
+                        string dllPath = Path.Combine("BuildStaging", "Plugins", exportFolderName) + "/bin/Release/netstandard2.0/" + exportFolderName + ".dll";
+                        if (File.Exists(dllPath))
+                        {
+                            File.Copy(dllPath, destinationCatalogPath + "/" + exportFolderName + ".dll", true);
+                            Debug.Log("Copied dll " + dllPath + " to " + destinationCatalogPath);
+                        }
                     }
                 }
 
