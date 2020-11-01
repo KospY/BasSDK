@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -33,7 +34,7 @@ namespace ThunderRoad
         public List<RagdollPart> ignoredParts;
 
         protected bool initialized;
-        
+
         [NonSerialized]
         public bool bodyDamagerIsAttack;
         [NonSerialized]
