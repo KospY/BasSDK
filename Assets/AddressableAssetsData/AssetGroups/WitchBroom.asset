@@ -10,39 +10,39 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: ExampleBundle
+  m_Name: WitchBroom
   m_EditorClassIdentifier: 
-  m_GroupName: ExampleBundle
+  m_GroupName: WitchBroom
   m_Data:
     m_SerializedData: []
   m_GUID: 1f976c12e1d680f44837b729f8a46cec
   m_SerializeEntries:
   - m_GUID: 0529787b44619ab4ca8d791da47dc529
-    m_Address: MyMod.Item.WitchBroom
+    m_Address: Kospy.Item.WitchBroom
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 7973550946353365244, guid: 0529787b44619ab4ca8d791da47dc529,
       type: 3}
     m_TargetAsset: {fileID: 7973550946353365244, guid: 0529787b44619ab4ca8d791da47dc529,
       type: 3}
+  - m_GUID: 0c0ebda49dd48de4e94b45591a2871e7
+    m_Address: Kospy.AudioContainer.WitchBroomWind
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 11400000, guid: 0c0ebda49dd48de4e94b45591a2871e7, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 0c0ebda49dd48de4e94b45591a2871e7, type: 2}
+  - m_GUID: 1280ab84f7e50a24bb46678ff0c974d3
+    m_Address: Kospy.AudioContainer.WitchBroomThrust
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 11400000, guid: 1280ab84f7e50a24bb46678ff0c974d3, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 1280ab84f7e50a24bb46678ff0c974d3, type: 2}
   - m_GUID: 252e07778994ce4498374c2005a54729
-    m_Address: MyMod.AudioContainer.WitchBroom
+    m_Address: Kospy.AudioContainer.WitchBroomThrustOld
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 11400000, guid: 252e07778994ce4498374c2005a54729, type: 2}
     m_TargetAsset: {fileID: 11400000, guid: 252e07778994ce4498374c2005a54729, type: 2}
-  - m_GUID: d2182e7ab466e07489da1cfd0bb784df
-    m_Address: MyMod.Level.ExampleLevel
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 102900000, guid: d2182e7ab466e07489da1cfd0bb784df, type: 3}
-    m_TargetAsset: {fileID: 102900000, guid: d2182e7ab466e07489da1cfd0bb784df, type: 3}
-  - m_GUID: d6d9b2abada5e8a4e8d5fa0f073fd003
-    m_Address: MyMod.Cubemap.ExampleLevel
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 8900000, guid: d6d9b2abada5e8a4e8d5fa0f073fd003, type: 2}
-    m_TargetAsset: {fileID: 8900000, guid: d6d9b2abada5e8a4e8d5fa0f073fd003, type: 2}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: b14c4d9d8b63f3247be008fe8b53d3ae, type: 2}
   m_SchemaSet:
