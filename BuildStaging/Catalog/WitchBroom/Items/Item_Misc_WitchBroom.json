@@ -1,0 +1,92 @@
+{
+  "$type": "ThunderRoad.ItemPhysic, Assembly-CSharp",
+  "id": "WitchBroom",
+  "saveFolder": "WitchBroom",
+  "version": 4,
+  "prefabAddress": "Kospy.Item.WitchBroom",
+  "pooledCount": 0,
+  "androidPooledCount": 0,
+  "allowDecals": false,
+  "type": "Misc",
+  "slot": "3",
+  "mass": 1.0,
+  "drag": 1.0,
+  "angularDrag": 0.05,
+  "manaRegenMultiplier": 1.0,
+  "spellChargeSpeedPlayerMultiplier": 1.0,
+  "spellChargeSpeedNPCMultiplier": 1.0,
+  "collisionMaxOverride": 0,
+  "collisionEnterOnly": false,
+  "collisionNoMinVelocityCheck": false,
+  "forceLayer": "None",
+  "snapAudioContainerAddress": null,
+  "flyFromThrow": false,
+  "flyRotationSpeed": 3.0,
+  "flyThrowAngle": 0.0,
+  "telekinesisSafeDistance": 1.0,
+  "telekinesisSpinEnabled": true,
+  "telekinesisThrowRatio": 1.0,
+  "grippable": true,
+  "customSnaps": [],
+  "modules": [
+    {
+      "$type": "WitchBroom.ItemModuleThrust, WitchBroom",
+      "minForce": 600.0,
+      "maxForce": 1400.0,
+      "effectId": "WitchBroomThrust"
+    }
+  ],
+  "colliderGroups": [],
+  "damagers": [
+    {
+      "transformName": "Blunt",
+      "damagerID": "Handle2H"
+    }
+  ],
+  "Interactables": [
+    {
+      "transformName": "Handle",
+      "interactableId": "ObjectHandleLight",
+      "overrideHandPose": false,
+      "handPoseId": ""
+    },
+    {
+      "transformName": "Handle2",
+      "interactableId": "ObjectHandleLight",
+      "overrideHandPose": false,
+      "handPoseId": ""
+    },
+    {
+      "transformName": "Handle3",
+      "interactableId": "ObjectHandleLight",
+      "overrideHandPose": false,
+      "handPoseId": ""
+    }
+  ],
+  "effectHinges": [],
+  "whooshs": [
+    {
+      "transformName": "Whoosh",
+      "effectId": "WitchBroomWind",
+      "trigger": "Always",
+      "stopOnSnap": true,
+      "minVelocity": 6.0,
+      "maxVelocity": 100.0,
+      "dampening": 0.2
+    }
+  ],
+  "localizationId": null,
+  "displayName": "WitchBroom",
+  "description": null,
+  "author": "KospY & Glitch",
+  "price": 0.0,
+  "purchasable": true,
+  "tier": 666,
+  "levelRequired": 0,
+  "isStackable": false,
+  "categoryPath": [
+    "Funny"
+  ],
+  "iconEffectId": null,
+  "iconAddress": null
+}
