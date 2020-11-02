@@ -444,7 +444,7 @@ namespace ThunderRoad
                         CopyDirectory(catalogFullPath, destinationCatalogPath);
                         Debug.Log("Copied catalog folder " + catalogFullPath + " to " + destinationCatalogPath);
                         // Copy plugin dll if any
-                        string dllPath = Path.Combine("BuildStaging", "Plugins", exportFolderName) + "/bin/Release/netstandard2.0/" + exportFolderName + ".dll";
+                        string dllPath = Path.Combine("BuildStaging", "Plugins", exportFolderName) + "/bin/Release/" + exportFolderName + ".dll";
                         if (File.Exists(dllPath))
                         {
                             File.Copy(dllPath, destinationCatalogPath + "/" + exportFolderName + ".dll", true);
