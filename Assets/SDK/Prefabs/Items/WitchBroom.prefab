@@ -147,7 +147,6 @@ MonoBehaviour:
   axisLength: 0
   touchRadius: 0.1
   touchCenter: {x: 0, y: 0, z: 0}
-  disableProximityHighlighter: 0
   defaultGrabAxisRatio: 0
   ikAnchorOffset: {x: 0, y: 0, z: 0}
   orientationDefaultRight: {fileID: 4761934989925741616}
@@ -161,64 +160,6 @@ MonoBehaviour:
   moveToHandle: {fileID: 0}
   moveToHandleAxisPos: 0
   allowedOrientations: []
-  data:
-    id: 
-    saveFolder: Bas
-    version: 0
-    disableTouch: 0
-    highlighterViewHandFreeOnly: 0
-    highlighterAddress: 
-    highlighterShowAxisLine: 0
-    highlighterShowAxisLineOnProximity: 0
-    highlightDefaultTitle: 
-    highlightDefaultDesignation: 
-    rotateAroundAxis: 0
-    forceHoldGripToGrab: 0
-    forcePlayerPhysicLink: 0
-    disableHandCollider: 0
-    disablePinchGrab: 0
-    setCenterOfMassTohandle: 0
-    handlerLocomotionSpeedMultiplier: 1
-    forceAllowTwoHanded: 0
-    handPoseId: 
-    allowSpellMenu: 0
-    allowSpellFire: 0
-    spellFireMagicOffset: {x: 0, y: 0, z: 0}
-    spellFireHandPoseId: 
-    warnIfNotAllowed: 0
-    grabEffectId: 
-    slideFxMinVelocity: 2
-    slideFxMaxVelocity: 10
-    rotationDrive: 0
-    useWYZWhenTwoHanded: 1
-    positionSpringMultiplier: 1
-    positionDamperMultiplier: 1
-    rotationSpringMultiplier: 1
-    rotationDamperMultiplier: 1
-    rotationSpring2hMultiplier: 1
-    rotationDamper2hMultiplier: 1
-    forceClimbing: 0
-    dominantWhenTwoHanded: 1
-    ignoreSnap: 0
-    disabledOnSnap: 0
-    useDefaultGripForHolder: 1
-    allowSteal: 1
-    allowSwap: 1
-    allowTelekinesis: 0
-    telekinesisPullRepelMultiplier: 1
-    telekinesisMaxDistanceMultiplier: 1
-    telekinesisPositionSpringMultiplier: 1
-    telekinesisPositionDamperMultiplier: 1
-    telekinesisPositionMaxForceMultiplier: 1
-    telekinesisRotationSpringMultiplier: 1
-    telekinesisRotationDamperMultiplier: 1
-    telekinesisRotationMaxForceMultiplier: 1
-    slideMinDamper: 20
-    slideMaxDamper: 300
-    slideMotorMaxForce: 0
-    slideMotorAcceleration: 5
-    slideMotorDir: 0
-  handlers: []
 --- !u!1 &971724803312574365
 GameObject:
   m_ObjectHideFlags: 0
@@ -1033,10 +974,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   length: 0.25
-  testCollider: {fileID: 0}
-  testSide: 0
-  item: {fileID: 0}
-  owner: {fileID: 0}
 --- !u!1 &7971785683488432996
 GameObject:
   m_ObjectHideFlags: 0
@@ -1088,7 +1025,6 @@ MonoBehaviour:
   axisLength: 0.3
   touchRadius: 0.1
   touchCenter: {x: 0, y: 0, z: 0}
-  disableProximityHighlighter: 0
   defaultGrabAxisRatio: 0
   ikAnchorOffset: {x: 0, y: 0, z: 0}
   orientationDefaultRight: {fileID: 6071668037972366515}
@@ -1102,64 +1038,6 @@ MonoBehaviour:
   moveToHandle: {fileID: 0}
   moveToHandleAxisPos: 0
   allowedOrientations: []
-  data:
-    id: 
-    saveFolder: Bas
-    version: 0
-    disableTouch: 0
-    highlighterViewHandFreeOnly: 0
-    highlighterAddress: 
-    highlighterShowAxisLine: 0
-    highlighterShowAxisLineOnProximity: 0
-    highlightDefaultTitle: 
-    highlightDefaultDesignation: 
-    rotateAroundAxis: 0
-    forceHoldGripToGrab: 0
-    forcePlayerPhysicLink: 0
-    disableHandCollider: 0
-    disablePinchGrab: 0
-    setCenterOfMassTohandle: 0
-    handlerLocomotionSpeedMultiplier: 1
-    forceAllowTwoHanded: 0
-    handPoseId: 
-    allowSpellMenu: 0
-    allowSpellFire: 0
-    spellFireMagicOffset: {x: 0, y: 0, z: 0}
-    spellFireHandPoseId: 
-    warnIfNotAllowed: 0
-    grabEffectId: 
-    slideFxMinVelocity: 2
-    slideFxMaxVelocity: 10
-    rotationDrive: 0
-    useWYZWhenTwoHanded: 1
-    positionSpringMultiplier: 1
-    positionDamperMultiplier: 1
-    rotationSpringMultiplier: 1
-    rotationDamperMultiplier: 1
-    rotationSpring2hMultiplier: 1
-    rotationDamper2hMultiplier: 1
-    forceClimbing: 0
-    dominantWhenTwoHanded: 1
-    ignoreSnap: 0
-    disabledOnSnap: 0
-    useDefaultGripForHolder: 1
-    allowSteal: 1
-    allowSwap: 1
-    allowTelekinesis: 0
-    telekinesisPullRepelMultiplier: 1
-    telekinesisMaxDistanceMultiplier: 1
-    telekinesisPositionSpringMultiplier: 1
-    telekinesisPositionDamperMultiplier: 1
-    telekinesisPositionMaxForceMultiplier: 1
-    telekinesisRotationSpringMultiplier: 1
-    telekinesisRotationDamperMultiplier: 1
-    telekinesisRotationMaxForceMultiplier: 1
-    slideMinDamper: 20
-    slideMaxDamper: 300
-    slideMotorMaxForce: 0
-    slideMotorAcceleration: 5
-    slideMotorDir: 0
-  handlers: []
 --- !u!1 &7973550946353365244
 GameObject:
   m_ObjectHideFlags: 0
@@ -1231,30 +1109,6 @@ MonoBehaviour:
   customReferences:
   - name: Thrust
     transform: {fileID: 2198898621317337761}
-  snapPitchRange: 0.05
-  holder: {fileID: 0}
-  customSnaps: []
-  flyFromThrow: 0
-  flyRotationSpeed: 2
-  flyThrowAngle: 0
-  isTelekinesisGrabbed: 0
-  isThrowed: 0
-  isFlying: 0
-  isGripped: 0
-  ignoredRagdoll: {fileID: 0}
-  ignoredItem: {fileID: 0}
-  ignoredCollider: {fileID: 0}
-  disableSnap: 0
-  audioContainerSnap: {fileID: 0}
-  distantGrabSafeDistance: 1
-  distantGrabSpinEnabled: 1
-  distantGrabThrowRatio: 1
-  isPooled: 0
-  disallowDespawn: 0
-  parryActive: 0
-  isPenetrating: 0
-  spawnTime: 0
-  lastInteractionTime: 0
 --- !u!54 &8767792618520088711
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1589,7 +1443,6 @@ MonoBehaviour:
   axisLength: 0
   touchRadius: 0.1
   touchCenter: {x: 0, y: 0, z: 0}
-  disableProximityHighlighter: 0
   defaultGrabAxisRatio: 0
   ikAnchorOffset: {x: 0, y: 0, z: 0}
   orientationDefaultRight: {fileID: 5730073130296237569}
@@ -1603,61 +1456,3 @@ MonoBehaviour:
   moveToHandle: {fileID: 0}
   moveToHandleAxisPos: 0
   allowedOrientations: []
-  data:
-    id: 
-    saveFolder: Bas
-    version: 0
-    disableTouch: 0
-    highlighterViewHandFreeOnly: 0
-    highlighterAddress: 
-    highlighterShowAxisLine: 0
-    highlighterShowAxisLineOnProximity: 0
-    highlightDefaultTitle: 
-    highlightDefaultDesignation: 
-    rotateAroundAxis: 0
-    forceHoldGripToGrab: 0
-    forcePlayerPhysicLink: 0
-    disableHandCollider: 0
-    disablePinchGrab: 0
-    setCenterOfMassTohandle: 0
-    handlerLocomotionSpeedMultiplier: 1
-    forceAllowTwoHanded: 0
-    handPoseId: 
-    allowSpellMenu: 0
-    allowSpellFire: 0
-    spellFireMagicOffset: {x: 0, y: 0, z: 0}
-    spellFireHandPoseId: 
-    warnIfNotAllowed: 0
-    grabEffectId: 
-    slideFxMinVelocity: 2
-    slideFxMaxVelocity: 10
-    rotationDrive: 0
-    useWYZWhenTwoHanded: 1
-    positionSpringMultiplier: 1
-    positionDamperMultiplier: 1
-    rotationSpringMultiplier: 1
-    rotationDamperMultiplier: 1
-    rotationSpring2hMultiplier: 1
-    rotationDamper2hMultiplier: 1
-    forceClimbing: 0
-    dominantWhenTwoHanded: 1
-    ignoreSnap: 0
-    disabledOnSnap: 0
-    useDefaultGripForHolder: 1
-    allowSteal: 1
-    allowSwap: 1
-    allowTelekinesis: 0
-    telekinesisPullRepelMultiplier: 1
-    telekinesisMaxDistanceMultiplier: 1
-    telekinesisPositionSpringMultiplier: 1
-    telekinesisPositionDamperMultiplier: 1
-    telekinesisPositionMaxForceMultiplier: 1
-    telekinesisRotationSpringMultiplier: 1
-    telekinesisRotationDamperMultiplier: 1
-    telekinesisRotationMaxForceMultiplier: 1
-    slideMinDamper: 20
-    slideMaxDamper: 300
-    slideMotorMaxForce: 0
-    slideMotorAcceleration: 5
-    slideMotorDir: 0
-  handlers: []
