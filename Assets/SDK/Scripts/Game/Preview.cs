@@ -119,19 +119,27 @@ namespace ThunderRoad
                 textureImporter.alphaIsTransparency = true;
                 EditorUtility.SetDirty(textureImporter);
                 textureImporter.SaveAndReimport();
-                Debug.Log("Icon generated in " + iconPath);
+                Debug.Log("Icon generated : " + path);
 
                 AddressableAssetSettings settings = AddressableAssetSettingsDefaultObject.Settings;
                 if (settings != null)
                 {
                     string guid = AssetDatabase.AssetPathToGUID(path);
                     AddressableAssetEntry entry = settings.FindAssetEntry(guid);
+
                     if (entry == null)
                     {
                         Debug.Log("Added icon to addressable");
                         entry = settings.CreateOrMoveEntry(guid, settings.DefaultGroup);
-                        entry.SetAddress(this.transform.root.name + ".Icon", false);
                         settings.SetDirty(AddressableAssetSettings.ModificationEvent.EntryAdded, entry, true, false);
+                    }
+
+                    string prefabGuid = AssetDatabase.AssetPathToGUID(iconPath);
+                    AddressableAssetEntry prefabEntry = settings.FindAssetEntry(prefabGuid);
+
+                    if (prefabEntry != null)
+                    {
+                        entry.SetAddress(prefabEntry.address + ".Icon", false);
                     }
                 }
                 else
