@@ -2,6 +2,10 @@
 using System;
 using System.Collections;
 
+#if ProjectSDK
+using SteamAudio;
+#endif
+
 namespace ThunderRoad
 {
     public class EffectAudio : Effect
@@ -48,13 +52,18 @@ namespace ThunderRoad
         [NonSerialized]
         public AudioReverbFilter reverbFilter;
 
+#if ProjectSDK
+        [NonSerialized]
+        public SteamAudioSource steamAudioSource;
+#endif
+
         private void Awake()
         {
             audioSource = this.GetComponent<AudioSource>();
             if (!audioSource) audioSource = this.gameObject.AddComponent<AudioSource>();
             audioSource.spatialBlend = 1;
             audioSource.playOnAwake = false;
-            audioSource.spatialize = true;
+            if (AudioSettings.GetSpatializerPluginName() != null) audioSource.spatialize = true;
             lowPassFilter = this.GetComponent<AudioLowPassFilter>();
             if (!lowPassFilter) lowPassFilter = this.gameObject.AddComponent<AudioLowPassFilter>();
             lowPassFilter.enabled = false;
