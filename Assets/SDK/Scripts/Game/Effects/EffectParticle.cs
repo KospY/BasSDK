@@ -71,6 +71,18 @@ namespace ThunderRoad
         public override void Play()
         {
             CancelInvoke();
+            foreach (EffectParticleChild p in childs)
+            {
+                ParticleSystem.ShapeModule shapeModule = p.particleSystem.shape;
+                if (shapeModule.shapeType == ParticleSystemShapeType.SkinnedMeshRenderer && shapeModule.skinnedMeshRenderer == null)
+                {
+                    shapeModule.enabled = false;
+                }
+                else if (shapeModule.shapeType == ParticleSystemShapeType.Mesh && shapeModule.mesh == null)
+                {
+                    shapeModule.enabled = false;
+                }
+            }
             rootParticleSystem.Play(true);
             if (step == Step.Start || step == Step.End)
             {
@@ -280,6 +292,7 @@ namespace ThunderRoad
 
         public override void SetMesh(Mesh mesh)
         {
+            if (mesh == null) return;
             foreach (EffectParticleChild p in childs)
             {
                 if (p.mesh)
@@ -287,12 +300,14 @@ namespace ThunderRoad
                     ParticleSystem.ShapeModule shapeModule = p.particleSystem.shape;
                     shapeModule.shapeType = ParticleSystemShapeType.Mesh;
                     shapeModule.mesh = mesh;
+                    shapeModule.enabled = true;
                 }
             }
         }
 
         public override void SetRenderer(Renderer renderer, bool secondary)
         {
+            if (renderer == null) return;
             foreach (EffectParticleChild p in childs)
             {
                 ParticleSystem.ShapeModule shapeModule = p.particleSystem.shape;
@@ -302,11 +317,13 @@ namespace ThunderRoad
                     {
                         shapeModule.shapeType = ParticleSystemShapeType.MeshRenderer;
                         shapeModule.meshRenderer = renderer as MeshRenderer;
+                        shapeModule.enabled = true;
                     }
                     if (renderer is SkinnedMeshRenderer)
                     {
                         shapeModule.shapeType = ParticleSystemShapeType.SkinnedMeshRenderer;
                         shapeModule.skinnedMeshRenderer = renderer as SkinnedMeshRenderer;
+                        shapeModule.enabled = true;
                     }
                 }
             }
