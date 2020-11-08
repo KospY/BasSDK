@@ -15,7 +15,6 @@ namespace ThunderRoad
     public class Paintable : MonoBehaviour
     {
         public List<MaterialProperty> materialProperties = new List<MaterialProperty>();
-        public bool cloneMaterial;
 
 
         [Serializable]
