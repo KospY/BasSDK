@@ -20,18 +20,33 @@ namespace ThunderRoad
         public Transform meshBone;
         public Transform[] linkedMeshBones;
         public Type type;
-        public bool sliceAllowed;
-        public float sliceWidth = 0.04f;
-        public float sliceJointBreakForce = 5000;
-        public Transform sliceTransform;
-        public Material sliceFillMaterial;
+        public Vector3 boneToChildDirection = Vector3.left;
+        public RagdollPart parentPart;
 
+        [Header("Dismemberment")]
+        public bool sliceAllowed;
+        [Range(0, 1)]
+        public float sliceParentAdjust = 0.5f;
+        public float sliceWidth = 0.04f;
+        public float sliceHeight = 0;
+        public float sliceThreshold = 0.5f;
+        public float sliceJointBreakForce = 5000;
+        public float sliceSeparationForce = 1;
+        public float sliceVelocityMultiplier = 0.5f;
+        public Material sliceFillMaterial;
+        public RagdollPart sliceByPassPart;
+        public bool sliceDisableCollider;
+
+        [Header("Forces")]
         public float springPositionMultiplier = 1;
         public float damperPositionMultiplier = 1;
         public float springRotationMultiplier = 1;
         public float damperRotationMultiplier = 1;
 
         public List<RagdollPart> ignoredParts;
+
+        [NonSerialized]
+        public CreatureData.PartData data;
 
         protected bool initialized;
 
@@ -62,6 +77,15 @@ namespace ThunderRoad
             RightFoot,
         }
 
+        protected virtual void OnValidate()
+        {
+            if (parentPart == null)
+            {
+                CharacterJoint characterJoint = this.GetComponent<CharacterJoint>();
+                if (characterJoint) parentPart = characterJoint.connectedBody.GetComponent<RagdollPart>();
+            }
+        }
+
         [Button]
         public void SetPositionToBone()
         {
@@ -82,6 +106,31 @@ namespace ThunderRoad
                     return;
                 }
             }
+        }
+        public virtual void GetSlicePositionAndDirection(out Vector3 position, out Vector3 direction)
+        {
+            direction = GetSliceDirection();
+            position = meshBone.transform.position + (direction * sliceHeight);
+        }
+
+        public virtual Vector3 GetSliceDirection()
+        {
+            Vector3 sliceDirection = parentPart ? Vector3.Lerp(meshBone.transform.TransformDirection(boneToChildDirection), parentPart.meshBone.transform.TransformDirection(parentPart.boneToChildDirection), sliceParentAdjust) : meshBone.transform.TransformDirection(boneToChildDirection);
+            return sliceDirection;
+        }
+
+        protected virtual void OnDrawGizmos()
+        {
+#if UNITY_EDITOR
+            if (sliceAllowed)
+            {
+                GetSlicePositionAndDirection(out Vector3 slicePosition, out Vector3 sliceDirection);
+                UnityEditor.Handles.color = Color.red;
+                UnityEditor.Handles.DrawWireDisc(slicePosition + (-sliceDirection * sliceWidth), sliceDirection, 0.1f);
+                UnityEditor.Handles.color = Color.green;
+                UnityEditor.Handles.DrawWireDisc(slicePosition + (sliceDirection * sliceWidth), sliceDirection, 0.1f);
+            }
+#endif
         }
 
         protected virtual void Awake()

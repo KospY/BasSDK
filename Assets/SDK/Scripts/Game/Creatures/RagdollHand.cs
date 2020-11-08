@@ -67,8 +67,9 @@ namespace ThunderRoad
         public SpellCaster caster;
 
 
-        public virtual void OnValidate()
+        protected override void OnValidate()
         {
+            base.OnValidate();
             if (!this.gameObject.activeInHierarchy) return;
             grip = this.transform.Find("Grip");
             if (!grip) grip = CreateDefaultGrip();
@@ -474,8 +475,9 @@ namespace ThunderRoad
             poseFinger.distal.localRotation = finger.distal.mesh.transform.localRotation;
         }
 
-        protected virtual void OnDrawGizmos()
+        protected override void OnDrawGizmos()
         {
+            base.OnDrawGizmos();
             foreach (Finger finger in fingers)
             {
                 Gizmos.color = Color.gray;

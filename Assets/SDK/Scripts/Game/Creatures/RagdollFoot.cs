@@ -21,8 +21,9 @@ namespace ThunderRoad
         public Transform upperLegBone;
 
 
-        public virtual void OnValidate()
+        protected override void OnValidate()
         {
+            base.OnValidate();
             if (!this.gameObject.activeInHierarchy) return;
             IconManager.SetIcon(this.gameObject, IconManager.LabelIcon.Red);
             grip = this.transform.Find("Grip");
@@ -33,8 +34,9 @@ namespace ThunderRoad
             }
         }
 
-        protected virtual void OnDrawGizmos()
+        protected override void OnDrawGizmos()
         {
+            base.OnDrawGizmos();
             if (grip)
             {
                 Gizmos.matrix = grip.transform.localToWorldMatrix;
