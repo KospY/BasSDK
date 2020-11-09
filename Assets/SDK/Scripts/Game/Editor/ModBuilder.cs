@@ -68,6 +68,9 @@ namespace ThunderRoad
         public delegate void BuildEvent(EventTime eventTime);
         public static event BuildEvent OnBuildEvent;
 
+        private static bool currentCheck = true;
+        private static Vector2 scrollPos;
+
         public enum SupportedGame
         {
             BladeAndSorcery,
@@ -136,7 +139,20 @@ namespace ThunderRoad
                 }
 
                 GUILayout.Space(5);
+                if (GUILayout.Button("Check/uncheck all"))
+                {
+                    foreach (AddressableAssetGroup group in AddressableAssetSettingsDefaultObject.Settings.groups)
+                    {
+                        BundledAssetGroupSchema bundledAssetGroupSchema = group.GetSchema<BundledAssetGroupSchema>();
+                        if (bundledAssetGroupSchema != null)
+                        {
+                            group.GetSchema<BundledAssetGroupSchema>().IncludeInBuild = currentCheck;
+                        }
+                    }
+                    currentCheck = !currentCheck;
+                }
 
+                scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Width(400), GUILayout.Height(300));
                 if (AddressableAssetSettingsDefaultObject.Settings != null)
                 {
                     foreach (AddressableAssetGroup group in AddressableAssetSettingsDefaultObject.Settings.groups)
@@ -159,6 +175,7 @@ namespace ThunderRoad
                         }
                     }
                 }
+                EditorGUILayout.EndScrollView();
             }
 
             if (action == Action.BuildAndExport || action == Action.ExportOnly)
@@ -444,7 +461,7 @@ namespace ThunderRoad
                         CopyDirectory(catalogFullPath, destinationCatalogPath);
                         Debug.Log("Copied catalog folder " + catalogFullPath + " to " + destinationCatalogPath);
                         // Copy plugin dll if any
-                        string dllPath = Path.Combine("BuildStaging", "Plugins", exportFolderName) + "/bin/Release/" + exportFolderName + ".dll";
+                        string dllPath = Path.Combine("BuildStaging", "Plugins", exportFolderName) + "/bin/Release/netstandard2.0/" + exportFolderName + ".dll";
                         if (File.Exists(dllPath))
                         {
                             File.Copy(dllPath, destinationCatalogPath + "/" + exportFolderName + ".dll", true);
