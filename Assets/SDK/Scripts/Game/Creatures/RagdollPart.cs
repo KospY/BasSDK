@@ -45,8 +45,10 @@ namespace ThunderRoad
 
         public List<RagdollPart> ignoredParts;
 
+#if PrivateSDK
         [NonSerialized]
         public CreatureData.PartData data;
+#endif
 
         protected bool initialized;
 
