@@ -39,6 +39,12 @@ namespace ThunderRoad
          
         }
 
+        [Button]
+        public virtual void CopyHDRToNonHDR()
+        {
+
+        }
+
         public virtual bool IsEnabled()
         {
             return !disabled;
