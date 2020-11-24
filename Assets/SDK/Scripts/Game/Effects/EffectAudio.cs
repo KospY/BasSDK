@@ -2,7 +2,7 @@
 using System;
 using System.Collections;
 
-#if ProjectSDK
+#if PrivateSDK
 using SteamAudio;
 #endif
 
@@ -52,7 +52,7 @@ namespace ThunderRoad
         [NonSerialized]
         public AudioReverbFilter reverbFilter;
 
-#if ProjectSDK
+#if PrivateSDK
         [NonSerialized]
         public SteamAudioSource steamAudioSource;
 #endif
