@@ -23,7 +23,8 @@ namespace ThunderRoad
         public float playTime;
 
         [Header("Size")]
-        public Vector3 size = new Vector3(1, 1, 1);
+        public Vector3 size = Vector3.one;
+        public float sizeRandomRange = 0;
         public bool useSizeCurve;
         public AnimationCurve sizeCurve;
 
@@ -84,6 +85,8 @@ namespace ThunderRoad
             CancelInvoke();
             meshRenderer.transform.localScale = Vector3.one;
             meshRenderer.transform.localScale = new Vector3(size.x / meshRenderer.transform.lossyScale.x, size.y / meshRenderer.transform.lossyScale.y, size.z / meshRenderer.transform.lossyScale.z);
+            float randomRange = UnityEngine.Random.Range(-sizeRandomRange, sizeRandomRange);
+            meshRenderer.transform.localScale += new Vector3(randomRange, randomRange, randomRange);
             if (step == Step.Start || step == Step.End)
             {
                 InvokeRepeating("UpdateLifeTime", 0, fadeRefreshSpeed);
