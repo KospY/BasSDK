@@ -57,6 +57,13 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.cinemachine": {
+      "version": "2.3.4",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.collections": {
       "version": "0.9.0-preview.6",
       "depth": 0,
@@ -92,9 +99,19 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.jobs": {
+      "version": "0.2.10-preview.13",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.collections": "0.9.0-preview.6",
+        "com.unity.mathematics": "1.1.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.mathematics": {
-      "version": "1.1.0",
-      "depth": 2,
+      "version": "1.2.1",
+      "depth": 0,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
