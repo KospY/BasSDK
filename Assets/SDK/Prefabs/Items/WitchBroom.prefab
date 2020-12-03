@@ -136,6 +136,14 @@ MonoBehaviour:
   touchCenter: {x: 0, y: 0, z: 0}
   defaultGrabAxisRatio: 0
   ikAnchorOffset: {x: 0, y: 0, z: 0}
+  orientationDefaultRight: {fileID: 0}
+  orientationDefaultLeft: {fileID: 0}
+  releaseHandle: {fileID: 0}
+  reach: 0.9
+  customRigidBody: {fileID: 0}
+  slideToUpHandle: {fileID: 0}
+  slideToBottomHandle: {fileID: 0}
+  slideToHandleOffset: 0.01
   allowedOrientations:
   - rotation: {x: 0, y: 0, z: 0}
     positionOffset: {x: 0, y: 0, z: 0}
@@ -145,12 +153,6 @@ MonoBehaviour:
     positionOffset: {x: 0, y: 0, z: 0}
     allowedHand: 3
     isDefault: 0
-  releaseHandle: {fileID: 0}
-  reach: 0.9
-  customRigidBody: {fileID: 0}
-  slideToUpHandle: {fileID: 0}
-  slideToBottomHandle: {fileID: 0}
-  slideToHandleOffset: 0.01
 --- !u!1 &1901189757573562185
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,6 +238,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -272,14 +275,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de48b3ae3f24015409da8220791b80c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shaderProperty: _BaseMap
-  radius: 0.1
-  depth: 1
-  opacity: 1
-  hardness: 1
-  normalFront: 0.2
-  normalBack: 0
-  normalFade: 0.01
+  materialProperties: []
+  cloneMaterial: 0
 --- !u!1 &3173247729294164730
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,8 +325,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5920f8522c41c44d907427b6b8829d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imbueMagic: 1
-  checkIndependently: 0
+  imbueEffectRenderer: {fileID: 0}
+  imbueEmissionRenderer: {fileID: 0}
+  imbueShoot: {fileID: 0}
+  whooshPoint: {fileID: 0}
 --- !u!1 &4056623947800356883
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,7 +367,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4056623947800356883}
-  m_Material: {fileID: 13400000, guid: d55682a10aeb89a4a93afed16fab1675, type: 2}
+  m_Material: {fileID: 13400000, guid: a601a27ecd48263498723601d7da23be, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.22
@@ -443,7 +442,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7049544233211724758}
-  m_Material: {fileID: 13400000, guid: d55682a10aeb89a4a93afed16fab1675, type: 2}
+  m_Material: {fileID: 13400000, guid: a601a27ecd48263498723601d7da23be, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.07
@@ -524,6 +523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colliderGroup: {fileID: 8175100268850713908}
+  colliderOnly: {fileID: 0}
   direction: 0
   penetrationLength: 0
   penetrationDepth: 0
@@ -650,6 +650,14 @@ MonoBehaviour:
   touchCenter: {x: 0, y: 0, z: 0}
   defaultGrabAxisRatio: 0
   ikAnchorOffset: {x: 0, y: 0, z: 0}
+  orientationDefaultRight: {fileID: 0}
+  orientationDefaultLeft: {fileID: 0}
+  releaseHandle: {fileID: 0}
+  reach: 0.9
+  customRigidBody: {fileID: 0}
+  slideToUpHandle: {fileID: 0}
+  slideToBottomHandle: {fileID: 0}
+  slideToHandleOffset: 0.01
   allowedOrientations:
   - rotation: {x: 0, y: 0, z: 0}
     positionOffset: {x: 0, y: 0, z: 0}
@@ -659,12 +667,6 @@ MonoBehaviour:
     positionOffset: {x: 0, y: 0, z: 0}
     allowedHand: 3
     isDefault: 0
-  releaseHandle: {fileID: 0}
-  reach: 0.9
-  customRigidBody: {fileID: 0}
-  slideToUpHandle: {fileID: 0}
-  slideToBottomHandle: {fileID: 0}
-  slideToHandleOffset: 0.01
 --- !u!1 &7973550946353365244
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,6 +733,8 @@ MonoBehaviour:
   preview: {fileID: 3605456932896514362}
   useCustomCenterOfMass: 0
   customCenterOfMass: {x: 0, y: 0, z: 0}
+  customInertiaTensor: 0
+  customInertiaTensorCollider: {fileID: 0}
   customReferences:
   - name: Thrust
     transform: {fileID: 2198898621317337761}
@@ -788,7 +792,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7973614848323508498}
-  m_Material: {fileID: 13400000, guid: d55682a10aeb89a4a93afed16fab1675, type: 2}
+  m_Material: {fileID: 13400000, guid: a601a27ecd48263498723601d7da23be, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.07
@@ -833,7 +837,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8023761995564155697}
-  m_Material: {fileID: 13400000, guid: d55682a10aeb89a4a93afed16fab1675, type: 2}
+  m_Material: {fileID: 13400000, guid: a601a27ecd48263498723601d7da23be, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.07
@@ -878,7 +882,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8627722259944112814}
-  m_Material: {fileID: 13400000, guid: d55682a10aeb89a4a93afed16fab1675, type: 2}
+  m_Material: {fileID: 13400000, guid: a601a27ecd48263498723601d7da23be, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.07
@@ -934,6 +938,14 @@ MonoBehaviour:
   touchCenter: {x: 0, y: 0, z: 0}
   defaultGrabAxisRatio: 0
   ikAnchorOffset: {x: 0, y: 0, z: 0}
+  orientationDefaultRight: {fileID: 0}
+  orientationDefaultLeft: {fileID: 0}
+  releaseHandle: {fileID: 0}
+  reach: 0.9
+  customRigidBody: {fileID: 0}
+  slideToUpHandle: {fileID: 0}
+  slideToBottomHandle: {fileID: 0}
+  slideToHandleOffset: 0.01
   allowedOrientations:
   - rotation: {x: 0, y: 0, z: 0}
     positionOffset: {x: 0, y: 0, z: 0}
@@ -943,9 +955,3 @@ MonoBehaviour:
     positionOffset: {x: 0, y: 0, z: 0}
     allowedHand: 3
     isDefault: 0
-  releaseHandle: {fileID: 0}
-  reach: 0.9
-  customRigidBody: {fileID: 0}
-  slideToUpHandle: {fileID: 0}
-  slideToBottomHandle: {fileID: 0}
-  slideToHandleOffset: 0.01
