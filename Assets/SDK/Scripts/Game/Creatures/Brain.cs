@@ -65,6 +65,12 @@ namespace ThunderRoad
         }
 #endif
 
+        private void OnValidate()
+        {
+            navMeshAgent = this.GetComponent<NavMeshAgent>();
+            if (navMeshAgent) navMeshAgent.enabled = false;
+        }
+
         protected virtual void Awake()
         {
             if (!hashInitialized) InitAnimatorHashs();
