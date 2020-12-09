@@ -73,8 +73,18 @@ namespace ThunderRoad
             CancelInvoke();
             foreach (EffectParticleChild p in childs)
             {
+                if (p == null)
+                {
+                    Debug.LogError(this.name + " have an EffectParticleChild that has been destroyed! (this could happen if a effectParticle component has been added to one of the childs)");
+                    continue;
+                }
+
                 ParticleSystem.ShapeModule shapeModule = p.particleSystem.shape;
                 if (shapeModule.shapeType == ParticleSystemShapeType.SkinnedMeshRenderer && shapeModule.skinnedMeshRenderer == null)
+                {
+                    shapeModule.enabled = false;
+                }
+                else if (shapeModule.shapeType == ParticleSystemShapeType.MeshRenderer && shapeModule.meshRenderer == null)
                 {
                     shapeModule.enabled = false;
                 }
@@ -132,6 +142,12 @@ namespace ThunderRoad
                 foreach (EffectParticleChild p in childs)
                 {
                     ParticleSystem.MainModule mainModule = p.particleSystem.main;
+
+                    if (p == null)
+                    {
+                        Debug.LogError(this.name + " have an EffectParticleChild that has been destroyed! (this could happen if a effectParticle component has been added to one of the childs)");
+                        continue;
+                    }
 
                     if (p.duration && !p.particleSystem.isPlaying)
                     {

@@ -81,19 +81,19 @@ namespace ThunderRoad
                 currentValue = value;
                 if (renderer && renderer.isVisible)
                 {
-                    if (linkBaseColor == EffectTarget.Main)
+                    if (linkBaseColor == EffectTarget.Main && currentMainGradient != null)
                     {
                         materialPropertyBlock.SetColor(colorPropertyID, currentMainGradient.Evaluate(value));
                     }
-                    else if (linkBaseColor == EffectTarget.Secondary)
+                    else if (linkBaseColor == EffectTarget.Secondary && currentSecondaryGradient != null)
                     {
                         materialPropertyBlock.SetColor(colorPropertyID, currentSecondaryGradient.Evaluate(value));
                     }
-                    if (linkEmissionColor == EffectTarget.Main)
+                    if (linkEmissionColor == EffectTarget.Main && currentMainGradient != null)
                     {
                         materialPropertyBlock.SetColor(emissionPropertyID, currentMainGradient.Evaluate(value));
                     }
-                    else if (linkEmissionColor == EffectTarget.Secondary)
+                    else if (linkEmissionColor == EffectTarget.Secondary && currentSecondaryGradient != null)
                     {
                         materialPropertyBlock.SetColor(emissionPropertyID, currentSecondaryGradient.Evaluate(value));
                     }

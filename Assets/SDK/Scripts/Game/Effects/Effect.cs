@@ -88,6 +88,7 @@ namespace ThunderRoad
         {
 
         }
+
         public virtual void CollisionStay(Vector3 position, Quaternion rotation, float intensity)
         {
             this.transform.position = position;
