@@ -51,9 +51,10 @@ namespace ThunderRoad
         }
 
 #if PrivateSDK
-        public virtual Effect Spawn(EffectData effectData, bool pooled)
+        public virtual bool Spawn(EffectData effectData, Vector3 position, Quaternion rotation, out Effect effect, Transform parent = null, CollisionHandler targetCollisionHandler = null, bool pooled = true)
         {
-            return null;
+            effect = null;
+            return false;
         }
 #endif
 

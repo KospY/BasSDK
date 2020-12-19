@@ -8,9 +8,12 @@ namespace ThunderRoad
 {
     public class ItemSpawner : MonoBehaviour
     {
-        public string itemId;
         public bool pooled;
         public bool spawnOnStart = true;
+        public ContainerData.Content itemData;
+
+        public List<Transform> spawnPoints;
+        public List<Holder> holders;
 
     }
 }

@@ -6,9 +6,9 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.AddressableAssets;
 using System.Collections;
 
+
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
-using Chabuk.ManikinMono;
 #else
 using EasyButtons;
 #endif
