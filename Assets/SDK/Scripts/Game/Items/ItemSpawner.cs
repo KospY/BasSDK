@@ -10,6 +10,7 @@ namespace ThunderRoad
     {
         public bool pooled;
         public bool spawnOnStart = true;
+        public ContainerData.Content itemData;
 
         public List<Transform> spawnPoints;
         public List<Holder> holders;
