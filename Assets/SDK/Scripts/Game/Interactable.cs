@@ -18,6 +18,15 @@ namespace ThunderRoad
 #endif
         public string interactableId;
 
+        public HandSide side = HandSide.Both;
+
+        public enum HandSide
+        {
+            Both,
+            Right,
+            Left,
+        }
+
         public float axisLength = 0;
         public float touchRadius = 0.1f;
         public Vector3 touchCenter;
