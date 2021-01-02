@@ -30,10 +30,11 @@ namespace ThunderRoad
         public float sliceWidth = 0.04f;
         public float sliceHeight = 0;
         public float sliceThreshold = 0.5f;
-        public float sliceJointBreakForce = 5000;
         public Material sliceFillMaterial;
         public RagdollPart sliceByPassPart;
         public bool sliceDisableCollider;
+        public bool ripBreak = false;
+        public float ripBreakForce = 3000;
 
         [Header("Forces")]
         public float springPositionMultiplier = 1;
