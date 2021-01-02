@@ -27,12 +27,12 @@ namespace ThunderRoad
 #endif
         public bool disabled;
 
+#if PrivateSDK
         public virtual void Refresh(EffectData effectData, bool editorLoad = false)
         {
 
         }
 
-#if PrivateSDK
         public virtual IEnumerator RefreshCoroutine(EffectData effectData, bool editorLoad = false)
         {
             yield return new WaitForEndOfFrame();
