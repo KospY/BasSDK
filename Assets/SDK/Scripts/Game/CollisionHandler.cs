@@ -20,5 +20,8 @@ namespace ThunderRoad
         public bool checkMinVelocity = true;
         public bool enterOnly = false;
 
+        public bool customInertiaTensor;
+        public CapsuleCollider customInertiaTensorCollider;
+
     }
 }
