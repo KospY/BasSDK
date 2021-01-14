@@ -1,7 +1,14 @@
 ﻿using UnityEngine;
 using System;
-using RainyReignGames.RevealMask;
 using System.Collections.Generic;
+#if ProjectCore
+using RainyReignGames.RevealMask;
+#endif
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#else
+using EasyButtons;
+#endif
 
 namespace ThunderRoad
 {
@@ -11,9 +18,6 @@ namespace ThunderRoad
 
         public float depth = 1.2f;
         public float offsetDistance = 0.05f;
-
-        public RevealData[] revealData;
-
         public float minSize = 0.05f;
         public float maxSize = 0.1f;
         public Vector4 minChannelMultiplier = Vector4.one;
@@ -29,39 +33,6 @@ namespace ThunderRoad
 
         public List<Renderer> targetRenderers;
 
-        public override void Play()
-        {
-            if (step == Step.Start || step == Step.End)
-            {
-                RevealMaskProjection.Project(this.transform.position + (this.transform.forward * offsetDistance), -this.transform.forward, this.transform.up, depth, currentSize, maskTexture, currentChannelMultiplier, targetRenderers.ToArray(), revealData);
-                Invoke("Despawn", 2);
-            }
-            playTime = Time.time;
-        }
-
-        public override void Stop()
-        {
-            SetIntensity(0);
-        }
-
-        public override void End(bool loopOnly = false)
-        {
-            Despawn();
-        }
-        /*
-        public override void CollisionStay(Vector3 position, Quaternion rotation, float intensity)
-        {
-            base.CollisionStay(position, rotation, intensity);
-        }
-        */
-        public override void SetIntensity(float value, bool loopOnly = false)
-        {
-            if (!loopOnly || (loopOnly && step == Step.Loop))
-            {
-                currentSize = Mathf.Lerp(minSize, maxSize, value);
-                currentChannelMultiplier = Vector4.Lerp(minChannelMultiplier, maxChannelMultiplier, value);
-            }
-        }
 
         public override void Despawn()
         {
