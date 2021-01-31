@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
+using System;
 
+#if PrivateSDK
+using RainyReignGames.RevealMask;
+#endif
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -13,9 +17,18 @@ namespace ThunderRoad
     public class RevealDecal : MonoBehaviour
     {
         [Tooltip("These materials are what will be switched to on the renderer once the reveal masks are activated. Corresponds with shared materials index.")]
-        public Material[] revealMaterials;
+        public Material[] materials;
         [Tooltip("Resolution of the reveal mask")]
-        public RevealMaskResolution revealMaskResolution = RevealMaskResolution.Size_512;
+        public RevealMaskResolution maskResolution = RevealMaskResolution.Size_512;
+        [Tooltip("Reveal type")]
+        public Type type = Type.Default;
+
+        public enum Type
+        {
+            Default,
+            Body,
+            Outfit,
+        }
 
         public enum RevealMaskResolution
         {
@@ -29,5 +42,36 @@ namespace ThunderRoad
             Size_4096 = 4096,
         }
 
+#if PrivateSDK
+        [NonSerialized]
+        public RevealMaterialController revealMaterialController;
+
+        void Awake()
+        {
+            revealMaterialController = this.gameObject.AddComponent<RevealMaterialController>();
+            revealMaterialController.revealMaterials = materials;
+            revealMaterialController.width = (int)maskResolution;
+            revealMaterialController.height = (int)maskResolution;
+            revealMaterialController.maskPropertyName = "_RevealMask";
+            revealMaterialController.preserveRenderQueue = true;
+            revealMaterialController.renderTextureFormat = RenderTextureFormat.ARGB64;
+
+            foreach (Material material in revealMaterialController.revealMaterials)
+            {
+                if (material.HasProperty("_Bitmask"))
+                {
+                    revealMaterialController.propertiesToPreserve = new RevealMaterialController.ShaderProperty[1];
+                    revealMaterialController.propertiesToPreserve[0].name = "_Bitmask";
+                    revealMaterialController.propertiesToPreserve[0].type = RevealMaterialController.ShaderProperty.ShaderPropertyType.Int;
+                    break;
+                }
+            }
+        }
+
+        public void Reset()
+        {
+            revealMaterialController.Reset();
+        }
+#endif
     }
 }
