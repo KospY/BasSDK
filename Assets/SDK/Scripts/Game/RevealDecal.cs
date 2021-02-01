@@ -19,7 +19,9 @@ namespace ThunderRoad
         [Tooltip("These materials are what will be switched to on the renderer once the reveal masks are activated. Corresponds with shared materials index.")]
         public Material[] materials;
         [Tooltip("Resolution of the reveal mask")]
-        public RevealMaskResolution maskResolution = RevealMaskResolution.Size_512;
+        public RevealMaskResolution maskWidth = RevealMaskResolution.Size_512;
+        [Tooltip("Resolution of the reveal mask")]
+        public RevealMaskResolution maskHeight = RevealMaskResolution.Size_512;
         [Tooltip("Reveal type")]
         public Type type = Type.Default;
 
@@ -42,6 +44,49 @@ namespace ThunderRoad
             Size_4096 = 4096,
         }
 
+        [Button()]
+        public void SetMaskResolutionFull()
+        {
+            SetMaskResolution(1f);
+        }
+
+        [Button()]
+        public void SetMaskResolutionHalf()
+        {
+            SetMaskResolution(0.5f);
+        }
+
+        [Button()]
+        public void SetMaskResolutionQuarter()
+        {
+            SetMaskResolution(0.25f);
+        }
+
+        [Button()]
+        public void SetMaskResolutionEighth()
+        {
+            SetMaskResolution(0.125f);
+        }
+
+        public void SetMaskResolution(float scale = 1)
+        {
+            Renderer renderer = this.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                Material mat = renderer.sharedMaterial;
+                if (mat != null)
+                {
+                    Texture baseMap = mat.GetTexture("_BaseMap");
+                    if (baseMap != null)
+                    {
+                        maskWidth = (RevealMaskResolution)Mathf.ClosestPowerOfTwo((int)(baseMap.width * scale));
+                        maskHeight = (RevealMaskResolution)Mathf.ClosestPowerOfTwo((int)(baseMap.height * scale));
+                        if (maskWidth != maskHeight) Debug.Log(this.gameObject.name);
+                    }
+                }
+            }
+        }
+
 #if PrivateSDK
         [NonSerialized]
         public RevealMaterialController revealMaterialController;
@@ -50,8 +95,8 @@ namespace ThunderRoad
         {
             revealMaterialController = this.gameObject.AddComponent<RevealMaterialController>();
             revealMaterialController.revealMaterials = materials;
-            revealMaterialController.width = (int)maskResolution;
-            revealMaterialController.height = (int)maskResolution;
+            revealMaterialController.width = (int)maskWidth;
+            revealMaterialController.height = (int)maskHeight;
             revealMaterialController.maskPropertyName = "_RevealMask";
             revealMaterialController.preserveRenderQueue = true;
             revealMaterialController.renderTextureFormat = RenderTextureFormat.ARGB64;
