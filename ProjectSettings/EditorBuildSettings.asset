@@ -5,11 +5,17 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Prefabs/Scenes/Master.unity
+    guid: a596671fbfbbdd54a8c7f8a754621a4a
   m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 06a9eb8228bc1cb4082b1dc549034b32,
+      type: 2}
+    Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: c09c450237d35a242971468051e07258,
+      type: 2}
     com.unity.addressableassets: {fileID: 11400000, guid: 44ece3deb61a9814daba561dec1ae503,
       type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 8df601990f9f3f94dbc51acf617d96f3,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: aa2498ee69db1f9409efd9ca7d29918c,
       type: 2}
