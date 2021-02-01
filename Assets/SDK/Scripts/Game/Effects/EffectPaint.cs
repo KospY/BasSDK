@@ -18,6 +18,15 @@ namespace ThunderRoad
         protected static int emissionPropertyID;
 
         public Material material;
+
+        public Direction applyOn = Direction.Target;
+
+        public enum Direction
+        {
+            Source,
+            Target,
+        }
+
         public float radius = 0.1f;
         public bool useRadiusCurve;
         public AnimationCurve radiusCurve;
@@ -64,11 +73,6 @@ namespace ThunderRoad
             {
                 emissionColorGradient = gradient;
             }
-        }
-
-        public override void CollisionStay(Vector3 position, Quaternion rotation, float intensity)
-        {
-            // Prevent decal to move when rubbing
         }
 
         public override void Despawn()

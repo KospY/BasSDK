@@ -24,6 +24,19 @@ namespace ThunderRoad
         [NonSerialized]
         public List<Collider> colliders;
 
+#if ODIN_INSPECTOR
+        [ShowInInspector]
+#endif
+        [NonSerialized]
+        public ColliderGroupData data;
+        [NonSerialized]
+        public CollisionHandler collisionHandler;
+#if ODIN_INSPECTOR
+        [ShowInInspector]
+#endif
+        [NonSerialized]
+        public ColliderGroupData.Modifier modifier;
+
 
         [Button("Generate imbue mesh")]
         public void GenerateImbueMesh()
@@ -96,11 +109,23 @@ namespace ThunderRoad
             meshFilter.transform.localScale = Vector3.one;
             meshFilter.sharedMesh = imbueMesh;
             //creates a directory and saves the mesh as an asset
+            int meshNumber = 1;
+
 #if (UNITY_EDITOR)
             if (!Application.isPlaying)
             {
                 System.IO.Directory.CreateDirectory("Assets/Private/Generated Meshes");
-                AssetDatabase.CreateAsset(imbueMesh, "Assets/Private/Generated Meshes/ImbueGeneratedMesh" + name);
+                string path = Application.dataPath + "/Private/Generated Meshes/ImbueGeneratedMesh" + name + meshNumber;
+                if (System.IO.File.Exists(path))
+                {
+                    Debug.Log("File ImbueGeneratedMesh" + name + " already exists. Renaming current ImbueGeneratedMesh.");
+                    while (System.IO.File.Exists(Application.dataPath + "/Private/Generated Meshes/ImbueGeneratedMesh" + name + meshNumber))
+                    {
+                        meshNumber++;
+                    }
+                }
+
+                AssetDatabase.CreateAsset(imbueMesh, "Assets/Private/Generated Meshes/ImbueGeneratedMesh" + name + meshNumber);
             }
 #endif
             imbueEffectRenderer = meshFilter.gameObject.AddComponent<MeshRenderer>();

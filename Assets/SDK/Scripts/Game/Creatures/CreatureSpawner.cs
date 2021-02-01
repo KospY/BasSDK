@@ -20,5 +20,6 @@ namespace ThunderRoad
         public float delayBetweenSpawn = 0.5f;
         public bool spawnOnStart = true;
         public GameObject points;
+
     }
 }

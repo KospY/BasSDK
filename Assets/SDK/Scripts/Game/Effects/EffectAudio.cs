@@ -15,14 +15,18 @@ namespace ThunderRoad
         public float globalVolumeDb = 0;
         public float globalPitch = 1;
 
-        public bool randomPitch;
-        public AnimationCurve pitchCurve;
         public AnimationCurve volumeCurve;
         public float loopFadeDelay;
         public EffectLink effectLink = EffectLink.Intensity;
 
+        public EffectLink pitchEffectLink = EffectLink.Intensity;
+        public bool randomPitch;
+        public AnimationCurve pitchCurve;
+
         [NonSerialized]
         public float playTime;
+
+        public float playDelay;
 
         [Header("Random play")]
         public bool randomPlay;
@@ -101,7 +105,7 @@ namespace ThunderRoad
 
             if (step == Step.Start || step == Step.End)
             {
-                Invoke("Despawn", audioSource.clip.length + 1);
+                Invoke("Despawn", audioSource.clip.length + playDelay + 1);
             }
 
             if (randomPlay)
@@ -114,7 +118,14 @@ namespace ThunderRoad
             else
             {
                 audioSource.loop = step == Step.Loop ? true : false;
-                audioSource.Play();
+                if (playDelay > 0)
+                {
+                    audioSource.Play((ulong)(audioSource.clip.frequency * playDelay));
+                }
+                else
+                {
+                    audioSource.Play();
+                }
             }
 
             playTime = Time.time;
@@ -150,40 +161,50 @@ namespace ThunderRoad
 
         public override void SetIntensity(float value, bool loopOnly = false)
         {
-            if (effectLink == EffectLink.Intensity)
+            if (!loopOnly || (loopOnly && step == Step.Loop))
             {
-                SetVariation(value, loopOnly);
+                if (effectLink == EffectLink.Intensity)
+                {
+                    SetVariation(value, loopOnly);
+                }
+                if (pitchEffectLink == EffectLink.Intensity)
+                {
+                    audioSource.pitch = pitchCurve.Evaluate(value) * globalPitch;
+                }
             }
         }
 
         public override void SetSpeed(float value, bool loopOnly = false)
         {
-            if (effectLink == EffectLink.Speed)
+            if (!loopOnly || (loopOnly && step == Step.Loop))
             {
-                SetVariation(value, loopOnly);
+                if (effectLink == EffectLink.Speed)
+                {
+                    SetVariation(value, loopOnly);
+                }
+                if (pitchEffectLink == EffectLink.Speed)
+                {
+                    audioSource.pitch = pitchCurve.Evaluate(value) * globalPitch;
+                }
             }
         }
 
         public void SetVariation(float value, bool loopOnly = false)
         {
-            if (!loopOnly || (loopOnly && step == Step.Loop))
+            audioSource.volume = volumeCurve.Evaluate(value) * DecibelToLinear(globalVolumeDb);
+            if (useLowPassFilter)
             {
-                audioSource.pitch = pitchCurve.Evaluate(value) * globalPitch;
-                audioSource.volume = volumeCurve.Evaluate(value) * DecibelToLinear(globalVolumeDb);
-                if (useLowPassFilter)
-                {
-                    lowPassFilter.cutoffFrequency = lowPassCutoffFrequencyCurve.Evaluate(value);
-                    lowPassFilter.lowpassResonanceQ = lowPassResonanceQCurve.Evaluate(value);
-                }
-                if (useHighPassFilter)
-                {
-                    highPassFilter.cutoffFrequency = highPassCutoffFrequencyCurve.Evaluate(value);
-                    highPassFilter.highpassResonanceQ = highPassResonanceQCurve.Evaluate(value);
-                }
-                if (useLowPassFilter)
-                {
-                    reverbFilter.dryLevel = reverbDryLevelCurve.Evaluate(value);
-                }
+                lowPassFilter.cutoffFrequency = lowPassCutoffFrequencyCurve.Evaluate(value);
+                lowPassFilter.lowpassResonanceQ = lowPassResonanceQCurve.Evaluate(value);
+            }
+            if (useHighPassFilter)
+            {
+                highPassFilter.cutoffFrequency = highPassCutoffFrequencyCurve.Evaluate(value);
+                highPassFilter.highpassResonanceQ = highPassResonanceQCurve.Evaluate(value);
+            }
+            if (useLowPassFilter)
+            {
+                reverbFilter.dryLevel = reverbDryLevelCurve.Evaluate(value);
             }
         }
 

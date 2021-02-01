@@ -17,7 +17,6 @@ namespace ThunderRoad
     public class Item : MonoBehaviour
     {
         public string itemId;
-        public bool loadOnStart;
         public Transform holderPoint;
         public Transform parryPoint;
         public Handle mainHandleRight;
@@ -32,6 +31,8 @@ namespace ThunderRoad
 
         [NonSerialized]
         public List<Renderer> renderers;
+        [NonSerialized]
+        public List<RevealDecal> revealDecals;
         [NonSerialized]
         public List<Paintable> paintables;
         [NonSerialized]

@@ -44,8 +44,6 @@ namespace ThunderRoad
         [NonSerialized]
         public FeetClimber climber;
         [NonSerialized]
-        public LiquidReceiver liquidReceiver;
-        [NonSerialized]
         public Equipment equipment;
         [NonSerialized]
         public RagdollHand handLeft;
