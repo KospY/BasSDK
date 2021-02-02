@@ -113,10 +113,7 @@ namespace ThunderRoad
             }
         }
 
-        public void Reset()
-        {
-            revealMaterialController.Reset();
-        }
+
 #endif
     }
 }

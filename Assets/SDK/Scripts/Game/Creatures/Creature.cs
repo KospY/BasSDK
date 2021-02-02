@@ -21,6 +21,7 @@ namespace ThunderRoad
         public string creatureId;
 
         public Animator animator;
+        public LODGroup logGroup;
         public Container container;
         public Transform centerEyes;
         public Vector3 eyeCameraOffset;
@@ -95,7 +96,7 @@ namespace ThunderRoad
             {
                 smr.updateWhenOffscreen = true;
             }
-
+            if (!logGroup) logGroup = this.GetComponentInChildren<LODGroup>();
             animator.applyRootMotion = false;
             animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
             animator.enabled = false;

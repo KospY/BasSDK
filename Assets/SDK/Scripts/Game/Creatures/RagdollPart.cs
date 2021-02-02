@@ -120,7 +120,7 @@ namespace ThunderRoad
             return sliceDirection;
         }
 
-        protected virtual void OnDrawGizmos()
+        protected virtual void OnDrawGizmosSelected()
         {
 #if UNITY_EDITOR
             if (sliceAllowed)
