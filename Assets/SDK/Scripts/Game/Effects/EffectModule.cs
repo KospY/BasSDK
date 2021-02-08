@@ -97,6 +97,7 @@ namespace ThunderRoad
             None = 1,
             Pressure = 2,
             Hit = 4,
+            Skewer = 8,
         }
 
         [Flags]
@@ -191,6 +192,10 @@ namespace ThunderRoad
                 return false;
             }
             if (!penetrationFilter.HasFlag(PenetrationFilter.Hit) && collisionInstance != null && collisionInstance.damageStruct.penetration == DamageStruct.Penetration.Hit)
+            {
+                return false;
+            }
+            if (!penetrationFilter.HasFlag(PenetrationFilter.Skewer) && collisionInstance != null && collisionInstance.damageStruct.penetration == DamageStruct.Penetration.Skewer)
             {
                 return false;
             }

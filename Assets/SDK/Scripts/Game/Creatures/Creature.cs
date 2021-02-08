@@ -159,6 +159,7 @@ namespace ThunderRoad
             UpdateAnimation();
         }
 
+
         public virtual void UpdateAnimation()
         {
             // Apply locomotion animations

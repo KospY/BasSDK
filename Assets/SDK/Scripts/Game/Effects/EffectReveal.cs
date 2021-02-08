@@ -38,7 +38,8 @@ namespace ThunderRoad
         [NonSerialized]
         public Vector4 currentChannelMultiplier;
 
-        public List<Renderer> targetRenderers;
+        public CollisionHandler collisionHandler;
+
 
 
         public override void Despawn()
