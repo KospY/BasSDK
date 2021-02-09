@@ -27,16 +27,19 @@ namespace ThunderRoad
 #if ODIN_INSPECTOR
         [ShowInInspector]
 #endif
+#if PrivateSDK
         [NonSerialized]
         public ColliderGroupData data;
+#endif
         [NonSerialized]
         public CollisionHandler collisionHandler;
 #if ODIN_INSPECTOR
         [ShowInInspector]
 #endif
+#if PrivateSDK
         [NonSerialized]
         public ColliderGroupData.Modifier modifier;
-
+#endif
 
         [Button("Generate imbue mesh")]
         public void GenerateImbueMesh()

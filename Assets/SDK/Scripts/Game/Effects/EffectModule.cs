@@ -115,7 +115,7 @@ namespace ThunderRoad
             Slash = 4,
             Pierce = 8,
         }
-
+#if PrivateSDK
         public virtual void OnCatalogRefresh(EffectData effectData, bool editorLoad = false)
         {
             imbueHashes = new int[imbuesFilter.Length];
@@ -139,7 +139,7 @@ namespace ThunderRoad
         {
             yield return new WaitForEndOfFrame();
         }
-
+#endif
 #if ODIN_INSPECTOR
         public List<ValueDropdownItem<string>> GetAllSpellCastChargeID()
         {
@@ -259,7 +259,7 @@ namespace ThunderRoad
                 }
             }
             return null;
-#else    
+#else
             Debug.LogError("Can't load addressable asset with editor load option!");
             return null;
 #endif
