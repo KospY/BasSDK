@@ -475,9 +475,9 @@ namespace ThunderRoad
             poseFinger.distal.localRotation = finger.distal.mesh.transform.localRotation;
         }
 
-        protected override void OnDrawGizmos()
+        protected override void OnDrawGizmosSelected()
         {
-            base.OnDrawGizmos();
+            base.OnDrawGizmosSelected();
             foreach (Finger finger in fingers)
             {
                 Gizmos.color = Color.gray;

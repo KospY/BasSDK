@@ -211,6 +211,13 @@ namespace ThunderRoad
 
             GUILayout.Label(new GUIContent(toDefault ? "Default folder name" : "Mod folder name"), new GUIStyle("BoldLabel"), GUILayout.Width(150));
             string newModeName = GUILayout.TextField(exportFolderName, 25);
+
+            string invalidChars = new string(Path.GetInvalidFileNameChars());
+            foreach (char c in invalidChars)
+            {
+                newModeName = newModeName.Replace(c.ToString(), "");
+            }
+
             if (newModeName != exportFolderName)
             {
                 EditorPrefs.SetString("TRMB.ExportFolderName", newModeName);

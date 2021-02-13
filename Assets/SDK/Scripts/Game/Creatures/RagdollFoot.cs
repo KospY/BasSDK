@@ -34,9 +34,9 @@ namespace ThunderRoad
             }
         }
 
-        protected override void OnDrawGizmos()
+        protected override void OnDrawGizmosSelected()
         {
-            base.OnDrawGizmos();
+            base.OnDrawGizmosSelected();
             if (grip)
             {
                 Gizmos.matrix = grip.transform.localToWorldMatrix;

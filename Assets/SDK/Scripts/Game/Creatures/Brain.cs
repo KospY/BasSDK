@@ -20,7 +20,7 @@ namespace ThunderRoad
         public bool useAcceleration;
         public float acceleration = 0.3f;
         public float actionCycleSpeed = 1;
-        
+
 
         [NonSerialized]
         public Creature creature;
@@ -74,14 +74,12 @@ namespace ThunderRoad
         protected virtual void Awake()
         {
             if (!hashInitialized) InitAnimatorHashs();
-            creature = this.GetComponentInParent<Creature>();
             navMeshAgent = this.GetComponent<NavMeshAgent>();
             navMeshAgent.updatePosition = false;
             navMeshAgent.updateRotation = false;
             navMeshAgent.speed = 0;
             navMeshAgent.stoppingDistance = 0;
         }
-
 
         protected void InitAnimatorHashs()
         {

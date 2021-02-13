@@ -13,10 +13,9 @@ namespace ThunderRoad
         public string containerId;
         public bool pooled;
         public bool spawnOnStart = true;
+        public bool disallowDespawn;
 
-        public bool spawnOnTransform = false;
-
-        public List<Transform> transformSpawnPoints = new List<Transform>();
+        public List<Transform> spawnPoints = new List<Transform>();
 
     }
 }

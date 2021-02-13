@@ -95,9 +95,9 @@ namespace ThunderRoad
         Z,
     }
 
-    public enum TagFilter
+    public enum FilterLogic
     {
-        AllExcept,
+        AnyExcept,
         NoneExcept,
     }
 
@@ -148,6 +148,7 @@ namespace ThunderRoad
 
     public enum DamageType
     {
+        Unknown,
         Pierce,
         Slash,
         Blunt,

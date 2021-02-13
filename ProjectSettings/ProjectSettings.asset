@@ -171,7 +171,7 @@ PlayerSettings:
     Android: com.Warpfrog.BladeAndSorcery
     Standalone: com.Warpfrog.BladeAndSorcery
   buildNumber: {}
-  AndroidBundleVersionCode: 3
+  AndroidBundleVersionCode: 9
   AndroidMinSdkVersion: 23
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 0
@@ -425,10 +425,9 @@ PlayerSettings:
     - Oculus
     - OpenVR
   - m_BuildTarget: Android
-    m_Enabled: 1
+    m_Enabled: 0
     m_Devices:
     - Oculus
-    - OpenVR
   openGLRequireES31: 1
   openGLRequireES31AEP: 0
   openGLRequireES32: 0
@@ -700,6 +699,7 @@ PlayerSettings:
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
   gcIncremental: 1
+  assemblyVersionValidation: 1
   gcWBarrierValidation: 0
   apiCompatibilityLevelPerPlatform:
     Standalone: 3

@@ -88,15 +88,29 @@ namespace ThunderRoad
         {
 
         }
-        public virtual void CollisionStay(Vector3 position, Quaternion rotation, float intensity)
+        public virtual void CollisionStay(Vector3 position, Quaternion rotation, float speed)
         {
             this.transform.position = position;
             this.transform.rotation = rotation;
+            SetSpeed(speed, true);
+        }
+
+        public virtual void CollisionStay(Vector3 position, Quaternion rotation, float speed, float intensity)
+        {
+            this.transform.position = position;
+            this.transform.rotation = rotation;
+            SetSpeed(speed, true);
             SetIntensity(intensity, true);
         }
 
-        public virtual void CollisionStay(float intensity)
+        public virtual void CollisionStay(float speed)
         {
+            SetSpeed(speed, true);
+        }
+
+        public virtual void CollisionStay(float speed, float intensity)
+        {
+            SetSpeed(speed, true);
             SetIntensity(intensity, true);
         }
 

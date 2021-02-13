@@ -21,6 +21,7 @@ namespace ThunderRoad
         public string creatureId;
 
         public Animator animator;
+        public LODGroup logGroup;
         public Container container;
         public Transform centerEyes;
         public Vector3 eyeCameraOffset;
@@ -43,8 +44,6 @@ namespace ThunderRoad
         public CreatureSpeak speak;
         [NonSerialized]
         public FeetClimber climber;
-        [NonSerialized]
-        public LiquidReceiver liquidReceiver;
         [NonSerialized]
         public Equipment equipment;
         [NonSerialized]
@@ -97,7 +96,7 @@ namespace ThunderRoad
             {
                 smr.updateWhenOffscreen = true;
             }
-
+            if (!logGroup) logGroup = this.GetComponentInChildren<LODGroup>();
             animator.applyRootMotion = false;
             animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
             animator.enabled = false;
@@ -159,6 +158,7 @@ namespace ThunderRoad
         {
             UpdateAnimation();
         }
+
 
         public virtual void UpdateAnimation()
         {

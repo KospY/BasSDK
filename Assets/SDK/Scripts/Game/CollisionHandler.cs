@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
-
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -19,6 +17,38 @@ namespace ThunderRoad
         public bool active = true;
         public bool checkMinVelocity = true;
         public bool enterOnly = false;
+
+        public bool customInertiaTensor;
+        public CapsuleCollider customInertiaTensorCollider;
+
+        private void OnValidate()
+        {
+            if (customInertiaTensor)
+            {
+                if (customInertiaTensorCollider == null)
+                {
+                    Transform customInertiaTensorTransform = this.transform.Find("InertiaTensorCollider");
+                    if (customInertiaTensorTransform)
+                    {
+                        customInertiaTensorCollider = customInertiaTensorTransform.GetComponent<CapsuleCollider>();
+                    }
+                    else
+                    {
+                        customInertiaTensorTransform = new GameObject("InertiaTensorCollider").transform;
+                        customInertiaTensorTransform.SetParent(this.transform, false);
+                    }
+                    if (customInertiaTensorCollider == null)
+                    {
+                        customInertiaTensorCollider = customInertiaTensorTransform.gameObject.AddComponent<CapsuleCollider>();
+                        customInertiaTensorCollider.radius = 0.05f;
+                        customInertiaTensorCollider.direction = 2;
+                    }
+                }
+                customInertiaTensorCollider.enabled = false;
+                customInertiaTensorCollider.isTrigger = true;
+                customInertiaTensorCollider.gameObject.layer = 2;
+            }
+        }
 
     }
 }
