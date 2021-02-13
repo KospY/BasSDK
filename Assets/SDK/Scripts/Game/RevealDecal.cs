@@ -3,6 +3,7 @@ using System;
 
 #if PrivateSDK
 using RainyReignGames.RevealMask;
+using System.Collections.Generic;
 #endif
 
 #if ODIN_INSPECTOR

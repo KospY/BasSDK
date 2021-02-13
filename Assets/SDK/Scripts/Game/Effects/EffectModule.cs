@@ -34,14 +34,14 @@ namespace ThunderRoad
         [BoxGroup("Split/Module filters")]
 #endif
         public bool isGore = false;
-        
+
 #if ODIN_INSPECTOR
         [BoxGroup("Split/Collision filters")]
 #endif
         public DamagerFilter damagerStateFilter = DamagerFilter.Inactive | DamagerFilter.Active;
 
 #if ODIN_INSPECTOR
-    [BoxGroup("Split/Collision filters")]
+        [BoxGroup("Split/Collision filters")]
 #endif
         public DamageTypeFilter damageTypeFilter = DamageTypeFilter.Energy | DamageTypeFilter.Blunt | DamageTypeFilter.Slash | DamageTypeFilter.Pierce;
 
