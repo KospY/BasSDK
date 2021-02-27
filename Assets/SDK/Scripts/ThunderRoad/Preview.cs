@@ -69,16 +69,16 @@ namespace ThunderRoad
 
 
             string iconPath = null;
-            if (PrefabUtility.GetNearestPrefabInstanceRoot(this))
-            {
-                // Prefab in scene
-                iconPath = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(this);
-            }
-            else if (PrefabStageUtility.GetCurrentPrefabStage() != null)
+            if (PrefabStageUtility.GetCurrentPrefabStage() != null)
             {
                 // Prefab editor
                 iconPath = PrefabStageUtility.GetCurrentPrefabStage().prefabAssetPath;
                 cam.scene = PrefabStageUtility.GetCurrentPrefabStage().scene;
+            }
+            else if (PrefabUtility.GetNearestPrefabInstanceRoot(this))
+            {
+                // Prefab in scene
+                iconPath = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(this);
             }
             else
             {
