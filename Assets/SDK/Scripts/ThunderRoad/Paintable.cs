@@ -16,6 +16,8 @@ namespace ThunderRoad
     {
         public List<MaterialProperty> materialProperties = new List<MaterialProperty>();
 
+        protected bool initialized;
+
 
         [Serializable]
         public class MaterialProperty

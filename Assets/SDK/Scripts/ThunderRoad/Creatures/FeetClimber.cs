@@ -24,7 +24,8 @@ namespace ThunderRoad
         public float legLenghtMultiplier = 1.3f;
         public float minFootSpacing = 0.2f;
 
-        public float upMaxAngle = 30;
+        public float legToHeadMaxAngle = 30;
+        public float footMaxAngle = 45;
         public bool showDebug;
 
     }

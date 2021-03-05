@@ -19,6 +19,8 @@ namespace ThunderRoad
         public Transform toesAnchor;
         [NonSerialized]
         public Transform upperLegBone;
+        [NonSerialized]
+        public Transform lowerLegBone;
 
 
         protected override void OnValidate()
