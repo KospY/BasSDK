@@ -8,6 +8,7 @@ namespace ThunderRoad
     {
         public Transform spawnPoint;
         public string menuAddress = "Bas.WorldMenu.ItemSelector";
+        public float visibleRadius = 4;
 
 
         protected void OnDrawGizmos()

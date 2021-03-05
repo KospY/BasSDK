@@ -9,6 +9,7 @@ namespace ThunderRoad
         public string id;
         public string menuAddress = "Bas.WorldMenu.WaveSelector";
         public SpawnLocation spawnLocation;
+        public float visibleRadius = 4;
 
         void OnValidate()
         {

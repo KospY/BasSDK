@@ -16,6 +16,7 @@ namespace ThunderRoad
         public Transform locationRoot;
         public ToggleGroup orbGroup;
         public Transform canvasDetails;
+        public float visibleRadius = 4;
 
 
         protected void OnDrawGizmos()
