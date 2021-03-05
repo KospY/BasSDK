@@ -21,6 +21,7 @@ namespace ThunderRoad
         public List<Transform> slots = new List<Transform>();
         public List<Item> startObjects = new List<Item>();
         public List<Collider> ignoredColliders = new List<Collider>();
+        public string editorTargetAnchor;
 
 
         protected virtual void OnValidate()
@@ -34,7 +35,9 @@ namespace ThunderRoad
         {
             foreach (Item startObject in startObjects)
             {
-                if (slots.ElementAtOrDefault(startObjects.IndexOf(startObject)) != null) startObject.transform.MoveAlign(startObject.holderPoint ? startObject.holderPoint : startObject.transform, slots[startObjects.IndexOf(startObject)].transform);
+                Item.HolderPoint hp = startObject.GetHolderPoint(editorTargetAnchor) ;
+
+                if (slots.ElementAtOrDefault(startObjects.IndexOf(startObject)) != null) startObject.transform.MoveAlign(hp != null ? hp.anchor : startObject.transform, slots[startObjects.IndexOf(startObject)].transform);
                 else Debug.LogError("Slot " + startObjects.IndexOf(startObject) + " do not exist!!");
             }
         }

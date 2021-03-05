@@ -83,7 +83,7 @@ namespace ThunderRoad
                 }
             }
 
-            if (item.holderPoint == null)
+            if (item.GetDefaultHolderPoint() == null)
             {
                 EditorGUILayout.HelpBox("There is no holder point assigned to this object. It will not be able to be holstered.", MessageType.Warning);
             }

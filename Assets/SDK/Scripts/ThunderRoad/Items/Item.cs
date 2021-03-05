@@ -19,6 +19,7 @@ namespace ThunderRoad
     {
         public string itemId;
         public Transform holderPoint;
+        public List<HolderPoint> additionalHolderPoints = new List<HolderPoint>();
         public Transform parryPoint;
         public Handle mainHandleRight;
         public Handle mainHandleLeft;
@@ -100,7 +101,14 @@ namespace ThunderRoad
         protected virtual void OnValidate()
         {
             if (!this.gameObject.activeInHierarchy) return;
-            holderPoint = this.transform.Find("HolderPoint");
+
+            Transform holderPoint = null;
+
+            foreach (var item in additionalHolderPoints)
+            {
+                holderPoint = this.transform.Find(item.anchorName);
+            }
+
             if (!holderPoint)
             {
                 holderPoint = new GameObject("HolderPoint").transform;
@@ -188,10 +196,44 @@ namespace ThunderRoad
         protected virtual void OnDrawGizmosSelected()
         {
             Gizmos.DrawWireSphere(this.transform.TransformPoint(this.GetComponent<Rigidbody>().centerOfMass), 0.01f);
-            Gizmos.matrix = holderPoint.transform.localToWorldMatrix;
-            DrawGizmoArrow(Vector3.zero, Vector3.forward * 0.1f, Vector3.up, Common.HueColourValue(HueColorName.Purple), 0.1f, 10);
-            DrawGizmoArrow(Vector3.zero, Vector3.up * 0.05f, Vector3.up, Common.HueColourValue(HueColorName.Green), 0.05f);
+            foreach (HolderPoint holderPoint in additionalHolderPoints)
+            {
+                Gizmos.matrix = holderPoint.anchor.localToWorldMatrix;
+                DrawGizmoArrow(Vector3.zero, Vector3.forward * 0.1f, Vector3.up, Common.HueColourValue(HueColorName.Purple), 0.1f, 10);
+                DrawGizmoArrow(Vector3.zero, Vector3.up * 0.05f, Vector3.up, Common.HueColourValue(HueColorName.Green), 0.05f);
+            }
         }
 
+
+        [Serializable]
+        public class HolderPoint
+        {
+            public HolderPoint(Transform t, string s)
+            {
+                anchor = t;
+                anchorName = s;
+            }
+
+            public Transform anchor;
+            public string anchorName;
+        }
+
+        public HolderPoint GetDefaultHolderPoint()
+        {
+            return new HolderPoint(holderPoint, "Default");
+        }
+
+        public HolderPoint GetHolderPoint(string holderPoint)
+        {
+            HolderPoint hp = additionalHolderPoints.Find(x => x.anchorName == holderPoint);
+
+            if (hp != null)
+                return hp;
+            else
+            {
+                Debug.LogWarning("HolderPoint " + holderPoint + " not found on item " + name + " : returning default HolderPoint.");
+                return GetDefaultHolderPoint();
+            }
+        }
     }
 }
