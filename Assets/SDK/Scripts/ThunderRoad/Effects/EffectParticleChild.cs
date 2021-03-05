@@ -44,6 +44,10 @@ namespace ThunderRoad
         public bool shapeRadius;
         public AnimationCurve curveShapeRadius;
 
+        [Header("Intensity to shape arc")]
+        public bool shapeArc;
+        public AnimationCurve curveShapeArc;
+
         [Header("Intensity to burst")]
         public bool burst;
         public AnimationCurve curveBurst;

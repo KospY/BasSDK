@@ -204,6 +204,11 @@ namespace ThunderRoad
                     var shape = p.particleSystem.shape;
                     shape.radius = p.curveShapeRadius.Evaluate(currentValue);
                 }
+                if (p.shapeArc)
+                {
+                    var shape = p.particleSystem.shape;
+                    shape.arc = p.curveShapeRadius.Evaluate(currentValue);
+                }
                 if (p.rate)
                 {
                     minMaxCurve.mode = ParticleSystemCurveMode.TwoConstants;
