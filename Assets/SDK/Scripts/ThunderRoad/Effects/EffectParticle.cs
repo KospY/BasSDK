@@ -207,7 +207,7 @@ namespace ThunderRoad
                 if (p.shapeArc)
                 {
                     var shape = p.particleSystem.shape;
-                    shape.arc = p.curveShapeRadius.Evaluate(currentValue);
+                    shape.arc = p.curveShapeArc.Evaluate(currentValue);
                 }
                 if (p.rate)
                 {
