@@ -383,6 +383,9 @@ namespace ThunderRoad
                         bundledAssetGroupSchema.BundleNaming = BundledAssetGroupSchema.BundleNamingStyle.NoHash;
                         AddressableAssetSettingsDefaultObject.Settings.profileSettings.SetValue(group.Settings.activeProfileId, "LocalBuildPath", "[ThunderRoad.ModBuilder.buildPath]");
                         AddressableAssetSettingsDefaultObject.Settings.profileSettings.SetValue(group.Settings.activeProfileId, "LocalLoadPath", (toDefault ? "{ThunderRoad.FileManager.aaDefaultPath}/" : "{ThunderRoad.FileManager.aaModPath}/") + exportFolderName);
+                        // Set builtin shader to export folder name to avoid duplicates
+                        AddressableAssetSettingsDefaultObject.Settings.ShaderBundleNaming = UnityEditor.AddressableAssets.Build.ShaderBundleNaming.Custom;
+                        AddressableAssetSettingsDefaultObject.Settings.ShaderBundleCustomNaming = exportFolderName;
                         /* TODO: OBB support (zip file uncompressed and adb push to obb folder)
                             AddressableAssetSettingsDefaultObject.Settings.profileSettings.SetValue(group.Settings.activeProfileId, "LocalLoadPath", "{ThunderRoad.FileManager.obbPath}/" + exportFolderName + "{ThunderRoad.FileManager.obbPathEnd}");
                         */
