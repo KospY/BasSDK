@@ -104,10 +104,7 @@ namespace ThunderRoad
 
             Transform holderPoint = null;
 
-            foreach (var item in additionalHolderPoints)
-            {
-                holderPoint = this.transform.Find(item.anchorName);
-            }
+            holderPoint = this.transform.Find("HolderPoint");
 
             if (!holderPoint)
             {
@@ -229,11 +226,12 @@ namespace ThunderRoad
 
             if (hp != null)
                 return hp;
-            else
+            else if (!string.IsNullOrEmpty(holderPoint))
             {
                 Debug.LogWarning("HolderPoint " + holderPoint + " not found on item " + name + " : returning default HolderPoint.");
-                return GetDefaultHolderPoint();
             }
+
+            return GetDefaultHolderPoint();
         }
     }
 }
