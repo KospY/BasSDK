@@ -10,6 +10,7 @@ using System.Text;
 #if DUNGEN
 using DunGen;
 using DunGen.Adapters;
+using UnityEngine.AI;
 #endif
 
 #if ODIN_INSPECTOR
@@ -97,7 +98,6 @@ namespace ThunderRoad
             dungeonNavMeshAdapter = this.GetComponentInChildren<UnityNavMeshAdapter>();
             if (dungeonNavMeshAdapter)
             {
-                // Prevent Unity to crash when generating dungeon
                 dungeonNavMeshAdapter.enabled = false;
             }
             dungeonGenerator = this.GetComponentInChildren<RuntimeDungeon>();
@@ -118,7 +118,19 @@ namespace ThunderRoad
         [Button]
         public void GenerateNavMesh()
         {
-            if (dungeonNavMeshAdapter && Application.isPlaying) dungeonNavMeshAdapter.Generate(dungeonGenerator.Generator.CurrentDungeon);
+            if (dungeonNavMeshAdapter && Application.isPlaying)
+            {
+                dungeonNavMeshAdapter.enabled = true;
+                dungeonNavMeshAdapter.Generate(dungeonGenerator.Generator.CurrentDungeon);
+            }
+        }
+
+        [Button]
+        public void GenerateNavMeshUnity()
+        {
+            NavMeshSurface surface = this.gameObject.GetComponent<NavMeshSurface>();
+            if (!surface) surface = this.gameObject.AddComponent<NavMeshSurface>();
+            surface.BuildNavMesh();
         }
 
         private void OnGenerationStatusChanged(DungeonGenerator generator, GenerationStatus status)
@@ -135,6 +147,20 @@ namespace ThunderRoad
             stringBuilder.AppendLine("Total room count: " + generator.GenerationStats.TotalRoomCount);
             stringBuilder.AppendLine("Retry count: " + generator.GenerationStats.TotalRetries);
             Debug.Log(stringBuilder.ToString());
+
+#if UNITY_EDITOR
+            GameObject[] allObjects = FindObjectsOfType<GameObject>();
+            foreach (GameObject go in allObjects)
+            {
+                UnityEditor.StaticEditorFlags staticEditorFlags = UnityEditor.GameObjectUtility.GetStaticEditorFlags(go);
+                if (staticEditorFlags.HasFlag(UnityEditor.StaticEditorFlags.BatchingStatic))
+                {
+                    Debug.LogError("Batching static is set on: " + Common.GetGameObjectPath(go));
+                }
+            }
+#endif
+
+            //GenerateNavMesh();
 
             PlayerSpawner playerSpawner = GameObject.FindObjectOfType<PlayerSpawner>();
             if (playerSpawner)
