@@ -31,6 +31,8 @@ namespace ThunderRoad
 
         public Collider touchCollider;
 
+        public WristStats wristStats;
+
         [Header("Fingers")]
         public Finger fingerThumb = new Finger();
         public Finger fingerIndex = new Finger();
