@@ -120,13 +120,14 @@ namespace ThunderRoad
         {
             if (dungeonNavMeshAdapter && Application.isPlaying)
             {
+                dungeonNavMeshAdapter.BakeMode = UnityNavMeshAdapter.RuntimeNavMeshBakeMode.PreBakedOnly;
                 dungeonNavMeshAdapter.enabled = true;
                 dungeonNavMeshAdapter.Generate(dungeonGenerator.Generator.CurrentDungeon);
             }
         }
 
         [Button]
-        public void GenerateNavMeshUnity()
+        public void GenerateGlobalNavMesh()
         {
             NavMeshSurface surface = this.gameObject.GetComponent<NavMeshSurface>();
             if (!surface) surface = this.gameObject.AddComponent<NavMeshSurface>();
@@ -148,19 +149,7 @@ namespace ThunderRoad
             stringBuilder.AppendLine("Retry count: " + generator.GenerationStats.TotalRetries);
             Debug.Log(stringBuilder.ToString());
 
-#if UNITY_EDITOR
-            GameObject[] allObjects = FindObjectsOfType<GameObject>();
-            foreach (GameObject go in allObjects)
-            {
-                UnityEditor.StaticEditorFlags staticEditorFlags = UnityEditor.GameObjectUtility.GetStaticEditorFlags(go);
-                if (staticEditorFlags.HasFlag(UnityEditor.StaticEditorFlags.BatchingStatic))
-                {
-                    Debug.LogError("Batching static is set on: " + Common.GetGameObjectPath(go));
-                }
-            }
-#endif
-
-            //GenerateNavMesh();
+            GenerateNavMesh();
 
             PlayerSpawner playerSpawner = GameObject.FindObjectOfType<PlayerSpawner>();
             if (playerSpawner)
