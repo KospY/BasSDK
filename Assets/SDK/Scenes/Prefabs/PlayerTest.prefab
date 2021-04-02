@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 1625522765663333031}
   - component: {fileID: 4760369356017979701}
   - component: {fileID: 1359114902083914323}
+  - component: {fileID: 2681442138600694668}
   m_Layer: 21
   m_Name: Head
   m_TagString: Untagged
@@ -148,6 +149,24 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &2681442138600694668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625522765663333025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a2a9c34df4095f47b9ca8f975175f5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Device: 0
+  m_PoseSource: 2
+  m_PoseProviderComponent: {fileID: 0}
+  m_TrackingType: 0
+  m_UpdateType: 0
+  m_UseRelativeTransform: 0
 --- !u!1 &1625522765938287470
 GameObject:
   m_ObjectHideFlags: 0
