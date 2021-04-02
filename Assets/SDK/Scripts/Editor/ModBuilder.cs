@@ -9,6 +9,8 @@ using System.IO;
 using System.Collections.Generic;
 using System;
 using UnityEditor.Android;
+using Newtonsoft.Json;
+using System.Linq;
 
 namespace ThunderRoad
 {
@@ -71,6 +73,12 @@ namespace ThunderRoad
         private static bool currentCheck = true;
         private static Vector2 scrollPos;
 
+        private static int profileIndex = 0;
+        private static int previousProfileIndex = 0;
+        private static string profileName = "ProfileName";
+
+        private static List<ModBuilderProfile> profiles = new List<ModBuilderProfile>();
+
         public enum SupportedGame
         {
             BladeAndSorcery,
@@ -113,11 +121,17 @@ namespace ThunderRoad
             runGameArguments = EditorPrefs.GetString("TRMB.RunGameArguments");
             gameName = (SupportedGame)EditorPrefs.GetInt("TRMB.GameName");
             action = (Action)EditorPrefs.GetInt("TRMB.Action");
+
+            LoadProfiles();
         }
 
         private void OnGUI()
         {
             GUILayout.Space(5);
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+
+            BuildProfileGUI();
+
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
             ExportFolderGUI();
@@ -141,14 +155,7 @@ namespace ThunderRoad
                 GUILayout.Space(5);
                 if (GUILayout.Button("Check/uncheck all"))
                 {
-                    foreach (AddressableAssetGroup group in AddressableAssetSettingsDefaultObject.Settings.groups)
-                    {
-                        BundledAssetGroupSchema bundledAssetGroupSchema = group.GetSchema<BundledAssetGroupSchema>();
-                        if (bundledAssetGroupSchema != null)
-                        {
-                            group.GetSchema<BundledAssetGroupSchema>().IncludeInBuild = currentCheck;
-                        }
-                    }
+                    CheckAll(currentCheck);
                     currentCheck = !currentCheck;
                 }
 
@@ -190,6 +197,18 @@ namespace ThunderRoad
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
             if (GUILayout.Button(action == Action.BuildOnly ? "Build" : (action == Action.ExportOnly ? "Export" : "Build and export"))) Build(action);
+        }
+
+        private static void CheckAll(bool b)
+        {
+            foreach (AddressableAssetGroup group in AddressableAssetSettingsDefaultObject.Settings.groups)
+            {
+                BundledAssetGroupSchema bundledAssetGroupSchema = group.GetSchema<BundledAssetGroupSchema>();
+                if (bundledAssetGroupSchema != null)
+                {
+                    group.GetSchema<BundledAssetGroupSchema>().IncludeInBuild = b;
+                }
+            }
         }
 
         public static T[] GetAllInstances<T>() where T : ScriptableObject
@@ -241,6 +260,129 @@ namespace ThunderRoad
 #endif
 
             GUILayout.EndHorizontal();
+        }
+
+        static void BuildProfileGUI()
+        {
+            GUILayout.BeginHorizontal();
+
+            GUILayout.Label(new GUIContent("Profile"), new GUIStyle("BoldLabel"), GUILayout.Width(150));
+
+            previousProfileIndex = profileIndex;
+            profileIndex = EditorGUILayout.Popup(profileIndex, profiles.Select(n => n.profileName).ToArray());
+
+            if (profileIndex != previousProfileIndex)
+            {
+                OnProfileIndexChange();
+            }
+
+            GUILayout.EndHorizontal();
+
+
+            GUILayout.BeginHorizontal();
+
+            if (GUILayout.Button("Save profile"))
+            {
+                SaveProfile();
+            }
+
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+
+            if (GUILayout.Button("Add profile..."))
+            {
+                AddProfile();
+            }
+
+            profileName = GUILayout.TextField(profileName);
+
+            GUILayout.EndHorizontal();
+        }
+
+        static void OnProfileIndexChange()
+        {
+            ModBuilderProfile currentProfile = profiles[profileIndex];
+
+            foreach (AddressableAssetGroup group in AddressableAssetSettingsDefaultObject.Settings.groups)
+            {
+                BundledAssetGroupSchema bundledAssetGroupSchema = group.GetSchema<BundledAssetGroupSchema>();
+                if (bundledAssetGroupSchema != null)
+                {
+
+                    if (currentProfile.groups != null)
+                    {
+                        if (currentProfile.groups.ContainsKey(group.Name))
+                        {
+                            group.GetSchema<BundledAssetGroupSchema>().IncludeInBuild = currentProfile.groups[group.Name];
+                        }
+                        else
+                        {
+                            Debug.LogWarning("Group " + group.Name + " not found in profile " + currentProfile.profileName + ".");
+                        }
+                    }
+                    else
+                        CheckAll(false);
+                }
+            }
+
+            exportFolderName = currentProfile.exportFolder;
+        }
+
+        static void SaveProfile()
+        {
+            ModBuilderProfile currentProfile = profiles[profileIndex];
+
+            ModBuilderProfile mbp = new ModBuilderProfile();
+            mbp.groups = new Dictionary<string, bool>();
+
+            foreach (AddressableAssetGroup group in AddressableAssetSettingsDefaultObject.Settings.groups)
+            {
+                BundledAssetGroupSchema bundledAssetGroupSchema = group.GetSchema<BundledAssetGroupSchema>();
+                if (bundledAssetGroupSchema != null)
+                {
+                    mbp.groups.Add(group.Name, group.GetSchema<BundledAssetGroupSchema>().IncludeInBuild);
+                }
+            }
+
+            mbp.profileName = currentProfile.profileName;
+            mbp.exportFolder = exportFolderName;
+
+            profiles[profileIndex] = mbp;
+
+            string json = JsonConvert.SerializeObject(profiles, Formatting.Indented);
+
+            using (StreamWriter sw = new StreamWriter(Application.dataPath + "/SDK/modprofiles.json"))
+            {
+                sw.Write(json);
+                sw.Close();
+            }
+        }
+
+        static void LoadProfiles()
+        {
+            string json;
+
+            using (StreamReader sr = new StreamReader(Application.dataPath + "/SDK/modprofiles.json"))
+            {
+                json = sr.ReadToEnd();
+                sr.Close();
+            }
+
+            profiles = JsonConvert.DeserializeObject<List<ModBuilderProfile>>(json);
+        }
+
+        static void AddProfile()
+        {
+            if (profiles.FindIndex(x => x.profileName == profileName) != -1)
+            {
+                Debug.LogError("Profile " + profileName + " already exists.");
+            }
+            else
+            {
+                profiles.Add(new ModBuilderProfile(profileName, exportFolderName, null));
+                profileIndex = profiles.Count - 1;
+            }
         }
 
         static void ExportToGUI()
@@ -379,6 +521,11 @@ namespace ThunderRoad
                     BundledAssetGroupSchema bundledAssetGroupSchema = group.GetSchema<BundledAssetGroupSchema>();
                     if (bundledAssetGroupSchema != null)
                     {
+                        if (group.Default)
+                        {
+                            bundledAssetGroupSchema.BuildPath.SetVariableByName(AddressableAssetSettingsDefaultObject.Settings, "LocalBuildPath");
+                            bundledAssetGroupSchema.LoadPath.SetVariableByName(AddressableAssetSettingsDefaultObject.Settings, "LocalLoadPath");
+                        }
                         bundledAssetGroupSchema.BundleNaming = BundledAssetGroupSchema.BundleNamingStyle.NoHash;
                         bundledAssetGroupSchema.BundleNaming = BundledAssetGroupSchema.BundleNamingStyle.NoHash;
                         AddressableAssetSettingsDefaultObject.Settings.profileSettings.SetValue(group.Settings.activeProfileId, "LocalBuildPath", "[ThunderRoad.ModBuilder.buildPath]");
@@ -386,6 +533,7 @@ namespace ThunderRoad
                         // Set builtin shader to export folder name to avoid duplicates
                         AddressableAssetSettingsDefaultObject.Settings.ShaderBundleNaming = UnityEditor.AddressableAssets.Build.ShaderBundleNaming.Custom;
                         AddressableAssetSettingsDefaultObject.Settings.ShaderBundleCustomNaming = exportFolderName;
+                        AddressableAssetSettingsDefaultObject.Settings.BuildRemoteCatalog = true;
                         /* TODO: OBB support (zip file uncompressed and adb push to obb folder)
                             AddressableAssetSettingsDefaultObject.Settings.profileSettings.SetValue(group.Settings.activeProfileId, "LocalLoadPath", "{ThunderRoad.FileManager.obbPath}/" + exportFolderName + "{ThunderRoad.FileManager.obbPathEnd}");
                         */
@@ -542,5 +690,21 @@ namespace ThunderRoad
                 CopyDirectory(Path.Combine(strSource, tempdir.Name), Path.Combine(strDestination, tempdir.Name), searchPattern);
             }
         }
+    }
+
+    [JsonObject]
+    [Serializable]
+    public class ModBuilderProfile
+    {
+        public ModBuilderProfile(string n = "", string f = "", Dictionary<string, bool> g = null)
+        {
+            profileName = n;
+            exportFolder = f;
+            groups = g;
+        }
+
+        public string profileName = "";
+        public string exportFolder = "";
+        public Dictionary<string, bool> groups = new Dictionary<string, bool>();
     }
 }

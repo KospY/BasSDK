@@ -12,6 +12,8 @@ namespace ThunderRoad
         public bool pooled;
         public bool spawnOnStart = true;
         public bool disallowDespawn;
-        
+
+        public Transform spawnPoint = null;
+
     }
 }

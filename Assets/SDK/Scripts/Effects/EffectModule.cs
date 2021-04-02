@@ -169,15 +169,25 @@ namespace ThunderRoad
         }
 
 #if PrivateSDK
+
+        public bool CheckPlateform()
+        {
+            if (plateformFilter.HasFlag(PlateformFilter.Android) && Common.GetSelectedPlatform() == RuntimePlatform.Android)
+            {
+                return true;
+            }
+            if (plateformFilter.HasFlag(PlateformFilter.Windows) && (Common.GetSelectedPlatform() == RuntimePlatform.WindowsPlayer || Common.GetSelectedPlatform() == RuntimePlatform.WindowsEditor))
+            {
+                return true;
+            }
+            return false;
+        }
+
         public virtual bool Spawn(EffectData effectData, Vector3 position, Quaternion rotation, out Effect effect, Transform parent = null, CollisionInstance collisionInstance = null, bool pooled = true)
         {
             effect = null;
             // Plateform filter check
-            if (!plateformFilter.HasFlag(PlateformFilter.Android) && Common.GetSelectedPlatform() == RuntimePlatform.Android)
-            {
-                return false;
-            }
-            if (!plateformFilter.HasFlag(PlateformFilter.Windows) && (Common.GetSelectedPlatform() == RuntimePlatform.WindowsPlayer || Common.GetSelectedPlatform() == RuntimePlatform.WindowsEditor))
+            if (!CheckPlateform())
             {
                 return false;
             }

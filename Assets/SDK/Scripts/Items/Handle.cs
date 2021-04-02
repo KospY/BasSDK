@@ -25,6 +25,9 @@ namespace ThunderRoad
 
         public Handle releaseHandle;
 
+        public bool forcePlayerJoint;
+        public bool forceAutoDropWhenGrounded;
+
         public float reach = 0.5f;
         public Rigidbody customRigidBody;
         public Handle slideToUpHandle;

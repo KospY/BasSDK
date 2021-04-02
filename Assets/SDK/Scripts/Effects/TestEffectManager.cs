@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.Timeline;
 using UnityEngine.Playables;
 using System.Collections;
 #if ODIN_INSPECTOR
