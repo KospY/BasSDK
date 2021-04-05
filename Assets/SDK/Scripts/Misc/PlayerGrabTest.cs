@@ -26,25 +26,9 @@ namespace ThunderRoad
             rb.isKinematic = true;
         }
 
-        private void Start()
-        {
-            var devices = new List<InputDevice>();
-            InputDevices.GetDevicesAtXRNode(xrNode, devices);
-
-            if (devices.Count == 1)
-            {
-                device = devices[0];
-                Debug.Log(string.Format("Device name '{0}' with role '{1}'", device.name, device.role.ToString()));
-            }
-            else if (devices.Count > 1)
-            {
-                Debug.Log("Found more than one left hand!");
-            }
-        }
-
         void Update()
         {
-
+            device = InputDevices.GetDeviceAtXRNode(xrNode);
 #if DUNGEN
             if (xrNode == XRNode.LeftHand)
             {

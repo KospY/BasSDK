@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.XR;
+using UnityEngine.XR.Management;
 
 namespace ThunderRoad
 {
@@ -18,31 +20,72 @@ namespace ThunderRoad
 
         void Awake()
         {
-            Time.fixedDeltaTime = Time.timeScale / XRDevice.refreshRate;
             rigidbody = GetComponent<Rigidbody>();
             collider = GetComponent<CapsuleCollider>();
-            XRDevice.SetTrackingSpaceType(TrackingSpaceType.RoomScale);
+            StartCoroutine(LoadXR());
+        }
+
+        private IEnumerator LoadXR()
+        {
+            yield return XRGeneralSettings.Instance.Manager.InitializeLoader();
+            if (XRGeneralSettings.Instance.Manager.activeLoader != null)
+            {
+                XRGeneralSettings.Instance.Manager.StartSubsystems();
+                InputDevice headDevice = InputDevices.GetDeviceAtXRNode(XRNode.Head);
+                while (!headDevice.isValid)
+                {
+                    headDevice = InputDevices.GetDeviceAtXRNode(XRNode.Head);
+                    yield return new WaitForSeconds(1);
+                }
+                Time.fixedDeltaTime = Time.timeScale / XRDevice.refreshRate;
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (XRGeneralSettings.Instance.Manager.activeLoader != null)
+            {
+                XRGeneralSettings.Instance.Manager.StopSubsystems();
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (XRGeneralSettings.Instance.Manager.activeLoader != null)
+            {
+                XRGeneralSettings.Instance.Manager.DeinitializeLoader();
+            }
         }
 
         void FixedUpdate()
         {
             collider.center = new Vector3(this.transform.InverseTransformPoint(head.position).x, 0, this.transform.InverseTransformPoint(head.position).z);
-            Vector3 moveDirection = Quaternion.Euler(0, head.transform.rotation.eulerAngles.y, 0) * new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            moveDirection *= moveSpeed;
 
-            if (moveDirection.magnitude < 0.1f) moveDirection = Vector3.zero;
-
-            // Move
-            rigidbody.velocity = new Vector3(moveDirection.x, rigidbody.velocity.y, moveDirection.z);
-
-            // Turn
-            float axisTurn = Input.GetAxis("Turn");
-            if (axisTurn > 0.1f || axisTurn < -0.1f) this.transform.RotateAround(head.position, Vector3.up, axisTurn * turnSpeed);
-
-            // Jump
-            if (Input.GetButton("Jump"))
+            InputDevice leftDevice = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
+            if (leftDevice.isValid)
             {
-                rigidbody.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
+                // Move
+                leftDevice.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 axis);
+                Vector3 moveDirection = Quaternion.Euler(0, head.transform.rotation.eulerAngles.y, 0) * new Vector3(axis.x, 0, axis.y);
+                moveDirection *= moveSpeed;
+                if (moveDirection.magnitude < 0.1f) moveDirection = Vector3.zero;
+                rigidbody.velocity = new Vector3(moveDirection.x, rigidbody.velocity.y, moveDirection.z);
+            }
+
+            InputDevice rightDevice = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+            if (rightDevice.isValid)
+            {
+                // Turn
+                rightDevice.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 axis);
+                if (axis.x > 0.1f || axis.x < -0.1f) this.transform.RotateAround(head.position, Vector3.up, axis.x * turnSpeed);
+
+                // Jump
+                rightDevice.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out bool axisClick);
+                rightDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool buttonClick);
+                if (axisClick || buttonClick)
+                {
+                    rigidbody.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
+                }
             }
         }
 
