@@ -43,6 +43,7 @@ namespace ThunderRoad
             ColorMask = 4,
             EmissionMap = 8,
             SSSAOMap = 16,
+            MOES = 32
         }
 
         public enum RevealMaskResolution
@@ -128,6 +129,21 @@ namespace ThunderRoad
                     shaderProperty.type = RevealMaterialController.ShaderProperty.ShaderPropertyType.Int;
                     shaderProperties.Add(shaderProperty);
                 }
+                //Float
+                if (material.HasProperty("_Smoothness") && !shaderProperties.Exists(s => s.name == "_Smoothness"))
+                {
+                    RevealMaterialController.ShaderProperty shaderProperty = new RevealMaterialController.ShaderProperty();
+                    shaderProperty.name = "_Smoothness";
+                    shaderProperty.type = RevealMaterialController.ShaderProperty.ShaderPropertyType.Float;
+                    shaderProperties.Add(shaderProperty);
+                }
+                if (material.HasProperty("_OcclusionStrength") && !shaderProperties.Exists(s => s.name == "_OcclusionStrength"))
+                {
+                    RevealMaterialController.ShaderProperty shaderProperty = new RevealMaterialController.ShaderProperty();
+                    shaderProperty.name = "_OcclusionStrength";
+                    shaderProperty.type = RevealMaterialController.ShaderProperty.ShaderPropertyType.Float;
+                    shaderProperties.Add(shaderProperty);
+                }
 
                 // Colors
                 if (material.HasProperty("_BaseColor") && !shaderProperties.Exists(s=> s.name == "_BaseColor"))
@@ -205,6 +221,13 @@ namespace ThunderRoad
                 {
                     RevealMaterialController.ShaderProperty shaderProperty = new RevealMaterialController.ShaderProperty();
                     shaderProperty.name = "_SSSAOMap";
+                    shaderProperty.type = RevealMaterialController.ShaderProperty.ShaderPropertyType.Texture;
+                    shaderProperties.Add(shaderProperty);
+                }
+                if (transferedMaps.HasFlag(TransferedMaps.MOES) && material.HasProperty("_MetallicGlossMap") && !shaderProperties.Exists(s => s.name == "_MetallicGlossMap"))
+                {
+                    RevealMaterialController.ShaderProperty shaderProperty = new RevealMaterialController.ShaderProperty();
+                    shaderProperty.name = "_MetallicGlossMap";
                     shaderProperty.type = RevealMaterialController.ShaderProperty.ShaderPropertyType.Texture;
                     shaderProperties.Add(shaderProperty);
                 }
