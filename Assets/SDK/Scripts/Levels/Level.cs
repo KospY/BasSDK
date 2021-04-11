@@ -11,6 +11,7 @@ using System.Text;
 using DunGen;
 using DunGen.Adapters;
 using UnityEngine.AI;
+using UnityEngine.XR;
 #endif
 
 #if ODIN_INSPECTOR

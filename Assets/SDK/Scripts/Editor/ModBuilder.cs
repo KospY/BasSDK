@@ -22,7 +22,7 @@ namespace ThunderRoad
             {
                 string buildtarget = "Windows";
                 if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android) buildtarget = "Android";
-                return (Path.Combine("BuildStaging", "AddressableAssets", buildtarget, exportFolderName));
+                return (Path.Combine("BuildStaging", "AddressableAssets", buildtarget, exportFolderName == null ? "" : exportFolderName));
             }
         }
 
@@ -30,7 +30,7 @@ namespace ThunderRoad
         {
             get
             {
-                return (Path.Combine("BuildStaging", "Catalog", exportFolderName));
+                return (Path.Combine("BuildStaging", "Catalog", exportFolderName == null ? "" : exportFolderName));
             }
         }
 
