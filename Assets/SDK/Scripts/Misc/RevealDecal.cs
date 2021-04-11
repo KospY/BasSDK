@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 #if PrivateSDK
 using RainyReignGames.RevealMask;
-using System.Collections.Generic;
 #endif
 
 #if ODIN_INSPECTOR
@@ -25,24 +25,18 @@ namespace ThunderRoad
         public RevealMaskResolution maskHeight = RevealMaskResolution.Size_512;
         [Tooltip("Reveal type")]
         public Type type = Type.Default;
-        [Tooltip("Transfert maps to reveal")]
-        public TransferedMaps transferedMaps;
+
+        public List<string> textureProperties;
+        public List<string> colorProperties;
+        public List<string> floatProperties;
+        public List<string> vectorProperties;
+        //public List<string> intProperties; //unused for now. ShaderUtils doesn't differentiate between float and int.
 
         public enum Type
         {
             Default,
             Body,
             Outfit,
-        }
-
-        [Flags]
-        public enum TransferedMaps
-        {
-            BaseMap = 1,
-            BumpMap = 2,
-            ColorMask = 4,
-            EmissionMap = 8,
-            SSSAOMap = 16,
         }
 
         public enum RevealMaskResolution
@@ -120,99 +114,48 @@ namespace ThunderRoad
             {
                 if (!material) continue;
 
-                // Int
-                if (material.HasProperty("_Bitmask") && !shaderProperties.Exists(s => s.name == "_Bitmask"))
+                foreach(string textureProperty in textureProperties)
                 {
-                    RevealMaterialController.ShaderProperty shaderProperty = new RevealMaterialController.ShaderProperty();
-                    shaderProperty.name = "_Bitmask";
-                    shaderProperty.type = RevealMaterialController.ShaderProperty.ShaderPropertyType.Int;
-                    shaderProperties.Add(shaderProperty);
+                    TransferMaterialProperty(material, shaderProperties, textureProperty, RevealMaterialController.ShaderProperty.ShaderPropertyType.Texture);
                 }
 
-                // Colors
-                if (material.HasProperty("_BaseColor") && !shaderProperties.Exists(s=> s.name == "_BaseColor"))
+                foreach (string colorProperty in colorProperties)
                 {
-                    RevealMaterialController.ShaderProperty shaderProperty = new RevealMaterialController.ShaderProperty();
-                    shaderProperty.name = "_BaseColor";
-                    shaderProperty.type = RevealMaterialController.ShaderProperty.ShaderPropertyType.Color;
-                    shaderProperties.Add(shaderProperty);
+                    TransferMaterialProperty(material, shaderProperties, colorProperty, RevealMaterialController.ShaderProperty.ShaderPropertyType.Color);
                 }
-                if (material.HasProperty("_SecondaryColor") && !shaderProperties.Exists(s => s.name == "_SecondaryColor"))
+
+                foreach (string floatProperty in floatProperties)
                 {
-                    RevealMaterialController.ShaderProperty shaderProperty = new RevealMaterialController.ShaderProperty();
-                    shaderProperty.name = "_SecondaryColor";
-                    shaderProperty.type = RevealMaterialController.ShaderProperty.ShaderPropertyType.Color;
-                    shaderProperties.Add(shaderProperty);
+                    TransferMaterialProperty(material, shaderProperties, floatProperty, RevealMaterialController.ShaderProperty.ShaderPropertyType.Float);
                 }
-                if (material.HasProperty("_SpecColor") && !shaderProperties.Exists(s => s.name == "_SpecColor"))
+
+                foreach (string vectorProperty in vectorProperties)
                 {
-                    RevealMaterialController.ShaderProperty shaderProperty = new RevealMaterialController.ShaderProperty();
-                    shaderProperty.name = "_SpecColor";
-                    shaderProperty.type = RevealMaterialController.ShaderProperty.ShaderPropertyType.Color;
-                    shaderProperties.Add(shaderProperty);
+                    TransferMaterialProperty(material, shaderProperties, vectorProperty, RevealMaterialController.ShaderProperty.ShaderPropertyType.Vector);
                 }
-                if (material.HasProperty("_Tint0") && !shaderProperties.Exists(s => s.name == "_Tint0"))
+
+                /*foreach (string intProperty in intProperties)
                 {
-                    RevealMaterialController.ShaderProperty shaderProperty = new RevealMaterialController.ShaderProperty();
-                    shaderProperty.name = "_Tint0";
-                    shaderProperty.type = RevealMaterialController.ShaderProperty.ShaderPropertyType.Color;
-                    shaderProperties.Add(shaderProperty);
-                }
-                if (material.HasProperty("_Tint1") && !shaderProperties.Exists(s => s.name == "_Tint1"))
-                {
-                    RevealMaterialController.ShaderProperty shaderProperty = new RevealMaterialController.ShaderProperty();
-                    shaderProperty.name = "_Tint1";
-                    shaderProperty.type = RevealMaterialController.ShaderProperty.ShaderPropertyType.Color;
-                    shaderProperties.Add(shaderProperty);
-                }
-                if (material.HasProperty("_Tint2") && !shaderProperties.Exists(s => s.name == "_Tint2"))
-                {
-                    RevealMaterialController.ShaderProperty shaderProperty = new RevealMaterialController.ShaderProperty();
-                    shaderProperty.name = "_Tint2";
-                    shaderProperty.type = RevealMaterialController.ShaderProperty.ShaderPropertyType.Color;
-                    shaderProperties.Add(shaderProperty);
-                }
-                // Textures
-                if (transferedMaps.HasFlag(TransferedMaps.BaseMap) && material.HasProperty("_BaseMap") && !shaderProperties.Exists(s => s.name == "_BaseMap"))
-                {
-                    RevealMaterialController.ShaderProperty shaderProperty = new RevealMaterialController.ShaderProperty();
-                    shaderProperty.name = "_BaseMap";
-                    shaderProperty.type = RevealMaterialController.ShaderProperty.ShaderPropertyType.Texture;
-                    shaderProperties.Add(shaderProperty);
-                }
-                if (transferedMaps.HasFlag(TransferedMaps.BumpMap) && material.HasProperty("_BumpMap") && !shaderProperties.Exists(s => s.name == "_BumpMap"))
-                {
-                    RevealMaterialController.ShaderProperty shaderProperty = new RevealMaterialController.ShaderProperty();
-                    shaderProperty.name = "_BumpMap";
-                    shaderProperty.type = RevealMaterialController.ShaderProperty.ShaderPropertyType.Texture;
-                    shaderProperties.Add(shaderProperty);
-                }
-                if (transferedMaps.HasFlag(TransferedMaps.ColorMask) && material.HasProperty("_ColorMask") && !shaderProperties.Exists(s => s.name == "_ColorMask"))
-                {
-                    RevealMaterialController.ShaderProperty shaderProperty = new RevealMaterialController.ShaderProperty();
-                    shaderProperty.name = "_ColorMask";
-                    shaderProperty.type = RevealMaterialController.ShaderProperty.ShaderPropertyType.Texture;
-                    shaderProperties.Add(shaderProperty);
-                }
-                if (transferedMaps.HasFlag(TransferedMaps.EmissionMap) && material.HasProperty("_EmissionMap") && !shaderProperties.Exists(s => s.name == "_EmissionMap"))
-                {
-                    RevealMaterialController.ShaderProperty shaderProperty = new RevealMaterialController.ShaderProperty();
-                    shaderProperty.name = "_EmissionMap";
-                    shaderProperty.type = RevealMaterialController.ShaderProperty.ShaderPropertyType.Texture;
-                    shaderProperties.Add(shaderProperty);
-                }
-                if (transferedMaps.HasFlag(TransferedMaps.SSSAOMap) && material.HasProperty("_SSSAOMap") && !shaderProperties.Exists(s => s.name == "_SSSAOMap"))
-                {
-                    RevealMaterialController.ShaderProperty shaderProperty = new RevealMaterialController.ShaderProperty();
-                    shaderProperty.name = "_SSSAOMap";
-                    shaderProperty.type = RevealMaterialController.ShaderProperty.ShaderPropertyType.Texture;
-                    shaderProperties.Add(shaderProperty);
-                }
+                    TransferMaterialProperty(material, shaderProperties, intProperty, RevealMaterialController.ShaderProperty.ShaderPropertyType.Int);
+                }*/
             }
             revealMaterialController.propertiesToPreserve = shaderProperties.ToArray();
         }
 
-
+        bool TransferMaterialProperty(Material material, List<RevealMaterialController.ShaderProperty> shaderProperties, string propertyName, RevealMaterialController.ShaderProperty.ShaderPropertyType shaderType)
+        {
+            if (material.HasProperty(propertyName) && !shaderProperties.Exists(s => s.name == propertyName))
+            {
+                RevealMaterialController.ShaderProperty shaderProperty = new RevealMaterialController.ShaderProperty
+                {
+                    name = propertyName,
+                    type = shaderType
+                };
+                shaderProperties.Add(shaderProperty);
+                return true;
+            }
+            return false;
+        }
 #endif
     }
 }
