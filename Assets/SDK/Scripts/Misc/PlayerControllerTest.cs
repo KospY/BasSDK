@@ -59,7 +59,7 @@ namespace ThunderRoad
 
         void FixedUpdate()
         {
-            collider.center = new Vector3(this.transform.InverseTransformPoint(head.position).x, 0, this.transform.InverseTransformPoint(head.position).z);
+            collider.center = new Vector3(this.transform.InverseTransformPoint(head.position).x, collider.center.y, this.transform.InverseTransformPoint(head.position).z);
 
             InputDevice leftDevice = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
             if (leftDevice.isValid)
