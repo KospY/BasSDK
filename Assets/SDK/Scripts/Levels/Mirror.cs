@@ -18,7 +18,7 @@ namespace ThunderRoad
         public LayerMask cullingMask = ~0;
         public Collider workingArea;
         public MeshRenderer mirrorMesh;
-        public MeshRenderer meshToHide;
+        public MeshRenderer[] meshToHide;
 
         public enum ReflectionDirection
         {
