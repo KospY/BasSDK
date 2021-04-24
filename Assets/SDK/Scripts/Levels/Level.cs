@@ -55,17 +55,6 @@ namespace ThunderRoad
         public RuntimeDungeon dungeonGenerator;
         [NonSerialized]
         public UnityNavMeshAdapter dungeonNavMeshAdapter;
-
-        private void OnValidate()
-        {
-            PlayerControllerTest playerControllerTest = GameObject.FindObjectOfType<PlayerControllerTest>();
-            if (playerControllerTest)
-            {
-                AdjacentRoomCulling adjacentRoomCulling = playerControllerTest.head.gameObject.GetComponent<AdjacentRoomCulling>();
-                if (!adjacentRoomCulling) adjacentRoomCulling = playerControllerTest.head.gameObject.AddComponent<AdjacentRoomCulling>();
-                adjacentRoomCulling.enabled = dungeonCullAdjacentRoom;
-            }
-        }
 #endif
 
         [Button]
@@ -96,12 +85,12 @@ namespace ThunderRoad
                 }
             }
 #if DUNGEN
-            dungeonNavMeshAdapter = this.GetComponentInChildren<UnityNavMeshAdapter>();
+            dungeonNavMeshAdapter = GameObject.FindObjectOfType<UnityNavMeshAdapter>();
             if (dungeonNavMeshAdapter)
             {
                 dungeonNavMeshAdapter.enabled = false;
             }
-            dungeonGenerator = this.GetComponentInChildren<RuntimeDungeon>();
+            dungeonGenerator = GameObject.FindObjectOfType<RuntimeDungeon>();
             if (dungeonGenerator)
             {
                 dungeonGenerator.Generator.OnGenerationStatusChanged += OnGenerationStatusChanged;
@@ -160,9 +149,6 @@ namespace ThunderRoad
                 if (playerControllerTest)
                 {
                     playerControllerTest.transform.SetPositionAndRotation(playerStart.position, playerStart.rotation);
-                    AdjacentRoomCulling adjacentRoomCulling = playerControllerTest.head.gameObject.GetComponent<AdjacentRoomCulling>();
-                    if (!adjacentRoomCulling) adjacentRoomCulling = playerControllerTest.head.gameObject.AddComponent<AdjacentRoomCulling>();
-                    adjacentRoomCulling.enabled = dungeonCullAdjacentRoom;
                 }
             }
             else

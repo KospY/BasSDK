@@ -3,6 +3,10 @@ using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Management;
 
+#if DUNGEN
+using DunGen;
+#endif
+
 namespace ThunderRoad
 {
 
@@ -20,6 +24,14 @@ namespace ThunderRoad
 
         void Awake()
         {
+#if SECTR_CORE_PRESENT
+            SECTR_CullingCamera sectrCullingCamera = head.gameObject.AddComponent<SECTR_CullingCamera>();
+            if (sectrCullingCamera)
+            {
+                sectrCullingCamera.SRP_Fix = true;
+                sectrCullingCamera.MultiCameraCulling = false;
+            }
+#endif
             rigidbody = GetComponent<Rigidbody>();
             collider = GetComponent<CapsuleCollider>();
             StartCoroutine(LoadXR());
@@ -94,6 +106,7 @@ namespace ThunderRoad
             if (other.gameObject.layer == LayerMask.NameToLayer("Zone"))
             {
                 Zone zone = other.GetComponent<Zone>();
+                if (!zone) return;
                 if (zone.teleportPlayer)
                 {
                     this.transform.position = zone.customTeleportTarget ? zone.customTeleportTarget.position : Level.current.playerStart.position;

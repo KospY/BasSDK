@@ -39,8 +39,9 @@ namespace ThunderRoad
                         if (!primaryPressState)
                         {
                             PlayerControllerTest playerControllerTest = this.GetComponentInParent<PlayerControllerTest>();
-                            DunGen.AdjacentRoomCulling adjacentRoomCulling = playerControllerTest.head.gameObject.GetComponent<DunGen.AdjacentRoomCulling>();
-                            adjacentRoomCulling.enabled = !adjacentRoomCulling.enabled;
+                            SECTR_CullingCamera sectr_CullingCamera = GameObject.FindObjectOfType<SECTR_CullingCamera>();
+                            sectr_CullingCamera.enabled = !sectr_CullingCamera.enabled;
+                            sectr_CullingCamera.ResetStats();
                             primaryPressState = true;
                         }
                     }
