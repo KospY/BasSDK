@@ -32,6 +32,9 @@ namespace ThunderRoad
                 sectrCullingCamera.MultiCameraCulling = false;
             }
 #endif
+            AdjacentRoomCulling adjacentRoomCulling = this.gameObject.GetComponent<AdjacentRoomCulling>();
+            if (adjacentRoomCulling) adjacentRoomCulling.TargetOverride = head;
+
             rigidbody = GetComponent<Rigidbody>();
             collider = GetComponent<CapsuleCollider>();
             StartCoroutine(LoadXR());

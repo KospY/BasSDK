@@ -32,7 +32,6 @@ namespace ThunderRoad
 #if DUNGEN
             if (xrNode == XRNode.LeftHand)
             {
-#if SECTR_CORE_PRESENT
                 if (device.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryPressed))
                 {
                     if (primaryPressed)
@@ -40,9 +39,13 @@ namespace ThunderRoad
                         if (!primaryPressState)
                         {
                             PlayerControllerTest playerControllerTest = this.GetComponentInParent<PlayerControllerTest>();
+
+                            DunGen.AdjacentRoomCulling adjacentRoomCulling = GameObject.FindObjectOfType<DunGen.AdjacentRoomCulling>();
+                            if (adjacentRoomCulling) adjacentRoomCulling.enabled = !adjacentRoomCulling.enabled;
+#if SECTR_CORE_PRESENT
                             SECTR_CullingCamera sectr_CullingCamera = GameObject.FindObjectOfType<SECTR_CullingCamera>();
-                            sectr_CullingCamera.enabled = !sectr_CullingCamera.enabled;
-                            sectr_CullingCamera.ResetStats();
+                            if (sectr_CullingCamera) sectr_CullingCamera.enabled = !sectr_CullingCamera.enabled;
+#endif
                             primaryPressState = true;
                         }
                     }
@@ -54,7 +57,6 @@ namespace ThunderRoad
                         }
                     }
                 }
-#endif
                 if (device.TryGetFeatureValue(CommonUsages.secondaryButton, out bool secondaryPressed))
                 {
                     if (secondaryPressed)
