@@ -50,11 +50,21 @@ namespace ThunderRoad
         }
 
 #if DUNGEN
-        public bool dungeonCullAdjacentRoom = true;
         [NonSerialized]
         public RuntimeDungeon dungeonGenerator;
         [NonSerialized]
         public UnityNavMeshAdapter dungeonNavMeshAdapter;
+
+        [Button]
+        public void ToogleCulling()
+        {
+            DunGen.AdjacentRoomCulling adjacentRoomCulling = GameObject.FindObjectOfType<DunGen.AdjacentRoomCulling>();
+            if (adjacentRoomCulling) adjacentRoomCulling.enabled = !adjacentRoomCulling.enabled;
+#if SECTR_CORE_PRESENT
+            SECTR_CullingCamera sectr_CullingCamera = GameObject.FindObjectOfType<SECTR_CullingCamera>();
+            if (sectr_CullingCamera) sectr_CullingCamera.enabled = !sectr_CullingCamera.enabled;
+#endif
+        }
 #endif
 
         [Button]
