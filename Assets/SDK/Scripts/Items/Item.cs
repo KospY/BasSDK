@@ -221,6 +221,17 @@ namespace ThunderRoad
 
         }
 
+#if SECTR_CORE_PRESENT
+        void OnSectrMembershipChanged(List<SECTR_Sector> left, List<SECTR_Sector> joined)
+        {
+            /*
+            if (joined != null && joined.Count > 0)
+            {
+                Debug.Log("OnSectrMembershipChanged " + joined[0].name);
+            }*/
+        }
+#endif
+
 
         [Serializable]
         public class HolderPoint
