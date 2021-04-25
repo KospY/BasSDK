@@ -43,6 +43,12 @@ namespace ThunderRoad
         public List<HingeEffect> effectHinges;
         [NonSerialized]
         public List<WhooshPoint> whooshPoints;
+        [NonSerialized]
+        public LightProbeVolumeReceiver lightProbeVolumeReceiver;
+#if SECTR_CORE_PRESENT
+        [NonSerialized]
+        public SECTR_Member sectrMember;
+#endif
 
 #if ODIN_INSPECTOR
         [ShowInInspector]
@@ -199,6 +205,20 @@ namespace ThunderRoad
                 DrawGizmoArrow(Vector3.zero, Vector3.forward * 0.1f, Vector3.up, Common.HueColourValue(HueColorName.Purple), 0.1f, 10);
                 DrawGizmoArrow(Vector3.zero, Vector3.up * 0.05f, Vector3.up, Common.HueColourValue(HueColorName.Green), 0.05f);
             }
+        }
+
+        protected virtual void Awake()
+        {
+            lightProbeVolumeReceiver = this.GetComponent<LightProbeVolumeReceiver>();
+            if (!lightProbeVolumeReceiver) lightProbeVolumeReceiver = this.gameObject.AddComponent<LightProbeVolumeReceiver>();
+
+#if SECTR_CORE_PRESENT
+            sectrMember = this.GetComponent<SECTR_Member>();
+            if (!sectrMember) sectrMember = this.gameObject.AddComponent<SECTR_Member>();
+            sectrMember.BoundsUpdateMode = SECTR_Member.BoundsUpdateModes.Start;
+            sectrMember.Changed += OnSectrMembershipChanged;
+#endif
+
         }
 
 

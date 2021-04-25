@@ -32,6 +32,7 @@ namespace ThunderRoad
 #if DUNGEN
             if (xrNode == XRNode.LeftHand)
             {
+#if SECTR_CORE_PRESENT
                 if (device.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryPressed))
                 {
                     if (primaryPressed)
@@ -53,6 +54,7 @@ namespace ThunderRoad
                         }
                     }
                 }
+#endif
                 if (device.TryGetFeatureValue(CommonUsages.secondaryButton, out bool secondaryPressed))
                 {
                     if (secondaryPressed)

@@ -155,6 +155,12 @@ namespace ThunderRoad
             {
                 Debug.LogError("No player spawner found for dungeon!");
             }
+#if SECTR_CORE_PRESENT
+            foreach (SECTR_Member sECTR_Member in SECTR_Member.All)
+            {
+                sECTR_Member.ForceUpdate(true);
+            }
+#endif
         }
 #endif
     }
