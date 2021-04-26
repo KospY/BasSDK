@@ -103,6 +103,9 @@
             "m_Id": "d5ab1fba4d0546a3b306855f031d5bc5"
         },
         {
+            "m_Id": "063c4da59d0248dfa2e17e8a0afe3f65"
+        },
+        {
             "m_Id": "b1386ce3b3f44508be78fd539c4beed1"
         },
         {
@@ -366,6 +369,9 @@
         },
         {
             "m_Id": "3a7464bc2fb744f6b6223e8ecd84e69c"
+        },
+        {
+            "m_Id": "7983fb948f834addbcc775a3eec27651"
         }
     ],
     "m_GroupDatas": [
@@ -893,6 +899,20 @@
                     "m_Id": "6f13a775c757118bbdcad2ee495b191a"
                 },
                 "m_SlotId": -809980842
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "7983fb948f834addbcc775a3eec27651"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "46a4e5727840425ab0b07e3347dae301"
+                },
+                "m_SlotId": -2139834178
             }
         },
         {
@@ -1973,6 +1993,28 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Texture3DShaderProperty",
+    "m_ObjectId": "063c4da59d0248dfa2e17e8a0afe3f65",
+    "m_Guid": {
+        "m_GuidSerialized": "ba0fedcc-a95a-4709-8328-496f8256aedd"
+    },
+    "m_Name": "Probe Volume Occlusion",
+    "m_DefaultReferenceName": "Texture3D_063c4da59d0248dfa2e17e8a0afe3f65",
+    "m_OverrideReferenceName": "_ProbeVolumeOcc",
+    "m_GeneratePropertyBlock": true,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": {
+        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
+        "m_Guid": ""
+    },
+    "m_Modifiable": true
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "0884a6024105cc82ad5006c9e87bdb88",
     "m_Id": 3,
@@ -2391,6 +2433,19 @@
     "m_Labels": [
         "X"
     ]
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Texture3DMaterialSlot",
+    "m_ObjectId": "18f82debaba249c0aa90f70f74998ace",
+    "m_Id": 0,
+    "m_DisplayName": "Probe Volume Occlusion",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_BareResource": false
 }
 
 {
@@ -3893,6 +3948,9 @@
             "m_Id": "03478ee4007040b6b62451221cd8dc66"
         },
         {
+            "m_Id": "ebfd8a5608c7438a83556f3eaec4077e"
+        },
+        {
             "m_Id": "4c4aaac28b864aadb0ec5afcdf4c81f3"
         }
     ],
@@ -3910,7 +3968,8 @@
         "aac9a7b2-cff3-485d-8be4-626aceda3b0b",
         "e40cf447-5ec0-4918-a436-f15b5ca5818c",
         "24dbf0f9-7fbb-4f0a-bb52-d784d456ca3b",
-        "50aa355a-8505-465b-a4d7-327928ca1f78"
+        "50aa355a-8505-465b-a4d7-327928ca1f78",
+        "998af680-40fe-4ed5-a39f-59bcacf0b4eb"
     ],
     "m_PropertyIds": [
         1866036196,
@@ -3918,7 +3977,8 @@
         121303012,
         1271709139,
         -1939816504,
-        -407932039
+        -407932039,
+        -2139834178
     ]
 }
 
@@ -5555,6 +5615,41 @@
     "m_PreviewMode": 0,
     "m_CustomColors": {
         "m_SerializableColors": []
+    }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "7983fb948f834addbcc775a3eec27651",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -732.7999267578125,
+            "y": -520.0000610351563,
+            "width": 217.5999755859375,
+            "height": 33.600006103515628
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "18f82debaba249c0aa90f70f74998ace"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "063c4da59d0248dfa2e17e8a0afe3f65"
     }
 }
 
@@ -9758,6 +9853,23 @@
         "Y",
         "Z"
     ]
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Texture3DInputMaterialSlot",
+    "m_ObjectId": "ebfd8a5608c7438a83556f3eaec4077e",
+    "m_Id": -2139834178,
+    "m_DisplayName": "Probe Volume Occlusion",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Texture3D_e087f72bbe0448a8a7b40b304646a794",
+    "m_StageCapability": 3,
+    "m_BareResource": false,
+    "m_Texture": {
+        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
+        "m_Guid": ""
+    }
 }
 
 {
