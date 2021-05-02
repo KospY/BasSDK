@@ -164,6 +164,20 @@ namespace ThunderRoad
 
     public static class Common
     {
+        private static int _roomAndVolumeLayer;
+        public static int roomAndVolumeLayer
+        {
+            get { return _roomAndVolumeLayer > 0 ? _roomAndVolumeLayer : _roomAndVolumeLayer = LayerMask.NameToLayer("RoomAndVolume"); }
+            private set { _roomAndVolumeLayer = value; }
+        }
+
+        private static int _zoneLayer;
+        public static int zoneLayer
+        {
+            get { return _zoneLayer > 0 ? _zoneLayer : _zoneLayer = LayerMask.NameToLayer("Zone"); }
+            private set { _zoneLayer = value; }
+        }
+
         public static RuntimePlatform GetSelectedPlatform()
         {
 #if UNITY_ANDROID
