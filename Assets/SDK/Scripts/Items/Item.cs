@@ -45,10 +45,6 @@ namespace ThunderRoad
         public List<WhooshPoint> whooshPoints;
         [NonSerialized]
         public LightProbeVolumeReceiver lightProbeVolumeReceiver;
-#if SECTR_CORE_PRESENT
-        [NonSerialized]
-        public SECTR_Member sectrMember;
-#endif
 
 #if ODIN_INSPECTOR
         [ShowInInspector]
@@ -211,26 +207,43 @@ namespace ThunderRoad
         {
             lightProbeVolumeReceiver = this.GetComponent<LightProbeVolumeReceiver>();
             if (!lightProbeVolumeReceiver) lightProbeVolumeReceiver = this.gameObject.AddComponent<LightProbeVolumeReceiver>();
+            lightProbeVolumeReceiver.updateMaterialInstancesOnStart = false;
 
-#if SECTR_CORE_PRESENT
-            sectrMember = this.GetComponent<SECTR_Member>();
-            if (!sectrMember) sectrMember = this.gameObject.AddComponent<SECTR_Member>();
-            sectrMember.BoundsUpdateMode = SECTR_Member.BoundsUpdateModes.Start;
-            sectrMember.Changed += OnSectrMembershipChanged;
-#endif
+            TileOcclusion tileOcclusion = this.GetComponent<TileOcclusion>();
+            if (!tileOcclusion) tileOcclusion = this.gameObject.AddComponent<TileOcclusion>();
 
-        }
-
-#if SECTR_CORE_PRESENT
-        void OnSectrMembershipChanged(List<SECTR_Sector> left, List<SECTR_Sector> joined)
-        {
-            /*
-            if (joined != null && joined.Count > 0)
+            renderers = new List<Renderer>();
+            foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())
             {
-                Debug.Log("OnSectrMembershipChanged " + joined[0].name);
-            }*/
+                if (!renderer.enabled || (!(renderer is SkinnedMeshRenderer) && !(renderer is MeshRenderer))) continue;
+                renderers.Add(renderer);
+            }
+
+            paintables = new List<Paintable>(this.GetComponentsInChildren<Paintable>());
+            revealDecals = new List<RevealDecal>(this.GetComponentsInChildren<RevealDecal>());
+            colliderGroups = new List<ColliderGroup>(this.GetComponentsInChildren<ColliderGroup>());
+            whooshPoints = new List<WhooshPoint>(this.GetComponentsInChildren<WhooshPoint>());
+            effectHinges = new List<HingeEffect>(this.GetComponentsInChildren<HingeEffect>());
+            handles = new List<Handle>(this.GetComponentsInChildren<Handle>());
+            if (mainHandleRight) mainHandleRight = mainHandleRight.GetComponent<Handle>();
+            if (mainHandleLeft) mainHandleLeft = mainHandleLeft.GetComponent<Handle>();
+            parryTargets = new List<ParryTarget>(this.GetComponentsInChildren<ParryTarget>());
+
+            // Rigidbody
+            rb = this.GetComponent<Rigidbody>();
+            if (useCustomCenterOfMass) rb.centerOfMass = customCenterOfMass;
+
+            collisionHandlers = new List<CollisionHandler>(this.GetComponentsInChildren<CollisionHandler>());
+            if (collisionHandlers.Count == 0)
+            {
+                collisionHandlers.Add(this.gameObject.AddComponent<CollisionHandler>());
+                foreach (ColliderGroup colliderGroup in colliderGroups)
+                {
+                    colliderGroup.collisionHandler = colliderGroup.GetComponentInParent<CollisionHandler>();
+                }
+            }
+
         }
-#endif
 
 
         [Serializable]

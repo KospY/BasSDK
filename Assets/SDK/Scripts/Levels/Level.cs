@@ -35,6 +35,14 @@ namespace ThunderRoad
         [NonSerialized]
         public bool loaded;
 
+        public OcclusionCulling customOcclusionCulling = OcclusionCulling.None;
+
+        public enum OcclusionCulling
+        {
+            None,
+            Dungen,
+        }
+
         [Serializable]
         public class CustomReference
         {
@@ -54,16 +62,24 @@ namespace ThunderRoad
         public RuntimeDungeon dungeonGenerator;
         [NonSerialized]
         public UnityNavMeshAdapter dungeonNavMeshAdapter;
+        [NonSerialized]
+        public AdjacentRoomCulling adjacentRoomCulling;
+
 
         [Button]
-        public void ToogleCulling()
+        public void SetCustomOcclusionCulling(OcclusionCulling occlusionCulling)
         {
-            DunGen.AdjacentRoomCulling adjacentRoomCulling = GameObject.FindObjectOfType<DunGen.AdjacentRoomCulling>();
-            if (adjacentRoomCulling) adjacentRoomCulling.enabled = !adjacentRoomCulling.enabled;
-#if SECTR_CORE_PRESENT
-            SECTR_CullingCamera sectr_CullingCamera = GameObject.FindObjectOfType<SECTR_CullingCamera>();
-            if (sectr_CullingCamera) sectr_CullingCamera.enabled = !sectr_CullingCamera.enabled;
-#endif
+            if (occlusionCulling == OcclusionCulling.Dungen)
+            {
+                adjacentRoomCulling = GameObject.FindObjectOfType<DunGen.AdjacentRoomCulling>();
+                if (adjacentRoomCulling) adjacentRoomCulling.enabled = true;
+            }
+            else if (occlusionCulling == OcclusionCulling.None)
+            {
+                adjacentRoomCulling = GameObject.FindObjectOfType<DunGen.AdjacentRoomCulling>();
+                if (adjacentRoomCulling) adjacentRoomCulling.enabled = false;
+            }
+            this.customOcclusionCulling = occlusionCulling;
         }
 #endif
 
@@ -104,8 +120,9 @@ namespace ThunderRoad
             if (dungeonGenerator)
             {
                 dungeonGenerator.Generator.OnGenerationStatusChanged += OnGenerationStatusChanged;
-                GenerateDungeon();
             }
+            DunGen.AdjacentRoomCulling adjacentRoomCulling = GameObject.FindObjectOfType<DunGen.AdjacentRoomCulling>();
+            if (adjacentRoomCulling) adjacentRoomCulling.enabled = (customOcclusionCulling == OcclusionCulling.Dungen);
 #endif
         }
 #if DUNGEN
@@ -165,12 +182,6 @@ namespace ThunderRoad
             {
                 Debug.LogError("No player spawner found for dungeon!");
             }
-#if SECTR_CORE_PRESENT
-            foreach (SECTR_Member sECTR_Member in SECTR_Member.All)
-            {
-                sECTR_Member.ForceUpdate(true);
-            }
-#endif
         }
 #endif
     }
