@@ -100,6 +100,7 @@ namespace ThunderRoad
 
         void Awake()
         {
+
             revealMaterialController = this.gameObject.AddComponent<RevealMaterialController>();
             revealMaterialController.revealMaterials = materials;
             revealMaterialController.width = (int)maskWidth;
@@ -108,13 +109,19 @@ namespace ThunderRoad
             revealMaterialController.preserveRenderQueue = true;
             revealMaterialController.renderTextureFormat = RenderTextureFormat.ARGB64;
 
+            if (type == Type.Outfit || type == Type.Body)
+            {
+                if (!floatProperties.Contains("_Bitmask")) floatProperties.Add("_Bitmask");
+            }
+
+
             List<RevealMaterialController.ShaderProperty> shaderProperties = new List<RevealMaterialController.ShaderProperty>();
 
             foreach (Material material in revealMaterialController.revealMaterials)
             {
                 if (!material) continue;
 
-                foreach(string textureProperty in textureProperties)
+                foreach (string textureProperty in textureProperties)
                 {
                     TransferMaterialProperty(material, shaderProperties, textureProperty, RevealMaterialController.ShaderProperty.ShaderPropertyType.Texture);
                 }
@@ -157,5 +164,6 @@ namespace ThunderRoad
             return false;
         }
 #endif
+
     }
 }
