@@ -45,6 +45,14 @@ namespace ThunderRoad
         public List<WhooshPoint> whooshPoints;
         [NonSerialized]
         public LightProbeVolumeReceiver lightProbeVolumeReceiver;
+        [NonSerialized]
+        public List<CollisionHandler> collisionHandlers;
+        [NonSerialized]
+        public List<Handle> handles;
+        [NonSerialized]
+        public Rigidbody rb;
+        [NonSerialized]
+        public List<ParryTarget> parryTargets;
 
 #if ODIN_INSPECTOR
         [ShowInInspector]
@@ -208,9 +216,6 @@ namespace ThunderRoad
             lightProbeVolumeReceiver = this.GetComponent<LightProbeVolumeReceiver>();
             if (!lightProbeVolumeReceiver) lightProbeVolumeReceiver = this.gameObject.AddComponent<LightProbeVolumeReceiver>();
             lightProbeVolumeReceiver.updateMaterialInstancesOnStart = false;
-
-            TileOcclusion tileOcclusion = this.GetComponent<TileOcclusion>();
-            if (!tileOcclusion) tileOcclusion = this.gameObject.AddComponent<TileOcclusion>();
 
             renderers = new List<Renderer>();
             foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())
