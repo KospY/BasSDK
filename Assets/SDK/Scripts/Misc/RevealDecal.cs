@@ -20,7 +20,7 @@ namespace ThunderRoad
     {
         [Tooltip("These materials are what will be switched to on the renderer once the reveal masks are activated. Corresponds with shared materials index.")]
         [Obsolete("Will be removed once all materials are converted to reveal material data.")]
-        public Material[] revealMaterials;
+        public Material[] materials;
         //Saved Properties on RevealMaterials
         public RevealMaterialData[] revealMaterialData;
 
