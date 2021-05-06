@@ -106,7 +106,7 @@ namespace ThunderRoad
         [MenuItem("ThunderRoad (SDK)/Mod Builder")]
         public static void ShowWindow()
         {
-            EditorWindow.GetWindow<ModBuilder>("Mod Builder & Exporter");
+            EditorWindow.GetWindow<ModBuilder>("Mod Builder");
         }
 
         private void OnFocus()
@@ -159,7 +159,7 @@ namespace ThunderRoad
                     currentCheck = !currentCheck;
                 }
 
-                scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Width(400), GUILayout.Height(300));
+                scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Width(400), GUILayout.Height(500));
                 if (AddressableAssetSettingsDefaultObject.Settings != null)
                 {
                     foreach (AddressableAssetGroup group in AddressableAssetSettingsDefaultObject.Settings.groups)
