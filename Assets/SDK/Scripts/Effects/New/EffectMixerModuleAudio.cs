@@ -118,7 +118,7 @@ namespace ThunderRoad
         {
             if (!oneShotAudioSource)
             {
-                oneShotAudioSource = Utils.CloneComponent(loopAudioSource, this.gameObject, false) as AudioSource;
+                oneShotAudioSource = Common.CloneComponent(loopAudioSource, this.gameObject, false) as AudioSource;
                 oneShotAudioSource.spatialBlend = 1;
                 oneShotAudioSource.playOnAwake = false;
                 oneShotAudioSource.loop = false;
