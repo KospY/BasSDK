@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
+using ThunderRoad.Plugins;
 
 #if PrivateSDK
 using RainyReignGames.RevealMask;
@@ -18,7 +19,11 @@ namespace ThunderRoad
     public class RevealDecal : MonoBehaviour
     {
         [Tooltip("These materials are what will be switched to on the renderer once the reveal masks are activated. Corresponds with shared materials index.")]
-        public Material[] materials;
+        [Obsolete("Will be removed once all materials are converted to reveal material data.")]
+        public Material[] revealMaterials;
+        //Saved Properties on RevealMaterials
+        public RevealMaterialData[] revealMaterialData;
+
         [Tooltip("Resolution of the reveal mask")]
         public RevealMaskResolution maskWidth = RevealMaskResolution.Size_512;
         [Tooltip("Resolution of the reveal mask")]
@@ -26,11 +31,6 @@ namespace ThunderRoad
         [Tooltip("Reveal type")]
         public Type type = Type.Default;
 
-        public List<string> textureProperties;
-        public List<string> colorProperties;
-        public List<string> floatProperties;
-        public List<string> vectorProperties;
-        //public List<string> intProperties; //unused for now. ShaderUtils doesn't differentiate between float and int.
 
         public enum Type
         {
@@ -100,68 +100,15 @@ namespace ThunderRoad
 
         void Awake()
         {
-
+            
             revealMaterialController = this.gameObject.AddComponent<RevealMaterialController>();
-            revealMaterialController.revealMaterials = materials;
+            revealMaterialController.revealMaterials = revealMaterials;
             revealMaterialController.width = (int)maskWidth;
             revealMaterialController.height = (int)maskHeight;
             revealMaterialController.maskPropertyName = "_RevealMask";
-            revealMaterialController.preserveRenderQueue = true;
+            //revealMaterialController.preserveRenderQueue = true;
             revealMaterialController.renderTextureFormat = RenderTextureFormat.ARGB64;
-
-            if (type == Type.Outfit || type == Type.Body)
-            {
-                if (!floatProperties.Contains("_Bitmask")) floatProperties.Add("_Bitmask");
-            }
-
-
-            List<RevealMaterialController.ShaderProperty> shaderProperties = new List<RevealMaterialController.ShaderProperty>();
-
-            foreach (Material material in revealMaterialController.revealMaterials)
-            {
-                if (!material) continue;
-
-                foreach (string textureProperty in textureProperties)
-                {
-                    TransferMaterialProperty(material, shaderProperties, textureProperty, RevealMaterialController.ShaderProperty.ShaderPropertyType.Texture);
-                }
-
-                foreach (string colorProperty in colorProperties)
-                {
-                    TransferMaterialProperty(material, shaderProperties, colorProperty, RevealMaterialController.ShaderProperty.ShaderPropertyType.Color);
-                }
-
-                foreach (string floatProperty in floatProperties)
-                {
-                    TransferMaterialProperty(material, shaderProperties, floatProperty, RevealMaterialController.ShaderProperty.ShaderPropertyType.Float);
-                }
-
-                foreach (string vectorProperty in vectorProperties)
-                {
-                    TransferMaterialProperty(material, shaderProperties, vectorProperty, RevealMaterialController.ShaderProperty.ShaderPropertyType.Vector);
-                }
-
-                /*foreach (string intProperty in intProperties)
-                {
-                    TransferMaterialProperty(material, shaderProperties, intProperty, RevealMaterialController.ShaderProperty.ShaderPropertyType.Int);
-                }*/
-            }
-            revealMaterialController.propertiesToPreserve = shaderProperties.ToArray();
-        }
-
-        bool TransferMaterialProperty(Material material, List<RevealMaterialController.ShaderProperty> shaderProperties, string propertyName, RevealMaterialController.ShaderProperty.ShaderPropertyType shaderType)
-        {
-            if (material.HasProperty(propertyName) && !shaderProperties.Exists(s => s.name == propertyName))
-            {
-                RevealMaterialController.ShaderProperty shaderProperty = new RevealMaterialController.ShaderProperty
-                {
-                    name = propertyName,
-                    type = shaderType
-                };
-                shaderProperties.Add(shaderProperty);
-                return true;
-            }
-            return false;
+            revealMaterialController.revealMaterialData = revealMaterialData;
         }
 #endif
 

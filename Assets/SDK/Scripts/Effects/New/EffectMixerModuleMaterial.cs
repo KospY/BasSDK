@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using RainyReignGames.MaterialInstance;
+using ThunderRoad.Plugins;
 
 namespace ThunderRoad
 {
