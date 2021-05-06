@@ -12,7 +12,9 @@ namespace ThunderRoad
     [AddComponentMenu("ThunderRoad/Effects/Hinge effect")]
     public class HingeEffect : MonoBehaviour
     {
+#if ODIN_INSPECTOR
         [ValueDropdown("GetAllEffectID")]
+#endif
         public string effectId;
         public float minTorque = 5;
         public float maxTorque = 12;
