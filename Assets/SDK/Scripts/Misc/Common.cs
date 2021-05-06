@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
@@ -194,6 +195,23 @@ namespace ThunderRoad
                 return RuntimePlatform.WindowsPlayer;
             }
 #endif
+        }
+
+        public static Component CloneComponent(Component source, GameObject destination, bool copyProperties = false)
+        {
+            Component destinationComponent = destination.AddComponent(source.GetType());
+            if (copyProperties)
+            {
+                foreach (PropertyInfo property in source.GetType().GetProperties())
+                {
+                    if (property.CanWrite) property.SetValue(destinationComponent, property.GetValue(source, null), null);
+                }
+            }
+            foreach (FieldInfo field in source.GetType().GetFields())
+            {
+                field.SetValue(destinationComponent, field.GetValue(source));
+            }
+            return destinationComponent;
         }
 
         public static string GetGameObjectPath(GameObject obj)
