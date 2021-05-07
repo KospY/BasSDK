@@ -102,7 +102,7 @@ namespace ThunderRoad
         {
             
             revealMaterialController = this.gameObject.AddComponent<RevealMaterialController>();
-            revealMaterialController.revealMaterials = revealMaterials;
+            revealMaterialController.revealMaterials = materials;
             revealMaterialController.width = (int)maskWidth;
             revealMaterialController.height = (int)maskHeight;
             revealMaterialController.maskPropertyName = "_RevealMask";
