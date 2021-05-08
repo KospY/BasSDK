@@ -227,8 +227,8 @@ namespace ThunderRoad
         static void ExportFolderGUI()
         {
             GUILayout.BeginHorizontal();
-
-            GUILayout.Label(new GUIContent(toDefault ? "Default folder name" : "Mod folder name"), new GUIStyle("BoldLabel"), GUILayout.Width(150));
+			
+			GUILayout.Label(new GUIContent(toDefault ? "Default folder name" : "Mod folder name"), new GUIStyle("BoldLabel"), GUILayout.Width(150));
             string newModeName = GUILayout.TextField(exportFolderName, 25);
 
             string invalidChars = new string(Path.GetInvalidFileNameChars());
@@ -527,16 +527,14 @@ namespace ThunderRoad
                             bundledAssetGroupSchema.LoadPath.SetVariableByName(AddressableAssetSettingsDefaultObject.Settings, "LocalLoadPath");
                         }
                         bundledAssetGroupSchema.BundleNaming = BundledAssetGroupSchema.BundleNamingStyle.NoHash;
-                        bundledAssetGroupSchema.BundleNaming = BundledAssetGroupSchema.BundleNamingStyle.NoHash;
+
+                        AddressableAssetSettingsDefaultObject.Settings.OverridePlayerVersion = exportFolderName;
                         AddressableAssetSettingsDefaultObject.Settings.profileSettings.SetValue(group.Settings.activeProfileId, "LocalBuildPath", "[ThunderRoad.ModBuilder.buildPath]");
-                        AddressableAssetSettingsDefaultObject.Settings.profileSettings.SetValue(group.Settings.activeProfileId, "LocalLoadPath", (toDefault ? "{ThunderRoad.FileManager.aaDefaultPath}/" : "{ThunderRoad.FileManager.aaModPath}/") + exportFolderName);
+                        AddressableAssetSettingsDefaultObject.Settings.profileSettings.SetValue(group.Settings.activeProfileId, "LocalLoadPath", toDefault ? "{ThunderRoad.FileManager.aaDefaultPath}" : ("{ThunderRoad.FileManager.aaModPath}/" + exportFolderName));
                         // Set builtin shader to export folder name to avoid duplicates
                         AddressableAssetSettingsDefaultObject.Settings.ShaderBundleNaming = UnityEditor.AddressableAssets.Build.ShaderBundleNaming.Custom;
                         AddressableAssetSettingsDefaultObject.Settings.ShaderBundleCustomNaming = exportFolderName;
                         AddressableAssetSettingsDefaultObject.Settings.BuildRemoteCatalog = true;
-                        /* TODO: OBB support (zip file uncompressed and adb push to obb folder)
-                            AddressableAssetSettingsDefaultObject.Settings.profileSettings.SetValue(group.Settings.activeProfileId, "LocalLoadPath", "{ThunderRoad.FileManager.obbPath}/" + exportFolderName + "{ThunderRoad.FileManager.obbPathEnd}");
-                        */
                     }
                 }
             }
@@ -581,7 +579,7 @@ namespace ThunderRoad
                     }
                     else if (exportTo == ExportTo.Game)
                     {
-                        if (toDefault) destinationAssetsPath = destinationCatalogPath = Path.Combine(gamePath, gameName + "_Data/StreamingAssets/Default", exportFolderName);
+                        if (toDefault) destinationAssetsPath = destinationCatalogPath = Path.Combine(gamePath, gameName + "_Data/StreamingAssets/Default");
                         else destinationAssetsPath = destinationCatalogPath = Path.Combine(gamePath, gameName + "_Data/StreamingAssets/Mods", exportFolderName);
                     }
 
