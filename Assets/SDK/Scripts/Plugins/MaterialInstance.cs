@@ -24,10 +24,14 @@ namespace ThunderRoad.Plugins
         }
         private Renderer cachedRenderer = null;
 
+        public bool IsInstanced { get { return isInstanced; } }
+
         [SerializeField, HideInInspector]
         private Material[] defaultMaterials = null;
         [SerializeField, HideInInspector]
         private Material[] instanceMaterials = null;
+        [SerializeField, HideInInspector]
+        private bool isInstanced;
 
         private const string instancePostfix = " (MaterialInstance)";
 
@@ -58,7 +62,7 @@ namespace ThunderRoad.Plugins
         [ContextMenu("Acquire Materials")]
         private Material[] AcquireMaterials()
         {
-            if ((instanceMaterials == null || instanceMaterials.Length == 0) && CachedRenderer != null && CachedRenderer.sharedMaterials != null)
+            if (!isInstanced && CachedRenderer != null && CachedRenderer.sharedMaterials != null)
             {
                 CreateInstances();
             }
@@ -74,7 +78,7 @@ namespace ThunderRoad.Plugins
         [ContextMenu("Restore Renderer")]
         public void RestoreRenderer()
         {
-            if (CachedRenderer != null && defaultMaterials != null)
+            if (isInstanced && CachedRenderer != null)
             {
                 CachedRenderer.sharedMaterials = defaultMaterials;
             }
@@ -82,11 +86,12 @@ namespace ThunderRoad.Plugins
             DestroyMaterials(instanceMaterials);
             instanceMaterials = null;
             defaultMaterials = null;
+            isInstanced = false;
         }
 
         private void UpdateInstances(Material[] materials)
         {
-            if (defaultMaterials == null)
+            if (!isInstanced)
             {
                 defaultMaterials = CachedRenderer.sharedMaterials;
             }
@@ -119,16 +124,23 @@ namespace ThunderRoad.Plugins
                     CachedRenderer.sharedMaterials = instanceMaterials;
                     PrefabUtility.RecordPrefabInstancePropertyModifications(this);
                 }
+
+                //we don't do anything currently for non-instanced prefabs
 #endif
             }
 
-            for (int i = 0; i < instanceMaterials.Length; i++)
+            if (instanceMaterials != null)
             {
-                if (instanceMaterials[i] != null && defaultMaterials[i] != null)
+                for (int i = 0; i < instanceMaterials.Length; i++)
                 {
-                    string name = defaultMaterials[i].name + instancePostfix;
-                    instanceMaterials[i].name = name;
+                    if (instanceMaterials[i] != null && defaultMaterials[i] != null)
+                    {
+                        string name = defaultMaterials[i].name + instancePostfix;
+                        instanceMaterials[i].name = name;
+                    }
                 }
+
+                isInstanced = true;
             }
         }
 
