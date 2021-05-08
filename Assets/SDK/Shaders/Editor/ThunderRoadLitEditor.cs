@@ -18,6 +18,13 @@ public class ThunderRoadLitEditor : ShaderGUI
         MaterialProperty UseColorMask = ShaderGUI.FindProperty("_COLORMASK", properties);
         MaterialProperty ColorMask = ShaderGUI.FindProperty("_ColorMask", properties);
 
+        MaterialProperty UseDetailMap = ShaderGUI.FindProperty("_DETAILMAP", properties);
+        MaterialProperty DetailAlbedoMap = ShaderGUI.FindProperty("_DetailAlbedoMap", properties);
+        MaterialProperty DetailAlbedoMapScale = ShaderGUI.FindProperty("_DetailAlbedoMapScale", properties);
+        MaterialProperty DetailNormalMap = ShaderGUI.FindProperty("_DetailNormalMap", properties);
+        MaterialProperty DetailNormalMapScale = ShaderGUI.FindProperty("_DetailNormalMapScale", properties);
+        MaterialProperty DetailTiling = ShaderGUI.FindProperty("_DetailTiling", properties);
+
         MaterialProperty EmissionColor = ShaderGUI.FindProperty("_EmissionColor", properties);
         MaterialProperty EmissionMap = ShaderGUI.FindProperty("_EmissionMap", properties);
         MaterialProperty UseEmissionMap = ShaderGUI.FindProperty("_EMISSIONMAP", properties);
@@ -34,6 +41,18 @@ public class ThunderRoadLitEditor : ShaderGUI
         materialEditor.DefaultShaderProperty(MOES, MOES.displayName);
         materialEditor.DefaultShaderProperty(Smoothness, Smoothness.displayName);
         materialEditor.DefaultShaderProperty(OcclusionStr, OcclusionStr.displayName);
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.BeginVertical("HelpBox");
+        materialEditor.ShaderProperty(UseDetailMap, UseDetailMap.displayName);
+        if(UseDetailMap.floatValue > 0)
+        {
+            materialEditor.ShaderProperty(DetailAlbedoMap, DetailAlbedoMap.displayName);
+            materialEditor.ShaderProperty(DetailAlbedoMapScale, DetailAlbedoMapScale.displayName);
+            materialEditor.ShaderProperty(DetailNormalMap, DetailNormalMap.displayName);
+            materialEditor.ShaderProperty(DetailNormalMapScale, DetailNormalMapScale.displayName);
+            materialEditor.ShaderProperty(DetailTiling, DetailTiling.displayName);
+        }
         EditorGUILayout.EndVertical();
 
         EditorGUILayout.BeginVertical("HelpBox");
