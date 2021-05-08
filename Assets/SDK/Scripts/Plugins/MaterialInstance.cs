@@ -24,10 +24,14 @@ namespace ThunderRoad.Plugins
         }
         private Renderer cachedRenderer = null;
 
+        public bool IsInstanced { get { return isInstanced; } }
+
         [SerializeField, HideInInspector]
         private Material[] defaultMaterials = null;
         [SerializeField, HideInInspector]
         private Material[] instanceMaterials = null;
+        [SerializeField, HideInInspector]
+        private bool isInstanced;
 
         private const string instancePostfix = " (MaterialInstance)";
 
@@ -58,13 +62,48 @@ namespace ThunderRoad.Plugins
         [ContextMenu("Acquire Materials")]
         private Material[] AcquireMaterials()
         {
-            if ((instanceMaterials == null || instanceMaterials.Length == 0) && CachedRenderer != null && CachedRenderer.sharedMaterials != null)
+            if (!isInstanced && CachedRenderer != null && CachedRenderer.sharedMaterials != null)
             {
                 CreateInstances();
             }
 
             return instanceMaterials;
         }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (PrefabUtility.IsPartOfPrefabAsset(this))
+            {
+                defaultMaterials = null;
+                isInstanced = false;
+            }
+            else
+            {
+                bool defaultMaterialsExist = (defaultMaterials != null && defaultMaterials.Length > 0);
+                bool instanceMaterialsExist = (instanceMaterials != null && instanceMaterials.Length > 0);
+
+                if ((defaultMaterialsExist && !instanceMaterialsExist) || (!defaultMaterialsExist && instanceMaterialsExist))
+                {
+                    instanceMaterials = null;
+                    defaultMaterials = null;
+                    isInstanced = false;
+                }
+
+                if(isInstanced && !defaultMaterialsExist && !instanceMaterialsExist)
+                {
+                    instanceMaterials = null;
+                    defaultMaterials = null;
+                    isInstanced = false;
+                }
+
+                if(!isInstanced && defaultMaterialsExist && instanceMaterialsExist)
+                {
+                    isInstanced = true;
+                }
+            }
+        }
+#endif
 
         private void OnDestroy()
         {
@@ -74,60 +113,68 @@ namespace ThunderRoad.Plugins
         [ContextMenu("Restore Renderer")]
         public void RestoreRenderer()
         {
-            if (CachedRenderer != null && defaultMaterials != null)
+            if (isInstanced && CachedRenderer != null)
             {
                 CachedRenderer.sharedMaterials = defaultMaterials;
+                DestroyMaterials(instanceMaterials);
+                instanceMaterials = null;
+                defaultMaterials = null;
+                isInstanced = false;
             }
-
-            DestroyMaterials(instanceMaterials);
-            instanceMaterials = null;
-            defaultMaterials = null;
         }
 
         private void UpdateInstances(Material[] materials)
         {
-            if (defaultMaterials == null)
+            if (!isInstanced)
             {
                 defaultMaterials = CachedRenderer.sharedMaterials;
             }
             instanceMaterials = materials;
             CachedRenderer.sharedMaterials = materials;
+            isInstanced = true;
         }
 
         private void CreateInstances()
         {
+#if UNITY_EDITOR
+            //we don't do anything currently for non-instanced prefabs
+            if (PrefabUtility.IsPartOfPrefabAsset(this))
+                return;
+#endif
+
             defaultMaterials = CachedRenderer.sharedMaterials;
+            isInstanced = true;
 
             if (Application.isPlaying)
             {
                 instanceMaterials = CachedRenderer.materials;
             }
+#if UNITY_EDITOR
             else
             {
-#if UNITY_EDITOR
-                if (PrefabUtility.IsPartOfPrefabInstance(this))
+                //Workaround to not get spammed with error messages at edit time.
+                instanceMaterials = new Material[defaultMaterials.Length];
+                for (int i = 0; i < instanceMaterials.Length; i++)
                 {
-                    //Workaround to not get spammed with error messages at edit time.
-                    instanceMaterials = new Material[defaultMaterials.Length];
-                    for (int i = 0; i < instanceMaterials.Length; i++)
+                    if (defaultMaterials[i] != null)
                     {
-                        if (defaultMaterials[i] != null)
-                        {
-                            instanceMaterials[i] = new Material(defaultMaterials[i]);
-                        }
+                        instanceMaterials[i] = new Material(defaultMaterials[i]);
                     }
-                    CachedRenderer.sharedMaterials = instanceMaterials;
-                    PrefabUtility.RecordPrefabInstancePropertyModifications(this);
                 }
-#endif
+                CachedRenderer.sharedMaterials = instanceMaterials;
+                PrefabUtility.RecordPrefabInstancePropertyModifications(this);
             }
+#endif
 
-            for (int i = 0; i < instanceMaterials.Length; i++)
+            if (instanceMaterials != null)
             {
-                if (instanceMaterials[i] != null && defaultMaterials[i] != null)
+                for (int i = 0; i < instanceMaterials.Length; i++)
                 {
-                    string name = defaultMaterials[i].name + instancePostfix;
-                    instanceMaterials[i].name = name;
+                    if (instanceMaterials[i] != null && defaultMaterials[i] != null)
+                    {
+                        string name = defaultMaterials[i].name + instancePostfix;
+                        instanceMaterials[i].name = name;
+                    }
                 }
             }
         }

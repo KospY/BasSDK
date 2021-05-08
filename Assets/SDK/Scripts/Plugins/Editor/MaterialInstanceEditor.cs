@@ -8,13 +8,13 @@ namespace ThunderRoad.Plugins
     [CustomEditor(typeof(MaterialInstance))]
     public class MaterialInstanceEditor : Editor
     {
-        readonly static string[] excludes = new string[] { "defaultMaterials", "instanceMaterials" };
-
+        SerializedProperty isInstanced;
         SerializedProperty defaultMaterials;
         SerializedProperty instanceMaterials;
 
         private void OnEnable()
         {
+            isInstanced = serializedObject.FindProperty("isInstanced");
             defaultMaterials = serializedObject.FindProperty("defaultMaterials");
             instanceMaterials = serializedObject.FindProperty("instanceMaterials");
         }
@@ -24,6 +24,7 @@ namespace ThunderRoad.Plugins
             serializedObject.Update();
             DrawPropertiesExcluding(serializedObject);
             EditorGUI.BeginDisabledGroup(true);
+            EditorGUILayout.PropertyField(isInstanced);
             EditorGUILayout.PropertyField(defaultMaterials, true);
             EditorGUILayout.PropertyField(instanceMaterials, true);
             EditorGUI.EndDisabledGroup();
