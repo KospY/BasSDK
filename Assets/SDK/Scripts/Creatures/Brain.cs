@@ -19,7 +19,6 @@ namespace ThunderRoad
         public float navRagdollMult = 2f;
         public bool useAcceleration;
         public float acceleration = 0.3f;
-        public float actionCycleSpeed = 1;
 
 
         [NonSerialized]
@@ -57,13 +56,14 @@ namespace ThunderRoad
             Failed,
         }
 
-
 #if ODIN_INSPECTOR
         public List<ValueDropdownItem<string>> GetAllBrainID()
         {
             return Catalog.GetDropdownAllID(Catalog.Category.Brain);
         }
 #endif
+
+
 
         private void OnValidate()
         {
@@ -142,8 +142,7 @@ namespace ThunderRoad
                 navState = NavigationState.Failed;
                 return;
             }
-            //navMeshAgent.nextPosition = navMeshAgent.transform.position;
-            navMeshAgent.nextPosition = creature.transform.position; //fix for navmesh moving alone
+            navMeshAgent.nextPosition = creature.transform.position;
             navRemainingDistance = navMeshAgent.remainingDistance;
 
             if (navState != NavigationState.Moving)

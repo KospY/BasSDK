@@ -227,8 +227,8 @@ namespace ThunderRoad
         static void ExportFolderGUI()
         {
             GUILayout.BeginHorizontal();
-			
-			GUILayout.Label(new GUIContent(toDefault ? "Default folder name" : "Mod folder name"), new GUIStyle("BoldLabel"), GUILayout.Width(150));
+
+            GUILayout.Label(new GUIContent(toDefault ? "Default folder name" : "Mod folder name"), new GUIStyle("BoldLabel"), GUILayout.Width(150));
             string newModeName = GUILayout.TextField(exportFolderName, 25);
 
             string invalidChars = new string(Path.GetInvalidFileNameChars());
