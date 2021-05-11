@@ -74,17 +74,19 @@ namespace ThunderRoad
         [Button]
         public void SetCustomOcclusionCulling(OcclusionCulling occlusionCulling)
         {
-            if (occlusionCulling == OcclusionCulling.Dungen)
+            if (adjacentRoomCulling)
             {
-                adjacentRoomCulling = GameObject.FindObjectOfType<DunGen.AdjacentRoomCulling>();
-                if (adjacentRoomCulling) adjacentRoomCulling.enabled = true;
+                if (occlusionCulling == OcclusionCulling.Dungen)
+                {
+                    adjacentRoomCulling.enabled = true;
+                }
+                else if (occlusionCulling == OcclusionCulling.Default)
+                {
+                    adjacentRoomCulling.enabled = false;
+                }
+                this.occlusionCulling = occlusionCulling;
             }
-            else if (occlusionCulling == OcclusionCulling.Default)
-            {
-                adjacentRoomCulling = GameObject.FindObjectOfType<DunGen.AdjacentRoomCulling>();
-                if (adjacentRoomCulling) adjacentRoomCulling.enabled = false;
-            }
-            this.occlusionCulling = occlusionCulling;
+            this.occlusionCulling = OcclusionCulling.Default;
         }
 #endif
 
@@ -141,12 +143,15 @@ namespace ThunderRoad
                 }
             }
 #if DUNGEN
+            dungeonGenerator = GameObject.FindObjectOfType<RuntimeDungeon>();
+            adjacentRoomCulling = GameObject.FindObjectOfType<AdjacentRoomCulling>();
             dungeonNavMeshAdapter = GameObject.FindObjectOfType<UnityNavMeshAdapter>();
+
             if (dungeonNavMeshAdapter)
             {
                 dungeonNavMeshAdapter.enabled = false;
             }
-            dungeonGenerator = GameObject.FindObjectOfType<RuntimeDungeon>();
+
             if (dungeonGenerator)
             {
                 dungeonGenerator.Generator.OnGenerationStatusChanged += OnGenerationStatusChanged;
@@ -167,8 +172,11 @@ namespace ThunderRoad
                     };
                 }
             }
-            AdjacentRoomCulling adjacentRoomCulling = GameObject.FindObjectOfType<AdjacentRoomCulling>();
-            if (adjacentRoomCulling) adjacentRoomCulling.enabled = (dungeonGenerator && occlusionCulling == OcclusionCulling.Dungen);
+
+            if (adjacentRoomCulling)
+            {
+                adjacentRoomCulling.enabled = (dungeonGenerator && occlusionCulling == OcclusionCulling.Dungen);
+            }
 #endif
         }
 #if DUNGEN
@@ -225,6 +233,11 @@ namespace ThunderRoad
                 if (playerControllerTest)
                 {
                     playerControllerTest.transform.SetPositionAndRotation(playerStart.position, playerStart.rotation);
+                }
+                if (adjacentRoomCulling)
+                {
+                    // Prevent dungeon to disable all tiles and re-enable them a bit later when player spawn
+                    adjacentRoomCulling.TargetOverride = playerStart;
                 }
             }
             else

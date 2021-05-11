@@ -25,21 +25,25 @@ namespace ThunderRoad
         public List<MaterialInstance> materialInstances = new List<MaterialInstance>();
         public List<LightProbeVolume> lightProbeVolumes = new List<LightProbeVolume>();
 
+
         void Start()
         {
             if (updateMaterialInstancesOnStart) UpdateMaterialInstances(new List<Renderer>(this.gameObject.GetComponentsInChildren<Renderer>()), addMaterialInstances);
             RefreshMaterials();
         }
 
-        private void OnDisable()
+        protected void OnDespawn(EventTime eventTime)
         {
-            foreach (MaterialInstance materialInstance in materialInstances)
+            if (eventTime == EventTime.OnStart)
             {
-                materialInstance.CachedRenderer.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.BlendProbes;
-                materialInstance.RestoreRenderer();
+                foreach (MaterialInstance materialInstance in materialInstances)
+                {
+                    materialInstance.CachedRenderer.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.BlendProbes;
+                    materialInstance.RestoreRenderer();
+                }
+                lightProbeVolumes.Clear();
+                currentLightProbeVolumes = null;
             }
-            lightProbeVolumes.Clear();
-            currentLightProbeVolumes = null;
         }
 
         [Button]

@@ -248,6 +248,10 @@ namespace ThunderRoad
                 }
             }
 
+            // Set room occlusion
+            RoomOcclusion roomOcclusion = this.GetComponent<RoomOcclusion>();
+            if (!roomOcclusion) roomOcclusion = this.gameObject.AddComponent<RoomOcclusion>();
+
         }
 
 
