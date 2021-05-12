@@ -15,7 +15,6 @@ namespace ThunderRoad
 {
     public class RoomOcclusion : MonoBehaviour
     {
-        [ReadOnly]
         public Tile currentTile;
         protected Item item;
         protected RagdollPart ragdollPart;
