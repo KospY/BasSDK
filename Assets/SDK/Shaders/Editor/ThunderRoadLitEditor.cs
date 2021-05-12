@@ -23,7 +23,6 @@ public class ThunderRoadLitEditor : ShaderGUI
         MaterialProperty DetailAlbedoMapScale = ShaderGUI.FindProperty("_DetailAlbedoMapScale", properties);
         MaterialProperty DetailNormalMap = ShaderGUI.FindProperty("_DetailNormalMap", properties);
         MaterialProperty DetailNormalMapScale = ShaderGUI.FindProperty("_DetailNormalMapScale", properties);
-        MaterialProperty DetailTiling = ShaderGUI.FindProperty("_DetailTiling", properties);
 
         MaterialProperty EmissionColor = ShaderGUI.FindProperty("_EmissionColor", properties);
         MaterialProperty EmissionMap = ShaderGUI.FindProperty("_EmissionMap", properties);
@@ -41,6 +40,11 @@ public class ThunderRoadLitEditor : ShaderGUI
         materialEditor.DefaultShaderProperty(MOES, MOES.displayName);
         materialEditor.DefaultShaderProperty(Smoothness, Smoothness.displayName);
         materialEditor.DefaultShaderProperty(OcclusionStr, OcclusionStr.displayName);
+
+        float lastLabelWidth = EditorGUIUtility.labelWidth;
+        EditorGUIUtility.labelWidth = EditorGUIUtility.currentViewWidth * 0.4f;
+        materialEditor.TextureScaleOffsetProperty(BaseMap);
+        EditorGUIUtility.labelWidth = lastLabelWidth;
         EditorGUILayout.EndVertical();
 
         EditorGUILayout.BeginVertical("HelpBox");
@@ -51,7 +55,11 @@ public class ThunderRoadLitEditor : ShaderGUI
             materialEditor.ShaderProperty(DetailAlbedoMapScale, DetailAlbedoMapScale.displayName);
             materialEditor.ShaderProperty(DetailNormalMap, DetailNormalMap.displayName);
             materialEditor.ShaderProperty(DetailNormalMapScale, DetailNormalMapScale.displayName);
-            materialEditor.ShaderProperty(DetailTiling, DetailTiling.displayName);
+
+            lastLabelWidth = EditorGUIUtility.labelWidth;
+            EditorGUIUtility.labelWidth = EditorGUIUtility.currentViewWidth * 0.4f;
+            materialEditor.TextureScaleOffsetProperty(DetailAlbedoMap);
+            EditorGUIUtility.labelWidth = lastLabelWidth;
         }
         EditorGUILayout.EndVertical();
 
