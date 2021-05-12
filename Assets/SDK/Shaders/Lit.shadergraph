@@ -1141,7 +1141,7 @@
                 "m_Node": {
                     "m_Id": "1c073b1a0f99898f827f534049957b21"
                 },
-                "m_SlotId": 1948430594
+                "m_SlotId": -1864791874
             }
         },
         {
@@ -2429,7 +2429,7 @@
             "m_Id": "ca0ae8a97eaf4689b54625e62f6a3375"
         },
         {
-            "m_Id": "7fd210db804048efae6b67ca73e719b9"
+            "m_Id": "fceb02fb1c29479cb2c17fccec92b294"
         },
         {
             "m_Id": "2f2140d84922be879052b34782550e1c"
@@ -2458,7 +2458,8 @@
         "8791f8e8-d938-4a55-abef-35343e927685",
         "da4fee84-0473-4171-852e-cc50dc6233b1",
         "30333031-5784-4c80-b50a-34b4ee73feb2",
-        "9c77ff2b-5b55-4e3f-8fba-b3a9c55fe616"
+        "9c77ff2b-5b55-4e3f-8fba-b3a9c55fe616",
+        "ba87cdf0-635e-455d-bb46-495c1b3e7a13"
     ],
     "m_PropertyIds": [
         893308107,
@@ -2466,7 +2467,8 @@
         1806283320,
         305966916,
         1404533763,
-        1948430594
+        1948430594,
+        -1864791874
     ]
 }
 
@@ -4715,31 +4717,6 @@
     "m_Property": {
         "m_Id": "f433af18a7b141659f0c802202824d89"
     }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
-    "m_ObjectId": "7fd210db804048efae6b67ca73e719b9",
-    "m_Id": 1948430594,
-    "m_DisplayName": "Tiling and Offset",
-    "m_SlotType": 0,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "Vector4_caf3ca87108349afb21e4a6286d78326",
-    "m_StageCapability": 2,
-    "m_Value": {
-        "x": 1.0,
-        "y": 1.0,
-        "z": 0.0,
-        "w": 0.0
-    },
-    "m_DefaultValue": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "w": 0.0
-    },
-    "m_Labels": []
 }
 
 {
@@ -8094,6 +8071,27 @@
         "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
         "m_Guid": ""
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector2MaterialSlot",
+    "m_ObjectId": "fceb02fb1c29479cb2c17fccec92b294",
+    "m_Id": -1864791874,
+    "m_DisplayName": "UV",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Vector2_419f25d7da354b68bcbbc41aaabacc7b",
+    "m_StageCapability": 2,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0
+    },
+    "m_Labels": []
 }
 
 {
