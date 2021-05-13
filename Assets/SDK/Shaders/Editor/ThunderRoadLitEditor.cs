@@ -102,10 +102,12 @@ public class ThunderRoadLitEditor : ShaderGUI
             MaterialProperty ProbeVolumeSHAr = ShaderGUI.FindProperty("_ProbeVolumeShR", properties);
             MaterialProperty ProbeVolumeSHAg = ShaderGUI.FindProperty("_ProbeVolumeShG", properties);
             MaterialProperty ProbeVolumeSHAb = ShaderGUI.FindProperty("_ProbeVolumeShB", properties);
+            MaterialProperty ProbeVolumeOcc = ShaderGUI.FindProperty("_ProbeVolumeOcc", properties);
 
             materialEditor.DefaultShaderProperty(ProbeVolumeSHAr, ProbeVolumeSHAr.displayName);
             materialEditor.DefaultShaderProperty(ProbeVolumeSHAg, ProbeVolumeSHAg.displayName);
             materialEditor.DefaultShaderProperty(ProbeVolumeSHAb, ProbeVolumeSHAb.displayName);
+            materialEditor.DefaultShaderProperty(ProbeVolumeOcc, ProbeVolumeOcc.displayName);
         }
         EditorGUILayout.EndVertical();
 
