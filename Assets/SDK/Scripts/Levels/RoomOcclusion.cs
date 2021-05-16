@@ -15,13 +15,11 @@ namespace ThunderRoad
 {
     public class RoomOcclusion : MonoBehaviour
     {
+#if DUNGEN
         public Tile currentTile;
         protected Item item;
         protected RagdollPart ragdollPart;
         protected bool isCulled;
-
-#if DUNGEN
-
 
         protected void OnEnable()
         {
@@ -121,5 +119,5 @@ namespace ThunderRoad
             }
         }
 #endif
-        }
+    }
 }

@@ -192,7 +192,7 @@ namespace ThunderRoad
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
             EditorGUILayout.BeginHorizontal();
-            if (action == Action.BuildOnly || exportTo == ExportTo.Android)
+            if (action == Action.BuildOnly)
             {
                 if (GUILayout.Button("Copy assets to BuildStaging"))
                 {
@@ -655,15 +655,18 @@ namespace ThunderRoad
             string buildPlateformPath = Path.Combine(Directory.GetCurrentDirectory(), "BuildStaging/Builds", EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android ? "Android" : "Windows");
             string buildPlateformFolderPath = Path.Combine(buildPlateformPath, exportFolderName);
 
+            string assetsFullPath = Path.Combine(Directory.GetCurrentDirectory(), assetsLocalPath);
+            string catalogFullPath = Path.Combine(Directory.GetCurrentDirectory(), catalogLocalPath);
+
             if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android)
             {
                 if (Directory.Exists(buildPlateformFolderPath)) Directory.Delete(buildPlateformFolderPath, true);
-                CopyDirectory(FileManager.GetFullPath(FileManager.Type.AddressableAssets, FileManager.Source.Default, exportFolderName), buildPlateformFolderPath);
+                CopyDirectory(Path.Combine(assetsFullPath, exportFolderName), buildPlateformFolderPath);
                 Debug.Log("Copied folder " + exportFolderName + " to " + buildPlateformFolderPath);
 
                 string jsondbPath = Path.Combine(buildPlateformFolderPath, exportFolderName + ".jsondb");
                 ZipFile zip = new ZipFile();
-                zip.AddDirectory(FileManager.GetFullPath(FileManager.Type.JSONCatalog, FileManager.Source.Default, exportFolderName));
+                zip.AddDirectory(Path.Combine(catalogFullPath, exportFolderName));
                 zip.Save(jsondbPath);
                 Debug.Log("Zipped json " + exportFolderName + " to " + jsondbPath);
             }
@@ -671,14 +674,13 @@ namespace ThunderRoad
             {
                 string streamingAssetDefaultPath = Path.Combine(useGamePath ? gamePath : buildPlateformPath, PlayerSettings.productName + "_Data/StreamingAssets/Default");
                 string streamingAssetModPath = Path.Combine(useGamePath ? gamePath : buildPlateformPath, PlayerSettings.productName + "_Data/StreamingAssets/Mods");
-                FileManager.Source source = toDefault ? FileManager.Source.Default : FileManager.Source.Mods;
                 string destFolder = toDefault ? streamingAssetDefaultPath : streamingAssetModPath;
-                CopyDirectory(FileManager.GetFullPath(FileManager.Type.AddressableAssets, source, exportFolderName), Path.Combine(destFolder, exportFolderName));
+                CopyDirectory(Path.Combine(assetsFullPath, exportFolderName), Path.Combine(destFolder, exportFolderName));
                 Debug.Log("Copied folder " + exportFolderName + " to " + Path.Combine(destFolder, exportFolderName));
 
                 string jsondbPath = Path.Combine(destFolder, exportFolderName + ".jsondb");
                 ZipFile zip = new ZipFile();
-                zip.AddDirectory(FileManager.GetFullPath(FileManager.Type.JSONCatalog, source, exportFolderName));
+                zip.AddDirectory(Path.Combine(catalogFullPath, exportFolderName));
                 zip.Save(jsondbPath);
                 Debug.Log("Zipped json " + exportFolderName + " to " + jsondbPath);
             }
