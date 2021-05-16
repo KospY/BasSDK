@@ -8,7 +8,8 @@ namespace ThunderRoad
 
     public class PlayerControllerTest : MonoBehaviour
     {
-        public Transform head;
+        public static PlayerControllerTest local;
+        public Camera cam;
         public float moveSpeed = 4.0f;
         public float turnSpeed = 4.0f;
         public float jumpForce = 20;
@@ -20,12 +21,18 @@ namespace ThunderRoad
 
         void Awake()
         {
-
-#if DUNGEN
-            DunGen.AdjacentRoomCulling adjacentRoomCulling = GameObject.FindObjectOfType<DunGen.AdjacentRoomCulling>();
-            if (adjacentRoomCulling) adjacentRoomCulling.TargetOverride = head;
-#endif
-
+            local = this;
+            if (Level.master)
+            {
+                Destroy(this.gameObject);
+                return;
+            }
+            PlayerSpawner playerSpawner = GameObject.FindObjectOfType<PlayerSpawner>();
+            if (playerSpawner)
+            {
+                this.transform.SetPositionAndRotation(playerSpawner.transform.position, playerSpawner.transform.rotation);
+            }
+            cam = this.GetComponentInChildren<Camera>();
             rigidbody = GetComponent<Rigidbody>();
             collider = GetComponent<CapsuleCollider>();
             StartCoroutine(LoadXR());
@@ -65,14 +72,14 @@ namespace ThunderRoad
 
         void FixedUpdate()
         {
-            collider.center = new Vector3(this.transform.InverseTransformPoint(head.position).x, collider.center.y, this.transform.InverseTransformPoint(head.position).z);
+            collider.center = new Vector3(this.transform.InverseTransformPoint(cam.transform.position).x, collider.center.y, this.transform.InverseTransformPoint(cam.transform.position).z);
 
             InputDevice leftDevice = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
             if (leftDevice.isValid)
             {
                 // Move
                 leftDevice.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 axis);
-                Vector3 moveDirection = Quaternion.Euler(0, head.transform.rotation.eulerAngles.y, 0) * new Vector3(axis.x, 0, axis.y);
+                Vector3 moveDirection = Quaternion.Euler(0, cam.transform.rotation.eulerAngles.y, 0) * new Vector3(axis.x, 0, axis.y);
                 moveDirection *= moveSpeed;
                 if (moveDirection.magnitude < 0.1f) moveDirection = Vector3.zero;
                 rigidbody.velocity = new Vector3(moveDirection.x, rigidbody.velocity.y, moveDirection.z);
@@ -83,7 +90,7 @@ namespace ThunderRoad
             {
                 // Turn
                 rightDevice.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 axis);
-                if (axis.x > 0.1f || axis.x < -0.1f) this.transform.RotateAround(head.position, Vector3.up, axis.x * turnSpeed);
+                if (axis.x > 0.1f || axis.x < -0.1f) this.transform.RotateAround(cam.transform.position, Vector3.up, axis.x * turnSpeed);
 
                 // Jump
                 rightDevice.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out bool axisClick);
