@@ -101,7 +101,7 @@ namespace ThunderRoad
 
         protected void SetCull(bool cull)
         {
-            if (isCulled == cull) return;
+            if (isCulled == cull || (item && item.holder)) return;
 
             if (!isCulled && cull)
             {

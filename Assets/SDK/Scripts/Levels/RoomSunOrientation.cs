@@ -23,6 +23,7 @@ namespace ThunderRoad
 
         private void OnValidate()
         {
+            if (!this.gameObject.activeInHierarchy) return;
             if (!Application.isPlaying)
             {
                 directionalLight = GetDirectionalLight();
