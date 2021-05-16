@@ -40,6 +40,7 @@ namespace ThunderRoad
 #if DUNGEN
         public string dungeonFlowAddress;
         public OcclusionCulling occlusionCulling = OcclusionCulling.Default;
+        public bool staticBatchDungeonTiles = true;
 #endif
 
         public enum OcclusionCulling
@@ -229,20 +230,34 @@ namespace ThunderRoad
             if (playerSpawner)
             {
                 playerStart = playerSpawner.transform;
-                PlayerControllerTest playerControllerTest = GameObject.FindObjectOfType<PlayerControllerTest>();
-                if (playerControllerTest)
-                {
-                    playerControllerTest.transform.SetPositionAndRotation(playerStart.position, playerStart.rotation);
-                }
                 if (adjacentRoomCulling)
                 {
                     // Prevent dungeon to disable all tiles and re-enable them a bit later when player spawn
                     adjacentRoomCulling.TargetOverride = playerStart;
                 }
+                PlayerControllerTest playerControllerTest = GameObject.FindObjectOfType<PlayerControllerTest>();
+                if (playerControllerTest)
+                {
+                    playerControllerTest.transform.SetPositionAndRotation(playerStart.position, playerStart.rotation);
+                    if (adjacentRoomCulling) adjacentRoomCulling.TargetOverride = playerControllerTest.cam.transform;
+                }
             }
             else
             {
                 Debug.LogError("No player spawner found for dungeon!");
+            }
+            if (staticBatchDungeonTiles)
+            {
+                foreach (Tile tile in generator.CurrentDungeon.AllTiles)
+                {
+                    List<GameObject> objectsToBatch = new List<GameObject>();
+                    foreach (MeshRenderer meshRenderer in tile.gameObject.GetComponentsInChildren<MeshRenderer>(true))
+                    {
+                        objectsToBatch.Add(meshRenderer.gameObject);
+                    }
+                    StaticBatchingUtility.Combine(objectsToBatch.ToArray(), tile.gameObject);
+                    Debug.Log("Static batched " + objectsToBatch.Count + " objects for tile " + tile.name);
+                }
             }
         }
 #endif
