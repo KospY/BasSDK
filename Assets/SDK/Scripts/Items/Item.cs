@@ -53,6 +53,8 @@ namespace ThunderRoad
         public Rigidbody rb;
         [NonSerialized]
         public List<ParryTarget> parryTargets;
+        [NonSerialized]
+        public RoomOcclusion roomOcclusion;
 
 #if ODIN_INSPECTOR
         [ShowInInspector]
@@ -249,7 +251,7 @@ namespace ThunderRoad
             }
 
             // Set room occlusion
-            RoomOcclusion roomOcclusion = this.GetComponent<RoomOcclusion>();
+            roomOcclusion = this.GetComponent<RoomOcclusion>();
             if (!roomOcclusion) roomOcclusion = this.gameObject.AddComponent<RoomOcclusion>();
 
         }
