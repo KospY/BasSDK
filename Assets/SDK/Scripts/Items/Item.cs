@@ -55,6 +55,8 @@ namespace ThunderRoad
         public List<ParryTarget> parryTargets;
         [NonSerialized]
         public RoomOcclusion roomOcclusion;
+        [NonSerialized]
+        public Holder holder;
 
 #if ODIN_INSPECTOR
         [ShowInInspector]

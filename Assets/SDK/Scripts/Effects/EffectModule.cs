@@ -115,7 +115,7 @@ namespace ThunderRoad
             Slash = 4,
             Pierce = 8,
         }
-#if PrivateSDK
+
         public virtual void OnCatalogRefresh(EffectData effectData, bool editorLoad = false)
         {
             imbueHashes = new int[imbuesFilter.Length];
@@ -139,7 +139,7 @@ namespace ThunderRoad
         {
             yield return new WaitForEndOfFrame();
         }
-#endif
+
 #if ODIN_INSPECTOR
         public List<ValueDropdownItem<string>> GetAllSpellCastChargeID()
         {
@@ -168,8 +168,6 @@ namespace ThunderRoad
 
         }
 
-#if PrivateSDK
-
         public bool CheckPlateform()
         {
             if (plateformFilter.HasFlag(PlateformFilter.Android) && Common.GetSelectedPlatform() == RuntimePlatform.Android)
@@ -182,6 +180,8 @@ namespace ThunderRoad
             }
             return false;
         }
+
+#if PrivateSDK
 
         public virtual bool Spawn(EffectData effectData, Vector3 position, Quaternion rotation, out Effect effect, Transform parent = null, CollisionInstance collisionInstance = null, bool pooled = true)
         {

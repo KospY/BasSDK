@@ -20,7 +20,7 @@ namespace ThunderRoad
         public float spawnDelay;
         public GameObject waypoints;
 
-#if PrivateSDK
+#if ODIN_INSPECTOR
         public List<ValueDropdownItem<string>> GetAllCreatureTableID()
         {
             return Catalog.GetDropdownAllID(Catalog.Category.CreatureTable);
