@@ -58,6 +58,7 @@ namespace ThunderRoad
         public static string gamePath;
 
         public static bool toDefault;
+        public static bool clearCache;
         public static string exportFolderName;
         public static ExportTo exportTo = ExportTo.Windows;
         public static bool runGameAfterBuild;
@@ -111,6 +112,7 @@ namespace ThunderRoad
             exportFolderName = EditorPrefs.HasKey("TRMB.ExportFolderName") ? EditorPrefs.GetString("TRMB.ExportFolderName") : "MyMod";
             exportTo = (ExportTo)EditorPrefs.GetInt("TRMB.ExportTo");
             toDefault = EditorPrefs.GetBool("TRMB.ToDefault");
+            clearCache = EditorPrefs.GetBool("TRMB.ClearCache");
             runGameAfterBuild = EditorPrefs.GetBool("TRMB.RunGameAfterBuild");
             cleanDestination = EditorPrefs.GetBool("TRMB.CleanDestination");
             runGameArguments = EditorPrefs.GetString("TRMB.RunGameArguments");
@@ -192,7 +194,11 @@ namespace ThunderRoad
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
             EditorGUILayout.BeginHorizontal();
+#if PrivateSDK
+            if (action == Action.BuildOnly || exportTo == ExportTo.Android)
+#else
             if (action == Action.BuildOnly)
+#endif
             {
                 if (GUILayout.Button("Copy assets to BuildStaging"))
                 {
@@ -207,7 +213,14 @@ namespace ThunderRoad
                 }
             }
             if (GUILayout.Button(action == Action.BuildOnly ? "Build" : (action == Action.ExportOnly ? "Export" : "Build and export"))) Build(action);
-      
+            
+            bool newClearCache = GUILayout.Toggle(clearCache, new GUIContent("Clear build cache", ""));
+            if (newClearCache != clearCache)
+            {
+                EditorPrefs.SetBool("TRMB.ClearCache", newClearCache);
+                clearCache = newClearCache;
+            }
+
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
@@ -525,7 +538,7 @@ namespace ThunderRoad
                         bundledAssetGroupSchema.BundleNaming = BundledAssetGroupSchema.BundleNamingStyle.NoHash;
 
                         AddressableAssetSettingsDefaultObject.Settings.OverridePlayerVersion = exportFolderName;
-                        AddressableAssetSettingsDefaultObject.Settings.profileSettings.SetValue(group.Settings.activeProfileId, "LocalBuildPath", "[ThunderRoad.ModBuilder.buildPath]");
+                        AddressableAssetSettingsDefaultObject.Settings.profileSettings.SetValue(group.Settings.activeProfileId, "LocalBuildPath", "[ThunderRoad.ModBuilder.assetsLocalPath]");
                         AddressableAssetSettingsDefaultObject.Settings.profileSettings.SetValue(group.Settings.activeProfileId, "LocalLoadPath", toDefault ? "{ThunderRoad.FileManager.aaDefaultPath}" : ("{ThunderRoad.FileManager.aaModPath}/" + exportFolderName));
                         // Set builtin shader to export folder name to avoid duplicates
                         AddressableAssetSettingsDefaultObject.Settings.ShaderBundleNaming = UnityEditor.AddressableAssets.Build.ShaderBundleNaming.Custom;
@@ -559,7 +572,7 @@ namespace ThunderRoad
                 shaderReport.lastBuildUpdateTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 #endif
 
-                BuildCache.PurgeCache(true);
+                BuildCache.PurgeCache(clearCache);
                 AddressableAssetSettings.CleanPlayerContent();
                 AddressableAssetSettings.CleanPlayerContent(AddressableAssetSettingsDefaultObject.Settings.ActivePlayerDataBuilder);
                 AddressableAssetSettings.BuildPlayerContent();
@@ -650,17 +663,19 @@ namespace ThunderRoad
             System.Media.SystemSounds.Asterisk.Play();
         }
 
-        public static string CopyBuildFiles(bool toDefault, string exportFolderName, bool useGamePath)
+        public static void CopyBuildFiles(bool toDefault, string exportFolderName, bool useGamePath)
         {
             string buildPlateformPath = Path.Combine(Directory.GetCurrentDirectory(), "BuildStaging/Builds", EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android ? "Android" : "Windows");
             string buildPlateformFolderPath = Path.Combine(buildPlateformPath, exportFolderName);
-
             string assetsFullPath = Path.Combine(Directory.GetCurrentDirectory(), assetsLocalPath);
             string catalogFullPath = Path.Combine(Directory.GetCurrentDirectory(), catalogLocalPath);
 
             if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android)
             {
                 if (Directory.Exists(buildPlateformFolderPath)) Directory.Delete(buildPlateformFolderPath, true);
+                Debug.Log(assetsLocalPath);
+                Debug.Log(assetsFullPath);
+                Debug.Log(exportFolderName);
                 CopyDirectory(Path.Combine(assetsFullPath, exportFolderName), buildPlateformFolderPath);
                 Debug.Log("Copied folder " + exportFolderName + " to " + buildPlateformFolderPath);
 
@@ -684,7 +699,6 @@ namespace ThunderRoad
                 zip.Save(jsondbPath);
                 Debug.Log("Zipped json " + exportFolderName + " to " + jsondbPath);
             }
-            return buildPlateformFolderPath;
         }
 
         public static void AndroidPushAssets(bool toDefault, string folderName)
