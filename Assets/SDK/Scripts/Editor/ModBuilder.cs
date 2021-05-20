@@ -23,7 +23,7 @@ namespace ThunderRoad
             {
                 string buildtarget = "Windows";
                 if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android) buildtarget = "Android";
-                return (Path.Combine("BuildStaging", "AddressableAssets", buildtarget, exportFolderName == null ? "" : exportFolderName));
+                return (Path.Combine("BuildStaging", "AddressableAssets", buildtarget, exportFolderName));
             }
         }
 
@@ -31,7 +31,7 @@ namespace ThunderRoad
         {
             get
             {
-                return (Path.Combine("BuildStaging", "Catalog", exportFolderName == null ? "" : exportFolderName));
+                return (Path.Combine("BuildStaging", "Catalog", exportFolderName));
             }
         }
 
@@ -665,23 +665,23 @@ namespace ThunderRoad
 
         public static void CopyBuildFiles(bool toDefault, string exportFolderName, bool useGamePath)
         {
+            string buildtarget = "Windows";
+            if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android) buildtarget = "Android";
+
             string buildPlateformPath = Path.Combine(Directory.GetCurrentDirectory(), "BuildStaging/Builds", EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android ? "Android" : "Windows");
             string buildPlateformFolderPath = Path.Combine(buildPlateformPath, exportFolderName);
-            string assetsFullPath = Path.Combine(Directory.GetCurrentDirectory(), assetsLocalPath);
-            string catalogFullPath = Path.Combine(Directory.GetCurrentDirectory(), catalogLocalPath);
+            string assetsFullPath = Path.Combine(Directory.GetCurrentDirectory(), "BuildStaging/AddressableAssets", buildtarget, exportFolderName);
+            string catalogFullPath = Path.Combine(Directory.GetCurrentDirectory(), "BuildStaging/Catalog", exportFolderName);
 
             if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android)
             {
                 if (Directory.Exists(buildPlateformFolderPath)) Directory.Delete(buildPlateformFolderPath, true);
-                Debug.Log(assetsLocalPath);
-                Debug.Log(assetsFullPath);
-                Debug.Log(exportFolderName);
-                CopyDirectory(Path.Combine(assetsFullPath, exportFolderName), buildPlateformFolderPath);
+                CopyDirectory(assetsFullPath, buildPlateformFolderPath);
                 Debug.Log("Copied folder " + exportFolderName + " to " + buildPlateformFolderPath);
 
                 string jsondbPath = Path.Combine(buildPlateformFolderPath, exportFolderName + ".jsondb");
                 ZipFile zip = new ZipFile();
-                zip.AddDirectory(Path.Combine(catalogFullPath, exportFolderName));
+                zip.AddDirectory(catalogFullPath);
                 zip.Save(jsondbPath);
                 Debug.Log("Zipped json " + exportFolderName + " to " + jsondbPath);
             }
@@ -690,12 +690,12 @@ namespace ThunderRoad
                 string streamingAssetDefaultPath = Path.Combine(useGamePath ? gamePath : buildPlateformPath, PlayerSettings.productName + "_Data/StreamingAssets/Default");
                 string streamingAssetModPath = Path.Combine(useGamePath ? gamePath : buildPlateformPath, PlayerSettings.productName + "_Data/StreamingAssets/Mods");
                 string destFolder = toDefault ? streamingAssetDefaultPath : streamingAssetModPath;
-                CopyDirectory(Path.Combine(assetsFullPath, exportFolderName), Path.Combine(destFolder, exportFolderName));
+                CopyDirectory(assetsFullPath, Path.Combine(destFolder, exportFolderName));
                 Debug.Log("Copied folder " + exportFolderName + " to " + Path.Combine(destFolder, exportFolderName));
 
                 string jsondbPath = Path.Combine(destFolder, exportFolderName + ".jsondb");
                 ZipFile zip = new ZipFile();
-                zip.AddDirectory(Path.Combine(catalogFullPath, exportFolderName));
+                zip.AddDirectory(catalogFullPath);
                 zip.Save(jsondbPath);
                 Debug.Log("Zipped json " + exportFolderName + " to " + jsondbPath);
             }
