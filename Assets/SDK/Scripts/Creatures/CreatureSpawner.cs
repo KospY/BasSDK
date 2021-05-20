@@ -58,5 +58,11 @@ namespace ThunderRoad
             return Catalog.gameData.GetFactions();
         }
 #endif
+
+        private void OnValidate()
+        {
+            IconManager.SetIcon(this.gameObject, IconManager.LabelIcon.Purple);
+        }
+
     }
 }

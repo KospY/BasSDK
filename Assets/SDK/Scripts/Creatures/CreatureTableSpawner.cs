@@ -19,6 +19,7 @@ namespace ThunderRoad
         public bool spawnOnStart = true;
         public float spawnDelay;
         public GameObject waypoints;
+        public bool spawnAtRandomWaypoint = true;
 
 #if ODIN_INSPECTOR
         public List<ValueDropdownItem<string>> GetAllCreatureTableID()
@@ -26,5 +27,11 @@ namespace ThunderRoad
             return Catalog.GetDropdownAllID(Catalog.Category.CreatureTable);
         }
 #endif
+
+        private void OnValidate()
+        {
+            IconManager.SetIcon(this.gameObject, IconManager.LabelIcon.Purple);
+        }
+
     }
 }
