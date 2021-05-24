@@ -27,6 +27,17 @@ namespace ThunderRoad
 
         public Button bulletPointPrefab = null;
 
+        protected int modeIndex = 0;
+
+        public Transform optionsPanel = null;
+
+        public UISelectionListButtonsLevelModeOption LevelModeOptionPrefab = null;
+        public List<UISelectionListButtonsLevelModeOption> levelModeOptions = new List<UISelectionListButtonsLevelModeOption>();
+
+        protected float optionSpacingSize = 0.09f;
+
+        public Text descriptionText = null;
+
 
         protected void OnDrawGizmos()
         {
