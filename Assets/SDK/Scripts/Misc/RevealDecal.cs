@@ -100,7 +100,7 @@ namespace ThunderRoad
 
         void Awake()
         {
-            
+
             revealMaterialController = this.gameObject.AddComponent<RevealMaterialController>();
             revealMaterialController.revealMaterials = materials;
             revealMaterialController.width = (int)maskWidth;

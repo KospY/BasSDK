@@ -30,15 +30,10 @@ namespace ThunderRoad
 
 
         [Button("Align start object")]
-        public void AlignObject()
+        public void AlignObject(Item item)
         {
-            foreach (Item startObject in startObjects)
-            {
-                Item.HolderPoint hp = startObject.GetHolderPoint(editorTargetAnchor) ;
-
-                if (slots.ElementAtOrDefault(startObjects.IndexOf(startObject)) != null) startObject.transform.MoveAlign(hp != null ? hp.anchor : startObject.transform, slots[startObjects.IndexOf(startObject)].transform);
-                else Debug.LogError("Slot " + startObjects.IndexOf(startObject) + " do not exist!!");
-            }
+            Item.HolderPoint hp = item.GetHolderPoint(editorTargetAnchor);
+            item.transform.MoveAlign(hp != null ? hp.anchor : item.transform, slots[0].transform);
         }
 
         protected override void OnDrawGizmosSelected()

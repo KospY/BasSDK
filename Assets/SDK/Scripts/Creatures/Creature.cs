@@ -5,6 +5,7 @@ using UnityEngine.AI;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.AddressableAssets;
 using System.Collections;
+using UnityEngine.Profiling;
 
 
 #if ODIN_INSPECTOR
@@ -54,6 +55,8 @@ namespace ThunderRoad
         public RagdollFoot footLeft;
         [NonSerialized]
         public RagdollFoot footRight;
+        [NonSerialized]
+        public LightVolumeReceiver lightVolumeReceiver;
 
         [Header("Animation")]
         public float animationDampTime = 0.1f;

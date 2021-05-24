@@ -44,7 +44,7 @@ namespace ThunderRoad
         [NonSerialized]
         public List<WhooshPoint> whooshPoints;
         [NonSerialized]
-        public LightProbeVolumeReceiver lightProbeVolumeReceiver;
+        public LightVolumeReceiver lightVolumeReceiver;
         [NonSerialized]
         public List<CollisionHandler> collisionHandlers;
         [NonSerialized]
@@ -191,7 +191,7 @@ namespace ThunderRoad
                 customInertiaTensorCollider.isTrigger = true;
                 customInertiaTensorCollider.gameObject.layer = 2;
             }
-
+            IconManager.SetIcon(this.gameObject, IconManager.LabelIcon.Teal);
         }
 
         public static void DrawGizmoArrow(Vector3 pos, Vector3 direction, Vector3 upwards, Color color, float arrowHeadLength = 0.25f, float arrowHeadAngle = 20.0f)
@@ -217,9 +217,9 @@ namespace ThunderRoad
 
         protected virtual void Awake()
         {
-            lightProbeVolumeReceiver = this.GetComponent<LightProbeVolumeReceiver>();
-            if (!lightProbeVolumeReceiver) lightProbeVolumeReceiver = this.gameObject.AddComponent<LightProbeVolumeReceiver>();
-            lightProbeVolumeReceiver.updateMaterialInstancesOnStart = false;
+            lightVolumeReceiver = this.GetComponent<LightVolumeReceiver>();
+            if (!lightVolumeReceiver) lightVolumeReceiver = this.gameObject.AddComponent<LightVolumeReceiver>();
+            lightVolumeReceiver.initRenderersOnStart = false;
 
             renderers = new List<Renderer>();
             foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())

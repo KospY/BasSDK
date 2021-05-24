@@ -7,7 +7,6 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using System.Text;
 using UnityEngine.AI;
-using UnityEngine.XR;
 
 #if DUNGEN
 using DunGen;
@@ -32,15 +31,17 @@ namespace ThunderRoad
 
         [NonSerialized]
         public State state = State.None;
+
         [NonSerialized]
         public AudioSource music;
         [NonSerialized]
         public bool loaded;
 
 #if DUNGEN
+        [Header("Dungen")]
         public string dungeonFlowAddress;
         public OcclusionCulling occlusionCulling = OcclusionCulling.Default;
-        public bool staticBatchDungeonTiles = true;
+        public bool staticBatchRooms = true;
 #endif
 
         public enum OcclusionCulling
@@ -97,6 +98,13 @@ namespace ThunderRoad
             Debug.Log("Lightmap mode: " + LightmapSettings.lightmapsMode);
         }
 
+        [Button]
+        public static void ChangeLightMapMode(LightmapsMode lightmapsMode)
+        {
+            LightmapSettings.lightmapsMode = lightmapsMode;
+            Debug.Log("Lightmap mode set to: " + LightmapSettings.lightmapsMode);
+        }
+   
         [Button]
         public static void TetrahedralizeLightProbes()
         {
@@ -245,19 +253,6 @@ namespace ThunderRoad
             else
             {
                 Debug.LogError("No player spawner found for dungeon!");
-            }
-            if (staticBatchDungeonTiles)
-            {
-                foreach (Tile tile in generator.CurrentDungeon.AllTiles)
-                {
-                    List<GameObject> objectsToBatch = new List<GameObject>();
-                    foreach (MeshRenderer meshRenderer in tile.gameObject.GetComponentsInChildren<MeshRenderer>(true))
-                    {
-                        objectsToBatch.Add(meshRenderer.gameObject);
-                    }
-                    StaticBatchingUtility.Combine(objectsToBatch.ToArray(), tile.gameObject);
-                    Debug.Log("Static batched " + objectsToBatch.Count + " objects for tile " + tile.name);
-                }
             }
         }
 #endif
