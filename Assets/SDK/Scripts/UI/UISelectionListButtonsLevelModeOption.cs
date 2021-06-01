@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -13,9 +14,9 @@ namespace ThunderRoad
 {
     public class UISelectionListButtonsLevelModeOption : UISelectionListButtons, IPointerEnterHandler, IPointerExitHandler
     {
-        public LevelData.Option currentOption;
-
         public Image starImagePrefab = null;
+
+        public UISelectionListButtonsBool toggle = null;
 
         public Transform starPlace = null;
 
@@ -23,7 +24,7 @@ namespace ThunderRoad
         public Color unselectedColor = new Color(0.5f, 0.5f, 0.5f);
 
         public string descriptionText = "This is a description test.\n Your text go here.";
-        public UILevelSelector uiLevelSelector = null;
+        public UIMap uiLevelSelector = null;
 
         public void OnPointerEnter(UnityEngine.EventSystems.PointerEventData eventData)
         {

@@ -1,15 +1,19 @@
-﻿using Sirenix.OdinInspector;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
+
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#else
+using EasyButtons;
+#endif
 
 namespace ThunderRoad
 {
-    public class UILevelSelector : MonoBehaviour
+    public class UIMap : MonoBehaviour
     {
         public string mapId = "Default";
         public Transform locationRoot;
@@ -18,6 +22,7 @@ namespace ThunderRoad
         public Transform wholeMap;
         public float visibleRadius = 4;
 
+        public Text gameModTitle;
         public Text mapTitleText;
         public Text modeDescriptionText;
 
@@ -34,27 +39,42 @@ namespace ThunderRoad
         public UISelectionListButtonsLevelModeOption LevelModeOptionPrefab = null;
         public List<UISelectionListButtonsLevelModeOption> levelModeOptions = new List<UISelectionListButtonsLevelModeOption>();
 
-        protected float optionSpacingSize = 0.09f;
+        protected float optionSpacingSize = 0.1f;
+
+        protected int currentIndexOption = 0;
+        protected int startIndexOption = 0;
+        protected int maxPage = 0;
+        protected int currentPage = 1;
 
         public Text descriptionText = null;
+
+        public Button nextOptionsButton = null;
+        public Button previousOptionsButton = null;
+
+        protected int currentGameModIndex = 0;
+
+        public Transform mapParent = null;
+
+        protected GameObject currentMap = null;
+
+        public MeshRenderer mapRenderer = null;
+
+        protected UIMapBulletPoint lastSelected = null;
+
+        public Text pageText = null;
 
 
         protected void OnDrawGizmos()
         {
             Gizmos.matrix = this.transform.localToWorldMatrix;
             Gizmos.DrawWireCube(Vector3.zero, new Vector3(1, 1, 0));
-            /*if (canvasDetails != null)
-            {
-                Gizmos.matrix = canvasDetails.localToWorldMatrix;
-                Gizmos.DrawWireCube(Vector3.zero, new Vector3(0.402f, 0.29f, 0));
-            }*/
             if (locationRoot != null)
             {
                 foreach (Transform child in locationRoot)
                 {
                     Gizmos.matrix = child.localToWorldMatrix;
                     Gizmos.DrawRay(Vector3.zero, Vector3.back * 0.1f);
-                    Gizmos.DrawWireSphere(new Vector3(0, 0, -0.1f - 0.015f), 0.03f);
+                    Gizmos.DrawWireCube(new Vector3(0, 0, -0.1f - 0.015f), new Vector3(0.07f, 0.07f, 0));
                 }
             }
         }

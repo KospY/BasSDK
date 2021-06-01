@@ -12,7 +12,7 @@ namespace ThunderRoad
 
         public Text levelCount = null;
 
-        public UILevelSelectorLevelMode UISelectionLevelMode = null;
+        public UIMapLevelMode UISelectionLevelMode = null;
 
     }
 }

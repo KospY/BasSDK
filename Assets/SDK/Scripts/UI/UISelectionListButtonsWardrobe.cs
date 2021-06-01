@@ -6,7 +6,7 @@ namespace ThunderRoad
 {
     public class UISelectionListButtonsWardrobe : UISelectionListButtons
     {
-        public ItemModuleWardrobe.Category category = ItemModuleWardrobe.Category.Body;
+        public Equipment.WardRobeCategory category = Equipment.WardRobeCategory.Body;
         public string channel = "Head";
         public string layer = "Hair";
 

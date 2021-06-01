@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace ThunderRoad
 {
-    public class UILevelSelectorLevelMode : UISelectionListButtons
+    public class UIMapLevelMode : UISelectionListButtons
     {
         public Text levelModeDescription = null;
 
