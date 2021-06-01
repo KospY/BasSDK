@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.AI;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -35,7 +36,9 @@ namespace ThunderRoad
         public float rowSpace = 1;
         public float delayBetweenSpawn = 0.5f;
         public bool spawnOnStart = true;
-        public GameObject waypoints;
+        public bool spawnOnNavMesh = true;
+
+        public Transform waypoints;
 
 #if PrivateSDK
         public List<ValueDropdownItem<string>> GetAllCreatureID()
@@ -61,7 +64,7 @@ namespace ThunderRoad
 
         private void OnValidate()
         {
-            IconManager.SetIcon(this.gameObject, IconManager.LabelIcon.Purple);
+            IconManager.SetIcon(this.gameObject, IconManager.LabelIcon.Red);
         }
 
     }
