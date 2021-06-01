@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 namespace ThunderRoad
@@ -156,6 +157,12 @@ namespace ThunderRoad
         Energy,
     }
 
+    public enum ClosestMethod
+    {
+        ShortestNavPathLength,
+        ShortestDistance,
+    }
+
     [Serializable]
     public class CustomReference
     {
@@ -195,6 +202,99 @@ namespace ThunderRoad
                 return RuntimePlatform.WindowsPlayer;
             }
 #endif
+        }
+
+        public static T GetClosest<T>(List<T> behaviours, Vector3 position, ClosestMethod distanceCheck) where T : Behaviour
+        {
+            if (distanceCheck == ClosestMethod.ShortestNavPathLength)
+            {
+                float shortestPathLength = Mathf.Infinity;
+                Behaviour shortestPathBehaviour = null;
+                NavMeshPath navMeshPath = new NavMeshPath();
+                foreach (Behaviour behaviour in behaviours)
+                {
+                    if (NavMesh.CalculatePath(position, behaviour.transform.position, -1, navMeshPath))
+                    {
+                        navMeshPath.ClearCorners();
+                        float pathLength = GetPathLength(navMeshPath);
+                        if (pathLength < shortestPathLength)
+                        {
+                            shortestPathLength = pathLength;
+                            shortestPathBehaviour = behaviour;
+                        }
+                    }
+                }
+                return shortestPathBehaviour as T;
+            }
+            else
+            {
+                float closestDistanceSqr = Mathf.Infinity;
+                Behaviour closestBehaviour = null;
+                foreach (Behaviour behaviour in behaviours)
+                {
+                    Vector3 directionToTarget = behaviour.transform.position - position;
+                    float dSqrToTarget = directionToTarget.sqrMagnitude;
+                    if (dSqrToTarget < closestDistanceSqr)
+                    {
+                        closestDistanceSqr = dSqrToTarget;
+                        closestBehaviour = behaviour;
+                    }
+                }
+                return closestBehaviour as T;
+            }
+        }
+
+        public static Transform GetClosest(List<Transform> transforms, Vector3 position, ClosestMethod distanceCheck)
+        {
+            if (distanceCheck == ClosestMethod.ShortestNavPathLength)
+            {
+                float shortestPathLength = Mathf.Infinity;
+                Transform shortestPathTransform = null;
+                NavMeshPath navMeshPath = new NavMeshPath();
+                foreach (Transform transform in transforms)
+                {
+                    if (NavMesh.CalculatePath(position, transform.transform.position, -1, navMeshPath))
+                    {
+                        navMeshPath.ClearCorners();
+                        float pathLength = GetPathLength(navMeshPath);
+                        if (pathLength < shortestPathLength)
+                        {
+                            shortestPathLength = pathLength;
+                            shortestPathTransform = transform;
+                        }
+                    }
+                }
+                return shortestPathTransform ;
+            }
+            else
+            {
+                float closestDistanceSqr = Mathf.Infinity;
+                Transform closestTransform = null;
+                foreach (Transform transform in transforms)
+                {
+                    Vector3 directionToTarget = transform.transform.position - position;
+                    float dSqrToTarget = directionToTarget.sqrMagnitude;
+                    if (dSqrToTarget < closestDistanceSqr)
+                    {
+                        closestDistanceSqr = dSqrToTarget;
+                        closestTransform = transform;
+                    }
+                }
+                return closestTransform;
+            }
+        }
+
+        public static float GetPathLength(NavMeshPath path)
+        {
+            float lng = 0.0f;
+            if ((path.status != NavMeshPathStatus.PathInvalid) && (path.corners.Length > 1))
+            {
+                for (int i = 1; i < path.corners.Length; ++i)
+                {
+                    lng += Vector3.Distance(path.corners[i - 1], path.corners[i]);
+                }
+            }
+            return lng;
         }
 
         public static Component CloneComponent(Component source, GameObject destination, bool copyProperties = false)
