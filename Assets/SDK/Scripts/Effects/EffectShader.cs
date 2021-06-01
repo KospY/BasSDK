@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using ThunderRoad.Plugins;
 
 namespace ThunderRoad
 {
@@ -15,12 +16,10 @@ namespace ThunderRoad
         [NonSerialized]
         public float playTime;
 
-        protected new Renderer renderer;
+        protected MaterialInstance materialInstance;
 
         protected static int colorPropertyID;
         protected static int emissionPropertyID;
-
-        protected MaterialPropertyBlock materialPropertyBlock;
 
         protected float currentValue;
         protected Gradient currentMainGradient;
@@ -33,7 +32,6 @@ namespace ThunderRoad
 
         private void Awake()
         {
-            materialPropertyBlock = new MaterialPropertyBlock();
             if (colorPropertyID == 0) colorPropertyID = Shader.PropertyToID("_Color");
             if (emissionPropertyID == 0) emissionPropertyID = Shader.PropertyToID("_EmissionColor");
         }
@@ -70,7 +68,7 @@ namespace ThunderRoad
         {
             if ((useSecondaryRenderer && secondary) || (!useSecondaryRenderer && !secondary))
             {
-                this.renderer = renderer;
+                materialInstance = renderer.GetComponent<MaterialInstance>();
             }
         }
 
@@ -79,25 +77,24 @@ namespace ThunderRoad
             if (!loopOnly || (loopOnly && step == Step.Loop))
             {
                 currentValue = value;
-                if (renderer && renderer.isVisible)
+                if (materialInstance && materialInstance.CachedRenderer.isVisible)
                 {
                     if (linkBaseColor == EffectTarget.Main && currentMainGradient != null)
                     {
-                        materialPropertyBlock.SetColor(colorPropertyID, currentMainGradient.Evaluate(value));
+                        materialInstance.material.SetColor(colorPropertyID, currentMainGradient.Evaluate(value));
                     }
                     else if (linkBaseColor == EffectTarget.Secondary && currentSecondaryGradient != null)
                     {
-                        materialPropertyBlock.SetColor(colorPropertyID, currentSecondaryGradient.Evaluate(value));
+                        materialInstance.material.SetColor(colorPropertyID, currentSecondaryGradient.Evaluate(value));
                     }
                     if (linkEmissionColor == EffectTarget.Main && currentMainGradient != null)
                     {
-                        materialPropertyBlock.SetColor(emissionPropertyID, currentMainGradient.Evaluate(value));
+                        materialInstance.material.SetColor(emissionPropertyID, currentMainGradient.Evaluate(value));
                     }
                     else if (linkEmissionColor == EffectTarget.Secondary && currentSecondaryGradient != null)
                     {
-                        materialPropertyBlock.SetColor(emissionPropertyID, currentSecondaryGradient.Evaluate(value));
+                        materialInstance.material.SetColor(emissionPropertyID, currentSecondaryGradient.Evaluate(value));
                     }
-                    renderer.SetPropertyBlock(materialPropertyBlock);
                 }
             }
         }
