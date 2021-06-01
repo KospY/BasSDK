@@ -29,7 +29,8 @@ namespace ThunderRoad.Plugins
         {
             public string name;
             public int id;
-            public Color32 value;
+            [ColorUsage(false, true)]
+            public Color value;
 
             public int GetShaderID()
             {
