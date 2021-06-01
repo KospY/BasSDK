@@ -33,7 +33,7 @@ namespace ThunderRoad
         public void AlignObject(Item item)
         {
             Item.HolderPoint hp = item.GetHolderPoint(editorTargetAnchor);
-            item.transform.MoveAlign(hp != null ? hp.anchor : item.transform, slots[0].transform);
+            item.transform.MoveAlign(hp != null ? hp.anchor : item.transform, slots[0].transform, slots[0].transform);
         }
 
         protected override void OnDrawGizmosSelected()
