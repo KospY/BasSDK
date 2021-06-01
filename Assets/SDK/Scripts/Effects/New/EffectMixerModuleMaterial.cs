@@ -36,7 +36,7 @@ namespace ThunderRoad
             [Serializable]
             public class Color : Property
             {
-                [ColorUsage(true, true)]
+                [GradientUsage(true)]
                 public Gradient gradient;
                 public override void Update(Material material, float value)
                 {
