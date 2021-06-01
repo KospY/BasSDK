@@ -44,12 +44,15 @@ namespace ThunderRoad
         public List<Renderer> meshRenderers = new List<Renderer>();
         protected MaterialPropertyBlock materialPropertyBlock;
 
+        public delegate void OnVolumeChangeDelegate(LightProbeVolume lightProbeVolume);
+        public event OnVolumeChangeDelegate OnVolumeChangeEvent;
+
 
         void Start()
         {
             if (initRenderersOnStart)
             {
-                InitRenderers(new List<Renderer>(this.gameObject.GetComponentsInChildren<Renderer>()), addMaterialInstances);
+                SetRenderers(new List<Renderer>(this.gameObject.GetComponentsInChildren<Renderer>()), addMaterialInstances);
             }
             if (volumeDetection == VolumeDetection.StaticPerMesh)
             {
@@ -57,18 +60,8 @@ namespace ThunderRoad
             }
         }
 
-        protected void OnDespawn(EventTime eventTime)
-        {
-            if (eventTime == EventTime.OnStart)
-            {
-                lightProbeVolumes.Clear();
-                currentLightProbeVolume = null;
-                RestoreRenderers();
-            }
-        }
-
         [Button]
-        public void InitRenderers(List<Renderer> renderers, bool addMaterialInstances = true)
+        public void SetRenderers(List<Renderer> renderers, bool addMaterialInstances = true)
         {
             materialInstances.Clear();
             meshRenderers.Clear();
@@ -96,6 +89,21 @@ namespace ThunderRoad
                         meshRenderers.Add(renderer);
                     }
                 }
+            }
+        }
+
+        protected void OnRootHolderVolumeChange(LightProbeVolume lightProbeVolume)
+        {
+            currentLightProbeVolume = lightProbeVolume;
+            UpdateRenderers();
+        }
+        protected void OnDespawn(EventTime eventTime)
+        {
+            if (eventTime == EventTime.OnStart)
+            {
+                lightProbeVolumes.Clear();
+                currentLightProbeVolume = null;
+                RestoreRenderers();
             }
         }
 
@@ -210,6 +218,7 @@ namespace ThunderRoad
                     lightProbeVolumes.Add(lightProbeVolume);
                     currentLightProbeVolume = lightProbeVolume;
                     UpdateRenderers();
+                    if (OnVolumeChangeEvent != null) OnVolumeChangeEvent.Invoke(currentLightProbeVolume);
                 }
             }
         }

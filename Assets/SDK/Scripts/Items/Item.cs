@@ -217,16 +217,19 @@ namespace ThunderRoad
 
         protected virtual void Awake()
         {
-            lightVolumeReceiver = this.GetComponent<LightVolumeReceiver>();
-            if (!lightVolumeReceiver) lightVolumeReceiver = this.gameObject.AddComponent<LightVolumeReceiver>();
-            lightVolumeReceiver.initRenderersOnStart = false;
-
             renderers = new List<Renderer>();
             foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())
             {
                 if (!renderer.enabled || (!(renderer is SkinnedMeshRenderer) && !(renderer is MeshRenderer))) continue;
                 renderers.Add(renderer);
             }
+
+#if PrivateSDK
+            lightVolumeReceiver = this.GetComponent<LightVolumeReceiver>();
+            if (!lightVolumeReceiver) lightVolumeReceiver = this.gameObject.AddComponent<LightVolumeReceiver>();
+            lightVolumeReceiver.initRenderersOnStart = false;
+            lightVolumeReceiver.SetRenderers(renderers);
+#endif
 
             paintables = new List<Paintable>(this.GetComponentsInChildren<Paintable>());
             revealDecals = new List<RevealDecal>(this.GetComponentsInChildren<RevealDecal>());

@@ -10,8 +10,10 @@ namespace ThunderRoad
 
         public bool isPooled;
 
+#if PrivateSDK
         [NonSerialized]
         public EffectModule module;
+#endif
 
         public Step step = Step.Start;
         public enum Step

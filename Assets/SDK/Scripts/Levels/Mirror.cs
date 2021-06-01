@@ -3,6 +3,8 @@ using UnityEngine.XR;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.Profiling;
 
 namespace ThunderRoad
 {
@@ -20,11 +22,13 @@ namespace ThunderRoad
         public Collider workingArea;
         public MeshRenderer mirrorMesh;
         public MeshRenderer[] meshToHide;
+        private Vector3 reflectionLocalDirection;
+        private Vector3 reflectionWorldDirection;
 
         public enum Side
         {
-            Right,
-            Left,
+            Left, //have left first to match Unity's convention if using them as ints
+            Right
         }
 
         public enum ReflectionDirection
@@ -36,9 +40,6 @@ namespace ThunderRoad
             Left,
             Right,
         }
-
-        private Vector3 reflectionLocalDirection;
-        private Vector3 reflectionWorldDirection;
 
         void OnValidate()
         {
@@ -55,11 +56,6 @@ namespace ThunderRoad
             else if (reflectionDirection == ReflectionDirection.Left) reflectionLocalDirection = Vector3.left;
             else if (reflectionDirection == ReflectionDirection.Right) reflectionLocalDirection = Vector3.right;
             reflectionWorldDirection = this.transform.TransformDirection(reflectionLocalDirection);
-        }
-
-        protected virtual void OnDrawGizmosSelected()
-        {
-            DrawGizmoArrow(this.transform.position, reflectionWorldDirection * 0.5f, Color.blue);
         }
 
         public static void DrawGizmoArrow(Vector3 pos, Vector3 direction, Color color, float arrowHeadLength = 0.25f, float arrowHeadAngle = 20.0f)
