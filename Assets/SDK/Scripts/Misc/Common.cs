@@ -87,6 +87,7 @@ namespace ThunderRoad
         PlayerLocomotionObject,
         LiquidFlow,
         Zone,
+        NoLocomotion,
     }
 
     public enum Cardinal
@@ -131,6 +132,17 @@ namespace ThunderRoad
         Holder,
         PotionFill,
         Ammo,
+        LevelCastThrow,
+        LevelCastSpray,
+        LevelCharge,
+        LevelImbue,
+        LevelMergeAppart,
+        LevelMergeUp,
+        LevelMergeForward,
+        LevelMergeDown,
+        LevelCrystalShockwave,
+        LevelCrystalForward,
+        LevelCrystalFire,
     }
 
     public enum Finger
@@ -155,12 +167,6 @@ namespace ThunderRoad
         Slash,
         Blunt,
         Energy,
-    }
-
-    public enum ClosestMethod
-    {
-        ShortestNavPathLength,
-        ShortestDistance,
     }
 
     [Serializable]
@@ -204,13 +210,14 @@ namespace ThunderRoad
 #endif
         }
 
-        public static T GetClosest<T>(List<T> behaviours, Vector3 position, ClosestMethod distanceCheck) where T : Behaviour
+        private static NavMeshPath navMeshPath = new NavMeshPath();
+
+        public static T GetClosest<T>(List<T> behaviours, Vector3 position, bool prioritizeShortestPath) where T : Behaviour
         {
-            if (distanceCheck == ClosestMethod.ShortestNavPathLength)
+            if (prioritizeShortestPath)
             {
                 float shortestPathLength = Mathf.Infinity;
                 Behaviour shortestPathBehaviour = null;
-                NavMeshPath navMeshPath = new NavMeshPath();
                 foreach (Behaviour behaviour in behaviours)
                 {
                     if (NavMesh.CalculatePath(position, behaviour.transform.position, -1, navMeshPath))
@@ -224,33 +231,33 @@ namespace ThunderRoad
                         }
                     }
                 }
-                return shortestPathBehaviour as T;
-            }
-            else
-            {
-                float closestDistanceSqr = Mathf.Infinity;
-                Behaviour closestBehaviour = null;
-                foreach (Behaviour behaviour in behaviours)
+                if (shortestPathBehaviour)
                 {
-                    Vector3 directionToTarget = behaviour.transform.position - position;
-                    float dSqrToTarget = directionToTarget.sqrMagnitude;
-                    if (dSqrToTarget < closestDistanceSqr)
-                    {
-                        closestDistanceSqr = dSqrToTarget;
-                        closestBehaviour = behaviour;
-                    }
+                    return shortestPathBehaviour as T;
                 }
-                return closestBehaviour as T;
             }
+
+            float closestDistanceSqr = Mathf.Infinity;
+            Behaviour closestBehaviour = null;
+            foreach (Behaviour behaviour in behaviours)
+            {
+                Vector3 directionToTarget = behaviour.transform.position - position;
+                float dSqrToTarget = directionToTarget.sqrMagnitude;
+                if (dSqrToTarget < closestDistanceSqr)
+                {
+                    closestDistanceSqr = dSqrToTarget;
+                    closestBehaviour = behaviour;
+                }
+            }
+            return closestBehaviour as T;
         }
 
-        public static Transform GetClosest(List<Transform> transforms, Vector3 position, ClosestMethod distanceCheck)
+        public static Transform GetClosest(List<Transform> transforms, Vector3 position, bool prioritizeShortestPath)
         {
-            if (distanceCheck == ClosestMethod.ShortestNavPathLength)
+            if (prioritizeShortestPath)
             {
                 float shortestPathLength = Mathf.Infinity;
                 Transform shortestPathTransform = null;
-                NavMeshPath navMeshPath = new NavMeshPath();
                 foreach (Transform transform in transforms)
                 {
                     if (NavMesh.CalculatePath(position, transform.transform.position, -1, navMeshPath))
@@ -264,24 +271,25 @@ namespace ThunderRoad
                         }
                     }
                 }
-                return shortestPathTransform ;
-            }
-            else
-            {
-                float closestDistanceSqr = Mathf.Infinity;
-                Transform closestTransform = null;
-                foreach (Transform transform in transforms)
+                if (shortestPathTransform)
                 {
-                    Vector3 directionToTarget = transform.transform.position - position;
-                    float dSqrToTarget = directionToTarget.sqrMagnitude;
-                    if (dSqrToTarget < closestDistanceSqr)
-                    {
-                        closestDistanceSqr = dSqrToTarget;
-                        closestTransform = transform;
-                    }
+                    return shortestPathTransform;
                 }
-                return closestTransform;
             }
+
+            float closestDistanceSqr = Mathf.Infinity;
+            Transform closestTransform = null;
+            foreach (Transform transform in transforms)
+            {
+                Vector3 directionToTarget = transform.transform.position - position;
+                float dSqrToTarget = directionToTarget.sqrMagnitude;
+                if (dSqrToTarget < closestDistanceSqr)
+                {
+                    closestDistanceSqr = dSqrToTarget;
+                    closestTransform = transform;
+                }
+            }
+            return closestTransform;
         }
 
         public static float GetPathLength(NavMeshPath path)
@@ -389,6 +397,16 @@ namespace ThunderRoad
             transform.transform.position += displacement;
             // parenting
             if (parent) transform.transform.SetParent(parent, true);
+        }
+
+        public static Quaternion InverseTransformRotation(this Transform transform, Quaternion rotation)
+        {
+            return (Quaternion.Inverse(transform.rotation) * rotation);
+        }
+
+        public static Quaternion TransformRotation(this Transform transform, Quaternion localRotation)
+        {
+            return (transform.rotation * localRotation);
         }
 
         public static void MirrorChilds(this Transform transform, Vector3 mirrorAxis)
