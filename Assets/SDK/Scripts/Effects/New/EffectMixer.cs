@@ -47,6 +47,24 @@ namespace ThunderRoad
             }
         }
 
+        public void SetIntensity(float intensity)
+        {
+            this.intensity = intensity;
+            foreach (EffectMixerModule module in modules)
+            {
+                module.SetIntensity(intensity);
+            }
+        }
+
+        public void SetSpeed(float speed)
+        {
+            this.speed = speed;
+            foreach (EffectMixerModule module in modules)
+            {
+                module.SetSpeed(speed);
+            }
+        }
+
         public void Refresh()
         {
             foreach (EffectMixerModule module in modules)

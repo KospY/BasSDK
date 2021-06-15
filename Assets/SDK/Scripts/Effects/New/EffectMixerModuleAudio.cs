@@ -180,7 +180,7 @@ namespace ThunderRoad
 
         public override void Stop()
         {
-            loopAudioSource.Stop();
+            if (loopAudioSource) loopAudioSource.Stop();
             if (oneShotAudioSource && stopAudioContainer)
             {
                 oneShotAudioSource.PlayOneShot(stopAudioContainer.PickAudioClip(), DecibelToLinear(stopVolumeDb));
