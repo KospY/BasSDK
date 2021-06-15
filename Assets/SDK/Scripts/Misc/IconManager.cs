@@ -64,7 +64,7 @@ namespace ThunderRoad
             SetIcon(gObj, largeIcons[(int)icon].image as Texture2D);
         }
 
-        private static void SetIcon(GameObject gObj, Texture2D texture)
+        public static void SetIcon(GameObject gObj, Texture2D texture)
         {
 #if UNITY_EDITOR
             var ty = typeof(UnityEditor.EditorGUIUtility);

@@ -26,8 +26,8 @@ namespace ThunderRoad
         protected override void OnValidate()
         {
             base.OnValidate();
+            IconManager.SetIcon(this.gameObject, null);
             if (!this.gameObject.activeInHierarchy) return;
-            IconManager.SetIcon(this.gameObject, IconManager.LabelIcon.Red);
             grip = this.transform.Find("Grip");
             if (!grip)
             {

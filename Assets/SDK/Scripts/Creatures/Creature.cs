@@ -27,12 +27,6 @@ namespace ThunderRoad
         public Transform centerEyes;
         public Vector3 eyeCameraOffset;
 
-        public virtual void OnValidate()
-        {
-            if (!this.gameObject.activeInHierarchy) return;
-            IconManager.SetIcon(this.gameObject, IconManager.LabelIcon.Gray);
-        }
-
         [NonSerialized]
         public Ragdoll ragdoll;
         [NonSerialized]
@@ -58,8 +52,6 @@ namespace ThunderRoad
         [NonSerialized]
         public LightVolumeReceiver lightVolumeReceiver;
 
-        [Header("Animation")]
-        public float animationDampTime = 0.1f;
 
         [Header("Fall")]
         public float fallAliveAnimationHeight = 0.5f;
@@ -74,19 +66,33 @@ namespace ThunderRoad
         public float stepSpeed = 3f;
         public float stepThreshold = 0.2f;
 
-        public float stationaryVelocityThreshold = 0.01f;
-
         public bool turnRelativeToHand = true;
         public float headMinAngle = 30;
         public float headMaxAngle = 80;
         public float handToBodyRotationMaxVelocity = 2;
         public float handToBodyRotationMaxAngle = 30;
         public float turnSpeed = 6;
-        public float turnAnimSpeed = 0.007f;
 
-        public static int hashIsBusy, hashFeminity, hashHeight, hashStrafe, hashTurn, hashSpeed, hashFalling, hashGetUp, hashTstance, hashStaticIdle;
+        public static int hashDynamicOneShot, hashDynamicLoop, hashIsBusy, hashFeminity, hashHeight, hashFalling, hashGetUp, hashTstance, hashStaticIdle;
         public static bool hashInitialized;
 
+        public enum StaggerAnimation
+        {
+            Default,
+            Parry,
+            Head,
+            Torso,
+            Legs,
+            FallGround,
+        }
+
+        public enum PushType
+        {
+            Magic,
+            Grab,
+            Hit,
+            Parry,
+        }
 
 
         protected void Awake()
@@ -100,9 +106,15 @@ namespace ThunderRoad
                 smr.updateWhenOffscreen = true;
             }
             if (!logGroup) logGroup = this.GetComponentInChildren<LODGroup>();
+
+            // Animator
             animator.applyRootMotion = false;
             animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+            AnimatorOverrideController aoc = new AnimatorOverrideController(animator.runtimeAnimatorController);
+            aoc.name = "OverrideForDynamicAnimation";
+            animator.runtimeAnimatorController = aoc;
             animator.enabled = false;
+
             ragdoll = this.GetComponentInChildren<Ragdoll>();
 
             brain = this.GetComponentInChildren<Brain>();
@@ -146,41 +158,20 @@ namespace ThunderRoad
         {
             hashFeminity = Animator.StringToHash("Feminity");
             hashHeight = Animator.StringToHash("Height");
-            hashStrafe = Animator.StringToHash("Strafe");
-            hashTurn = Animator.StringToHash("Turn");
-            hashSpeed = Animator.StringToHash("Speed");
             hashFalling = Animator.StringToHash("Falling");
             hashGetUp = Animator.StringToHash("GetUp");
             hashIsBusy = Animator.StringToHash("IsBusy");
             hashTstance = Animator.StringToHash("TStance");
             hashStaticIdle = Animator.StringToHash("StaticIdle");
+            hashDynamicOneShot = Animator.StringToHash("DynamicOneShot");
+            hashDynamicLoop = Animator.StringToHash("DynamicLoop");
             hashInitialized = true;
         }
 
         protected void Update()
         {
-            UpdateAnimation();
         }
 
-
-        public virtual void UpdateAnimation()
-        {
-            // Apply locomotion animations
-            if (locomotion.isEnabled && locomotion.isGrounded && (locomotion.horizontalSpeed + Mathf.Abs(locomotion.angularSpeed)) > stationaryVelocityThreshold)
-            {
-                locomotion.SetCapsuleCollider(this.transform.InverseTransformPoint(ragdoll.headPart.transform.position).y);
-                Vector3 stepLocalVelocity = this.transform.InverseTransformDirection(locomotion.velocity);
-                animator.SetFloat(hashStrafe, stepLocalVelocity.x, animationDampTime, Time.deltaTime);
-                animator.SetFloat(hashTurn, locomotion.angularSpeed * turnAnimSpeed, animationDampTime, Time.deltaTime);
-                animator.SetFloat(hashSpeed, stepLocalVelocity.z, animationDampTime, Time.deltaTime);
-            }
-            else
-            {
-                animator.SetFloat(hashStrafe, 0, animationDampTime, Time.deltaTime);
-                animator.SetFloat(hashTurn, 0, animationDampTime, Time.deltaTime);
-                animator.SetFloat(hashSpeed, 0, animationDampTime, Time.deltaTime);
-            }
-        }
 
         public virtual float GetAnimatorHeightRatio()
         {

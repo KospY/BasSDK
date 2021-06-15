@@ -17,11 +17,20 @@ namespace ThunderRoad
     public class Holder : Interactable
     {
         public static bool showHudHighlighter = true;
+        public DrawSlot drawSlot = DrawSlot.None;
         public List<Transform> slots = new List<Transform>();
         public List<Item> startObjects = new List<Item>();
         public List<Collider> ignoredColliders = new List<Collider>();
         public string editorTargetAnchor;
 
+        public enum DrawSlot
+        {
+            None,
+            BackRight,
+            BackLeft,
+            HipsRight,
+            HipsLeft,
+        }
 
         protected virtual void OnValidate()
         {

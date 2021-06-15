@@ -15,24 +15,5 @@ namespace ThunderRoad
     [RequireComponent(typeof(NavMeshAgent))]
     public class Brain : MonoBehaviour
     {
-        public enum PushAnimation
-        {
-            Default,
-            Parry,
-            Head,
-            Torso,
-            Legs,
-            FallGround,
-        }
-
-        public enum DestabilizeType
-        {
-            Magic,
-            Grab,
-            Hit,
-            Knockout,
-            Parry,
-        }
-
     }
 }

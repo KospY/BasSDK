@@ -20,10 +20,10 @@ namespace ThunderRoad
         public bool spawnOnStart = true;
         public float spawnDelay;
         public bool spawnOnNavMesh = true;
-
+        public bool ignoreRoomMaxNPC;
         public bool spawnAtRandomWaypoint = true;
 
-        public Transform waypoints;
+        public Transform waypointsRoot;
 
 #if ODIN_INSPECTOR
         public List<ValueDropdownItem<string>> GetAllCreatureTableID()
@@ -34,7 +34,7 @@ namespace ThunderRoad
 
         private void OnValidate()
         {
-            IconManager.SetIcon(this.gameObject, IconManager.LabelIcon.Orange);
+            IconManager.SetIcon(this.gameObject, null);
         }
 
     }

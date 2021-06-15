@@ -114,6 +114,8 @@ namespace ThunderRoad
 
         protected virtual void OnValidate()
         {
+            IconManager.SetIcon(this.gameObject, null);
+
             if (!this.gameObject.activeInHierarchy) return;
 
             Transform holderPoint = null;
@@ -191,7 +193,6 @@ namespace ThunderRoad
                 customInertiaTensorCollider.isTrigger = true;
                 customInertiaTensorCollider.gameObject.layer = 2;
             }
-            IconManager.SetIcon(this.gameObject, IconManager.LabelIcon.Teal);
         }
 
         public static void DrawGizmoArrow(Vector3 pos, Vector3 direction, Vector3 upwards, Color color, float arrowHeadLength = 0.25f, float arrowHeadAngle = 20.0f)

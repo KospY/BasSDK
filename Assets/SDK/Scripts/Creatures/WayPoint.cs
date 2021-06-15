@@ -17,7 +17,7 @@ namespace ThunderRoad
 #endif
         private void OnValidate()
         {
-            IconManager.SetIcon(this.gameObject, IconManager.LabelIcon.Purple);
+            //IconManager.SetIcon(this.gameObject, IconManager.LabelIcon.Purple);
             navMeshPath = new NavMeshPath();
         }
 

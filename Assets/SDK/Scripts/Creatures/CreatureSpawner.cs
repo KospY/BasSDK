@@ -38,7 +38,9 @@ namespace ThunderRoad
         public bool spawnOnStart = true;
         public bool spawnOnNavMesh = true;
 
-        public Transform waypoints;
+        public bool ignoreRoomMaxNPC;
+
+        public Transform waypointsRoot;
 
 #if PrivateSDK
         public List<ValueDropdownItem<string>> GetAllCreatureID()
@@ -64,7 +66,7 @@ namespace ThunderRoad
 
         private void OnValidate()
         {
-            IconManager.SetIcon(this.gameObject, IconManager.LabelIcon.Red);
+            IconManager.SetIcon(this.gameObject, null);
         }
 
     }

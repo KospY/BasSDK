@@ -171,12 +171,12 @@ namespace ThunderRoad
                 if (heightRatio > crouchHeightRatio)
                 {
                     // Standing
-                    speed = this.speed * backwardRatio * strafingRatio * runRatio * speedMultiplier;
+                    speed = this.speed * backwardRatio * strafingRatio * runRatio * speedMultiplier * Mathf.Clamp01(this.transform.lossyScale.y);
                 }
                 else
                 {
                     // Crouched
-                    speed = crouchSpeed;
+                    speed = crouchSpeed * Mathf.Clamp01(this.transform.lossyScale.y);
                 }
                 moveDirection.x = direction.x * speed;
                 moveDirection.z = direction.z * speed;

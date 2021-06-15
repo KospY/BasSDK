@@ -12,9 +12,6 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
-#if UNITY_EDITOR
-    [ExecuteInEditMode]
-#endif
     [AddComponentMenu("ThunderRoad/Creatures/Ragdoll hand")]
     public class RagdollHand : RagdollPart
     {
@@ -72,10 +69,10 @@ namespace ThunderRoad
         protected override void OnValidate()
         {
             base.OnValidate();
+            IconManager.SetIcon(this.gameObject, null);
             if (!this.gameObject.activeInHierarchy) return;
             grip = this.transform.Find("Grip");
             if (!grip) grip = CreateDefaultGrip();
-            IconManager.SetIcon(this.gameObject, IconManager.LabelIcon.Red);
             if (editPose == null) editPose = new EditPose(this);
             if (editPose.ragdollHand == null) editPose = new EditPose(this);
             if (creature == null) creature = this.GetComponentInParent<Creature>();
