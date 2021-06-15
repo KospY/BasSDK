@@ -220,9 +220,9 @@ namespace ThunderRoad
                 Behaviour shortestPathBehaviour = null;
                 foreach (Behaviour behaviour in behaviours)
                 {
+                    navMeshPath.ClearCorners();
                     if (NavMesh.CalculatePath(position, behaviour.transform.position, -1, navMeshPath))
                     {
-                        navMeshPath.ClearCorners();
                         float pathLength = GetPathLength(navMeshPath);
                         if (pathLength < shortestPathLength)
                         {
@@ -260,9 +260,9 @@ namespace ThunderRoad
                 Transform shortestPathTransform = null;
                 foreach (Transform transform in transforms)
                 {
+                    navMeshPath.ClearCorners();
                     if (NavMesh.CalculatePath(position, transform.transform.position, -1, navMeshPath))
                     {
-                        navMeshPath.ClearCorners();
                         float pathLength = GetPathLength(navMeshPath);
                         if (pathLength < shortestPathLength)
                         {
@@ -295,11 +295,12 @@ namespace ThunderRoad
         public static float GetPathLength(NavMeshPath path)
         {
             float lng = 0.0f;
-            if ((path.status != NavMeshPathStatus.PathInvalid) && (path.corners.Length > 1))
+            Vector3[] corners = path.corners;
+            if ((path.status != NavMeshPathStatus.PathInvalid) && (corners.Length > 1))
             {
-                for (int i = 1; i < path.corners.Length; ++i)
+                for (int i = 1; i < corners.Length; ++i)
                 {
-                    lng += Vector3.Distance(path.corners[i - 1], path.corners[i]);
+                    lng += Vector3.Distance(corners[i - 1], corners[i]);
                 }
             }
             return lng;
