@@ -73,7 +73,7 @@ namespace ThunderRoad
         public float handToBodyRotationMaxAngle = 30;
         public float turnSpeed = 6;
 
-        public static int hashDynamicOneShot, hashDynamicLoop, hashIsBusy, hashFeminity, hashHeight, hashFalling, hashGetUp, hashTstance, hashStaticIdle;
+        public static int hashDynamicOneShot, hashDynamicLoop, hashDynamicInterrupt, hashIsBusy, hashFeminity, hashHeight, hashFalling, hashGetUp, hashTstance, hashStaticIdle;
         public static bool hashInitialized;
 
         public enum StaggerAnimation
@@ -165,6 +165,7 @@ namespace ThunderRoad
             hashStaticIdle = Animator.StringToHash("StaticIdle");
             hashDynamicOneShot = Animator.StringToHash("DynamicOneShot");
             hashDynamicLoop = Animator.StringToHash("DynamicLoop");
+            hashDynamicInterrupt = Animator.StringToHash("DynamicInterrupt");
             hashInitialized = true;
         }
 
