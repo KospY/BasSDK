@@ -9,6 +9,7 @@ using Sirenix.OdinInspector;
 
 namespace ThunderRoad
 {
+    [AddComponentMenu("ThunderRoad/Spawners/Creature Spawner")]
     public class CreatureSpawner : MonoBehaviour
     {
 #if ODIN_INSPECTOR

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.AI;
+using UnityEngine.Events;
+using System;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -9,6 +11,7 @@ using Sirenix.OdinInspector;
 
 namespace ThunderRoad
 {
+    [AddComponentMenu("ThunderRoad/Spawners/CreatureTable Spawner")]
     public class CreatureTableSpawner : MonoBehaviour
     {
 #if ODIN_INSPECTOR
@@ -22,8 +25,16 @@ namespace ThunderRoad
         public bool spawnOnNavMesh = true;
         public bool ignoreRoomMaxNPC;
         public bool spawnAtRandomWaypoint = true;
-
         public Transform waypointsRoot;
+
+        [System.Serializable]
+        public class CreatureEvent : UnityEvent<UnityEngine.Object> { }
+
+        [Header("Event")]
+        public CreatureEvent OnCombatState = new CreatureEvent();
+        public UnityEvent OnAlertState = new UnityEvent();
+        public UnityEvent OnKill = new UnityEvent();
+        public UnityEvent OnDespawn = new UnityEvent();
 
 #if ODIN_INSPECTOR
         public List<ValueDropdownItem<string>> GetAllCreatureTableID()

@@ -6,6 +6,7 @@ using Sirenix.OdinInspector;
 
 namespace ThunderRoad
 {
+    [AddComponentMenu("ThunderRoad/Spawners/Item Spawner")]
     public class ItemSpawner : MonoBehaviour
     {
         public string itemId;
