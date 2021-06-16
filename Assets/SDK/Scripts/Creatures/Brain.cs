@@ -15,5 +15,14 @@ namespace ThunderRoad
     [RequireComponent(typeof(NavMeshAgent))]
     public class Brain : MonoBehaviour
     {
+        public enum State
+        {
+            Idle,
+            Patrol,
+            Follow,
+            Investigate,
+            Alert,
+            Combat,
+        }
     }
 }
