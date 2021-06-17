@@ -17,8 +17,6 @@ namespace ThunderRoad
         protected new Rigidbody rigidbody;
         protected new CapsuleCollider collider;
 
-        private Vector3 moveDirection = Vector3.zero;
-
         void Awake()
         {
             local = this;
@@ -27,15 +25,21 @@ namespace ThunderRoad
                 Destroy(this.gameObject);
                 return;
             }
-            PlayerSpawner playerSpawner = GameObject.FindObjectOfType<PlayerSpawner>();
-            if (playerSpawner)
-            {
-                this.transform.SetPositionAndRotation(playerSpawner.transform.position, playerSpawner.transform.rotation);
-            }
             cam = this.GetComponentInChildren<Camera>();
             rigidbody = GetComponent<Rigidbody>();
             collider = GetComponent<CapsuleCollider>();
             StartCoroutine(LoadXR());
+        }
+
+        void Start()
+        {
+#if DUNGEN
+            if (Level.current.dungeonGenerator)
+            {
+                Level.current.dungeonGenerator.Generator.OnGenerationStatusChanged += OnGenerationStatusChanged;
+                rigidbody.isKinematic = true;
+            }
+#endif   
         }
 
         private IEnumerator LoadXR()
@@ -53,6 +57,25 @@ namespace ThunderRoad
                 Time.fixedDeltaTime = Time.timeScale / XRDevice.refreshRate;
             }
         }
+
+#if DUNGEN
+        private void OnGenerationStatusChanged(DunGen.DungeonGenerator generator, DunGen.GenerationStatus status)
+        {
+            if (status == DunGen.GenerationStatus.Complete)
+            {
+                PlayerSpawner playerSpawner = GameObject.FindObjectOfType<PlayerSpawner>();
+                if (playerSpawner)
+                {
+                    this.transform.SetPositionAndRotation(playerSpawner.transform.position, playerSpawner.transform.rotation);
+                    if (Level.current.adjacentRoomCulling)
+                    {
+                        Level.current.adjacentRoomCulling.TargetOverride = cam.transform;
+                    }
+                }
+                rigidbody.isKinematic = false;
+            }
+        }
+#endif
 
         private void OnDisable()
         {

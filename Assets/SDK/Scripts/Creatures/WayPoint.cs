@@ -12,9 +12,8 @@ namespace ThunderRoad
     public class WayPoint : MonoBehaviour
     {
         public Vector2 stopLenght = new Vector2(1, 3);
-#if UNITY_EDITOR
         protected static NavMeshPath navMeshPath;
-#endif
+
         private void OnValidate()
         {
             //IconManager.SetIcon(this.gameObject, IconManager.LabelIcon.Purple);

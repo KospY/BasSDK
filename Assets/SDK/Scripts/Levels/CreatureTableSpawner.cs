@@ -11,7 +11,7 @@ using Sirenix.OdinInspector;
 
 namespace ThunderRoad
 {
-    [AddComponentMenu("ThunderRoad/Spawners/CreatureTable Spawner")]
+    [AddComponentMenu("ThunderRoad/Levels/Spawners/CreatureTable Spawner")]
     public class CreatureTableSpawner : MonoBehaviour
     {
 #if ODIN_INSPECTOR

@@ -24,5 +24,6 @@ namespace ThunderRoad
             Alert,
             Combat,
         }
+
     }
 }
