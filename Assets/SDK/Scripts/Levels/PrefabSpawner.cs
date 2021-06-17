@@ -10,6 +10,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [AddComponentMenu("ThunderRoad/Levels/Spawners/Prefab Spawner")]
     public class PrefabSpawner : MonoBehaviour
     {
         public string address;
