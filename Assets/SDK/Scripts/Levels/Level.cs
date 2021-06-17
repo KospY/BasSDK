@@ -33,8 +33,6 @@ namespace ThunderRoad
         public State state = State.None;
 
         [NonSerialized]
-        public AudioSource music;
-        [NonSerialized]
         public bool loaded;
 
 #if DUNGEN
@@ -242,12 +240,6 @@ namespace ThunderRoad
                 {
                     // Prevent dungeon to disable all tiles and re-enable them a bit later when player spawn
                     adjacentRoomCulling.TargetOverride = playerStart;
-                }
-                PlayerControllerTest playerControllerTest = GameObject.FindObjectOfType<PlayerControllerTest>();
-                if (playerControllerTest)
-                {
-                    playerControllerTest.transform.SetPositionAndRotation(playerStart.position, playerStart.rotation);
-                    if (adjacentRoomCulling) adjacentRoomCulling.TargetOverride = playerControllerTest.cam.transform;
                 }
             }
             else
