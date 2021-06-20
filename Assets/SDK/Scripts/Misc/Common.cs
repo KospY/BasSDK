@@ -75,7 +75,7 @@ namespace ThunderRoad
         Touch,
         MovingObject,
         DroppedObject,
-        NPCGrabbedObject,
+        ItemAndRagdollOnly,
         TouchObject,
         Avatar,
         NPC,
@@ -208,6 +208,42 @@ namespace ThunderRoad
                 return RuntimePlatform.WindowsPlayer;
             }
 #endif
+        }
+
+        public static int GetRandomWeightedIndex(float[] weights)
+        {
+            if (weights == null || weights.Length == 0) return -1;
+
+            float w;
+            float t = 0;
+            int i;
+            for (i = 0; i < weights.Length; i++)
+            {
+                w = weights[i];
+
+                if (float.IsPositiveInfinity(w))
+                {
+                    return i;
+                }
+                else if (w >= 0f && !float.IsNaN(w))
+                {
+                    t += weights[i];
+                }
+            }
+
+            float r = UnityEngine.Random.value;
+            float s = 0f;
+
+            for (i = 0; i < weights.Length; i++)
+            {
+                w = weights[i];
+                if (float.IsNaN(w) || w <= 0f) continue;
+
+                s += w / t;
+                if (s >= r) return i;
+            }
+
+            return -1;
         }
 
         public static void DrawText(GUISkin guiSkin, string text, Vector3 position, Color? color = null, int fontSize = 0, float yOffset = 0)
