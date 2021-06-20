@@ -52,13 +52,6 @@ namespace ThunderRoad
         public float preStandUpDuration = 3f;
         public float preStandUpRatio = 0.7f;
 
-        [Header("Melee")]
-        public float meleeArmSpringMultiplier = 2.0f;
-        public float meleeArmMaxForceMultiplier = 10.0f;
-        public float parryArmSpringMultiplier = 1.0f;
-        public float parryArmMaxForceMultiplier = 10.0f;
-        public float aimArmSpringMultiplier = 0.5f;
-
         [Header("Player arm")]
         public float playerArmPositionSpring = 5000f;
         public float playerArmPositionDamper = 40f;
@@ -70,11 +63,6 @@ namespace ThunderRoad
         [Header("Collision")]
         public float collisionMinDelay = 0.2f;
         public float collisionMinVelocity = 2.0f;
-
-        [Header("Grab")]
-        public float grabThrowMinVelocity = 2.0f;
-        public float grabSpeedMultiplier = 0.5f;
-        public float grabFallHeightMultiplier = 0.3f;
 
         [Header("Misc")]
         public bool allowSelfDamage;

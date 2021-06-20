@@ -19,21 +19,6 @@ namespace ThunderRoad
     {
         public bool equipWeaponsOnLoad = true;
         public bool equipWardrobesOnLoad = true;
-        public bool refreshStanceForPlayer;
-
-        public enum Stance
-        {
-            Idle,
-            Fists,
-            MeleeShield,
-            Melee1H,
-            Melee2H,
-            DualWield,
-            Bow,
-            Crossbow,
-            Staff,
-            Wand,
-        }
 
         public enum WardRobeCategory
         {
