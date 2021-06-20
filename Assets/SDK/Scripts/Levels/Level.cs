@@ -135,6 +135,7 @@ namespace ThunderRoad
             if (gameObject.scene.name.ToLower() == "master")
             {
                 master = this;
+                return;
             }
             else
             {
@@ -143,7 +144,7 @@ namespace ThunderRoad
 
             if (!playerStart)
             {
-                PlayerSpawner playerSpawner = GameObject.FindObjectOfType<PlayerSpawner>();
+                PlayerSpawner playerSpawner = PlayerSpawner.GetLevelStart();
                 if (playerSpawner)
                 {
                     playerStart = playerSpawner.transform;
@@ -232,7 +233,7 @@ namespace ThunderRoad
 
             GenerateNavMesh();
 
-            PlayerSpawner playerSpawner = GameObject.FindObjectOfType<PlayerSpawner>();
+            PlayerSpawner playerSpawner = PlayerSpawner.GetLevelStart();
             if (playerSpawner)
             {
                 playerStart = playerSpawner.transform;

@@ -6,7 +6,7 @@ using UnityEngine.XR;
 namespace ThunderRoad
 {
 
-    public class PlayerGrabTest : MonoBehaviour
+    public class PlayerTestHand : MonoBehaviour
     {
         public XRNode xrNode;
         protected Rigidbody rb;
@@ -38,7 +38,7 @@ namespace ThunderRoad
                     {
                         if (!primaryPressState)
                         {
-                            PlayerControllerTest playerControllerTest = this.GetComponentInParent<PlayerControllerTest>();
+                            PlayerTest playerControllerTest = this.GetComponentInParent<PlayerTest>();
 
                             DunGen.AdjacentRoomCulling adjacentRoomCulling = GameObject.FindObjectOfType<DunGen.AdjacentRoomCulling>();
                             if (adjacentRoomCulling) adjacentRoomCulling.enabled = !adjacentRoomCulling.enabled;

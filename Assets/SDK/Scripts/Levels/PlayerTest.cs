@@ -6,9 +6,9 @@ using UnityEngine.XR.Management;
 namespace ThunderRoad
 {
 
-    public class PlayerControllerTest : MonoBehaviour
+    public class PlayerTest : MonoBehaviour
     {
-        public static PlayerControllerTest local;
+        public static PlayerTest local;
         public Camera cam;
         public float moveSpeed = 4.0f;
         public float turnSpeed = 4.0f;
@@ -63,7 +63,7 @@ namespace ThunderRoad
         {
             if (status == DunGen.GenerationStatus.Complete)
             {
-                PlayerSpawner playerSpawner = GameObject.FindObjectOfType<PlayerSpawner>();
+                PlayerSpawner playerSpawner = PlayerSpawner.GetLevelStart();
                 if (playerSpawner)
                 {
                     this.transform.SetPositionAndRotation(playerSpawner.transform.position, playerSpawner.transform.rotation);
