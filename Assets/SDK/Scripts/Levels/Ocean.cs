@@ -65,7 +65,7 @@ namespace ThunderRoad
                     crestShapeGerstner = crestOceanRenderer.GetComponent<ShapeGerstner>();
                     if (crestShapeGerstner)
                     {
-                        crestShapeGerstner._waveDirectionHeadingAngle = this.transform.eulerAngles.y;
+                        crestShapeGerstner._waveDirectionHeadingAngle = this.transform.eulerAngles.y - 90;
                         if (SystemInfo.graphicsDeviceType == UnityEngine.Rendering.GraphicsDeviceType.OpenGLES3)
                         {
                             Debug.LogError("Disabled crest ocean shapeGerstner as not supported on OpenGLES3");
@@ -73,7 +73,7 @@ namespace ThunderRoad
                         }
                     }
 
-                    if (PlayerControllerTest.local) crestOceanRenderer.ViewCamera = PlayerControllerTest.local.cam;
+                    if (PlayerTest.local) crestOceanRenderer.ViewCamera = PlayerTest.local.cam;
                 }
             }, "OceanSpawner");
 #endif
