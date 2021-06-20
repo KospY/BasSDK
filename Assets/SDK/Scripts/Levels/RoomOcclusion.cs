@@ -106,19 +106,14 @@ namespace ThunderRoad
             {
                 isCulled = true;
             }
-            if (ragdollPart)
-            {
-            }
-            else
-            {
-                this.gameObject.SetActive(!cull);
-            }
-        
+
+            this.gameObject.SetActive(!cull);
+
             if (isCulled && !cull)
             {
                 isCulled = false;
             }
         }
 #endif
-        }
+    }
 }
