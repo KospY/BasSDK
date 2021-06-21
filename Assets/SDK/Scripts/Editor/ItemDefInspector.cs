@@ -40,7 +40,7 @@ namespace ThunderRoad
             {
                 EditorGUILayout.HelpBox("There are no colliders assigned to this object. It will fall through the ground.", MessageType.Error);
             }
-
+            /*
             GameObject[] collObj = new GameObject[item.GetComponentsInChildren<Collider>().Length];
             List<GameObject> hasRepeatedColliders = new List<GameObject>(item.GetComponentsInChildren<Collider>().Length);
             for (int i = 0; i < item.GetComponentsInChildren<Collider>().Length; i++)
@@ -70,7 +70,7 @@ namespace ThunderRoad
                     }
                 }
             }
-
+            */
             foreach (Collider collider in item.GetComponentsInChildren<Collider>())
             {
                 if (!collider.sharedMaterial && collider != item.customInertiaTensorCollider)
