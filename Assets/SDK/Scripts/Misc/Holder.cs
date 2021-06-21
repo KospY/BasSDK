@@ -18,6 +18,7 @@ namespace ThunderRoad
     {
         public static bool showHudHighlighter = true;
         public DrawSlot drawSlot = DrawSlot.None;
+        public bool useAnchor = true;
         public List<Transform> slots = new List<Transform>();
         public List<Item> startObjects = new List<Item>();
         public List<Collider> ignoredColliders = new List<Collider>();
@@ -32,6 +33,10 @@ namespace ThunderRoad
             HipsLeft,
         }
 
+        [NonSerialized]
+        public List<Item> items = new List<Item>();
+
+
         protected virtual void OnValidate()
         {
             if (slots.Count == 0) slots.Add(this.transform);
@@ -42,7 +47,14 @@ namespace ThunderRoad
         public void AlignObject(Item item)
         {
             Item.HolderPoint hp = item.GetHolderPoint(editorTargetAnchor);
-            item.transform.MoveAlign(hp != null ? hp.anchor : item.transform, slots[0].transform, slots[0].transform);
+            if (useAnchor)
+            {
+                item.transform.MoveAlign(hp != null ? hp.anchor : item.transform, slots[0].transform, slots[0].transform);
+            }
+            else
+            {
+                item.transform.MoveAlign(hp.anchor, slots[items.IndexOf(item)].transform, slots[items.IndexOf(item)].transform);
+            }
         }
 
         protected override void OnDrawGizmosSelected()
