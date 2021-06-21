@@ -33,13 +33,11 @@ namespace ThunderRoad
 
         void Start()
         {
-#if DUNGEN
-            if (Level.current.dungeonGenerator)
+            if (Level.current.dungeon && !Level.current.dungeon.initialized)
             {
-                Level.current.dungeonGenerator.Generator.OnGenerationStatusChanged += OnGenerationStatusChanged;
+                Level.current.dungeon.onDungeonGenerated.AddListener(OnDungeonGenerated);
                 rigidbody.isKinematic = true;
             }
-#endif   
         }
 
         private IEnumerator LoadXR()
@@ -59,21 +57,15 @@ namespace ThunderRoad
         }
 
 #if DUNGEN
-        private void OnGenerationStatusChanged(DunGen.DungeonGenerator generator, DunGen.GenerationStatus status)
+        private void OnDungeonGenerated()
         {
-            if (status == DunGen.GenerationStatus.Complete)
+            PlayerSpawner playerSpawner = Level.current.dungeon.rooms[0].GetPlayerSpawner();
+            if (playerSpawner)
             {
-                PlayerSpawner playerSpawner = PlayerSpawner.GetLevelStart();
-                if (playerSpawner)
-                {
-                    this.transform.SetPositionAndRotation(playerSpawner.transform.position, playerSpawner.transform.rotation);
-                    if (Level.current.adjacentRoomCulling)
-                    {
-                        Level.current.adjacentRoomCulling.TargetOverride = cam.transform;
-                    }
-                }
-                rigidbody.isKinematic = false;
+                Level.current.dungeon.playerTransform = cam.transform;
+                this.transform.SetPositionAndRotation(playerSpawner.transform.position, playerSpawner.transform.rotation);
             }
+            rigidbody.isKinematic = false;
         }
 #endif
 

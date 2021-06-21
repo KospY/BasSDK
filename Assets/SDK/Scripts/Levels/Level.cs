@@ -26,7 +26,9 @@ namespace ThunderRoad
     {
         public static Level current;
         public static Level master;
+
         public Transform playerStart;
+
         public List<CustomReference> customReferences;
 
         [NonSerialized]
@@ -34,19 +36,6 @@ namespace ThunderRoad
 
         [NonSerialized]
         public bool loaded;
-
-#if DUNGEN
-        [Header("Dungen")]
-        public string dungeonFlowAddress;
-        public OcclusionCulling occlusionCulling = OcclusionCulling.Default;
-        public bool staticBatchRooms = true;
-#endif
-
-        public enum OcclusionCulling
-        {
-            Default,
-            Dungen,
-        }
 
         [Serializable]
         public class CustomReference
@@ -61,34 +50,6 @@ namespace ThunderRoad
             Failure,
             Success,
         }
-
-#if DUNGEN
-        [NonSerialized]
-        public RuntimeDungeon dungeonGenerator;
-        [NonSerialized]
-        public UnityNavMeshAdapter dungeonNavMeshAdapter;
-        [NonSerialized]
-        public AdjacentRoomCulling adjacentRoomCulling;
-
-
-        [Button]
-        public void SetCustomOcclusionCulling(OcclusionCulling occlusionCulling)
-        {
-            if (adjacentRoomCulling)
-            {
-                if (occlusionCulling == OcclusionCulling.Dungen)
-                {
-                    adjacentRoomCulling.enabled = true;
-                }
-                else if (occlusionCulling == OcclusionCulling.Default)
-                {
-                    adjacentRoomCulling.enabled = false;
-                }
-                this.occlusionCulling = occlusionCulling;
-            }
-            this.occlusionCulling = OcclusionCulling.Default;
-        }
-#endif
 
         [Button]
         public static void CheckLightMapMode()
@@ -110,26 +71,6 @@ namespace ThunderRoad
             LightProbes.Tetrahedralize();
         }
 
-        private void OnValidate()
-        {
-#if DUNGEN
-            if (occlusionCulling == OcclusionCulling.Default)
-            {
-                if (adjacentRoomCulling && adjacentRoomCulling.enabled) adjacentRoomCulling.enabled = false;
-            }
-            else if (occlusionCulling == OcclusionCulling.Dungen)
-            {
-                if (adjacentRoomCulling && !adjacentRoomCulling.enabled) adjacentRoomCulling.enabled = true;
-            }
-            dungeonGenerator = GameObject.FindObjectOfType<RuntimeDungeon>();
-            if (dungeonGenerator)
-            {
-                dungeonGenerator.Generator.DungeonFlow = null;
-                dungeonGenerator.GenerateOnStart = false;
-            }
-#endif
-        }
-
         protected virtual void Awake()
         {
             if (gameObject.scene.name.ToLower() == "master")
@@ -141,113 +82,11 @@ namespace ThunderRoad
             {
                 current = this;
             }
-
-            if (!playerStart)
-            {
-                PlayerSpawner playerSpawner = PlayerSpawner.GetLevelStart();
-                if (playerSpawner)
-                {
-                    playerStart = playerSpawner.transform;
-                }
-            }
-#if DUNGEN
-            dungeonGenerator = GameObject.FindObjectOfType<RuntimeDungeon>();
-            adjacentRoomCulling = GameObject.FindObjectOfType<AdjacentRoomCulling>();
-            dungeonNavMeshAdapter = GameObject.FindObjectOfType<UnityNavMeshAdapter>();
-
-            if (dungeonNavMeshAdapter)
-            {
-                dungeonNavMeshAdapter.enabled = false;
-            }
-
-            if (dungeonGenerator)
-            {
-                dungeonGenerator.Generator.OnGenerationStatusChanged += OnGenerationStatusChanged;
-                if (!Level.master)
-                {
-                    // If master scene not loaded
-                    Addressables.LoadAssetAsync<DungeonFlow>(dungeonFlowAddress).Completed += (handle) =>
-                    {
-                        if (handle.Status == AsyncOperationStatus.Succeeded)
-                        {
-                            dungeonGenerator.Generator.DungeonFlow = handle.Result;
-                            GenerateDungeon();
-                        }
-                        else
-                        {
-                            Debug.LogError("Could not find dungeon flow asset at address: " + dungeonFlowAddress);
-                        }
-                    };
-                }
-            }
-
-            if (adjacentRoomCulling)
-            {
-                adjacentRoomCulling.enabled = (dungeonGenerator && occlusionCulling == OcclusionCulling.Dungen);
-            }
-#endif
-        }
-#if DUNGEN
-        [Button]
-        public void GenerateDungeon()
-        {
-            if (dungeonGenerator && Application.isPlaying)
-            {
-                dungeonGenerator.Generate();
-            }
+            dungeon = GameObject.FindObjectOfType<Dungeon>();
         }
 
-        [Button]
-        public void GenerateNavMesh()
-        {
-            if (dungeonNavMeshAdapter && Application.isPlaying)
-            {
-                dungeonNavMeshAdapter.BakeMode = UnityNavMeshAdapter.RuntimeNavMeshBakeMode.PreBakedOnly;
-                dungeonNavMeshAdapter.enabled = true;
-                dungeonNavMeshAdapter.Generate(dungeonGenerator.Generator.CurrentDungeon);
-            }
-        }
+        [NonSerialized, ShowInInspector, ReadOnly]
+        public Dungeon dungeon;
 
-        [Button]
-        public void GenerateGlobalNavMesh()
-        {
-            NavMeshSurface surface = this.gameObject.GetComponent<NavMeshSurface>();
-            if (!surface) surface = this.gameObject.AddComponent<NavMeshSurface>();
-            surface.BuildNavMesh();
-        }
-
-        private void OnGenerationStatusChanged(DungeonGenerator generator, GenerationStatus status)
-        {
-            if (status != GenerationStatus.Complete) return;
-
-            SceneManager.MoveGameObjectToScene(generator.CurrentDungeon.gameObject, this.gameObject.scene);
-
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine("Seed: " + generator.ChosenSeed);
-            stringBuilder.AppendLine("Generation time: " + generator.GenerationStats.TotalTime + " ms");
-            stringBuilder.AppendLine("Main room count: " + generator.GenerationStats.MainPathRoomCount);
-            stringBuilder.AppendLine("Branch room count: " + generator.GenerationStats.BranchPathRoomCount);
-            stringBuilder.AppendLine("Total room count: " + generator.GenerationStats.TotalRoomCount);
-            stringBuilder.AppendLine("Retry count: " + generator.GenerationStats.TotalRetries);
-            Debug.Log(stringBuilder.ToString());
-
-            GenerateNavMesh();
-
-            PlayerSpawner playerSpawner = PlayerSpawner.GetLevelStart();
-            if (playerSpawner)
-            {
-                playerStart = playerSpawner.transform;
-                if (adjacentRoomCulling)
-                {
-                    // Prevent dungeon to disable all tiles and re-enable them a bit later when player spawn
-                    adjacentRoomCulling.TargetOverride = playerStart;
-                }
-            }
-            else
-            {
-                Debug.LogError("No player spawner found for dungeon!");
-            }
-        }
-#endif
     }
 }

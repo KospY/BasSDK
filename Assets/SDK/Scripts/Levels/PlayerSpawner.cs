@@ -6,6 +6,7 @@ namespace ThunderRoad
     public class PlayerSpawner : MonoBehaviour
     {
         public static List<PlayerSpawner> all = new List<PlayerSpawner>();
+        public static List<PlayerSpawner> allActive = new List<PlayerSpawner>();
 
         private void Awake()
         {
@@ -17,35 +18,21 @@ namespace ThunderRoad
             all.Remove(this);
         }
 
-        public static PlayerSpawner GetLevelStart()
+        private void OnEnable()
         {
-#if DUNGEN
-            if (Level.current.dungeonGenerator && Level.current.dungeonGenerator.Generator.Status == DunGen.GenerationStatus.Complete)
-            {
-                foreach (DunGen.Tile tile in Level.current.dungeonGenerator.Generator.CurrentDungeon.AllTiles)
-                {
-                    foreach (PlayerSpawner playerSpawner in all)
-                    {
-                        if (!playerSpawner.isActiveAndEnabled) continue;
-                        Room room = playerSpawner.GetComponentInParent<Room>();
-                        if (room && room.tile == tile)
-                        {
-                            return playerSpawner;
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                }
-            }
-#endif
-            foreach (PlayerSpawner playerSpawner in all)
-            {
-                if (!playerSpawner.isActiveAndEnabled) continue;
-                return playerSpawner;
-            }
-            return null;
+            allActive.Add(this);
+        }
+
+        private void OnDisable()
+        {
+            allActive.Remove(this);
+        }
+
+        public static PlayerSpawner Get()
+        {
+            if (allActive.Count == 0) return null;
+            PlayerSpawner randomSpawner = allActive[UnityEngine.Random.Range(0, allActive.Count)];
+            return randomSpawner;
         }
     }
 }

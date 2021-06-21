@@ -60,9 +60,9 @@ namespace ThunderRoad
                         if (!secondaryPressState)
                         {
                             Level level = GameObject.FindObjectOfType<Level>();
-                            if (level && level.dungeonGenerator)
+                            if (level && level.dungeon)
                             {
-                                level.GenerateDungeon();
+                                level.dungeon.GenerateDungeon();
                             }
                             secondaryPressState = true;
                         }

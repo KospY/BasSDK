@@ -54,7 +54,7 @@ namespace ThunderRoad
         [NonSerialized]
         public List<ParryTarget> parryTargets;
         [NonSerialized]
-        public RoomOcclusion roomOcclusion;
+        public RoomObject roomOcclusion;
         [NonSerialized]
         public Holder holder;
 
@@ -257,8 +257,8 @@ namespace ThunderRoad
             }
 
             // Set room occlusion
-            roomOcclusion = this.GetComponent<RoomOcclusion>();
-            if (!roomOcclusion) roomOcclusion = this.gameObject.AddComponent<RoomOcclusion>();
+            roomOcclusion = this.GetComponent<RoomObject>();
+            if (!roomOcclusion) roomOcclusion = this.gameObject.AddComponent<RoomObject>();
 
         }
 
