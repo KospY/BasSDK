@@ -28,37 +28,30 @@ namespace ThunderRoad
         public string dungeonFlowAddress = "Bas.DungeonFlow.Greenland";
         public bool cullingEnabled = true;
         public bool staticBatchRooms = true;
+        public int seed;
 
-        [NonSerialized]
-#if ODIN_INSPECTOR
-        [ShowInInspector, ReadOnly]
-#endif
+#if DUNGEN
+
+        [NonSerialized, ShowInInspector, ReadOnly]
         public Transform playerTransform;
 
-        [NonSerialized]
-#if ODIN_INSPECTOR
-        [ShowInInspector, ReadOnly]
-#endif
+        [NonSerialized, ShowInInspector, ReadOnly]
         public List<Room> rooms;
 
-        [NonSerialized]
-#if ODIN_INSPECTOR
-        [ShowInInspector, ReadOnly]
-#endif
+        [NonSerialized, ShowInInspector, ReadOnly]
         public Room currentPlayerRoom;
 
         [NonSerialized]
         public bool initialized;
 
-        [Header("Event")]
-        public UnityEvent onDungeonGenerated = new UnityEvent();
+        public delegate void DungeonGeneratedEvent();
+        public event DungeonGeneratedEvent onDungeonGenerated;
 
-        public class RoomChangeEvent : UnityEvent<Room, Room> { }
-        public RoomChangeEvent onPlayerChangeRoom = new RoomChangeEvent();
-        public class RoomVisibilityEvent : UnityEvent<Room> { }
-        public RoomVisibilityEvent onRoomVisibilityChange = new RoomVisibilityEvent();
+        public delegate void PlayerChangeRoomEvent(Room oldRoom, Room newRoom);
+        public event PlayerChangeRoomEvent onPlayerChangeRoom;
 
-#if DUNGEN
+        public delegate void RoomVisibilityChangeEvent(Room room);
+        public event RoomVisibilityChangeEvent onRoomVisibilityChange;
 
         [NonSerialized]
         public RuntimeDungeon dungeonGenerator;
@@ -100,6 +93,8 @@ namespace ThunderRoad
             {
                 rooms = new List<Room>();
                 initialized = false;
+                dungeonGenerator.Generator.ShouldRandomizeSeed = seed > 0 ? false : true;
+                dungeonGenerator.Generator.Seed = seed;
                 dungeonGenerator.Generate();
             }
         }
@@ -109,7 +104,7 @@ namespace ThunderRoad
             if (status == GenerationStatus.Complete)
             {
                 SceneManager.MoveGameObjectToScene(generator.CurrentDungeon.gameObject, this.gameObject.scene);
-
+                seed = generator.ChosenSeed;
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.AppendLine("Seed: " + generator.ChosenSeed);
                 stringBuilder.AppendLine("Generation time: " + generator.GenerationStats.TotalTime + " ms");
@@ -140,11 +135,11 @@ namespace ThunderRoad
                 }
 
                 playerTransform = playerSpawner.transform;
-                currentPlayerRoom = SearchCurrentPlayerRoom();
+                currentPlayerRoom = SearchRoomFromPosition(playerTransform.position);
                 initialized = true;
                 RefreshCulling();
-                
-                onDungeonGenerated.Invoke();
+
+                if (onDungeonGenerated != null) onDungeonGenerated.Invoke();
             }
         }
 
@@ -157,6 +152,11 @@ namespace ThunderRoad
                 dungeonNavMeshAdapter.enabled = true;
                 dungeonNavMeshAdapter.Generate(dungeonGenerator.Generator.CurrentDungeon);
             }
+        }
+
+        public void InvokeRoomVisibilityChange(Room room)
+        {
+            if (onRoomVisibilityChange != null) onRoomVisibilityChange.Invoke(room);
         }
 
         public void GenerateGlobalNavMesh()
@@ -187,7 +187,7 @@ namespace ThunderRoad
             {
                 if (currentPlayerRoom == null)
                 {
-                    Room roomFound = SearchCurrentPlayerRoom();
+                    Room roomFound = SearchRoomFromPosition(playerTransform.position);
                     if (currentPlayerRoom != roomFound)
                     {
                         OnPlayerChangeRoom(currentPlayerRoom, roomFound);
@@ -195,7 +195,7 @@ namespace ThunderRoad
                 }
                 else if (!currentPlayerRoom.tile.Bounds.Contains(playerTransform.position))
                 {
-                    Room roomFound = SearchCurrentPlayerRoom(currentPlayerRoom);
+                    Room roomFound = SearchRoomFromPosition(playerTransform.position, currentPlayerRoom);
                     if (currentPlayerRoom != roomFound)
                     {
                         OnPlayerChangeRoom(currentPlayerRoom, roomFound);
@@ -204,24 +204,24 @@ namespace ThunderRoad
             }
         }
 
-        public Room SearchCurrentPlayerRoom(Room fromRoom = null)
+        public Room SearchRoomFromPosition(Vector3 position, Room fromRoom = null)
         {
             if (fromRoom)
             {
                 Room nextRoom = GetRoomNext(fromRoom);
-                if (nextRoom && nextRoom.tile.Bounds.Contains(playerTransform.position))
+                if (nextRoom && nextRoom.tile.Bounds.Contains(position))
                 {
                     return nextRoom;
                 }
                 Room previousRoom = GetRoomPrevious(fromRoom);
-                if (previousRoom && previousRoom.tile.Bounds.Contains(playerTransform.position))
+                if (previousRoom && previousRoom.tile.Bounds.Contains(position))
                 {
                     return previousRoom;
                 }
                 foreach (Room room in rooms)
                 {
                     if (fromRoom == room || nextRoom == room || previousRoom == room) continue;
-                    if (room.tile.Bounds.Contains(playerTransform.position))
+                    if (room.tile.Bounds.Contains(position))
                     {
                         return room;
                     }
@@ -232,7 +232,7 @@ namespace ThunderRoad
             {
                 foreach (Room room in rooms)
                 {
-                    if (room.tile.Bounds.Contains(playerTransform.position))
+                    if (room.tile.Bounds.Contains(position))
                     {
                         return room;
                     }
@@ -247,7 +247,7 @@ namespace ThunderRoad
             RefreshCulling();
             if (oldRoom) oldRoom.OnPlayerExit();
             if (oldRoom) newRoom.OnPlayerEnter();
-            onPlayerChangeRoom.Invoke(oldRoom, newRoom);
+            if (onPlayerChangeRoom != null) onPlayerChangeRoom.Invoke(oldRoom, newRoom);
         }
 
         public void RefreshCulling()

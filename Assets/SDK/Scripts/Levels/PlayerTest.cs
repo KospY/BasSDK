@@ -35,7 +35,7 @@ namespace ThunderRoad
         {
             if (Level.current.dungeon && !Level.current.dungeon.initialized)
             {
-                Level.current.dungeon.onDungeonGenerated.AddListener(OnDungeonGenerated);
+                Level.current.dungeon.onDungeonGenerated += OnDungeonGenerated;
                 rigidbody.isKinematic = true;
             }
         }

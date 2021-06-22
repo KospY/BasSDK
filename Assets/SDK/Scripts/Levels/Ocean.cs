@@ -46,7 +46,7 @@ namespace ThunderRoad
         {
             if (Level.current.dungeon)
             {
-                Level.current.dungeon.onDungeonGenerated.AddListener(OnDungeonGenerated);
+                Level.current.dungeon.onDungeonGenerated += OnDungeonGenerated;
             }
             else if (isActiveAndEnabled)
             {

@@ -2,6 +2,11 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine.Events;
+using System.Collections;
+
+#if DUNGEN
+using DunGen;
+#endif
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -13,13 +18,6 @@ namespace ThunderRoad
 {
     public class Room : MonoBehaviour
     {
-        [Header("Culling")]
-        public List<GameObject> disableWhenCulled;
-        [ReadOnly]
-        public List<AudioSource> audioSources;
-        [ReadOnly]
-        public List<ReflectionProbe> reflectionProbes;
-
         [Header("Baking"), Range(0, 5)]
         public float indirectIntensity = 1;
         public bool autoRotateDirLight;
@@ -27,171 +25,11 @@ namespace ThunderRoad
         public Quaternion directionalLightRotation;
         protected Light directionalLight;
 
+        [Header("Culling")]
+        public float spawnRoomObjectsAcrossFrames = 2;
+
         [Header("NPC")]
         public int spawnerMaxNPC = 4;
-
-        [NonSerialized]
-#if ODIN_INSPECTOR
-        [ShowInInspector, ReadOnly]
-#endif
-        public int spawnerNPCCount;
-
-        [NonSerialized]
-#if ODIN_INSPECTOR
-        [ShowInInspector, ReadOnly]
-#endif
-        public bool isCulled;
-
-#if DUNGEN
-        [NonSerialized]
-        public DunGen.Tile tile;
-#endif
-
-        [NonSerialized]
-#if ODIN_INSPECTOR
-        [ShowInInspector, ReadOnly]
-#endif
-        public List<GameObject> disabledChilds = new List<GameObject>();
-
-        [NonSerialized]
-#if ODIN_INSPECTOR
-        [ShowInInspector, ReadOnly]
-#endif
-        public List<PlayerSpawner> playerSpawners = new List<PlayerSpawner>();
-
-        [Header("Event")]
-        public UnityEvent onPlayerEnter = new UnityEvent();
-        public UnityEvent onPlayerExit = new UnityEvent();
-
-        public class RoomVisibilityEvent : UnityEvent<bool> { }
-        public RoomVisibilityEvent onRoomVisibilityChange = new RoomVisibilityEvent();
-
-        private void OnValidate()
-        {
-            audioSources = new List<AudioSource>(this.GetComponentsInChildren<AudioSource>());
-            reflectionProbes = new List<ReflectionProbe>(this.GetComponentsInChildren<ReflectionProbe>());
-            if (!this.gameObject.activeInHierarchy) return;
-            if (this.gameObject.scene.name == null) return;
-            if (!Application.isPlaying)
-            {
-                if (autoRotateDirLight) SetSceneDirectionalLightRotation();
-            }
-        }
-
-        private void Awake()
-        {
-            directionalLight = GetDirectionalLight();
-#if DUNGEN
-            tile = this.GetComponent<DunGen.Tile>();
-#endif
-            foreach (LightProbeGroup lightProbeGroup in this.GetComponentsInChildren<LightProbeGroup>())
-            {
-                lightProbeGroup.enabled = false;
-            }
-            playerSpawners = new List<PlayerSpawner>(this.GetComponentsInChildren<PlayerSpawner>(true));
-        }
-
-        private void Start()
-        {
-            RefreshReflectionProbeRotation();
-            if (Level.current.dungeon.staticBatchRooms)
-            {
-                StaticBatch();
-            }
-        }
-
-        public PlayerSpawner GetPlayerSpawner()
-        {
-            if (playerSpawners.Count == 0) return null;
-            PlayerSpawner playerSpawner = playerSpawners[UnityEngine.Random.Range(0, playerSpawners.Count)];
-            return playerSpawner;
-        }
-
-        [Button]
-        public bool Contains(Vector3 position)
-        {
-            return tile.Bounds.Contains(position);
-        }
-
-        [Button]
-        public void RefreshReflectionProbeRotation()
-        {
-            foreach (ReflectionProbe reflectionProbe in reflectionProbes)
-            {
-                // Keep the original center and size if you want to use more than one time
-                Bounds bounds = new Bounds(reflectionProbe.center, reflectionProbe.size);
-
-                Matrix4x4 mat = Matrix4x4.TRS(Vector3.zero, transform.rotation, transform.localScale);
-                Vector3 newMax = mat.MultiplyPoint3x4(bounds.max);
-                Vector3 newMin = mat.MultiplyPoint3x4(bounds.min);
-
-                bounds = new Bounds();
-                bounds.Encapsulate(newMax);
-                bounds.Encapsulate(newMin);
-
-                reflectionProbe.center = bounds.center;
-                reflectionProbe.size = bounds.size;
-            }
-        }
-
-        [Button]
-        public void StaticBatch()
-        {
-            List<GameObject> objectsToBatch = new List<GameObject>();
-            foreach (MeshRenderer meshRenderer in this.gameObject.GetComponentsInChildren<MeshRenderer>(true))
-            {
-                if (meshRenderer.lightmapIndex >= 0) // We can't check if static is checked at runtime, so check if lightmap exist
-                {
-                    objectsToBatch.Add(meshRenderer.gameObject);
-                }
-            }
-            StaticBatchingUtility.Combine(objectsToBatch.ToArray(), this.gameObject);
-            Debug.Log("Static batched " + objectsToBatch.Count + " objects for room " + this.name);
-        }
-
-        public void OnPlayerEnter()
-        {
-            if (autoRotateDirLight)
-            {
-                SetSceneDirectionalLightRotation();
-            }
-            onPlayerEnter.Invoke();
-        }
-
-        public void OnPlayerExit()
-        {
-            onPlayerExit.Invoke();
-        }
-
-        public void SetCull(bool cull)
-        {
-            if (cull && !isCulled)
-            {
-                disabledChilds.Clear();
-                foreach (Transform transform in this.transform)
-                {
-                    if (transform.gameObject.activeInHierarchy)
-                    {
-                        transform.gameObject.SetActive(false);
-                        disabledChilds.Add(transform.gameObject);
-                    }
-                }
-                isCulled = true;
-                onRoomVisibilityChange.Invoke(isCulled);
-                Level.current.dungeon.onRoomVisibilityChange.Invoke(this);
-            }
-            else if (!cull && isCulled)
-            {
-                foreach (GameObject disabledChild in disabledChilds)
-                {
-                    disabledChild.SetActive(true);
-                }
-                disabledChilds.Clear();
-                isCulled = false;
-                onRoomVisibilityChange.Invoke(isCulled);
-                Level.current.dungeon.onRoomVisibilityChange.Invoke(this);
-            }
-        }
 
         public Light GetDirectionalLight()
         {
@@ -226,5 +64,271 @@ namespace ThunderRoad
                 directionalLight.transform.rotation = directionalLightRotation;
             }
         }
+
+#if DUNGEN
+
+        [Header("Culling")]
+        [NonSerialized, ShowInInspector, ReadOnly]
+        public List<AudioSource> audioSources;
+
+        [NonSerialized, ShowInInspector, ReadOnly]
+        public List<ReflectionProbe> reflectionProbes = new List<ReflectionProbe>();
+
+        [NonSerialized, ShowInInspector, ReadOnly]
+        public List<Doorway> doorways = new List<Doorway>();
+
+        [NonSerialized, ShowInInspector, ReadOnly]
+        public List<RoomObject> roomObjects = new List<RoomObject>();
+
+        [NonSerialized, ShowInInspector, ReadOnly]
+        public int spawnerNPCCount;
+
+        [NonSerialized, ShowInInspector, ReadOnly]
+        public bool isCulled;
+
+        [NonSerialized]
+        public DunGen.Tile tile;
+
+        [NonSerialized, ShowInInspector, ReadOnly]
+        public List<PlayerSpawner> playerSpawners = new List<PlayerSpawner>();
+
+        [Header("Event")]
+        public UnityEvent onPlayerEnter = new UnityEvent();
+        public UnityEvent onPlayerExit = new UnityEvent();
+
+        public delegate void VisibilityChangeEvent();
+        public event VisibilityChangeEvent onVisibilityChange;
+
+        [NonSerialized]
+        public GameObject rootNoCulling;
+
+        protected Coroutine enableRoomObjectCoroutine;
+
+        private void OnValidate()
+        {
+            if (!this.gameObject.activeInHierarchy) return;
+            if (this.gameObject.scene.name == null) return;
+            if (!Application.isPlaying)
+            {
+                if (autoRotateDirLight) SetSceneDirectionalLightRotation();
+            }
+        }
+
+        private void Awake()
+        {
+            directionalLight = GetDirectionalLight();
+            tile = this.GetComponent<DunGen.Tile>();
+            playerSpawners = new List<PlayerSpawner>(this.GetComponentsInChildren<PlayerSpawner>(true));
+            audioSources = new List<AudioSource>(this.GetComponentsInChildren<AudioSource>());
+
+            rootNoCulling = new GameObject("NoCulling");
+            rootNoCulling.transform.SetParentOrigin(this.transform);
+
+            // Reflection probes
+            GameObject rootReflectionProbes = new GameObject("ReflectionProbes");
+            rootReflectionProbes.transform.SetParentOrigin(rootNoCulling.transform);
+            foreach (ReflectionProbe reflectionProbe in this.GetComponentsInChildren<ReflectionProbe>(true))
+            {
+                // Isolate reflection probes as disabling them clear texture
+                reflectionProbe.transform.SetParent(rootReflectionProbes.transform, true);
+                // Render
+                reflectionProbe.mode = UnityEngine.Rendering.ReflectionProbeMode.Realtime;
+                reflectionProbe.refreshMode = UnityEngine.Rendering.ReflectionProbeRefreshMode.ViaScripting;
+                InitReflectionProbeRotation(reflectionProbe);
+                reflectionProbe.RenderProbe();
+                reflectionProbes.Add(reflectionProbe);
+            }
+
+            // Light volume
+            GameObject rootLightProbeVolumes = new GameObject("LightProbeVolumes");
+            rootLightProbeVolumes.transform.SetParentOrigin(rootNoCulling.transform);
+            foreach (RainyReignGames.PrefabBakedLighting.LightProbeVolume lightProbeVolume in this.GetComponentsInChildren<RainyReignGames.PrefabBakedLighting.LightProbeVolume>(true))
+            {
+                // Isolate probe volume to avoid separating them from script (colliders being moved after)
+                lightProbeVolume.transform.SetParent(rootLightProbeVolumes.transform, true);
+            }
+
+            // Nav mesh link
+            GameObject rootDoorWays = new GameObject("DoorWays");
+            rootDoorWays.transform.SetParentOrigin(rootNoCulling.transform);
+            foreach (Doorway doorway in this.GetComponentsInChildren<Doorway>(true))
+            {
+                // Isolate door way to move nav mesh link as enabling them cost a bit and we may need them for AI movement outside view later
+                doorway.transform.SetParent(rootDoorWays.transform, true);
+                doorways.Add(doorway);
+            }
+        }
+
+        private void Start()
+        {
+            // Copy all colliders to a dedicated gameobject and disable original ones
+            GameObject rootStaticColliders = new GameObject("StaticColliders");
+            rootStaticColliders.transform.SetParentOrigin(rootNoCulling.transform);
+            foreach (Transform transform in this.transform)
+            {
+                if (transform == rootNoCulling.transform) continue;
+
+                foreach (Collider collider in transform.GetComponentsInChildren<Collider>())
+                {
+                    if (!collider.gameObject.activeInHierarchy) continue;
+                    if (collider.gameObject.GetComponentInParent<Rigidbody>()) continue;
+                    // Isolate colliders as disabling them is costly
+                    GameObject colGo = new GameObject(collider.name);
+                    collider.Clone(colGo);
+                    colGo.layer = collider.gameObject.layer;
+                    colGo.transform.SetParent(rootStaticColliders.transform);
+                    colGo.transform.position = collider.transform.position;
+                    colGo.transform.rotation = collider.transform.rotation;
+                    colGo.transform.SetGlobalScale(collider.transform.lossyScale);
+                    Destroy(collider);
+                }
+            }
+
+            if (Level.current.dungeon.staticBatchRooms)
+            {
+                StaticBatch();
+            }
+        }
+
+        public PlayerSpawner GetPlayerSpawner()
+        {
+            if (playerSpawners.Count == 0) return null;
+            PlayerSpawner playerSpawner = playerSpawners[UnityEngine.Random.Range(0, playerSpawners.Count)];
+            return playerSpawner;
+        }
+
+        [Button]
+        public bool Contains(Vector3 position)
+        {
+            return tile.Bounds.Contains(position);
+        }
+
+        [Button]
+        public void InitReflectionProbeRotation(ReflectionProbe reflectionProbe)
+        {
+            // Keep the original center and size if you want to use more than one time
+            Bounds bounds = new Bounds(reflectionProbe.center, reflectionProbe.size);
+
+            Matrix4x4 mat = Matrix4x4.TRS(Vector3.zero, transform.rotation, transform.localScale);
+            Vector3 newMax = mat.MultiplyPoint3x4(bounds.max);
+            Vector3 newMin = mat.MultiplyPoint3x4(bounds.min);
+
+            bounds = new Bounds();
+            bounds.Encapsulate(newMax);
+            bounds.Encapsulate(newMin);
+
+            reflectionProbe.center = bounds.center;
+            reflectionProbe.size = bounds.size;
+        }
+
+        [Button]
+        public void StaticBatch()
+        {
+            List<GameObject> objectsToBatch = new List<GameObject>();
+            foreach (MeshRenderer meshRenderer in this.gameObject.GetComponentsInChildren<MeshRenderer>(true))
+            {
+                if (meshRenderer.lightmapIndex >= 0) // We can't check if static is checked at runtime, so check if lightmap exist
+                {
+                    objectsToBatch.Add(meshRenderer.gameObject);
+                }
+            }
+            StaticBatchingUtility.Combine(objectsToBatch.ToArray(), this.gameObject);
+            Debug.Log("Static batched " + objectsToBatch.Count + " objects for room " + this.name);
+        }
+
+        public void OnPlayerEnter()
+        {
+            if (autoRotateDirLight)
+            {
+                SetSceneDirectionalLightRotation();
+            }
+            onPlayerEnter.Invoke();
+        }
+
+        public void OnPlayerExit()
+        {
+            onPlayerExit.Invoke();
+        }
+
+        public void RegisterObject(RoomObject roomObject)
+        {
+            if (!roomObjects.Contains(roomObject)) roomObjects.Add(roomObject);
+        }
+
+        public void UnRegisterObject(RoomObject roomObject)
+        {
+            if (roomObjects.Contains(roomObject)) roomObjects.Remove(roomObject);
+        }
+
+        public void SetCull(bool cull)
+        {
+            if (cull && !isCulled)
+            {
+                isCulled = true;
+                foreach (Transform transform in this.transform)
+                {
+                    if (transform == rootNoCulling.transform) continue;
+                    transform.gameObject.SetActive(false);
+                }
+                foreach (Doorway doorway in doorways)
+                {
+                    foreach (Transform blocker in doorway.transform)
+                    {
+                        blocker.gameObject.SetActive(false);
+                    }
+                }
+                if (enableRoomObjectCoroutine != null) StopCoroutine(enableRoomObjectCoroutine);
+                foreach (RoomObject roomObject in roomObjects)
+                {
+                    roomObject.SetCull(true);
+                }
+                if (onVisibilityChange != null) onVisibilityChange.Invoke();
+                Level.current.dungeon.InvokeRoomVisibilityChange(this);
+            }
+            else if (!cull && isCulled)
+            {
+                isCulled = false;
+                foreach (Transform transform in this.transform)
+                {
+                    if (transform == rootNoCulling.transform) continue;
+                    transform.gameObject.SetActive(true);
+                }
+                foreach (Doorway doorway in doorways)
+                {
+                    foreach (Transform blocker in doorway.transform)
+                    {
+                        blocker.gameObject.SetActive(true);
+                    }
+                }
+                if (enableRoomObjectCoroutine != null) StopCoroutine(enableRoomObjectCoroutine);
+                if (spawnRoomObjectsAcrossFrames > 0)
+                {
+                    enableRoomObjectCoroutine = StartCoroutine(EnableRoomObjectCoroutine());
+                }
+                else
+                {
+                    foreach (RoomObject roomObject in roomObjects)
+                    {
+                        roomObject.SetCull(false);
+                    }
+                }
+                if (onVisibilityChange != null) onVisibilityChange.Invoke();
+                Level.current.dungeon.InvokeRoomVisibilityChange(this);
+            }
+        }
+
+        IEnumerator EnableRoomObjectCoroutine()
+        {
+            foreach (RoomObject roomObject in roomObjects)
+            {
+                roomObject.SetCull(false);
+                for (int i = 0; i < spawnRoomObjectsAcrossFrames; i++)
+                {
+                    yield return new WaitForEndOfFrame();
+                }
+            }
+            enableRoomObjectCoroutine = null;
+        }
+#endif
     }
 }

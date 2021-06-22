@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
+using System;
 
 #if DUNGEN
 using DunGen;
-using System;
 #endif
 
 #if ODIN_INSPECTOR
@@ -17,93 +18,168 @@ namespace ThunderRoad
     public class RoomObject : MonoBehaviour
     {
 #if DUNGEN
-        [NonSerialized]
-#if ODIN_INSPECTOR
-        [ShowInInspector, ReadOnly]
-#endif
+        [NonSerialized, ShowInInspector, ReadOnly]
         public Room currentRoom;
         protected Item item;
         protected RagdollPart ragdollPart;
+        protected Rigidbody rb;
         protected bool isCulled;
+        protected bool detectionEnabled;
+        protected float detectionCycleSpeed = 1;
+        protected float detectionCycleTime;
 
+
+        protected void OnItemOrCreatureLoaded()
+        {
+            Refresh();
+        }
+
+        protected void OnDungeonGenerated()
+        {
+            detectionEnabled = true;
+            Refresh();
+            Level.current.dungeon.onDungeonGenerated -= OnDungeonGenerated;
+        }
+
+        //int lastEnableFrameCount;
 
         protected void OnEnable()
         {
-            if (!isCulled)
+            if (Level.current && Level.current.dungeon)
             {
-                if (Level.current && Level.current.dungeon)
+                if (Level.current.dungeon.initialized)
                 {
-                    Level.current.dungeon.onRoomVisibilityChange.AddListener(OnRoomVisibilityChange);
+                    detectionEnabled = true;
+                    Refresh();
                 }
+                else
+                {
+                    Level.current.dungeon.onDungeonGenerated += OnDungeonGenerated;
+                }
+                //lastEnableFrameCount = Time.frameCount;
+                //triggerStart = true;
             }
         }
 
         protected void OnDisable()
         {
-            if (!isCulled)
-            {
-                if (Level.current && Level.current.dungeon)
-                {
-                    Level.current.dungeon.onRoomVisibilityChange.RemoveListener(OnRoomVisibilityChange);
-                }
-                currentRoom = null;
-            }
+            detectionEnabled = false;
+            //triggerEnabled = false;
+            //triggerStart = false;
         }
 
-        private void Start()
+
+        private void OnDestroy()
         {
-            if (!item && !ragdollPart)
+            if (currentRoom)
             {
-                Refresh();
+                currentRoom.UnRegisterObject(this);
+                currentRoom = null;
             }
+            isCulled = false;
         }
 
         [Button]
-        public void Refresh()
+        public void Refresh(bool forceRoomSearch = false)
         {
             if (Level.current && Level.current.dungeon)
             {
-                foreach (Room room in Level.current.dungeon.rooms)
+                if (!forceRoomSearch && currentRoom)
                 {
-                    if (room.Contains(this.transform.position))
-                    {
-                        currentRoom = room;
-                        SetCull(currentRoom.isCulled);
-                        return;
-                    }
-                }
-            }
-        }
-
-
-        protected void OnRoomVisibilityChange(Room room)
-        {
-            if (Level.current.dungeon)
-            {
-                if (currentRoom)
-                {
-                    if (room == currentRoom)
-                    {
-                        SetCull(currentRoom.isCulled);
-                    }
+                    SetCull(currentRoom.isCulled);
                 }
                 else
                 {
-                    Refresh();
+                    if (Level.current.dungeon.initialized)
+                    {
+                        foreach (Room room in Level.current.dungeon.rooms)
+                        {
+                            if (room.Contains(this.transform.position))
+                            {
+                                currentRoom = room;
+                                currentRoom.RegisterObject(this);
+                                SetCull(currentRoom.isCulled);
+                                return;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (Room room in GameObject.FindObjectsOfType<Room>())
+                        {
+                            if (room.Contains(this.transform.position))
+                            {
+                                currentRoom = room;
+                                currentRoom.RegisterObject(this);
+                                SetCull(currentRoom.isCulled);
+                                return;
+                            }
+                        }
+                    }
+                    if (currentRoom)
+                    {
+                        currentRoom.UnRegisterObject(this);
+                        currentRoom = null;
+                    }
                 }
             }
         }
 
-        protected void OnTriggerEnter(Collider other)
+        private void LateUpdate()
         {
-            if (other.gameObject.layer == Common.roomAndVolumeLayer && other.TryGetComponent<Room>(out Room room))
+            if (!detectionEnabled) return;
+
+            if ((Time.time - detectionCycleTime) < detectionCycleSpeed) return;
+            detectionCycleTime = Time.time;
+
+            if (rb.IsSleeping()) return;
+
+            if (currentRoom == null)
             {
-                currentRoom = room;
-                SetCull(currentRoom.isCulled);
+                Room roomFound = Level.current.dungeon.SearchRoomFromPosition(this.transform.position);
+                if (currentRoom != roomFound)
+                {
+                    currentRoom = roomFound;
+                    currentRoom.RegisterObject(this);
+                    SetCull(currentRoom.isCulled);
+                }
+            }
+            else if (!currentRoom.tile.Bounds.Contains(this.transform.position))
+            {
+                Room roomFound = Level.current.dungeon.SearchRoomFromPosition(this.transform.position, currentRoom);
+                if (currentRoom != roomFound)
+                {
+                    currentRoom.UnRegisterObject(this);
+                    currentRoom = roomFound;
+                    currentRoom.RegisterObject(this);
+                    SetCull(currentRoom.isCulled);
+                }
             }
         }
+        /*
+        protected void OnTriggerEnter(Collider other)
+        {
+            if (lastEnableFrameCount == Time.frameCount)
+            {
+                triggerEnabled = true;
+                triggerStart = false;
+                return;
+            }
+            if (!triggerEnabled) return;
+            if (other.gameObject.layer == Common.roomAndVolumeLayer && other.TryGetComponent<Room>(out Room room))
+            {
+                if (currentRoom && currentRoom != room)
+                {
+                    currentRoom.UnRegisterObject(this);
+                    currentRoom = null;
+                }
+                currentRoom = room;
+                currentRoom.RegisterObject(this);
+                SetCull(currentRoom.isCulled);
+            }
+        }*/
 
-        protected void SetCull(bool cull)
+        public void SetCull(bool cull)
         {
             if (isCulled == cull || (item && item.holder)) return;
             isCulled = cull;
