@@ -124,6 +124,8 @@ namespace ThunderRoad
             rootNoCulling = new GameObject("NoCulling");
             rootNoCulling.transform.SetParentOrigin(this.transform);
 
+            Level.current.dungeon.onDungeonGenerated += OnDungeonGenerated;
+
             // Reflection probes
             GameObject rootReflectionProbes = new GameObject("ReflectionProbes");
             rootReflectionProbes.transform.SetParentOrigin(rootNoCulling.transform);
@@ -131,13 +133,10 @@ namespace ThunderRoad
             {
                 // Isolate reflection probes as disabling them clear texture
                 reflectionProbe.transform.SetParent(rootReflectionProbes.transform, true);
-                // Render
-                reflectionProbe.mode = UnityEngine.Rendering.ReflectionProbeMode.Realtime;
-                reflectionProbe.refreshMode = UnityEngine.Rendering.ReflectionProbeRefreshMode.ViaScripting;
                 InitReflectionProbeRotation(reflectionProbe);
-                reflectionProbe.RenderProbe();
                 reflectionProbes.Add(reflectionProbe);
             }
+            RenderProbes();
 
             // Light volume
             GameObject rootLightProbeVolumes = new GameObject("LightProbeVolumes");
@@ -197,13 +196,11 @@ namespace ThunderRoad
             return playerSpawner;
         }
 
-        [Button]
         public bool Contains(Vector3 position)
         {
             return tile.Bounds.Contains(position);
         }
 
-        [Button]
         public void InitReflectionProbeRotation(ReflectionProbe reflectionProbe)
         {
             // Keep the original center and size if you want to use more than one time
@@ -234,6 +231,27 @@ namespace ThunderRoad
             }
             StaticBatchingUtility.Combine(objectsToBatch.ToArray(), this.gameObject);
             Debug.Log("Static batched " + objectsToBatch.Count + " objects for room " + this.name);
+        }
+
+        [Button]
+        public void RenderProbes()
+        {
+            foreach (ReflectionProbe reflectionProbe in this.GetComponentsInChildren<ReflectionProbe>(true))
+            {
+                // Force Custom parameters
+                reflectionProbe.mode = UnityEngine.Rendering.ReflectionProbeMode.Custom;
+                reflectionProbe.refreshMode = UnityEngine.Rendering.ReflectionProbeRefreshMode.ViaScripting;
+                reflectionProbe.timeSlicingMode = UnityEngine.Rendering.ReflectionProbeTimeSlicingMode.NoTimeSlicing;
+                // Capture cubemap
+                reflectionProbe.RenderProbe();
+            }
+        }
+        protected void OnDungeonGenerated()
+        {
+            foreach (ReflectionProbe reflectionProbe in this.GetComponentsInChildren<ReflectionProbe>(true))
+            {
+                reflectionProbe.customBakedTexture = reflectionProbe.realtimeTexture;
+            }
         }
 
         public void OnPlayerEnter()
@@ -319,10 +337,10 @@ namespace ThunderRoad
 
         IEnumerator EnableRoomObjectCoroutine()
         {
-            foreach (RoomObject roomObject in roomObjects)
+            for (int i = roomObjects.Count - 1; i >= 0; i--)
             {
-                roomObject.SetCull(false);
-                for (int i = 0; i < spawnRoomObjectsAcrossFrames; i++)
+                roomObjects[i].SetCull(false);
+                for (int i2 = 0; i2 < spawnRoomObjectsAcrossFrames; i2++)
                 {
                     yield return new WaitForEndOfFrame();
                 }
