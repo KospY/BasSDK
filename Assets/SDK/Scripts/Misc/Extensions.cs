@@ -1,9 +1,67 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace ThunderRoad
 {
     public static class Extensions
     {
+        public static bool PointInRadius(this Vector3 vectorA, Vector3 vectorB, float radius)
+        {
+            // Best performance to check radius
+            Vector3 offset = vectorA - vectorB;
+            float distance = offset.sqrMagnitude;
+            if (distance < radius * radius)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool HasFlagNoGC(this RagdollPart.Type flags, RagdollPart.Type value)
+        {
+            return ((flags & value) > 0);
+        }
+
+        public static bool HasFlagNoGC(this DamagerData.PenetrationTempModifier flags, DamagerData.PenetrationTempModifier value)
+        {
+            return ((flags & value) > 0);
+        }
+
+        public static bool HasFlagNoGC(this DamageModifierData.Modifier.TierFilter flags, DamageModifierData.Modifier.TierFilter value)
+        {
+            return ((flags & value) > 0);
+        }
+
+        public static bool HasFlagNoGC(this ColliderGroupData.Modifier.TierFilter flags, ColliderGroupData.Modifier.TierFilter value)
+        {
+            return ((flags & value) > 0);
+        }
+
+        public static bool HasFlagNoGC(this EffectModuleReveal.TypeFilter flags, EffectModuleReveal.TypeFilter value)
+        {
+            return ((flags & value) > 0);
+        }
+
+        public static bool HasFlagNoGC(this EffectModule.DamageTypeFilter flags, EffectModule.DamageTypeFilter value)
+        {
+            return ((flags & value) > 0);
+        }
+
+        public static bool HasFlagNoGC(this EffectModule.PenetrationFilter flags, EffectModule.PenetrationFilter value)
+        {
+            return ((flags & value) > 0);
+        }
+
+        public static bool HasFlagNoGC(this EffectModule.DamagerFilter flags, EffectModule.DamagerFilter value)
+        {
+            return ((flags & value) > 0);
+        }
+
+        public static bool HasFlagNoGC(this EffectModule.PlateformFilter flags, EffectModule.PlateformFilter value)
+        {
+            return ((flags & value) > 0);
+        }
+
         public static Collider Clone(this Collider collider, GameObject gameObject)
         {
             if (collider is SphereCollider) Clone(collider as SphereCollider, gameObject);
@@ -18,7 +76,7 @@ namespace ThunderRoad
             SphereCollider clonedCollider = gameObject.AddComponent<SphereCollider>();
             clonedCollider.center = collider.center;
             clonedCollider.radius = collider.radius;
-            clonedCollider.material = collider.material;
+            clonedCollider.sharedMaterial = collider.sharedMaterial;
             clonedCollider.isTrigger = collider.isTrigger;
             return clonedCollider;
         }
@@ -29,7 +87,7 @@ namespace ThunderRoad
             clonedCollider.center = collider.center;
             clonedCollider.radius = collider.radius;
             clonedCollider.height = collider.height;
-            clonedCollider.material = collider.material;
+            clonedCollider.sharedMaterial = collider.sharedMaterial;
             clonedCollider.isTrigger = collider.isTrigger;
             return clonedCollider;
         }
@@ -39,7 +97,7 @@ namespace ThunderRoad
             BoxCollider clonedCollider = gameObject.AddComponent<BoxCollider>();
             clonedCollider.center = collider.center;
             clonedCollider.size = collider.size;
-            clonedCollider.material = collider.material;
+            clonedCollider.sharedMaterial = collider.sharedMaterial;
             clonedCollider.isTrigger = collider.isTrigger;
             return clonedCollider;
         }
@@ -50,7 +108,7 @@ namespace ThunderRoad
             clonedCollider.convex = collider.convex;
             clonedCollider.cookingOptions = collider.cookingOptions;
             clonedCollider.sharedMesh = collider.sharedMesh;
-            clonedCollider.material = collider.material;
+            clonedCollider.sharedMaterial = collider.sharedMaterial;
             clonedCollider.isTrigger = collider.isTrigger;
             return clonedCollider;
         }
