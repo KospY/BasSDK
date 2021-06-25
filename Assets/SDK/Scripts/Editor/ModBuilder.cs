@@ -690,8 +690,17 @@ namespace ThunderRoad
                 string streamingAssetDefaultPath = Path.Combine(useGamePath ? gamePath : buildPlateformPath, PlayerSettings.productName + "_Data/StreamingAssets/Default");
                 string streamingAssetModPath = Path.Combine(useGamePath ? gamePath : buildPlateformPath, PlayerSettings.productName + "_Data/StreamingAssets/Mods");
                 string destFolder = toDefault ? streamingAssetDefaultPath : streamingAssetModPath;
-                CopyDirectory(assetsFullPath, Path.Combine(destFolder, exportFolderName));
-                Debug.Log("Copied folder " + exportFolderName + " to " + Path.Combine(destFolder, exportFolderName));
+                
+                if (toDefault)
+                {
+                    CopyDirectory(assetsFullPath, destFolder);
+                    Debug.Log("Copied folder " + exportFolderName + " to " + destFolder);
+                }
+                else
+                {
+                    CopyDirectory(assetsFullPath, Path.Combine(destFolder, exportFolderName));
+                    Debug.Log("Copied folder " + exportFolderName + " to " + Path.Combine(destFolder, exportFolderName));
+                }
 
                 string jsondbPath = Path.Combine(destFolder, exportFolderName + ".jsondb");
                 ZipFile zip = new ZipFile();
