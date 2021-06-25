@@ -22,7 +22,7 @@ namespace ThunderRoad
         public string creatureId;
 
         public Animator animator;
-        public LODGroup logGroup;
+        public LODGroup lodGroup;
         public Container container;
         public Transform centerEyes;
         public Vector3 eyeCameraOffset;
@@ -73,6 +73,9 @@ namespace ThunderRoad
         public float handToBodyRotationMaxAngle = 30;
         public float turnSpeed = 6;
 
+        public AnimationClip dynamicOneShootReplaceClip;
+        public AnimationClip dynamicLoopReplaceClip;
+
         public static int hashDynamicOneShot, hashDynamicLoop, hashDynamicInterrupt, hashIsBusy, hashFeminity, hashHeight, hashFalling, hashGetUp, hashTstance, hashStaticIdle;
         public static bool hashInitialized;
 
@@ -105,15 +108,11 @@ namespace ThunderRoad
             {
                 smr.updateWhenOffscreen = true;
             }
-            if (!logGroup) logGroup = this.GetComponentInChildren<LODGroup>();
+            if (!lodGroup) lodGroup = this.GetComponentInChildren<LODGroup>();
 
             // Animator
             animator.applyRootMotion = false;
             animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
-            AnimatorOverrideController aoc = new AnimatorOverrideController(animator.runtimeAnimatorController);
-            aoc.name = "OverrideForDynamicAnimation";
-            animator.runtimeAnimatorController = aoc;
-            animator.enabled = false;
 
             ragdoll = this.GetComponentInChildren<Ragdoll>();
 
