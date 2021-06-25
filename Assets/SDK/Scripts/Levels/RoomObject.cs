@@ -41,7 +41,10 @@ namespace ThunderRoad
             Level.current.dungeon.onDungeonGenerated -= OnDungeonGenerated;
         }
 
-        //int lastEnableFrameCount;
+        protected void OnItemUnSnap(Holder holder)
+        {
+            OnEnable();
+        }
 
         protected void OnEnable()
         {
@@ -49,6 +52,7 @@ namespace ThunderRoad
             {
                 if (Level.current.dungeon.initialized)
                 {
+                    if (item && item.holder) return;
                     detectionEnabled = true;
                     Refresh();
                 }
@@ -56,16 +60,12 @@ namespace ThunderRoad
                 {
                     Level.current.dungeon.onDungeonGenerated += OnDungeonGenerated;
                 }
-                //lastEnableFrameCount = Time.frameCount;
-                //triggerStart = true;
             }
         }
 
         protected void OnDisable()
         {
             detectionEnabled = false;
-            //triggerEnabled = false;
-            //triggerStart = false;
         }
 
 
@@ -181,7 +181,7 @@ namespace ThunderRoad
 
         public void SetCull(bool cull)
         {
-            if (isCulled == cull || (item && item.holder)) return;
+            if (isCulled == cull) return;
             isCulled = cull;
             this.gameObject.SetActive(!cull);
         }
