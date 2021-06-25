@@ -34,6 +34,10 @@ TagManager:
   - Arrow
   - ObjectPointer
   - Light
+  - PotionCork
+  - Heavy
+  - Medium
+  - Head
   layers:
   - Default
   - TransparentFX
@@ -45,8 +49,8 @@ TagManager:
   - 
   - RoomAndVolume
   - Touch
-  - DroppedObject
-  - MovingObject
+  - DroppedItem
+  - MovingItem
   - PlayerLocomotionObject
   - Ragdoll
   - LiquidFlow
@@ -56,7 +60,7 @@ TagManager:
   - Highlighter
   - LoadingCamera
   - None
-  - 
+  - MovingObjectOnly
   - PlayerLocomotion
   - BodyLocomotion
   - ItemAndRagdollOnly

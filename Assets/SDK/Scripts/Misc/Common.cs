@@ -73,8 +73,8 @@ namespace ThunderRoad
         PlayerLocomotion,
         BodyLocomotion,
         Touch,
-        MovingObject,
-        DroppedObject,
+        MovingItem,
+        DroppedItem,
         ItemAndRagdollOnly,
         TouchObject,
         Avatar,
@@ -88,6 +88,7 @@ namespace ThunderRoad
         LiquidFlow,
         Zone,
         NoLocomotion,
+        MovingObjectOnly,
     }
 
     public enum Cardinal
