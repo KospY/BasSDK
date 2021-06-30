@@ -27,7 +27,6 @@ namespace ThunderRoad
         private int indexCharacter = 0;
 
         public GameObject canvas = null;
-        public GameObject loadingPage = null;
         public GameObject characterSelectionPage = null;
         public GameObject gameModeSelectionPage = null;
         public GameObject customisationPage = null;

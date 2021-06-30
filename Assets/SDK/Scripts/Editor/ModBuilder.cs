@@ -690,7 +690,7 @@ namespace ThunderRoad
                 string streamingAssetDefaultPath = Path.Combine(useGamePath ? gamePath : buildPlateformPath, PlayerSettings.productName + "_Data/StreamingAssets/Default");
                 string streamingAssetModPath = Path.Combine(useGamePath ? gamePath : buildPlateformPath, PlayerSettings.productName + "_Data/StreamingAssets/Mods");
                 string destFolder = toDefault ? streamingAssetDefaultPath : streamingAssetModPath;
-                
+
                 if (toDefault)
                 {
                     CopyDirectory(assetsFullPath, destFolder);

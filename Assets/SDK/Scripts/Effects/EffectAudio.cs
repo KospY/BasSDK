@@ -66,6 +66,7 @@ namespace ThunderRoad
             audioSource = this.GetComponent<AudioSource>();
             if (!audioSource) audioSource = this.gameObject.AddComponent<AudioSource>();
             audioSource.spatialBlend = 1;
+            audioSource.dopplerLevel = 0;
             audioSource.playOnAwake = false;
             if (AudioSettings.GetSpatializerPluginName() != null) audioSource.spatialize = true;
             lowPassFilter = this.GetComponent<AudioLowPassFilter>();

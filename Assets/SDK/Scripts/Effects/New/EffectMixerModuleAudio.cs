@@ -56,11 +56,19 @@ namespace ThunderRoad
 
         protected AudioSource oneShotAudioSource;
 
+        private void OnDestroy()
+        {
+            if (playAudioContainer) Addressables.Release(playAudioContainer);
+            if (loopAudioContainer) Addressables.Release(loopAudioContainer);
+            if (stopAudioContainer) Addressables.Release(stopAudioContainer);
+        }
+
         private void Awake()
         {
             loopAudioSource = this.GetComponent<AudioSource>();
             if (!loopAudioSource) loopAudioSource = this.gameObject.AddComponent<AudioSource>();
             loopAudioSource.spatialBlend = 1;
+            loopAudioSource.dopplerLevel = 0;
             loopAudioSource.playOnAwake = false;
             loopAudioSource.loop = true;
             if (useLowPassFilter)
@@ -120,6 +128,7 @@ namespace ThunderRoad
             {
                 oneShotAudioSource = Common.CloneComponent(loopAudioSource, this.gameObject, false) as AudioSource;
                 oneShotAudioSource.spatialBlend = 1;
+                oneShotAudioSource.dopplerLevel = 0;
                 oneShotAudioSource.playOnAwake = false;
                 oneShotAudioSource.loop = false;
             }

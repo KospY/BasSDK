@@ -57,15 +57,18 @@ namespace ThunderRoad
         }
 
 #if DUNGEN
-        private void OnDungeonGenerated()
+        private void OnDungeonGenerated(EventTime eventTime)
         {
-            PlayerSpawner playerSpawner = Level.current.dungeon.rooms[0].GetPlayerSpawner();
-            if (playerSpawner)
+            if (eventTime == EventTime.OnEnd)
             {
-                Level.current.dungeon.playerTransform = cam.transform;
-                this.transform.SetPositionAndRotation(playerSpawner.transform.position, playerSpawner.transform.rotation);
+                PlayerSpawner playerSpawner = Level.current.dungeon.rooms[0].GetPlayerSpawner();
+                if (playerSpawner)
+                {
+                    Level.current.dungeon.playerTransform = cam.transform;
+                    this.transform.SetPositionAndRotation(playerSpawner.transform.position, playerSpawner.transform.rotation);
+                }
+                rigidbody.isKinematic = false;
             }
-            rigidbody.isKinematic = false;
         }
 #endif
 

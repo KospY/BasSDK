@@ -40,15 +40,19 @@ namespace ThunderRoad
         private void Awake()
         {
             all.Add(this);
-        }
-
-        private void Start()
-        {
-            if (Level.current.dungeon)
+            if (Level.current && Level.current.dungeon)
             {
                 Level.current.dungeon.onDungeonGenerated += OnDungeonGenerated;
             }
             else if (isActiveAndEnabled)
+            {
+                SetActive(true);
+            }
+        }
+
+        private void OnDungeonGenerated(EventTime eventTime)
+        {
+            if (eventTime == EventTime.OnEnd && isActiveAndEnabled)
             {
                 SetActive(true);
             }
@@ -96,14 +100,6 @@ namespace ThunderRoad
             }
         }
 
-        private void OnDungeonGenerated()
-        {
-            if (isActiveAndEnabled)
-            {
-                SetActive(true);
-            }
-        }
-
         private void OnEnable()
         {
             SetActive(true);
@@ -116,7 +112,7 @@ namespace ThunderRoad
 
         public void SetActive(bool active)
         {
-            if (Level.current.dungeon && !Level.current.dungeon.initialized) return;
+            if (Level.current && Level.current.dungeon && !Level.current.dungeon.initialized) return;
             if (active)
             {
                 // Disable other oceans if any

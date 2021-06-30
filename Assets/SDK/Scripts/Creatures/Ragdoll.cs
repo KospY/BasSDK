@@ -68,5 +68,7 @@ namespace ThunderRoad
         public bool allowSelfDamage;
         public bool grippable = true;
 
+        [NonSerialized]
+        public Creature creature;
     }
 }
