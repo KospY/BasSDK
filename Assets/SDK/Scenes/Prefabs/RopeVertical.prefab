@@ -61,41 +61,60 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactableId: ClimbRopeVertical
+  allowedHandSide: 0
   axisLength: 0
   touchRadius: 0.1
   touchCenter: {x: 0, y: 0, z: 0}
+  disableProximityHighlighter: 0
   defaultGrabAxisRatio: 0
-  allowedOrientations:
-  - rotation: {x: 0, y: 0, z: 0}
-    allowedHand: 3
-    isDefault: 3
-  - rotation: {x: 0, y: 180, z: 0}
-    allowedHand: 3
-    isDefault: 0
-  - rotation: {x: 0, y: 0, z: 180}
-    allowedHand: 3
-    isDefault: 0
-  - rotation: {x: 0, y: 180, z: 180}
-    allowedHand: 3
-    isDefault: 0
-  - rotation: {x: 0, y: 90, z: 0}
-    allowedHand: 3
-    isDefault: 0
-  - rotation: {x: 0, y: -90, z: 0}
-    allowedHand: 3
-    isDefault: 0
-  - rotation: {x: 0, y: 90, z: 180}
-    allowedHand: 3
-    isDefault: 0
-  - rotation: {x: 0, y: -90, z: 180}
-    allowedHand: 3
-    isDefault: 0
+  ikAnchorOffset: {x: 0, y: 0, z: 0}
+  orientationDefaultRight: {fileID: 0}
+  orientationDefaultLeft: {fileID: 0}
   releaseHandle: {fileID: 0}
+  forcePlayerJoint: 0
+  forceAutoDropWhenGrounded: 0
   reach: 0
   customRigidBody: {fileID: 0}
   slideToUpHandle: {fileID: 0}
   slideToBottomHandle: {fileID: 0}
   slideToHandleOffset: 0.01
+  moveToHandle: {fileID: 0}
+  moveToHandleAxisPos: 0
+  allowedOrientations:
+  - rotation: {x: 0, y: 0, z: 0}
+    positionOffset: {x: 0, y: 0, z: 0}
+    allowedHand: 3
+    isDefault: 3
+  - rotation: {x: 0, y: 180, z: 0}
+    positionOffset: {x: 0, y: 0, z: 0}
+    allowedHand: 3
+    isDefault: 0
+  - rotation: {x: 0, y: 0, z: 180}
+    positionOffset: {x: 0, y: 0, z: 0}
+    allowedHand: 3
+    isDefault: 0
+  - rotation: {x: 0, y: 180, z: 180}
+    positionOffset: {x: 0, y: 0, z: 0}
+    allowedHand: 3
+    isDefault: 0
+  - rotation: {x: 0, y: 90, z: 0}
+    positionOffset: {x: 0, y: 0, z: 0}
+    allowedHand: 3
+    isDefault: 0
+  - rotation: {x: 0, y: -90, z: 0}
+    positionOffset: {x: 0, y: 0, z: 0}
+    allowedHand: 3
+    isDefault: 0
+  - rotation: {x: 0, y: 90, z: 180}
+    positionOffset: {x: 0, y: 0, z: 0}
+    allowedHand: 3
+    isDefault: 0
+  - rotation: {x: 0, y: -90, z: 180}
+    positionOffset: {x: 0, y: 0, z: 0}
+    allowedHand: 3
+    isDefault: 0
+  handlers: []
+  generateOnAwake: 1
   ropeStart: {fileID: 4958822062156643932}
   ropeTarget: {fileID: 4958822061080630288}
   ropeRadius: 0.03
