@@ -78,6 +78,16 @@ namespace ThunderRoad
             }
         }
 
+        [Button]
+        public void StopInvoke()
+        {
+            if (coroutine != null)
+            {
+                StopCoroutine(coroutine);
+                coroutine = null;
+            }
+        }
+
         IEnumerator InvokeCoroutine()
         {
             for (int i = 0; i < loopCount; i++)
@@ -85,7 +95,6 @@ namespace ThunderRoad
                 float delay = Random.Range(minDelay, maxDelay);
                 yield return new WaitForSeconds(delay);
                 timedEvent.Invoke();
-                Debug.Log("Invoke");
             }
             coroutine = null;
         }
