@@ -6,6 +6,7 @@ namespace ThunderRoad
 {
     public class Rope : Handle
     {
+        public bool generateOnAwake = true;
         public Transform ropeStart;
         public Transform ropeTarget;
         public float ropeRadius = 0.03f;
