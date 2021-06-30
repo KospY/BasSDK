@@ -110,10 +110,6 @@ namespace ThunderRoad
             }
             if (!lodGroup) lodGroup = this.GetComponentInChildren<LODGroup>();
 
-            // Animator
-            animator.applyRootMotion = false;
-            animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
-
             ragdoll = this.GetComponentInChildren<Ragdoll>();
 
             brain = this.GetComponentInChildren<Brain>();
