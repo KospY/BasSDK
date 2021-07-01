@@ -48,6 +48,7 @@ namespace ThunderRoad
             {
                 SetActive(true);
             }
+            PlayerTest.onSpawn += OnPlayerTestSpawned;
         }
 
         private void OnDungeonGenerated(EventTime eventTime)
@@ -55,6 +56,14 @@ namespace ThunderRoad
             if (eventTime == EventTime.OnEnd && isActiveAndEnabled)
             {
                 SetActive(true);
+            }
+        }
+
+        private void OnPlayerTestSpawned(PlayerTest player)
+        {
+            if (crestOceanRenderer)
+            {
+                crestOceanRenderer.ViewCamera = player.cam;
             }
         }
 

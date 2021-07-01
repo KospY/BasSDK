@@ -17,6 +17,9 @@ namespace ThunderRoad
         protected new Rigidbody rigidbody;
         protected new CapsuleCollider collider;
 
+        public delegate void SpawnEvent(PlayerTest player);
+        public static event SpawnEvent onSpawn;
+
         void Awake()
         {
             local = this;
@@ -38,6 +41,7 @@ namespace ThunderRoad
                 Level.current.dungeon.onDungeonGenerated += OnDungeonGenerated;
                 rigidbody.isKinematic = true;
             }
+            if (onSpawn != null) onSpawn.Invoke(this);
         }
 
         private IEnumerator LoadXR()
