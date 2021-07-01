@@ -17,6 +17,8 @@ namespace ThunderRoad
     [RequireComponent(typeof(Rigidbody))]
     public class Item : MonoBehaviour
     {
+        public static List<Item> list = new List<Item>();
+
         public string itemId;
         public Transform holderPoint;
         public List<HolderPoint> additionalHolderPoints = new List<HolderPoint>();
@@ -53,8 +55,6 @@ namespace ThunderRoad
         public Rigidbody rb;
         [NonSerialized]
         public List<ParryTarget> parryTargets;
-        [NonSerialized]
-        public RoomObject roomObject;
         [NonSerialized]
         public Holder holder;
 
@@ -256,11 +256,80 @@ namespace ThunderRoad
                 }
             }
 
-            // Set room occlusion
-            roomObject = this.GetComponent<RoomObject>();
-            if (!roomObject) roomObject = this.gameObject.AddComponent<RoomObject>();
-
         }
+
+#if PrivateSDK
+
+        protected virtual void OnEnable()
+        {
+            list.Add(this);
+            if (Level.current && Level.current.dungeon)
+            {
+                cullingDetectionEnabled = true;
+            }
+        }
+
+        protected virtual void OnDisable()
+        {
+            list.Remove(this);
+            cullingDetectionEnabled = false;
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // ROOM CULLING
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        [NonSerialized, ShowInInspector, ReadOnly]
+        public Room currentRoom;
+        [NonSerialized, ShowInInspector, ReadOnly]
+        public bool isCulled;
+
+        protected bool cullingDetectionEnabled;
+        protected float cullingDetectionCycleSpeed = 1;
+        protected float cullingDetectionCycleTime;
+
+        private void LateUpdate()
+        {
+            if (!cullingDetectionEnabled) return;
+            if (!Level.current.dungeon.initialized) return;
+            if ((Time.time - cullingDetectionCycleTime) < cullingDetectionCycleSpeed) return;
+            cullingDetectionCycleTime = Time.time;
+
+            //if (rb.IsSleeping()) return;
+
+            if (currentRoom == null)
+            {
+                Room roomFound = Level.current.dungeon.SearchRoomFromPosition(this.transform.position);
+                if (currentRoom != roomFound)
+                {
+                    currentRoom = roomFound;
+                    currentRoom.RegisterItem(this);
+                    SetCull(currentRoom.isCulled);
+                }
+            }
+            else if (!currentRoom.tile.Bounds.Contains(this.transform.position))
+            {
+                Room roomFound = Level.current.dungeon.SearchRoomFromPosition(this.transform.position, currentRoom);
+                if (currentRoom != roomFound)
+                {
+                    currentRoom.UnRegisterItem(this);
+                    currentRoom = roomFound;
+                    currentRoom.RegisterItem(this);
+                    SetCull(currentRoom.isCulled);
+                }
+            }
+        }
+
+        public void SetCull(bool cull)
+        {
+            if (isCulled == cull) return;
+
+            this.gameObject.SetActive(!cull);
+
+            isCulled = cull;
+        }
+
+#endif
 
 
         [Serializable]
