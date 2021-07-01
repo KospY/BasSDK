@@ -9,6 +9,7 @@ namespace ThunderRoad
         public RawImage gameModeImage = null;
 
         public Text gameModeDescription = null;
+        public Button selectButton;
 
     }
 }
