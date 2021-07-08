@@ -171,6 +171,7 @@ namespace ThunderRoad
 
         private void OnDestroy()
         {
+            PlayerTest.onSpawn -= OnPlayerTestSpawned;
             SetActive(false);
             all.Remove(this);
             if (crestOceanRenderer)
