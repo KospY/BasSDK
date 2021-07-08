@@ -47,6 +47,11 @@ namespace ThunderRoad
         public delegate void OnVolumeChangeDelegate(LightProbeVolume lightProbeVolume);
         public event OnVolumeChangeDelegate OnVolumeChangeEvent;
 
+        private void Awake()
+        {
+            if (method == Method.GPUInstancing) materialPropertyBlock = new MaterialPropertyBlock();
+        }
+
 
         void Start()
         {
@@ -211,6 +216,7 @@ namespace ThunderRoad
 
         private void OnTriggerEnter(Collider other)
         {
+            if (LightProbeVolume.list.Count == 0) return;
             if (volumeDetection == VolumeDetection.DynamicTrigger)
             {
                 if (other.gameObject.layer == Common.roomAndVolumeLayer && other.TryGetComponent<LightProbeVolume>(out LightProbeVolume lightProbeVolume) && !lightProbeVolumes.Contains(lightProbeVolume))
@@ -225,6 +231,7 @@ namespace ThunderRoad
 
         private void OnTriggerExit(Collider other)
         {
+            if (LightProbeVolume.list.Count == 0) return;
             if (volumeDetection == VolumeDetection.DynamicTrigger)
             {
                 if (other.gameObject.layer == Common.roomAndVolumeLayer && other.TryGetComponent<LightProbeVolume>(out LightProbeVolume lightProbeVolume) && lightProbeVolumes.Contains(lightProbeVolume))
