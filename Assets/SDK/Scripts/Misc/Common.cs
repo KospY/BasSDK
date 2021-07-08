@@ -89,6 +89,7 @@ namespace ThunderRoad
         Zone,
         NoLocomotion,
         MovingObjectOnly,
+        SkyDome,
     }
 
     public enum Cardinal
@@ -192,6 +193,17 @@ namespace ThunderRoad
             get { return _zoneLayer > 0 ? _zoneLayer : _zoneLayer = LayerMask.NameToLayer("Zone"); }
             private set { _zoneLayer = value; }
         }
+
+        public static int GetMaskAddLayer(int mask, int layer)
+        {
+            return (mask | ~(1 << layer));
+        }
+
+        public static int GetMaskRemoveLayer(int mask, int layer)
+        {
+            return (mask & ~(1 << layer));
+        }
+
 
         public static RuntimePlatform GetSelectedPlatform()
         {
