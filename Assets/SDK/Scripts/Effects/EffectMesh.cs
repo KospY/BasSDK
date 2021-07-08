@@ -95,6 +95,7 @@ namespace ThunderRoad
                 time += Time.deltaTime;
                 yield return new WaitForEndOfFrame();
             }
+            transform.localScale = meshSize;
             meshSizeFading = false;
             yield return true;
         }
