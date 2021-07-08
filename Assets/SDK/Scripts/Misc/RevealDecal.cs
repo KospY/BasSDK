@@ -18,10 +18,6 @@ namespace ThunderRoad
     [AddComponentMenu("ThunderRoad/Reveal Decal")]
     public class RevealDecal : MonoBehaviour
     {
-        [Tooltip("These materials are what will be switched to on the renderer once the reveal masks are activated. Corresponds with shared materials index.")]
-        [Obsolete("Will be removed once all materials are converted to reveal material data.")]
-        public Material[] materials;
-        //Saved Properties on RevealMaterials
         public RevealMaterialData[] revealMaterialData;
 
         [Tooltip("Resolution of the reveal mask")]
@@ -100,9 +96,16 @@ namespace ThunderRoad
 
         void Awake()
         {
-
+            if (!Catalog.gameData.GetPlateformParameters().enableEffectReveal)
+            {
+                this.enabled = false;
+                return;
+            }
+            if (!this.gameObject.GetComponent<MaterialInstance>())
+            {
+                this.gameObject.AddComponent<MaterialInstance>();
+            }
             revealMaterialController = this.gameObject.AddComponent<RevealMaterialController>();
-            revealMaterialController.revealMaterials = materials;
             revealMaterialController.width = (int)maskWidth;
             revealMaterialController.height = (int)maskHeight;
             revealMaterialController.maskPropertyName = "_RevealMask";
