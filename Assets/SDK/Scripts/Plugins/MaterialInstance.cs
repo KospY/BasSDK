@@ -164,8 +164,8 @@ namespace ThunderRoad.Plugins
                 CachedRenderer.sharedMaterials = instanceMaterials;
                 PrefabUtility.RecordPrefabInstancePropertyModifications(this);
             }
-#endif
 
+            //do this only in editor for inspecting purposes
             if (instanceMaterials != null)
             {
                 for (int i = 0; i < instanceMaterials.Length; i++)
@@ -177,6 +177,7 @@ namespace ThunderRoad.Plugins
                     }
                 }
             }
+#endif
         }
 
         private static void DestroyMaterials(Material[] materials)
