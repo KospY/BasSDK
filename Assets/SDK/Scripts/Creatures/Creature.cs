@@ -73,10 +73,11 @@ namespace ThunderRoad
         public float handToBodyRotationMaxAngle = 30;
         public float turnSpeed = 6;
 
-        public AnimationClip dynamicOneShootReplaceClip;
+        public AnimationClip dynamicStartReplaceClip;
         public AnimationClip dynamicLoopReplaceClip;
+        public AnimationClip dynamicEndReplaceClip;
 
-        public static int hashDynamicOneShot, hashDynamicLoop, hashDynamicInterrupt, hashIsBusy, hashFeminity, hashHeight, hashFalling, hashGetUp, hashTstance, hashStaticIdle;
+        public static int hashDynamicOneShot, hashDynamicLoop, hashDynamicLoop3, hashDynamicInterrupt, hashIsBusy, hashFeminity, hashHeight, hashFalling, hashGetUp, hashTstance, hashStaticIdle;
         public static bool hashInitialized;
 
         public enum StaggerAnimation
@@ -109,6 +110,7 @@ namespace ThunderRoad
                 smr.updateWhenOffscreen = true;
             }
             if (!lodGroup) lodGroup = this.GetComponentInChildren<LODGroup>();
+
 
             ragdoll = this.GetComponentInChildren<Ragdoll>();
 
@@ -160,6 +162,7 @@ namespace ThunderRoad
             hashStaticIdle = Animator.StringToHash("StaticIdle");
             hashDynamicOneShot = Animator.StringToHash("DynamicOneShot");
             hashDynamicLoop = Animator.StringToHash("DynamicLoop");
+            hashDynamicLoop3 = Animator.StringToHash("DynamicLoop3");
             hashDynamicInterrupt = Animator.StringToHash("DynamicInterrupt");
             hashInitialized = true;
         }
