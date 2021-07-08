@@ -80,6 +80,8 @@ namespace ThunderRoad
 
         private static List<ModBuilderProfile> profiles = new List<ModBuilderProfile>();
 
+        public static string androidAssetFolderName = "assets";
+
         public enum SupportedGame
         {
             BladeAndSorcery,
@@ -669,12 +671,12 @@ namespace ThunderRoad
             if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android) buildtarget = "Android";
 
             string buildPlateformPath = Path.Combine(Directory.GetCurrentDirectory(), "BuildStaging/Builds", EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android ? "Android" : "Windows");
-            string buildPlateformFolderPath = Path.Combine(buildPlateformPath, exportFolderName);
             string assetsFullPath = Path.Combine(Directory.GetCurrentDirectory(), "BuildStaging/AddressableAssets", buildtarget, exportFolderName);
             string catalogFullPath = Path.Combine(Directory.GetCurrentDirectory(), "BuildStaging/Catalog", exportFolderName);
 
             if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android)
             {
+                string buildPlateformFolderPath = Path.Combine(buildPlateformPath, androidAssetFolderName);
                 if (Directory.Exists(buildPlateformFolderPath)) Directory.Delete(buildPlateformFolderPath, true);
                 CopyDirectory(assetsFullPath, buildPlateformFolderPath);
                 Debug.Log("Copied folder " + exportFolderName + " to " + buildPlateformFolderPath);
@@ -713,7 +715,7 @@ namespace ThunderRoad
         public static void AndroidPushAssets(bool toDefault, string folderName)
         {
             string buildPlateformPath = Path.Combine(Directory.GetCurrentDirectory(), "BuildStaging/Builds", EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android ? "Android" : "Windows");
-            string buildPlateformFolderPath = Path.Combine(buildPlateformPath, folderName);
+            string buildPlateformFolderPath = Path.Combine(buildPlateformPath, androidAssetFolderName);
 
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             process.StartInfo.FileName = GetAdbPath();
