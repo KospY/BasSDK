@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using System.Collections.Generic;
+using System;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -11,13 +13,42 @@ namespace ThunderRoad
 {
     public class WayPoint : MonoBehaviour
     {
-        public Vector2 stopLenght = new Vector2(1, 3);
+        [Header("Turn")]
+        public bool turnToDirection = false;
+        public float turnSpeedRatio = 1;
+
+        [Header("Wait")]
+        public Vector2 waitMinMaxDuration = new Vector2(0, 0);
+
+        [Header("Animation")]
+        public bool playAnimation;
+#if ODIN_INSPECTOR
+        [ValueDropdown("GetAllAnimationID")]
+#endif
+        public string animationId;
+        [NonSerialized]
+        public AnimationData animationData;
+        public float animationTurnMinAngle = 30;
+        public Vector2 animationRandomMinMaxDelay = new Vector2(0, 0);
+
         protected static NavMeshPath navMeshPath;
+
+#if ODIN_INSPECTOR
+        public List<ValueDropdownItem<string>> GetAllAnimationID()
+        {
+            return Catalog.GetDropdownAllID(Catalog.Category.Animation);
+        }
+#endif
 
         private void OnValidate()
         {
             //IconManager.SetIcon(this.gameObject, IconManager.LabelIcon.Purple);
             navMeshPath = new NavMeshPath();
+        }
+
+        private void Awake()
+        {
+            if (animationId != null && animationId != "") animationData = Catalog.GetData<AnimationData>(animationId);
         }
 
         public void OnDrawGizmos()
@@ -51,6 +82,7 @@ namespace ThunderRoad
                         Gizmos.color = navMeshPath.status == NavMeshPathStatus.PathPartial ? Color.yellow : groundLinkColor;
                         Gizmos.DrawSphere(this.transform.position, 0.15f);
                         Gizmos.DrawLine(this.transform.position, navMeshPath.corners[0]);
+                        if (turnToDirection) Common.DrawGizmoArrow(this.transform.position, this.transform.forward * 0.5f, Gizmos.color);
 
                         for (int i = 0; i < navMeshPath.corners.Length; i++)
                         {
@@ -133,7 +165,7 @@ namespace ThunderRoad
                     Gizmos.DrawSphere(spawner.position, 0.15f);
                 }
             }
-            else 
+            else
             {
                 if (NavMesh.SamplePosition(spawner.position, out NavMeshHit navMeshHit, 100, -1) && spawner.position.y > navMeshHit.position.y)
                 {
