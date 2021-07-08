@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.XR;
 using UnityEngine.XR.Management;
 
@@ -10,6 +12,8 @@ namespace ThunderRoad
     {
         public static PlayerTest local;
         public Camera cam;
+        [NonSerialized]
+        public UniversalAdditionalCameraData cameraData;
         public float moveSpeed = 4.0f;
         public float turnSpeed = 4.0f;
         public float jumpForce = 20;
@@ -29,6 +33,7 @@ namespace ThunderRoad
                 return;
             }
             cam = this.GetComponentInChildren<Camera>();
+            cameraData = cam.GetComponent<UniversalAdditionalCameraData>();
             rigidbody = GetComponent<Rigidbody>();
             collider = GetComponent<CapsuleCollider>();
             StartCoroutine(LoadXR());
@@ -36,7 +41,7 @@ namespace ThunderRoad
 
         void Start()
         {
-            if (Level.current.dungeon && !Level.current.dungeon.initialized)
+            if (Level.current && Level.current.dungeon && !Level.current.dungeon.initialized)
             {
                 Level.current.dungeon.onDungeonGenerated += OnDungeonGenerated;
                 rigidbody.isKinematic = true;
