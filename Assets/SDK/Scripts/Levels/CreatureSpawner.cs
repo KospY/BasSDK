@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.AI;
+using UnityEngine.Events;
+using System;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -9,59 +11,37 @@ using Sirenix.OdinInspector;
 
 namespace ThunderRoad
 {
-    [AddComponentMenu("ThunderRoad/Levels/Spawners/Creature Spawner")]
+    [AddComponentMenu("ThunderRoad/Levels/Spawners/CreatureTable Spawner")]
     public class CreatureSpawner : MonoBehaviour
     {
 #if ODIN_INSPECTOR
-        [ValueDropdown("GetAllCreatureID")]
+        [ValueDropdown("GetAllCreatureTableID")]
 #endif
-        public string creatureId;
-#if ODIN_INSPECTOR
-        [ValueDropdown("GetAllContainerID")]
-#endif
-        public string containerID;
-#if ODIN_INSPECTOR
-        [ValueDropdown("GetAllBrainID")]
-#endif
-        public string brainId;
-#if ODIN_INSPECTOR
-        [ValueDropdown("GetAllFactionID")]
-#endif
-        public int factionId;
+        public string creatureTableID;
 
-        public bool pooled = true;
-        public float spawnDelay;
-        public int spawnCount = 1;
-
-        public int rowCount = 10;
-        public float rowSpace = 1;
-        public float delayBetweenSpawn = 0.5f;
+        public bool pooled;
         public bool spawnOnStart = true;
         public bool spawnOnNavMesh = true;
-
         public bool ignoreRoomMaxNPC;
-
+        public bool spawnAtRandomWaypoint = true;
         public Transform waypointsRoot;
 
-#if PrivateSDK
-        public List<ValueDropdownItem<string>> GetAllCreatureID()
-        {
-            return Catalog.GetDropdownAllID(Catalog.Category.Creature);
-        }
+        [System.Serializable]
+        public class CreatureEvent : UnityEvent<UnityEngine.Object> { }
 
-        public List<ValueDropdownItem<string>> GetAllContainerID()
-        {
-            return Catalog.GetDropdownAllID(Catalog.Category.Container);
-        }
+        [Header("Event")]
+        public CreatureEvent OnCombatState = new CreatureEvent();
+        public UnityEvent OnAlertState = new UnityEvent();
+        public UnityEvent OnKill = new UnityEvent();
+        public UnityEvent OnDespawn = new UnityEvent();
 
-        public List<ValueDropdownItem<string>> GetAllBrainID()
-        {
-            return Catalog.GetDropdownAllID(Catalog.Category.Brain);
-        }
+        [NonSerialized]
+        public bool spawning;
 
-        public List<ValueDropdownItem<int>> GetAllFactionID()
+#if ODIN_INSPECTOR
+        public List<ValueDropdownItem<string>> GetAllCreatureTableID()
         {
-            return Catalog.gameData.GetFactions();
+            return Catalog.GetDropdownAllID(Catalog.Category.CreatureTable);
         }
 #endif
 
@@ -70,5 +50,9 @@ namespace ThunderRoad
             IconManager.SetIcon(this.gameObject, null);
         }
 
+        [Button]
+        public void Spawn()
+        {
+        }
     }
 }
