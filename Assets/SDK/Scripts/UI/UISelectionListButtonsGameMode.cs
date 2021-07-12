@@ -10,6 +10,7 @@ namespace ThunderRoad
 
         public Text gameModeDescription = null;
         public Button selectButton;
+        public Text gameModeWarning;
 
     }
 }

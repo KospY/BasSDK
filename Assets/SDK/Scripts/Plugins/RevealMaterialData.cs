@@ -11,12 +11,12 @@ namespace ThunderRoad.Plugins
         public struct FloatProperty
         {
             public string name;
-            public int id;
             public float value;
+            private int id;
 
             public int GetShaderID()
             {
-                if (id == -1)
+                if (id == 0)
                 {
                     id = Shader.PropertyToID(name);
                     return id;
@@ -28,13 +28,13 @@ namespace ThunderRoad.Plugins
         public struct ColorProperty
         {
             public string name;
-            public int id;
             [ColorUsage(false, true)]
             public Color value;
+            private int id;
 
             public int GetShaderID()
             {
-                if (id == -1)
+                if (id == 0)
                 {
                     id = Shader.PropertyToID(name);
                     return id;
@@ -46,12 +46,12 @@ namespace ThunderRoad.Plugins
         public struct TextureProperty
         {
             public string name;
-            public int id;
             public Texture value;
+            private int id;
 
             public int GetShaderID()
             {
-                if (id == -1)
+                if (id == 0)
                 {
                     id = Shader.PropertyToID(name);
                     return id;
@@ -63,12 +63,12 @@ namespace ThunderRoad.Plugins
         public struct Vector4Property
         {
             public string name;
-            public int id;
             public Vector4 value;
+            private int id;
 
             public int GetShaderID()
             {
-                if (id == -1)
+                if (id == 0)
                 {
                     id = Shader.PropertyToID(name);
                     return id;
@@ -83,45 +83,27 @@ namespace ThunderRoad.Plugins
         public TextureProperty[] revealTextureProperties = new TextureProperty[0];
         public Vector4Property[] revealVector4Properties = new Vector4Property[0];
 
-        private void OnValidate()
-        {
-            for (int i = 0; i < revealFloatProperties.Length; i++)
-            {
-                revealFloatProperties[i].id = -1;
-            }
-            for (int i = 0; i < revealColorProperties.Length; i++)
-            {
-                revealColorProperties[i].id = -1;
-            }
-            for (int i = 0; i < revealTextureProperties.Length; i++)
-            {
-                revealTextureProperties[i].id = -1;
-            }
-            for (int i = 0; i < revealVector4Properties.Length; i++)
-            {
-                revealVector4Properties[i].id = -1;
-            }
-        }
+        public static bool shaderChange = true;
 
         public void SetPropertiesOnMaterial(Material material)
         {
-            if (material.shader != null)
+            if (shaderChange && material.shader != null)
             {
                 material.shader = shader;
             }
-            for(int i = 0; i < revealFloatProperties.Length; i++)
+            for (int i = 0; i < revealFloatProperties.Length; i++)
             {
                 material.SetFloat(revealFloatProperties[i].GetShaderID(), revealFloatProperties[i].value);
             }
-            for(int i = 0; i < revealColorProperties.Length; i++)
+            for (int i = 0; i < revealColorProperties.Length; i++)
             {
                 material.SetColor(revealColorProperties[i].GetShaderID(), revealColorProperties[i].value);
             }
-            for(int i = 0; i < revealTextureProperties.Length; i++)
+            for (int i = 0; i < revealTextureProperties.Length; i++)
             {
                 material.SetTexture(revealTextureProperties[i].GetShaderID(), revealTextureProperties[i].value);
             }
-            for(int i = 0; i < revealVector4Properties.Length; i++)
+            for (int i = 0; i < revealVector4Properties.Length; i++)
             {
                 material.SetVector(revealVector4Properties[i].GetShaderID(), revealVector4Properties[i].value);
             }

@@ -53,7 +53,7 @@ namespace ThunderRoad
         public ForceMode verticalForceMode = ForceMode.Force;
 
         [Header("Colliders")]
-        public float colliderRadius = 0.2f;
+        public float colliderRadius = 0.3f;
         public float colliderHeight = 1f;
         public PhysicMaterial colliderGroundMaterial;
         public PhysicMaterial colliderFlyMaterial;

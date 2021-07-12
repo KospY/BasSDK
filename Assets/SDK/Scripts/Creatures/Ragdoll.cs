@@ -70,5 +70,6 @@ namespace ThunderRoad
 
         [NonSerialized]
         public Creature creature;
+
     }
 }
