@@ -9,11 +9,25 @@ namespace ThunderRoad
         {
             // Best performance to check radius
             Vector3 offset = vectorA - vectorB;
-            float distance = offset.sqrMagnitude;
-            if (distance < radius * radius)
+            float sqrMagnitude = offset.sqrMagnitude;
+            if (sqrMagnitude < radius * radius)
             {
                 return true;
             }
+            return false;
+        }
+
+        public static bool PointInRadius(this Vector3 vectorA, Vector3 vectorB, float radius, out float radiusDistanceRatio)
+        {
+            // Best performance to check radius
+            Vector3 offset = vectorA - vectorB;
+            float sqrMagnitude = offset.sqrMagnitude;
+            if (sqrMagnitude < radius * radius)
+            {
+                radiusDistanceRatio = 1 - (sqrMagnitude / (radius * radius));
+                return true;
+            }
+            radiusDistanceRatio = 0;
             return false;
         }
 
