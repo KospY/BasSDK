@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 #if PrivateSDK
 using SteamAudio;
@@ -14,6 +15,9 @@ namespace ThunderRoad
 
         public float globalVolumeDb = 0;
         public float globalPitch = 1;
+
+        public bool doNoise;
+        protected bool hasNoise;
 
         public AnimationCurve volumeCurve;
         public float loopFadeDelay;
@@ -144,6 +148,7 @@ namespace ThunderRoad
         public override void Stop()
         {
             audioSource.Stop();
+            hasNoise = false;
         }
 
         public override void End(bool loopOnly = false)
@@ -158,6 +163,11 @@ namespace ThunderRoad
             {
                 Despawn();
             }
+        }
+
+        public override void SetNoise(bool noise)
+        {
+            doNoise = noise;
         }
 
         public override void SetIntensity(float value, bool loopOnly = false)
@@ -193,6 +203,7 @@ namespace ThunderRoad
         public void SetVariation(float value, bool loopOnly = false)
         {
             audioSource.volume = volumeCurve.Evaluate(value) * DecibelToLinear(globalVolumeDb);
+
             if (useLowPassFilter)
             {
                 lowPassFilter.cutoffFrequency = lowPassCutoffFrequencyCurve.Evaluate(value);
@@ -242,9 +253,9 @@ namespace ThunderRoad
 
         public override void Despawn()
         {
+            Stop();
             CancelInvoke();
             StopAllCoroutines();
-            audioSource.Stop();
             InvokeDespawnCallback();
             if (Application.isPlaying)
             {

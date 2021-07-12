@@ -90,6 +90,12 @@ namespace ThunderRoad
         {
 
         }
+
+        public virtual void SetNoise(bool noise)
+        {
+
+        }
+
         public virtual void CollisionStay(Vector3 position, Quaternion rotation, float speed)
         {
             this.transform.position = position;
