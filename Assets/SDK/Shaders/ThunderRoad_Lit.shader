@@ -254,7 +254,7 @@ ZWrite On
          // #endif
 
          // #if %EXTRAV2F3REQUIREKEY%
-          float4 extraV2F3 : TEXCOORD15;
+         // float4 extraV2F3 : TEXCOORD15;
          // #endif
 
          // #if %EXTRAV2F4REQUIREKEY%
@@ -445,7 +445,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-                float4 extraV2F3 : TEXCOORD8;
+               // float4 extraV2F3 : TEXCOORD8;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -938,18 +938,21 @@ ZWrite On
 
     void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
     {
-        #if defined(_PROBEVOLUME_ON)
-            float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
-            float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
+        //#if defined(_PROBEVOLUME_ON)
+        //    float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
+        //    float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
             
-            d.extraV2F3.xyz = texCoord; //position in space relative to the volume.
-        #endif
+        //    d.extraV2F3.xyz = texCoord; //position in space relative to the volume.
+        //#endif
     }
 
     void Ext_SurfaceFunction4 (inout Surface o, inout ShaderData d)
     {
         #if defined(_PROBEVOLUME_ON)
-            float3 texCoord = d.extraV2F3.xyz;
+            //float3 texCoord = d.extraV2F3.xyz;
+
+            float3 position = mul(_ProbeWorldToTexture, d.worldSpacePosition).xyz;
+            float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
 
             unity_SHAr = SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord);
             unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
@@ -1032,7 +1035,7 @@ ZWrite On
                  // #endif
 
                  // #if %EXTRAV2F3REQUIREKEY%
-                  v2p.extraV2F3 = d.extraV2F3;
+                 // v2p.extraV2F3 = d.extraV2F3;
                  // #endif
 
                  // #if %EXTRAV2F4REQUIREKEY%
@@ -1071,7 +1074,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-                d.extraV2F3 = v2p.extraV2F3;
+               // d.extraV2F3 = v2p.extraV2F3;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -1125,7 +1128,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-                v2p.extraV2F3 = d.extraV2F3;
+               // v2p.extraV2F3 = d.extraV2F3;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -1258,7 +1261,7 @@ ZWrite On
             // #endif
 
             // #if %EXTRAV2F3REQUIREKEY%
-             d.extraV2F3 = i.extraV2F3;
+            // d.extraV2F3 = i.extraV2F3;
             // #endif
 
             // #if %EXTRAV2F4REQUIREKEY%
@@ -1622,7 +1625,7 @@ ZWrite On
          // #endif
 
          // #if %EXTRAV2F3REQUIREKEY%
-          float4 extraV2F3 : TEXCOORD15;
+         // float4 extraV2F3 : TEXCOORD15;
          // #endif
 
          // #if %EXTRAV2F4REQUIREKEY%
@@ -1813,7 +1816,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-                float4 extraV2F3 : TEXCOORD8;
+               // float4 extraV2F3 : TEXCOORD8;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -2306,18 +2309,21 @@ ZWrite On
 
     void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
     {
-        #if defined(_PROBEVOLUME_ON)
-            float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
-            float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
+        //#if defined(_PROBEVOLUME_ON)
+        //    float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
+        //    float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
             
-            d.extraV2F3.xyz = texCoord; //position in space relative to the volume.
-        #endif
+        //    d.extraV2F3.xyz = texCoord; //position in space relative to the volume.
+        //#endif
     }
 
     void Ext_SurfaceFunction4 (inout Surface o, inout ShaderData d)
     {
         #if defined(_PROBEVOLUME_ON)
-            float3 texCoord = d.extraV2F3.xyz;
+            //float3 texCoord = d.extraV2F3.xyz;
+
+            float3 position = mul(_ProbeWorldToTexture, d.worldSpacePosition).xyz;
+            float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
 
             unity_SHAr = SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord);
             unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
@@ -2400,7 +2406,7 @@ ZWrite On
                  // #endif
 
                  // #if %EXTRAV2F3REQUIREKEY%
-                  v2p.extraV2F3 = d.extraV2F3;
+                 // v2p.extraV2F3 = d.extraV2F3;
                  // #endif
 
                  // #if %EXTRAV2F4REQUIREKEY%
@@ -2439,7 +2445,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-                d.extraV2F3 = v2p.extraV2F3;
+               // d.extraV2F3 = v2p.extraV2F3;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -2493,7 +2499,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-                v2p.extraV2F3 = d.extraV2F3;
+               // v2p.extraV2F3 = d.extraV2F3;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -2626,7 +2632,7 @@ ZWrite On
             // #endif
 
             // #if %EXTRAV2F3REQUIREKEY%
-             d.extraV2F3 = i.extraV2F3;
+            // d.extraV2F3 = i.extraV2F3;
             // #endif
 
             // #if %EXTRAV2F4REQUIREKEY%
@@ -2902,7 +2908,7 @@ ZWrite On
          // #endif
 
          // #if %EXTRAV2F3REQUIREKEY%
-          float4 extraV2F3 : TEXCOORD15;
+         // float4 extraV2F3 : TEXCOORD15;
          // #endif
 
          // #if %EXTRAV2F4REQUIREKEY%
@@ -3093,7 +3099,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-                float4 extraV2F3 : TEXCOORD8;
+               // float4 extraV2F3 : TEXCOORD8;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -3586,18 +3592,21 @@ ZWrite On
 
     void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
     {
-        #if defined(_PROBEVOLUME_ON)
-            float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
-            float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
+        //#if defined(_PROBEVOLUME_ON)
+        //    float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
+        //    float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
             
-            d.extraV2F3.xyz = texCoord; //position in space relative to the volume.
-        #endif
+        //    d.extraV2F3.xyz = texCoord; //position in space relative to the volume.
+        //#endif
     }
 
     void Ext_SurfaceFunction4 (inout Surface o, inout ShaderData d)
     {
         #if defined(_PROBEVOLUME_ON)
-            float3 texCoord = d.extraV2F3.xyz;
+            //float3 texCoord = d.extraV2F3.xyz;
+
+            float3 position = mul(_ProbeWorldToTexture, d.worldSpacePosition).xyz;
+            float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
 
             unity_SHAr = SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord);
             unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
@@ -3680,7 +3689,7 @@ ZWrite On
                  // #endif
 
                  // #if %EXTRAV2F3REQUIREKEY%
-                  v2p.extraV2F3 = d.extraV2F3;
+                 // v2p.extraV2F3 = d.extraV2F3;
                  // #endif
 
                  // #if %EXTRAV2F4REQUIREKEY%
@@ -3719,7 +3728,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-                d.extraV2F3 = v2p.extraV2F3;
+               // d.extraV2F3 = v2p.extraV2F3;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -3773,7 +3782,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-                v2p.extraV2F3 = d.extraV2F3;
+               // v2p.extraV2F3 = d.extraV2F3;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -3906,7 +3915,7 @@ ZWrite On
             // #endif
 
             // #if %EXTRAV2F3REQUIREKEY%
-             d.extraV2F3 = i.extraV2F3;
+            // d.extraV2F3 = i.extraV2F3;
             // #endif
 
             // #if %EXTRAV2F4REQUIREKEY%
@@ -4185,7 +4194,7 @@ ZWrite On
          // #endif
 
          // #if %EXTRAV2F3REQUIREKEY%
-          float4 extraV2F3 : TEXCOORD15;
+         // float4 extraV2F3 : TEXCOORD15;
          // #endif
 
          // #if %EXTRAV2F4REQUIREKEY%
@@ -4376,7 +4385,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-                float4 extraV2F3 : TEXCOORD8;
+               // float4 extraV2F3 : TEXCOORD8;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -4869,18 +4878,21 @@ ZWrite On
 
     void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
     {
-        #if defined(_PROBEVOLUME_ON)
-            float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
-            float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
+        //#if defined(_PROBEVOLUME_ON)
+        //    float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
+        //    float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
             
-            d.extraV2F3.xyz = texCoord; //position in space relative to the volume.
-        #endif
+        //    d.extraV2F3.xyz = texCoord; //position in space relative to the volume.
+        //#endif
     }
 
     void Ext_SurfaceFunction4 (inout Surface o, inout ShaderData d)
     {
         #if defined(_PROBEVOLUME_ON)
-            float3 texCoord = d.extraV2F3.xyz;
+            //float3 texCoord = d.extraV2F3.xyz;
+
+            float3 position = mul(_ProbeWorldToTexture, d.worldSpacePosition).xyz;
+            float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
 
             unity_SHAr = SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord);
             unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
@@ -4963,7 +4975,7 @@ ZWrite On
                  // #endif
 
                  // #if %EXTRAV2F3REQUIREKEY%
-                  v2p.extraV2F3 = d.extraV2F3;
+                 // v2p.extraV2F3 = d.extraV2F3;
                  // #endif
 
                  // #if %EXTRAV2F4REQUIREKEY%
@@ -5002,7 +5014,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-                d.extraV2F3 = v2p.extraV2F3;
+               // d.extraV2F3 = v2p.extraV2F3;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -5056,7 +5068,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-                v2p.extraV2F3 = d.extraV2F3;
+               // v2p.extraV2F3 = d.extraV2F3;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -5189,7 +5201,7 @@ ZWrite On
             // #endif
 
             // #if %EXTRAV2F3REQUIREKEY%
-             d.extraV2F3 = i.extraV2F3;
+            // d.extraV2F3 = i.extraV2F3;
             // #endif
 
             // #if %EXTRAV2F4REQUIREKEY%
@@ -5471,7 +5483,7 @@ ZWrite On
          // #endif
 
          // #if %EXTRAV2F3REQUIREKEY%
-          float4 extraV2F3 : TEXCOORD15;
+         // float4 extraV2F3 : TEXCOORD15;
          // #endif
 
          // #if %EXTRAV2F4REQUIREKEY%
@@ -5662,7 +5674,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-                float4 extraV2F3 : TEXCOORD8;
+               // float4 extraV2F3 : TEXCOORD8;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -6155,18 +6167,21 @@ ZWrite On
 
     void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
     {
-        #if defined(_PROBEVOLUME_ON)
-            float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
-            float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
+        //#if defined(_PROBEVOLUME_ON)
+        //    float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
+        //    float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
             
-            d.extraV2F3.xyz = texCoord; //position in space relative to the volume.
-        #endif
+        //    d.extraV2F3.xyz = texCoord; //position in space relative to the volume.
+        //#endif
     }
 
     void Ext_SurfaceFunction4 (inout Surface o, inout ShaderData d)
     {
         #if defined(_PROBEVOLUME_ON)
-            float3 texCoord = d.extraV2F3.xyz;
+            //float3 texCoord = d.extraV2F3.xyz;
+
+            float3 position = mul(_ProbeWorldToTexture, d.worldSpacePosition).xyz;
+            float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
 
             unity_SHAr = SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord);
             unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
@@ -6249,7 +6264,7 @@ ZWrite On
                  // #endif
 
                  // #if %EXTRAV2F3REQUIREKEY%
-                  v2p.extraV2F3 = d.extraV2F3;
+                 // v2p.extraV2F3 = d.extraV2F3;
                  // #endif
 
                  // #if %EXTRAV2F4REQUIREKEY%
@@ -6288,7 +6303,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-                d.extraV2F3 = v2p.extraV2F3;
+               // d.extraV2F3 = v2p.extraV2F3;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -6342,7 +6357,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-                v2p.extraV2F3 = d.extraV2F3;
+               // v2p.extraV2F3 = d.extraV2F3;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -6475,7 +6490,7 @@ ZWrite On
             // #endif
 
             // #if %EXTRAV2F3REQUIREKEY%
-             d.extraV2F3 = i.extraV2F3;
+            // d.extraV2F3 = i.extraV2F3;
             // #endif
 
             // #if %EXTRAV2F4REQUIREKEY%
