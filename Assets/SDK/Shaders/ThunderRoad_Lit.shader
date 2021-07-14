@@ -929,8 +929,11 @@ ZWrite On
     TEXTURE3D(_ProbeVolumeShR);
     SAMPLER(sampler_ProbeVolumeShR);
     TEXTURE3D(_ProbeVolumeShG);
+    SAMPLER(sampler_ProbeVolumeShG);
     TEXTURE3D(_ProbeVolumeShB);
+    SAMPLER(sampler_ProbeVolumeShB);
     TEXTURE3D(_ProbeVolumeOcc);
+    SAMPLER(sampler_ProbeVolumeOcc);
     #endif
 
     void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
@@ -949,9 +952,9 @@ ZWrite On
              float3 texCoord = d.extraV2F3.xyz;
 
             unity_SHAr = SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord);
-            unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShR, texCoord);
-            unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShR, texCoord);
-            unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeShR, texCoord);
+            unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
+            unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord);
+            unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
 
             unity_SHBr = 0.0;
             unity_SHBg = 0.0;
@@ -2294,8 +2297,11 @@ ZWrite On
     TEXTURE3D(_ProbeVolumeShR);
     SAMPLER(sampler_ProbeVolumeShR);
     TEXTURE3D(_ProbeVolumeShG);
+    SAMPLER(sampler_ProbeVolumeShG);
     TEXTURE3D(_ProbeVolumeShB);
+    SAMPLER(sampler_ProbeVolumeShB);
     TEXTURE3D(_ProbeVolumeOcc);
+    SAMPLER(sampler_ProbeVolumeOcc);
     #endif
 
     void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
@@ -2314,9 +2320,9 @@ ZWrite On
              float3 texCoord = d.extraV2F3.xyz;
 
             unity_SHAr = SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord);
-            unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShR, texCoord);
-            unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShR, texCoord);
-            unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeShR, texCoord);
+            unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
+            unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord);
+            unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
 
             unity_SHBr = 0.0;
             unity_SHBg = 0.0;
@@ -3571,8 +3577,11 @@ ZWrite On
     TEXTURE3D(_ProbeVolumeShR);
     SAMPLER(sampler_ProbeVolumeShR);
     TEXTURE3D(_ProbeVolumeShG);
+    SAMPLER(sampler_ProbeVolumeShG);
     TEXTURE3D(_ProbeVolumeShB);
+    SAMPLER(sampler_ProbeVolumeShB);
     TEXTURE3D(_ProbeVolumeOcc);
+    SAMPLER(sampler_ProbeVolumeOcc);
     #endif
 
     void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
@@ -3591,9 +3600,9 @@ ZWrite On
              float3 texCoord = d.extraV2F3.xyz;
 
             unity_SHAr = SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord);
-            unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShR, texCoord);
-            unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShR, texCoord);
-            unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeShR, texCoord);
+            unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
+            unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord);
+            unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
 
             unity_SHBr = 0.0;
             unity_SHBg = 0.0;
@@ -4851,8 +4860,11 @@ ZWrite On
     TEXTURE3D(_ProbeVolumeShR);
     SAMPLER(sampler_ProbeVolumeShR);
     TEXTURE3D(_ProbeVolumeShG);
+    SAMPLER(sampler_ProbeVolumeShG);
     TEXTURE3D(_ProbeVolumeShB);
+    SAMPLER(sampler_ProbeVolumeShB);
     TEXTURE3D(_ProbeVolumeOcc);
+    SAMPLER(sampler_ProbeVolumeOcc);
     #endif
 
     void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
@@ -4871,9 +4883,9 @@ ZWrite On
              float3 texCoord = d.extraV2F3.xyz;
 
             unity_SHAr = SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord);
-            unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShR, texCoord);
-            unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShR, texCoord);
-            unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeShR, texCoord);
+            unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
+            unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord);
+            unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
 
             unity_SHBr = 0.0;
             unity_SHBg = 0.0;
@@ -6134,8 +6146,11 @@ ZWrite On
     TEXTURE3D(_ProbeVolumeShR);
     SAMPLER(sampler_ProbeVolumeShR);
     TEXTURE3D(_ProbeVolumeShG);
+    SAMPLER(sampler_ProbeVolumeShG);
     TEXTURE3D(_ProbeVolumeShB);
+    SAMPLER(sampler_ProbeVolumeShB);
     TEXTURE3D(_ProbeVolumeOcc);
+    SAMPLER(sampler_ProbeVolumeOcc);
     #endif
 
     void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
@@ -6154,9 +6169,9 @@ ZWrite On
              float3 texCoord = d.extraV2F3.xyz;
 
             unity_SHAr = SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord);
-            unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShR, texCoord);
-            unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShR, texCoord);
-            unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeShR, texCoord);
+            unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
+            unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord);
+            unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
 
             unity_SHBr = 0.0;
             unity_SHBg = 0.0;
