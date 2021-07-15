@@ -79,10 +79,10 @@ Shader "ThunderRoad/Lit_New"
 
 
     [BetterHeaderToggleKeywordDrawer(_PROBEVOLUME_ON)] _UseProbeVolume("Use Probe Volume", Float) = 0
-    [ShowIfDrawer(_UseProbeVolume)][NoScaleOffset]_ProbeVolumeShR("Probe Volume SH Red", 3D) = "white" {}
-    [ShowIfDrawer(_UseProbeVolume)][NoScaleOffset]_ProbeVolumeShG("Probe Volume SH Green", 3D) = "white" {}
-    [ShowIfDrawer(_UseProbeVolume)][NoScaleOffset]_ProbeVolumeShB("Probe Volume SH Blue", 3D) = "white" {}
-    [ShowIfDrawer(_UseProbeVolume)][NoScaleOffset]_ProbeVolumeOcc("Probe Volume Occlusion", 3D) = "white" {}
+    [ShowIfDrawer(_UseProbeVolume)][NoScaleOffset]_ProbeVolumeShR("Probe Volume SH Red", 3D) = "black" {}
+    [ShowIfDrawer(_UseProbeVolume)][NoScaleOffset]_ProbeVolumeShG("Probe Volume SH Green", 3D) = "black" {}
+    [ShowIfDrawer(_UseProbeVolume)][NoScaleOffset]_ProbeVolumeShB("Probe Volume SH Blue", 3D) = "black" {}
+    [ShowIfDrawer(_UseProbeVolume)][NoScaleOffset]_ProbeVolumeOcc("Probe Volume Occlusion", 3D) = "black" {}
 
     [HideInInspector]_ProbeVolumeMin("Probe Volume Min", Vector) = (0,0,0)
     [HideInInspector]_ProbeVolumeSizeInv("Probe Volume Size Inverse", Vector) = (0,0,0)
@@ -254,7 +254,7 @@ ZWrite On
          // #endif
 
          // #if %EXTRAV2F3REQUIREKEY%
-         // float4 extraV2F3 : TEXCOORD15;
+          float4 extraV2F3 : TEXCOORD15;
          // #endif
 
          // #if %EXTRAV2F4REQUIREKEY%
@@ -445,7 +445,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-               // float4 extraV2F3 : TEXCOORD8;
+                float4 extraV2F3 : TEXCOORD8;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -938,31 +938,34 @@ ZWrite On
 
     void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
     {
-        //#if defined(_PROBEVOLUME_ON)
-        //    float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
-        //    float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
+        #if defined(_PROBEVOLUME_ON)
+            float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
+            float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
             
-        //    d.extraV2F3.xyz = texCoord; //position in space relative to the volume.
-        //#endif
+            d.extraV2F3.xyz = texCoord; //position in space relative to the volume.
+        #endif
     }
 
     void Ext_SurfaceFunction4 (inout Surface o, inout ShaderData d)
     {
         #if defined(_PROBEVOLUME_ON)
-            //float3 texCoord = d.extraV2F3.xyz;
+            float3 texCoord = d.extraV2F3.xyz;
 
-            float3 position = mul(_ProbeWorldToTexture, d.worldSpacePosition).xyz;
-            float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
+            //unity_SHAr = SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord);
+            //unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
+            //unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord);
+            //unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
 
-            unity_SHAr = SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord);
-            unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
-            unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord);
+            //unity_SHBr = 0.0;
+            //unity_SHBg = 0.0;
+            //unity_SHBb = 0.0;
+            //unity_SHC = 0.0;
+            
+            //Custom baked gi data
+            #define _OVERRIDE_BAKEDGI
+            o.DiffuseGI = SHEvalLinearL0L1( d.worldSpaceNormal, SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord),
+                                            SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord));
             unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
-
-            unity_SHBr = 0.0;
-            unity_SHBg = 0.0;
-            unity_SHBb = 0.0;
-            unity_SHC = 0.0;
         #endif
     }
 
@@ -1035,7 +1038,7 @@ ZWrite On
                  // #endif
 
                  // #if %EXTRAV2F3REQUIREKEY%
-                 // v2p.extraV2F3 = d.extraV2F3;
+                  v2p.extraV2F3 = d.extraV2F3;
                  // #endif
 
                  // #if %EXTRAV2F4REQUIREKEY%
@@ -1074,7 +1077,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-               // d.extraV2F3 = v2p.extraV2F3;
+                d.extraV2F3 = v2p.extraV2F3;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -1128,7 +1131,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-               // v2p.extraV2F3 = d.extraV2F3;
+                v2p.extraV2F3 = d.extraV2F3;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -1261,7 +1264,7 @@ ZWrite On
             // #endif
 
             // #if %EXTRAV2F3REQUIREKEY%
-            // d.extraV2F3 = i.extraV2F3;
+             d.extraV2F3 = i.extraV2F3;
             // #endif
 
             // #if %EXTRAV2F4REQUIREKEY%
@@ -1625,7 +1628,7 @@ ZWrite On
          // #endif
 
          // #if %EXTRAV2F3REQUIREKEY%
-         // float4 extraV2F3 : TEXCOORD15;
+          float4 extraV2F3 : TEXCOORD15;
          // #endif
 
          // #if %EXTRAV2F4REQUIREKEY%
@@ -1816,7 +1819,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-               // float4 extraV2F3 : TEXCOORD8;
+                float4 extraV2F3 : TEXCOORD8;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -2309,31 +2312,34 @@ ZWrite On
 
     void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
     {
-        //#if defined(_PROBEVOLUME_ON)
-        //    float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
-        //    float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
+        #if defined(_PROBEVOLUME_ON)
+            float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
+            float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
             
-        //    d.extraV2F3.xyz = texCoord; //position in space relative to the volume.
-        //#endif
+            d.extraV2F3.xyz = texCoord; //position in space relative to the volume.
+        #endif
     }
 
     void Ext_SurfaceFunction4 (inout Surface o, inout ShaderData d)
     {
         #if defined(_PROBEVOLUME_ON)
-            //float3 texCoord = d.extraV2F3.xyz;
+            float3 texCoord = d.extraV2F3.xyz;
 
-            float3 position = mul(_ProbeWorldToTexture, d.worldSpacePosition).xyz;
-            float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
+            //unity_SHAr = SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord);
+            //unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
+            //unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord);
+            //unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
 
-            unity_SHAr = SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord);
-            unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
-            unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord);
+            //unity_SHBr = 0.0;
+            //unity_SHBg = 0.0;
+            //unity_SHBb = 0.0;
+            //unity_SHC = 0.0;
+            
+            //Custom baked gi data
+            #define _OVERRIDE_BAKEDGI
+            o.DiffuseGI = SHEvalLinearL0L1( d.worldSpaceNormal, SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord),
+                                            SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord));
             unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
-
-            unity_SHBr = 0.0;
-            unity_SHBg = 0.0;
-            unity_SHBb = 0.0;
-            unity_SHC = 0.0;
         #endif
     }
 
@@ -2406,7 +2412,7 @@ ZWrite On
                  // #endif
 
                  // #if %EXTRAV2F3REQUIREKEY%
-                 // v2p.extraV2F3 = d.extraV2F3;
+                  v2p.extraV2F3 = d.extraV2F3;
                  // #endif
 
                  // #if %EXTRAV2F4REQUIREKEY%
@@ -2445,7 +2451,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-               // d.extraV2F3 = v2p.extraV2F3;
+                d.extraV2F3 = v2p.extraV2F3;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -2499,7 +2505,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-               // v2p.extraV2F3 = d.extraV2F3;
+                v2p.extraV2F3 = d.extraV2F3;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -2632,7 +2638,7 @@ ZWrite On
             // #endif
 
             // #if %EXTRAV2F3REQUIREKEY%
-            // d.extraV2F3 = i.extraV2F3;
+             d.extraV2F3 = i.extraV2F3;
             // #endif
 
             // #if %EXTRAV2F4REQUIREKEY%
@@ -2908,7 +2914,7 @@ ZWrite On
          // #endif
 
          // #if %EXTRAV2F3REQUIREKEY%
-         // float4 extraV2F3 : TEXCOORD15;
+          float4 extraV2F3 : TEXCOORD15;
          // #endif
 
          // #if %EXTRAV2F4REQUIREKEY%
@@ -3099,7 +3105,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-               // float4 extraV2F3 : TEXCOORD8;
+                float4 extraV2F3 : TEXCOORD8;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -3592,31 +3598,34 @@ ZWrite On
 
     void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
     {
-        //#if defined(_PROBEVOLUME_ON)
-        //    float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
-        //    float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
+        #if defined(_PROBEVOLUME_ON)
+            float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
+            float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
             
-        //    d.extraV2F3.xyz = texCoord; //position in space relative to the volume.
-        //#endif
+            d.extraV2F3.xyz = texCoord; //position in space relative to the volume.
+        #endif
     }
 
     void Ext_SurfaceFunction4 (inout Surface o, inout ShaderData d)
     {
         #if defined(_PROBEVOLUME_ON)
-            //float3 texCoord = d.extraV2F3.xyz;
+            float3 texCoord = d.extraV2F3.xyz;
 
-            float3 position = mul(_ProbeWorldToTexture, d.worldSpacePosition).xyz;
-            float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
+            //unity_SHAr = SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord);
+            //unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
+            //unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord);
+            //unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
 
-            unity_SHAr = SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord);
-            unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
-            unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord);
+            //unity_SHBr = 0.0;
+            //unity_SHBg = 0.0;
+            //unity_SHBb = 0.0;
+            //unity_SHC = 0.0;
+            
+            //Custom baked gi data
+            #define _OVERRIDE_BAKEDGI
+            o.DiffuseGI = SHEvalLinearL0L1( d.worldSpaceNormal, SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord),
+                                            SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord));
             unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
-
-            unity_SHBr = 0.0;
-            unity_SHBg = 0.0;
-            unity_SHBb = 0.0;
-            unity_SHC = 0.0;
         #endif
     }
 
@@ -3689,7 +3698,7 @@ ZWrite On
                  // #endif
 
                  // #if %EXTRAV2F3REQUIREKEY%
-                 // v2p.extraV2F3 = d.extraV2F3;
+                  v2p.extraV2F3 = d.extraV2F3;
                  // #endif
 
                  // #if %EXTRAV2F4REQUIREKEY%
@@ -3728,7 +3737,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-               // d.extraV2F3 = v2p.extraV2F3;
+                d.extraV2F3 = v2p.extraV2F3;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -3782,7 +3791,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-               // v2p.extraV2F3 = d.extraV2F3;
+                v2p.extraV2F3 = d.extraV2F3;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -3915,7 +3924,7 @@ ZWrite On
             // #endif
 
             // #if %EXTRAV2F3REQUIREKEY%
-            // d.extraV2F3 = i.extraV2F3;
+             d.extraV2F3 = i.extraV2F3;
             // #endif
 
             // #if %EXTRAV2F4REQUIREKEY%
@@ -4194,7 +4203,7 @@ ZWrite On
          // #endif
 
          // #if %EXTRAV2F3REQUIREKEY%
-         // float4 extraV2F3 : TEXCOORD15;
+          float4 extraV2F3 : TEXCOORD15;
          // #endif
 
          // #if %EXTRAV2F4REQUIREKEY%
@@ -4385,7 +4394,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-               // float4 extraV2F3 : TEXCOORD8;
+                float4 extraV2F3 : TEXCOORD8;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -4878,31 +4887,34 @@ ZWrite On
 
     void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
     {
-        //#if defined(_PROBEVOLUME_ON)
-        //    float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
-        //    float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
+        #if defined(_PROBEVOLUME_ON)
+            float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
+            float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
             
-        //    d.extraV2F3.xyz = texCoord; //position in space relative to the volume.
-        //#endif
+            d.extraV2F3.xyz = texCoord; //position in space relative to the volume.
+        #endif
     }
 
     void Ext_SurfaceFunction4 (inout Surface o, inout ShaderData d)
     {
         #if defined(_PROBEVOLUME_ON)
-            //float3 texCoord = d.extraV2F3.xyz;
+            float3 texCoord = d.extraV2F3.xyz;
 
-            float3 position = mul(_ProbeWorldToTexture, d.worldSpacePosition).xyz;
-            float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
+            //unity_SHAr = SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord);
+            //unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
+            //unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord);
+            //unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
 
-            unity_SHAr = SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord);
-            unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
-            unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord);
+            //unity_SHBr = 0.0;
+            //unity_SHBg = 0.0;
+            //unity_SHBb = 0.0;
+            //unity_SHC = 0.0;
+            
+            //Custom baked gi data
+            #define _OVERRIDE_BAKEDGI
+            o.DiffuseGI = SHEvalLinearL0L1( d.worldSpaceNormal, SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord),
+                                            SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord));
             unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
-
-            unity_SHBr = 0.0;
-            unity_SHBg = 0.0;
-            unity_SHBb = 0.0;
-            unity_SHC = 0.0;
         #endif
     }
 
@@ -4975,7 +4987,7 @@ ZWrite On
                  // #endif
 
                  // #if %EXTRAV2F3REQUIREKEY%
-                 // v2p.extraV2F3 = d.extraV2F3;
+                  v2p.extraV2F3 = d.extraV2F3;
                  // #endif
 
                  // #if %EXTRAV2F4REQUIREKEY%
@@ -5014,7 +5026,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-               // d.extraV2F3 = v2p.extraV2F3;
+                d.extraV2F3 = v2p.extraV2F3;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -5068,7 +5080,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-               // v2p.extraV2F3 = d.extraV2F3;
+                v2p.extraV2F3 = d.extraV2F3;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -5201,7 +5213,7 @@ ZWrite On
             // #endif
 
             // #if %EXTRAV2F3REQUIREKEY%
-            // d.extraV2F3 = i.extraV2F3;
+             d.extraV2F3 = i.extraV2F3;
             // #endif
 
             // #if %EXTRAV2F4REQUIREKEY%
@@ -5483,7 +5495,7 @@ ZWrite On
          // #endif
 
          // #if %EXTRAV2F3REQUIREKEY%
-         // float4 extraV2F3 : TEXCOORD15;
+          float4 extraV2F3 : TEXCOORD15;
          // #endif
 
          // #if %EXTRAV2F4REQUIREKEY%
@@ -5674,7 +5686,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-               // float4 extraV2F3 : TEXCOORD8;
+                float4 extraV2F3 : TEXCOORD8;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -6167,31 +6179,34 @@ ZWrite On
 
     void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
     {
-        //#if defined(_PROBEVOLUME_ON)
-        //    float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
-        //    float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
+        #if defined(_PROBEVOLUME_ON)
+            float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
+            float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
             
-        //    d.extraV2F3.xyz = texCoord; //position in space relative to the volume.
-        //#endif
+            d.extraV2F3.xyz = texCoord; //position in space relative to the volume.
+        #endif
     }
 
     void Ext_SurfaceFunction4 (inout Surface o, inout ShaderData d)
     {
         #if defined(_PROBEVOLUME_ON)
-            //float3 texCoord = d.extraV2F3.xyz;
+            float3 texCoord = d.extraV2F3.xyz;
 
-            float3 position = mul(_ProbeWorldToTexture, d.worldSpacePosition).xyz;
-            float3 texCoord = (position - _ProbeVolumeMin.xyz) * _ProbeVolumeSizeInv;
+            //unity_SHAr = SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord);
+            //unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
+            //unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord);
+            //unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
 
-            unity_SHAr = SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord);
-            unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
-            unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord);
+            //unity_SHBr = 0.0;
+            //unity_SHBg = 0.0;
+            //unity_SHBb = 0.0;
+            //unity_SHC = 0.0;
+            
+            //Custom baked gi data
+            #define _OVERRIDE_BAKEDGI
+            o.DiffuseGI = SHEvalLinearL0L1( d.worldSpaceNormal, SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord),
+                                            SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord));
             unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
-
-            unity_SHBr = 0.0;
-            unity_SHBg = 0.0;
-            unity_SHBb = 0.0;
-            unity_SHC = 0.0;
         #endif
     }
 
@@ -6264,7 +6279,7 @@ ZWrite On
                  // #endif
 
                  // #if %EXTRAV2F3REQUIREKEY%
-                 // v2p.extraV2F3 = d.extraV2F3;
+                  v2p.extraV2F3 = d.extraV2F3;
                  // #endif
 
                  // #if %EXTRAV2F4REQUIREKEY%
@@ -6303,7 +6318,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-               // d.extraV2F3 = v2p.extraV2F3;
+                d.extraV2F3 = v2p.extraV2F3;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -6357,7 +6372,7 @@ ZWrite On
                // #endif
 
                // #if %EXTRAV2F3REQUIREKEY%
-               // v2p.extraV2F3 = d.extraV2F3;
+                v2p.extraV2F3 = d.extraV2F3;
                // #endif
 
                // #if %EXTRAV2F4REQUIREKEY%
@@ -6490,7 +6505,7 @@ ZWrite On
             // #endif
 
             // #if %EXTRAV2F3REQUIREKEY%
-            // d.extraV2F3 = i.extraV2F3;
+             d.extraV2F3 = i.extraV2F3;
             // #endif
 
             // #if %EXTRAV2F4REQUIREKEY%
