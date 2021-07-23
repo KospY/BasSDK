@@ -22,6 +22,9 @@ namespace ThunderRoad
         protected AudioContainer stopAudioContainer;
         public float stopVolumeDb = 0;
 
+        public bool doNoise;
+        protected bool hasNoise;
+
         public AudioMixerName audioMixer = AudioMixerName.Effect;
 
         [Header("Loop volume")]
@@ -144,7 +147,7 @@ namespace ThunderRoad
             if (oneShotAudioSource && playAudioContainer)
             {
                 oneShotAudioSource.PlayOneShot(playAudioContainer.PickAudioClip(), DecibelToLinear(playVolumeDb));
-            }     
+            }
         }
 
         public override void SetIntensity(float intensity)
