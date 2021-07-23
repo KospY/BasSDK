@@ -38,8 +38,6 @@ namespace ThunderRoad
         [NonSerialized]
         public List<RevealDecal> revealDecals;
         [NonSerialized]
-        public List<Paintable> paintables;
-        [NonSerialized]
         public List<ColliderGroup> colliderGroups;
         [NonSerialized]
         public List<HingeEffect> effectHinges;
@@ -48,7 +46,7 @@ namespace ThunderRoad
         [NonSerialized]
         public LightVolumeReceiver lightVolumeReceiver;
         [NonSerialized]
-        public List<CollisionHandler> collisionHandlers;
+        public List<CollisionHandler> collisionHandlers = new List<CollisionHandler>();
         [NonSerialized]
         public List<Handle> handles;
         [NonSerialized]
@@ -232,7 +230,6 @@ namespace ThunderRoad
             lightVolumeReceiver.SetRenderers(renderers);
 #endif
 
-            paintables = new List<Paintable>(this.GetComponentsInChildren<Paintable>());
             revealDecals = new List<RevealDecal>(this.GetComponentsInChildren<RevealDecal>());
             colliderGroups = new List<ColliderGroup>(this.GetComponentsInChildren<ColliderGroup>());
             whooshPoints = new List<WhooshPoint>(this.GetComponentsInChildren<WhooshPoint>());
