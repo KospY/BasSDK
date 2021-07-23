@@ -12,6 +12,7 @@ using UnityEngine.AI;
 using DunGen;
 using DunGen.Adapters;
 using DunGen.Graph;
+using UnityEngine.Events;
 #endif
 
 #if ODIN_INSPECTOR
@@ -50,6 +51,8 @@ namespace ThunderRoad
             Failure,
             Success,
         }
+
+        public UnityEvent loadedEvent;
 
         [Button]
         public static void CheckLightMapMode()
