@@ -9,7 +9,7 @@
 ////////////////////////////////////////
 
 
-Shader "ThunderRoad/Lit_New"
+Shader "ThunderRoad/Lit"
 {
    Properties
    {
