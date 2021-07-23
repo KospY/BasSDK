@@ -15,13 +15,12 @@ namespace ThunderRoad
     public class UISelectionListButtonsLevelModeOption : UISelectionListButtons, IPointerEnterHandler, IPointerExitHandler
     {
         public Image starImagePrefab = null;
+        public Sprite starImage = null;
+        public Sprite starImageFill = null;
 
         public UISelectionListButtonsBool toggle = null;
 
         public Transform starPlace = null;
-
-        public Color selectedColor = Color.white;
-        public Color unselectedColor = new Color(0.5f, 0.5f, 0.5f);
 
         public string descriptionText = "This is a description test.\n Your text go here.";
         public UIMap uiLevelSelector = null;
