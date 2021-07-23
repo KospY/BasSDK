@@ -27,6 +27,8 @@ namespace ThunderRoad
         private int indexCharacter = 0;
 
         public GameObject canvas = null;
+
+        public GameObject messagePage = null;
         public GameObject characterSelectionPage = null;
         public GameObject gameModeSelectionPage = null;
         public GameObject customisationPage = null;
@@ -45,6 +47,9 @@ namespace ThunderRoad
         public string validationSound = "";
         public string cancelSound = "";
         public string switchSound = "";
+
+        public AnimationClip characterMalePose;
+        public AnimationClip characterFemalePose;
 
         private AudioClip validationSoundClip = null;
         private AudioClip cancelSoundClip = null;
@@ -76,7 +81,7 @@ namespace ThunderRoad
         public Button playButton = null;
         public Button calibrateTrackerStartButton = null;
 
-        public UISelectionListButtonsHeight heightAutoButton = null;
+        public UISelectionListButtonsSwitchMeterImperial switchMeterImperial = null;
 
         [Header("MAP SELECTION")]
         public UISelectionListButtonsMapSelection mapSelectionButton = null;
