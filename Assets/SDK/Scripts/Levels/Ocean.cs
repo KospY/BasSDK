@@ -23,11 +23,19 @@ namespace ThunderRoad
     public class Ocean : MonoBehaviour
     {
         public string prefabAddress = "Bas.Ocean.Greenland.LightHouse";
+        public string lowQualityPrefabAddress = "Bas.Ocean.LowQuality";
 
 #if PrivateSDK
 
         public static List<Ocean> all = new List<Ocean>();
         public static Ocean current;
+        protected static Quality quality = Quality.Waves;
+
+        [NonSerialized]
+        public GameObject oceanGameobject;
+
+        [NonSerialized]
+        public MeshRenderer oceanLowQualityMeshRenderer;
 
         [NonSerialized]
         public OceanRenderer crestOceanRenderer;
@@ -36,6 +44,13 @@ namespace ThunderRoad
         [NonSerialized]
         public ShapeGerstner crestShapeGerstner;
         protected bool spawning;
+
+        public enum Quality
+        {
+            Disabled,
+            Plane,
+            Waves,
+        }
 
         private void Awake()
         {
@@ -67,45 +82,82 @@ namespace ThunderRoad
             }
         }
 
+        [Button]
+        public static void SetQuality(Quality quality)
+        {
+            Ocean.quality = quality;
+            foreach (Ocean ocean in Ocean.all)
+            {
+                if (ocean.spawning) return;
+                ocean.SetActive(false);
+                if (ocean.oceanLowQualityMeshRenderer) Catalog.ReleaseAsset(ocean.oceanLowQualityMeshRenderer.gameObject);
+                if (ocean.crestOceanRenderer) Catalog.ReleaseAsset(ocean.crestOceanRenderer.gameObject);
+                ocean.oceanLowQualityMeshRenderer = null;
+                ocean.crestOceanRenderer = null;
+                ocean.oceanGameobject = null;
+                if (ocean.isActiveAndEnabled) ocean.SetActive(true);
+            }
+        }
+
         protected void Spawn()
         {
-            if (!spawning && !crestOceanRenderer)
+            if (!spawning && !oceanGameobject)
             {
-                spawning = true;
-                Catalog.InstantiateAsync<OceanRenderer>(prefabAddress, oceanRenderer =>
+                if (quality == Quality.Plane)
                 {
-                    if (oceanRenderer)
+                    spawning = true;
+                    Catalog.InstantiateAsync<MeshRenderer>(lowQualityPrefabAddress, oceanMeshRenderer =>
                     {
-                        crestOceanRenderer = oceanRenderer;
-                        crestOceanRenderer.transform.position = this.transform.position;
-                        crestOceanRenderer.transform.rotation = Quaternion.identity;
-                        SceneManager.MoveGameObjectToScene(crestOceanRenderer.gameObject, this.gameObject.scene);
-
-                        crestOceanDepthCache = crestOceanRenderer.GetComponentInChildren<OceanDepthCache>();
-                        if (crestOceanDepthCache)
+                        if (oceanMeshRenderer)
                         {
-                            crestOceanRenderer.transform.rotation = Quaternion.Euler(0, this.transform.eulerAngles.y, 0);
-                            crestOceanDepthCache.transform.SetParent(null, true);
+                            oceanLowQualityMeshRenderer = oceanMeshRenderer;
+                            oceanGameobject = oceanMeshRenderer.gameObject;
+                            oceanGameobject.transform.position = this.transform.position;
+                            oceanGameobject.transform.rotation = Quaternion.identity;
+                            SceneManager.MoveGameObjectToScene(oceanGameobject, this.gameObject.scene);
+                            spawning = false;
+                        }
+                    }, "OceanSpawner");
+                }
+                else if (quality == Quality.Waves)
+                {
+                    spawning = true;
+                    Catalog.InstantiateAsync<OceanRenderer>(prefabAddress, oceanRenderer =>
+                    {
+                        if (oceanRenderer)
+                        {
+                            oceanGameobject = oceanRenderer.gameObject;
+                            crestOceanRenderer = oceanRenderer;
+                            crestOceanRenderer.transform.position = this.transform.position;
                             crestOceanRenderer.transform.rotation = Quaternion.identity;
-                            crestOceanDepthCache.transform.SetParent(crestOceanRenderer.transform, true);
-                            crestOceanDepthCache.enabled = true;
-                        }
+                            SceneManager.MoveGameObjectToScene(crestOceanRenderer.gameObject, this.gameObject.scene);
 
-                        crestShapeGerstner = crestOceanRenderer.GetComponent<ShapeGerstner>();
-                        if (crestShapeGerstner)
-                        {
-                            crestShapeGerstner._waveDirectionHeadingAngle = this.transform.eulerAngles.y - 90;
-                            if (SystemInfo.graphicsDeviceType == UnityEngine.Rendering.GraphicsDeviceType.OpenGLES3)
+                            crestOceanDepthCache = crestOceanRenderer.GetComponentInChildren<OceanDepthCache>();
+                            if (crestOceanDepthCache)
                             {
-                                Debug.LogError("Disabled crest ocean shapeGerstner as not supported on OpenGLES3");
-                                crestShapeGerstner.enabled = false;
+                                crestOceanRenderer.transform.rotation = Quaternion.Euler(0, this.transform.eulerAngles.y, 0);
+                                crestOceanDepthCache.transform.SetParent(null, true);
+                                crestOceanRenderer.transform.rotation = Quaternion.identity;
+                                crestOceanDepthCache.transform.SetParent(crestOceanRenderer.transform, true);
+                                crestOceanDepthCache.enabled = true;
                             }
-                        }
 
-                        if (PlayerTest.local) crestOceanRenderer.ViewCamera = PlayerTest.local.cam;
-                        spawning = false;
-                    }
-                }, "OceanSpawner");
+                            crestShapeGerstner = crestOceanRenderer.GetComponent<ShapeGerstner>();
+                            if (crestShapeGerstner)
+                            {
+                                crestShapeGerstner._waveDirectionHeadingAngle = this.transform.eulerAngles.y - 90;
+                                if (SystemInfo.graphicsDeviceType == UnityEngine.Rendering.GraphicsDeviceType.OpenGLES3)
+                                {
+                                    Debug.LogError("Disabled crest ocean shapeGerstner as not supported on OpenGLES3");
+                                    crestShapeGerstner.enabled = false;
+                                }
+                            }
+
+                            if (PlayerTest.local) crestOceanRenderer.ViewCamera = PlayerTest.local.cam;
+                            spawning = false;
+                        }
+                    }, "OceanSpawner");
+                }
             }
         }
 
@@ -130,15 +182,15 @@ namespace ThunderRoad
                     if (ocean != this && ocean.isActiveAndEnabled)
                     {
                         if (ocean.spawning) return;
-                        if (ocean.crestOceanRenderer)
+                        if (ocean.oceanGameobject)
                         {
-                            ocean.crestOceanRenderer.gameObject.SetActive(false);
+                            ocean.oceanGameobject.SetActive(false);
                         }
                     }
                 }
-                if (this.crestOceanRenderer)
+                if (this.oceanGameobject)
                 {
-                    this.crestOceanRenderer.gameObject.SetActive(true);
+                    this.oceanGameobject.SetActive(true);
                 }
                 else
                 {
@@ -149,18 +201,18 @@ namespace ThunderRoad
             else
             {
                 current = null;
-                if (this.crestOceanRenderer)
+                if (this.oceanGameobject)
                 {
-                    this.crestOceanRenderer.gameObject.SetActive(false);
+                    this.oceanGameobject.SetActive(false);
                 }
                 // Enable other oceans if any
                 foreach (Ocean ocean in all)
                 {
                     if (ocean != this && ocean.isActiveAndEnabled)
                     {
-                        if (ocean.crestOceanRenderer)
+                        if (ocean.oceanGameobject)
                         {
-                            ocean.crestOceanRenderer.gameObject.SetActive(true);
+                            ocean.oceanGameobject.SetActive(true);
                             current = this;
                             break;
                         }
@@ -174,10 +226,8 @@ namespace ThunderRoad
             PlayerTest.onSpawn -= OnPlayerTestSpawned;
             SetActive(false);
             all.Remove(this);
-            if (crestOceanRenderer)
-            {
-                Destroy(crestOceanRenderer.gameObject);
-            }
+            if (oceanLowQualityMeshRenderer) Catalog.ReleaseAsset(oceanLowQualityMeshRenderer.gameObject);
+            if (crestOceanRenderer) Catalog.ReleaseAsset(crestOceanRenderer.gameObject);
         }
 #endif
     }
