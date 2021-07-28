@@ -19,7 +19,8 @@ Shader "ThunderRoad/Lit"
       
 	[BetterHeader(ThunderRoad Lit)]
 	[Enum(Off,0,Front,1,Back,2)]_CullMode("Culling Mode", Float) = 2
-	_Cutoff("Alpha Threshold", Range(0,1)) = 0
+	[Toggle]_AlphaClip("Alpha Clipping", Float) = 0
+	[ShowIfDrawer(_AlphaClip)]_Cutoff("Alpha Threshold", Range(0,1)) = 0
 
 	_BaseMap("Base Map", 2D) = "white" {}
 	_BaseColor ("Base Color", Color) = (1, 1, 1, 1)
@@ -163,6 +164,10 @@ ZWrite On
 
 
    #pragma shader_feature_local _ _PROBEVOLUME_ON
+
+   #if defined(_PROBEVOLUME_ON)
+       #define _OVERRIDE_BAKEDGI
+   #endif
 
 
    #define _URP 1
@@ -689,6 +694,7 @@ ZWrite On
          CBUFFER_START(UnityPerMaterial)
 
             
+	half _AlphaClip;
 	half _Cutoff;
 
 	float4 _BaseMap_ST;
@@ -791,12 +797,12 @@ ZWrite On
 		o.Albedo = albedo.rgb * _BaseColor.rgb;
 
 		//Do we need a keyword for this? It should never be used on Quest.
-		if (_Cutoff > 0)
+		if (_AlphaClip > 0)
 		{
 			clip(albedo.a - _Cutoff);
 		}
 
-		o.Alpha = _BaseColor.a;
+		o.Alpha = albedo.a;
 		o.Normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv), _NormalStrength);
 
 		half4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
@@ -817,6 +823,8 @@ ZWrite On
 			o.Albedo = Unity_Blend_Overlay(albedo, SAMPLE_TEXTURE2D(_DetailAlbedoMap, sampler_DetailAlbedoMap, detailuv), _DetailAlbedoMapScale).rgb * _BaseColor.rgb;
 			o.Normal = Unity_NormalBlend_Reoriented(o.Normal, UnpackScaleNormal(SAMPLE_TEXTURE2D(_DetailNormalMap, sampler_DetailNormalMap, detailuv), _DetailNormalMapScale));
 		#endif
+
+		o.Height = albedo.a;
 	}
 
 
@@ -962,7 +970,6 @@ ZWrite On
             //unity_SHC = 0.0;
             
             //Custom baked gi data
-            #define _OVERRIDE_BAKEDGI
             o.DiffuseGI = SHEvalLinearL0L1( d.worldSpaceNormal, SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord),
                                             SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord));
             unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
@@ -1550,6 +1557,10 @@ ZWrite On
 
    #pragma shader_feature_local _ _PROBEVOLUME_ON
 
+   #if defined(_PROBEVOLUME_ON)
+       #define _OVERRIDE_BAKEDGI
+   #endif
+
 
    #define _URP 1
 
@@ -2063,6 +2074,7 @@ ZWrite On
             CBUFFER_START(UnityPerMaterial)
 
                
+	half _AlphaClip;
 	half _Cutoff;
 
 	float4 _BaseMap_ST;
@@ -2165,12 +2177,12 @@ ZWrite On
 		o.Albedo = albedo.rgb * _BaseColor.rgb;
 
 		//Do we need a keyword for this? It should never be used on Quest.
-		if (_Cutoff > 0)
+		if (_AlphaClip > 0)
 		{
 			clip(albedo.a - _Cutoff);
 		}
 
-		o.Alpha = _BaseColor.a;
+		o.Alpha = albedo.a;
 		o.Normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv), _NormalStrength);
 
 		half4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
@@ -2191,6 +2203,8 @@ ZWrite On
 			o.Albedo = Unity_Blend_Overlay(albedo, SAMPLE_TEXTURE2D(_DetailAlbedoMap, sampler_DetailAlbedoMap, detailuv), _DetailAlbedoMapScale).rgb * _BaseColor.rgb;
 			o.Normal = Unity_NormalBlend_Reoriented(o.Normal, UnpackScaleNormal(SAMPLE_TEXTURE2D(_DetailNormalMap, sampler_DetailNormalMap, detailuv), _DetailNormalMapScale));
 		#endif
+
+		o.Height = albedo.a;
 	}
 
 
@@ -2336,7 +2350,6 @@ ZWrite On
             //unity_SHC = 0.0;
             
             //Custom baked gi data
-            #define _OVERRIDE_BAKEDGI
             o.DiffuseGI = SHEvalLinearL0L1( d.worldSpaceNormal, SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord),
                                             SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord));
             unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
@@ -2833,6 +2846,10 @@ ZWrite On
 
 
    #pragma shader_feature_local _ _PROBEVOLUME_ON
+
+   #if defined(_PROBEVOLUME_ON)
+       #define _OVERRIDE_BAKEDGI
+   #endif
 
 
    #define _URP 1
@@ -3349,6 +3366,7 @@ ZWrite On
             CBUFFER_START(UnityPerMaterial)
 
                
+	half _AlphaClip;
 	half _Cutoff;
 
 	float4 _BaseMap_ST;
@@ -3451,12 +3469,12 @@ ZWrite On
 		o.Albedo = albedo.rgb * _BaseColor.rgb;
 
 		//Do we need a keyword for this? It should never be used on Quest.
-		if (_Cutoff > 0)
+		if (_AlphaClip > 0)
 		{
 			clip(albedo.a - _Cutoff);
 		}
 
-		o.Alpha = _BaseColor.a;
+		o.Alpha = albedo.a;
 		o.Normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv), _NormalStrength);
 
 		half4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
@@ -3477,6 +3495,8 @@ ZWrite On
 			o.Albedo = Unity_Blend_Overlay(albedo, SAMPLE_TEXTURE2D(_DetailAlbedoMap, sampler_DetailAlbedoMap, detailuv), _DetailAlbedoMapScale).rgb * _BaseColor.rgb;
 			o.Normal = Unity_NormalBlend_Reoriented(o.Normal, UnpackScaleNormal(SAMPLE_TEXTURE2D(_DetailNormalMap, sampler_DetailNormalMap, detailuv), _DetailNormalMapScale));
 		#endif
+
+		o.Height = albedo.a;
 	}
 
 
@@ -3622,7 +3642,6 @@ ZWrite On
             //unity_SHC = 0.0;
             
             //Custom baked gi data
-            #define _OVERRIDE_BAKEDGI
             o.DiffuseGI = SHEvalLinearL0L1( d.worldSpaceNormal, SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord),
                                             SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord));
             unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
@@ -4119,6 +4138,10 @@ ZWrite On
 
 
    #pragma shader_feature_local _ _PROBEVOLUME_ON
+
+   #if defined(_PROBEVOLUME_ON)
+       #define _OVERRIDE_BAKEDGI
+   #endif
 
 
    #define _URP 1
@@ -4638,6 +4661,7 @@ ZWrite On
             CBUFFER_START(UnityPerMaterial)
 
                
+	half _AlphaClip;
 	half _Cutoff;
 
 	float4 _BaseMap_ST;
@@ -4740,12 +4764,12 @@ ZWrite On
 		o.Albedo = albedo.rgb * _BaseColor.rgb;
 
 		//Do we need a keyword for this? It should never be used on Quest.
-		if (_Cutoff > 0)
+		if (_AlphaClip > 0)
 		{
 			clip(albedo.a - _Cutoff);
 		}
 
-		o.Alpha = _BaseColor.a;
+		o.Alpha = albedo.a;
 		o.Normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv), _NormalStrength);
 
 		half4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
@@ -4766,6 +4790,8 @@ ZWrite On
 			o.Albedo = Unity_Blend_Overlay(albedo, SAMPLE_TEXTURE2D(_DetailAlbedoMap, sampler_DetailAlbedoMap, detailuv), _DetailAlbedoMapScale).rgb * _BaseColor.rgb;
 			o.Normal = Unity_NormalBlend_Reoriented(o.Normal, UnpackScaleNormal(SAMPLE_TEXTURE2D(_DetailNormalMap, sampler_DetailNormalMap, detailuv), _DetailNormalMapScale));
 		#endif
+
+		o.Height = albedo.a;
 	}
 
 
@@ -4911,7 +4937,6 @@ ZWrite On
             //unity_SHC = 0.0;
             
             //Custom baked gi data
-            #define _OVERRIDE_BAKEDGI
             o.DiffuseGI = SHEvalLinearL0L1( d.worldSpaceNormal, SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord),
                                             SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord));
             unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
@@ -5404,6 +5429,10 @@ ZWrite On
 
 
    #pragma shader_feature_local _ _PROBEVOLUME_ON
+
+   #if defined(_PROBEVOLUME_ON)
+       #define _OVERRIDE_BAKEDGI
+   #endif
 
 
    #define _URP 1
@@ -5930,6 +5959,7 @@ ZWrite On
          CBUFFER_START(UnityPerMaterial)
 
             
+	half _AlphaClip;
 	half _Cutoff;
 
 	float4 _BaseMap_ST;
@@ -6032,12 +6062,12 @@ ZWrite On
 		o.Albedo = albedo.rgb * _BaseColor.rgb;
 
 		//Do we need a keyword for this? It should never be used on Quest.
-		if (_Cutoff > 0)
+		if (_AlphaClip > 0)
 		{
 			clip(albedo.a - _Cutoff);
 		}
 
-		o.Alpha = _BaseColor.a;
+		o.Alpha = albedo.a;
 		o.Normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv), _NormalStrength);
 
 		half4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
@@ -6058,6 +6088,8 @@ ZWrite On
 			o.Albedo = Unity_Blend_Overlay(albedo, SAMPLE_TEXTURE2D(_DetailAlbedoMap, sampler_DetailAlbedoMap, detailuv), _DetailAlbedoMapScale).rgb * _BaseColor.rgb;
 			o.Normal = Unity_NormalBlend_Reoriented(o.Normal, UnpackScaleNormal(SAMPLE_TEXTURE2D(_DetailNormalMap, sampler_DetailNormalMap, detailuv), _DetailNormalMapScale));
 		#endif
+
+		o.Height = albedo.a;
 	}
 
 
@@ -6203,7 +6235,6 @@ ZWrite On
             //unity_SHC = 0.0;
             
             //Custom baked gi data
-            #define _OVERRIDE_BAKEDGI
             o.DiffuseGI = SHEvalLinearL0L1( d.worldSpaceNormal, SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord),
                                             SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord));
             unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
