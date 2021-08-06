@@ -43,7 +43,7 @@ Shader "ThunderRoad/Lit"
 
 
 	[BetterHeaderToggleKeywordDrawer(_COLORMASK_ON)] _UseColorMask("Use Color Mask", Float) = 0
-	[ShowIfDrawer(_UseColorMask)][NoScaleOffset] _ColorMask("Color Tint Mask", 2D) = "gray" {}
+	[ShowIfDrawer(_UseColorMask)][NoScaleOffset] _ColorMask("Color Tint Mask", 2D) = "black" {}
 	[ShowIfDrawer(_UseColorMask)] _Tint0("Tint0 (R) Color", Color) = (1,1,1,1)
 	[ShowIfDrawer(_UseColorMask)] _Tint1("Tint1 (G) Color", Color) = (1,1,1,1)
 	[ShowIfDrawer(_UseColorMask)] _Tint2("Tint2 (B) Color", Color) = (1,1,1,1)
