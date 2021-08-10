@@ -839,8 +839,9 @@ ZWrite On
 	{
 		#if defined(_COLORMASK_ON)
 		float4 colorMask = SAMPLE_TEXTURE2D(_ColorMask, sampler_ColorMask, d.blackboard.baseuv);
+		float t = colorMask.r + colorMask.g + colorMask.b + (1.0 - colorMask.a);
 		float3 c = ((colorMask.r * _Tint0) + (colorMask.g * _Tint1) + (colorMask.b * _Tint2) + ((1.0 - colorMask.a) * _Tint3)).rgb * o.Albedo;
-		o.Albedo = lerp(o.Albedo, c, length(colorMask));
+		o.Albedo = lerp(o.Albedo, c, t);
 		#endif
 	}
 
@@ -2220,8 +2221,9 @@ ZWrite On
 	{
 		#if defined(_COLORMASK_ON)
 		float4 colorMask = SAMPLE_TEXTURE2D(_ColorMask, sampler_ColorMask, d.blackboard.baseuv);
+		float t = colorMask.r + colorMask.g + colorMask.b + (1.0 - colorMask.a);
 		float3 c = ((colorMask.r * _Tint0) + (colorMask.g * _Tint1) + (colorMask.b * _Tint2) + ((1.0 - colorMask.a) * _Tint3)).rgb * o.Albedo;
-		o.Albedo = lerp(o.Albedo, c, length(colorMask));
+		o.Albedo = lerp(o.Albedo, c, t);
 		#endif
 	}
 
@@ -3513,8 +3515,9 @@ ZWrite On
 	{
 		#if defined(_COLORMASK_ON)
 		float4 colorMask = SAMPLE_TEXTURE2D(_ColorMask, sampler_ColorMask, d.blackboard.baseuv);
+		float t = colorMask.r + colorMask.g + colorMask.b + (1.0 - colorMask.a);
 		float3 c = ((colorMask.r * _Tint0) + (colorMask.g * _Tint1) + (colorMask.b * _Tint2) + ((1.0 - colorMask.a) * _Tint3)).rgb * o.Albedo;
-		o.Albedo = lerp(o.Albedo, c, length(colorMask));
+		o.Albedo = lerp(o.Albedo, c, t);
 		#endif
 	}
 
@@ -4809,8 +4812,9 @@ ZWrite On
 	{
 		#if defined(_COLORMASK_ON)
 		float4 colorMask = SAMPLE_TEXTURE2D(_ColorMask, sampler_ColorMask, d.blackboard.baseuv);
+		float t = colorMask.r + colorMask.g + colorMask.b + (1.0 - colorMask.a);
 		float3 c = ((colorMask.r * _Tint0) + (colorMask.g * _Tint1) + (colorMask.b * _Tint2) + ((1.0 - colorMask.a) * _Tint3)).rgb * o.Albedo;
-		o.Albedo = lerp(o.Albedo, c, length(colorMask));
+		o.Albedo = lerp(o.Albedo, c, t);
 		#endif
 	}
 
@@ -6108,8 +6112,9 @@ ZWrite On
 	{
 		#if defined(_COLORMASK_ON)
 		float4 colorMask = SAMPLE_TEXTURE2D(_ColorMask, sampler_ColorMask, d.blackboard.baseuv);
+		float t = colorMask.r + colorMask.g + colorMask.b + (1.0 - colorMask.a);
 		float3 c = ((colorMask.r * _Tint0) + (colorMask.g * _Tint1) + (colorMask.b * _Tint2) + ((1.0 - colorMask.a) * _Tint3)).rgb * o.Albedo;
-		o.Albedo = lerp(o.Albedo, c, length(colorMask));
+		o.Albedo = lerp(o.Albedo, c, t);
 		#endif
 	}
 
