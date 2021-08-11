@@ -21,6 +21,7 @@ Shader "ThunderRoad/Lit"
 	[Enum(Off,0,Front,1,Back,2)]_CullMode("Culling Mode", Float) = 2
 	[Toggle]_AlphaClip("Alpha Clipping", Float) = 0
 	[ShowIfDrawer(_AlphaClip)]_Cutoff("Alpha Threshold", Range(0,1)) = 0
+	[Toggle]_ReceiveShadows("Receive Shadows", Float) = 1.0
 
 	_BaseMap("Base Map", 2D) = "white" {}
 	_BaseColor ("Base Color", Color) = (1, 1, 1, 1)
@@ -40,6 +41,10 @@ Shader "ThunderRoad/Lit"
 	[ShowIfDrawer(_UseDetailMap)]_DetailAlbedoMapScale("Detail Albedo Map Scale", Range(0,2)) = 1
 	[ShowIfDrawer(_UseDetailMap)][Normal][NoScaleOffset]_DetailNormalMap("Detail Normal Map", 2D) = "bump" {}
 	[ShowIfDrawer(_UseDetailMap)]_DetailNormalMapScale("Detail Normal Map Scale", Range(0,2)) = 1
+
+	// ObsoleteProperties
+	[HideInInspector] _Surface("Surface", Float) = 0 //this is need to use the URP shaderGUI functions. 0 = Opaque. We're not using 1 for transparent.
+    [HideInInspector] _MainTex("BaseMap", 2D) = "white" {} //need this for lightmapper.
 
 
 	[BetterHeaderToggleKeywordDrawer(_COLORMASK_ON)] _UseColorMask("Use Color Mask", Float) = 0
@@ -6715,5 +6720,5 @@ ZWrite On
    }
    
    
-   
+   CustomEditor "ThunderRoadLitShader"
 }
