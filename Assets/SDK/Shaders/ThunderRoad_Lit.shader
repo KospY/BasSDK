@@ -3,7 +3,7 @@
 //
 // Auto-generated shader code, don't hand edit!
 //
-//   Unity Version: 2020.3.12f1
+//   Unity Version: 2020.3.14f1
 //   Render Pipeline: URP2020
 //   Platform: WindowsEditor
 ////////////////////////////////////////
@@ -155,6 +155,7 @@ ZWrite On
             
 
             
+   #pragma shader_feature_local_fragment _ALPHATEST_ON
    #pragma shader_feature_local _ _DETAIL
    #pragma shader_feature_local _ _EMISSION
 
@@ -801,11 +802,9 @@ ZWrite On
 
 		o.Albedo = albedo.rgb * _BaseColor.rgb;
 
-		//Do we need a keyword for this? It should never be used on Quest.
-		if (_AlphaClip > 0)
-		{
+		#if defined(_ALPHATEST_ON)
 			clip(albedo.a - _Cutoff);
-		}
+		#endif
 
 		o.Alpha = albedo.a;
 		o.Normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv), _NormalStrength);
@@ -823,7 +822,7 @@ ZWrite On
 		   o.Emission = _EmissionColor.rgb * emissionMask;
 		#endif
 
-		#if defined(_DETAIL)
+		#if defined(_DETAIL) && !defined(SHADER_API_MOBILE)
 			float2 detailuv = d.texcoord0.xy * _DetailAlbedoMap_ST.xy + _DetailAlbedoMap_ST.zw;
 			o.Albedo = Unity_Blend_Overlay(albedo, SAMPLE_TEXTURE2D(_DetailAlbedoMap, sampler_DetailAlbedoMap, detailuv), _DetailAlbedoMapScale).rgb * _BaseColor.rgb;
 			o.Normal = Unity_NormalBlend_Reoriented(o.Normal, UnpackScaleNormal(SAMPLE_TEXTURE2D(_DetailNormalMap, sampler_DetailNormalMap, detailuv), _DetailNormalMapScale));
@@ -1549,6 +1548,7 @@ ZWrite On
             #define _PASSSHADOW 1
 
             
+   #pragma shader_feature_local_fragment _ALPHATEST_ON
    #pragma shader_feature_local _ _DETAIL
    #pragma shader_feature_local _ _EMISSION
 
@@ -2183,12 +2183,10 @@ ZWrite On
 
 		o.Albedo = albedo.rgb * _BaseColor.rgb;
 
-		//Do we need a keyword for this? It should never be used on Quest.
-		if (_AlphaClip > 0)
-		{
+		#if defined(_ALPHATEST_ON)
 			clip(albedo.a - _Cutoff);
-		}
-
+		#endif
+     
 		o.Alpha = albedo.a;
 		o.Normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv), _NormalStrength);
 
@@ -2205,7 +2203,7 @@ ZWrite On
 		   o.Emission = _EmissionColor.rgb * emissionMask;
 		#endif
 
-		#if defined(_DETAIL)
+		#if defined(_DETAIL) && !defined(SHADER_API_MOBILE)
 			float2 detailuv = d.texcoord0.xy * _DetailAlbedoMap_ST.xy + _DetailAlbedoMap_ST.zw;
 			o.Albedo = Unity_Blend_Overlay(albedo, SAMPLE_TEXTURE2D(_DetailAlbedoMap, sampler_DetailAlbedoMap, detailuv), _DetailAlbedoMapScale).rgb * _BaseColor.rgb;
 			o.Normal = Unity_NormalBlend_Reoriented(o.Normal, UnpackScaleNormal(SAMPLE_TEXTURE2D(_DetailNormalMap, sampler_DetailNormalMap, detailuv), _DetailNormalMapScale));
@@ -2841,6 +2839,7 @@ ZWrite On
             #pragma multi_compile _ DOTS_INSTANCING_ON
 
             
+   #pragma shader_feature_local_fragment _ALPHATEST_ON
    #pragma shader_feature_local _ _DETAIL
    #pragma shader_feature_local _ _EMISSION
 
@@ -3476,13 +3475,11 @@ ZWrite On
 		half4 albedo = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, uv);
 
 		o.Albedo = albedo.rgb * _BaseColor.rgb;
-
-		//Do we need a keyword for this? It should never be used on Quest.
-		if (_AlphaClip > 0)
-		{
+ 
+		#if defined(_ALPHATEST_ON)
 			clip(albedo.a - _Cutoff);
-		}
-
+		#endif
+ 
 		o.Alpha = albedo.a;
 		o.Normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv), _NormalStrength);
 
@@ -3499,7 +3496,7 @@ ZWrite On
 		   o.Emission = _EmissionColor.rgb * emissionMask;
 		#endif
 
-		#if defined(_DETAIL)
+		#if defined(_DETAIL) && !defined(SHADER_API_MOBILE)
 			float2 detailuv = d.texcoord0.xy * _DetailAlbedoMap_ST.xy + _DetailAlbedoMap_ST.zw;
 			o.Albedo = Unity_Blend_Overlay(albedo, SAMPLE_TEXTURE2D(_DetailAlbedoMap, sampler_DetailAlbedoMap, detailuv), _DetailAlbedoMapScale).rgb * _BaseColor.rgb;
 			o.Normal = Unity_NormalBlend_Reoriented(o.Normal, UnpackScaleNormal(SAMPLE_TEXTURE2D(_DetailNormalMap, sampler_DetailNormalMap, detailuv), _DetailNormalMapScale));
@@ -4135,6 +4132,7 @@ ZWrite On
 
 
             
+   #pragma shader_feature_local_fragment _ALPHATEST_ON
    #pragma shader_feature_local _ _DETAIL
    #pragma shader_feature_local _ _EMISSION
 
@@ -4774,11 +4772,9 @@ ZWrite On
 
 		o.Albedo = albedo.rgb * _BaseColor.rgb;
 
-		//Do we need a keyword for this? It should never be used on Quest.
-		if (_AlphaClip > 0)
-		{
+		#if defined(_ALPHATEST_ON)
 			clip(albedo.a - _Cutoff);
-		}
+		#endif
 
 		o.Alpha = albedo.a;
 		o.Normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv), _NormalStrength);
@@ -4796,7 +4792,7 @@ ZWrite On
 		   o.Emission = _EmissionColor.rgb * emissionMask;
 		#endif
 
-		#if defined(_DETAIL)
+		#if defined(_DETAIL) && !defined(SHADER_API_MOBILE)
 			float2 detailuv = d.texcoord0.xy * _DetailAlbedoMap_ST.xy + _DetailAlbedoMap_ST.zw;
 			o.Albedo = Unity_Blend_Overlay(albedo, SAMPLE_TEXTURE2D(_DetailAlbedoMap, sampler_DetailAlbedoMap, detailuv), _DetailAlbedoMapScale).rgb * _BaseColor.rgb;
 			o.Normal = Unity_NormalBlend_Reoriented(o.Normal, UnpackScaleNormal(SAMPLE_TEXTURE2D(_DetailNormalMap, sampler_DetailNormalMap, detailuv), _DetailNormalMapScale));
@@ -5428,6 +5424,7 @@ ZWrite On
 
 
             
+   #pragma shader_feature_local_fragment _ALPHATEST_ON
    #pragma shader_feature_local _ _DETAIL
    #pragma shader_feature_local _ _EMISSION
 
@@ -6074,11 +6071,9 @@ ZWrite On
 
 		o.Albedo = albedo.rgb * _BaseColor.rgb;
 
-		//Do we need a keyword for this? It should never be used on Quest.
-		if (_AlphaClip > 0)
-		{
+		#if defined(_ALPHATEST_ON)
 			clip(albedo.a - _Cutoff);
-		}
+		#endif
 
 		o.Alpha = albedo.a;
 		o.Normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv), _NormalStrength);
@@ -6096,7 +6091,7 @@ ZWrite On
 		   o.Emission = _EmissionColor.rgb * emissionMask;
 		#endif
 
-		#if defined(_DETAIL)
+		#if defined(_DETAIL) && !defined(SHADER_API_MOBILE)
 			float2 detailuv = d.texcoord0.xy * _DetailAlbedoMap_ST.xy + _DetailAlbedoMap_ST.zw;
 			o.Albedo = Unity_Blend_Overlay(albedo, SAMPLE_TEXTURE2D(_DetailAlbedoMap, sampler_DetailAlbedoMap, detailuv), _DetailAlbedoMapScale).rgb * _BaseColor.rgb;
 			o.Normal = Unity_NormalBlend_Reoriented(o.Normal, UnpackScaleNormal(SAMPLE_TEXTURE2D(_DetailNormalMap, sampler_DetailNormalMap, detailuv), _DetailNormalMapScale));
