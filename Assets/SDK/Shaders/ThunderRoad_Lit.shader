@@ -42,6 +42,9 @@ Shader "ThunderRoad/Lit"
 	[ShowIfDrawer(_UseDetailMap)][Normal][NoScaleOffset]_DetailNormalMap("Detail Normal Map", 2D) = "bump" {}
 	[ShowIfDrawer(_UseDetailMap)]_DetailNormalMapScale("Detail Normal Map Scale", Range(0,2)) = 1
 
+	// Editmode props
+    [HideInInspector] _QueueOffset("Queue offset", Float) = 0.0
+
 	// ObsoleteProperties
 	[HideInInspector] _Surface("Surface", Float) = 0 //this is need to use the URP shaderGUI functions. 0 = Opaque. We're not using 1 for transparent.
     [HideInInspector] _MainTex("BaseMap", 2D) = "white" {} //need this for lightmapper.
@@ -811,10 +814,10 @@ ZWrite On
 		o.Alpha = albedo.a;
 		o.Normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv), _NormalStrength);
 
-		half4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
+		float4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
         o.Metallic = mask.r;
         o.Occlusion = mask.g * _OcclusionStrength;
-		half emissionMask = mask.b;
+		float emissionMask = mask.b;
         o.Smoothness = mask.a * _Smoothness;
 
 		half3 emission = 0;
@@ -2194,10 +2197,10 @@ ZWrite On
 		o.Alpha = albedo.a;
 		o.Normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv), _NormalStrength);
 
-		half4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
+		float4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
         o.Metallic = mask.r;
         o.Occlusion = mask.g * _OcclusionStrength;
-		half emissionMask = mask.b;
+		float emissionMask = mask.b;
         o.Smoothness = mask.a * _Smoothness;
 
 		half3 emission = 0;
@@ -3489,10 +3492,10 @@ ZWrite On
 		o.Alpha = albedo.a;
 		o.Normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv), _NormalStrength);
 
-		half4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
+		float4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
         o.Metallic = mask.r;
         o.Occlusion = mask.g * _OcclusionStrength;
-		half emissionMask = mask.b;
+		float emissionMask = mask.b;
         o.Smoothness = mask.a * _Smoothness;
 
 		half3 emission = 0;
@@ -4787,10 +4790,10 @@ ZWrite On
 		o.Alpha = albedo.a;
 		o.Normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv), _NormalStrength);
 
-		half4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
+		float4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
         o.Metallic = mask.r;
         o.Occlusion = mask.g * _OcclusionStrength;
-		half emissionMask = mask.b;
+		float emissionMask = mask.b;
         o.Smoothness = mask.a * _Smoothness;
 
 		half3 emission = 0;
@@ -6088,10 +6091,10 @@ ZWrite On
 		o.Alpha = albedo.a;
 		o.Normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv), _NormalStrength);
 
-		half4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
+		float4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
         o.Metallic = mask.r;
         o.Occlusion = mask.g * _OcclusionStrength;
-		half emissionMask = mask.b;
+		float emissionMask = mask.b;
         o.Smoothness = mask.a * _Smoothness;
 
 		half3 emission = 0;
