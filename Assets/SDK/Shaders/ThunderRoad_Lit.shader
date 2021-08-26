@@ -43,7 +43,7 @@ Shader "ThunderRoad/Lit"
 	[ShowIfDrawer(_UseDetailMap)]_DetailNormalMapScale("Detail Normal Map Scale", Range(0,2)) = 1
 
 	// Editmode props
-    [HideInInspector] _QueueOffset("Queue offset", Float) = 0.0
+    _QueueOffset("Queue offset", Float) = 0.0
 
 	// ObsoleteProperties
 	[HideInInspector] _Surface("Surface", Float) = 0 //this is need to use the URP shaderGUI functions. 0 = Opaque. We're not using 1 for transparent.
