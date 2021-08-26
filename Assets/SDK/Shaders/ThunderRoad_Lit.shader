@@ -30,7 +30,7 @@ Shader "ThunderRoad/Lit"
 	_NormalStrength("Normal Strength", Range(0,2)) = 1
 
 	[NoScaleOffset]_MetallicGlossMap("Metallic (R) Occlusion (G) Emission Mask (B) Smoothness (A)", 2D) = "black" {}
-	_Smoothness("Smoothness", Range(0,1)) = 0.5
+	_Smoothness("Smoothness", Range(0,1)) = 1
 	_OcclusionStrength("Occlusion Strength", Range(0,1)) = 1
 	[HDR]_EmissionColor("Emission Color", Color) = (0,0,0,0)
 	[Toggle(_EMISSION)] _UseEmission ("Use Emission Map", Float) = 0
@@ -706,6 +706,8 @@ ZWrite On
 	float4 _BaseMap_ST;
 	half4 _BaseColor;
 	half _NormalStrength;
+	half _Smoothness;
+	half _OcclusionStrength;
 	float4 _EmissionColor;
 
 	float4 _DetailAlbedoMap_ST;
@@ -811,9 +813,9 @@ ZWrite On
 
 		half4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
         o.Metallic = mask.r;
-        o.Occlusion = mask.g;
+        o.Occlusion = mask.g * _OcclusionStrength;
 		half emissionMask = mask.b;
-        o.Smoothness = mask.a;		
+        o.Smoothness = mask.a * _Smoothness;
 
 		half3 emission = 0;
 		#if defined(_EMISSION)
@@ -2087,6 +2089,8 @@ ZWrite On
 	float4 _BaseMap_ST;
 	half4 _BaseColor;
 	half _NormalStrength;
+	half _Smoothness;
+	half _OcclusionStrength;
 	float4 _EmissionColor;
 
 	float4 _DetailAlbedoMap_ST;
@@ -2186,15 +2190,15 @@ ZWrite On
 		#if defined(_ALPHATEST_ON)
 			clip(albedo.a - _Cutoff);
 		#endif
-     
+
 		o.Alpha = albedo.a;
 		o.Normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv), _NormalStrength);
 
 		half4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
         o.Metallic = mask.r;
-        o.Occlusion = mask.g;
+        o.Occlusion = mask.g * _OcclusionStrength;
 		half emissionMask = mask.b;
-        o.Smoothness = mask.a;		
+        o.Smoothness = mask.a * _Smoothness;
 
 		half3 emission = 0;
 		#if defined(_EMISSION)
@@ -3380,6 +3384,8 @@ ZWrite On
 	float4 _BaseMap_ST;
 	half4 _BaseColor;
 	half _NormalStrength;
+	half _Smoothness;
+	half _OcclusionStrength;
 	float4 _EmissionColor;
 
 	float4 _DetailAlbedoMap_ST;
@@ -3475,19 +3481,19 @@ ZWrite On
 		half4 albedo = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, uv);
 
 		o.Albedo = albedo.rgb * _BaseColor.rgb;
- 
+
 		#if defined(_ALPHATEST_ON)
 			clip(albedo.a - _Cutoff);
 		#endif
- 
+
 		o.Alpha = albedo.a;
 		o.Normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv), _NormalStrength);
 
 		half4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
         o.Metallic = mask.r;
-        o.Occlusion = mask.g;
+        o.Occlusion = mask.g * _OcclusionStrength;
 		half emissionMask = mask.b;
-        o.Smoothness = mask.a;		
+        o.Smoothness = mask.a * _Smoothness;
 
 		half3 emission = 0;
 		#if defined(_EMISSION)
@@ -4676,6 +4682,8 @@ ZWrite On
 	float4 _BaseMap_ST;
 	half4 _BaseColor;
 	half _NormalStrength;
+	half _Smoothness;
+	half _OcclusionStrength;
 	float4 _EmissionColor;
 
 	float4 _DetailAlbedoMap_ST;
@@ -4781,9 +4789,9 @@ ZWrite On
 
 		half4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
         o.Metallic = mask.r;
-        o.Occlusion = mask.g;
+        o.Occlusion = mask.g * _OcclusionStrength;
 		half emissionMask = mask.b;
-        o.Smoothness = mask.a;		
+        o.Smoothness = mask.a * _Smoothness;
 
 		half3 emission = 0;
 		#if defined(_EMISSION)
@@ -5975,6 +5983,8 @@ ZWrite On
 	float4 _BaseMap_ST;
 	half4 _BaseColor;
 	half _NormalStrength;
+	half _Smoothness;
+	half _OcclusionStrength;
 	float4 _EmissionColor;
 
 	float4 _DetailAlbedoMap_ST;
@@ -6080,9 +6090,9 @@ ZWrite On
 
 		half4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
         o.Metallic = mask.r;
-        o.Occlusion = mask.g;
+        o.Occlusion = mask.g * _OcclusionStrength;
 		half emissionMask = mask.b;
-        o.Smoothness = mask.a;		
+        o.Smoothness = mask.a * _Smoothness;
 
 		half3 emission = 0;
 		#if defined(_EMISSION)
