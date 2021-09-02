@@ -816,7 +816,7 @@ ZWrite On
 
 		float4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
         o.Metallic = mask.r;
-        o.Occlusion = mask.g * _OcclusionStrength;
+        o.Occlusion = LerpWhiteTo(mask.g, _OcclusionStrength); //mask.g * _OcclusionStrength;
 		float emissionMask = mask.b;
         o.Smoothness = mask.a * _Smoothness;
 
@@ -2199,7 +2199,7 @@ ZWrite On
 
 		float4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
         o.Metallic = mask.r;
-        o.Occlusion = mask.g * _OcclusionStrength;
+        o.Occlusion = LerpWhiteTo(mask.g, _OcclusionStrength); //mask.g * _OcclusionStrength;
 		float emissionMask = mask.b;
         o.Smoothness = mask.a * _Smoothness;
 
@@ -3494,7 +3494,7 @@ ZWrite On
 
 		float4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
         o.Metallic = mask.r;
-        o.Occlusion = mask.g * _OcclusionStrength;
+        o.Occlusion = LerpWhiteTo(mask.g, _OcclusionStrength); //mask.g * _OcclusionStrength;
 		float emissionMask = mask.b;
         o.Smoothness = mask.a * _Smoothness;
 
@@ -4792,7 +4792,7 @@ ZWrite On
 
 		float4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
         o.Metallic = mask.r;
-        o.Occlusion = mask.g * _OcclusionStrength;
+        o.Occlusion = LerpWhiteTo(mask.g, _OcclusionStrength); //mask.g * _OcclusionStrength;
 		float emissionMask = mask.b;
         o.Smoothness = mask.a * _Smoothness;
 
@@ -6093,7 +6093,7 @@ ZWrite On
 
 		float4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
         o.Metallic = mask.r;
-        o.Occlusion = mask.g * _OcclusionStrength;
+        o.Occlusion = LerpWhiteTo(mask.g, _OcclusionStrength); //mask.g * _OcclusionStrength;
 		float emissionMask = mask.b;
         o.Smoothness = mask.a * _Smoothness;
 
