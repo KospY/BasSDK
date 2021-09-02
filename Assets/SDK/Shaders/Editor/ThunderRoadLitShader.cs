@@ -9,10 +9,17 @@ public class ThunderRoadLitShader : ShaderGUI
     {
         EditorGUI.BeginChangeCheck();
         base.OnGUI(materialEditor, properties);
-        if(EditorGUI.EndChangeCheck())
+        
+        materialEditor.LightmapEmissionProperty();
+
+        if (EditorGUI.EndChangeCheck())
         {
-            foreach (var obj in materialEditor.targets)
-                MaterialChanged((Material)obj);
+            foreach (Material material in materialEditor.targets)
+            {
+                MaterialChanged(material);
+
+                material.globalIlluminationFlags &= ~MaterialGlobalIlluminationFlags.EmissiveIsBlack;
+            }
         }
     }
 
