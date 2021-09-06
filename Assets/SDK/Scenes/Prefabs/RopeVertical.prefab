@@ -65,7 +65,6 @@ MonoBehaviour:
   axisLength: 0
   touchRadius: 0.1
   touchCenter: {x: 0, y: 0, z: 0}
-  disableProximityHighlighter: 0
   defaultGrabAxisRatio: 0
   ikAnchorOffset: {x: 0, y: 0, z: 0}
   orientationDefaultRight: {fileID: 0}
@@ -74,6 +73,7 @@ MonoBehaviour:
   forcePlayerJoint: 0
   forceAutoDropWhenGrounded: 0
   reach: 0
+  handOverlapColliders: []
   customRigidBody: {fileID: 0}
   slideToUpHandle: {fileID: 0}
   slideToBottomHandle: {fileID: 0}
@@ -114,7 +114,6 @@ MonoBehaviour:
     allowedHand: 3
     isDefault: 0
   handlers: []
-  generateOnAwake: 1
   ropeStart: {fileID: 4958822062156643932}
   ropeTarget: {fileID: 4958822061080630288}
   ropeRadius: 0.03
@@ -122,6 +121,9 @@ MonoBehaviour:
   ropeUseCollider: 1
   ropeLayer: 17
   ropePhysicMaterial: {fileID: 13400000, guid: 1358332579fd82c4a8a931fdcfb1cea1, type: 2}
+  dynamicHeight: 0
+  raycastRange: 50
+  heightFromGround: 2
 --- !u!1 &4958822061080630295
 GameObject:
   m_ObjectHideFlags: 0
