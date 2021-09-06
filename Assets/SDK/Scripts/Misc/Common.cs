@@ -119,15 +119,6 @@ namespace ThunderRoad
         Speed,
     }
 
-    public enum AnimEffectType
-    {
-        None,
-        Shock,
-        ShockDead,
-        Burning,
-        Choke,
-    }
-
     public enum SavedValueID
     {
         Rack,
@@ -171,6 +162,12 @@ namespace ThunderRoad
         Energy,
     }
 
+    public enum QualitySetting
+    {
+        Windows,
+        Android,
+    }
+
     [Serializable]
     public class CustomReference
     {
@@ -180,11 +177,11 @@ namespace ThunderRoad
 
     public static class Common
     {
-        private static int _roomAndVolumeLayer;
-        public static int roomAndVolumeLayer
+        private static int _lightProbeVolumeLayer;
+        public static int lightProbeVolumeLayer
         {
-            get { return _roomAndVolumeLayer > 0 ? _roomAndVolumeLayer : _roomAndVolumeLayer = LayerMask.NameToLayer("RoomAndVolume"); }
-            private set { _roomAndVolumeLayer = value; }
+            get { return _lightProbeVolumeLayer > 0 ? _lightProbeVolumeLayer : _lightProbeVolumeLayer = LayerMask.NameToLayer("LightProbeVolume"); }
+            private set { _lightProbeVolumeLayer = value; }
         }
 
         private static int _zoneLayer;
@@ -221,6 +218,19 @@ namespace ThunderRoad
                 return RuntimePlatform.WindowsPlayer;
             }
 #endif
+        }
+
+        public static QualitySetting GetQualitySetting()
+        {
+            if (Enum.TryParse(QualitySettings.names[QualitySettings.GetQualityLevel()], out QualitySetting qualitySetting))
+            {
+                return qualitySetting;
+            }
+            else
+            {
+                Debug.LogError("Quality Settings names don't match QualitySetting enum!");
+                return QualitySetting.Windows;
+            }
         }
 
         public static int GetRandomWeightedIndex(float[] weights)

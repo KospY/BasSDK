@@ -1,10 +1,22 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 namespace ThunderRoad
 {
     public static class Extensions
     {
+        public static T CloneJson<T>(this T source)
+        {
+            JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings();
+            jsonSerializerSettings.TypeNameHandling = TypeNameHandling.Objects;
+            jsonSerializerSettings.ObjectCreationHandling = ObjectCreationHandling.Replace;
+            string json = JsonConvert.SerializeObject(source, typeof(T), jsonSerializerSettings);
+            return JsonConvert.DeserializeObject<T>(json, jsonSerializerSettings);
+        }
+
         public static bool PointInRadius(this Vector3 vectorA, Vector3 vectorB, float radius)
         {
             // Best performance to check radius
