@@ -18,6 +18,8 @@ namespace ThunderRoad
     public class Item : MonoBehaviour
     {
         public static List<Item> list = new List<Item>();
+        public static List<Item> allThrowed = new List<Item>();
+        public static List<Item> allTk = new List<Item>();
 
         public string itemId;
         public Transform holderPoint;

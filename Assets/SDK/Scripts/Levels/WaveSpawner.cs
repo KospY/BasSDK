@@ -23,6 +23,8 @@ namespace ThunderRoad
         public bool beginWaveOnStart;
         public float beginWaveOnStartDelay;
         public string startWaveId;
+        public bool pooled = true;
+        public bool cleanBodiesAndItemsOnWaveStart = true;
 
 #if ODIN_INSPECTOR
         [ValueDropdown("GetAllFactionID")]

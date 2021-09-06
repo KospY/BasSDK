@@ -29,6 +29,7 @@ namespace ThunderRoad
         public bool forceAutoDropWhenGrounded;
 
         public float reach = 0.5f;
+        public List<Collider> handOverlapColliders;
         public Rigidbody customRigidBody;
         public Handle slideToUpHandle;
         public Handle slideToBottomHandle;

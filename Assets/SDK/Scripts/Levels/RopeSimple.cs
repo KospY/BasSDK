@@ -77,10 +77,11 @@ namespace ThunderRoad
             // Generate rope mesh
             mesh = GameObject.CreatePrimitive(PrimitiveType.Cylinder).GetComponent<MeshRenderer>();
             Collider collider = mesh.GetComponent<Collider>();
-            Destroy(collider);
+            DestroyImmediate(collider);
             mesh.transform.SetParent(this.transform);
             mesh.name = "RopeMesh";
             mesh.material = material;
+
             materialPropertyBlock = new MaterialPropertyBlock();
             mesh.GetPropertyBlock(materialPropertyBlock);
 

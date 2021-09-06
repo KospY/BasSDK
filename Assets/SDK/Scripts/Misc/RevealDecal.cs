@@ -94,7 +94,7 @@ namespace ThunderRoad
 
         void Awake()
         {
-            if (!Catalog.gameData.platformParameters.enableEffectReveal)
+            if (!Level.master || !Catalog.gameData.platformParameters.enableEffectReveal)
             {
                 this.enabled = false;
                 return;

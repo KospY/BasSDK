@@ -35,6 +35,7 @@ namespace ThunderRoad
         [NonSerialized, GradientUsage(true)]
         public Gradient currentSecondaryGradient;
 
+        protected MaterialPropertyBlock materialPropertyBlock;
 
         private void OnValidate()
         {
@@ -51,6 +52,7 @@ namespace ThunderRoad
 
         private void Init()
         {
+            materialPropertyBlock = new MaterialPropertyBlock();
             rootParticleSystem = this.GetComponent<ParticleSystem>();
             if (!rootParticleSystem)
             {
@@ -93,6 +95,16 @@ namespace ThunderRoad
                 else if (shapeModule.shapeType == ParticleSystemShapeType.Mesh && shapeModule.mesh == null)
                 {
                     shapeModule.enabled = false;
+                }
+
+                // Set light volume if in dungeon
+                if (Level.current.dungeon)
+                {
+                    LightVolumeReceiver.ApplyProbeVolume(p.particleRenderer, materialPropertyBlock);
+                }
+                else
+                {
+                    LightVolumeReceiver.DisableProbeVolume(p.particleRenderer);
                 }
             }
             rootParticleSystem.Play(true);

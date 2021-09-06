@@ -167,7 +167,7 @@ namespace ThunderRoad
             }
             else
             {
-                if (NavMesh.SamplePosition(spawner.position, out NavMeshHit navMeshHit, 100, -1) && spawner.position.y > navMeshHit.position.y)
+                if (NavMesh.SamplePosition(spawner.position, out NavMeshHit navMeshHit, 2, -1) && spawner.position.y > navMeshHit.position.y)
                 {
                     Gizmos.color = Color.gray;
                     Gizmos.DrawSphere(spawner.position, 0.15f);

@@ -91,6 +91,17 @@ namespace ThunderRoad
             {
                 InvokeRepeating("UpdateLifeTime", 0, fadeRefreshSpeed);
             }
+
+            // Set light volume if in dungeon
+            if (Level.current.dungeon)
+            {
+                LightVolumeReceiver.ApplyProbeVolume(meshRenderer, materialPropertyBlock);
+            }
+            else
+            {
+                LightVolumeReceiver.DisableProbeVolume(meshRenderer);
+            }
+
             meshRenderer.enabled = true;
         }
 

@@ -6,7 +6,6 @@ namespace ThunderRoad
 {
     public class Rope : Handle
     {
-        public bool generateOnAwake = true;
         public Transform ropeStart;
         public Transform ropeTarget;
         public float ropeRadius = 0.03f;
@@ -14,6 +13,11 @@ namespace ThunderRoad
         public bool ropeUseCollider;
         public int ropeLayer;
         public PhysicMaterial ropePhysicMaterial;
+
+        [Header("Dynamic height")]
+        public bool dynamicHeight = false;
+        public float raycastRange = 50.0f;
+        public float heightFromGround = 2.0f;
 
 
         protected virtual void OnDrawGizmos()

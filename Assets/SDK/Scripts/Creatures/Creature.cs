@@ -26,6 +26,7 @@ namespace ThunderRoad
         public Container container;
         public Transform centerEyes;
         public Vector3 eyeCameraOffset;
+        public Renderer vfxRenderer;
 
         [NonSerialized]
         public Ragdoll ragdoll;
@@ -35,8 +36,6 @@ namespace ThunderRoad
         public Locomotion locomotion;
         [NonSerialized]
         public Mana mana;
-        [NonSerialized]
-        public CreatureSpeak speak;
         [NonSerialized]
         public FeetClimber climber;
         [NonSerialized]
@@ -52,6 +51,9 @@ namespace ThunderRoad
         [NonSerialized]
         public LightVolumeReceiver lightVolumeReceiver;
 
+        [Header("Speak")]
+        public Transform jaw;
+        public Vector3 jawMaxRotation = new Vector3(0, -30, 0);
 
         [Header("Fall")]
         public float fallAliveAnimationHeight = 0.5f;
@@ -63,7 +65,6 @@ namespace ThunderRoad
 
         [Header("Movement")]
         public bool stepEnabled;
-        public float stepSpeed = 3f;
         public float stepThreshold = 0.2f;
 
         public bool turnRelativeToHand = true;
@@ -77,7 +78,7 @@ namespace ThunderRoad
         public AnimationClip dynamicLoopReplaceClip;
         public AnimationClip dynamicEndReplaceClip;
 
-        public static int hashDynamicOneShot, hashDynamicLoop, hashDynamicLoop3, hashDynamicInterrupt, hashIsBusy, hashFeminity, hashHeight, hashFalling, hashGetUp, hashTstance, hashStaticIdle;
+        public static int hashDynamicOneShot, hashDynamicLoop, hashDynamicLoop3, hashDynamicInterrupt, hashDynamicSpeedMultiplier, hashIsBusy, hashFeminity, hashHeight, hashFalling, hashGetUp, hashTstance, hashStaticIdle;
         public static bool hashInitialized;
 
         public enum StaggerAnimation
@@ -121,7 +122,6 @@ namespace ThunderRoad
             locomotion = this.GetComponent<Locomotion>();
             mana = this.GetComponent<Mana>();
             climber = this.GetComponentInChildren<FeetClimber>();
-            speak = this.GetComponentInChildren<CreatureSpeak>();
 
             foreach (RagdollHand hand in this.GetComponentsInChildren<RagdollHand>())
             {
@@ -164,6 +164,7 @@ namespace ThunderRoad
             hashDynamicLoop = Animator.StringToHash("DynamicLoop");
             hashDynamicLoop3 = Animator.StringToHash("DynamicLoop3");
             hashDynamicInterrupt = Animator.StringToHash("DynamicInterrupt");
+            hashDynamicSpeedMultiplier = Animator.StringToHash("DynamicSpeedMultiplier");
             hashInitialized = true;
         }
 

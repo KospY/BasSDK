@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace ThunderRoad
@@ -17,7 +18,8 @@ namespace ThunderRoad
         public bool preGenerate;
         public bool continuousUpdate;
 
-        private MeshRenderer tube;
+        [NonSerialized]
+        public MeshRenderer tube;
         private MaterialPropertyBlock block;
 
         protected virtual void OnValidate()
@@ -36,7 +38,7 @@ namespace ThunderRoad
             }
         }
 
-        IEnumerator DestroyCoroutine(Object obj)
+        IEnumerator DestroyCoroutine(UnityEngine.Object obj)
         {
             yield return new WaitForEndOfFrame();
             DestroyImmediate(obj);

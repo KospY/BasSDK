@@ -22,6 +22,7 @@ namespace ThunderRoad
         public Type type;
         public Vector3 boneToChildDirection = Vector3.left;
         public RagdollPart parentPart;
+        public bool ignoreStaticCollision;
 
         [Header("Dismemberment")]
         public bool sliceAllowed;
@@ -31,8 +32,8 @@ namespace ThunderRoad
         public float sliceHeight = 0;
         public float sliceThreshold = 0.5f;
         public Material sliceFillMaterial;
-        public RagdollPart sliceByPassPart;
-        public bool sliceDisableCollider;
+        [Tooltip("Disable this part collider and slice the referenced child part on slice (usefull for necks)")]
+        public RagdollPart sliceChildAndDisableSelf;
         public bool ripBreak = false;
         public float ripBreakForce = 3000;
 

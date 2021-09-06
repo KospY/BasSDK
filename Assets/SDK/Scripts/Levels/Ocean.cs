@@ -24,6 +24,7 @@ namespace ThunderRoad
     {
         public string prefabAddress = "Bas.Ocean.Greenland.LightHouse";
         public string lowQualityPrefabAddress = "Bas.Ocean.LowQuality";
+        public bool showWhenInRoomOnly = true;
 
 #if PrivateSDK
 
@@ -45,6 +46,8 @@ namespace ThunderRoad
         public ShapeGerstner crestShapeGerstner;
         protected bool spawning;
 
+        protected Room room;
+
         public enum Quality
         {
             Disabled,
@@ -54,6 +57,12 @@ namespace ThunderRoad
 
         private void Awake()
         {
+            room = this.GetComponentInParent<Room>();
+            if (room)
+            {
+                room.onPlayerEnter.AddListener(OnPlayerEnterRoom);
+                room.onPlayerExit.AddListener(OnPlayerExitRoom);
+            }
             all.Add(this);
             if (Level.current && Level.current.dungeon)
             {
@@ -70,7 +79,10 @@ namespace ThunderRoad
         {
             if (eventTime == EventTime.OnEnd && isActiveAndEnabled)
             {
-                SetActive(true);
+                if (!showWhenInRoomOnly || !room || Level.current.dungeon.currentPlayerRoom == room)
+                {
+                    SetActive(true);
+                }
             }
         }
 
@@ -79,6 +91,22 @@ namespace ThunderRoad
             if (crestOceanRenderer)
             {
                 crestOceanRenderer.ViewCamera = player.cam;
+            }
+        }
+
+        private void OnPlayerEnterRoom()
+        {
+            if (showWhenInRoomOnly && room)
+            {
+                SetActive(true);
+            }
+        }
+
+        private void OnPlayerExitRoom()
+        {
+            if (showWhenInRoomOnly && room)
+            {
+                SetActive(false);
             }
         }
 
@@ -163,7 +191,10 @@ namespace ThunderRoad
 
         private void OnEnable()
         {
-            SetActive(true);
+            if (!showWhenInRoomOnly || !room || Level.current.dungeon.currentPlayerRoom == room)
+            {
+                SetActive(true);
+            }
         }
 
         private void OnDisable()
