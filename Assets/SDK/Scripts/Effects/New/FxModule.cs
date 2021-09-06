@@ -2,8 +2,15 @@
 
 namespace ThunderRoad
 {
-    public class EffectMixerModule : MonoBehaviour
+    public class FxModule : MonoBehaviour
     {
+        public enum Link
+        {
+            None,
+            Intensity,
+            Speed,
+        }
+
         public virtual void Play()
         {
 
@@ -22,6 +29,11 @@ namespace ThunderRoad
         public virtual void Stop()
         {
 
+        }
+
+        public virtual bool IsPlaying()
+        {
+            return false;
         }
     }
 }

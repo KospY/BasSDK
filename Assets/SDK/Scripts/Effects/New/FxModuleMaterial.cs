@@ -5,7 +5,7 @@ using ThunderRoad.Plugins;
 
 namespace ThunderRoad
 {
-    public class EffectMixerModuleMaterial : EffectMixerModule
+    public class FxModuleMaterial : FxModule
     {
         public List<Property.Float> floatProperties = new List<Property.Float>();
         public List<Property.Color> colorProperties = new List<Property.Color>();

@@ -7,7 +7,7 @@ using UnityEngine.VFX;
 
 namespace ThunderRoad
 {
-    public class EffectMixerModuleAudio : EffectMixerModule
+    public class FxModuleAudio : FxModule
     {
         [Header("Audio")]
         public string playAudioContainerAddress;
@@ -58,6 +58,7 @@ namespace ThunderRoad
         protected AudioReverbFilter reverbFilter;
 
         protected AudioSource oneShotAudioSource;
+        protected bool isPlaying;
 
         private void OnDestroy()
         {
@@ -99,6 +100,10 @@ namespace ThunderRoad
                     {
                         playAudioContainer = handle.Result;
                         TryCreateOneShootAudioSource();
+                        if (isPlaying && oneShotAudioSource && playAudioContainer)
+                        {
+                            oneShotAudioSource.PlayOneShot(playAudioContainer.PickAudioClip(), DecibelToLinear(playVolumeDb));
+                        }
                     }
                 };
             }
@@ -109,6 +114,11 @@ namespace ThunderRoad
                     if (handle.Status == AsyncOperationStatus.Succeeded)
                     {
                         loopAudioContainer = handle.Result;
+                        if (isPlaying)
+                        {
+                            loopAudioSource.clip = loopAudioContainer.PickAudioClip();
+                            loopAudioSource.Play();
+                        }
                     }
                 };
             }
@@ -148,6 +158,7 @@ namespace ThunderRoad
             {
                 oneShotAudioSource.PlayOneShot(playAudioContainer.PickAudioClip(), DecibelToLinear(playVolumeDb));
             }
+            isPlaying = true;
         }
 
         public override void SetIntensity(float intensity)
@@ -197,6 +208,7 @@ namespace ThunderRoad
             {
                 oneShotAudioSource.PlayOneShot(stopAudioContainer.PickAudioClip(), DecibelToLinear(stopVolumeDb));
             }
+            isPlaying = false;
         }
 
         public static float LinearToDecibel(float linear)

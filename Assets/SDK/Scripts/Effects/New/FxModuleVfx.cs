@@ -5,7 +5,7 @@ using UnityEngine.VFX;
 
 namespace ThunderRoad
 {
-    public class EffectMixerModuleVfx : EffectMixerModule
+    public class FxModuleVfx : FxModule
     {
         public List<Property.Float> floatProperties = new List<Property.Float>();
         public List<Property.Color> colorProperties = new List<Property.Color>();
@@ -59,6 +59,11 @@ namespace ThunderRoad
                 if (property.link == EffectLink.Intensity) { intensityProperties.Add(property); }
                 else if (property.link == EffectLink.Speed) { speedProperties.Add(property); }
             }
+        }
+
+        public override bool IsPlaying()
+        {
+            return (vfx.aliveParticleCount > 0 ? true : false);
         }
 
         public override void Play()
