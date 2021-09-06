@@ -13,7 +13,6 @@ using EasyButtons;
 namespace ThunderRoad
 {
     [AddComponentMenu("ThunderRoad/Holder")]
-    [RequireComponent(typeof(Rigidbody))]
     public class Holder : Interactable
     {
         public static bool showHudHighlighter = true;
