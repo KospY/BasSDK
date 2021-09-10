@@ -2,7 +2,7 @@
 
 namespace ThunderRoad
 {
-    [AddComponentMenu("ThunderRoad/Levels/Disable on play")]
+    [AddComponentMenu("ThunderRoad/Misc/Disable on play")]
     public class DisableOnPlay : MonoBehaviour
     {
         protected void Awake()
