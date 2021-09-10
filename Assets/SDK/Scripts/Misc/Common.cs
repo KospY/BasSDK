@@ -162,10 +162,11 @@ namespace ThunderRoad
         Energy,
     }
 
-    public enum QualitySetting
+    public enum Platform
     {
         Windows,
         Android,
+        PSVR,
     }
 
     [Serializable]
@@ -201,35 +202,16 @@ namespace ThunderRoad
             return (mask & ~(1 << layer));
         }
 
-
-        public static RuntimePlatform GetSelectedPlatform()
+        public static Platform GetPlatform()
         {
-#if UNITY_ANDROID
-            return RuntimePlatform.Android;
-#elif UNITY_PS4
-            return RuntimePlatform.PS4;
-#else
-            if (Application.isEditor)
+            if (Enum.TryParse(QualitySettings.names[QualitySettings.GetQualityLevel()], out Platform platform))
             {
-                return RuntimePlatform.WindowsEditor;
+                return platform;
             }
             else
             {
-                return RuntimePlatform.WindowsPlayer;
-            }
-#endif
-        }
-
-        public static QualitySetting GetQualitySetting()
-        {
-            if (Enum.TryParse(QualitySettings.names[QualitySettings.GetQualityLevel()], out QualitySetting qualitySetting))
-            {
-                return qualitySetting;
-            }
-            else
-            {
-                Debug.LogError("Quality Settings names don't match QualitySetting enum!");
-                return QualitySetting.Windows;
+                Debug.LogError("Quality Settings names don't match platform enum!");
+                return Platform.Windows;
             }
         }
 
