@@ -79,7 +79,7 @@ namespace ThunderRoad
         {
             if (eventTime == EventTime.OnEnd && isActiveAndEnabled)
             {
-                if (!showWhenInRoomOnly || !room || Level.current.dungeon.currentPlayerRoom == room)
+                if (!showWhenInRoomOnly || !room || Dungeon.playerRoom == room)
                 {
                     SetActive(true);
                 }
@@ -191,7 +191,7 @@ namespace ThunderRoad
 
         private void OnEnable()
         {
-            if (!showWhenInRoomOnly || !room || Level.current.dungeon.currentPlayerRoom == room)
+            if (!showWhenInRoomOnly || !room || Dungeon.playerRoom == room)
             {
                 SetActive(true);
             }

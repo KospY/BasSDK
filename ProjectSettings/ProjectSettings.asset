@@ -133,8 +133,11 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: Early Access
-  preloadedAssets: []
+  bundleVersion: 10.0
+  preloadedAssets:
+  - {fileID: 0}
+  - {fileID: -8878564421258034831, guid: 6684263135e52884aa65014013df11e8, type: 2}
+  - {fileID: 11400000, guid: 08a337f6a5748ae4c8798a5f5d627605, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -159,7 +162,7 @@ PlayerSettings:
     iPhone: 0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
-  AndroidBundleVersionCode: 31
+  AndroidBundleVersionCode: 36
   AndroidMinSdkVersion: 23
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 0
@@ -168,7 +171,7 @@ PlayerSettings:
   iPhoneStrippingLevel: 0
   iPhoneScriptCallOptimization: 0
   ForceInternetPermission: 0
-  ForceSDCardPermission: 1
+  ForceSDCardPermission: 0
   CreateWallpaper: 0
   APKExpansionFiles: 0
   keepLoadedShadersAlive: 0
@@ -249,7 +252,7 @@ PlayerSettings:
   AndroidKeystoreName: '{inproject}: BuildStaging/Bas.keystore'
   AndroidKeyaliasName: key
   AndroidBuildApkPerCpuArchitecture: 0
-  AndroidTVCompatibility: 1
+  AndroidTVCompatibility: 0
   AndroidIsGame: 1
   AndroidEnableTango: 0
   androidEnableBanner: 1
@@ -260,7 +263,7 @@ PlayerSettings:
     height: 180
     banner: {fileID: 0}
   androidGamepadSupportLevel: 0
-  chromeosInputEmulation: 1
+  chromeosInputEmulation: 0
   AndroidMinifyWithR8: 0
   AndroidMinifyRelease: 0
   AndroidMinifyDebug: 0
@@ -404,7 +407,7 @@ PlayerSettings:
   - m_BuildTarget: LuminSupport
     m_GraphicsJobs: 0
   - m_BuildTarget: AndroidPlayer
-    m_GraphicsJobs: 1
+    m_GraphicsJobs: 0
   - m_BuildTarget: WebGLSupport
     m_GraphicsJobs: 0
   m_BuildTargetGraphicsJobMode:
@@ -685,9 +688,9 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    1: V_UNIVERSAL_RENDER;ODIN_INSPECTOR;PrivateSDK;TERRAINPACKAGE_EXIST;DUNGEN;CREST;OPENVR_XR
+    1: V_UNIVERSAL_RENDER
     4: CT_TPS
-    7: UNITY_POST_PROCESSING_STACK_V2;ODIN_INSPECTOR;DUNGEN;PrivateSDK;OPENVR_XR
+    7: UNITY_POST_PROCESSING_STACK_V2
     13: UNITY_POST_PROCESSING_STACK_V2;CT_TPS;ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
     14: UNITY_POST_PROCESSING_STACK_V2;CT_TPS;ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
     17: UNITY_POST_PROCESSING_STACK_V2
@@ -795,7 +798,7 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 3
-  activeInputHandler: 0
+  activeInputHandler: 1
   cloudProjectId: 
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []

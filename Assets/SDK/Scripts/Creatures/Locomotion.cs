@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -54,6 +55,8 @@ namespace ThunderRoad
 
         [Header("Colliders")]
         public float colliderRadius = 0.3f;
+        public float colliderShrinkMinRadius = 0.05f;
+        public float colliderGrowDuration = 2f;
         public float colliderHeight = 1f;
 
         [Header("Ground detection")]

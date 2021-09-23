@@ -4,7 +4,7 @@
 QualitySettings:
   m_ObjectHideFlags: 0
   serializedVersion: 5
-  m_CurrentQuality: 1
+  m_CurrentQuality: 0
   m_QualitySettings:
   - serializedVersion: 2
     name: Windows
@@ -21,7 +21,7 @@ QualitySettings:
     skinWeights: 4
     textureQuality: 0
     anisotropicTextures: 2
-    antiAliasing: 4
+    antiAliasing: 0
     softParticles: 0
     softVegetation: 1
     realtimeReflectionProbes: 1
@@ -80,7 +80,8 @@ QualitySettings:
     resolutionScalingFixedDPIFactor: 1
     customRenderPipeline: {fileID: 11400000, guid: f440ce345ac180048a911cea6e824fba,
       type: 2}
-    excludedTargetPlatforms: []
+    excludedTargetPlatforms:
+    - Standalone
   m_PerPlatformDefaultQuality:
     Android: 1
     Standalone: 0

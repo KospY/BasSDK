@@ -33,7 +33,6 @@ namespace ThunderRoad
         public float updateRate = 2;
         public float sameSpawnDelay = 3;
         public float spawnDelay = 2;
-        public bool excludeNonCombatNPCFromAlive = true;
 
         [Header("Music")]
         public string musicWaveAddress = "Bas.Audio.Music.Gladiator";
