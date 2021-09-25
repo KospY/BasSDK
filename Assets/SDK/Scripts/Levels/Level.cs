@@ -38,6 +38,9 @@ namespace ThunderRoad
         [NonSerialized]
         public bool loaded;
 
+        [NonSerialized]
+        public Color originalFogColor;
+
         [Serializable]
         public class CustomReference
         {
@@ -85,6 +88,7 @@ namespace ThunderRoad
             {
                 current = this;
             }
+            originalFogColor = RenderSettings.fogColor;
             dungeon = GameObject.FindObjectOfType<Dungeon>();
         }
 
