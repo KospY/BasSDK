@@ -418,7 +418,7 @@ namespace ThunderRoad
             return destinationComponent;
         }
 
-        public static string GetGameObjectPath(GameObject obj)
+        public static string GetPathFromRoot(this GameObject obj)
         {
             string path = "/" + obj.name;
             while (obj.transform.parent != null)
