@@ -193,6 +193,25 @@ namespace ThunderRoad
             private set { _zoneLayer = value; }
         }
 
+        public static bool ActiveInPrefabHierarchy(this GameObject gameObject)
+        {
+            if (gameObject.activeSelf)
+            {
+                if (gameObject.transform.parent)
+                {
+                    return gameObject.transform.parent.gameObject.ActiveInPrefabHierarchy();
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public static bool Contains(this LayerMask mask, int layer)
         {
             return mask == (mask | (1 << layer));
