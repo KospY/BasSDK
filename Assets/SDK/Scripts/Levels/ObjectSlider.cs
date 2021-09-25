@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System;
 using System.Collections;
+using UnityEngine.AI;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -18,6 +19,7 @@ namespace ThunderRoad
         [Range(0, 1)]
         public float positionOnStart = 0;
         public float reachOffset = 0.01f;
+        public float navMeshObstacleMaxHeight = 2f;
 
         [Header("Drive")]
         public bool driveEnabled = true;
