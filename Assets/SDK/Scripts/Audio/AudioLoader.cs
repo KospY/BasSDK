@@ -14,8 +14,6 @@ namespace ThunderRoad
         public AudioMixerName audioMixer;
 
         [NonSerialized]
-        public AudioClip audioClip;
-        [NonSerialized]
         public AudioSource audioSource;
 
         private void OnValidate()
@@ -27,11 +25,8 @@ namespace ThunderRoad
         protected void Awake()
         {
             audioSource = this.GetComponent<AudioSource>();
-            if (audioSource)
-            {
-                audioSource.clip = null;
-                audioSource.playOnAwake = false;
-            }
+            audioSource.clip = null;
+            audioSource.playOnAwake = false;
             if (Level.current && Level.current.dungeon && !Level.current.dungeon.initialized)
             {
                 Level.current.dungeon.onDungeonGenerated += OnDungeonGenerated;
@@ -52,7 +47,6 @@ namespace ThunderRoad
 
         protected void OnEnable()
         {
-            if (audioClip) return;
             if (Level.current && Level.current.dungeon && !Level.current.dungeon.initialized) return;
 
             if (useAudioClipAddress)
@@ -61,15 +55,14 @@ namespace ThunderRoad
                 {
                     if (handle.Status == AsyncOperationStatus.Succeeded)
                     {
-                        audioClip = handle.Result;
                         if (!gameObject.activeInHierarchy || !enabled)
                         {
                             // Unload if object get disabled before async loading finish
-                            Addressables.Release(audioClip);
+                            Addressables.Release(handle.Result);
                         }
-                        if (audioSource)
+                        else
                         {
-                            audioSource.clip = audioClip;
+                            audioSource.clip = handle.Result;
                             audioSource.Play();
                         }
                     }
@@ -90,15 +83,14 @@ namespace ThunderRoad
                 {
                     if (handle.Status == AsyncOperationStatus.Succeeded)
                     {
-                        audioClip = handle.Result;
                         if (!gameObject.activeInHierarchy || !enabled)
                         {
                             // Unload if object get disabled before async loading finish
-                            Addressables.Release(audioClip);
+                            Addressables.Release(handle.Result);
                         }
-                        if (audioSource)
+                        else
                         {
-                            audioSource.clip = audioClip;
+                            audioSource.clip = handle.Result;
                             audioSource.Play();
                         }
                     }
@@ -108,8 +100,8 @@ namespace ThunderRoad
 
         protected void OnDisable()
         {
-            if (audioClip) Addressables.Release(audioClip);
-            if (audioSource) audioSource.clip = null;
+            if (audioSource.clip) Addressables.Release(audioSource.clip);
+            audioSource.clip = null;
         }
     }
 }
