@@ -29,6 +29,7 @@ namespace ThunderRoad
         public Handle mainHandleLeft;
         public Transform flyDirRef;
         public Preview preview;
+        public bool disallowRoomDespawn;
         public bool useCustomCenterOfMass;
         public Vector3 customCenterOfMass;
         public bool customInertiaTensor;
