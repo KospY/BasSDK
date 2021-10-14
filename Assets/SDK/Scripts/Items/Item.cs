@@ -17,9 +17,11 @@ namespace ThunderRoad
     [RequireComponent(typeof(Rigidbody))]
     public class Item : MonoBehaviour
     {
-        public static List<Item> list = new List<Item>();
+        public static List<Item> all = new List<Item>();
+        public static List<Item> allActive = new List<Item>();
         public static List<Item> allThrowed = new List<Item>();
         public static List<Item> allTk = new List<Item>();
+        public static List<Item> allHanging = new List<Item>();
 
         public string itemId;
         public Transform holderPoint;
@@ -30,6 +32,8 @@ namespace ThunderRoad
         public Transform flyDirRef;
         public Preview preview;
         public bool disallowRoomDespawn;
+        public bool hanging;
+        public float creaturePhysicToggleRadius = 2;
         public bool useCustomCenterOfMass;
         public Vector3 customCenterOfMass;
         public bool customInertiaTensor;
@@ -219,6 +223,7 @@ namespace ThunderRoad
 
         protected virtual void Awake()
         {
+            all.Add(this);
             renderers = new List<Renderer>();
             foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())
             {
@@ -262,7 +267,7 @@ namespace ThunderRoad
 
         protected virtual void OnEnable()
         {
-            list.Add(this);
+            allActive.Add(this);
             if (Level.current && Level.current.dungeon)
             {
                 cullingDetectionEnabled = true;
@@ -271,7 +276,7 @@ namespace ThunderRoad
 
         protected virtual void OnDisable()
         {
-            list.Remove(this);
+            allActive.Remove(this);
             cullingDetectionEnabled = false;
         }
 

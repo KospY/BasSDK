@@ -227,16 +227,37 @@ namespace ThunderRoad
             return (mask & ~(1 << layer));
         }
 
+        private static bool platformCached;
+        private static Platform currentPlatform;
+
         public static Platform GetPlatform()
         {
-            if (Enum.TryParse(QualitySettings.names[QualitySettings.GetQualityLevel()], out Platform platform))
+            if (Application.isPlaying)
             {
-                return platform;
+                if (!platformCached)
+                {
+                    if (Enum.TryParse(QualitySettings.names[QualitySettings.GetQualityLevel()], out currentPlatform))
+                    {
+                        platformCached = true;
+                    }
+                    else
+                    {
+                        Debug.LogError("Quality Settings names don't match platform enum!");
+                    }
+                }
+                return currentPlatform;
             }
             else
             {
-                Debug.LogError("Quality Settings names don't match platform enum!");
-                return Platform.Windows;
+                if (Enum.TryParse(QualitySettings.names[QualitySettings.GetQualityLevel()], out Platform platform))
+                {
+                    return platform;
+                }
+                else
+                {
+                    Debug.LogError("Quality Settings names don't match platform enum!");
+                    return Platform.Windows;
+                }
             }
         }
 

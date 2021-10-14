@@ -38,7 +38,9 @@ namespace ThunderRoad
         private MeshRenderer mesh;
         private MaterialPropertyBlock materialPropertyBlock;
         private SpringJoint springJoint;
+#if PrivateSDK
         private EffectInstance effectInstance;
+#endif
 
 #if ODIN_INSPECTOR
         public List<ValueDropdownItem<string>> GetAllEffectID()

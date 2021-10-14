@@ -26,8 +26,6 @@ namespace ThunderRoad
         [ValueDropdown("GetAllAnimationID")]
 #endif
         public string animationId;
-        [NonSerialized]
-        public AnimationData animationData;
         public float animationTurnMinAngle = 30;
         public Vector2 animationRandomMinMaxDelay = new Vector2(0, 0);
 
@@ -40,16 +38,6 @@ namespace ThunderRoad
         }
 #endif
 
-        private void OnValidate()
-        {
-            //IconManager.SetIcon(this.gameObject, IconManager.LabelIcon.Purple);
-            navMeshPath = new NavMeshPath();
-        }
-
-        private void Awake()
-        {
-            if (animationId != null && animationId != "") animationData = Catalog.GetData<AnimationData>(animationId);
-        }
 
         public void OnDrawGizmos()
         {

@@ -13,6 +13,9 @@ namespace ThunderRoad
     public class FxModuleParticle : FxModule
     {
         [Header("Emission Rate Over Time")]
+#if ODIN_INSPECTOR
+        [LabelText("Link")]
+#endif
         public Link emissionRateOverTimeLink = Link.None;
 #if ODIN_INSPECTOR
         [HideIf("emissionRateOverTimeLink", Link.None), LabelText("Curve")]
@@ -28,6 +31,9 @@ namespace ThunderRoad
         public float emissionRateOverTimeReduction;
 
         [Header("Emission Rate Over Distance")]
+#if ODIN_INSPECTOR
+        [LabelText("Link")]
+#endif
         public Link emissionRateOverDistanceLink = Link.None;
 #if ODIN_INSPECTOR
         [HideIf("emissionRateOverDistanceLink", Link.None), LabelText("Curve")]
@@ -41,6 +47,24 @@ namespace ThunderRoad
         [HideIf("emissionRateOverDistanceLink", Link.None), LabelText("Reduction")]
 #endif
         public float emissionRateOverDistanceReduction;
+
+        [Header("Life time")]
+#if ODIN_INSPECTOR
+        [LabelText("Link")]
+#endif
+        public Link lifeTimeLink = Link.None;
+#if ODIN_INSPECTOR
+        [HideIf("lifeTimeLink", Link.None), LabelText("Curve")]
+#endif
+        public AnimationCurve curveLifeTime;
+#if ODIN_INSPECTOR
+        [HideIf("lifeTimeLink", Link.None), LabelText("Range")]
+#endif
+        public Vector2 lifeTimeRange = new Vector2(0, 10);
+#if ODIN_INSPECTOR
+        [HideIf("lifeTimeLink", Link.None), LabelText("Reduction")]
+#endif
+        public float lifeTimeReduction;
 
         protected new ParticleSystem particleSystem;
         protected ParticleSystem.MainModule particleSystemMain;
@@ -72,6 +96,10 @@ namespace ThunderRoad
             {
                 SetEmissionRateOverDistance(intensity);
             }
+            if (lifeTimeLink == Link.Intensity)
+            {
+                SetLifetime(intensity);
+            }
         }
 
         public override void SetSpeed(float speed)
@@ -83,6 +111,10 @@ namespace ThunderRoad
             if (emissionRateOverDistanceLink == Link.Speed)
             {
                 SetEmissionRateOverDistance(speed);
+            }
+            if (lifeTimeLink == Link.Speed)
+            {
+                SetLifetime(speed);
             }
         }
 
@@ -104,6 +136,16 @@ namespace ThunderRoad
             minMaxCurve.constantMax = rate;
             ParticleSystem.EmissionModule particleEmission = particleSystem.emission;
             particleEmission.rateOverDistance = minMaxCurve;
+        }
+
+        protected void SetLifetime(float value)
+        {
+            minMaxCurve.mode = ParticleSystemCurveMode.TwoConstants;
+            float lifeTime = Mathf.Lerp(lifeTimeRange.x, lifeTimeRange.y, curveLifeTime.Evaluate(value));
+            minMaxCurve.constantMin = Mathf.Clamp(lifeTime - lifeTimeReduction, lifeTimeRange.x, lifeTimeRange.y);
+            minMaxCurve.constantMax = lifeTime;
+            ParticleSystem.MainModule mainModule = particleSystem.main;
+            mainModule.startLifetime = minMaxCurve;
         }
 
         public override void Stop()

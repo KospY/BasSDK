@@ -20,7 +20,10 @@ namespace ThunderRoad
 
         [NonSerialized]
         public Vector3 navPosition;
-        [NonSerialized, ShowInInspector, ReadOnly]
+        [NonSerialized]
+#if ODIN_INSPECTOR
+        [ShowInInspector, ReadOnly]
+#endif
         public Creature currentCreature;
 
         private void OnEnable()

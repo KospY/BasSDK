@@ -42,10 +42,17 @@ namespace ThunderRoad
         public List<MaterialInstance> materialInstances = new List<MaterialInstance>();
         public List<LightProbeVolume> lightProbeVolumes = new List<LightProbeVolume>();
         public List<Renderer> renderers = new List<Renderer>();
+        [NonSerialized]
+        public LightVolumeReceiver parentReceiver;
+        [NonSerialized]
+        public Creature creature;
+        [NonSerialized]
+        public Item item;
+
         protected MaterialPropertyBlock materialPropertyBlock;
 
-        public delegate void OnVolumeChangeDelegate(LightProbeVolume lightProbeVolume);
-        public event OnVolumeChangeDelegate OnVolumeChangeEvent;
+        public delegate void OnVolumeChangeDelegate(LightProbeVolume currentLightProbeVolume, List<LightProbeVolume> lightProbeVolumes);
+        public event OnVolumeChangeDelegate onVolumeChangeEvent;
 
 #if UNITY_EDITOR
         protected List<Renderer> noVolumeRenderers = new List<Renderer>();
@@ -54,8 +61,14 @@ namespace ThunderRoad
         private void Awake()
         {
             materialPropertyBlock = new MaterialPropertyBlock();
+            item = this.GetComponent<Item>();
+            creature = this.GetComponent<Creature>();
+            parentReceiver = transform.parent ? transform.parent.GetComponentInParent<LightVolumeReceiver>() : null;
+            if (parentReceiver)
+            {
+                parentReceiver.onVolumeChangeEvent += OnParentVolumeChange;
+            }
         }
-
 
         void Start()
         {
@@ -117,10 +130,12 @@ namespace ThunderRoad
             }
         }
 
-        protected void OnRootHolderVolumeChange(LightProbeVolume lightProbeVolume)
+        protected void OnParentVolumeChange(LightProbeVolume currentLightProbeVolume, List<LightProbeVolume> lightProbeVolumes)
         {
-            currentLightProbeVolume = lightProbeVolume;
+            this.currentLightProbeVolume = currentLightProbeVolume;
+            this.lightProbeVolumes = lightProbeVolumes;
             UpdateRenderers();
+            if (onVolumeChangeEvent != null) onVolumeChangeEvent.Invoke(currentLightProbeVolume, lightProbeVolumes);
         }
         protected void OnDespawn(EventTime eventTime)
         {
@@ -161,11 +176,11 @@ namespace ThunderRoad
                         else
                         {
 #if UNITY_EDITOR
-                            Debug.LogWarning("Cannot find probe volume for " + materialInstance.CachedRenderer.name);
+                            Debug.LogWarningFormat(materialInstance.CachedRenderer, "Cannot find probe volume for " + materialInstance.CachedRenderer.name);
                             if (!noVolumeRenderers.Contains(materialInstance.CachedRenderer)) noVolumeRenderers.Add(materialInstance.CachedRenderer);
 #endif
                         }
-                        if (materialInstance.CachedRenderer.bounds.center == Vector3.zero) Debug.LogError("renderer " + materialInstance.CachedRenderer.name + " have bounds.center at 0,0,0");
+                        if (materialInstance.CachedRenderer.bounds.center == Vector3.zero) Debug.LogErrorFormat(materialInstance.CachedRenderer, "renderer " + materialInstance.CachedRenderer.name + " have bounds.center at 0,0,0");
                     }
                 }
                 else if (method == Method.GPUInstancing)
@@ -180,7 +195,7 @@ namespace ThunderRoad
 #if UNITY_EDITOR
                         else
                         {
-                            Debug.LogWarning("Cannot find probe volume for " + renderer.name);
+                            Debug.LogWarningFormat(renderer, "Cannot find probe volume for " + renderer.name);
                             if (!noVolumeRenderers.Contains(renderer)) noVolumeRenderers.Add(renderer);
                         }
 #endif
@@ -271,17 +286,35 @@ namespace ThunderRoad
             renderer.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.BlendProbes;
         }
 
+        public void OnRootRagdollPartTriggerEnter(Collider other)
+        {
+            if (!creature.locomotion.enabled)
+            {
+                // Avoid triggerEnter if locomotion work to avoid duplicate
+                OnTriggerEnter(other);
+            }
+        }
+
+        public void OnRootRagdollPartTriggerExit(Collider other)
+        {
+            if (!creature.locomotion.enabled)
+            {
+                // Avoid triggerExit if locomotion work to avoid duplicate
+                OnTriggerExit(other);
+            }
+        }
+
         public void OnTriggerEnter(Collider other)
         {
             if (LightProbeVolume.list.Count == 0) return;
             if (volumeDetection == VolumeDetection.DynamicTrigger)
             {
-                if (other.gameObject.layer == Common.lightProbeVolumeLayer && other.TryGetComponent<LightProbeVolume>(out LightProbeVolume lightProbeVolume) && !lightProbeVolumes.Contains(lightProbeVolume))
+                if (other.gameObject.layer == Common.lightProbeVolumeLayer && other.TryGetComponent<LightProbeVolume>(out LightProbeVolume lightProbeVolume))
                 {
-                    lightProbeVolumes.Add(lightProbeVolume);
+                    if (!lightProbeVolumes.Contains(lightProbeVolume)) lightProbeVolumes.Add(lightProbeVolume);
                     currentLightProbeVolume = lightProbeVolume;
                     UpdateRenderers();
-                    if (OnVolumeChangeEvent != null) OnVolumeChangeEvent.Invoke(currentLightProbeVolume);
+                    if (onVolumeChangeEvent != null) onVolumeChangeEvent.Invoke(currentLightProbeVolume, lightProbeVolumes);
                 }
             }
         }
@@ -291,9 +324,9 @@ namespace ThunderRoad
             if (LightProbeVolume.list.Count == 0) return;
             if (volumeDetection == VolumeDetection.DynamicTrigger)
             {
-                if (other.gameObject.layer == Common.lightProbeVolumeLayer && other.TryGetComponent<LightProbeVolume>(out LightProbeVolume lightProbeVolume) && lightProbeVolumes.Contains(lightProbeVolume))
+                if (other.gameObject.layer == Common.lightProbeVolumeLayer && other.TryGetComponent<LightProbeVolume>(out LightProbeVolume lightProbeVolume))
                 {
-                    lightProbeVolumes.Remove(lightProbeVolume);
+                    if (lightProbeVolumes.Contains(lightProbeVolume)) lightProbeVolumes.Remove(lightProbeVolume);
                     if (lightProbeVolumes.Count > 0)
                     {
                         currentLightProbeVolume = lightProbeVolumes[0];
@@ -304,6 +337,7 @@ namespace ThunderRoad
                         lightProbeVolumes.Clear();
                         currentLightProbeVolume = null;
                     }
+                    if (onVolumeChangeEvent != null) onVolumeChangeEvent.Invoke(currentLightProbeVolume, lightProbeVolumes);
                 }
             }
         }

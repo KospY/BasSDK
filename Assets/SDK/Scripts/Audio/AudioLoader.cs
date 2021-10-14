@@ -27,10 +27,12 @@ namespace ThunderRoad
             audioSource = this.GetComponent<AudioSource>();
             audioSource.clip = null;
             audioSource.playOnAwake = false;
+#if PrivateSDK
             if (Level.current && Level.current.dungeon && !Level.current.dungeon.initialized)
             {
                 Level.current.dungeon.onDungeonGenerated += OnDungeonGenerated;
             }
+#endif
         }
 
         private void Start()
@@ -47,8 +49,9 @@ namespace ThunderRoad
 
         protected void OnEnable()
         {
+#if PrivateSDK
             if (Level.current && Level.current.dungeon && !Level.current.dungeon.initialized) return;
-
+#endif
             if (useAudioClipAddress)
             {
                 Addressables.LoadAssetAsync<AudioClip>(audioClipAddress).Completed += (handle) =>

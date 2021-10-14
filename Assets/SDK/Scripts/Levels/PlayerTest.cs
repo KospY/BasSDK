@@ -41,11 +41,13 @@ namespace ThunderRoad
 
         void Start()
         {
+#if PrivateSDK
             if (Level.current && Level.current.dungeon && !Level.current.dungeon.initialized)
             {
                 Level.current.dungeon.onDungeonGenerated += OnDungeonGenerated;
                 rigidbody.isKinematic = true;
             }
+#endif
             if (onSpawn != null) onSpawn.Invoke(this);
         }
 
@@ -62,6 +64,7 @@ namespace ThunderRoad
                     yield return new WaitForSeconds(1);
                 }
                 Time.fixedDeltaTime = Time.timeScale / XRDevice.refreshRate;
+                Time.maximumDeltaTime = Time.fixedDeltaTime * 2;
             }
         }
 

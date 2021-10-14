@@ -96,7 +96,7 @@ namespace ThunderRoad
                 {
                     shapeModule.enabled = false;
                 }
-
+#if PrivateSDK
                 // Set light volume if in dungeon
                 if (Level.current.dungeon)
                 {
@@ -106,6 +106,7 @@ namespace ThunderRoad
                 {
                     LightVolumeReceiver.DisableProbeVolume(p.particleRenderer);
                 }
+#endif
             }
             rootParticleSystem.Play(true);
             if (step == Step.Start || step == Step.End)

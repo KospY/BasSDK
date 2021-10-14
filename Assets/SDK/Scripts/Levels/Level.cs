@@ -7,12 +7,12 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using System.Text;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 #if DUNGEN
 using DunGen;
 using DunGen.Adapters;
 using DunGen.Graph;
-using UnityEngine.Events;
 #endif
 
 #if ODIN_INSPECTOR
@@ -77,6 +77,7 @@ namespace ThunderRoad
             LightProbes.Tetrahedralize();
         }
 
+#if PrivateSDK
         protected virtual void Awake()
         {
             if (gameObject.scene.name.ToLower() == "master")
@@ -94,6 +95,7 @@ namespace ThunderRoad
 
         [NonSerialized, ShowInInspector, ReadOnly]
         public Dungeon dungeon;
+#endif
 
     }
 }
