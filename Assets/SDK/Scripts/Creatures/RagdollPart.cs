@@ -49,9 +49,8 @@ namespace ThunderRoad
         [NonSerialized]
         public CreatureData.PartData data;
 #endif
-
-        protected bool initialized;
-
+        [NonSerialized]
+        public bool initialized;
         [NonSerialized]
         public bool bodyDamagerIsAttack;
         [NonSerialized]
