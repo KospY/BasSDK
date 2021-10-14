@@ -15,7 +15,9 @@ namespace ThunderRoad
     public class Locomotion : MonoBehaviour
     {
         [Header("Ground movement")]
-        public bool isEnabled = true;
+        public bool allowMove = true;
+        public bool allowTurn = true;
+        public bool allowJump = true;
 
         public bool testMove;
 
@@ -85,12 +87,24 @@ namespace ThunderRoad
         [NonSerialized]
         public Quaternion prevRotation;
         [NonSerialized]
+#if ODIN_INSPECTOR
+        [ShowInInspector, ReadOnly]
+#endif
         public Vector3 velocity;
         [NonSerialized]
+#if ODIN_INSPECTOR
+        [ShowInInspector, ReadOnly]
+#endif
         public float horizontalSpeed;
         [NonSerialized]
+#if ODIN_INSPECTOR
+        [ShowInInspector, ReadOnly]
+#endif
         public float verticalSpeed;
         [NonSerialized]
+#if ODIN_INSPECTOR
+        [ShowInInspector, ReadOnly]
+#endif
         public float angularSpeed;
 
 #if ODIN_INSPECTOR
