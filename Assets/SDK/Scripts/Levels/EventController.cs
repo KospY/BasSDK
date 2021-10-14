@@ -32,12 +32,22 @@ namespace ThunderRoad
         public float minDelay = 0;
         public float maxDelay = 0;
 
+        [Header("Multiple conditions"), Tooltip("Number of different index in case of multiple conditions")]
+        public int invokeMaxIndex = 0;
+
         public UnityEvent timedEvent = new UnityEvent();
 
         protected int invokeCount = 0;
         protected Coroutine coroutine;
 
-        public virtual void Start()
+        protected bool[] invokedIndex;
+
+        protected void Awake()
+        {
+            invokedIndex = new bool[invokeMaxIndex + 1];
+        }
+
+        protected void Start()
         {
             if (beginOnStart)
             {
@@ -66,6 +76,17 @@ namespace ThunderRoad
                 }
                 invokeCount++;
             }
+        }
+
+        [Button]
+        public void Invoke(int index)
+        {
+            invokedIndex[index] = true;
+            for (int i = 0; i <= invokeMaxIndex; i++)
+            {
+                if (!invokedIndex[i]) return;
+            }
+            Invoke();
         }
 
         [Button]
