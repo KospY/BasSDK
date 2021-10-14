@@ -29,6 +29,9 @@ namespace ThunderRoad
 
         public GameObject itemStatsPage;
         public GameObject itemPreviewPage;
+        public Button spawnButton;
+
+        protected Queue<Item> lastItemsSpawned = new Queue<Item>();
 
         protected void OnDrawGizmos()
         {
