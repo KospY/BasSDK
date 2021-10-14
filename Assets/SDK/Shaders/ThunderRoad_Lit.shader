@@ -3,7 +3,7 @@
 //
 // Auto-generated shader code, don't hand edit!
 //
-//   Unity Version: 2020.3.14f1
+//   Unity Version: 2020.3.18f1
 //   Render Pipeline: URP2020
 //   Platform: WindowsEditor
 ////////////////////////////////////////
@@ -18,6 +18,12 @@ Shader "ThunderRoad/Lit"
       [HideInInspector][NoScaleOffset]unity_ShadowMasks("unity_ShadowMasks", 2DArray) = "" {}
       
 	[BetterHeader(ThunderRoad Lit)]
+	// Blending state
+	[Enum(Opaque,0,Transparent,1)]_Surface("Surface", Float) = 0
+    [Enum(Alpha,0,Premultiply,1,Additive,2,Multiply,3)]_Blend("Transparent Blend Mode", Float) = 0.0
+    [HideInInspector] _SrcBlend("__src", Float) = 1.0
+    [HideInInspector] _DstBlend("__dst", Float) = 0.0
+    [HideInInspector] _ZWrite("__zw", Float) = 1.0
 	[Enum(Off,0,Front,1,Back,2)]_CullMode("Culling Mode", Float) = 2
 	[Toggle]_AlphaClip("Alpha Clipping", Float) = 0
 	[ShowIfDrawer(_AlphaClip)]_Cutoff("Alpha Threshold", Range(0,1)) = 0
@@ -41,12 +47,12 @@ Shader "ThunderRoad/Lit"
 	[ShowIfDrawer(_UseDetailMap)]_DetailAlbedoMapScale("Detail Albedo Map Scale", Range(0,2)) = 1
 	[ShowIfDrawer(_UseDetailMap)][Normal][NoScaleOffset]_DetailNormalMap("Detail Normal Map", 2D) = "bump" {}
 	[ShowIfDrawer(_UseDetailMap)]_DetailNormalMapScale("Detail Normal Map Scale", Range(0,2)) = 1
+	[ShowIfDrawer(_UseDetailMap)]_DetailWeightOverDistance("Weight Over Distance. (Start Distance, Start Weight, End Distance, End Weight)", Vector) = (1,1,1,1)
 
 	// Editmode props
     _QueueOffset("Queue offset", Float) = 0.0
 
 	// ObsoleteProperties
-	[HideInInspector] _Surface("Surface", Float) = 0 //this is need to use the URP shaderGUI functions. 0 = Opaque. We're not using 1 for transparent.
     [HideInInspector] _MainTex("BaseMap", 2D) = "white" {} //need this for lightmapper.
 
 
@@ -122,7 +128,9 @@ Cull Back
 ZTest LEqual
 ZWrite On
 
-               Cull [_CullMode]
+               Blend[_SrcBlend][_DstBlend]
+   ZWrite[_ZWrite]
+   Cull [_CullMode]
 
 
             HLSLPROGRAM
@@ -159,20 +167,23 @@ ZWrite On
 
             
    #pragma shader_feature_local_fragment _ALPHATEST_ON
-   #pragma shader_feature_local _ _DETAIL
-   #pragma shader_feature_local _ _EMISSION
+   #pragma shader_feature_local_fragment _ _DETAIL
+   #pragma shader_feature_local_fragment _ _EMISSION
 
 
+   //#pragma multi_compile_local_fragment _ _COLORMASK_ON
    #pragma shader_feature_local_fragment _ _COLORMASK_ON
 
 
-   #pragma shader_feature_local _ _REVEALLAYERS
+   //#pragma multi_compile_local_fragment _ _REVEALLAYERS
+   #pragma shader_feature_local_fragment _ _REVEALLAYERS
 
 
-   #pragma shader_feature_local _ _VERTEXOCCLUSION_ON
+   #pragma multi_compile_local_vertex _ _VERTEXOCCLUSION_ON
 
 
-   #pragma shader_feature_local _ _PROBEVOLUME_ON
+   //#pragma multi_compile _ _PROBEVOLUME_ON
+   #pragma shader_feature _ _PROBEVOLUME_ON
 
    #if defined(_PROBEVOLUME_ON)
        #define _OVERRIDE_BAKEDGI
@@ -716,6 +727,7 @@ ZWrite On
 	float4 _DetailAlbedoMap_ST;
 	half _DetailAlbedoMapScale;
 	half _DetailNormalMapScale;
+	float4 _DetailWeightOverDistance;
 
 
 	half4 _Tint0;
@@ -816,7 +828,7 @@ ZWrite On
 
 		float4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
         o.Metallic = mask.r;
-        o.Occlusion = LerpWhiteTo(mask.g, _OcclusionStrength); //mask.g * _OcclusionStrength;
+        o.Occlusion = LerpWhiteTo(mask.g, _OcclusionStrength);
 		float emissionMask = mask.b;
         o.Smoothness = mask.a * _Smoothness;
 
@@ -828,9 +840,16 @@ ZWrite On
 		#endif
 
 		#if defined(_DETAIL) && !defined(SHADER_API_MOBILE)
+			float weight = 1.0;
+		    if (_DetailWeightOverDistance.y + _DetailWeightOverDistance.w < 2)
+            {
+               float camDist = distance(d.worldSpacePosition, _WorldSpaceCameraPos);
+               weight = lerp(_DetailWeightOverDistance.y, _DetailWeightOverDistance.w, saturate((camDist-_DetailWeightOverDistance.x) / _DetailWeightOverDistance.z));
+            }
+
 			float2 detailuv = d.texcoord0.xy * _DetailAlbedoMap_ST.xy + _DetailAlbedoMap_ST.zw;
-			o.Albedo = Unity_Blend_Overlay(albedo, SAMPLE_TEXTURE2D(_DetailAlbedoMap, sampler_DetailAlbedoMap, detailuv), _DetailAlbedoMapScale).rgb * _BaseColor.rgb;
-			o.Normal = Unity_NormalBlend_Reoriented(o.Normal, UnpackScaleNormal(SAMPLE_TEXTURE2D(_DetailNormalMap, sampler_DetailNormalMap, detailuv), _DetailNormalMapScale));
+			o.Albedo = Unity_Blend_Overlay(albedo, SAMPLE_TEXTURE2D(_DetailAlbedoMap, sampler_DetailAlbedoMap, detailuv), _DetailAlbedoMapScale * weight).rgb * _BaseColor.rgb;
+			o.Normal = Unity_NormalBlend_Reoriented(o.Normal, UnpackScaleNormal(SAMPLE_TEXTURE2D(_DetailNormalMap, sampler_DetailNormalMap, detailuv), _DetailNormalMapScale * weight));
 		#endif
 
 		o.Height = albedo.a;
@@ -946,13 +965,10 @@ ZWrite On
 
     #if defined(_PROBEVOLUME_ON)
     TEXTURE3D(_ProbeVolumeShR);
-    SAMPLER(sampler_ProbeVolumeShR);
     TEXTURE3D(_ProbeVolumeShG);
-    SAMPLER(sampler_ProbeVolumeShG);
     TEXTURE3D(_ProbeVolumeShB);
-    SAMPLER(sampler_ProbeVolumeShB);
     TEXTURE3D(_ProbeVolumeOcc);
-    SAMPLER(sampler_ProbeVolumeOcc);
+    SAMPLER(sampler_ProbeVolumeShR);
     #endif
 
     void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
@@ -974,16 +990,11 @@ ZWrite On
             //unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
             //unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord);
             //unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
-
-            //unity_SHBr = 0.0;
-            //unity_SHBg = 0.0;
-            //unity_SHBb = 0.0;
-            //unity_SHC = 0.0;
             
             //Custom baked gi data
             o.DiffuseGI = SHEvalLinearL0L1( d.worldSpaceNormal, SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord),
-                                            SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord));
-            unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
+                                            SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShR, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShR, texCoord));
+            unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeShR, texCoord);
         #endif
     }
 
@@ -1532,7 +1543,9 @@ ZWrite On
             ZWrite On
             // ColorMask: <None>
 
-               Cull [_CullMode]
+               Blend[_SrcBlend][_DstBlend]
+   ZWrite[_ZWrite]
+   Cull [_CullMode]
 
 
             HLSLPROGRAM
@@ -1554,20 +1567,23 @@ ZWrite On
 
             
    #pragma shader_feature_local_fragment _ALPHATEST_ON
-   #pragma shader_feature_local _ _DETAIL
-   #pragma shader_feature_local _ _EMISSION
+   #pragma shader_feature_local_fragment _ _DETAIL
+   #pragma shader_feature_local_fragment _ _EMISSION
 
 
+   //#pragma multi_compile_local_fragment _ _COLORMASK_ON
    #pragma shader_feature_local_fragment _ _COLORMASK_ON
 
 
-   #pragma shader_feature_local _ _REVEALLAYERS
+   //#pragma multi_compile_local_fragment _ _REVEALLAYERS
+   #pragma shader_feature_local_fragment _ _REVEALLAYERS
 
 
-   #pragma shader_feature_local _ _VERTEXOCCLUSION_ON
+   #pragma multi_compile_local_vertex _ _VERTEXOCCLUSION_ON
 
 
-   #pragma shader_feature_local _ _PROBEVOLUME_ON
+   //#pragma multi_compile _ _PROBEVOLUME_ON
+   #pragma shader_feature _ _PROBEVOLUME_ON
 
    #if defined(_PROBEVOLUME_ON)
        #define _OVERRIDE_BAKEDGI
@@ -2099,6 +2115,7 @@ ZWrite On
 	float4 _DetailAlbedoMap_ST;
 	half _DetailAlbedoMapScale;
 	half _DetailNormalMapScale;
+	float4 _DetailWeightOverDistance;
 
 
 	half4 _Tint0;
@@ -2199,7 +2216,7 @@ ZWrite On
 
 		float4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
         o.Metallic = mask.r;
-        o.Occlusion = LerpWhiteTo(mask.g, _OcclusionStrength); //mask.g * _OcclusionStrength;
+        o.Occlusion = LerpWhiteTo(mask.g, _OcclusionStrength);
 		float emissionMask = mask.b;
         o.Smoothness = mask.a * _Smoothness;
 
@@ -2211,9 +2228,16 @@ ZWrite On
 		#endif
 
 		#if defined(_DETAIL) && !defined(SHADER_API_MOBILE)
+			float weight = 1.0;
+		    if (_DetailWeightOverDistance.y + _DetailWeightOverDistance.w < 2)
+            {
+               float camDist = distance(d.worldSpacePosition, _WorldSpaceCameraPos);
+               weight = lerp(_DetailWeightOverDistance.y, _DetailWeightOverDistance.w, saturate((camDist-_DetailWeightOverDistance.x) / _DetailWeightOverDistance.z));
+            }
+
 			float2 detailuv = d.texcoord0.xy * _DetailAlbedoMap_ST.xy + _DetailAlbedoMap_ST.zw;
-			o.Albedo = Unity_Blend_Overlay(albedo, SAMPLE_TEXTURE2D(_DetailAlbedoMap, sampler_DetailAlbedoMap, detailuv), _DetailAlbedoMapScale).rgb * _BaseColor.rgb;
-			o.Normal = Unity_NormalBlend_Reoriented(o.Normal, UnpackScaleNormal(SAMPLE_TEXTURE2D(_DetailNormalMap, sampler_DetailNormalMap, detailuv), _DetailNormalMapScale));
+			o.Albedo = Unity_Blend_Overlay(albedo, SAMPLE_TEXTURE2D(_DetailAlbedoMap, sampler_DetailAlbedoMap, detailuv), _DetailAlbedoMapScale * weight).rgb * _BaseColor.rgb;
+			o.Normal = Unity_NormalBlend_Reoriented(o.Normal, UnpackScaleNormal(SAMPLE_TEXTURE2D(_DetailNormalMap, sampler_DetailNormalMap, detailuv), _DetailNormalMapScale * weight));
 		#endif
 
 		o.Height = albedo.a;
@@ -2329,13 +2353,10 @@ ZWrite On
 
     #if defined(_PROBEVOLUME_ON)
     TEXTURE3D(_ProbeVolumeShR);
-    SAMPLER(sampler_ProbeVolumeShR);
     TEXTURE3D(_ProbeVolumeShG);
-    SAMPLER(sampler_ProbeVolumeShG);
     TEXTURE3D(_ProbeVolumeShB);
-    SAMPLER(sampler_ProbeVolumeShB);
     TEXTURE3D(_ProbeVolumeOcc);
-    SAMPLER(sampler_ProbeVolumeOcc);
+    SAMPLER(sampler_ProbeVolumeShR);
     #endif
 
     void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
@@ -2357,16 +2378,11 @@ ZWrite On
             //unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
             //unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord);
             //unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
-
-            //unity_SHBr = 0.0;
-            //unity_SHBg = 0.0;
-            //unity_SHBb = 0.0;
-            //unity_SHC = 0.0;
             
             //Custom baked gi data
             o.DiffuseGI = SHEvalLinearL0L1( d.worldSpaceNormal, SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord),
-                                            SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord));
-            unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
+                                            SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShR, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShR, texCoord));
+            unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeShR, texCoord);
         #endif
     }
 
@@ -2827,7 +2843,9 @@ ZWrite On
             ZWrite On
             ColorMask 0
             
-               Cull [_CullMode]
+               Blend[_SrcBlend][_DstBlend]
+   ZWrite[_ZWrite]
+   Cull [_CullMode]
 
 
             HLSLPROGRAM
@@ -2847,20 +2865,23 @@ ZWrite On
 
             
    #pragma shader_feature_local_fragment _ALPHATEST_ON
-   #pragma shader_feature_local _ _DETAIL
-   #pragma shader_feature_local _ _EMISSION
+   #pragma shader_feature_local_fragment _ _DETAIL
+   #pragma shader_feature_local_fragment _ _EMISSION
 
 
+   //#pragma multi_compile_local_fragment _ _COLORMASK_ON
    #pragma shader_feature_local_fragment _ _COLORMASK_ON
 
 
-   #pragma shader_feature_local _ _REVEALLAYERS
+   //#pragma multi_compile_local_fragment _ _REVEALLAYERS
+   #pragma shader_feature_local_fragment _ _REVEALLAYERS
 
 
-   #pragma shader_feature_local _ _VERTEXOCCLUSION_ON
+   #pragma multi_compile_local_vertex _ _VERTEXOCCLUSION_ON
 
 
-   #pragma shader_feature_local _ _PROBEVOLUME_ON
+   //#pragma multi_compile _ _PROBEVOLUME_ON
+   #pragma shader_feature _ _PROBEVOLUME_ON
 
    #if defined(_PROBEVOLUME_ON)
        #define _OVERRIDE_BAKEDGI
@@ -3394,6 +3415,7 @@ ZWrite On
 	float4 _DetailAlbedoMap_ST;
 	half _DetailAlbedoMapScale;
 	half _DetailNormalMapScale;
+	float4 _DetailWeightOverDistance;
 
 
 	half4 _Tint0;
@@ -3494,7 +3516,7 @@ ZWrite On
 
 		float4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
         o.Metallic = mask.r;
-        o.Occlusion = LerpWhiteTo(mask.g, _OcclusionStrength); //mask.g * _OcclusionStrength;
+        o.Occlusion = LerpWhiteTo(mask.g, _OcclusionStrength);
 		float emissionMask = mask.b;
         o.Smoothness = mask.a * _Smoothness;
 
@@ -3506,9 +3528,16 @@ ZWrite On
 		#endif
 
 		#if defined(_DETAIL) && !defined(SHADER_API_MOBILE)
+			float weight = 1.0;
+		    if (_DetailWeightOverDistance.y + _DetailWeightOverDistance.w < 2)
+            {
+               float camDist = distance(d.worldSpacePosition, _WorldSpaceCameraPos);
+               weight = lerp(_DetailWeightOverDistance.y, _DetailWeightOverDistance.w, saturate((camDist-_DetailWeightOverDistance.x) / _DetailWeightOverDistance.z));
+            }
+
 			float2 detailuv = d.texcoord0.xy * _DetailAlbedoMap_ST.xy + _DetailAlbedoMap_ST.zw;
-			o.Albedo = Unity_Blend_Overlay(albedo, SAMPLE_TEXTURE2D(_DetailAlbedoMap, sampler_DetailAlbedoMap, detailuv), _DetailAlbedoMapScale).rgb * _BaseColor.rgb;
-			o.Normal = Unity_NormalBlend_Reoriented(o.Normal, UnpackScaleNormal(SAMPLE_TEXTURE2D(_DetailNormalMap, sampler_DetailNormalMap, detailuv), _DetailNormalMapScale));
+			o.Albedo = Unity_Blend_Overlay(albedo, SAMPLE_TEXTURE2D(_DetailAlbedoMap, sampler_DetailAlbedoMap, detailuv), _DetailAlbedoMapScale * weight).rgb * _BaseColor.rgb;
+			o.Normal = Unity_NormalBlend_Reoriented(o.Normal, UnpackScaleNormal(SAMPLE_TEXTURE2D(_DetailNormalMap, sampler_DetailNormalMap, detailuv), _DetailNormalMapScale * weight));
 		#endif
 
 		o.Height = albedo.a;
@@ -3624,13 +3653,10 @@ ZWrite On
 
     #if defined(_PROBEVOLUME_ON)
     TEXTURE3D(_ProbeVolumeShR);
-    SAMPLER(sampler_ProbeVolumeShR);
     TEXTURE3D(_ProbeVolumeShG);
-    SAMPLER(sampler_ProbeVolumeShG);
     TEXTURE3D(_ProbeVolumeShB);
-    SAMPLER(sampler_ProbeVolumeShB);
     TEXTURE3D(_ProbeVolumeOcc);
-    SAMPLER(sampler_ProbeVolumeOcc);
+    SAMPLER(sampler_ProbeVolumeShR);
     #endif
 
     void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
@@ -3652,16 +3678,11 @@ ZWrite On
             //unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
             //unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord);
             //unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
-
-            //unity_SHBr = 0.0;
-            //unity_SHBg = 0.0;
-            //unity_SHBb = 0.0;
-            //unity_SHC = 0.0;
             
             //Custom baked gi data
             o.DiffuseGI = SHEvalLinearL0L1( d.worldSpaceNormal, SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord),
-                                            SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord));
-            unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
+                                            SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShR, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShR, texCoord));
+            unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeShR, texCoord);
         #endif
     }
 
@@ -4123,7 +4144,9 @@ ZWrite On
             ZWrite On
             // ColorMask: <None>
 
-               Cull [_CullMode]
+               Blend[_SrcBlend][_DstBlend]
+   ZWrite[_ZWrite]
+   Cull [_CullMode]
 
 
             HLSLPROGRAM
@@ -4142,20 +4165,23 @@ ZWrite On
 
             
    #pragma shader_feature_local_fragment _ALPHATEST_ON
-   #pragma shader_feature_local _ _DETAIL
-   #pragma shader_feature_local _ _EMISSION
+   #pragma shader_feature_local_fragment _ _DETAIL
+   #pragma shader_feature_local_fragment _ _EMISSION
 
 
+   //#pragma multi_compile_local_fragment _ _COLORMASK_ON
    #pragma shader_feature_local_fragment _ _COLORMASK_ON
 
 
-   #pragma shader_feature_local _ _REVEALLAYERS
+   //#pragma multi_compile_local_fragment _ _REVEALLAYERS
+   #pragma shader_feature_local_fragment _ _REVEALLAYERS
 
 
-   #pragma shader_feature_local _ _VERTEXOCCLUSION_ON
+   #pragma multi_compile_local_vertex _ _VERTEXOCCLUSION_ON
 
 
-   #pragma shader_feature_local _ _PROBEVOLUME_ON
+   //#pragma multi_compile _ _PROBEVOLUME_ON
+   #pragma shader_feature _ _PROBEVOLUME_ON
 
    #if defined(_PROBEVOLUME_ON)
        #define _OVERRIDE_BAKEDGI
@@ -4692,6 +4718,7 @@ ZWrite On
 	float4 _DetailAlbedoMap_ST;
 	half _DetailAlbedoMapScale;
 	half _DetailNormalMapScale;
+	float4 _DetailWeightOverDistance;
 
 
 	half4 _Tint0;
@@ -4792,7 +4819,7 @@ ZWrite On
 
 		float4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
         o.Metallic = mask.r;
-        o.Occlusion = LerpWhiteTo(mask.g, _OcclusionStrength); //mask.g * _OcclusionStrength;
+        o.Occlusion = LerpWhiteTo(mask.g, _OcclusionStrength);
 		float emissionMask = mask.b;
         o.Smoothness = mask.a * _Smoothness;
 
@@ -4804,9 +4831,16 @@ ZWrite On
 		#endif
 
 		#if defined(_DETAIL) && !defined(SHADER_API_MOBILE)
+			float weight = 1.0;
+		    if (_DetailWeightOverDistance.y + _DetailWeightOverDistance.w < 2)
+            {
+               float camDist = distance(d.worldSpacePosition, _WorldSpaceCameraPos);
+               weight = lerp(_DetailWeightOverDistance.y, _DetailWeightOverDistance.w, saturate((camDist-_DetailWeightOverDistance.x) / _DetailWeightOverDistance.z));
+            }
+
 			float2 detailuv = d.texcoord0.xy * _DetailAlbedoMap_ST.xy + _DetailAlbedoMap_ST.zw;
-			o.Albedo = Unity_Blend_Overlay(albedo, SAMPLE_TEXTURE2D(_DetailAlbedoMap, sampler_DetailAlbedoMap, detailuv), _DetailAlbedoMapScale).rgb * _BaseColor.rgb;
-			o.Normal = Unity_NormalBlend_Reoriented(o.Normal, UnpackScaleNormal(SAMPLE_TEXTURE2D(_DetailNormalMap, sampler_DetailNormalMap, detailuv), _DetailNormalMapScale));
+			o.Albedo = Unity_Blend_Overlay(albedo, SAMPLE_TEXTURE2D(_DetailAlbedoMap, sampler_DetailAlbedoMap, detailuv), _DetailAlbedoMapScale * weight).rgb * _BaseColor.rgb;
+			o.Normal = Unity_NormalBlend_Reoriented(o.Normal, UnpackScaleNormal(SAMPLE_TEXTURE2D(_DetailNormalMap, sampler_DetailNormalMap, detailuv), _DetailNormalMapScale * weight));
 		#endif
 
 		o.Height = albedo.a;
@@ -4922,13 +4956,10 @@ ZWrite On
 
     #if defined(_PROBEVOLUME_ON)
     TEXTURE3D(_ProbeVolumeShR);
-    SAMPLER(sampler_ProbeVolumeShR);
     TEXTURE3D(_ProbeVolumeShG);
-    SAMPLER(sampler_ProbeVolumeShG);
     TEXTURE3D(_ProbeVolumeShB);
-    SAMPLER(sampler_ProbeVolumeShB);
     TEXTURE3D(_ProbeVolumeOcc);
-    SAMPLER(sampler_ProbeVolumeOcc);
+    SAMPLER(sampler_ProbeVolumeShR);
     #endif
 
     void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
@@ -4950,16 +4981,11 @@ ZWrite On
             //unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
             //unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord);
             //unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
-
-            //unity_SHBr = 0.0;
-            //unity_SHBg = 0.0;
-            //unity_SHBb = 0.0;
-            //unity_SHC = 0.0;
             
             //Custom baked gi data
             o.DiffuseGI = SHEvalLinearL0L1( d.worldSpaceNormal, SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord),
-                                            SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord));
-            unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
+                                            SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShR, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShR, texCoord));
+            unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeShR, texCoord);
         #endif
     }
 
@@ -5413,7 +5439,9 @@ ZWrite On
             ZTest LEqual
             ZWrite On
 
-               Cull [_CullMode]
+               Blend[_SrcBlend][_DstBlend]
+   ZWrite[_ZWrite]
+   Cull [_CullMode]
 
 
             HLSLPROGRAM
@@ -5436,20 +5464,23 @@ ZWrite On
 
             
    #pragma shader_feature_local_fragment _ALPHATEST_ON
-   #pragma shader_feature_local _ _DETAIL
-   #pragma shader_feature_local _ _EMISSION
+   #pragma shader_feature_local_fragment _ _DETAIL
+   #pragma shader_feature_local_fragment _ _EMISSION
 
 
+   //#pragma multi_compile_local_fragment _ _COLORMASK_ON
    #pragma shader_feature_local_fragment _ _COLORMASK_ON
 
 
-   #pragma shader_feature_local _ _REVEALLAYERS
+   //#pragma multi_compile_local_fragment _ _REVEALLAYERS
+   #pragma shader_feature_local_fragment _ _REVEALLAYERS
 
 
-   #pragma shader_feature_local _ _VERTEXOCCLUSION_ON
+   #pragma multi_compile_local_vertex _ _VERTEXOCCLUSION_ON
 
 
-   #pragma shader_feature_local _ _PROBEVOLUME_ON
+   //#pragma multi_compile _ _PROBEVOLUME_ON
+   #pragma shader_feature _ _PROBEVOLUME_ON
 
    #if defined(_PROBEVOLUME_ON)
        #define _OVERRIDE_BAKEDGI
@@ -5993,6 +6024,7 @@ ZWrite On
 	float4 _DetailAlbedoMap_ST;
 	half _DetailAlbedoMapScale;
 	half _DetailNormalMapScale;
+	float4 _DetailWeightOverDistance;
 
 
 	half4 _Tint0;
@@ -6093,7 +6125,7 @@ ZWrite On
 
 		float4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
         o.Metallic = mask.r;
-        o.Occlusion = LerpWhiteTo(mask.g, _OcclusionStrength); //mask.g * _OcclusionStrength;
+        o.Occlusion = LerpWhiteTo(mask.g, _OcclusionStrength);
 		float emissionMask = mask.b;
         o.Smoothness = mask.a * _Smoothness;
 
@@ -6105,9 +6137,16 @@ ZWrite On
 		#endif
 
 		#if defined(_DETAIL) && !defined(SHADER_API_MOBILE)
+			float weight = 1.0;
+		    if (_DetailWeightOverDistance.y + _DetailWeightOverDistance.w < 2)
+            {
+               float camDist = distance(d.worldSpacePosition, _WorldSpaceCameraPos);
+               weight = lerp(_DetailWeightOverDistance.y, _DetailWeightOverDistance.w, saturate((camDist-_DetailWeightOverDistance.x) / _DetailWeightOverDistance.z));
+            }
+
 			float2 detailuv = d.texcoord0.xy * _DetailAlbedoMap_ST.xy + _DetailAlbedoMap_ST.zw;
-			o.Albedo = Unity_Blend_Overlay(albedo, SAMPLE_TEXTURE2D(_DetailAlbedoMap, sampler_DetailAlbedoMap, detailuv), _DetailAlbedoMapScale).rgb * _BaseColor.rgb;
-			o.Normal = Unity_NormalBlend_Reoriented(o.Normal, UnpackScaleNormal(SAMPLE_TEXTURE2D(_DetailNormalMap, sampler_DetailNormalMap, detailuv), _DetailNormalMapScale));
+			o.Albedo = Unity_Blend_Overlay(albedo, SAMPLE_TEXTURE2D(_DetailAlbedoMap, sampler_DetailAlbedoMap, detailuv), _DetailAlbedoMapScale * weight).rgb * _BaseColor.rgb;
+			o.Normal = Unity_NormalBlend_Reoriented(o.Normal, UnpackScaleNormal(SAMPLE_TEXTURE2D(_DetailNormalMap, sampler_DetailNormalMap, detailuv), _DetailNormalMapScale * weight));
 		#endif
 
 		o.Height = albedo.a;
@@ -6223,13 +6262,10 @@ ZWrite On
 
     #if defined(_PROBEVOLUME_ON)
     TEXTURE3D(_ProbeVolumeShR);
-    SAMPLER(sampler_ProbeVolumeShR);
     TEXTURE3D(_ProbeVolumeShG);
-    SAMPLER(sampler_ProbeVolumeShG);
     TEXTURE3D(_ProbeVolumeShB);
-    SAMPLER(sampler_ProbeVolumeShB);
     TEXTURE3D(_ProbeVolumeOcc);
-    SAMPLER(sampler_ProbeVolumeOcc);
+    SAMPLER(sampler_ProbeVolumeShR);
     #endif
 
     void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
@@ -6251,16 +6287,11 @@ ZWrite On
             //unity_SHAg = SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord);
             //unity_SHAb = SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord);
             //unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
-
-            //unity_SHBr = 0.0;
-            //unity_SHBg = 0.0;
-            //unity_SHBb = 0.0;
-            //unity_SHC = 0.0;
             
             //Custom baked gi data
             o.DiffuseGI = SHEvalLinearL0L1( d.worldSpaceNormal, SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord),
-                                            SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShG, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShB, texCoord));
-            unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeOcc, texCoord);
+                                            SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShR, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShR, texCoord));
+            unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeShR, texCoord);
         #endif
     }
 
