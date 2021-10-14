@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
@@ -8,6 +9,42 @@ namespace ThunderRoad
 {
     public static class Extensions
     {
+        public static List<T> Shuffle<T>(this List<T> list) where T : UnityEngine.Object
+        {
+            /// With the Fisher-Yates shuffle, we randomly sort elements. This is an accurate, effective shuffling method for all array types
+            System.Random _random = new System.Random();
+            T obj;
+            int n = list.Count;
+            for (int i = 0; i < n; i++)
+            {
+                // NextDouble returns a random number between 0 and 1.
+                // ... It is equivalent to Math.random() in Java.
+                int r = i + (int)(_random.NextDouble() * (n - i));
+                obj = list[r];
+                list[r] = list[i];
+                list[i] = obj;
+            }
+            return list;
+        }
+
+        public static T[] Shuffle<T>(this T[] array) where T : UnityEngine.Object
+        {
+            /// With the Fisher-Yates shuffle, we randomly sort elements. This is an accurate, effective shuffling method for all array types
+            System.Random _random = new System.Random();
+            T obj;
+            int n = array.Length;
+            for (int i = 0; i < n; i++)
+            {
+                // NextDouble returns a random number between 0 and 1.
+                // ... It is equivalent to Math.random() in Java.
+                int r = i + (int)(_random.NextDouble() * (n - i));
+                obj = array[r];
+                array[r] = array[i];
+                array[i] = obj;
+            }
+            return array;
+        }
+
         public static T CloneJson<T>(this T source)
         {
             JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings();
@@ -56,6 +93,7 @@ namespace ThunderRoad
             return String.Format("{0:0.##} {1}", dblSByte, Suffix[i]);
         }
 
+#if PrivateSDK
         public static bool HasFlagNoGC(this RagdollPart.Type flags, RagdollPart.Type value)
         {
             return ((flags & value) > 0);
@@ -100,6 +138,12 @@ namespace ThunderRoad
         {
             return ((flags & value) > 0);
         }
+
+        public static bool HasFlagNoGC(this HandleRagdollData.ForceLiftCondition flags, HandleRagdollData.ForceLiftCondition value)
+        {
+            return ((flags & value) > 0);
+        }
+#endif
 
         public static Collider Clone(this Collider collider, GameObject gameObject)
         {
@@ -202,6 +246,12 @@ namespace ThunderRoad
         public static Vector3 ToXZ(this Vector3 fromdir)
         {
             fromdir.y = 0;
+            return fromdir;
+        }
+
+        public static Vector3 ToYZ(this Vector3 fromdir)
+        {
+            fromdir.x = 0;
             return fromdir;
         }
 
