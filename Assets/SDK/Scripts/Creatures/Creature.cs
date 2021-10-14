@@ -73,6 +73,8 @@ namespace ThunderRoad
         public float handToBodyRotationMaxVelocity = 2;
         public float handToBodyRotationMaxAngle = 30;
         public float turnSpeed = 6;
+        public float ikLocomotionSpeedThreshold = 1;
+        public float ikLocomotionAngularSpeedThreshold = 30f;
 
         public AnimationClip dynamicStartReplaceClip;
         public AnimationClip dynamicLoopReplaceClip;
