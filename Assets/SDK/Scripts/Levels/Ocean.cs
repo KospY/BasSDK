@@ -44,6 +44,8 @@ namespace ThunderRoad
         public OceanDepthCache crestOceanDepthCache;
         [NonSerialized]
         public ShapeGerstner crestShapeGerstner;
+        [NonSerialized]
+        public ShapeFFT crestShapeFFT;
         protected bool spawning;
 
         protected Room room;
@@ -110,7 +112,6 @@ namespace ThunderRoad
             }
         }
 
-        [Button]
         public static void SetQuality(Quality quality)
         {
             Ocean.quality = quality;
@@ -118,14 +119,33 @@ namespace ThunderRoad
             {
                 if (ocean.spawning) return;
                 ocean.SetActive(false);
-                if (ocean.oceanLowQualityMeshRenderer) Catalog.ReleaseAsset(ocean.oceanLowQualityMeshRenderer.gameObject);
-                if (ocean.crestOceanRenderer) Catalog.ReleaseAsset(ocean.crestOceanRenderer.gameObject);
+                if (ocean.oceanGameobject) Catalog.ReleaseAsset(ocean.oceanGameobject);
                 ocean.oceanLowQualityMeshRenderer = null;
                 ocean.crestOceanRenderer = null;
                 ocean.oceanGameobject = null;
                 if (ocean.isActiveAndEnabled) ocean.SetActive(true);
             }
         }
+
+#if UNITY_EDITOR
+        [Button("Spawn low quality water")]
+        protected void EditorSpawnLowQuality()
+        {
+            if (oceanGameobject) DestroyImmediate(oceanGameobject);
+            oceanGameobject = null;
+            SetQuality(Quality.Plane);
+            Spawn();
+        }
+
+        [Button("Spawn high quality water")]
+        protected void EditorSpawnHighQuality()
+        {
+            if (oceanGameobject) DestroyImmediate(oceanGameobject);
+            oceanGameobject = null;
+            SetQuality(Quality.Waves);
+            Spawn();
+        }
+#endif
 
         protected void Spawn()
         {
@@ -141,7 +161,7 @@ namespace ThunderRoad
                             oceanLowQualityMeshRenderer = oceanMeshRenderer;
                             oceanGameobject = oceanMeshRenderer.gameObject;
                             oceanGameobject.transform.position = this.transform.position;
-                            oceanGameobject.transform.rotation = Quaternion.identity;
+                            oceanGameobject.transform.rotation = this.transform.rotation;
                             SceneManager.MoveGameObjectToScene(oceanGameobject, this.gameObject.scene);
                             spawning = false;
                         }
@@ -150,35 +170,34 @@ namespace ThunderRoad
                 else if (quality == Quality.Waves)
                 {
                     spawning = true;
-                    Catalog.InstantiateAsync<OceanRenderer>(prefabAddress, oceanRenderer =>
+                    Catalog.InstantiateAsync<GameObject>(prefabAddress, go =>
                     {
-                        if (oceanRenderer)
+                        oceanGameobject = go;
+                        oceanGameobject.transform.position = this.transform.position;
+                        oceanGameobject.transform.rotation = this.transform.rotation;
+                        crestOceanRenderer = oceanGameobject.GetComponentInChildren<OceanRenderer>();
+                        if (crestOceanRenderer)
                         {
-                            oceanGameobject = oceanRenderer.gameObject;
-                            crestOceanRenderer = oceanRenderer;
                             crestOceanRenderer.transform.position = this.transform.position;
                             crestOceanRenderer.transform.rotation = Quaternion.identity;
-                            SceneManager.MoveGameObjectToScene(crestOceanRenderer.gameObject, this.gameObject.scene);
+                            SceneManager.MoveGameObjectToScene(oceanGameobject, this.gameObject.scene);
+                            crestOceanDepthCache = oceanGameobject.GetComponentInChildren<OceanDepthCache>();
+                            crestShapeFFT = oceanGameobject.GetComponentInChildren<ShapeFFT>();
+                            crestShapeGerstner = oceanGameobject.GetComponentInChildren<ShapeGerstner>();
 
-                            crestOceanDepthCache = crestOceanRenderer.GetComponentInChildren<OceanDepthCache>();
-                            if (crestOceanDepthCache)
-                            {
-                                crestOceanRenderer.transform.rotation = Quaternion.Euler(0, this.transform.eulerAngles.y, 0);
-                                crestOceanDepthCache.transform.SetParent(null, true);
-                                crestOceanRenderer.transform.rotation = Quaternion.identity;
-                                crestOceanDepthCache.transform.SetParent(crestOceanRenderer.transform, true);
-                                crestOceanDepthCache.enabled = true;
-                            }
-
-                            crestShapeGerstner = crestOceanRenderer.GetComponent<ShapeGerstner>();
                             if (crestShapeGerstner)
                             {
-                                crestShapeGerstner._waveDirectionHeadingAngle = this.transform.eulerAngles.y - 90;
+                                crestShapeGerstner._waveDirectionHeadingAngle -= this.transform.root.eulerAngles.y;
                                 if (SystemInfo.graphicsDeviceType == UnityEngine.Rendering.GraphicsDeviceType.OpenGLES3)
                                 {
                                     Debug.LogError("Disabled crest ocean shapeGerstner as not supported on OpenGLES3");
                                     crestShapeGerstner.enabled = false;
                                 }
+                            }
+
+                            if (crestShapeFFT)
+                            {
+                                crestShapeFFT._waveDirectionHeadingAngle -= this.transform.root.eulerAngles.y;
                             }
 
                             if (PlayerTest.local) crestOceanRenderer.ViewCamera = PlayerTest.local.cam;
