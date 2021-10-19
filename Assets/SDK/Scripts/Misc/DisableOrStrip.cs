@@ -1,12 +1,21 @@
 ﻿using UnityEngine;
 
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#else
+using EasyButtons;
+#endif
+
 namespace ThunderRoad
 {
     [AddComponentMenu("ThunderRoad/Misc/Disable or Strip GameObject")]
     public class DisableOrStrip : MonoBehaviour
     {
         public PlatformFilter platformFilter = PlatformFilter.None;
+        [HideIf("platformFilter", PlatformFilter.None)]
         public Platform platform = Platform.Windows;
+
+        public bool ifDebugAdvancedOff = false;
 
         [Tooltip("Strip can happen when generating platform specific scene or room")]
         public bool allowStrip = false;
@@ -20,6 +29,11 @@ namespace ThunderRoad
 
         protected void Awake()
         {
+            if (ifDebugAdvancedOff && !Catalog.gameData.debugAdvanced)
+            {
+                this.gameObject.SetActive(false);
+                return;
+            }
             if (platformFilter == PlatformFilter.OnlyOn)
             {
                 if (Common.GetPlatform() == platform)
@@ -33,10 +47,6 @@ namespace ThunderRoad
                 {
                     this.gameObject.SetActive(false);
                 }
-            }
-            if (platformFilter == PlatformFilter.None)
-            {
-                this.gameObject.SetActive(false);
             }
         }
 
