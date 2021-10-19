@@ -12,7 +12,9 @@ namespace ThunderRoad
     public class DisableOrStrip : MonoBehaviour
     {
         public PlatformFilter platformFilter = PlatformFilter.None;
+#if ODIN_INSPECTOR
         [HideIf("platformFilter", PlatformFilter.None)]
+#endif
         public Platform platform = Platform.Windows;
 
         public bool ifDebugAdvancedOff = false;
@@ -29,11 +31,13 @@ namespace ThunderRoad
 
         protected void Awake()
         {
+#if PrivateSDK
             if (ifDebugAdvancedOff && !Catalog.gameData.debugAdvanced)
             {
                 this.gameObject.SetActive(false);
                 return;
             }
+#endif
             if (platformFilter == PlatformFilter.OnlyOn)
             {
                 if (Common.GetPlatform() == platform)
