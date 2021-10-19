@@ -19,6 +19,7 @@ namespace ThunderRoad
         public bool allowTurn = true;
         public bool allowJump = true;
 
+        public AnimationCurve moveForceMultiplierByAngleCurve;
         public bool testMove;
 
         public float speed = 0.13f;
@@ -117,6 +118,13 @@ namespace ThunderRoad
 #endif
         [NonSerialized]
         public RaycastHit groundHit;
+
+#if ODIN_INSPECTOR
+        [ShowInInspector, ReadOnly]
+#endif
+        [NonSerialized]
+        public float groundAngle;
+
 
         private Vector3 accelerationCurrentSpeed;
 
