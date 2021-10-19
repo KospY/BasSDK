@@ -276,8 +276,7 @@ namespace ThunderRoad
             PlayerTest.onSpawn -= OnPlayerTestSpawned;
             SetActive(false);
             all.Remove(this);
-            if (oceanLowQualityMeshRenderer) Catalog.ReleaseAsset(oceanLowQualityMeshRenderer.gameObject);
-            if (crestOceanRenderer) Catalog.ReleaseAsset(crestOceanRenderer.gameObject);
+            if (oceanGameobject) Catalog.ReleaseAsset(oceanGameobject);
         }
 #endif
     }
