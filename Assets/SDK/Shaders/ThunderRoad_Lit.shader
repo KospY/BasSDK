@@ -17,7 +17,13 @@ Shader "ThunderRoad/Lit"
       [HideInInspector][NoScaleOffset]unity_LightmapsInd("unity_LightmapsInd", 2DArray) = "" {}
       [HideInInspector][NoScaleOffset]unity_ShadowMasks("unity_ShadowMasks", 2DArray) = "" {}
       
-	[BetterHeader(ThunderRoad Lit)]
+
+
+
+
+	[Toggle]_DebugView("Debug View", Float) = 0
+
+	//[BetterHeader(ThunderRoad Lit)]
 	// Blending state
 	[Enum(Opaque,0,Transparent,1)]_Surface("Surface", Float) = 0
     [Enum(Alpha,0,Premultiply,1,Additive,2,Multiply,3)]_Blend("Transparent Blend Mode", Float) = 0.0
@@ -27,6 +33,7 @@ Shader "ThunderRoad/Lit"
 	[Enum(Off,0,Front,1,Back,2)]_CullMode("Culling Mode", Float) = 2
 	[Toggle]_AlphaClip("Alpha Clipping", Float) = 0
 	[ShowIfDrawer(_AlphaClip)]_Cutoff("Alpha Threshold", Range(0,1)) = 0
+	_AlphaStrength("Alpha Strength", Range(0,1)) = 1
 	[Toggle]_ReceiveShadows("Receive Shadows", Float) = 1.0
 
 	_BaseMap("Base Map", 2D) = "white" {}
@@ -56,7 +63,7 @@ Shader "ThunderRoad/Lit"
     [HideInInspector] _MainTex("BaseMap", 2D) = "white" {} //need this for lightmapper.
 
 
-	[BetterHeaderToggleKeywordDrawer(_COLORMASK_ON)] _UseColorMask("Use Color Mask", Float) = 0
+	/*[BetterHeaderToggleKeywordDrawer(_COLORMASK_ON)]*/ [Toggle] _UseColorMask("Use Color Mask", Float) = 0
 	[ShowIfDrawer(_UseColorMask)][NoScaleOffset] _ColorMask("Color Tint Mask", 2D) = "black" {}
 	[ShowIfDrawer(_UseColorMask)] _Tint0("Tint0 (R) Color", Color) = (1,1,1,1)
 	[ShowIfDrawer(_UseColorMask)] _Tint1("Tint1 (G) Color", Color) = (1,1,1,1)
@@ -64,36 +71,37 @@ Shader "ThunderRoad/Lit"
 	[ShowIfDrawer(_UseColorMask)] _Tint3("Tint3 (A) Color", Color) = (1,1,1,1)
 
 
-	[BetterHeaderToggleKeywordDrawer(_REVEALLAYERS)] _UseReveal("Reveal Layers", Float) = 0
+	/*[BetterHeaderToggleKeywordDrawer(_REVEALLAYERS)]*/ [Toggle] _UseReveal("Reveal Layers", Float) = 0
 	[ShowIfDrawer(_UseReveal)][NoScaleOffset]_RevealMask("Reveal Mask", 2D) = "black" {}
 	[ShowIfDrawer(_UseReveal)][NoScaleOffset]_LayerMask("Layer Mask (Optional)", 2D) = "white" {}
-	
-	[GroupFoldout(Layer0 Red)]
+	[ShowIfDrawer(_UseReveal)]_LayerSurfaceExp("Layer Surface Exponents (Albedo, Normal, Metallic, Smoothness)", Vector) = (1,1,1,1)
+
+	//[GroupFoldout(Layer0 Red)]
 	[Group(Layer0 Red)]_Layer0("Layer0 (R)", 2D) = "black" {}
 	[Group(Layer0 Red)][Normal][NoScaleOffset]_Layer0NormalMap("Layer0 (R) Normal", 2D) = "bump" {}
 	[Group(Layer0 Red)]_Layer0NormalStrength("Layer0 (R) Normal Strength", Range(0,2)) = 1
 	[Group(Layer0 Red)]_Layer0Smoothness("Layer0 (R) Smoothness", Range(0,1)) = 0.5
 	[Group(Layer0 Red)]_Layer0Metallic("Layer0 (R) Metallic", Range(0,1)) = 0
 
-	[GroupFoldout(Layer1 Green)]
+	//[GroupFoldout(Layer1 Green)]
 	[Group(Layer1 Green)]_Layer1("Layer1 (G)", 2D) = "black" {}
 	[Group(Layer1 Green)][Normal][NoScaleOffset]_Layer1NormalMap("Layer1 (G) Normal", 2D) = "bump" {}
 	[Group(Layer1 Green)]_Layer1NormalStrength("Layer1 (G) Normal Strength", Range(0,2)) = 1
 	[Group(Layer1 Green)]_Layer1Smoothness("Layer1 (G) Smoothness", Range(0,1)) = 0.5
 	[Group(Layer1 Green)]_Layer1Metallic("Layer1 (G) Metallic", Range(0,1)) = 0
 
-	[GroupFoldout(Layer2 Blue)]
+	//[GroupFoldout(Layer2 Blue)]
 	[Group(Layer2 Blue)]_Layer2Height("Layer2 (B) Height", Range(-20,20)) = -1
 
-	[GroupFoldout(Layer3 Alpha)]
+	//[GroupFoldout(Layer3 Alpha)]
 	[Group(Layer3 Alpha)][HDR]_Layer3EmissionColor("Layer3 (A) Emission Color", Color) = (0,0,0,1)
 
 
-    [BetterHeaderToggleKeywordDrawer(_VERTEXOCCLUSION_ON)] _UseVertexOcclusion("Use Vertex Occlusion", Float) = 0
+    /*[BetterHeaderToggleKeywordDrawer(_VERTEXOCCLUSION_ON)]*/ [Toggle] _UseVertexOcclusion("Use Vertex Occlusion", Float) = 0
     [ShowIfDrawer(_UseVertexOcclusion)] _Bitmask("Vertex Occlusion Bitmask", Int) = 0
 
 
-    [BetterHeaderToggleKeywordDrawer(_PROBEVOLUME_ON)] _UseProbeVolume("Use Probe Volume", Float) = 0
+    /*[BetterHeaderToggleKeywordDrawer(_PROBEVOLUME_ON)]*/ [Toggle] _UseProbeVolume("Use Probe Volume", Float) = 0
     [ShowIfDrawer(_UseProbeVolume)][NoScaleOffset]_ProbeVolumeShR("Probe Volume SH Red", 3D) = "black" {}
     [ShowIfDrawer(_UseProbeVolume)][NoScaleOffset]_ProbeVolumeShG("Probe Volume SH Green", 3D) = "black" {}
     [ShowIfDrawer(_UseProbeVolume)][NoScaleOffset]_ProbeVolumeShB("Probe Volume SH Blue", 3D) = "black" {}
@@ -166,7 +174,11 @@ ZWrite On
             
 
             
+   #pragma multi_compile_local _ LOD_FADE_CROSSFADE
+
+
    #pragma shader_feature_local_fragment _ALPHATEST_ON
+   #pragma shader_feature_local_fragment _ALPHAPREMULTIPLY_ON
    #pragma shader_feature_local_fragment _ _DETAIL
    #pragma shader_feature_local_fragment _ _EMISSION
 
@@ -175,15 +187,15 @@ ZWrite On
    #pragma shader_feature_local_fragment _ _COLORMASK_ON
 
 
-   //#pragma multi_compile_local_fragment _ _REVEALLAYERS
-   #pragma shader_feature_local_fragment _ _REVEALLAYERS
+   #pragma multi_compile_local_fragment _ _REVEALLAYERS
+   //#pragma shader_feature_local_fragment _ _REVEALLAYERS
 
 
    #pragma multi_compile_local_vertex _ _VERTEXOCCLUSION_ON
 
 
-   //#pragma multi_compile _ _PROBEVOLUME_ON
-   #pragma shader_feature _ _PROBEVOLUME_ON
+   #pragma multi_compile_local _ _PROBEVOLUME_ON
+   //#pragma shader_feature_local _ _PROBEVOLUME_ON
 
    #if defined(_PROBEVOLUME_ON)
        #define _OVERRIDE_BAKEDGI
@@ -259,7 +271,7 @@ ZWrite On
          // #endif
 
          // #if %SCREENPOSREQUIREKEY%
-         // float4 screenPos : TEXCOORD7;
+          float4 screenPos : TEXCOORD7;
          // #endif
 
          // #if %VERTEXCOLORREQUIREKEY%
@@ -714,8 +726,12 @@ ZWrite On
          CBUFFER_START(UnityPerMaterial)
 
             
+
+
+
 	half _AlphaClip;
 	half _Cutoff;
+	half _AlphaStrength;
 
 	float4 _BaseMap_ST;
 	half4 _BaseColor;
@@ -737,6 +753,7 @@ ZWrite On
 
 
 	float4 _RevealMask_TexelSize;
+	float4 _LayerSurfaceExp;
 
 	half _Layer0NormalStrength;
 	half _Layer0Smoothness;
@@ -776,6 +793,42 @@ ZWrite On
 #define unity_WorldToObject GetWorldToObjectMatrix()
 
 
+    float Dither8x8Bayer( int x, int y )
+    {
+        const float dither[ 64 ] = {
+                1, 49, 13, 61,  4, 52, 16, 64,
+            33, 17, 45, 29, 36, 20, 48, 32,
+                9, 57,  5, 53, 12, 60,  8, 56,
+            41, 25, 37, 21, 44, 28, 40, 24,
+                3, 51, 15, 63,  2, 50, 14, 62,
+            35, 19, 47, 31, 34, 18, 46, 30,
+            11, 59,  7, 55, 10, 58,  6, 54,
+            43, 27, 39, 23, 42, 26, 38, 22};
+        int r = y * 8 + x;
+        return dither[r] / 64; 
+    }
+
+    void ApplyDitherCrossFadeVSP(float2 vpos, float fadeValue)
+    {
+        float dither = Dither8x8Bayer( fmod(vpos.x, 8), fmod(vpos.y, 8) );
+        float sgn = fadeValue > 0 ? 1.0f : -1.0f;
+        clip(dither - (1-fadeValue) * sgn);
+    }
+    
+
+	void Ext_SurfaceFunction0 (inout Surface o, ShaderData d)
+	{
+		#if LOD_FADE_CROSSFADE
+            float4 screenPosNorm = d.screenPos / d.screenPos.w;
+            screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? screenPosNorm.z : screenPosNorm.z * 0.5 + 0.5;
+            float2 clipScreen = screenPosNorm.xy * _ScreenParams.xy;
+            ApplyDitherCrossFadeVSP(clipScreen,unity_LODFade.x);
+        #endif
+	}
+
+
+
+
    TEXTURE2D(_BaseMap);
    SAMPLER(sampler_BaseMap);
    TEXTURE2D(_BumpMap);
@@ -811,7 +864,7 @@ ZWrite On
 		return ((t / t.z) * dot(t, u) - u);
 	}
 
-	void Ext_SurfaceFunction0 (inout Surface o, inout ShaderData d)
+	void Ext_SurfaceFunction1 (inout Surface o, inout ShaderData d)
 	{
 		float2 uv = d.texcoord0.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
 		d.blackboard.baseuv = uv;
@@ -823,7 +876,7 @@ ZWrite On
 			clip(albedo.a - _Cutoff);
 		#endif
 
-		o.Alpha = albedo.a;
+		o.Alpha = albedo.a * _AlphaStrength;
 		o.Normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv), _NormalStrength);
 
 		float4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
@@ -863,7 +916,7 @@ ZWrite On
     SAMPLER(sampler_ColorMask);
 #endif
 
-	void Ext_SurfaceFunction1 (inout Surface o, inout ShaderData d)
+	void Ext_SurfaceFunction2 (inout Surface o, inout ShaderData d)
 	{
 		#if defined(_COLORMASK_ON)
 		float4 colorMask = SAMPLE_TEXTURE2D(_ColorMask, sampler_ColorMask, d.blackboard.baseuv);
@@ -908,7 +961,7 @@ ZWrite On
 	}	
 #endif
 
-	void Ext_SurfaceFunction2 (inout Surface o, inout ShaderData d)
+	void Ext_SurfaceFunction3 (inout Surface o, inout ShaderData d)
 	{
 		#if defined(_REVEALLAYERS)
 		
@@ -922,19 +975,19 @@ ZWrite On
 		float3 layer0normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_Layer0NormalMap, sampler_Layer0NormalMap, layer0uv), _NormalStrength);
 
 		float rt = saturate(revealMask.r * layerMask.r);
-		o.Albedo = lerp(o.Albedo, layer0col.rgb, rt);
-		o.Normal = lerp(o.Normal, layer0normal, rt);
-		o.Metallic = lerp(o.Metallic, _Layer0Metallic, rt);
-		o.Smoothness = lerp(o.Smoothness, _Layer0Smoothness, rt);
+		o.Albedo = lerp(o.Albedo, layer0col.rgb, pow(rt, _LayerSurfaceExp.x));
+		o.Normal = lerp(o.Normal, layer0normal, pow(rt, _LayerSurfaceExp.y));
+		o.Metallic = lerp(o.Metallic, _Layer0Metallic, pow(rt, _LayerSurfaceExp.z));
+		o.Smoothness = lerp(o.Smoothness, _Layer0Smoothness, pow(rt, _LayerSurfaceExp.w));
 
 		half4 layer1col = SAMPLE_TEXTURE2D(_Layer1, sampler_Layer1, layer1uv);
 		float3 layer1normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_Layer1NormalMap, sampler_Layer1NormalMap, layer1uv), _NormalStrength);
 
 		float gt = saturate(revealMask.g * layerMask.g);
-		o.Albedo = lerp(o.Albedo, layer1col.rgb, gt);
-		o.Normal = lerp(o.Normal, layer1normal, gt);
-		o.Metallic = lerp(o.Metallic, _Layer1Metallic, gt);
-		o.Smoothness = lerp(o.Smoothness, _Layer1Smoothness, gt);
+		o.Albedo = lerp(o.Albedo, layer1col.rgb, pow(gt, _LayerSurfaceExp.x));
+		o.Normal = lerp(o.Normal, layer1normal, pow(gt, _LayerSurfaceExp.y));
+		o.Metallic = lerp(o.Metallic, _Layer1Metallic, pow(gt, _LayerSurfaceExp.z));
+		o.Smoothness = lerp(o.Smoothness, _Layer1Smoothness, pow(gt, _LayerSurfaceExp.w));
 
 		float bt = saturate(revealMask.b * layerMask.b);
 		float height = _Layer2Height * bt;
@@ -950,7 +1003,7 @@ ZWrite On
 
 
 
-    void Ext_ModifyVertex3 (inout VertexData v, inout ExtraV2F d)
+    void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
     {
         #if defined(_VERTEXOCCLUSION_ON)
         if(_Bitmask & (int)v.texcoord1.x)
@@ -971,7 +1024,7 @@ ZWrite On
     SAMPLER(sampler_ProbeVolumeShR);
     #endif
 
-    void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
+    void Ext_ModifyVertex5 (inout VertexData v, inout ExtraV2F d)
     {
         #if defined(_PROBEVOLUME_ON)
             float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
@@ -981,7 +1034,7 @@ ZWrite On
         #endif
     }
 
-    void Ext_SurfaceFunction4 (inout Surface o, inout ShaderData d)
+    void Ext_SurfaceFunction5 (inout Surface o, inout ShaderData d)
     {
         #if defined(_PROBEVOLUME_ON)
             float3 texCoord = d.extraV2F3.xyz;
@@ -995,6 +1048,7 @@ ZWrite On
             o.DiffuseGI = SHEvalLinearL0L1( d.worldSpaceNormal, SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord),
                                             SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShR, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShR, texCoord));
             unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeShR, texCoord);
+            o.ShadowMask = unity_ProbesOcclusion;
         #endif
     }
 
@@ -1007,9 +1061,9 @@ ZWrite On
                   Ext_SurfaceFunction0(l, d);
                   Ext_SurfaceFunction1(l, d);
                   Ext_SurfaceFunction2(l, d);
-                 // Ext_SurfaceFunction3(l, d);
-                  Ext_SurfaceFunction4(l, d);
-                 // Ext_SurfaceFunction5(l, d);
+                  Ext_SurfaceFunction3(l, d);
+                 // Ext_SurfaceFunction4(l, d);
+                  Ext_SurfaceFunction5(l, d);
                  // Ext_SurfaceFunction6(l, d);
                  // Ext_SurfaceFunction7(l, d);
                  // Ext_SurfaceFunction8(l, d);
@@ -1035,9 +1089,9 @@ ZWrite On
                  //  Ext_ModifyVertex0(v, d);
                  // Ext_ModifyVertex1(v, d);
                  // Ext_ModifyVertex2(v, d);
-                  Ext_ModifyVertex3(v, d);
+                 // Ext_ModifyVertex3(v, d);
                   Ext_ModifyVertex4(v, d);
-                 // Ext_ModifyVertex5(v, d);
+                  Ext_ModifyVertex5(v, d);
                  // Ext_ModifyVertex6(v, d);
                  // Ext_ModifyVertex7(v, d);
                  // Ext_ModifyVertex8(v, d);
@@ -1275,8 +1329,8 @@ ZWrite On
             // d.localSpaceTangent = normalize(mul((float3x3)unity_WorldToObject, i.worldTangent.xyz));
 
             // #if %SCREENPOSREQUIREKEY%
-            // d.screenPos = i.screenPos;
-            // d.screenUV = (i.screenPos.xy / i.screenPos.w);
+             d.screenPos = i.screenPos;
+             d.screenUV = (i.screenPos.xy / i.screenPos.w);
             // #endif
 
 
@@ -1370,7 +1424,7 @@ ZWrite On
 
 
           // #if %SCREENPOSREQUIREKEY%
-          // o.screenPos = ComputeScreenPos(o.pos, _ProjectionParams.x);
+           o.screenPos = ComputeScreenPos(o.pos, _ProjectionParams.x);
           // #endif
 
           #if defined(SHADERPASS_FORWARD) || (SHADERPASS == SHADERPASS_GBUFFER)
@@ -1470,11 +1524,11 @@ ZWrite On
                inputData.bakedGI = SAMPLE_GI(IN.lightmapUV, IN.sh, inputData.normalWS);
             #endif
             inputData.normalizedScreenSpaceUV = GetNormalizedScreenSpaceUV(IN.pos);
-            inputData.shadowMask = SAMPLE_SHADOWMASK(IN.lightmapUV);
 
             #if defined(_OVERRIDE_SHADOWMASK)
-               float4 mulColor = saturate(dot(l.ShadowMask, _MainLightOcclusionProbes)); //unity_OcclusionMaskSelector));
-               inputData.shadowMask = mulColor;
+               inputData.shadowMask = l.ShadowMask;
+            #else
+               inputData.shadowMask = SAMPLE_SHADOWMASK(IN.lightmapUV);
             #endif
 
             #if !_UNLIT
@@ -1566,7 +1620,11 @@ ZWrite On
             #define _PASSSHADOW 1
 
             
+   #pragma multi_compile_local _ LOD_FADE_CROSSFADE
+
+
    #pragma shader_feature_local_fragment _ALPHATEST_ON
+   #pragma shader_feature_local_fragment _ALPHAPREMULTIPLY_ON
    #pragma shader_feature_local_fragment _ _DETAIL
    #pragma shader_feature_local_fragment _ _EMISSION
 
@@ -1575,15 +1633,15 @@ ZWrite On
    #pragma shader_feature_local_fragment _ _COLORMASK_ON
 
 
-   //#pragma multi_compile_local_fragment _ _REVEALLAYERS
-   #pragma shader_feature_local_fragment _ _REVEALLAYERS
+   #pragma multi_compile_local_fragment _ _REVEALLAYERS
+   //#pragma shader_feature_local_fragment _ _REVEALLAYERS
 
 
    #pragma multi_compile_local_vertex _ _VERTEXOCCLUSION_ON
 
 
-   //#pragma multi_compile _ _PROBEVOLUME_ON
-   #pragma shader_feature _ _PROBEVOLUME_ON
+   #pragma multi_compile_local _ _PROBEVOLUME_ON
+   //#pragma shader_feature_local _ _PROBEVOLUME_ON
 
    #if defined(_PROBEVOLUME_ON)
        #define _OVERRIDE_BAKEDGI
@@ -1647,7 +1705,7 @@ ZWrite On
          // #endif
 
          // #if %SCREENPOSREQUIREKEY%
-         // float4 screenPos : TEXCOORD7;
+          float4 screenPos : TEXCOORD7;
          // #endif
 
          // #if %VERTEXCOLORREQUIREKEY%
@@ -2102,8 +2160,12 @@ ZWrite On
             CBUFFER_START(UnityPerMaterial)
 
                
+
+
+
 	half _AlphaClip;
 	half _Cutoff;
+	half _AlphaStrength;
 
 	float4 _BaseMap_ST;
 	half4 _BaseColor;
@@ -2125,6 +2187,7 @@ ZWrite On
 
 
 	float4 _RevealMask_TexelSize;
+	float4 _LayerSurfaceExp;
 
 	half _Layer0NormalStrength;
 	half _Layer0Smoothness;
@@ -2164,6 +2227,42 @@ ZWrite On
 #define unity_WorldToObject GetWorldToObjectMatrix()
 
 
+    float Dither8x8Bayer( int x, int y )
+    {
+        const float dither[ 64 ] = {
+                1, 49, 13, 61,  4, 52, 16, 64,
+            33, 17, 45, 29, 36, 20, 48, 32,
+                9, 57,  5, 53, 12, 60,  8, 56,
+            41, 25, 37, 21, 44, 28, 40, 24,
+                3, 51, 15, 63,  2, 50, 14, 62,
+            35, 19, 47, 31, 34, 18, 46, 30,
+            11, 59,  7, 55, 10, 58,  6, 54,
+            43, 27, 39, 23, 42, 26, 38, 22};
+        int r = y * 8 + x;
+        return dither[r] / 64; 
+    }
+
+    void ApplyDitherCrossFadeVSP(float2 vpos, float fadeValue)
+    {
+        float dither = Dither8x8Bayer( fmod(vpos.x, 8), fmod(vpos.y, 8) );
+        float sgn = fadeValue > 0 ? 1.0f : -1.0f;
+        clip(dither - (1-fadeValue) * sgn);
+    }
+    
+
+	void Ext_SurfaceFunction0 (inout Surface o, ShaderData d)
+	{
+		#if LOD_FADE_CROSSFADE
+            float4 screenPosNorm = d.screenPos / d.screenPos.w;
+            screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? screenPosNorm.z : screenPosNorm.z * 0.5 + 0.5;
+            float2 clipScreen = screenPosNorm.xy * _ScreenParams.xy;
+            ApplyDitherCrossFadeVSP(clipScreen,unity_LODFade.x);
+        #endif
+	}
+
+
+
+
    TEXTURE2D(_BaseMap);
    SAMPLER(sampler_BaseMap);
    TEXTURE2D(_BumpMap);
@@ -2199,7 +2298,7 @@ ZWrite On
 		return ((t / t.z) * dot(t, u) - u);
 	}
 
-	void Ext_SurfaceFunction0 (inout Surface o, inout ShaderData d)
+	void Ext_SurfaceFunction1 (inout Surface o, inout ShaderData d)
 	{
 		float2 uv = d.texcoord0.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
 		d.blackboard.baseuv = uv;
@@ -2211,7 +2310,7 @@ ZWrite On
 			clip(albedo.a - _Cutoff);
 		#endif
 
-		o.Alpha = albedo.a;
+		o.Alpha = albedo.a * _AlphaStrength;
 		o.Normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv), _NormalStrength);
 
 		float4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
@@ -2251,7 +2350,7 @@ ZWrite On
     SAMPLER(sampler_ColorMask);
 #endif
 
-	void Ext_SurfaceFunction1 (inout Surface o, inout ShaderData d)
+	void Ext_SurfaceFunction2 (inout Surface o, inout ShaderData d)
 	{
 		#if defined(_COLORMASK_ON)
 		float4 colorMask = SAMPLE_TEXTURE2D(_ColorMask, sampler_ColorMask, d.blackboard.baseuv);
@@ -2296,7 +2395,7 @@ ZWrite On
 	}	
 #endif
 
-	void Ext_SurfaceFunction2 (inout Surface o, inout ShaderData d)
+	void Ext_SurfaceFunction3 (inout Surface o, inout ShaderData d)
 	{
 		#if defined(_REVEALLAYERS)
 		
@@ -2310,19 +2409,19 @@ ZWrite On
 		float3 layer0normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_Layer0NormalMap, sampler_Layer0NormalMap, layer0uv), _NormalStrength);
 
 		float rt = saturate(revealMask.r * layerMask.r);
-		o.Albedo = lerp(o.Albedo, layer0col.rgb, rt);
-		o.Normal = lerp(o.Normal, layer0normal, rt);
-		o.Metallic = lerp(o.Metallic, _Layer0Metallic, rt);
-		o.Smoothness = lerp(o.Smoothness, _Layer0Smoothness, rt);
+		o.Albedo = lerp(o.Albedo, layer0col.rgb, pow(rt, _LayerSurfaceExp.x));
+		o.Normal = lerp(o.Normal, layer0normal, pow(rt, _LayerSurfaceExp.y));
+		o.Metallic = lerp(o.Metallic, _Layer0Metallic, pow(rt, _LayerSurfaceExp.z));
+		o.Smoothness = lerp(o.Smoothness, _Layer0Smoothness, pow(rt, _LayerSurfaceExp.w));
 
 		half4 layer1col = SAMPLE_TEXTURE2D(_Layer1, sampler_Layer1, layer1uv);
 		float3 layer1normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_Layer1NormalMap, sampler_Layer1NormalMap, layer1uv), _NormalStrength);
 
 		float gt = saturate(revealMask.g * layerMask.g);
-		o.Albedo = lerp(o.Albedo, layer1col.rgb, gt);
-		o.Normal = lerp(o.Normal, layer1normal, gt);
-		o.Metallic = lerp(o.Metallic, _Layer1Metallic, gt);
-		o.Smoothness = lerp(o.Smoothness, _Layer1Smoothness, gt);
+		o.Albedo = lerp(o.Albedo, layer1col.rgb, pow(gt, _LayerSurfaceExp.x));
+		o.Normal = lerp(o.Normal, layer1normal, pow(gt, _LayerSurfaceExp.y));
+		o.Metallic = lerp(o.Metallic, _Layer1Metallic, pow(gt, _LayerSurfaceExp.z));
+		o.Smoothness = lerp(o.Smoothness, _Layer1Smoothness, pow(gt, _LayerSurfaceExp.w));
 
 		float bt = saturate(revealMask.b * layerMask.b);
 		float height = _Layer2Height * bt;
@@ -2338,7 +2437,7 @@ ZWrite On
 
 
 
-    void Ext_ModifyVertex3 (inout VertexData v, inout ExtraV2F d)
+    void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
     {
         #if defined(_VERTEXOCCLUSION_ON)
         if(_Bitmask & (int)v.texcoord1.x)
@@ -2359,7 +2458,7 @@ ZWrite On
     SAMPLER(sampler_ProbeVolumeShR);
     #endif
 
-    void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
+    void Ext_ModifyVertex5 (inout VertexData v, inout ExtraV2F d)
     {
         #if defined(_PROBEVOLUME_ON)
             float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
@@ -2369,7 +2468,7 @@ ZWrite On
         #endif
     }
 
-    void Ext_SurfaceFunction4 (inout Surface o, inout ShaderData d)
+    void Ext_SurfaceFunction5 (inout Surface o, inout ShaderData d)
     {
         #if defined(_PROBEVOLUME_ON)
             float3 texCoord = d.extraV2F3.xyz;
@@ -2383,6 +2482,7 @@ ZWrite On
             o.DiffuseGI = SHEvalLinearL0L1( d.worldSpaceNormal, SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord),
                                             SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShR, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShR, texCoord));
             unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeShR, texCoord);
+            o.ShadowMask = unity_ProbesOcclusion;
         #endif
     }
 
@@ -2395,9 +2495,9 @@ ZWrite On
                   Ext_SurfaceFunction0(l, d);
                   Ext_SurfaceFunction1(l, d);
                   Ext_SurfaceFunction2(l, d);
-                 // Ext_SurfaceFunction3(l, d);
-                  Ext_SurfaceFunction4(l, d);
-                 // Ext_SurfaceFunction5(l, d);
+                  Ext_SurfaceFunction3(l, d);
+                 // Ext_SurfaceFunction4(l, d);
+                  Ext_SurfaceFunction5(l, d);
                  // Ext_SurfaceFunction6(l, d);
                  // Ext_SurfaceFunction7(l, d);
                  // Ext_SurfaceFunction8(l, d);
@@ -2423,9 +2523,9 @@ ZWrite On
                  //  Ext_ModifyVertex0(v, d);
                  // Ext_ModifyVertex1(v, d);
                  // Ext_ModifyVertex2(v, d);
-                  Ext_ModifyVertex3(v, d);
+                 // Ext_ModifyVertex3(v, d);
                   Ext_ModifyVertex4(v, d);
-                 // Ext_ModifyVertex5(v, d);
+                  Ext_ModifyVertex5(v, d);
                  // Ext_ModifyVertex6(v, d);
                  // Ext_ModifyVertex7(v, d);
                  // Ext_ModifyVertex8(v, d);
@@ -2663,8 +2763,8 @@ ZWrite On
             // d.localSpaceTangent = normalize(mul((float3x3)unity_WorldToObject, i.worldTangent.xyz));
 
             // #if %SCREENPOSREQUIREKEY%
-            // d.screenPos = i.screenPos;
-            // d.screenUV = (i.screenPos.xy / i.screenPos.w);
+             d.screenPos = i.screenPos;
+             d.screenUV = (i.screenPos.xy / i.screenPos.w);
             // #endif
 
 
@@ -2758,7 +2858,7 @@ ZWrite On
 
 
           // #if %SCREENPOSREQUIREKEY%
-          // o.screenPos = ComputeScreenPos(o.pos, _ProjectionParams.x);
+           o.screenPos = ComputeScreenPos(o.pos, _ProjectionParams.x);
           // #endif
 
           #if defined(SHADERPASS_FORWARD) || (SHADERPASS == SHADERPASS_GBUFFER)
@@ -2864,7 +2964,11 @@ ZWrite On
             #pragma multi_compile _ DOTS_INSTANCING_ON
 
             
+   #pragma multi_compile_local _ LOD_FADE_CROSSFADE
+
+
    #pragma shader_feature_local_fragment _ALPHATEST_ON
+   #pragma shader_feature_local_fragment _ALPHAPREMULTIPLY_ON
    #pragma shader_feature_local_fragment _ _DETAIL
    #pragma shader_feature_local_fragment _ _EMISSION
 
@@ -2873,15 +2977,15 @@ ZWrite On
    #pragma shader_feature_local_fragment _ _COLORMASK_ON
 
 
-   //#pragma multi_compile_local_fragment _ _REVEALLAYERS
-   #pragma shader_feature_local_fragment _ _REVEALLAYERS
+   #pragma multi_compile_local_fragment _ _REVEALLAYERS
+   //#pragma shader_feature_local_fragment _ _REVEALLAYERS
 
 
    #pragma multi_compile_local_vertex _ _VERTEXOCCLUSION_ON
 
 
-   //#pragma multi_compile _ _PROBEVOLUME_ON
-   #pragma shader_feature _ _PROBEVOLUME_ON
+   #pragma multi_compile_local _ _PROBEVOLUME_ON
+   //#pragma shader_feature_local _ _PROBEVOLUME_ON
 
    #if defined(_PROBEVOLUME_ON)
        #define _OVERRIDE_BAKEDGI
@@ -2947,7 +3051,7 @@ ZWrite On
          // #endif
 
          // #if %SCREENPOSREQUIREKEY%
-         // float4 screenPos : TEXCOORD7;
+          float4 screenPos : TEXCOORD7;
          // #endif
 
          // #if %VERTEXCOLORREQUIREKEY%
@@ -3402,8 +3506,12 @@ ZWrite On
             CBUFFER_START(UnityPerMaterial)
 
                
+
+
+
 	half _AlphaClip;
 	half _Cutoff;
+	half _AlphaStrength;
 
 	float4 _BaseMap_ST;
 	half4 _BaseColor;
@@ -3425,6 +3533,7 @@ ZWrite On
 
 
 	float4 _RevealMask_TexelSize;
+	float4 _LayerSurfaceExp;
 
 	half _Layer0NormalStrength;
 	half _Layer0Smoothness;
@@ -3464,6 +3573,42 @@ ZWrite On
 #define unity_WorldToObject GetWorldToObjectMatrix()
 
 
+    float Dither8x8Bayer( int x, int y )
+    {
+        const float dither[ 64 ] = {
+                1, 49, 13, 61,  4, 52, 16, 64,
+            33, 17, 45, 29, 36, 20, 48, 32,
+                9, 57,  5, 53, 12, 60,  8, 56,
+            41, 25, 37, 21, 44, 28, 40, 24,
+                3, 51, 15, 63,  2, 50, 14, 62,
+            35, 19, 47, 31, 34, 18, 46, 30,
+            11, 59,  7, 55, 10, 58,  6, 54,
+            43, 27, 39, 23, 42, 26, 38, 22};
+        int r = y * 8 + x;
+        return dither[r] / 64; 
+    }
+
+    void ApplyDitherCrossFadeVSP(float2 vpos, float fadeValue)
+    {
+        float dither = Dither8x8Bayer( fmod(vpos.x, 8), fmod(vpos.y, 8) );
+        float sgn = fadeValue > 0 ? 1.0f : -1.0f;
+        clip(dither - (1-fadeValue) * sgn);
+    }
+    
+
+	void Ext_SurfaceFunction0 (inout Surface o, ShaderData d)
+	{
+		#if LOD_FADE_CROSSFADE
+            float4 screenPosNorm = d.screenPos / d.screenPos.w;
+            screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? screenPosNorm.z : screenPosNorm.z * 0.5 + 0.5;
+            float2 clipScreen = screenPosNorm.xy * _ScreenParams.xy;
+            ApplyDitherCrossFadeVSP(clipScreen,unity_LODFade.x);
+        #endif
+	}
+
+
+
+
    TEXTURE2D(_BaseMap);
    SAMPLER(sampler_BaseMap);
    TEXTURE2D(_BumpMap);
@@ -3499,7 +3644,7 @@ ZWrite On
 		return ((t / t.z) * dot(t, u) - u);
 	}
 
-	void Ext_SurfaceFunction0 (inout Surface o, inout ShaderData d)
+	void Ext_SurfaceFunction1 (inout Surface o, inout ShaderData d)
 	{
 		float2 uv = d.texcoord0.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
 		d.blackboard.baseuv = uv;
@@ -3511,7 +3656,7 @@ ZWrite On
 			clip(albedo.a - _Cutoff);
 		#endif
 
-		o.Alpha = albedo.a;
+		o.Alpha = albedo.a * _AlphaStrength;
 		o.Normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv), _NormalStrength);
 
 		float4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
@@ -3551,7 +3696,7 @@ ZWrite On
     SAMPLER(sampler_ColorMask);
 #endif
 
-	void Ext_SurfaceFunction1 (inout Surface o, inout ShaderData d)
+	void Ext_SurfaceFunction2 (inout Surface o, inout ShaderData d)
 	{
 		#if defined(_COLORMASK_ON)
 		float4 colorMask = SAMPLE_TEXTURE2D(_ColorMask, sampler_ColorMask, d.blackboard.baseuv);
@@ -3596,7 +3741,7 @@ ZWrite On
 	}	
 #endif
 
-	void Ext_SurfaceFunction2 (inout Surface o, inout ShaderData d)
+	void Ext_SurfaceFunction3 (inout Surface o, inout ShaderData d)
 	{
 		#if defined(_REVEALLAYERS)
 		
@@ -3610,19 +3755,19 @@ ZWrite On
 		float3 layer0normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_Layer0NormalMap, sampler_Layer0NormalMap, layer0uv), _NormalStrength);
 
 		float rt = saturate(revealMask.r * layerMask.r);
-		o.Albedo = lerp(o.Albedo, layer0col.rgb, rt);
-		o.Normal = lerp(o.Normal, layer0normal, rt);
-		o.Metallic = lerp(o.Metallic, _Layer0Metallic, rt);
-		o.Smoothness = lerp(o.Smoothness, _Layer0Smoothness, rt);
+		o.Albedo = lerp(o.Albedo, layer0col.rgb, pow(rt, _LayerSurfaceExp.x));
+		o.Normal = lerp(o.Normal, layer0normal, pow(rt, _LayerSurfaceExp.y));
+		o.Metallic = lerp(o.Metallic, _Layer0Metallic, pow(rt, _LayerSurfaceExp.z));
+		o.Smoothness = lerp(o.Smoothness, _Layer0Smoothness, pow(rt, _LayerSurfaceExp.w));
 
 		half4 layer1col = SAMPLE_TEXTURE2D(_Layer1, sampler_Layer1, layer1uv);
 		float3 layer1normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_Layer1NormalMap, sampler_Layer1NormalMap, layer1uv), _NormalStrength);
 
 		float gt = saturate(revealMask.g * layerMask.g);
-		o.Albedo = lerp(o.Albedo, layer1col.rgb, gt);
-		o.Normal = lerp(o.Normal, layer1normal, gt);
-		o.Metallic = lerp(o.Metallic, _Layer1Metallic, gt);
-		o.Smoothness = lerp(o.Smoothness, _Layer1Smoothness, gt);
+		o.Albedo = lerp(o.Albedo, layer1col.rgb, pow(gt, _LayerSurfaceExp.x));
+		o.Normal = lerp(o.Normal, layer1normal, pow(gt, _LayerSurfaceExp.y));
+		o.Metallic = lerp(o.Metallic, _Layer1Metallic, pow(gt, _LayerSurfaceExp.z));
+		o.Smoothness = lerp(o.Smoothness, _Layer1Smoothness, pow(gt, _LayerSurfaceExp.w));
 
 		float bt = saturate(revealMask.b * layerMask.b);
 		float height = _Layer2Height * bt;
@@ -3638,7 +3783,7 @@ ZWrite On
 
 
 
-    void Ext_ModifyVertex3 (inout VertexData v, inout ExtraV2F d)
+    void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
     {
         #if defined(_VERTEXOCCLUSION_ON)
         if(_Bitmask & (int)v.texcoord1.x)
@@ -3659,7 +3804,7 @@ ZWrite On
     SAMPLER(sampler_ProbeVolumeShR);
     #endif
 
-    void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
+    void Ext_ModifyVertex5 (inout VertexData v, inout ExtraV2F d)
     {
         #if defined(_PROBEVOLUME_ON)
             float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
@@ -3669,7 +3814,7 @@ ZWrite On
         #endif
     }
 
-    void Ext_SurfaceFunction4 (inout Surface o, inout ShaderData d)
+    void Ext_SurfaceFunction5 (inout Surface o, inout ShaderData d)
     {
         #if defined(_PROBEVOLUME_ON)
             float3 texCoord = d.extraV2F3.xyz;
@@ -3683,6 +3828,7 @@ ZWrite On
             o.DiffuseGI = SHEvalLinearL0L1( d.worldSpaceNormal, SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord),
                                             SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShR, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShR, texCoord));
             unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeShR, texCoord);
+            o.ShadowMask = unity_ProbesOcclusion;
         #endif
     }
 
@@ -3695,9 +3841,9 @@ ZWrite On
                   Ext_SurfaceFunction0(l, d);
                   Ext_SurfaceFunction1(l, d);
                   Ext_SurfaceFunction2(l, d);
-                 // Ext_SurfaceFunction3(l, d);
-                  Ext_SurfaceFunction4(l, d);
-                 // Ext_SurfaceFunction5(l, d);
+                  Ext_SurfaceFunction3(l, d);
+                 // Ext_SurfaceFunction4(l, d);
+                  Ext_SurfaceFunction5(l, d);
                  // Ext_SurfaceFunction6(l, d);
                  // Ext_SurfaceFunction7(l, d);
                  // Ext_SurfaceFunction8(l, d);
@@ -3723,9 +3869,9 @@ ZWrite On
                  //  Ext_ModifyVertex0(v, d);
                  // Ext_ModifyVertex1(v, d);
                  // Ext_ModifyVertex2(v, d);
-                  Ext_ModifyVertex3(v, d);
+                 // Ext_ModifyVertex3(v, d);
                   Ext_ModifyVertex4(v, d);
-                 // Ext_ModifyVertex5(v, d);
+                  Ext_ModifyVertex5(v, d);
                  // Ext_ModifyVertex6(v, d);
                  // Ext_ModifyVertex7(v, d);
                  // Ext_ModifyVertex8(v, d);
@@ -3963,8 +4109,8 @@ ZWrite On
             // d.localSpaceTangent = normalize(mul((float3x3)unity_WorldToObject, i.worldTangent.xyz));
 
             // #if %SCREENPOSREQUIREKEY%
-            // d.screenPos = i.screenPos;
-            // d.screenUV = (i.screenPos.xy / i.screenPos.w);
+             d.screenPos = i.screenPos;
+             d.screenUV = (i.screenPos.xy / i.screenPos.w);
             // #endif
 
 
@@ -4058,7 +4204,7 @@ ZWrite On
 
 
           // #if %SCREENPOSREQUIREKEY%
-          // o.screenPos = ComputeScreenPos(o.pos, _ProjectionParams.x);
+           o.screenPos = ComputeScreenPos(o.pos, _ProjectionParams.x);
           // #endif
 
           #if defined(SHADERPASS_FORWARD) || (SHADERPASS == SHADERPASS_GBUFFER)
@@ -4164,7 +4310,11 @@ ZWrite On
 
 
             
+   #pragma multi_compile_local _ LOD_FADE_CROSSFADE
+
+
    #pragma shader_feature_local_fragment _ALPHATEST_ON
+   #pragma shader_feature_local_fragment _ALPHAPREMULTIPLY_ON
    #pragma shader_feature_local_fragment _ _DETAIL
    #pragma shader_feature_local_fragment _ _EMISSION
 
@@ -4173,15 +4323,15 @@ ZWrite On
    #pragma shader_feature_local_fragment _ _COLORMASK_ON
 
 
-   //#pragma multi_compile_local_fragment _ _REVEALLAYERS
-   #pragma shader_feature_local_fragment _ _REVEALLAYERS
+   #pragma multi_compile_local_fragment _ _REVEALLAYERS
+   //#pragma shader_feature_local_fragment _ _REVEALLAYERS
 
 
    #pragma multi_compile_local_vertex _ _VERTEXOCCLUSION_ON
 
 
-   //#pragma multi_compile _ _PROBEVOLUME_ON
-   #pragma shader_feature _ _PROBEVOLUME_ON
+   #pragma multi_compile_local _ _PROBEVOLUME_ON
+   //#pragma shader_feature_local _ _PROBEVOLUME_ON
 
    #if defined(_PROBEVOLUME_ON)
        #define _OVERRIDE_BAKEDGI
@@ -4250,7 +4400,7 @@ ZWrite On
          // #endif
 
          // #if %SCREENPOSREQUIREKEY%
-         // float4 screenPos : TEXCOORD7;
+          float4 screenPos : TEXCOORD7;
          // #endif
 
          // #if %VERTEXCOLORREQUIREKEY%
@@ -4705,8 +4855,12 @@ ZWrite On
             CBUFFER_START(UnityPerMaterial)
 
                
+
+
+
 	half _AlphaClip;
 	half _Cutoff;
+	half _AlphaStrength;
 
 	float4 _BaseMap_ST;
 	half4 _BaseColor;
@@ -4728,6 +4882,7 @@ ZWrite On
 
 
 	float4 _RevealMask_TexelSize;
+	float4 _LayerSurfaceExp;
 
 	half _Layer0NormalStrength;
 	half _Layer0Smoothness;
@@ -4767,6 +4922,42 @@ ZWrite On
 #define unity_WorldToObject GetWorldToObjectMatrix()
 
 
+    float Dither8x8Bayer( int x, int y )
+    {
+        const float dither[ 64 ] = {
+                1, 49, 13, 61,  4, 52, 16, 64,
+            33, 17, 45, 29, 36, 20, 48, 32,
+                9, 57,  5, 53, 12, 60,  8, 56,
+            41, 25, 37, 21, 44, 28, 40, 24,
+                3, 51, 15, 63,  2, 50, 14, 62,
+            35, 19, 47, 31, 34, 18, 46, 30,
+            11, 59,  7, 55, 10, 58,  6, 54,
+            43, 27, 39, 23, 42, 26, 38, 22};
+        int r = y * 8 + x;
+        return dither[r] / 64; 
+    }
+
+    void ApplyDitherCrossFadeVSP(float2 vpos, float fadeValue)
+    {
+        float dither = Dither8x8Bayer( fmod(vpos.x, 8), fmod(vpos.y, 8) );
+        float sgn = fadeValue > 0 ? 1.0f : -1.0f;
+        clip(dither - (1-fadeValue) * sgn);
+    }
+    
+
+	void Ext_SurfaceFunction0 (inout Surface o, ShaderData d)
+	{
+		#if LOD_FADE_CROSSFADE
+            float4 screenPosNorm = d.screenPos / d.screenPos.w;
+            screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? screenPosNorm.z : screenPosNorm.z * 0.5 + 0.5;
+            float2 clipScreen = screenPosNorm.xy * _ScreenParams.xy;
+            ApplyDitherCrossFadeVSP(clipScreen,unity_LODFade.x);
+        #endif
+	}
+
+
+
+
    TEXTURE2D(_BaseMap);
    SAMPLER(sampler_BaseMap);
    TEXTURE2D(_BumpMap);
@@ -4802,7 +4993,7 @@ ZWrite On
 		return ((t / t.z) * dot(t, u) - u);
 	}
 
-	void Ext_SurfaceFunction0 (inout Surface o, inout ShaderData d)
+	void Ext_SurfaceFunction1 (inout Surface o, inout ShaderData d)
 	{
 		float2 uv = d.texcoord0.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
 		d.blackboard.baseuv = uv;
@@ -4814,7 +5005,7 @@ ZWrite On
 			clip(albedo.a - _Cutoff);
 		#endif
 
-		o.Alpha = albedo.a;
+		o.Alpha = albedo.a * _AlphaStrength;
 		o.Normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv), _NormalStrength);
 
 		float4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
@@ -4854,7 +5045,7 @@ ZWrite On
     SAMPLER(sampler_ColorMask);
 #endif
 
-	void Ext_SurfaceFunction1 (inout Surface o, inout ShaderData d)
+	void Ext_SurfaceFunction2 (inout Surface o, inout ShaderData d)
 	{
 		#if defined(_COLORMASK_ON)
 		float4 colorMask = SAMPLE_TEXTURE2D(_ColorMask, sampler_ColorMask, d.blackboard.baseuv);
@@ -4899,7 +5090,7 @@ ZWrite On
 	}	
 #endif
 
-	void Ext_SurfaceFunction2 (inout Surface o, inout ShaderData d)
+	void Ext_SurfaceFunction3 (inout Surface o, inout ShaderData d)
 	{
 		#if defined(_REVEALLAYERS)
 		
@@ -4913,19 +5104,19 @@ ZWrite On
 		float3 layer0normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_Layer0NormalMap, sampler_Layer0NormalMap, layer0uv), _NormalStrength);
 
 		float rt = saturate(revealMask.r * layerMask.r);
-		o.Albedo = lerp(o.Albedo, layer0col.rgb, rt);
-		o.Normal = lerp(o.Normal, layer0normal, rt);
-		o.Metallic = lerp(o.Metallic, _Layer0Metallic, rt);
-		o.Smoothness = lerp(o.Smoothness, _Layer0Smoothness, rt);
+		o.Albedo = lerp(o.Albedo, layer0col.rgb, pow(rt, _LayerSurfaceExp.x));
+		o.Normal = lerp(o.Normal, layer0normal, pow(rt, _LayerSurfaceExp.y));
+		o.Metallic = lerp(o.Metallic, _Layer0Metallic, pow(rt, _LayerSurfaceExp.z));
+		o.Smoothness = lerp(o.Smoothness, _Layer0Smoothness, pow(rt, _LayerSurfaceExp.w));
 
 		half4 layer1col = SAMPLE_TEXTURE2D(_Layer1, sampler_Layer1, layer1uv);
 		float3 layer1normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_Layer1NormalMap, sampler_Layer1NormalMap, layer1uv), _NormalStrength);
 
 		float gt = saturate(revealMask.g * layerMask.g);
-		o.Albedo = lerp(o.Albedo, layer1col.rgb, gt);
-		o.Normal = lerp(o.Normal, layer1normal, gt);
-		o.Metallic = lerp(o.Metallic, _Layer1Metallic, gt);
-		o.Smoothness = lerp(o.Smoothness, _Layer1Smoothness, gt);
+		o.Albedo = lerp(o.Albedo, layer1col.rgb, pow(gt, _LayerSurfaceExp.x));
+		o.Normal = lerp(o.Normal, layer1normal, pow(gt, _LayerSurfaceExp.y));
+		o.Metallic = lerp(o.Metallic, _Layer1Metallic, pow(gt, _LayerSurfaceExp.z));
+		o.Smoothness = lerp(o.Smoothness, _Layer1Smoothness, pow(gt, _LayerSurfaceExp.w));
 
 		float bt = saturate(revealMask.b * layerMask.b);
 		float height = _Layer2Height * bt;
@@ -4941,7 +5132,7 @@ ZWrite On
 
 
 
-    void Ext_ModifyVertex3 (inout VertexData v, inout ExtraV2F d)
+    void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
     {
         #if defined(_VERTEXOCCLUSION_ON)
         if(_Bitmask & (int)v.texcoord1.x)
@@ -4962,7 +5153,7 @@ ZWrite On
     SAMPLER(sampler_ProbeVolumeShR);
     #endif
 
-    void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
+    void Ext_ModifyVertex5 (inout VertexData v, inout ExtraV2F d)
     {
         #if defined(_PROBEVOLUME_ON)
             float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
@@ -4972,7 +5163,7 @@ ZWrite On
         #endif
     }
 
-    void Ext_SurfaceFunction4 (inout Surface o, inout ShaderData d)
+    void Ext_SurfaceFunction5 (inout Surface o, inout ShaderData d)
     {
         #if defined(_PROBEVOLUME_ON)
             float3 texCoord = d.extraV2F3.xyz;
@@ -4986,6 +5177,7 @@ ZWrite On
             o.DiffuseGI = SHEvalLinearL0L1( d.worldSpaceNormal, SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord),
                                             SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShR, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShR, texCoord));
             unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeShR, texCoord);
+            o.ShadowMask = unity_ProbesOcclusion;
         #endif
     }
 
@@ -4998,9 +5190,9 @@ ZWrite On
                   Ext_SurfaceFunction0(l, d);
                   Ext_SurfaceFunction1(l, d);
                   Ext_SurfaceFunction2(l, d);
-                 // Ext_SurfaceFunction3(l, d);
-                  Ext_SurfaceFunction4(l, d);
-                 // Ext_SurfaceFunction5(l, d);
+                  Ext_SurfaceFunction3(l, d);
+                 // Ext_SurfaceFunction4(l, d);
+                  Ext_SurfaceFunction5(l, d);
                  // Ext_SurfaceFunction6(l, d);
                  // Ext_SurfaceFunction7(l, d);
                  // Ext_SurfaceFunction8(l, d);
@@ -5026,9 +5218,9 @@ ZWrite On
                  //  Ext_ModifyVertex0(v, d);
                  // Ext_ModifyVertex1(v, d);
                  // Ext_ModifyVertex2(v, d);
-                  Ext_ModifyVertex3(v, d);
+                 // Ext_ModifyVertex3(v, d);
                   Ext_ModifyVertex4(v, d);
-                 // Ext_ModifyVertex5(v, d);
+                  Ext_ModifyVertex5(v, d);
                  // Ext_ModifyVertex6(v, d);
                  // Ext_ModifyVertex7(v, d);
                  // Ext_ModifyVertex8(v, d);
@@ -5266,8 +5458,8 @@ ZWrite On
             // d.localSpaceTangent = normalize(mul((float3x3)unity_WorldToObject, i.worldTangent.xyz));
 
             // #if %SCREENPOSREQUIREKEY%
-            // d.screenPos = i.screenPos;
-            // d.screenUV = (i.screenPos.xy / i.screenPos.w);
+             d.screenPos = i.screenPos;
+             d.screenUV = (i.screenPos.xy / i.screenPos.w);
             // #endif
 
 
@@ -5361,7 +5553,7 @@ ZWrite On
 
 
           // #if %SCREENPOSREQUIREKEY%
-          // o.screenPos = ComputeScreenPos(o.pos, _ProjectionParams.x);
+           o.screenPos = ComputeScreenPos(o.pos, _ProjectionParams.x);
           // #endif
 
           #if defined(SHADERPASS_FORWARD) || (SHADERPASS == SHADERPASS_GBUFFER)
@@ -5463,7 +5655,11 @@ ZWrite On
 
 
             
+   #pragma multi_compile_local _ LOD_FADE_CROSSFADE
+
+
    #pragma shader_feature_local_fragment _ALPHATEST_ON
+   #pragma shader_feature_local_fragment _ALPHAPREMULTIPLY_ON
    #pragma shader_feature_local_fragment _ _DETAIL
    #pragma shader_feature_local_fragment _ _EMISSION
 
@@ -5472,15 +5668,15 @@ ZWrite On
    #pragma shader_feature_local_fragment _ _COLORMASK_ON
 
 
-   //#pragma multi_compile_local_fragment _ _REVEALLAYERS
-   #pragma shader_feature_local_fragment _ _REVEALLAYERS
+   #pragma multi_compile_local_fragment _ _REVEALLAYERS
+   //#pragma shader_feature_local_fragment _ _REVEALLAYERS
 
 
    #pragma multi_compile_local_vertex _ _VERTEXOCCLUSION_ON
 
 
-   //#pragma multi_compile _ _PROBEVOLUME_ON
-   #pragma shader_feature _ _PROBEVOLUME_ON
+   #pragma multi_compile_local _ _PROBEVOLUME_ON
+   //#pragma shader_feature_local _ _PROBEVOLUME_ON
 
    #if defined(_PROBEVOLUME_ON)
        #define _OVERRIDE_BAKEDGI
@@ -5556,7 +5752,7 @@ ZWrite On
          // #endif
 
          // #if %SCREENPOSREQUIREKEY%
-         // float4 screenPos : TEXCOORD7;
+          float4 screenPos : TEXCOORD7;
          // #endif
 
          // #if %VERTEXCOLORREQUIREKEY%
@@ -6011,8 +6207,12 @@ ZWrite On
          CBUFFER_START(UnityPerMaterial)
 
             
+
+
+
 	half _AlphaClip;
 	half _Cutoff;
+	half _AlphaStrength;
 
 	float4 _BaseMap_ST;
 	half4 _BaseColor;
@@ -6034,6 +6234,7 @@ ZWrite On
 
 
 	float4 _RevealMask_TexelSize;
+	float4 _LayerSurfaceExp;
 
 	half _Layer0NormalStrength;
 	half _Layer0Smoothness;
@@ -6073,6 +6274,42 @@ ZWrite On
 #define unity_WorldToObject GetWorldToObjectMatrix()
 
 
+    float Dither8x8Bayer( int x, int y )
+    {
+        const float dither[ 64 ] = {
+                1, 49, 13, 61,  4, 52, 16, 64,
+            33, 17, 45, 29, 36, 20, 48, 32,
+                9, 57,  5, 53, 12, 60,  8, 56,
+            41, 25, 37, 21, 44, 28, 40, 24,
+                3, 51, 15, 63,  2, 50, 14, 62,
+            35, 19, 47, 31, 34, 18, 46, 30,
+            11, 59,  7, 55, 10, 58,  6, 54,
+            43, 27, 39, 23, 42, 26, 38, 22};
+        int r = y * 8 + x;
+        return dither[r] / 64; 
+    }
+
+    void ApplyDitherCrossFadeVSP(float2 vpos, float fadeValue)
+    {
+        float dither = Dither8x8Bayer( fmod(vpos.x, 8), fmod(vpos.y, 8) );
+        float sgn = fadeValue > 0 ? 1.0f : -1.0f;
+        clip(dither - (1-fadeValue) * sgn);
+    }
+    
+
+	void Ext_SurfaceFunction0 (inout Surface o, ShaderData d)
+	{
+		#if LOD_FADE_CROSSFADE
+            float4 screenPosNorm = d.screenPos / d.screenPos.w;
+            screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? screenPosNorm.z : screenPosNorm.z * 0.5 + 0.5;
+            float2 clipScreen = screenPosNorm.xy * _ScreenParams.xy;
+            ApplyDitherCrossFadeVSP(clipScreen,unity_LODFade.x);
+        #endif
+	}
+
+
+
+
    TEXTURE2D(_BaseMap);
    SAMPLER(sampler_BaseMap);
    TEXTURE2D(_BumpMap);
@@ -6108,7 +6345,7 @@ ZWrite On
 		return ((t / t.z) * dot(t, u) - u);
 	}
 
-	void Ext_SurfaceFunction0 (inout Surface o, inout ShaderData d)
+	void Ext_SurfaceFunction1 (inout Surface o, inout ShaderData d)
 	{
 		float2 uv = d.texcoord0.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
 		d.blackboard.baseuv = uv;
@@ -6120,7 +6357,7 @@ ZWrite On
 			clip(albedo.a - _Cutoff);
 		#endif
 
-		o.Alpha = albedo.a;
+		o.Alpha = albedo.a * _AlphaStrength;
 		o.Normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv), _NormalStrength);
 
 		float4 mask = SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv);
@@ -6160,7 +6397,7 @@ ZWrite On
     SAMPLER(sampler_ColorMask);
 #endif
 
-	void Ext_SurfaceFunction1 (inout Surface o, inout ShaderData d)
+	void Ext_SurfaceFunction2 (inout Surface o, inout ShaderData d)
 	{
 		#if defined(_COLORMASK_ON)
 		float4 colorMask = SAMPLE_TEXTURE2D(_ColorMask, sampler_ColorMask, d.blackboard.baseuv);
@@ -6205,7 +6442,7 @@ ZWrite On
 	}	
 #endif
 
-	void Ext_SurfaceFunction2 (inout Surface o, inout ShaderData d)
+	void Ext_SurfaceFunction3 (inout Surface o, inout ShaderData d)
 	{
 		#if defined(_REVEALLAYERS)
 		
@@ -6219,19 +6456,19 @@ ZWrite On
 		float3 layer0normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_Layer0NormalMap, sampler_Layer0NormalMap, layer0uv), _NormalStrength);
 
 		float rt = saturate(revealMask.r * layerMask.r);
-		o.Albedo = lerp(o.Albedo, layer0col.rgb, rt);
-		o.Normal = lerp(o.Normal, layer0normal, rt);
-		o.Metallic = lerp(o.Metallic, _Layer0Metallic, rt);
-		o.Smoothness = lerp(o.Smoothness, _Layer0Smoothness, rt);
+		o.Albedo = lerp(o.Albedo, layer0col.rgb, pow(rt, _LayerSurfaceExp.x));
+		o.Normal = lerp(o.Normal, layer0normal, pow(rt, _LayerSurfaceExp.y));
+		o.Metallic = lerp(o.Metallic, _Layer0Metallic, pow(rt, _LayerSurfaceExp.z));
+		o.Smoothness = lerp(o.Smoothness, _Layer0Smoothness, pow(rt, _LayerSurfaceExp.w));
 
 		half4 layer1col = SAMPLE_TEXTURE2D(_Layer1, sampler_Layer1, layer1uv);
 		float3 layer1normal = UnpackScaleNormal(SAMPLE_TEXTURE2D(_Layer1NormalMap, sampler_Layer1NormalMap, layer1uv), _NormalStrength);
 
 		float gt = saturate(revealMask.g * layerMask.g);
-		o.Albedo = lerp(o.Albedo, layer1col.rgb, gt);
-		o.Normal = lerp(o.Normal, layer1normal, gt);
-		o.Metallic = lerp(o.Metallic, _Layer1Metallic, gt);
-		o.Smoothness = lerp(o.Smoothness, _Layer1Smoothness, gt);
+		o.Albedo = lerp(o.Albedo, layer1col.rgb, pow(gt, _LayerSurfaceExp.x));
+		o.Normal = lerp(o.Normal, layer1normal, pow(gt, _LayerSurfaceExp.y));
+		o.Metallic = lerp(o.Metallic, _Layer1Metallic, pow(gt, _LayerSurfaceExp.z));
+		o.Smoothness = lerp(o.Smoothness, _Layer1Smoothness, pow(gt, _LayerSurfaceExp.w));
 
 		float bt = saturate(revealMask.b * layerMask.b);
 		float height = _Layer2Height * bt;
@@ -6247,7 +6484,7 @@ ZWrite On
 
 
 
-    void Ext_ModifyVertex3 (inout VertexData v, inout ExtraV2F d)
+    void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
     {
         #if defined(_VERTEXOCCLUSION_ON)
         if(_Bitmask & (int)v.texcoord1.x)
@@ -6268,7 +6505,7 @@ ZWrite On
     SAMPLER(sampler_ProbeVolumeShR);
     #endif
 
-    void Ext_ModifyVertex4 (inout VertexData v, inout ExtraV2F d)
+    void Ext_ModifyVertex5 (inout VertexData v, inout ExtraV2F d)
     {
         #if defined(_PROBEVOLUME_ON)
             float3 position = mul(_ProbeWorldToTexture, float4(TransformObjectToWorld(v.vertex.xyz), 1.0f)).xyz;
@@ -6278,7 +6515,7 @@ ZWrite On
         #endif
     }
 
-    void Ext_SurfaceFunction4 (inout Surface o, inout ShaderData d)
+    void Ext_SurfaceFunction5 (inout Surface o, inout ShaderData d)
     {
         #if defined(_PROBEVOLUME_ON)
             float3 texCoord = d.extraV2F3.xyz;
@@ -6292,6 +6529,7 @@ ZWrite On
             o.DiffuseGI = SHEvalLinearL0L1( d.worldSpaceNormal, SAMPLE_TEXTURE3D(_ProbeVolumeShR, sampler_ProbeVolumeShR, texCoord),
                                             SAMPLE_TEXTURE3D(_ProbeVolumeShG, sampler_ProbeVolumeShR, texCoord), SAMPLE_TEXTURE3D(_ProbeVolumeShB, sampler_ProbeVolumeShR, texCoord));
             unity_ProbesOcclusion = SAMPLE_TEXTURE3D(_ProbeVolumeOcc, sampler_ProbeVolumeShR, texCoord);
+            o.ShadowMask = unity_ProbesOcclusion;
         #endif
     }
 
@@ -6304,9 +6542,9 @@ ZWrite On
                   Ext_SurfaceFunction0(l, d);
                   Ext_SurfaceFunction1(l, d);
                   Ext_SurfaceFunction2(l, d);
-                 // Ext_SurfaceFunction3(l, d);
-                  Ext_SurfaceFunction4(l, d);
-                 // Ext_SurfaceFunction5(l, d);
+                  Ext_SurfaceFunction3(l, d);
+                 // Ext_SurfaceFunction4(l, d);
+                  Ext_SurfaceFunction5(l, d);
                  // Ext_SurfaceFunction6(l, d);
                  // Ext_SurfaceFunction7(l, d);
                  // Ext_SurfaceFunction8(l, d);
@@ -6332,9 +6570,9 @@ ZWrite On
                  //  Ext_ModifyVertex0(v, d);
                  // Ext_ModifyVertex1(v, d);
                  // Ext_ModifyVertex2(v, d);
-                  Ext_ModifyVertex3(v, d);
+                 // Ext_ModifyVertex3(v, d);
                   Ext_ModifyVertex4(v, d);
-                 // Ext_ModifyVertex5(v, d);
+                  Ext_ModifyVertex5(v, d);
                  // Ext_ModifyVertex6(v, d);
                  // Ext_ModifyVertex7(v, d);
                  // Ext_ModifyVertex8(v, d);
@@ -6572,8 +6810,8 @@ ZWrite On
             // d.localSpaceTangent = normalize(mul((float3x3)unity_WorldToObject, i.worldTangent.xyz));
 
             // #if %SCREENPOSREQUIREKEY%
-            // d.screenPos = i.screenPos;
-            // d.screenUV = (i.screenPos.xy / i.screenPos.w);
+             d.screenPos = i.screenPos;
+             d.screenUV = (i.screenPos.xy / i.screenPos.w);
             // #endif
 
 
@@ -6667,7 +6905,7 @@ ZWrite On
 
 
           // #if %SCREENPOSREQUIREKEY%
-          // o.screenPos = ComputeScreenPos(o.pos, _ProjectionParams.x);
+           o.screenPos = ComputeScreenPos(o.pos, _ProjectionParams.x);
           // #endif
 
           #if defined(SHADERPASS_FORWARD) || (SHADERPASS == SHADERPASS_GBUFFER)
@@ -6744,6 +6982,8 @@ ZWrite On
 
 
       
+
+
 
 
 

@@ -94,6 +94,7 @@ namespace ThunderRoad
             CancelInvoke();
             StopAllCoroutines();
 
+            //Debug.Log("Play " + (module as EffectModuleAudio).audioContainerAddress + " volume: " + audioSource.volume + " parent: " + this.transform.parent + " parent2: " + this.transform.parent?.parent + " parent3: " + this.transform.parent?.parent?.parent);
             audioSource.clip = audioContainer.PickAudioClip();
 
             if (audioSource.clip == null)
@@ -110,7 +111,7 @@ namespace ThunderRoad
 
             if (step == Step.Start || step == Step.End)
             {
-                Invoke("Despawn", audioSource.clip.length + playDelay + 1);
+                Invoke("Despawn", audioSource.clip.length + playDelay + 0.1f);
             }
 
             if (randomPlay)

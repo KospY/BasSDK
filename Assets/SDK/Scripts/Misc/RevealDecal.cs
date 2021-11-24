@@ -107,6 +107,7 @@ namespace ThunderRoad
             revealMaterialController.width = (int)maskWidth;
             revealMaterialController.height = (int)maskHeight;
             revealMaterialController.maskPropertyName = "_RevealMask";
+            revealMaterialController.restoreMaterialsOnReset = false;
             //revealMaterialController.preserveRenderQueue = true;
             revealMaterialController.renderTextureFormat = RenderTextureFormat.ARGB64;
         }

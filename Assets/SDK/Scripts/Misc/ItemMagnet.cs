@@ -15,6 +15,12 @@ namespace ThunderRoad
     [RequireComponent(typeof(Collider))]
     public class ItemMagnet : MonoBehaviour
     {
+        public FilterLogic tagFilter = FilterLogic.AnyExcept;
+#if PrivateSDK
+        [ValueDropdown("GetAllHolderSlots")]
+#endif
+        public List<string> slots;
+
         public bool autoUngrab;
         public float gravityRatio = 0;
         public float sleepThresholdRatio = 0;
@@ -31,6 +37,13 @@ namespace ThunderRoad
         public float rotationSpring = 1000f;
         public float rotationDamper = 10f;
         public float rotationMaxForce = 10000f;
+
+#if PrivateSDK
+        public List<ValueDropdownItem<string>> GetAllHolderSlots()
+        {
+            return Catalog.GetDropdownHolderSlots();
+        }
+#endif
 
     }
 }

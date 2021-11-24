@@ -52,7 +52,6 @@ namespace ThunderRoad
 
         public enum Quality
         {
-            Disabled,
             Plane,
             Waves,
         }

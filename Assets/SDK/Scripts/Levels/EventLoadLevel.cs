@@ -13,11 +13,13 @@ namespace ThunderRoad
 
         public float fadeInDuration = 2;
 
+        public LevelSaveOptions saveOptions;
+
         [Serializable]
         public class LevelOption
         {
             public string name;
-            public int value;
+            public double value;
         }
 
         public void LoadLevel()

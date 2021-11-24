@@ -150,6 +150,11 @@ namespace ThunderRoad
         [Button]
         public void UpdateRenderers()
         {
+            if (LightProbeVolume.list.Count == 0)
+            {
+                // Scene don't have probe volume, nothing to update
+                return;
+            }
             if (volumeDetection == VolumeDetection.StaticPerMesh)
             {
 #if UNITY_EDITOR
@@ -162,6 +167,7 @@ namespace ThunderRoad
                 {
                     foreach (MaterialInstance materialInstance in materialInstances)
                     {
+                        if (!materialInstance || !materialInstance.CachedRenderer) continue;
                         LightProbeVolume lightProbeVolume = GetVolumeFromPosition(materialInstance.CachedRenderer.bounds.center);
                         if (lightProbeVolume)
                         {
@@ -208,7 +214,7 @@ namespace ThunderRoad
                 {
                     foreach (MaterialInstance materialInstance in materialInstances)
                     {
-                        materialInstance.CachedRenderer.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.Off;
+                        if (materialInstance && materialInstance.CachedRenderer) materialInstance.CachedRenderer.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.Off;
                         foreach (Material material in materialInstance.materials)
                         {
                             currentLightProbeVolume.UpdateMaterialProperties(material);
@@ -232,7 +238,7 @@ namespace ThunderRoad
             {
                 foreach (MaterialInstance materialInstance in materialInstances)
                 {
-                    materialInstance.CachedRenderer.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.BlendProbes;
+                    if (materialInstance && materialInstance.CachedRenderer) materialInstance.CachedRenderer.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.BlendProbes;
                     materialInstance.RestoreRenderer();
                 }
             }

@@ -45,6 +45,8 @@ namespace ThunderRoad
         public float rotationDamper = 0.1f;
         public float rotationMaxForce = 100f;
 
+        public float ringSleepThreshold = 0.01f;
+
         public Renderer ringSmall;
         public Renderer ringMedium;
         public Renderer ringReceptacles;

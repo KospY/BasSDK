@@ -40,6 +40,8 @@ namespace ThunderRoad
 
         [NonSerialized]
         public Color originalFogColor;
+        [NonSerialized]
+        public Color originalShadowColor;
 
         [Serializable]
         public class CustomReference
@@ -90,6 +92,7 @@ namespace ThunderRoad
                 current = this;
             }
             originalFogColor = RenderSettings.fogColor;
+            originalShadowColor = RenderSettings.subtractiveShadowColor;
             dungeon = GameObject.FindObjectOfType<Dungeon>();
         }
 

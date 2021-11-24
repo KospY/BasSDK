@@ -77,7 +77,7 @@ namespace ThunderRoad
             if (!loopOnly || (loopOnly && step == Step.Loop))
             {
                 currentValue = value;
-                if (materialInstance && materialInstance.CachedRenderer.isVisible)
+                if (materialInstance && materialInstance.CachedRenderer && materialInstance.CachedRenderer.isVisible)
                 {
                     if (linkBaseColor == EffectTarget.Main && currentMainGradient != null)
                     {

@@ -49,7 +49,7 @@ public class AtmosphereScattering : MonoBehaviour
 
     private void Awake()
     {
-        if (Common.GetPlatform() == Platform.Android)
+        if (Common.GetPlatform() == Platform.Quest2)
         {
             this.gameObject.SetActive(false);
             return;

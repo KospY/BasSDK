@@ -137,6 +137,7 @@ namespace ThunderRoad
         LevelCrystalShockwave,
         LevelCrystalForward,
         LevelCrystalFire,
+        Grab,
     }
 
     public enum Finger
@@ -166,8 +167,18 @@ namespace ThunderRoad
     public enum Platform
     {
         Windows,
-        Android,
+        Quest2,
         PSVR,
+    }
+
+    [Flags]
+    public enum LevelSaveOptions
+    {
+        PlayerHolsters = 1,
+        PlayerGrabbedItems = 2,
+        PlayerRacks = 4,
+        LevelCreatures = 8,
+        PlayerGrabbedCreatures = 16,
     }
 
     [Serializable]
@@ -175,6 +186,18 @@ namespace ThunderRoad
     {
         public string name;
         public Transform transform;
+    }
+
+    public class ModData
+    {
+        public string Name;
+        public string Description;
+        public string Author;
+        public string ModVersion;
+        public string GameVersion;
+
+        [NonSerialized]
+        public string folderName;
     }
 
     public static class Common

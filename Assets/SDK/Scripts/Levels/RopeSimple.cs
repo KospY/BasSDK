@@ -18,6 +18,7 @@ namespace ThunderRoad
         public float damper = 0;
         public float minDistance = 0;
         public float maxDistance = 0;
+        public Rigidbody connectedBody;
 
         [Header("Rope mesh")]
         public float radius = 0.015f;
@@ -75,6 +76,7 @@ namespace ThunderRoad
             springJoint.anchor = rb.transform.InverseTransformPoint(this.transform.position);
             springJoint.autoConfigureConnectedAnchor = false;
             springJoint.connectedAnchor = targetAnchor.position;
+            springJoint.connectedBody = connectedBody;
 
             // Generate rope mesh
             mesh = GameObject.CreatePrimitive(PrimitiveType.Cylinder).GetComponent<MeshRenderer>();

@@ -330,7 +330,6 @@ namespace ThunderRoad
             if (isCulled == cull) return;
 
             this.gameObject.SetActive(!cull);
-
             isCulled = cull;
         }
 

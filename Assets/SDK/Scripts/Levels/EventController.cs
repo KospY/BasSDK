@@ -74,7 +74,6 @@ namespace ThunderRoad
                 {
                     StartCoroutine(InvokeCoroutine());
                 }
-                invokeCount++;
             }
         }
 
@@ -90,10 +89,18 @@ namespace ThunderRoad
         }
 
         [Button]
+        public void StopInvoke(int index)
+        {
+            invokedIndex[index] = false;
+            StopInvoke();
+        }
+
+        [Button]
         public void InvokeNow()
         {
             if (timedEvent != null && invokeCount < maxInvoke)
             {
+                invokeCount++;
                 timedEvent.Invoke();
                 invokeCount++;
             }
@@ -115,6 +122,7 @@ namespace ThunderRoad
             {
                 float delay = Random.Range(minDelay, maxDelay);
                 yield return new WaitForSeconds(delay);
+                invokeCount++;
                 timedEvent.Invoke();
             }
             coroutine = null;

@@ -10,6 +10,8 @@ namespace ThunderRoad
 
         public bool isPooled;
 
+        public bool isOutOfPool;
+
 #if PrivateSDK
         [NonSerialized]
         public EffectModule module;

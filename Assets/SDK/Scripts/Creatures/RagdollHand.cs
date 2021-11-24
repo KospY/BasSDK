@@ -38,6 +38,7 @@ namespace ThunderRoad
         public Finger fingerLittle = new Finger();
         public List<Finger> fingers = new List<Finger>();
         public Collider palmCollider;
+        public Collider simplifiedCollider;
 
         [Serializable]
         public class Finger

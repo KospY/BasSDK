@@ -26,6 +26,9 @@ namespace ThunderRoad
         public RagdollPart targetPart;
         public RagdollPart rootPart;
 
+        [Header("Handles")]
+        public HandleRagdoll mouthHandle;
+
         [Header("Default forces")]
         public float springPositionForce = 1000;
         public float damperPositionForce = 50;
@@ -61,8 +64,10 @@ namespace ThunderRoad
         public float playerArmMaxRotationForce = 250f;
 
         [Header("Collision")]
-        public float collisionMinDelay = 0.2f;
+        public float collisionEffectMinDelay = 0.2f;
         public float collisionMinVelocity = 2.0f;
+        [NonSerialized]
+        public float lastCollisionEffectTime;
 
         [Header("Misc")]
         public bool allowSelfDamage;
