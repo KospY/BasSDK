@@ -50,7 +50,7 @@ PlayerSettings:
   m_ActiveColorSpace: 1
   m_MTRendering: 1
   mipStripping: 0
-  numberOfMipsStripped: 0
+  numberOfMipsStripped: 2
   m_StackTraceTypes: 010000000100000001000000010000000100000001000000
   iosShowActivityIndicatorOnLoading: -1
   androidShowActivityIndicatorOnLoading: -1
@@ -127,14 +127,16 @@ PlayerSettings:
   vulkanEnableSetSRGBWrite: 0
   vulkanEnablePreTransform: 0
   vulkanEnableLateAcquireNextImage: 0
+  vulkanEnableCommandBufferRecycling: 1
   m_SupportedAspectRatios:
     4:3: 1
     5:4: 1
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 10.0
+  bundleVersion: 10.2
   preloadedAssets:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: -8878564421258034831, guid: 6684263135e52884aa65014013df11e8, type: 2}
   - {fileID: 11400000, guid: 08a337f6a5748ae4c8798a5f5d627605, type: 2}
@@ -162,7 +164,7 @@ PlayerSettings:
     iPhone: 0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
-  AndroidBundleVersionCode: 36
+  AndroidBundleVersionCode: 50
   AndroidMinSdkVersion: 23
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 0
@@ -688,7 +690,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    1: V_UNIVERSAL_RENDER
+    1: V_UNIVERSAL_RENDER;TERRAINPACKAGE_EXIST
     4: CT_TPS
     7: UNITY_POST_PROCESSING_STACK_V2
     13: UNITY_POST_PROCESSING_STACK_V2;CT_TPS;ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP

@@ -21,7 +21,7 @@ QualitySettings:
     skinWeights: 4
     textureQuality: 0
     anisotropicTextures: 2
-    antiAliasing: 0
+    antiAliasing: 4
     softParticles: 0
     softVegetation: 1
     realtimeReflectionProbes: 1
@@ -45,7 +45,7 @@ QualitySettings:
     excludedTargetPlatforms:
     - Android
   - serializedVersion: 2
-    name: Android
+    name: Quest2
     pixelLightCount: 3
     shadows: 0
     shadowResolution: 0
@@ -65,7 +65,7 @@ QualitySettings:
     realtimeReflectionProbes: 1
     billboardsFaceCameraPosition: 1
     vSyncCount: 0
-    lodBias: 3
+    lodBias: 2
     maximumLODLevel: 1
     streamingMipmapsActive: 0
     streamingMipmapsAddAllCameras: 1
