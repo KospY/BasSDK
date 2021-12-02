@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 #if PrivateSDK
 using SteamAudio;
@@ -14,6 +15,9 @@ namespace ThunderRoad
 
         public float globalVolumeDb = 0;
         public float globalPitch = 1;
+
+        public bool doNoise;
+        protected bool hasNoise;
 
         public AnimationCurve volumeCurve;
         public float loopFadeDelay;
@@ -66,6 +70,7 @@ namespace ThunderRoad
             audioSource = this.GetComponent<AudioSource>();
             if (!audioSource) audioSource = this.gameObject.AddComponent<AudioSource>();
             audioSource.spatialBlend = 1;
+            audioSource.dopplerLevel = 0;
             audioSource.playOnAwake = false;
             if (AudioSettings.GetSpatializerPluginName() != null) audioSource.spatialize = true;
             lowPassFilter = this.GetComponent<AudioLowPassFilter>();
@@ -89,6 +94,7 @@ namespace ThunderRoad
             CancelInvoke();
             StopAllCoroutines();
 
+            //Debug.Log("Play " + (module as EffectModuleAudio).audioContainerAddress + " volume: " + audioSource.volume + " parent: " + this.transform.parent + " parent2: " + this.transform.parent?.parent + " parent3: " + this.transform.parent?.parent?.parent);
             audioSource.clip = audioContainer.PickAudioClip();
 
             if (audioSource.clip == null)
@@ -105,7 +111,7 @@ namespace ThunderRoad
 
             if (step == Step.Start || step == Step.End)
             {
-                Invoke("Despawn", audioSource.clip.length + playDelay + 1);
+                Invoke("Despawn", audioSource.clip.length + playDelay + 0.1f);
             }
 
             if (randomPlay)
@@ -143,6 +149,7 @@ namespace ThunderRoad
         public override void Stop()
         {
             audioSource.Stop();
+            hasNoise = false;
         }
 
         public override void End(bool loopOnly = false)
@@ -157,6 +164,11 @@ namespace ThunderRoad
             {
                 Despawn();
             }
+        }
+
+        public override void SetNoise(bool noise)
+        {
+            doNoise = noise;
         }
 
         public override void SetIntensity(float value, bool loopOnly = false)
@@ -192,6 +204,7 @@ namespace ThunderRoad
         public void SetVariation(float value, bool loopOnly = false)
         {
             audioSource.volume = volumeCurve.Evaluate(value) * DecibelToLinear(globalVolumeDb);
+
             if (useLowPassFilter)
             {
                 lowPassFilter.cutoffFrequency = lowPassCutoffFrequencyCurve.Evaluate(value);
@@ -241,9 +254,9 @@ namespace ThunderRoad
 
         public override void Despawn()
         {
+            Stop();
             CancelInvoke();
             StopAllCoroutines();
-            audioSource.Stop();
             InvokeDespawnCallback();
             if (Application.isPlaying)
             {

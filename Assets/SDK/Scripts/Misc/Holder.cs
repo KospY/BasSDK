@@ -13,14 +13,27 @@ using EasyButtons;
 namespace ThunderRoad
 {
     [AddComponentMenu("ThunderRoad/Holder")]
-    [RequireComponent(typeof(Rigidbody))]
     public class Holder : Interactable
     {
         public static bool showHudHighlighter = true;
+        public DrawSlot drawSlot = DrawSlot.None;
+        public bool useAnchor = true;
         public List<Transform> slots = new List<Transform>();
         public List<Item> startObjects = new List<Item>();
         public List<Collider> ignoredColliders = new List<Collider>();
         public string editorTargetAnchor;
+
+        public enum DrawSlot
+        {
+            None,
+            BackRight,
+            BackLeft,
+            HipsRight,
+            HipsLeft,
+        }
+
+        [NonSerialized]
+        public List<Item> items = new List<Item>();
 
 
         protected virtual void OnValidate()
@@ -30,14 +43,16 @@ namespace ThunderRoad
 
 
         [Button("Align start object")]
-        public void AlignObject()
+        public void AlignObject(Item item)
         {
-            foreach (Item startObject in startObjects)
+            Item.HolderPoint hp = item.GetHolderPoint(editorTargetAnchor);
+            if (useAnchor)
             {
-                Item.HolderPoint hp = startObject.GetHolderPoint(editorTargetAnchor) ;
-
-                if (slots.ElementAtOrDefault(startObjects.IndexOf(startObject)) != null) startObject.transform.MoveAlign(hp != null ? hp.anchor : startObject.transform, slots[startObjects.IndexOf(startObject)].transform);
-                else Debug.LogError("Slot " + startObjects.IndexOf(startObject) + " do not exist!!");
+                item.transform.MoveAlign(hp != null ? hp.anchor : item.transform, slots[0].transform, slots[0].transform);
+            }
+            else
+            {
+                item.transform.MoveAlign(hp.anchor, slots[items.IndexOf(item)].transform, slots[items.IndexOf(item)].transform);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace ThunderRoad
@@ -17,8 +18,10 @@ namespace ThunderRoad
         public bool preGenerate;
         public bool continuousUpdate;
 
-        private MeshRenderer tube;
-        private MaterialPropertyBlock block;
+        [NonSerialized]
+        public MeshRenderer tube;
+        //private MaterialPropertyBlock block; //Use SRP batcher instead
+        private Material materialInstance;
 
         protected virtual void OnValidate()
         {
@@ -36,7 +39,7 @@ namespace ThunderRoad
             }
         }
 
-        IEnumerator DestroyCoroutine(Object obj)
+        IEnumerator DestroyCoroutine(UnityEngine.Object obj)
         {
             yield return new WaitForEndOfFrame();
             DestroyImmediate(obj);
@@ -56,8 +59,9 @@ namespace ThunderRoad
             tube.name = "Tube";
             tube.material = material;
             tube.gameObject.layer = layer;
-            block = new MaterialPropertyBlock();
-            tube.GetPropertyBlock(block);
+            //block = new MaterialPropertyBlock(); //Use SRP batcher instead
+            //tube.GetPropertyBlock(block);
+            materialInstance = tube.material;
 
             Collider collider = tube.GetComponent<Collider>();      
             if (useCollider)
@@ -87,8 +91,9 @@ namespace ThunderRoad
             tube.transform.rotation = Quaternion.FromToRotation(tube.transform.TransformDirection(Vector3.up), target.position - this.transform.position) * tube.transform.rotation;
             float distance = Vector3.Distance(this.transform.position, target.position);
             tube.transform.localScale = new Vector3(radius, distance / 2, radius);
-            block.SetVector("_BaseMap_ST", new Vector4(1, distance * tilingOffset, 0, 0));
-            tube.SetPropertyBlock(block);
+            //block.SetVector("_BaseMap_ST", new Vector4(1, distance * tilingOffset, 0, 0)); //Use SRP batcher instead
+            //tube.SetPropertyBlock(block);
+            materialInstance.SetVector("_BaseMap_ST", new Vector4(1, distance * tilingOffset, 0, 0));
         }
 
         protected virtual void OnDrawGizmos()

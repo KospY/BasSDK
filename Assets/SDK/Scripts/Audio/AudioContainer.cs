@@ -14,15 +14,11 @@ namespace ThunderRoad
 
         //this list contains all sounds except the last played
         protected AudioClip[] filteredSounds;
+        protected bool filteredSoundsInitialized;
 
         protected AudioClip lastPlayedClip = null;
 
         protected int filteredSoundsCount = 0;
-
-        private void Awake()
-        {
-            filteredSounds = new AudioClip[sounds.Count];
-        }
 
 #if (UNITY_EDITOR)
         [Button]
@@ -56,6 +52,11 @@ namespace ThunderRoad
 
         protected void FilterClips(List<AudioClip> audioClips)
         {
+            if (!filteredSoundsInitialized)
+            {
+                filteredSounds = new AudioClip[sounds.Count];
+                filteredSoundsInitialized = true;
+            }
             filteredSoundsCount = 0;
 
             for (int i = 0; i < sounds.Count; i++)

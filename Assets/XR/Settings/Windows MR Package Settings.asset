@@ -15,7 +15,8 @@ MonoBehaviour:
   Keys: 01000000
   Values:
   - {fileID: 1992302186849379865}
-  BuildValues: []
+  BuildValues:
+  - {fileID: 8929340078951898250}
 --- !u!114 &1992302186849379865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30,3 +31,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DepthBufferFormat: 0
   UseSharedDepthBuffer: 0
+--- !u!114 &8929340078951898250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a6c5bd16b42a1542ad52d1d47746bdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UsePrimaryWindowForDisplay: 1
+  HolographicRemoting: 0

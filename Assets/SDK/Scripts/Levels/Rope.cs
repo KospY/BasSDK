@@ -14,6 +14,11 @@ namespace ThunderRoad
         public int ropeLayer;
         public PhysicMaterial ropePhysicMaterial;
 
+        [Header("Dynamic height")]
+        public bool dynamicHeight = false;
+        public float raycastRange = 50.0f;
+        public float heightFromGround = 2.0f;
+
 
         protected virtual void OnDrawGizmos()
         {

@@ -21,6 +21,11 @@ namespace ThunderRoad
         [Tooltip("Position used to calculate speed for whoosh effects")]
         public Transform whooshPoint;
 
+        [Tooltip("Custom imbue effect")]
+        public FxController imbueCustomFxController;
+        [Tooltip("Allowed spell ID for custom imbue effect")]
+        public string imbueCustomSpellID;
+
         [NonSerialized]
         public List<Collider> colliders;
 

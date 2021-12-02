@@ -21,6 +21,18 @@ namespace ThunderRoad
         public bool customInertiaTensor;
         public CapsuleCollider customInertiaTensorCollider;
 
+        [NonSerialized]
+#if ODIN_INSPECTOR
+        [ShowInInspector, ReadOnly]
+#endif
+        public List<CollisionHandler> penetratedObjects = new List<CollisionHandler>();
+
+        [NonSerialized]
+#if ODIN_INSPECTOR
+        [ShowInInspector, ReadOnly]
+#endif
+        public List<Holder> holders = new List<Holder>();
+
         private void OnValidate()
         {
             if (customInertiaTensor)

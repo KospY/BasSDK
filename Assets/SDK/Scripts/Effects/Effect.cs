@@ -10,8 +10,12 @@ namespace ThunderRoad
 
         public bool isPooled;
 
+        public bool isOutOfPool;
+
+#if PrivateSDK
         [NonSerialized]
         public EffectModule module;
+#endif
 
         public Step step = Step.Start;
         public enum Step
@@ -88,6 +92,12 @@ namespace ThunderRoad
         {
 
         }
+
+        public virtual void SetNoise(bool noise)
+        {
+
+        }
+
         public virtual void CollisionStay(Vector3 position, Quaternion rotation, float speed)
         {
             this.transform.position = position;

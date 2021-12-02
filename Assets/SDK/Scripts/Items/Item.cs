@@ -17,6 +17,12 @@ namespace ThunderRoad
     [RequireComponent(typeof(Rigidbody))]
     public class Item : MonoBehaviour
     {
+        public static List<Item> all = new List<Item>();
+        public static List<Item> allActive = new List<Item>();
+        public static List<Item> allThrowed = new List<Item>();
+        public static List<Item> allTk = new List<Item>();
+        public static List<Item> allHanging = new List<Item>();
+
         public string itemId;
         public Transform holderPoint;
         public List<HolderPoint> additionalHolderPoints = new List<HolderPoint>();
@@ -25,6 +31,9 @@ namespace ThunderRoad
         public Handle mainHandleLeft;
         public Transform flyDirRef;
         public Preview preview;
+        public bool disallowRoomDespawn;
+        public bool hanging;
+        public float creaturePhysicToggleRadius = 2;
         public bool useCustomCenterOfMass;
         public Vector3 customCenterOfMass;
         public bool customInertiaTensor;
@@ -36,13 +45,23 @@ namespace ThunderRoad
         [NonSerialized]
         public List<RevealDecal> revealDecals;
         [NonSerialized]
-        public List<Paintable> paintables;
-        [NonSerialized]
         public List<ColliderGroup> colliderGroups;
         [NonSerialized]
         public List<HingeEffect> effectHinges;
         [NonSerialized]
         public List<WhooshPoint> whooshPoints;
+        [NonSerialized]
+        public LightVolumeReceiver lightVolumeReceiver;
+        [NonSerialized]
+        public List<CollisionHandler> collisionHandlers = new List<CollisionHandler>();
+        [NonSerialized]
+        public List<Handle> handles;
+        [NonSerialized]
+        public Rigidbody rb;
+        [NonSerialized]
+        public List<ParryTarget> parryTargets;
+        [NonSerialized]
+        public Holder holder;
 
 #if ODIN_INSPECTOR
         [ShowInInspector]
@@ -100,6 +119,8 @@ namespace ThunderRoad
 
         protected virtual void OnValidate()
         {
+            IconManager.SetIcon(this.gameObject, null);
+
             if (!this.gameObject.activeInHierarchy) return;
 
             Transform holderPoint = null;
@@ -177,7 +198,6 @@ namespace ThunderRoad
                 customInertiaTensorCollider.isTrigger = true;
                 customInertiaTensorCollider.gameObject.layer = 2;
             }
-
         }
 
         public static void DrawGizmoArrow(Vector3 pos, Vector3 direction, Vector3 upwards, Color color, float arrowHeadLength = 0.25f, float arrowHeadAngle = 20.0f)
@@ -200,6 +220,120 @@ namespace ThunderRoad
                 DrawGizmoArrow(Vector3.zero, Vector3.up * 0.05f, Vector3.up, Common.HueColourValue(HueColorName.Green), 0.05f);
             }
         }
+
+        protected virtual void Awake()
+        {
+            all.Add(this);
+            renderers = new List<Renderer>();
+            foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())
+            {
+                if (!renderer.enabled || (!(renderer is SkinnedMeshRenderer) && !(renderer is MeshRenderer))) continue;
+                renderers.Add(renderer);
+            }
+
+#if PrivateSDK
+            lightVolumeReceiver = this.GetComponent<LightVolumeReceiver>();
+            if (!lightVolumeReceiver) lightVolumeReceiver = this.gameObject.AddComponent<LightVolumeReceiver>();
+            lightVolumeReceiver.initRenderersOnStart = false;
+            lightVolumeReceiver.SetRenderers(renderers);
+#endif
+
+            revealDecals = new List<RevealDecal>(this.GetComponentsInChildren<RevealDecal>());
+            colliderGroups = new List<ColliderGroup>(this.GetComponentsInChildren<ColliderGroup>());
+            whooshPoints = new List<WhooshPoint>(this.GetComponentsInChildren<WhooshPoint>());
+            effectHinges = new List<HingeEffect>(this.GetComponentsInChildren<HingeEffect>());
+            handles = new List<Handle>(this.GetComponentsInChildren<Handle>());
+            if (mainHandleRight) mainHandleRight = mainHandleRight.GetComponent<Handle>();
+            if (mainHandleLeft) mainHandleLeft = mainHandleLeft.GetComponent<Handle>();
+            parryTargets = new List<ParryTarget>(this.GetComponentsInChildren<ParryTarget>());
+
+            // Rigidbody
+            rb = this.GetComponent<Rigidbody>();
+            if (useCustomCenterOfMass) rb.centerOfMass = customCenterOfMass;
+
+            collisionHandlers = new List<CollisionHandler>(this.GetComponentsInChildren<CollisionHandler>());
+            if (collisionHandlers.Count == 0)
+            {
+                collisionHandlers.Add(this.gameObject.AddComponent<CollisionHandler>());
+                foreach (ColliderGroup colliderGroup in colliderGroups)
+                {
+                    colliderGroup.collisionHandler = colliderGroup.GetComponentInParent<CollisionHandler>();
+                }
+            }
+
+        }
+
+#if PrivateSDK
+
+        protected virtual void OnEnable()
+        {
+            allActive.Add(this);
+            if (Level.current && Level.current.dungeon)
+            {
+                cullingDetectionEnabled = true;
+            }
+        }
+
+        protected virtual void OnDisable()
+        {
+            allActive.Remove(this);
+            cullingDetectionEnabled = false;
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // ROOM CULLING
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        [NonSerialized, ShowInInspector, ReadOnly]
+        public Room currentRoom;
+        [NonSerialized, ShowInInspector, ReadOnly]
+        public bool isCulled;
+
+        protected bool cullingDetectionEnabled;
+        protected float cullingDetectionCycleSpeed = 1;
+        protected float cullingDetectionCycleTime;
+
+        private void LateUpdate()
+        {
+            if (!cullingDetectionEnabled) return;
+            if (!Level.current.dungeon.initialized) return;
+            if ((Time.time - cullingDetectionCycleTime) < cullingDetectionCycleSpeed) return;
+            cullingDetectionCycleTime = Time.time;
+
+            //if (rb.IsSleeping()) return;
+
+            if (currentRoom == null)
+            {
+                Room roomFound = Level.current.dungeon.SearchRoomFromPosition(this.transform.position);
+                if (currentRoom != roomFound)
+                {
+                    currentRoom = roomFound;
+                    currentRoom.RegisterItem(this);
+                    SetCull(currentRoom.isCulled);
+                }
+            }
+            else if (!currentRoom.tile.Bounds.Contains(this.transform.position))
+            {
+                Room roomFound = Level.current.dungeon.SearchRoomFromPosition(this.transform.position, currentRoom);
+                if (currentRoom != roomFound)
+                {
+                    currentRoom.UnRegisterItem(this);
+                    currentRoom = roomFound;
+                    currentRoom.RegisterItem(this);
+                    SetCull(currentRoom.isCulled);
+                }
+            }
+        }
+
+        public void SetCull(bool cull)
+        {
+            if (isCulled == cull) return;
+
+            this.gameObject.SetActive(!cull);
+            isCulled = cull;
+        }
+
+#endif
 
 
         [Serializable]

@@ -33,6 +33,13 @@ TagManager:
   - SpectatorTransform
   - Arrow
   - ObjectPointer
+  - Light
+  - PotionCork
+  - Heavy
+  - Medium
+  - Head
+  - Item
+  - NoRoomStaticBatching
   layers:
   - Default
   - TransparentFX
@@ -42,10 +49,10 @@ TagManager:
   - UI
   - 
   - 
-  - CustomPostEffectIgnore
+  - LightProbeVolume
   - Touch
-  - DroppedObject
-  - MovingObject
+  - DroppedItem
+  - MovingItem
   - PlayerLocomotionObject
   - Ragdoll
   - LiquidFlow
@@ -54,11 +61,11 @@ TagManager:
   - NoLocomotion
   - Highlighter
   - LoadingCamera
-  - None
-  - 
+  - SkyDome
+  - MovingObjectOnly
   - PlayerLocomotion
   - BodyLocomotion
-  - NPCGrabbedObject
+  - ItemAndRagdollOnly
   - TouchObject
   - Avatar
   - NPC

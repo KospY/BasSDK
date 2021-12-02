@@ -1,0 +1,134 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cabb1fa284f6e4f45a475b4a01ae3281, type: 3}
+  m_Name: HumanMale_Limb
+  m_EditorClassIdentifier: 
+  left:
+    thumb:
+      proximal:
+        localPosition: {x: -0.027677605, y: -0.029472101, z: -0.011060082}
+        localRotation: {x: 0.7669682, y: -0.1147802, z: 0.515185, w: 0.36492425}
+      intermediate:
+        localPosition: {x: -0.034108765, y: -0.0000019017605, z: -0.00000078231096}
+        localRotation: {x: 0.00000011920923, y: 0.059454337, z: 0, w: 0.9982311}
+      distal:
+        localPosition: {x: -0.046364732, y: 0.000001250492, z: 0.00000042657484}
+        localRotation: {x: -0.0000002454389, y: -0.29684138, z: -0.00000030011194,
+          w: 0.95492685}
+    index:
+      proximal:
+        localPosition: {x: -0.10340261, y: -0.03312299, z: 0.013638411}
+        localRotation: {x: 0.024379607, y: -0.19626865, z: 0.007443561, w: 0.98021877}
+      intermediate:
+        localPosition: {x: -0.053094916, y: -0.00000063126214, z: -0.0000013121171}
+        localRotation: {x: 0.000000044994522, y: -0.18275054, z: -0.00000015029215,
+          w: 0.98315936}
+      distal:
+        localPosition: {x: -0.023028623, y: -0.0000028544125, z: 0.00000042334432}
+        localRotation: {x: 0.00000009948258, y: -0.15029459, z: 0.00000039637604,
+          w: 0.9886413}
+    middle:
+      proximal:
+        localPosition: {x: -0.104127295, y: -0.003932573, z: 0.016862746}
+        localRotation: {x: -0.0067400304, y: -0.28473684, z: 0.011412526, w: 0.9585141}
+      intermediate:
+        localPosition: {x: -0.055694673, y: -0.0000008282369, z: -0.0000003737514}
+        localRotation: {x: -0.00000042840824, y: -0.23481938, z: -0.0000000640284,
+          w: 0.97203904}
+      distal:
+        localPosition: {x: -0.025638781, y: 0.0000014048877, z: 0.00000080349855}
+        localRotation: {x: 0.00000087343903, y: -0.16879062, z: 0.000000210684, w: 0.9856519}
+    ring:
+      proximal:
+        localPosition: {x: -0.1031322, y: 0.019616809, z: 0.0129714245}
+        localRotation: {x: -0.0054973336, y: -0.29070914, z: 0.009442921, w: 0.9567491}
+      intermediate:
+        localPosition: {x: -0.051523782, y: -0.0000005582115, z: -0.0000015384867}
+        localRotation: {x: -0.000000065658234, y: -0.28689244, z: -0.00000018044372,
+          w: 0.9579629}
+      distal:
+        localPosition: {x: -0.025169075, y: 0.00000017530962, z: 0.0000014498368}
+        localRotation: {x: -0.00000018657668, y: -0.057171956, z: 0.0000002130333,
+          w: 0.9983643}
+    little:
+      proximal:
+        localPosition: {x: -0.09861072, y: 0.044445783, z: 0.0026288258}
+        localRotation: {x: -0.04031806, y: -0.24630499, z: -0.03091409, w: 0.9678598}
+      intermediate:
+        localPosition: {x: -0.035336148, y: -0.0000006937917, z: -0.00000006856862}
+        localRotation: {x: 0.0000003501772, y: -0.21902895, z: 0.00000018021088, w: 0.9757184}
+      distal:
+        localPosition: {x: -0.020821279, y: 0.0000007397724, z: 0.0000012912787}
+        localRotation: {x: -0.0000004827733, y: -0.053538457, z: 0.00000053590065,
+          w: 0.9985658}
+    gripLocalPosition: {x: -0.08, y: -0.03, z: -0.035}
+    gripLocalRotation: {x: -0.6903456, y: 0.15304609, z: 0.7010574, w: 0.09229589}
+  right:
+    thumb:
+      proximal:
+        localPosition: {x: -0.027677605, y: 0.029472101, z: -0.011060082}
+        localRotation: {x: -0.7669682, y: -0.1147802, z: -0.515185, w: 0.36492425}
+      intermediate:
+        localPosition: {x: -0.034108765, y: -0.0000019017605, z: -0.00000078231096}
+        localRotation: {x: 0.00000011920923, y: 0.059454337, z: 0, w: 0.9982311}
+      distal:
+        localPosition: {x: -0.046364732, y: 0.000001250492, z: 0.00000042657484}
+        localRotation: {x: -0.0000002454389, y: -0.29684138, z: -0.00000030011194,
+          w: 0.95492685}
+    index:
+      proximal:
+        localPosition: {x: -0.10340261, y: 0.03312299, z: 0.013638411}
+        localRotation: {x: -0.024379607, y: -0.19626865, z: -0.007443561, w: 0.98021877}
+      intermediate:
+        localPosition: {x: -0.053094916, y: -0.00000063126214, z: -0.0000013121171}
+        localRotation: {x: 0.000000044994522, y: -0.18275054, z: -0.00000015029215,
+          w: 0.98315936}
+      distal:
+        localPosition: {x: -0.023028623, y: -0.0000028544125, z: 0.00000042334432}
+        localRotation: {x: 0.00000009948258, y: -0.15029459, z: 0.00000039637604,
+          w: 0.9886413}
+    middle:
+      proximal:
+        localPosition: {x: -0.104127295, y: 0.003932573, z: 0.016862746}
+        localRotation: {x: 0.0067400304, y: -0.28473684, z: -0.011412526, w: 0.9585141}
+      intermediate:
+        localPosition: {x: -0.055694673, y: -0.0000008282369, z: -0.0000003737514}
+        localRotation: {x: -0.00000042840824, y: -0.23481938, z: -0.0000000640284,
+          w: 0.97203904}
+      distal:
+        localPosition: {x: -0.025638781, y: 0.0000014048877, z: 0.00000080349855}
+        localRotation: {x: 0.00000087343903, y: -0.16879062, z: 0.000000210684, w: 0.9856519}
+    ring:
+      proximal:
+        localPosition: {x: -0.1031322, y: -0.019616809, z: 0.0129714245}
+        localRotation: {x: 0.0054973336, y: -0.29070914, z: -0.009442921, w: 0.9567491}
+      intermediate:
+        localPosition: {x: -0.051523782, y: -0.0000005582115, z: -0.0000015384867}
+        localRotation: {x: -0.000000065658234, y: -0.28689244, z: -0.00000018044372,
+          w: 0.9579629}
+      distal:
+        localPosition: {x: -0.025169075, y: 0.00000017530962, z: 0.0000014498368}
+        localRotation: {x: -0.00000018657668, y: -0.057171956, z: 0.0000002130333,
+          w: 0.9983643}
+    little:
+      proximal:
+        localPosition: {x: -0.09861072, y: -0.044445783, z: 0.0026288258}
+        localRotation: {x: 0.04031806, y: -0.24630499, z: 0.03091409, w: 0.9678598}
+      intermediate:
+        localPosition: {x: -0.035336148, y: -0.0000006937917, z: -0.00000006856862}
+        localRotation: {x: 0.0000003501772, y: -0.21902895, z: 0.00000018021088, w: 0.9757184}
+      distal:
+        localPosition: {x: -0.020821279, y: 0.0000007397724, z: 0.0000012912787}
+        localRotation: {x: -0.0000004827733, y: -0.053538457, z: 0.00000053590065,
+          w: 0.9985658}
+    gripLocalPosition: {x: -0.08, y: 0.03, z: -0.035}
+    gripLocalRotation: {x: 0.15304606, y: -0.6903456, z: 0.09229589, w: 0.7010574}

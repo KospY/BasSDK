@@ -18,7 +18,7 @@ namespace ThunderRoad
 #endif
         public string interactableId;
 
-        public HandSide side = HandSide.Both;
+        public HandSide allowedHandSide = HandSide.Both;
 
         public enum HandSide
         {

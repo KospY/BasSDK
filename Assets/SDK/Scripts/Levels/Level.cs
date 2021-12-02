@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using System.Text;
+using UnityEngine.AI;
+using UnityEngine.Events;
 
 #if DUNGEN
 using DunGen;
 using DunGen.Adapters;
-using UnityEngine.AI;
+using DunGen.Graph;
 #endif
 
 #if ODIN_INSPECTOR
@@ -24,15 +26,22 @@ namespace ThunderRoad
     public class Level : MonoBehaviour
     {
         public static Level current;
+        public static Level master;
+
         public Transform playerStart;
+
         public List<CustomReference> customReferences;
 
         [NonSerialized]
         public State state = State.None;
-        [NonSerialized]
-        public AudioSource music;
+
         [NonSerialized]
         public bool loaded;
+
+        [NonSerialized]
+        public Color originalFogColor;
+        [NonSerialized]
+        public Color originalShadowColor;
 
         [Serializable]
         public class CustomReference
@@ -48,24 +57,7 @@ namespace ThunderRoad
             Success,
         }
 
-#if DUNGEN
-        public bool dungeonCullAdjacentRoom = true;
-        [NonSerialized]
-        public RuntimeDungeon dungeonGenerator;
-        [NonSerialized]
-        public UnityNavMeshAdapter dungeonNavMeshAdapter;
-
-        private void OnValidate()
-        {
-            PlayerControllerTest playerControllerTest = GameObject.FindObjectOfType<PlayerControllerTest>();
-            if (playerControllerTest)
-            {
-                AdjacentRoomCulling adjacentRoomCulling = playerControllerTest.head.gameObject.GetComponent<AdjacentRoomCulling>();
-                if (!adjacentRoomCulling) adjacentRoomCulling = playerControllerTest.head.gameObject.AddComponent<AdjacentRoomCulling>();
-                adjacentRoomCulling.enabled = dungeonCullAdjacentRoom;
-            }
-        }
-#endif
+        public UnityEvent loadedEvent;
 
         [Button]
         public static void CheckLightMapMode()
@@ -74,101 +66,39 @@ namespace ThunderRoad
         }
 
         [Button]
+        public static void ChangeLightMapMode(LightmapsMode lightmapsMode)
+        {
+            LightmapSettings.lightmapsMode = lightmapsMode;
+            Debug.Log("Lightmap mode set to: " + LightmapSettings.lightmapsMode);
+        }
+   
+        [Button]
         public static void TetrahedralizeLightProbes()
         {
             // Fix light probes being wrong!!!
             LightProbes.Tetrahedralize();
         }
 
+#if PrivateSDK
         protected virtual void Awake()
         {
-            if (gameObject.scene.name.ToLower() != "master")
+            if (gameObject.scene.name.ToLower() == "master")
             {
-                current = this;
-            }
-            if (!playerStart)
-            {
-                PlayerSpawner playerSpawner = GameObject.FindObjectOfType<PlayerSpawner>();
-                if (playerSpawner)
-                {
-                    playerStart = playerSpawner.transform;
-                }
-            }
-#if DUNGEN
-            dungeonNavMeshAdapter = this.GetComponentInChildren<UnityNavMeshAdapter>();
-            if (dungeonNavMeshAdapter)
-            {
-                dungeonNavMeshAdapter.enabled = false;
-            }
-            dungeonGenerator = this.GetComponentInChildren<RuntimeDungeon>();
-            if (dungeonGenerator)
-            {
-                dungeonGenerator.Generator.OnGenerationStatusChanged += OnGenerationStatusChanged;
-                GenerateDungeon();
-            }
-#endif
-        }
-#if DUNGEN
-        [Button]
-        public void GenerateDungeon()
-        {
-            if (dungeonGenerator && Application.isPlaying) dungeonGenerator.Generate();
-        }
-
-        [Button]
-        public void GenerateNavMesh()
-        {
-            if (dungeonNavMeshAdapter && Application.isPlaying)
-            {
-                dungeonNavMeshAdapter.BakeMode = UnityNavMeshAdapter.RuntimeNavMeshBakeMode.PreBakedOnly;
-                dungeonNavMeshAdapter.enabled = true;
-                dungeonNavMeshAdapter.Generate(dungeonGenerator.Generator.CurrentDungeon);
-            }
-        }
-
-        [Button]
-        public void GenerateGlobalNavMesh()
-        {
-            NavMeshSurface surface = this.gameObject.GetComponent<NavMeshSurface>();
-            if (!surface) surface = this.gameObject.AddComponent<NavMeshSurface>();
-            surface.BuildNavMesh();
-        }
-
-        private void OnGenerationStatusChanged(DungeonGenerator generator, GenerationStatus status)
-        {
-            if (status != GenerationStatus.Complete) return;
-
-            SceneManager.MoveGameObjectToScene(generator.CurrentDungeon.gameObject, this.gameObject.scene);
-
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine("Seed: " + generator.ChosenSeed);
-            stringBuilder.AppendLine("Generation time: " + generator.GenerationStats.TotalTime + " ms");
-            stringBuilder.AppendLine("Main room count: " + generator.GenerationStats.MainPathRoomCount);
-            stringBuilder.AppendLine("Branch room count: " + generator.GenerationStats.BranchPathRoomCount);
-            stringBuilder.AppendLine("Total room count: " + generator.GenerationStats.TotalRoomCount);
-            stringBuilder.AppendLine("Retry count: " + generator.GenerationStats.TotalRetries);
-            Debug.Log(stringBuilder.ToString());
-
-            GenerateNavMesh();
-
-            PlayerSpawner playerSpawner = GameObject.FindObjectOfType<PlayerSpawner>();
-            if (playerSpawner)
-            {
-                playerStart = playerSpawner.transform;
-                PlayerControllerTest playerControllerTest = GameObject.FindObjectOfType<PlayerControllerTest>();
-                if (playerControllerTest)
-                {
-                    playerControllerTest.transform.SetPositionAndRotation(playerStart.position, playerStart.rotation);
-                    AdjacentRoomCulling adjacentRoomCulling = playerControllerTest.head.gameObject.GetComponent<AdjacentRoomCulling>();
-                    if (!adjacentRoomCulling) adjacentRoomCulling = playerControllerTest.head.gameObject.AddComponent<AdjacentRoomCulling>();
-                    adjacentRoomCulling.enabled = dungeonCullAdjacentRoom;
-                }
+                master = this;
+                return;
             }
             else
             {
-                Debug.LogError("No player spawner found for dungeon!");
+                current = this;
             }
+            originalFogColor = RenderSettings.fogColor;
+            originalShadowColor = RenderSettings.subtractiveShadowColor;
+            dungeon = GameObject.FindObjectOfType<Dungeon>();
         }
+
+        [NonSerialized, ShowInInspector, ReadOnly]
+        public Dungeon dungeon;
 #endif
+
     }
 }

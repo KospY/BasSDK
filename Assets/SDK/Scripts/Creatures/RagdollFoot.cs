@@ -15,19 +15,23 @@ namespace ThunderRoad
         public Side side = Side.Right;
         public Transform grip;
 
+        [Header("Bones (non-humanoid creature only)")]
+        [Tooltip("detected automatically for humanoid")]
+        public Transform upperLegBone;
+        [Tooltip("detected automatically for humanoid")]
+        public Transform lowerLegBone;
+        [Tooltip("detected automatically for humanoid")]
+        public Transform toesBone;
+
         [NonSerialized]
         public Transform toesAnchor;
-        [NonSerialized]
-        public Transform upperLegBone;
-        [NonSerialized]
-        public Transform lowerLegBone;
 
 
         protected override void OnValidate()
         {
             base.OnValidate();
+            IconManager.SetIcon(this.gameObject, null);
             if (!this.gameObject.activeInHierarchy) return;
-            IconManager.SetIcon(this.gameObject, IconManager.LabelIcon.Red);
             grip = this.transform.Find("Grip");
             if (!grip)
             {

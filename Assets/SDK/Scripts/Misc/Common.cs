@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 namespace ThunderRoad
@@ -71,9 +73,9 @@ namespace ThunderRoad
         PlayerLocomotion,
         BodyLocomotion,
         Touch,
-        MovingObject,
-        DroppedObject,
-        NPCGrabbedObject,
+        MovingItem,
+        DroppedItem,
+        ItemAndRagdollOnly,
         TouchObject,
         Avatar,
         NPC,
@@ -85,6 +87,10 @@ namespace ThunderRoad
         PlayerLocomotionObject,
         LiquidFlow,
         Zone,
+        NoLocomotion,
+        MovingObjectOnly,
+        SkyDome,
+        Highlighter,
     }
 
     public enum Cardinal
@@ -114,21 +120,24 @@ namespace ThunderRoad
         Speed,
     }
 
-    public enum AnimEffectType
-    {
-        None,
-        Shock,
-        ShockDead,
-        Burning,
-        Choke,
-    }
-
     public enum SavedValueID
     {
         Rack,
         Holder,
         PotionFill,
         Ammo,
+        LevelCastThrow,
+        LevelCastSpray,
+        LevelCharge,
+        LevelImbue,
+        LevelMergeAppart,
+        LevelMergeUp,
+        LevelMergeForward,
+        LevelMergeDown,
+        LevelCrystalShockwave,
+        LevelCrystalForward,
+        LevelCrystalFire,
+        Grab,
     }
 
     public enum Finger
@@ -155,6 +164,23 @@ namespace ThunderRoad
         Energy,
     }
 
+    public enum Platform
+    {
+        Windows,
+        Quest2,
+        PSVR,
+    }
+
+    [Flags]
+    public enum LevelSaveOptions
+    {
+        PlayerHolsters = 1,
+        PlayerGrabbedItems = 2,
+        PlayerRacks = 4,
+        LevelCreatures = 8,
+        PlayerGrabbedCreatures = 16,
+    }
+
     [Serializable]
     public class CustomReference
     {
@@ -162,27 +188,281 @@ namespace ThunderRoad
         public Transform transform;
     }
 
+    public class ModData
+    {
+        public string Name;
+        public string Description;
+        public string Author;
+        public string ModVersion;
+        public string GameVersion;
+
+        [NonSerialized]
+        public string folderName;
+    }
+
     public static class Common
     {
-        public static RuntimePlatform GetSelectedPlatform()
+        private static int _lightProbeVolumeLayer;
+        public static int lightProbeVolumeLayer
         {
-#if UNITY_ANDROID
-            return RuntimePlatform.Android;
-#elif UNITY_PS4
-            return RuntimePlatform.PS4;
-#else
-            if (Application.isEditor)
+            get { return _lightProbeVolumeLayer > 0 ? _lightProbeVolumeLayer : _lightProbeVolumeLayer = LayerMask.NameToLayer("LightProbeVolume"); }
+            private set { _lightProbeVolumeLayer = value; }
+        }
+
+        private static int _zoneLayer;
+        public static int zoneLayer
+        {
+            get { return _zoneLayer > 0 ? _zoneLayer : _zoneLayer = LayerMask.NameToLayer("Zone"); }
+            private set { _zoneLayer = value; }
+        }
+
+        public static bool ActiveInPrefabHierarchy(this GameObject gameObject)
+        {
+            if (gameObject.activeSelf)
             {
-                return RuntimePlatform.WindowsEditor;
+                if (gameObject.transform.parent)
+                {
+                    return gameObject.transform.parent.gameObject.ActiveInPrefabHierarchy();
+                }
+                else
+                {
+                    return true;
+                }
             }
             else
             {
-                return RuntimePlatform.WindowsPlayer;
+                return false;
             }
-#endif
         }
 
-        public static string GetGameObjectPath(GameObject obj)
+        public static bool Contains(this LayerMask mask, int layer)
+        {
+            return mask == (mask | (1 << layer));
+        }
+
+        public static int GetMaskAddLayer(int mask, int layer)
+        {
+            return (mask | ~(1 << layer));
+        }
+
+        public static int GetMaskRemoveLayer(int mask, int layer)
+        {
+            return (mask & ~(1 << layer));
+        }
+
+        private static bool platformCached;
+        private static Platform currentPlatform;
+
+        public static Platform GetPlatform()
+        {
+            if (Application.isPlaying)
+            {
+                if (!platformCached)
+                {
+                    if (Enum.TryParse(QualitySettings.names[QualitySettings.GetQualityLevel()], out currentPlatform))
+                    {
+                        platformCached = true;
+                    }
+                    else
+                    {
+                        Debug.LogError("Quality Settings names don't match platform enum!");
+                    }
+                }
+                return currentPlatform;
+            }
+            else
+            {
+                if (Enum.TryParse(QualitySettings.names[QualitySettings.GetQualityLevel()], out Platform platform))
+                {
+                    return platform;
+                }
+                else
+                {
+                    Debug.LogError("Quality Settings names don't match platform enum!");
+                    return Platform.Windows;
+                }
+            }
+        }
+
+        public static int GetRandomWeightedIndex(float[] weights)
+        {
+            if (weights == null || weights.Length == 0) return -1;
+
+            float w;
+            float t = 0;
+            int i;
+            for (i = 0; i < weights.Length; i++)
+            {
+                w = weights[i];
+
+                if (float.IsPositiveInfinity(w))
+                {
+                    return i;
+                }
+                else if (w >= 0f && !float.IsNaN(w))
+                {
+                    t += weights[i];
+                }
+            }
+
+            float r = UnityEngine.Random.value;
+            float s = 0f;
+
+            for (i = 0; i < weights.Length; i++)
+            {
+                w = weights[i];
+                if (float.IsNaN(w) || w <= 0f) continue;
+
+                s += w / t;
+                if (s >= r) return i;
+            }
+
+            return -1;
+        }
+
+        public static void DrawText(GUISkin guiSkin, string text, Vector3 position, Color? color = null, int fontSize = 0, float yOffset = 0)
+        {
+            var prevSkin = GUI.skin;
+            if (guiSkin == null)
+                Debug.LogWarning("editor warning: guiSkin parameter is null");
+            else
+                GUI.skin = guiSkin;
+
+            GUIContent textContent = new GUIContent(text);
+
+            GUIStyle style = (guiSkin != null) ? new GUIStyle(guiSkin.GetStyle("Label")) : new GUIStyle();
+            if (color != null)
+                style.normal.textColor = (Color)color;
+            if (fontSize > 0)
+                style.fontSize = fontSize;
+
+            Vector2 textSize = style.CalcSize(textContent);
+            Vector3 screenPoint = Camera.current.WorldToScreenPoint(position);
+
+            if (screenPoint.z > 0) // checks necessary to the text is not visible when the camera is pointed in the opposite direction relative to the object
+            {
+                var worldPosition = Camera.current.ScreenToWorldPoint(new Vector3(screenPoint.x - textSize.x * 0.5f, screenPoint.y + textSize.y * 0.5f + yOffset, screenPoint.z));
+#if UNITY_EDITOR
+                UnityEditor.Handles.Label(worldPosition, textContent, style);
+#endif
+            }
+            GUI.skin = prevSkin;
+        }
+
+        private static NavMeshPath navMeshPath = new NavMeshPath();
+
+        public static T GetClosest<T>(List<T> behaviours, Vector3 position, bool prioritizeShortestPath) where T : Behaviour
+        {
+            if (prioritizeShortestPath)
+            {
+                float shortestPathLength = Mathf.Infinity;
+                Behaviour shortestPathBehaviour = null;
+                foreach (Behaviour behaviour in behaviours)
+                {
+                    navMeshPath.ClearCorners();
+                    if (NavMesh.CalculatePath(position, behaviour.transform.position, -1, navMeshPath))
+                    {
+                        float pathLength = GetPathLength(navMeshPath);
+                        if (pathLength < shortestPathLength)
+                        {
+                            shortestPathLength = pathLength;
+                            shortestPathBehaviour = behaviour;
+                        }
+                    }
+                }
+                if (shortestPathBehaviour)
+                {
+                    return shortestPathBehaviour as T;
+                }
+            }
+
+            float closestDistanceSqr = Mathf.Infinity;
+            Behaviour closestBehaviour = null;
+            foreach (Behaviour behaviour in behaviours)
+            {
+                Vector3 directionToTarget = behaviour.transform.position - position;
+                float dSqrToTarget = directionToTarget.sqrMagnitude;
+                if (dSqrToTarget < closestDistanceSqr)
+                {
+                    closestDistanceSqr = dSqrToTarget;
+                    closestBehaviour = behaviour;
+                }
+            }
+            return closestBehaviour as T;
+        }
+
+        public static Transform GetClosest(List<Transform> transforms, Vector3 position, bool prioritizeShortestPath)
+        {
+            if (prioritizeShortestPath)
+            {
+                float shortestPathLength = Mathf.Infinity;
+                Transform shortestPathTransform = null;
+                foreach (Transform transform in transforms)
+                {
+                    navMeshPath.ClearCorners();
+                    if (NavMesh.CalculatePath(position, transform.transform.position, -1, navMeshPath))
+                    {
+                        float pathLength = GetPathLength(navMeshPath);
+                        if (pathLength < shortestPathLength)
+                        {
+                            shortestPathLength = pathLength;
+                            shortestPathTransform = transform;
+                        }
+                    }
+                }
+                if (shortestPathTransform)
+                {
+                    return shortestPathTransform;
+                }
+            }
+
+            float closestDistanceSqr = Mathf.Infinity;
+            Transform closestTransform = null;
+            foreach (Transform transform in transforms)
+            {
+                Vector3 directionToTarget = transform.transform.position - position;
+                float dSqrToTarget = directionToTarget.sqrMagnitude;
+                if (dSqrToTarget < closestDistanceSqr)
+                {
+                    closestDistanceSqr = dSqrToTarget;
+                    closestTransform = transform;
+                }
+            }
+            return closestTransform;
+        }
+
+        public static float GetPathLength(NavMeshPath path)
+        {
+            float lng = 0.0f;
+            Vector3[] corners = path.corners;
+            if ((path.status != NavMeshPathStatus.PathInvalid) && (corners.Length > 1))
+            {
+                for (int i = 1; i < corners.Length; ++i)
+                {
+                    lng += Vector3.Distance(corners[i - 1], corners[i]);
+                }
+            }
+            return lng;
+        }
+
+        public static Component CloneComponent(Component source, GameObject destination, bool copyProperties = false)
+        {
+            Component destinationComponent = destination.AddComponent(source.GetType());
+            if (copyProperties)
+            {
+                foreach (PropertyInfo property in source.GetType().GetProperties())
+                {
+                    if (property.CanWrite) property.SetValue(destinationComponent, property.GetValue(source, null), null);
+                }
+            }
+            foreach (FieldInfo field in source.GetType().GetFields())
+            {
+                field.SetValue(destinationComponent, field.GetValue(source));
+            }
+            return destinationComponent;
+        }
+
+        public static string GetPathFromRoot(this GameObject obj)
         {
             string path = "/" + obj.name;
             while (obj.transform.parent != null)
@@ -257,6 +537,16 @@ namespace ThunderRoad
             transform.transform.position += displacement;
             // parenting
             if (parent) transform.transform.SetParent(parent, true);
+        }
+
+        public static Quaternion InverseTransformRotation(this Transform transform, Quaternion rotation)
+        {
+            return (Quaternion.Inverse(transform.rotation) * rotation);
+        }
+
+        public static Quaternion TransformRotation(this Transform transform, Quaternion localRotation)
+        {
+            return (transform.rotation * localRotation);
         }
 
         public static void MirrorChilds(this Transform transform, Vector3 mirrorAxis)

@@ -22,6 +22,7 @@ namespace ThunderRoad
         public Type type;
         public Vector3 boneToChildDirection = Vector3.left;
         public RagdollPart parentPart;
+        public bool ignoreStaticCollision;
 
         [Header("Dismemberment")]
         public bool sliceAllowed;
@@ -31,8 +32,8 @@ namespace ThunderRoad
         public float sliceHeight = 0;
         public float sliceThreshold = 0.5f;
         public Material sliceFillMaterial;
-        public RagdollPart sliceByPassPart;
-        public bool sliceDisableCollider;
+        [Tooltip("Disable this part collider and slice the referenced child part on slice (usefull for necks)")]
+        public RagdollPart sliceChildAndDisableSelf;
         public bool ripBreak = false;
         public float ripBreakForce = 3000;
 
@@ -48,9 +49,8 @@ namespace ThunderRoad
         [NonSerialized]
         public CreatureData.PartData data;
 #endif
-
-        protected bool initialized;
-
+        [NonSerialized]
+        public bool initialized;
         [NonSerialized]
         public bool bodyDamagerIsAttack;
         [NonSerialized]
@@ -62,20 +62,20 @@ namespace ThunderRoad
         [NonSerialized]
         public CollisionHandler collisionHandler;
 
+        [Flags]
         public enum Type
         {
-            None,
-            Head,
-            Neck,
-            Torso,
-            LeftArm,
-            RightArm,
-            LeftHand,
-            RightHand,
-            LeftLeg,
-            RightLeg,
-            LeftFoot,
-            RightFoot,
+            Head = (1 << 0),
+            Neck = (1 << 1),
+            Torso = (1 << 2),
+            LeftArm = (1 << 3),
+            RightArm = (1 << 4),
+            LeftHand = (1 << 5),
+            RightHand = (1 << 6),
+            LeftLeg = (1 << 7),
+            RightLeg = (1 << 8),
+            LeftFoot = (1 << 9),
+            RightFoot = (1 << 10),
         }
 
         protected virtual void OnValidate()
