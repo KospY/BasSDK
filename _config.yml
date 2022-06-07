@@ -1,1 +1,23 @@
+title: bas-wiki
+lang: en
+description: Blade and Sorcery Wiki
+repository: KospY/BasSDK
 theme: jekyll-theme-midnight
+
+
+twitter_username: 
+github_username:  KospY
+
+readme_index:
+  with_frontmatter: true
+
+exclude:
+  - Makefile
+  - Gemfile
+  - Gemfile.lock
+
+plugins:
+  - jemoji
+  - jekyll-avatar
+  - jekyll-mentions
+  - jekyll-github-metadata
