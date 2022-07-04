@@ -7,6 +7,10 @@
 3. Copy the Player.log and/or Player-prev.log to your desktop
 4. Open the log file with notepad, notepad++, wordpad, or drag it into discord to send it
 
+<video autoplay="autoplay" loop="loop">
+  <source src="{{ site.baseurl }}/assets/nomad-logs/nomad-log-windows.mp4" type="video/mp4">
+</video>
+
 ## Retrieve logs on the Quest 2 (Windows)
 
 ### Power on the Quest 2
