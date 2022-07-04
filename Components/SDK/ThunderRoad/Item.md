@@ -1,4 +1,4 @@
-## Item Definition
+## Item
 
 The Item Definition is the core component of items. It is necessary for items and weapons to be able to spawn and use and defines all components necessary for the item to work. Inserting an Item definition will automatically add a rigidbody component, and the script is called "Item".
 
