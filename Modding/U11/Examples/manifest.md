@@ -9,6 +9,6 @@ The GameVersion needs to at **least** match the version of the game you are modd
     "Description": "This is my cool mod",
     "Author": "Wully",
     "ModVersion": "1.0.0",
-    "GameVersion": "11.0"
+    "GameVersion": "0.11.0.0"
 }
 ```
