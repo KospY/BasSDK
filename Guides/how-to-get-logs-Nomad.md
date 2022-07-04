@@ -63,7 +63,7 @@ In `This PC` check you have the `Quest 2` drive appearing.
 ### Go to the Blade and Sorcery: Nomad mod folder
 
 The folder should be here:
-`This PC\Quest 2\Internal shared storage\Android\data\com.Warpfrog.BladeAndSorcery\files\Mods`
+`This PC\Quest 2\Internal shared storage\Android\data\com.Warpfrog.BladeAndSorcery\files\Lods`
 
 There are two ways to get to the folder.
 
