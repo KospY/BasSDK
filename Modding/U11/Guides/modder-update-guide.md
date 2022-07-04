@@ -1,5 +1,32 @@
 # Modder Update Guide
 
+# SDK Changes
+
+## Handles
+
+Handles have been drastically changed. They no longer have a hand pose inside the JSON, and can be adjusted in editor instead! 
+
+![posing]({{ site.baseurl }}/assets/u11-modder-update-guide/handpose.gif)
+
+Handposes now need to be adjusted themselves, and can be blended between the provided hand poses in the SDK. This allows you to adjust each hand pose for each pose, and has a nice new handle interface.
+
+
+![posing]({{ site.baseurl }}/assets/u11-modder-update-guide/handpose-editor.gif)
+
+This also means that in JSON, the hand pose section is no longer present in the handle, and **needs to be removed**.
+
+## Parry Target
+
+ParryTargets are now also used for splash size. Be sure to add them so your weapon splashes in water.
+
+
+## Previews
+
+There is now a close-up preview checkbox, which allows you to generate used for the weapon icon.
+
+![preview]({{ site.baseurl }}/assets/u11-modder-update-guide/preview.JPG)
+
+
 ## Json Changes
 
 ### Handle Poses
