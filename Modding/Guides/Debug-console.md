@@ -1,5 +1,9 @@
 # Debug Console
 
+```warning
+The debug console is only available on PCVR. It is **not** available on Nomad
+```
+
 Blade and Sorcery has an ingame console which can be used to debug mods and find errors and run built-in and custom commands.
 
 ```tip

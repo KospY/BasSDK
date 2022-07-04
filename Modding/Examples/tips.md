@@ -32,13 +32,6 @@ Then add an additional `HolderPoint` on the item script named **HolderRackTopAnc
 ![]({{ site.baseurl }}/assets/tips/sword_holderpoint_script.PNG)
 ![]({{ site.baseurl }}/assets/tips/bow_holderpoint_script.PNG)
 
-## How to create an audio container
-
-
-<video autoplay="autoplay" loop="loop">
-  <source src="{{ site.baseurl }}/assets/tips/create-audio-container.mp4" type="video/mp4">
-</video>
-
 ## Use regions in C# code to collapse regions of code together
 
 ```csharp
