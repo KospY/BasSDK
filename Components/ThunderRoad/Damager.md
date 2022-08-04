@@ -1,7 +1,7 @@
 # Damager
 
 The damager script is essential in dealing damage with the weapons. This script utilises the [Collider Group](https://github.com/KospY/BasSDK/blob/gh-pages/Components/ThunderRoad/ColliderGroup.md) script/colliders to tell the game what part of the weapon is to deal this type of damage. 
-The script will tell the user what the damager type it is set up for (for example, "Blunt" damage has the Penetration Length/Depth set to zero.).
+The script will tell the user what the damager type it is set up for through an information box, also.
 
 ![](https://i.imgur.com/W9muIQp.png)
 
@@ -21,14 +21,14 @@ Please note: Z Axis/Blue Arrow is Forwards, Y Axis/Green Arrow is Upwards.
 "All" Deals damage in all directions
 
 ### Penetration Length
-The Penetration Length is the main use of showing how long the blade is. For swords, this will extend the length of the whole blade, and for axes it shall show the height of the blade. This is mainly used for slashing, for where the depth must be the distance between the length and the edge of the blade, or, for axes, the damager should be set up with slashing and piercing combined.
+The Penetration Length extends to the length of the blade, and is made for slashing objects. For swords, this will extend the length of the whole blade, and for axes it shall show the height of the blade. This is mainly used for slashing, for where the depth must be the distance between the length and the edge of the blade, or, for axes, the damager should be set up with slashing and piercing combined.
 
 ![](https://i.imgur.com/0pFZG73.png)
 
 ### Penetration Depth
 The Penetration Depth is to depict how far a weapon can pierce an object. For example, a dagger has a Penetration Depth set to end at the handle, meaning that it will stop piercing once it reaches that point.
 
-For Slash Damagers, this length must be from center to the edge of the blade, and for axe damagers, the depth goes from slash to how far the axe is to pierce.
+For Slash Damagers, the Penetration Depth must be from center to the edge of the blade, and for axe damagers, the depth goes from the edge of the blade to how far the axe is to pierce.
 
 ![](https://i.imgur.com/NJTLlsN.png)  ![](https://i.imgur.com/4TQTW3w.png)
 
