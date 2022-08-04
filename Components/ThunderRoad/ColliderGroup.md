@@ -4,9 +4,13 @@ The collider group script allows the item to deal damage to objects, as the [Dam
 
 This script also is a dependacy of imbuing weapons, and some fields require inputting for imbuement to work.
 
-![](https://imgur.com/fRt0N4i)
+![](https://i.imgur.com/fRt0N4i.png?1)
 
-## Generate Imbue Mesh Button
+## Generate Imbue Mesh Button and the Imbue Effect Renderer
 
 Before all components are filled in, it is recommended to create colliders for the collider group. For example, set up a collider group and colliders for the blade, a different collider group and colliders for the handle, etc. Ensure that these colliders are a child of the collider group.
-Once all colliders are completed, you can click the "Generate imbue mesh". Once done so, a pink mesh will be generated and the "Imbue Effect Renderer" will be filled in. This mesh is used to 
+Once all colliders are completed, you can click the "Generate imbue mesh". Once done so, a pink mesh will be generated and the "Imbue Effect Renderer" will be filled in. This mesh is used to tell the particle systems of imbuing where to go, and to identify the imbuement particles when it is imbued.
+
+For the Imbue Effect Renderer, you can either use this generated mesh, or create your own.
+
+NOTE: You must disable the pink mesh by clicking on it, and unticking the "mesh renderer" checkbox.
