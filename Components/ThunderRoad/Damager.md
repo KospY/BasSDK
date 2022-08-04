@@ -28,9 +28,9 @@ The Penetration Length is the main use of showing how long the blade is. For swo
 ### Penetration Depth
 The Penetration Depth is to depict how far a weapon can pierce an object. For example, a dagger has a Penetration Depth set to end at the handle, meaning that it will stop piercing once it reaches that point.
 
-For Slash Damagers, this length must be from center to the edge of the blade.
+For Slash Damagers, this length must be from center to the edge of the blade, and for axe damagers, the depth goes from slash to how far the axe is to pierce.
 
-![](https://i.imgur.com/NJTLlsN.png)
+![](https://i.imgur.com/NJTLlsN.png)  ![](https://i.imgur.com/4TQTW3w.png)
 
 ### Penetration Exit on Max Depth
 
@@ -50,8 +50,6 @@ The Depth displays how far the weapon can go through the object. For pierces, th
 The slash damager utilises both the depth and length.
 For straight-bladed weapons, like swords and daggers, the penetration length must extend to the length of the blade, while the depth must be from the center to the edge of the blade. The direction for Slash on these weapons should be set to Forward and Backward.
 For weapons like axes, the length must be the height of the blade and the depth must be how far it goes down the axe. The direction for Slash on axes should be set to forward
-
-![](https://i.imgur.com/4TQTW3w.png)
 
 ### Blunt
 
