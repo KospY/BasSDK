@@ -1,6 +1,6 @@
 # Collider Group
 
-The collider group script allows the item to deal damage to objects, as the [Damager](https://github.com/KospY/BasSDK/edit/gh-pages/Components/ThunderRoad/Damager.md) script is dependant of it. This component requires colliders attached to it to recognise what colliders utilise the damager.
+The collider group script allows the item to deal damage to objects, as the [Damager]({% link Components/ThunderRoad/Damager.md %}) script is dependant of it. This component requires colliders attached to it to recognise what colliders utilise the damager.
 
 This script also is a dependacy of imbuing weapons, and some fields require inputting for imbuement to work.
 
