@@ -1,6 +1,6 @@
 # Collider Group
 
-The collider group script allows the item to deal damage to objects, as the [Damager]({{ site.baseurl }}{% link Components/ThunderRoad/Damager.md %} script is dependant of it. This component requires colliders attached to it to recognise what colliders utilise the damager.
+The collider group script allows the item to deal damage to objects, as the [Damager]({% link Components/ThunderRoad/Damager.md %}) script is dependant of it. This component requires colliders attached to it to recognise what colliders utilise the damager.
 
 This script also is a dependacy of imbuing weapons, and some fields require inputting for imbuement to work.
 
@@ -34,11 +34,11 @@ The Imbue Shoot transform is to depict where spells shoot from if the weapon is 
 
 ## Whoosh Point
 
-This is usually automatically generated when you play the game. However, if it feels like your imbue trails/sounds/haptics aren't feeling right, you can apply it exactly like the item's [Whoosh Point]({{ site.baseurl }}{% link Components/ThunderRoad/WhooshPoint.md %}).
+This is usually automatically generated when you play the game. However, if it feels like your imbue trails/sounds/haptics aren't feeling right, you can apply it exactly like the item's [Whoosh Point]({% link Components/ThunderRoad/WhooshPoint.md %}).
 
 ## Imbue Custom Fx Controller
 
-This is your [FX Controller]({{ site.baseurl }}{% link Components/ThunderRoad/FxController.md %}) if you want to make a custom FX for your imbue. For example, the Torch uses this component to spawn Fire effects when it is imbued.
+This is your [FX Controller]({% link Components/ThunderRoad/FxController.md %}) if you want to make a custom FX for your imbue. For example, the Torch uses this component to spawn Fire effects when it is imbued.
 
 ## Imbue Custom Fx ID
 
