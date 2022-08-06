@@ -77,7 +77,7 @@ Zone effects will not spawn at the exact point of contact, rather the position w
 
 
 
-[UnityEvents]: {{site.url }}https://docs.unity3d.com/Manual/UnityEvents.html
+[UnityEvents]: https://docs.unity3d.com/Manual/UnityEvents.html
 [FXPosition]: {{ site.url }}/assets/u11-modder-update-guide/Zone_fxposition.png
 [ZonePortal]: {% link Components/ThunderRoad/ZonePortal.md %}
 [Effect]: {% link Components/ThunderRoad/Effect.md %}
