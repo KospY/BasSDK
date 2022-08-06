@@ -1,7 +1,7 @@
 # Zone
 
 ## Overview
-Zones are a highly flexible tool for activating certain behaviours when an item, player or creature enters its area of effect.
+Zones are a highly flexible tool for activating certain behaviours when an object or creature enter's its area of effect.
 
 ## Usage
 
@@ -75,9 +75,7 @@ Zone effects will not spawn at the exact point of contact, rather the position w
 
 
 
-
-
 [UnityEvents]: https://docs.unity3d.com/Manual/UnityEvents.html
-[FXPosition]: {{ site.url }}/assets/u11-modder-update-guide/Zone_fxposition.png
-[ZonePortal]: {% link Components/ThunderRoad/ZonePortal.md %}
-[Effect]: {% link Components/ThunderRoad/Effect.md %}
+[FXPosition]: {{ site.baseurl }}/assets/u11-modder-update-guide/Zone_fxposition.png
+[ZonePortal]: {{ site.baseurl }}{% link Components/ThunderRoad/ZonePortal.md %}
+[Effect]: {{ site.baseurl }}{% link Components/ThunderRoad/Effect.md %}
