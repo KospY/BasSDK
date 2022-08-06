@@ -19,13 +19,13 @@ The below methods can all be invoked by Unity events, and provide extra function
 ## Specific linker types
 - General
   - [Control Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/ControlEventLinker.html) for any player controller input triggers
-  - [Game Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/GameEventLinker.html) for any triggers based off hits, kills, creature, or item spawns
+  - [Game Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/GameEventLinker.html) \* for any triggers based off hits, kills, creature, or item spawns
   - [Handle Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/HandleEventLinker.html) for any handle grab/ungrab triggers
   - [Holder Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/HolderEventLinker.html) for any holder snap/unsnap triggers
-  - *[Spell Touch Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/SpellTouchEventLinker.html)* for triggering events when a spell touches an object
-  - *[Unity Event Grouper](https://kospy.github.io/BasSDK/Components/ThunderRoad/UnityEventGrouper.html)* for grouping events together to trigger from other places
+  - [Spell Touch Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/SpellTouchEventLinker.html) \*\* for triggering events when a spell touches an object
+  - [Unity Event Grouper](https://kospy.github.io/BasSDK/Components/ThunderRoad/UnityEventGrouper.html) \*\* for grouping events together to trigger from other places
 - Item-focused
-  - [Bow Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/BowEventLinker.html) for triggers related to nocking arrows, firing bows, etc.
+  - [Bow Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/BowEventLinker.html) \* for triggers related to nocking arrows, firing bows, etc.
   - [Collision Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/CollisionEventLinker.html) for any collision triggers
   - [Damager Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/DamagerEventLinker.html) for triggering events when a specific damager deals damage
   - [Imbue Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/ImbueEventLinker.html) for triggering events when imbue is added, filled, or used
