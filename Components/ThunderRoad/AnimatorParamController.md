@@ -15,6 +15,7 @@ This is a simple convenience method. You can already do this exact same thing by
 Invoking this method allows you to change the value of a boolean (true/false) parameter in your animator. You can set it directly (using either `true` or `false`, or the name of another boolean parameter in the animator) or set it using a logic gate or a numerical comparison. **BoolOperation is where you'll benefit most from understanding basic programming/logic gates!**
 
 **To directly set a boolean**, the syntax is as follows: `BoolParamName = True` or `BoolParamName = AnotherBool`. *For plain boolean values (true/false), you do not have to be case-sensitive! `true`, `True`, `TRUE`, and all variations thereof will all be interpreted as `true`.*
+
 | Operator | Behaviour |
 | --- | --- |
 | ! | Inverts the value of a boolean (from `true` to `false` or vice versa. *This has to go directly in front of a boolean value that's on the right side of the equals!* You can use this to make something toggle like so: `Active = !Active` |
@@ -29,6 +30,7 @@ Invoking this method allows you to change the value of a boolean (true/false) pa
 IntegerOperation is for setting the values of your integer parameters in your animator. Much like with BoolOperation, you can set your integer values directly (using integers or from another parameter) or you can set them using an operation. **For integer operations, both sides of the operation MUST be integers!**
 
 **To directly set an integer**, the syntax is as follows: `IntegerParamName = 10` or `IntegerParamName = AnotherInteger`.
+
 | Operator | Behaviour |
 | --- | --- |
 | + | Addition: `Stage = Stage + 1` *(Increases `Stage` by 1)* |
@@ -43,6 +45,7 @@ IntegerOperation is for setting the values of your integer parameters in your an
 FloatOperation is for setting the values of your float parameters in your animator. With FloatOperation you have access to all the same operation options as you do with IntegerOperation, but with FloatOperation, **you can use floats OR integers in your operations.** You can set a float equal to an integer, or set a float equal to the sum of two integers.
 
 **To directly set a float**, the syntax is as follows: `FloatParamName = 4.2` or `FloatParamName = IntegerOrFloatParam`.
+
 | Operator | Behaviour |
 | --- | --- |
 | + | Addition: `Speed = Speed + 0.5` *(Increases `Speed` by 0.5)* |
