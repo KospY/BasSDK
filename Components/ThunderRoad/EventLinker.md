@@ -5,7 +5,7 @@ Every event linker has the same standard "structure" with mild alterations: You 
 
 Using event linkers, you can make items perform complex actions such as playing animations, particles, sounds, etc., introduce puzzle mechanics to your levels, or create custom humanoids with new additions which otherwise wouldn't be possible without writing code. **Event linkers work on both PCVR and Nomad!**
 
-For more specific information regarding each type of event linker and the triggers you can link to, please navigate to its associated wiki page. A full list of specific event linker types can be found below.
+For more specific information regarding each type of event linker and the triggers you can link to, please navigate to its associated wiki page. A full list of specific event linker types can be found [below](https://kospy.github.io/BasSDK/Components/ThunderRoad/EventLinker.html#specific-linker-types).
 
 ## How to use Event Linkers
 (To be completed with screenshots)
