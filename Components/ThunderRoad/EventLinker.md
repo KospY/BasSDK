@@ -32,7 +32,7 @@ The below methods can all be invoked by Unity events, and provide extra function
   - [Collision Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/CollisionEventLinker.html) for any collision triggers
   - [Damager Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/DamagerEventLinker.html) for triggering events when a specific damager deals damage
   - [Imbue Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/ImbueEventLinker.html) for triggering events when imbue is added, filled, or used
-  - [Item Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/ImbueEventLinker.html) for any item-related triggers
+  - [Item Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/ItemEventLinker.html) for any item-related triggers
 - Creature-focused
   - [Creature Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/CreatureEventLinker.html)[^extras] for triggering events when a creature is hit, grabbed, healed, or attacks
   - [Ragdoll Part Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/RagdollPartEventLinker.html)[^extras] for damage, grab, or touch based triggers
