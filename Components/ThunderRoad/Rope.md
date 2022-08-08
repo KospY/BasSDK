@@ -4,13 +4,13 @@
 ## Overview
 This component provides an easy way to set up ropes that can be grabbed by the player.  
 
-> This kind of rope is static. If you are looking for a rope for hanging lanterns, see [RopeSimple][RopeSimple]
+> This kind of rope is static. If you are looking for a rope for hanging lanterns, see [RopeSimple][RopeSimple].
 
 
 ### Setup (Horizontal / Point-To-Point)
 Point-To-Point ropes will generate a rope that links from the `RopeStart` transform to the `RopeEnd` transform.
 1. Find the RopeHorizontal prefab in the SDK examples folder.
-2. Place the prefab in your scene, drag RopeStart and RopeEnd to the desired start and end point of your rope
+2. Place the prefab in your scene, drag RopeStart and RopeEnd to the desired start and end point of your rope.
 
 ### Setup (Vertical / Dynamic)
 Dynamic ropes will generate a rope that reaches from the `RopeStart` transform to the nearest floor.
@@ -23,14 +23,14 @@ Dynamic ropes will generate a rope that reaches from the `RopeStart` transform t
 
 | Field                       | Description
 | ---                         | ---
-| Rope Start                  | A transform that will act as the starting point of the rope
-| Rope Target                 | A transform that will act as the ending point of the rope
-| Rope Radius                 | Controls the thickness of the rope.
-| Rope Material               | The material applied to the generated rope mesh.
+| Rope Start                  | A transform that will act as the starting point of the rope.
+| Rope Target                 | A transform that will act as the ending point of the rope.
+| Rope Radius                 | Controls the radius of the generated rope mesh.
+| Rope Material               | The material to apply to the generated rope mesh.
 | Rope Use Collider           | Should the rope have a physics collider?
 | Rope Layer                  | The [layer][Layers] that the generated rope object should be set to. 
-| Rope Physic Material        | The physics material that will be applied to the generated rope object's collider
-| Rope Tag                    | Tag applied to the generated rope object
+| Rope Physic Material        | The physics material that will be applied to the generated rope object's collider.
+| Rope Tag                    | Tag to apply to the generated rope object.
 | **Dynamic Height**
 | Dynamic Height              | Should this rope use Dynamic Height?
 | Raycast Range               | How far to check for a floor to place the end of the rope at.
@@ -48,13 +48,13 @@ The value provided for `Rope Radius` is halved ingame.
 ## Common Issues
 
 ### • Missing/Broken Handle
-If your rope appears ingame but has no Rope handle, or the handle is not working, ensure that:
+If your rope appears ingame but has no handle, or the handle is not working, ensure that:
 - The `interactable Id` property has been filled in and is spelled correctly.
 - There is a RigidBody component alongside your Rope component, with `Is Kinematic` set to true.
 - There is at least one child HandPose on your Rope.
 
-### • Dynamic Rope Not Vertical
-If your dynamic rope is skewed, ensure the game object that has the rope component is in the same location as the RopeStart game object.
+### • Dynamic Rope Is Not Vertical
+If your dynamic rope is skewed, ensure the object that has the rope component is in the same location as the `RopeStart` object.
 
 ### • Rope Object Positioned Incorrectly
 If your rope does not appear in the correct position, check that:
