@@ -9,5 +9,5 @@ The `AudioContainer` can be accessed directly by script mods to specifically cho
 
 ## How to create an audio container
 <video autoplay="autoplay" loop="loop">
-  <source src="{{ site.baseurl }}/assets/tips/create-audio-container.mp4" type="video/mp4">
+  <source src="{{ site.baseurl }}/assets/components/AudioContainer/create-audio-container.mp4" type="video/mp4">
 </video>

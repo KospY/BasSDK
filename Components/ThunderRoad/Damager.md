@@ -1,20 +1,20 @@
 # Damager
 
-The damager script is essential in dealing damage with the weapons. This script utilises the [Collider Group]({% link Components/ThunderRoad/ColliderGroup.md %}) script/colliders to tell the game what part of the weapon is to deal this type of damage. 
+The damager script is essential in dealing damage with the weapons. This script utilises the [Collider Group][ColliderGroup] script/colliders to tell the game what part of the weapon is to deal this type of damage. 
 The script will tell the user what the damager type it is set up for through an information box, also.
 
-![Script Preview]({{ site.baseurl }}/assets/u11-modder-update-guide/Damager/DamagerScript.png)
+![Script Preview][SPreview]
 
 ## Damager Components
 ### "Collider Group" and "Collider Only"
-The [Collider Group](https://github.com/KospY/BasSDK/blob/gh-pages/Components/ThunderRoad/ColliderGroup.md) is another script used to reference a set of colliders. If there is one collider referenced, it would be best to reference this one collider in the "Collider Only" field. However, this is not required if it is referenced as a collider group. 
+The [Collider Group][ColliderGroup] is another script used to reference a set of colliders. If there is one collider referenced, it would be best to reference this one collider in the "Collider Only" field. However, this is not required if it is referenced as a collider group. 
 This component tells the game what collider deals this type of damage.
 
 ### Direction
 The "Direction" parameter of the damager script is to make it so the damager deals damage if hit in this direction. For example, a "Pierce" damager has Direction set to "Forward" so that it stabs when thrust or thrown forwards.
 Please note: Z Axis/Blue Arrow is Forwards, Y Axis/Green Arrow is Upwards.
 
-![Direction Example]({{ site.baseurl }}/assets/u11-modder-update-guide/Damager/PenDirection.png)
+![Direction Example][DirectionEx]
 
 "Forward" only deals damage when thrown/thrusted/slashed on the positive Z axis / Pointing Blue Arrow
 "Forward and Backward" only deals damage when thrown/thrusted/slashed on positive AND negative Z axis / Pointing Blue Arrow AND Other direction
@@ -23,14 +23,15 @@ Please note: Z Axis/Blue Arrow is Forwards, Y Axis/Green Arrow is Upwards.
 ### Penetration Length
 The Penetration Length extends to the length of the blade, and is made for slashing objects. For swords, this will extend the length of the whole blade, and for axes it shall show the height of the blade. This is mainly used for slashing, for where the depth must be the distance between the length and the edge of the blade, or, for axes, the damager should be set up with slashing and piercing combined.
 
-![Length Example]({{ site.baseurl }}/assets/u11-modder-update-guide/Damager/PenLength.png)
+![Length Example][PenetrationLen]
 
 ### Penetration Depth
 The Penetration Depth is to depict how far a weapon can pierce an object. For example, a dagger has a Penetration Depth set to end at the handle, meaning that it will stop piercing once it reaches that point.
 
 For Slash Damagers, the Penetration Depth must be from center to the edge of the blade, and for axe damagers, the depth goes from the edge of the blade to how far the axe is to pierce.
 
-![Penetration Depth Example]({{ site.baseurl }}/assets/u11-modder-update-guide/Damager/PenDepth.png)  ![Dagger and Axe Example]({{ site.baseurl }}/assets/u11-modder-update-guide/Damager/DaggerAndAxe.PNG)
+![Penetration Depth Example][PenetrationDep]  
+![Dagger and Axe Example][DaggerAxe]
 
 ### Penetration Exit on Max Depth
 
@@ -54,3 +55,11 @@ For weapons like axes, the length must be the height of the blade and the depth 
 ### Blunt
 
 The Blunt damager is to deal blunt damage to an object, such as a mace or a non-bladed weapon. For a blunt damager, the length and depth must be zero, and the direction should be set to all.
+
+
+[ColliderGroup]:    {{ site.baseurl }}{% link Components/ThunderRoad/ColliderGroup.md %}
+[SPreview]:         {{ site.baseurl }}/assets/components/Damager/DamagerScript.png
+[DirectionEx]:      {{ site.baseurl }}/assets/components/Damager/PenDirection.png
+[PenetrationLen]:   {{ site.baseurl }}/assets/components/Damager/PenLength.png
+[PenetrationDep]:   {{ site.baseurl }}/assets/components/Damager/PenDepth.png
+[DaggerAxe]:        {{ site.baseurl }}/assets/components/Damager/DaggerAndAxe.PNG
