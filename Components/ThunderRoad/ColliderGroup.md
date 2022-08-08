@@ -1,10 +1,10 @@
 # Collider Group
 
-The collider group script allows the item to deal damage to objects, as the [Damager]({% link Components/ThunderRoad/Damager.md %}) script is dependant of it. This component requires colliders attached to it to recognise what colliders utilise the damager.
+The collider group script allows the item to deal damage to objects, as the [Damager][Damager] script is dependant of it. This component requires colliders attached to it to recognise what colliders utilise the damager.
 
 This script also is a dependacy of imbuing weapons, and some fields require inputting for imbuement to work.
 
-![Script Preview]({{ site.baseurl }}/assets/u11-modder-update-guide/ColliderGroup/CollidergroupScript.png)
+![Script Preview][SPreview]
 
 ## Generate Imbue Mesh Button and the Imbue Effect Renderer
 
@@ -13,12 +13,12 @@ Once all colliders are completed, you can click the "Generate imbue mesh". Once 
 
 For the Imbue Effect Renderer, you can either use this generated mesh, or create your own.
 
-![Imbue Generated Mesh]({{ site.baseurl }}/assets/u11-modder-update-guide/ColliderGroup/ImbueMeshGen.PNG)
+![Imbue Generated Mesh][ImbueGenMesh]
 > Note for Image: The mesh on the right is to show what the mesh looks like, do not duplicate and put it to the side and reference this one.
 
 > NOTE: You must disable the pink mesh by clicking on it, and unticking the "mesh renderer" checkbox.
 
-> ![Turn off Mesh Renderer]({{ site.baseurl }}/assets/u11-modder-update-guide/ColliderGroup/ImbueMeshDisable.PNG)
+> ![Turn off Mesh Renderer][MeshRenderer]
 
 ## Imbue Emission Renderer
 
@@ -34,13 +34,19 @@ The Imbue Shoot transform is to depict where spells shoot from if the weapon is 
 
 ## Whoosh Point
 
-This is usually automatically generated when you play the game. However, if it feels like your imbue trails/sounds/haptics aren't feeling right, you can apply it exactly like the item's [Whoosh Point]({% link Components/ThunderRoad/WhooshPoint.md %}).
+This is usually automatically generated when you play the game. However, if it feels like your imbue trails/sounds/haptics aren't feeling right, you can apply it exactly like the item's [Whoosh Point][Whoosh].
 
 ## Imbue Custom Fx Controller
 
-This is your [FX Controller]({% link Components/ThunderRoad/FxController.md %}) if you want to make a custom FX for your imbue. For example, the Torch uses this component to spawn Fire effects when it is imbued.
+This is your [FX Controller][FXController] if you want to make a custom FX for your imbue. For example, the Torch uses this component to spawn Fire effects when it is imbued.
 
 ## Imbue Custom Fx ID
 
 This is needed to spawn the Imbue Custom Fx Controller, where the ID is the spell that can trigger this FX. (e.g. Fire, Gravity, Lightning)
 
+[Damager]:      {{ site.baseurl }}{% link Components/ThunderRoad/Damager.md %}
+[SPreview]:     {{ site.baseurl }}/assets/components/ColliderGroup/CollidergroupScript.png
+[ImbueGenMesh]: {{ site.baseurl }}/assets/components/ColliderGroup/ImbueMeshGen.PNG
+[MeshRenderer]: {{ site.baseurl }}/assets/components/ColliderGroup/ImbueMeshDisable.PNG
+[Whoosh]:       {{ site.baseurl }}{% link Components/ThunderRoad/WhooshPoint.md %}
+[FXController]: {{ site.baseurl }}{% link Components/ThunderRoad/FxController.md %}

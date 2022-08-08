@@ -53,4 +53,4 @@ The intensity of this effect is calculated by the amount of force stretching the
 
 [SpringJoint]: https://docs.unity3d.com/ScriptReference/SpringJoint.html
 [RBSleeping]: https://docs.unity3d.com/Manual/RigidbodiesOverview.html
-[SampleImage]: {{ site.url }}/assets/u11-modder-update-guide/RopeSimple_sample.png
+[SampleImage]: {{ site.baseurl }}/assets/components/RopeSimple/sample.png

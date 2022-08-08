@@ -2,7 +2,7 @@
 
 The Disable on Condition script disables the object depending on the condition given to it.
 
-![Script Preview]({{ site.baseurl }}/assets/u11-modder-update-guide/DisableOnCondition.PNG)
+![Script Preview][SPreview]
 
 ## Conditions
 
@@ -12,3 +12,6 @@ The Disable on Condition script disables the object depending on the condition g
 | Is Build Release            | Will be disabled on Build Release and/or Addressable Building
 | On Room Culled              | Will be disabled once the Room has been culled (Note: For Dungeon Room Culling).
 | Gore Not Allowed            | Will be disabled when "Gore" in the Settings is set to "Disabled".
+
+
+[SPreview]: {{ site.baseurl }}/assets/components/DisableOnCondition/Inspector.PNG
