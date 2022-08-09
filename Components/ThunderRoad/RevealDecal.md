@@ -8,7 +8,8 @@ Reveal Decal is the script needed to spawn blood decals on weapons and props. Th
 You can use the buttons on this script to set the resolution of the reveal material.
 
 > Optimisation Note: It is recommended to keep the reveal resolution low to prevent the game to crash on ```B&S Nomad```, or to cause a lag spike on ```B&S PCVR```. It is recommended not to go above `512x512`, or `Mask Resolution Quarter`, to avoid any issues. You are unlikely to see a big change in resolutions above this point unless your item is very large. 
-> 
+>
+
 ## Components
 
 | Field                       | Description
@@ -18,7 +19,7 @@ You can use the buttons on this script to set the resolution of the reveal mater
 | **Type**
 | Default                     | Applies to Weapons, Items, and non clothing itmes that require Reveal.
 | Body                        | Applies to bodies/creatures. Reveal is removed on drinking Health Potions.
-| Outfit                      | Applies to Armor. Reveal is removed on drinking Health Potions.
+| Outfit                      | Applies to Armor. Reveal is not removed on drinking Health Potions.
 
 
 ## Material Setup
