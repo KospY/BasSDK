@@ -1,11 +1,11 @@
 # Event Linkers
-Event linkers are a set of utility scripts that allow you to link together in-game events to activate functions on the components you add to items, maps, or creatures within Unity. All event linkers have a handful of [common functions](https://kospy.github.io/BasSDK/Components/ThunderRoad/EventLinker.html#common-methods) that you can activate which afford you even greater control over the control of your item(s).
+Event linkers are a set of utility scripts that allow you to link together in-game events to activate functions on the components you add to items, maps, or creatures within Unity. All event linkers have a handful of [common functions]({% link Components/ThunderRoad/EventLinker.md#common-methods %}) that you can activate which afford you even greater control over the control of your item(s).
 
 Every event linker has the same standard "structure" with mild alterations: You define a list of events (For which you configure the **trigger** by selecting one from a dropdown selector) which give you a **Unity event** to drag/drop GameObjects into in order to invoke **methods** from the components added to that GameObject. You can (and may even *need* to) make events with duplicate triggers: The execution order of these events matters!
 
 Using event linkers, you can make items perform complex actions such as playing animations, particles, sounds, etc., introduce puzzle mechanics to your levels, or create custom humanoids with new additions which otherwise wouldn't be possible without writing code. **Event linkers work on both PCVR and Nomad!**
 
-For more specific information regarding each type of event linker and the triggers you can link to, please navigate to its associated wiki page. A full list of [specific event linker types can be found below](https://kospy.github.io/BasSDK/Components/ThunderRoad/EventLinker.html#specific-linker-types).
+For more specific information regarding each type of event linker and the triggers you can link to, please navigate to its associated wiki page. A full list of [specific event linker types can be found below]({% link Components/ThunderRoad/EventLinker.html#specific-linker-types %}).
 
 ## How to use Event Linkers
 (To be completed with screenshots)
@@ -21,21 +21,21 @@ The below methods can all be invoked by Unity events, and provide extra function
 
 ## Specific linker types
 - General
-  - [Control Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/ControlEventLinker.html) for any player controller input triggers
-  - [Game Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/GameEventLinker.html)[^extras] for any triggers based off hits, kills, creature, or item spawns
-  - [Handle Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/HandleEventLinker.html)[^varies] for any handle grab/ungrab triggers
-  - [Holder Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/HolderEventLinker.html) for any holder snap/unsnap triggers
-  - [Spell Touch Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/SpellTouchEventLinker.html)[^unique] for triggering events when a spell touches an object
-  - [Unity Event Grouper](https://kospy.github.io/BasSDK/Components/ThunderRoad/UnityEventGrouper.html)[^unique] for grouping events together to trigger from other places
+  - [Control Event Linker]({% link Components/ThunderRoad/ControlEventLinker.html %}) for any player controller input triggers
+  - [Game Event Linker]({% link Components/ThunderRoad/GameEventLinker.html %})[^extras] for any triggers based off hits, kills, creature, or item spawns
+  - [Handle Event Linker]({% link Components/ThunderRoad/HandleEventLinker.html %})[^varies] for any handle grab/ungrab triggers
+  - [Holder Event Linker]({% link Components/ThunderRoad/HolderEventLinker.html %}) for any holder snap/unsnap triggers
+  - [Spell Touch Event Linker]({% link Components/ThunderRoad/SpellTouchEventLinker.html %})[^unique] for triggering events when a spell touches an object
+  - [Unity Event Grouper]({% link Components/ThunderRoad/UnityEventGrouper.html %})[^unique] for grouping events together to trigger from other places
 - Item-focused
-  - [Bow Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/BowEventLinker.html)[^extras] for triggers related to nocking arrows, firing bows, etc.
-  - [Collision Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/CollisionEventLinker.html) for any collision triggers
-  - [Damager Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/DamagerEventLinker.html) for triggering events when a specific damager deals damage
-  - [Imbue Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/ImbueEventLinker.html) for triggering events when imbue is added, filled, or used
-  - [Item Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/ItemEventLinker.html) for any item-related triggers
+  - [Bow Event Linker](h{% link Components/ThunderRoad/BowEventLinker.html %})[^extras] for triggers related to nocking arrows, firing bows, etc.
+  - [Collision Event Linker]({% link Components/ThunderRoad/CollisionEventLinker.html %}) for any collision triggers
+  - [Damager Event Linker]({% link Components/ThunderRoad/DamagerEventLinker.html %}) for triggering events when a specific damager deals damage
+  - [Imbue Event Linker]({% link Components/ThunderRoad/ImbueEventLinker.html %}) for triggering events when imbue is added, filled, or used
+  - [Item Event Linker]({% link Components/ThunderRoad/ItemEventLinker.html %}) for any item-related triggers
 - Creature-focused
-  - [Creature Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/CreatureEventLinker.html)[^extras] for triggering events when a creature is hit, grabbed, healed, or attacks
-  - [Ragdoll Part Event Linker](https://kospy.github.io/BasSDK/Components/ThunderRoad/RagdollPartEventLinker.html)[^extras] for damage, grab, or touch based triggers
+  - [Creature Event Linker]({% link Components/ThunderRoad/CreatureEventLinker.html %})[^extras] for triggering events when a creature is hit, grabbed, healed, or attacks
+  - [Ragdoll Part Event Linker]({% link Components/ThunderRoad/RagdollPartEventLinker.html %})[^extras] for damage, grab, or touch based triggers
 
 [^extras]: These event linkers have additional parameters in addition to choosing the trigger
 [^varies]: These event linkers have events which may or may not work depending on where the component reference is
