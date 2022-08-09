@@ -32,4 +32,4 @@ The Preview script generates an image for the item, which is used to preview wha
 
 [Item]: {{ site.baseurl }}{% link Components/ThunderRoad/Item.md %}
 [PreviewExamples]: {{ site.baseurl }}/assets/components/Preview/PreviewExamples.png
-[PreviewScript]: {{ site.baseurl }}/assets/components/Preview/PreviewScript.png
+[PreviewScript]: {{ site.baseurl }}/assets/components/Preview/PreviewScript.PNG
