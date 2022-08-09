@@ -1,11 +1,11 @@
 # Event Linkers
-Event linkers are a set of utility scripts that allow you to link together in-game events to activate functions on the components you add to items, maps, or creatures within Unity. All event linkers have a handful of [common functions][Common] that you can activate which afford you even greater control over the control of your item(s).
+Event linkers are a set of utility scripts that allow you to link together in-game events to activate functions on the components you add to items, maps, or creatures within Unity. All event linkers have a handful of common functions that you can activate which afford you even greater control over the control of your item(s).
 
 Every event linker has the same standard "structure" with mild alterations: You define a list of events (For which you configure the **trigger** by selecting one from a dropdown selector) which give you a **Unity event** to drag/drop GameObjects into in order to invoke **methods** from the components added to that GameObject. You can (and may even *need* to) make events with duplicate triggers: The execution order of these events matters!
 
 Using event linkers, you can make items perform complex actions such as playing animations, particles, sounds, etc., introduce puzzle mechanics to your levels, or create custom humanoids with new additions which otherwise wouldn't be possible without writing code. **Event linkers work on both PCVR and Nomad!**
 
-For more specific information regarding each type of event linker and the triggers you can link to, please navigate to its associated wiki page. A full list of [specific event linker types can be found below][Specific].
+For more specific information regarding each type of event linker and the triggers you can link to, please navigate to its associated wiki page. A full list of specific event linker types can be found below.
 
 ## How to use Event Linkers
 (To be completed with screenshots)
@@ -41,8 +41,6 @@ The below methods can all be invoked by Unity events, and provide extra function
 [^varies]: These event linkers have events which may or may not work depending on where the component reference is
 [^unique]: These event linkers have entirely different trigger definition (No dropdown)
 
-[Common]: {{ site.baseurl }}{% link Components/ThunderRoad/EventLinker.md | append: "#common-methods" %}
-[Specific]: {{ site.baseurl }}{% link Components/ThunderRoad/EventLinker.html | append: "#specific-linker-types" %}
 [ControlEventLinker]: {{ site.baseurl }}{% link Components/ThunderRoad/ControlEventLinker.html %}
 [GameEventLinker]: {{ site.baseurl }}{% link Components/ThunderRoad/GameEventLinker.html %}
 [HandleEventLinker]: {{ site.baseurl }}{% link Components/ThunderRoad/HandleEventLinker.html %}
