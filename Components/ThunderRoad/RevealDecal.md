@@ -33,7 +33,7 @@ You can use the buttons on this script to set the resolution of the reveal mater
 | ---                         | ---
 | Layer Mask                  | Reveal_WeaponBlood_Mask
 | Layer0 (R)                  | Revealed_WeaponBlood_c
-| Layer0 (R) Normal           | ```The Normal Map of your Material goes Here```
+| Layer0 (R) Normal           | `The Normal Map of your Material goes Here`
 | Layer1 (G)                  | Revealed_Burn_c
 | Layer1 (G) Normal           | Revealed_Burn_n
 
