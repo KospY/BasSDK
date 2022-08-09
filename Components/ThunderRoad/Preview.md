@@ -4,9 +4,9 @@ The Preview script generates an image for the item, which is used to preview wha
 
 ![PreviewScript][PreviewScript]
 
->Note: Normal preview overwrites the Close-up image if it does not exist.
+>Note: Full preview is used as a fallback if the Close-up image is not present in JSON.
 
->Note: Generated previews need to be put in addressables and referenced in JSON
+>Note: Generated previews need to be put in addressables and referenced in JSON.
 
 ## Buttons
 
