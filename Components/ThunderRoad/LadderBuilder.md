@@ -1,8 +1,9 @@
 # Ladder Builder
 
 ## Overview
-This component allows you to easily create a ladder of any length by repeating a single rung object vertically. 
+This component allows you to easily create a ladder of any length by repeating a single rung object along the Y axis. 
 
+This component has an example within the SDK examples folder.
 
 ### Setup
 1. Create an empty gameobject.
