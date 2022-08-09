@@ -18,7 +18,7 @@ The Preview script generates an image for the item, which is used to preview wha
 
 ## Components
 
-| Button                            | Description
+| Fields                            | Description
 | ---                               | ---
 |Close Up Preview                   | Changes to creating a Close up preview, shown for the small preview in the book/
 |Size                               | Adjust the size to fit the weapon. Scales with X Scale of the Preview Script.
