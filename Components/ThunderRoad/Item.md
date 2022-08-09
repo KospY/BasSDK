@@ -44,4 +44,4 @@ When this component is added, a Rigidbody is added to the object, as well as thr
 [Preview]: {{ site.baseurl }}{% link Components/ThunderRoad/Preview.md %}
 [HolderPoint]: {{ site.baseurl }}/assets/components/Item/HolderPoint.png
 [ParryPoint]: {{ site.baseurl }}/assets/components/Item/ParryPoint.PNG
-[Inspector]: {{ site.baseurl }}/assets/components/Item/Inspector.png
+[Inspector]: {{ site.baseurl }}/assets/components/Item/ItemScript.png
