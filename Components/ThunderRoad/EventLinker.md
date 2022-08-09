@@ -41,8 +41,8 @@ The below methods can all be invoked by Unity events, and provide extra function
 [^varies]: These event linkers have events which may or may not work depending on where the component reference is
 [^unique]: These event linkers have entirely different trigger definition (No dropdown)
 
-[Common]: {{ site.baseurl }}{% link Components/ThunderRoad/EventLinker.md#common-methods %}
-[Specific]: {{ site.baseurl }}{% link Components/ThunderRoad/EventLinker.html#specific-linker-types %}
+[Common]: {{ site.baseurl }}{% link Components/ThunderRoad/EventLinker.md | append: "#common-methods" %}
+[Specific]: {{ site.baseurl }}{% link Components/ThunderRoad/EventLinker.html | append: "#specific-linker-types" %}
 [ControlEventLinker]: {{ site.baseurl }}{% link Components/ThunderRoad/ControlEventLinker.html %}
 [GameEventLinker]: {{ site.baseurl }}{% link Components/ThunderRoad/GameEventLinker.html %}
 [HandleEventLinker]: {{ site.baseurl }}{% link Components/ThunderRoad/HandleEventLinker.html %}
