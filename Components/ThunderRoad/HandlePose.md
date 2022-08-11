@@ -6,7 +6,7 @@ The gizmo represents what pose the player hand will make when it grabs this hand
 
 ![HandlePose][HandlePose]
 
-A normal weapon, with all normal orientations, looks something like this with the handposes.
+A normal weapon, with all normal orientations, looks something like this with all handposes.
 
 ![HandPoseExample][HandPoseExample]
 
@@ -14,7 +14,7 @@ A normal weapon, with all normal orientations, looks something like this with th
 
 | Field                       | Description
 |---                          |---
-| Handle                      | Causes the Player Exit event to be invoked immediately when the zone is loaded into the level.
+| Handle                      | Depicts the handle that the handpose applies to. Is automatically assigned if the handpose was created by that handle.
 | Side                        | Picks which hand this handpose applies to.
 | Hand Pose Weighting         | `See Below`
 | [Editor Only Creature]      | Allows you to select a creature to test this handpose on, if handposes are set up correctly for that creature.
