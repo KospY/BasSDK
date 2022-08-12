@@ -1,5 +1,6 @@
 # Holder Event Linker
-*(If you have not yet already done so, go read the [event linkers](https://kospy.github.io/BasSDK/Components/ThunderRoad/EventLinker.html) wiki page! This page only lists and explains the event trigger options on this event linker! It will not explain how to use the event linker.)*
+*(If you have not yet already done so, go read the [event linkers][EventLinker] wiki page! This page only lists and explains the event trigger options on this event linker! It will not explain how to use the event linker.)*
+[EventLinker]:  {{ site.baseurl }}{% link Components/ThunderRoad/EventLinker.md %}
 
 Holder event linkers can be attached to Holder components of any type; rack holders, quivers, sheathes, or body holsters are all applicable holders to attach this linker to. There are only four events for this event linker:
 - **OnSnap** triggers the event when an item is added to the holder *(But only if the holder is not filled!)*

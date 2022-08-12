@@ -1,4 +1,3 @@
-
 # Event Linkers
 Event linkers are a set of utility scripts that allow you to link together in-game events to activate functions on the components you add to items, maps, or creatures within Unity. All event linkers have a handful of [common functions](#common-methods) that you can activate which afford you even greater control over the control of your item(s).
 

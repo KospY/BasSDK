@@ -1,5 +1,6 @@
 # Control Event Linker
-*(If you have not yet already done so, go read the [event linkers](https://kospy.github.io/BasSDK/Components/ThunderRoad/EventLinker.html) wiki page! This page only lists and explains the event trigger options on this event linker! It will not explain how to use the event linker.)*
+*(If you have not yet already done so, go read the [event linkers][EventLinker] wiki page! This page only lists and explains the event trigger options on this event linker! It will not explain how to use the event linker.)*
+[EventLinker]:  {{ site.baseurl }}{% link Components/ThunderRoad/EventLinker.md %}
 
 Control event linkers are used to activate events when the player presses certain buttons in-game. Using this, you could create a map where every time the player presses the jump button, a Mario jump sound is played. A list of all control triggers you can link to can be found below. All of the trigger options for this event linker are pretty self-explanatory
 - **Jump controls:** You can link events to **jump press** and **jump release**. The actual button this corresponds to depends on user headset and controllers, and includes also the "joystick up" jump control.
