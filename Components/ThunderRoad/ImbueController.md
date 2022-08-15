@@ -18,4 +18,4 @@ Imbue Controller is used to imbue a specific weapon in scene, or the [Item][Item
 [ImbueZone]: {{ site.baseurl }}{% link Components/ThunderRoad/ImbueZone.md %}
 [ColliderGroup]: {{ site.baseurl }}{% link Components/ThunderRoad/ColliderGroup.md %}
 [Item]: {{ site.baseurl }}{% link Components/ThunderRoad/Item.md %}
-[ImbueController]: {{ site.baseurl }}/assets/components/Zone/ImbueController.PNG
+[ImbueController]: {{ site.baseurl }}/assets/components/ImbueController/ImbueController.PNG
