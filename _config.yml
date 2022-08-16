@@ -4,6 +4,13 @@ description: Blade and Sorcery Wiki
 repository: KospY/BasSDK
 remote_theme: rundocs/jekyll-rtd-theme
 
+defaults:
+  # Add styling to all pages front matter
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+    values:
+      sass: _includes/extra/styles.scss
 
 twitter_username: 
 github_username:  KospY
