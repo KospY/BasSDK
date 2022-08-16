@@ -20,10 +20,9 @@
     display: flex;
     flex-wrap: wrap;
     .title {
-        height: 100%;
+        height: min-content;
         box-shadow: none;
         border-radius: 0.15rem 0 0.22rem 0;
-        min-width: 95px;
         width: 95px;
     }
     .content {
