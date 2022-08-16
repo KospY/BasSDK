@@ -1,0 +1,49 @@
+/* Ensure document area is fullscreen */
+
+.container {
+    background: none;
+}
+
+.content-wrap {
+    max-width: none;
+}
+
+
+/* Cleaner Toast Cards */
+
+.toasts {
+    max-width: 70%;
+    font-size: inherit;
+    box-shadow: none;
+    border-radius: 0.25rem;
+    border: 1px solid;
+    display: flex;
+    flex-wrap: wrap;
+    .title {
+        height: 100%;
+        box-shadow: none;
+        border-radius: 0.15rem 0 0.22rem 0;
+        min-width: 95px;
+        width: 95px;
+    }
+    .content {
+        padding-top: 4px !important;
+        padding-bottom: 4px !important;
+    }
+}
+
+.note {
+    border-color: #6ab0de;
+}
+
+.warning {
+    border-color: #f0b37e;
+}
+
+.tip {
+    border-color: #1abc9c;
+}
+
+.danger {
+    border-color: #f29f97;
+}
