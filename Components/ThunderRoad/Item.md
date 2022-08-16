@@ -1,5 +1,7 @@
 # Item
 
+###### This component has an [Event Linker][EventLinker].
+
 The `Item` script is the core component for items and weapons in Blade and Sorcery. This component is required for the item to work, and is a dependency on a lot of components listed on the weapon.
 
 When this component is added, a Rigidbody is added to the object, as well as three gameobjects: HolderPoint, ParryPoint and [Preview][Preview]. 
@@ -48,3 +50,4 @@ Do not adjust Rigidbody weight, drag and angular drag, as this is overwritten in
 [HolderPoint]: {{ site.baseurl }}/assets/components/Item/HolderPoint.png
 [ParryPoint]: {{ site.baseurl }}/assets/components/Item/ParryPoint.PNG
 [Inspector]: {{ site.baseurl }}/assets/components/Item/ItemScript.png
+[EventLinker]: {{ site.baseurl }}{% link Components/ThunderRoad/ItemEventLinker.md %}
