@@ -1,5 +1,9 @@
 # Damager
 
+###### This component has an [Event Linker][EventLinker].
+
+HandleEventLinker.md
+
 The damager script is essential in dealing damage with the weapons. This script utilises the [Collider Group][ColliderGroup] script/colliders to tell the game what part of the weapon is to deal this type of damage. 
 The script will tell the user what the damager type it is set up for through an information box, also.
 
@@ -63,3 +67,4 @@ The Blunt damager is to deal blunt damage to an object, such as a mace or a non-
 [PenetrationLen]:   {{ site.baseurl }}/assets/components/Damager/PenLength.png
 [PenetrationDep]:   {{ site.baseurl }}/assets/components/Damager/PenDepth.png
 [DaggerAxe]:        {{ site.baseurl }}/assets/components/Damager/DaggerAndAxe.PNG
+[EventLinker]:      {{ site.baseurl }}{% link Components/ThunderRoad/DamagerEventLinker.md %}
