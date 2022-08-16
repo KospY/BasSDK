@@ -1,6 +1,10 @@
 # Whoosh Point
 
-> Not to be confused with Whoosh Point in [ColliderGroup][ColliderGroup]
+```note
+Not to be confused with Whoosh Point in [ColliderGroup][ColliderGroup]
+
+[ColliderGroup]: {{ site.baseurl }}{% link Components/ThunderRoad/ColliderGroup.md %}
+```
 
 The Whoosh Point is a transform which emits sound when the item is thrown or swung at a velocity. 
 
@@ -16,6 +20,6 @@ The Whoosh Point is a transform which emits sound when the item is thrown or swu
 
 It is recommended to place a whoosh on near the tip of the weapon, in the middle of a big prop, and if the item is long enough, another placed on the bottom of the handle. Multiple Whoosh colliders are not required, but not limited.
 
-[ColliderGroup]: {{ site.baseurl }}{% link Components/ThunderRoad/ColliderGroup.md %}
+
 [Holder]: {{ site.baseurl }}{% link Components/ThunderRoad/Holder.md %}
 [Whoosh]: {{ site.baseurl }}/assets/components/Whoosh/Whoosh.PNG

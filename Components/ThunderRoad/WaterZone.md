@@ -2,7 +2,9 @@
 
 Water Zone is similar to [ImbueZone][ImbueZone], except instead, it depletes the imbue on that item. 
 
-> Note: GameObject requires a collider with "Trigger" enabled to work. This will be the region the zone takes effect in. 
+```tip
+This GameObject requires a collider with "Trigger" enabled to work. This will be the region the zone takes effect in. 
+```
 
 ![WaterZone][WaterZone]
 

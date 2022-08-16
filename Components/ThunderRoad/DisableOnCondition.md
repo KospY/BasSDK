@@ -14,4 +14,4 @@ The Disable on Condition script disables the object depending on the condition g
 | Gore Not Allowed            | Will be disabled when "Gore" in the Settings is set to "Disabled".
 
 
-[SPreview]: {{ site.baseurl }}/assets/components/DisableOnCondition/Inspector.PNG
+[Preview]: {{ site.baseurl }}/assets/components/DisableOnCondition/Inspector.PNG

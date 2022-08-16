@@ -1,6 +1,8 @@
 # Waves Spawner
 
-> The Waves Spawner is a requirement for `UI Wave Spawner` 
+```note
+The Waves Spawner is a requirement for `UI Wave Spawner` 
+```
 
 The Wave Spawner is a script which allows AI to spawn in the map. Through the use of spawn points, as well as music handling and Events, this script allows you to adjust the way AI spawn.
 
@@ -29,7 +31,11 @@ The Wave Spawner is a script which allows AI to spawn in the map. Through the us
 
 ## Events
 
-> When the event is met, its output is played. For information on Unity Events, see [Unity Events][UnityEvents].
+```note
+When the event is met, its output is played. For information on Unity Events, see [Unity Events][UnityEvents].
+
+[UnityEvents]: https://docs.unity3d.com/Manual/UnityEvents.html
+```
 
 | Event                       | Description
 | ---                         | ---
@@ -40,4 +46,3 @@ The Wave Spawner is a script which allows AI to spawn in the map. Through the us
 | On Wave Loop  Event         | Completes event when a wave has finished the NPC list and looped.
 
 [WaveSpawner]: {{ site.baseurl }}/assets/components/WaveSpawner/WaveSpawnerScript.PNG
-[UnityEvents]: https://docs.unity3d.com/Manual/UnityEvents.html

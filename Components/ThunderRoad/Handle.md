@@ -1,10 +1,14 @@
 # Handle
 
-> Not to be confused with [HandleRagdoll][HandleRagdoll], though most of its components are alike.
+```note
+Not to be confused with [HandleRagdoll][HandleRagdoll], though most of its components are alike.
+
+[HandleRagdoll]: {{ site.baseurl }}{% link Components/ThunderRoad/HandleRagdoll.md %}
+```
 
 The Handle is a dependacy of an [Item][Item], and is used to be able to grab an item with correct handling. When created, it creates [HandlePose][Handlepose], which are used to adjust hand poses when handling the item.
 
-## Components
+## Componentss
 
 | Field                       | Description
 | ---                         | ---
@@ -30,7 +34,12 @@ The Handle is a dependacy of an [Item][Item], and is used to be able to grab an 
 | Move to Handle              | When you slide, and axis length is `zero`, will snap to this handle instead.
 | Move to Handle Axis Pos     | Axis position for the `Move to Handle` handle.
 
-> Note: The "Update to New Orientations" button upgrades the obsolete "Allowed Orientations" list. Using this button will automatically spawn a [HandlePose][HandlePose].
+```tip
+ The "Update to New Orientations" button upgrades the obsolete "Allowed Orientations" list. Using this button will automatically spawn a [HandlePose][HandlePose].
+ 
+[HandlePose]: {{ site.baseurl }}{% link Components/ThunderRoad/HandlePose.md %}
+
+ ```
 
 ## Picture
 
@@ -48,4 +57,3 @@ This depicts the handle with a length. The yellow gizmo depicts where the hand w
 [Item]: {{ site.baseurl }}{% link Components/ThunderRoad/Item.md %}
 [HandlePose]: {{ site.baseurl }}{% link Components/ThunderRoad/HandlePose.md %}
 [Holder]: {{ site.baseurl }}{% link Components/ThunderRoad/Holder.md %}
-[HandleRagdoll]: {{ site.baseurl }}{% link Components/ThunderRoad/HandleRagdoll.md %}
