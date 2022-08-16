@@ -77,7 +77,7 @@ namespace ThunderRoad
         }
 
 
-        [MenuItem("Assets/Convert MOES")]
+        [MenuItem("Assets/ThunderRoad/Convert MOES")]
         public static void ConvertMOES()
         {
             Initialize();

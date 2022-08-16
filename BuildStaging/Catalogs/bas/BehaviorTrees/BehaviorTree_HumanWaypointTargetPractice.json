@@ -1,0 +1,348 @@
+{
+  "$type": "ThunderRoad.AI.BehaviorTreeData, ThunderRoad",
+  "id": "HumanWaypointTargetPractice",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "type": "SubTree",
+  "rootNode": {
+    "$type": "ThunderRoad.AI.Control.Selector, ThunderRoad",
+    "evaluateAllNodesOnCycle": true,
+    "childs": [
+      {
+        "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+        "evaluateAllNodesOnCycle": false,
+        "childs": [
+          {
+            "$type": "ThunderRoad.AI.Action.CanDrawItem, ThunderRoad",
+            "targetTransformVariableName": "WaypointTarget",
+            "drawRightWeapon": false,
+            "rightInfo": {
+              "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+              "weaponClass": "None",
+              "weaponHandling": "None",
+              "checkAmmo": false,
+              "checkInHolder": false
+            },
+            "drawLeftWeapon": true,
+            "leftInfo": {
+              "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+              "weaponClass": "Bow",
+              "weaponHandling": "TwoHanded",
+              "checkAmmo": true,
+              "checkInHolder": false
+            },
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          },
+          {
+            "$type": "ThunderRoad.AI.Decorator.AlwaysSuccess, ThunderRoad",
+            "child": {
+              "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+              "operation": "AND",
+              "ifConditions": [
+                {
+                  "$type": "ThunderRoad.AI.Action.IsGrabbing, ThunderRoad",
+                  "weaponOnly": false,
+                  "hand": "Right",
+                  "weaponClass": "Arrow",
+                  "weaponClassFilter": "NotEqual"
+                }
+              ],
+              "ifNotConditions": null,
+              "child": {
+                "$type": "ThunderRoad.AI.Action.HolsterItem, ThunderRoad",
+                "holsterRight": true,
+                "holsterLeft": false,
+                "blackboard": null,
+                "creature": null,
+                "brainData": null
+              }
+            }
+          },
+          {
+            "$type": "ThunderRoad.AI.Action.DrawItem, ThunderRoad",
+            "targetTransformVariableName": "WaypointTarget",
+            "drawRightWeapon": false,
+            "rightInfo": {
+              "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+              "weaponClass": "None",
+              "weaponHandling": "None",
+              "checkAmmo": false,
+              "checkInHolder": false
+            },
+            "drawLeftWeapon": true,
+            "leftInfo": {
+              "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+              "weaponClass": "Bow",
+              "weaponHandling": "TwoHanded",
+              "checkAmmo": true,
+              "checkInHolder": false
+            },
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          },
+          {
+            "$type": "ThunderRoad.AI.Action.SetStance, ThunderRoad",
+            "stance": "Bow",
+            "onlyOnce": false,
+            "setSubStance": "Random",
+            "excludeCurrent": true,
+            "subStanceName": "",
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          },
+          {
+            "$type": "ThunderRoad.AI.Control.Selector, ThunderRoad",
+            "evaluateAllNodesOnCycle": true,
+            "childs": [
+              {
+                "$type": "ThunderRoad.AI.Action.AttackBow, ThunderRoad",
+                "overrideMaxShootAngle": true,
+                "maxShootAngleOverride": 90.0,
+                "inputTransformVariableName": "WaypointTarget",
+                "useCurrentTargetIfNullTransform": false,
+                "overrideSpread": true,
+                "spreadOverride": {
+                  "x": 15.0,
+                  "y": 15.0
+                },
+                "overrideWeaponRotationX": false,
+                "overrideWeaponRotationY": true,
+                "overrideWeaponRotationZ": false,
+                "weaponRotationOverride": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0.0
+                },
+                "moduleBow": null,
+                "moduleRanged": null,
+                "blackboard": null,
+                "creature": null,
+                "brainData": null
+              },
+              {
+                "$type": "ThunderRoad.AI.Decorator.AlwaysRunning, ThunderRoad",
+                "child": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "$type": "ThunderRoad.AI.Decorator.AlwaysFailure, ThunderRoad",
+        "child": {
+          "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+          "operation": "AND",
+          "ifConditions": [
+            {
+              "$type": "ThunderRoad.AI.Action.IsGrabbing, ThunderRoad",
+              "weaponOnly": false,
+              "hand": "Left",
+              "weaponClass": "Bow",
+              "weaponClassFilter": "Equal"
+            }
+          ],
+          "ifNotConditions": null,
+          "child": {
+            "$type": "ThunderRoad.AI.Action.HolsterItem, ThunderRoad",
+            "holsterRight": false,
+            "holsterLeft": true,
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          }
+        }
+      },
+      {
+        "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+        "evaluateAllNodesOnCycle": false,
+        "childs": [
+          {
+            "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+            "operation": "AND",
+            "ifConditions": [
+              {
+                "$type": "ThunderRoad.AI.Action.HasSpell, ThunderRoad",
+                "spellID": null,
+                "spellMinDistance": 8.0,
+                "spellMaxDistance": 30.0
+              }
+            ],
+            "ifNotConditions": null,
+            "child": {
+              "$type": "ThunderRoad.AI.Decorator.AlwaysSuccess, ThunderRoad",
+              "child": null
+            }
+          },
+          {
+            "$type": "ThunderRoad.AI.Control.Selector, ThunderRoad",
+            "evaluateAllNodesOnCycle": false,
+            "childs": [
+              {
+                "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+                "evaluateAllNodesOnCycle": false,
+                "childs": [
+                  {
+                    "$type": "ThunderRoad.AI.Action.DrawItem, ThunderRoad",
+                    "targetTransformVariableName": "",
+                    "drawRightWeapon": true,
+                    "rightInfo": {
+                      "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+                      "weaponClass": "Wand",
+                      "weaponHandling": "TwoHanded",
+                      "checkAmmo": false,
+                      "checkInHolder": false
+                    },
+                    "drawLeftWeapon": false,
+                    "leftInfo": {
+                      "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+                      "weaponClass": "None",
+                      "weaponHandling": "None",
+                      "checkAmmo": false,
+                      "checkInHolder": false
+                    },
+                    "blackboard": null,
+                    "creature": null,
+                    "brainData": null
+                  },
+                  {
+                    "$type": "ThunderRoad.AI.Action.SetStance, ThunderRoad",
+                    "stance": "Staff",
+                    "onlyOnce": false,
+                    "setSubStance": "Random",
+                    "excludeCurrent": true,
+                    "subStanceName": "",
+                    "blackboard": null,
+                    "creature": null,
+                    "brainData": null
+                  }
+                ]
+              },
+              {
+                "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+                "evaluateAllNodesOnCycle": false,
+                "childs": [
+                  {
+                    "$type": "ThunderRoad.AI.Action.DrawItem, ThunderRoad",
+                    "targetTransformVariableName": "",
+                    "drawRightWeapon": true,
+                    "rightInfo": {
+                      "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+                      "weaponClass": "Melee",
+                      "weaponHandling": "OneHanded",
+                      "checkAmmo": false,
+                      "checkInHolder": false
+                    },
+                    "drawLeftWeapon": false,
+                    "leftInfo": {
+                      "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+                      "weaponClass": "None",
+                      "weaponHandling": "None",
+                      "checkAmmo": false,
+                      "checkInHolder": false
+                    },
+                    "blackboard": null,
+                    "creature": null,
+                    "brainData": null
+                  },
+                  {
+                    "$type": "ThunderRoad.AI.Action.SetStance, ThunderRoad",
+                    "stance": "Melee1H",
+                    "onlyOnce": false,
+                    "setSubStance": "Random",
+                    "excludeCurrent": true,
+                    "subStanceName": "",
+                    "blackboard": null,
+                    "creature": null,
+                    "brainData": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "$type": "ThunderRoad.AI.Action.PickSpell, ThunderRoad",
+            "side": "Left",
+            "selectionMode": "ByDistance",
+            "spellID": "Fire",
+            "target": "InputTransform",
+            "inputTransformVariableName": "WaypointTarget",
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          },
+          {
+            "$type": "ThunderRoad.AI.Action.AttackSpell, ThunderRoad",
+            "target": "InputTransform",
+            "inputTransformVariableName": "WaypointTarget",
+            "castLeft": true,
+            "castRight": false,
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          }
+        ]
+      },
+      {
+        "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+        "evaluateAllNodesOnCycle": false,
+        "childs": [
+          {
+            "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+            "operation": "AND",
+            "ifConditions": [
+              {
+                "$type": "ThunderRoad.AI.Condition.TargetWithinRange, ThunderRoad",
+                "flatDistance": true,
+                "target": "InputTransform",
+                "inputTransformVariableName": "WaypointTarget",
+                "comparison": "LessThanOrEqual",
+                "useMeleeRange": true,
+                "distance": 0.0,
+                "addedDistance": 0.0,
+                "maxDiff": 0.0
+              }
+            ],
+            "ifNotConditions": null,
+            "child": {
+              "$type": "ThunderRoad.AI.Decorator.AlwaysSuccess, ThunderRoad",
+              "child": null
+            }
+          },
+          {
+            "$type": "ThunderRoad.AI.ChildTreeNode, ThunderRoad",
+            "reference": "ForceID",
+            "childTreeID": "HumanEquipMelee",
+            "childTreeName": null
+          },
+          {
+            "$type": "ThunderRoad.AI.Action.AttackMelee, ThunderRoad",
+            "target": "InputTransform",
+            "inputTransformVariableName": "WaypointTarget",
+            "inputCreatureVariableName": "",
+            "useMeleeDelay": false,
+            "defensePreferenceChance": true,
+            "checkCurrentTargetSight": false,
+            "checkCloseAllies": false,
+            "checkNavMesh": false,
+            "forceMeleeRange": 0.0,
+            "forceMeleeRangeMoved": 0.0,
+            "forceWeaponReach": 0.0,
+            "forceMaxRangeDelta": 0.0,
+            "stopOnReset": false,
+            "pickClipSequentialMaxIndex": 0,
+            "updateClipRange": false,
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          }
+        ]
+      }
+    ]
+  }
+}

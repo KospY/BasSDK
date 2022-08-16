@@ -1,0 +1,109 @@
+{
+  "$type": "ThunderRoad.AI.BehaviorTreeData, ThunderRoad",
+  "id": "HumanGrappled",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "type": "SubTree",
+  "rootNode": {
+    "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+    "evaluateAllNodesOnCycle": true,
+    "childs": [
+      {
+        "$type": "ThunderRoad.AI.Decorator.AlwaysSuccess, ThunderRoad",
+        "child": {
+          "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+          "evaluateAllNodesOnCycle": false,
+          "childs": [
+            {
+              "$type": "ThunderRoad.AI.Action.SetBrainState, ThunderRoad",
+              "brainState": "Grappled",
+              "blackboard": null,
+              "creature": null,
+              "brainData": null
+            },
+            {
+              "$type": "ThunderRoad.AI.Action.SetStance, ThunderRoad",
+              "stance": "Flee",
+              "onlyOnce": false,
+              "setSubStance": "Random",
+              "excludeCurrent": true,
+              "subStanceName": "",
+              "blackboard": null,
+              "creature": null,
+              "brainData": null
+            },
+            {
+              "$type": "ThunderRoad.AI.Get.GetCreature, ThunderRoad",
+              "target": "ClosestEnemy",
+              "checkFov": false,
+              "checkSight": false,
+              "checkShortestPath": false,
+              "rememberDuration": 20.0,
+              "focusDuration": 20.0,
+              "maxDistance": 0.0,
+              "debugLines": false,
+              "outputCreatureAsCurrentTarget": true,
+              "outputCreatureVariableName": "Grappler",
+              "outputTransform": "None",
+              "outputTransformVariableName": "GrapplerTransform",
+              "blackboard": null,
+              "creature": null,
+              "brainData": null
+            },
+            {
+              "$type": "ThunderRoad.AI.Decorator.AlwaysSuccess, ThunderRoad",
+              "child": {
+                "$type": "ThunderRoad.AI.Action.SetLookAt, ThunderRoad",
+                "enabled": true,
+                "bodyBehaviour": "None",
+                "target": "CurrentTarget",
+                "inputVariableName": "CurrentTargetEyes",
+                "localOffset": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0.0
+                },
+                "blackboard": null,
+                "creature": null,
+                "brainData": null
+              }
+            },
+            {
+              "$type": "ThunderRoad.AI.Action.Speak, ThunderRoad",
+              "dialogId": "grappled",
+              "abnormalNoise": true,
+              "checkMuffled": true,
+              "playMode": "WithCooldown",
+              "ignoreIfFromWave": true,
+              "cooldownMinMax": {
+                "x": 5.0,
+                "y": 10.0
+              },
+              "succeedOnCooldown": true,
+              "blackboard": null,
+              "creature": null,
+              "brainData": null
+            },
+            {
+              "$type": "ThunderRoad.AI.Action.GrappleEscape, ThunderRoad",
+              "initialSuccessChance": 0.1,
+              "attemptsMultiplier": 0.05,
+              "timeBetweenAttempts": {
+                "x": 2.0,
+                "y": 3.0
+              },
+              "twoGrabPenalty": 0.1,
+              "maximumSuccessChance": 0.5,
+              "resetAttemptsOnDamage": true,
+              "blackboard": null,
+              "creature": null,
+              "brainData": null
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

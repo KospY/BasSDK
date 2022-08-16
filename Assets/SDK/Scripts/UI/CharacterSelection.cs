@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 #if ODIN_INSPECTOR
@@ -14,7 +13,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
-    public class CharacterSelection : MonoBehaviour
+	public class CharacterSelection : MonoBehaviour
     {
         [Serializable]
         public class CharacterSlot
@@ -26,6 +25,8 @@ namespace ThunderRoad
         public CharacterSlot characterSlot;
         private int indexCharacter = 0;
 
+        public Transform playerStart;
+
         public GameObject canvas = null;
 
         public GameObject messagePage = null;
@@ -34,7 +35,7 @@ namespace ThunderRoad
         public GameObject customisationPage = null;
         public GameObject calibrationPage = null;
         public GameObject mapSelectionPage = null;
-        public GameObject boolMessagePage = null;
+        public GameObject deleteMessagePage = null;
         public GameObject tutorialMessagePage = null;
 
         public Button customizeButton = null;

@@ -10,15 +10,16 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/PrefabSpawner")]
     [AddComponentMenu("ThunderRoad/Levels/Spawners/Prefab Spawner")]
     public class PrefabSpawner : MonoBehaviour
     {
         public string address;
         public bool spawnOnStart = true;
-        public Plateform plateform = Plateform.Android | Plateform.Windows;
+        public Platform platform = Platform.Android | Platform.Windows;
 
         [Flags]
-        public enum Plateform
+        public enum Platform
         {
             Windows = 1,
             Android = 2,
@@ -35,11 +36,11 @@ namespace ThunderRoad
         [Button]
         public void Spawn()
         {
-            if ((Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer) && plateform.HasFlag(Plateform.Windows))
+            if ((Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer) && platform.HasFlag(Platform.Windows))
             {
                 Addressables.InstantiateAsync(address, this.transform.position, this.transform.rotation, this.transform);
             }
-            else if (Application.platform == RuntimePlatform.Android && plateform.HasFlag(Plateform.Android))
+            else if (Application.platform == RuntimePlatform.Android && platform.HasFlag(Platform.Android))
             {
                 Addressables.InstantiateAsync(address, this.transform.position, this.transform.rotation, this.transform);
             }

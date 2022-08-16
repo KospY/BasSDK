@@ -12,6 +12,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Holder")]
     [AddComponentMenu("ThunderRoad/Holder")]
     public class Holder : Interactable
     {
@@ -22,6 +23,10 @@ namespace ThunderRoad
         public List<Item> startObjects = new List<Item>();
         public List<Collider> ignoredColliders = new List<Collider>();
         public string editorTargetAnchor;
+
+        public Container linkedContainer;
+        [NonSerialized]
+        public bool spawningItem;
 
         public enum DrawSlot
         {
@@ -39,6 +44,11 @@ namespace ThunderRoad
         protected virtual void OnValidate()
         {
             if (slots.Count == 0) slots.Add(this.transform);
+        }
+
+        [Button("Refill holder")]
+        public void FillWithDefault()
+        {
         }
 
 
@@ -78,5 +88,14 @@ namespace ThunderRoad
         }
 
 
+
+        public void UnSnapOneItem(bool destroy)
+        {
+        }
+
+
+        public virtual void UnSnapAll()
+        {
+        }
     }
 }

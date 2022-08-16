@@ -11,6 +11,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/WayPoint")]
     public class WayPoint : MonoBehaviour
     {
         [Header("Turn")]
@@ -29,7 +30,30 @@ namespace ThunderRoad
         public float animationTurnMinAngle = 30;
         public Vector2 animationRandomMinMaxDelay = new Vector2(0, 0);
 
+        [Header("Action subtree")]
+        public string actionBehaviorTreeID = "";
+        public Transform target;
+        public int requiredTreeSuccessCount = 3;
+        public int failuresToSkip = 10;
+
         protected static NavMeshPath navMeshPath;
+
+#if UNITY_EDITOR
+        [Header("Positioning")]
+        public bool doRadiusCheck = false;
+        public float intendedAgentRadius = 0.35f;
+        public float intendedAgentHeight = 1f;
+        [NonSerialized]
+        protected Vector3 rayHitPosition;
+        [NonSerialized]
+        protected bool isGood = false;
+        [NonSerialized]
+        protected Vector3[] lastPosition = new Vector3[2];
+        [NonSerialized]
+        public static List<(MeshCollider, bool)> meshColliders = new List<(MeshCollider, bool)>();
+        [NonSerialized]
+        public UnityEditor.SceneManagement.StageHandle activeScene;
+#endif
 
 #if ODIN_INSPECTOR
         public List<ValueDropdownItem<string>> GetAllAnimationID()
@@ -116,6 +140,74 @@ namespace ThunderRoad
             {
                 this.name = "Waypoint_PleaseINeedAParent";
             }
+#if UNITY_EDITOR
+            if (!doRadiusCheck) return;
+            if (transform.position != lastPosition[0])
+            {
+                rayHitPosition = transform.position;
+                isGood = false;
+            }
+            if (transform.position == lastPosition[0] && lastPosition[0] != lastPosition[1] && !Application.isPlaying)
+            {
+                if (meshColliders.Count == 0)
+                {
+                    var newScene = UnityEditor.SceneManagement.StageUtility.GetCurrentStageHandle();
+                    if (newScene != activeScene) meshColliders.Clear();
+                    activeScene = newScene;
+                    foreach (MeshCollider meshCollider in activeScene != null ? activeScene.FindComponentsOfType<MeshCollider>() : FindObjectsOfType<MeshCollider>())
+                    {
+                        meshColliders.Add((meshCollider, meshCollider.convex));
+                    }
+                }
+                for (int i = meshColliders.Count - 1; i >= 0; i--)
+                {
+                    (MeshCollider, bool) meshCollider = meshColliders[i];
+                    if (meshCollider.Item1 == null)
+                    {
+                        meshColliders.RemoveAt(i);
+                        continue;
+                    }
+                    if ((meshCollider.Item1.transform.position - transform.position).sqrMagnitude < (intendedAgentRadius * 5f) * (intendedAgentRadius * 5f))
+                    {
+                        meshCollider.Item1.convex = true;
+                    }
+                }
+
+                LayerMask groundMask = 1 << 1 | 1 << 12;
+                
+                var physicsScene = gameObject.scene.GetPhysicsScene();
+                if (physicsScene.Raycast(rayHitPosition, Vector3.down, out RaycastHit hit, 10f, groundMask, QueryTriggerInteraction.Ignore))
+                {
+                    rayHitPosition = hit.point;
+                    isGood = true;
+                    Collider[] results = new Collider[25];
+                    if (physicsScene.OverlapCapsule(rayHitPosition + new Vector3(0f, intendedAgentRadius, 0f), rayHitPosition + new Vector3(0f, intendedAgentHeight - (intendedAgentRadius), 0f), intendedAgentRadius, results, groundMask, QueryTriggerInteraction.Ignore) > 0)
+                    {
+                        for (int i = 0; i < results.Length; i++)
+                        {
+                            if (results[i] == null) continue;
+                            Vector3 closestColliderPoint = results[i].ClosestPoint(rayHitPosition);
+                            if (closestColliderPoint.y > rayHitPosition.y)
+                            {
+                                isGood = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+                foreach ((MeshCollider, bool) meshCollider in meshColliders)
+                {
+                    meshCollider.Item1.convex = meshCollider.Item2;
+                }
+            }
+            lastPosition[1] = lastPosition[0];
+            lastPosition[0] = transform.position;
+            Gizmos.color = Color.grey;
+            Gizmos.DrawWireSphere(rayHitPosition, intendedAgentRadius);
+            Gizmos.color = isGood ? Color.green : Color.red;
+            Gizmos.DrawWireSphere(rayHitPosition + new Vector3(0f, intendedAgentRadius, 0f), intendedAgentRadius);
+            Gizmos.DrawWireSphere(rayHitPosition + new Vector3(0f, intendedAgentHeight - (intendedAgentRadius), 0f), intendedAgentRadius);
+#endif
         }
 
         public static void SpawnerDrawGizmos(Transform spawner, Transform waypoints)

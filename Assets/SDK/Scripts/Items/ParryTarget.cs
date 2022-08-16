@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/ParryTarget")]
     public class ParryTarget : MonoBehaviour
     {
         public float length = 0.25f;

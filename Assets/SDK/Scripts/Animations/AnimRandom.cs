@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+[HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/AnimRandom")]
 public class AnimRandom : StateMachineBehaviour
 {
     public string parameter = "Random";

@@ -1,0 +1,254 @@
+{
+  "$type": "ThunderRoad.ItemData, ThunderRoad",
+  "id": "BowCommon",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 4,
+  "localizationId": "Bow",
+  "displayName": "Bow",
+  "description": "A staple of combat since ancient times, the bow is a lethal and effective long range weapon.",
+  "author": "Glitch",
+  "price": 0.0,
+  "purchasable": true,
+  "tier": 1,
+  "weight": null,
+  "size": null,
+  "levelRequired": 0,
+  "category": "Bows",
+  "iconEffectId": null,
+  "preferredItemCenter": "Mass",
+  "prefabAddress": "Bas.Item.Ranged.Bow",
+  "iconAddress": "Bas.Item.Ranged.Bow.Icon",
+  "closeUpIconAddress": "Bas.Item.Ranged.Bow.IconClose",
+  "pooledCount": 0,
+  "androidPooledCount": 0,
+  "type": "Weapon",
+  "canBeStoredInPlayerInventory": false,
+  "limitMaxStorableQuantity": false,
+  "maxStorableQuantity": 0,
+  "isStackable": false,
+  "maxStackQuantity": 0,
+  "inventoryHoverSounds": null,
+  "inventorySelectSounds": null,
+  "inventoryStoreSounds": null,
+  "slot": "Bow",
+  "snapAudioContainerAddress": null,
+  "snapAudioVolume_dB": 0.0,
+  "unsnapAudioContainerAddress": null,
+  "unsnapAudioVolume_dB": 0.0,
+  "overrideMassAndDrag": true,
+  "mass": 1.0,
+  "drag": 0.0,
+  "angularDrag": 0.05,
+  "manaRegenMultiplier": 1.0,
+  "spellChargeSpeedPlayerMultiplier": 1.0,
+  "spellChargeSpeedNPCMultiplier": 1.0,
+  "collisionMaxOverride": 0,
+  "collisionEnterOnly": false,
+  "collisionNoMinVelocityCheck": false,
+  "forceLayer": "None",
+  "waterHandSpringMultiplierCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 0.3,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 1.0,
+        "value": 0.15,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "waterDragMultiplierCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 1.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 1.0,
+        "value": 10.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "waterSampleMinRadius": 0.2,
+  "flyFromThrow": false,
+  "flyRotationSpeed": 2.0,
+  "flyThrowAngle": 0.0,
+  "telekinesisSafeDistance": 1.0,
+  "telekinesisSpinEnabled": true,
+  "telekinesisThrowRatio": 1.0,
+  "telekinesisAutoGrabAnyHandle": false,
+  "grippable": true,
+  "grabAndGripClimb": false,
+  "playerGrabAndGripChangeLayer": true,
+  "customSnaps": [],
+  "drainImbueOnSnap": true,
+  "imbueEnergyOverTimeOnSnap": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 1.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 3.0,
+        "value": 0.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "modules": [
+    {
+      "$type": "ThunderRoad.ItemModuleAI, ThunderRoad",
+      "weaponClass": "Bow",
+      "secondaryClass": "None",
+      "weaponHandling": "TwoHanded",
+      "secondaryHandling": "None",
+      "parryIgnoreRotation": false,
+      "parryRotation": 90.0,
+      "parryDualRotation": 60.0,
+      "armResistanceMultiplier": 2.0,
+      "parryRevertAngleRange": {
+        "x": -80.0,
+        "y": -180.0
+      },
+      "parryDefaultPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "parryDefaultLeftRotation": {
+        "x": 25.0,
+        "y": -10.0,
+        "z": -65.0
+      },
+      "parryDefaultRightRotation": {
+        "x": 30.0,
+        "y": 5.0,
+        "z": 60.0
+      },
+      "allowDynamicHeight": false,
+      "defenseHasPriority": true,
+      "attackIgnore": false,
+      "attackForceParryIgnoreRotation": false,
+      "ammoType": "Arrow",
+      "rangedWeaponData": {
+        "$type": "ThunderRoad.ItemModuleAI+RangedWeaponData, ThunderRoad",
+        "tooCloseDistance": 5.0,
+        "spread": {
+          "x": 0.5,
+          "y": 1.0
+        },
+        "projectileSpeed": 22.0,
+        "accountForGravity": true,
+        "weaponAimAngleOffset": {
+          "x": 0.0,
+          "y": 4.4,
+          "z": 0.0
+        },
+        "weaponHoldPositionOffset": {
+          "x": 0.3,
+          "y": -0.07,
+          "z": 0.7
+        },
+        "weaponHoldAngleOffset": {
+          "x": 0.0,
+          "y": 20.0,
+          "z": -20.0
+        },
+        "customRangedAttackAnimationData": ""
+      },
+      "stanceDatas": []
+    },
+    {
+      "$type": "ThunderRoad.ItemModuleBow, ThunderRoad",
+      "velocityMultiplier": 2.5,
+      "baseShootVelocity": 16.0,
+      "stringSpring": 500.0,
+      "autoSpawnArrow": false,
+      "arrowProjectileID": "Arrow",
+      "audioShootMinPull": 0.1,
+      "audioDrawPullSpeed": 0.02,
+      "audioStringAddress": "Bas.Audio.Item.BowString",
+      "audioGroupDrawAddress": "Bas.AudioGroup.Item.BowDraw",
+      "audioGroupShootAddress": "Bas.AudioGroup.Item.BowShoot",
+      "maxPullRatioAI": 0.75
+    }
+  ],
+  "colliderGroups": [],
+  "damagers": [
+    {
+      "$type": "ThunderRoad.ItemData+Damager, ThunderRoad",
+      "transformName": "Blunt",
+      "damagerID": "Handle1H"
+    }
+  ],
+  "Interactables": [
+    {
+      "$type": "ThunderRoad.ItemData+Interactable, ThunderRoad",
+      "transformName": "Handle",
+      "interactableId": "ObjectHandleBow"
+    },
+    {
+      "$type": "ThunderRoad.ItemData+Interactable, ThunderRoad",
+      "transformName": "HandleString",
+      "interactableId": "ObjectHandleBowString"
+    }
+  ],
+  "effectHinges": [],
+  "whooshs": []
+}

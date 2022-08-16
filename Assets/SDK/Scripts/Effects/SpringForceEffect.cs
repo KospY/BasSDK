@@ -8,6 +8,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/SpringForceEffect")]
     [AddComponentMenu("ThunderRoad/Effects/Spring force effect")]
     public class SpringForceEffect : MonoBehaviour
     {

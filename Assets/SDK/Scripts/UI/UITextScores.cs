@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-
-#if ODIN_INSPECTOR
+﻿#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
 using EasyButtons;
@@ -27,7 +24,7 @@ namespace ThunderRoad
             DetailModifierName,
             DetailCreatureBaseXP,
             DetailCreatureAiXP,
-            DetailCreatureEquipementXP,
+            DetailCreatureEquipmentXP,
             DetailCreatureTotalXP,
             DetailActionModifierXP,
             DetailActionModifierTotalXP,

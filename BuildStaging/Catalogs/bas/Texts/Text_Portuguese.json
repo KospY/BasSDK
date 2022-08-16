@@ -1,0 +1,5585 @@
+{
+  "$type": "ThunderRoad.TextData, ThunderRoad",
+  "id": "Portuguese",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "textGroups": [
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "Tutorial",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Intro1",
+          "text": "Boas-vindas!\nNeste tutorial você aprenderá os conceitos básicos do jogo! As habilidades serão desbloqueadas conforme você for progredindo.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Intro2",
+          "text": "A qualquer momento, você pode abrir o menu para verificar os controles, alterar opções ou sair da área.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Intro3",
+          "text": "Pressione o botão do menu para abrir o menu.\nPara fechar, basta pressionar o mesmo botão novamente.",
+          "spriteAddress": "Bas.Input.{Controller}.Menu",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Move",
+          "text": "Use o direcional esquerdo para se movimentar.\nAlém disso, é possível utilizar o direcional direito para virar.",
+          "spriteAddress": "Bas.Input.{Controller}.Move",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Sick",
+          "text": "Você pode acabar sentindo enjoo ao se mover pelo cenário.\nRecomendamos que faça pausas regulares caso você sinta tonturas.\nCom um pouco de prática em RV, isso acabará passando.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Jump",
+          "text": "Para saltar, pressione o direcional/touchpad direito, ou mova o direcional para cima.\nQuanto mais tempo você mantiver pressionado, mais alto será o salto.",
+          "spriteAddress": "Bas.Input.{Controller}.Jump",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Grab",
+          "text": "Em Blade & Sorcery, tudo é físico e pode ser segurado ao pressionar o botão de segurar.",
+          "spriteAddress": "Bas.Input.{Controller}.Grab",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Climb",
+          "text": "Você pode usar cantos, bordas ou as rachaduras entre as rochas para escalar, basta pressionar o botão de segurar.\nPressionar o botão de salto enquanto estiver em uma borda fará com que você suba e a atravesse.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "GrabSlide",
+          "text": "Para deslizar em uma corda, segure-a e segure o botão de gatilho.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Run",
+          "text": "Para correr, imite um movimento de corrida com suas mãos reais enquanto se move para frente com o direcional.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "WallJump",
+          "text": "Você pode saltar em paredes enquanto se segura em qualquer superfície, basta olhar na direção para qual você deseja saltar e pressionar o botão de salto.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Slowmotion",
+          "text": "Você recebeu poderes mágicos e agora é capaz de desacelerar o tempo! Experimente, pressionando o botão de Retardar Tempo. Para interromper o efeito, pressione o mesmo botão novamente.",
+          "spriteAddress": "Bas.Input.{Controller}.SlowMotion",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TelekinesisGrab",
+          "text": "Você também possui poderes telecinéticos que lhe permitem segurar objetos à distância.\r\nEstenda sua mão na direção do objeto até ver um ícone de interação em volta dele, depois pressione o botão de segurar para pegá-lo usando a telecinesia.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TelekinesisPullAndRepel",
+          "text": "Agora, puxe a lanterna apertando o gatilho até pegá-la. (Caso deseje, você também pode afastá-la usando o botão de afastar).",
+          "spriteAddress": "Bas.Input.{Controller}.Telekinesis",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LanternSwing",
+          "text": "Use a lanterna para balançar e pular sobre a fenda.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.LanternSwing"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Holster",
+          "text": "Veja aquela arma no chão, próxima dos ossos. Você possui 4 coldres, dois em seus ombros e dois na cintura. Para guardar uma arma, basta soltá-la em um dos coldres.",
+          "spriteAddress": "Bas.Input.Holsters",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReuseHolster",
+          "text": "Para sacar sua arma, basta colocar a mão no coldre onde ela está armazenada e pressionar o botão de segurar.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SlideRope",
+          "text": "Você pode deslizar facilmente em tirolesas, graças à polia que está em seu inventário.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BackpackIntro",
+          "text": "Para abrir o inventário, coloque sua mão no peito e pressione o botão de feitiço.",
+          "spriteAddress": "Bas.Input.{Controller}.SpellMenu",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BackpackRetrieve",
+          "text": "Quando a interface do inventário estiver aberta, você pode rotacionar seu pulso, como se usasse uma chave de fenda, para navegar pelo menu. Então, pressione o botão de segurar para selecionar um objeto.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BackpackStore",
+          "text": "Para armazenar qualquer item encontrado, simplesmente solte-o em seu peito, ou por cima dos ombros.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LoseHook",
+          "text": "Você nunca perderá sua polia; se por um acaso você a largar, ela voltará para o seu inventário.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "StealthWalk",
+          "text": "Há dois inimigos protegendo sua casa. Derrote-os!\r\nCaminhar devagar e agachado, pressionando o direcional direito para baixo, te deixará mais furtivo.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TutorialComplete",
+          "text": "Parabéns, você chegou ao fim do tutorial! Os feitiços de fogo, raio e gravidade foram desbloqueados. Use o mapa do mundo próximo do barco para carregar os níveis e os livros de materialização de itens para equipar-se para a batalha. Boa sorte!",
+          "spriteAddress": null,
+          "videoAddress": null
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "Survival",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NextWave",
+          "text": "Prepare-se para a próxima horda...",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Wave",
+          "text": "Horda",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Fight",
+          "text": "Lute!",
+          "spriteAddress": null,
+          "videoAddress": null
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "Options",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Difficulty",
+          "text": "O nível de dificuldade dos inimigos na masmorra.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Length",
+          "text": "A quantidade de salas que serão geradas nesta masmorra.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Parkour",
+          "text": "Marque esta opção se não deseja encontrar salas onde você precisará escalar para poder encontrar a saída.\n(reduzirá a diversidade das masmorras)",
+          "spriteAddress": null,
+          "videoAddress": null
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "Tips",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "1",
+          "text": "Pressionar os botões Empurrar e Puxar, ao mesmo tempo, fará com que qualquer item mantido por telecinesia gire.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "2",
+          "text": "Você pode passar rasteiras nos inimigos usando armas de cabos longos.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "3",
+          "text": "Você pode usar machados para deslizar por cordas inclinadas.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "4",
+          "text": "Você ganha foco ao aparar ataques inimigos.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "5",
+          "text": "Enquanto escala, pressionar o botão de salto no topo de uma borda fará com que você suba e fique em pé.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "6",
+          "text": "Você pode mesclar o feitiço de gravidade com ambas as mãos, depois afastar suas mãos para criar uma grande bolha de gravidade.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "7",
+          "text": "Armas imbuídas com fogo conseguem perfurar armaduras metálicas e pedras.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "8",
+          "text": "Bolas de fogo podem ser desviadas com um empurrão gravitacional no momento exato.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "9",
+          "text": "Você pode disparar bolas de fogo usando um cajado imbuído com fogo.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "10",
+          "text": "Golpes suaves e constantes são mais eficazes que golpes fortes e rápidos. Atacar rápido demais interromperá seu ataque.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "11",
+          "text": "Você possui quatro espaços para armas em seu corpo: dois na cintura e dois nas costas.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "12",
+          "text": "É possível criar uma explosão gravitacional ao bater no solo com um cajado imbuído com gravidade.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "13",
+          "text": "Remova aljavas pressionando o botão de gatilho, seguido pelo botão de segurar para pegá-las.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "14",
+          "text": "Você pode deslizar sua pega segurando o gatilho enquanto empunha uma arma.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "15",
+          "text": "Bolas de fogo podem ser devolvidas ao lançador quando são desviadas utilizando uma espada.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "16",
+          "text": "No modo livre, é possível desativar a armadura dos inimigos na página de depuração do livro de menu.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "17",
+          "text": "No modo livre, também é possível habilitar trapaças, tais como vida infinita, mana infinita, entre outras. Basta acessar a página do modo livre no livro de menu.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "21",
+          "text": "É possível desmembrar os inimigos em suas articulações. É mais fácil arrancar membros com armas maiores do que com armas menores.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "23",
+          "text": "Armas de grau mais elevado permanecerão imbuídas por mais tempo. ",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "24",
+          "text": "Você pode descer pelas cordas segurando-as e segurando o botão de gatilho.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "25",
+          "text": "É possível despedaçar um inimigo prendendo dois de seus membros com o feitiço de gravidade, e então puxando-os lentamente.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "26",
+          "text": "Segurar o botão de salto fará com que você salte mais alto do que se você apenas pressioná-lo.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "27",
+          "text": "Para correr, mova-se para frente no jogo enquanto faz um movimento de corrida com seus braços na vida real.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "29",
+          "text": "Você pode ajustar a física da empunhadura da espada no menu de opções, mas cuidado: ajustes excessivos podem causar resultados estranhos!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "30",
+          "text": "Durante a dilatação temporal, sua força física será maior.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "31",
+          "text": "Golpear o solo usando um cajado imbuído com fogo irá disparar uma rajada de bolas de fogo teleguiadas!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "32",
+          "text": "É possível combinar dois feitiços de Fogo para criar um gigantesco meteoro flamejante!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "33",
+          "text": "Você pode suavizar sua queda carregando o feitiço de Gravidade.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "34",
+          "text": "Lançar o feitiço de Gravidade para baixo, ou em qualquer direção enquanto estiver no ar, te impulsionará na direção oposta!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "35",
+          "text": "Feitiços de raio tornarão itens metálicos condutores elétricos!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "36",
+          "text": "Bata com um cajado imbuído com Raios para desencadear uma enorme onda de choques elétricos em formato radial.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "37",
+          "text": "Enquanto golpeia utilizando um cajado imbuído com fogo, pressione e solte o botão de disparo secundário para disparar uma bola de fogo de combate!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "38",
+          "text": "Ao empunhar um cajado imbuído com Raios, pressione e solte o botão de disparo secundário para desenhar arcos de eletricidade cortante pelo ar!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "39",
+          "text": "Pressione e segure o botão de disparo secundário enquanto empunha um cajado imbuído com Gravidade para fazer objetos grandes pairarem ao redor do cajado!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "40",
+          "text": "Há uma chance de desarmar os inimigos ao atingir suas armas com raios!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "41",
+          "text": "Combine dois feitiços de Raio, junte seus braços e afaste as palmas das mãos para criar um gigantesco raio de luz devastador! ",
+          "spriteAddress": null,
+          "videoAddress": null
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "Default",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Blade & Sorcery",
+          "text": "Blade & Sorcery",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "IntroTitle",
+          "text": "Agradecemos pelo apoio!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "IntroText",
+          "text": "Somos um estúdio indie de pequeno porte e jamais teríamos chegado até aqui se não fosse o apoio incrível de nossos fãs (pessoas como você!)\n\nComo ainda estamos em profundo desenvolvimento, ainda há muito o que fazer. Alguns recursos e elementos de jogabilidade ainda estão sendo aprimorados e serão adicionados nas próximas atualizações.\nPara ficar por dentro das novidades e do planejamento, visite nossas comunidades no Reddit ou no Discord.\n\nBarão KospY e equipe Warpfrog",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BookText",
+          "text": "Agradecemos demais o seu apoio!\n\nSomos um estúdio indie de pequeno porte e jamais teríamos chegado até aqui se não fosse o apoio incrível de nossos fãs.\n\nComo ainda estamos em profundo desenvolvimento, ainda há muito o que fazer. Alguns recursos e elementos de jogabilidade ainda estão sendo aprimorados e serão adicionados nas próximas atualizações.\n\nPara ficar por dentro das novidades e do planejamento, visite nossas comunidades no Reddit ou no Discord.\n\nBarão KospY e equipe Warpfrog",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TipsTitle",
+          "text": "Você sabia?",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Next",
+          "text": "Próximo >",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Previous",
+          "text": "< Anterior",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Arena",
+          "text": "Arena",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Matches",
+          "text": "Partidas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MapTravel",
+          "text": "Viajar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Default",
+          "text": "Padrão",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "WeaponsStorage",
+          "text": "Armazém de Armas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Quantity",
+          "text": "Quantidade",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LevelRequirement",
+          "text": "Nível necess.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Take",
+          "text": "Pegar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Back",
+          "text": "Voltar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Slot",
+          "text": "Ranhura",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Blacksmith",
+          "text": "Ferreiro",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Unknown",
+          "text": "Desconhecido",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NoDescription",
+          "text": "Sem descrição",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Weight",
+          "text": "Peso",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Category",
+          "text": "Categoria",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Details",
+          "text": "Detalhes",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Blunt",
+          "text": "Contundente",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Pierce",
+          "text": "Perfurante",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Slash",
+          "text": "Cortante",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Weapon",
+          "text": "Arma",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Apparel",
+          "text": "Vestuário",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Potion",
+          "text": "Poção",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Prop",
+          "text": "Adereço",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Capacity",
+          "text": "Capacidade",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Duration",
+          "text": "Duração",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Effect",
+          "text": "Efeito",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Spawn",
+          "text": "Gerar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Tier",
+          "text": "Grau",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Sandbox",
+          "text": "Livre",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SandboxDescription",
+          "text": "o Modo Livre, como o nome já diz, é um modo de jogo livre que te permite enfrentar hordas de inimigos do Livro das Hordas.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "AllWeaponsAvailable",
+          "text": "Todas as armas ficam disponíveis",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NoRewards",
+          "text": "Sem recompensas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "None",
+          "text": "Nenhum",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Apprentice",
+          "text": "Aprendiz",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Novice",
+          "text": "Novato",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Competent",
+          "text": "Hábil",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Expert",
+          "text": "Especialista",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Master",
+          "text": "Mestre",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "GrandMaster",
+          "text": "Grão-Mestre",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DebugMenuAvailable",
+          "text": "Pode acessar o menu de depuração",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MapDefaultDecription",
+          "text": "Escolha um destino no mapa para viajar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReturnToHome",
+          "text": "Voltar ao início",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReturnToCharSelection",
+          "text": "Voltar para a seleção de personagens",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Retry",
+          "text": "Repetir",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReloadLevel",
+          "text": "Reiniciar nível",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReloadSameLevel",
+          "text": "Reiniciar nível (mesmo seed)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "QuitGame",
+          "text": "Fechar jogo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Leave",
+          "text": "Sair",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Stats",
+          "text": "Estatísticas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "History",
+          "text": "Histórico",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Score",
+          "text": "Pontuação",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Wave",
+          "text": "Horda",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Kills",
+          "text": "Abates",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HitsReceived",
+          "text": "Golpes recebidos",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Honor",
+          "text": "Honra",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "YouAreDead",
+          "text": "Você morreu!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LevelSuccess",
+          "text": "Vitória!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "KillHistory",
+          "text": "Histórico (abates)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Close",
+          "text": "Fechar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "WaveReached",
+          "text": "Horda alcançada",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "AI",
+          "text": "IA",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Equipment",
+          "text": "Equipamento",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Bonus",
+          "text": "Bônus",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Total",
+          "text": "Total",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Scores",
+          "text": "Pontuações",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Human",
+          "text": "Humano",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Decapitation",
+          "text": "Decapitação",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Dismemberment",
+          "text": "Desmembramento",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CutThroat",
+          "text": "Cortar garganta",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SlashHeadOrNeck",
+          "text": "Cortar (Cabeça/Pescoço)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PierceHeadOrNeck",
+          "text": "Perfurar (Cabeça/Pescoço)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PierceTorso",
+          "text": "Perfurar (Torso)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BluntHead",
+          "text": "Contundir (Cabeça)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PunchOrKick",
+          "text": "Soco / Chute",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "RagdollHit",
+          "text": "Esmagar (Criatura)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "StaticBlunt",
+          "text": "Esmagar (Ambiente)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "StaticSlash",
+          "text": "Cortar (Ambiente)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "StaticPierce",
+          "text": "Perfurar (Ambiente)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Shock",
+          "text": "Choque",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Burn",
+          "text": "Queimadura",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Froze",
+          "text": "Congelamento",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Poison",
+          "text": "Veneno",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Drain",
+          "text": "Drenar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ThrowDecapitation",
+          "text": "Decapitação (Arremesso)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ThrowDismemberment",
+          "text": "Desmembramento (Arremesso)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ThrowSlashHeadOrNeck",
+          "text": "Cortar cabeça (Arremesso)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ThrowPierceHeadOrNeck",
+          "text": "Perfurar cabeça (Arremesso)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ThrowPierce",
+          "text": "Perfurar (Arremesso)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ThrowBlunt",
+          "text": "Contundir (Arremesso)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Storage",
+          "text": "Armazenamento",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Creature",
+          "text": "Criatura",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Style",
+          "text": "Estilo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "XPHonor",
+          "text": "EXP/Honra",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Survival",
+          "text": "Sobrevivência",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SurvivalDescription",
+          "text": "Sobreviva o maior tempo possível contra hordas de inimigos! Pegue as armas de seus oponentes, ou dos diversos pedestais entre uma horda e outra!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PotionsNotAllowed",
+          "text": "Não é permitido usar poções de Vida",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ArenaDescription",
+          "text": "Lutar em uma arena enorme",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Calibration",
+          "text": "Por favor, fique em pé e pressione ambos os gatilhos para calibrar sua altura",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CalibrationDone",
+          "text": "Calibração concluída!\nAltura:",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LengthDescription",
+          "text": "Quantidade total de salas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DifficultyDescription",
+          "text": "Aumenta ou diminui a chance de enfrentar inimigos mais poderosos",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DungeonSandBoxName",
+          "text": "Livre",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DungeonSandboxDescription",
+          "text": "Acesse todas as armas e poderes, sem restrições. Gere os inimigos que quiser em um ambiente de arena, ou aventure-se na masmorra no modo livre.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DungeonCrystalHuntName",
+          "text": "Caça ao Cristal",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DungeonCrystalHuntDescription",
+          "text": "Modo de jogo com progressão. Suba o nível de seu personagem, compre equipamentos e explore masmorras em busca de Fragmentos do Cristal e espólios.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Items",
+          "text": "Itens",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Waves",
+          "text": "Hordas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "FightInProgress",
+          "text": "Combate em andamento!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "FightEnded",
+          "text": "Fim do combate!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SelectWave",
+          "text": "Escolha uma horda para começar.\nUse o touchpad/direcional para navegar para cima ou para baixo.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HeightAutoSetting",
+          "text": "Para usufruir de uma experiência de jogo melhor e mais confortável, certifique-se de que sua altura está bem ajustada.\n\nFique em pé, relaxe e clique em \"Altura automática\":",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HeightManualSetting",
+          "text": "Ou use a Configuração Manual:",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "GameMode",
+          "text": "Modo de Jogo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Dungeon",
+          "text": "Masmorra",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Playtime",
+          "text": "Tempo de jogo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SkillsUnlocked",
+          "text": "Habilidades Desbloqueadas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Beard",
+          "text": "Barba",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HairColor",
+          "text": "Cor do Cabelo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Hair",
+          "text": "Cabelo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Head",
+          "text": "Cabeça",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Mouth",
+          "text": "Boca",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Neck",
+          "text": "Pescoço",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Leg",
+          "text": "Perna",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Shoulder",
+          "text": "Ombro",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Wrist",
+          "text": "Pulso",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TK",
+          "text": "Telecinesia",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Rack",
+          "text": "Prateleira",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Gender",
+          "text": "Gênero",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "EyesColor",
+          "text": "Cor dos Olhos",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SkinColor",
+          "text": "Cor da Pele",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ExploreDungeons",
+          "text": "Explore e avance por uma masmorra gerada de forma semi-procedural.\nDesbloqueie novas habilidades e equipamentos!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SelectArena",
+          "text": "Escolha sua Arena e lute (apenas VRcade).",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "FightArena",
+          "text": "Enfrente hordas de inimigos em uma arena para treinar e melhorar suas habilidades.\nAlerta de spoiler: todas as armas e habilidades são desbloqueadas!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ArenaMap",
+          "text": "A Arena é um mapa pequeno, ideal para se descobrir\nos recursos de Blade & Sorcery!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SelectLevel",
+          "text": "Favor escolher seu nível.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SelectGameMode",
+          "text": "Favor escolher o modo de jogo\n(Isso NÃO pode ser alterado depois!)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Save",
+          "text": "Salvar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NA",
+          "text": "N/A",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Arcade",
+          "text": "Arcade",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Cancel",
+          "text": "Cancelar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Confirm",
+          "text": "Confirmar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Play",
+          "text": "Jogar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Delete",
+          "text": "Excluir",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Start",
+          "text": "Iniciar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Metric",
+          "text": "Métrica",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "No",
+          "text": "Não",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Yes",
+          "text": "Sim",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Ok",
+          "text": "Certo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "New",
+          "text": "Novo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Select",
+          "text": "Escolher",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Edit",
+          "text": "Editar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Auto",
+          "text": "Automático",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Height",
+          "text": "Altura",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Trackers",
+          "text": "Rastreadores",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Character",
+          "text": "Personagem",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LevelSelection",
+          "text": "Seleção de Nível",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LevelMode",
+          "text": "Modo de Nível",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NewCharacter",
+          "text": "Personagem Novo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InfosAndOptions",
+          "text": "Detalhes & Opções",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DeleteSave",
+          "text": "Excluir Salvamento",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CharacterCustomization",
+          "text": "Personalização\r\nde Personagem",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CharacterSelection",
+          "text": "Seleção\nde Personagem",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PlayTutorial",
+          "text": "Jogar Tutorial",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "EarlyAccess",
+          "text": "Acesso Antecipado",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "StartGame",
+          "text": "Iniciar Jogo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HeightSetting",
+          "text": "Configurar\nAltura do Jogador",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DeleteSaveConfirmation",
+          "text": "Tem certeza de que deseja excluir seu jogo salvo?",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PlayTutorialConfirmation",
+          "text": "Você gostaria de jogar o tutorial?",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Available",
+          "text": "Disponível",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Options",
+          "text": "Opções",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "General",
+          "text": "Geral",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "UI",
+          "text": "UI",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Inputs",
+          "text": "Entradas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "GoreBlood",
+          "text": "Gore / Sangue",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Graphics",
+          "text": "Gráficos",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PostProcess",
+          "text": "Pós-Processamento",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Physics",
+          "text": "Física",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Audio",
+          "text": "Áudio",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SpawnRation",
+          "text": "Taxa de surgimento",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Male",
+          "text": "Masculino",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Female",
+          "text": "Feminino",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Language",
+          "text": "Idioma",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MaxArmLengthBehaviour",
+          "text": "Desarme de Jogador",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MaxArmLengthMultiplier",
+          "text": "Multiplicador máx. de comprimento de braço",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "OculusMRC",
+          "text": "Oculus MRC",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "QualityPreset",
+          "text": "Predefinições de qualidade",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ResetSettings",
+          "text": "Redefinir configurações",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TouchHighlighter",
+          "text": "Destaque de toque",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HudHighlighter",
+          "text": "Destaque de HUD",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DistantHighlighter",
+          "text": "Destaque de distância",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CursorRay",
+          "text": "Raio do cursor",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HealthVignette",
+          "text": "Esmaecido da Vida",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ComfortVignette",
+          "text": "Bordas de Conforto",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ExternalView",
+          "text": "Visão exterior",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LocomotionDirection",
+          "text": "Direção de locomoção",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LocomotionController",
+          "text": "Controlador de locomoção",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TurnMode",
+          "text": "Modo de giro",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TurnSpeed",
+          "text": "Velocidade de giro",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TwoHandedHand",
+          "text": "Empunhadura de duas mãos",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Pointer",
+          "text": "Ponteiro",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ThumbstickJump",
+          "text": "Salto no direcional",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "StickCrouchMode",
+          "text": "Modo de Agachamento Fixo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PressToMove",
+          "text": "Pressione para mover",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ThumbstickPressJump",
+          "text": "Salto ao pressionar o direcional",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ThumbstickCrouchMode",
+          "text": "Modo de agachamento com direcional",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CrouchOnJump",
+          "text": "Agachar ao saltar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TwoHandedMode",
+          "text": "Modo de duas mãos",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HoldGrip",
+          "text": "Segurar a pega",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Handles",
+          "text": "Empunhadura",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Telekinesis",
+          "text": "Telecinesia",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Bodies",
+          "text": "Corpos",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BloodEffects",
+          "text": "Efeitos de sangue",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ExperimentalWarning",
+          "text": "Experimental (pode causar problemas de desempenho)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BloodOnCharacters",
+          "text": "Sangue nas personagens",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BloodOnWeapons",
+          "text": "Sangue nas armas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "RenderScale",
+          "text": "Escala de renderização",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "FoveationLevel",
+          "text": "Nível de foveação",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MSAA",
+          "text": "MSAA",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TextureQuality",
+          "text": "Qualidade das texturas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "OceanQuality",
+          "text": "Qualidade do oceano",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Shadows",
+          "text": "Sombras",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MaxEnvironmentalDecals",
+          "text": "Decalques máx. do amb.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Performance",
+          "text": "Desempenho",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DroppedFrameCount",
+          "text": "Contagem de quadros perdidos\n%",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "GPULastFrameTime",
+          "text": "Tempo do último quadro da GPU\n%",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "FramesPerSecond",
+          "text": "Quadros por segundo\n%",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PostProcessing",
+          "text": "Pós-Processamento",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Profile",
+          "text": "Perfil",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Vibrance",
+          "text": "Vibração",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Contrast",
+          "text": "Contraste",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PostExposure",
+          "text": "Pós exposição",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Bloom",
+          "text": "Incandescência",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BloomIntensity",
+          "text": "Intensidade de Incandescência",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BloomThreshold",
+          "text": "Limiar de incandescência",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Sharpen",
+          "text": "Nitidez",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "EyeAdaptation",
+          "text": "Adaptação Ocular",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MaxDeadBodies",
+          "text": "Máx. de corpos",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MaxDroppedObjects",
+          "text": "Máx. de objetos largados",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CleanVisibleDead",
+          "text": "Limpar mortos visíveis",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PhysicQuality",
+          "text": "Qualidade física",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MasterVolume",
+          "text": "Volume mestre",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "EffectVolume",
+          "text": "Volume de efeitos",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "AmbientVolume",
+          "text": "Volume do ambiente",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MusicVolume",
+          "text": "Volume da música",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "UIVolume",
+          "text": "Volume da UI",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Cheats",
+          "text": "Trapaças",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Debug",
+          "text": "Depuração",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Skydome",
+          "text": "Skydome",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Misc",
+          "text": "Outros",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PlayerInvincibility",
+          "text": "Invencibilidade do jogador",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InfiniteMana",
+          "text": "Mana infinita",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InfiniteFocus",
+          "text": "Foco infinito",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InfiniteImbue",
+          "text": "Imbuir infinitamente",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InfiniteArrows",
+          "text": "Flechas infinitas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "FallDamage",
+          "text": "Dano de queda",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ArmorDetection",
+          "text": "Detecção de armadura",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SlowingTime",
+          "text": "Dilatando o tempo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SlowmotionScaleWarning",
+          "text": "Aviso: valores menores que 0,5 podem causar problemas de física",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CollisionMarkers",
+          "text": "Marcadores de colisão",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReloadJSON",
+          "text": "Recarregar json",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "RoomCulling",
+          "text": "Descarte de Salas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CullAdjacentRooms",
+          "text": "Descartar salas adjacentes",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "OcclusionCulling",
+          "text": "Descarte de Oclusão",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "OpaqueSortMode",
+          "text": "Modo de Classificação Opaco",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ColorGamut",
+          "text": "Gama de Cores",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LightmapsMode",
+          "text": "Modo lightmaps",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "FabricAndFoliage",
+          "text": "Tecido e Folhagem",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReflectionProbes",
+          "text": "Sondas de Reflexão",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Lights",
+          "text": "Luzes",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Fog",
+          "text": "Nevoeiro",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "AppSW",
+          "text": "App SW",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Timestep",
+          "text": "Iteração",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Stars",
+          "text": "Estrelas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Neutros",
+          "text": "Neutros",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Clouds",
+          "text": "Nuvens",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Aurora",
+          "text": "Aurora",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Ring",
+          "text": "Anel",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Jovian",
+          "text": "Jovian",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SelfCollision",
+          "text": "Auto-colisão",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "RotationMode",
+          "text": "Modo rotação",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PositionSpringMultiplier",
+          "text": "Multip. de mola de posição",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PositionDamperMultiplier",
+          "text": "Multip. de amortecedor de posição",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "RotationSpringMultiplier",
+          "text": "Multip. de mola de rotação",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "RotationDamperMultiplier",
+          "text": "Multip. de amortecedor de rotação",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MassMultiplier",
+          "text": "Multip. de massa",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Notes",
+          "text": "Anotações",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ControllerInputs",
+          "text": "Entradas de controlador",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DiscordLink",
+          "text": "Link do Discord",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "RemoveHeadsetHint",
+          "text": "(remova seu fone de ouvido depois disso!)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DefaultInputs",
+          "text": "Entradas (Padrão)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Left",
+          "text": "Esquerda",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Right",
+          "text": "Direita",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Trigger",
+          "text": "Gatilho",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Grip",
+          "text": "Pega",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Thumbstick",
+          "text": "Direcional",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Menu",
+          "text": "Menu",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "UseFireSpell",
+          "text": "Usar / Feitiço de Fogo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Move",
+          "text": "Mover-se",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "AltUse",
+          "text": "Usar secundário / Seleção de feitiços",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "JumpCrouch",
+          "text": "Saltar / Agachar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "OpenMenu",
+          "text": "Abrir menu",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "GrabOrDrop",
+          "text": "Segura ou solta objetos",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TurnSides",
+          "text": "Virar para esquerda e direita",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SlowMotion",
+          "text": "Dilatação temporal",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Kick",
+          "text": "Chutar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Screenshot",
+          "text": "Captura de tela",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LockExternalView",
+          "text": "Travar visão externa",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Touchpad",
+          "text": "Touchpad",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Jump",
+          "text": "Saltar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintOrder",
+          "text": "*Mantenha pressionado (1) e pressione (2)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintKick",
+          "text": "*Pressione o direcional",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintJumpAndCrouch",
+          "text": "* Saltar: mova o direcional para cima (ou pressione)\n* Agachar: mova o direcional para baixo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintExternalView",
+          "text": "*Necessário habilitar nas opções primeiro",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintPressTouchpadLeftRight",
+          "text": "*Pressione o touchpad para esquerda/direita",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintPressTouchpadUp",
+          "text": "*Pressione o touchpad para cima",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintPressTouchpadDown",
+          "text": "*Pressione o touchpad para baixo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintPressTouchpadCenter",
+          "text": "*Pressione o touchpad no centro",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintPressTouchpad",
+          "text": "*Pressione o touchpad",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintPress",
+          "text": "*Pressione o direcional / touchpad",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintThumbstickUp",
+          "text": "*Direcional para cima",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintThumbstickDown",
+          "text": "*Direcional para baixo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintPressThumbstick",
+          "text": "*Pressione o direcional",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Button",
+          "text": "Botão",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Fight",
+          "text": "Lutar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Return",
+          "text": "Voltar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Stop",
+          "text": "Parar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Player",
+          "text": "Jogador",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NPC",
+          "text": "NPC",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MaxAlive",
+          "text": "Máx. Vivos",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Health",
+          "text": "Vida",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "All",
+          "text": "Tudo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Info",
+          "text": "Detalhes",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Equip",
+          "text": "Equipar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Hold",
+          "text": "Proibir",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Drop",
+          "text": "Permitir",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ElasticMan",
+          "text": "Homem Elástico",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Enabled",
+          "text": "Habilitado",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Disabled",
+          "text": "Desabilitado",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Show",
+          "text": "Mostrar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Hide",
+          "text": "Ocultar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LeftHand",
+          "text": "Mão esquerda",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "RightHand",
+          "text": "Mão direita",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Headset",
+          "text": "Conjunto",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Controller",
+          "text": "Controlador",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Position",
+          "text": "Posição",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Dominant",
+          "text": "Dominante",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "AutoFront",
+          "text": "Frente Automática",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "AutoRear",
+          "text": "Traseira Automática",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Snap",
+          "text": "Ajustado",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Smooth",
+          "text": "Suavizar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Object",
+          "text": "Objeto",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Ragdoll",
+          "text": "Boneco de pano",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Body",
+          "text": "Corpo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "VeryLow",
+          "text": "Muito Baixo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Low",
+          "text": "Baixo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Medium",
+          "text": "Médio",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "High",
+          "text": "Alto",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "VeryHigh",
+          "text": "Muito Alto",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Custom",
+          "text": "Personalizado",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Soft",
+          "text": "Macio",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Rigid",
+          "text": "Rígido",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ScreenshotResolution",
+          "text": "Resolução da Captura de Tela",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Neutral",
+          "text": "Neutro",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ACES",
+          "text": "ACES",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HighTop",
+          "text": "Máximo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "WaitConnection",
+          "text": "Espere a Conexão",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Toggle",
+          "text": "Alternar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HelpSummary",
+          "text": "Resumo de ajuda",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Experience",
+          "text": "Experiência",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "FallOnly",
+          "text": "Apenas queda",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DamageOnly",
+          "text": "Apenas danos",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "AllExceptFall",
+          "text": "Tudo, exceto quedas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Directional",
+          "text": "Direcionado",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NonDirectional",
+          "text": "Não Direcionado",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Unmanaged",
+          "text": "Não gerenciado",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ParticleSystems",
+          "text": "Sistemas de Partículas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "FrontToBack",
+          "text": "Frente até Costas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NoDistanceSort",
+          "text": "Sem Ordenar Distâncias",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "RefreshRate",
+          "text": "Taxa de Atualização",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Blades",
+          "text": "Lâminas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Axes",
+          "text": "Machados",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Spears",
+          "text": "Lanças",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Blunts",
+          "text": "Maças",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Bows",
+          "text": "Arcos",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Staves",
+          "text": "Cajados",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Armor",
+          "text": "Armaduras",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Potions",
+          "text": "Poções",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Daggers",
+          "text": "Adagas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Swords",
+          "text": "Espadas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Exotics",
+          "text": "Exóticos",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Apparels",
+          "text": "Vestuários",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Shields",
+          "text": "Escudos",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Recruit",
+          "text": "Recruta",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Gladiator",
+          "text": "Gladiador",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Bandit",
+          "text": "Bandoleiro",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Knight",
+          "text": "Cavalo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Mercenary",
+          "text": "Mercenário",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Specials",
+          "text": "Especiais",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Weapons",
+          "text": "Armas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Consumables",
+          "text": "Consumíveis",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Food",
+          "text": "Comida",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Tools",
+          "text": "Ferramentas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Utilities",
+          "text": "Utilitários",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Clothes",
+          "text": "Roupas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Leather",
+          "text": "Couro",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Plate",
+          "text": "Placas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Mages",
+          "text": "Magos",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Warzone",
+          "text": "Zona de Guerra",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Loading",
+          "text": "Carregando",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DeathMessage",
+          "text": "Você morreu.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NoSwimmingMessage",
+          "text": "Você não consegue nadar. Cuidado ao adentrar águas profundas.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SlowMotionVolume",
+          "text": "Volume da Dilatação Temporal",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CleanVisibleDroppedItems",
+          "text": "Limpar itens visíveis",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Difficulty",
+          "text": "Dificuldade",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Length",
+          "text": "Duração",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ExertionNoise",
+          "text": "Som de cansaço",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TriggerPress",
+          "text": "Pressionamento do gatilho",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SlideHand",
+          "text": "Deslizamento de mão",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "UseItem",
+          "text": "Usar item",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DungeonSeed",
+          "text": "Seed da masmorra",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "RoomName",
+          "text": "Nome da sala",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Update",
+          "text": "Atualizar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SkipMessageHint",
+          "text": "Segure o gatilho para pular",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Error",
+          "text": "Erro",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Locked",
+          "text": "Bloqueado",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "UnableToGrab",
+          "text": "Incapaz de pegar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "AlreadyUsed",
+          "text": "Já foi usado",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NotAllowed",
+          "text": "Não é permitido",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NotAllowedHand",
+          "text": "Esta mão não pode segurar este objeto",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SlotNotCompatible",
+          "text": "Espaço incompatível",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Holster",
+          "text": "Coldre",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Grab",
+          "text": "Segurar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Ladder",
+          "text": "Escada",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Cinematic",
+          "text": "Cinematográfico",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Filmic",
+          "text": "Fílmico",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HighContrast",
+          "text": "Alto Contraste",
+          "spriteAddress": null,
+          "videoAddress": null
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "Inputs",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NotSupportedControllers",
+          "text": "Ainda não há suporte para os seus controladores. As entradas podem não funcionar corretamente.",
+          "spriteAddress": "Bas.Sprite.Input.OculusTouch.Menu[InputMenuOculus]",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "OculusInputMoreInfo",
+          "text": "Para saber mais sobre entradas, pressione Y para abrir o menu e navegue até a seção \\\"Entradas de controlador\\\".",
+          "spriteAddress": "Bas.Sprite.Input.OculusTouch.Menu[InputMenuOculus]",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ViveInputMoreInfo",
+          "text": "Para saber mais sobre entradas, abra o menu pressionando o botão de menu esquerdo enquanto pressiona o centro do touchpad, depois navegue até a seção \\\"Entradas de controlador\\\".",
+          "spriteAddress": "Bas.Sprite.Input.ViveWand.Menu[InputMenuViveWand]",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "WMRInputMoreInfo",
+          "text": "Para saber mais sobre entradas, pressione o botão de menu esquerdo para abrir o menu e navegue até a seção \\\"Entradas de controlador\\\".",
+          "spriteAddress": "Bas.Sprite.Input.WMR.Menu[InputMenuWMR]",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "IndexInputMoreInfo",
+          "text": "Para saber mais sobre entradas, pressione B para abrir o menu e navegue até a seção \\\"Entradas de controlador\\\".",
+          "spriteAddress": "Bas.Sprite.Input.Index.Menu[InputMenuIndex]",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CosmosInputMoreInfo",
+          "text": "Para saber mais sobre entradas, pressione Y para abrir o menu e navegue até a seção \\\"Entradas de controlador\\\".",
+          "spriteAddress": "Bas.Sprite.Input.Cosmos.Menu[InputMenuCosmos]",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HMDNotDetected",
+          "text": "VR HMD não detectado!\nApenas o modo espectador está disponível.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InputTypeUse",
+          "text": "Usar",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InputTypeGrip",
+          "text": "Pega",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InputTypeAlternateUse",
+          "text": "Uso alternativo",
+          "spriteAddress": null,
+          "videoAddress": null
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "Inventory",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryName",
+          "text": "Inventário",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Consumables",
+          "text": "Consumíveis",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Valuables",
+          "text": "Valiosos",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Unknown",
+          "text": "Outros",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Tools",
+          "text": "Ferramentas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NotAllowedToStoreHint",
+          "text": "Não é permitido armazenar %1.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CategoryFullHint",
+          "text": "Categoria \"%1\" cheia.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "StoreItemHint",
+          "text": "Armazenar %1.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DumpAllContentHint",
+          "text": "Despeja todo o conteúdo (Segure).",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DumpCategoryContentHint",
+          "text": "Despeja todo o conteúdo \"%1\" (Segure).",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionOffsetLR",
+          "text": "Direita / Esquerda",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionOffsetDU",
+          "text": "Baixo / Cima",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionOffsetBF",
+          "text": "Trás / Frente",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionScale",
+          "text": "Escala",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionSmokeOpacity",
+          "text": "Opacidade da fumaça",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionAnchor",
+          "text": "Âncora",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionAnchorHead",
+          "text": "Cabeça",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionAnchorChest",
+          "text": "Peito",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionAnchorHand",
+          "text": "Mão",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionNextInputType",
+          "text": "Próximo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionPreviousInputType",
+          "text": "Anterior",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionSelectInputType",
+          "text": "Escolher",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionLayouts",
+          "text": "Modelo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionLayoutChestCentered",
+          "text": "Centrado no peito",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionLayoutHeadCentered",
+          "text": "Centrado na cabeça",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionLayoutInHand",
+          "text": "Na mão",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionLayoutHeadWithOffset",
+          "text": "Cabeça com desvio",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionLayoutTiny",
+          "text": "Minúsculo",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionEditCustomValues",
+          "text": "Editar valores >",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CloseInventoryHint",
+          "text": "Fechar Inventário",
+          "spriteAddress": null,
+          "videoAddress": null
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "Levels",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Arena",
+          "text": "Arena",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ArenaDescription",
+          "text": "A Arena é um pequeno anfiteatro onde gladiadores se enfrentam.\nUm ótimo mapa para jogadores novatos aprimorarem suas habilidades, ou para combates 1v1.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Canyon",
+          "text": "Desfiladeiro",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CanyonDescription",
+          "text": "Um vilarejo de templos escondido rio acima.\nO Desfiladeiro possui diversas cordas e pontes ligando ambos os lados.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Citadel",
+          "text": "Cidadela",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CitadelDescription",
+          "text": "Empoleirada no topo de uma encosta rochosa de montanha, a Cidadela é uma estrutura imponente.\nPassadiços compridos e a verticalidade criam diversas oportunidades de escalada neste amplo mapa.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Outpost",
+          "text": "Posto avançado",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "OutpostDescription",
+          "text": "Masmorras: ACESSO ANTECIPADO\nInicie sua primeira aventura na Masmorra nos Postos avançados; caracterizados por suas estruturas de pedra lembrando ruínas de castelos e seus sistemas de cavernas.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Market",
+          "text": "Mercado",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MarketDescription",
+          "text": "Um mercado de rua no coração de um vilarejo medieval.\nUm mapa aberto e amplo com diversas oportunidades para arremessar objetos do ambiente.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Ruins",
+          "text": "Ruínas",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "RuinsDescription",
+          "text": "As ruínas agora são pouco mais do que meras lembranças de uma civilização perdida.\nEste mapa de tamanho médio e seus dois andares oferecem um pouco de verticalidade.",
+          "spriteAddress": null,
+          "videoAddress": null
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BaronHat",
+      "name": "Chapéu do Barão",
+      "description": "Isso não te pertence!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Chair",
+      "name": "Cadeira",
+      "description": "Sem descrição"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Rope",
+      "name": "Corda",
+      "description": "Sem descrição"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Drawer",
+      "name": "Cômoda",
+      "description": "Sem descrição"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Jar",
+      "name": "Jarro",
+      "description": "Sem descrição"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Jug",
+      "name": "Pote",
+      "description": "Sem descrição"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Mug",
+      "name": "Caneco",
+      "description": "Sem descrição"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Pillow",
+      "name": "Almofada",
+      "description": "Sem descrição"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Plate",
+      "name": "Prato",
+      "description": "Sem descrição"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "PotionHealth",
+      "name": "Poção de vida",
+      "description": "Inventada por antigos alquimistas, este elixir mágico fechará suas feridas milagrosamente, recuperando sua vida."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Cork",
+      "name": "Cortiça",
+      "description": "Sem descrição"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Bow",
+      "name": "Arco",
+      "description": "Um clássico nos combates desde os tempos antigos, o arco é uma arma de longo alcance eficaz e letal."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Warbow",
+      "name": "Arco de Guerra",
+      "description": "Rígido e Firme, o Arco de Guerra é utilizado comumente por arqueiros altamente treinados e experientes para atacar os alvos à distância."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Arrow",
+      "name": "Flecha",
+      "description": "Geralmente composta por uma haste longa estabilizada por penas e uma ponta pontiaguda, a flecha é um projétil penetrante disparada com um arco."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ArrowPiercing",
+      "name": "Flecha Perfurante",
+      "description": "Uma arma forte o suficiente para perfurar cotas de malha. Possui uma ponta afiada, capaz de ser cravada até no oponente mais protegido."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Quiver",
+      "name": "Aljava",
+      "description": "Normalmente feita de couro, madeira ou peles, a aljava é capaz de armazenar um feixe de flechas."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BucklerMetal",
+      "name": "Broquel Reforçado",
+      "description": "O tamanho reduzido e a manobrabilidade do broquel o torna um acessório valioso ao se enfrentar lâminas mais leves."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BucklerRound",
+      "name": "Broquel Redondo",
+      "description": "Um pouco velho, este broquel talvez salve sua vida... Talvez!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ShieldKite",
+      "name": "Escudo Gota",
+      "description": "O escudo gota oferece proteção máxima contra flechas e lâminas maiores, com seu peso podendo ser utilizado para golpear."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ShieldRound",
+      "name": "Escudo Redondo",
+      "description": "Pequeno o suficiente para ser carregado, porém largo o suficiente para bloquear flechas, o escudo de madeira fornece uma boa defesa geral."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AxeLongLumberaxe",
+      "name": "Antigo Machado de Lenhador",
+      "description": "Esta ferramenta velha e enferrujada foi desenvolvida para derrubar árvores, mas não deixa de ser uma arma de corte perigosíssima."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AxeShortCommon",
+      "name": "Machado",
+      "description": "Aproveitando da força de quem o empunha, o machado é uma arma eficaz e brutal quando utilizado para cortar e despedaçar."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AxeShortHatchet",
+      "name": "Machadinha",
+      "description": "Sua eficácia máxima se dá ao ser arremessada, assim como em combate à curta distância. Esta machadinha parece estar bem desgastada. Embora seja bem antiga, ainda pode ser utilizada para cortar e ferir."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AxeShortHorseman",
+      "name": "Dizimador",
+      "description": "Forjado pelo próprio Cavaleiro que tentou derrotar o Golem escondido nas masmorras. É possível que ele tenha conseguido, porém, considerando que a arma está em suas mãos, é seguro inferir que ele falhou."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AxeShortWar",
+      "name": "Machado de Guerra",
+      "description": "Em excelentes condições, esta arma mortal é capaz de cortar e dilacerar seus inimigos feito manteiga, além de ser muito estilosa! Quem quer que o tenha utilizado deve ter cuidado muito bem de suas ferramentas."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AxeLongNorthern",
+      "name": "Machado Setentrional",
+      "description": "A cabeça do machado relativamente leve oferece uma capacidade de laceração devastadora, enquanto mantém os inimigos à distância de uma lança."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AxeLongBardiche",
+      "name": "Bardiche",
+      "description": "Uma descendente do machado dinamarquês. A lâmina no estilo cutelo da bardiche a torna ideal para lacerar e cortar."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AxeLongHalberd",
+      "name": "Alabarda Regicida",
+      "description": "Utilizada tanto por Reis, quanto por guardas Reais, esta arma é capaz de golpes, cortes e perfurações devastadoras, além de poder ser utilizada em todos os ângulos. Golpeie de todas as maneiras, tal como os reis o fizeram para conquistar seus reinos!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AxeLongWar",
+      "name": "Machado de Guerra",
+      "description": "Um machado de guerra utilizado para manter os inimigos longe. Bastante usado, porém em boas condições, este machado é capaz de ataques poderosos à longa distância, contanto que seu inimigo não saiba o que está fazendo..."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AxeShortCleaver",
+      "name": "Cutelo Enferrujado",
+      "description": "Está mais para um cutelo velho e enferrujado de açougueiro do que para uma arma. Sua aparência te faz crer que ele pode quebrar a qualquer momento..."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "DaggerAntic",
+      "name": "Faca Antiga",
+      "description": "Velha e surrada, porém ainda é capaz de apunhalar de forma eficiente. Esta adaga já viveu sua cota de assassinatos e pescoços cortados."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "DaggerCommon",
+      "name": "Adaga Comum",
+      "description": "A favorita entre os ladinos. A ponta afiada da adaga a torna uma arma principalmente para apunhalar e esfaquear."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "DaggerFine",
+      "name": "Adaga Requintada",
+      "description": "Esta adaga possui uma face lisa e uma lâmina afiada, mostrando que foi bem cuidada durante seus anos de uso. Degole o pescoço das vítimas, ou perfure seus órgãos."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "DaggerPierce",
+      "name": "Decreto do Príncipe",
+      "description": "Utilizada por um Príncipe traído por seu irmão, esta faca do tipo stilleto de forja única foi feita por um talentosíssimo ferreiro, com o único propósito de proteger a figura real do príncipe."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpearBoar",
+      "name": "Lança de Javali",
+      "description": "As hastes em formato de asas na base da ponta evitam que a lança penetre fundo demais na carne, o que a protege de quebrar ou de ficar presa."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "DualBladeStaff",
+      "name": "Cajado de Lâmina Dupla",
+      "description": "Esta arma pouco ortodoxa pode ser empunhada com uma ou duas mãos. Suas duas extremidades laminadas fazem dele uma arma ameaçadora."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MaceLongBecDeCorbin",
+      "name": "Bec De Corbin",
+      "description": "Esta arma pouco ortodoxa pode ser empunhada com uma ou duas mãos. Suas duas extremidades laminadas fazem dele uma arma ameaçadora."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MaceLongClub",
+      "name": "Porrete de Madeira",
+      "description": "Mais eficaz para homens das cavernas do que para o combate medieval..."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MaceLongMallet",
+      "name": "Marreta",
+      "description": "Ótimo para ataques contundentes e para fixar pregos."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "StaffShaman",
+      "name": "Cajado de Xamã",
+      "description": "Foi feito por um talentoso aventureiro com conhecimento em ferraria. O tal aventureiro jamais foi visto novamente desde então. Apenas sua arma ficou para trás."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "StaffDruid",
+      "name": "Cajado Druídico",
+      "description": "Utilizado principalmente por druidas, o desenho elaborado e elegante deste cajado de madeira aumenta a potência do cristal entalhado em sua ponta."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Rapier",
+      "name": "Rapieira",
+      "description": "Uma lâmina longa e esguia, com uma ponta afiada. Isso torna a rapieira uma ótima arma para estocar e apunhalar."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordShortAntic",
+      "name": "Espada Antiga",
+      "description": "Melhor utilizada em conjunto de um escudo, o comprimento curto e a ponta fina desta arma a torna ideal para estocar."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordShortCommon",
+      "name": "Espada Curta",
+      "description": "Uma arma ideal para estocar, com a ponta pontiaguda que permite apunhalar de forma eficiente, enquanto o guarda-mão fornece uma certa proteção."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordShortLarge",
+      "name": "Espada de Cavalgada",
+      "description": "Esta arma elegante possui uma ponta em formato cônico. Eficaz para estocar, sem abrir mão da largura necessária para cortar com eficiência."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordLongReverend",
+      "name": "Espada do Reverendo",
+      "description": "Mesmo lascada e enferrujada, esta espada ainda é uma arma eficaz para cortar e estocar."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordLongCommon",
+      "name": "Espada Longa",
+      "description": "Caracterizada por um cabo longo e um punho cruciforme, a espada longa é uma arma letal e versátil."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordLongReinforced",
+      "name": "Espada de Guerra",
+      "description": "Uma variação mais longa e mais pesada da Espada Longa, porém menor que um Espadão."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ViennoiseSword",
+      "name": "La Baguette",
+      "description": "Forjada nos fornos de um padeiro lendário, conhecido apenas em contos populares como \"KospY\"."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "WristBlade",
+      "name": "Lâmina de Pulso",
+      "description": "Uma arma pouco ortodoxa e exótica, a lâmina de pulso é a favorita daqueles que valorizam a discrição e o sigilo acima de tudo."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Torch",
+      "name": "Tocha",
+      "description": "Utilizada como fonte de luz por toda a história, a tocha é um pedaço de madeira embebido em material combustível e aceso em uma das pontas."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MaceShortBlacksmith",
+      "name": "Martelo de Ferreiro",
+      "description": "Feito com o intuito de ser utilizado por um ferreiro para moldar o metal, esta pesada ferramenta de metal também pode ser utilizada para esmagar ossos."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MaceShortCommon",
+      "name": "Maça de Trincheira",
+      "description": "Rudimentar, porém eficaz, a maça pode ser utilizada para atordoar e bater nos oponentes, retirando-os totalmente de combate."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MaceFlanged",
+      "name": "Maça Flangeada",
+      "description": "A cabeça flangeada torna esta arma ideal para afundar armaduras."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MaceLongMaul",
+      "name": "Malho",
+      "description": "Com seu peso e tamanho, o malho consegue esmagar armaduras e ossos com a mesma facilidade."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MaceLongWarmace",
+      "name": "Maça de Guerra Flangeada",
+      "description": "A cabeça com flanges torna esta arma muito eficaz em esmagar os adversários, principalmente ao se golpear alvos com armadura."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MaceShortNailclub",
+      "name": "Martelo de Ferreiro",
+      "description": "Um porrete de madeira com três anéis pontudos de metal, feitos para machucar."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MaceShortWarhammer",
+      "name": "Martelo de Guerra do Mestre de Batalhas",
+      "description": "Com sua natureza contundente mortal, esta arma foi conquistada por um Mestre de Batalha, logo antes de ter sido derrotado em combate."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpearArrowhead",
+      "name": "Lança Cabeça-de-flecha",
+      "description": "Aperfeiçoada para apunhalar à distância. Um guerreiro empunhando uma espada não representa perigo algum."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpearBladed",
+      "name": "Punhal com Guarda-mão",
+      "description": "Utilizado por temíveis guerreiros da linha de frente para abrir o caminho em batalha, esta lança de construção única possui uma folha afiada para cortar."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpearHayfork",
+      "name": "Ancinho",
+      "description": "Literalmente um ancinho. Possui pontas pontiagudas, mas não passa de um ancinho..."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpearJavelin",
+      "name": "Dardo",
+      "description": "Incrivelmente úteis para serem arremessados, desde que você use a postura correta."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "StaffMaster",
+      "name": "Cajado do Grão-Mestre",
+      "description": "Utilizado em inúmeras batalhas para ajudar na proteção do reino, já fora uma arma extremamente poderosa na luta contra o mal. Desde então, o grão-mestre tornou-se frágil, portanto, acredito que será mais útil em suas mãos."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "StaffScholar",
+      "name": "Cajado do Sábio",
+      "description": "Um porrete de madeira com três anéis pontudos de metal, feitos para machucar."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "StaffWizard",
+      "name": "Cajado do Mago",
+      "description": "Utilizado por magos arcanos, este cajado é capaz de armazenar muito poder para ser usado nas horas de dificuldade."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordGreatAntique",
+      "name": "Espadão Antigo",
+      "description": "Conforme empunha esta gigantesca espada, você é capaz de ouvir o brado de batalha de seu dono anterior ressoando por dentro de seu peito."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordGreatClaymore",
+      "name": "Claymore",
+      "description": "Com sua longa lâmina e um tipo distinto de guarda-mão, a pesada claymore foi desenvolvida para ser empunhada com as duas mãos."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordGreatCommon",
+      "name": "Espadão",
+      "description": "Pesada demais para ser empunhada com apenas uma mão, o espadão pode usar o cabo como alavanca para golpear com mais facilidade."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordGreatExecution",
+      "name": "Espada Executora",
+      "description": "Embora enferrujada e toda detonada, este espadão fez várias cabeças rolar, inclusive a de seu último dono."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordGreatfFine",
+      "name": "Espadão Requintado ",
+      "description": "Confeccionada com requinte, esta obra de trabalho manual possui boa empunhadura e fio de corte, além de ter seu peso bastante equilibrado."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordGreatZweihander",
+      "name": "Vingança da Monarquia",
+      "description": "\"...o Grande Monarca ergueu os braços, e como se suas mãos guiassem sua arma surreal, o golpe pareceu fatiar até mesmo o ar.\""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordLongRefined",
+      "name": "Guarda-Reis",
+      "description": "Defensora do Trono, Mantenedora de Reis, Algoz de Traidores."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordLongWarbrand",
+      "name": "Faussart",
+      "description": "Costumava ser uma arma... ou uma faca de açougueiro, é difícil dizer. Apesar disso, parece ainda ser útil para alguma coisa."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordShortBastard",
+      "name": "Represália do Bastardo",
+      "description": "Enquanto o bastardo se levantava contra seus próprios familiares, as feridas de facadas cobriam seu corpo deformado, com todos assistindo sua espada cair ao chão."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordShortSeax",
+      "name": "Saxo",
+      "description": "Costumava ser algum tipo de arma..."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordTrustNeedle",
+      "name": "Agulha",
+      "description": "Esta espada foi feita para estocar e perfurar. Cruel contra armaduras leves."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordTrustPoker",
+      "name": "Cutucadora",
+      "description": "Bem... isso deve bastar!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ThrowablesDagger",
+      "name": "Adaga de Arremesso",
+      "description": "Uma lâmina diminuta e ágil, pequena o bastante para ser uma arma de arremesso imperceptível, porém mortal."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ThrowablesRock",
+      "name": "Pedra",
+      "description": "Nada melhor que uma forma de combate primitiva: uma pedra."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "DaggerQuiver",
+      "name": "Aljava de Adagas de Arremesso",
+      "description": "Uma bolsa pequena contendo um punhado de adagas de arremesso."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "QuiverLarge",
+      "name": "Aljava Grande",
+      "description": "Falta Descrição."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "QuiverSmall",
+      "name": "Aljava Pequena",
+      "description": "Falta Descrição."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BoatOar",
+      "name": "Remo",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Book",
+      "name": "Livro",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Bowl",
+      "name": "Tigela",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Pot",
+      "name": "Panela",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Cup",
+      "name": "Taça",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SkeletonBone",
+      "name": "Osso",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SkeletonJaw",
+      "name": "Osso da Mandíbula",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SkeletonSkull",
+      "name": "Crânio de Caveira",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SkeletonSkullWithJaw",
+      "name": "Crânio de Caveira",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "WoodLog",
+      "name": "Tora de Madeira",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "WrappedFabric",
+      "name": "Tecido Enrolado",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BanditBoots",
+      "name": "Botas de Bandoleiro",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BanditGloveLeft",
+      "name": "Luva Esquerda de Bandoleiro",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BanditGloveRight",
+      "name": "Luva Direita de Bandoleiro",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BanditHelmet",
+      "name": "Elmo de Bandoleiro",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BanditChest",
+      "name": "Peitoral de Bandoleiro",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BanditPants",
+      "name": "Calças de Bandoleiro",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BattlemageBoots",
+      "name": "Botas do Mago de batalha",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BattlemageCloak",
+      "name": "Capuz do Mago de batalha",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BattlemageGloveLeft",
+      "name": "Luva Esquerda do Mago de batalha",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BattlemageGloveRight",
+      "name": "Luva Direita do Mago de batalha",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BattlemageJacket",
+      "name": "Peitoral do Mago de batalha",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BattlemagePants",
+      "name": "Calças do Mago de batalha",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "CivilianBoots",
+      "name": "Botas de Civil",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "CivilianChest",
+      "name": "Peitoral de Civil",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "CivilianHandLeft",
+      "name": "Bracelete Esquerdo de Civil",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "CivilianHandRight",
+      "name": "Bracelete Direito de Civil",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "CivilianLegs",
+      "name": "Calças de Civil",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "GladiatorBoots",
+      "name": "Alparcas de Gladiador",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "GladiatorGloveLeft",
+      "name": "Luva Esquerda de Gladiador",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "GladiatorsGloveRight",
+      "name": "Luva Direita de Gladiador",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "GladiatorHeadband",
+      "name": "Bandolete de Gladiador",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "GladiatorChest",
+      "name": "Peitoral de Gladiador",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "GladiatorShoulder",
+      "name": "Ombreiras de Gladiador",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MercenaryBoots",
+      "name": "Botas de Mercenário",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MercenaryGloveLeft",
+      "name": "Luva Esquerda de Mercenário",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MercenaryGloveRight",
+      "name": "Luva Direita de Mercenário",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MercenaryGloveSpikedLeft",
+      "name": "Luva Esquerda de Mercenário (com Espetos)",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MercenaryHeadband",
+      "name": "Testeira de Mercenário",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MercenaryJacket",
+      "name": "Casaco de Mercenário",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MercenaryPants",
+      "name": "Grevas de Mercenário",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MercenaryShoulderLeft",
+      "name": "Ombreira Esquerda de Mercenário",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MercenaryShoulderRight",
+      "name": "Ombreira Direita de Mercenário",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MercenaryShoulderSet",
+      "name": "Conjunto de Ombreiras de Mercenário",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "RuggedTrousers",
+      "name": "Calças Reforçadas",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Shirt01",
+      "name": "Camisa Reforçada 1",
+      "description": "Uma camisa simples, utilizada para proteger a pele do frio."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Shirt02",
+      "name": "Camisa Reforçada 2",
+      "description": "Uma camisa simples, utilizada para proteger a pele do frio."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Shirt03",
+      "name": "Camisa Reforçada 3",
+      "description": "Uma camisa simples, utilizada para proteger a pele do frio."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Shirt04",
+      "name": "Camisa Reforçada 4",
+      "description": "Uma camisa simples, utilizada para proteger a pele do frio."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SoldierBoots",
+      "name": "Botas de Soldado",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SoldierGloveLeft",
+      "name": "Manopla Esquerda de Soldado",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SoldierGloveRight",
+      "name": "Manopla Direita de Soldado",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SoldierHelmet",
+      "name": "Elmo de Soldado",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SoldierChest",
+      "name": "Peitoral de Soldado",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SoldierGreaves",
+      "name": "Grevas de Soldado",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SoldierShoulderLeft",
+      "name": "Ombreira Esquerda de Soldado",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SoldierShoulderRight",
+      "name": "Ombreira Direita de Soldado",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SoldierShoulderSet",
+      "name": "Conjunto de Ombreiras de Soldado",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "WornSandals",
+      "name": "Sandálias Gastas",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SantaHat",
+      "name": "Chapéu de Natal",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ArrowOld",
+      "name": "Flecha Velha",
+      "description": "Uma flecha confeccionada com restos de metal. Esta flecha, embora antiga e envelhecida, ainda é capaz de um ataque à distância bom e barato."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "OldBow",
+      "name": "Arco Velho",
+      "description": "Já muito gasto e feito há muito tempo, este arco ainda tem serventia, mas já está bastante gasto."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "DaggerSkinning",
+      "name": "Faca de Esfolar",
+      "description": "Ela já viu dias melhores... Pelo menos a ferrugem criou um fio serrilhado, perfeito para esfolar animais."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordGreatGreat",
+      "name": "Espadão",
+      "description": "Pesada demais para ser empunhada com apenas uma mão, o espadão pode usar o cabo como alavanca para golpear com mais facilidade."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordOldieFalchion",
+      "name": "Falchion",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Chalice",
+      "name": "Cálice",
+      "description": "Uma taça cunhada para a realeza, utilizada pelos ricos e enchida pelos pobres."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "CopperCoin",
+      "name": "Moeda de Cobre",
+      "description": "Vale um vintém, dada aos pobres pelos ricos como forma de caridade."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "GoldCoin",
+      "name": "Moeda de Ouro",
+      "description": "Um pedaço redondo de metal com um brilho dourado, vale um de ouro na loja."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Pendant",
+      "name": "Pingente",
+      "description": "Um pequeno pingente utilizado pelos fiéis. Pode ser vendido por uma quantia razoável na loja."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Relic",
+      "name": "Relíquia",
+      "description": "Um berloque dourado feito para decoração. Pode ser vendido por uma quantia razoável na loja."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Statuette",
+      "name": "Estatueta",
+      "description": "Uma pequena estátua de um guerreiro poderoso. Vale um punhado de ouro na loja."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "CrystalDead",
+      "name": "Cristal da Morte",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "CrystalFire",
+      "name": "Cristal do Fogo",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "CrystalGravity",
+      "name": "Cristal da Gravidade",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "CrystalLightning",
+      "name": "Cristal de Relâmpagos",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Apple",
+      "name": "Maçã",
+      "description": "Colhida direto do pé, pronta para comer."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AppleBurnt",
+      "name": "Maçã Queimada",
+      "description": "Dura e irregular, queimada demais para ser comida."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AppleCooked",
+      "name": "Maçã Cozida",
+      "description": "Cozida perfeitamente até o miolo!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AppleCore",
+      "name": "Miolo de Maçã",
+      "description": "Colhida direto do pé, pronta para comer."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AppleCoreBurnt",
+      "name": "Miolo de Maçã Queimado",
+      "description": "Dura e irregular, queimada demais para ser comida."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AppleCoreCooked",
+      "name": "Miolo de Maçã Cozido",
+      "description": "Cozida perfeitamente até o miolo!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ZiplineWheel01",
+      "name": "Roda de Tirolesa",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ToolFork",
+      "name": "Forquilha",
+      "description": "Uma ótima ferramenta para varrer e cavar."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ToolRake",
+      "name": "Ancinho",
+      "description": "Uma ferramenta projetada para ajuntar folhas."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ToolSickle",
+      "name": "Foice",
+      "description": "Uma ferramenta projetada para passar e cortar a vegetação!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Hook",
+      "name": "Gancho",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Lantern",
+      "name": "Lanterna",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Lever",
+      "name": "Alavanca",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "DoorHome",
+      "name": "Porta de madeira",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ArcheryTarget",
+      "name": "Alvo de tiro ao arco",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ArcheryTargetSupport",
+      "name": "Plataforma de tiro ao arco",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BarrelRing",
+      "name": "Anel de Barril",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BarrelTop",
+      "name": "Tampa do barril",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Bench",
+      "name": "Banco",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BrokenBench",
+      "name": "Banco quebrado",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Board",
+      "name": "Tábua",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BrokenBoard",
+      "name": "Tábua quebrada",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Branch",
+      "name": "Galho",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Bucket",
+      "name": "Balde",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Cart",
+      "name": "Carroça",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Crate",
+      "name": "Caixa",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Lectern",
+      "name": "Atril",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ContainerCover",
+      "name": "Tampa do Recipiente",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SharpeningWheel",
+      "name": "Roda de afiar",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Stone",
+      "name": "Pedra",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Stool",
+      "name": "Banco",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Table",
+      "name": "Mesa",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Basket",
+      "name": "Cesta",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BasketTop",
+      "name": "Tampa da cesta",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Workbench",
+      "name": "Bancada de trabalho",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Barrel",
+      "name": "Barril",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Brick",
+      "name": "Tijolo",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Chicken",
+      "name": "Galinha",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ChickenEgg",
+      "name": "Ovo de galinha",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BirdEgg",
+      "name": "Ovo de pássaro",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SeagullEgg",
+      "name": "Ovo de gaivota",
+      "description": ""
+    }
+  ],
+  "waves": [
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "ArcherTest",
+      "title": "Arqueiro",
+      "description": "-"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Bandit1",
+      "title": "Fácil",
+      "description": "Contém apenas inimigos de combate corpo-a-corpo, mas, você é capaz de derrotar uma fortaleza cheia de bandoleiros?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Bandit1v1",
+      "title": "Bandoleiros",
+      "description": "Parece que eles não encaram como um esforço coletivo."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Bandit1v1Melee",
+      "title": "Apenas Bandoleiros Corpo-a-Corpo",
+      "description": "Sem descrição"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Bandit2",
+      "title": "Médio",
+      "description": "Os bandoleiros estão convocando outras classes para te enfrentar! Lute contra magos e enfurecidos!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Bandit3",
+      "title": "Difícil",
+      "description": "Muito mais bandoleiros. Muito mais desafiador."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "BanditEndless",
+      "title": "Interminável",
+      "description": "Uma tropa interminável de bandoleiros marcha na sua direção. Você será capaz de reconquistar suas terras?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "BanditEndlessMeleeOnly",
+      "title": "Interminável (Apenas Corpo-a-Corpo)",
+      "description": "Uma tropa interminável de bandoleiros marcha na sua direção. Você será capaz de reconquistar suas terras?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "BanditEndlessMeleeOnlyRelentless",
+      "title": "Implacável (Apenas Corpo-a-Corpo)",
+      "description": "Os bandoleiros estão fartos! Eles irão te bombardear!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "BanditEndlessRelentless",
+      "title": "Implacável",
+      "description": "Os bandoleiros estão fartos! Eles irão te bombardear!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "BanditSurvive",
+      "title": "Sobreviva",
+      "description": "Enfrentar 8 bandoleiros de uma vez? Reivindique suas terras!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "BanditTest",
+      "title": "Couro",
+      "description": "-"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "BanditTestINV",
+      "title": "Couro Invencível",
+      "description": "-"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "BowTest",
+      "title": "Arco",
+      "description": "-"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "CircleOfDeathSpecial",
+      "title": "Círculo da Morte",
+      "description": "Seus inimigos o encurralaram, mas não têm coragem de atacar todos de uma vez. Eles acham que é mais sensato atacar um de cada vez... (interminável)."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "DungeonChapel",
+      "title": "Horda da Capela",
+      "description": "Horda ativada após você ser detectado/a na sala da Capela."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "DungeonLibrary",
+      "title": "Horda do Acervo",
+      "description": "Horda ativada após você ser detectado/a na sala do Acervo."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "DungeonStd01",
+      "title": "Horda Padrão 01",
+      "description": "Horda ativada após você ser detectado/a em uma Sala Padrão. Não há alerta sonoro no início/fim desta horda."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "DungeonStd02",
+      "title": "Horda Padrão 02",
+      "description": "Horda ativada após você ser detectado/a em uma Sala Padrão. Não há alerta sonoro no início/fim desta horda."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "EndOutpost",
+      "title": "Horda do Posto Avançado",
+      "description": "Horda ativada após você ser detectado/a na sala do Posto Avançado."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Gladiator1",
+      "title": "Fácil",
+      "description": "Enfrente inimigos impiedosos com sede de sangue. "
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Gladiator1v1",
+      "title": "Gladiadores",
+      "description": "Digno de um coliseu!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Gladiator1v1Melee",
+      "title": "Gladiadores Somente Corpo-a-Corpo",
+      "description": "Digno de um coliseu!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Gladiator2",
+      "title": "Médio",
+      "description": "Os gladiadores estão cientes da sua força e resolveram chamar reforços mais poderosos para te enfrentar!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Gladiator3",
+      "title": "Difícil",
+      "description": "Os gladiadores estão com sangue nos olhos. Você será capaz de se defender?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "GladiatorEndless",
+      "title": "Interminável",
+      "description": "Um exército interminável de gladiadores... você conseguirá vencer?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "GladiatorEndlessMeleeOnly",
+      "title": "Interminável (Apenas Corpo-a-Corpo)",
+      "description": "Um exército interminável de gladiadores... você conseguirá vencer?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "GladiatorEndlessMeleeOnlyRelentless",
+      "title": "Implacável (Apenas Corpo-a-Corpo)",
+      "description": "Eles não param de atacar! Defenda-se contra gladiadores sanguinários!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "GladiatorEndlessRelentless",
+      "title": "Implacável",
+      "description": "Eles não param de atacar! Defenda-se contra gladiadores sanguinários!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "GladiatorSurvive",
+      "title": "Sobreviva",
+      "description": "Eles são irrefreáveis! Enfrente 8 Gladiadores de uma só vez!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "GladiatorTest",
+      "title": "Base",
+      "description": "-"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "GladiatorTestINV",
+      "title": "Base Invencível",
+      "description": "-"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "ImprovisedEndless",
+      "title": "Interminável Improvisado",
+      "description": "-"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Knight1",
+      "title": "Fácil",
+      "description": "Há uma recompensa por sua cabeça. Você conseguirá enfrentar os cavaleiros? "
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Knight1v1",
+      "title": "Cavaleiros",
+      "description": "Briga casual com um cavaleiro."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Knight1v1Melee",
+      "title": "Apenas Cavaleiros Corpo-a-Corpo",
+      "description": "Briga casual com um cavaleiro."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Knight2",
+      "title": "Médio",
+      "description": "Os cavaleiros estão enviando mais forças contra você! Lute pela glória eterna!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Knight3",
+      "title": "Difícil",
+      "description": "Eles te veem como uma ameaça premente! Enfrente todos de uma vez!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "KnightEndless",
+      "title": "Interminável",
+      "description": "Será que você consegue tomar uma cidade de uma tropa interminável de cavaleiros?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "KnightEndlessMeleeOnly",
+      "title": "Interminável (Apenas Corpo-a-Corpo)",
+      "description": "Será que você consegue tomar uma cidade de uma tropa interminável de cavaleiros?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "KnightEndlessMeleeOnlyRelentless",
+      "title": "Implacável (Apenas Corpo-a-Corpo)",
+      "description": "Os cavaleiros estão fartos de você! Você conseguirá se defender deles?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "KnightEndlessRelentless",
+      "title": "Implacável",
+      "description": "Os cavaleiros estão fartos de você! Você conseguirá se defender deles?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "KnightSurvive",
+      "title": "Sobreviva",
+      "description": "Você consegue sobreviver contra 8 cavaleiros te caçando, ao mesmo tempo?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Mage1v1",
+      "title": "Magos",
+      "description": "Enfrente usuários de magia!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "MagesEndless",
+      "title": "Magos Interminável",
+      "description": "Você consegue desviar das bolas de fogo?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Mercenary1",
+      "title": "Fácil",
+      "description": "Contém apenas inimigos corpo-a-corpo. Você é páreo para rufiões contratados?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Mercenary1v1",
+      "title": "Mercenários",
+      "description": "Não é um trabalho em equipe, eles só querem ver sangue."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Mercenary1v1Melee",
+      "title": "Apenas Mercenários Corpo-a-Corpo",
+      "description": "Não é um trabalho em equipe, eles só querem ver sangue."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Mercenary2",
+      "title": "Médio",
+      "description": "Você está sendo caçado por mercenários especializados em longo alcance!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Mercenary3",
+      "title": "Difícil",
+      "description": "Deve haver uma bela recompensa por sua cabeça! Eles estão todos atrás de você!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "MercenaryEndless",
+      "title": "Interminável",
+      "description": "Você definitivamente irritou a pessoa errada. Tanto que ela contratou uma quantidade infindável de mercenários para dar cabo em você."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "MercenaryEndlessMeleeOnly",
+      "title": "Interminável (Apenas Corpo-a-Corpo)",
+      "description": "Você definitivamente irritou a pessoa errada. Tanto que ela contratou uma quantidade infindável de mercenários para dar cabo em você."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "MercenaryEndlessMeleeOnlyRelentless",
+      "title": "Implacável (Apenas Corpo-a-Corpo)",
+      "description": "Mercenários... são irrefreáveis. Acabe de uma vez por todas com eles!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "MercenaryEndlessRelentless",
+      "title": "Implacável",
+      "description": "Mercenários... são irrefreáveis. Acabe de uma vez por todas com eles!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "MercenarySurvive",
+      "title": "Sobreviva",
+      "description": "Sobreviva contra 8 mercenários de uma vez! Você deve valer um bom dinheiro!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Mixed1v1",
+      "title": "Misto",
+      "description": "Desafio da Arena"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Mixed1v1Melee",
+      "title": "Corpo-a-corpo Misto",
+      "description": "Desafiador, mas é uma partida justa!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "MixedMeleeSpecial",
+      "title": "Batalha de 3 Graus! Corpo-a-corpo",
+      "description": "Entre em um combate interminável contra um misto de inimigos protegidos! Apenas Corpo-a-Corpo!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "MixedSpecial",
+      "title": "Batalha de 3 Graus!",
+      "description": "Entre em um combate interminável contra um misto de inimigos protegidos!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "OneGuy",
+      "title": "Treinamento",
+      "description": "Apenas um oponente."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Progressive1v1",
+      "title": "1v1 Progressivo",
+      "description": "Combate mano a mano com a dificuldade progressivamente maior! (não interminável)."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Recruit1",
+      "title": "Treinamento",
+      "description": "Um inimigo por vez, para você aprender as mecânicas gerais e desenvolver seu estilo de jogo."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Recruit2",
+      "title": "Aprendizagem",
+      "description": "Dois inimigos por vez. Começaremos a apresentar outros tipos de inimigos."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Recruit3",
+      "title": "Avançando",
+      "description": "Máximo de três agora. Mais classes adicionadas."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "WarzoneBanditVsKnight",
+      "title": "Bandoleiros Vs Cavaleiros",
+      "description": "Pilhar tudo o que encontrar pela frente!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "WarzoneGladiatorVsBandit",
+      "title": "Gladiadores Vs Bandoleiros",
+      "description": "Você está sempre lutando na arena... com certeza consegue lidar com bandoleiros."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "WarzoneGladiatorVsKnight",
+      "title": "Gladiadores Vs Cavaleiros",
+      "description": "É hora de enfrentar a cidade para reconquistar sua liberdade!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "WarzoneKnightsVsBandits",
+      "title": "Cavaleiros Vs Bandoleiros",
+      "description": "Reivindique o que eles roubaram de você!"
+    }
+  ]
+}

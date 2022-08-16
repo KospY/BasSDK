@@ -1,0 +1,163 @@
+{
+  "$type": "ThunderRoad.ContainerData, ThunderRoad",
+  "id": "PlayerDefault",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "displayName": "",
+  "description": null,
+  "contents": [
+    {
+      "$type": "ThunderRoad.ContainerData+Content, ThunderRoad",
+      "reference": "Item",
+      "referenceID": "SwordShortCommon",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateHolder, ThunderRoad",
+        "holderName": "BackRight"
+      },
+      "customDataList": []
+    },
+    {
+      "$type": "ThunderRoad.ContainerData+Content, ThunderRoad",
+      "reference": "Item",
+      "referenceID": "DaggerCommon",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateHolder, ThunderRoad",
+        "holderName": "HipsLeft"
+      },
+      "customDataList": []
+    },
+    {
+      "$type": "ThunderRoad.ContainerData+Content, ThunderRoad",
+      "reference": "Item",
+      "referenceID": "ApparelCivilianChest",
+      "quantity": 1,
+      "state": null,
+      "customDataList": []
+    },
+    {
+      "$type": "ThunderRoad.ContainerData+Content, ThunderRoad",
+      "reference": "Item",
+      "referenceID": "ApparelCivilianLegs",
+      "quantity": 1,
+      "state": null,
+      "customDataList": []
+    },
+    {
+      "$type": "ThunderRoad.ContainerData+Content, ThunderRoad",
+      "reference": "Item",
+      "referenceID": "ApparelCivilianBoots",
+      "quantity": 1,
+      "state": null,
+      "customDataList": []
+    },
+    {
+      "$type": "ThunderRoad.ContainerData+Content, ThunderRoad",
+      "reference": "Item",
+      "referenceID": "SpellTelekinesis",
+      "quantity": 1,
+      "state": null,
+      "customDataList": []
+    },
+    {
+      "$type": "ThunderRoad.ContainerData+Content, ThunderRoad",
+      "reference": "Item",
+      "referenceID": "SpellSlowTime",
+      "quantity": 1,
+      "state": null,
+      "customDataList": []
+    },
+    {
+      "$type": "ThunderRoad.ContainerData+Content, ThunderRoad",
+      "reference": "Item",
+      "referenceID": "SpellFire",
+      "quantity": 1,
+      "state": null,
+      "customDataList": []
+    },
+    {
+      "$type": "ThunderRoad.ContainerData+Content, ThunderRoad",
+      "reference": "Item",
+      "referenceID": "SpellLightning",
+      "quantity": 1,
+      "state": null,
+      "customDataList": []
+    },
+    {
+      "$type": "ThunderRoad.ContainerData+Content, ThunderRoad",
+      "reference": "Item",
+      "referenceID": "SpellGravity",
+      "quantity": 1,
+      "state": null,
+      "customDataList": [
+        {
+          "$type": "ThunderRoad.ContentCustomDataSpell, ThunderRoad",
+          "LevelCastThrow": 3,
+          "LevelCrystalShockwave": 3
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.ContainerData+Content, ThunderRoad",
+      "reference": "Item",
+      "referenceID": "SpellGravityMerge",
+      "quantity": 1,
+      "state": null,
+      "customDataList": []
+    },
+    {
+      "$type": "ThunderRoad.ContainerData+Content, ThunderRoad",
+      "reference": "Item",
+      "referenceID": "SpellFireMerge",
+      "quantity": 1,
+      "state": null,
+      "customDataList": []
+    },
+    {
+      "$type": "ThunderRoad.ContainerData+Content, ThunderRoad",
+      "reference": "Item",
+      "referenceID": "SpellLightningMerge",
+      "quantity": 1,
+      "state": null,
+      "customDataList": []
+    },
+    {
+      "$type": "ThunderRoad.ContainerData+Content, ThunderRoad",
+      "reference": "Item",
+      "referenceID": "ZiplineWheel01",
+      "quantity": 1,
+      "state": null,
+      "customDataList": []
+    },
+    {
+      "$type": "ThunderRoad.ContainerData+Content, ThunderRoad",
+      "reference": "Item",
+      "referenceID": "PotionHealth",
+      "quantity": 1,
+      "state": null,
+      "customDataList": [
+        {
+          "$type": "ThunderRoad.ContentCustomDataLiquidContainer, ThunderRoad",
+          "LiquidContents": [
+            {
+              "$type": "ThunderRoad.LiquidData+Content, ThunderRoad",
+              "liquidId": "PotionHealth",
+              "level": 40.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.ContainerData+Content, ThunderRoad",
+      "reference": "Item",
+      "referenceID": "FoodApple",
+      "quantity": 1,
+      "state": null,
+      "customDataList": []
+    }
+  ]
+}

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.Profiling;
+﻿using UnityEngine;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -13,12 +8,18 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/ClothingGenderSwitcher")]
     [AddComponentMenu("ThunderRoad/Items/Clothing Gender Switcher")]
     [RequireComponent(typeof(Item))]
     public class ClothingGenderSwitcher : MonoBehaviour
     {
         public GameObject maleModel;
+        public Handle mainMaleHandleRight;
+        public Handle mainMaleHandleLeft;
+        [Space]
         public GameObject femaleModel;
+        public Handle mainFemaleHandleRight;
+        public Handle mainFemaleHandleLeft;
 
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/EventLoadLevel")]
     public class EventLoadLevel : MonoBehaviour
     {
         public string levelId;
@@ -13,13 +14,13 @@ namespace ThunderRoad
 
         public float fadeInDuration = 2;
 
-        public LevelSaveOptions saveOptions;
+        public bool forceSavePlayerInventory;
 
         [Serializable]
         public class LevelOption
         {
             public string name;
-            public double value;
+            public string value;
         }
 
         public void LoadLevel()

@@ -1,0 +1,324 @@
+{
+  "$type": "ThunderRoad.MaterialData, ThunderRoad",
+  "id": "Blade",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 3,
+  "physicMaterialHash": 1655722809,
+  "xpReference": null,
+  "apparelProtectionLevel": 0,
+  "idMapColors": [],
+  "defaultEffects": [
+    {
+      "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+      "effectId": "HitBlade",
+      "ignoredEffects": []
+    },
+    {
+      "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+      "effectId": "HitImbueFire",
+      "ignoredEffects": []
+    },
+    {
+      "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+      "effectId": "HitMaterialMetal",
+      "ignoredEffects": []
+    }
+  ],
+  "isMetal": true,
+  "collisions": [
+    {
+      "$type": "ThunderRoad.MaterialData+Collision, ThunderRoad",
+      "targetMaterialIds": [
+        "Blade"
+      ],
+      "effects": [
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitBlade",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitImbueFire",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitMaterialBlade",
+          "ignoredEffects": []
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.MaterialData+Collision, ThunderRoad",
+      "targetMaterialIds": [
+        "Flesh"
+      ],
+      "effects": [
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitBladeOnFlesh",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitBladeStab",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "PenetrationFlesh",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitImbueFire",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitBladeDecalFlesh",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitMaterialFlesh",
+          "ignoredEffects": []
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.MaterialData+Collision, ThunderRoad",
+      "targetMaterialIds": [
+        "Leather"
+      ],
+      "effects": [
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitBladeOnLeather",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitBladeStab",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "PenetrationFlesh",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitImbueFire",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitBladeDecalLeather",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitMaterialLeather",
+          "ignoredEffects": []
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.MaterialData+Collision, ThunderRoad",
+      "targetMaterialIds": [
+        "Chainmail"
+      ],
+      "effects": [
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitBladeOnLeather",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitBladeStab",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "PenetrationFlesh",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitImbueFire",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitBladeDecalPlate",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitMaterialChainmail",
+          "ignoredEffects": []
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.MaterialData+Collision, ThunderRoad",
+      "targetMaterialIds": [
+        "Plate"
+      ],
+      "effects": [
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitBladeOnPlate",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitBladeStab",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "PenetrationFlesh",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitImbueFire",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitBladeDecalPlate",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitMaterialPlate",
+          "ignoredEffects": []
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.MaterialData+Collision, ThunderRoad",
+      "targetMaterialIds": [
+        "Wood",
+        "Rope"
+      ],
+      "effects": [
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitBladeOnWood",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitImbueFire",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitMaterialWood",
+          "ignoredEffects": []
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.MaterialData+Collision, ThunderRoad",
+      "targetMaterialIds": [
+        "Stone"
+      ],
+      "effects": [
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitBladeSoft",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitImbueFire",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitMaterialStone",
+          "ignoredEffects": []
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.MaterialData+Collision, ThunderRoad",
+      "targetMaterialIds": [
+        "Glass"
+      ],
+      "effects": [
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitBlade",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitImbueFire",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitMaterialGlass",
+          "ignoredEffects": []
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.MaterialData+Collision, ThunderRoad",
+      "targetMaterialIds": [
+        "Fabric"
+      ],
+      "effects": [
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitBladeSoft",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitImbueFire",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitMaterialFabric",
+          "ignoredEffects": []
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.MaterialData+Collision, ThunderRoad",
+      "targetMaterialIds": [
+        "Sand",
+        "Dirt"
+      ],
+      "effects": [
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitBladeSoft",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitImbueFire",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitMaterialSand",
+          "ignoredEffects": []
+        }
+      ]
+    }
+  ]
+}

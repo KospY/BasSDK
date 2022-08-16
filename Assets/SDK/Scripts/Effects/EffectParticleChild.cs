@@ -3,6 +3,7 @@ using System;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/EffectParticleChild")]
     public class EffectParticleChild : MonoBehaviour
     {
         [Header("Color Gradient")]

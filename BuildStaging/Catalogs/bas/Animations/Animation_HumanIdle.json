@@ -1,0 +1,52 @@
+{
+  "$type": "ThunderRoad.AnimationData, ThunderRoad",
+  "id": "HumanIdle",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "autoMinMaxRange": true,
+  "minRange": 0.0,
+  "maxRange": 0.0,
+  "usesDifficulty": false,
+  "animationClips": [
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Idle.IdleWarrior",
+      "step": "Loop",
+      "animationSpeed": 1.0,
+      "loopType": "NonSpecific",
+      "attackType": "None",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 0.0,
+      "endSubStance": "Previous",
+      "weight": 1.0,
+      "chance": 1.0,
+      "difficulty": 1
+    },
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Idle.IdleOffensive",
+      "step": "Loop",
+      "animationSpeed": 1.0,
+      "loopType": "NonSpecific",
+      "attackType": "None",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 0.0,
+      "endSubStance": "Previous",
+      "weight": 1.0,
+      "chance": 1.0,
+      "difficulty": 1
+    }
+  ]
+}

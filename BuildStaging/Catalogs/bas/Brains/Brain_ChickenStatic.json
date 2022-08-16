@@ -1,0 +1,409 @@
+{
+  "$type": "ThunderRoad.BrainData, ThunderRoad",
+  "id": "ChickenStatic",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 2,
+  "pooledCount": 5,
+  "cycle": true,
+  "cyclePlayerMinDistance": 2.0,
+  "cyclePlayerMaxDistance": 20.0,
+  "difficulty": 0,
+  "treeID": "Chicken",
+  "treeDebugLog": false,
+  "updateTree": true,
+  "modules": [
+    {
+      "$type": "ThunderRoad.BrainModuleSpeak, ThunderRoad",
+      "audioEnabled": true,
+      "audioVolume": 1.0,
+      "audioPitchRange": {
+        "x": 1.0,
+        "y": 1.0
+      },
+      "audioFallVelocityThreshold": 5.0,
+      "audioAttackChance": 1.0,
+      "audioHitChance": 1.0,
+      "audioDeathChance": 1.0,
+      "audioLipSyncUpdateRate": 0.05,
+      "audioLipSyncMaxValue": 0.3,
+      "audioLipSampleDataLength": 1024,
+      "lipSyncSpeed": 5.0,
+      "speakOnAttackMelee": false,
+      "speakOnAttackCast": false,
+      "speakOnAttackBow": false,
+      "speakOnChoke": true,
+      "neckStabSilencelevel": 1,
+      "headStabSilenceLevel": 1,
+      "backStabSilenceLevel": 1,
+      "randomSpeakIdleChance": 0.1,
+      "randomSpeakAlertChance": 0.75,
+      "randomSpeakInvestigateChance": 0.0,
+      "randomSpeakCombatChance": 0.0,
+      "randomSpeakDelay": 1.0,
+      "muffleSpeakDelay": 1.5,
+      "speakLoudness": 0.0
+    },
+    {
+      "$type": "ThunderRoad.BrainModuleMove, ThunderRoad",
+      "allowMove": false,
+      "runDistance": 3.0,
+      "useAcceleration": false,
+      "acceleration": 0.3,
+      "navReachDistance": 0.05,
+      "strafeMinDelay": 1.0,
+      "strafeMaxDelay": 5.0,
+      "samplePositionCircleSteps": 6,
+      "navmeshSensitivity": 0.15,
+      "stuckRadius": 0.01,
+      "stuckMaxDuration": 0.5,
+      "preventTooClose": false,
+      "tooCloseDistance": 0.7,
+      "locomotionOverride": false,
+      "locomotionForwardSpeedMultiplier": 1.0,
+      "locomotionBackwardSpeedMultiplier": 1.0,
+      "locomotionStrafeSpeedMultiplier": 1.0,
+      "locomotionRunSpeedMultiplier": 1.0,
+      "turnOffsetDegrees": 0.0
+    },
+    {
+      "$type": "ThunderRoad.BrainModuleDetection, ThunderRoad",
+      "sightDetectionVerticalFov": 180.0,
+      "sightDetectionHorizontalFov": 320.0,
+      "maxHeightDiff": 10.0,
+      "canSeeLights": true,
+      "sawLightRememberDuration": 30.0,
+      "sawTKGrabRememberDuration": 30.0,
+      "underSpellFireMaxAngle": 50.0,
+      "acquireSharedTargetDelay": 3.0,
+      "canHear": true,
+      "hearMaxDistance": 7.0,
+      "hearMinNoiseRatio": 0.25,
+      "hearRememberDuration": 5.0,
+      "detectAlertednessThreshold": 10.0,
+      "alertednessDecreaseDelay": 1.0,
+      "alertednessLossPerSec": 1.0,
+      "minAlertednessIncrease": 0.05,
+      "enemyInFOVIncrease": 10.0,
+      "distanceMultCurve": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 1.0,
+            "inTangent": -0.642133057,
+            "outTangent": -0.210486725,
+            "inWeight": 0.0,
+            "outWeight": 0.358558565,
+            "weightedMode": "Out",
+            "tangentMode": 1
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 0.2,
+            "inTangent": -1.82075453,
+            "outTangent": -1.623805,
+            "inWeight": 0.199999988,
+            "outWeight": 0.0,
+            "weightedMode": "In",
+            "tangentMode": 1
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      },
+      "angleMultCurve": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 1.0,
+            "inTangent": -0.642133057,
+            "outTangent": -0.210486725,
+            "inWeight": 0.0,
+            "outWeight": 0.358558565,
+            "weightedMode": "Out",
+            "tangentMode": 1
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 0.2,
+            "inTangent": -1.82075453,
+            "outTangent": -1.623805,
+            "inWeight": 0.199999988,
+            "outWeight": 0.0,
+            "weightedMode": "In",
+            "tangentMode": 1
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      },
+      "crouchingMultiplier": 0.6666,
+      "deadBodyMultiplier": 1.5,
+      "minVisibleMultiplier": 0.5,
+      "soundHeardScalableValue": 6.66,
+      "dynamicLightIncreasePerSec": 5.0,
+      "TKItemMultiplier": 0.8,
+      "TKRagdollMultiplier": 1.5,
+      "maxAlertednessValue": 15.0,
+      "ignoreTouchByRagdollChance": 0.25,
+      "handTouchOnHolsterModifier": 3.2,
+      "ignoreTouchByItemChance": 0.1,
+      "minMaxTouchReactDelay": {
+        "x": 0.0,
+        "y": 0.1
+      },
+      "pickpocketDetectionChance": 0.75,
+      "minMaxPickpocketDetectionDelay": {
+        "x": 1.0,
+        "y": 3.0
+      },
+      "defenseColliderRadius": 0.6,
+      "defenseColliderHeightMultiplier": 1.0,
+      "defenseColliderRotation": 0.0
+    },
+    {
+      "$type": "ThunderRoad.BrainModulePatrol, ThunderRoad",
+      "distanceChangePoint": 1.0,
+      "viewRadius": 5.0,
+      "viewAngle": 100.0,
+      "targetMask": 67108864,
+      "obstacleMask": 419720465,
+      "runSpeedRatio": 0.5
+    },
+    {
+      "$type": "ThunderRoad.BrainModuleGrabbed, ThunderRoad",
+      "freeOneHand": false,
+      "freeOneHandDelay": 2.0,
+      "freeBothHand": false,
+      "freeBothHandDelay": 5.0,
+      "grabThrowMinVelocity": 2.0
+    },
+    {
+      "$type": "ThunderRoad.BrainModuleHitReaction, ThunderRoad",
+      "recoverySpeed": 1.0,
+      "parryRecoilCooldown": 0.0,
+      "waitPhysicDelay": 0.2,
+      "speedMultWhileWait": -0.5,
+      "staggerLight": 0.2,
+      "staggerMedium": 0.6,
+      "jumpFootHeightThreshold": 0.1,
+      "cancelGetUp": true,
+      "pushMagicBehaviors": [
+        {
+          "$type": "ThunderRoad.BrainModuleHitReaction+PushBehaviour, ThunderRoad",
+          "level": 0,
+          "onlyForBodyParts": [],
+          "duringIdle": "Destabilize",
+          "duringCombat": "Destabilize",
+          "duringStagger": "Destabilize",
+          "duringStaggerFull": "Destabilize",
+          "duringAttack": "Destabilize",
+          "duringAttackJump": "Destabilize"
+        },
+        {
+          "$type": "ThunderRoad.BrainModuleHitReaction+PushBehaviour, ThunderRoad",
+          "level": 1,
+          "onlyForBodyParts": [],
+          "duringIdle": "Destabilize",
+          "duringCombat": "Destabilize",
+          "duringStagger": "Destabilize",
+          "duringStaggerFull": "Destabilize",
+          "duringAttack": "Destabilize",
+          "duringAttackJump": "Destabilize"
+        },
+        {
+          "$type": "ThunderRoad.BrainModuleHitReaction+PushBehaviour, ThunderRoad",
+          "level": 2,
+          "onlyForBodyParts": [],
+          "duringIdle": "Destabilize",
+          "duringCombat": "Destabilize",
+          "duringStagger": "Destabilize",
+          "duringStaggerFull": "Destabilize",
+          "duringAttack": "Destabilize",
+          "duringAttackJump": "Destabilize"
+        },
+        {
+          "$type": "ThunderRoad.BrainModuleHitReaction+PushBehaviour, ThunderRoad",
+          "level": 3,
+          "onlyForBodyParts": [],
+          "duringIdle": "Destabilize",
+          "duringCombat": "Destabilize",
+          "duringStagger": "Destabilize",
+          "duringStaggerFull": "Destabilize",
+          "duringAttack": "Destabilize",
+          "duringAttackJump": "Destabilize"
+        }
+      ],
+      "pushGrabThrowBehaviors": [
+        {
+          "$type": "ThunderRoad.BrainModuleHitReaction+PushBehaviour, ThunderRoad",
+          "level": 0,
+          "onlyForBodyParts": [],
+          "duringIdle": "Destabilize",
+          "duringCombat": "Destabilize",
+          "duringStagger": "Destabilize",
+          "duringStaggerFull": "Destabilize",
+          "duringAttack": "Destabilize",
+          "duringAttackJump": "Destabilize"
+        },
+        {
+          "$type": "ThunderRoad.BrainModuleHitReaction+PushBehaviour, ThunderRoad",
+          "level": 1,
+          "onlyForBodyParts": [],
+          "duringIdle": "Destabilize",
+          "duringCombat": "Destabilize",
+          "duringStagger": "Destabilize",
+          "duringStaggerFull": "Destabilize",
+          "duringAttack": "Destabilize",
+          "duringAttackJump": "Destabilize"
+        },
+        {
+          "$type": "ThunderRoad.BrainModuleHitReaction+PushBehaviour, ThunderRoad",
+          "level": 2,
+          "onlyForBodyParts": [],
+          "duringIdle": "Destabilize",
+          "duringCombat": "Destabilize",
+          "duringStagger": "Destabilize",
+          "duringStaggerFull": "Destabilize",
+          "duringAttack": "Destabilize",
+          "duringAttackJump": "Destabilize"
+        }
+      ],
+      "pushHitBehaviors": [
+        {
+          "$type": "ThunderRoad.BrainModuleHitReaction+PushBehaviour, ThunderRoad",
+          "level": 0,
+          "onlyForBodyParts": [],
+          "duringIdle": "StaggerLight",
+          "duringCombat": "None",
+          "duringStagger": "None",
+          "duringStaggerFull": "None",
+          "duringAttack": "None",
+          "duringAttackJump": "Destabilize"
+        },
+        {
+          "$type": "ThunderRoad.BrainModuleHitReaction+PushBehaviour, ThunderRoad",
+          "level": 1,
+          "onlyForBodyParts": [],
+          "duringIdle": "StaggerMedium",
+          "duringCombat": "StaggerLight",
+          "duringStagger": "StaggerMedium",
+          "duringStaggerFull": "StaggerMedium",
+          "duringAttack": "StaggerMedium",
+          "duringAttackJump": "Destabilize"
+        },
+        {
+          "$type": "ThunderRoad.BrainModuleHitReaction+PushBehaviour, ThunderRoad",
+          "level": 1,
+          "onlyForBodyParts": [
+            "Head",
+            "RightLeg",
+            "LeftLeg"
+          ],
+          "duringIdle": "StaggerFull",
+          "duringCombat": "StaggerMedium",
+          "duringStagger": "StaggerFull",
+          "duringStaggerFull": "StaggerFull",
+          "duringAttack": "StaggerFull",
+          "duringAttackJump": "Destabilize"
+        },
+        {
+          "$type": "ThunderRoad.BrainModuleHitReaction+PushBehaviour, ThunderRoad",
+          "level": 2,
+          "onlyForBodyParts": [],
+          "duringIdle": "Destabilize",
+          "duringCombat": "StaggerLight",
+          "duringStagger": "StaggerMedium",
+          "duringStaggerFull": "StaggerFull",
+          "duringAttack": "StaggerMedium",
+          "duringAttackJump": "Destabilize"
+        },
+        {
+          "$type": "ThunderRoad.BrainModuleHitReaction+PushBehaviour, ThunderRoad",
+          "level": 2,
+          "onlyForBodyParts": [
+            "Head",
+            "RightLeg",
+            "LeftLeg"
+          ],
+          "duringIdle": "Destabilize",
+          "duringCombat": "StaggerFull",
+          "duringStagger": "StaggerFull",
+          "duringStaggerFull": "Destabilize",
+          "duringAttack": "StaggerFull",
+          "duringAttackJump": "Destabilize"
+        },
+        {
+          "$type": "ThunderRoad.BrainModuleHitReaction+PushBehaviour, ThunderRoad",
+          "level": 3,
+          "onlyForBodyParts": [],
+          "duringIdle": "Destabilize",
+          "duringCombat": "StaggerMedium",
+          "duringStagger": "StaggerFull",
+          "duringStaggerFull": "Destabilize",
+          "duringAttack": "StaggerFull",
+          "duringAttackJump": "Destabilize"
+        },
+        {
+          "$type": "ThunderRoad.BrainModuleHitReaction+PushBehaviour, ThunderRoad",
+          "level": 3,
+          "onlyForBodyParts": [
+            "Head",
+            "RightLeg",
+            "LeftLeg"
+          ],
+          "duringIdle": "Destabilize",
+          "duringCombat": "StaggerFull",
+          "duringStagger": "Destabilize",
+          "duringStaggerFull": "Destabilize",
+          "duringAttack": "Destabilize",
+          "duringAttackJump": "Destabilize"
+        }
+      ],
+      "maxPushMagicBehaviourLevel": 0.0,
+      "maxPushGrabThrowBehaviourLevel": 0.0,
+      "maxPushHitBehaviourLevel": 0.0
+    },
+    {
+      "$type": "ThunderRoad.BrainModuleElectrocute, ThunderRoad",
+      "deadRotationSpringRange": {
+        "x": 10,
+        "y": 100
+      },
+      "boltCount": 1,
+      "boltMinTime": 0.2,
+      "imbueHitCount": 1,
+      "imbueHitMinTime": 3.0
+    },
+    {
+      "$type": "ThunderRoad.BrainModuleSightable, ThunderRoad",
+      "sightThickness": 0.1,
+      "sightDetectionMaxDistance": 20.0,
+      "sightMaxDistance": 30.0,
+      "minMaxBrightness": {
+        "x": 0.0,
+        "y": 0.25
+      },
+      "shootPointSightThickness": 0.0,
+      "sightableRagdollParts": [
+        "TargetPart"
+      ],
+      "shootPositionCircleSteps": 15,
+      "shootPositionDepthSteps": 4,
+      "shootPositionMinRadius": 8,
+      "navSamplePositionMaxDistance": 50.0,
+      "lastShootUpdateDelay": 1.0,
+      "lastShootUpdatePositionMaxDistance": 0.5,
+      "debug": false
+    }
+  ]
+}

@@ -7,6 +7,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/LadderBuilder")]
     [RequireComponent(typeof(Rigidbody))]
     public class LadderBuilder : MonoBehaviour
     {

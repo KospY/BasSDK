@@ -1,0 +1,28 @@
+{
+  "$type": "ThunderRoad.ContainerData, ThunderRoad",
+  "id": "PropTestLootTable",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "displayName": "Prop Test LootTable",
+  "description": "Testing prop spawner.",
+  "contents": [
+    {
+      "$type": "ThunderRoad.ContainerData+Content, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "PropTest",
+      "quantity": 1,
+      "state": null,
+      "customDataList": []
+    },
+    {
+      "$type": "ThunderRoad.ContainerData+Content, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "PropTest",
+      "quantity": 1,
+      "state": null,
+      "customDataList": []
+    }
+  ]
+}

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-
-
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -12,14 +10,20 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/RagdollPart")]
     [AddComponentMenu("ThunderRoad/Creatures/Ragdoll part")]
     [RequireComponent(typeof(CollisionHandler))]
-    public class RagdollPart : MonoBehaviour
+    public class RagdollPart : ThunderBehaviour
     {
         [Header("Part")]
         public Transform meshBone;
         public Transform[] linkedMeshBones;
         public Type type;
+        public Section section = Section.Full;
+        [SerializeField]
+        private Axis frontAxis = Axis.Forwards;
+        [SerializeField]
+        private Axis upAxis = Axis.Left;
         public Vector3 boneToChildDirection = Vector3.left;
         public RagdollPart parentPart;
         public bool ignoreStaticCollision;
@@ -62,6 +66,11 @@ namespace ThunderRoad
         [NonSerialized]
         public CollisionHandler collisionHandler;
 
+        public Wearable wearable;
+
+        [NonSerialized]
+        public bool hasMetalArmor;
+
         [Flags]
         public enum Type
         {
@@ -76,6 +85,27 @@ namespace ThunderRoad
             RightLeg = (1 << 8),
             LeftFoot = (1 << 9),
             RightFoot = (1 << 10),
+            LeftWing = (1 << 11),
+            RightWing = (1 << 12),
+            Tail = (1 << 13),
+        }
+
+        public enum Section
+        {
+            Full,
+            Lower,
+            Mid,
+            Upper
+        }
+
+        public enum Axis
+        {
+            Right,
+            Left,
+            Up,
+            Down,
+            Forwards,
+            Backwards
         }
 
         protected virtual void OnValidate()
@@ -83,9 +113,13 @@ namespace ThunderRoad
             if (parentPart == null)
             {
                 CharacterJoint characterJoint = this.GetComponent<CharacterJoint>();
-                if (characterJoint) parentPart = characterJoint.connectedBody.GetComponent<RagdollPart>();
+                if (characterJoint)
+                    parentPart = characterJoint.connectedBody.GetComponent<RagdollPart>();
             }
         }
+
+        [Button]
+        public void SetAllowSlice(bool allow) => sliceAllowed = allow;
 
         [Button]
         public void SetPositionToBone()

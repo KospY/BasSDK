@@ -2,14 +2,14 @@
 using System;
 
 #if ODIN_INSPECTOR
-using Sirenix.OdinInspector;
 #else
 using EasyButtons;
 #endif
 
 namespace ThunderRoad
 {
-    [AddComponentMenu("ThunderRoad/Creatures/Ragdoll foot")]
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/RagdollFoot")]
+	[AddComponentMenu("ThunderRoad/Creatures/Ragdoll foot")]
     public class RagdollFoot : RagdollPart
     {
         public Side side = Side.Right;

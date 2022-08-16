@@ -5,6 +5,7 @@ using UnityEngine.VFX;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/FxModuleVfx")]
     public class FxModuleVfx : FxModule
     {
         public List<Property.Float> floatProperties = new List<Property.Float>();
@@ -68,6 +69,7 @@ namespace ThunderRoad
 
         public override void Play()
         {
+            base.Play();
             vfx.Play();
         }
 

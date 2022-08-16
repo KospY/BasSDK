@@ -9,8 +9,9 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/HingeEffect")]
     [AddComponentMenu("ThunderRoad/Effects/Hinge effect")]
-    public class HingeEffect : MonoBehaviour
+    public class HingeEffect : ThunderBehaviour
     {
 #if ODIN_INSPECTOR
         [ValueDropdown("GetAllEffectID")]

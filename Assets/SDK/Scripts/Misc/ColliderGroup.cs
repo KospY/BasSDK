@@ -10,6 +10,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/ColliderGroup")]
     public class ColliderGroup : MonoBehaviour
     {
         [Tooltip("(Optional) Use a mesh instead of collider(s) to apply imbue vfx and particles effects")]
@@ -28,13 +29,17 @@ namespace ThunderRoad
 
         [NonSerialized]
         public List<Collider> colliders;
-
+        [NonSerialized]
+        public HashSet<Collider> colliderSet;
 #if ODIN_INSPECTOR
         [ShowInInspector]
 #endif
 #if PrivateSDK
         [NonSerialized]
         public ColliderGroupData data;
+#endif
+#if ODIN_INSPECTOR
+        [ShowInInspector]
 #endif
         [NonSerialized]
         public CollisionHandler collisionHandler;
@@ -50,7 +55,7 @@ namespace ThunderRoad
         public void GenerateImbueMesh()
         {
             colliders = new List<Collider>(this.GetComponentsInChildren<Collider>());
-
+            colliderSet = new HashSet<Collider>(colliders);
             List<CombineInstance> combines = new List<CombineInstance>();
             List<Vector3> orgScales = new List<Vector3>();
 

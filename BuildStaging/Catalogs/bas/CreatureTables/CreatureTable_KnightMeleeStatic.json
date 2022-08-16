@@ -1,0 +1,88 @@
+{
+  "$type": "ThunderRoad.CreatureTable, ThunderRoad",
+  "id": "KnightMeleeStatic",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "description": null,
+  "linkedToGenderRatio": false,
+  "minMaxDifficulty": {
+    "x": 0,
+    "y": 0
+  },
+  "drops": [
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Humans",
+      "overrideFaction": false,
+      "factionID": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "Knight1H",
+      "overrideBrain": true,
+      "overrideBrainID": "HumanStatic",
+      "probabilityWeights": [
+        6,
+        0,
+        0,
+        3,
+        0
+      ]
+    },
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Humans",
+      "overrideFaction": false,
+      "factionID": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "Knight1HShield",
+      "overrideBrain": true,
+      "overrideBrainID": "HumanStatic",
+      "probabilityWeights": [
+        4,
+        0,
+        0,
+        2,
+        0
+      ]
+    },
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Humans",
+      "overrideFaction": false,
+      "factionID": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "KnightRogue",
+      "overrideBrain": true,
+      "overrideBrainID": "HumanStatic",
+      "probabilityWeights": [
+        1,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Humans",
+      "overrideFaction": false,
+      "factionID": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "KnightBerzerker",
+      "overrideBrain": true,
+      "overrideBrainID": "HumanStatic",
+      "probabilityWeights": [
+        1,
+        0,
+        0,
+        1,
+        0
+      ]
+    }
+  ]
+}

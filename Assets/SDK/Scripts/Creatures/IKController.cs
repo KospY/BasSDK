@@ -9,7 +9,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
-    public class IkController : MonoBehaviour
+    public class IkController : ThunderBehaviour
     {
     }
 }

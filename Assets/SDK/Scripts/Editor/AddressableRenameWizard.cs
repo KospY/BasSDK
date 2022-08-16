@@ -16,7 +16,7 @@ public class AddressableRenameWizard : ScriptableWizard
 
     static string info = "Append : Add text at begining, Search / Replace : Search and text and replace it";
 
-    [MenuItem("Assets/Addressable Rename Wizard")]
+    [MenuItem("Assets/ThunderRoad/Addressable Rename Wizard")]
     static void CreateWizard()
     {
         AddressableRenameWizard wizard = ScriptableWizard.DisplayWizard<AddressableRenameWizard>("Rename Adressables", "Apply");

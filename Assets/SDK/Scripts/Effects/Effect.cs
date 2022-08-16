@@ -3,7 +3,8 @@ using UnityEngine;
 
 namespace ThunderRoad
 {
-    public class Effect : MonoBehaviour
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Effect")]
+    public class Effect : ThunderBehaviour
     {
         public DespawnCallback despawnCallback;
         public delegate void DespawnCallback(Effect effect);
@@ -15,8 +16,10 @@ namespace ThunderRoad
 #if PrivateSDK
         [NonSerialized]
         public EffectModule module;
+      
+        [NonSerialized]
+        public EffectInstance containingInstance;
 #endif
-
         public Step step = Step.Start;
         public enum Step
         {
@@ -49,6 +52,11 @@ namespace ThunderRoad
         }
 
         public virtual void SetSpeed(float value, bool loopOnly = false)
+        {
+
+        }
+
+        public virtual void SetHapticDevice(HapticDevice hapticDevice)
         {
 
         }
@@ -100,15 +108,13 @@ namespace ThunderRoad
 
         public virtual void CollisionStay(Vector3 position, Quaternion rotation, float speed)
         {
-            this.transform.position = position;
-            this.transform.rotation = rotation;
+            this.transform.SetPositionAndRotation(position, rotation);
             SetSpeed(speed, true);
         }
 
         public virtual void CollisionStay(Vector3 position, Quaternion rotation, float speed, float intensity)
         {
-            this.transform.position = position;
-            this.transform.rotation = rotation;
+            this.transform.SetPositionAndRotation(position, rotation);
             SetSpeed(speed, true);
             SetIntensity(intensity, true);
         }

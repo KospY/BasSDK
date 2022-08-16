@@ -1,0 +1,58 @@
+{
+  "$type": "ThunderRoad.LevelData, ThunderRoad",
+  "id": "Citadel",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 3,
+  "name": "Citadel",
+  "description": "Perched atop a craggy mountainside, the Citadel is an imposing structure.\nLong walkways and verticality create many climbing opportunities in this large map.",
+  "descriptionLocalizationId": "CitadelDescription",
+  "sceneAddress": "Bas.Level.Citadel",
+  "showInLevelSelection": false,
+  "savePlayerInventoryOnUnload": false,
+  "dungeonFlowAddresses": [],
+  "mapId": "Default",
+  "mapLocation": "8",
+  "mapIconAddress": "Bas.Icon.MapPinArena",
+  "mapIconHoverAddress": "Bas.Icon.MapPinHoverArena",
+  "mapNameDisplay": "Blade & Sorcery",
+  "showOnMap": true,
+  "hideOnAndroid": false,
+  "mapObjectAddress": "Bas.Icon.MapDefaultObject",
+  "mapTextureAddress": "Bas.Icon.MapDefaultTexture",
+  "iconAddress": null,
+  "mapSketchAddress": "Bas.Icon.Sketch_Citadel",
+  "modes": [
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "Sandbox",
+      "displayName": "Sandbox",
+      "description": "SandboxDescription",
+      "allowGameModes": [
+        "Sandbox"
+      ],
+      "mapOrder": 0,
+      "difficultyMultipliers": [],
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleDeath, ThunderRoad",
+          "behaviour": "ShowScores",
+          "delayBeforeLoad": 10.0,
+          "disablePlayerLocomotion": true
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleXP, ThunderRoad"
+        }
+      ],
+      "availableOptions": []
+    }
+  ],
+  "modePickCountPerRank": 2,
+  "customCameras": [],
+  "improvisedThrowableID": null
+}

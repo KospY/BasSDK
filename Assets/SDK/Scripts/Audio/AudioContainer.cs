@@ -7,18 +7,32 @@ using UnityEditor;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/AudioContainer")]
     [CreateAssetMenu(menuName = "ThunderRoad/Audio/Audio container")]
     public class AudioContainer : ScriptableObject
     {
         public List<AudioClip> sounds;
 
-        //this list contains all sounds except the last played
+        [NonSerialized]
         protected AudioClip[] filteredSounds;
+        [NonSerialized]
         protected bool filteredSoundsInitialized;
-
+        [NonSerialized]
         protected AudioClip lastPlayedClip = null;
-
+        [NonSerialized]
         protected int filteredSoundsCount = 0;
+
+        [HideInInspector]
+        public Dictionary<int, AudioClip> hashesToClips;
+        [HideInInspector]
+        public Dictionary<AudioClip, int> clipToHashes;
+        [HideInInspector]
+        public int[] hashes;
+
+        [NonSerialized]
+        protected Dictionary<AudioClip, PcmData> pcmDataDic;
+        [NonSerialized]
+        protected bool pcmDataCached;
 
 #if (UNITY_EDITOR)
         [Button]
@@ -40,14 +54,64 @@ namespace ThunderRoad
         }
 #endif
 
+        public bool TryPickAudioClip(out AudioClip audioClip)
+        {
+            audioClip = PickAudioClip();
+            return audioClip != null;
+        }
         public AudioClip PickAudioClip()
         {
             return GetRandomAudioClip(sounds);
         }
+        public bool TryPickAudioClipHash(out int audioClipHash)
+        {
+            GenerateAudioClipHashes();
+            return clipToHashes.TryGetValue(PickAudioClip(), out audioClipHash);
+        }
+        public int PickAudioClipHash()
+        {
+            GenerateAudioClipHashes();
+            return clipToHashes[PickAudioClip()];
+        }
 
+        public bool TryGetAudioClipHash(AudioClip audioClip, out int audioClipHash)
+        {
+            GenerateAudioClipHashes();
+            return clipToHashes.TryGetValue(audioClip, out audioClipHash);
+        }
+        public bool TryGetAudioClip(int audioClipHash, out AudioClip audioClip)
+        {
+            GenerateAudioClipHashes();
+            return hashesToClips.TryGetValue(audioClipHash, out audioClip);
+        }
         public AudioClip PickAudioClip(int index)
         {
             return sounds[index];
+        }
+
+        public void CachePcmData(bool force = false)
+        {
+            if (!force && pcmDataCached) return;
+            pcmDataDic = new Dictionary<AudioClip, PcmData>();
+            foreach (AudioClip audioClip in sounds)
+            {
+                pcmDataDic.Add(audioClip, new PcmData(audioClip));
+            }
+            pcmDataCached = true;
+        }
+
+        public PcmData GetPcmData(AudioClip audioClip)
+        {
+            if (!pcmDataCached) CachePcmData();
+            if (pcmDataDic.TryGetValue(audioClip, out PcmData pcmData))
+            {
+                return pcmData;
+            }
+            else
+            {
+                Debug.LogWarning("You are getting pcmdata of an audioclip that is not cached in this audioContainer, this is less performant");
+                return new PcmData(audioClip);
+            }
         }
 
         protected void FilterClips(List<AudioClip> audioClips)
@@ -77,6 +141,10 @@ namespace ThunderRoad
             int index = UnityEngine.Random.Range(0, filteredSoundsCount);
             lastPlayedClip = filteredSounds[index];
             return lastPlayedClip;
+        }
+
+        public void GenerateAudioClipHashes()
+        {
         }
     }
 }

@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 #if ODIN_INSPECTOR
-using Sirenix.OdinInspector;
 #else
 using EasyButtons;
 #endif
 
 namespace ThunderRoad
 {
-    [AddComponentMenu("ThunderRoad/Creatures/Wrist relaxer")]
+	[AddComponentMenu("ThunderRoad/Creatures/Wrist relaxer")]
     public class WristRelaxer : MonoBehaviour
     {
         public Transform armTwistBone;

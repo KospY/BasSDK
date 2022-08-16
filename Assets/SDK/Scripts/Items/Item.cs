@@ -1,10 +1,12 @@
-﻿using System;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.Profiling;
-
+using UnityEngine.ResourceManagement.AsyncOperations;
+using Random = UnityEngine.Random;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -13,13 +15,15 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Item")]
     [AddComponentMenu("ThunderRoad/Items/Item")]
     [RequireComponent(typeof(Rigidbody))]
-    public class Item : MonoBehaviour
+    public class Item : ThunderBehaviour
     {
         public static List<Item> all = new List<Item>();
         public static List<Item> allActive = new List<Item>();
         public static List<Item> allThrowed = new List<Item>();
+        public static HashSet<Item> allMoving = new HashSet<Item>();
         public static List<Item> allTk = new List<Item>();
         public static List<Item> allHanging = new List<Item>();
 
@@ -38,36 +42,38 @@ namespace ThunderRoad
         public Vector3 customCenterOfMass;
         public bool customInertiaTensor;
         public CapsuleCollider customInertiaTensorCollider;
-        public List<CustomReference> customReferences;
+        public List<CustomReference> customReferences = new List<CustomReference>();
+        public bool forceThrown;
+
+        public int forceMeshLayer = -1;
 
         [NonSerialized]
-        public List<Renderer> renderers;
+        public List<Renderer> renderers = new List<Renderer>();
         [NonSerialized]
-        public List<RevealDecal> revealDecals;
+        public List<RevealDecal> revealDecals = new List<RevealDecal>();
         [NonSerialized]
-        public List<ColliderGroup> colliderGroups;
+        public List<ColliderGroup> colliderGroups = new List<ColliderGroup>();
         [NonSerialized]
-        public List<HingeEffect> effectHinges;
+        public (Collider, bool)[] allColliders;
         [NonSerialized]
-        public List<WhooshPoint> whooshPoints;
+        public List<HingeEffect> effectHinges = new List<HingeEffect>();
+        [NonSerialized]
+        public List<WhooshPoint> whooshPoints = new List<WhooshPoint>();
         [NonSerialized]
         public LightVolumeReceiver lightVolumeReceiver;
         [NonSerialized]
         public List<CollisionHandler> collisionHandlers = new List<CollisionHandler>();
         [NonSerialized]
-        public List<Handle> handles;
+        public List<Handle> handles = new List<Handle>();
         [NonSerialized]
         public Rigidbody rb;
         [NonSerialized]
-        public List<ParryTarget> parryTargets;
+        public List<ParryTarget> parryTargets = new List<ParryTarget>();
         [NonSerialized]
         public Holder holder;
-
-#if ODIN_INSPECTOR
-        [ShowInInspector]
-#endif
         [NonSerialized]
-        public List<SavedValue> savedValues;
+        ClothingGenderSwitcher clothingGenderSwitcher;
+
 
         [Serializable]
         public class IconMarker
@@ -85,67 +91,102 @@ namespace ThunderRoad
             }
         }
 
-        [Serializable]
-        public class SavedValue
-        {
-            public string id;
-            public string value;
-            public SavedValue(string id, string value)
-            {
-                this.id = id;
-                this.value = value;
-            }
 
-            public SavedValue Clone()
+        public Bounds GetLocalBounds()
+        {
+            var b = new Bounds(Vector3.zero, Vector3.zero);
+            RecurseEncapsulate(transform, ref b);
+            return b;
+
+            void RecurseEncapsulate(Transform child, ref Bounds bounds)
             {
-                return MemberwiseClone() as SavedValue;
+                if (child.TryGetComponent(out MeshFilter mesh) && mesh?.sharedMesh != null)
+                {
+                    var lsBounds = mesh.sharedMesh.bounds;
+                    var wsMin = child.TransformPoint(lsBounds.center - lsBounds.extents);
+                    var wsMax = child.TransformPoint(lsBounds.center + lsBounds.extents);
+                    bounds.Encapsulate(transform.InverseTransformPoint(wsMin));
+                    bounds.Encapsulate(transform.InverseTransformPoint(wsMax));
+                }
+                else if (child.TryGetComponent(out SkinnedMeshRenderer smr))
+                {
+                    var lsBounds = smr.localBounds;
+                    var wsMin = child.TransformPoint(lsBounds.center - lsBounds.extents);
+                    var wsMax = child.TransformPoint(lsBounds.center + lsBounds.extents);
+                    bounds.Encapsulate(transform.InverseTransformPoint(wsMin));
+                    bounds.Encapsulate(transform.InverseTransformPoint(wsMax));
+                }
+                else
+                {
+                    bounds.Encapsulate(transform.InverseTransformPoint(child.transform.position));
+                }
+
+                foreach (Transform grandChild in child.transform)
+                {
+                    RecurseEncapsulate(grandChild, ref bounds);
+                }
             }
         }
 
+        public Vector3 GetLocalCenter()
+        {
+            return Vector3.zero;
+        }
 
-        public Transform GetCustomReference(string name)
+        public void Haptic(float intensity)
+        {
+        }
+
+        public bool TryGetCustomReference<T>(string name, out T custom) where T : Component
+        {
+            custom = GetCustomReference<T>(name, false);
+            return custom != null;
+        }
+
+        public T GetCustomReference<T>(string name, bool printError = true) where T : Component
         {
             CustomReference customReference = customReferences.Find(cr => cr.name == name);
             if (customReference != null)
             {
-                return customReference.transform;
+                if (customReference.transform is T) return (T)customReference.transform;
+                if (typeof(T) == typeof(Transform)) return customReference.transform.transform as T;
+                return customReference.transform.GetComponent<T>();
             }
-            else
-            {
-                Debug.LogError("[" + itemId + "] Cannot find item custom reference " + name);
-                return null;
-            }
+
+            if (printError) Debug.LogError("[" + itemId + "] Cannot find item custom reference " + name);
+            return null;
         }
+
+        public Transform GetCustomReference(string name, bool printError = true) => GetCustomReference<Transform>(name, printError);
 
         protected virtual void OnValidate()
         {
-            IconManager.SetIcon(this.gameObject, null);
+            IconManager.SetIcon(gameObject, null);
 
-            if (!this.gameObject.activeInHierarchy) return;
+            if (!gameObject.activeInHierarchy) return;
 
-            Transform holderPoint = null;
+            //Transform holderPoint = null;
 
-            holderPoint = this.transform.Find("HolderPoint");
-
+            if (!holderPoint) holderPoint = transform.Find("HolderPoint");
             if (!holderPoint)
             {
                 holderPoint = new GameObject("HolderPoint").transform;
-                holderPoint.SetParent(this.transform, false);
+                holderPoint.SetParent(transform, false);
             }
-            parryPoint = this.transform.Find("ParryPoint");
+            if (!parryPoint) parryPoint = transform.Find("ParryPoint");
             if (!parryPoint)
             {
                 parryPoint = new GameObject("ParryPoint").transform;
-                parryPoint.SetParent(this.transform, false);
+                parryPoint.SetParent(transform, false);
             }
-            preview = this.GetComponentInChildren<Preview>();
-            if (!preview && this.transform.Find("Preview")) preview = this.transform.Find("Preview").gameObject.AddComponent<Preview>();
+            preview = GetComponentInChildren<Preview>();
+            if (!preview && transform.Find("Preview")) preview = transform.Find("Preview").gameObject.AddComponent<Preview>();
             if (!preview)
             {
                 preview = new GameObject("Preview").AddComponent<Preview>();
-                preview.transform.SetParent(this.transform, false);
+                preview.transform.SetParent(transform, false);
             }
-            Transform whoosh = this.transform.Find("Whoosh");
+            Transform whoosh = transform.Find("Whoosh");
             if (whoosh && !whoosh.GetComponent<WhooshPoint>())
             {
                 whoosh.gameObject.AddComponent<WhooshPoint>();
@@ -153,7 +194,7 @@ namespace ThunderRoad
 
             if (!mainHandleRight)
             {
-                foreach (Handle handle in this.GetComponentsInChildren<Handle>())
+                foreach (Handle handle in GetComponentsInChildren<Handle>())
                 {
                     if (handle.IsAllowed(Side.Right))
                     {
@@ -164,7 +205,7 @@ namespace ThunderRoad
             }
             if (!mainHandleLeft)
             {
-                foreach (Handle handle in this.GetComponentsInChildren<Handle>())
+                foreach (Handle handle in GetComponentsInChildren<Handle>())
                 {
                     if (handle.IsAllowed(Side.Left))
                     {
@@ -175,22 +216,22 @@ namespace ThunderRoad
             }
             if (!mainHandleRight)
             {
-                mainHandleRight = this.GetComponentInChildren<Handle>();
+                mainHandleRight = GetComponentInChildren<Handle>();
             }
             if (useCustomCenterOfMass)
             {
-                this.GetComponent<Rigidbody>().centerOfMass = customCenterOfMass;
+                GetComponent<Rigidbody>().centerOfMass = customCenterOfMass;
             }
             else
             {
-                this.GetComponent<Rigidbody>().ResetCenterOfMass();
+                GetComponent<Rigidbody>().ResetCenterOfMass();
             }
             if (customInertiaTensor)
             {
                 if (customInertiaTensorCollider == null)
                 {
                     customInertiaTensorCollider = new GameObject("InertiaTensorCollider").AddComponent<CapsuleCollider>();
-                    customInertiaTensorCollider.transform.SetParent(this.transform, false);
+                    customInertiaTensorCollider.transform.SetParent(transform, false);
                     customInertiaTensorCollider.radius = 0.05f;
                     customInertiaTensorCollider.direction = 2;
                 }
@@ -212,31 +253,30 @@ namespace ThunderRoad
 
         protected virtual void OnDrawGizmosSelected()
         {
-            Gizmos.DrawWireSphere(this.transform.TransformPoint(this.GetComponent<Rigidbody>().centerOfMass), 0.01f);
+            Gizmos.DrawWireSphere(transform.TransformPoint(GetComponent<Rigidbody>().centerOfMass), 0.01f);
+
             foreach (HolderPoint holderPoint in additionalHolderPoints)
             {
                 Gizmos.matrix = holderPoint.anchor.localToWorldMatrix;
                 DrawGizmoArrow(Vector3.zero, Vector3.forward * 0.1f, Vector3.up, Common.HueColourValue(HueColorName.Purple), 0.1f, 10);
                 DrawGizmoArrow(Vector3.zero, Vector3.up * 0.05f, Vector3.up, Common.HueColourValue(HueColorName.Green), 0.05f);
             }
+
         }
 
         protected virtual void Awake()
         {
             all.Add(this);
+
+            clothingGenderSwitcher = GetComponentInChildren<ClothingGenderSwitcher>();
+
+
             renderers = new List<Renderer>();
-            foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())
+            foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
             {
                 if (!renderer.enabled || (!(renderer is SkinnedMeshRenderer) && !(renderer is MeshRenderer))) continue;
                 renderers.Add(renderer);
             }
-
-#if PrivateSDK
-            lightVolumeReceiver = this.GetComponent<LightVolumeReceiver>();
-            if (!lightVolumeReceiver) lightVolumeReceiver = this.gameObject.AddComponent<LightVolumeReceiver>();
-            lightVolumeReceiver.initRenderersOnStart = false;
-            lightVolumeReceiver.SetRenderers(renderers);
-#endif
 
             revealDecals = new List<RevealDecal>(this.GetComponentsInChildren<RevealDecal>());
             colliderGroups = new List<ColliderGroup>(this.GetComponentsInChildren<ColliderGroup>());
@@ -245,16 +285,16 @@ namespace ThunderRoad
             handles = new List<Handle>(this.GetComponentsInChildren<Handle>());
             if (mainHandleRight) mainHandleRight = mainHandleRight.GetComponent<Handle>();
             if (mainHandleLeft) mainHandleLeft = mainHandleLeft.GetComponent<Handle>();
-            parryTargets = new List<ParryTarget>(this.GetComponentsInChildren<ParryTarget>());
+            parryTargets = new List<ParryTarget>(GetComponentsInChildren<ParryTarget>());
 
             // Rigidbody
-            rb = this.GetComponent<Rigidbody>();
+            rb = GetComponent<Rigidbody>();
             if (useCustomCenterOfMass) rb.centerOfMass = customCenterOfMass;
 
-            collisionHandlers = new List<CollisionHandler>(this.GetComponentsInChildren<CollisionHandler>());
+            collisionHandlers = new List<CollisionHandler>(GetComponentsInChildren<CollisionHandler>());
             if (collisionHandlers.Count == 0)
             {
-                collisionHandlers.Add(this.gameObject.AddComponent<CollisionHandler>());
+                collisionHandlers.Add(gameObject.AddComponent<CollisionHandler>());
                 foreach (ColliderGroup colliderGroup in colliderGroups)
                 {
                     colliderGroup.collisionHandler = colliderGroup.GetComponentInParent<CollisionHandler>();
@@ -263,78 +303,22 @@ namespace ThunderRoad
 
         }
 
-#if PrivateSDK
-
-        protected virtual void OnEnable()
-        {
-            allActive.Add(this);
-            if (Level.current && Level.current.dungeon)
-            {
-                cullingDetectionEnabled = true;
-            }
-        }
-
-        protected virtual void OnDisable()
-        {
-            allActive.Remove(this);
-            cullingDetectionEnabled = false;
-        }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // ROOM CULLING
+        // DESPAWN
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        [NonSerialized, ShowInInspector, ReadOnly]
-        public Room currentRoom;
-        [NonSerialized, ShowInInspector, ReadOnly]
-        public bool isCulled;
-
-        protected bool cullingDetectionEnabled;
-        protected float cullingDetectionCycleSpeed = 1;
-        protected float cullingDetectionCycleTime;
-
-        private void LateUpdate()
+        // Keep these method signatures outside so modders can call these events using Unity events
+        [Button]
+        public void Despawn(float delay)
         {
-            if (!cullingDetectionEnabled) return;
-            if (!Level.current.dungeon.initialized) return;
-            if ((Time.time - cullingDetectionCycleTime) < cullingDetectionCycleSpeed) return;
-            cullingDetectionCycleTime = Time.time;
-
-            //if (rb.IsSleeping()) return;
-
-            if (currentRoom == null)
-            {
-                Room roomFound = Level.current.dungeon.SearchRoomFromPosition(this.transform.position);
-                if (currentRoom != roomFound)
-                {
-                    currentRoom = roomFound;
-                    currentRoom.RegisterItem(this);
-                    SetCull(currentRoom.isCulled);
-                }
-            }
-            else if (!currentRoom.tile.Bounds.Contains(this.transform.position))
-            {
-                Room roomFound = Level.current.dungeon.SearchRoomFromPosition(this.transform.position, currentRoom);
-                if (currentRoom != roomFound)
-                {
-                    currentRoom.UnRegisterItem(this);
-                    currentRoom = roomFound;
-                    currentRoom.RegisterItem(this);
-                    SetCull(currentRoom.isCulled);
-                }
-            }
         }
 
-        public void SetCull(bool cull)
+        [ContextMenu("Despawn")]
+        [Button]
+        public virtual void Despawn()
         {
-            if (isCulled == cull) return;
-
-            this.gameObject.SetActive(!cull);
-            isCulled = cull;
         }
-
-#endif
-
 
         [Serializable]
         public class HolderPoint
@@ -360,7 +344,7 @@ namespace ThunderRoad
 
             if (hp != null)
                 return hp;
-            else if (!string.IsNullOrEmpty(holderPoint))
+            if (!string.IsNullOrEmpty(holderPoint))
             {
                 Debug.LogWarning("HolderPoint " + holderPoint + " not found on item " + name + " : returning default HolderPoint.");
             }

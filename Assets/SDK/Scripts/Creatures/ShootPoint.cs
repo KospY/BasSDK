@@ -11,38 +11,14 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
-    public class ShootPoint : MonoBehaviour
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/ShootPoint")]
+    public class ShootPoint : ThunderBehaviour
     {
+        //[ShowInInspector]
         public static List<ShootPoint> list = new List<ShootPoint>();
 
         [Range(0, 360)]
         public float allowedAngle = 60;
-
-        [NonSerialized]
-        public Vector3 navPosition;
-        [NonSerialized]
-#if ODIN_INSPECTOR
-        [ShowInInspector, ReadOnly]
-#endif
-        public Creature currentCreature;
-
-        private void OnEnable()
-        {
-            list.Add(this);
-            if (NavMesh.SamplePosition(this.transform.position, out NavMeshHit navMeshHit, 100, -1) && this.transform.position.y > navMeshHit.position.y)
-            {
-                navPosition = navMeshHit.position;
-            }
-            else
-            {
-                navPosition = this.transform.position;
-            }
-        }
-
-        private void OnDisable()
-        {
-            list.Remove(this);
-        }
 
         public void OnDrawGizmos()
         {

@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 
 #if ODIN_INSPECTOR
-using Sirenix.OdinInspector;
 #else
 using EasyButtons;
 #endif
 
 namespace ThunderRoad
 {
-    [AddComponentMenu("ThunderRoad/Misc/Disable or Strip GameObject relative to platform")]
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/DisableOnPlatform")]
+	[AddComponentMenu("ThunderRoad/Misc/Disable or Strip GameObject relative to platform")]
     public class DisableOnPlatform : MonoBehaviour
     {
         public PlatformFilter platformFilter = PlatformFilter.OnlyOn;

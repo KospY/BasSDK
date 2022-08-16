@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -9,30 +9,39 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/FxController")]
     public class FxController : MonoBehaviour
     {
-        [Header("General")]
+        [Header("Variables")]
         [Range(0, 1)]
         public float intensity;
         [Range(0, 1)]
         public float speed;
-        public bool playOnStart = false;
+        public Vector3 direction;
 
-        [Header("Velocity to Speed")]
-        public bool velocityToSpeed;
-        public Rigidbody rb;
-        public Vector2 velocityToSpeedRange = new Vector2(0,5);
-        public float velocityToSpeedDampening = 1f;
+        [Header("Options")]
+        public bool playOnStart = false;
+        public float lifeTime = 0;
 
         [Header("Detected Modules")]
         public List<FxModule> modules;
 
-        protected float dampenedSpeed;
+#if ODIN_INSPECTOR
+        [NonSerialized, ShowInInspector, ReadOnly]
+#endif
+        public object source;
+
+        public event Action onLifetimeExpired;
+
         protected bool initialized;
 
         private void OnValidate()
         {
             modules = new List<FxModule>(this.GetComponentsInChildren<FxModule>());
+            foreach (FxModule module in modules)
+            {
+                module.controller = this;
+            }
             if (Application.isPlaying && initialized)
             {
                 Refresh();
@@ -41,25 +50,13 @@ namespace ThunderRoad
 
         private void Start()
         {
+            source = this.GetComponentInParent<Item>();
+            if (source == null)
+            {
+                source = this.GetComponentInParent<Creature>();
+            }
             if (playOnStart) Play();
             initialized = true;
-        }
-
-        protected void Update()
-        {
-            if (velocityToSpeed)
-            {
-                if (!rb.isKinematic && !rb.IsSleeping())
-                {
-                    Vector3 pointVelocity = rb.GetPointVelocity(this.transform.position);
-                    dampenedSpeed = Mathf.Lerp(dampenedSpeed, Mathf.InverseLerp(velocityToSpeedRange.x, velocityToSpeedRange.y, pointVelocity.magnitude), velocityToSpeedDampening);
-                    SetSpeed(dampenedSpeed);
-                }
-                else if (dampenedSpeed > 0)
-                {
-                    dampenedSpeed = Mathf.Lerp(dampenedSpeed, 0, velocityToSpeedDampening);
-                }
-            }
         }
 
         [Button]
@@ -68,8 +65,10 @@ namespace ThunderRoad
             Refresh();
             foreach (FxModule module in modules)
             {
+                module.controller = this;
                 module.Play();
             }
+            if (lifeTime > 0) Invoke("OnLifetimeExpired", lifeTime);
         }
 
         public void SetIntensity(float intensity)
@@ -77,6 +76,7 @@ namespace ThunderRoad
             this.intensity = intensity;
             foreach (FxModule module in modules)
             {
+                module.controller = this;
                 module.SetIntensity(intensity);
             }
         }
@@ -94,6 +94,7 @@ namespace ThunderRoad
         {
             foreach (FxModule module in modules)
             {
+                module.controller = this;
                 module.SetIntensity(intensity);
                 module.SetSpeed(speed);
             }
@@ -104,8 +105,14 @@ namespace ThunderRoad
         {
             foreach (FxModule module in modules)
             {
+                module.controller = this;
                 module.Stop();
             }
+        }
+
+        protected void OnLifetimeExpired()
+        {
+            if (onLifetimeExpired != null) onLifetimeExpired.Invoke();
         }
     }
 }

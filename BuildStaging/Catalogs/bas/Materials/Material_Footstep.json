@@ -1,0 +1,88 @@
+{
+  "$type": "ThunderRoad.MaterialData, ThunderRoad",
+  "id": "Footstep",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 3,
+  "physicMaterialHash": 962289510,
+  "xpReference": null,
+  "apparelProtectionLevel": 0,
+  "idMapColors": [],
+  "defaultEffects": [
+    {
+      "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+      "effectId": "FootstepDefault",
+      "ignoredEffects": []
+    }
+  ],
+  "isMetal": false,
+  "collisions": [
+    {
+      "$type": "ThunderRoad.MaterialData+Collision, ThunderRoad",
+      "targetMaterialIds": [
+        "Sand",
+        "Dirt"
+      ],
+      "effects": [
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "FootstepSand",
+          "ignoredEffects": []
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.MaterialData+Collision, ThunderRoad",
+      "targetMaterialIds": [
+        "Wood"
+      ],
+      "effects": [
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "FootstepWood",
+          "ignoredEffects": []
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.MaterialData+Collision, ThunderRoad",
+      "targetMaterialIds": [
+        "Stone"
+      ],
+      "effects": [
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "FootstepStone",
+          "ignoredEffects": []
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.MaterialData+Collision, ThunderRoad",
+      "targetMaterialIds": [
+        "Metal"
+      ],
+      "effects": [
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "FootstepMetal",
+          "ignoredEffects": []
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.MaterialData+Collision, ThunderRoad",
+      "targetMaterialIds": [
+        "Water"
+      ],
+      "effects": [
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "FootstepWater",
+          "ignoredEffects": []
+        }
+      ]
+    }
+  ]
+}

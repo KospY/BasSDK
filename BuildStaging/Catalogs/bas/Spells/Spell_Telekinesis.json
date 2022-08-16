@@ -1,0 +1,140 @@
+{
+  "$type": "ThunderRoad.SpellTelekinesis, ThunderRoad",
+  "id": "Telekinesis",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "maxCatchDistance": 6.0,
+  "radius": 1.0,
+  "maxAngle": 40.0,
+  "layerMask": 33554432,
+  "lineOfSightMask": 33554433,
+  "positionSpring": 100.0,
+  "positionDamper": 10.0,
+  "positionMaxForce": 1000.0,
+  "rotationSpring": 10.0,
+  "rotationDamper": 1.0,
+  "rotationMaxForce": 1000.0,
+  "drag": 5.0,
+  "angularDrag": 0.5,
+  "reverseAngle": 110.0,
+  "minFingersWeight": 0.0,
+  "gravity": false,
+  "throwMultiplier": 2.0,
+  "followDefaultSpeedCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 0.0,
+        "inTangent": 0.0,
+        "outTangent": 10.0,
+        "inWeight": 0.0,
+        "outWeight": 0.333333343,
+        "weightedMode": "None",
+        "tangentMode": 65
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 1.0,
+        "value": 10.0,
+        "inTangent": 10.0,
+        "outTangent": 0.0,
+        "inWeight": 0.01989621,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 5
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "followRagdollSpeedCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 0.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 3.0,
+        "value": 3.0,
+        "inTangent": 2.0,
+        "outTangent": 2.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "defaultHandEffectId": "SpellTelekinesis",
+  "ragdollHandEffectId": "SpellGravityCast",
+  "ragdollGripEffectId": "SpellGravityGrab",
+  "spinEffectId": "SpellTelekinesisSpin",
+  "repelMaxDistance": 12.0,
+  "pullAndRepelMaxSpeed": 8.0,
+  "pullAndRepelNoDragThreshold": 0.8,
+  "autoGrab": true,
+  "spinMode": false,
+  "spinVelocityCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 0.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.333333343,
+        "outWeight": 0.333333343,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 2.0,
+        "value": 300.0,
+        "inTangent": 2.0,
+        "outTangent": 2.0,
+        "inWeight": 0.333333343,
+        "outWeight": 0.333333343,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "spinFromCenterOfMass": true,
+  "spinManaDrain": 19.0,
+  "spinManaStartConsume": 10.0,
+  "pushDefaultForce": 20.0,
+  "pushRagdollForce": 30.0,
+  "pushRagdollOtherPartsForce": 8.0,
+  "pushEffectId": "SpellTelekinesisPush",
+  "minVelocity": 0.0,
+  "maxVelocity": 5.0,
+  "allowDismemberment": true,
+  "dismembermentBreakForceMultiplier": 1.0,
+  "closeHandPoseId": "TelekinesisClose",
+  "openHandPoseId": "TelekinesisOpen",
+  "manaConsumption": 0.0,
+  "activeManaConsumption": 0.0,
+  "manaWaste": 0.0
+}

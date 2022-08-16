@@ -1,38 +1,44 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
+using System;
+using UnityEngine.Events;
+
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#else
+using EasyButtons;
+#endif
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/PlayerSpawner")]
     public class PlayerSpawner : MonoBehaviour
     {
         public static List<PlayerSpawner> all = new List<PlayerSpawner>();
         public static List<PlayerSpawner> allActive = new List<PlayerSpawner>();
+        public static PlayerSpawner current;
 
-        private void Awake()
+        public string id = "default";
+        [Tooltip("-1 will use the default spawning chances, please note spawners with -1 will by default be 50% when used with weighted spawners.")]
+        public int spawnWeight = -1;
+        public bool spawnBody = true;
+        [Tooltip("Should the player forcefully spawn here if they are a new character (hasn't completed the tutorial)?")]
+        public bool forceSpawnHereIfNewPlayer;
+
+        public UnityEvent playerSpawnEvent;
+
+        public enum Type
         {
-            all.Add(this);
+            DefaultStart,
+            AltnernateStart,
+            Stage,
         }
 
-        private void OnDestroy()
-        {
-            all.Remove(this);
-        }
 
-        private void OnEnable()
+        public IEnumerator SpawnCoroutine(Action callback = null)
         {
-            allActive.Add(this);
-        }
-
-        private void OnDisable()
-        {
-            allActive.Remove(this);
-        }
-
-        public static PlayerSpawner Get()
-        {
-            if (allActive.Count == 0) return null;
-            PlayerSpawner randomSpawner = allActive[UnityEngine.Random.Range(0, allActive.Count)];
-            return randomSpawner;
+            yield break;
         }
     }
 }

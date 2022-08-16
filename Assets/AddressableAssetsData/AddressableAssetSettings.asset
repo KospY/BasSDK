@@ -14,25 +14,60 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_DefaultGroup: 62de42e60e0dc9049851038b2f74bae8
   m_OptimizeCatalogSize: 0
-  m_BuildRemoteCatalog: 1
+  m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
+  m_CatalogRequestsTimeout: 0
   m_DisableCatalogUpdateOnStart: 0
   m_IgnoreUnsupportedFilesInBuild: 0
   m_UniqueBundleIds: 0
+  m_NonRecursiveBuilding: 0
+  m_CCDEnabled: 0
   m_maxConcurrentWebRequests: 500
   m_ContiguousBundles: 0
-  m_ShaderBundleNaming: 2
-  m_ShaderBundleCustomNaming: Mod
+  m_StripUnityVersionFromBundleBuild: 1
+  m_DisableVisibleSubAssetRepresentations: 0
+  m_ShaderBundleNaming: 0
+  m_ShaderBundleCustomNaming: bas
+  m_MonoScriptBundleNaming: 0
+  m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
     m_Id: ce15733c007f6d84a9cd434894e23ab1
   m_RemoteCatalogLoadPath:
     m_Id: f0d6e0cdd8192a84f819089abb779b64
   m_ContentStateBuildPath: 
-  m_overridePlayerVersion: 
+  m_BuildAddressablesWithPlayerBuild: 2
+  m_overridePlayerVersion: bas
   m_GroupAssets:
   - {fileID: 11400000, guid: fbe88945f5fd22549a3b2283780ee7c2, type: 2}
   - {fileID: 11400000, guid: 7b5cd7845295efe449821e24b3a47891, type: 2}
+  - {fileID: 11400000, guid: 1cbfe3a3842f0e547bb344352a88b99b, type: 2}
+  - {fileID: 11400000, guid: a594160ac04c1be4a9acc4c6122953ed, type: 2}
+  - {fileID: 11400000, guid: 90202793340463146b349a0700568e84, type: 2}
+  - {fileID: 11400000, guid: 92895d259cb16fc43be50d1050208e55, type: 2}
+  - {fileID: 11400000, guid: b80440ab508e1cc4fb8ee958c4b7b789, type: 2}
+  - {fileID: 11400000, guid: ebe379b717d6b2c48b6aaefaac1d8a0d, type: 2}
+  - {fileID: 11400000, guid: b08f1e5e1520f074e80acdb0ddb671c9, type: 2}
+  - {fileID: 11400000, guid: 90e4c1c48c87cd5469fcc5b7478a5308, type: 2}
+  - {fileID: 11400000, guid: 72120b58888e1064f833e64392f6b7e3, type: 2}
+  - {fileID: 11400000, guid: 61b5833fe9a290a4ea212005aef7b0ef, type: 2}
+  - {fileID: 11400000, guid: 96f5df46332f5c143a92354addfd92fc, type: 2}
+  - {fileID: 11400000, guid: af6c372f60a9d5c468c97a281e7dbf0f, type: 2}
+  - {fileID: 11400000, guid: 3727da12dfd3ba244af931e0e4898927, type: 2}
+  - {fileID: 11400000, guid: 1cfb3b4fcb76b57488d3c0b083d8a767, type: 2}
+  - {fileID: 11400000, guid: 7ebeaff67d496a5488c8470e1d347556, type: 2}
+  - {fileID: 11400000, guid: f3a26f749a957284dafdac961f2905d1, type: 2}
+  - {fileID: 11400000, guid: 9b369e2d588cce846ab15bc5e53ad7ad, type: 2}
+  - {fileID: 11400000, guid: d2fba4d351c1bbb45a74b19fd3b14ee4, type: 2}
+  - {fileID: 11400000, guid: 37d1797fb99cd4148b75245ba6d9cf76, type: 2}
+  - {fileID: 11400000, guid: 489c52152fac8df40b46d20de9914d2b, type: 2}
   - {fileID: 11400000, guid: c7693ad59ef250341800b9d966602e73, type: 2}
+  - {fileID: 11400000, guid: 6a1dce99e32e3264398a2b7825163c1b, type: 2}
+  - {fileID: 11400000, guid: 6c00cdf8a2c6afb419ce6148fbb245c0, type: 2}
+  - {fileID: 11400000, guid: 256939aa0931a9f448e8a6a0765902d7, type: 2}
+  - {fileID: 11400000, guid: 9f937fc8a19b3ae429f92c02db43898a, type: 2}
+  - {fileID: 11400000, guid: 8a39f37f8769dc84189eae7e5b951ef0, type: 2}
+  - {fileID: 11400000, guid: d808c7cba601ecc42a35d8e52d1ad034, type: 2}
+  - {fileID: 11400000, guid: d1c218a05bb02824d91197623ff23a85, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -45,9 +80,13 @@ MonoBehaviour:
       m_ProfileName: Default
       m_Values:
       - m_Id: ce15733c007f6d84a9cd434894e23ab1
-        m_Value: '[ThunderRoad.ModBuilder.buildPath]'
+        m_Value: '[ThunderRoad.AssetBundleBuilder.assetsLocalPath]'
       - m_Id: f0d6e0cdd8192a84f819089abb779b64
-        m_Value: '{ThunderRoad.FileManager.aaDefaultPath}/Bas'
+        m_Value: '{ThunderRoad.FileManager.aaDefaultPath}'
+      - m_Id: d8fad135d0762f943a80ca7860c8e9fc
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]'
+      - m_Id: 3868748ffde3b334bbd8b7acf4ed429e
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}'
     m_ProfileEntryNames:
     - m_Id: ce15733c007f6d84a9cd434894e23ab1
       m_Name: LocalBuildPath
@@ -55,10 +94,18 @@ MonoBehaviour:
     - m_Id: f0d6e0cdd8192a84f819089abb779b64
       m_Name: LocalLoadPath
       m_InlineUsage: 0
+    - m_Id: d8fad135d0762f943a80ca7860c8e9fc
+      m_Name: DefaultBuildPath
+      m_InlineUsage: 0
+    - m_Id: 3868748ffde3b334bbd8b7acf4ed429e
+      m_Name: DefaultLoadPath
+      m_InlineUsage: 0
     m_ProfileVersion: 1
   m_LabelTable:
     m_LabelNames:
-    - default
+    - Room
+    - Windows
+    - Android
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: b2091e8321e676b4eb1c72cfbde3dec2, type: 2}

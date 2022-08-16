@@ -1,0 +1,42 @@
+{
+  "$type": "ThunderRoad.LevelData, ThunderRoad",
+  "id": "CharacterSelection",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 3,
+  "name": null,
+  "description": null,
+  "descriptionLocalizationId": null,
+  "sceneAddress": "Bas.Level.CharacterSelection",
+  "showInLevelSelection": false,
+  "savePlayerInventoryOnUnload": false,
+  "dungeonFlowAddresses": [],
+  "mapId": null,
+  "mapLocation": null,
+  "mapIconAddress": null,
+  "mapIconHoverAddress": "Bas.Icon.MapPinHoverDefault",
+  "mapNameDisplay": "Blade & Sorcery",
+  "showOnMap": false,
+  "hideOnAndroid": false,
+  "mapObjectAddress": "Bas.Icon.MapDefaultObject",
+  "mapTextureAddress": "Bas.Icon.MapDefaultTexture",
+  "iconAddress": null,
+  "mapSketchAddress": null,
+  "modes": [
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "Default",
+      "displayName": "Default",
+      "description": "NoDescription",
+      "allowGameModes": [],
+      "mapOrder": 0,
+      "difficultyMultipliers": [],
+      "modules": [],
+      "availableOptions": []
+    }
+  ],
+  "modePickCountPerRank": 2,
+  "customCameras": [],
+  "improvisedThrowableID": null
+}

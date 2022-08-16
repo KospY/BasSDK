@@ -2,10 +2,18 @@
 using UnityEngine;
 using UnityEditor;
 
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector.Editor;
+#endif
+
 namespace ThunderRoad
 {
     [CustomEditor(typeof(Item))]
+#if ODIN_INSPECTOR
+    public class ItemDefInspector : OdinEditor
+#else
     public class ItemDefInspector : Editor
+#endif
     {
         bool showCenterOfMassHandle = false;
 

@@ -4,6 +4,7 @@ using UnityEngine.Rendering;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/ZoneViewEnabler")]
     [AddComponentMenu("ThunderRoad/Levels/Zone view")]
     public class ZoneViewEnabler : MonoBehaviour
     {

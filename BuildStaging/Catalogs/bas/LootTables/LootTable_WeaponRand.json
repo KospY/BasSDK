@@ -1,0 +1,34 @@
+{
+  "$type": "ThunderRoad.LootTable, ThunderRoad",
+  "id": "WeaponRand",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "drops": [
+    {
+      "$type": "ThunderRoad.LootTable+Drop, ThunderRoad",
+      "referenceID": "WeaponSword",
+      "reference": "Table",
+      "probabilityWeight": 4.0
+    },
+    {
+      "$type": "ThunderRoad.LootTable+Drop, ThunderRoad",
+      "referenceID": "WeaponMace",
+      "reference": "Table",
+      "probabilityWeight": 3.0
+    },
+    {
+      "$type": "ThunderRoad.LootTable+Drop, ThunderRoad",
+      "referenceID": "Weapon1H",
+      "reference": "Table",
+      "probabilityWeight": 4.0
+    },
+    {
+      "$type": "ThunderRoad.LootTable+Drop, ThunderRoad",
+      "referenceID": "WeaponAxe",
+      "reference": "Table",
+      "probabilityWeight": 2.0
+    }
+  ]
+}

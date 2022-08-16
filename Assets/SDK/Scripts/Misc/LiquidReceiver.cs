@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using System;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -10,6 +9,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/LiquidReceiver")]
     [AddComponentMenu("ThunderRoad/Liquid receiver")]
     public class LiquidReceiver : MonoBehaviour
     {

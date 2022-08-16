@@ -1,0 +1,5585 @@
+{
+  "$type": "ThunderRoad.TextData, ThunderRoad",
+  "id": "Korean",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "textGroups": [
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "Tutorial",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Intro1",
+          "text": "오신것을 환영합니다! 이 튜토리얼에서는 게임 플레이의 기본을 배울 것입니다! 진행하면서 스킬이 잠금 해제됩니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Intro2",
+          "text": "언제든지 메뉴를 열어 입력을 확인하거나 옵션을 변경하거나 영역을 벗어날 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Intro3",
+          "text": "메뉴 버튼을 눌러 메뉴를 엽니다.\n같은 버튼을 다시 눌러 닫습니다.",
+          "spriteAddress": "Bas.Input.{Controller}.Menu",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Move",
+          "text": "왼쪽 엄지스틱을 사용하여 이동합니다.\n또한 오른쪽 스틱을 사용하여 회전할 수도 있습니다.",
+          "spriteAddress": "Bas.Input.{Controller}.Move",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Sick",
+          "text": "이동할 때 아플 수 있습니다.\n어지러움을 느끼면 정기적으로 휴식을 취하는 것이 좋습니다.\nVR 연습을 통해 익숙해져야 합니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Jump",
+          "text": "오른쪽 엄지스틱/터치패드를 누르거나 엄지스틱을 위로 밀어 점프합니다.\n오래 누를수록 더 높이 점프합니다.",
+          "spriteAddress": "Bas.Input.{Controller}.Jump",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Grab",
+          "text": "Blade & Sorcery에서는 모든 것이 물리적이며 잡기 버튼을 눌러 잡을 수 있습니다.",
+          "spriteAddress": "Bas.Input.{Controller}.Grab",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Climb",
+          "text": "절벽이나 바위 사이의 균열을 사용하여 잡기 버튼을 누르고 올라갈 수 있습니다.\n절벽 꼭대기에있는 동안 점프를 누르면 위로 뛰어 오르고 위로 올라갈 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "GrabSlide",
+          "text": "로프를 아래로 미끄러뜨리려면 로프를 잡고 방아쇠 버튼을 누릅니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Run",
+          "text": "달리기 위해서는 엄지 손가락으로 앞으로 나아가는 동안 실제 손으로 달리기 동작을 모방하십시오.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "WallJump",
+          "text": "도약하려는 방향을 보고 점프 버튼을 눌러 표면을 잡으면서 벽 점프를 할 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Slowmotion",
+          "text": "당신은 마법의 힘을 얻었고 이제 당신은 시간을 늦출 수 있습니다! TimeSlow 버튼을 눌러 시도하십시오. 효과를 중지하려면 TimeSlow 버튼을 다시 누릅니다.",
+          "spriteAddress": "Bas.Input.{Controller}.SlowMotion",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TelekinesisGrab",
+          "text": "여러분은 또한 이제 멀리서 물체를 잡을 수 있는 텔레키네시스 능력을 가지고 있습니다.\r\n물체 주위에 상호 작용 아이콘이 나타날 때까지 손을 뻗은 다음 잡기 버튼을 눌러 텔레 키네시스로 잡으십시오.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TelekinesisPullAndRepel",
+          "text": "이제 랜턴 누름 방아쇠를 잡을 때까지 당깁니다. (또는, 격퇴 버튼을 사용하여 격퇴할 수도 있습니다.)",
+          "spriteAddress": "Bas.Input.{Controller}.Telekinesis",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LanternSwing",
+          "text": "랜턴을 사용하여 스윙하고 틈을 뛰어 넘을 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.LanternSwing"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Holster",
+          "text": "뼈 옆에있는 땅에 무기가 있습니다. 4 개의 홀스터가 있는데, 어깨에 두 개, 엉덩이에 두 개가 있습니다. 무기를 저장하려면 홀스터 중 하나에 무기를 떨어 뜨리기 만하면됩니다.",
+          "spriteAddress": "Bas.Input.Holsters",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReuseHolster",
+          "text": "무기를 회수하려면 무기를 저장한 홀스터에 손을 뻗어 잡기 버튼을 누르기만 하면 됩니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SlideRope",
+          "text": "당신은 쉽게 당신의 인벤토리에있는 풀리 덕분에 ziplines를 아래로 밀 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BackpackIntro",
+          "text": "인벤토리를 열려면 가슴에 손을 대고 맞춤법 버튼을 누릅니다.",
+          "spriteAddress": "Bas.Input.{Controller}.SpellMenu",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BackpackRetrieve",
+          "text": "인벤토리 UI가 열리면 스크루 드라이버를 사용하여 메뉴를 탐색하는 것처럼 손목을 회전한 다음 잡기 버튼을 눌러 개체를 선택할 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BackpackStore",
+          "text": "인벤토리에서 발견된 항목을 저장하려면 가슴이나 어깨 위로 떨어뜨리십시오.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LoseHook",
+          "text": "도르래를 잃어버리면 안 됩니다. 떨어뜨리면 재고로 돌아갑니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "StealthWalk",
+          "text": "두 명의 적이 홈을 지키고 있습니다. 저놈들을 처리하세요!\r\n천천히 걷고 오른쪽 엄지 스틱을 아래로 밀어 웅크 리면 더 은밀하게 행동합니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TutorialComplete",
+          "text": "축하합니다, 이것으로 튜토리얼을 종료합니다! 불, 번개, 중력 주문이 이제 잠금 해제되었습니다. 보트옆의 세계지도를 사용하여 레벨을로드하고 아이템 스폰어 책을 사용하여 전투에 대비하십시오. 행운을 빕니다!",
+          "spriteAddress": null,
+          "videoAddress": null
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "Survival",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NextWave",
+          "text": "다음 물결을 준비하십시오 ...",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Wave",
+          "text": "물결",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Fight",
+          "text": "싸움!",
+          "spriteAddress": null,
+          "videoAddress": null
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "Options",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Difficulty",
+          "text": "던전에서 적의 난이도.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Length",
+          "text": "이 던전에서 얼마나 많은 방이 생성됩니까?",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Parkour",
+          "text": "출구에 도달하기 위해 강제로 올라야하는 방을 보지 않으려면 이것을 확인하십시오.\n(던전의 다양성을 줄일것입니다)",
+          "spriteAddress": null,
+          "videoAddress": null
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "Tips",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "1",
+          "text": "푸시 및 풀 버튼을 동시에 누르면 텔레키니로 잡고 있는 모든 항목이 회전합니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "2",
+          "text": "긴 무기 핸들로 적의 다리를 쓸어 버릴 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "3",
+          "text": "축을 사용하여 기울어진 로프를 아래로 밀 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "4",
+          "text": "적의 공격을 막아 집중력을 높입니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "5",
+          "text": "오를 때, 암벽의 꼭대기에있는 점프 버튼을 누르면 계속해서 올라갑니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "6",
+          "text": "양손으로 중력 주문을 병합하고 손을 벌려 큰 중력 거품을 만들 수 있습니다..",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "7",
+          "text": "화염이 부여된 무기는 금속 갑옷과 돌을 찌를 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "8",
+          "text": "불덩어리는 적절한 시기에 중력 푸시로 방향을 바꿀 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "9",
+          "text": "화염에 휩싸인 지팡이에서 화염구를 쏠 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "10",
+          "text": "부드럽고 꾸준한 타격은 단단하고 빠른 타격보다 더 효과적입니다. 너무 빨리 공격하면 공격이 중단됩니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "11",
+          "text": "몸에는 네 개의 무기 슬롯이 있습니다 : 엉덩이에 두 개, 등에 두 개.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "12",
+          "text": "중력이 부여된 지팡이로 지형을 강타하여 중력 폭발을 일으킬 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "13",
+          "text": "트리거 버튼을 누른 다음 그립 버튼을 눌러 떨림을 제거하십시오.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "14",
+          "text": "무기를 들고 있는 동안 방아쇠를 누르고 있으면 그립을 슬라이드할 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "15",
+          "text": "화염구는 검으로 튕겨서 보낸 사람에게 되돌릴 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "16",
+          "text": "샌드박스 모드에서는 책 메뉴의 디버그 페이지를 통해 적 갑옷을 비활성화할 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "17",
+          "text": "샌드박스 모드에서는 무한 체력, 무한 마나 등과 같은 치트를 책 메뉴의 샌드박스 페이지를 통해 활성화할 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "21",
+          "text": "적의 팔다리는 관절을 따라 절단될 수 있습니다. 작은 무기보다 큰 무기로 팔다리를 절단하는 것이 더 쉽습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "23",
+          "text": "더 높은 단계의 무기는 더 오랫동안 마력을 유지합니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "24",
+          "text": "로프를 잡고 방아쇠를 당기면 아래로 미끄러져 내려갈 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "25",
+          "text": "중력의 마법으로 두 다리를 움켜쥔 다음 천천히 잡아당겨 적을 갈기갈기 찢을 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "26",
+          "text": "점프 버튼을 아래로 누르고 있으면 탭하는 것보다 더 높이 점프 할 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "27",
+          "text": "게임 내에서 앞으로 나아가면서 실제 생활에서 팔로 조깅 동작을 하면서 스프린트를 할 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "29",
+          "text": "옵션 메뉴에서 검을 다루는 물리법칙을 조정할 수 있지만 너무 많이 조정하면 이상한 결과가 나타날 수 있습니다!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "30",
+          "text": "슬로우 모션에서는 체력이 증가합니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "31",
+          "text": "불 마력이 깃든 지팡이를 땅에 내리치면 유도 화염구 떼가 발사됩니다!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "32",
+          "text": "두 개의 화염 주문을 병합하여 거대한 불타는 유성을 만들 수 있습니다!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "33",
+          "text": "중력 주문을 충전하여 낙하 속도를 늦출 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "34",
+          "text": "중력 마법을 아래쪽으로 던지거나 공중에 떠 있는 동안 어떤 방향으로든 던지면 반대 방향으로 진행될 것입니다!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "35",
+          "text": "번개는 금속 아이템 사이에 전기를 연결합니다!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "36",
+          "text": "번개가 스며든 지팡이를 슬램하여 거대한 방사형 충격파를 일으키세요.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "37",
+          "text": "불 마력이 깃든 지팡이를 휘둘러 전투용 불덩어리를 던지는 동안 alt-fire 버튼을 눌렀다가 놓으십시오!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "38",
+          "text": "번개가 깃든 지팡이를 잡고 alt-fire 버튼을 눌렀다 놓아 공중에 번개를 가르는 호를 그리세요!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "39",
+          "text": "중력이 깃든 지팡이를 잡고 있는 동안 alt-fire 버튼을 길게 눌러 팁에 큰 항목을 호버링하십시오!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "40",
+          "text": "적의 무기를 재핑하면 무장 해제할 수 있는 기회가 생깁니다!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "41",
+          "text": "두 개의 번개 주문을 병합하고 두 팔을 모아 손바닥을 펼쳐 거대한 번개 광선으로 파괴하십시오! ",
+          "spriteAddress": null,
+          "videoAddress": null
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "Default",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Blade & Sorcery",
+          "text": "Blade & Sorcery",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "IntroTitle",
+          "text": "당신의 지원에 감사를 드립니다!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "IntroText",
+          "text": "우리는 작은 인디 스튜디오이며 (당신과 같은) 팬의 놀라운 지원 없이는 여기까지 오지 못했을 것입니다.\n\n아직 개발이 많이 진행 중이기 때문에 아직 해야 할 일이 많습니다. 일부 기능과 게임 플레이 요소는 아직 작업 중이며 향후 업데이트에 추가될 예정입니다.\n로드맵에 대한 자세한 내용은 Reddit 또는 Discord를 방문하세요.\n\nKospY, Baron 및 Warpfrog 팀",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BookText",
+          "text": "지원해 주셔서 감사합니다!\n\n우리는 작은 인디 스튜디오이며 팬들의 놀라운 지원 없이는 여기까지 오지 못했을 것입니다.\n\n아직 개발이 많이 진행 중이기 때문에 아직 해야 할 일이 많습니다. 일부 기능과 게임 플레이 요소는 아직 작업 중이며 향후 업데이트에 추가될 예정입니다.\n\n로드맵에 대한 자세한 내용은 Reddit 또는 Discord를 방문하세요.\n\nKospY, Baron 및 Warpfrog 팀",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TipsTitle",
+          "text": "알고 계셨습니까?",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Next",
+          "text": "다음 >",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Previous",
+          "text": "이전 <",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Arena",
+          "text": "투기장",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Matches",
+          "text": "성냥",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MapTravel",
+          "text": "여행",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Default",
+          "text": "기본값",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "WeaponsStorage",
+          "text": "무기 보관",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Quantity",
+          "text": "양",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LevelRequirement",
+          "text": "레벨 req.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Take",
+          "text": "걸리다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Back",
+          "text": "뒤로",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Slot",
+          "text": "슬롯",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Blacksmith",
+          "text": "대장장이",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Unknown",
+          "text": "알려지지 않은",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NoDescription",
+          "text": "설명 없음",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Weight",
+          "text": "무게",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Category",
+          "text": "범주",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Details",
+          "text": "세부 정보",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Blunt",
+          "text": "무딘",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Pierce",
+          "text": "뚫다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Slash",
+          "text": "사선",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Weapon",
+          "text": "무기",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Apparel",
+          "text": "의복",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Potion",
+          "text": "물약",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Prop",
+          "text": "소품",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Capacity",
+          "text": "용량",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Duration",
+          "text": "기간",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Effect",
+          "text": "효과",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Spawn",
+          "text": "산란",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Tier",
+          "text": "계층",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Sandbox",
+          "text": "샌드박스",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SandboxDescription",
+          "text": "샌드 박스는 웨이브 북에서 적의 파도에 맞서 싸울 수있는 무료 플레이 모드입니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "AllWeaponsAvailable",
+          "text": "모든 무기를 사용할 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NoRewards",
+          "text": "보상 없음",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "None",
+          "text": "없음",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Apprentice",
+          "text": "견습생",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Novice",
+          "text": "초보자",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Competent",
+          "text": "유능한",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Expert",
+          "text": "전문가",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Master",
+          "text": "주인",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "GrandMaster",
+          "text": "그랜드 마스터",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DebugMenuAvailable",
+          "text": "디버그 메뉴에 액세스할 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MapDefaultDecription",
+          "text": "지도에서 여행할 목적지 선택",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReturnToHome",
+          "text": "집으로 돌아가기",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReturnToCharSelection",
+          "text": "문자 선택으로 돌아가기",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Retry",
+          "text": "재시도",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReloadLevel",
+          "text": "레벨 다시 시작",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReloadSameLevel",
+          "text": "레벨 다시 시작(동일한 시드)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "QuitGame",
+          "text": "게임 종료",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Leave",
+          "text": "떠나다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Stats",
+          "text": "통계",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "History",
+          "text": "역사",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Score",
+          "text": "점수",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Wave",
+          "text": "물결",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Kills",
+          "text": "죽이다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HitsReceived",
+          "text": "받은 조회수",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Honor",
+          "text": "명예",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "YouAreDead",
+          "text": "당신은 죽었습니다!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LevelSuccess",
+          "text": "승리!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "KillHistory",
+          "text": "히스토리(킬)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Close",
+          "text": "닫다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "WaveReached",
+          "text": "웨이브 도달",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "AI",
+          "text": "AI",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Equipment",
+          "text": "설비",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Bonus",
+          "text": "보너스",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Total",
+          "text": "합계",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Scores",
+          "text": "점수",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Human",
+          "text": "인간",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Decapitation",
+          "text": "목베기",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Dismemberment",
+          "text": "절단",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CutThroat",
+          "text": "목을 베다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SlashHeadOrNeck",
+          "text": "슬래시(머리/목)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PierceHeadOrNeck",
+          "text": "피어스(머리/목)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PierceTorso",
+          "text": "피어스 (몸통)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BluntHead",
+          "text": "둔기(머리)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PunchOrKick",
+          "text": "펀치 / 킥",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "RagdollHit",
+          "text": "스매쉬 (생물)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "StaticBlunt",
+          "text": "스매쉬(환경)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "StaticSlash",
+          "text": "슬래시(환경)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "StaticPierce",
+          "text": "피어스(환경)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Shock",
+          "text": "충격",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Burn",
+          "text": "타다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Froze",
+          "text": "동결",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Poison",
+          "text": "독",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Drain",
+          "text": "배수구",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ThrowDecapitation",
+          "text": "참수 (던지기)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ThrowDismemberment",
+          "text": "절단 (던지기)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ThrowSlashHeadOrNeck",
+          "text": "슬래시 헤드 (던지기)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ThrowPierceHeadOrNeck",
+          "text": "피어스 헤드 (던지기)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ThrowPierce",
+          "text": "피어스 (던지기)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ThrowBlunt",
+          "text": "둔기 (던지기)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Storage",
+          "text": "저장",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Creature",
+          "text": "생물",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Style",
+          "text": "스타일",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "XPHonor",
+          "text": "XP/Honor",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Survival",
+          "text": "생존",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SurvivalDescription",
+          "text": "적의 파도에 맞서 가능한 한 오래 생존하세요! 적에게서 무기를 움켜쥐거나 각 파도에 뒤따르는 받침대에서 무기를 잡으십시오!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PotionsNotAllowed",
+          "text": "건강 물약은 허용되지 않습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ArenaDescription",
+          "text": "싸울 수 있는 큰 경기장",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Calibration",
+          "text": "똑바로 서서 두 방아쇠를 모두 눌러 키를 보정하십시오!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CalibrationDone",
+          "text": "교정 완료!\n높이:",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LengthDescription",
+          "text": "총 객실 수",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DifficultyDescription",
+          "text": "더 강한 상대와 싸울 확률을 높이거나 낮춥니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DungeonSandBoxName",
+          "text": "샌드박스",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DungeonSandboxDescription",
+          "text": "제한 없이 모든 무기와 능력에 액세스하십시오. 경기장 기반 환경에서 원하는 적을 생성하거나 샌드박스 모드에서 던전에 입장하세요.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DungeonCrystalHuntName",
+          "text": "크리스탈 헌트",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DungeonCrystalHuntDescription",
+          "text": "진행 게임 모드. 크리스탈 조각과 전리품을 찾아 캐릭터의 레벨을 높이고, 장비를 구입하고, 던전을 탐험하세요.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Items",
+          "text": "항목",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Waves",
+          "text": "파도",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "FightInProgress",
+          "text": "진행 중인 싸움!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "FightEnded",
+          "text": "싸움이 끝났습니다!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SelectWave",
+          "text": "시작할 웨이브를 선택하세요.\n터치패드/썸스틱을 사용하여 위 또는 아래로 스크롤합니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HeightAutoSetting",
+          "text": "최적의 편안함과 게임 경험을 위해서는 높이가 잘 설정되어 있는지 확인하십시오.\n\n가만히 서서 편안하게 \"자동 높이\"를 클릭하십시오:",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HeightManualSetting",
+          "text": "또는 수동 설정을 사용하십시오:",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "GameMode",
+          "text": "게임 모드",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Dungeon",
+          "text": "던전",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Playtime",
+          "text": "플레이타임",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SkillsUnlocked",
+          "text": "잠금 해제된 기술",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Beard",
+          "text": "수염",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HairColor",
+          "text": "머리 색깔",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Hair",
+          "text": "머리카락",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Head",
+          "text": "머리",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Mouth",
+          "text": "입",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Neck",
+          "text": "목",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Leg",
+          "text": "다리",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Shoulder",
+          "text": "어깨",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Wrist",
+          "text": "손목",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TK",
+          "text": "TK",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Rack",
+          "text": "그물 선반",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Gender",
+          "text": "성별",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "EyesColor",
+          "text": "눈 색깔",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SkinColor",
+          "text": "피부색",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ExploreDungeons",
+          "text": "반 절차 던전을 탐험하고 진행하십시오.\n새로운 기술과 장비를 잠금 해제하십시오!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SelectArena",
+          "text": "아레나를 선택하고 싸우십시오 (VRcade 전용).",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "FightArena",
+          "text": "경기장에서 적의 파도와 싸워 기술을 훈련하고 향상 시키십시오.\n스포일러 경고 : 모든 무기와 능력이 잠금 해제됩니다!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ArenaMap",
+          "text": "아레나는 작은 지도로, 발견하기에 가장 적합합니다.\n블레이드 & 마법 기능!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SelectLevel",
+          "text": "레벨을 선택하십시오.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SelectGameMode",
+          "text": "게임 모드를 선택하십시오.\n(나중에 변경할 수 없습니다!)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Save",
+          "text": "구해내다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NA",
+          "text": "해당 없음",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Arcade",
+          "text": "아케이드",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Cancel",
+          "text": "취소",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Confirm",
+          "text": "확인하다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Play",
+          "text": "놀다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Delete",
+          "text": "삭제하다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Start",
+          "text": "시작하다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Metric",
+          "text": "메트릭",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "No",
+          "text": "아니요",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Yes",
+          "text": "예",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Ok",
+          "text": "확인",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "New",
+          "text": "새로운",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Select",
+          "text": "선택",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Edit",
+          "text": "편집",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Auto",
+          "text": "자동",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Height",
+          "text": "높이",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Trackers",
+          "text": "추적기",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Character",
+          "text": "캐릭터",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LevelSelection",
+          "text": "레벨 선택",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LevelMode",
+          "text": "레벨 모드",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NewCharacter",
+          "text": "새 캐릭터",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InfosAndOptions",
+          "text": "정보 및 옵션",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DeleteSave",
+          "text": "저장 삭제",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CharacterCustomization",
+          "text": "캐랙터\r\n커스터마이징",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CharacterSelection",
+          "text": "캐랙터\n선택",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PlayTutorial",
+          "text": "튜토리얼 재생",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "EarlyAccess",
+          "text": "조기 액세스",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "StartGame",
+          "text": "게임 시작",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HeightSetting",
+          "text": "플레이어 높이\n설정",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DeleteSaveConfirmation",
+          "text": "저장을 삭제하시겠습니까?",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PlayTutorialConfirmation",
+          "text": "튜토리얼을 플레이하시겠습니까?",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Available",
+          "text": "사용 가능",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Options",
+          "text": "옵션",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "General",
+          "text": "일반",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "UI",
+          "text": "UI",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Inputs",
+          "text": "입력",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "GoreBlood",
+          "text": "고어 / 블러드",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Graphics",
+          "text": "제도법",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PostProcess",
+          "text": "사후 프로세스",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Physics",
+          "text": "물리학",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Audio",
+          "text": "오디오",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SpawnRation",
+          "text": "스폰 비율",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Male",
+          "text": "남성",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Female",
+          "text": "여성",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Language",
+          "text": "언어",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MaxArmLengthBehaviour",
+          "text": "플레이어 무장 해제",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MaxArmLengthMultiplier",
+          "text": "최대 팔 길이 승수",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "OculusMRC",
+          "text": "오큘러스 MRC",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "QualityPreset",
+          "text": "품질 사전 설정",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ResetSettings",
+          "text": "설정 재설정",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TouchHighlighter",
+          "text": "터치 형광펜",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HudHighlighter",
+          "text": "허드 형광펜",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DistantHighlighter",
+          "text": "먼 거리 형광펜",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CursorRay",
+          "text": "커서 광선",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HealthVignette",
+          "text": "건강 비네트",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ComfortVignette",
+          "text": "컴포트 비네트",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ExternalView",
+          "text": "외부 보기",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LocomotionDirection",
+          "text": "로코모션 방향",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LocomotionController",
+          "text": "로코모션 컨트롤러",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TurnMode",
+          "text": "회전 모드",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TurnSpeed",
+          "text": "회전 속도",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TwoHandedHand",
+          "text": "양손",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Pointer",
+          "text": "포인터",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ThumbstickJump",
+          "text": "썸스틱 점프",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "StickCrouchMode",
+          "text": "스틱 크라우치 모드",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PressToMove",
+          "text": "키를 눌러 이동",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ThumbstickPressJump",
+          "text": "썸스틱 프레스 점프",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ThumbstickCrouchMode",
+          "text": "썸스틱 크라우치 모드",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CrouchOnJump",
+          "text": "점프 시 웅크리기",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TwoHandedMode",
+          "text": "양손 모드",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HoldGrip",
+          "text": "그립 잡기",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Handles",
+          "text": "핸들",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Telekinesis",
+          "text": "텔레키네시스",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Bodies",
+          "text": "시체",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BloodEffects",
+          "text": "혈액 효과",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ExperimentalWarning",
+          "text": "실험적(성능 문제를 일으킬 수 있음)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BloodOnCharacters",
+          "text": "캐릭터의 피",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BloodOnWeapons",
+          "text": "무기에 피",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "RenderScale",
+          "text": "렌더 배율",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "FoveationLevel",
+          "text": "육성 수준",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MSAA",
+          "text": "MSAA",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TextureQuality",
+          "text": "텍스처 품질",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "OceanQuality",
+          "text": "해양 품질",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Shadows",
+          "text": "그림자",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MaxEnvironmentalDecals",
+          "text": "최대 환경. 단순한 로고 부착",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Performance",
+          "text": "공연",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DroppedFrameCount",
+          "text": "프레임 수 감소\n%",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "GPULastFrameTime",
+          "text": "Gpu 시간 마지막 프레임 \n밀리세륨 %",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "FramesPerSecond",
+          "text": "초당 프레임 수\n%",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PostProcessing",
+          "text": "후처리",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Profile",
+          "text": "프로필",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Vibrance",
+          "text": "진동",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Contrast",
+          "text": "대조",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PostExposure",
+          "text": "노출 후",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Bloom",
+          "text": "피다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BloomIntensity",
+          "text": "블룸 강도",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "BloomThreshold",
+          "text": "블룸 임계값",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Sharpen",
+          "text": "갈다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "EyeAdaptation",
+          "text": "눈 적응",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MaxDeadBodies",
+          "text": "최대 시체",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MaxDroppedObjects",
+          "text": "최대 삭제된 개체",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CleanVisibleDead",
+          "text": "보이는 죽은 사람 청소",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PhysicQuality",
+          "text": "물리 품질",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MasterVolume",
+          "text": "마스터 볼륨",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "EffectVolume",
+          "text": "효과 볼륨",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "AmbientVolume",
+          "text": "주변 볼륨",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MusicVolume",
+          "text": "음악 볼륨",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "UIVolume",
+          "text": "UI 볼륨",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Cheats",
+          "text": "요령",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Debug",
+          "text": "디버그",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Skydome",
+          "text": "스카이돔",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Misc",
+          "text": "기타",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PlayerInvincibility",
+          "text": "플레이어 부재 가능성",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InfiniteMana",
+          "text": "무한 마나",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InfiniteFocus",
+          "text": "무한한 초점",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InfiniteImbue",
+          "text": "무한 임베드",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InfiniteArrows",
+          "text": "무한 화살표",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "FallDamage",
+          "text": "낙하 피해",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ArmorDetection",
+          "text": "갑옷 감지",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SlowingTime",
+          "text": "감속 시간",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SlowmotionScaleWarning",
+          "text": "경고 : 0.5보다 낮으면 몇 가지 물리 문제가 발생할 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CollisionMarkers",
+          "text": "충돌 마커",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReloadJSON",
+          "text": "json 다시로드",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "RoomCulling",
+          "text": "룸 컬링",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CullAdjacentRooms",
+          "text": "컬 인접한 객실",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "OcclusionCulling",
+          "text": "오클루전 컬링",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "OpaqueSortMode",
+          "text": "불투명 정렬 모드",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ColorGamut",
+          "text": "색영역",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LightmapsMode",
+          "text": "라이트맵 모드",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "FabricAndFoliage",
+          "text": "직물과 단풍",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReflectionProbes",
+          "text": "반사 프로브",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Lights",
+          "text": "조명",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Fog",
+          "text": "안개",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "AppSW",
+          "text": "앱 SW",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Timestep",
+          "text": "시간대",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Stars",
+          "text": "별",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Neutros",
+          "text": "중성구",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Clouds",
+          "text": "구름",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Aurora",
+          "text": "오로라",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Ring",
+          "text": "반지",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Jovian",
+          "text": "조비안",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SelfCollision",
+          "text": "자체 충돌",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "RotationMode",
+          "text": "회전 모드",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PositionSpringMultiplier",
+          "text": "위치 스프링 멀트.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "PositionDamperMultiplier",
+          "text": "위치 댐퍼 멀트.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "RotationSpringMultiplier",
+          "text": "회전 스프링 멀트.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "RotationDamperMultiplier",
+          "text": "회전 댐퍼 멀트.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MassMultiplier",
+          "text": "매스 멀트.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Notes",
+          "text": "노트",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ControllerInputs",
+          "text": "컨트롤러 입력",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DiscordLink",
+          "text": "디스코드 링크",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "RemoveHeadsetHint",
+          "text": "(그 후에 헤드셋을 제거하십시오!)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DefaultInputs",
+          "text": "입력(기본값)",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Left",
+          "text": "왼쪽",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Right",
+          "text": "오른쪽",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Trigger",
+          "text": "방아쇠",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Grip",
+          "text": "그립",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Thumbstick",
+          "text": "썸스틱",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Menu",
+          "text": "메뉴",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "UseFireSpell",
+          "text": "사용 / 화염 주문",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Move",
+          "text": "이동하다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "AltUse",
+          "text": "Alt. 사용 / 맞춤법 선택",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "JumpCrouch",
+          "text": "점프 / 크라우치",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "OpenMenu",
+          "text": "열기 메뉴",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "GrabOrDrop",
+          "text": "개체 잡기 또는 놓기",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TurnSides",
+          "text": "좌회전 및 우회전",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SlowMotion",
+          "text": "슬로우 모션",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Kick",
+          "text": "차기",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Screenshot",
+          "text": "스크린샷",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LockExternalView",
+          "text": "외부 보기",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Touchpad",
+          "text": "터치패드",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Jump",
+          "text": "뛰기",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintOrder",
+          "text": "* (1)을 누르고 (2)를 누릅니다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintKick",
+          "text": "*썸스틱을 누릅니다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintJumpAndCrouch",
+          "text": "* 점프 : 썸스틱을 위로 이동 (또는 누르기)\n* 웅크리기 : 썸스틱을 아래로 이동",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintExternalView",
+          "text": "*보기 옵션에서 먼저 활성화를 해야합니다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintPressTouchpadLeftRight",
+          "text": "* 터치 패드 왼쪽 / 오른쪽을 누르기",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintPressTouchpadUp",
+          "text": "* 터치 패드를 위로 누르기",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintPressTouchpadDown",
+          "text": "* 터치 패드를 아래로 누르기",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintPressTouchpadCenter",
+          "text": "* 터치 패드 중심 누르기",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintPressTouchpad",
+          "text": "* 터치 패드 누르기",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintPress",
+          "text": "*썸스틱을/ 터치패드를 누르기",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintThumbstickUp",
+          "text": "*썸스틱 위로",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintThumbstickDown",
+          "text": "*썸스틱 아래로",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HintPressThumbstick",
+          "text": "*썸스틱을 누릅니다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Button",
+          "text": "단추",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Fight",
+          "text": "싸움",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Return",
+          "text": "귀환",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Stop",
+          "text": "중지",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Player",
+          "text": "플레이어",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NPC",
+          "text": "N.P.C.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MaxAlive",
+          "text": "맥스 얼라이브",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Health",
+          "text": "건강",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "All",
+          "text": "모두",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Info",
+          "text": "정보",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Equip",
+          "text": "장비하다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Hold",
+          "text": "허가하지 않다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Drop",
+          "text": "허용하다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ElasticMan",
+          "text": "탄력있는 남자",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Enabled",
+          "text": "활성화됨",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Disabled",
+          "text": "비활성화됨",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Show",
+          "text": "보여주다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Hide",
+          "text": "감추다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LeftHand",
+          "text": "왼손",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "RightHand",
+          "text": "오른손",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Headset",
+          "text": "헤드셋",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Controller",
+          "text": "컨트롤러",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Position",
+          "text": "위치",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Dominant",
+          "text": "지배적인",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "AutoFront",
+          "text": "자동 전면",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "AutoRear",
+          "text": "자동 후면",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Snap",
+          "text": "꺾다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Smooth",
+          "text": "매끄러운",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Object",
+          "text": "객체",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Ragdoll",
+          "text": "래그돌",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Body",
+          "text": "신체",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "VeryLow",
+          "text": "매우 낮음",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Low",
+          "text": "낮다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Medium",
+          "text": "보통",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "High",
+          "text": "높다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "VeryHigh",
+          "text": "매우 높음",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Custom",
+          "text": "커스텀",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Soft",
+          "text": "부드러운",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Rigid",
+          "text": "딱딱한",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ScreenshotResolution",
+          "text": "스크린 샷 해상도",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Neutral",
+          "text": "중립의",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ACES",
+          "text": "에이스",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HighTop",
+          "text": "하이 탑",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "WaitConnection",
+          "text": "연결 대기",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Toggle",
+          "text": "토글",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HelpSummary",
+          "text": "도움말 요약",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Experience",
+          "text": "경험",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "FallOnly",
+          "text": "가을에만",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DamageOnly",
+          "text": "데미지만",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "AllExceptFall",
+          "text": "가을을 제외한 모든 것",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Directional",
+          "text": "방향성",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NonDirectional",
+          "text": "무방향성",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Unmanaged",
+          "text": "관리되지 않음",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ParticleSystems",
+          "text": "입자 시스템",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "FrontToBack",
+          "text": "앞면에서 뒤로",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NoDistanceSort",
+          "text": "거리 정렬 없음",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "RefreshRate",
+          "text": "재생 빈도",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Blades",
+          "text": "블레이드",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Axes",
+          "text": "도끼",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Spears",
+          "text": "스피어스",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Blunts",
+          "text": "둔기",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Bows",
+          "text": "활",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Staves",
+          "text": "지팡이",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Armor",
+          "text": "갑옷",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Potions",
+          "text": "물약",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Daggers",
+          "text": "단 검",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Swords",
+          "text": "칼",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Exotics",
+          "text": "이국적인",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Apparels",
+          "text": "의류",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Shields",
+          "text": "방패",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Recruit",
+          "text": "모집",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Gladiator",
+          "text": "검투사",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Bandit",
+          "text": "산적",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Knight",
+          "text": "나이트",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Mercenary",
+          "text": "용병",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Specials",
+          "text": "스페셜",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Weapons",
+          "text": "무기",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Consumables",
+          "text": "소모품",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Food",
+          "text": "음식",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Tools",
+          "text": "도구",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Utilities",
+          "text": "유용",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Clothes",
+          "text": "옷",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Leather",
+          "text": "가죽",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Plate",
+          "text": "판금 갑옷",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Mages",
+          "text": "마법사",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Warzone",
+          "text": "워존",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Loading",
+          "text": "로딩 중",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DeathMessage",
+          "text": "당신은 죽었습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NoSwimmingMessage",
+          "text": "당신은 수영을 할 수 없습니다. 깊은 물에 들어갈 때 조심하십시오.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SlowMotionVolume",
+          "text": "슬로우 모션 볼륨",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CleanVisibleDroppedItems",
+          "text": "눈에 보이는 항목 청소",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Difficulty",
+          "text": "난이도",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Length",
+          "text": "길이",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ExertionNoise",
+          "text": "운동 소음",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TriggerPress",
+          "text": "트리거 프레스",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SlideHand",
+          "text": "슬라이드 핸드",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "UseItem",
+          "text": "항목 사용",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DungeonSeed",
+          "text": "던전 씨앗",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "RoomName",
+          "text": "객실 이름",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Update",
+          "text": "업데이트",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SkipMessageHint",
+          "text": "건너뛰려면 트리거를 길게 누르세요",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Error",
+          "text": "오류",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Locked",
+          "text": "잠김",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "UnableToGrab",
+          "text": "잡을 수 없다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "AlreadyUsed",
+          "text": "이미 사용 된",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NotAllowed",
+          "text": "허용되지 않음",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NotAllowedHand",
+          "text": "이 손은 이 물건을 잡을 수 없습니다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SlotNotCompatible",
+          "text": "슬롯이 호환되지 않음",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Holster",
+          "text": "홀스터",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Grab",
+          "text": "붙잡다",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Ladder",
+          "text": "사다리",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Cinematic",
+          "text": "영화 같은",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Filmic",
+          "text": "영화",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HighContrast",
+          "text": "높은 대비",
+          "spriteAddress": null,
+          "videoAddress": null
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "Inputs",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NotSupportedControllers",
+          "text": "컨트롤러는 아직 지원되지 않습니다. 입력이 제대로 작동하지 않을 수 있습니다.",
+          "spriteAddress": "Bas.Sprite.Input.OculusTouch.Menu[InputMenuOculus]",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "OculusInputMoreInfo",
+          "text": "입력에 대한 자세한 내용을 보려면 Y를 눌러 메뉴를 열고 \\\"컨트롤러 입력\\\" 섹션으로 이동하십시오.",
+          "spriteAddress": "Bas.Sprite.Input.OculusTouch.Menu[InputMenuOculus]",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ViveInputMoreInfo",
+          "text": "입력에 대한 자세한 내용은 터치패드 중앙을 누른 상태에서 왼쪽 메뉴 버튼을 눌러 메뉴를 열고 \\\"컨트롤러 입력\\\" 섹션으로 이동하세요.",
+          "spriteAddress": "Bas.Sprite.Input.ViveWand.Menu[InputMenuViveWand]",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "WMRInputMoreInfo",
+          "text": "입력에 대한 자세한 내용을 보려면 왼쪽 메뉴 버튼을 눌러 메뉴를 열고 \\\"컨트롤러 입력\\\" 섹션으로 이동하세요.",
+          "spriteAddress": "Bas.Sprite.Input.WMR.Menu[InputMenuWMR]",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "IndexInputMoreInfo",
+          "text": "입력에 대한 자세한 내용을 보려면 B를 눌러 메뉴를 열고 \\\"컨트롤러 입력\\\" 섹션으로 이동하십시오.",
+          "spriteAddress": "Bas.Sprite.Input.Index.Menu[InputMenuIndex]",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CosmosInputMoreInfo",
+          "text": "입력에 대한 자세한 내용을 보려면 Y를 눌러 메뉴를 열고 \\\"컨트롤러 입력\\\" 섹션으로 이동하십시오.",
+          "spriteAddress": "Bas.Sprite.Input.Cosmos.Menu[InputMenuCosmos]",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "HMDNotDetected",
+          "text": "VR HMD가 감지되지 않았습니다!\n관중 모드만 사용할 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InputTypeUse",
+          "text": "사용",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InputTypeGrip",
+          "text": "그립",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InputTypeAlternateUse",
+          "text": "대체 사용",
+          "spriteAddress": null,
+          "videoAddress": null
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "Inventory",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryName",
+          "text": "목록",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Consumables",
+          "text": "소모품",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Valuables",
+          "text": "귀중품",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Unknown",
+          "text": "기타",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Tools",
+          "text": "도구",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NotAllowedToStoreHint",
+          "text": "%1을(를) 저장하는 것은 허용되지 않습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CategoryFullHint",
+          "text": "\"%1\" 범주가 가득 찼습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "StoreItemHint",
+          "text": "스토어 %1.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DumpAllContentHint",
+          "text": "모든 내용을 덤프합니다(대기).",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "DumpCategoryContentHint",
+          "text": "\"%1\" 내용을 덤프합니다(대기).",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionOffsetLR",
+          "text": "오른쪽/왼쪽",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionOffsetDU",
+          "text": "아래로/위로",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionOffsetBF",
+          "text": "뒤로/앞면",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionScale",
+          "text": "규모",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionSmokeOpacity",
+          "text": "연기 불투명도",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionAnchor",
+          "text": "닻",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionAnchorHead",
+          "text": "머리",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionAnchorChest",
+          "text": "가슴",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionAnchorHand",
+          "text": "손",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionNextInputType",
+          "text": "다음",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionPreviousInputType",
+          "text": "이전",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionSelectInputType",
+          "text": "선택",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionLayouts",
+          "text": "템플렛",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionLayoutChestCentered",
+          "text": "가슴 중심",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionLayoutHeadCentered",
+          "text": "머리 중심",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionLayoutInHand",
+          "text": "손에",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionLayoutHeadWithOffset",
+          "text": "오프셋이있는 머리",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionLayoutTiny",
+          "text": "매우 작은",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InventoryOptionEditCustomValues",
+          "text": "> 값 편집",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CloseInventoryHint",
+          "text": "재고 닫기",
+          "spriteAddress": null,
+          "videoAddress": null
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
+      "id": "Levels",
+      "texts": [
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Arena",
+          "text": "투기장",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ArenaDescription",
+          "text": "아레나는 검투사들이 전투를 벌이는 작은 원형 극장입니다.\n새로운 플레이어가 기술을 연마하거나 1v1로 싸울 수 있는 훌륭한 지도입니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Canyon",
+          "text": "협곡",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CanyonDescription",
+          "text": "흐르는 강 위에 숨겨진 사찰 마을.\n협곡에는 양쪽을 연결하는 많은 로프와 다리가 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Citadel",
+          "text": "요새",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CitadelDescription",
+          "text": "험준한 산중턱 꼭대기에 자리 잡은 성채는 인상적인 구조물입니다.\n긴 산책로와 수직성은이 큰지도에서 많은 등반 기회를 창출합니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Outpost",
+          "text": "전초",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "OutpostDescription",
+          "text": "던전: 얼리 액세스\n전초 기지에서 첫 번째 던전 모험을 시작하십시오. 폐허가 된 성 같은 석조 구조물과 동굴 시스템이 특징입니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Market",
+          "text": "시장",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MarketDescription",
+          "text": "중세 마을의 중심에있는 시장.\n환경 물체를 던질 수있는 많은 기회가있는 크고 개방적인지도.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Ruins",
+          "text": "유적",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "RuinsDescription",
+          "text": "유적은 이제 잃어버린 문명의 잔재에 지나지 않습니다.\n두 층은이 중간 크기지도에 약간의 수직성을 제공합니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BaronHat",
+      "name": "남작의 모자",
+      "description": "이것은 당신에게 속하지 않습니다!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Chair",
+      "name": "의자",
+      "description": "설명 없음"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Rope",
+      "name": "밧줄",
+      "description": "설명 없음"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Drawer",
+      "name": "서랍",
+      "description": "설명 없음"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Jar",
+      "name": "독",
+      "description": "설명 없음"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Jug",
+      "name": "주전자",
+      "description": "설명 없음"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Mug",
+      "name": "찻잔",
+      "description": "설명 없음"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Pillow",
+      "name": "베개",
+      "description": "설명 없음"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Plate",
+      "name": "접시",
+      "description": "설명 없음"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "PotionHealth",
+      "name": "건강 물약",
+      "description": "고대 연금술사들이 처음으로 만든 이 마법의 비약은 기적적으로 상처를 봉인하고 건강을 회복시킵니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Cork",
+      "name": "코르크",
+      "description": "설명 없음"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Bow",
+      "name": "활",
+      "description": "고대부터 전투의 필수품이었던 활은 치명적이고 효과적인 장거리 무기입니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Warbow",
+      "name": "워보우",
+      "description": "스턴과 스테디, 워보우는 고도로 훈련되고 숙련 된 궁수들이 멀리서 적을 방어하기 위해 일반적으로 사용됩니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Arrow",
+      "name": "화살",
+      "description": "일반적으로 지느러미가 고정된 긴 축과 뾰족한 끝으로 구성된 화살은 활과 함께 사용되는 관통 발사체입니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ArrowPiercing",
+      "name": "꿰뚫는 화살",
+      "description": "체인메일을 뚫을 수 있을 만큼 강력한 무기로, 가장 강인한 상대도 꿰뚫을 수 있는 날카로운 끝이 있습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Quiver",
+      "name": "떨림",
+      "description": "종종 가죽, 나무 또는 모피로 만들어진 화살통은 화살 다발을 담을 수 있습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BucklerMetal",
+      "name": "아머드 버클러",
+      "description": "버클러의 작은 크기와 기동성은 가벼운 블레이드를 다룰 때 가치가 있습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BucklerRound",
+      "name": "라운드 버클러",
+      "description": "조금 오래됐지만 이 버클러가 당신의 생명을 구할 수 있습니다... 그럴 수도 있습니다!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ShieldKite",
+      "name": "연 방패",
+      "description": "연 방패는 화살과 큰 칼날로부터 최대한의 보호 기능을 제공하며 무게는 강타에 사용할 수 있습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ShieldRound",
+      "name": "라운드 쉴드",
+      "description": "휴대할 수 있을 만큼 작지만 화살을 튕겨낼 수 있을 만큼 큰 나무 방패는 전방위적인 방어를 제공합니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AxeLongLumberaxe",
+      "name": "오래된 목재 도끼",
+      "description": "이 오래되고 녹슨 도구는 나무를 베기 위해 설계되었지만 그럼에도 불구하고 위험한 해킹 무기가 되었습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AxeShortCommon",
+      "name": "도끼",
+      "description": "사용자의 힘을 이용하여 도끼는 효과적인 잔인한 해킹 및 베기 무기입니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AxeShortHatchet",
+      "name": "자귀",
+      "description": "던지기 및 근거리 전투에서 효과적으로 사용되는 이 도끼는 매우 마모된 것 같습니다. 베고 베는 데는 여전히 감정적이지만 매우 골동품입니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AxeShortHorseman",
+      "name": "데시메이터",
+      "description": "던전 자체에 숨겨진 골렘을 죽이려고 시도한 기사단을 위해 위조되었습니다. 그가 성공할 수도 있었을 수도 있지만, 당신이이 무기를 가지고 있다고 결정하면, 그는 그렇지 않은 것으로 추정됩니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AxeShortWar",
+      "name": "전쟁 도끼",
+      "description": "놀라운 상태에서 이 치명적인 가셔는 버터처럼 적을 자르고 깍둑썰기할 수 있으며 매우 세련되게 보입니다! 이것을 사용하는 사람은 도구를 잘 관리했을 것입니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AxeLongNorthern",
+      "name": "북부 도끼",
+      "description": "상대적으로 가벼운 도끼 헤드는 적을 폴암 길이로 유지하면서 파괴적인 절단 능력을 제공합니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AxeLongBardiche",
+      "name": "바르디체",
+      "description": "데인 도끼의 후예인 바르디쉬의 클리버 스타일 블레이드는 해킹과 베기에 적합합니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AxeLongHalberd",
+      "name": "킹슬레이어 할버드",
+      "description": "킹스와 왕실 경비병이 모두 사용하는이 무기는 타격, 절단, 구멍을 뚫을 수 있으며 모든 각도에서 수행 할 수 있습니다. 땅은 왕국을 정복하기 위해 그것을 사용했던 왕들처럼 모든 각도에서 공격합니다!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AxeLongWar",
+      "name": "전쟁 도끼",
+      "description": "적을 막는 전쟁 도끼. 사용되었지만 여전히 유능한 이 도끼는 원거리 강타가 가능하지만 적이 똑똑하다면 그다지 좋지 않습니다..."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AxeShortCleaver",
+      "name": "녹슨 클리버",
+      "description": "무기라기 보다는 녹슨 낡은 정육점 칼에 가깝습니다. 지금은 언제든지 깨질 수있는 것처럼 보입니다 ..."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "DaggerAntic",
+      "name": "앤틱 나이프",
+      "description": "오래되고 낡았지만 여전히 효과적인 찌르기. 이 단검 암살과 목을 자르는 역사를 보았습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "DaggerCommon",
+      "name": "일반적인 단검",
+      "description": "도적들이 좋아하는 단검의 날카로운 끝은 주로 찌르고 밀어내는 무기입니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "DaggerFine",
+      "name": "파인 단검",
+      "description": "이 단검은 매끄러운 표면을 가지고 있지만 날카로운 칼날을 가지고 있어 사용하는 동안 보살핌을 받았다는 것을 증명합니다. 희생자의 목을 베거나 장기에 압력을 가합니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "DaggerPierce",
+      "name": "왕자의 칙령",
+      "description": "그의 형제에 의해 배신당한 왕자에 의해 사용되는이 스틸레토는 왕실의 인물을 보호하기위한 목적으로 매우 재능있는 대장장이가 독특하게 위조했습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpearBoar",
+      "name": "멧돼지 창",
+      "description": "창구멍 날개는 이 창이 육체를 너무 깊게 관통하는것을 막아 창이 부러지거나 걸리는 것을 방지합니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "DualBladeStaff",
+      "name": "듀얼 블레이드 스태프",
+      "description": "이 독특한 무기는 한 손과 두 손으로 휘두를 수 있으며 두 개의 날이 있는 끝이 최대 위협이 됩니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MaceLongBecDeCorbin",
+      "name": "벡 드 코빈(망치 달린 긴 창)",
+      "description": "이 독특한 무기는 한 손과 두 손으로 휘두를 수 있으며 두 개의 날이 있는 끝이 최대 위협이 됩니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MaceLongClub",
+      "name": "우든 클럽",
+      "description": "중세 전투보다 원시인에게 더 유용..."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MaceLongMallet",
+      "name": "망치",
+      "description": "강력한 공격과 접지 스파이크에 적합합니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "StaffShaman",
+      "name": "주술사 지팡이",
+      "description": "한때 대장간 기술을 보유한 재능 있는 모험가가 제작했습니다. 그 이후로 모험가는 한 번도 모습을 드러내지 않았습니다. 이것이 그가 남긴 유일한 무기였습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "StaffDruid",
+      "name": "드루이드 지팡이",
+      "description": "드루이드가 주로 사용하는 이 나무 지팡이의 복잡하고 우아한 디자인은 장착된 수정의 위력을 향상시킵니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Rapier",
+      "name": "쌍날칼",
+      "description": "길고 가느다란 칼날과 면도칼 끝이 뾰족한 쌍날칼은 추력과 찌르기에 최적화돼 있습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordShortAntic",
+      "name": "골동품 검",
+      "description": "방패와 함께 최적으로 사용되는 이 무기는 길이가 짧고 끝이 가늘기 때문에 찌르기에 이상적입니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordShortCommon",
+      "name": "단검",
+      "description": "이상적인 찌르기 무기인 뾰족한 끝은 효과적인 찌르기를 허용하는 반면 크로스 가드 디자인은 어느 정도 보호 기능을 제공합니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordShortLarge",
+      "name": "승마 검",
+      "description": "이 우아한 무기는 좋은 칼에 필요한 폭을 포기하지 않고 효과적으로 찌르기 위해 끝이 가늘어졌습니다"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordLongReverend",
+      "name": "목사의 검",
+      "description": "부서지고 녹슨 이 칼은 여전히 베고 찌르는데 효과적인 무기입니다"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordLongCommon",
+      "name": "장검",
+      "description": "긴 그립과 십자형 자루가 특징인 장검은 치명적이고 다용도의 무기입니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordLongReinforced",
+      "name": "전쟁검",
+      "description": "장검의 더 길고 무거운 변형이지만 대검보다 짧습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ViennoiseSword",
+      "name": "라바게트",
+      "description": "전설에 나오는 빵 만드는 사람의 오븐에서 만들어졌고 \"KospY\"라고만 알려져 있습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "WristBlade",
+      "name": "손목 칼날",
+      "description": "독특하고 이국적인 무기인 손목 칼날은 무엇보다도 신중함과 은닉을 중시하는 사람들이 선호합니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Torch",
+      "name": "토치",
+      "description": "역사를 통틀어 광원으로 사용된 횃불은 한쪽 끝에 점화된 가연성 물질이 있는 막대기입니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MaceShortBlacksmith",
+      "name": "대장장이 망치",
+      "description": "대장장이가 금속을 형성하기 위해 사용하기위한 중금속은 여전히 뼈를 부수는데 사용될 수 있습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MaceShortCommon",
+      "name": "트렌치 메이스",
+      "description": "조잡하지만 효과적인, 메이스는 기절하고 상대를 때리고, 싸움에서 그들을 노크하는 데 사용할 수 있습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MaceFlanged",
+      "name": "플랜지 메이스",
+      "description": "플랜지 헤드는이 무기를 움푹 들어간 갑옷에 더 적합하게 만듭니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MaceLongMaul",
+      "name": "큰 나무망치",
+      "description": "그것의 무게와 크기로, 큰 나무망치는 갑옷과 뼈를 똑같이 부술 수 있습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MaceLongWarmace",
+      "name": "플랜지 워머",
+      "description": "플랜지 헤드는이 무기를 장갑 표적을 때리고 적을 분쇄하는 데 특히 효과적입니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MaceShortNailclub",
+      "name": "대장장이 망치",
+      "description": "세 개의 금속, 스파이크 링이있는 나무 클럽, 이것은 상처를 입을 수밖에 없습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MaceShortWarhammer",
+      "name": "배틀마스터 워해머",
+      "description": "두들겨 패는 성질이 치명적인 이 무기는 배틀마스터가 전투에서 죽기 전에 얻은 적이 있습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpearArrowhead",
+      "name": "화살촉 창",
+      "description": "장거리 찌르기에 적합합니다. 검을 휘두르는 전사는 기회가 없습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpearBladed",
+      "name": "크로스가드 자객",
+      "description": "무시무시한 최전방 전사들이 전투에 나서기 위해 사용하는 이 독특한 창은 칼날이 달려 있어 효과적으로 자를 수 있습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpearHayfork",
+      "name": "건초용 쇠스랑",
+      "description": "말그대로 건초용 쇠스랑입니다.끝이 뾰족하지만 건초용 쇠스랑일뿐이죠."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpearJavelin",
+      "name": "창",
+      "description": "정확한 자세만 가지고 있다면 던지기는 정확할것이다"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "StaffMaster",
+      "name": "사부의 지팡이",
+      "description": "왕국의 수호를 돕기 위해 수많은 전투에서 사용되었으며, 한때 악에 대항하는 순수한 힘의 무기로 사용되었습니다. 그 이후로 사부님이 연약하시니 당신이 사용하는게 더 좋은 것 같아요."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "StaffScholar",
+      "name": "학자의 지팡이",
+      "description": "세 개의 금속, 스파이크 링이있는 나무 클럽, 이것은 상처를 입을 수밖에 없습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "StaffWizard",
+      "name": "마법사의 지팡이",
+      "description": "신비한 마법사가 사용하는 이 지팡이는 곤경에 처했을 때 휘두를 수 있는 강력한 힘을 가지고 있습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordGreatAntique",
+      "name": "골동품 대검",
+      "description": "이 거대한 검을 휘두르면 전 주인의 함성이 울려 퍼집니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordGreatClaymore",
+      "name": "도검(약간 긴 양손검)",
+      "description": "긴 칼날과 독특한 십자 자루 스타일로, 무거운 도검은 두 손으로 휘두르도록 설계되었습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordGreatCommon",
+      "name": "대검",
+      "description": "한 손으로 휘두르기에는 너무 무거우며, 큰 칼날을 손잡이에 장착하여 쉽게 휘두를 수 있습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordGreatExecution",
+      "name": "사형 집행 검",
+      "description": "비록 녹슬고 망가졌지만, 이 거대한 칼날은 심지어 주인의 과거도 보았습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordGreatfFine",
+      "name": "멋있는 대검 ",
+      "description": "정교하게 제작된 이 장인 정신의 작품은 상당히 균형 잡힌 무게로 잘 처리되고 잘 잘립니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordGreatZweihander",
+      "name": "군주국의 복수",
+      "description": "\"...대군주가 두 팔을 들고 초현실적인 무기를 손으로 휘두르자 공기 자체가 반으로 쪼개지는 것 같았다.\""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordLongRefined",
+      "name": "킹가드",
+      "description": "왕좌의 수호자, 왕의 수호자, 배신자의 학살자"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordLongWarbrand",
+      "name": "워브랜드(긴 양손검)",
+      "description": "예전엔 무기였나... 도살용 칼이라곤 분간하기 어렵네요. 하지만 몇 가지 용도가 남아 있을 수 있습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordShortBastard",
+      "name": "사생아의 보복",
+      "description": "그 사생아가 자신의 친척을 등지고 서서, 기형적인 몸에 상처를 내고 있는 동안, 그들은 그의 칼날이 땅에 부딪히는 것을 지켜보았습니다"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordShortSeax",
+      "name": "단검",
+      "description": "이건 일종의 무기였는데..."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordTrustNeedle",
+      "name": "바늘",
+      "description": "이 칼은 찌르기와 뚫기에 적합하게 만들어졌으며 경갑옷에 치명적입니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordTrustPoker",
+      "name": "포커",
+      "description": "잘 했어요...그렇게 해야 합니다!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ThrowablesDagger",
+      "name": "단검 던지기",
+      "description": "작은 칼날은 날렵하고 작아서 눈에 띄지 않지만 치명적인 투척 무기입니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ThrowablesRock",
+      "name": "바위",
+      "description": "원시적인 전투 방법보다 더 좋은 것은 없습니다:바위"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "DaggerQuiver",
+      "name": "투척용 단검집",
+      "description": "투척용 단검 한 묶음이 들어 있는 작은 주머니."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "QuiverLarge",
+      "name": "큰 화살통",
+      "description": "설명 없음"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "QuiverSmall",
+      "name": "작은 화살통",
+      "description": "설명 없음"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BoatOar",
+      "name": "노",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Book",
+      "name": "책",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Bowl",
+      "name": "그릇",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Pot",
+      "name": "냄비",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Cup",
+      "name": "컵",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SkeletonBone",
+      "name": "뼈",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SkeletonJaw",
+      "name": "턱뼈",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SkeletonSkull",
+      "name": "해골 두개골",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SkeletonSkullWithJaw",
+      "name": "해골 두개골",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "WoodLog",
+      "name": "목재 통나무",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "WrappedFabric",
+      "name": "포장된 직물",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BanditBoots",
+      "name": "산적 부츠",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BanditGloveLeft",
+      "name": "산적 장갑 왼쪽",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BanditGloveRight",
+      "name": "산적 장갑 오른쪽",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BanditHelmet",
+      "name": "산적 헬멧",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BanditChest",
+      "name": "잔적 가슴",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BanditPants",
+      "name": "산적 바지",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BattlemageBoots",
+      "name": "전투마법사 부츠",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BattlemageCloak",
+      "name": "전투마법사 후드",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BattlemageGloveLeft",
+      "name": "전투마법사 장갑 왼쪽",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BattlemageGloveRight",
+      "name": "전투마법사 장갑 오른쪽",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BattlemageJacket",
+      "name": "전투마법사 가슴",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BattlemagePants",
+      "name": "전투마법사 바지",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "CivilianBoots",
+      "name": "민간인 부츠",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "CivilianChest",
+      "name": "민간인 가슴",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "CivilianHandLeft",
+      "name": "민간인 팔찌 왼쪽",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "CivilianHandRight",
+      "name": "민간인 팔찌 오른쪽",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "CivilianLegs",
+      "name": "민간인 바지",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "GladiatorBoots",
+      "name": "검투사 샌들",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "GladiatorGloveLeft",
+      "name": "검투사 장갑 왼쪽",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "GladiatorsGloveRight",
+      "name": "검투사 장갑 오른쪽",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "GladiatorHeadband",
+      "name": "검투사 머리띠",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "GladiatorChest",
+      "name": "검투사 가슴",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "GladiatorShoulder",
+      "name": "검투사 어깨",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MercenaryBoots",
+      "name": "용병 부츠",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MercenaryGloveLeft",
+      "name": "용병 장갑 왼족",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MercenaryGloveRight",
+      "name": "용병 장갑 오른족",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MercenaryGloveSpikedLeft",
+      "name": "용병 장갑 왼쪽(못 박힌)",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MercenaryHeadband",
+      "name": "용병 머리띠",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MercenaryJacket",
+      "name": "용병 자켓",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MercenaryPants",
+      "name": "용병 갑옷",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MercenaryShoulderLeft",
+      "name": "용병 어깨 왼쪽",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MercenaryShoulderRight",
+      "name": "용병 어깨 오른쪽",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "MercenaryShoulderSet",
+      "name": "용병 어깨 세트",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "RuggedTrousers",
+      "name": "견고한 바지",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Shirt01",
+      "name": "견고한 셔츠 1",
+      "description": "추위로부터 피부를 보호하기 위해 입는 단순한 셔츠"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Shirt02",
+      "name": "견고한 셔츠 2",
+      "description": "추위로부터 피부를 보호하기 위해 입는 단순한 셔츠"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Shirt03",
+      "name": "견고한 셔츠 3",
+      "description": "추위로부터 피부를 보호하기 위해 입는 단순한 셔츠"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Shirt04",
+      "name": "견고한 셔츠 4",
+      "description": "추위로부터 피부를 보호하기 위해 입는 단순한 셔츠"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SoldierBoots",
+      "name": "군인 부츠",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SoldierGloveLeft",
+      "name": "군인 보호장갑 왼쪽",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SoldierGloveRight",
+      "name": "군인 보호장갑 오른쪽",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SoldierHelmet",
+      "name": "군인 헬멧",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SoldierChest",
+      "name": "군인 가슴",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SoldierGreaves",
+      "name": "군인 갑옷",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SoldierShoulderLeft",
+      "name": "군인 어깨 왼쪽",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SoldierShoulderRight",
+      "name": "군인 어깨 오른쪽",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SoldierShoulderSet",
+      "name": "군인 어깨 세트",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "WornSandals",
+      "name": "샌들 착용",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SantaHat",
+      "name": "산타 모자",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ArrowOld",
+      "name": "오래된 화살",
+      "description": "남은 금속으로 만든 화살, 이 화살은 오래되고 반동적이긴 하지만 여전히 좋고 저렴한 원거리 공격을 증명할 수 있습니다"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "OldBow",
+      "name": "오래된 활",
+      "description": "오래 전에 많이 사용되고 제작된 이 활은 여전히 쓸모있지만 매우 낡았습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "DaggerSkinning",
+      "name": "가죽벗기는 칼",
+      "description": "수명이 다 된 모양이군...적어도 녹은 톱니 모양의 가장자리를 만들어주는데, 동물의 가죽을 벗기기에 적합합니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordGreatGreat",
+      "name": "대검",
+      "description": "한 손으로 휘두르기에는 너무 무거우며, 큰 칼날을 손잡이에 장착하여 쉽게 휘두를 수 있습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SwordOldieFalchion",
+      "name": "언월도",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Chalice",
+      "name": "성배",
+      "description": "부자들이 들고 가난한 사람들이 채우는 왕실 주조 컵입니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "CopperCoin",
+      "name": "구리 동전",
+      "description": "가난한 사람들에게 자선을 베푸는 부자에게 기부되는 작은 페니 가치"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "GoldCoin",
+      "name": "금화",
+      "description": "금빛 광택이 나는 둥근 금속 조각으로 가게에서 금 한 개 값이 나갑니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Pendant",
+      "name": "목걸이 보석",
+      "description": "신자들이 들고 있는 작은 목걸이 보석입니다. 가게에서 적당한 가격에 판매합니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Relic",
+      "name": "유물",
+      "description": "장식용으로 만들어진 황금 장신구입니다. 가게에서 적당한 가격에 판매합니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Statuette",
+      "name": "조상",
+      "description": "강력한 전사의 작은 동상.\n가게에서 약간의 금화가치가 있습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "CrystalDead",
+      "name": "죽음의 수정구슬",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "CrystalFire",
+      "name": "불 수정구슬",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "CrystalGravity",
+      "name": "중력 수정구슬",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "CrystalLightning",
+      "name": "번개 수정구슬",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Apple",
+      "name": "사과",
+      "description": "나무에서 익어서 먹을 준비가 되었습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AppleBurnt",
+      "name": "태운 사과 속",
+      "description": "딱딱하고 질기고 너무 타서 먹지 못하겠습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AppleCooked",
+      "name": "익힌 사과 속",
+      "description": "속까지 완벽하게 익었어요!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AppleCore",
+      "name": "사과 속",
+      "description": "나무에서 익어서 먹을 준비가 되었습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AppleCoreBurnt",
+      "name": "태운 사과 속",
+      "description": "딱딱하고 질기고 너무 타서 먹지 못하겠습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "AppleCoreCooked",
+      "name": "익힌 사과 속",
+      "description": "속까지 완벽하게 익었어요!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ZiplineWheel01",
+      "name": "지퍼 라인 휠",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ToolFork",
+      "name": "긁어 올리다",
+      "description": "긁어모으기 및 삽질을 위한 훌륭한 도구입니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ToolRake",
+      "name": "갈퀴",
+      "description": "나뭇잎을 긁어 모으기 위해 고안된 도구입니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ToolSickle",
+      "name": "낫",
+      "description": "초목을 쓸고 자르기 위해 설계된 도구입니다!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Hook",
+      "name": "갈고리",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Lantern",
+      "name": "등실",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Lever",
+      "name": "지렛대",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "DoorHome",
+      "name": "나무 문",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ArcheryTarget",
+      "name": "양궁 타겟",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ArcheryTargetSupport",
+      "name": "양궁 표적 지원",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BarrelRing",
+      "name": "배럴 링",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BarrelTop",
+      "name": "배럴 탑",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Bench",
+      "name": "벤치",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BrokenBench",
+      "name": "부러진 벤치",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Board",
+      "name": "판자",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BrokenBoard",
+      "name": "깨진 보드",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Branch",
+      "name": "나뭇가지",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Bucket",
+      "name": "버킷",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Cart",
+      "name": "카트",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Crate",
+      "name": "나무 상자",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Lectern",
+      "name": "강단",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ContainerCover",
+      "name": "컨테이너 커버",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SharpeningWheel",
+      "name": "숫돌",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Stone",
+      "name": "결석",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Stool",
+      "name": "발판",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Table",
+      "name": "테이블",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Basket",
+      "name": "바구니",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BasketTop",
+      "name": "바구니 상단",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Workbench",
+      "name": "작업대",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Barrel",
+      "name": "통",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Brick",
+      "name": "벽돌",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "Chicken",
+      "name": "닭",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "ChickenEgg",
+      "name": "닭고기 달걀",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "BirdEgg",
+      "name": "새알",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SeagullEgg",
+      "name": "갈매기 알",
+      "description": ""
+    }
+  ],
+  "waves": [
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "ArcherTest",
+      "title": "사수",
+      "description": "-"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Bandit1",
+      "title": "쉬움",
+      "description": "근거리 적만 포함되지만 도적들의 요새를 물리칠수 있습니까?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Bandit1v1",
+      "title": "도둑",
+      "description": "이것은 그들을 위한 팀 노력이 아닌것 같습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Bandit1v1Melee",
+      "title": "도둑 근접 전용",
+      "description": "설명 없음"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Bandit2",
+      "title": "보통",
+      "description": "도둑들이 더 많이 도전하고 있습니다. 마법사와 갱단들과 싸우십시오!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Bandit3",
+      "title": "힘듬",
+      "description": "더 많은 도둑들이 있고, 훨씬 더 도전적입니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "BanditEndless",
+      "title": "무한",
+      "description": "도적떼가 끝없이 몰려옵니다.당신은 자기의 땅을 되찾을수 있습니까?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "BanditEndlessMeleeOnly",
+      "title": "무한(근접전에만 해당)",
+      "description": "도적떼가 끝없이 몰려옵니다.당신은 자기의 땅을 되찾을수 있습니까?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "BanditEndlessMeleeOnlyRelentless",
+      "title": "잔인한(근접전에만 해당)",
+      "description": "도적들은 이제 지긋지긋 해! 그들은 당신에게 달려들것입니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "BanditEndlessRelentless",
+      "title": "잔인한",
+      "description": "도적들은 이제 지긋지긋 해! 그들은 당신에게 달려들것입니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "BanditSurvive",
+      "title": "살아남기",
+      "description": "한꺼번에 8명의 도적과 싸우다니? 땅을 되찾으세요!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "BanditTest",
+      "title": "가죽",
+      "description": "-"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "BanditTestINV",
+      "title": "무적의 가죽",
+      "description": "-"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "BowTest",
+      "title": "활",
+      "description": "-"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "CircleOfDeathSpecial",
+      "title": "죽음의 원",
+      "description": "적들이 당신을 에워싸고 있지만 , 당신을 한꺼번에 공격할 배짱은 없습니다. 적들은 차례로 공격하는것이 낫다고 생각하는군요...(무한)"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "DungeonChapel",
+      "title": "웨이브 예배당",
+      "description": "예배당에서 발견 된후 실행되는 웨이브"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "DungeonLibrary",
+      "title": "웨이브 도서관",
+      "description": "도서관 방에서 감지된 후 트리거되는 웨이브"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "DungeonStd01",
+      "title": "웨이브 표준 01",
+      "description": "Std Room에서 발견된 후 실행되는 웨이브. 시작/종료 시 사운드 경고가 없습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "DungeonStd02",
+      "title": "웨이브 표준 02",
+      "description": "Std Room에서 발견된 후 실행되는 웨이브. 시작/종료 시 사운드 경고가 없습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "EndOutpost",
+      "title": "웨이브 전초기지",
+      "description": "전초기지 방에서 발견 된 후 실행되는 웨이브 "
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Gladiator1",
+      "title": "쉬움",
+      "description": "피를 즐기는 무자비한 적들과 싸웁니다. "
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Gladiator1v1",
+      "title": "검투사",
+      "description": "마치 콜로세움처럼"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Gladiator1v1Melee",
+      "title": "검투사 근접 전용",
+      "description": "마치 콜로세움처럼"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Gladiator2",
+      "title": "보통",
+      "description": "검투사들은 당신의 힘을 간파하고 더 강한 압박을 가하고 있습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Gladiator3",
+      "title": "힘듬",
+      "description": "검투사들은 모두 피흘리는것을 두려워하지 않는데 당신은 자신을 방어할수 있습니까?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "GladiatorEndless",
+      "title": "무한",
+      "description": "끝없는 검투사들의 군대...당신은 이길수 있습니까?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "GladiatorEndlessMeleeOnly",
+      "title": "무한(근접전에만 해당)",
+      "description": "끝없는 검투사들의 군대...당신은 이길수 있습니까?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "GladiatorEndlessMeleeOnlyRelentless",
+      "title": "잔인한(근접전에만 해당)",
+      "description": "그들이 계속 공격하고 있습니다! 피에 굶주린 검투사들을 방어하십시오!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "GladiatorEndlessRelentless",
+      "title": "잔인한",
+      "description": "그들이 계속 공격하고 있습니다! 피에 굶주린 검투사들을 방어하십시오!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "GladiatorSurvive",
+      "title": "살아남기",
+      "description": "계속 오고 있어요! 한 번에 8명의 검투사와 싸우십시오!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "GladiatorTest",
+      "title": "기본",
+      "description": "-"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "GladiatorTestINV",
+      "title": "천하무적",
+      "description": "-"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "ImprovisedEndless",
+      "title": "무한대로 있음",
+      "description": "-"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Knight1",
+      "title": "쉬움",
+      "description": "당신의 머리에 현상금이 걸려있는데 기사들과 싸울수 있습니까? "
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Knight1v1",
+      "title": "기사",
+      "description": "기사와 가벼운 싸움"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Knight1v1Melee",
+      "title": "기사 근접전만",
+      "description": "기사와 가벼운 싸움"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Knight2",
+      "title": "보통",
+      "description": "기사들이 더 많은 공격을 퍼붓고 있으니 명예를 위해 싸워라!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Knight3",
+      "title": "힘듬",
+      "description": "그들은 당신을 큰 위협으로 봅니다! 다 가져가세요."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "KnightEndless",
+      "title": "무한",
+      "description": "끝없는 기사단에 맞서 도시를 점령 할수 있습니까?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "KnightEndlessMeleeOnly",
+      "title": "무한(근접전에만 해당)",
+      "description": "끝없는 기사단에 맞서 도시를 점령 할수 있습니까?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "KnightEndlessMeleeOnlyRelentless",
+      "title": "잔인한(근접전에만 해당)",
+      "description": "기사단이 당신을 찍었어요! 그들을 방어할수 있을까요?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "KnightEndlessRelentless",
+      "title": "잔인한",
+      "description": "기사단이 당신을 찍었어요! 그들을 방어할수 있을까요?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "KnightSurvive",
+      "title": "살아남기",
+      "description": "한번에 8명의 기사와 상대할수 있습니까?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Mage1v1",
+      "title": "마법사",
+      "description": "마법사들과의 전투!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "MagesEndless",
+      "title": "끝없는 마법사",
+      "description": "불덩어리를 피할수 있습니까?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Mercenary1",
+      "title": "쉬움",
+      "description": "난투극의 적만 있을뿐인데, 당신은 고용된 깡패들을 상대로 살아남을수 있을까요?"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Mercenary1v1",
+      "title": "용병",
+      "description": "이것은 팀워크가 아니라, 피를 흘리기 위해 나선것입니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Mercenary1v1Melee",
+      "title": "용병 근접전만",
+      "description": "이것은 팀워크가 아니라, 피를 흘리기 위해 나선것입니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Mercenary2",
+      "title": "보통",
+      "description": "당신은 지금 전문 원거리 용병에 의해 쫓기고 있습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Mercenary3",
+      "title": "힘듬",
+      "description": "자네 머리에 엄청난  현상금이 걸린 모양이군! 모두 널 쫓고있어!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "MercenaryEndless",
+      "title": "무한",
+      "description": "당신은 정말로 누군가를 열받게 했습니다. 당신을 상대로 무제한의 용병을 고용했습니다!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "MercenaryEndlessMeleeOnly",
+      "title": "무한(근접전에만 해당)",
+      "description": "당신은 정말로 누군가를 열받게 했습니다. 당신을 상대로 무제한의 용병을 고용했습니다!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "MercenaryEndlessMeleeOnlyRelentless",
+      "title": "잔인한(근접전에만 해당)",
+      "description": "용병...그들은 막을수 없었다.\n그들을 끝장내버려라!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "MercenaryEndlessRelentless",
+      "title": "잔인한",
+      "description": "용병...그들은 막을수 없었다.\n그들을 끝장내버려라!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "MercenarySurvive",
+      "title": "살아남기",
+      "description": "한번에 8명의 용병을 상대하여 생존하십시오! 당신은 꽤 가치가 있어요!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Mixed1v1",
+      "title": "혼합",
+      "description": "아레나의 도전"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Mixed1v1Melee",
+      "title": "혼합 근접전",
+      "description": "도전이지만 공정한 경기!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "MixedMeleeSpecial",
+      "title": "3단 전투!혼전",
+      "description": "혼성 장갑의 적들과 끝없는 싸움을 하십시오. 근접전만!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "MixedSpecial",
+      "title": "3단 전투!",
+      "description": "혼성 장갑의 적들과 끝없는 싸움을 하십시오!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "OneGuy",
+      "title": "훈련",
+      "description": "오직 한명의 적"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Progressive1v1",
+      "title": "점진적 1:1",
+      "description": "1:1로 싸우면 점점 더 힘들어질것입니다!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Recruit1",
+      "title": "훈련",
+      "description": "한번에 한명의 적을 상대하여 전반적인 역활을 배우고 자신만의 독특한 플레이 스타일을 배울수 있습니다.."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Recruit2",
+      "title": "배우기",
+      "description": "한번에 두명의 적입니다.\n더 많은 적 유형을 소개하기 시작할것입니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "Recruit3",
+      "title": "발전",
+      "description": "지금 최대 3개. 더 많은 수업이 추가되었습니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "WarzoneBanditVsKnight",
+      "title": "도적 대 기사",
+      "description": "할수 있는 모든것을 약탈하십시오!"
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "WarzoneGladiatorVsBandit",
+      "title": "검투사 대 도적",
+      "description": "당신은 경기장에서 자주 싸우지 않아요.\n도적놈들을 상대할수 있을 거예요.."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "WarzoneGladiatorVsKnight",
+      "title": "검투사 대 기사",
+      "description": "이제 도시에 맞서 자유를 위해 싸울때입니다."
+    },
+    {
+      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
+      "id": "WarzoneKnightsVsBandits",
+      "title": "기사 대 도적단",
+      "description": "그들이 당신에게서 훔쳐간것을 되찾으세요!"
+    }
+  ]
+}

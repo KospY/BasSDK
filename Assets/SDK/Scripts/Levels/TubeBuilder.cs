@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/TubeBuilder")]
     public class TubeBuilder : MonoBehaviour
     {
         public Transform target;
@@ -41,7 +42,7 @@ namespace ThunderRoad
 
         IEnumerator DestroyCoroutine(UnityEngine.Object obj)
         {
-            yield return new WaitForEndOfFrame();
+                yield return new WaitForEndOfFrame();
             DestroyImmediate(obj);
         }
 

@@ -1,8 +1,6 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
-using System.Linq;
-using System;
-using UnityEngine.AddressableAssets;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.ResourceManagement.ResourceLocations;
 
 
 #if ODIN_INSPECTOR
@@ -13,11 +11,15 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Wearable")]
     [AddComponentMenu("ThunderRoad/Wearable")]
     public class Wearable : Interactable
     {
+        public delegate void OnItemEquipped(Item item);
+        public delegate void OnItemUnEquipped(string layer, Item item);
+        public delegate void OnEditModeChanged(bool state);
+
         public string wardrobeChannel;
-        public string[] wardrobeLayers;
 
     }
 }

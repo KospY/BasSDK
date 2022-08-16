@@ -1,0 +1,254 @@
+{
+  "$type": "ThunderRoad.AnimationData, ThunderRoad",
+  "id": "HumanMelee1hShield",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "autoMinMaxRange": true,
+  "minRange": 0.9,
+  "maxRange": 2.5,
+  "usesDifficulty": false,
+  "animationClips": [
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Attack.Horizontal",
+      "step": "Start",
+      "animationSpeed": 1.0,
+      "loopType": "NonSpecific",
+      "range": 0.9,
+      "attackType": "SingleStrike",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.6,
+        "y": 1.23333335
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 0.9,
+      "endSubStance": "Previous",
+      "weight": 6.0,
+      "chance": 1.0,
+      "difficulty": 1
+    },
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Attack.Vertical",
+      "step": "Start",
+      "animationSpeed": 1.0,
+      "loopType": "NonSpecific",
+      "range": 1.0,
+      "attackType": "SingleStrike",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.566666663,
+        "y": 1.1
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 0.8333333,
+      "endSubStance": "Previous",
+      "weight": 6.0,
+      "chance": 1.0,
+      "difficulty": 1
+    },
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Attack.SwordAndShieldAttack1",
+      "step": "Start",
+      "animationSpeed": 0.8,
+      "loopType": "NonSpecific",
+      "range": 1.4,
+      "attackType": "SingleStrike",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.466666669,
+        "y": 0.8333333
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 0.6,
+      "endSubStance": "Previous",
+      "weight": 4.0,
+      "chance": 1.0,
+      "difficulty": 1
+    },
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Attack.SwordAndShieldAttack2",
+      "step": "Start",
+      "animationSpeed": 0.8,
+      "loopType": "NonSpecific",
+      "range": 1.4,
+      "attackType": "SingleStrike",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.6333333,
+        "y": 1.0
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 0.8,
+      "endSubStance": "Previous",
+      "weight": 2.0,
+      "chance": 1.0,
+      "difficulty": 1
+    },
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Attack.SwordAndShield2.Sword_Attack_Sp_R",
+      "step": "Start",
+      "animationSpeed": 0.7,
+      "loopType": "NonSpecific",
+      "range": 1.8,
+      "attackType": "SingleStrike",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.266666681,
+        "y": 1.1
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 0.4,
+      "endSubStance": "Previous",
+      "weight": 2.0,
+      "chance": 1.0,
+      "difficulty": 1
+    },
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Attack.SwordAndShield2.Sword_Attack_U2",
+      "step": "Start",
+      "animationSpeed": 0.65,
+      "loopType": "NonSpecific",
+      "range": 1.9,
+      "attackType": "SingleStrike",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.233333334,
+        "y": 0.6
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 0.4,
+      "endSubStance": "Previous",
+      "weight": 3.0,
+      "chance": 1.0,
+      "difficulty": 1
+    },
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Attack.SwordAndShield2.Sword_Attack_Sp_RL",
+      "step": "Start",
+      "animationSpeed": 0.85,
+      "loopType": "NonSpecific",
+      "range": 2.0,
+      "attackType": "SingleStrike",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.5,
+        "y": 1.66666663
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 1.23333335,
+      "endSubStance": "Previous",
+      "weight": 3.0,
+      "chance": 1.0,
+      "difficulty": 1
+    },
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Attack.SwordAndShield2.Sword_Attack_Rd",
+      "step": "Start",
+      "animationSpeed": 0.7,
+      "loopType": "NonSpecific",
+      "range": 1.9,
+      "attackType": "SingleStrike",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.333333343,
+        "y": 1.23333335
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 0.433333337,
+      "endSubStance": "Previous",
+      "weight": 3.0,
+      "chance": 1.0,
+      "difficulty": 1
+    },
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Attack.SwordAndShield2.Sword_Attack_Sp_R_Ld",
+      "step": "Start",
+      "animationSpeed": 0.8,
+      "loopType": "NonSpecific",
+      "range": 2.0,
+      "attackType": "SingleStrike",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.333333343,
+        "y": 1.56666672
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 1.23333335,
+      "endSubStance": "Previous",
+      "weight": 2.0,
+      "chance": 1.0,
+      "difficulty": 1
+    },
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Attack.SwordAndShield2.Sword_Counter_L",
+      "step": "Start",
+      "animationSpeed": 0.8,
+      "loopType": "NonSpecific",
+      "range": 2.0,
+      "attackType": "SingleStrike",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.5,
+        "y": 0.8333333
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 0.6333333,
+      "endSubStance": "Previous",
+      "weight": 3.0,
+      "chance": 1.0,
+      "difficulty": 1
+    },
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Attack.SwordAndShield2.Sword_Attack_Ushort",
+      "step": "Start",
+      "animationSpeed": 0.55,
+      "loopType": "NonSpecific",
+      "range": 2.5,
+      "attackType": "SingleStrike",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 0.0,
+      "endSubStance": "Previous",
+      "weight": 0.0,
+      "chance": 1.0,
+      "difficulty": 1
+    },
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Attack.SwordAndShield2.Sword_Attack_Sp_U",
+      "step": "Start",
+      "animationSpeed": 0.85,
+      "loopType": "NonSpecific",
+      "range": 2.5,
+      "attackType": "SingleStrike",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 0.0,
+      "endSubStance": "Previous",
+      "weight": 0.0,
+      "chance": 1.0,
+      "difficulty": 1
+    }
+  ]
+}

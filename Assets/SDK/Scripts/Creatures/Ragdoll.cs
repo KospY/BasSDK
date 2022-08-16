@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
-
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -13,8 +11,9 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Ragdoll")]
     [AddComponentMenu("ThunderRoad/Creatures/Ragdoll")]
-    public class Ragdoll : MonoBehaviour
+    public class Ragdoll : ThunderBehaviour
     {
         public Transform meshRig;
         public Transform meshRootBone;
@@ -25,9 +24,6 @@ namespace ThunderRoad
         public RagdollPart rightUpperArmPart;
         public RagdollPart targetPart;
         public RagdollPart rootPart;
-
-        [Header("Handles")]
-        public HandleRagdoll mouthHandle;
 
         [Header("Default forces")]
         public float springPositionForce = 1000;

@@ -12,6 +12,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/RenderCubemap")]
     [AddComponentMenu("ThunderRoad/Levels/Preview Cubemap")]
     public class RenderCubemap : MonoBehaviour
     {

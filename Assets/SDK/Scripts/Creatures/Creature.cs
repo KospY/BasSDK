@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.AddressableAssets;
 using System.Collections;
-using UnityEngine.Profiling;
-
-
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -16,8 +12,9 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Creature")]
     [AddComponentMenu("ThunderRoad/Creatures/Creature")]
-    public class Creature : MonoBehaviour
+    public class Creature : ThunderBehaviour
     {
         public string creatureId;
 
@@ -51,9 +48,23 @@ namespace ThunderRoad
         [NonSerialized]
         public LightVolumeReceiver lightVolumeReceiver;
 
+        [NonSerialized]
+        public WaterHandler waterHandler;
+        protected float waterEyesEnterUnderwaterTime;
+        protected float waterLastDrowningTime;
+        [NonSerialized]
+        public bool eyesUnderwater;
+        public event Action onEyesEnterUnderwater;
+        public event Action onEyesExitUnderwater;
+
         [Header("Speak")]
         public Transform jaw;
         public Vector3 jawMaxRotation = new Vector3(0, -30, 0);
+
+        [Header("Face")]
+        public bool autoEyeClipsActive = true;
+        public List<CreatureEye> allEyes = new List<CreatureEye>();
+
 
         [Header("Fall")]
         public float fallAliveAnimationHeight = 0.5f;
@@ -76,11 +87,19 @@ namespace ThunderRoad
         public float ikLocomotionSpeedThreshold = 1;
         public float ikLocomotionAngularSpeedThreshold = 30f;
 
-        public AnimationClip dynamicStartReplaceClip;
+        public AnimationClip dynamicStartReplaceClipA;
+        public AnimationClip dynamicStartReplaceClipB;
         public AnimationClip dynamicLoopReplaceClip;
         public AnimationClip dynamicEndReplaceClip;
+        public AnimationClip upperBodyDynamicOneShotReplaceClipA;
+        public AnimationClip upperBodyDynamicOneShotReplaceClipB;
+        public AnimationClip upperBodyDynamicLoopReplaceClip;
+        public AnimationClip subStanceAReplaceClip;
+        public AnimationClip subStanceBReplaceClip;
 
-        public static int hashDynamicOneShot, hashDynamicLoop, hashDynamicLoop3, hashDynamicInterrupt, hashDynamicSpeedMultiplier, hashIsBusy, hashFeminity, hashHeight, hashFalling, hashGetUp, hashTstance, hashStaticIdle;
+        public static int hashDynamicOneShot, hashDynamicLoop, hashDynamicLoop3, hashDynamicInterrupt, hashDynamicSpeedMultiplier, hashDynamicMirror;
+        public static int hashDynamicUpperOneShot, hashDynamicUpperLoop, hashDynamicUpperMultiplier, hashDynamicUpperMirror;
+        public static int hashExitDynamic, hashIsBusy, hashFeminity, hashHeight, hashFalling, hashGetUp, hashTstance, hashStaticIdle, hashFreeHands;
         public static bool hashInitialized;
 
         public enum StaggerAnimation
@@ -91,6 +110,7 @@ namespace ThunderRoad
             Torso,
             Legs,
             FallGround,
+            Riposte,
         }
 
         public enum PushType
@@ -100,6 +120,12 @@ namespace ThunderRoad
             Hit,
             Parry,
         }
+
+
+#if ODIN_INSPECTOR
+        [NonSerialized, ShowInInspector, ReadOnly]
+#endif
+        public CreatureData data;
 
 
         protected void Awake()
@@ -117,6 +143,7 @@ namespace ThunderRoad
 
             ragdoll = this.GetComponentInChildren<Ragdoll>();
 
+
             brain = this.GetComponentInChildren<Brain>();
             equipment = this.GetComponentInChildren<Equipment>();
             if (!container) container = this.GetComponentInChildren<Container>();
@@ -124,6 +151,7 @@ namespace ThunderRoad
             locomotion = this.GetComponent<Locomotion>();
             mana = this.GetComponent<Mana>();
             climber = this.GetComponentInChildren<FeetClimber>();
+
 
             foreach (RagdollHand hand in this.GetComponentsInChildren<RagdollHand>())
             {
@@ -153,6 +181,40 @@ namespace ThunderRoad
 
         }
 
+        public class ReplaceClipIndexHolder
+        {
+            public int count { get; protected set; }
+            public int dynamicStartClipA { get; protected set; }
+            public int dynamicStartClipB { get; protected set; }
+            public int dynamicLoopClip { get; protected set; }
+            public int dynamicEndClip { get; protected set; }
+            public int upperBodyDynamicClipA { get; protected set; }
+            public int upperBodyDynamicClipB { get; protected set; }
+            public int upperBodyDynamicLoopClip { get; protected set; }
+            public int subStanceClipA { get; protected set; }
+            public int subStanceClipB { get; protected set; }
+
+            public ReplaceClipIndexHolder()
+            {
+                count = 0;
+                dynamicStartClipA = count++;
+                dynamicStartClipB = count++;
+                dynamicLoopClip = count++;
+                dynamicEndClip = count++;
+                upperBodyDynamicClipA = count++;
+                upperBodyDynamicClipB = count++;
+                upperBodyDynamicLoopClip = count++;
+                subStanceClipA = count++;
+                subStanceClipB = count++;
+            }
+        }
+
+        public static ReplaceClipIndexHolder clipIndex = new ReplaceClipIndexHolder();
+
+        public void ApplyAnimatorController(RuntimeAnimatorController runtimeController)
+        {
+        }
+
         protected void InitAnimatorHashs()
         {
             hashFeminity = Animator.StringToHash("Feminity");
@@ -162,15 +224,23 @@ namespace ThunderRoad
             hashIsBusy = Animator.StringToHash("IsBusy");
             hashTstance = Animator.StringToHash("TStance");
             hashStaticIdle = Animator.StringToHash("StaticIdle");
+            hashFreeHands = Animator.StringToHash("FreeHands");
             hashDynamicOneShot = Animator.StringToHash("DynamicOneShot");
             hashDynamicLoop = Animator.StringToHash("DynamicLoop");
             hashDynamicLoop3 = Animator.StringToHash("DynamicLoop3");
             hashDynamicInterrupt = Animator.StringToHash("DynamicInterrupt");
             hashDynamicSpeedMultiplier = Animator.StringToHash("DynamicSpeedMultiplier");
+            hashDynamicMirror = Animator.StringToHash("DynamicMirror");
+            hashDynamicUpperOneShot = Animator.StringToHash("UpperBodyDynamicOneShot");
+            hashDynamicUpperLoop = Animator.StringToHash("UpperBodyDynamicLoop");
+            hashDynamicUpperMultiplier = Animator.StringToHash("UpperBodyDynamicSpeed");
+            hashDynamicUpperMirror = Animator.StringToHash("UpperBodyDynamicMirror");
+            hashExitDynamic = Animator.StringToHash("ExitDynamic");
             hashInitialized = true;
         }
 
-        protected void Update()
+        protected override ManagedLoops ManagedLoops => ManagedLoops.Update | ManagedLoops.LateUpdate;
+        protected internal override void ManagedUpdate()
         {
         }
 
@@ -196,5 +266,20 @@ namespace ThunderRoad
 #endif
 
 
+        #region MISC
+
+        public RagdollHand GetHand(Side side)
+        {
+            if (side == Side.Left) return handLeft;
+            return handRight;
+        }
+
+        public RagdollFoot GetFoot(Side side)
+        {
+            if (side == Side.Left) return footLeft;
+            return footRight;
+        }
+
+        #endregion
     }
 }

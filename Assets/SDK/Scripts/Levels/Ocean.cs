@@ -7,7 +7,6 @@ using Crest;
 #endif
 
 #if DUNGEN
-using DunGen;
 using UnityEngine.SceneManagement;
 #endif
 
@@ -19,24 +18,27 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
-    [AddComponentMenu("ThunderRoad/Levels/Ocean")]
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Ocean")]
+	[AddComponentMenu("ThunderRoad/Levels/Ocean")]
     public class Ocean : MonoBehaviour
     {
         public string prefabAddress = "Bas.Ocean.Greenland.LightHouse";
         public string lowQualityPrefabAddress = "Bas.Ocean.LowQuality";
+        public GameObject lowQuality;
         public bool showWhenInRoomOnly = true;
 
 #if PrivateSDK
 
         public static List<Ocean> all = new List<Ocean>();
         public static Ocean current;
-        protected static Quality quality = Quality.Waves;
+        public static bool exist;
+
+        [NonSerialized]
+        public static Quality quality = Quality.Waves;
+        public static event Action<Quality> qualityChangeEvent;
 
         [NonSerialized]
         public GameObject oceanGameobject;
-
-        [NonSerialized]
-        public MeshRenderer oceanLowQualityMeshRenderer;
 
         [NonSerialized]
         public OceanRenderer crestOceanRenderer;
@@ -46,6 +48,7 @@ namespace ThunderRoad
         public ShapeGerstner crestShapeGerstner;
         [NonSerialized]
         public ShapeFFT crestShapeFFT;
+
         protected bool spawning;
 
         protected Room room;
@@ -58,6 +61,7 @@ namespace ThunderRoad
 
         private void Awake()
         {
+            if (lowQuality) lowQuality.SetActive(false);
             room = this.GetComponentInParent<Room>();
             if (room)
             {
@@ -92,6 +96,7 @@ namespace ThunderRoad
             if (crestOceanRenderer)
             {
                 crestOceanRenderer.ViewCamera = player.cam;
+                crestOceanRenderer.Viewpoint = crestOceanRenderer.ViewCamera.transform;
             }
         }
 
@@ -118,19 +123,20 @@ namespace ThunderRoad
             {
                 if (ocean.spawning) return;
                 ocean.SetActive(false);
-                if (ocean.oceanGameobject) Catalog.ReleaseAsset(ocean.oceanGameobject);
-                ocean.oceanLowQualityMeshRenderer = null;
+                if (ocean.oceanGameobject && !ocean.lowQuality) Catalog.ReleaseAsset(ocean.oceanGameobject);
                 ocean.crestOceanRenderer = null;
                 ocean.oceanGameobject = null;
                 if (ocean.isActiveAndEnabled) ocean.SetActive(true);
             }
+
+            if(qualityChangeEvent != null) qualityChangeEvent.Invoke(quality);
         }
 
 #if UNITY_EDITOR
         [Button("Spawn low quality water")]
         protected void EditorSpawnLowQuality()
         {
-            if (oceanGameobject) DestroyImmediate(oceanGameobject);
+            if (oceanGameobject && !lowQuality) DestroyImmediate(oceanGameobject);
             oceanGameobject = null;
             SetQuality(Quality.Plane);
             Spawn();
@@ -152,28 +158,42 @@ namespace ThunderRoad
             {
                 if (quality == Quality.Plane)
                 {
-                    spawning = true;
-                    Catalog.InstantiateAsync<MeshRenderer>(lowQualityPrefabAddress, oceanMeshRenderer =>
+                    if (lowQuality)
                     {
-                        if (oceanMeshRenderer)
+                        oceanGameobject = lowQuality;
+                        lowQuality.SetActive(true);
+                        exist = true;
+                        current = this;
+                    }
+                    else
+                    {
+                        spawning = true;
+                        Catalog.InstantiateAsync(lowQualityPrefabAddress, this.transform.position, this.transform.rotation, null, go =>
                         {
-                            oceanLowQualityMeshRenderer = oceanMeshRenderer;
-                            oceanGameobject = oceanMeshRenderer.gameObject;
-                            oceanGameobject.transform.position = this.transform.position;
-                            oceanGameobject.transform.rotation = this.transform.rotation;
-                            SceneManager.MoveGameObjectToScene(oceanGameobject, this.gameObject.scene);
-                            spawning = false;
-                        }
-                    }, "OceanSpawner");
+                            MeshRenderer oceanMeshRenderer = go.GetComponent<MeshRenderer>();
+                            if (oceanMeshRenderer)
+                            {
+#if UNITY_EDITOR
+                                oceanMeshRenderer.transform.SetAsFirstSibling();
+#endif
+                                oceanGameobject = oceanMeshRenderer.gameObject;
+                                SceneManager.MoveGameObjectToScene(oceanGameobject, this.gameObject.scene);
+                                exist = true;
+                                current = this;
+                                spawning = false;
+                            }
+                        }, "OceanSpawner");
+                    }
                 }
                 else if (quality == Quality.Waves)
                 {
                     spawning = true;
-                    Catalog.InstantiateAsync<GameObject>(prefabAddress, go =>
+                    Catalog.InstantiateAsync(prefabAddress, this.transform.position, this.transform.rotation, null, go =>
                     {
                         oceanGameobject = go;
-                        oceanGameobject.transform.position = this.transform.position;
-                        oceanGameobject.transform.rotation = this.transform.rotation;
+#if UNITY_EDITOR
+                        oceanGameobject.transform.SetAsFirstSibling();
+#endif
                         crestOceanRenderer = oceanGameobject.GetComponentInChildren<OceanRenderer>();
                         if (crestOceanRenderer)
                         {
@@ -199,7 +219,13 @@ namespace ThunderRoad
                                 crestShapeFFT._waveDirectionHeadingAngle -= this.transform.root.eulerAngles.y;
                             }
 
-                            if (PlayerTest.local) crestOceanRenderer.ViewCamera = PlayerTest.local.cam;
+                            if (PlayerTest.local)
+                            {
+                                crestOceanRenderer.ViewCamera = PlayerTest.local.cam;
+                                crestOceanRenderer.Viewpoint = crestOceanRenderer.ViewCamera.transform;
+                            }
+                            current = this;
+                            exist = true;
                             spawning = false;
                         }
                     }, "OceanSpawner");
@@ -240,6 +266,7 @@ namespace ThunderRoad
                 if (this.oceanGameobject)
                 {
                     this.oceanGameobject.SetActive(true);
+                    exist = true;
                 }
                 else
                 {
@@ -250,6 +277,7 @@ namespace ThunderRoad
             else
             {
                 current = null;
+                exist = false;
                 if (this.oceanGameobject)
                 {
                     this.oceanGameobject.SetActive(false);
@@ -262,7 +290,8 @@ namespace ThunderRoad
                         if (ocean.oceanGameobject)
                         {
                             ocean.oceanGameobject.SetActive(true);
-                            current = this;
+                            current = ocean;
+                            exist = true;
                             break;
                         }
                     }
@@ -275,7 +304,7 @@ namespace ThunderRoad
             PlayerTest.onSpawn -= OnPlayerTestSpawned;
             SetActive(false);
             all.Remove(this);
-            if (oceanGameobject) Catalog.ReleaseAsset(oceanGameobject);
+            if (oceanGameobject && !lowQuality) Catalog.ReleaseAsset(oceanGameobject);
         }
 #endif
     }

@@ -1,16 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 #if ODIN_INSPECTOR
-using Sirenix.OdinInspector;
 #else
 using EasyButtons;
 #endif
 
 namespace ThunderRoad
 {
-    public class RotateToVelocity : MonoBehaviour
+	public class RotateToVelocity : MonoBehaviour
     {
         public new Rigidbody rigidbody;
         public Vector3 defaultDirection = Vector3.up;

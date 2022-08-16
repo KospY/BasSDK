@@ -1,0 +1,46 @@
+{
+  "$type": "ThunderRoad.AI.BehaviorTreeData, ThunderRoad",
+  "id": "TestDraw",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "type": "WIP",
+  "rootNode": {
+    "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+    "evaluateAllNodesOnCycle": false,
+    "childs": [
+      {
+        "$type": "ThunderRoad.AI.Action.DrawItem, ThunderRoad",
+        "targetTransformVariableName": "",
+        "drawRightWeapon": true,
+        "rightInfo": {
+          "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+          "weaponClass": "None",
+          "weaponHandling": "None",
+          "checkAmmo": false,
+          "checkInHolder": false
+        },
+        "drawLeftWeapon": true,
+        "leftInfo": {
+          "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+          "weaponClass": "None",
+          "weaponHandling": "None",
+          "checkAmmo": false,
+          "checkInHolder": false
+        },
+        "blackboard": null,
+        "creature": null,
+        "brainData": null
+      },
+      {
+        "$type": "ThunderRoad.AI.Action.HolsterItem, ThunderRoad",
+        "holsterRight": true,
+        "holsterLeft": true,
+        "blackboard": null,
+        "creature": null,
+        "brainData": null
+      }
+    ]
+  }
+}

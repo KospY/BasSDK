@@ -1,0 +1,181 @@
+{
+  "$type": "ThunderRoad.AI.BehaviorTreeData, ThunderRoad",
+  "id": "Human",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "type": "MasterTree",
+  "rootNode": {
+    "$type": "ThunderRoad.AI.Control.Selector, ThunderRoad",
+    "evaluateAllNodesOnCycle": true,
+    "childs": [
+      {
+        "$type": "ThunderRoad.AI.Decorator.AlwaysFailure, ThunderRoad",
+        "child": {
+          "$type": "ThunderRoad.AI.Action.SetStance, ThunderRoad",
+          "stance": "Idle",
+          "onlyOnce": true,
+          "setSubStance": "Random",
+          "excludeCurrent": true,
+          "subStanceName": "",
+          "blackboard": null,
+          "creature": null,
+          "brainData": null
+        }
+      },
+      {
+        "$type": "ThunderRoad.AI.Decorator.AlwaysFailure, ThunderRoad",
+        "child": {
+          "$type": "ThunderRoad.AI.Action.SaveTimeInBlackboard, ThunderRoad",
+          "variableName": "BrainStart",
+          "onlyOnce": true,
+          "blackboard": null,
+          "creature": null,
+          "brainData": null
+        }
+      },
+      {
+        "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+        "operation": "AND",
+        "ifConditions": [
+          {
+            "$type": "ThunderRoad.AI.Condition.IsManualControl, ThunderRoad"
+          }
+        ],
+        "ifNotConditions": null,
+        "child": {
+          "$type": "ThunderRoad.AI.Decorator.AlwaysSuccess, ThunderRoad",
+          "child": null
+        }
+      },
+      {
+        "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+        "operation": "AND",
+        "ifConditions": [
+          {
+            "$type": "ThunderRoad.AI.Condition.IsTKGrabbed, ThunderRoad",
+            "anyHandle": true,
+            "handleSpecifiers": "SpecificHandle",
+            "handleName": "None"
+          }
+        ],
+        "ifNotConditions": null,
+        "child": {
+          "$type": "ThunderRoad.AI.Decorator.AlwaysSuccess, ThunderRoad",
+          "child": {
+            "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+            "evaluateAllNodesOnCycle": false,
+            "childs": [
+              {
+                "$type": "ThunderRoad.AI.Decorator.AlwaysSuccess, ThunderRoad",
+                "child": {
+                  "$type": "ThunderRoad.AI.Get.GetCreature, ThunderRoad",
+                  "target": "ClosestEnemy",
+                  "checkFov": true,
+                  "checkSight": true,
+                  "checkShortestPath": false,
+                  "rememberDuration": 20.0,
+                  "focusDuration": 5.0,
+                  "maxDistance": 0.0,
+                  "debugLines": false,
+                  "outputCreatureAsCurrentTarget": true,
+                  "outputCreatureVariableName": "",
+                  "outputTransform": "SightedPart",
+                  "outputTransformVariableName": "",
+                  "blackboard": null,
+                  "creature": null,
+                  "brainData": null
+                }
+              },
+              {
+                "$type": "ThunderRoad.AI.Action.SetBrainState, ThunderRoad",
+                "brainState": "Grappled",
+                "blackboard": null,
+                "creature": null,
+                "brainData": null
+              }
+            ]
+          }
+        }
+      },
+      {
+        "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+        "operation": "AND",
+        "ifConditions": [
+          {
+            "$type": "ThunderRoad.AI.Condition.IsGrabbed, ThunderRoad",
+            "anyHandle": true,
+            "handleSpecifiers": "SpecificHandle",
+            "handleName": "None",
+            "fromDirection": "Either"
+          }
+        ],
+        "ifNotConditions": null,
+        "child": {
+          "$type": "ThunderRoad.AI.ChildTreeNode, ThunderRoad",
+          "reference": "ForceID",
+          "childTreeID": "HumanGrappled",
+          "childTreeName": null
+        }
+      },
+      {
+        "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+        "operation": "AND",
+        "ifConditions": [
+          {
+            "$type": "ThunderRoad.AI.Condition.BlackboardValue, ThunderRoad",
+            "variableName": "ForceFlee",
+            "variableType": "Bool",
+            "variableComparator": "Equal",
+            "comparedValue": 0.0
+          }
+        ],
+        "ifNotConditions": null,
+        "child": {
+          "$type": "ThunderRoad.AI.ChildTreeNode, ThunderRoad",
+          "reference": "ForceID",
+          "childTreeID": "Flee",
+          "childTreeName": null
+        }
+      },
+      {
+        "$type": "ThunderRoad.AI.ChildTreeNode, ThunderRoad",
+        "reference": "ForceID",
+        "childTreeID": "HumanCombat",
+        "childTreeName": null
+      },
+      {
+        "$type": "ThunderRoad.AI.ChildTreeNode, ThunderRoad",
+        "reference": "ForceID",
+        "childTreeID": "HumanAlert",
+        "childTreeName": null
+      },
+      {
+        "$type": "ThunderRoad.AI.ChildTreeNode, ThunderRoad",
+        "reference": "ForceID",
+        "childTreeID": "HumanInvestigate",
+        "childTreeName": null
+      },
+      {
+        "$type": "ThunderRoad.AI.ChildTreeNode, ThunderRoad",
+        "reference": "ForceID",
+        "childTreeID": "HumanPatrol",
+        "childTreeName": null
+      },
+      {
+        "$type": "ThunderRoad.AI.ChildTreeNode, ThunderRoad",
+        "reference": "ForceID",
+        "childTreeID": "HumanFollow",
+        "childTreeName": null
+      },
+      {
+        "$type": "ThunderRoad.AI.Action.SetBrainState, ThunderRoad",
+        "brainState": "Idle",
+        "blackboard": null,
+        "creature": null,
+        "brainData": null
+      }
+    ]
+  }
+}

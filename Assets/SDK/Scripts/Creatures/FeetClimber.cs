@@ -9,8 +9,9 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/FeetClimber")]
     [AddComponentMenu("ThunderRoad/Creatures/Feet climber")]
-    public class FeetClimber : MonoBehaviour
+    public class FeetClimber : ThunderBehaviour
     {
         public float footSpeed = 4;
         public float sweepAngle = -70;

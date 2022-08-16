@@ -1,0 +1,54 @@
+{
+  "$type": "ThunderRoad.VoiceData, ThunderRoad",
+  "id": "Chicken",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "pooledCount": 10,
+  "androidPooledCount": 10,
+  "dialogs": [
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "idle",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Chicken.Idle"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "hit",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Chicken.Hit"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "death",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Chicken.Death"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "deathmuffled",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Chicken.Death"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "falling",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Chicken.Fall"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "alert",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Chicken.Alert"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "choke",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Chicken.Hit"
+    }
+  ]
+}

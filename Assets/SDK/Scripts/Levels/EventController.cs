@@ -10,6 +10,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/EventController")]
     [AddComponentMenu("ThunderRoad/Levels/Event Controller")]
     public class EventController : MonoBehaviour
     {

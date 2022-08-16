@@ -3,6 +3,7 @@ using System;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/EffectDecal")]
     [ExecuteInEditMode]
     public class EffectDecal : Effect
     {
@@ -83,10 +84,22 @@ namespace ThunderRoad
         {
             playTime = Time.time;
             CancelInvoke();
-            meshRenderer.transform.localScale = Vector3.one;
-            meshRenderer.transform.localScale = new Vector3(size.x / meshRenderer.transform.lossyScale.x, size.y / meshRenderer.transform.lossyScale.y, size.z / meshRenderer.transform.lossyScale.z);
-            float randomRange = UnityEngine.Random.Range(-sizeRandomRange, sizeRandomRange);
-            meshRenderer.transform.localScale += new Vector3(randomRange, randomRange, randomRange);
+            Transform meshRendererTransform = meshRenderer.transform;
+            meshRendererTransform.localScale = Vector3.one;
+            Vector3 lossyScale = meshRendererTransform.lossyScale; 
+            if (useSizeCurve)
+            {
+                float eval = sizeCurve.Evaluate(0);
+                lossyScale = new Vector3((eval / lossyScale.x) * size.x, (eval / lossyScale.y) * size.y, (eval / lossyScale.z) * size.z);
+            }
+            else
+            {
+                lossyScale = new Vector3(size.x / lossyScale.x, size.y / lossyScale.y, size.z / lossyScale.z);
+                float randomRange = UnityEngine.Random.Range(-sizeRandomRange, sizeRandomRange);
+                lossyScale += new Vector3(randomRange, randomRange, randomRange);    
+            }
+            
+            meshRendererTransform.localScale = lossyScale;
             if (step == Step.Start || step == Step.End)
             {
                 InvokeRepeating("UpdateLifeTime", 0, fadeRefreshSpeed);

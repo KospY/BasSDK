@@ -10,9 +10,10 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Mana")]
     [AddComponentMenu("ThunderRoad/Creatures/Mana")]
     [RequireComponent(typeof(Creature))]
-    public class Mana : MonoBehaviour
+    public class Mana : ThunderBehaviour
     {
         public float currentMana = 50;
         public float maxMana = 50;

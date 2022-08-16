@@ -174,7 +174,6 @@ ZWrite On
             
 
             
-   #pragma multi_compile_local _ LOD_FADE_CROSSFADE
 
 
    #pragma shader_feature_local_fragment _ALPHATEST_ON
@@ -1620,7 +1619,6 @@ ZWrite On
             #define _PASSSHADOW 1
 
             
-   #pragma multi_compile_local _ LOD_FADE_CROSSFADE
 
 
    #pragma shader_feature_local_fragment _ALPHATEST_ON
@@ -2964,7 +2962,6 @@ ZWrite On
             #pragma multi_compile _ DOTS_INSTANCING_ON
 
             
-   #pragma multi_compile_local _ LOD_FADE_CROSSFADE
 
 
    #pragma shader_feature_local_fragment _ALPHATEST_ON
@@ -4310,7 +4307,6 @@ ZWrite On
 
 
             
-   #pragma multi_compile_local _ LOD_FADE_CROSSFADE
 
 
    #pragma shader_feature_local_fragment _ALPHATEST_ON
@@ -5655,7 +5651,6 @@ ZWrite On
 
 
             
-   #pragma multi_compile_local _ LOD_FADE_CROSSFADE
 
 
    #pragma shader_feature_local_fragment _ALPHATEST_ON

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,56 +15,42 @@ namespace ThunderRoad
 {
     public class UIMap : MonoBehaviour
     {
-        public string mapId = "Default";
-        public Transform locationRoot;
-        public ToggleGroup orbGroup;
+        public Canvas map;
+        public Canvas levelDetails;
+        public BoxCollider mapCollider;
+        public BoxCollider levelCollider;
         public Transform canvasDetails;
-        public Transform wholeMap;
-        public float visibleRadius = 4;
-
+        public bool mapLoops = true;
         public Text gameModTitle;
         public Text mapTitleText;
         public Text modeDescriptionText;
-
         public RawImage mapSketch = null;
-
         public Button travelButton = null;
-
-        public Button bulletPointPrefab = null;
-
-        protected int modeIndex = 0;
-
+        public UIMapBulletPoint bulletPointPrefab = null;
         public Transform optionsPanel = null;
-
+        public Text descriptionText = null;
+        public Button nextOptionsButton = null;
+        public Button previousOptionsButton = null;
+        public Transform mapParent = null;
+        public MeshRenderer mapRenderer = null;
+        public Text pageText = null;
         public UISelectionListButtonsLevelModeOption LevelModeOptionPrefab = null;
         public List<UISelectionListButtonsLevelModeOption> levelModeOptions = new List<UISelectionListButtonsLevelModeOption>();
 
-        protected float optionSpacingSize = 0.1f;
-
-        protected int currentIndexOption = 0;
-        protected int startIndexOption = 0;
-        protected int maxPage = 0;
-        protected int currentPage = 1;
-
-        public Text descriptionText = null;
-
-        public Button nextOptionsButton = null;
-        public Button previousOptionsButton = null;
-
-        protected int currentGameModIndex = 0;
-
-        public Transform mapParent = null;
-
-        protected GameObject currentMap = null;
-
-        public MeshRenderer mapRenderer = null;
-
-        protected UIMapBulletPoint lastSelected = null;
-
-        public Text pageText = null;
+        private Transform locationRoot;
+        private ToggleGroup orbGroup;
+        private int modeIndex;
+        private float optionSpacingSize = 0.1f;
+        private int currentIndexOption;
+        private int startIndexOption;
+        private int maxPage;
+        private int currentPage = 1;
+        private int mapPageIndex;
+        private Canvas currentMap;
+        private UIMapBulletPoint lastSelected;
 
 
-        protected void OnDrawGizmos()
+        private void OnDrawGizmos()
         {
             Gizmos.matrix = this.transform.localToWorldMatrix;
             Gizmos.DrawWireCube(Vector3.zero, new Vector3(1, 1, 0));

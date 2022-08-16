@@ -1,0 +1,154 @@
+{
+  "$type": "ThunderRoad.AnimationData, ThunderRoad",
+  "id": "HumanMeleeStaff",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "autoMinMaxRange": true,
+  "minRange": 1.3,
+  "maxRange": 3.0,
+  "usesDifficulty": false,
+  "animationClips": [
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Attack.Staff_Attack_01",
+      "step": "Start",
+      "animationSpeed": 0.8,
+      "loopType": "NonSpecific",
+      "range": 1.4,
+      "attackType": "SingleStrike",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.5,
+        "y": 1.05
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 0.783333361,
+      "endSubStance": "Previous",
+      "weight": 6.0,
+      "chance": 1.0,
+      "difficulty": 1
+    },
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Attack.Staff_Attack_07",
+      "step": "Start",
+      "animationSpeed": 0.85,
+      "loopType": "NonSpecific",
+      "range": 2.0,
+      "attackType": "SingleStrike",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 1.1,
+        "y": 1.93333328
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 1.33333337,
+      "endSubStance": "Previous",
+      "weight": 1.0,
+      "chance": 1.0,
+      "difficulty": 1
+    },
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Attack.Staff_Attack_03",
+      "step": "Start",
+      "animationSpeed": 1.0,
+      "loopType": "NonSpecific",
+      "range": 2.0,
+      "attackType": "SingleStrike",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 1.0,
+        "y": 1.6
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 1.16666663,
+      "endSubStance": "Previous",
+      "weight": 1.0,
+      "chance": 1.0,
+      "difficulty": 1
+    },
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Attack.Staff_Attack_06",
+      "step": "Start",
+      "animationSpeed": 1.0,
+      "loopType": "NonSpecific",
+      "range": 2.5,
+      "attackType": "SingleStrike",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.816666663,
+        "y": 1.93333328
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 1.01666665,
+      "endSubStance": "Previous",
+      "weight": 2.0,
+      "chance": 1.0,
+      "difficulty": 1
+    },
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Attack.Staff_Pirouette_Attack04",
+      "step": "Start",
+      "animationSpeed": 0.85,
+      "loopType": "NonSpecific",
+      "range": 3.0,
+      "attackType": "SingleStrike",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 1.16666663,
+        "y": 1.83333337
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 1.5,
+      "endSubStance": "Previous",
+      "weight": 1.0,
+      "chance": 1.0,
+      "difficulty": 1
+    },
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Attack.Melee_Attack_360_Low",
+      "step": "Start",
+      "animationSpeed": 1.0,
+      "loopType": "NonSpecific",
+      "range": 1.3,
+      "attackType": "SingleStrike",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 0.0,
+      "endSubStance": "Previous",
+      "weight": 0.0,
+      "chance": 1.0,
+      "difficulty": 1
+    },
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Attack.360High",
+      "step": "Start",
+      "animationSpeed": 1.0,
+      "loopType": "NonSpecific",
+      "range": 1.4,
+      "attackType": "SingleStrike",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 0.0,
+      "endSubStance": "Previous",
+      "weight": 0.0,
+      "chance": 1.0,
+      "difficulty": 1
+    }
+  ]
+}

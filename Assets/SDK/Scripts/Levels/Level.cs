@@ -1,18 +1,12 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections.Generic;
 using System.Collections;
-using UnityEngine.SceneManagement;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using System.Text;
-using UnityEngine.AI;
+using System.Threading.Tasks;
 using UnityEngine.Events;
+using UnityEngine.InputSystem.Controls;
 
 #if DUNGEN
-using DunGen;
-using DunGen.Adapters;
-using DunGen.Graph;
 #endif
 
 #if ODIN_INSPECTOR
@@ -23,12 +17,15 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
-    public class Level : MonoBehaviour
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Level")]
+    public class Level : ThunderBehaviour
     {
         public static Level current;
         public static Level master;
 
-        public Transform playerStart;
+        public bool spawnPlayer = true;
+        public string playerSpawnerId = "default";
+
 
         public List<CustomReference> customReferences;
 
@@ -59,6 +56,7 @@ namespace ThunderRoad
 
         public UnityEvent loadedEvent;
 
+#if PrivateSDK
         [Button]
         public static void CheckLightMapMode()
         {
@@ -71,7 +69,7 @@ namespace ThunderRoad
             LightmapSettings.lightmapsMode = lightmapsMode;
             Debug.Log("Lightmap mode set to: " + LightmapSettings.lightmapsMode);
         }
-   
+
         [Button]
         public static void TetrahedralizeLightProbes()
         {
@@ -79,7 +77,6 @@ namespace ThunderRoad
             LightProbes.Tetrahedralize();
         }
 
-#if PrivateSDK
         protected virtual void Awake()
         {
             if (gameObject.scene.name.ToLower() == "master")

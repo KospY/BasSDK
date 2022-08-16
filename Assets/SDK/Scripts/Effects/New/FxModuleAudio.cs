@@ -1,214 +1,241 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.VFX;
+using System;
+
+#if ODIN_INSPECTOR
+#else
+using EasyButtons;
+#endif
 
 namespace ThunderRoad
 {
-    public class FxModuleAudio : FxModule
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/FxModuleAudio")]
+	public class FxModuleAudio : FxModule
     {
         [Header("Audio")]
-        public string playAudioContainerAddress;
-        protected AudioContainer playAudioContainer;
-        public float playVolumeDb = 0;
-
-        public string loopAudioContainerAddress;
-        protected AudioContainer loopAudioContainer;
-        public float loopVolumeDb = 0;
-
-        public string stopAudioContainerAddress;
-        protected AudioContainer stopAudioContainer;
-        public float stopVolumeDb = 0;
-
-        public bool doNoise;
-        protected bool hasNoise;
-
+        public string audioContainerAddress;
+        public AssetReferenceAudioContainer audioContainerReference;
+        public bool abnormalNoise;
+        public float volumeDb;
+        public bool useRandomTime;
+        public PlayEvent playEvent = PlayEvent.Play;
         public AudioMixerName audioMixer = AudioMixerName.Effect;
 
-        [Header("Loop volume")]
-        public AnimationCurve volumeCurve = new AnimationCurve(new Keyframe(0, 1), new Keyframe(1, 1));
-        public EffectLink volumeEffectLink = EffectLink.Intensity;
+        [Header("Curves")]
+        public FxBlendCurves volume = new FxBlendCurves();
 
-        [Header("Loop pitch")]
-        public EffectLink pitchEffectLink = EffectLink.Intensity;
-        public AnimationCurve pitchCurve = new AnimationCurve(new Keyframe(0, 1), new Keyframe(1, 1));
+        public FxBlendCurves pitch = new FxBlendCurves();
 
-        [Header("Loop low pass filter")]
-        public bool useLowPassFilter;
-        public EffectLink lowPassFilterEffectLink = EffectLink.Intensity;
-        public AnimationCurve lowPassCutoffFrequencyCurve = new AnimationCurve(new Keyframe(0, 22000), new Keyframe(1, 22000));
-        public AnimationCurve lowPassResonanceQCurve = new AnimationCurve(new Keyframe(0, 1), new Keyframe(1, 1));
+        public FxBlendCurves lowPassCutoffFrequency = new FxBlendCurves(new AnimationCurve(new Keyframe(0, 22000), new Keyframe(1, 22000)));
+        public FxBlendCurves lowPassResonanceQCurve = new FxBlendCurves();
 
-        [Header("Loop high pass filter")]
-        public bool useHighPassFilter;
-        public EffectLink highPassFilterEffectLink = EffectLink.Intensity;
-        public AnimationCurve highPassCutoffFrequencyCurve = new AnimationCurve(new Keyframe(0, 10), new Keyframe(1, 10));
-        public AnimationCurve highPassResonanceQCurve = new AnimationCurve(new Keyframe(0, 1), new Keyframe(1, 1));
+        public FxBlendCurves highPassCutoffFrequency = new FxBlendCurves(new AnimationCurve(new Keyframe(0, 10), new Keyframe(1, 10)));
+        public FxBlendCurves highPassResonanceQCurve = new FxBlendCurves();
 
-        [Header("Loop reverb filter")]
-        public bool useReverbFilter;
-        public EffectLink reverbFilterEffectLink = EffectLink.Intensity;
-        public AnimationCurve reverbDryLevelCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 0));
+        public FxBlendCurves reverbDryLevel = new FxBlendCurves();
 
-        protected AudioSource loopAudioSource;
+        public enum PlayEvent
+        {
+            Play,
+            Loop,
+            Stop,
+        }
+
+        [NonSerialized]
+        public AudioSource audioSource;
+
+
         protected AudioLowPassFilter lowPassFilter;
         protected AudioHighPassFilter highPassFilter;
         protected AudioReverbFilter reverbFilter;
+        protected AudioContainer audioContainer;
+        protected bool playOnLoad;
+        protected bool clipLoadedFromAddressable;
 
-        protected AudioSource oneShotAudioSource;
-        protected bool isPlaying;
+        protected float intensity;
+        protected float speed;
+
+        protected bool wasPlaying;
 
         private void OnDestroy()
         {
-            if (playAudioContainer) Addressables.Release(playAudioContainer);
-            if (loopAudioContainer) Addressables.Release(loopAudioContainer);
-            if (stopAudioContainer) Addressables.Release(stopAudioContainer);
+            if (clipLoadedFromAddressable && audioSource.clip) Addressables.Release(audioContainer);
+        }
+
+        private void OnValidate()
+        {
+            audioSource = this.GetComponent<AudioSource>();
+        }
+
+        private void OnDisable()
+        {
+            wasPlaying = audioSource.isPlaying;
+        }
+
+        private void OnEnable()
+        {
+            if (wasPlaying)
+            {
+                audioSource.Play();
+            }
         }
 
         private void Awake()
         {
-            loopAudioSource = this.GetComponent<AudioSource>();
-            if (!loopAudioSource) loopAudioSource = this.gameObject.AddComponent<AudioSource>();
-            loopAudioSource.spatialBlend = 1;
-            loopAudioSource.dopplerLevel = 0;
-            loopAudioSource.playOnAwake = false;
-            loopAudioSource.loop = true;
-            if (useLowPassFilter)
+            audioSource = this.GetComponent<AudioSource>();
+            if (!audioSource) audioSource = this.gameObject.AddComponent<AudioSource>();
+            audioSource.spatialBlend = 1;
+            audioSource.dopplerLevel = 0;
+            audioSource.playOnAwake = false;
+            audioSource.loop = false;
+
+
+            // Add extra components
+            if (lowPassCutoffFrequency.IsUsed() || lowPassResonanceQCurve.IsUsed())
             {
                 lowPassFilter = this.GetComponent<AudioLowPassFilter>();
                 if (!lowPassFilter) lowPassFilter = this.gameObject.AddComponent<AudioLowPassFilter>();
             }
-            if (useHighPassFilter)
+
+            if (highPassCutoffFrequency.IsUsed() || highPassResonanceQCurve.IsUsed())
             {
                 highPassFilter = this.GetComponent<AudioHighPassFilter>();
                 if (!highPassFilter) highPassFilter = this.gameObject.AddComponent<AudioHighPassFilter>();
             }
-            if (useReverbFilter)
+
+            if (reverbDryLevel.IsUsed())
             {
                 reverbFilter = this.GetComponent<AudioReverbFilter>();
                 if (!reverbFilter) reverbFilter = this.gameObject.AddComponent<AudioReverbFilter>();
                 reverbFilter.reverbPreset = AudioReverbPreset.Off;
             }
 
-            if (playAudioContainerAddress != null && playAudioContainerAddress != "")
+            // Load audioclip
+            if (audioContainerAddress != null && audioContainerAddress != "")
             {
-                Addressables.LoadAssetAsync<AudioContainer>(playAudioContainerAddress).Completed += (handle) =>
+                Addressables.LoadAssetAsync<AudioContainer>(audioContainerAddress).Completed += (handle) =>
                 {
                     if (handle.Status == AsyncOperationStatus.Succeeded)
                     {
-                        playAudioContainer = handle.Result;
-                        TryCreateOneShootAudioSource();
-                        if (isPlaying && oneShotAudioSource && playAudioContainer)
-                        {
-                            oneShotAudioSource.PlayOneShot(playAudioContainer.PickAudioClip(), DecibelToLinear(playVolumeDb));
-                        }
+                        audioContainer = handle.Result;
+                        audioSource.clip = audioContainer.PickAudioClip();
+                        if (playOnLoad) Play();
+                        playOnLoad = false;
+                        clipLoadedFromAddressable = true;
                     }
                 };
             }
-            if (loopAudioContainerAddress != null && loopAudioContainerAddress != "")
+            else if (audioContainerReference != null && !string.IsNullOrEmpty(audioContainerReference.AssetGUID))
             {
-                Addressables.LoadAssetAsync<AudioContainer>(loopAudioContainerAddress).Completed += (handle) =>
+                Addressables.LoadAssetAsync<AudioContainer>(audioContainerReference).Completed += (handle) =>
                 {
                     if (handle.Status == AsyncOperationStatus.Succeeded)
                     {
-                        loopAudioContainer = handle.Result;
-                        if (isPlaying)
-                        {
-                            loopAudioSource.clip = loopAudioContainer.PickAudioClip();
-                            loopAudioSource.Play();
-                        }
-                    }
-                };
-            }
-            if (stopAudioContainerAddress != null && stopAudioContainerAddress != "")
-            {
-                Addressables.LoadAssetAsync<AudioContainer>(stopAudioContainerAddress).Completed += (handle) =>
-                {
-                    if (handle.Status == AsyncOperationStatus.Succeeded)
-                    {
-                        stopAudioContainer = handle.Result;
-                        TryCreateOneShootAudioSource();
+                        audioContainer = handle.Result;
+                        audioSource.clip = audioContainer.PickAudioClip();
+                        if (playOnLoad) Play();
+                        playOnLoad = false;
+                        clipLoadedFromAddressable = true;
                     }
                 };
             }
         }
 
-        protected void TryCreateOneShootAudioSource()
+        public override bool IsPlaying()
         {
-            if (!oneShotAudioSource)
+            return audioSource.isPlaying;
+        }
+
+        public override void SetIntensity(float intensity)
+        {
+            this.intensity = intensity;
+            Refresh();
+        }
+
+        public override void SetSpeed(float speed)
+        {
+            this.speed = speed;
+            Refresh();
+        }
+
+        protected void Refresh()
+        {
+            if (volume.TryGetValue(intensity, speed, out float value))
             {
-                oneShotAudioSource = Common.CloneComponent(loopAudioSource, this.gameObject, false) as AudioSource;
-                oneShotAudioSource.spatialBlend = 1;
-                oneShotAudioSource.dopplerLevel = 0;
-                oneShotAudioSource.playOnAwake = false;
-                oneShotAudioSource.loop = false;
+                audioSource.volume = value * DecibelToLinear(volumeDb);
+            }
+            if (pitch.TryGetValue(intensity, speed, out value))
+            {
+                audioSource.pitch = value;
+            }
+            if (lowPassCutoffFrequency.TryGetValue(intensity, speed, out value))
+            {
+                lowPassFilter.cutoffFrequency = value;
+            }
+            if (lowPassResonanceQCurve.TryGetValue(intensity, speed, out value))
+            {
+                lowPassFilter.lowpassResonanceQ = value;
+            }
+            if (highPassCutoffFrequency.TryGetValue(intensity, speed, out value))
+            {
+                highPassFilter.cutoffFrequency = value;
+            }
+            if (highPassCutoffFrequency.TryGetValue(intensity, speed, out value))
+            {
+                highPassFilter.highpassResonanceQ = value;
+            }
+            if (reverbDryLevel.TryGetValue(intensity, speed, out value))
+            {
+                reverbFilter.dryLevel = value;
             }
         }
 
         public override void Play()
         {
-            if (loopAudioContainer)
+            if (playEvent == PlayEvent.Play || playEvent == PlayEvent.Loop)
             {
-                loopAudioSource.clip = loopAudioContainer.PickAudioClip();
-                loopAudioSource.Play();
-            }
-            if (oneShotAudioSource && playAudioContainer)
-            {
-                oneShotAudioSource.PlayOneShot(playAudioContainer.PickAudioClip(), DecibelToLinear(playVolumeDb));
-            }
-            isPlaying = true;
-        }
+                if (audioContainer)
+                {
+                    AudioClip audioClip = audioContainer.PickAudioClip();
+                    if (audioSource.clip != audioClip)
+                    {
+                        audioSource.clip = audioClip;
+                    }
 
-        public override void SetIntensity(float intensity)
-        {
-            SetVariation(intensity, EffectLink.Intensity);
-        }
+                    if (useRandomTime)
+                    {
+                        var randomStartTime = UnityEngine.Random.Range(0, audioSource.clip.samples - 1);
+                        audioSource.timeSamples = randomStartTime;
+                    }
 
-        public override void SetSpeed(float speed)
-        {
-            SetVariation(speed, EffectLink.Speed);
-        }
-
-        protected void SetVariation(float value, EffectLink effectLink)
-        {
-            if (volumeEffectLink == effectLink)
-            {
-                loopAudioSource.volume = volumeCurve.Evaluate(value) * DecibelToLinear(loopVolumeDb);
-            }
-            if (pitchEffectLink == effectLink)
-            {
-                loopAudioSource.pitch = pitchCurve.Evaluate(value);
-            }
-            if (pitchEffectLink == effectLink)
-            {
-                loopAudioSource.pitch = pitchCurve.Evaluate(value);
-            }
-            if (useLowPassFilter && lowPassFilterEffectLink == effectLink)
-            {
-                lowPassFilter.cutoffFrequency = lowPassCutoffFrequencyCurve.Evaluate(value);
-                lowPassFilter.lowpassResonanceQ = lowPassResonanceQCurve.Evaluate(value);
-            }
-            if (useHighPassFilter && highPassFilterEffectLink == effectLink)
-            {
-                highPassFilter.cutoffFrequency = highPassCutoffFrequencyCurve.Evaluate(value);
-                highPassFilter.highpassResonanceQ = highPassResonanceQCurve.Evaluate(value);
-            }
-            if (useReverbFilter && reverbFilterEffectLink == effectLink)
-            {
-                reverbFilter.dryLevel = reverbDryLevelCurve.Evaluate(value);
+                    audioSource.loop = (playEvent == PlayEvent.Loop);
+                    audioSource.Play();
+                }
+                else
+                {
+                    playOnLoad = true;
+                }
             }
         }
 
         public override void Stop()
         {
-            if (loopAudioSource) loopAudioSource.Stop();
-            if (oneShotAudioSource && stopAudioContainer)
+            if (playEvent == PlayEvent.Stop)
             {
-                oneShotAudioSource.PlayOneShot(stopAudioContainer.PickAudioClip(), DecibelToLinear(stopVolumeDb));
+                if (audioSource.clip != null)
+                {
+                    audioSource.Play();
+                }
+                else
+                {
+                    playOnLoad = true;
+                }
             }
-            isPlaying = false;
+            else
+            {
+                audioSource.Stop();
+            }
         }
 
         public static float LinearToDecibel(float linear)
@@ -222,6 +249,7 @@ namespace ThunderRoad
             {
                 dB = -144.0f;
             }
+
             return dB;
         }
 

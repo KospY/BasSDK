@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: WitchBroom
+  m_EditorClassIdentifier: 
+  m_GroupName: WitchBroom
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 1f976c12e1d680f44837b729f8a46cec
+  m_SerializeEntries:
+  - m_GUID: 0529787b44619ab4ca8d791da47dc529
+    m_Address: Kospy.Item.WitchBroom
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Windows
+    - Android
+  - m_GUID: 0c0ebda49dd48de4e94b45591a2871e7
+    m_Address: Kospy.AudioContainer.WitchBroomWind
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Windows
+    - Android
+  - m_GUID: 1280ab84f7e50a24bb46678ff0c974d3
+    m_Address: Kospy.AudioContainer.WitchBroomThrust
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Windows
+    - Android
+  - m_GUID: 252e07778994ce4498374c2005a54729
+    m_Address: Kospy.AudioContainer.WitchBroomThrustOld
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Windows
+    - Android
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: b14c4d9d8b63f3247be008fe8b53d3ae, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 341bcdef4e690124abc25a6c07a882fb, type: 2}
+    - {fileID: 11400000, guid: bf6193ffa25128049b51a9ac0413e6df, type: 2}

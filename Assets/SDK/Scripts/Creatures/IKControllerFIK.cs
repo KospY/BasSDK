@@ -2,14 +2,13 @@
 
 
 #if ODIN_INSPECTOR
-using Sirenix.OdinInspector;
 #else
 using EasyButtons;
 #endif
 
 namespace ThunderRoad
 {
-    [AddComponentMenu("ThunderRoad/Creatures/IK Controller")]
+	[AddComponentMenu("ThunderRoad/Creatures/IK Controller")]
     public class IKControllerFIK : IkController
     {
         [Header("Final IK")]

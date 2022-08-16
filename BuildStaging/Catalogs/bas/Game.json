@@ -1,0 +1,1369 @@
+{
+  "$type": "ThunderRoad.GameData, ThunderRoad",
+  "overrideSaveCharacters": false,
+  "overrideSaveOptions": false,
+  "disableCharacterCustomization": false,
+  "disableCharacterDeletion": false,
+  "showControlPanelOnStart": false,
+  "fullscreen": false,
+  "screenWidth": 1920,
+  "screenHeight": 1080,
+  "debugDungeonCaptureMemoryUsage": false,
+  "debugDungeonWaitPress": false,
+  "dungeonStaticBatching": true,
+  "levelStart": "CharacterSelection",
+  "levelStartModeName": null,
+  "levelStartOptions": null,
+  "defaultPlayerMaleCreatureID": "PlayerDefaultMale",
+  "defaultPlayerFemaleCreatureID": "PlayerDefaultFemale",
+  "gameModes": [
+    {
+      "$type": "ThunderRoad.GameMode, ThunderRoad",
+      "id": "Sandbox",
+      "name": "Sandbox",
+      "nameLocalizationId": "DungeonSandBoxName",
+      "description": "Access all weapons and powers without restriction. Spawn enemies of your choice in arena-based environments or enter the dungeon in sandbox mode.",
+      "descriptionLocalizationId": "DungeonSandBoxDescription",
+      "warning": "",
+      "iconAddress": "Bas.Icon.Sandbox",
+      "state": "Show",
+      "resetSpells": true,
+      "resetApparels": false,
+      "allowMenuOptions": true,
+      "allowMenuSandbox": true,
+      "allowLevelSelection": false,
+      "defaultPlayerInvincibility": false,
+      "defaultPlayerFallDamage": true,
+      "defaultPlayerInfiniteMana": false,
+      "defaultPlayerInfiniteFocus": false,
+      "defaultInfiniteImbue": false,
+      "defaultInfiniteArrows": false,
+      "levelCharacterSelection": "CharacterSelection",
+      "levelCharacterSelectionModeName": null,
+      "levelHome": "Home",
+      "levelHomeModeName": null,
+      "tutorialEnabled": true,
+      "tutorialPlayerSpawnerId": "tutorial",
+      "tutorialContainerId": "PlayerTutorial",
+      "defaultPlayerHomeContainerID": "PlayerHomeDefault"
+    },
+    {
+      "$type": "ThunderRoad.GameMode, ThunderRoad",
+      "id": "Dungeon",
+      "name": "Crystal Hunt",
+      "nameLocalizationId": "DungeonCrystalHuntName",
+      "description": "Progression gamemode. Level up your character, buy equipement, and explore dungeons in the search for Crystal Shards and loot.",
+      "descriptionLocalizationId": "DungeonCrystalHuntDescription",
+      "warning": "- {Available} 2023 -",
+      "iconAddress": "Bas.Icon.Dungeon",
+      "state": "Disabled",
+      "resetSpells": false,
+      "resetApparels": false,
+      "allowMenuOptions": true,
+      "allowMenuSandbox": false,
+      "allowLevelSelection": false,
+      "defaultPlayerInvincibility": false,
+      "defaultPlayerFallDamage": true,
+      "defaultPlayerInfiniteMana": false,
+      "defaultPlayerInfiniteFocus": false,
+      "defaultInfiniteImbue": false,
+      "defaultInfiniteArrows": false,
+      "levelCharacterSelection": "CharacterSelection",
+      "levelCharacterSelectionModeName": null,
+      "levelHome": "Home",
+      "levelHomeModeName": null,
+      "tutorialEnabled": false,
+      "tutorialPlayerSpawnerId": "tutorial",
+      "tutorialContainerId": "PlayerTutorial",
+      "defaultPlayerHomeContainerID": "PlayerHomeDefault"
+    },
+    {
+      "$type": "ThunderRoad.GameMode, ThunderRoad",
+      "id": "Arcade",
+      "name": "Arcade",
+      "nameLocalizationId": "",
+      "description": "TODO",
+      "descriptionLocalizationId": "",
+      "warning": "",
+      "iconAddress": "Bas.Icon.Arcade",
+      "state": "Hidden",
+      "resetSpells": true,
+      "resetApparels": false,
+      "allowMenuOptions": false,
+      "allowMenuSandbox": true,
+      "allowLevelSelection": true,
+      "defaultPlayerInvincibility": false,
+      "defaultPlayerFallDamage": false,
+      "defaultPlayerInfiniteMana": false,
+      "defaultPlayerInfiniteFocus": false,
+      "defaultInfiniteImbue": false,
+      "defaultInfiniteArrows": true,
+      "levelCharacterSelection": "CharacterSelection",
+      "levelCharacterSelectionModeName": null,
+      "levelHome": "CharacterSelection",
+      "levelHomeModeName": null,
+      "tutorialEnabled": true,
+      "tutorialPlayerSpawnerId": "tutorial",
+      "tutorialContainerId": "PlayerTutorial",
+      "defaultPlayerHomeContainerID": "PlayerHomeDefault"
+    }
+  ],
+  "water": {
+    "$type": "ThunderRoad.WaterHandler+Data, ThunderRoad",
+    "footstepEffectId": "FootstepWater",
+    "splashFxAddress": "Bas.Fx.WaterSplash01",
+    "minGravity": 0.2,
+    "outVelocityMultiplier": 0.5,
+    "splashIntensityRadiusCurve": {
+      "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+      "keys": [
+        {
+          "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+          "time": 0.0,
+          "value": 0.0,
+          "inTangent": 0.381079882,
+          "outTangent": 0.381079882,
+          "inWeight": 0.0,
+          "outWeight": 0.0368852429,
+          "weightedMode": "None",
+          "tangentMode": 0
+        },
+        {
+          "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+          "time": 3.0,
+          "value": 1.0,
+          "inTangent": 0.09526994,
+          "outTangent": 0.09526994,
+          "inWeight": 0.0450281128,
+          "outWeight": 0.0,
+          "weightedMode": "None",
+          "tangentMode": 0
+        }
+      ],
+      "length": 2,
+      "preWrapMode": "ClampForever",
+      "postWrapMode": "ClampForever"
+    },
+    "splashSpeedVelocityCurve": {
+      "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+      "keys": [
+        {
+          "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+          "time": 0.0,
+          "value": 0.0,
+          "inTangent": 0.0,
+          "outTangent": 0.0,
+          "inWeight": 0.0,
+          "outWeight": 0.04918033,
+          "weightedMode": "None",
+          "tangentMode": 0
+        },
+        {
+          "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+          "time": 5.0,
+          "value": 1.0,
+          "inTangent": 0.0,
+          "outTangent": 0.0,
+          "inWeight": 0.06557379,
+          "outWeight": 0.0,
+          "weightedMode": "None",
+          "tangentMode": 0
+        }
+      ],
+      "length": 2,
+      "preWrapMode": "ClampForever",
+      "postWrapMode": "ClampForever"
+    },
+    "allowSwimUp": false,
+    "imbueDepletionRate": 50.0,
+    "underwaterEffectId": "Underwater"
+  },
+  "spellWheelEffectId": "SpellOrbCenter",
+  "SpellWheelOpenHandPoseId": "SpellSelClose",
+  "SpellWheelCloseHandPoseId": "Pointing",
+  "uiPointingCloseHandPoseId": "Pointing",
+  "itemWheelEffectId": "SpellOrbCenter",
+  "defaultWheelOrbEffectId": "SpellOrbFire",
+  "fingerSpeed": 6.0,
+  "defaultPostProcessAddress": "ThunderRoad.PostProcess.Default",
+  "postProcessProfiles": [
+    {
+      "$type": "ThunderRoad.GameData+PostProcessProfile, ThunderRoad",
+      "id": "Neutral",
+      "address": "ThunderRoad.PostProcess.Neutral"
+    },
+    {
+      "$type": "ThunderRoad.GameData+PostProcessProfile, ThunderRoad",
+      "id": "Cinematic",
+      "address": "ThunderRoad.PostProcess.Cinematic"
+    },
+    {
+      "$type": "ThunderRoad.GameData+PostProcessProfile, ThunderRoad",
+      "id": "Filmic",
+      "address": "ThunderRoad.PostProcess.Filmic"
+    },
+    {
+      "$type": "ThunderRoad.GameData+PostProcessProfile, ThunderRoad",
+      "id": "HighContrast",
+      "address": "ThunderRoad.PostProcess.HighContrast"
+    }
+  ],
+  "heartBeatLoopAddress": "Bas.Audio.Misc.HeartBeatLoop",
+  "deathSlowMoRatio": 0.1,
+  "deathSlowMoDuration": 10.0,
+  "deathSlowMoEnterCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 1.0,
+        "inTangent": "Infinity",
+        "outTangent": -9.47256,
+        "inWeight": 0.333333343,
+        "outWeight": 0.333333343,
+        "weightedMode": "None",
+        "tangentMode": 1
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.1,
+        "value": 0.0,
+        "inTangent": 0.0593232848,
+        "outTangent": 0.0593232848,
+        "inWeight": 0.333333343,
+        "outWeight": 0.333333343,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "deathSlowMoExitCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 0.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.333333343,
+        "outWeight": 0.333333343,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.2,
+        "value": 1.0,
+        "inTangent": 4.6972,
+        "outTangent": "Infinity",
+        "inWeight": 0.333333343,
+        "outWeight": 0.333333343,
+        "weightedMode": "None",
+        "tangentMode": 1
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "deathEffectId": "Death",
+  "pc": {
+    "$type": "ThunderRoad.GameData+PlatformParameters, ThunderRoad",
+    "maxWaveAlive": 50,
+    "maxRoomNpc": 10,
+    "itemSpawnerMaxItems": 100,
+    "itemSpawnerDelay": 0,
+    "mirrorQuality": 1.0,
+    "aiCycleMinSpeed": 0.1,
+    "aiCycleMaxSpeed": 1.0,
+    "poolingAudioCount": 20,
+    "poolingVfxCount": 10,
+    "poolingShaderCount": 100,
+    "poolingRevealCount": 100,
+    "poolingPaintCount": 100,
+    "poolingMeshCount": 100,
+    "poolingLightCount": 100,
+    "poolingEffectInstanceCount": 600,
+    "enableEffectAudio": true,
+    "enableEffectVfx": true,
+    "enableEffectParticle": true,
+    "enableEffectDecal": true,
+    "enableEffectMesh": true,
+    "enableEffectReveal": true,
+    "enableEffectPaint": true,
+    "enableEffectLight": true
+  },
+  "android": {
+    "$type": "ThunderRoad.GameData+PlatformParameters, ThunderRoad",
+    "maxWaveAlive": 3,
+    "maxRoomNpc": 2,
+    "itemSpawnerMaxItems": 8,
+    "itemSpawnerDelay": 1,
+    "mirrorQuality": 0.5,
+    "aiCycleMinSpeed": 0.1,
+    "aiCycleMaxSpeed": 1.0,
+    "poolingAudioCount": 20,
+    "poolingVfxCount": 5,
+    "poolingShaderCount": 70,
+    "poolingRevealCount": 70,
+    "poolingPaintCount": 70,
+    "poolingMeshCount": 70,
+    "poolingLightCount": 100,
+    "poolingEffectInstanceCount": 600,
+    "enableEffectAudio": true,
+    "enableEffectVfx": true,
+    "enableEffectParticle": true,
+    "enableEffectDecal": false,
+    "enableEffectMesh": true,
+    "enableEffectReveal": true,
+    "enableEffectPaint": false,
+    "enableEffectLight": true
+  },
+  "experience": {
+    "$type": "ThunderRoad.GameData+Experience, ThunderRoad",
+    "actions": {
+      "$type": "ThunderRoad.GameData+Actions, ThunderRoad",
+      "decapitation": 80,
+      "dismemberment": 60,
+      "magicDismemberment": 0,
+      "cutThroat": 60,
+      "slashHeadOrNeck": 30,
+      "pierceHeadOrNeck": 50,
+      "pierceTorso": 40,
+      "bluntHead": 40,
+      "punchOrKick": 30,
+      "ragdollHit": 60,
+      "staticBlunt": 40,
+      "staticSlash": 60,
+      "staticPierce": 70,
+      "electrocuted": 0,
+      "burned": 20,
+      "frozen": 20,
+      "drained": 30,
+      "poisoned": 40,
+      "throwDecapitation": 90,
+      "throwDismemberment": 70,
+      "throwSlashHeadOrNeck": 40,
+      "throwPierceHeadOrNeck": 60,
+      "throwPierce": 50,
+      "throwBlunt": 50
+    },
+    "modifiers": {
+      "$type": "ThunderRoad.GameData+Modifiers, ThunderRoad",
+      "flying": 50,
+      "grabbed": 30,
+      "electrocuted": 0,
+      "onGround": 0,
+      "unarmed": 0,
+      "dead": 0
+    },
+    "aiDifficulty": 50,
+    "apparelTier": 80,
+    "weaponTier": 20,
+    "shieldTier": 50,
+    "historyMaxSameAction": -30,
+    "historyMaxSameActionAndModifier": -60,
+    "historyMultiKill": 20,
+    "historyMinTime": 2.0,
+    "historyMaxTime": 30.0,
+    "historyMaxCount": 20
+  },
+  "honor": {
+    "$type": "ThunderRoad.GameData+Honor, ThunderRoad",
+    "max": 1000,
+    "actions": {
+      "$type": "ThunderRoad.GameData+Actions, ThunderRoad",
+      "decapitation": 2,
+      "dismemberment": 0,
+      "magicDismemberment": 0,
+      "cutThroat": 2,
+      "slashHeadOrNeck": 1,
+      "pierceHeadOrNeck": 1,
+      "pierceTorso": 0,
+      "bluntHead": 1,
+      "punchOrKick": 3,
+      "ragdollHit": 3,
+      "staticBlunt": 1,
+      "staticSlash": 0,
+      "staticPierce": 0,
+      "electrocuted": 0,
+      "burned": -1,
+      "frozen": -1,
+      "drained": -2,
+      "poisoned": -2,
+      "throwDecapitation": 1,
+      "throwDismemberment": 0,
+      "throwSlashHeadOrNeck": 1,
+      "throwPierceHeadOrNeck": 1,
+      "throwPierce": 0,
+      "throwBlunt": 1
+    },
+    "modifiers": {
+      "$type": "ThunderRoad.GameData+Modifiers, ThunderRoad",
+      "flying": 0,
+      "grabbed": 0,
+      "electrocuted": 0,
+      "onGround": -3,
+      "unarmed": -5,
+      "dead": -3
+    }
+  },
+  "score": {
+    "$type": "ThunderRoad.GameData+Score, ThunderRoad",
+    "hitReceived": -4,
+    "waveReached": 5
+  },
+  "factions": [
+    {
+      "$type": "ThunderRoad.GameData+Faction, ThunderRoad",
+      "id": -1,
+      "name": "Passive",
+      "attackBehaviour": "Passive"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Faction, ThunderRoad",
+      "id": 0,
+      "name": "None",
+      "attackBehaviour": "Agressive"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Faction, ThunderRoad",
+      "id": 1,
+      "name": "Ignore",
+      "attackBehaviour": "Ignored"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Faction, ThunderRoad",
+      "id": 2,
+      "name": "Player",
+      "attackBehaviour": "Default"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Faction, ThunderRoad",
+      "id": 3,
+      "name": "MixedEnemies",
+      "attackBehaviour": "Default"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Faction, ThunderRoad",
+      "id": 4,
+      "name": "Bandits",
+      "attackBehaviour": "Default"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Faction, ThunderRoad",
+      "id": 5,
+      "name": "Cult",
+      "attackBehaviour": "Default"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Faction, ThunderRoad",
+      "id": 6,
+      "name": "Mercenary",
+      "attackBehaviour": "Default"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Faction, ThunderRoad",
+      "id": 7,
+      "name": "Gladiator",
+      "attackBehaviour": "Default"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Faction, ThunderRoad",
+      "id": 8,
+      "name": "Soldier",
+      "attackBehaviour": "Default"
+    }
+  ],
+  "categories": [
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Unknown",
+      "group": "Unknown",
+      "iconAddress": "Bas.Icon.question"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Daggers",
+      "group": "Weapons",
+      "iconAddress": "Bas.Icon.plain-dagger"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Swords",
+      "group": "Weapons",
+      "iconAddress": "Bas.Icon.sword"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Axes",
+      "group": "Weapons",
+      "iconAddress": "Bas.Icon.war-axe"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Spears",
+      "group": "Weapons",
+      "iconAddress": "Bas.Icon.spear"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Blunt",
+      "group": "Weapons",
+      "iconAddress": "Bas.Icon.blunt"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Exotics",
+      "group": "Weapons",
+      "iconAddress": "Bas.Icon.exotics"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Bows",
+      "group": "Weapons",
+      "iconAddress": "Bas.Icon.bow"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Crossbow",
+      "group": "Weapons",
+      "iconAddress": "Bas.Icon.crossbow"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Firearms",
+      "group": "Weapons",
+      "iconAddress": "Bas.Icon.blunderbuss"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Staves",
+      "group": "Weapons",
+      "iconAddress": "Bas.Icon.staves"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Shields",
+      "group": "Weapons",
+      "iconAddress": "Bas.Icon.shields"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Potions",
+      "group": "Consumables",
+      "iconAddress": "Bas.Icon.potions"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Utilities",
+      "group": "Tools",
+      "iconAddress": "Bas.Icon.utilities"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Traps",
+      "group": "Tools",
+      "iconAddress": "Bas.Icon.wolf-trap"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Clothes",
+      "group": "Apparels",
+      "iconAddress": "Bas.Icon.armor-cloth"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Food",
+      "group": "Consumables",
+      "iconAddress": "Bas.Icon.food"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Leather",
+      "group": "Apparels",
+      "iconAddress": "Bas.Icon.armor-leather"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Plate",
+      "group": "Apparels",
+      "iconAddress": "Bas.Icon.armor-plate"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Crystals",
+      "group": "Valuables",
+      "iconAddress": "Bas.Icon.gems"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Valuables",
+      "group": "Valuables",
+      "iconAddress": "Bas.Icon.swap-bag"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Mages",
+      "group": "Apparels",
+      "iconAddress": "Bas.Icon.armor-mage"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Tools",
+      "group": "Tools",
+      "iconAddress": "Bas.Icon.anvil-impact"
+    }
+  ],
+  "categoryGroups": [
+    {
+      "$type": "ThunderRoad.GameData+CategoryGroup, ThunderRoad",
+      "id": "Unknown",
+      "iconAddress": "bas.Icon.CategoryGroupIconUnknown",
+      "useInInventory": true,
+      "displayWhenEmpty": true,
+      "inventorySortingOrder": 1,
+      "inventoryMaxSlotAmount": 10,
+      "limitInventoryMaxItemAmount": false,
+      "inventoryMaxItemAmount": 0,
+      "hoverSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": "Bas.AudioGroup.Misc.CategoryGroupHoverUnknown",
+        "volumeDb": -12.0
+      },
+      "selectSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      },
+      "itemHoverSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      },
+      "itemSelectSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      },
+      "itemStoreSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      }
+    },
+    {
+      "$type": "ThunderRoad.GameData+CategoryGroup, ThunderRoad",
+      "id": "Consumables",
+      "iconAddress": "bas.Icon.CategoryGroupIconConsumables",
+      "useInInventory": true,
+      "displayWhenEmpty": true,
+      "inventorySortingOrder": 2,
+      "inventoryMaxSlotAmount": 10,
+      "limitInventoryMaxItemAmount": false,
+      "inventoryMaxItemAmount": 0,
+      "hoverSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": "Bas.AudioGroup.Misc.CategoryGroupHoverConsumable",
+        "volumeDb": -15.0
+      },
+      "selectSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      },
+      "itemHoverSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      },
+      "itemSelectSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      },
+      "itemStoreSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      }
+    },
+    {
+      "$type": "ThunderRoad.GameData+CategoryGroup, ThunderRoad",
+      "id": "Tools",
+      "iconAddress": "bas.Icon.CategoryGroupIconTools",
+      "useInInventory": true,
+      "displayWhenEmpty": true,
+      "inventorySortingOrder": 3,
+      "inventoryMaxSlotAmount": 10,
+      "limitInventoryMaxItemAmount": false,
+      "inventoryMaxItemAmount": 0,
+      "hoverSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": "Bas.AudioGroup.Misc.CategoryGroupHoverTools",
+        "volumeDb": -15.0
+      },
+      "selectSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      },
+      "itemHoverSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      },
+      "itemSelectSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      },
+      "itemStoreSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      }
+    },
+    {
+      "$type": "ThunderRoad.GameData+CategoryGroup, ThunderRoad",
+      "id": "Valuables",
+      "iconAddress": "bas.Icon.CategoryGroupIconValuables",
+      "useInInventory": true,
+      "displayWhenEmpty": true,
+      "inventorySortingOrder": 4,
+      "inventoryMaxSlotAmount": 10,
+      "limitInventoryMaxItemAmount": false,
+      "inventoryMaxItemAmount": 0,
+      "hoverSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": "Bas.AudioGroup.Misc.CategoryGroupHoverValuables",
+        "volumeDb": -12.0
+      },
+      "selectSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      },
+      "itemHoverSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      },
+      "itemSelectSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      },
+      "itemStoreSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      }
+    },
+    {
+      "$type": "ThunderRoad.GameData+CategoryGroup, ThunderRoad",
+      "id": "Weapons",
+      "iconAddress": "Bas.Icon.sword",
+      "useInInventory": false,
+      "displayWhenEmpty": false,
+      "inventorySortingOrder": 0,
+      "inventoryMaxSlotAmount": 0,
+      "limitInventoryMaxItemAmount": false,
+      "inventoryMaxItemAmount": 0,
+      "hoverSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      },
+      "selectSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      },
+      "itemHoverSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      },
+      "itemSelectSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      },
+      "itemStoreSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      }
+    },
+    {
+      "$type": "ThunderRoad.GameData+CategoryGroup, ThunderRoad",
+      "id": "Apparels",
+      "iconAddress": "Bas.Icon.chest-armor",
+      "useInInventory": false,
+      "displayWhenEmpty": false,
+      "inventorySortingOrder": 0,
+      "inventoryMaxSlotAmount": 0,
+      "limitInventoryMaxItemAmount": false,
+      "inventoryMaxItemAmount": 0,
+      "hoverSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": "Bas.AudioGroup.Misc.CategoryGroupHoverApparels",
+        "volumeDb": 0.0
+      },
+      "selectSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      },
+      "itemHoverSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      },
+      "itemSelectSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      },
+      "itemStoreSounds": {
+        "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+        "audioContainerAddress": null,
+        "volumeDb": 0.0
+      }
+    }
+  ],
+  "holderSlots": [
+    "Potion",
+    "Small",
+    "Medium",
+    "Large",
+    "Head",
+    "Shield",
+    "Bow",
+    "Quiver",
+    "Arrow",
+    "Throwables",
+    "Bolt",
+    "Cork",
+    "Torch",
+    "Monolith"
+  ],
+  "skillTree": [
+    {
+      "$type": "ThunderRoad.GameData+SkillCluster, ThunderRoad",
+      "id": 0,
+      "depth": 0,
+      "skills": [
+        {
+          "$type": "ThunderRoad.GameData+Skill, ThunderRoad",
+          "id": 0,
+          "name": "Fire",
+          "description": "Throws a fireball at your opponents.",
+          "unlocked": false,
+          "dependancies": [],
+          "multiLevel": true,
+          "levels": 3,
+          "levelEffects": [
+            "SpellOrbFire",
+            "SpellOrbFire",
+            "SpellOrbFire"
+          ],
+          "effectId": "SpellOrbFire"
+        },
+        {
+          "$type": "ThunderRoad.GameData+Skill, ThunderRoad",
+          "id": 1,
+          "name": "Lightning",
+          "description": "Unleash a lightning storm at your opponents.",
+          "unlocked": false,
+          "dependancies": [],
+          "multiLevel": false,
+          "levels": 3,
+          "levelEffects": null,
+          "effectId": "SpellOrbLightning"
+        }
+      ],
+      "dependancies": [],
+      "effectId": "SpellOrbCenter"
+    },
+    {
+      "$type": "ThunderRoad.GameData+SkillCluster, ThunderRoad",
+      "id": 1,
+      "depth": 1,
+      "skills": [
+        {
+          "$type": "ThunderRoad.GameData+Skill, ThunderRoad",
+          "id": 2,
+          "name": "Gravity",
+          "description": "Create a gravity field around you.",
+          "unlocked": false,
+          "dependancies": [
+            1,
+            2
+          ],
+          "multiLevel": false,
+          "levels": 3,
+          "levelEffects": null,
+          "effectId": "SpellOrbGravity"
+        }
+      ],
+      "dependancies": [
+        0
+      ],
+      "effectId": "SpellOrbCenter"
+    },
+    {
+      "$type": "ThunderRoad.GameData+SkillCluster, ThunderRoad",
+      "id": 2,
+      "depth": 1,
+      "skills": [
+        {
+          "$type": "ThunderRoad.GameData+Skill, ThunderRoad",
+          "id": 5,
+          "name": null,
+          "description": null,
+          "unlocked": false,
+          "dependancies": [],
+          "multiLevel": false,
+          "levels": 3,
+          "levelEffects": null,
+          "effectId": "SpellOrbLightning"
+        }
+      ],
+      "dependancies": [],
+      "effectId": "SpellOrbCenter"
+    }
+  ],
+  "categoryGroupDefaultSounds": {
+    "$type": "ThunderRoad.GameData+CategoryGroupAudioContainersAddresses, ThunderRoad",
+    "defaultHoverSounds": {
+      "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+      "audioContainerAddress": "Bas.AudioGroup.Misc.CategoryGroupHoverDefault",
+      "volumeDb": -11.04
+    },
+    "defaultSelectSounds": {
+      "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+      "audioContainerAddress": "Bas.AudioGroup.Misc.CategoryGroupSelectDefault",
+      "volumeDb": -8.13
+    },
+    "defaultItemStoreSounds": {
+      "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+      "audioContainerAddress": "Bas.AudioGroup.Misc.CategoryGroupStoreDefault",
+      "volumeDb": -15.0
+    },
+    "defaultItemHoverSounds": {
+      "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+      "audioContainerAddress": "Bas.AudioGroup.Misc.CategoryGroupItemHoverDefault",
+      "volumeDb": -10.55
+    },
+    "defaultItemSelectSounds": {
+      "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+      "audioContainerAddress": null,
+      "volumeDb": 0.0
+    },
+    "itemStoredErrorSounds": {
+      "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+      "audioContainerAddress": "Bas.AudioGroup.Misc.Errors",
+      "volumeDb": 0.0
+    }
+  },
+  "inventoryData": {
+    "$type": "ThunderRoad.GameInventory+Data, ThunderRoad",
+    "inventoryRadialMenuUiPrefabAddress": "Bas.Menu.RadialMenuUI",
+    "openSound": {
+      "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+      "audioContainerAddress": "Bas.AudioGroup.Inventory.InventoryOpen",
+      "volumeDb": -13.0
+    },
+    "closeSound": {
+      "$type": "ThunderRoad.GameData+AudioContainerAddressAndVolume, ThunderRoad",
+      "audioContainerAddress": "Bas.AudioGroup.Inventory.InventoryClose",
+      "volumeDb": -13.0
+    }
+  },
+  "screenshotFormat": "JPG",
+  "screenshotJpegQuality": 75,
+  "locomotionGroundDetection": "Collision",
+  "menuPrefabAddress": "Bas.Core.MenuBook",
+  "playerHighlighterAddress": "Bas.Highlighter.PlayerHolder",
+  "itemIconResolution": 512,
+  "throwVelocity": 2.0,
+  "throwMultiplier": 2.0,
+  "collisionEnterVelocityRange": {
+    "x": 0.25,
+    "y": 15.0
+  },
+  "collisionStayVelocityRange": {
+    "x": 0.25,
+    "y": 3.0
+  },
+  "penetrationVelocityEffectRange": {
+    "x": 0.0,
+    "y": 1.0
+  },
+  "maxObjectCollision": 10,
+  "maxFramesToKeepCollision": 5,
+  "maxCollisionStayCheckPerFrame": 100,
+  "cleanDeadLastInteractionDelay": 7,
+  "cleanObjectsLastInteractionDelay": 7,
+  "cleanFarObjectsSqrDistance": 62500,
+  "motionBlurIntensity": 0.35,
+  "errorAudioGroupAddress": "Bas.AudioGroup.Misc.Errors",
+  "collisionDetection": {
+    "$type": "ThunderRoad.GameData+CollisionDetection, ThunderRoad",
+    "grabbed": "Discrete",
+    "dropped": "Discrete",
+    "throwed": "ContinuousDynamic",
+    "telekinesis": "Discrete",
+    "npcAttack": "ContinuousDynamic",
+    "kick": "ContinuousDynamic"
+  },
+  "haptics": {
+    "$type": "ThunderRoad.GameData+Haptics, ThunderRoad",
+    "hit": {
+      "$type": "ThunderRoad.GameData+HapticClip, ThunderRoad",
+      "curveIntensity": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 1.0,
+            "inTangent": -0.0111419288,
+            "outTangent": -0.0111419288,
+            "inWeight": 0.333333343,
+            "outWeight": 0.129513338,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 0.0,
+            "inTangent": -2.92779732,
+            "outTangent": -2.92779732,
+            "inWeight": 0.0211930871,
+            "outWeight": 0.333333343,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      },
+      "curvePeriod": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 0.05,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 0.07,
+            "inTangent": 0.0346465074,
+            "outTangent": 0.0346465074,
+            "inWeight": 0.0408163071,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      },
+      "duration": 0.3
+    },
+    "bowShoot": {
+      "$type": "ThunderRoad.GameData+HapticClip, ThunderRoad",
+      "curveIntensity": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 1.0,
+            "inTangent": 0.0164383221,
+            "outTangent": 0.0164383221,
+            "inWeight": 0.333333343,
+            "outWeight": 0.333333343,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 0.0,
+            "inTangent": -2.8025918,
+            "outTangent": -2.8025918,
+            "inWeight": 0.0272482634,
+            "outWeight": 0.333333343,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      },
+      "curvePeriod": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 0.05,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 0.07,
+            "inTangent": 0.0507395454,
+            "outTangent": 0.0507395454,
+            "inWeight": 0.03924644,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      },
+      "duration": 0.3
+    },
+    "telekinesisThrow": {
+      "$type": "ThunderRoad.GameData+HapticClip, ThunderRoad",
+      "curveIntensity": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 1.0,
+            "inTangent": -0.00689419126,
+            "outTangent": -0.00689419126,
+            "inWeight": 0.0,
+            "outWeight": 0.115384616,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 0.0,
+            "inTangent": -2.712128,
+            "outTangent": -2.712128,
+            "inWeight": 0.0204081535,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      },
+      "curvePeriod": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 0.05,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 0.1,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      },
+      "duration": 0.5
+    },
+    "spellSelected": {
+      "$type": "ThunderRoad.GameData+HapticClip, ThunderRoad",
+      "curveIntensity": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 0.1,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 0.0,
+            "inTangent": -0.1500644,
+            "outTangent": -0.1500644,
+            "inWeight": 0.03622804,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      },
+      "curvePeriod": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 0.05,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 0.05,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      },
+      "duration": 0.25
+    },
+    "telekinesisIntensity": {
+      "x": 0.05,
+      "y": 0.2
+    },
+    "telekinesisViveCosmosMultiplier": 0.1,
+    "telekinesisPeriod": {
+      "x": 0.06,
+      "y": 0.03
+    },
+    "telekinesisFocus": 0.1,
+    "bowDrawPeriod": 0.02,
+    "bowDrawIntensity": 0.8,
+    "rubbingPeriod": 0.02,
+    "rubbingIntensity": 0.8,
+    "penetrationPeriod": 0.01,
+    "penetrationIntensity": 0.9
+  },
+  "inventoryLayoutProfiles": [
+    {
+      "$type": "ThunderRoad.WheelMenuInventory+InventoryLayoutSettingsProfile, ThunderRoad",
+      "name": "InventoryOptionLayoutChestCentered",
+      "settings": {
+        "$type": "ThunderRoad.WheelMenuInventory+InventoryLayoutSettings, ThunderRoad",
+        "rightAnchorOffset": -0.35,
+        "upAnchorOffset": -0.1,
+        "forwardAnchorOffset": 1.0,
+        "uiScale": 0.75,
+        "uiSmokeOpacity": 1.0,
+        "uiAnchor": "Chest"
+      }
+    },
+    {
+      "$type": "ThunderRoad.WheelMenuInventory+InventoryLayoutSettingsProfile, ThunderRoad",
+      "name": "InventoryOptionLayoutHeadCentered",
+      "settings": {
+        "$type": "ThunderRoad.WheelMenuInventory+InventoryLayoutSettings, ThunderRoad",
+        "rightAnchorOffset": 0.0,
+        "upAnchorOffset": -0.1,
+        "forwardAnchorOffset": 1.35,
+        "uiScale": 0.75,
+        "uiSmokeOpacity": 1.0,
+        "uiAnchor": "Head"
+      }
+    },
+    {
+      "$type": "ThunderRoad.WheelMenuInventory+InventoryLayoutSettingsProfile, ThunderRoad",
+      "name": "InventoryOptionLayoutInHand",
+      "settings": {
+        "$type": "ThunderRoad.WheelMenuInventory+InventoryLayoutSettings, ThunderRoad",
+        "rightAnchorOffset": 0.2,
+        "upAnchorOffset": 0.0,
+        "forwardAnchorOffset": 0.15,
+        "uiScale": 0.3,
+        "uiSmokeOpacity": 1.0,
+        "uiAnchor": "Hand"
+      }
+    },
+    {
+      "$type": "ThunderRoad.WheelMenuInventory+InventoryLayoutSettingsProfile, ThunderRoad",
+      "name": "InventoryOptionLayoutHeadWithOffset",
+      "settings": {
+        "$type": "ThunderRoad.WheelMenuInventory+InventoryLayoutSettings, ThunderRoad",
+        "rightAnchorOffset": 0.25,
+        "upAnchorOffset": -0.1,
+        "forwardAnchorOffset": 1.35,
+        "uiScale": 1.0,
+        "uiSmokeOpacity": 1.0,
+        "uiAnchor": "Head"
+      }
+    },
+    {
+      "$type": "ThunderRoad.WheelMenuInventory+InventoryLayoutSettingsProfile, ThunderRoad",
+      "name": "InventoryOptionLayoutTiny",
+      "settings": {
+        "$type": "ThunderRoad.WheelMenuInventory+InventoryLayoutSettings, ThunderRoad",
+        "rightAnchorOffset": 0.0,
+        "upAnchorOffset": -0.1,
+        "forwardAnchorOffset": 0.3,
+        "uiScale": 0.15,
+        "uiSmokeOpacity": 1.0,
+        "uiAnchor": "Head"
+      }
+    }
+  ]
+}

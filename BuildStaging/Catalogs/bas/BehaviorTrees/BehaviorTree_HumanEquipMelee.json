@@ -1,0 +1,231 @@
+{
+  "$type": "ThunderRoad.AI.BehaviorTreeData, ThunderRoad",
+  "id": "HumanEquipMelee",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "type": "SubTree",
+  "rootNode": {
+    "$type": "ThunderRoad.AI.Control.Selector, ThunderRoad",
+    "evaluateAllNodesOnCycle": false,
+    "childs": [
+      {
+        "$type": "ThunderRoad.AI.Decorator.AlwaysFailure, ThunderRoad",
+        "child": {
+          "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+          "operation": "AND",
+          "ifConditions": [
+            {
+              "$type": "ThunderRoad.AI.Action.IsGrabbing, ThunderRoad",
+              "weaponOnly": false,
+              "hand": "Left",
+              "weaponClass": "Bow",
+              "weaponClassFilter": "Equal"
+            }
+          ],
+          "ifNotConditions": null,
+          "child": {
+            "$type": "ThunderRoad.AI.Action.HolsterItem, ThunderRoad",
+            "holsterRight": false,
+            "holsterLeft": true,
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          }
+        }
+      },
+      {
+        "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+        "evaluateAllNodesOnCycle": false,
+        "childs": [
+          {
+            "$type": "ThunderRoad.AI.Action.DrawItem, ThunderRoad",
+            "targetTransformVariableName": "",
+            "drawRightWeapon": true,
+            "rightInfo": {
+              "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+              "weaponClass": "Melee",
+              "weaponHandling": "OneHanded",
+              "checkAmmo": false,
+              "checkInHolder": false
+            },
+            "drawLeftWeapon": true,
+            "leftInfo": {
+              "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+              "weaponClass": "Shield",
+              "weaponHandling": "OneHanded",
+              "checkAmmo": false,
+              "checkInHolder": false
+            },
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          },
+          {
+            "$type": "ThunderRoad.AI.Action.SetStance, ThunderRoad",
+            "stance": "MeleeShield",
+            "onlyOnce": false,
+            "setSubStance": "Random",
+            "excludeCurrent": true,
+            "subStanceName": "",
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          },
+          {
+            "$type": "ThunderRoad.AI.Action.SetDefenseState, ThunderRoad",
+            "parry": true,
+            "dodge": true,
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          }
+        ]
+      },
+      {
+        "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+        "evaluateAllNodesOnCycle": false,
+        "childs": [
+          {
+            "$type": "ThunderRoad.AI.Action.DrawItem, ThunderRoad",
+            "targetTransformVariableName": "",
+            "drawRightWeapon": true,
+            "rightInfo": {
+              "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+              "weaponClass": "Melee",
+              "weaponHandling": "OneHanded",
+              "checkAmmo": false,
+              "checkInHolder": false
+            },
+            "drawLeftWeapon": true,
+            "leftInfo": {
+              "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+              "weaponClass": "Melee",
+              "weaponHandling": "OneHanded",
+              "checkAmmo": false,
+              "checkInHolder": false
+            },
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          },
+          {
+            "$type": "ThunderRoad.AI.Action.SetStance, ThunderRoad",
+            "stance": "DualWield",
+            "onlyOnce": false,
+            "setSubStance": "Random",
+            "excludeCurrent": true,
+            "subStanceName": "",
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          },
+          {
+            "$type": "ThunderRoad.AI.Action.SetDefenseState, ThunderRoad",
+            "parry": true,
+            "dodge": true,
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          }
+        ]
+      },
+      {
+        "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+        "evaluateAllNodesOnCycle": false,
+        "childs": [
+          {
+            "$type": "ThunderRoad.AI.Action.DrawItem, ThunderRoad",
+            "targetTransformVariableName": "",
+            "drawRightWeapon": true,
+            "rightInfo": {
+              "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+              "weaponClass": "Melee",
+              "weaponHandling": "OneHanded",
+              "checkAmmo": false,
+              "checkInHolder": false
+            },
+            "drawLeftWeapon": false,
+            "leftInfo": {
+              "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+              "weaponClass": "None",
+              "weaponHandling": "None",
+              "checkAmmo": false,
+              "checkInHolder": false
+            },
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          },
+          {
+            "$type": "ThunderRoad.AI.Action.SetStance, ThunderRoad",
+            "stance": "Melee1H",
+            "onlyOnce": false,
+            "setSubStance": "Random",
+            "excludeCurrent": true,
+            "subStanceName": "",
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          },
+          {
+            "$type": "ThunderRoad.AI.Action.SetDefenseState, ThunderRoad",
+            "parry": true,
+            "dodge": true,
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          }
+        ]
+      },
+      {
+        "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+        "operation": "AND",
+        "ifConditions": [
+          {
+            "$type": "ThunderRoad.AI.Condition.IsUnarmed, ThunderRoad",
+            "isMainHandCheck": true
+          }
+        ],
+        "ifNotConditions": null,
+        "child": {
+          "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+          "evaluateAllNodesOnCycle": false,
+          "childs": [
+            {
+              "$type": "ThunderRoad.AI.Action.SetStance, ThunderRoad",
+              "stance": "Melee1H",
+              "onlyOnce": false,
+              "setSubStance": "Random",
+              "excludeCurrent": true,
+              "subStanceName": "",
+              "blackboard": null,
+              "creature": null,
+              "brainData": null
+            },
+            {
+              "$type": "ThunderRoad.AI.Action.SetDefenseState, ThunderRoad",
+              "parry": true,
+              "dodge": true,
+              "blackboard": null,
+              "creature": null,
+              "brainData": null
+            },
+            {
+              "$type": "ThunderRoad.AI.Action.MoveLeftToRight, ThunderRoad",
+              "startActionOnDisarm": true,
+              "disarmedActionStartDelay": {
+                "x": 0.1,
+                "y": 0.25
+              },
+              "blackboard": null,
+              "creature": null,
+              "brainData": null
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

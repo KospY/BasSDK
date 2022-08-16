@@ -1,16 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-
 #if ODIN_INSPECTOR
-using Sirenix.OdinInspector;
 #else
 using EasyButtons;
 #endif
 
 namespace ThunderRoad
 {
-    [AddComponentMenu("ThunderRoad/Whoosh Effect")]
-    public class WhooshEffect : MonoBehaviour
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/WhooshEffect")]
+	[AddComponentMenu("ThunderRoad/Whoosh Effect")]
+    public class WhooshEffect : ThunderBehaviour
     {
         public Trigger trigger = Trigger.Always;
         public float minVelocity = 5;

@@ -1,0 +1,235 @@
+{
+  "$type": "ThunderRoad.AI.BehaviorTreeData, ThunderRoad",
+  "id": "HumanCombatBow",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "type": "SubTree",
+  "rootNode": {
+    "$type": "ThunderRoad.AI.Control.Selector, ThunderRoad",
+    "evaluateAllNodesOnCycle": false,
+    "childs": [
+      {
+        "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+        "evaluateAllNodesOnCycle": true,
+        "childs": [
+          {
+            "$type": "ThunderRoad.AI.Action.CanDrawItem, ThunderRoad",
+            "targetTransformVariableName": "",
+            "drawRightWeapon": false,
+            "rightInfo": {
+              "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+              "weaponClass": "None",
+              "weaponHandling": "None",
+              "checkAmmo": false,
+              "checkInHolder": false
+            },
+            "drawLeftWeapon": true,
+            "leftInfo": {
+              "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+              "weaponClass": "Bow",
+              "weaponHandling": "TwoHanded",
+              "checkAmmo": true,
+              "checkInHolder": false
+            },
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          },
+          {
+            "$type": "ThunderRoad.AI.Decorator.AlwaysSuccess, ThunderRoad",
+            "child": {
+              "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+              "operation": "AND",
+              "ifConditions": [
+                {
+                  "$type": "ThunderRoad.AI.Action.IsGrabbing, ThunderRoad",
+                  "weaponOnly": false,
+                  "hand": "Right",
+                  "weaponClass": "Arrow",
+                  "weaponClassFilter": "NotEqual"
+                }
+              ],
+              "ifNotConditions": null,
+              "child": {
+                "$type": "ThunderRoad.AI.Action.HolsterItem, ThunderRoad",
+                "holsterRight": true,
+                "holsterLeft": false,
+                "blackboard": null,
+                "creature": null,
+                "brainData": null
+              }
+            }
+          },
+          {
+            "$type": "ThunderRoad.AI.Action.DrawItem, ThunderRoad",
+            "targetTransformVariableName": "",
+            "drawRightWeapon": false,
+            "rightInfo": {
+              "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+              "weaponClass": "None",
+              "weaponHandling": "None",
+              "checkAmmo": false,
+              "checkInHolder": false
+            },
+            "drawLeftWeapon": true,
+            "leftInfo": {
+              "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+              "weaponClass": "Bow",
+              "weaponHandling": "TwoHanded",
+              "checkAmmo": true,
+              "checkInHolder": false
+            },
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          },
+          {
+            "$type": "ThunderRoad.AI.Action.SetStance, ThunderRoad",
+            "stance": "Bow",
+            "onlyOnce": false,
+            "setSubStance": "Random",
+            "excludeCurrent": true,
+            "subStanceName": "",
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          },
+          {
+            "$type": "ThunderRoad.AI.Action.SetDefenseState, ThunderRoad",
+            "parry": false,
+            "dodge": false,
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          },
+          {
+            "$type": "ThunderRoad.AI.Decorator.AlwaysSuccess, ThunderRoad",
+            "child": {
+              "$type": "ThunderRoad.AI.Control.Selector, ThunderRoad",
+              "evaluateAllNodesOnCycle": false,
+              "childs": [
+                {
+                  "$type": "ThunderRoad.AI.Get.GetShootPoint, ThunderRoad",
+                  "target": "CurrentTarget",
+                  "inputVariableName": "",
+                  "checkShortestPath": false,
+                  "outputPositionVariableName": "ShootPosition",
+                  "blackboard": null,
+                  "creature": null,
+                  "brainData": null
+                },
+                {
+                  "$type": "ThunderRoad.AI.Get.GetShootPosition, ThunderRoad",
+                  "target": "CurrentTarget",
+                  "inputVariableName": "",
+                  "checkShortestPath": false,
+                  "outputPositionVariableName": "ShootPosition",
+                  "blackboard": null,
+                  "creature": null,
+                  "brainData": null
+                }
+              ]
+            }
+          },
+          {
+            "$type": "ThunderRoad.AI.Control.Selector, ThunderRoad",
+            "evaluateAllNodesOnCycle": true,
+            "childs": [
+              {
+                "$type": "ThunderRoad.AI.Action.AttackBow, ThunderRoad",
+                "overrideMaxShootAngle": false,
+                "maxShootAngleOverride": 0.0,
+                "inputTransformVariableName": "CurrentTargetSightedPartTransform",
+                "useCurrentTargetIfNullTransform": true,
+                "overrideSpread": false,
+                "spreadOverride": {
+                  "x": 0.0,
+                  "y": 0.0
+                },
+                "overrideWeaponRotationX": false,
+                "overrideWeaponRotationY": false,
+                "overrideWeaponRotationZ": false,
+                "weaponRotationOverride": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0.0
+                },
+                "moduleBow": null,
+                "moduleRanged": null,
+                "blackboard": null,
+                "creature": null,
+                "brainData": null
+              },
+              {
+                "$type": "ThunderRoad.AI.Action.MoveTo, ThunderRoad",
+                "moveTarget": "InputPosition",
+                "inputMoveTargetVariableName": "ShootPosition",
+                "turnTarget": "CurrentTarget",
+                "inputTurnTargetVariableName": "",
+                "forceTurnToUseMoveDirectionAtDistance": true,
+                "turnMoveDirectionDistance": 10.0,
+                "turnMoveDirectionSpeed": 1.0,
+                "approachMoveSpeedRatio": 1.0,
+                "approachTurnSpeedRatio": 1.0,
+                "approachRunSpeedRatio": 1.0,
+                "moveCloserIfNoSight": false,
+                "strafeAroundTarget": false,
+                "strafeMoveSpeedRatio": 0.75,
+                "strafeTurnSpeedRatio": 1.0,
+                "strafeRunSpeedRatio": 0.0,
+                "checkMaxAllies": false,
+                "safeRangeOffset": 0.25,
+                "safeRangeThickness": 2.0,
+                "reportUnreachable": false,
+                "useModuleStrafeDelay": false,
+                "repathMinDelay": 0.0,
+                "repathMaxDelay": 0.0,
+                "autoRadius": "None",
+                "targetMinRadius": 0.0,
+                "targetMaxRadius": 0.5,
+                "angleMode": "None",
+                "changeAngleUntilUnobstructed": false,
+                "targetRadiusMinAngle": 0.0,
+                "targetRadiusMaxAngle": 0.0,
+                "blackboard": null,
+                "creature": null,
+                "brainData": null
+              },
+              {
+                "$type": "ThunderRoad.AI.Decorator.AlwaysSuccess, ThunderRoad",
+                "child": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "$type": "ThunderRoad.AI.Decorator.AlwaysFailure, ThunderRoad",
+        "child": {
+          "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+          "operation": "AND",
+          "ifConditions": [
+            {
+              "$type": "ThunderRoad.AI.Action.IsGrabbing, ThunderRoad",
+              "weaponOnly": false,
+              "hand": "Left",
+              "weaponClass": "Bow",
+              "weaponClassFilter": "Equal"
+            }
+          ],
+          "ifNotConditions": null,
+          "child": {
+            "$type": "ThunderRoad.AI.Action.HolsterItem, ThunderRoad",
+            "holsterRight": false,
+            "holsterLeft": true,
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          }
+        }
+      }
+    ]
+  }
+}

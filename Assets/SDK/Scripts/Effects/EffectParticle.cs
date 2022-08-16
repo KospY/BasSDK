@@ -2,10 +2,13 @@
 using System;
 using System.Collections.Generic;
 
+
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/EffectParticle")]
     public class EffectParticle : Effect
     {
+
         public int poolCount = 50;
         public float lifeTime = 5;
 
@@ -36,6 +39,9 @@ namespace ThunderRoad
         public Gradient currentSecondaryGradient;
 
         protected MaterialPropertyBlock materialPropertyBlock;
+        private static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
+        private static readonly int TintColor = Shader.PropertyToID("_TintColor");
+        private static readonly int EmissionColor = Shader.PropertyToID("_EmissionColor");
 
         private void OnValidate()
         {
@@ -98,7 +104,7 @@ namespace ThunderRoad
                 }
 #if PrivateSDK
                 // Set light volume if in dungeon
-                if (Level.current.dungeon)
+                if (Level.current?.dungeon)
                 {
                     LightVolumeReceiver.ApplyProbeVolume(p.particleRenderer, materialPropertyBlock);
                 }
@@ -130,13 +136,15 @@ namespace ThunderRoad
                 Invoke("Despawn", lifeTime);
             }
         }
+        protected override ManagedLoops ManagedLoops => ManagedLoops.LateUpdate;
 
-        protected void LateUpdate()
+        protected internal override void ManagedLateUpdate()
         {
             if (renderInLateUpdate && playTime > 0)
             {
-                foreach (EffectParticleChild p in childs)
+                for (int i = 0; i < childs.Count; i++)
                 {
+                    EffectParticleChild p = childs[i];
                     p.particleSystem.Simulate(Time.deltaTime, true, false, false);
                 }
             }
@@ -174,13 +182,15 @@ namespace ThunderRoad
                 transform.localScale = new Vector3(scale, scale, scale);
             }
 
-            foreach (EffectParticleChild p in childs)
+            int childsCount = childs.Count;
+            for (int i = 0; i < childsCount; i++)
             {
+                EffectParticleChild p = childs[i];
                 ParticleSystem.MainModule mainModule = p.particleSystem.main;
 
                 if (p == null)
                 {
-                    Debug.LogError(this.name + " have an EffectParticleChild that has been destroyed! (this could happen if a effectParticle component has been added to one of the childs)");
+                    Debug.LogError($"{this.name} have an EffectParticleChild that has been destroyed! (this could happen if a effectParticle component has been added to one of the childs)");
                     continue;
                 }
 
@@ -299,34 +309,34 @@ namespace ThunderRoad
                 bool updatePropertyBlock = false;
                 if (p.linkBaseColor == EffectTarget.Main && currentMainGradient != null)
                 {
-                    p.materialPropertyBlock.SetColor("_BaseColor", currentMainGradient.Evaluate(currentValue));
+                    p.materialPropertyBlock.SetColor(BaseColor, currentMainGradient.Evaluate(currentValue));
                     updatePropertyBlock = true;
                 }
                 else if (p.linkBaseColor == EffectTarget.Secondary && currentSecondaryGradient != null)
                 {
-                    p.materialPropertyBlock.SetColor("_BaseColor", currentSecondaryGradient.Evaluate(currentValue));
+                    p.materialPropertyBlock.SetColor(BaseColor, currentSecondaryGradient.Evaluate(currentValue));
                     updatePropertyBlock = true;
                 }
 
                 if (p.linkTintColor == EffectTarget.Main && currentMainGradient != null)
                 {
-                    p.materialPropertyBlock.SetColor("_TintColor", currentMainGradient.Evaluate(currentValue));
+                    p.materialPropertyBlock.SetColor(TintColor, currentMainGradient.Evaluate(currentValue));
                     updatePropertyBlock = true;
                 }
                 else if (p.linkTintColor == EffectTarget.Secondary && currentSecondaryGradient != null)
                 {
-                    p.materialPropertyBlock.SetColor("_TintColor", currentSecondaryGradient.Evaluate(currentValue));
+                    p.materialPropertyBlock.SetColor(TintColor, currentSecondaryGradient.Evaluate(currentValue));
                     updatePropertyBlock = true;
                 }
 
                 if (p.linkEmissionColor == EffectTarget.Main && currentMainGradient != null)
                 {
-                    p.materialPropertyBlock.SetColor("_EmissionColor", currentMainGradient.Evaluate(currentValue));
+                    p.materialPropertyBlock.SetColor(EmissionColor, currentMainGradient.Evaluate(currentValue));
                     updatePropertyBlock = true;
                 }
                 else if (p.linkEmissionColor == EffectTarget.Secondary && currentSecondaryGradient != null)
                 {
-                    p.materialPropertyBlock.SetColor("_EmissionColor", currentSecondaryGradient.Evaluate(currentValue));
+                    p.materialPropertyBlock.SetColor(EmissionColor, currentSecondaryGradient.Evaluate(currentValue));
                     updatePropertyBlock = true;
                 }
                 if (updatePropertyBlock) p.particleRenderer.SetPropertyBlock(p.materialPropertyBlock);
@@ -424,7 +434,7 @@ namespace ThunderRoad
         public override void Despawn()
         {
             playTime = 0;
-            rootParticleSystem.Stop();
+            rootParticleSystem?.Stop();
             CancelInvoke();
             InvokeDespawnCallback();
             if (Application.isPlaying)

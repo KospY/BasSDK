@@ -1,0 +1,33 @@
+{
+  "$type": "ThunderRoad.AnimationData, ThunderRoad",
+  "id": "HumanIdleInspecting",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "autoMinMaxRange": true,
+  "minRange": 0.0,
+  "maxRange": 0.0,
+  "usesDifficulty": false,
+  "animationClips": [
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Idle.KneelingInspecting",
+      "step": "Loop",
+      "animationSpeed": 0.9,
+      "loopType": "NonSpecific",
+      "attackType": "None",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 0.0,
+      "endSubStance": "Previous",
+      "weight": 1.0,
+      "chance": 1.0,
+      "difficulty": 1
+    }
+  ]
+}

@@ -6,11 +6,26 @@ namespace ThunderRoad
     {
         public bool useWorldUp = false;
 
-        protected virtual void Update()
+        private Transform mainCameraTransform;
+        private Transform cachedTransform;
+
+        private void Awake()
         {
-            if (Camera.main)
+            cachedTransform = transform;
+        }
+
+        private void Update()
+        {
+            if (mainCameraTransform == null)
             {
-                this.transform.LookAt(2 * this.transform.position - Camera.main.transform.position, useWorldUp ? Vector3.up : Camera.main.transform.up);
+                if (Camera.main != null)
+                {
+                    mainCameraTransform = Camera.main.transform;
+                }
+            }
+            else
+            {
+                cachedTransform.LookAt(2 * cachedTransform.position - mainCameraTransform.position, useWorldUp ? Vector3.up : mainCameraTransform.up);
             }
         }
     }

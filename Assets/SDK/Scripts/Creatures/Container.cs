@@ -10,6 +10,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Container")]
     [AddComponentMenu("ThunderRoad/Container")]
     public class Container : MonoBehaviour
     {
@@ -19,6 +20,9 @@ namespace ThunderRoad
         [ValueDropdown("GetAllContainerID")]
 #endif
         public string containerID;
+
+        public bool saveOnLevelUnload;
+        public string saveToPlayerContainerID;
 
         public enum LoadContent
         {

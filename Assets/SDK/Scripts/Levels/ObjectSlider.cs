@@ -40,8 +40,8 @@ namespace ThunderRoad
         [Header("Audio")]
         public float audioReachMinVelocity = 0.1f;
         public float audioReachMaxVelocity = 1f;
-        public FxModuleAudio effectAudioReachStart;
-        public FxModuleAudio effectAudioReachEnd;
+        public FxModule effectAudioReachStart;
+        public FxModule effectAudioReachEnd;
 
         [Header("Event")]
         public UnityEvent targetReachEvent = new UnityEvent();

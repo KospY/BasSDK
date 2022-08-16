@@ -132,7 +132,7 @@ MonoBehaviour:
   orientationDefaultRight: {fileID: 0}
   orientationDefaultLeft: {fileID: 0}
   releaseHandle: {fileID: 0}
-  forcePlayerJoint: 0
+  silentGrab: 0
   forceAutoDropWhenGrounded: 0
   reach: 0
   handOverlapColliders: []
@@ -140,6 +140,7 @@ MonoBehaviour:
   slideToUpHandle: {fileID: 0}
   slideToBottomHandle: {fileID: 0}
   slideToHandleOffset: 0.01
+  slideBehavior: 0
   moveToHandle: {fileID: 0}
   moveToHandleAxisPos: 0
   allowedOrientations:
@@ -176,7 +177,6 @@ MonoBehaviour:
     allowedHand: 3
     isDefault: 0
   handlers: []
-  generateOnAwake: 1
   ropeStart: {fileID: 5962398418625506115}
   ropeTarget: {fileID: 5962398419701301519}
   ropeRadius: 0.03
@@ -184,3 +184,7 @@ MonoBehaviour:
   ropeUseCollider: 1
   ropeLayer: 17
   ropePhysicMaterial: {fileID: 13400000, guid: 1358332579fd82c4a8a931fdcfb1cea1, type: 2}
+  ropeTag: Zipline
+  dynamicHeight: 0
+  raycastRange: 0
+  heightFromGround: 0

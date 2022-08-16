@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,30 +11,37 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Locomotion")]
     [AddComponentMenu("ThunderRoad/Locomotion")]
     [RequireComponent(typeof(Rigidbody))]
-    public class Locomotion : MonoBehaviour
+    public class Locomotion : ThunderBehaviour
     {
         [Header("Ground movement")]
         public bool allowMove = true;
         public bool allowTurn = true;
         public bool allowJump = true;
+        public bool allowCrouch = true;
 
         public AnimationCurve moveForceMultiplierByAngleCurve;
         public bool testMove;
 
-        public float speed = 0.13f;
-        public float speedMultiplier = 1;
-        public float backwardspeedMultiplier = 0.5f;
-        public float strafeSpeedMultiplier = 0.6f;
-        public float runSpeedMultiplier = 1.5f;
+        public float forwardSpeed = 0.2f;
+        public float backwardSpeed = 0.2f;
+        public float strafeSpeed = 0.2f;
+        public float runSpeedAdd = 0.1f;
+        public float crouchSpeed = 0.1f;
+
+        protected float forwardSpeedMultiplier = 1f;
+        protected float backwardSpeedMultiplier = 1f;
+        protected float strafeSpeedMultiplier = 1f;
+        protected float runSpeedMultiplier = 1f;
+        protected float jumpForceMultiplier = 1f;
 
         public float forwardAngle = 10;
         public float backwardAngle = 10;
-        public float runAngle = 30;
+        public float runDot = 0.75f;
         public bool runEnabled = true;
 
-        public float crouchSpeedRatio = 0.5f;
         public float crouchHeightRatio = 0.8f;
 
         public float turnSpeed = 1;
@@ -66,15 +73,23 @@ namespace ThunderRoad
         [Header("Ground detection")]
         public float groundDetectionDistance = 0.05f;
         public PhysicMaterial colliderGroundMaterial;
-        public float groundDrag = 3;
+        public float groundDrag = 3f;
+        protected float groundDragMultiplier = 1f;
         public PhysicMaterial colliderFlyMaterial;
-        public float flyDrag = 0.5f;
+        public float flyDrag = 1f;
+        protected float flyDragMultiplier = 1f;
 
         [NonSerialized]
         public Rigidbody rb;
 
         [NonSerialized]
         public CapsuleCollider capsuleCollider;
+
+        protected float orgMass;
+        protected float orgDrag;
+        protected float orgAngularDrag;
+        protected float orgSleepThreshold;
+        public float customGravity;
 
         public enum GroundDetection
         {
@@ -113,6 +128,11 @@ namespace ThunderRoad
         [ShowInInspector, ReadOnly]
 #endif
         [NonSerialized]
+        public bool isCrouched;
+#if ODIN_INSPECTOR
+        [ShowInInspector, ReadOnly]
+#endif
+        [NonSerialized]
         public bool isGrounded;
 #if ODIN_INSPECTOR
         [ShowInInspector, ReadOnly]
@@ -125,6 +145,8 @@ namespace ThunderRoad
 #endif
         [NonSerialized]
         public float groundAngle;
+
+        public bool locomotionError { get; private set; } = false;
 
 
         private Vector3 accelerationCurrentSpeed;

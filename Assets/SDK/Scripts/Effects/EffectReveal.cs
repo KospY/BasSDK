@@ -9,6 +9,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/EffectReveal")]
     public class EffectReveal : Effect
     {
         public Texture maskTexture;

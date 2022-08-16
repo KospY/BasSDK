@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
-using UnityEngine.AddressableAssets;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -11,7 +10,8 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
-    public class Interactable : MonoBehaviour
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Interactable")]
+    public class Interactable : ThunderBehaviour
     {
 #if ODIN_INSPECTOR
         [ValueDropdown("GetAllInteractableID")]
@@ -29,6 +29,7 @@ namespace ThunderRoad
 
         public float axisLength = 0;
         public float touchRadius = 0.1f;
+        public float artificialDistance = 0f;
         public Vector3 touchCenter;
 
         protected virtual void OnDrawGizmosSelected()
@@ -48,6 +49,10 @@ namespace ThunderRoad
                 Gizmos.color = Color.white;
                 Gizmos.DrawWireSphere(touchCenter, touchRadius);
             }
+        }
+
+        public virtual void SetTouch(bool active)
+        {
         }
 
     }

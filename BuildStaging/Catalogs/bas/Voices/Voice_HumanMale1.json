@@ -1,0 +1,90 @@
+{
+  "$type": "ThunderRoad.VoiceData, ThunderRoad",
+  "id": "HumanMale1",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "pooledCount": 10,
+  "androidPooledCount": 10,
+  "dialogs": [
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "attackmelee",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Male1.Attack"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "attackbow",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Male1.Attack"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "attackcast",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Male1.Attack"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "hit",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Male1.Hit"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "deathlong",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Male1.DeathLong"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "death",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Male1.DeathShort"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "falling",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Male.Falling"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "heardnoise",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Male.HeardNoise"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "enemyspotted",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Male.EnemySpotted"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "muffled",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Male.Muffle"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "muffleddeath",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Male.MuffleDeath"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "grappled",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Male.Grappled"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "jump",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Male.Jump"
+    }
+  ]
+}

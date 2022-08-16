@@ -16,9 +16,11 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Preview")]
     [AddComponentMenu("ThunderRoad/Items/Preview")]
     public class Preview : MonoBehaviour
     {
+        public bool closeUpPreview;
         public float size = 1;
         public int iconResolution = 512;
         public int tempLayer = 2;
@@ -72,7 +74,7 @@ namespace ThunderRoad
             if (PrefabStageUtility.GetCurrentPrefabStage() != null)
             {
                 // Prefab editor
-                iconPath = PrefabStageUtility.GetCurrentPrefabStage().prefabAssetPath;
+                iconPath = PrefabStageUtility.GetCurrentPrefabStage().assetPath;
                 cam.scene = PrefabStageUtility.GetCurrentPrefabStage().scene;
             }
             else if (PrefabUtility.GetNearestPrefabInstanceRoot(this))
@@ -110,8 +112,9 @@ namespace ThunderRoad
 
             if (iconPath != null)
             {
+                Debug.Log("Item path: " + iconPath);
                 byte[] bytes = generatedIcon.EncodeToPNG();
-                string path = iconPath.Replace(".prefab", ".png");
+                string path = iconPath.Replace(".prefab", closeUpPreview ? "-close-up.png" : ".png");
                 System.IO.File.WriteAllBytes(path, bytes);
                 AssetDatabase.Refresh();
                 generatedIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
@@ -119,7 +122,7 @@ namespace ThunderRoad
                 textureImporter.alphaIsTransparency = true;
                 EditorUtility.SetDirty(textureImporter);
                 textureImporter.SaveAndReimport();
-                Debug.Log("Icon generated : " + path);
+                Debug.Log("Icon generated: " + path);
 
                 AddressableAssetSettings settings = AddressableAssetSettingsDefaultObject.Settings;
                 if (settings != null)
@@ -139,7 +142,8 @@ namespace ThunderRoad
 
                     if (prefabEntry != null)
                     {
-                        entry.SetAddress(prefabEntry.address + ".Icon", false);
+                        entry.SetAddress(prefabEntry.address + (closeUpPreview ? ".IconClose" : ".Icon"), false);
+                        Debug.Log("Icon Addressable: " + entry.address);
                     }
                 }
                 else

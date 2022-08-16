@@ -1,0 +1,78 @@
+{
+  "$type": "ThunderRoad.SpellPowerSlowTime, ThunderRoad",
+  "id": "SlowTime",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "effectId": "SpellSlowTime",
+  "scaleToMixerParameter": true,
+  "scaleToMixerParameterName": "EffectPitch",
+  "scale": 0.5,
+  "enterCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 1.0,
+        "inTangent": "Infinity",
+        "outTangent": -9.47256,
+        "inWeight": 0.333333343,
+        "outWeight": 0.333333343,
+        "weightedMode": "None",
+        "tangentMode": 1
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.3,
+        "value": 0.0,
+        "inTangent": 0.0593232848,
+        "outTangent": 0.0593232848,
+        "inWeight": 0.333333343,
+        "outWeight": 0.333333343,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "exitCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 0.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.333333343,
+        "outWeight": 0.333333343,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.7,
+        "value": 1.0,
+        "inTangent": 4.6972,
+        "outTangent": "Infinity",
+        "inWeight": 0.333333343,
+        "outWeight": 0.333333343,
+        "weightedMode": "None",
+        "tangentMode": 1
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "focusConsumption": 5.0,
+  "focusMinToUse": 10.0,
+  "focusDepletedEffectId": "FocusDepleted",
+  "manaConsumption": 0.0,
+  "activeManaConsumption": 0.0,
+  "manaWaste": 0.0
+}

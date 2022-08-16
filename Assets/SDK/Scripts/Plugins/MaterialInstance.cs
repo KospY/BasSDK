@@ -10,18 +10,7 @@ namespace ThunderRoad.Plugins
     [RequireComponent(typeof(Renderer))]
     public class MaterialInstance : MonoBehaviour
     {
-        public Renderer CachedRenderer
-        {
-            get
-            {
-                if (cachedRenderer == null)
-                {
-                    cachedRenderer = GetComponent<Renderer>();
-                }
-
-                return cachedRenderer;
-            }
-        }
+        public Renderer CachedRenderer => cachedRenderer ?? (cachedRenderer = GetComponent<Renderer>());
         private Renderer cachedRenderer = null;
 
         public bool IsInstanced { get { return isInstanced; } }
@@ -62,7 +51,7 @@ namespace ThunderRoad.Plugins
         [ContextMenu("Acquire Materials")]
         private Material[] AcquireMaterials()
         {
-            if (!isInstanced && CachedRenderer != null && CachedRenderer.sharedMaterials != null)
+            if (!isInstanced && CachedRenderer?.sharedMaterials != null)
             {
                 CreateInstances();
             }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System;
 using System.Linq;
-
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -11,6 +10,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Handle")]
     [AddComponentMenu("ThunderRoad/Handle")]
     public class Handle : Interactable
     {
@@ -19,13 +19,13 @@ namespace ThunderRoad
         public Vector3 ikAnchorOffset;
 
         [NonSerialized]
-        public List<HandleOrientation> orientations = new List<HandleOrientation>();
-        public HandleOrientation orientationDefaultRight;
-        public HandleOrientation orientationDefaultLeft;
+        public List<HandlePose> orientations = new List<HandlePose>();
+        public HandlePose orientationDefaultRight;
+        public HandlePose orientationDefaultLeft;
 
         public Handle releaseHandle;
 
-        public bool forcePlayerJoint;
+        public bool silentGrab = false;
         public bool forceAutoDropWhenGrounded;
 
         public float reach = 0.5f;
@@ -34,19 +34,31 @@ namespace ThunderRoad
         public Handle slideToUpHandle;
         public Handle slideToBottomHandle;
         public float slideToHandleOffset = 0.01f;
+        [Tooltip("Only works on handles with a length greater than 0!")]
+        public SlideBehavior slideBehavior = SlideBehavior.CanSlide;
 
         public Handle moveToHandle;
         public float moveToHandleAxisPos = 0;
 
+        [NonSerialized]
+        public bool updatePosesWhenWeightChanges = false;
+
         [Obsolete, Header("Obsolete! Use child HandleOrientation instead")]
         public List<Orientation> allowedOrientations = new List<Orientation>();
 
-        public enum HandSide
+        public new enum HandSide
         {
             None,
             Right,
             Left,
             Both,
+        }
+
+        public enum SlideBehavior
+        {
+            CanSlide,
+            KeepSlide,
+            DisallowSlide,
         }
 
         [Serializable]
@@ -69,7 +81,7 @@ namespace ThunderRoad
         [Button("Update Orientations")]
         public virtual void CheckOrientations()
         {
-            orientations = new List<HandleOrientation>(this.GetComponentsInChildren<HandleOrientation>());
+            orientations = new List<HandlePose>(this.GetComponentsInChildren<HandlePose>());
             if (orientations.Count == 0)
             {
                 if (allowedOrientations.Count > 0)
@@ -78,7 +90,7 @@ namespace ThunderRoad
                     {
                         if (allowedOrientation.allowedHand == HandSide.Both || allowedOrientation.allowedHand == HandSide.Right)
                         {
-                            HandleOrientation handleOrientation = AddOrientation(Side.Right, allowedOrientation.positionOffset, Quaternion.Euler(allowedOrientation.rotation));
+                            HandlePose handleOrientation = AddOrientation(Side.Right, allowedOrientation.positionOffset, Quaternion.Euler(allowedOrientation.rotation));
                             if (orientationDefaultRight == null && (allowedOrientation.isDefault == HandSide.Both || allowedOrientation.isDefault == HandSide.Right))
                             {
                                 orientationDefaultRight = handleOrientation;
@@ -86,7 +98,7 @@ namespace ThunderRoad
                         }
                         if (allowedOrientation.allowedHand == HandSide.Both || allowedOrientation.allowedHand == HandSide.Left)
                         {
-                            HandleOrientation handleOrientation = AddOrientation(Side.Left, allowedOrientation.positionOffset, Quaternion.Euler(allowedOrientation.rotation));
+                            HandlePose handleOrientation = AddOrientation(Side.Left, allowedOrientation.positionOffset, Quaternion.Euler(allowedOrientation.rotation));
                             if (orientationDefaultLeft == null && (allowedOrientation.isDefault == HandSide.Both || allowedOrientation.isDefault == HandSide.Left))
                             {
                                 orientationDefaultLeft = handleOrientation;
@@ -102,16 +114,18 @@ namespace ThunderRoad
             }
         }
 
-        public virtual HandleOrientation AddOrientation(Side side, Vector3 position, Quaternion rotation)
+        public virtual HandlePose AddOrientation(Side side, Vector3 position, Quaternion rotation)
         {
             GameObject orient = new GameObject("Orient");
             orient.transform.SetParent(this.transform);
             orient.transform.localPosition = position;
             orient.transform.localRotation = rotation;
             orient.transform.localScale = Vector3.one;
-            HandleOrientation handleOrientation = orient.AddComponent<HandleOrientation>();
+            HandlePose handleOrientation = orient.AddComponent<HandlePose>();
             handleOrientation.side = side;
+#if UNITY_EDITOR
             handleOrientation.UpdateName();
+#endif
             orientations.Add(handleOrientation);
             return handleOrientation;
         }
@@ -127,7 +141,7 @@ namespace ThunderRoad
             return this.transform.TransformPoint(0, GetDefaultAxisLocalPosition(), 0);
         }
 
-        public virtual HandleOrientation GetDefaultOrientation(Side side)
+        public virtual HandlePose GetDefaultOrientation(Side side)
         {
             if (side == Side.Right && orientationDefaultRight)
             {
@@ -141,11 +155,11 @@ namespace ThunderRoad
             return null;
         }
 
-        public virtual HandleOrientation GetNearestOrientation(Transform grip, Side side)
+        public virtual HandlePose GetNearestOrientation(Transform grip, Side side)
         {
             float higherDot = -Mathf.Infinity;
-            HandleOrientation orientationResult = null;
-            foreach (HandleOrientation orientation in orientations)
+            HandlePose orientationResult = null;
+            foreach (HandlePose orientation in orientations)
             {
                 if (orientation.side == side)
                 {
@@ -173,7 +187,7 @@ namespace ThunderRoad
 
         public bool IsAllowed(Side side)
         {
-            foreach (HandleOrientation orientation in orientations)
+            foreach (HandlePose orientation in orientations)
             {
                 if (side == orientation.side)
                 {
@@ -200,6 +214,11 @@ namespace ThunderRoad
                 }
             }
             reach = farthestDamagerDist - GetDefaultAxisLocalPosition();
+        }
+
+        public void SetUpdatePoses(bool active)
+        {
+            updatePosesWhenWeightChanges = active;
         }
 
         protected override void OnDrawGizmosSelected()

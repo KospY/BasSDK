@@ -83,6 +83,7 @@ namespace ThunderRoad
             }
         }
 
+        [Button]
         public void TestIntensity(float duration)
         {
             Play();

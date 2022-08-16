@@ -11,15 +11,23 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Damager")]
     public class Damager : MonoBehaviour
     {
-        public ColliderGroup colliderGroup;
+        public ColliderGroup colliderGroup;        
         public Collider colliderOnly;
+        [NonSerialized]
+        public bool isColliderOnly = false;
         public Direction direction = Direction.All;
         public float penetrationLength = 0;
         public float penetrationDepth = 0f;
         [Tooltip("Experimental")]
         public bool penetrationExitOnMaxDepth;
+        
+        /// <summary>
+        /// Buffer to hold raycast hits from the shield sweeptest.
+        /// </summary>
+        private static RaycastHit[] shieldSweepRayHits = new RaycastHit[10];
 
         public enum Direction
         {
@@ -37,6 +45,7 @@ namespace ThunderRoad
         public void GetColliderOnlyFromThis()
         {
             colliderOnly = this.GetComponent<Collider>();
+            isColliderOnly = colliderOnly;
         }
 
         protected void OnDrawGizmosSelected()

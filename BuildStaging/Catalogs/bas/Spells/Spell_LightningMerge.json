@@ -1,0 +1,263 @@
+{
+  "$type": "ThunderRoad.SpellMergeLightning, ThunderRoad",
+  "id": "LightningMerge",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "beamEffectId": "SpellLightningMergeBeam",
+  "beamMask": 144718849,
+  "beamForce": 3.0,
+  "imbueSpellId": "Lightning",
+  "imbueAmount": 10.0,
+  "damageDelay": 0.1,
+  "damageAmount": 5.0,
+  "beamForceCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 10.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.05,
+        "value": 25.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.333333343,
+        "outWeight": 0.333333343,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.1,
+        "value": 10.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 3,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "Loop"
+  },
+  "beamHandPositionSpringMultiplier": 0.1,
+  "beamHandPositionDamperMultiplier": 0.5,
+  "beamHandRotationSpringMultiplier": 0.2,
+  "beamHandRotationDamperMultiplier": 0.6,
+  "beamHandLocomotionVelocityCorrectionMultiplier": 0.4,
+  "beamLocomotionPushForce": 4.0,
+  "beamCastMinHandAngle": 20.0,
+  "beamImpactEffectId": "SpellLightningMergeBeamImpact",
+  "chainRadius": 5.0,
+  "chainDelay": 0.4,
+  "electrocuteEffectId": "ImbueLightningRagdoll",
+  "chainEffectId": "SpellLightningBolt",
+  "beamHookDamper": 150.0,
+  "beamHookSpring": 1000.0,
+  "beamHookSpeed": 10.0,
+  "beamHookMaxAngle": 30.0,
+  "zapInterval": 0.7,
+  "leftSpellId": "Lightning",
+  "rightSpellId": "Lightning",
+  "chargeSpeed": 0.2,
+  "chargeStartHandsRatio": 0.5,
+  "stopSpeed": 0.6,
+  "stopIfManaDepleted": true,
+  "handEnterAngle": 30.0,
+  "handEnterDistance": 0.2,
+  "handExitAngle": 90.0,
+  "handExitDistance": 1.5,
+  "handCompletedDistance": 0.001,
+  "minCharge": 0.9,
+  "hapticIntensityCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 0.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.83,
+        "value": 0.4,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.86,
+        "value": 0.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.89,
+        "value": 0.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 1.0,
+        "value": 1.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 5,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "handForceCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 120.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.05,
+        "value": 180.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.333333343,
+        "outWeight": 0.333333343,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.1,
+        "value": 120.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 3,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "Loop"
+  },
+  "handForceMultiplierDistanceCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 1.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.2,
+        "value": 0.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "handForceChargeCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 0.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 1.0,
+        "value": 1.0,
+        "inTangent": 3.15665078,
+        "outTangent": 3.15665078,
+        "inWeight": 0.0399556756,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "handPositionSpringMultiplier": 0.2,
+  "handPositionDamperMultiplier": 1.0,
+  "handLocomotionVelocityCorrectionMultiplier": 0.75,
+  "chargeEffectId": "SpellLightningMerge",
+  "effectLerpFactor": 0.0,
+  "fingerEffectId": "SpellLightningChargeFinger",
+  "allowThrow": false,
+  "throwEffectId": null,
+  "throwMinHandVelocity": 2.0,
+  "closeHandPoseId": "ChargeClose",
+  "openHandPoseId": "ChargeOpen",
+  "manaConsumption": 20.0,
+  "activeManaConsumption": 30.0,
+  "manaWaste": 10.0
+}

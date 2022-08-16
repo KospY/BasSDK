@@ -2,6 +2,7 @@
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/LightController")]
     public class LightController : MonoBehaviour
     {
         [Header("Intensity to intensity (0 = disabled)")]
@@ -18,6 +19,7 @@ namespace ThunderRoad
         {
             Light light = this.GetComponent<Light>();
             light.enabled = active;
+
         }
 
         public virtual void SetIntensity(float value)

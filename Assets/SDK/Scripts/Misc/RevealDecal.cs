@@ -15,6 +15,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/RevealDecal")]
     [AddComponentMenu("ThunderRoad/Reveal Decal")]
     public class RevealDecal : MonoBehaviour
     {

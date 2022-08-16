@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+[HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/AnimClipRootMotion")]
 public class AnimClipRootMotion : StateMachineBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state

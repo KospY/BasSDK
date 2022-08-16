@@ -1,0 +1,195 @@
+{
+  "$type": "ThunderRoad.LevelData, ThunderRoad",
+  "id": "Market",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 3,
+  "name": "Market",
+  "description": "A marketplace at the heart of a medieval village.\nA large, open map with lots of opportunities to hurl environmental objects.",
+  "descriptionLocalizationId": "MarketDescription",
+  "sceneAddress": "Bas.Level.Market",
+  "showInLevelSelection": true,
+  "savePlayerInventoryOnUnload": false,
+  "dungeonFlowAddresses": [],
+  "mapId": "Default",
+  "mapLocation": "22",
+  "mapIconAddress": "Bas.Icon.MapPinArena",
+  "mapIconHoverAddress": "Bas.Icon.MapPinHoverArena",
+  "mapNameDisplay": "Blade & Sorcery",
+  "showOnMap": true,
+  "hideOnAndroid": false,
+  "mapObjectAddress": "Bas.Icon.MapDefaultObject",
+  "mapTextureAddress": "Bas.Icon.MapDefaultTexture",
+  "iconAddress": null,
+  "mapSketchAddress": "Bas.Icon.Sketch_Market",
+  "modes": [
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "Sandbox",
+      "displayName": "Sandbox",
+      "description": "DungeonSandboxDescription",
+      "allowGameModes": [
+        "Sandbox"
+      ],
+      "mapOrder": 0,
+      "difficultyMultipliers": [],
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleDeath, ThunderRoad",
+          "behaviour": "ShowScores",
+          "delayBeforeLoad": 10.0,
+          "disablePlayerLocomotion": true
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleXP, ThunderRoad"
+        }
+      ],
+      "availableOptions": []
+    },
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "Survival",
+      "displayName": "Survival",
+      "description": "SurvivalDescription",
+      "allowGameModes": [
+        "Sandbox",
+        "Arcade"
+      ],
+      "mapOrder": 1,
+      "difficultyMultipliers": [],
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleDeath, ThunderRoad",
+          "behaviour": "ShowScores",
+          "delayBeforeLoad": 20.0,
+          "disablePlayerLocomotion": true
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleXP, ThunderRoad"
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleSurvival, ThunderRoad",
+          "waves": [
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Recruit1",
+              "containerID": "WeaponRewards1"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Recruit2",
+              "containerID": "WeaponRewards1"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Recruit3",
+              "containerID": "WeaponRewards1"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Gladiator1",
+              "containerID": "WeaponRewards2"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Gladiator2",
+              "containerID": "WeaponRewards3"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Gladiator3",
+              "containerID": "WeaponRewards4"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Bandit1",
+              "containerID": "WeaponRewards5"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Bandit2",
+              "containerID": "WeaponRewards6"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Bandit3",
+              "containerID": "WeaponRewards7"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Knight1",
+              "containerID": "WeaponRewards8"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Knight2",
+              "containerID": "WeaponRewards9"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Knight3",
+              "containerID": "WeaponRewards10"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Knight2",
+              "containerID": "WeaponRewards9"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Knight3",
+              "containerID": "WeaponRewards10"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "MixedSpecial",
+              "containerID": "WeaponRewards10"
+            }
+          ],
+          "textGroupId": "Survival",
+          "textNextWaveId": "NextWave",
+          "textFightId": "Fight",
+          "textWaveId": "Wave",
+          "startDelay": 3.0,
+          "delayBetweenWave": 10.0,
+          "disallowHealthPotions": true,
+          "repeatLastWaveIndefinitly": true,
+          "rewardsToSpawn": 3,
+          "drivePositionSpring": 100.0,
+          "drivePositionDamper": 2.0,
+          "slerpPositionSpring": 200.0,
+          "slerpPositionDamper": 0.0,
+          "spawnPositionHeight": 2.0,
+          "wavesNumberForReward": 1,
+          "firstRewardscontainerID": "WeaponRewards1"
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleTutorial, ThunderRoad",
+          "tutorialID": "Basic",
+          "uiMaterialAddress": "Bas.Material.UI.Gamepad",
+          "launchOnStart": false,
+          "delayToStart": 3.0,
+          "safeWeaponReferenceID": "SwordShortCommon",
+          "drivePositionSpring": 100.0,
+          "drivePositionDamper": 2.0,
+          "slerpPositionSpring": 200.0,
+          "slerpPositionDamper": 0.0,
+          "spawnPositionHeight": 2.0
+        }
+      ],
+      "availableOptions": []
+    }
+  ],
+  "modePickCountPerRank": 2,
+  "customCameras": [],
+  "improvisedThrowableID": null
+}

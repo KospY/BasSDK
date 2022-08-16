@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -12,7 +11,7 @@ using EasyButtons;
 namespace ThunderRoad
 {
     [AddComponentMenu("ThunderRoad/Creatures/Wrist stats")]
-    public class WristStats : MonoBehaviour
+    public class WristStats : ThunderBehaviour
     {
         public float showDistance = 0.31f;
         public float showAngle = 40.0f;

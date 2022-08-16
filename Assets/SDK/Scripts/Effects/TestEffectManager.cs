@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Playables;
-using System.Collections;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -10,7 +9,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
-    public class TestEffectManager : MonoBehaviour
+	public class TestEffectManager : MonoBehaviour
     {
         public List<EffectCollection> effects = new List<EffectCollection>();
 

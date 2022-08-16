@@ -1,0 +1,907 @@
+{
+  "$type": "ThunderRoad.EffectData, ThunderRoad",
+  "id": "HitBladeDecalFlesh",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "groupId": "Blade",
+  "volumeDb": 0.0,
+  "modules": [
+    {
+      "$type": "ThunderRoad.EffectModuleReveal, ThunderRoad",
+      "maskTextureAddress": "Bas.Texture.RevealMask.FleshSlash",
+      "applyOn": "Target",
+      "typeFilter": "Default, Body, Outfit",
+      "depth": 0.25,
+      "minSize": 0.1,
+      "maxSize": 0.18,
+      "penetrationSize": 0.18,
+      "minChannelMultiplier": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+      },
+      "maxChannelMultiplier": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0,
+        "w": 1.0
+      },
+      "penetrationChannelMultiplier": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0,
+        "w": 1.0
+      },
+      "offsetDistance": 0.1,
+      "allowItem": false,
+      "allowRagdollPart": true,
+      "revealData": [
+        {
+          "$type": "RainyReignGames.RevealMask.RevealData, RainyReignGames.Reveal",
+          "blendOp": "Add",
+          "colorMask": "Blue, Red",
+          "delay": 0.0,
+          "overTime": 0.0,
+          "deltaMultiplier": 0.0,
+          "widthMultiplier": 1.0,
+          "heightMultiplier": 1.0,
+          "overTimeRenderTextureFormat": "ARGB32",
+          "generateMipMaps": false,
+          "swizzleAlphaRed": false,
+          "overTimeSwizzleColorMask": "Red"
+        }
+      ],
+      "step": "Start",
+      "stepCustomId": null,
+      "platformFilter": "Windows, Android",
+      "sensitiveContent": "Blood",
+      "sensitiveFilterBehaviour": "Discard",
+      "damagerStateFilter": "Active",
+      "damageTypeFilter": "Slash",
+      "penetrationFilter": "None, Pressure, Hit",
+      "imbuesFilterLogic": "AnyExcept",
+      "imbuesFilter": [
+        "Fire"
+      ],
+      "colliderGroupFilterLogic": "AnyExcept",
+      "colliderGroupsFilter": [],
+      "damagersFilterLogic": "AnyExcept",
+      "damagersFilter": [],
+      "intensityCurve": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 0.0,
+            "inTangent": 0.0,
+            "outTangent": 1.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 1.0,
+            "inTangent": 1.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      }
+    },
+    {
+      "$type": "ThunderRoad.EffectModuleReveal, ThunderRoad",
+      "maskTextureAddress": "Bas.Texture.RevealMask.FleshSlashBurn",
+      "applyOn": "Target",
+      "typeFilter": "Default, Body, Outfit",
+      "depth": 0.25,
+      "minSize": 0.1,
+      "maxSize": 0.18,
+      "penetrationSize": 0.18,
+      "minChannelMultiplier": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+      },
+      "maxChannelMultiplier": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0,
+        "w": 1.0
+      },
+      "penetrationChannelMultiplier": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0,
+        "w": 1.0
+      },
+      "offsetDistance": 0.04,
+      "allowItem": false,
+      "allowRagdollPart": true,
+      "revealData": [
+        {
+          "$type": "RainyReignGames.RevealMask.RevealData, RainyReignGames.Reveal",
+          "blendOp": "ReverseSubtract",
+          "colorMask": "Alpha",
+          "delay": 0.0,
+          "overTime": 5.0,
+          "deltaMultiplier": 1.0,
+          "widthMultiplier": 1.0,
+          "heightMultiplier": 1.0,
+          "overTimeRenderTextureFormat": "ARGB32",
+          "generateMipMaps": false,
+          "swizzleAlphaRed": false,
+          "overTimeSwizzleColorMask": "Red"
+        },
+        {
+          "$type": "RainyReignGames.RevealMask.RevealData, RainyReignGames.Reveal",
+          "blendOp": "Add",
+          "colorMask": "All",
+          "delay": 0.0,
+          "overTime": 0.0,
+          "deltaMultiplier": 0.0,
+          "widthMultiplier": 1.0,
+          "heightMultiplier": 1.0,
+          "overTimeRenderTextureFormat": "ARGB32",
+          "generateMipMaps": false,
+          "swizzleAlphaRed": false,
+          "overTimeSwizzleColorMask": "Red"
+        }
+      ],
+      "step": "Start",
+      "stepCustomId": null,
+      "platformFilter": "Windows, Android",
+      "sensitiveContent": "None",
+      "sensitiveFilterBehaviour": "Discard",
+      "damagerStateFilter": "Active",
+      "damageTypeFilter": "Slash",
+      "penetrationFilter": "None, Pressure, Hit",
+      "imbuesFilterLogic": "NoneExcept",
+      "imbuesFilter": [
+        "Fire"
+      ],
+      "colliderGroupFilterLogic": "AnyExcept",
+      "colliderGroupsFilter": [],
+      "damagersFilterLogic": "AnyExcept",
+      "damagersFilter": [],
+      "intensityCurve": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 0.0,
+            "inTangent": 0.0,
+            "outTangent": 1.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 1.0,
+            "inTangent": 1.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      }
+    },
+    {
+      "$type": "ThunderRoad.EffectModuleReveal, ThunderRoad",
+      "maskTextureAddress": "Bas.Texture.RevealMask.FleshPierce",
+      "applyOn": "Target",
+      "typeFilter": "Default, Body, Outfit",
+      "depth": 0.25,
+      "minSize": 0.06,
+      "maxSize": 0.12,
+      "penetrationSize": 0.15,
+      "minChannelMultiplier": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+      },
+      "maxChannelMultiplier": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0,
+        "w": 1.0
+      },
+      "penetrationChannelMultiplier": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0,
+        "w": 1.0
+      },
+      "offsetDistance": 0.1,
+      "allowItem": false,
+      "allowRagdollPart": true,
+      "revealData": [
+        {
+          "$type": "RainyReignGames.RevealMask.RevealData, RainyReignGames.Reveal",
+          "blendOp": "Add",
+          "colorMask": "Blue, Red",
+          "delay": 0.0,
+          "overTime": 0.0,
+          "deltaMultiplier": 0.0,
+          "widthMultiplier": 1.0,
+          "heightMultiplier": 1.0,
+          "overTimeRenderTextureFormat": "ARGB32",
+          "generateMipMaps": false,
+          "swizzleAlphaRed": false,
+          "overTimeSwizzleColorMask": "Red"
+        }
+      ],
+      "step": "Start",
+      "stepCustomId": null,
+      "platformFilter": "Windows, Android",
+      "sensitiveContent": "Blood",
+      "sensitiveFilterBehaviour": "Discard",
+      "damagerStateFilter": "Active",
+      "damageTypeFilter": "Pierce",
+      "penetrationFilter": "None, Pressure, Hit",
+      "imbuesFilterLogic": "AnyExcept",
+      "imbuesFilter": [
+        "Fire"
+      ],
+      "colliderGroupFilterLogic": "AnyExcept",
+      "colliderGroupsFilter": [
+        "BladeRapier"
+      ],
+      "damagersFilterLogic": "AnyExcept",
+      "damagersFilter": [],
+      "intensityCurve": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 0.0,
+            "inTangent": 0.0,
+            "outTangent": 1.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 1.0,
+            "inTangent": 1.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      }
+    },
+    {
+      "$type": "ThunderRoad.EffectModuleReveal, ThunderRoad",
+      "maskTextureAddress": "Bas.Texture.RevealMask.FleshProjectile",
+      "applyOn": "Target",
+      "typeFilter": "Default, Body, Outfit",
+      "depth": 0.25,
+      "minSize": 0.2,
+      "maxSize": 0.2,
+      "penetrationSize": 0.15,
+      "minChannelMultiplier": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+      },
+      "maxChannelMultiplier": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0,
+        "w": 1.0
+      },
+      "penetrationChannelMultiplier": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0,
+        "w": 1.0
+      },
+      "offsetDistance": 0.1,
+      "allowItem": false,
+      "allowRagdollPart": true,
+      "revealData": [
+        {
+          "$type": "RainyReignGames.RevealMask.RevealData, RainyReignGames.Reveal",
+          "blendOp": "Add",
+          "colorMask": "Blue, Red",
+          "delay": 0.0,
+          "overTime": 0.0,
+          "deltaMultiplier": 0.0,
+          "widthMultiplier": 1.0,
+          "heightMultiplier": 1.0,
+          "overTimeRenderTextureFormat": "ARGB32",
+          "generateMipMaps": false,
+          "swizzleAlphaRed": false,
+          "overTimeSwizzleColorMask": "Red"
+        }
+      ],
+      "step": "Start",
+      "stepCustomId": null,
+      "platformFilter": "Windows, Android",
+      "sensitiveContent": "Blood",
+      "sensitiveFilterBehaviour": "Discard",
+      "damagerStateFilter": "Inactive, Active",
+      "damageTypeFilter": "Pierce",
+      "penetrationFilter": "Pressure, Hit",
+      "imbuesFilterLogic": "AnyExcept",
+      "imbuesFilter": [
+        "Fire"
+      ],
+      "colliderGroupFilterLogic": "NoneExcept",
+      "colliderGroupsFilter": [
+        "BladeRapier"
+      ],
+      "damagersFilterLogic": "AnyExcept",
+      "damagersFilter": [],
+      "intensityCurve": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 0.0,
+            "inTangent": 0.0,
+            "outTangent": 1.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 1.0,
+            "inTangent": 1.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      }
+    },
+    {
+      "$type": "ThunderRoad.EffectModuleReveal, ThunderRoad",
+      "maskTextureAddress": "Bas.Texture.RevealMask.FleshBurn",
+      "applyOn": "Target",
+      "typeFilter": "Default, Body, Outfit",
+      "depth": 0.25,
+      "minSize": 0.06,
+      "maxSize": 0.12,
+      "penetrationSize": 0.15,
+      "minChannelMultiplier": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+      },
+      "maxChannelMultiplier": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0,
+        "w": 1.0
+      },
+      "penetrationChannelMultiplier": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0,
+        "w": 1.0
+      },
+      "offsetDistance": 0.1,
+      "allowItem": false,
+      "allowRagdollPart": true,
+      "revealData": [
+        {
+          "$type": "RainyReignGames.RevealMask.RevealData, RainyReignGames.Reveal",
+          "blendOp": "ReverseSubtract",
+          "colorMask": "Alpha",
+          "delay": 0.0,
+          "overTime": 5.0,
+          "deltaMultiplier": 1.0,
+          "widthMultiplier": 1.0,
+          "heightMultiplier": 1.0,
+          "overTimeRenderTextureFormat": "ARGB32",
+          "generateMipMaps": false,
+          "swizzleAlphaRed": false,
+          "overTimeSwizzleColorMask": "Red"
+        },
+        {
+          "$type": "RainyReignGames.RevealMask.RevealData, RainyReignGames.Reveal",
+          "blendOp": "Add",
+          "colorMask": "All",
+          "delay": 0.0,
+          "overTime": 0.0,
+          "deltaMultiplier": 0.0,
+          "widthMultiplier": 1.0,
+          "heightMultiplier": 1.0,
+          "overTimeRenderTextureFormat": "ARGB32",
+          "generateMipMaps": false,
+          "swizzleAlphaRed": false,
+          "overTimeSwizzleColorMask": "Red"
+        }
+      ],
+      "step": "Start",
+      "stepCustomId": null,
+      "platformFilter": "Windows, Android",
+      "sensitiveContent": "None",
+      "sensitiveFilterBehaviour": "Discard",
+      "damagerStateFilter": "Active",
+      "damageTypeFilter": "Pierce",
+      "penetrationFilter": "None, Pressure, Hit",
+      "imbuesFilterLogic": "NoneExcept",
+      "imbuesFilter": [
+        "Fire"
+      ],
+      "colliderGroupFilterLogic": "AnyExcept",
+      "colliderGroupsFilter": [],
+      "damagersFilterLogic": "AnyExcept",
+      "damagersFilter": [],
+      "intensityCurve": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 0.0,
+            "inTangent": 0.0,
+            "outTangent": 1.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 1.0,
+            "inTangent": 1.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      }
+    },
+    {
+      "$type": "ThunderRoad.EffectModuleReveal, ThunderRoad",
+      "maskTextureAddress": "Bas.Texture.RevealMask.FleshBlunt3",
+      "applyOn": "Target",
+      "typeFilter": "Default, Body, Outfit",
+      "depth": 0.25,
+      "minSize": 0.1,
+      "maxSize": 0.18,
+      "penetrationSize": 0.18,
+      "minChannelMultiplier": {
+        "x": 0.1,
+        "y": 0.1,
+        "z": 0.1,
+        "w": 0.1
+      },
+      "maxChannelMultiplier": {
+        "x": 0.5,
+        "y": 0.5,
+        "z": 0.5,
+        "w": 0.5
+      },
+      "penetrationChannelMultiplier": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0,
+        "w": 1.0
+      },
+      "offsetDistance": 0.1,
+      "allowItem": false,
+      "allowRagdollPart": true,
+      "revealData": [
+        {
+          "$type": "RainyReignGames.RevealMask.RevealData, RainyReignGames.Reveal",
+          "blendOp": "Add",
+          "colorMask": "Blue, Green, Red",
+          "delay": 0.0,
+          "overTime": 0.0,
+          "deltaMultiplier": 0.0,
+          "widthMultiplier": 1.0,
+          "heightMultiplier": 1.0,
+          "overTimeRenderTextureFormat": "ARGB32",
+          "generateMipMaps": false,
+          "swizzleAlphaRed": false,
+          "overTimeSwizzleColorMask": "Red"
+        }
+      ],
+      "step": "Start",
+      "stepCustomId": null,
+      "platformFilter": "Windows, Android",
+      "sensitiveContent": "Blood",
+      "sensitiveFilterBehaviour": "Discard",
+      "damagerStateFilter": "Active",
+      "damageTypeFilter": "Blunt",
+      "penetrationFilter": "None, Pressure, Hit",
+      "imbuesFilterLogic": "AnyExcept",
+      "imbuesFilter": [
+        "Fire"
+      ],
+      "colliderGroupFilterLogic": "AnyExcept",
+      "colliderGroupsFilter": [],
+      "damagersFilterLogic": "AnyExcept",
+      "damagersFilter": [],
+      "intensityCurve": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 0.0,
+            "inTangent": 0.0,
+            "outTangent": 1.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 1.0,
+            "inTangent": 1.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      }
+    },
+    {
+      "$type": "ThunderRoad.EffectModuleReveal, ThunderRoad",
+      "maskTextureAddress": "Bas.Texture.RevealMask.FleshBurn",
+      "applyOn": "Target",
+      "typeFilter": "Default, Body, Outfit",
+      "depth": 0.25,
+      "minSize": 0.12,
+      "maxSize": 0.16,
+      "penetrationSize": 0.15,
+      "minChannelMultiplier": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+      },
+      "maxChannelMultiplier": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0,
+        "w": 1.0
+      },
+      "penetrationChannelMultiplier": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0,
+        "w": 1.0
+      },
+      "offsetDistance": 0.1,
+      "allowItem": false,
+      "allowRagdollPart": true,
+      "revealData": [
+        {
+          "$type": "RainyReignGames.RevealMask.RevealData, RainyReignGames.Reveal",
+          "blendOp": "ReverseSubtract",
+          "colorMask": "Alpha",
+          "delay": 0.0,
+          "overTime": 5.0,
+          "deltaMultiplier": 1.0,
+          "widthMultiplier": 1.0,
+          "heightMultiplier": 1.0,
+          "overTimeRenderTextureFormat": "ARGB32",
+          "generateMipMaps": false,
+          "swizzleAlphaRed": false,
+          "overTimeSwizzleColorMask": "Red"
+        },
+        {
+          "$type": "RainyReignGames.RevealMask.RevealData, RainyReignGames.Reveal",
+          "blendOp": "Add",
+          "colorMask": "All",
+          "delay": 0.0,
+          "overTime": 0.0,
+          "deltaMultiplier": 0.0,
+          "widthMultiplier": 1.0,
+          "heightMultiplier": 1.0,
+          "overTimeRenderTextureFormat": "ARGB32",
+          "generateMipMaps": false,
+          "swizzleAlphaRed": false,
+          "overTimeSwizzleColorMask": "Red"
+        }
+      ],
+      "step": "Start",
+      "stepCustomId": null,
+      "platformFilter": "Windows, Android",
+      "sensitiveContent": "None",
+      "sensitiveFilterBehaviour": "Discard",
+      "damagerStateFilter": "Active",
+      "damageTypeFilter": "Blunt",
+      "penetrationFilter": "None, Pressure, Hit",
+      "imbuesFilterLogic": "NoneExcept",
+      "imbuesFilter": [
+        "Fire"
+      ],
+      "colliderGroupFilterLogic": "AnyExcept",
+      "colliderGroupsFilter": [],
+      "damagersFilterLogic": "AnyExcept",
+      "damagersFilter": [],
+      "intensityCurve": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 0.0,
+            "inTangent": 0.0,
+            "outTangent": 1.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 1.0,
+            "inTangent": 1.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      }
+    },
+    {
+      "$type": "ThunderRoad.EffectModuleReveal, ThunderRoad",
+      "maskTextureAddress": "Bas.Texture.RevealMask.FleshBurn",
+      "applyOn": "Target",
+      "typeFilter": "Default, Body, Outfit",
+      "depth": 0.25,
+      "minSize": 0.06,
+      "maxSize": 0.12,
+      "penetrationSize": 0.15,
+      "minChannelMultiplier": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+      },
+      "maxChannelMultiplier": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0,
+        "w": 1.0
+      },
+      "penetrationChannelMultiplier": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0,
+        "w": 1.0
+      },
+      "offsetDistance": 0.1,
+      "allowItem": false,
+      "allowRagdollPart": true,
+      "revealData": [
+        {
+          "$type": "RainyReignGames.RevealMask.RevealData, RainyReignGames.Reveal",
+          "blendOp": "ReverseSubtract",
+          "colorMask": "Alpha",
+          "delay": 0.0,
+          "overTime": 5.0,
+          "deltaMultiplier": 1.0,
+          "widthMultiplier": 1.0,
+          "heightMultiplier": 1.0,
+          "overTimeRenderTextureFormat": "ARGB32",
+          "generateMipMaps": false,
+          "swizzleAlphaRed": false,
+          "overTimeSwizzleColorMask": "Red"
+        },
+        {
+          "$type": "RainyReignGames.RevealMask.RevealData, RainyReignGames.Reveal",
+          "blendOp": "Add",
+          "colorMask": "All",
+          "delay": 0.0,
+          "overTime": 0.0,
+          "deltaMultiplier": 0.0,
+          "widthMultiplier": 1.0,
+          "heightMultiplier": 1.0,
+          "overTimeRenderTextureFormat": "ARGB32",
+          "generateMipMaps": false,
+          "swizzleAlphaRed": false,
+          "overTimeSwizzleColorMask": "Red"
+        }
+      ],
+      "step": "Start",
+      "stepCustomId": null,
+      "platformFilter": "Windows, Android",
+      "sensitiveContent": "None",
+      "sensitiveFilterBehaviour": "Discard",
+      "damagerStateFilter": "Active",
+      "damageTypeFilter": "Pierce",
+      "penetrationFilter": "None, Pressure, Hit",
+      "imbuesFilterLogic": "NoneExcept",
+      "imbuesFilter": [
+        "Fire"
+      ],
+      "colliderGroupFilterLogic": "AnyExcept",
+      "colliderGroupsFilter": [],
+      "damagersFilterLogic": "AnyExcept",
+      "damagersFilter": [],
+      "intensityCurve": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 0.0,
+            "inTangent": 0.0,
+            "outTangent": 1.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 1.0,
+            "inTangent": 1.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      }
+    },
+    {
+      "$type": "ThunderRoad.EffectModuleReveal, ThunderRoad",
+      "maskTextureAddress": "Bas.Texture.RevealMask.BladeBloodSparce",
+      "applyOn": "Source",
+      "typeFilter": "Default, Body, Outfit",
+      "depth": 0.25,
+      "minSize": 0.1,
+      "maxSize": 0.15,
+      "penetrationSize": 0.15,
+      "minChannelMultiplier": {
+        "x": 0.1,
+        "y": 0.1,
+        "z": 0.1,
+        "w": 0.1
+      },
+      "maxChannelMultiplier": {
+        "x": 0.5,
+        "y": 0.5,
+        "z": 0.5,
+        "w": 0.5
+      },
+      "penetrationChannelMultiplier": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0,
+        "w": 1.0
+      },
+      "offsetDistance": 0.1,
+      "allowItem": true,
+      "allowRagdollPart": false,
+      "revealData": [
+        {
+          "$type": "RainyReignGames.RevealMask.RevealData, RainyReignGames.Reveal",
+          "blendOp": "Add",
+          "colorMask": "Red",
+          "delay": 0.0,
+          "overTime": 0.0,
+          "deltaMultiplier": 0.0,
+          "widthMultiplier": 1.0,
+          "heightMultiplier": 1.0,
+          "overTimeRenderTextureFormat": "ARGB32",
+          "generateMipMaps": false,
+          "swizzleAlphaRed": false,
+          "overTimeSwizzleColorMask": "Red"
+        }
+      ],
+      "step": "Start",
+      "stepCustomId": null,
+      "platformFilter": "Windows, Android",
+      "sensitiveContent": "Blood",
+      "sensitiveFilterBehaviour": "Discard",
+      "damagerStateFilter": "Active",
+      "damageTypeFilter": "Energy, Blunt, Slash, Pierce",
+      "penetrationFilter": "None, Pressure, Hit",
+      "imbuesFilterLogic": "AnyExcept",
+      "imbuesFilter": [],
+      "colliderGroupFilterLogic": "AnyExcept",
+      "colliderGroupsFilter": [],
+      "damagersFilterLogic": "AnyExcept",
+      "damagersFilter": [],
+      "intensityCurve": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 0.0,
+            "inTangent": 0.0,
+            "outTangent": 1.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 1.0,
+            "inTangent": 1.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      }
+    }
+  ]
+}

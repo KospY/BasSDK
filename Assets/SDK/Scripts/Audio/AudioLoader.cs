@@ -5,6 +5,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/AudioLoader")]
     public class AudioLoader : MonoBehaviour
     {
         public AssetReferenceT<AudioClip> audioClipReference;

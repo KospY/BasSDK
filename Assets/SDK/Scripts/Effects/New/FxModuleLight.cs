@@ -1,8 +1,9 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/FxModuleLight")]
     public class FxModuleLight : FxModule
     {
         public bool flicker;
@@ -14,6 +15,10 @@ namespace ThunderRoad
         protected float orgLightIntensity;
         protected float currentLightIntensity;
 
+        private void OnValidate()
+        {
+            light = this.GetComponent<Light>();
+        }
 
         private void Awake()
         {
@@ -24,15 +29,12 @@ namespace ThunderRoad
             {
                 StartCoroutine(FlickerCoroutine());
             }
+
         }
 
         IEnumerator FlickerCoroutine()
         {
-            while (true)
-            {
-                RefreshLightIntensity();
-                yield return new WaitForSeconds(UnityEngine.Random.Range(flickerMinSpeed, flickerMaxSpeed));
-            }
+            yield break;
         }
 
         protected void RefreshLightIntensity()
@@ -49,6 +51,7 @@ namespace ThunderRoad
 
         public override void Play()
         {
+            base.Play();
             light.enabled = true;
         }
 

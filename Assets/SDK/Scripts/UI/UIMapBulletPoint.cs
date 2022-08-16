@@ -1,47 +1,55 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using ThunderRoad;
+using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using PointerEventData = UnityEngine.EventSystems.PointerEventData;
 
 public class UIMapBulletPoint : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public Texture normalTexture;
-    public Texture hoverTexture;
+    public Button button;
+    public RawImage image;
+    public Text name;
 
-    private RawImage rawImage = null;
+    private bool isSelected;
 
-    public bool isSelected = false;
+    public Texture NormalTexture { set; get; }
+    public Texture HoverTexture { set; get; }
 
     private void Start()
     {
-        rawImage = GetComponent<RawImage>();
+        image = GetComponent<RawImage>();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (!isSelected)
+        {
             SetHover();
+        }
     }
 
     public void SetHover()
     {
-        rawImage.texture = hoverTexture;
+        image.texture = HoverTexture;
     }
 
     public void SetNormal()
     {
-        rawImage.texture = normalTexture;
+        image.texture = NormalTexture;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if(!isSelected)
+        if (!isSelected)
+        {
             SetNormal();
+        }
     }
 
     public void SetSelected(bool newState)
     {
         isSelected = newState;
-        if(isSelected)
+        if (isSelected)
         {
             SetHover();
         }

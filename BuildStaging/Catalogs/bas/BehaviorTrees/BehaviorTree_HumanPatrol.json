@@ -1,0 +1,108 @@
+{
+  "$type": "ThunderRoad.AI.BehaviorTreeData, ThunderRoad",
+  "id": "HumanPatrol",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "type": "SubTree",
+  "rootNode": {
+    "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+    "evaluateAllNodesOnCycle": false,
+    "childs": [
+      {
+        "$type": "ThunderRoad.AI.Action.SetBrainState, ThunderRoad",
+        "brainState": "Patrol",
+        "blackboard": null,
+        "creature": null,
+        "brainData": null
+      },
+      {
+        "$type": "ThunderRoad.AI.Action.SetStance, ThunderRoad",
+        "stance": "Idle",
+        "onlyOnce": false,
+        "setSubStance": "Random",
+        "excludeCurrent": true,
+        "subStanceName": "",
+        "blackboard": null,
+        "creature": null,
+        "brainData": null
+      },
+      {
+        "$type": "ThunderRoad.AI.Action.SetLookAt, ThunderRoad",
+        "enabled": false,
+        "bodyBehaviour": "BodyUpright",
+        "target": "InputTransform",
+        "inputVariableName": "LookTarget",
+        "localOffset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "blackboard": null,
+        "creature": null,
+        "brainData": null
+      },
+      {
+        "$type": "ThunderRoad.AI.Action.HolsterItem, ThunderRoad",
+        "holsterRight": true,
+        "holsterLeft": true,
+        "blackboard": null,
+        "creature": null,
+        "brainData": null
+      },
+      {
+        "$type": "ThunderRoad.AI.Get.GetTransform, ThunderRoad",
+        "target": "NextWaypoint",
+        "prioritizeShortestPath": true,
+        "outputTransformVariableName": "Waypoint",
+        "blackboard": null,
+        "creature": null,
+        "brainData": null
+      },
+      {
+        "$type": "ThunderRoad.AI.Action.MoveTo, ThunderRoad",
+        "moveTarget": "InputTransform",
+        "inputMoveTargetVariableName": "Waypoint",
+        "turnTarget": "MoveDirection",
+        "inputTurnTargetVariableName": "",
+        "forceTurnToUseMoveDirectionAtDistance": true,
+        "turnMoveDirectionDistance": 10.0,
+        "turnMoveDirectionSpeed": 1.0,
+        "approachMoveSpeedRatio": 0.7,
+        "approachTurnSpeedRatio": 1.0,
+        "approachRunSpeedRatio": 0.0,
+        "moveCloserIfNoSight": false,
+        "strafeAroundTarget": false,
+        "strafeMoveSpeedRatio": 0.75,
+        "strafeTurnSpeedRatio": 1.0,
+        "strafeRunSpeedRatio": 0.0,
+        "checkMaxAllies": true,
+        "safeRangeOffset": 0.25,
+        "safeRangeThickness": 2.0,
+        "reportUnreachable": false,
+        "useModuleStrafeDelay": false,
+        "repathMinDelay": 0.0,
+        "repathMaxDelay": 0.0,
+        "autoRadius": "None",
+        "targetMinRadius": 0.0,
+        "targetMaxRadius": 0.1,
+        "angleMode": "None",
+        "changeAngleUntilUnobstructed": false,
+        "targetRadiusMinAngle": 0.0,
+        "targetRadiusMaxAngle": 0.0,
+        "blackboard": null,
+        "creature": null,
+        "brainData": null
+      },
+      {
+        "$type": "ThunderRoad.AI.Action.WayPointTask, ThunderRoad",
+        "inputTransformVariableName": "Waypoint",
+        "outputTargetVariableName": "WaypointTarget",
+        "blackboard": null,
+        "creature": null,
+        "brainData": null
+      }
+    ]
+  }
+}

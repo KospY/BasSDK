@@ -12,6 +12,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/WaveSpawner")]
     [AddComponentMenu("ThunderRoad/Levels/Spawners/Waves Spawner")]
     public class WaveSpawner : MonoBehaviour
     {
@@ -42,8 +43,15 @@ namespace ThunderRoad
 
         [Header("Event")]
         public UnityEvent OnWaveBeginEvent = new UnityEvent();
-        public UnityEvent OnWaveEndEvent = new UnityEvent();
+        public UnityEvent OnWaveAnyEndEvent = new UnityEvent();
+        public UnityEvent OnWaveWinEvent = new UnityEvent();
+        public UnityEvent OnWaveLossEvent = new UnityEvent();
+        public UnityEvent OnWaveCancelEvent = new UnityEvent();
         public UnityEvent OnWaveLoopEvent = new UnityEvent();
+        public static UnityEvent<WaveSpawner> OnWaveSpawnerEnabledEvent = new UnityEvent<WaveSpawner>();
+        public static UnityEvent<WaveSpawner> OnWaveSpawnerDisabledEvent = new UnityEvent<WaveSpawner>();
+        public static UnityEvent<WaveSpawner> OnWaveSpawnerStartRunningEvent = new UnityEvent<WaveSpawner>();
+        public static UnityEvent<WaveSpawner> OnWaveSpawnerStopRunningEvent = new UnityEvent<WaveSpawner>();
 
     }
 }

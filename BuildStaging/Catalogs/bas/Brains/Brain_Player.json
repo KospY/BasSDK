@@ -1,0 +1,110 @@
+{
+  "$type": "ThunderRoad.BrainData, ThunderRoad",
+  "id": "Player",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 2,
+  "pooledCount": 0,
+  "cycle": true,
+  "cyclePlayerMinDistance": 0.0,
+  "cyclePlayerMaxDistance": 0.0,
+  "difficulty": 0,
+  "treeID": "",
+  "treeDebugLog": false,
+  "updateTree": true,
+  "modules": [
+    {
+      "$type": "ThunderRoad.BrainModuleMove, ThunderRoad",
+      "allowMove": true,
+      "runDistance": 3.0,
+      "useAcceleration": true,
+      "acceleration": 0.3,
+      "navReachDistance": 0.05,
+      "strafeMinDelay": 1.0,
+      "strafeMaxDelay": 5.0,
+      "samplePositionCircleSteps": 6,
+      "navmeshSensitivity": 0.15,
+      "stuckRadius": 0.01,
+      "stuckMaxDuration": 0.5,
+      "preventTooClose": true,
+      "tooCloseDistance": 0.7,
+      "locomotionOverride": false,
+      "locomotionForwardSpeedMultiplier": 1.0,
+      "locomotionBackwardSpeedMultiplier": 1.0,
+      "locomotionStrafeSpeedMultiplier": 1.0,
+      "locomotionRunSpeedMultiplier": 1.0,
+      "turnOffsetDegrees": 0.0
+    },
+    {
+      "$type": "ThunderRoad.BrainModuleSightable, ThunderRoad",
+      "sightThickness": 0.1,
+      "sightDetectionMaxDistance": 20.0,
+      "sightMaxDistance": 30.0,
+      "minMaxBrightness": {
+        "x": 0.0,
+        "y": 0.25
+      },
+      "shootPointSightThickness": 0.0,
+      "sightableRagdollParts": [
+        "TargetPart",
+        "HeadPart",
+        "HandRightPart",
+        "HandLeftPart"
+      ],
+      "shootPositionCircleSteps": 15,
+      "shootPositionDepthSteps": 4,
+      "shootPositionMinRadius": 8,
+      "navSamplePositionMaxDistance": 50.0,
+      "lastShootUpdateDelay": 1.0,
+      "lastShootUpdatePositionMaxDistance": 0.5,
+      "debug": false
+    },
+    {
+      "$type": "ThunderRoad.BrainModulePlayer, ThunderRoad",
+      "closeCombatDistance": 6.0,
+      "dangerDistance": 8.0,
+      "focusGainOnKill": 10.0,
+      "focusGainOnParry": 5.0,
+      "focusGainOnDeflect": 10.0
+    },
+    {
+      "$type": "ThunderRoad.BrainModuleFollow, ThunderRoad",
+      "followBehavior": "OnlyWhenSet",
+      "clearFollowBrainStates": [],
+      "allowFollowers": true,
+      "maxFollowers": 3
+    },
+    {
+      "$type": "ThunderRoad.BrainModuleSpeak, ThunderRoad",
+      "audioEnabled": true,
+      "audioVolume": 1.0,
+      "audioPitchRange": {
+        "x": 1.0,
+        "y": 1.0
+      },
+      "audioFallVelocityThreshold": 5.0,
+      "audioAttackChance": 0.7,
+      "audioHitChance": 1.0,
+      "audioDeathChance": 1.0,
+      "audioLipSyncUpdateRate": 0.05,
+      "audioLipSyncMaxValue": 0.3,
+      "audioLipSampleDataLength": 1024,
+      "lipSyncSpeed": 5.0,
+      "speakOnAttackMelee": false,
+      "speakOnAttackCast": false,
+      "speakOnAttackBow": false,
+      "speakOnChoke": false,
+      "neckStabSilencelevel": 1,
+      "headStabSilenceLevel": 1,
+      "backStabSilenceLevel": 1,
+      "randomSpeakIdleChance": 0.0,
+      "randomSpeakAlertChance": 0.0,
+      "randomSpeakInvestigateChance": 0.0,
+      "randomSpeakCombatChance": 0.0,
+      "randomSpeakDelay": 5.0,
+      "muffleSpeakDelay": 1.5,
+      "speakLoudness": 0.0
+    }
+  ]
+}

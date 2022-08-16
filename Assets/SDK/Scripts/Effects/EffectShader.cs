@@ -4,6 +4,7 @@ using ThunderRoad.Plugins;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/EffectShader")]
     public class EffectShader : Effect
     {
         public EffectTarget linkBaseColor = EffectTarget.None;

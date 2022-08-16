@@ -1,12 +1,7 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
 using ThunderRoad.Plugins;
-
-#if PrivateSDK
-using RainyReignGames.PrefabBakedLighting;
-#endif
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -16,7 +11,8 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
-    public class LightVolumeReceiver : MonoBehaviour
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/LightVolumeReceiver")]
+	public class LightVolumeReceiver : MonoBehaviour
     {
         public Method method = Method.SRPBatching;
 

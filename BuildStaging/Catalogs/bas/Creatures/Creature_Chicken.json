@@ -1,0 +1,297 @@
+{
+  "$type": "ThunderRoad.CreatureData, ThunderRoad",
+  "id": "Chicken",
+  "saveFolder": "bas",
+  "sensitiveContent": "Bird",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 6,
+  "name": "Chicken",
+  "pooledCount": 0,
+  "androidPooledCount": 0,
+  "prefabAddress": "Bas.Creature.Chicken",
+  "animatorControllerAddress": "Bas.AnimController.Chicken",
+  "removeMeshWhenPooled": false,
+  "gender": "None",
+  "health": 20,
+  "mana": 0.0,
+  "manaRegen": 0.0,
+  "focus": 0.0,
+  "focusRegen": 0.0,
+  "baseXP": 1,
+  "physicsOffDamageMult": 0.75,
+  "overlapRadius": 5.0,
+  "overlapMinDelay": 0.5,
+  "overlapMask": -1929369600,
+  "containerID": "",
+  "factionId": 1,
+  "countTowardsMaxAlive": true,
+  "brainId": "Chicken",
+  "avoidancePriority": 20,
+  "jumpEffectId": "Jump",
+  "kickEffectId": null,
+  "playerFallDamageEffectId": "Fall",
+  "voices": [
+    "Chicken"
+  ],
+  "randomMinHeight": 0.0,
+  "randomMaxHeight": 0.0,
+  "adjustHeightToPlayer": false,
+  "adjustHeightToPlayerDelta": 0.05,
+  "possesionScaling": "ScalePlayer",
+  "hairColors": [],
+  "eyesColors": [],
+  "skinColors": [],
+  "ragdollData": {
+    "$type": "ThunderRoad.CreatureData+RagdollData, ThunderRoad",
+    "meshRaycast": false,
+    "meshRaycastAdjustContactPoint": false,
+    "destabilizedSpringRotationMultiplier": 0.5,
+    "destabilizedDamperRotationMultiplier": 0.1,
+    "destabilizedGroundSpringRotationMultiplier": 0.1,
+    "fallAliveAnimationHeight": 0.5,
+    "fallAliveDestabilizeHeight": 3.0,
+    "groundStabilizationMaxVelocity": 1.0,
+    "groundStabilizationMinDuration": 2.0,
+    "gripMaxCloseWeight": 0.9,
+    "gripEffectId": null,
+    "footItemId": "",
+    "footTrackedItemId": "",
+    "fingerSpeed": 5.0,
+    "bodyDefaultDamagerID": "Ragdoll",
+    "penetrationEffectId": null,
+    "penetrationEffectRepeatDistance": 0.05,
+    "parts": [
+      {
+        "$type": "ThunderRoad.CreatureData+PartData, ThunderRoad",
+        "bodyPartTypes": 0,
+        "bodyDamagerID": "RagdollLight",
+        "bodyAttackDamagerID": null,
+        "sliceParentEffectid": "SliceFleshParent",
+        "sliceChildEffectId": "SliceFleshChild",
+        "damageMultiplier": 1.0,
+        "penetrationPierceDeepDepth": 0.05,
+        "penetrationPierceDeepDamageMultiplier": 1.0,
+        "penetrationSlashDamageMultiplier": 1.0,
+        "penetrationSkewerDamageMultiplier": 4.0,
+        "penetrationDeepEffectId": "PenetrationDeepFlesh",
+        "sliceForceKill": true,
+        "sliceSeparationForce": 1.0,
+        "sliceVelocityMultiplier": 0.5,
+        "locomotionVelocityCorrection": 130.0
+      }
+    ]
+  },
+  "expressionAttackId": "Attack",
+  "expressionPainId": "Pain",
+  "expressionDeathId": "Death",
+  "expressionChokeId": "Choke",
+  "expressionAngryId": "Angry",
+  "eyeVerticalAngleClamps": {
+    "x": -10.0,
+    "y": 15.0
+  },
+  "eyeHorizontalAngleClamps": {
+    "x": -20.0,
+    "y": 20.0
+  },
+  "eyeClips": [],
+  "forceMaxPosition": 3000.0,
+  "forceMaxRotation": 300.0,
+  "forcePositionSpringDamper": {
+    "x": 5000.0,
+    "y": 100.0
+  },
+  "forceRotationSpringDamper": {
+    "x": 1000.0,
+    "y": 50.0
+  },
+  "forcePositionSpringDamper2HMult": {
+    "x": 2.0,
+    "y": 1.0
+  },
+  "forceSpringDamper2HNoDomMult": {
+    "x": 2.0,
+    "y": 1.5
+  },
+  "forceRotationSpringDamper2HMult": {
+    "x": 2.0,
+    "y": 2.0
+  },
+  "climbingForceMaxPosition": 3000.0,
+  "climbingForceMaxRotation": 100.0,
+  "climbingForcePositionSpringDamperMult": {
+    "x": 1.0,
+    "y": 3.0
+  },
+  "gripForceMaxPosition": 3000.0,
+  "gripForceMaxRotation": 100.0,
+  "gripForcePositionSpringDamperMult": {
+    "x": 1.0,
+    "y": 1.0
+  },
+  "gripForceRotationSpringDamperMult": {
+    "x": 0.5,
+    "y": 1.0
+  },
+  "locomotionMass": 5.0,
+  "locomotionForwardSpeed": 0.09,
+  "locomotionBackwardSpeed": 0.03,
+  "locomotionStrafeSpeed": 0.03,
+  "locomotionRunSpeedAdd": 0.08,
+  "locomotionCrouchSpeed": 0.1,
+  "locomotionAirSpeed": 0.04,
+  "locomotionJumpForce": 0.3,
+  "locomotionJumpClimbVerticalMultiplier": 1.0,
+  "locomotionJumpClimbHorizontalMultiplier": 0.4,
+  "jumpClimbVerticalMaxVelocityRatio": 20.0,
+  "locomotionJumpMaxDuration": 0.6,
+  "locomotionGroundDrag": 3.0,
+  "locomotionFlyDrag": 0.3,
+  "playerFallDamageCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 12.0,
+        "value": 0.0,
+        "inTangent": 0.0,
+        "outTangent": 25.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 20.0,
+        "value": 200.0,
+        "inTangent": 25.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "playerHortizontalFallDamageCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 0.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 1,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "gripRecoverTime": 0.5,
+  "waterLocomotionDragMultiplierCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 1.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.333333343,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 1.0,
+        "value": 12.0,
+        "inTangent": 27.4242725,
+        "outTangent": 27.4242725,
+        "inWeight": 0.0388457775,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "waterHandSpringMultiplierCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 0.35,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 1.0,
+        "value": 0.15,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "waterHandLocomotionVelocityCorrectionMultiplier": 0.3,
+  "waterJumpForceMutiplierCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 1.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 1.0,
+        "value": 0.5,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "waterSwimUpForce": 0.05,
+  "waterDrowningStartTime": 15.0,
+  "waterDrowningWarningRatio": 0.7,
+  "waterDrowningDamage": 10.0,
+  "waterDrowningDamageInterval": 4.0,
+  "drownEffectId": "HumanDrown"
+}

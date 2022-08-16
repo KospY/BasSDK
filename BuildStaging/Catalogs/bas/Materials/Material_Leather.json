@@ -1,0 +1,207 @@
+{
+  "$type": "ThunderRoad.MaterialData, ThunderRoad",
+  "id": "Leather",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 3,
+  "physicMaterialHash": 1987304248,
+  "xpReference": null,
+  "apparelProtectionLevel": 1,
+  "idMapColors": [
+    {
+      "r": 0.0,
+      "g": 1.0,
+      "b": 0.0,
+      "a": 1.0
+    }
+  ],
+  "defaultEffects": [
+    {
+      "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+      "effectId": "HitRagdoll",
+      "ignoredEffects": []
+    },
+    {
+      "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+      "effectId": "HitMaterialLeather",
+      "ignoredEffects": []
+    }
+  ],
+  "isMetal": false,
+  "collisions": [
+    {
+      "$type": "ThunderRoad.MaterialData+Collision, ThunderRoad",
+      "targetMaterialIds": [
+        "Flesh"
+      ],
+      "effects": [
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitRagdoll",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitRagdollOnFlesh",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitMaterialLeather",
+          "ignoredEffects": []
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.MaterialData+Collision, ThunderRoad",
+      "targetMaterialIds": [
+        "Leather",
+        "Fabric"
+      ],
+      "effects": [
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitRagdoll",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitRagdollOnPlate",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitMaterialLeather",
+          "ignoredEffects": []
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.MaterialData+Collision, ThunderRoad",
+      "targetMaterialIds": [
+        "Chainmail"
+      ],
+      "effects": [
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitRagdoll",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitRagdollOnPlate",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitMaterialChainmail",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitMaterialLeather",
+          "ignoredEffects": []
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.MaterialData+Collision, ThunderRoad",
+      "targetMaterialIds": [
+        "Plate"
+      ],
+      "effects": [
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitRagdoll",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitRagdollOnPlate",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitMaterialPlate",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitMaterialLeather",
+          "ignoredEffects": []
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.MaterialData+Collision, ThunderRoad",
+      "targetMaterialIds": [
+        "Stone"
+      ],
+      "effects": [
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitRagdoll",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitMaterialStone",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitMaterialLeather",
+          "ignoredEffects": []
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.MaterialData+Collision, ThunderRoad",
+      "targetMaterialIds": [
+        "Sand",
+        "Dirt"
+      ],
+      "effects": [
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitRagdoll",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitMaterialSand",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitMaterialLeather",
+          "ignoredEffects": []
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.MaterialData+Collision, ThunderRoad",
+      "targetMaterialIds": [
+        "Glass"
+      ],
+      "effects": [
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitRagdoll",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitMaterialGlass",
+          "ignoredEffects": []
+        },
+        {
+          "$type": "ThunderRoad.EffectBundle, ThunderRoad",
+          "effectId": "HitMaterialLeather",
+          "ignoredEffects": []
+        }
+      ]
+    }
+  ]
+}

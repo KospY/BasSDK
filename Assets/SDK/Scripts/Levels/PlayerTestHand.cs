@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.XR;
 
 namespace ThunderRoad
 {
 
-    public class PlayerTestHand : MonoBehaviour
+	public class PlayerTestHand : MonoBehaviour
     {
         public XRNode xrNode;
         protected Rigidbody rb;

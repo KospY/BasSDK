@@ -1,0 +1,555 @@
+{
+  "$type": "ThunderRoad.DamageModifierData, ThunderRoad",
+  "id": "Pierce",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "damageType": "Pierce",
+  "collisions": [
+    {
+      "$type": "ThunderRoad.DamageModifierData+Collision, ThunderRoad",
+      "sourceMaterialIds": [],
+      "targetMaterialIds": [
+        "Flesh",
+        "Fabric"
+      ],
+      "modifiers": [
+        {
+          "$type": "ThunderRoad.DamageModifierData+Modifier, ThunderRoad",
+          "tierFilter": 0,
+          "imbuesFilterLogic": "NoneExcept",
+          "imbuesFilter": [
+            "Fire"
+          ],
+          "minVelocity": 3.0,
+          "damageMultiplier": 1.0,
+          "allowKnockout": false,
+          "allowPenetration": true,
+          "pressureAllowed": true,
+          "knockoutAllowedMinVelocity": "Infinity",
+          "knockoutForcedMinVelocity": "Infinity",
+          "knockoutThrowAllowedMinVelocity": "Infinity",
+          "knockoutThrowForcedMinVelocity": "Infinity",
+          "knockoutDurationMultiplier": 1.0,
+          "pushLevels": [
+            {
+              "$type": "ThunderRoad.DamageModifierData+Modifier+PushLevel, ThunderRoad",
+              "hitVelocity": 3.0,
+              "throwVelocity": 3.0
+            },
+            {
+              "$type": "ThunderRoad.DamageModifierData+Modifier+PushLevel, ThunderRoad",
+              "hitVelocity": 6.0,
+              "throwVelocity": 6.0
+            }
+          ],
+          "penetrationMinVelocity": 0.5,
+          "penetrationDamperMultiplier": 0.5,
+          "penetrationVelocityMaxDepth": false,
+          "penetrationVelocityMaxDepthCurve": {
+            "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+            "keys": [],
+            "length": 0,
+            "preWrapMode": "ClampForever",
+            "postWrapMode": "ClampForever"
+          },
+          "pressureForceMultiplier": 1.0
+        },
+        {
+          "$type": "ThunderRoad.DamageModifierData+Modifier, ThunderRoad",
+          "tierFilter": 0,
+          "imbuesFilterLogic": "AnyExcept",
+          "imbuesFilter": [],
+          "minVelocity": 3.0,
+          "damageMultiplier": 1.0,
+          "allowKnockout": false,
+          "allowPenetration": true,
+          "pressureAllowed": true,
+          "knockoutAllowedMinVelocity": "Infinity",
+          "knockoutForcedMinVelocity": "Infinity",
+          "knockoutThrowAllowedMinVelocity": "Infinity",
+          "knockoutThrowForcedMinVelocity": "Infinity",
+          "knockoutDurationMultiplier": 1.0,
+          "pushLevels": [
+            {
+              "$type": "ThunderRoad.DamageModifierData+Modifier+PushLevel, ThunderRoad",
+              "hitVelocity": 3.0,
+              "throwVelocity": 3.0
+            },
+            {
+              "$type": "ThunderRoad.DamageModifierData+Modifier+PushLevel, ThunderRoad",
+              "hitVelocity": 6.0,
+              "throwVelocity": 6.0
+            }
+          ],
+          "penetrationMinVelocity": 1.0,
+          "penetrationDamperMultiplier": 1.0,
+          "penetrationVelocityMaxDepth": false,
+          "penetrationVelocityMaxDepthCurve": {
+            "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+            "keys": [],
+            "length": 0,
+            "preWrapMode": "ClampForever",
+            "postWrapMode": "ClampForever"
+          },
+          "pressureForceMultiplier": 1.0
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.DamageModifierData+Collision, ThunderRoad",
+      "sourceMaterialIds": [],
+      "targetMaterialIds": [
+        "Leather"
+      ],
+      "modifiers": [
+        {
+          "$type": "ThunderRoad.DamageModifierData+Modifier, ThunderRoad",
+          "tierFilter": 0,
+          "imbuesFilterLogic": "NoneExcept",
+          "imbuesFilter": [
+            "Fire"
+          ],
+          "minVelocity": 3.5,
+          "damageMultiplier": 0.75,
+          "allowKnockout": false,
+          "allowPenetration": true,
+          "pressureAllowed": true,
+          "knockoutAllowedMinVelocity": "Infinity",
+          "knockoutForcedMinVelocity": "Infinity",
+          "knockoutThrowAllowedMinVelocity": "Infinity",
+          "knockoutThrowForcedMinVelocity": "Infinity",
+          "knockoutDurationMultiplier": 1.0,
+          "pushLevels": [
+            {
+              "$type": "ThunderRoad.DamageModifierData+Modifier+PushLevel, ThunderRoad",
+              "hitVelocity": 3.0,
+              "throwVelocity": 3.0
+            },
+            {
+              "$type": "ThunderRoad.DamageModifierData+Modifier+PushLevel, ThunderRoad",
+              "hitVelocity": 8.0,
+              "throwVelocity": 8.0
+            }
+          ],
+          "penetrationMinVelocity": 3.5,
+          "penetrationDamperMultiplier": 0.5,
+          "penetrationVelocityMaxDepth": false,
+          "penetrationVelocityMaxDepthCurve": {
+            "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+            "keys": [],
+            "length": 0,
+            "preWrapMode": "ClampForever",
+            "postWrapMode": "ClampForever"
+          },
+          "pressureForceMultiplier": 1.0
+        },
+        {
+          "$type": "ThunderRoad.DamageModifierData+Modifier, ThunderRoad",
+          "tierFilter": 0,
+          "imbuesFilterLogic": "AnyExcept",
+          "imbuesFilter": [],
+          "minVelocity": 4.5,
+          "damageMultiplier": 0.7,
+          "allowKnockout": false,
+          "allowPenetration": true,
+          "pressureAllowed": true,
+          "knockoutAllowedMinVelocity": "Infinity",
+          "knockoutForcedMinVelocity": "Infinity",
+          "knockoutThrowAllowedMinVelocity": "Infinity",
+          "knockoutThrowForcedMinVelocity": "Infinity",
+          "knockoutDurationMultiplier": 1.0,
+          "pushLevels": [
+            {
+              "$type": "ThunderRoad.DamageModifierData+Modifier+PushLevel, ThunderRoad",
+              "hitVelocity": 3.0,
+              "throwVelocity": 3.0
+            },
+            {
+              "$type": "ThunderRoad.DamageModifierData+Modifier+PushLevel, ThunderRoad",
+              "hitVelocity": 8.0,
+              "throwVelocity": 8.0
+            }
+          ],
+          "penetrationMinVelocity": 4.5,
+          "penetrationDamperMultiplier": 1.0,
+          "penetrationVelocityMaxDepth": false,
+          "penetrationVelocityMaxDepthCurve": {
+            "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+            "keys": [],
+            "length": 0,
+            "preWrapMode": "ClampForever",
+            "postWrapMode": "ClampForever"
+          },
+          "pressureForceMultiplier": 1.0
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.DamageModifierData+Collision, ThunderRoad",
+      "sourceMaterialIds": [],
+      "targetMaterialIds": [
+        "Wood"
+      ],
+      "modifiers": [
+        {
+          "$type": "ThunderRoad.DamageModifierData+Modifier, ThunderRoad",
+          "tierFilter": 0,
+          "imbuesFilterLogic": "NoneExcept",
+          "imbuesFilter": [
+            "Fire"
+          ],
+          "minVelocity": 6.0,
+          "damageMultiplier": 1.0,
+          "allowKnockout": false,
+          "allowPenetration": true,
+          "pressureAllowed": true,
+          "knockoutAllowedMinVelocity": "Infinity",
+          "knockoutForcedMinVelocity": "Infinity",
+          "knockoutThrowAllowedMinVelocity": "Infinity",
+          "knockoutThrowForcedMinVelocity": "Infinity",
+          "knockoutDurationMultiplier": 1.0,
+          "pushLevels": [
+            {
+              "$type": "ThunderRoad.DamageModifierData+Modifier+PushLevel, ThunderRoad",
+              "hitVelocity": 6.0,
+              "throwVelocity": 6.0
+            },
+            {
+              "$type": "ThunderRoad.DamageModifierData+Modifier+PushLevel, ThunderRoad",
+              "hitVelocity": 10.0,
+              "throwVelocity": 10.0
+            }
+          ],
+          "penetrationMinVelocity": 5.0,
+          "penetrationDamperMultiplier": 0.5,
+          "penetrationVelocityMaxDepth": false,
+          "penetrationVelocityMaxDepthCurve": {
+            "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+            "keys": [],
+            "length": 0,
+            "preWrapMode": "ClampForever",
+            "postWrapMode": "ClampForever"
+          },
+          "pressureForceMultiplier": 1.0
+        },
+        {
+          "$type": "ThunderRoad.DamageModifierData+Modifier, ThunderRoad",
+          "tierFilter": 0,
+          "imbuesFilterLogic": "AnyExcept",
+          "imbuesFilter": [],
+          "minVelocity": 6.0,
+          "damageMultiplier": 1.0,
+          "allowKnockout": false,
+          "allowPenetration": true,
+          "pressureAllowed": false,
+          "knockoutAllowedMinVelocity": "Infinity",
+          "knockoutForcedMinVelocity": "Infinity",
+          "knockoutThrowAllowedMinVelocity": "Infinity",
+          "knockoutThrowForcedMinVelocity": "Infinity",
+          "knockoutDurationMultiplier": 1.0,
+          "pushLevels": [
+            {
+              "$type": "ThunderRoad.DamageModifierData+Modifier+PushLevel, ThunderRoad",
+              "hitVelocity": 6.0,
+              "throwVelocity": 6.0
+            },
+            {
+              "$type": "ThunderRoad.DamageModifierData+Modifier+PushLevel, ThunderRoad",
+              "hitVelocity": 10.0,
+              "throwVelocity": 10.0
+            }
+          ],
+          "penetrationMinVelocity": 5.0,
+          "penetrationDamperMultiplier": 1.0,
+          "penetrationVelocityMaxDepth": false,
+          "penetrationVelocityMaxDepthCurve": {
+            "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+            "keys": [
+              {
+                "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+                "time": 0.0,
+                "value": 0.0,
+                "inTangent": 0.05,
+                "outTangent": 0.05,
+                "inWeight": 0.0,
+                "outWeight": 0.333333343,
+                "weightedMode": "None",
+                "tangentMode": 34
+              },
+              {
+                "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+                "time": 10.0,
+                "value": 0.5,
+                "inTangent": 0.05,
+                "outTangent": 0.05,
+                "inWeight": 0.333333343,
+                "outWeight": 0.0,
+                "weightedMode": "None",
+                "tangentMode": 34
+              }
+            ],
+            "length": 2,
+            "preWrapMode": "ClampForever",
+            "postWrapMode": "ClampForever"
+          },
+          "pressureForceMultiplier": 1.0
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.DamageModifierData+Collision, ThunderRoad",
+      "sourceMaterialIds": [],
+      "targetMaterialIds": [
+        "Chainmail"
+      ],
+      "modifiers": [
+        {
+          "$type": "ThunderRoad.DamageModifierData+Modifier, ThunderRoad",
+          "tierFilter": 0,
+          "imbuesFilterLogic": "NoneExcept",
+          "imbuesFilter": [
+            "Fire"
+          ],
+          "minVelocity": 10.0,
+          "damageMultiplier": 1.0,
+          "allowKnockout": false,
+          "allowPenetration": true,
+          "pressureAllowed": true,
+          "knockoutAllowedMinVelocity": "Infinity",
+          "knockoutForcedMinVelocity": "Infinity",
+          "knockoutThrowAllowedMinVelocity": "Infinity",
+          "knockoutThrowForcedMinVelocity": "Infinity",
+          "knockoutDurationMultiplier": 1.0,
+          "pushLevels": [
+            {
+              "$type": "ThunderRoad.DamageModifierData+Modifier+PushLevel, ThunderRoad",
+              "hitVelocity": 10.0,
+              "throwVelocity": 10.0
+            },
+            {
+              "$type": "ThunderRoad.DamageModifierData+Modifier+PushLevel, ThunderRoad",
+              "hitVelocity": 14.0,
+              "throwVelocity": 14.0
+            }
+          ],
+          "penetrationMinVelocity": 12.0,
+          "penetrationDamperMultiplier": 0.5,
+          "penetrationVelocityMaxDepth": false,
+          "penetrationVelocityMaxDepthCurve": {
+            "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+            "keys": [],
+            "length": 0,
+            "preWrapMode": "ClampForever",
+            "postWrapMode": "ClampForever"
+          },
+          "pressureForceMultiplier": 1.0
+        },
+        {
+          "$type": "ThunderRoad.DamageModifierData+Modifier, ThunderRoad",
+          "tierFilter": 0,
+          "imbuesFilterLogic": "AnyExcept",
+          "imbuesFilter": [],
+          "minVelocity": 14.0,
+          "damageMultiplier": 0.25,
+          "allowKnockout": false,
+          "allowPenetration": true,
+          "pressureAllowed": false,
+          "knockoutAllowedMinVelocity": "Infinity",
+          "knockoutForcedMinVelocity": "Infinity",
+          "knockoutThrowAllowedMinVelocity": "Infinity",
+          "knockoutThrowForcedMinVelocity": "Infinity",
+          "knockoutDurationMultiplier": 1.0,
+          "pushLevels": [
+            {
+              "$type": "ThunderRoad.DamageModifierData+Modifier+PushLevel, ThunderRoad",
+              "hitVelocity": 14.0,
+              "throwVelocity": 14.0
+            },
+            {
+              "$type": "ThunderRoad.DamageModifierData+Modifier+PushLevel, ThunderRoad",
+              "hitVelocity": 18.0,
+              "throwVelocity": 18.0
+            }
+          ],
+          "penetrationMinVelocity": 14.0,
+          "penetrationDamperMultiplier": 1.0,
+          "penetrationVelocityMaxDepth": true,
+          "penetrationVelocityMaxDepthCurve": {
+            "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+            "keys": [
+              {
+                "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+                "time": 0.0,
+                "value": 0.0,
+                "inTangent": 0.0300000012,
+                "outTangent": 0.0300000012,
+                "inWeight": 0.0,
+                "outWeight": 0.333333343,
+                "weightedMode": "None",
+                "tangentMode": 34
+              },
+              {
+                "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+                "time": 10.0,
+                "value": 0.3,
+                "inTangent": 0.0300000012,
+                "outTangent": 0.0300000012,
+                "inWeight": 0.333333343,
+                "outWeight": 0.0,
+                "weightedMode": "None",
+                "tangentMode": 34
+              }
+            ],
+            "length": 2,
+            "preWrapMode": "ClampForever",
+            "postWrapMode": "ClampForever"
+          },
+          "pressureForceMultiplier": 1.0
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.DamageModifierData+Collision, ThunderRoad",
+      "sourceMaterialIds": [],
+      "targetMaterialIds": [
+        "Plate",
+        "Metal",
+        "Stone"
+      ],
+      "modifiers": [
+        {
+          "$type": "ThunderRoad.DamageModifierData+Modifier, ThunderRoad",
+          "tierFilter": 0,
+          "imbuesFilterLogic": "NoneExcept",
+          "imbuesFilter": [
+            "Fire"
+          ],
+          "minVelocity": 12.0,
+          "damageMultiplier": 1.0,
+          "allowKnockout": false,
+          "allowPenetration": true,
+          "pressureAllowed": true,
+          "knockoutAllowedMinVelocity": "Infinity",
+          "knockoutForcedMinVelocity": "Infinity",
+          "knockoutThrowAllowedMinVelocity": "Infinity",
+          "knockoutThrowForcedMinVelocity": "Infinity",
+          "knockoutDurationMultiplier": 1.0,
+          "pushLevels": [
+            {
+              "$type": "ThunderRoad.DamageModifierData+Modifier+PushLevel, ThunderRoad",
+              "hitVelocity": 12.0,
+              "throwVelocity": 12.0
+            },
+            {
+              "$type": "ThunderRoad.DamageModifierData+Modifier+PushLevel, ThunderRoad",
+              "hitVelocity": 16.0,
+              "throwVelocity": 16.0
+            }
+          ],
+          "penetrationMinVelocity": 13.0,
+          "penetrationDamperMultiplier": 0.5,
+          "penetrationVelocityMaxDepth": false,
+          "penetrationVelocityMaxDepthCurve": {
+            "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+            "keys": [],
+            "length": 0,
+            "preWrapMode": "ClampForever",
+            "postWrapMode": "ClampForever"
+          },
+          "pressureForceMultiplier": 1.0
+        },
+        {
+          "$type": "ThunderRoad.DamageModifierData+Modifier, ThunderRoad",
+          "tierFilter": 0,
+          "imbuesFilterLogic": "AnyExcept",
+          "imbuesFilter": [],
+          "minVelocity": 28.0,
+          "damageMultiplier": 0.05,
+          "allowKnockout": false,
+          "allowPenetration": false,
+          "pressureAllowed": false,
+          "knockoutAllowedMinVelocity": "Infinity",
+          "knockoutForcedMinVelocity": "Infinity",
+          "knockoutThrowAllowedMinVelocity": "Infinity",
+          "knockoutThrowForcedMinVelocity": "Infinity",
+          "knockoutDurationMultiplier": 1.0,
+          "pushLevels": [],
+          "penetrationMinVelocity": 1.0,
+          "penetrationDamperMultiplier": 1.0,
+          "penetrationVelocityMaxDepth": false,
+          "penetrationVelocityMaxDepthCurve": {
+            "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+            "keys": [],
+            "length": 0,
+            "preWrapMode": "ClampForever",
+            "postWrapMode": "ClampForever"
+          },
+          "pressureForceMultiplier": 1.0
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.DamageModifierData+Collision, ThunderRoad",
+      "sourceMaterialIds": [],
+      "targetMaterialIds": [
+        "Sand",
+        "Dirt"
+      ],
+      "modifiers": [
+        {
+          "$type": "ThunderRoad.DamageModifierData+Modifier, ThunderRoad",
+          "tierFilter": 0,
+          "imbuesFilterLogic": "AnyExcept",
+          "imbuesFilter": [],
+          "minVelocity": 3.0,
+          "damageMultiplier": 1.0,
+          "allowKnockout": false,
+          "allowPenetration": true,
+          "pressureAllowed": true,
+          "knockoutAllowedMinVelocity": "Infinity",
+          "knockoutForcedMinVelocity": "Infinity",
+          "knockoutThrowAllowedMinVelocity": "Infinity",
+          "knockoutThrowForcedMinVelocity": "Infinity",
+          "knockoutDurationMultiplier": 1.0,
+          "pushLevels": [],
+          "penetrationMinVelocity": 3.0,
+          "penetrationDamperMultiplier": 1.0,
+          "penetrationVelocityMaxDepth": true,
+          "penetrationVelocityMaxDepthCurve": {
+            "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+            "keys": [
+              {
+                "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+                "time": 0.0,
+                "value": 0.0,
+                "inTangent": 0.3,
+                "outTangent": 0.3,
+                "inWeight": 0.0,
+                "outWeight": 0.333333343,
+                "weightedMode": "None",
+                "tangentMode": 34
+              },
+              {
+                "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+                "time": 1.0,
+                "value": 0.3,
+                "inTangent": 0.3,
+                "outTangent": 0.3,
+                "inWeight": 0.333333343,
+                "outWeight": 0.0,
+                "weightedMode": "None",
+                "tangentMode": 34
+              }
+            ],
+            "length": 2,
+            "preWrapMode": "ClampForever",
+            "postWrapMode": "ClampForever"
+          },
+          "pressureForceMultiplier": 1.0
+        }
+      ]
+    }
+  ]
+}

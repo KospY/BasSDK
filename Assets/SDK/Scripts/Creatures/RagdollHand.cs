@@ -12,6 +12,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/RagdollHand")]
     [AddComponentMenu("ThunderRoad/Creatures/Ragdoll hand")]
     public class RagdollHand : RagdollPart
     {
@@ -29,6 +30,7 @@ namespace ThunderRoad
         public Collider touchCollider;
 
         public WristStats wristStats;
+        public RagdollHandPoser poser;
 
         [Header("Fingers")]
         public Finger fingerThumb = new Finger();
@@ -39,6 +41,44 @@ namespace ThunderRoad
         public List<Finger> fingers = new List<Finger>();
         public Collider palmCollider;
         public Collider simplifiedCollider;
+        
+        /// <summary>
+        /// The colliders of the linked forearm
+        /// </summary>
+        public List<Collider> ForeArmColliders
+        {
+            get
+            {
+                if (foreArmColliders != null) return foreArmColliders;
+                
+                if (!lowerArmPart) return null;
+                
+                var armColliderGroup = lowerArmPart.colliderGroup;
+                if (!armColliderGroup) return null;
+
+                foreArmColliders = armColliderGroup.colliders;
+                return foreArmColliders;
+            }
+
+            set => foreArmColliders = value;
+        }
+
+        private List<Collider> foreArmColliders;
+
+        public Vector3 PalmDir
+        {
+            get => -transform.forward;
+        }
+
+        public Vector3 PointDir
+        {
+            get => -transform.right;
+        }
+
+        public Vector3 ThumbDir
+        {
+            get => (side == Side.Right) ? transform.up : -transform.up;
+        }
 
         [Serializable]
         public class Finger
@@ -74,22 +114,8 @@ namespace ThunderRoad
             if (!this.gameObject.activeInHierarchy) return;
             grip = this.transform.Find("Grip");
             if (!grip) grip = CreateDefaultGrip();
-            if (editPose == null) editPose = new EditPose(this);
-            if (editPose.ragdollHand == null) editPose = new EditPose(this);
             if (creature == null) creature = this.GetComponentInParent<Creature>();
-            if (creature)
-            {
-                if (openPose) openPoseFingers = openPose.GetFingers(side);
-                if (closePose) closePoseFingers = closePose.GetFingers(side);
-                if (openPose && closePose)
-                {
-                    UpdatePoseThumb(globalRatio ? closeWeight : thumbCloseWeight);
-                    UpdatePoseIndex(globalRatio ? closeWeight : indexCloseWeight);
-                    UpdatePoseMiddle(globalRatio ? closeWeight : middleCloseWeight);
-                    UpdatePoseRing(globalRatio ? closeWeight : ringCloseWeight);
-                    UpdatePoseLittle(globalRatio ? closeWeight : littleCloseWeight);
-                }
-            }
+            if (poser == null) poser = this.GetComponent<RagdollHandPoser>();
         }
 
         [Button]
@@ -237,269 +263,6 @@ namespace ThunderRoad
                 finger.tip.SetParent(finger.distal.collider.transform);
                 finger.tip.localRotation = Quaternion.identity;
                 finger.tip.localPosition = Vector3.zero;
-            }
-        }
-
-        /////////////////////////////////////////// POSES ///////////////////////////////////////////
-
-        [Header("Poses")]
-        public HandPose openPose;
-        [NonSerialized]
-        public HandPose.Fingers openPoseFingers;
-
-        public HandPose closePose;
-        [NonSerialized]
-        public HandPose.Fingers closePoseFingers;
-
-        public bool globalRatio;
-        [Range(0f, 1f)]
-        public float closeWeight;
-        [Range(0f, 1f)]
-        public float thumbCloseWeight;
-        [Range(0f, 1f)]
-        public float indexCloseWeight;
-        [Range(0f, 1f)]
-        public float middleCloseWeight;
-        [Range(0f, 1f)]
-        public float ringCloseWeight;
-        [Range(0f, 1f)]
-        public float littleCloseWeight;
-
-
-        private void Update()
-        {
-#if UNITY_EDITOR
-            if (editPose.alignLock)
-            {
-                editPose.AlignTestItem();
-            }
-#endif
-        }
-
-
-        public EditPose editPose;
-
-        [Serializable]
-        public class EditPose
-        {
-            public Item grabItem;
-            public Handle grabHandle;
-            public int handleOrientationIndex;
-            public Grip useGripFrom = Grip.Current;
-#if UNITY_EDITOR
-            public bool alignLock;
-#endif
-            public enum Grip
-            {
-                Current,
-                OpenPose,
-                ClosePose,
-            }
-            [NonSerialized]
-            public RagdollHand ragdollHand;
-            protected Handle previousHandle;
-
-            public EditPose(RagdollHand ragdollHand)
-            {
-                this.ragdollHand = ragdollHand;
-            }
-
-            [Button]
-            public void AlignTestItem()
-            {
-                if (grabItem) grabHandle = ragdollHand.side == Side.Right ? grabItem.mainHandleRight : grabItem.mainHandleLeft;
-                if (!grabHandle) return;
-
-                if (previousHandle && previousHandle != grabHandle)
-                {
-                    Item previousItem = previousHandle.GetComponentInParent<Item>();
-                    if (previousItem)
-                    {
-                        previousItem.transform.localPosition = new Vector3(0, 100, 0);
-                        previousItem.transform.localRotation = Quaternion.identity;
-                    }
-                    else
-                    {
-                        previousHandle.transform.root.localPosition = new Vector3(0, 100, 0);
-                        previousHandle.transform.root.localRotation = Quaternion.identity;
-                    }
-                }
-
-                if (useGripFrom == Grip.OpenPose)
-                {
-                    ragdollHand.SetGripFromOpenPose();
-                }
-                else if (useGripFrom == Grip.ClosePose)
-                {
-                    ragdollHand.SetGripFromClosePose();
-                }
-
-                grabHandle.CheckOrientations();
-                HandleOrientation handleOrientation = grabHandle.orientationDefaultRight;
-                if (ragdollHand.side == Side.Left) handleOrientation = grabHandle.orientationDefaultLeft;
-
-                if (handleOrientationIndex > 0)
-                {
-                    int i = 0;
-                    foreach (HandleOrientation ho in grabHandle.orientations)
-                    {
-                        if (grabHandle.orientationDefaultLeft == ho) continue;
-                        if (grabHandle.orientationDefaultRight == ho) continue;
-                        if (ho.side == ragdollHand.side)
-                        {
-                            if ((handleOrientationIndex - 1) == i) handleOrientation = ho;
-                            i++;
-                        }
-                    }
-                }
-
-                Item item = grabHandle.GetComponentInParent<Item>();
-                Transform alignObject = grabHandle.transform.root;
-                if (item != null) alignObject = item.transform;
-
-                Transform objectGrip = new GameObject("ObjectGrip").transform;
-                objectGrip.SetParent(item ? item.transform : grabHandle.transform.root);
-                objectGrip.position = handleOrientation.transform.position + (handleOrientation.handle.transform.up * handleOrientation.handle.GetDefaultAxisLocalPosition());
-                objectGrip.rotation = handleOrientation.transform.rotation;
-
-                alignObject.MoveAlign(objectGrip, ragdollHand.grip.position, ragdollHand.grip.rotation);
-
-                DestroyImmediate(objectGrip.gameObject);
-                previousHandle = grabHandle;
-            }
-
-            [Button]
-            public virtual void SaveCurrentToOpenPose()
-            {
-                if (!ragdollHand.openPose) return;
-                ragdollHand.SaveCurrentToPose(ragdollHand.openPose);
-            }
-
-            [Button]
-            public virtual void SaveCurrentToClosePose()
-            {
-                if (!ragdollHand.closePose) return;
-                ragdollHand.SaveCurrentToPose(ragdollHand.closePose);
-            }
-        }
-
-        public void SetGripFromOpenPose()
-        {
-            grip.localPosition = openPose.GetFingers(side).gripLocalPosition;
-            grip.localRotation = openPose.GetFingers(side).gripLocalRotation;
-            grip.localScale = Vector3.one;
-        }
-
-        public void SetGripFromClosePose()
-        {
-            grip.localPosition = closePose.GetFingers(side).gripLocalPosition;
-            grip.localRotation = closePose.GetFingers(side).gripLocalRotation;
-            grip.localScale = Vector3.one;
-        }
-
-        public void SetCloseWeight(float weight)
-        {
-            closeWeight = weight;
-            UpdatePoseThumb(closeWeight);
-            UpdatePoseIndex(closeWeight);
-            UpdatePoseMiddle(closeWeight);
-            UpdatePoseRing(closeWeight);
-            UpdatePoseLittle(closeWeight);
-        }
-
-
-        public void UpdatePoseThumb(float weight)
-        {
-            UpdateFinger(fingerThumb, openPoseFingers.thumb, closePoseFingers.thumb, weight);
-        }
-
-        public void UpdatePoseIndex(float weight)
-        {
-            UpdateFinger(fingerIndex, openPoseFingers.index, closePoseFingers.index, weight);
-        }
-
-        public void UpdatePoseMiddle(float weight)
-        {
-            UpdateFinger(fingerMiddle, openPoseFingers.middle, closePoseFingers.middle, weight);
-        }
-
-        public void UpdatePoseRing(float weight)
-        {
-            UpdateFinger(fingerRing, openPoseFingers.ring, closePoseFingers.ring, weight);
-        }
-
-        public void UpdatePoseLittle(float weight)
-        {
-            UpdateFinger(fingerLittle, openPoseFingers.little, closePoseFingers.little, weight);
-        }
-
-        public virtual void UpdateFinger(Finger finger, HandPose.Finger openPoseFinger, HandPose.Finger closePoseFinger, float ratio)
-        {
-            finger.proximal.collider.transform.localPosition = Vector3.Lerp(openPoseFinger.proximal.localPosition, closePoseFinger.proximal.localPosition, ratio);
-            finger.proximal.collider.transform.localRotation = Quaternion.Lerp(openPoseFinger.proximal.localRotation, closePoseFinger.proximal.localRotation, ratio);
-            finger.intermediate.collider.transform.localPosition = Vector3.Lerp(openPoseFinger.intermediate.localPosition, closePoseFinger.intermediate.localPosition, ratio);
-            finger.intermediate.collider.transform.localRotation = Quaternion.Lerp(openPoseFinger.intermediate.localRotation, closePoseFinger.intermediate.localRotation, ratio);
-            finger.distal.collider.transform.localPosition = Vector3.Lerp(openPoseFinger.distal.localPosition, closePoseFinger.distal.localPosition, ratio);
-            finger.distal.collider.transform.localRotation = Quaternion.Lerp(openPoseFinger.distal.localRotation, closePoseFinger.distal.localRotation, ratio);
-            if (!Application.isPlaying)
-            {
-                finger.proximal.mesh.transform.localPosition = Vector3.Lerp(openPoseFinger.proximal.localPosition, closePoseFinger.proximal.localPosition, ratio);
-                finger.proximal.mesh.transform.localRotation = Quaternion.Lerp(openPoseFinger.proximal.localRotation, closePoseFinger.proximal.localRotation, ratio);
-                finger.intermediate.mesh.transform.localPosition = Vector3.Lerp(openPoseFinger.intermediate.localPosition, closePoseFinger.intermediate.localPosition, ratio);
-                finger.intermediate.mesh.transform.localRotation = Quaternion.Lerp(openPoseFinger.intermediate.localRotation, closePoseFinger.intermediate.localRotation, ratio);
-                finger.distal.mesh.transform.localPosition = Vector3.Lerp(openPoseFinger.distal.localPosition, closePoseFinger.distal.localPosition, ratio);
-                finger.distal.mesh.transform.localRotation = Quaternion.Lerp(openPoseFinger.distal.localRotation, closePoseFinger.distal.localRotation, ratio);
-            }
-        }
-
-        public virtual void SaveCurrentToPose(HandPose handPose)
-        {
-            HandPose.Fingers fingers = handPose.GetFingers(side);
-            SaveFinger(fingers.thumb, fingerThumb);
-            SaveFinger(fingers.index, fingerIndex);
-            SaveFinger(fingers.middle, fingerMiddle);
-            SaveFinger(fingers.ring, fingerRing);
-            SaveFinger(fingers.little, fingerLittle);
-            fingers.gripLocalPosition = grip.localPosition;
-            fingers.gripLocalRotation = grip.localRotation;
-            handPose.Save(side);
-        }
-
-        protected virtual void SaveFinger(HandPose.Finger poseFinger, Finger finger)
-        {
-            poseFinger.proximal.localPosition = finger.proximal.mesh.transform.localPosition;
-            poseFinger.proximal.localRotation = finger.proximal.mesh.transform.localRotation;
-            poseFinger.intermediate.localPosition = finger.intermediate.mesh.transform.localPosition;
-            poseFinger.intermediate.localRotation = finger.intermediate.mesh.transform.localRotation;
-            poseFinger.distal.localPosition = finger.distal.mesh.transform.localPosition;
-            poseFinger.distal.localRotation = finger.distal.mesh.transform.localRotation;
-        }
-
-        protected override void OnDrawGizmosSelected()
-        {
-            base.OnDrawGizmosSelected();
-            foreach (Finger finger in fingers)
-            {
-                Gizmos.color = Color.gray;
-                Gizmos.DrawWireSphere(finger.distal.collider.transform.position, 0.001f);
-                Gizmos.DrawWireSphere(finger.intermediate.collider.transform.position, 0.001f);
-                Gizmos.DrawWireSphere(finger.proximal.collider.transform.position, 0.001f);
-                Gizmos.DrawWireSphere(finger.tip.position, 0.001f);
-                Gizmos.DrawLine(this.transform.position, finger.proximal.collider.transform.position);
-                Gizmos.DrawLine(finger.proximal.collider.transform.position, finger.intermediate.collider.transform.position);
-                Gizmos.DrawLine(finger.intermediate.collider.transform.position, finger.distal.collider.transform.position);
-                Gizmos.DrawLine(finger.distal.collider.transform.position, finger.tip.position);
-                Gizmos.color = Color.blue;
-                Gizmos.DrawRay(finger.tip.position, finger.tip.forward * 0.01f);
-                Gizmos.color = Color.green;
-                Gizmos.DrawRay(finger.tip.position, finger.tip.up * 0.01f);
-            }
-            if (grip)
-            {
-                Gizmos.matrix = grip.localToWorldMatrix;
-                Gizmos.color = Common.HueColourValue(HueColorName.Purple);
-                Gizmos.DrawWireCube(new Vector3(0, 0, 0), new Vector3(0.01f, 0.05f, 0.01f));
-                Gizmos.DrawWireCube(new Vector3(0f, 0.03f, 0.01f), new Vector3(0.01f, 0.01f, 0.03f));
             }
         }
 

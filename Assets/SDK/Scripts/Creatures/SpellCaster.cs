@@ -10,6 +10,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/SpellCaster")]
     [AddComponentMenu("ThunderRoad/Creatures/Spell caster")]
     public class SpellCaster : MonoBehaviour
     {

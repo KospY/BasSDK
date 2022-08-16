@@ -1,0 +1,52 @@
+{
+  "$type": "ThunderRoad.CreatureTable, ThunderRoad",
+  "id": "GladiatorEasy",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "description": null,
+  "linkedToGenderRatio": false,
+  "minMaxDifficulty": {
+    "x": 0,
+    "y": 0
+  },
+  "drops": [
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Humans",
+      "overrideFaction": true,
+      "factionID": 7,
+      "overrideContainer": true,
+      "overrideContainerID": "Gladiator1H",
+      "overrideBrain": true,
+      "overrideBrainID": "HumanEasy",
+      "probabilityWeights": [
+        4,
+        0,
+        0,
+        3,
+        0
+      ]
+    },
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Humans",
+      "overrideFaction": true,
+      "factionID": 7,
+      "overrideContainer": true,
+      "overrideContainerID": "GladiatorRogue",
+      "overrideBrain": true,
+      "overrideBrainID": "HumanEasy",
+      "probabilityWeights": [
+        1,
+        0,
+        0,
+        1,
+        0
+      ]
+    }
+  ]
+}

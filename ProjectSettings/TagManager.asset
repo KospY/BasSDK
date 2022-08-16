@@ -40,6 +40,11 @@ TagManager:
   - Head
   - Item
   - NoRoomStaticBatching
+  - Rope
+  - Zipline
+  - DefenseCollider
+  - AllowJumpClimb
+  - StripOnAndroid
   layers:
   - Default
   - TransparentFX
@@ -57,7 +62,7 @@ TagManager:
   - Ragdoll
   - LiquidFlow
   - LocomotionOnly
-  - PostProcess
+  - Interior
   - NoLocomotion
   - Highlighter
   - LoadingCamera

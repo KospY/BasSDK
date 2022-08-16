@@ -1,0 +1,142 @@
+{
+  "$type": "ThunderRoad.CreatureTable, ThunderRoad",
+  "id": "BanditAll",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "description": null,
+  "linkedToGenderRatio": false,
+  "minMaxDifficulty": {
+    "x": 0,
+    "y": 0
+  },
+  "drops": [
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Humans",
+      "overrideFaction": false,
+      "factionID": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "Bandit1H",
+      "overrideBrain": true,
+      "overrideBrainID": "HumanMedium",
+      "probabilityWeights": [
+        3,
+        0,
+        0,
+        4,
+        0
+      ]
+    },
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Humans",
+      "overrideFaction": false,
+      "factionID": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "Bandit1HShield",
+      "overrideBrain": true,
+      "overrideBrainID": "HumanMedium",
+      "probabilityWeights": [
+        2,
+        0,
+        0,
+        2,
+        0
+      ]
+    },
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Humans",
+      "overrideFaction": false,
+      "factionID": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "BanditArcher",
+      "overrideBrain": true,
+      "overrideBrainID": "HumanMedium",
+      "probabilityWeights": [
+        2,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Humans",
+      "overrideFaction": false,
+      "factionID": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "BanditBattlemage",
+      "overrideBrain": true,
+      "overrideBrainID": "HumanMedium",
+      "probabilityWeights": [
+        1,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Humans",
+      "overrideFaction": false,
+      "factionID": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "BanditRogue",
+      "overrideBrain": true,
+      "overrideBrainID": "HumanMedium",
+      "probabilityWeights": [
+        1,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Humans",
+      "overrideFaction": false,
+      "factionID": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "Mage",
+      "overrideBrain": true,
+      "overrideBrainID": "HumanMedium",
+      "probabilityWeights": [
+        2,
+        0,
+        0,
+        2,
+        0
+      ]
+    },
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Humans",
+      "overrideFaction": false,
+      "factionID": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "BanditBerzerker",
+      "overrideBrain": true,
+      "overrideBrainID": "HumanMedium",
+      "probabilityWeights": [
+        1,
+        0,
+        0,
+        1,
+        0
+      ]
+    }
+  ]
+}

@@ -61,7 +61,7 @@ namespace ThunderRoad
                 while (!headDevice.isValid)
                 {
                     headDevice = InputDevices.GetDeviceAtXRNode(XRNode.Head);
-                    yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(1);
                 }
                 Time.fixedDeltaTime = Time.timeScale / XRDevice.refreshRate;
                 Time.maximumDeltaTime = Time.fixedDeltaTime * 2;
@@ -140,8 +140,8 @@ namespace ThunderRoad
                 if (!zone) return;
                 if (zone.teleportPlayer)
                 {
-                    this.transform.position = zone.customTeleportTarget ? zone.customTeleportTarget.position : Level.current.playerStart.position;
-                    this.transform.rotation = zone.customTeleportTarget ? zone.customTeleportTarget.rotation : Level.current.playerStart.rotation;
+                    this.transform.position = zone.customTeleportTarget ? zone.customTeleportTarget.position : PlayerSpawner.current.transform.position;
+                    this.transform.rotation = zone.customTeleportTarget ? zone.customTeleportTarget.rotation : PlayerSpawner.current.transform.rotation;
                 }
                 zone.playerEnterEvent.Invoke(this);
             }

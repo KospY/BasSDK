@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace ThunderRoad
 {
-    [AddComponentMenu("ThunderRoad/Levels/Flee point")]
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/FleePoint")]
+	[AddComponentMenu("ThunderRoad/Levels/Flee point")]
     public class FleePoint : MonoBehaviour
     {
         public static List<FleePoint> list = new List<FleePoint>();

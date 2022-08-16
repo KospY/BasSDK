@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ThunderRoad.Plugins;
 using UnityEngine;
 
 #if ODIN_INSPECTOR
@@ -9,6 +10,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/RopeSimple")]
     public class RopeSimple : MonoBehaviour
     {
         public Transform targetAnchor;
@@ -37,10 +39,13 @@ namespace ThunderRoad
 
         private Rigidbody rb;
         private MeshRenderer mesh;
-        private MaterialPropertyBlock materialPropertyBlock;
+        protected MaterialInstance materialInstance;
         private SpringJoint springJoint;
+        private Transform meshTransform;
 #if PrivateSDK
         private EffectInstance effectInstance;
+        private static readonly int BaseMapSt = Shader.PropertyToID("_BaseMap_ST");
+        private Vector4 ropeScaling = Vector4.zero;
 #endif
 
 #if ODIN_INSPECTOR
@@ -82,12 +87,12 @@ namespace ThunderRoad
             mesh = GameObject.CreatePrimitive(PrimitiveType.Cylinder).GetComponent<MeshRenderer>();
             Collider collider = mesh.GetComponent<Collider>();
             DestroyImmediate(collider);
-            mesh.transform.SetParent(this.transform);
+            meshTransform = mesh.transform;
+            meshTransform.SetParent(targetAnchor);
             mesh.name = "RopeMesh";
             mesh.material = material;
 
-            materialPropertyBlock = new MaterialPropertyBlock();
-            mesh.GetPropertyBlock(materialPropertyBlock);
+            materialInstance = mesh.gameObject.AddComponent<MaterialInstance>();
 
         }
 
@@ -100,13 +105,12 @@ namespace ThunderRoad
             }
 
             // Update rope mesh
-            mesh.transform.position = Vector3.Lerp(this.transform.position, targetAnchor.transform.position, 0.5f);
-            mesh.transform.rotation = Quaternion.FromToRotation(mesh.transform.TransformDirection(Vector3.up), targetAnchor.position - this.transform.position) * mesh.transform.rotation;
-            float distance = Vector3.Distance(this.transform.position, targetAnchor.position);
-            mesh.transform.localScale = new Vector3(radius, distance / 2, radius);
-            materialPropertyBlock.SetVector("_BaseMap_ST", new Vector4(1, distance * tilingOffset, 0, 0));
-            mesh.SetPropertyBlock(materialPropertyBlock);
-
+            var thisTransform = this.transform;
+            var position = thisTransform.position;
+            var targetAnchorPosition = targetAnchor.position;
+            meshTransform.position = Vector3.Lerp(position, targetAnchorPosition, 0.5f);
+            meshTransform.rotation = Quaternion.FromToRotation(mesh.transform.TransformDirection(Vector3.up), targetAnchorPosition - position) * mesh.transform.rotation;
+            float distance = Vector3.Distance(position, targetAnchorPosition);
         }
 
         protected void OnDrawGizmos()

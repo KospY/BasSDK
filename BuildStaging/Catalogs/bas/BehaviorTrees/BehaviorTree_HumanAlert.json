@@ -1,0 +1,26 @@
+{
+  "$type": "ThunderRoad.AI.BehaviorTreeData, ThunderRoad",
+  "id": "HumanAlert",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "type": "SubTree",
+  "rootNode": {
+    "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+    "evaluateAllNodesOnCycle": false,
+    "childs": [
+      {
+        "$type": "ThunderRoad.AI.Action.SetBrainState, ThunderRoad",
+        "brainState": "Alert",
+        "blackboard": null,
+        "creature": null,
+        "brainData": null
+      },
+      {
+        "$type": "ThunderRoad.AI.Decorator.AlwaysFailure, ThunderRoad",
+        "child": null
+      }
+    ]
+  }
+}

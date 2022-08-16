@@ -1,0 +1,118 @@
+{
+  "$type": "ThunderRoad.LevelData, ThunderRoad",
+  "id": "Dungeon",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 3,
+  "name": "Outpost",
+  "description": "",
+  "descriptionLocalizationId": "OutpostDescription",
+  "sceneAddress": "Bas.Level.Dungeon",
+  "showInLevelSelection": true,
+  "savePlayerInventoryOnUnload": false,
+  "dungeonFlowAddresses": [
+    "Bas.DungeonFlow.GreenlandShort",
+    "Bas.DungeonFlow.Greenland",
+    "Bas.DungeonFlow.GreenlandLong"
+  ],
+  "mapId": "Default",
+  "mapLocation": "25",
+  "mapIconAddress": "Bas.Icon.MapPinDungeon",
+  "mapIconHoverAddress": "Bas.Icon.MapPinHoverDungeon",
+  "mapNameDisplay": "Blade & Sorcery",
+  "showOnMap": true,
+  "hideOnAndroid": false,
+  "mapObjectAddress": "Bas.Icon.MapDefaultObject",
+  "mapTextureAddress": "Bas.Icon.MapDefaultTexture",
+  "iconAddress": null,
+  "mapSketchAddress": "Bas.Icon.Sketch_Dungeon",
+  "modes": [
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "Sandbox",
+      "displayName": "Sandbox",
+      "description": "DungeonSandboxDescription",
+      "allowGameModes": [
+        "Sandbox"
+      ],
+      "mapOrder": 0,
+      "difficultyMultipliers": [
+        {
+          "$type": "ThunderRoad.LevelData+Mode+DifficultyMultipliers, ThunderRoad",
+          "playerHealthMultiplier": 1.0,
+          "playerDamageMultiplier": 1.0,
+          "creatureDamageMultiplier": 1.0
+        },
+        {
+          "$type": "ThunderRoad.LevelData+Mode+DifficultyMultipliers, ThunderRoad",
+          "playerHealthMultiplier": 1.0,
+          "playerDamageMultiplier": 1.0,
+          "creatureDamageMultiplier": 1.0
+        },
+        {
+          "$type": "ThunderRoad.LevelData+Mode+DifficultyMultipliers, ThunderRoad",
+          "playerHealthMultiplier": 0.75,
+          "playerDamageMultiplier": 0.75,
+          "creatureDamageMultiplier": 1.5
+        },
+        {
+          "$type": "ThunderRoad.LevelData+Mode+DifficultyMultipliers, ThunderRoad",
+          "playerHealthMultiplier": 0.5,
+          "playerDamageMultiplier": 0.5,
+          "creatureDamageMultiplier": 2.0
+        },
+        {
+          "$type": "ThunderRoad.LevelData+Mode+DifficultyMultipliers, ThunderRoad",
+          "playerHealthMultiplier": 1.0,
+          "playerDamageMultiplier": 0.5,
+          "creatureDamageMultiplier": 3.0
+        }
+      ],
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleDeath, ThunderRoad",
+          "behaviour": "ShowScores",
+          "delayBeforeLoad": 10.0,
+          "disablePlayerLocomotion": true
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleXP, ThunderRoad"
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleMusic, ThunderRoad",
+          "dynamicMusic": "TestMusic"
+        }
+      ],
+      "availableOptions": [
+        {
+          "$type": "ThunderRoad.LevelData+Option, ThunderRoad",
+          "name": "Difficulty",
+          "displayName": "Difficulty",
+          "description": "DifficultyDescription",
+          "type": "Stars",
+          "minValue": 1,
+          "maxValue": 3,
+          "defaultValue": 2
+        },
+        {
+          "$type": "ThunderRoad.LevelData+Option, ThunderRoad",
+          "name": "DungeonLength",
+          "displayName": "Length",
+          "description": "LengthDescription",
+          "type": "Stars",
+          "minValue": 0,
+          "maxValue": 2,
+          "defaultValue": 1
+        }
+      ]
+    }
+  ],
+  "modePickCountPerRank": 2,
+  "customCameras": [],
+  "improvisedThrowableID": null
+}

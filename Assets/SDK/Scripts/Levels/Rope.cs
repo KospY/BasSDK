@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Rope")]
     public class Rope : Handle
     {
         public Transform ropeStart;
@@ -13,6 +14,7 @@ namespace ThunderRoad
         public bool ropeUseCollider;
         public int ropeLayer;
         public PhysicMaterial ropePhysicMaterial;
+        public string ropeTag = "Rope";
 
         [Header("Dynamic height")]
         public bool dynamicHeight = false;

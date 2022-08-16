@@ -2,10 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using System.IO;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace ThunderRoad
 {
@@ -64,6 +69,15 @@ namespace ThunderRoad
         Voice,
         Music,
         SlowMotion,
+        Underwater,
+    }
+
+    public enum BlendMode
+    {
+        Min,
+        Max,
+        Average,
+        Multiply,
     }
 
     public enum LayerName
@@ -122,10 +136,6 @@ namespace ThunderRoad
 
     public enum SavedValueID
     {
-        Rack,
-        Holder,
-        PotionFill,
-        Ammo,
         LevelCastThrow,
         LevelCastSpray,
         LevelCharge,
@@ -137,7 +147,6 @@ namespace ThunderRoad
         LevelCrystalShockwave,
         LevelCrystalForward,
         LevelCrystalFire,
-        Grab,
     }
 
     public enum Finger
@@ -167,8 +176,8 @@ namespace ThunderRoad
     public enum Platform
     {
         Windows,
-        Quest2,
-        PSVR,
+        Android,
+
     }
 
     [Flags]
@@ -181,11 +190,73 @@ namespace ThunderRoad
         PlayerGrabbedCreatures = 16,
     }
 
+    public enum LevelOption
+    {
+        PlayerSpawnerId,
+        PlayerContainerId,
+        PlayerVisibilityDistance,
+        Difficulty,
+        DungeonLength,
+        DungeonRoom,
+        DungeonSeed,
+    }
+
+    public enum HapticDevice
+    {
+        None,
+        LeftController,
+        RightController,
+        Headset,
+    }
+
+    [Serializable]
+    public class PcmData
+    {
+        public float[] data;
+        public byte[] samples;
+
+        public int buffersize;
+        public int sampleRate;
+        public int channelMask;
+
+        public PcmData(AudioClip audioClip)
+        {
+            data = new float[audioClip.samples * audioClip.channels];
+            buffersize = audioClip.samples * audioClip.channels;
+            audioClip.GetData(data, 0);
+            sampleRate = audioClip.frequency;
+            channelMask = audioClip.channels;
+            //UpdateSamples(data, sampleRate, channelMask, 0);
+        }
+
+
+    }
+
+    [Serializable]
+    public class AssetReferenceAudioClip : AssetReferenceT<AudioClip>
+    {
+        /// <summary>
+        /// Constructs a new reference to a AudioClip.
+        /// </summary>
+        /// <param name="guid">The object guid.</param>
+        public AssetReferenceAudioClip(string guid) : base(guid) { }
+    }
+
+    [Serializable]
+    public class AssetReferenceAudioContainer : AssetReferenceT<AudioContainer>
+    {
+        /// <summary>
+        /// Constructs a new reference to a AudioContainer.
+        /// </summary>
+        /// <param name="guid">The object guid.</param>
+        public AssetReferenceAudioContainer(string guid) : base(guid) { }
+    }
+
     [Serializable]
     public class CustomReference
     {
         public string name;
-        public Transform transform;
+        public Component transform;
     }
 
     public class ModData
@@ -203,6 +274,7 @@ namespace ThunderRoad
     public static class Common
     {
         private static int _lightProbeVolumeLayer;
+
         public static int lightProbeVolumeLayer
         {
             get { return _lightProbeVolumeLayer > 0 ? _lightProbeVolumeLayer : _lightProbeVolumeLayer = LayerMask.NameToLayer("LightProbeVolume"); }
@@ -210,6 +282,7 @@ namespace ThunderRoad
         }
 
         private static int _zoneLayer;
+
         public static int zoneLayer
         {
             get { return _zoneLayer > 0 ? _zoneLayer : _zoneLayer = LayerMask.NameToLayer("Zone"); }
@@ -252,36 +325,31 @@ namespace ThunderRoad
 
         private static bool platformCached;
         private static Platform currentPlatform;
+        private static string currentPlatformString;
+        public static string GetPlatformName()
+        {
+            if (currentPlatformString is null)
+            {
+                currentPlatformString = GetPlatform().ToString();
+            }
+            return currentPlatformString;
+        }
 
         public static Platform GetPlatform()
         {
-            if (Application.isPlaying)
+
+            if (platformCached) return currentPlatform;
+            if (Enum.TryParse(QualitySettings.names[QualitySettings.GetQualityLevel()], out Platform platform))
             {
-                if (!platformCached)
-                {
-                    if (Enum.TryParse(QualitySettings.names[QualitySettings.GetQualityLevel()], out currentPlatform))
-                    {
-                        platformCached = true;
-                    }
-                    else
-                    {
-                        Debug.LogError("Quality Settings names don't match platform enum!");
-                    }
-                }
-                return currentPlatform;
+                //We can only access the cached version if the app is playing, so set if its cached here
+                platformCached = Application.isPlaying;
+                currentPlatform = platform;
+                return platform;
             }
-            else
-            {
-                if (Enum.TryParse(QualitySettings.names[QualitySettings.GetQualityLevel()], out Platform platform))
-                {
-                    return platform;
-                }
-                else
-                {
-                    Debug.LogError("Quality Settings names don't match platform enum!");
-                    return Platform.Windows;
-                }
-            }
+
+            Debug.LogError("Quality Settings names don't match platform enum!");
+            return Platform.Windows;
+
         }
 
         public static int GetRandomWeightedIndex(float[] weights)
@@ -462,30 +530,77 @@ namespace ThunderRoad
             return destinationComponent;
         }
 
-        public static string GetPathFromRoot(this GameObject obj)
+        public static string GetPathFromRoot(this GameObject gameObject)
         {
-            string path = "/" + obj.name;
-            while (obj.transform.parent != null)
+            string path = "/" + gameObject.name;
+            while (gameObject.transform.parent != null)
             {
-                obj = obj.transform.parent.gameObject;
-                path = "/" + obj.name + path;
+                gameObject = gameObject.transform.parent.gameObject;
+                path = "/" + gameObject.name + path;
             }
             return path;
         }
+
+#if UNITY_EDITOR
+        public static string GetPathFromNearestInstanceRoot(this GameObject gameObject)
+        {
+            GameObject prefabRoot = PrefabUtility.GetNearestPrefabInstanceRoot(gameObject);
+            string path = "/" + gameObject.name;
+            while (gameObject.transform != prefabRoot.transform && gameObject.transform.parent != null)
+            {
+                gameObject = gameObject.transform.parent.gameObject;
+                path = "/" + gameObject.name + path;
+            }
+            return path;
+        }
+#endif
 
         public static Vector3 GetRowPosition(Transform transform, int index, float rowCount, float rowSpace)
         {
             return transform.position + (transform.right * rowSpace * (index % rowCount)) + (transform.forward * rowSpace * Mathf.FloorToInt((index / rowCount)));
         }
 
+        public static bool InPrefabMode(this Component component)
+        {
+#if UNITY_EDITOR
+            if (!Application.isPlaying)
+            {
+                var prefabStage = UnityEditor.Experimental.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage();
+                if (prefabStage)
+                {
+                    return true;
+                }
+                else if (component.gameObject.scene != null && !component.gameObject.scene.isLoaded)
+                {
+                    // Sometimes some prefab seem to run in invisible scene?
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+#endif
+            return false;
+        }
+
         public static int GetIndexByName(this Dropdown dropDown, string name)
         {
-            if (dropDown == null) { return -1; } // or exception
-            if (string.IsNullOrEmpty(name) == true) { return -1; }
+            if (dropDown == null)
+            {
+                return -1;
+            } // or exception
+            if (string.IsNullOrEmpty(name) == true)
+            {
+                return -1;
+            }
             List<Dropdown.OptionData> list = dropDown.options;
             for (int i = 0; i < list.Count; i++)
             {
-                if (list[i].text.Equals(name)) { return i; }
+                if (list[i].text.Equals(name))
+                {
+                    return i;
+                }
             }
             return -1;
         }
@@ -539,11 +654,23 @@ namespace ThunderRoad
             if (parent) transform.transform.SetParent(parent, true);
         }
 
+        /// <summary>
+        /// Transforms rotation from world space to local space.
+        /// </summary>
+        /// <param name="transform"></param>
+        /// <param name="rotation"></param>
+        /// <returns></returns>
         public static Quaternion InverseTransformRotation(this Transform transform, Quaternion rotation)
         {
             return (Quaternion.Inverse(transform.rotation) * rotation);
         }
 
+        /// <summary>
+        /// Transforms rotation from local space to world space.
+        /// </summary>
+        /// <param name="transform"></param>
+        /// <param name="localRotation"></param>
+        /// <returns></returns>
         public static Quaternion TransformRotation(this Transform transform, Quaternion localRotation)
         {
             return (transform.rotation * localRotation);
@@ -583,19 +710,46 @@ namespace ThunderRoad
             else GameObject.DestroyImmediate(root.gameObject);
         }
 
-        private static Hashtable hueColourValues = new Hashtable{
-         { HueColorName.Lime,     new Color32( 166 , 254 , 0, 255 ) },
-         { HueColorName.Green,     new Color32( 0 , 254 , 111, 255 ) },
-         { HueColorName.Aqua,     new Color32( 0 , 201 , 254, 255 ) },
-         { HueColorName.Blue,     new Color32( 0 , 122 , 254, 255 ) },
-         { HueColorName.Navy,     new Color32( 60 , 0 , 254, 255 ) },
-         { HueColorName.Purple, new Color32( 143 , 0 , 254, 255 ) },
-         { HueColorName.Pink,     new Color32( 232 , 0 , 254, 255 ) },
-         { HueColorName.Red,     new Color32( 254 , 9 , 0, 255 ) },
-         { HueColorName.Orange, new Color32( 254 , 161 , 0, 255 ) },
-         { HueColorName.Yellow, new Color32( 254 , 224 , 0, 255 ) },
-         { HueColorName.White, new Color32( 255 , 255 , 255, 255 ) },
+        private static Hashtable hueColourValues = new Hashtable {
+            {HueColorName.Lime, new Color32(166, 254, 0, 255)},
+            {HueColorName.Green, new Color32(0, 254, 111, 255)},
+            {HueColorName.Aqua, new Color32(0, 201, 254, 255)},
+            {HueColorName.Blue, new Color32(0, 122, 254, 255)},
+            {HueColorName.Navy, new Color32(60, 0, 254, 255)},
+            {HueColorName.Purple, new Color32(143, 0, 254, 255)},
+            {HueColorName.Pink, new Color32(232, 0, 254, 255)},
+            {HueColorName.Red, new Color32(254, 9, 0, 255)},
+            {HueColorName.Orange, new Color32(254, 161, 0, 255)},
+            {HueColorName.Yellow, new Color32(254, 224, 0, 255)},
+            {HueColorName.White, new Color32(255, 255, 255, 255)},
         };
+
+        public static bool TryGetHigherLodMeshFilter(MeshFilter lod0MeshFilter, LOD[] lods, out MeshFilter meshFilter)
+        {
+            for (int lodIndex = 0; lodIndex < lods.Length; lodIndex++)
+            {
+                for (int i = 0; i < lods[lodIndex].renderers.Length; i++)
+                {
+                    if (!lods[lodIndex].renderers[i]) continue;
+                    MeshFilter currentMeshFilter = lods[lodIndex].renderers[i].GetComponent<MeshFilter>();
+                    if (!currentMeshFilter || !currentMeshFilter.sharedMesh) continue;
+                    if (currentMeshFilter.sharedMesh == lod0MeshFilter.sharedMesh) continue;
+                    meshFilter = currentMeshFilter;
+                    if (StripLODStringPart(lod0MeshFilter.sharedMesh.name) == StripLODStringPart(meshFilter.sharedMesh.name))
+                    {
+                        return true;
+                    }
+                }
+            }
+            meshFilter = null;
+            return false;
+        }
+
+        public static string StripLODStringPart(string text)
+        {
+            return text.ToLower().Replace("_lod0", "").Replace("_lod1", "").Replace("_lod2", "").Replace("_lod3", "").Replace("_lod4", "").Replace("_lod5", "").Replace("_lod6", "");
+        }
+
 
         public static Color32 HueColourValue(HueColorName color)
         {
@@ -640,5 +794,72 @@ namespace ThunderRoad
             Gizmos.DrawRay((Vector3.back) * capsuleRadius, (Vector3.up) * capsuleLength);
             Gizmos.DrawRay((Vector3.back) * capsuleRadius, (Vector3.down) * capsuleLength);
         }
+
+        private static float _copysign(float sizeval, float signval)
+        {
+            return Mathf.Sign(signval) == 1 ? Mathf.Abs(sizeval) : -Mathf.Abs(sizeval);
+        }
+
+        public static Quaternion GetRotation(this Matrix4x4 matrix)
+        {
+            Quaternion q = new Quaternion();
+            q.w = Mathf.Sqrt(Mathf.Max(0, 1 + matrix.m00 + matrix.m11 + matrix.m22)) / 2;
+            q.x = Mathf.Sqrt(Mathf.Max(0, 1 + matrix.m00 - matrix.m11 - matrix.m22)) / 2;
+            q.y = Mathf.Sqrt(Mathf.Max(0, 1 - matrix.m00 + matrix.m11 - matrix.m22)) / 2;
+            q.z = Mathf.Sqrt(Mathf.Max(0, 1 - matrix.m00 - matrix.m11 + matrix.m22)) / 2;
+            q.x = _copysign(q.x, matrix.m21 - matrix.m12);
+            q.y = _copysign(q.y, matrix.m02 - matrix.m20);
+            q.z = _copysign(q.z, matrix.m10 - matrix.m01);
+            return q;
+        }
+
+        public static Vector3 GetPosition(this Matrix4x4 matrix)
+        {
+            var x = matrix.m03;
+            var y = matrix.m13;
+            var z = matrix.m23;
+
+            return new Vector3(x, y, z);
+        }
+
+        public static Vector3 GetScale(this Matrix4x4 m)
+        {
+            var x = Mathf.Sqrt(m.m00 * m.m00 + m.m01 * m.m01 + m.m02 * m.m02);
+            var y = Mathf.Sqrt(m.m10 * m.m10 + m.m11 * m.m11 + m.m12 * m.m12);
+            var z = Mathf.Sqrt(m.m20 * m.m20 + m.m21 * m.m21 + m.m22 * m.m22);
+
+            return new Vector3(x, y, z);
+        }
+
+#if UNITY_EDITOR
+        public static T EditorCreateOrReplaceAsset<T>(T asset, string path) where T : UnityEngine.Object
+        {
+            T existingAsset = AssetDatabase.LoadAssetAtPath<T>(path);
+
+            if (existingAsset == null)
+            {
+                string assetPath = AssetDatabase.GetAssetPath(asset);
+                if (string.IsNullOrEmpty(assetPath))
+                {
+                    AssetDatabase.CreateAsset(asset, path);
+                }
+                else
+                {
+                    AssetDatabase.CopyAsset(assetPath, path);
+                }
+                existingAsset = AssetDatabase.LoadAssetAtPath<T>(path);
+            }
+            else
+            {
+                EditorUtility.CopySerialized(asset, existingAsset);
+            }
+
+            existingAsset.name = Path.GetFileNameWithoutExtension(path);
+            EditorUtility.SetDirty(existingAsset);
+            AssetDatabase.SaveAssetIfDirty(AssetDatabase.GUIDFromAssetPath(path));
+
+            return existingAsset;
+        }
+#endif
     }
 }

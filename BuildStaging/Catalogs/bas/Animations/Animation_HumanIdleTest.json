@@ -1,0 +1,71 @@
+{
+  "$type": "ThunderRoad.AnimationData, ThunderRoad",
+  "id": "HumanIdleTest",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "autoMinMaxRange": true,
+  "minRange": 0.0,
+  "maxRange": 0.0,
+  "usesDifficulty": false,
+  "animationClips": [
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Idle.Macarena",
+      "step": "Loop",
+      "animationSpeed": 1.0,
+      "loopType": "NonSpecific",
+      "attackType": "None",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 0.0,
+      "endSubStance": "Previous",
+      "weight": 1.0,
+      "chance": 1.0,
+      "difficulty": 1
+    },
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Idle.SoulSpinCombo",
+      "step": "Loop",
+      "animationSpeed": 1.0,
+      "loopType": "NonSpecific",
+      "attackType": "None",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 0.0,
+      "endSubStance": "Previous",
+      "weight": 1.0,
+      "chance": 1.0,
+      "difficulty": 1
+    },
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Idle.Cheering",
+      "step": "Loop",
+      "animationSpeed": 1.0,
+      "loopType": "NonSpecific",
+      "attackType": "None",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "sourceSubStance": "Any",
+      "peakRangeTime": 0.0,
+      "endSubStance": "Previous",
+      "weight": 1.0,
+      "chance": 1.0,
+      "difficulty": 1
+    }
+  ]
+}

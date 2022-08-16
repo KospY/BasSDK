@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -15,30 +14,51 @@ namespace ThunderRoad
 {
     public class UIItemSpawner : MonoBehaviour
     {
-        public Transform spawnPoint;
-        public bool showExistingOnly = true;
+
+
+        private const int PAGE_COLUMNS = 3;
+        private const int ITEM_ROWS_POOL_COUNT = 15;
+        private const int ITEM_POOL_COUNT = 45; // 15 rows * 3 columns
+        private const string ARMOR_CATEGORY = "Apparels";
 
         [Header("References")]
-        public GameObject iconPrefab;
-        public GridLayoutGroup categoriesLayout;
-        public GridLayoutGroup itemsLayout;
         public Container container;
+        [SerializeField] private Transform spawnPoint;
+        [SerializeField] private UiItemSpawnerCategoryElement categoryElement;
+        [SerializeField] private UiItemSpawnerItemElement itemElement;
+        [SerializeField] private ToggleGroup categoriesLayout;
+        [SerializeField] private ToggleGroup itemsLayout;
+        [SerializeField] private UIGridRow itemsRow;
+        [SerializeField] private UIGridRow categoriesRow;
+        [SerializeField] private UIGridRow categoriesTitle;
+        [SerializeField] private GameObject categoriesSpace;
+        [SerializeField] private GameObject itemObjectsPool;
+        
+        // Pages
+        [SerializeField] private GameObject categoriesPage;
+        [SerializeField] private UIText itemsPageTitle;
+        [SerializeField] private GameObject itemsPage;
+        [SerializeField] private UIItemSpawnerItemInfoPage itemInfoPage;
 
-        public GameObject categoriesPage;
-        public GameObject itemsPage;
+        // Scrolls
+        [SerializeField] private UIScrollController categoriesScroll;
+        [SerializeField] private UIScrollController itemsScroll;
 
-        public GameObject itemStatsPage;
-        public GameObject itemPreviewPage;
-        public Button spawnButton;
+        // Item Buttons
+        [SerializeField] private UIButtonBook infoButton;
+        [SerializeField] private UIButtonBook spawnButton;
+        [SerializeField] private UIButtonBook equipButton;
+        [SerializeField] private UIButtonBook backButton;
 
-        protected Queue<Item> lastItemsSpawned = new Queue<Item>();
+        [Header("Setup")]
+        [SerializeField] private bool showExistingOnly = true;
+        [SerializeField] private bool showArmors = true;
 
-        protected void OnDrawGizmos()
-        {
-            if (spawnPoint) Gizmos.DrawWireSphere(spawnPoint.position, 0.1f);
-            Gizmos.matrix = this.transform.localToWorldMatrix;
-            Gizmos.DrawWireCube(Vector3.zero, new Vector3(0.402f, 0.29f, 0));
-        }
+        [SerializeField] private Color tier0Color;
+        [SerializeField] private Color tier1Color;
+        [SerializeField] private Color tier2Color;
+        [SerializeField] private Color tier3Color;
+        [SerializeField] private Color tier4Color;
 
     }
 }

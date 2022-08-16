@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+[HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/ItemShelf")]
 public class ItemShelf : MonoBehaviour
 {
     public Text priceTag = null;

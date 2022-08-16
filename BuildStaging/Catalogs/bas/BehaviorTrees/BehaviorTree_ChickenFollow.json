@@ -1,0 +1,391 @@
+{
+  "$type": "ThunderRoad.AI.BehaviorTreeData, ThunderRoad",
+  "id": "ChickenFollow",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "type": "SubTree",
+  "rootNode": {
+    "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+    "evaluateAllNodesOnCycle": false,
+    "childs": [
+      {
+        "$type": "ThunderRoad.AI.Action.BlackboardFloatAdd, ThunderRoad",
+        "blackboardValue": "ChickenHappiness",
+        "scaleWithCycleSpeed": true,
+        "toAdd": [
+          {
+            "$type": "ThunderRoad.AI.Action.BlackboardFloatAdd+Additive, ThunderRoad",
+            "useOtherBlackboardValue": false,
+            "value": -0.1,
+            "otherValueName": null
+          }
+        ],
+        "clampLower": true,
+        "minValue": 0.0,
+        "clampUpper": true,
+        "maxValue": 20.0,
+        "blackboard": null,
+        "creature": null,
+        "brainData": null
+      },
+      {
+        "$type": "ThunderRoad.AI.Control.Selector, ThunderRoad",
+        "evaluateAllNodesOnCycle": true,
+        "childs": [
+          {
+            "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+            "operation": "AND",
+            "ifConditions": [
+              {
+                "$type": "ThunderRoad.AI.Condition.IsGrabbed, ThunderRoad",
+                "anyHandle": false,
+                "handleSpecifiers": "ChokeHandle",
+                "handleName": "None",
+                "fromDirection": "Either"
+              }
+            ],
+            "ifNotConditions": null,
+            "child": {
+              "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+              "evaluateAllNodesOnCycle": false,
+              "childs": [
+                {
+                  "$type": "ThunderRoad.AI.Action.BlackboardFloatAdd, ThunderRoad",
+                  "blackboardValue": "ChickenHappiness",
+                  "scaleWithCycleSpeed": true,
+                  "toAdd": [
+                    {
+                      "$type": "ThunderRoad.AI.Action.BlackboardFloatAdd+Additive, ThunderRoad",
+                      "useOtherBlackboardValue": false,
+                      "value": -1.5,
+                      "otherValueName": null
+                    }
+                  ],
+                  "clampLower": true,
+                  "minValue": 0.0,
+                  "clampUpper": true,
+                  "maxValue": 20.0,
+                  "blackboard": null,
+                  "creature": null,
+                  "brainData": null
+                },
+                {
+                  "$type": "ThunderRoad.AI.Action.SetBrainState, ThunderRoad",
+                  "brainState": "Alert",
+                  "blackboard": null,
+                  "creature": null,
+                  "brainData": null
+                }
+              ]
+            }
+          },
+          {
+            "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+            "evaluateAllNodesOnCycle": false,
+            "childs": [
+              {
+                "$type": "ThunderRoad.AI.Control.Selector, ThunderRoad",
+                "evaluateAllNodesOnCycle": false,
+                "childs": [
+                  {
+                    "$type": "ThunderRoad.AI.Get.GetRagdollTouch, ThunderRoad",
+                    "damageCondition": "OnlyIfDamage",
+                    "factionCondition": "AnyCreature",
+                    "typeCondition": "AnyTouch",
+                    "bodyStateCondition": "StandingAlive",
+                    "rememberDuration": 20.0,
+                    "outputCreatureAsCurrentTarget": false,
+                    "outputCreatureVariableName": "LastAggressor",
+                    "outputPartTransformVariableName": "",
+                    "blackboard": null,
+                    "creature": null,
+                    "brainData": null
+                  },
+                  {
+                    "$type": "ThunderRoad.AI.Get.GetGrabber, ThunderRoad",
+                    "factionCondition": "OnlyEnemy",
+                    "anyHandle": false,
+                    "handleSpecifiers": "ChokeHandle",
+                    "handleName": "None",
+                    "fromDirection": "Either",
+                    "rememberDuration": 20.0,
+                    "outputCreatureAsCurrentTarget": false,
+                    "outputCreatureVariableName": "LastAggressor",
+                    "blackboard": null,
+                    "creature": null,
+                    "brainData": null
+                  }
+                ]
+              },
+              {
+                "$type": "ThunderRoad.AI.Action.BlackboardFloatAdd, ThunderRoad",
+                "blackboardValue": "ChickenHappiness",
+                "scaleWithCycleSpeed": true,
+                "toAdd": [
+                  {
+                    "$type": "ThunderRoad.AI.Action.BlackboardFloatAdd+Additive, ThunderRoad",
+                    "useOtherBlackboardValue": false,
+                    "value": -1.5,
+                    "otherValueName": null
+                  }
+                ],
+                "clampLower": true,
+                "minValue": 0.0,
+                "clampUpper": true,
+                "maxValue": 20.0,
+                "blackboard": null,
+                "creature": null,
+                "brainData": null
+              },
+              {
+                "$type": "ThunderRoad.AI.Action.SetBrainState, ThunderRoad",
+                "brainState": "Alert",
+                "blackboard": null,
+                "creature": null,
+                "brainData": null
+              },
+              {
+                "$type": "ThunderRoad.AI.Action.MoveTo, ThunderRoad",
+                "moveTarget": "InputCreature",
+                "inputMoveTargetVariableName": "LastAggressor",
+                "turnTarget": "MoveDirection",
+                "inputTurnTargetVariableName": "",
+                "forceTurnToUseMoveDirectionAtDistance": false,
+                "turnMoveDirectionDistance": 10.0,
+                "turnMoveDirectionSpeed": 1.0,
+                "approachMoveSpeedRatio": 1.0,
+                "approachTurnSpeedRatio": 1.0,
+                "approachRunSpeedRatio": 0.8,
+                "moveCloserIfNoSight": false,
+                "strafeAroundTarget": false,
+                "strafeMoveSpeedRatio": 0.75,
+                "strafeTurnSpeedRatio": 1.0,
+                "strafeRunSpeedRatio": 0.0,
+                "checkMaxAllies": false,
+                "safeRangeOffset": 0.25,
+                "safeRangeThickness": 2.0,
+                "reportUnreachable": false,
+                "useModuleStrafeDelay": false,
+                "repathMinDelay": 0.0,
+                "repathMaxDelay": 0.0,
+                "autoRadius": "None",
+                "targetMinRadius": 5.0,
+                "targetMaxRadius": 20.0,
+                "angleMode": "Randomize",
+                "changeAngleUntilUnobstructed": true,
+                "targetRadiusMinAngle": 0.0,
+                "targetRadiusMaxAngle": 120.0,
+                "blackboard": null,
+                "creature": null,
+                "brainData": null
+              }
+            ]
+          },
+          {
+            "$type": "ThunderRoad.AI.Decorator.AlwaysFailure, ThunderRoad",
+            "child": {
+              "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+              "evaluateAllNodesOnCycle": false,
+              "childs": [
+                {
+                  "$type": "ThunderRoad.AI.Get.GetRagdollTouch, ThunderRoad",
+                  "damageCondition": "NoDamage",
+                  "factionCondition": "AnyCreature",
+                  "typeCondition": "OnlyPart",
+                  "bodyStateCondition": "StandingAlive",
+                  "rememberDuration": 1.0,
+                  "outputCreatureAsCurrentTarget": false,
+                  "outputCreatureVariableName": "LastFriendly",
+                  "outputPartTransformVariableName": "",
+                  "blackboard": null,
+                  "creature": null,
+                  "brainData": null
+                },
+                {
+                  "$type": "ThunderRoad.AI.Action.BlackboardFloatAdd, ThunderRoad",
+                  "blackboardValue": "ChickenHappiness",
+                  "scaleWithCycleSpeed": true,
+                  "toAdd": [
+                    {
+                      "$type": "ThunderRoad.AI.Action.BlackboardFloatAdd+Additive, ThunderRoad",
+                      "useOtherBlackboardValue": false,
+                      "value": 1.5,
+                      "otherValueName": null
+                    }
+                  ],
+                  "clampLower": true,
+                  "minValue": 0.0,
+                  "clampUpper": true,
+                  "maxValue": 20.0,
+                  "blackboard": null,
+                  "creature": null,
+                  "brainData": null
+                }
+              ]
+            }
+          },
+          {
+            "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+            "operation": "AND",
+            "ifConditions": [
+              {
+                "$type": "ThunderRoad.AI.Condition.IsGrabbed, ThunderRoad",
+                "anyHandle": false,
+                "handleSpecifiers": "CarryHandle",
+                "handleName": "None",
+                "fromDirection": "Either"
+              }
+            ],
+            "ifNotConditions": null,
+            "child": {
+              "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+              "evaluateAllNodesOnCycle": false,
+              "childs": [
+                {
+                  "$type": "ThunderRoad.AI.Action.BlackboardFloatAdd, ThunderRoad",
+                  "blackboardValue": "ChickenHappiness",
+                  "scaleWithCycleSpeed": true,
+                  "toAdd": [
+                    {
+                      "$type": "ThunderRoad.AI.Action.BlackboardFloatAdd+Additive, ThunderRoad",
+                      "useOtherBlackboardValue": false,
+                      "value": 1.0,
+                      "otherValueName": null
+                    }
+                  ],
+                  "clampLower": true,
+                  "minValue": 0.0,
+                  "clampUpper": true,
+                  "maxValue": 20.0,
+                  "blackboard": null,
+                  "creature": null,
+                  "brainData": null
+                },
+                {
+                  "$type": "ThunderRoad.AI.Action.SetBrainState, ThunderRoad",
+                  "brainState": "Follow",
+                  "blackboard": null,
+                  "creature": null,
+                  "brainData": null
+                }
+              ]
+            }
+          },
+          {
+            "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+            "evaluateAllNodesOnCycle": false,
+            "childs": [
+              {
+                "$type": "ThunderRoad.AI.Decorator.AlwaysSuccess, ThunderRoad",
+                "child": {
+                  "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+                  "evaluateAllNodesOnCycle": false,
+                  "childs": [
+                    {
+                      "$type": "ThunderRoad.AI.Get.GetGrabber, ThunderRoad",
+                      "factionCondition": "Either",
+                      "anyHandle": false,
+                      "handleSpecifiers": "CarryHandle",
+                      "handleName": "None",
+                      "fromDirection": "Either",
+                      "rememberDuration": 1.0,
+                      "outputCreatureAsCurrentTarget": false,
+                      "outputCreatureVariableName": "LastFriendly",
+                      "blackboard": null,
+                      "creature": null,
+                      "brainData": null
+                    },
+                    {
+                      "$type": "ThunderRoad.AI.Action.BlackboardFloatAdd, ThunderRoad",
+                      "blackboardValue": "ChickenHappiness",
+                      "scaleWithCycleSpeed": true,
+                      "toAdd": [
+                        {
+                          "$type": "ThunderRoad.AI.Action.BlackboardFloatAdd+Additive, ThunderRoad",
+                          "useOtherBlackboardValue": false,
+                          "value": 1.0,
+                          "otherValueName": null
+                        }
+                      ],
+                      "clampLower": true,
+                      "minValue": 0.0,
+                      "clampUpper": true,
+                      "maxValue": 20.0,
+                      "blackboard": null,
+                      "creature": null,
+                      "brainData": null
+                    }
+                  ]
+                }
+              },
+              {
+                "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+                "operation": "AND",
+                "ifConditions": [
+                  {
+                    "$type": "ThunderRoad.AI.Condition.BlackboardValue, ThunderRoad",
+                    "variableName": "ChickenHappiness",
+                    "variableType": "Float",
+                    "variableComparator": "GreaterThanOrEqual",
+                    "comparedValue": 10.0
+                  }
+                ],
+                "ifNotConditions": null,
+                "child": {
+                  "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+                  "evaluateAllNodesOnCycle": false,
+                  "childs": [
+                    {
+                      "$type": "ThunderRoad.AI.Action.SetBrainState, ThunderRoad",
+                      "brainState": "Follow",
+                      "blackboard": null,
+                      "creature": null,
+                      "brainData": null
+                    },
+                    {
+                      "$type": "ThunderRoad.AI.Action.MoveTo, ThunderRoad",
+                      "moveTarget": "InputCreature",
+                      "inputMoveTargetVariableName": "LastFriendly",
+                      "turnTarget": "MoveDirection",
+                      "inputTurnTargetVariableName": "",
+                      "forceTurnToUseMoveDirectionAtDistance": true,
+                      "turnMoveDirectionDistance": 10.0,
+                      "turnMoveDirectionSpeed": 1.0,
+                      "approachMoveSpeedRatio": 0.9,
+                      "approachTurnSpeedRatio": 1.0,
+                      "approachRunSpeedRatio": 0.0,
+                      "moveCloserIfNoSight": false,
+                      "strafeAroundTarget": false,
+                      "strafeMoveSpeedRatio": 0.75,
+                      "strafeTurnSpeedRatio": 1.0,
+                      "strafeRunSpeedRatio": 0.0,
+                      "checkMaxAllies": true,
+                      "safeRangeOffset": 0.25,
+                      "safeRangeThickness": 2.0,
+                      "reportUnreachable": false,
+                      "useModuleStrafeDelay": false,
+                      "repathMinDelay": 0.0,
+                      "repathMaxDelay": 0.0,
+                      "autoRadius": "None",
+                      "targetMinRadius": 0.5,
+                      "targetMaxRadius": 2.0,
+                      "angleMode": "None",
+                      "changeAngleUntilUnobstructed": false,
+                      "targetRadiusMinAngle": 0.0,
+                      "targetRadiusMaxAngle": 0.0,
+                      "blackboard": null,
+                      "creature": null,
+                      "brainData": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

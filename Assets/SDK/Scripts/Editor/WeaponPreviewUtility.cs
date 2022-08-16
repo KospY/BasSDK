@@ -12,7 +12,7 @@ namespace ThunderRoad
     public static class WeaponPreviewUtility
     {
 
-        [MenuItem("Assets/Weapons Preview/Generate selected weapon previews")]
+        [MenuItem("Assets/ThunderRoad/Generate item preview")]
         static void GenerateWeaponsPreview()
         {
             foreach (GameObject weapon in Selection.objects)

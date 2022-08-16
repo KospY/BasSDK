@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -10,9 +9,10 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/CollisionHandler")]
     [AddComponentMenu("ThunderRoad/Collision handler")]
     [RequireComponent(typeof(Rigidbody))]
-    public class CollisionHandler : MonoBehaviour
+    public class CollisionHandler : ThunderBehaviour
     {
         public bool active = true;
         public bool checkMinVelocity = true;
@@ -58,7 +58,12 @@ namespace ThunderRoad
                 }
                 customInertiaTensorCollider.enabled = false;
                 customInertiaTensorCollider.isTrigger = true;
-                customInertiaTensorCollider.gameObject.layer = 2;
+                //This should not be set here, it causes a warning because sendmessage cant run in onvalidate
+                //customInertiaTensorCollider.gameObject.layer = 2;
+                if (customInertiaTensorCollider.gameObject.layer != 2)
+                {
+                    Debug.LogWarning($"CustomInertiaTensorCollider layer should be set to: 2");
+                }
             }
         }
 

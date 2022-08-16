@@ -1,0 +1,348 @@
+{
+  "$type": "ThunderRoad.AI.BehaviorTreeData, ThunderRoad",
+  "id": "HumanCombatMelee",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "type": "SubTree",
+  "rootNode": {
+    "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+    "evaluateAllNodesOnCycle": false,
+    "childs": [
+      {
+        "$type": "ThunderRoad.AI.ChildTreeNode, ThunderRoad",
+        "reference": "ForceID",
+        "childTreeID": "HumanEquipMelee",
+        "childTreeName": null
+      },
+      {
+        "$type": "ThunderRoad.AI.Decorator.AlwaysSuccess, ThunderRoad",
+        "child": {
+          "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+          "operation": "AND",
+          "ifConditions": [
+            {
+              "$type": "ThunderRoad.AI.Condition.IsThreatened, ThunderRoad",
+              "target": "CurrentTarget",
+              "inputCreatureVariableName": "",
+              "threatMinSpeed": 1.0,
+              "threatDuration": 1.0
+            }
+          ],
+          "ifNotConditions": null,
+          "child": {
+            "$type": "ThunderRoad.AI.Action.SetDefenseState, ThunderRoad",
+            "parry": true,
+            "dodge": true,
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          }
+        }
+      },
+      {
+        "$type": "ThunderRoad.AI.Control.Selector, ThunderRoad",
+        "evaluateAllNodesOnCycle": true,
+        "childs": [
+          {
+            "$type": "ThunderRoad.AI.Action.AttackMelee, ThunderRoad",
+            "target": "CurrentTarget",
+            "inputTransformVariableName": "",
+            "inputCreatureVariableName": "",
+            "useMeleeDelay": true,
+            "defensePreferenceChance": true,
+            "checkCurrentTargetSight": true,
+            "checkCloseAllies": true,
+            "checkNavMesh": true,
+            "forceMeleeRange": 0.0,
+            "forceMeleeRangeMoved": 0.0,
+            "forceWeaponReach": 0.0,
+            "forceMaxRangeDelta": 0.0,
+            "stopOnReset": false,
+            "pickClipSequentialMaxIndex": 0,
+            "updateClipRange": false,
+            "blackboard": null,
+            "creature": null,
+            "brainData": null
+          },
+          {
+            "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+            "evaluateAllNodesOnCycle": true,
+            "childs": [
+              {
+                "$type": "ThunderRoad.AI.Action.PickSpell, ThunderRoad",
+                "side": "Left",
+                "selectionMode": "ByDistance",
+                "spellID": "",
+                "target": "CurrentTarget",
+                "inputTransformVariableName": "",
+                "blackboard": null,
+                "creature": null,
+                "brainData": null
+              },
+              {
+                "$type": "ThunderRoad.AI.Action.AttackSpell, ThunderRoad",
+                "target": "CurrentTarget",
+                "inputTransformVariableName": "",
+                "castLeft": true,
+                "castRight": false,
+                "blackboard": null,
+                "creature": null,
+                "brainData": null
+              }
+            ]
+          },
+          {
+            "$type": "ThunderRoad.AI.Control.Selector, ThunderRoad",
+            "evaluateAllNodesOnCycle": true,
+            "childs": [
+              {
+                "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+                "operation": "AND",
+                "ifConditions": [
+                  {
+                    "$type": "ThunderRoad.AI.Condition.TargetWithinRange, ThunderRoad",
+                    "flatDistance": true,
+                    "target": "CurrentTarget",
+                    "inputTransformVariableName": "",
+                    "comparison": "LessThanOrEqual",
+                    "useMeleeRange": true,
+                    "distance": 1.5,
+                    "addedDistance": 0.3,
+                    "maxDiff": 0.0
+                  },
+                  {
+                    "$type": "ThunderRoad.AI.Condition.BlackboardTimeValue, ThunderRoad",
+                    "variableName": "LastGoodDistance",
+                    "variableComparator": "GreaterThanOrEqual",
+                    "timeDiff": 0.5
+                  }
+                ],
+                "ifNotConditions": null,
+                "child": {
+                  "$type": "ThunderRoad.AI.Decorator.AlwaysSuccess, ThunderRoad",
+                  "child": {
+                    "$type": "ThunderRoad.AI.Action.MoveInDirection, ThunderRoad",
+                    "moveDirection": {
+                      "x": 0.0,
+                      "y": -1.0
+                    },
+                    "moveSpeedRatio": 1.0,
+                    "turnSpeed": 0.0,
+                    "moveMinDuration": 0.5,
+                    "stuckRadius": 0.1,
+                    "stuckMaxDuration": 5.0,
+                    "blackboard": null,
+                    "creature": null,
+                    "brainData": null
+                  }
+                }
+              },
+              {
+                "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+                "operation": "AND",
+                "ifConditions": [
+                  {
+                    "$type": "ThunderRoad.AI.Condition.TargetWithinRange, ThunderRoad",
+                    "flatDistance": true,
+                    "target": "CurrentTarget",
+                    "inputTransformVariableName": "",
+                    "comparison": "GreaterThan",
+                    "useMeleeRange": true,
+                    "distance": 1.5,
+                    "addedDistance": 0.3,
+                    "maxDiff": 0.0
+                  }
+                ],
+                "ifNotConditions": null,
+                "child": {
+                  "$type": "ThunderRoad.AI.Decorator.AlwaysFailure, ThunderRoad",
+                  "child": {
+                    "$type": "ThunderRoad.AI.Action.SaveTimeInBlackboard, ThunderRoad",
+                    "variableName": "LastGoodDistance",
+                    "onlyOnce": false,
+                    "blackboard": null,
+                    "creature": null,
+                    "brainData": null
+                  }
+                }
+              },
+              {
+                "$type": "ThunderRoad.AI.Action.MoveTo, ThunderRoad",
+                "moveTarget": "CurrentTarget",
+                "inputMoveTargetVariableName": "",
+                "turnTarget": "CurrentTarget",
+                "inputTurnTargetVariableName": "",
+                "forceTurnToUseMoveDirectionAtDistance": true,
+                "turnMoveDirectionDistance": 5.0,
+                "turnMoveDirectionSpeed": 1.0,
+                "approachMoveSpeedRatio": 1.0,
+                "approachTurnSpeedRatio": 1.0,
+                "approachRunSpeedRatio": 1.0,
+                "moveCloserIfNoSight": false,
+                "strafeAroundTarget": true,
+                "strafeMoveSpeedRatio": 0.75,
+                "strafeTurnSpeedRatio": 3.0,
+                "strafeRunSpeedRatio": 0.0,
+                "checkMaxAllies": true,
+                "safeRangeOffset": 0.25,
+                "safeRangeThickness": 2.0,
+                "reportUnreachable": true,
+                "useModuleStrafeDelay": true,
+                "repathMinDelay": 0.0,
+                "repathMaxDelay": 0.0,
+                "autoRadius": "MeleeRange",
+                "targetMinRadius": 0.0,
+                "targetMaxRadius": 0.1,
+                "angleMode": "CheckAllies",
+                "changeAngleUntilUnobstructed": true,
+                "targetRadiusMinAngle": 20.0,
+                "targetRadiusMaxAngle": 45.0,
+                "blackboard": null,
+                "creature": null,
+                "brainData": null
+              },
+              {
+                "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+                "evaluateAllNodesOnCycle": true,
+                "childs": [
+                  {
+                    "$type": "ThunderRoad.AI.Decorator.AlwaysSuccess, ThunderRoad",
+                    "child": {
+                      "$type": "ThunderRoad.AI.Control.Selector, ThunderRoad",
+                      "evaluateAllNodesOnCycle": true,
+                      "childs": [
+                        {
+                          "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+                          "operation": "AND",
+                          "ifConditions": [
+                            {
+                              "$type": "ThunderRoad.AI.Condition.TargetHasMoved, ThunderRoad",
+                              "flatDistance": false,
+                              "target": "CurrentTarget",
+                              "inputTransformVariableName": "",
+                              "distance": 3.0
+                            }
+                          ],
+                          "ifNotConditions": null,
+                          "child": {
+                            "$type": "ThunderRoad.AI.Get.GetRandomPositionAround, ThunderRoad",
+                            "target": "CurrentTarget",
+                            "inputTargetVariableName": "",
+                            "scaleMinMaxByHeightDiff": true,
+                            "maxHeightDiff": 10.0,
+                            "minRadius": 3.0,
+                            "maxRadius": 8.0,
+                            "attempts": 3,
+                            "outputPositionVariableName": "GroundPosition",
+                            "blackboard": null,
+                            "creature": null,
+                            "brainData": null
+                          }
+                        },
+                        {
+                          "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+                          "evaluateAllNodesOnCycle": false,
+                          "childs": [
+                            {
+                              "$type": "ThunderRoad.AI.Action.Wait, ThunderRoad",
+                              "startWaiting": false,
+                              "minDuration": 30.0,
+                              "maxDuration": 40.0,
+                              "blackboard": null,
+                              "creature": null,
+                              "brainData": null
+                            },
+                            {
+                              "$type": "ThunderRoad.AI.Get.GetRandomPositionAround, ThunderRoad",
+                              "target": "CurrentTarget",
+                              "inputTargetVariableName": "",
+                              "scaleMinMaxByHeightDiff": true,
+                              "maxHeightDiff": 10.0,
+                              "minRadius": 3.0,
+                              "maxRadius": 8.0,
+                              "attempts": 3,
+                              "outputPositionVariableName": "GroundPosition",
+                              "blackboard": null,
+                              "creature": null,
+                              "brainData": null
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "$type": "ThunderRoad.AI.Action.MoveTo, ThunderRoad",
+                    "moveTarget": "InputPosition",
+                    "inputMoveTargetVariableName": "GroundPosition",
+                    "turnTarget": "CurrentTarget",
+                    "inputTurnTargetVariableName": "",
+                    "forceTurnToUseMoveDirectionAtDistance": true,
+                    "turnMoveDirectionDistance": 10.0,
+                    "turnMoveDirectionSpeed": 1.0,
+                    "approachMoveSpeedRatio": 1.0,
+                    "approachTurnSpeedRatio": 1.0,
+                    "approachRunSpeedRatio": 1.0,
+                    "moveCloserIfNoSight": false,
+                    "strafeAroundTarget": false,
+                    "strafeMoveSpeedRatio": 0.75,
+                    "strafeTurnSpeedRatio": 1.0,
+                    "strafeRunSpeedRatio": 0.0,
+                    "checkMaxAllies": false,
+                    "safeRangeOffset": 0.25,
+                    "safeRangeThickness": 2.0,
+                    "reportUnreachable": false,
+                    "useModuleStrafeDelay": false,
+                    "repathMinDelay": 0.0,
+                    "repathMaxDelay": 0.0,
+                    "autoRadius": "None",
+                    "targetMinRadius": 0.0,
+                    "targetMaxRadius": 1.0,
+                    "angleMode": "None",
+                    "changeAngleUntilUnobstructed": false,
+                    "targetRadiusMinAngle": 0.0,
+                    "targetRadiusMaxAngle": 0.0,
+                    "blackboard": null,
+                    "creature": null,
+                    "brainData": null
+                  },
+                  {
+                    "$type": "ThunderRoad.AI.Action.AttackThrow, ThunderRoad",
+                    "preferredThrowHand": "OnlyLeft",
+                    "grabRock": true,
+                    "inputTransformVariableName": "CurrentTargetSightedPartTransform",
+                    "useCurrentTargetIfNullTransform": true,
+                    "overrideSpread": false,
+                    "spreadOverride": {
+                      "x": 0.0,
+                      "y": 0.0
+                    },
+                    "overrideWeaponRotationX": false,
+                    "overrideWeaponRotationY": false,
+                    "overrideWeaponRotationZ": false,
+                    "weaponRotationOverride": {
+                      "x": 0.0,
+                      "y": 0.0,
+                      "z": 0.0
+                    },
+                    "moduleThrow": null,
+                    "moduleRanged": null,
+                    "blackboard": null,
+                    "creature": null,
+                    "brainData": null
+                  }
+                ]
+              },
+              {
+                "$type": "ThunderRoad.AI.Decorator.AlwaysSuccess, ThunderRoad",
+                "child": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

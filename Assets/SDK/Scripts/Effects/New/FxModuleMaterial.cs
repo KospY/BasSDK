@@ -5,6 +5,7 @@ using ThunderRoad.Plugins;
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/FxModuleMaterial")]
     public class FxModuleMaterial : FxModule
     {
         public List<Property.Float> floatProperties = new List<Property.Float>();

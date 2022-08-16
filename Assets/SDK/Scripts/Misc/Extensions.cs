@@ -2,13 +2,27 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace ThunderRoad
 {
-    public static class Extensions
+	public static class Extensions
     {
+        public static void RemoveAtIgnoreOrder<T>(this IList<T> list, int index)
+        {
+            int last = list.Count - 1;
+            if (last != index)
+            {
+                //copy the reference of the last one to the index we are removing
+                list[index] = list[list.Count - 1];
+            }
+            //Remove the last thing in the list
+            list.RemoveAt(last);
+        }
+
+
         public static List<T> Shuffle<T>(this List<T> list) where T : UnityEngine.Object
         {
             /// With the Fisher-Yates shuffle, we randomly sort elements. This is an accurate, effective shuffling method for all array types
@@ -19,7 +33,7 @@ namespace ThunderRoad
             {
                 // NextDouble returns a random number between 0 and 1.
                 // ... It is equivalent to Math.random() in Java.
-                int r = i + (int)(_random.NextDouble() * (n - i));
+                int r = i + (int) (_random.NextDouble() * (n - i));
                 obj = list[r];
                 list[r] = list[i];
                 list[i] = obj;
@@ -37,7 +51,7 @@ namespace ThunderRoad
             {
                 // NextDouble returns a random number between 0 and 1.
                 // ... It is equivalent to Math.random() in Java.
-                int r = i + (int)(_random.NextDouble() * (n - i));
+                int r = i + (int) (_random.NextDouble() * (n - i));
                 obj = array[r];
                 array[r] = array[i];
                 array[i] = obj;
@@ -45,20 +59,66 @@ namespace ThunderRoad
             return array;
         }
 
-        public static T CloneJson<T>(this T source)
+        public static async Task<T> AsyncCloneJsonAsync<T>(this T source)
         {
-            JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings();
-            jsonSerializerSettings.TypeNameHandling = TypeNameHandling.Objects;
-            jsonSerializerSettings.ObjectCreationHandling = ObjectCreationHandling.Replace;
-            string json = JsonConvert.SerializeObject(source, typeof(T), jsonSerializerSettings);
-            return JsonConvert.DeserializeObject<T>(json, jsonSerializerSettings);
+            return await Task.Run(() => source.CloneJson());
         }
 
+        public static T CloneJson<T>(this T source)
+        {
+            JsonSerializer ser = JsonSerializer.CreateDefault(JsonSerializerSettings);
+            using (MemoryStream s = new MemoryStream())
+            {
+                //serialize to the stream, leave the stream open
+                using (var writer = new StreamWriter(stream: s, encoding: Encoding.UTF8, bufferSize: 4096, leaveOpen: true))
+                using (JsonTextWriter jsonWriter = new JsonTextWriter(writer))
+                {
+                    ser.Serialize(jsonWriter, source);
+                    jsonWriter.Flush();
+                }
+                //seek to the start of the stream
+                s.Seek(0, SeekOrigin.Begin);
+                //deserialize from the stream
+                using (StreamReader reader = new StreamReader(s))
+                using (JsonTextReader jsonReader = new JsonTextReader(reader))
+                {
+                    T output = ser.Deserialize<T>(jsonReader);
+                    s.Dispose();
+                    return output;
+                }
+            }
+            return default(T);
+        }
+
+        public static JsonSerializerSettings JsonSerializerSettings = new JsonSerializerSettings {
+            TypeNameHandling = TypeNameHandling.Objects,
+            ObjectCreationHandling = ObjectCreationHandling.Replace,
+            ContractResolver = JsonSerializer.CreateDefault().ContractResolver
+        };
+
+        public static float DistanceSqr(this Vector3 a, Vector3 b)
+        {
+            return GetDistanceSqr(a, b);
+        }
+        
+        /// <summary>
+        /// Returns the Squared Distance between two vectors
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>Squared Distance</returns>
+        public static float GetDistanceSqr(Vector3 a, Vector3 b)
+        {
+            float num1 = a.x - b.x;
+            float num2 = a.y - b.y;
+            float num3 = a.z - b.z;
+            return num1 * num1 + num2 * num2 + num3 * num3;
+        }
+        
         public static bool PointInRadius(this Vector3 vectorA, Vector3 vectorB, float radius)
         {
             // Best performance to check radius
-            Vector3 offset = vectorA - vectorB;
-            float sqrMagnitude = offset.sqrMagnitude;
+            float sqrMagnitude = vectorA.DistanceSqr(vectorB);
             if (sqrMagnitude < radius * radius)
             {
                 return true;
@@ -69,8 +129,7 @@ namespace ThunderRoad
         public static bool PointInRadius(this Vector3 vectorA, Vector3 vectorB, float radius, out float radiusDistanceRatio)
         {
             // Best performance to check radius
-            Vector3 offset = vectorA - vectorB;
-            float sqrMagnitude = offset.sqrMagnitude;
+            float sqrMagnitude = vectorA.DistanceSqr(vectorB);
             if (sqrMagnitude < radius * radius)
             {
                 radiusDistanceRatio = 1 - (sqrMagnitude / (radius * radius));
@@ -80,9 +139,19 @@ namespace ThunderRoad
             return false;
         }
 
+        public static Vector3 GetClosestPoint(this Vector3 origin, params Vector3[] checkPoints)
+        {
+            Vector3 closest = checkPoints[0];
+            for (int i = 1; i < checkPoints.Length; i++)
+            {
+                if ((checkPoints[i] - origin).sqrMagnitude < (closest - origin).sqrMagnitude) closest = checkPoints[i];
+            }
+            return closest;
+        }
+
         public static string FormatBytes(this long bytes)
         {
-            string[] Suffix = { "B", "KB", "MB", "GB", "TB" };
+            string[] Suffix = {"B", "KB", "MB", "GB", "TB"};
             int i;
             double dblSByte = bytes;
             for (i = 0; i < Suffix.Length && bytes >= 1024; i++, bytes /= 1024)
@@ -94,6 +163,15 @@ namespace ThunderRoad
         }
 
 #if PrivateSDK
+
+        public static bool HasFlagNoGC( this HingeDrive.InputType flags, HingeDrive.InputType value )
+        {
+            return ((flags & value) > 0);
+        }
+        public static bool HasFlagNoGC( this ManagedLoops flags, ManagedLoops value )
+        {
+            return ((flags & value) > 0);
+        }
         public static bool HasFlagNoGC(this RagdollPart.Type flags, RagdollPart.Type value)
         {
             return ((flags & value) > 0);
@@ -134,7 +212,7 @@ namespace ThunderRoad
             return ((flags & value) > 0);
         }
 
-        public static bool HasFlagNoGC(this EffectModule.PlateformFilter flags, EffectModule.PlateformFilter value)
+        public static bool HasFlagNoGC(this EffectModule.PlatformFilter flags, EffectModule.PlatformFilter value)
         {
             return ((flags & value) > 0);
         }
@@ -144,6 +222,17 @@ namespace ThunderRoad
             return ((flags & value) > 0);
         }
 #endif
+        public static bool HasFlagNoGC(this GameSettings.ContentFlag flags, GameSettings.ContentFlag value)
+        {
+            return ((flags & value) > 0);
+        }
+
+        public static bool CheckContentActive(this GameSettings.ContentFlag flags, GameSettings.ContentFlag content)
+        {
+            if (flags == GameSettings.ContentFlag.None) return false;
+            if (content == GameSettings.ContentFlag.None) return true;
+            return (flags & content) == content;
+        }
 
         public static Collider Clone(this Collider collider, GameObject gameObject)
         {
@@ -235,12 +324,12 @@ namespace ThunderRoad
         public static float SignedAngleFromDirection(this Vector3 fromdir, Vector3 todir, Vector3 referenceup)
         {
             // calculates the the angle between two direction vectors, with a referenceup a sign in which direction it points can be calculated (clockwise is positive and counter clockwise is negative)
-            Vector3 planenormal = Vector3.Cross(fromdir, todir);             // calculate the planenormal (perpendicular vector)
-            float angle = Vector3.Angle(fromdir, todir);                     // calculate the angle between the 2 direction vectors (note: its always the smaller one smaller than 180°)
-            float orientationdot = Vector3.Dot(planenormal, referenceup);    // calculate wether the normal and the referenceup point in the same direction (>0) or not (<0), http://docs.unity3d.com/Documentation/Manual/ComputingNormalPerpendicularVector.html
-            if (orientationdot > 0.0f)                                         // the angle is positive (clockwise orientation seen from referenceup)
+            Vector3 planenormal = Vector3.Cross(fromdir, todir); // calculate the planenormal (perpendicular vector)
+            float angle = Vector3.Angle(fromdir, todir); // calculate the angle between the 2 direction vectors (note: its always the smaller one smaller than 180°)
+            float orientationdot = Vector3.Dot(planenormal, referenceup); // calculate wether the normal and the referenceup point in the same direction (>0) or not (<0), http://docs.unity3d.com/Documentation/Manual/ComputingNormalPerpendicularVector.html
+            if (orientationdot > 0.0f) // the angle is positive (clockwise orientation seen from referenceup)
                 return angle;
-            return -angle;  // the angle is negative (counter-clockwise orientation seen from referenceup)
+            return -angle; // the angle is negative (counter-clockwise orientation seen from referenceup)
         }
 
         public static Vector3 ToXZ(this Vector3 fromdir)
@@ -253,6 +342,27 @@ namespace ThunderRoad
         {
             fromdir.x = 0;
             return fromdir;
+        }
+
+        public static Vector3 ClampMagnitude(this Vector3 vector, float minMagnitude, float maxMagnitude)
+        {
+            if (vector.sqrMagnitude < minMagnitude * minMagnitude) return vector.normalized * minMagnitude;
+            if (vector.sqrMagnitude > maxMagnitude * maxMagnitude) return vector.normalized * maxMagnitude;
+            return vector;
+        }
+
+        public static Transform FindOrAddTransform(this Transform parent, string name, Vector3 position, Quaternion? rotation = null, Vector3? scale = null)
+        {
+            Transform returnable = parent.Find(name);
+            if (!returnable)
+            {
+                returnable = new GameObject(name).transform;
+                returnable.parent = parent;
+                returnable.position = position;
+                returnable.rotation = rotation != null ? rotation.Value : Quaternion.identity;
+                returnable.localScale = scale != null ? scale.Value : Vector3.one;
+            }
+            return returnable;
         }
 
         /// <summary>
@@ -308,6 +418,32 @@ namespace ThunderRoad
 
             // Set target rotation to our newly calculated rotation
             joint.targetRotation = resultRotation;
+        }
+
+        public static void SetAnimatorDefault(this Animator animator, bool keepState = true)
+        {
+            foreach (AnimatorControllerParameter param in animator.parameters)
+            {
+                // Skip any parameters controlled by curves
+                if (animator.IsParameterControlledByCurve(param.nameHash)) continue;
+                switch (param.type)
+                {
+                    case AnimatorControllerParameterType.Trigger:
+                        animator.ResetTrigger(param.nameHash);
+                        break;
+                    case AnimatorControllerParameterType.Bool:
+                        animator.SetBool(param.nameHash, param.defaultBool);
+                        break;
+                    case AnimatorControllerParameterType.Int:
+                        animator.SetInteger(param.nameHash, param.defaultInt);
+                        break;
+                    case AnimatorControllerParameterType.Float:
+                        animator.SetFloat(param.nameHash, param.defaultFloat);
+                        break;
+                }
+            }
+            animator.Update(0f);
+            animator.keepAnimatorControllerStateOnDisable = keepState;
         }
     }
 }

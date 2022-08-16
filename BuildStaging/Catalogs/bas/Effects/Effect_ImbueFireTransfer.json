@@ -1,0 +1,189 @@
+{
+  "$type": "ThunderRoad.EffectData, ThunderRoad",
+  "id": "ImbueFireTransfer",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "groupId": "Fire",
+  "volumeDb": 0.0,
+  "modules": [
+    {
+      "$type": "ThunderRoad.EffectModuleVfx, ThunderRoad",
+      "vfxAddress": "Bas.Vfx.Misc.ImbueTransfer",
+      "intensityCurve": null,
+      "lifeTime": 5.0,
+      "useSecondaryRenderer": false,
+      "lookAtTarget": false,
+      "spawnOn": "Default",
+      "mainColorStart": {
+        "r": 1.0,
+        "g": 0.7843138,
+        "b": 0.345098048,
+        "a": 1.0
+      },
+      "mainColorEnd": {
+        "r": 5.992157,
+        "g": 0.784313738,
+        "b": 0.345098048,
+        "a": 0.0
+      },
+      "secondaryColorStart": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "secondaryColorEnd": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "mainNoHdrColorStart": {
+        "r": 1.0,
+        "g": 0.6467265,
+        "b": 0.0,
+        "a": 0.9746596
+      },
+      "mainNoHdrColorEnd": {
+        "r": 1.0,
+        "g": 0.6467265,
+        "b": 0.0,
+        "a": 1.0
+      },
+      "secondaryNoHdrColorStart": {
+        "r": 1.0,
+        "g": 0.6467265,
+        "b": 0.0,
+        "a": 0.09803922
+      },
+      "secondaryNoHdrColorEnd": {
+        "r": 1.0,
+        "g": 0.6467265,
+        "b": 0.0,
+        "a": 0.09803922
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "useScaleCurve": false,
+      "scaleCurve": null,
+      "usePointCache": true,
+      "pointCacheSkinnedMeshUpdate": false,
+      "pointCacheMapSize": 512,
+      "pointCachePointCount": 4096,
+      "pointCacheSeed": 0,
+      "pointCacheDistribution": "RandomUniformArea",
+      "pointCacheBakeMode": "Triangle",
+      "useMesh": false,
+      "meshAddress": null,
+      "materialProperties": [],
+      "step": "Loop",
+      "stepCustomId": null,
+      "platformFilter": "Windows",
+      "sensitiveContent": "None",
+      "sensitiveFilterBehaviour": "Discard",
+      "damagerStateFilter": "Inactive, Active",
+      "damageTypeFilter": "Energy, Blunt, Slash, Pierce",
+      "penetrationFilter": "None, Pressure, Hit",
+      "imbuesFilterLogic": "AnyExcept",
+      "imbuesFilter": [],
+      "colliderGroupFilterLogic": "AnyExcept",
+      "colliderGroupsFilter": [],
+      "damagersFilterLogic": "AnyExcept",
+      "damagersFilter": []
+    },
+    {
+      "$type": "ThunderRoad.EffectModuleParticle, ThunderRoad",
+      "effectLink": "Intensity",
+      "effectParticleAddress": "Bas.Particle.Misc.ImbueTransfer",
+      "intensityCurve": null,
+      "renderInLateUpdate": false,
+      "mainColorStart": {
+        "r": 1.0,
+        "g": 0.7843138,
+        "b": 0.345098048,
+        "a": 1.0
+      },
+      "mainColorEnd": {
+        "r": 1.0,
+        "g": 0.7843138,
+        "b": 0.345098048,
+        "a": 1.0
+      },
+      "secondaryColorStart": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "secondaryColorEnd": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "mainNoHdrColorStart": {
+        "r": 1.0,
+        "g": 0.6467265,
+        "b": 0.0,
+        "a": 0.9746596
+      },
+      "mainNoHdrColorEnd": {
+        "r": 1.0,
+        "g": 0.6467265,
+        "b": 0.0,
+        "a": 0.9746596
+      },
+      "secondaryNoHdrColorStart": {
+        "r": 1.0,
+        "g": 0.416627437,
+        "b": 0.0,
+        "a": 0.09803922
+      },
+      "secondaryNoHdrColorEnd": {
+        "r": 1.0,
+        "g": 0.416627437,
+        "b": 0.0,
+        "a": 0.09803922
+      },
+      "localScale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "useScaleCurve": false,
+      "scaleCurve": null,
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "collisionEffectId": null,
+      "collisionLayerMask": -2097353,
+      "collisionMaxGroundAngle": 45.0,
+      "collisionEmitRate": 0.2,
+      "collisionMinIntensity": 0.0,
+      "collisionMaxIntensity": 1.0,
+      "collisionUseMainGradient": false,
+      "collisionUseSecondaryGradient": false,
+      "step": "Loop",
+      "stepCustomId": null,
+      "platformFilter": "Android",
+      "sensitiveContent": "Blood",
+      "sensitiveFilterBehaviour": "Discard",
+      "damagerStateFilter": "Inactive, Active",
+      "damageTypeFilter": "Energy, Blunt, Slash, Pierce",
+      "penetrationFilter": "None, Pressure, Hit",
+      "imbuesFilterLogic": "AnyExcept",
+      "imbuesFilter": [],
+      "colliderGroupFilterLogic": "AnyExcept",
+      "colliderGroupsFilter": [],
+      "damagersFilterLogic": "AnyExcept",
+      "damagersFilter": []
+    }
+  ]
+}

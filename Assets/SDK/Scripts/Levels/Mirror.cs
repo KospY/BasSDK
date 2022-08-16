@@ -1,16 +1,30 @@
-﻿using UnityEngine;
-using UnityEngine.XR;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.Profiling;
+using UnityEngine.XR;
+
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#else
+using EasyButtons;
+#endif
 
 namespace ThunderRoad
 {
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Mirror")]
     public class Mirror : MonoBehaviour
     {
+        // A simple hook for armour edit events if required.
+        public delegate void OnArmourEditModeChanged(bool state);
+        public delegate void OnRenderStateChanged(bool state);
+
         public static Mirror local;
+
+        public bool useOcclusionCulling = false;
+        public bool allowArmourEditing = false;
+        [Space]
         public ReflectionDirection reflectionDirection = ReflectionDirection.Up;
         [Range(0, 1)]
         public float quality = 1;
@@ -19,11 +33,22 @@ namespace ThunderRoad
         public bool reflectionWithoutGI = true;
         public Color backgroundColor = Color.black;
         public LayerMask cullingMask = ~0;
-        public Collider workingArea;
         public MeshRenderer mirrorMesh;
         public MeshRenderer[] meshToHide;
         private Vector3 reflectionLocalDirection;
         private Vector3 reflectionWorldDirection;
+
+        private bool hasInvokedEvent; // Used to prevent multiple events from being invoked.
+        public event OnArmourEditModeChanged OnArmourEditModeChangedEvent;
+        public event OnRenderStateChanged OnRenderStateChangedEvent;
+
+        [NonSerialized]
+        public bool isRendering;
+
+        internal protected bool active = true;
+
+        public bool stopDuringCreaturePartUpdate = true;
+        protected bool creaturePartUpdating;
 
         public enum Side
         {
@@ -46,15 +71,27 @@ namespace ThunderRoad
             Refresh();
         }
 
+        [Button]
+        public void SetActive(bool active)
+        {
+            this.active = active;
+        }
+
         [ContextMenu("Refresh")]
         public void Refresh()
         {
-            if (reflectionDirection == ReflectionDirection.Forward) reflectionLocalDirection = Vector3.forward;
-            else if (reflectionDirection == ReflectionDirection.Up) reflectionLocalDirection = Vector3.up;
-            else if (reflectionDirection == ReflectionDirection.Back) reflectionLocalDirection = Vector3.back;
-            else if (reflectionDirection == ReflectionDirection.Down) reflectionLocalDirection = Vector3.down;
-            else if (reflectionDirection == ReflectionDirection.Left) reflectionLocalDirection = Vector3.left;
-            else if (reflectionDirection == ReflectionDirection.Right) reflectionLocalDirection = Vector3.right;
+            if (reflectionDirection == ReflectionDirection.Forward)
+                reflectionLocalDirection = Vector3.forward;
+            else if (reflectionDirection == ReflectionDirection.Up)
+                reflectionLocalDirection = Vector3.up;
+            else if (reflectionDirection == ReflectionDirection.Back)
+                reflectionLocalDirection = Vector3.back;
+            else if (reflectionDirection == ReflectionDirection.Down)
+                reflectionLocalDirection = Vector3.down;
+            else if (reflectionDirection == ReflectionDirection.Left)
+                reflectionLocalDirection = Vector3.left;
+            else if (reflectionDirection == ReflectionDirection.Right)
+                reflectionLocalDirection = Vector3.right;
             reflectionWorldDirection = this.transform.TransformDirection(reflectionLocalDirection);
         }
 

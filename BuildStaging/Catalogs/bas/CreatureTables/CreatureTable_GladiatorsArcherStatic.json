@@ -1,0 +1,34 @@
+{
+  "$type": "ThunderRoad.CreatureTable, ThunderRoad",
+  "id": "GladiatorsArcherStatic",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "description": null,
+  "linkedToGenderRatio": false,
+  "minMaxDifficulty": {
+    "x": 0,
+    "y": 0
+  },
+  "drops": [
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Humans",
+      "overrideFaction": false,
+      "factionID": 0,
+      "overrideContainer": true,
+      "overrideContainerID": "GladiatorArcher",
+      "overrideBrain": true,
+      "overrideBrainID": "HumanStatic",
+      "probabilityWeights": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

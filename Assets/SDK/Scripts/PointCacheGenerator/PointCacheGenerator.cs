@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +6,13 @@ using System.Linq;
 public static class PointCacheGenerator
 {
     // Merge between the legacy Unity PointCacheBakeTool and SMRVFX (As PointCacheBakeTool doesn't output textures and SMRVFX doesn't bake properly some mesh)
-
+    
+    //Point cache generates the cache each time on imbue
+    //Prefix to return already computed PCache, otherwise return and let the normal method deal with it
+    //Then Postfix with storing the result
+    public static Dictionary<PCacheSettings, PointCacheGenerator.PCache> pointCaches = new Dictionary<PCacheSettings, PointCacheGenerator.PCache>();
+    
+    
     public static ComputeShader computeShader;
 
     public enum MeshBakeMode
@@ -33,7 +38,8 @@ public static class PointCacheGenerator
         public ComputeBuffer normalBuffer;
         public List<Vector3> positions;
         public List<Vector3> normals;
-
+        
+        
         public void Update(SkinnedMeshRenderer skinnedMeshRenderer)
         {
             skinnedMeshRenderer.BakeMesh(mesh);
@@ -83,13 +89,21 @@ public static class PointCacheGenerator
             Debug.LogError("Position map dimensions should be a multiple of 8.");
             return null;
         }
-
+        
+        PCacheSettings pCacheSettings = new PCacheSettings(mesh.name, mapSize, pointCount, seed, distribution, meshBakeMode);
+        
+        //Return a cached version if it exists
+        if(pointCaches.TryGetValue(pCacheSettings, out PointCacheGenerator.PCache pCache))
+        {
+            return pCache;
+        }
+        
         if (computeShader == null)
         {
             computeShader = computeShader = Resources.Load<ComputeShader>("ComputeMeshToMap");
         }
 
-        PCache pCache = new PCache();
+        pCache = new PCache();
 
         // From PointCacheBakeTool
         MeshData meshCache = ComputeDataCache(mesh);
@@ -125,12 +139,13 @@ public static class PointCacheGenerator
 
         pCache.mesh = mesh;
         pCache.mapSize = mapSize;
-        pCache.positions = new List<Vector3>();
-        pCache.normals = new List<Vector3>();
+        //Size the lists first so we avoid resizing later
+        pCache.positions = new List<Vector3>(pointCount);
+        pCache.normals = new List<Vector3>(pointCount);
 
         for (int i = 0; i < pointCount; ++i)
         {
-            var vertex = picker.GetNext();
+            MeshData.Vertex vertex = picker.GetNext();
             pCache.positions.Add(vertex.position);
             pCache.normals.Add(vertex.normal);
         }
@@ -144,8 +159,8 @@ public static class PointCacheGenerator
         pCache.normalMap.Create();
 
         // Transfer data
-        var vcount = pCache.positions.Count;
-        var vcount_x3 = vcount * 3;
+        int vcount = pCache.positions.Count;
+        int vcount_x3 = vcount * 3;
 
         pCache.positionBuffer = new ComputeBuffer(vcount_x3, sizeof(float));
         pCache.normalBuffer = new ComputeBuffer(vcount_x3, sizeof(float));
@@ -162,17 +177,19 @@ public static class PointCacheGenerator
         computeShader.SetTexture(0, "NormalMap", pCache.normalMap);
 
         computeShader.Dispatch(0, pCache.mapSize / 8, pCache.mapSize / 8, 1);
-
+        
+        //Add to the cache
+        pointCaches.Add(pCacheSettings, pCache);
         return pCache;
     }
 
     static MeshData ComputeDataCache(Mesh input)
     {
-        var positions = input.vertices;
-        var normals = input.normals;
-        var tangents = input.tangents;
-        var colors = input.colors;
-        var uvs = new List<Vector4[]>();
+        Vector3[] positions = input.vertices;
+        Vector3[] normals = input.normals;
+        Vector4[] tangents = input.tangents;
+        Color[] colors = input.colors;
+        List<Vector4[]> uvs = new List<Vector4[]>();
 
         normals = normals.Length == input.vertexCount ? normals : null;
         tangents = tangents.Length == input.vertexCount ? tangents : null;
@@ -180,7 +197,7 @@ public static class PointCacheGenerator
 
         for (int i = 0; i < 8; ++i)
         {
-            var uv = new List<Vector4>();
+            List<Vector4> uv = new List<Vector4>();
             input.GetUVs(i, uv);
             if (uv.Count == input.vertexCount)
             {
@@ -192,7 +209,7 @@ public static class PointCacheGenerator
             }
         }
 
-        var meshData = new MeshData();
+        MeshData meshData = new MeshData();
         meshData.vertices = new MeshData.Vertex[input.vertexCount];
         for (int i = 0; i < input.vertexCount; ++i)
         {
@@ -207,7 +224,7 @@ public static class PointCacheGenerator
         }
 
         meshData.triangles = new MeshData.Triangle[input.triangles.Length / 3];
-        var triangles = input.triangles;
+        int[] triangles = input.triangles;
         for (int i = 0; i < meshData.triangles.Length; ++i)
         {
             meshData.triangles[i] = new MeshData.Triangle()
@@ -229,12 +246,12 @@ public static class PointCacheGenerator
             public Vector3 normal;
             public Vector4 tangent;
             public Vector4[] uvs;
-
+            
             public static Vertex operator +(Vertex a, Vertex b)
             {
                 if (a.uvs.Length != b.uvs.Length) throw new InvalidOperationException("Adding compatible vertex");
 
-                var r = new Vertex()
+                Vertex r = new Vertex()
                 {
                     position = a.position + b.position,
                     color = a.color + b.color,
@@ -253,7 +270,7 @@ public static class PointCacheGenerator
 
             public static Vertex operator *(float a, Vertex b)
             {
-                var r = new Vertex()
+                Vertex r = new Vertex()
                 {
                     position = a * b.position,
                     color = a * b.color,
@@ -298,16 +315,51 @@ public static class PointCacheGenerator
 
         protected static MeshData.Vertex Interpolate(MeshData.Vertex A, MeshData.Vertex B, MeshData.Vertex C, Vector2 p)
         {
+            if (A.uvs.Length != B.uvs.Length) throw new InvalidOperationException("Adding compatible vertex");
+            if (B.uvs.Length != C.uvs.Length) throw new InvalidOperationException("Adding compatible vertex");
+            
             float s = p.x;
             float t = Mathf.Sqrt(p.y);
             float a = 1.0f - t;
             float b = (1 - s) * t;
             float c = s * t;
 
-            var r = a * A + b * B + c * C;
+            MeshData.Vertex r = new MeshData.Vertex();  
+            // a * A + b * B + c * C
+            r.position.x = a * A.position.x + b * B.position.x + c * C.position.x;
+            r.position.y = a * A.position.y + b * B.position.y + c * C.position.y;
+            r.position.z = a * A.position.z + b * B.position.z + c * C.position.z;
+            
+            r.color.a = a * A.color.a + b * B.color.a + c * C.color.a;
+            r.color.r = a * A.color.r + b * B.color.r + c * C.color.r;
+            r.color.g = a * A.color.g + b * B.color.g + c * C.color.g;
+            r.color.b = a * A.color.b + b * B.color.b + c * C.color.b;
+            
+            r.normal.x = a * A.normal.x + b * B.normal.x + c * C.normal.x;
+            r.normal.y = a * A.normal.y + b * B.normal.y + c * C.normal.y;
+            r.normal.z = a * A.normal.z + b * B.normal.z + c * C.normal.z;
+            
+            r.tangent.x = a * A.tangent.x + b * B.tangent.x + c * C.tangent.x;
+            r.tangent.y = a * A.tangent.y + b * B.tangent.y + c * C.tangent.y;
+            r.tangent.z = a * A.tangent.z + b * B.tangent.z + c * C.tangent.z;
+            r.tangent.w = a * A.tangent.w + b * B.tangent.w + c * C.tangent.w;
+            
+            r.uvs = new Vector4[A.uvs.Length];
+            for (int i = 0; i < r.uvs.Length; ++i)
+            {
+                r.uvs[i].x = a * A.uvs[i].x + b * B.uvs[i].x + c * C.uvs[i].x; 
+                r.uvs[i].y = a * A.uvs[i].y + b * B.uvs[i].y + c * C.uvs[i].y;
+                r.uvs[i].z = a * A.uvs[i].z + b * B.uvs[i].z + c * C.uvs[i].z;
+                r.uvs[i].w = a * A.uvs[i].w + b * B.uvs[i].w + c * C.uvs[i].w;
+
+            }
+            
             r.normal = r.normal.normalized;
-            var tangent = new Vector3(r.tangent.x, r.tangent.y, r.tangent.z).normalized;
-            r.tangent = new Vector4(tangent.x, tangent.y, tangent.z, r.tangent.w > 0.0f ? 1.0f : -1.0f);
+            Vector3 tangent = new Vector3(r.tangent.x, r.tangent.y, r.tangent.z).normalized;
+            r.tangent.x = tangent.x;
+            r.tangent.y = tangent.y;
+            r.tangent.z = tangent.z;
+            r.tangent.w = r.tangent.w > 0.0f ? 1.0f : -1.0f;
             return r;
         }
 
@@ -351,7 +403,7 @@ public static class PointCacheGenerator
 
         public override sealed MeshData.Vertex GetNext()
         {
-            var r = m_cacheData.vertices[m_Index];
+            MeshData.Vertex r = m_cacheData.vertices[m_Index];
             m_Index++;
             if (m_Index >= m_cacheData.vertices.Length)
                 m_Index = 0;
@@ -367,8 +419,8 @@ public static class PointCacheGenerator
 
         public override sealed MeshData.Vertex GetNext()
         {
-            var index = m_Rand.Next(0, m_cacheData.triangles.Length);
-            var rand = new Vector2(GetNextRandFloat(), GetNextRandFloat());
+            int index = m_Rand.Next(0, m_cacheData.triangles.Length);
+            Vector2 rand = new Vector2(GetNextRandFloat(), GetNextRandFloat());
             return Interpolate(m_cacheData.triangles[index], rand);
         }
     }
@@ -379,9 +431,9 @@ public static class PointCacheGenerator
 
         private double ComputeTriangleArea(MeshData.Triangle t)
         {
-            var A = m_cacheData.vertices[t.a].position;
-            var B = m_cacheData.vertices[t.b].position;
-            var C = m_cacheData.vertices[t.c].position;
+            Vector3 A = m_cacheData.vertices[t.a].position;
+            Vector3 B = m_cacheData.vertices[t.b].position;
+            Vector3 C = m_cacheData.vertices[t.c].position;
             return 0.5f * Vector3.Cross(B - A, C - A).magnitude;
         }
 
@@ -425,10 +477,10 @@ public static class PointCacheGenerator
 
         public override sealed MeshData.Vertex GetNext()
         {
-            var areaPosition = m_Rand.NextDouble() * m_accumulatedAreaTriangles.Last();
+            double areaPosition = m_Rand.NextDouble() * m_accumulatedAreaTriangles.Last();
             uint areaIndex = FindIndexOfArea(areaPosition);
 
-            var rand = new Vector2(GetNextRandFloat(), GetNextRandFloat());
+            Vector2 rand = new Vector2(GetNextRandFloat(), GetNextRandFloat());
             return Interpolate(m_cacheData.triangles[areaIndex], rand);
         }
     }
@@ -442,11 +494,65 @@ public static class PointCacheGenerator
 
         public override sealed MeshData.Vertex GetNext()
         {
-            var t = m_cacheData.triangles[m_Index];
+            MeshData.Triangle t = m_cacheData.triangles[m_Index];
             m_Index++;
             if (m_Index >= m_cacheData.triangles.Length)
                 m_Index = 0;
             return Interpolate(t, center_of_sampling);
+        }
+    }
+    
+    public struct PCacheSettings : IEquatable<PCacheSettings>
+    {
+        private string meshName;
+        private int pointCacheMapSize;
+        private int pointCachePointCount;
+        private int pointCacheSeed;
+        private PointCacheGenerator.Distribution pointCacheDistribution;
+        private PointCacheGenerator.MeshBakeMode pointCacheBakeMode;
+
+        public PCacheSettings(string meshName, int pointCacheMapSize, int pointCachePointCount, int pointCacheSeed, PointCacheGenerator.Distribution pointCacheDistribution, PointCacheGenerator.MeshBakeMode pointCacheBakeMode) {
+            this.meshName = meshName;
+            this.pointCacheMapSize = pointCacheMapSize;
+            this.pointCachePointCount = pointCachePointCount;
+            this.pointCacheSeed = pointCacheSeed;
+            this.pointCacheDistribution = pointCacheDistribution;
+            this.pointCacheBakeMode = pointCacheBakeMode;
+        }
+
+        public bool Equals(PCacheSettings other)
+        {
+            return meshName == other.meshName
+                   && pointCacheMapSize == other.pointCacheMapSize
+                   && pointCachePointCount == other.pointCachePointCount
+                   && pointCacheSeed == other.pointCacheSeed
+                   && pointCacheDistribution == other.pointCacheDistribution
+                   && pointCacheBakeMode == other.pointCacheBakeMode;
+        }
+        public override bool Equals(object obj)
+        {
+            return obj is PCacheSettings other && Equals(other);
+        }
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = meshName.GetHashCode();
+                hashCode = (hashCode * 397) ^ pointCacheMapSize;
+                hashCode = (hashCode * 397) ^ pointCachePointCount;
+                hashCode = (hashCode * 397) ^ pointCacheSeed;
+                hashCode = (hashCode * 397) ^ (int)pointCacheDistribution;
+                hashCode = (hashCode * 397) ^ (int)pointCacheBakeMode;
+                return hashCode;
+            }
+        }
+        public static bool operator ==(PCacheSettings left, PCacheSettings right)
+        {
+            return left.Equals(right);
+        }
+        public static bool operator !=(PCacheSettings left, PCacheSettings right)
+        {
+            return !left.Equals(right);
         }
     }
 }

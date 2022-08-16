@@ -1,0 +1,103 @@
+{
+  "$type": "ThunderRoad.EffectData, ThunderRoad",
+  "id": "HitRagdollOnPlate",
+  "saveFolder": "bas",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "groupId": "Blunt",
+  "volumeDb": 0.0,
+  "modules": [
+    {
+      "$type": "ThunderRoad.EffectModuleReveal, ThunderRoad",
+      "maskTextureAddress": "Bas.Texture.RevealMask.PlateBlunt",
+      "applyOn": "Target",
+      "typeFilter": "Default, Body, Outfit",
+      "depth": 0.25,
+      "minSize": 0.06,
+      "maxSize": 0.12,
+      "penetrationSize": 0.15,
+      "minChannelMultiplier": {
+        "x": 0.1,
+        "y": 0.1,
+        "z": 0.1,
+        "w": 0.1
+      },
+      "maxChannelMultiplier": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0,
+        "w": 1.0
+      },
+      "penetrationChannelMultiplier": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0,
+        "w": 1.0
+      },
+      "offsetDistance": 0.1,
+      "allowItem": false,
+      "allowRagdollPart": true,
+      "revealData": [
+        {
+          "$type": "RainyReignGames.RevealMask.RevealData, RainyReignGames.Reveal",
+          "blendOp": "Add",
+          "colorMask": "Blue, Red",
+          "delay": 0.0,
+          "overTime": 0.0,
+          "deltaMultiplier": 0.0,
+          "widthMultiplier": 1.0,
+          "heightMultiplier": 1.0,
+          "overTimeRenderTextureFormat": "ARGB32",
+          "generateMipMaps": false,
+          "swizzleAlphaRed": false,
+          "overTimeSwizzleColorMask": "Red"
+        }
+      ],
+      "step": "Start",
+      "stepCustomId": null,
+      "platformFilter": "Windows, Android",
+      "sensitiveContent": "Blood",
+      "sensitiveFilterBehaviour": "Discard",
+      "damagerStateFilter": "Active",
+      "damageTypeFilter": "Blunt",
+      "penetrationFilter": "None, Pressure, Hit",
+      "imbuesFilterLogic": "AnyExcept",
+      "imbuesFilter": [],
+      "colliderGroupFilterLogic": "AnyExcept",
+      "colliderGroupsFilter": [],
+      "damagersFilterLogic": "AnyExcept",
+      "damagersFilter": [],
+      "intensityCurve": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 0.0,
+            "inTangent": 0.0,
+            "outTangent": 1.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 1.0,
+            "inTangent": 1.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      }
+    }
+  ]
+}

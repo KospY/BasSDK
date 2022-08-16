@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UI;
 
 namespace ThunderRoad
 {
-    public class UISelectionListButtonsMapSelection : UISelectionListButtons
+	public class UISelectionListButtonsMapSelection : UISelectionListButtons
     {
         public RawImage levelImage = null;
 
