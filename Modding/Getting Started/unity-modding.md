@@ -273,6 +273,7 @@ This will build our assets, but not export them yet.
   <source src="{{ site.baseurl }}/assets/getting-started/unity-modding/build-bundle.mp4" type="video/mp4">
 </video>
 
+
 ```tip
 The first time building may take a long time due to the shaders being compiled. Subsequent builds should be quicker.
 ```
@@ -296,6 +297,49 @@ Once it has built, it will copy the `Catalog` json files and the addressable bun
 ```warning
 Clicking "Export now" will export the assets only, it does package the catalog into a MyMod.jsondb file but it currently goes into the wrong directory. It is not recommended to use the "Export Now" button
 ```
+
+
+## Testing the mod!
+
+Our mod doesn't add anything like a weapon to the game, but we should be able to see that it loaded by launching the game and checking the logs. Refer to the `Guides` section on how to access the logs.
+
+On PCVR you can also press `F8` to open the console and see the log.
+
+
+### Log file example
+
+This is an extract of the log file where the mod successfully loads.
+
+We can see that our assets (the content catalogs) successfully loads. 
+
+We can see when it loads the json that our mod is picked up and it loads the `Catalog`.
+
+```
+[DLL] - Loading mod plugins
+[DLL] - Loaded mod plugins
+------------> DLL loaded in 0.01 sec
+------------> Addressable locations Initializing
+------------> Addressables locations Intialized in 0.00 sec
+Load content catalogs...
+Successfully loaded content catalog at path E:/SteamLibrary/steamapps/common/Blade & Sorcery/BladeAndSorcery_Data/StreamingAssets\Default\catalog_bas.json
+Successfully loaded content catalog at path E:/SteamLibrary/steamapps/common/Blade & Sorcery/BladeAndSorcery_Data/StreamingAssets\Mods\MyMod\catalog_MyMod.json
+Successfully loaded all content catalog
+------------> Content catalog loaded in 1.00 sec
+[JSON] - Loading all JSON
+[JSON] - Loading game catalog
+[JSON][bas] - Loading catalog game by WarpFrog
+[JSON][bas] - Loading file: Default/bas.jsondb
+[JSON][bas] - Loaded file: Default/bas.jsondb
+[JSON][bas] - Loaded catalog game by WarpFrog
+[JSON] - Loaded game catalog
+[JSON] - Loading mod catalog
+[JSON][MyMod] - Loading catalog MyMod by Wully
+[JSON][MyMod] - Loaded catalog MyMod by Wully
+[JSON] - Loaded mod catalog
+[JSON] - Finished loading all JSON
+------------> Json loaded in 0.95 sec
+```
+
 
 [AssetBuilderMenu]:    {{ site.baseurl }}/assets/getting-started/unity-modding/asset-bundle-builder-menu.jpg
 [AssetBuilderTab]:    {{ site.baseurl }}/assets/getting-started/unity-modding/asset-bundle-builder-tab.jpg
