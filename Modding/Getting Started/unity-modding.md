@@ -283,8 +283,19 @@ Now that we have done a build for the first time it should be quicker in the fut
 
 We can export our mod by **also** clicking the export checkbox on the right side of the bundle group name.
 
-Finally, click the `Export now` button to export what we already built, or click `Build asset bundle group(s) selected` to rebuild the mod and export it in one go.
+Finally, click `Build asset bundle group(s) selected` to rebuild the mod and export it in one go.
 
+
+Once it has built, it will copy the `Catalog` json files and the addressable bundles into your `Mod` folder.
+
+<video autoplay="autoplay" loop="loop">
+  <source src="{{ site.baseurl }}/assets/getting-started/unity-modding/export-mod.mp4" type="video/mp4">
+</video>
+
+
+```warning
+Clicking "Export now" will export the assets only, it does package the catalog into a MyMod.jsondb file but it currently goes into the wrong directory. It is not recommended to use the "Export Now" button
+```
 
 [AssetBuilderMenu]:    {{ site.baseurl }}/assets/getting-started/unity-modding/asset-bundle-builder-menu.jpg
 [AssetBuilderTab]:    {{ site.baseurl }}/assets/getting-started/unity-modding/asset-bundle-builder-tab.jpg
