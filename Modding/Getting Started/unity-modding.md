@@ -212,7 +212,7 @@ Inside the `\BuildStaging\Catalogs` folder, create a folder with the same name a
   <source src="{{ site.baseurl }}/assets/getting-started/unity-modding/create-catalog-folder.mp4" type="video/mp4">
 </video>
 
-## Creating the mod manifest.json
+### Creating the mod manifest.json
 
 The manifest defines your mod name, description, version and which GameVersion it is for. The GameVersion changes with updates and needs to match the version the game expects, like `0.11.0.0`.
 
@@ -249,7 +249,7 @@ The `Asset Bundle Builder` is used to build our mod, we can export individual As
 
 It will build our mod, and export it, along with our `Catalog` json files in the `BuildStaging\Catalogs\MyMod` folder.
 
-## Opening the Asset Bundle Builder
+### Opening the Asset Bundle Builder
 
 The `Asset Bundle Builder` can be opened by going to the `ThunderRoad (SDK)` menu, then clicking `Asset Bundle Builder`. 
 
@@ -261,7 +261,7 @@ It will open a window on your Unity editor.
 
 
 
-## Build the Bundle Group
+### Build the Bundle Group
 
 To build the bundle click the check box on the left side of the bundle name.
 
@@ -277,7 +277,7 @@ This will build our assets, but not export them yet.
 The first time building may take a long time due to the shaders being compiled. Subsequent builds should be quicker.
 ```
 
-## Exporting the Bundle Group
+### Exporting the Bundle Group
 
 Now that we have done a build for the first time it should be quicker in the future.
 
