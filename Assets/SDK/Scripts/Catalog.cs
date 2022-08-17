@@ -242,6 +242,7 @@ namespace ThunderRoad
             if (defaultFolderCount == 0)
             {
                 GameSettings.loadDefaultFolders = new List<string>() { "bas" };
+                defaultFolderCount = 1;
             }
             for (int i = 0; i < defaultFolderCount; i++)
             {
