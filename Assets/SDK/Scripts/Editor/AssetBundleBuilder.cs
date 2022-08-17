@@ -352,6 +352,7 @@ namespace ThunderRoad
                 sdkShaderNames.Add("Universal Render Pipeline/Particles/Simple Lit_FixedProbeOcclusion");
                 sdkShaderNames.Add("ThunderRoad/SkyboxProceduralCustom");
                 sdkShaderNames.Add("Universal Render Pipeline/Lit");
+                sdkShaderNames.Add("Universal Render Pipeline/Simple Lit");
                 sdkShaderNames.Add("Universal Render Pipeline/Unlit");
                 sdkShaderNames.Add("Universal Render Pipeline/Particles/Lit");
                 sdkShaderNames.Add("Universal Render Pipeline/Particles/Simple Lit");
