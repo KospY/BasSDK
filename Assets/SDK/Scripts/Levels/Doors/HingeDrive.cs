@@ -222,6 +222,12 @@ namespace ThunderRoad
 
         #endregion
 
+        // Collision handling for latch opening / breaking.
+        // Called from a callback of collision event bridge.
+        public void CollisionOnHingeHolderEnter(Collision collision)
+        {
+        }
+
 
         #region Gizmos
 
