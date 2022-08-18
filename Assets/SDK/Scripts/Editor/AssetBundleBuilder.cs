@@ -144,6 +144,10 @@ namespace ThunderRoad
             {
                 Directory.CreateDirectory(strDestination);
             }
+            if (!Directory.Exists(strSource))
+            {
+                Directory.CreateDirectory(strSource);
+            }
 
             DirectoryInfo dirInfo = new DirectoryInfo(strSource);
             FileInfo[] files = dirInfo.GetFiles(searchPattern);
@@ -246,10 +250,7 @@ namespace ThunderRoad
                         }
                         bundledAssetGroupSchema.BundleNaming = BundledAssetGroupSchema.BundleNamingStyle.NoHash;
 
-                        if (assetBundleGroup.addressableAssetGroups.Contains(group))
-                        {
-                            bundledAssetGroupSchema.IncludeInBuild = true;
-                        }
+                        bundledAssetGroupSchema.IncludeInBuild = assetBundleGroup.addressableAssetGroups.Contains(group);
 
                         if (bundledAssetGroupSchema.BuildPath.GetName(AddressableAssetSettingsDefaultObject.Settings) == "DefaultBuildPath")
                         {
