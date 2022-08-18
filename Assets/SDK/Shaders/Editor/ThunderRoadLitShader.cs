@@ -9,7 +9,7 @@ public class ThunderRoadLitShader : ShaderGUI
 
     public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] properties)
     {
-        if(header == null)
+        if (header == null)
         {
             header = new GUIStyle(GUI.skin.box);
             header.fontStyle = FontStyle.Bold;
@@ -30,7 +30,7 @@ public class ThunderRoadLitShader : ShaderGUI
         MaterialProperty baseMap = ShaderGUI.FindProperty("_BaseMap", properties);
         MaterialProperty baseColor = ShaderGUI.FindProperty("_BaseColor", properties);
         MaterialProperty bumpMap = ShaderGUI.FindProperty("_BumpMap", properties);
-        MaterialProperty normalStrength = ShaderGUI.FindProperty("_NormalStrength",properties);
+        MaterialProperty normalStrength = ShaderGUI.FindProperty("_NormalStrength", properties);
         MaterialProperty metallicMap = ShaderGUI.FindProperty("_MetallicGlossMap", properties);
         MaterialProperty smoothness = ShaderGUI.FindProperty("_Smoothness", properties);
         MaterialProperty occlusionStrength = ShaderGUI.FindProperty("_OcclusionStrength", properties);
@@ -112,12 +112,12 @@ public class ThunderRoadLitShader : ShaderGUI
         materialEditor.ShaderProperty(occlusionStrength, occlusionStrength.displayName);
         materialEditor.ShaderProperty(emissionColor, emissionColor.displayName);
         materialEditor.ShaderProperty(useEmission, useEmission.displayName);
-        if(useEmission.floatValue > 0.5)
+        if (useEmission.floatValue > 0.5)
         {
             materialEditor.ShaderProperty(emissionMap, emissionMap.displayName);
         }
         materialEditor.ShaderProperty(useDetailMap, useDetailMap.displayName);
-        if(useDetailMap.floatValue > 0.5)
+        if (useDetailMap.floatValue > 0.5)
         {
             materialEditor.ShaderProperty(detailAlbedoMap, detailAlbedoMap.displayName);
             materialEditor.ShaderProperty(detailAlbedoMapScale, detailAlbedoMapScale.displayName);
@@ -130,7 +130,7 @@ public class ThunderRoadLitShader : ShaderGUI
         useColorMask.floatValue = EditorGUILayout.ToggleLeft(useColorMask.displayName, useColorMask.floatValue > 0.5, header) ? 1 : 0;
         //materialEditor.ShaderProperty(useColorMask, useColorMask.displayName);
         EditorGUILayout.BeginVertical("HelpBox");
-        if(useColorMask.floatValue > 0.5)
+        if (useColorMask.floatValue > 0.5)
         {
             materialEditor.ShaderProperty(colorMask, colorMask.displayName);
             materialEditor.ShaderProperty(tint0, tint0.displayName);
@@ -141,29 +141,40 @@ public class ThunderRoadLitShader : ShaderGUI
         EditorGUILayout.EndVertical();
 
         useReveal.floatValue = EditorGUILayout.ToggleLeft(useReveal.displayName, useReveal.floatValue > 0.5, header) ? 1 : 0;
-        //materialEditor.ShaderProperty(useReveal, useReveal.displayName);
-        EditorGUILayout.BeginVertical("HelpBox");
         if (useReveal.floatValue > 0.5)
         {
-            if (debugView.floatValue > 0.5)
-            {
-                materialEditor.ShaderProperty(revealMask, revealMask.displayName);
-            }
-            materialEditor.ShaderProperty(layerMask, layerMask.displayName);
-            materialEditor.ShaderProperty(layerSurfaceExp, layerSurfaceExp.displayName);
-            materialEditor.ShaderProperty(layer0, layer0.displayName);
-            materialEditor.ShaderProperty(layer0NormalMap, layer0NormalMap.displayName);
-            materialEditor.ShaderProperty(layer0NormalStrength, layer0NormalStrength.displayName);
-            materialEditor.ShaderProperty(layer0Smoothness, layer0Smoothness.displayName);
-            materialEditor.ShaderProperty(layer0Metallic, layer0Metallic.displayName);
-            materialEditor.ShaderProperty(layer1, layer1.displayName);
-            materialEditor.ShaderProperty(layer1NormalMap, layer1NormalMap.displayName);
-            materialEditor.ShaderProperty(layer1NormalStrength, layer1NormalStrength.displayName);
-            materialEditor.ShaderProperty(layer1Smoothness, layer1Smoothness.displayName);
-            materialEditor.ShaderProperty(layer1Metallic, layer1Metallic.displayName);
-            materialEditor.ShaderProperty(layer2Height, layer2Height.displayName);
-            materialEditor.ShaderProperty(layer3EmissionColor, layer3EmissionColor.displayName);
+            EditorGUILayout.HelpBox("Reveal Layers should not be enabled unless debugging.\nThis leads to increased memory requirements as the game will have reveal always active.", MessageType.Warning);
         }
+
+        //materialEditor.ShaderProperty(useReveal, useReveal.displayName);
+        EditorGUILayout.BeginVertical("HelpBox");
+        if (debugView.floatValue > 0.5)
+        {
+            materialEditor.ShaderProperty(revealMask, revealMask.displayName);
+        }
+        if (GUILayout.Button("Auto-fill layer materials"))
+        {
+            layerMask.textureValue = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/SDK/Examples/Reveal/Reveal_WeaponBlood_Mask.png", typeof(Texture2D));
+            layer0.textureValue = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/SDK/Examples/Reveal/Revealed_WeaponBlood_c.png", typeof(Texture2D));
+            layer0NormalMap.textureValue = bumpMap.textureValue;
+
+            layer1.textureValue = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/SDK/Examples/Reveal/Revealed_Burn_c.png", typeof(Texture2D));
+            layer1NormalMap.textureValue = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/SDK/Examples/Reveal/Revealed_Burn_n.png", typeof(Texture2D));
+        }
+        materialEditor.ShaderProperty(layerMask, layerMask.displayName);
+        materialEditor.ShaderProperty(layerSurfaceExp, layerSurfaceExp.displayName);
+        materialEditor.ShaderProperty(layer0, layer0.displayName);
+        materialEditor.ShaderProperty(layer0NormalMap, layer0NormalMap.displayName);
+        materialEditor.ShaderProperty(layer0NormalStrength, layer0NormalStrength.displayName);
+        materialEditor.ShaderProperty(layer0Smoothness, layer0Smoothness.displayName);
+        materialEditor.ShaderProperty(layer0Metallic, layer0Metallic.displayName);
+        materialEditor.ShaderProperty(layer1, layer1.displayName);
+        materialEditor.ShaderProperty(layer1NormalMap, layer1NormalMap.displayName);
+        materialEditor.ShaderProperty(layer1NormalStrength, layer1NormalStrength.displayName);
+        materialEditor.ShaderProperty(layer1Smoothness, layer1Smoothness.displayName);
+        materialEditor.ShaderProperty(layer1Metallic, layer1Metallic.displayName);
+        materialEditor.ShaderProperty(layer2Height, layer2Height.displayName);
+        materialEditor.ShaderProperty(layer3EmissionColor, layer3EmissionColor.displayName);
         EditorGUILayout.EndVertical();
 
         useVertexOcclusion.floatValue = EditorGUILayout.ToggleLeft(useVertexOcclusion.displayName, useVertexOcclusion.floatValue > 0.5, header) ? 1 : 0;

@@ -24,6 +24,10 @@ namespace ThunderRoad
         public static Level master;
 
         public bool spawnPlayer = true;
+#if UNITY_EDITOR
+        public bool forceLinearFog = true;
+#endif
+
         public string playerSpawnerId = "default";
 
 
@@ -55,6 +59,13 @@ namespace ThunderRoad
         }
 
         public UnityEvent loadedEvent;
+
+#if UNITY_EDITOR
+       private void OnValidate () 
+       {
+            UnityEditor.EditorPrefs.SetBool("TRAB.ForceLinearFog", forceLinearFog);
+       }
+#endif
 
 #if PrivateSDK
         [Button]

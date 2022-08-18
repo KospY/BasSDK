@@ -224,7 +224,7 @@ namespace ThunderRoad
             }
             else
             {
-                Debug.LogError("-assetBundleGroup parameter is not set" );
+                Debug.LogError("-assetBundleGroup parameter is not set");
             }
         }
 
@@ -322,6 +322,11 @@ namespace ThunderRoad
             else
             {
                 PlayerSettings.stereoRenderingPath = StereoRenderingPath.Instancing;
+            }
+
+            if (!AssetBundleBuilderGUI.forceLinearFog)
+            {
+                return;
             }
 
             var graphicsSettings = GraphicsSettings.GetGraphicsSettings();

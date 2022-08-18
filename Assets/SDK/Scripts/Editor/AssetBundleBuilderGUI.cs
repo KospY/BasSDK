@@ -28,6 +28,7 @@ namespace ThunderRoad
         public static bool runGameAfterBuild;
         public static string runGameArguments;
         public static bool cleanDestination = true;
+        public static bool forceLinearFog = true;
 
         [MenuItem("ThunderRoad (SDK)/Asset Bundle Builder")]
         public static void ShowWindow()
@@ -42,6 +43,7 @@ namespace ThunderRoad
             runGameAfterBuild = EditorPrefs.GetBool("TRAB.RunGameAfterBuild");
             cleanDestination = EditorPrefs.GetBool("TRAB.CleanDestination");
             runGameArguments = EditorPrefs.GetString("TRAB.RunGameArguments");
+            forceLinearFog = EditorPrefs.GetBool("TRAB.ForceLinearFog");
 
             assetBundleGroups = new List<AssetBundleGroup>();
             foreach (AssetBundleGroup assetBundleGroup in EditorCommon.GetAllProjectAssets<AssetBundleGroup>())
