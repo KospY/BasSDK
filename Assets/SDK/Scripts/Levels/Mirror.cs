@@ -95,6 +95,14 @@ namespace ThunderRoad
             reflectionWorldDirection = this.transform.TransformDirection(reflectionLocalDirection);
         }
 
+        /// <summary>
+        /// Toggle the armour edit mode.
+        /// This is used in the Lever event for the bench.
+        /// </summary>
+        public void SetEditMode(bool state)
+        {
+        }
+
         public static void DrawGizmoArrow(Vector3 pos, Vector3 direction, Color color, float arrowHeadLength = 0.25f, float arrowHeadAngle = 20.0f)
         {
             Gizmos.color = color;
