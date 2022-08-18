@@ -10,7 +10,7 @@ using EasyButtons;
 namespace ThunderRoad
 {
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/HandlePose")]
-	public class HandlePose : MonoBehaviour
+    public class HandlePose : MonoBehaviour
     {
         public Handle handle;
         public Side side = Side.Right;
@@ -43,7 +43,7 @@ namespace ThunderRoad
 
         public void LoadHandPosesData()
         {
-            defaultHandPoseData = Catalog.GetData<HandPoseData>(defaultHandPoseId) ?? 
+            defaultHandPoseData = Catalog.GetData<HandPoseData>(defaultHandPoseId) ??
                                   Catalog.GetData<HandPoseData>("HandleDefault");
             targetHandPoseData = Catalog.GetData<HandPoseData>(targetHandPoseId);
         }
@@ -115,11 +115,11 @@ namespace ThunderRoad
             // I imagine this may need to change for the public SDK, unless we keep a stripped-down version of the catalog for it
             if (Catalog.gameData != null)
             {
-                defaultHandPoseData ??= Catalog.GetData<HandPoseData>(defaultHandPoseId);
-                if (defaultHandPoseData != null) defaultHandPose ??= defaultHandPoseData.GetCreaturePose(creatureName);
+                defaultHandPoseData = Catalog.GetData<HandPoseData>(defaultHandPoseId);
+                defaultHandPose = defaultHandPoseData?.GetCreaturePose(creatureName);
 
-                targetHandPoseData ??= Catalog.GetData<HandPoseData>(targetHandPoseId);
-                if (targetHandPoseData != null) targetHandPose ??= targetHandPoseData.GetCreaturePose(creatureName);
+                targetHandPoseData = Catalog.GetData<HandPoseData>(targetHandPoseId);
+                targetHandPose = targetHandPoseData?.GetCreaturePose(creatureName);
             }
             if (defaultHandPose != null && CheckQuaternion(defaultHandPose.GetFingers(side).gripLocalRotation))
             {
