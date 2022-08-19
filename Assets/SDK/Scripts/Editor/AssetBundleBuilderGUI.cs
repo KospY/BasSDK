@@ -74,16 +74,15 @@ namespace ThunderRoad
             scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
             int selectedCount = 0;
             foreach (AssetBundleGroup assetBundleGroup in assetBundleGroups.OrderBy(v => v.folderName))
-            {   
+            {
+                EditorGUI.BeginChangeCheck();
                 EditorGUILayout.BeginVertical(GUI.skin.box);
                 {
                     GUILayout.Space(5); // Padding to top of group BG
                     EditorGUILayout.BeginHorizontal();
                     {
                         assetBundleGroup.selected = EditorGUILayout.Toggle(assetBundleGroup.selected, GUILayout.MaxWidth(20));
-
-                        if (assetBundleGroup.selected) 
-                            selectedCount++;
+                
 
                         /* File/ModFolder renaming */
                         EditorGUI.BeginChangeCheck();
@@ -106,6 +105,9 @@ namespace ThunderRoad
 
 
                         }
+
+                        if (assetBundleGroup.selected) 
+                            selectedCount++;
 
                         // Disabled link can be clicked to highlight AssetBundleGroup in project files
                         EditorGUI.BeginDisabledGroup(true);
@@ -198,6 +200,12 @@ namespace ThunderRoad
                     GUILayout.Space(5); // Padding to bottom of group BG
                 }
                 EditorGUILayout.EndVertical();
+
+
+                if (EditorGUI.EndChangeCheck())
+                {
+                    EditorUtility.SetDirty(assetBundleGroup);
+                }
             }
             EditorGUILayout.EndScrollView();
 
