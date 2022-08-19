@@ -22,8 +22,8 @@ namespace ThunderRoad
         public List<AddressableAssetGroup> addressableAssetGroups;
 
         [HideInInspector]
-        public bool selected;
+        public bool selected = true;
         [HideInInspector]
-        public bool exportAfterBuild;
+        public bool exportAfterBuild = true;
     }
 }
