@@ -1,0 +1,44 @@
+/* Remove blank sidebar */
+
+.content-wrap {
+    max-width: none;
+}
+
+.markdown-body {
+    max-width: 980px;
+}
+
+
+/* Cleaner Toast Cards */
+
+.toasts {
+    font-size: inherit;
+    box-shadow: none;
+    border-radius: 0.25rem;
+    border: 1px solid;
+    .title {
+        height: min-content;
+        box-shadow: none;
+        border-radius: 0.15rem 0.15rem 0 0;
+    }
+    .content {
+        padding-top: 4px !important;
+        padding-bottom: 4px !important;
+    }
+}
+
+.note {
+    border-color: #6ab0de;
+}
+
+.warning {
+    border-color: #f0b37e;
+}
+
+.tip {
+    border-color: #1abc9c;
+}
+
+.danger {
+    border-color: #f29f97;
+}
