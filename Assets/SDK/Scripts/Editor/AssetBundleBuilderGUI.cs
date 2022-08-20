@@ -123,6 +123,7 @@ namespace ThunderRoad
                             if (!string.IsNullOrEmpty(path) && AssetDatabase.MoveAssetToTrash(path))
                             {
                                 assetBundleGroups.RemoveAt(bundleIndex);
+                                return; // Exit to redraw
                             }
                             else
                             {
