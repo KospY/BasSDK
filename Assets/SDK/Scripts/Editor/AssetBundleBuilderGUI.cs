@@ -241,8 +241,8 @@ namespace ThunderRoad
                 }
                 else if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android)
                 {
-                    string adbPath = Path.Combine(EditorPrefs.GetString("AndroidSdkRoot"), "platform-tools", "adb.exe");
-                    if (!EditorPrefs.HasKey("AndroidSdkRoot") || !File.Exists(adbPath))
+                    string adbPath = GetAdbPath();
+                    if (!File.Exists(adbPath))
                     {
                         Debug.LogError("Android SDK is not installed!");
                         Debug.LogError("Path not found " + adbPath);
@@ -257,27 +257,34 @@ namespace ThunderRoad
 
         public static void AndroidPushAssets(bool toDefault, string folderName)
         {
-            string buildPlatformPath = Path.Combine(Directory.GetCurrentDirectory(), "BuildStaging/Builds", EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android ? "Android" : "Windows");
-            string buildPlatformFolderPath = Path.Combine(buildPlatformPath, AssetBundleBuilder.androidAssetFolderName);
+            string buildPath = Path.Combine(Directory.GetCurrentDirectory(), "BuildStaging/AddressableAssets/Android", folderName);
 
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             process.StartInfo.FileName = GetAdbPath();
             if (toDefault)
             {
-                process.StartInfo.Arguments = "push " + buildPlatformFolderPath + "/. /sdcard/Android/obb/" + PlayerSettings.applicationIdentifier;
+                process.StartInfo.Arguments = "push " + buildPath + "/. /sdcard/Android/obb/" + PlayerSettings.applicationIdentifier;
             }
             else
             {
-                process.StartInfo.Arguments = "push " + buildPlatformFolderPath + "/. /sdcard/Android/data/" + PlayerSettings.applicationIdentifier + "/files/Mods/" + folderName;
+                process.StartInfo.Arguments = "push " + buildPath + "/. /sdcard/Android/data/" + PlayerSettings.applicationIdentifier + "/files/Mods/" + folderName;
             }
             process.Start();
             process.WaitForExit();
-            Debug.Log("Assets pushed to Android device");
+
+            // 0 == Success
+            if (process.ExitCode != 0)
+            {
+                Debug.LogError("No Quest device found, assets will not be exported");
+                return;
+            }
+
+            Debug.Log("Assets pushed to Quest device");
         }
 
         public static string GetAdbPath()
         {
-            return Path.Combine(EditorPrefs.GetString("AndroidSdkRoot"), "platform-tools", "adb.exe");
+            return Path.Combine(EditorApplication.applicationContentsPath, "PlaybackEngines/AndroidPlayer/SDK/platform-tools/adb.exe");
         }
     }
 
