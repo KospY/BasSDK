@@ -22,13 +22,52 @@ namespace ThunderRoad
         public float heightFromGround = 2.0f;
 
 
+        protected override void OnDrawGizmosSelected()
+        {
+            if (ropeStart == null)
+                return;
+
+            // Dynamic
+            if (dynamicHeight)
+            {
+                if (Physics.Raycast(ropeStart.position, -ropeStart.up, out RaycastHit hit, raycastRange, -1, QueryTriggerInteraction.Ignore))
+                {
+                    Gizmos.color = Color.blue;
+                    Common.DrawGizmoCylinderFull(ropeStart.position, hit.point + (Vector3.up * heightFromGround), ropeRadius, 8);
+                }
+            }
+
+            // Simple
+            else if (ropeTarget != null)
+            {
+                Gizmos.color = Color.cyan;
+                Common.DrawGizmoCylinderFull(ropeStart.position, ropeTarget.position, ropeRadius, 8);
+            }
+
+            // Base alters the gizmo matrix so call after we are done
+            base.OnDrawGizmosSelected();
+        }
+
         protected virtual void OnDrawGizmos()
         {
-            if (ropeTarget)
+            if (ropeStart == null)
+                return;
+
+            // Dynamic
+            if (dynamicHeight)
+            {
+                Gizmos.color = Color.red;
+                Common.DrawGizmoArrow(ropeStart.position, -Vector3.up, Color.red, 0.1f);
+            }
+
+            // Simple
+            else if (ropeTarget != null)
             {
                 Gizmos.color = Color.red;
                 Gizmos.DrawLine(ropeStart.position, ropeTarget.position);
             }
+
+
         }
     }
 }
