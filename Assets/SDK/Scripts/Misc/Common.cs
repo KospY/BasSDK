@@ -795,6 +795,37 @@ namespace ThunderRoad
             Gizmos.DrawRay((Vector3.back) * capsuleRadius, (Vector3.down) * capsuleLength);
         }
 
+        public static void DrawGizmoCylinderFull(Vector3 startPos, Vector3 endPos, float radius, int segments)
+        {
+            float segmentSize = 360 / segments;
+
+            Vector3 offset = new Vector3(0, radius, 0);
+            Vector3 lastOffset = offset;
+
+            for (int i = 0; i < segments; i++)
+            {
+                // Rotate the offset around the z axis by our segment size
+                Vector3 rotatedOffset = Quaternion.Euler(0, 0, segmentSize * i) * offset;
+
+                // Rotate the offset to face our target
+                rotatedOffset = Quaternion.LookRotation(endPos - startPos) * rotatedOffset;
+
+                // Draw segment
+                Gizmos.DrawLine(startPos + rotatedOffset, endPos + rotatedOffset);
+
+                // Draw edges
+                Gizmos.DrawLine(startPos + rotatedOffset, startPos + lastOffset);
+                Gizmos.DrawLine(endPos + rotatedOffset, endPos + lastOffset);
+
+                // Track the last offset for drawing edges
+                lastOffset = rotatedOffset;
+            }
+
+            // Draw final edges
+            Gizmos.DrawLine(startPos + offset, startPos + lastOffset);
+            Gizmos.DrawLine(endPos + offset, endPos + lastOffset);
+        }
+
         private static float _copysign(float sizeval, float signval)
         {
             return Mathf.Sign(signval) == 1 ? Mathf.Abs(sizeval) : -Mathf.Abs(sizeval);

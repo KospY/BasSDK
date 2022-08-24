@@ -105,5 +105,17 @@ namespace ThunderRoad
                 Gizmos.DrawLine(this.transform.position, target.position);
             }
         }
+
+        protected virtual void OnDrawGizmosSelected()
+        {
+
+            if (!preGenerate && target)
+            {
+                Gizmos.color = Color.yellow;
+                
+                // Fix: Tube radius is halved ingame
+                Common.DrawGizmoCylinderFull(transform.position, target.position, radius / 2, 20);
+            }
+        }
     }
 }
