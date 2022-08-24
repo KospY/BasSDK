@@ -50,6 +50,10 @@ namespace ThunderRoad
 
         protected void OnDrawGizmosSelected()
         {
+            // Don't show if parent is selected
+            if (!UnityEditor.Selection.Contains(gameObject))
+                return;
+
             /*
             Vector3 sourcePosition = this.transform.position;
             Ray ray = new Ray(this.transform.position, -this.transform.forward);

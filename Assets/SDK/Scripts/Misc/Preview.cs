@@ -29,6 +29,10 @@ namespace ThunderRoad
 
         protected virtual void OnDrawGizmosSelected()
         {
+            // Don't show if parent is selected
+            if (!Selection.Contains(gameObject))
+                return;
+
             size = transform.lossyScale.x;
             Gizmos.color = Common.HueColourValue(HueColorName.Green);
             Gizmos.matrix = transform.localToWorldMatrix;
