@@ -46,7 +46,7 @@ This is usually automatically generated when you play the game. However, if it f
 
 ## Imbue Custom Fx Controller
 
-This is your [FX Controller][FXController] if you want to make a custom FX for your imbue. For example, the Torch uses this component to spawn Fire effects when it is imbued.
+This is your [FX Controller][FXController] if you want to make a custom FX for your imbue. For example, the Torch uses this component to spawn Fire effects when it is imbued. **For this to work, the collider group must have an "imbue type" of Custom.** You may need to make a new ColliderGroupData JSON where all the imbue types (in each of the modifiers) are changed to custom, or make a new ColliderGroupData like ColliderGroup_Torch.
 
 ## Imbue Custom Fx ID
 
