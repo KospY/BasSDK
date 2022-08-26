@@ -28,6 +28,10 @@ namespace ThunderRoad
 
         private void TryAssignGroup() => imbueGroup ??= GetComponent<ColliderGroup>();
 
+        [Button]
+        public void SetImbueID(string newID)
+        {
+        }
 
         [Button]
         public void SetImbueRate(float newRate)
@@ -41,5 +45,7 @@ namespace ThunderRoad
             imbueMaxPercent = newMax;
         }
 
+        [Button]
+        public void ClearImbueID() => SetImbueID(string.Empty);
     }
 }
