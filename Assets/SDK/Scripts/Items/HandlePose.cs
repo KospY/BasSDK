@@ -121,9 +121,10 @@ namespace ThunderRoad
                 targetHandPoseData = Catalog.GetData<HandPoseData>(targetHandPoseId);
                 targetHandPose = targetHandPoseData?.GetCreaturePose(creatureName);
             }
+            if (!handle) handle = GetComponentInParent<Handle>();
             if (defaultHandPose != null && CheckQuaternion(defaultHandPose.GetFingers(side).gripLocalRotation))
             {
-                Matrix4x4 gripMatrix = Matrix4x4.TRS(this.transform.position, this.transform.rotation * Quaternion.Inverse(defaultHandPose.GetFingers(side).gripLocalRotation), Vector3.one);
+                Matrix4x4 gripMatrix = Matrix4x4.TRS(handle.GetDefaultAxisPosition(side) + (transform.position - handle.transform.position), this.transform.rotation * Quaternion.Inverse(defaultHandPose.GetFingers(side).gripLocalRotation), Vector3.one);
                 gripMatrix *= Matrix4x4.TRS(-defaultHandPose.GetFingers(side).gripLocalPosition, Quaternion.identity, Vector3.one);
 
                 Gizmos.matrix = gripMatrix;
@@ -132,7 +133,7 @@ namespace ThunderRoad
                 // Need to spin the transform so the transform.TransformPoint works correctly for left hand
                 Quaternion originalRotation = transform.rotation;
                 if (side == Side.Left) transform.rotation *= Quaternion.Euler(0f, 0f, 180f);
-                Vector3 rootLocalPosition = gripMatrix.inverse.MultiplyPoint3x4(this.transform.TransformPoint(defaultHandPose.GetFingers(side).rootLocalPosition));
+                Vector3 rootLocalPosition = gripMatrix.inverse.MultiplyPoint3x4(this.transform.TransformPoint(defaultHandPose.GetFingers(side).rootLocalPosition) + (handle.GetDefaultAxisPosition(side) - transform.position) + (transform.position - handle.transform.position));
                 if (side == Side.Left) transform.rotation = originalRotation;
 
                 if (targetWeight > 0 && targetHandPoseId != null && targetHandPoseId != "" && targetHandPose != null)
