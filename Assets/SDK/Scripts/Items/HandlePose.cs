@@ -57,7 +57,7 @@ namespace ThunderRoad
 
         public virtual void OnValidate()
         {
-            if (this.InPrefabMode()) return;
+            //if (this.InPrefabMode()) return;
             if (!handle) handle = this.GetComponentInParent<Handle>();
             if (!Application.isPlaying)
             {
