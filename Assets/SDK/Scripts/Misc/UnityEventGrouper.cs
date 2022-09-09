@@ -22,5 +22,9 @@ namespace ThunderRoad
         public List<NamedEvent> namedEvents = new List<NamedEvent>();
         private Dictionary<string, List<UnityEvent>> eventsDictionary = new Dictionary<string, List<UnityEvent>>();
 
+        [Button]
+        public void ActivateNamedEvent(string name)
+        {
+        }
     }
 }
