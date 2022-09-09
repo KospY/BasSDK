@@ -1,52 +1,98 @@
 # Event Linkers
-Event linkers are a set of utility scripts that allow you to link together in-game events to activate functions on the components you add to items, maps, or creatures within Unity. All event linkers have a handful of [common functions](#common-methods) that you can activate which afford you even greater control over the control of your item(s).
 
-Every event linker has the same standard "structure" with mild alterations: You define a list of events (For which you configure the **trigger** by selecting one from a dropdown selector) which give you a **Unity event** to drag/drop GameObjects into in order to invoke **methods** from the components added to that GameObject. You can (and may even *need* to) make events with duplicate triggers: The execution order of these events matters!
+{% comment %}
+This page is intended to explain the concept of Event Linkers and to be a quick reference for their usage. 
+A seperate page will be created later in the Guides category for using event linkers, and will be linked to from this page.
+{% endcomment %}
 
-Using event linkers, you can make items perform complex actions such as playing animations, particles, sounds, etc., introduce puzzle mechanics to your levels, or create custom humanoids with new additions which otherwise wouldn't be possible without writing code. **Event linkers work on both PCVR and Nomad!**
+## Overview
 
-For more specific information regarding each type of event linker and the triggers you can link to, please navigate to its associated wiki page. A full list of [specific event linker types can be found below](#specific-linker-types).
+Event linkers are a set of utility scripts that allow you to link together in-game events to activate functions on the components you add to items, maps, or creatures within Unity. All event linkers have a handful of [common functions](#common-functions) that you can activate which afford you even greater control over the control of your item(s).
 
-## How to use Event Linkers
-(To be completed with screenshots)
+Every event linker has the same standard "structure" with mild alterations: You define a list of events (For which you configure the **trigger** by selecting one from a dropdown selector) which give you a **Unity Event** to drag/drop GameObjects into in order to invoke **methods** from the components added to that GameObject. You can (and may even *need* to) make events with duplicate triggers: The execution order of these events matters!
 
-## Common methods
-The below methods can all be invoked by Unity events, and provide extra functionality that would otherwise be missing.
-### SetListen(bool)
-`SetListen(bool)` toggles whether or not the event linker is currently "listening". If an event linker is not listening (Set to false), its events will not trigger even when the associated in-game events occur. This allows you to change what behaviour is taken when in-game events occur, and may be useful depending on your use case. All event linkers are listening by default, but they can be toggled off by unchecking the `listening` boolean in the Unity inspector.
-### PrintDebug(string)
-`PrintDebug(string)` prints a message to the debug log, in a style dependent on how many `!`s you start the message with: Starting with no `!`s means it's a normal log, one `!` means it's a warning log, and two `!!` means it's an error log. These may be useful to you if you're trying to figure out why your item isn't behaving as intended.
-### WaitFor\_\_\_\_\_\_(int or float)
-`WaitForFixedFrames(int)`, `WaitForFrames(int)`, `WaitForSeconds(float)`, and `WaitForRealtimeSeconds(float)` all add some kind of delay to your event linker. **!! NOTE: these do not work within the same event! You need to have events with duplicate triggers for these to do anything!** With `WaitForFixedFrames`, you wait for that many "physics frames" (Which are different from render frames), with `WaitForFrames`, you're waiting for real rendered frames. Similar logic applies for `WaitForSeconds` and `WaitForRealtimeSeconds`; Realtime seconds means real time seconds, while normal `WaitForSeconds` is in-game time (Meaning it is affected by slow motion, while real seconds are not!)
+Using event linkers, you can make items perform complex actions such as playing animations, particles, sounds, etc., introduce puzzle mechanics to your levels, or create custom humanoids with new additions which otherwise wouldn't be possible without writing code.
 
-## Specific linker types
-- General
-  - [Control Event Linker][ControlEventLinker] for any player controller input triggers
-  - [Game Event Linker][GameEventLinker] for any triggers based off hits, kills, creature, or item spawns [^extras]
-  - [Handle Event Linker][HandleEventLinker] for any handle grab/ungrab triggers [^varies]
-  - [Holder Event Linker][HolderEventLinker] for any holder snap/unsnap triggers
-  - [Spell Touch Event Linker][SpellTouchEventLinker] for triggering events when a spell touches an object [^unique]
-  - [Unity Event Grouper][UnityEventGrouper] for grouping events together to trigger from other places [^unique]
-- Item-focused
-  - [Bow Event Linker][BowEventLinker] for triggers related to nocking arrows, firing bows, etc. [^extras]
-  - [Collision Event Linker][CollisionEventLinker] for any collision triggers
-  - [Damager Event Linker][DamagerEventLinker] for triggering events when a specific damager deals damage
-  - [Imbue Event Linker][ImbueEventLinker] for triggering events when imbue is added, filled, or used
-  - [Item Event Linker][ItemEventLinker] for any item-related triggers
-- Creature-focused
-  - [Creature Event Linker][CreatureEventLinker] for triggering events when a creature is hit, grabbed, healed, or attacks [^extras] 
-  - [Ragdoll Part Event Linker][RagdollPartEventLinker] for damage, grab, or touch based triggers [^extras] 
+#### General Linkers
+- [Control Event Linker][ControlEventLinker] for any player controller input events.
+- [Game Event Linker][GameEventLinker] for any events related to hits, kills, creature, or item spawns. 
+- [Handle Event Linker][HandleEventLinker] for any handle grab/ungrab triggers
+- [Holder Event Linker][HolderEventLinker] for any holder snap/unsnap triggers
+- [Spell Touch Event Linker][SpellTouchEventLinker] for triggering events when a spell touches an object 
+- [Unity Event Grouper][UnityEventGrouper] for grouping events together to trigger from other places 
+ 
+#### Item-Focused Linkers
+- [Bow Event Linker][BowEventLinker] for triggers related to nocking arrows, firing bows, etc. 
+- [Collision Event Linker][CollisionEventLinker] for any collision triggers
+- [Damager Event Linker][DamagerEventLinker] for triggering events when a specific damager deals damage
+- [Imbue Event Linker][ImbueEventLinker] for triggering events when imbue is added, filled, or used
+- [Item Event Linker][ItemEventLinker] for any item-related triggers
+
+#### Creature-Focused Linkers
+- [Creature Event Linker][CreatureEventLinker] for triggering events when a creature is hit, grabbed, healed, or attacks 
+- [Ragdoll Part Event Linker][RagdollPartEventLinker] for damage, grab, or touch based triggers 
 
 
 
-----
 
-[^extras]: These event linkers have additional parameters in addition to choosing the trigger
-[^varies]: These event linkers have events which may or may not work depending on where the component reference is
-[^unique]: These event linkers have entirely different trigger definition (No dropdown)
+```tip
+Event linkers are compatable with both Nomad and PCVR!
+```
+
+## Common Functions
+
+The following functions can all be invoked by Unity Events, and provide additional functionality to Event Linkers.
+
+| --- | 
+| ![Common Functions Preview][CommonFunctions] |
+
+### SetListen
+This function can be used to toggle a linker's `Listening` property from an event.
+
+If an event linker is not listening, its events will not trigger even when the associated in-game events occur. This allows you to temporarily disable an event linker. All event linkers are listening by default, but they can be toggled off by unchecking the `Listening` property in the Unity inspector.
+
+
+### PrintDebug
+
+Prints a message to the ingame console and player log. These may be useful to you if you're trying to figure out why your linker isn't behaving as intended.
+
+```tip
+Adding exclamation marks (`!`) to the start of the message will change the output type of your message.  
+A single exclamation mark will output a yellow warning message in the console.  
+Two exclamation marks will output a red error message in the console.
+```
+
+### WaitFor...
+
+These functions will add a time delay between the current event, and the next event in the list.
+
+- WaitForFrames
+  - Create a delay that will continue until the specified number of frames have occured.
+- WaitForFixedFrames
+  - Create a delay that will continue until the specified number of physics frames have occured.
+- WaitForSeconds
+  - Waits a number of in-game seconds. This time is scaled, and will be affected if slow-motion is active.
+- WaitForSecondsRealtime
+  - Waits a number of realtime seconds. This delay will not be affected when slow-motion is active.
+
+```warning
+WaitFor... creates a delay between events, not within them. Once the delay has elapsed, the next event in the list will be invoked based on if that action **occurred in the frame the delay was started in**. 
+
+This can be used to your advantage to create **timers**. By adding duplicate events to your events list and adding a delay to the first of these events, you can offset when your UnityEvent is invoked.
+
+The following example will play a particle system when the alternate-use button is pressed while holding a handle, and after five realtime seconds, the particle system will be stopped. 
+
+![WaitFor Example Usage][WaitForExample]
+
+[WaitForExample]: {{ site.baseurl }}/assets/components/EventLinker/WaitFor.jpg
+```
 
 
 
+
+
+[Preview]:                {{ site.baseurl }}/assets/components/EventLinker/Preview.jpg
+[CommonFunctions]:        {{ site.baseurl }}/assets/components/EventLinker/CommonFunctions.jpg
 
 
 [ControlEventLinker]:     {{ site.baseurl }}{% link Components/ThunderRoad/ControlEventLinker.md %}
