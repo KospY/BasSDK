@@ -1,12 +1,28 @@
-# Control Event Linker
-*(If you have not yet already done so, go read the [event linkers][EventLinker] wiki page! This page only lists and explains the event trigger options on this event linker! It will not explain how to use the event linker.)*
+# Player Control Event Linker
+*If you have not done so already, go read the [Event Linker][EventLinker]'s wiki page. This page only lists and explains the events available to this linker. It will not explain how to use the component itself.*
 
-Control event linkers are used to activate events when the player presses certain buttons in-game. Using this, you could create a map where every time the player presses the jump button, a Mario jump sound is played. A list of all control triggers you can link to can be found below. All of the trigger options for this event linker are pretty self-explanatory
-- **Jump controls:** You can link events to **jump press** and **jump release**. The actual button this corresponds to depends on user headset and controllers, and includes also the "joystick up" jump control.
-- **Kick controls:** Much like jump controls, the actual button this is connected to depends on a user's device. You can link to **kick press** and **kick release**
-- **Button controls:** All other triggers other than the four listed above are button controls. You can link events to button triggers on either hand (All options include **Right hand** or **Left hand** as part of their name), and your options are the "consistent" choices across all devices: **Use (press & release)** (Typically the trigger button), **Alt use (press & release)** (Typically the spell wheel button), and **Grip (press & release)** (This button is consistent across all devices).
+## Overview
+Control event linkers are used to activate events when the player presses certain buttons in-game. 
 
+This event linker can be used in conjunction with other event-based components to create more complex behaviour. For example, toggling this linker using a [Zone][Zone] component would allow you to only listen for inputs when a player is within a certain area.  
+
+## Events
+Some of the below events have variants for if they were invoked by the left or right hand. They have been combined on this wiki page to avoid confusion.
+
+| Event                             | Description
+| ---                               | ---
+| On Jump (Press/Release)           | Invoked when the jump button is pressed/released. [^1]
+| On Kick (Press/Release)           | Invoked when the kick button is pressed/released.
+| On Use (Press/Release)            | Invoked when the spell-cast button is pressed/released.
+| On Grip (Press/Release)           | Invoked when the grab-object button is pressed/released.
+| On Alternate-Use (Press/Release)  | Invoked when the alternate-use button is pressed/released. [^2]
+
+-----
+
+[^1]: `On Jump` is also triggered when jumping by pushing the thumbstick up. 
+[^2]: `Alternate-Use` refers to the button for opening the spell wheel, however this input varies platform to platform.
 
 
 
 [EventLinker]:  {{ site.baseurl }}{% link Components/ThunderRoad/EventLinker.md %}
+[Zone]: {{ site.baseurl }}{% link Components/ThunderRoad/Zone.md %}
