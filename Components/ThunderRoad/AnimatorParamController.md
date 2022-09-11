@@ -21,7 +21,7 @@ Invoking this method allows you to change the value of a boolean (true/false) pa
 | ! | Inverts the value of a boolean (from `true` to `false` or vice versa. *This has to go directly in front of a boolean value that's on the right side of the equals!* You can use this to make something toggle like so: `Active = !Active` |
 | & | AND operation, requires a boolean value on both sides. The output of this operation is true if both values are true, and is false otherwise. Using this you can make something true only if two other things are true: `Active = Alive & Moving` |
 | \| | OR operation, requires a boolean value on both sides. The output of this operation is true if *either* value is true, and is false if both are false. Using this, you can make something true if either of two possible conditions is true: `Active = Alive \| Moving` |
-| % | XOR operation, requires a boolean value on both sides. The output of this operation is true only if the two values are not the same, and is false if both sides are the same. Example: `Active = Alive % Moving` |
+| \# | XOR operation, requires a boolean value on both sides. The output of this operation is true only if the two values are not the same, and is false if both sides are the same. Example: `Active = Alive # Moving` |
 | < | LESS THAN operation, requires numerical values on both sides. The output is true if the left side number is less than the right side number. Example: `Active = Speed < 5.0` |
 | = | EQUAL TO operation, requires numerical values on both sides. The output is true if the two values are equal. *Float values may be imprecise and can drift! Using this with integers only is recommended.* Example: `Active = Kills = Hits` |
 | > | GREATER THAN operation, requires numerical values on both sides. The output is true if the left side number is greater than the right side number. Example: `Active = Stage > 0` |
@@ -37,9 +37,11 @@ IntegerOperation is for setting the values of your integer parameters in your an
 | \- | Subtraction: `Stage - 100 - Kills` |
 | \* | Multiplication: `Stage = 2 * Kills` |
 | / | Division: `Stage = 64 / Drops` *(This rounds to the nearest whole number!)* |
+| % | Modulus (Divide and give the remainder): `Stage = 10 % 9` *(This would set `Stage` to 1)* |
 | ^ | Exponent: `Stage = 2 ^ PowerUps` |
 | \[ | Clamp floor (Output the larger of the two values, or "don't let the value go below this number"): `Stage = -1 [ 0` *(This would set `Stage` to 0)* |
 | \] | Clamp ceiling (Output the smaller of the two values, or "don't let the value be higher than this number"): `Stage = 6 ] 5` *(This would set `Stage` to 5)* |
+| ? | Random (Set to a random whole number between the left hand side and the right hand side, **exclusive**): `Speed = 0 ? 10` *(This would give a random number that is 0, 9, or any whole number between those)* |
 
 ### FloatOperation(string)
 FloatOperation is for setting the values of your float parameters in your animator. With FloatOperation you have access to all the same operation options as you do with IntegerOperation, but with FloatOperation, **you can use floats OR integers in your operations.** You can set a float equal to an integer, or set a float equal to the sum of two integers.
@@ -52,9 +54,17 @@ FloatOperation is for setting the values of your float parameters in your animat
 | \- | Subtraction: `Speed = Energy - 1` |
 | \* | Multiplication: `Speed = 0.5 * Kills` |
 | / | Division: `Speed = Energy / 2.5` |
+| % | Modulus (Divide and give the remainder): `Speed = 10.5 % 1` *(This would set `Speed` to 0.5)* |
 | ^ | Exponent: `Speed = 1.1 ^ PowerUps` |
 | \[ | Clamp floor (Output the larger of the two values, or "don't let the value go below this number"): `Speed = -1 [ 0.0` *(This would set `Speed` to 0)* |
 | \] | Clamp ceiling (Output the smaller of the two values, or "don't let the value be higher than this number"): `Speed = 7.5 ] 5` *(This would set `Speed` to 5)* |
+| ? | Random (Set to a random number between the left hand side and the right hand side, **inclusive**): `Speed = 1.6 ? 9.8` *(This would give a random number that is 1.6, 9.8, or any value between those)* |
 
 ## How to use Animator Param Controllers
-(To be completed with screenshots)
+With an Animator Param Controller, you'll need to make sure that the Animator Param Controller is on the *same* GameObject that an Animator component is on! **This will not work with an Animation component!** There's a good chance you'll also want for your Animator to be on the same GameObject as your Item component if you're making an item. If you're making a creature, the Animator will be in a different location. The below screenshot shows an example of a full setup for an item with 6 distinct stages:
+![image](https://user-images.githubusercontent.com/53928003/189550468-0bee1737-b2ef-4262-a56e-b6a4d5fb3e73.png)
+In this image, note the following:
+- The input may only have *one* operation. No doing `Stage = (Stage + 1) % 6` unfortunately!
+- To guarantee that operations happen in the order you want them (In this case, I want to increase the stage, then use the modulus to set it to 0 whenever it's 6), **use duplicates for the same event** rather than putting them in the same `On Activate ()`. They will execute with no delay, but this guarantees they execute in the order you want!
+- Case matters! If the cases aren't the same, you will have issues.
+
