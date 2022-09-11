@@ -1,11 +1,27 @@
 # Damager Event Linker
-*(If you have not yet already done so, go read the [event linkers][EventLinker] wiki page! This page only lists and explains the event trigger options on this event linker! It will not explain how to use the event linker.)*
+*If you have not done so already, go read the [Event Linker][EventLinker]'s wiki page. This page only lists and explains the events available to this linker. It will not explain how to use the component itself.*
 
-The Damager Event Linker is attached to a specific damager, and will only detect damage and kills inflicted by that damager specifically. There are only two triggers for this event linker:
-- **OnDamageDealt** triggers only when the damager this is linked to deals damage. This event can trigger even if a creature is dead!
-- **OnKillDealt** triggers only when the damager kills a creature. This can trigger at the same time as OnDamageDealt!
+
+## Overview
+The Damager Event Linker listens to relevant events emitted from a specified [Damager][Damager] component. 
+
+A reference to a [Damager][Damager] is required in order for this Event Linker to function.  
+
+## Events 
+
+| Event             | Description
+| ---               | ---
+| On Damage Dealt   | Triggered when the linked damager inflicts damage on any **living or non-living** creature or player. 
+| On Kill Dealt     | Triggered when the linked damager kills a creature.
+
+<br>
+
+```note
+`On Damage Dealt` will still be invoked when the linked damager kills a creature.
+```
 
 
 
 
 [EventLinker]:  {{ site.baseurl }}{% link Components/ThunderRoad/EventLinker.md %}
+[Damager]:      {{ site.baseurl }}{% link Components/ThunderRoad/Damager.md %}

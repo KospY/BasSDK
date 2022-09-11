@@ -1,4 +1,5 @@
 # Collider Group
+###### This component has an [Event Linker][EventLinker].
 
 The collider group script allows the item to deal damage to objects, as the [Damager][Damager] script is dependant of it. This component requires colliders attached to it to recognise what colliders utilise the damager.
 
@@ -52,6 +53,7 @@ This is your [FX Controller][FXController] if you want to make a custom FX for y
 
 This is needed to spawn the Imbue Custom Fx Controller, where the ID is the spell that can trigger this FX. (e.g. Fire, Gravity, Lightning)
 
+[EventLinker]: {{ site.baseurl }}{% link Components/ThunderRoad/CollisionEventLinker.md %}
 [Damager]:      {{ site.baseurl }}{% link Components/ThunderRoad/Damager.md %}
 [SPreview]:     {{ site.baseurl }}/assets/components/ColliderGroup/CollidergroupScript.png
 [ImbueGenMesh]: {{ site.baseurl }}/assets/components/ColliderGroup/ImbueMeshGen.PNG
