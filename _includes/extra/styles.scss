@@ -1,3 +1,12 @@
+/* Patch for elements with non-static positioning */
+
+html,
+body {
+    position: relative;
+    height: fit-content;
+}
+
+
 /* Remove blank sidebar */
 
 .content-wrap {
@@ -41,4 +50,54 @@
 
 .danger {
     border-color: #f29f97;
+}
+
+
+/* Content Sidebar */
+
+@for $level from 1 through 6 {
+    $depth: 1 - (($level - 1) / 6);
+    .snlevel-#{$level} {
+        font-size: 18px * max($depth, .73);
+        padding-left: 16px * ($level - 1);
+        $colorValue: ($depth * 255) - 150;
+        color: rgb($colorValue, $colorValue, $colorValue) !important;
+        @if $level==6 {
+            display: none;
+        }
+    }
+}
+
+.nav-sidebar {
+    min-width: 250px;
+    padding: 15px;
+    ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+}
+
+@media (max-width:1678px) {
+    .nav-sidebar {
+        width: 50%;
+        margin: auto;
+        background-color: hsl(0%, 0%, 95%);
+    }
+}
+
+
+/** Desktop view support */
+
+@media (min-width: 1678px) {
+    .nav-sidebar {
+        text-align: left;
+        right: 3%;
+        position: absolute;
+        height: 100%;
+        ul {
+            top: 20px;
+            position: sticky;
+            list-style-type: none;
+        }
+    }
 }
