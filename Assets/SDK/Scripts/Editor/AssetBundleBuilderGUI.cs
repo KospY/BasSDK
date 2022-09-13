@@ -1,4 +1,4 @@
-﻿using UnityEditor;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
@@ -29,6 +29,8 @@ namespace ThunderRoad
         public static string runGameArguments;
         public static bool cleanDestination = true;
         public static bool forceLinearFog = true;
+        private Vector2 scrollPos;
+
 
         [MenuItem("ThunderRoad (SDK)/Asset Bundle Builder")]
         public static void ShowWindow()
@@ -69,29 +71,161 @@ namespace ThunderRoad
             GUILayout.Label(new GUIContent("AssetBundle builder (" + EditorUserBuildSettings.activeBuildTarget + ")"), new GUIStyle("BoldLabel"));
             GUILayout.Space(5);
 
-            //scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
+            scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
             int selectedCount = 0;
-            foreach (AssetBundleGroup assetBundleGroup in assetBundleGroups)
+            foreach (AssetBundleGroup assetBundleGroup in assetBundleGroups.OrderBy(v => v.folderName))
             {
-                EditorGUILayout.BeginHorizontal();
+                EditorGUI.BeginChangeCheck();
+                EditorGUILayout.BeginVertical(GUI.skin.box);
                 {
-                    assetBundleGroup.selected = EditorGUILayout.Toggle(assetBundleGroup.selected, GUILayout.MaxWidth(20));
-                    if (assetBundleGroup.selected) selectedCount++;
-                    EditorGUI.BeginDisabledGroup(true);
-                    EditorGUILayout.ObjectField(assetBundleGroup, typeof(AssetBundleGroup), false);
-                    EditorGUI.EndDisabledGroup();
-                    EditorGUILayout.LabelField("Export", GUILayout.Width(60));
-                    assetBundleGroup.exportAfterBuild = EditorGUILayout.Toggle(assetBundleGroup.exportAfterBuild, GUILayout.MaxWidth(20));
-                    if (GUILayout.Button("Export now", GUILayout.Width(80)))
+                    GUILayout.Space(5); // Padding to top of group BG
+                    EditorGUILayout.BeginHorizontal();
                     {
-                        string assetsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), GameSettings.instance.addressableEditorPath);
-                        AssetBundleBuilder.CopyAssetsToBuild(assetsFolderPath, AssetBundleBuilder.exportFolderName, assetBundleGroup.isDefault, gamePath);
-                    }
+                        assetBundleGroup.selected = EditorGUILayout.Toggle(assetBundleGroup.selected, GUILayout.MaxWidth(20));
+                
 
+                        /* File/ModFolder renaming */
+                        EditorGUI.BeginChangeCheck();
+                        string folderName = EditorGUILayout.DelayedTextField(assetBundleGroup.folderName, GUILayout.MaxWidth(200));
+                        if (EditorGUI.EndChangeCheck())
+                        {
+                            string path = AssetDatabase.GetAssetPath(assetBundleGroup);
+
+                            if (!string.IsNullOrEmpty(path))
+                            {
+                                string output = AssetDatabase.RenameAsset(path, folderName);
+
+                                if (!string.IsNullOrEmpty(output))
+                                    Debug.LogWarning("Failed to rename! " + output);
+                                else
+                                {
+                                    assetBundleGroup.folderName = folderName;
+                                }
+                            }
+
+
+                        }
+
+                        if (assetBundleGroup.selected) 
+                            selectedCount++;
+
+                        // Disabled link can be clicked to highlight AssetBundleGroup in project files
+                        EditorGUI.BeginDisabledGroup(true);
+                        EditorGUILayout.ObjectField(assetBundleGroup, typeof(AssetBundleGroup), false);
+                        EditorGUI.EndDisabledGroup();
+
+                        if (GUILayout.Button("X", GUILayout.MaxWidth(20)) && 
+                            EditorUtility.DisplayDialogComplex("Warning", "Are you sure you want to delete group '" + assetBundleGroup.folderName + "'?", "Yes", "Cancel", "No") == 0)
+                        {
+                            string path = AssetDatabase.GetAssetPath(assetBundleGroup);
+                            int bundleIndex = assetBundleGroups.IndexOf(assetBundleGroup);
+
+                            if (!string.IsNullOrEmpty(path) && AssetDatabase.MoveAssetToTrash(path))
+                            {
+                                assetBundleGroups.RemoveAt(bundleIndex);
+                                return; // Exit to redraw
+                            }
+                            else
+                            {
+                                Debug.LogError("Failed to delete group!");
+                            }
+
+                        }
+
+                        
+                    }
+                    EditorGUILayout.EndHorizontal();
+
+                    /* Listing addressable groups of selected asset group */
+                    if (assetBundleGroup.selected)
+                    {
+                        GUILayout.Space(3);
+
+                        GUILayout.Label("Export Settings", new GUIStyle("BoldLabel"));
+
+                        /* Export Settings */
+
+                        GUILayout.BeginHorizontal();
+                        GUILayout.Space(25);
+                        assetBundleGroup.exportAfterBuild = EditorGUILayout.Toggle(assetBundleGroup.exportAfterBuild, GUILayout.MaxWidth(20));
+                        GUILayout.Label("Export on build");
+
+
+
+                        GUILayout.Space(25);
+                        if (GUILayout.Button("Export now", GUILayout.Width(120)))
+                        {
+                            string assetsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), GameSettings.instance.addressableEditorPath);
+                            AssetBundleBuilder.CopyAssetsToBuild(assetsFolderPath, AssetBundleBuilder.exportFolderName, assetBundleGroup.isDefault, gamePath);
+                        }
+                        GUILayout.EndHorizontal();
+
+
+                        GUILayout.Space(8);
+                        GUILayout.Label("Addressable Groups", new GUIStyle("BoldLabel"));
+
+                        /* Render Fields */
+                        for (int i = 0; i < assetBundleGroup.addressableAssetGroups.Count; i++)
+                        {
+                            EditorGUILayout.BeginHorizontal();
+                            {
+                                GUILayout.Space(25); // Indent entry
+
+
+                                assetBundleGroup.addressableAssetGroups[i] = 
+                                    (AddressableAssetGroup) EditorGUILayout.ObjectField(assetBundleGroup.addressableAssetGroups[i], typeof(AddressableAssetGroup), false);
+                                
+                                // Remove group entry
+                                if (GUILayout.Button("-", GUILayout.MaxWidth(20)))
+                                {
+                                    assetBundleGroup.addressableAssetGroups.RemoveAt(i);
+                                }
+
+                            }
+                            EditorGUILayout.EndHorizontal();
+                        }
+
+                        /* Render Last Controls */
+                        GUILayout.BeginHorizontal();
+                        {
+                            GUILayout.FlexibleSpace(); // Float button right
+                            // New addressable group entry
+                            if (GUILayout.Button("+", GUILayout.MaxWidth(20)))
+                            {
+                                assetBundleGroup.addressableAssetGroups.Add(null);
+                            }
+                        }
+                        GUILayout.EndHorizontal();
+
+                    }
+                    GUILayout.Space(5); // Padding to bottom of group BG
                 }
-                EditorGUILayout.EndHorizontal();
+                EditorGUILayout.EndVertical();
+
+
+                if (EditorGUI.EndChangeCheck())
+                {
+                    EditorUtility.SetDirty(assetBundleGroup);
+                }
             }
-            //EditorGUILayout.EndScrollView();
+            EditorGUILayout.EndScrollView();
+
+            if (GUILayout.Button("Create New Asset Group"))
+            {
+                if (File.Exists("Assets/SDK/AssetBundleGroups/NewMod.asset"))
+                {
+                    Debug.LogWarning("You already have a new asset group");
+                }
+                else
+                {
+                    AssetBundleGroup newGroup = CreateInstance<AssetBundleGroup>();
+                    newGroup.folderName = "NewMod";
+                    newGroup.addressableAssetGroups = new List<AddressableAssetGroup>();
+
+                    AssetDatabase.CreateAsset(newGroup, "Assets/SDK/AssetBundleGroups/NewMod.asset");
+                    assetBundleGroups.Add(newGroup);
+                }
+            }
 
             GUILayout.Space(5);
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
