@@ -36,5 +36,8 @@ namespace ThunderRoad
         [HideInInspector] public bool stopFromZoneTrigger;
         [HideInInspector] public bool isTutorialMessage;
 
+        public void ShowMessage()
+        {
+        }
     }
 }

@@ -10,13 +10,16 @@ namespace ThunderRoad
     {
         public List<string> alternateHandPoseIDs = new List<string>();
 
-        public void SwapDefaultPose(int newIDIndex)
+        public void SetDefaultPoseByIndex(int newIDIndex) => SetDefaultPose(alternateHandPoseIDs[newIDIndex]);
+
+        public void SetDefaultPose(string newPoseID)
         {
         }
 
-        public void SwapTargetPose(int newIDIndex)
+        public void SetTargetPoseByIndex(int newIDIndex) => SetTargetPose(alternateHandPoseIDs[newIDIndex]);
+
+        public void SetTargetPose(string newPoseID)
         {
         }
-
     }
 }
