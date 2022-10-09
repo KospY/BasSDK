@@ -9,7 +9,7 @@ using EasyButtons;
 namespace ThunderRoad
 {
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/RagdollPartEventLinker")]
-	[AddComponentMenu("ThunderRoad/Ragdoll Part Event Linker")]
+    [AddComponentMenu("ThunderRoad/Ragdoll Part Event Linker")]
     public class RagdollPartEventLinker : EventLinker
     {
         // These are explicitly assigned int values so that even if the order of the list gets changed, the assignments in prefabs and scenes will remain the same
@@ -31,6 +31,14 @@ namespace ThunderRoad
             OnTelePullEnd = 13,
             OnPreSlice = 14,
             OnPostSlice = 15,
+            OnGrabbedUsePress = 16,
+            OnGrabbedUseRelease = 17,
+            OnGrabbedAlternateUsePress = 18,
+            OnGrabbedAlternateUseRelease = 19,
+            OnNonGrabbedUsePress = 20,
+            OnNonGrabbedUseRelease = 21,
+            OnNonGrabbedAlternateUsePress = 22,
+            OnNonGrabbedAlternateUseRelease = 23,
         }
 
         public enum LifeState
@@ -58,6 +66,5 @@ namespace ThunderRoad
         {
             part ??= GetComponent<RagdollPart>();
         }
-
     }
 }

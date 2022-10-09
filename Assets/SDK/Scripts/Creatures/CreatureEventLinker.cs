@@ -9,7 +9,7 @@ using EasyButtons;
 namespace ThunderRoad
 {
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/CreatureEventLinker")]
-	[AddComponentMenu("ThunderRoad/Creature Event Linker")]
+    [AddComponentMenu("ThunderRoad/Creature Event Linker")]
     public class CreatureEventLinker : EventLinker
     {
         // These are explicitly assigned int values so that even if the order of the list gets changed, the assignments in prefabs and scenes will remain the same
@@ -43,6 +43,14 @@ namespace ThunderRoad
             OnRangedAttackFinish = 25,
             OnSpellAttackStart = 26,
             OnSpellAttackFinish = 27,
+            OnGrabbedUsePress = 28,
+            OnGrabbedUseRelease = 29,
+            OnGrabbedAlternateUsePress = 30,
+            OnGrabbedAlternateUseRelease = 31,
+            OnNonGrabbedUsePress = 32,
+            OnNonGrabbedUseRelease = 33,
+            OnNonGrabbedAlternateUsePress = 34,
+            OnNonGrabbedAlternateUseRelease = 35,
         }
 
         public enum LifeState
@@ -69,6 +77,5 @@ namespace ThunderRoad
         {
             creature ??= GetComponent<Creature>();
         }
-
     }
 }

@@ -9,7 +9,7 @@ using EasyButtons;
 namespace ThunderRoad
 {
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/HolderEventLinker")]
-	[AddComponentMenu("ThunderRoad/Holder Event Linker")]
+    [AddComponentMenu("ThunderRoad/Holder Event Linker")]
     public class HolderEventLinker : EventLinker
     {
         // These are explicitly assigned int values so that even if the order of the list gets changed, the assignments in prefabs and scenes will remain the same
@@ -19,6 +19,10 @@ namespace ThunderRoad
             OnSnapFull = 1,
             OnUnsnap = 2,
             OnUnsnapEmpty = 3,
+            OnHoverUsePress = 4,
+            OnHoverUseRelease = 5,
+            OnHoverAlternateUsePress = 6,
+            OnHoverAlternateUseRelease = 7,
         }
 
         [System.Serializable]
@@ -36,6 +40,5 @@ namespace ThunderRoad
         {
             holder ??= GetComponent<Holder>();
         }
-
     }
 }
