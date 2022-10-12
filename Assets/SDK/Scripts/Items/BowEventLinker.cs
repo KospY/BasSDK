@@ -18,9 +18,10 @@ namespace ThunderRoad
             OnArrowAdd = 0,
             OnArrowRemoved = 1,
             OnArrowFired = 2,
-            OnStringPullStart = 3,
-            OnStringReleaseStart = 4,
-            OnStringReleaseEnd = 5,
+            OnStringGrab = 3,
+            OnStringUngrab = 4,
+            OnStringReleaseStart = 5,
+            OnStringReleaseEnd = 6,
         }
 
         [System.Serializable]
@@ -43,6 +44,5 @@ namespace ThunderRoad
         {
             bowString ??= GetComponent<BowString>();
         }
-
     }
 }

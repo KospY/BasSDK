@@ -54,15 +54,35 @@ namespace ThunderRoad
         public Handle stringHandle { get; protected set; }
         public Vector3 orgBowStringPos { get; protected set; }
 
+        public bool blockStringRelease
+        {
+            get
+            {
+                bool startValue = _blockStringRelease;
+                _blockStringRelease = false;
+                return startValue;
+            }
+            set
+            {
+                _blockStringRelease = value;
+            }
+        }
+        private bool _blockStringRelease;
+
         protected float currentTargetRatio = 0f;
         protected bool setupFinished = false;
+        protected Vector3 stringCorrectionVelocity = new Vector3();
 
         private void TryAssignReferences()
         {
             item ??= GetComponentInParent<Item>();
-            rb ??= GetComponent<Rigidbody>();
-            stringJoint ??= GetComponent<ConfigurableJoint>();
+            rb ??= GetComponent<Rigidbody>() ?? gameObject.AddComponent<Rigidbody>();
+            stringJoint ??= GetComponent<ConfigurableJoint>() ?? gameObject.AddComponent<ConfigurableJoint>();
             stringHandle ??= GetComponentInChildren<Handle>();
+            if (!stringHandle)
+            {
+                Debug.LogError($"Could not assign Handle reference! Make sure that this BowString component ({gameObject.name}) has a Handle on it, or has a Handle as a child object!");
+            }
         }
 
         private void JointSetup(bool init, float allowance = 0f)
@@ -71,8 +91,8 @@ namespace ThunderRoad
             {
                 SetStringTargetRatio(0f);
                 orgBowStringPos = rb.transform.localPosition;
-
             }
+            stringJoint.connectedBody = item?.rb;
             stringJoint.autoConfigureConnectedAnchor = false;
             stringJoint.configuredInWorldSpace = false;
             stringJoint.anchor = Vector3.zero;
@@ -123,7 +143,6 @@ namespace ThunderRoad
         {
         }
 
-
 #if UNITY_EDITOR
         [Header("Editor only")]
         [Range(0f, 1f)]
@@ -148,8 +167,22 @@ namespace ThunderRoad
             bool itemHasErrors = false;
             if (animation == null)
             {
-                Debug.LogError("Animation is not set!");
+                Debug.LogError("Animation component is not set!");
                 itemHasErrors = true;
+            }
+            else
+            {
+                animation.playAutomatically = false;
+                if (animation.clip == null)
+                {
+                    Debug.LogError("Animation clip is not set on Animation component! You have to drag and drop your animation clip into both the animation field, and into the animations field.");
+                    itemHasErrors = true;
+                }
+                else if (!animation.clip.legacy)
+                {
+                    Debug.LogWarning("Animation is not set to legacy! It is being changed automatically.");
+                    animation.clip.legacy = true;
+                }
             }
             if (restLeft == null || restRight == null)
             {
@@ -165,7 +198,6 @@ namespace ThunderRoad
                 Debug.LogError("This bow has errors and will not function in-game! The remainder of the item validation will not proceed.");
                 return;
             }
-
             TryAssignReferences();
             JointSetup(true);
             if (lastPull == null)
@@ -201,6 +233,8 @@ namespace ThunderRoad
             Debug.Log($"Got {trackedCount} tracked vertices to follow for bow draw length.");
             if (trackedCount == 0)
             {
+                Debug.LogError($"In order to properly auto-configure, there have to be enough mesh vertices within a certain radius to the transform center." +
+                    $"\nIncrease Vertex Grab Distance or move the {gameObject.name} transform to better line up with the bow's mesh.");
                 return;
             }
             pullCurve = new AnimationCurve();
@@ -259,7 +293,7 @@ namespace ThunderRoad
 
         private void OnDrawGizmos()
         {
-            if (Mathf.Approximately(stringDrawLength, 0f)) return;
+            if (Mathf.Approximately(stringDrawLength, 0f) || item == null || restLeft == null || restRight == null) return;
             Vector3 originalPosition = item.transform.TransformPoint(orgBowStringPos);
             Vector3 maxDrawPos = originalPosition - (transform.forward * stringDrawLength);
             Gizmos.color = Color.white;
