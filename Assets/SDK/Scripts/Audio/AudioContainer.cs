@@ -43,7 +43,8 @@ namespace ThunderRoad
 
             Type[] typeParams = { typeof(AudioClip), typeof(int), typeof(bool) };
 
-            MethodInfo method = audioUtilType.GetMethod("PlayClip", typeParams);
+            // It was not PlayClip but PlayPreviewClip
+            MethodInfo method = audioUtilType.GetMethod("PlayPreviewClip", typeParams);
 
             AudioClip clip = GetRandomAudioClip(sounds);
             object[] objParams = { clip, 0, false };
