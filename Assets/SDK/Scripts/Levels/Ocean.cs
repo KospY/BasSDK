@@ -307,5 +307,11 @@ namespace ThunderRoad
             if (oceanGameobject && !lowQuality) Catalog.ReleaseAsset(oceanGameobject);
         }
 #endif
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.Lerp(Color.cyan, Color.clear, 0.5f);
+            Gizmos.DrawCube(transform.position + new Vector3(0, -100, 0), new Vector3(9999, 200, 9999));
+        }
     }
 }

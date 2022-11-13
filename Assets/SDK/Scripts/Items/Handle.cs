@@ -223,6 +223,10 @@ namespace ThunderRoad
 
         protected override void OnDrawGizmosSelected()
         {
+            // Don't show if parent is selected
+            if (!UnityEditor.Selection.Contains(gameObject))
+                return;
+
             base.OnDrawGizmosSelected();
             Gizmos.color = Color.grey;
             Gizmos.DrawWireSphere(Vector3.zero, reach);

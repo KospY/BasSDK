@@ -53,5 +53,15 @@ namespace ThunderRoad
         public static UnityEvent<WaveSpawner> OnWaveSpawnerStartRunningEvent = new UnityEvent<WaveSpawner>();
         public static UnityEvent<WaveSpawner> OnWaveSpawnerStopRunningEvent = new UnityEvent<WaveSpawner>();
 
+        private void OnDrawGizmos()
+        {
+            foreach (Transform spawn in spawns)
+            {
+                Gizmos.color = Color.blue;
+                Gizmos.DrawWireSphere(spawn.position, 0.5f);
+                Common.DrawGizmoArrow(spawn.position, spawn.forward, Color.magenta);
+            }
+        }
+
     }
 }

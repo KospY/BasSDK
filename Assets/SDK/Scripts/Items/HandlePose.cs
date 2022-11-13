@@ -112,6 +112,10 @@ namespace ThunderRoad
 
         protected void OnDrawGizmosSelected()
         {
+            // Don't show if parent is selected
+            if (!UnityEditor.Selection.Contains(gameObject))
+                return;
+
             // I imagine this may need to change for the public SDK, unless we keep a stripped-down version of the catalog for it
             if (Catalog.gameData != null)
             {
