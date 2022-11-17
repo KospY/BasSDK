@@ -10,6 +10,8 @@ Disable on Platform, also known as `Disable or Strip GameObject relative to plat
 | Platform                    | Select platform to Exclude/Only include on. Choices are Windows (PCVR) and Android (Quest 2).
 | Allow Strip                 | Toggle to Strip or Not, without removing script.
 
-> This is mainly used internally, and won't be used by modders without their own export tooling.
+```danger
+This is an internal tool, and cannot be used by modders without their own export tooling.
+```
 
 [StripOnPlatform]: {{ site.baseurl }}/assets/components/DisableOnCondition/DisableOnPlatform.PNG
