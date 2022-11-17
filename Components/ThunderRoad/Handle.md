@@ -57,6 +57,7 @@ This depicts the handle with a length. The yellow gizmo depicts where the hand w
 [HandleWithLength]: {{ site.baseurl }}/assets/components/Handle/HandleWithLength.PNG
 [HandleLength0]: {{ site.baseurl }}/assets/components/Handle/HandleLength0.PNG
 [Item]: {{ site.baseurl }}{% link Components/ThunderRoad/Item.md %}
-[Event Linker]: {{ site.baseurl }}{% link Components/ThunderRoad/HandleEventLinker.md %}
+[EventLinker]: {{ site.baseurl }}{% link Components/ThunderRoad/HandleEventLinker.md %}
 [HandlePose]: {{ site.baseurl }}{% link Components/ThunderRoad/HandlePose.md %}
 [Holder]: {{ site.baseurl }}{% link Components/ThunderRoad/Holder.md %}
+[Interactable] : {{ site.baseurl }}{% link Components/ThunderRoad/Interactable.md %}
