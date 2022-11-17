@@ -1,10 +1,15 @@
 # FleePoint
 
-Flee Points are points where enemies can despawn when they flee. When a [WaveSpawner][WaveSpawner] is created, a tickbox can be checked to create flee points based on where the spawn points are located, however you can use these gameobjects instead to specify despawn points.
+Flee Points are positions enemies will attempt to reach when fleeing. Upon reaching a flee point, the enemy will despawn from the level. These are often placed near doors or exits that the player cannot interact with.
 
-Ensure that this GameObject is grounded for it to work correctly.
+Enemies will flee when the wave has ended early, or if they are disarmed and are unable to find a new weapon.
+
+Flee points can be automatically generated from the [Wave Spawner][WaveSpawner] component by enabling the "Add As Fleepoint On Start" toggle. Doing so will create a flee point at each of the wave's spawn points.
+
+The gameobject this component is attached to must be placed near to the ground.
+
 ```note
-There is no components on this Script.
+There are no fields on this component.
 ```
 
 [WaveSpawner]: {{ site.baseurl }}{% link Components/ThunderRoad/WaveSpawner.md %}

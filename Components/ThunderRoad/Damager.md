@@ -2,8 +2,6 @@
 
 ###### This component has an [Event Linker][EventLinker].
 
-HandleEventLinker.md
-
 The damager script is essential in dealing damage with the weapons. This script utilises the [Collider Group][ColliderGroup] script/colliders to tell the game what part of the weapon is to deal this type of damage. 
 The script will tell the user what the damager type it is set up for through an information box, also.
 
