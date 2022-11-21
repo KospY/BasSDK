@@ -2,7 +2,7 @@
 
 The Disable on Condition script disables the object depending on the condition given to it.
 
-![Script Preview][SPreview]
+![Script Preview][Preview]
 
 ## Conditions
 

@@ -4,8 +4,11 @@
 ## Overview
 This component provides an easy way to set up ropes that can be grabbed by the player.  
 
-> This kind of rope is static. If you are looking for a rope for hanging lanterns, see [RopeSimple][RopeSimple].
+```note
+This kind of rope is static. If you are looking for a rope for hanging lanterns, see [RopeSimple][RopeSimple].
 
+[RopeSimple]: {{ site.baseurl }}{% link Components/ThunderRoad/RopeSimple.md %}
+```
 
 ### Setup (Horizontal / Point-To-Point)
 Point-To-Point ropes will generate a rope that links from the `RopeStart` transform to the `RopeEnd` transform.
