@@ -4,6 +4,6 @@ Follow steps here https://docs.github.com/en/pages/setting-up-a-github-pages-sit
 
 1. Open a terminal with this project as the root on branch gh-pages
 2. Run: bundle install
-3. Run: bundle exec jekyll serve
+3. Run: bundle exec jekyll serve --incremental 
 
 The site should now be available on https://localhost:4000
