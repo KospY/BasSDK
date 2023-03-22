@@ -5,21 +5,33 @@ Item Spawner is a script that allows you to spawn an item, whether it be to spaw
 ![ItemSpawner][ItemSpawner]
 
 ```note
-"Spawn" Button is for internal use only. May be removed in the future.
+"Spawn" Button is for internal use only, it may be removed in the future.
+```
+
+```note
+If your item has a JSON inside the Unity Catelog, it will show a gizmo of the item if the ID matches. It will also do the same for a LootTable, of which it shows all the items in the selection.
 ```
 
 ## Components
 
 | Field                 | Description
 | ---                   | ---
-| Item ID               | The Item ID of the [Item][Item] you want to spawn.
+| Reference ID          | The Item ID of the [Item][Item] you want to spawn OR the LootTable ID.
+| Reference Type        | If the Reference is an Item, set to ``Item`` and if it is a Group of Items (LootTable), set to ``Loot Table``.
+| Priority              | This depicts how items spawn in Levels and Dungeons. For more information, see picture at the bottom of this page.
+| Parent Spawner        | When referencing another spawner, this item spawner will spawn the item AFTER the referenced spawner has spawned an item. This prevents item overlap.
 | Pooled                | Spawns items that are stored in pool (For items like Arrows, rocks).
 | Spawn on Start        | Spawns the item on level load or on component enable.
-| Disallow Despawn      | Disallows the item spawned to despawn.
+| Allow Despawn         | Allows the item to be able to be despawned (e.g. on new wave start).
 | Spawn Count           | Depicts the amount of the item that spawn at one time.
 | Random Radius         | Radius of the item spawn (Indicates items don't spawn at one point).
 | Random Rotate         | When ticked, items spawned will be randomly rotated.
 | Holder Object         | Reference the [Holder][Holder] that the item gets spawned in to.
+| Rope Template         | Reference the [RopeSimple][RopeSimple] that the item hooks on to.
+
+## Events
+
+This script now supports "On Spawn Event". When an item is spawned via this component, this event will trigger.
 
 ## Spawning Objects in Motion
 
@@ -39,12 +51,18 @@ Item Spawner is a script that allows you to spawn an item, whether it be to spaw
 ```note 
 This is the gizmo of the ItemSpawner when Random Radius is above 0.
 ```
+![RadiusGizmo][RadiusGizmo]
 
-![SpawnerGizmo][SpawnerGizmo]
+```note
+This is the definition of Priorities as stated above. This diagram also shows how priority affects the gizmo of the object if the item is in the catelog and referenced correctly.
+```
+![PriorityGizmo][PriorityGizmo]
 
 
 [UnityEvents]: https://docs.unity3d.com/Manual/UnityEvents.html
 [ItemSpawner]: {{ site.baseurl }}/assets/components/ItemSpawner/ItemSpawner.PNG
-[SpawnerGizmo]: {{ site.baseurl }}/assets/components/ItemSpawner/SpawnerGizmo.PNG
+[RadiusGizmo]: {{ site.baseurl }}/assets/components/ItemSpawner/SpawnerGizmo.PNG
+[PriorityGizmo]: {{ site.baseurl }}/assets/components/ItemSpawner/PriorityGizmo.png
 [Item]: {{ site.baseurl }}{% link Components/ThunderRoad/Item.md %}
+[RopeSimple]: {{ site.baseurl }}{% link Components/ThunderRoad/RopeSimple.md %}
 [Holder]: {{ site.baseurl }}{% link Components/ThunderRoad/Holder.md %}

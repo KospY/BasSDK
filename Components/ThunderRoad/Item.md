@@ -24,7 +24,7 @@ Do not adjust Rigidbody weight, drag and angular drag, as this is overwritten in
 | Fly Dir Ref                       | Used to point in this direction when thrown, so long as "Fly On Throw" is enabled in JSON. Z Axis / Blue arrow points forwards.
 | Preview                           | Automatically added when `Item` script is added. See [Preview][Preview] for setup.
 | Disallow Room Despawn             | When ticked, will not despawn when situated inside a Dungeon room.
-| Hanging                           | Used for hanging items (like Lanterns) to adjust handling and despawning.
+| World Attached                    | Used for Items that are connected to the world. An example is hanging items and doors.
 | Creature Physic Toggle Radius     | Radius to depict how close this item needs to be to a creature before the creatures' collision is enabled.
 | Use Custom Center of Mass         | Allows user to adjust the center of mass on object. If unticked, this is automatically adjusted. When ticked, adds a custom gizmo to adjust. Use this if weight on the item is acting strange.
 | Custom Inertia Tensor             | Used for balance adjustment on a weapon. Use this if swinging weapons are strange. Adjust the Capsule collider to the width of the weapon.
