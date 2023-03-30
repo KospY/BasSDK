@@ -1,13 +1,19 @@
 # How to install mods for Nomad
 
-# Short Guide
+# Using game mod manager
 
-1. Download the mod from Nexus mods
+Starting from U12, a mod manager is directly available in the game.
+The mod manager is using Mod.io (https://mod.io/g/blade-and-sorcery)
+
+# Manual install
+
+In case you don't want to use the mod manager, you can still install mods manually
+1. Download the mod from Nexus mods or Mod.io
 2. Extract the mod folder
 3. Plug your Quest 2 into your PC
 4. Drag and drop mod folder into `This PC\Quest 2\Internal shared storage\Android\data\com.Warpfrog.BladeAndSorcery\files\Mods`
 
-# Full Guide
+# Full Guide for Nexus mods
 
 ## Download the mod
 Download your mod via [Nexus Mods Nomad](https://www.nexusmods.com/bladeandsorcerynomad).
@@ -16,8 +22,6 @@ Download your mod via [Nexus Mods Nomad](https://www.nexusmods.com/bladeandsorce
 2. Go to the mod page
 3. Click the Files tab
 4. Click Manual Download
-
-
 
 ## Extract the mod
 
