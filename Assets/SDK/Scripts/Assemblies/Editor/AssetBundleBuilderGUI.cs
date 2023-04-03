@@ -93,6 +93,23 @@ namespace ThunderRoad
             }
             EditorGUILayout.EndScrollView();
 
+            if (GUILayout.Button("Create New Asset Group"))
+            {
+                if (File.Exists("Assets/SDK/AssetBundleGroups/NewMod.asset"))
+                {
+                    Debug.LogWarning("You already have a new asset group");
+                }
+                else
+                {
+                    AssetBundleGroup newGroup = CreateInstance<AssetBundleGroup>();
+                    newGroup.folderName = "NewMod";
+                    newGroup.addressableAssetGroups = new List<AddressableAssetGroup>();
+
+                    AssetDatabase.CreateAsset(newGroup, "Assets/SDK/AssetBundleGroups/NewMod.asset");
+                    assetBundleGroups.Add(newGroup);
+                }
+            }
+            
             GUILayout.Space(5);
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
