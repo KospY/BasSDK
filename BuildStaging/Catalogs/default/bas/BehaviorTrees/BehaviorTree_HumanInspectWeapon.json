@@ -1,0 +1,415 @@
+{
+  "$type": "ThunderRoad.BehaviorTreeData, ThunderRoad",
+  "id": "HumanInspectWeapon",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "type": "SubTree",
+  "rootNode": {
+    "$type": "ThunderRoad.AI.Control.Selector, ThunderRoad",
+    "evaluateAllNodesOnCycle": false,
+    "childs": [
+      {
+        "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+        "operation": "AND",
+        "ifConditions": [
+          {
+            "$type": "ThunderRoad.AI.Condition.RandomChance, ThunderRoad",
+            "chance": 0.25,
+            "valueUpdateFrequency": 10.0
+          }
+        ],
+        "ifNotConditions": null,
+        "child": {
+          "$type": "ThunderRoad.AI.Control.Selector, ThunderRoad",
+          "evaluateAllNodesOnCycle": false,
+          "childs": [
+            {
+              "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+              "operation": "AND",
+              "ifConditions": [
+                {
+                  "$type": "ThunderRoad.AI.Condition.RandomChance, ThunderRoad",
+                  "chance": 0.5,
+                  "valueUpdateFrequency": 10.0
+                }
+              ],
+              "ifNotConditions": null,
+              "child": {
+                "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+                "evaluateAllNodesOnCycle": false,
+                "childs": [
+                  {
+                    "$type": "ThunderRoad.AI.Action.DrawItem, ThunderRoad",
+                    "holsterRightItem": true,
+                    "holsterLeftItem": false,
+                    "waitForFinished": true,
+                    "targetTransformVariableName": "",
+                    "drawRightWeapon": true,
+                    "rightInfo": {
+                      "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+                      "weaponClass": "Melee",
+                      "weaponHandling": "OneHanded",
+                      "checkAmmo": false,
+                      "checkInHolder": false
+                    },
+                    "drawLeftWeapon": false,
+                    "leftInfo": {
+                      "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+                      "weaponClass": "None",
+                      "weaponHandling": "None",
+                      "checkAmmo": false,
+                      "checkInHolder": false
+                    },
+                    "blackboard": null,
+                    "creature": null,
+                    "brainData": null
+                  },
+                  {
+                    "$type": "ThunderRoad.AI.Control.Selector, ThunderRoad",
+                    "evaluateAllNodesOnCycle": false,
+                    "childs": [
+                      {
+                        "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+                        "operation": "AND",
+                        "ifConditions": [
+                          {
+                            "$type": "ThunderRoad.AI.Condition.RandomChance, ThunderRoad",
+                            "chance": 0.4,
+                            "valueUpdateFrequency": 10.0
+                          }
+                        ],
+                        "ifNotConditions": null,
+                        "child": {
+                          "$type": "ThunderRoad.AI.Action.PlayAnimation, ThunderRoad",
+                          "useAddressableAddress": true,
+                          "animationDataID": null,
+                          "overrideSpeed": false,
+                          "animationAddress": "Bas.Animation.Idle.InspectSword",
+                          "animationSpeed": 1.0,
+                          "playType": "LimitedOneShot",
+                          "avoidLastPick": false,
+                          "upperOnly": false,
+                          "animDurationMinMax": {
+                            "x": 4.0,
+                            "y": 4.0
+                          },
+                          "exitAutomatically": false,
+                          "interruptStop": true,
+                          "mirror": false,
+                          "doCallbackNode": true,
+                          "callbackNode": {
+                            "$type": "ThunderRoad.AI.Action.PlayAnimation, ThunderRoad",
+                            "useAddressableAddress": false,
+                            "animationDataID": "HumanIdle1hSwings",
+                            "overrideSpeed": false,
+                            "animationAddress": null,
+                            "animationSpeed": 1.0,
+                            "playType": "OneShot",
+                            "avoidLastPick": true,
+                            "upperOnly": false,
+                            "animDurationMinMax": {
+                              "x": 1.0,
+                              "y": 3.0
+                            },
+                            "exitAutomatically": true,
+                            "interruptStop": true,
+                            "mirror": false,
+                            "doCallbackNode": true,
+                            "callbackNode": {
+                              "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+                              "evaluateAllNodesOnCycle": false,
+                              "childs": [
+                                {
+                                  "$type": "ThunderRoad.AI.Action.HolsterItem, ThunderRoad",
+                                  "holsterRight": true,
+                                  "holsterLeft": false,
+                                  "waitForFinished": true,
+                                  "blackboard": null,
+                                  "creature": null,
+                                  "brainData": null
+                                },
+                                {
+                                  "$type": "ThunderRoad.AI.Action.PlayAnimation, ThunderRoad",
+                                  "useAddressableAddress": false,
+                                  "animationDataID": "HumanIdle",
+                                  "overrideSpeed": false,
+                                  "animationAddress": null,
+                                  "animationSpeed": 1.0,
+                                  "playType": "Loop",
+                                  "avoidLastPick": true,
+                                  "upperOnly": false,
+                                  "animDurationMinMax": {
+                                    "x": 1.0,
+                                    "y": 2.0
+                                  },
+                                  "exitAutomatically": true,
+                                  "interruptStop": true,
+                                  "mirror": false,
+                                  "doCallbackNode": false,
+                                  "callbackNode": null,
+                                  "blackboard": null,
+                                  "creature": null,
+                                  "brainData": null
+                                }
+                              ]
+                            },
+                            "blackboard": null,
+                            "creature": null,
+                            "brainData": null
+                          },
+                          "blackboard": null,
+                          "creature": null,
+                          "brainData": null
+                        }
+                      },
+                      {
+                        "$type": "ThunderRoad.AI.Action.PlayAnimation, ThunderRoad",
+                        "useAddressableAddress": true,
+                        "animationDataID": null,
+                        "overrideSpeed": false,
+                        "animationAddress": "Bas.Animation.Idle.InspectSword",
+                        "animationSpeed": 1.0,
+                        "playType": "OneShot",
+                        "avoidLastPick": false,
+                        "upperOnly": false,
+                        "animDurationMinMax": {
+                          "x": 1.0,
+                          "y": 3.0
+                        },
+                        "exitAutomatically": true,
+                        "interruptStop": true,
+                        "mirror": false,
+                        "doCallbackNode": true,
+                        "callbackNode": {
+                          "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+                          "evaluateAllNodesOnCycle": false,
+                          "childs": [
+                            {
+                              "$type": "ThunderRoad.AI.Action.HolsterItem, ThunderRoad",
+                              "holsterRight": true,
+                              "holsterLeft": false,
+                              "waitForFinished": true,
+                              "blackboard": null,
+                              "creature": null,
+                              "brainData": null
+                            },
+                            {
+                              "$type": "ThunderRoad.AI.Action.PlayAnimation, ThunderRoad",
+                              "useAddressableAddress": false,
+                              "animationDataID": "HumanIdle",
+                              "overrideSpeed": false,
+                              "animationAddress": null,
+                              "animationSpeed": 1.0,
+                              "playType": "Loop",
+                              "avoidLastPick": true,
+                              "upperOnly": false,
+                              "animDurationMinMax": {
+                                "x": 1.0,
+                                "y": 2.0
+                              },
+                              "exitAutomatically": true,
+                              "interruptStop": true,
+                              "mirror": false,
+                              "doCallbackNode": false,
+                              "callbackNode": null,
+                              "blackboard": null,
+                              "creature": null,
+                              "brainData": null
+                            }
+                          ]
+                        },
+                        "blackboard": null,
+                        "creature": null,
+                        "brainData": null
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "$type": "ThunderRoad.AI.Action.PlayAnimation, ThunderRoad",
+              "useAddressableAddress": false,
+              "animationDataID": "HumanIdle",
+              "overrideSpeed": false,
+              "animationAddress": null,
+              "animationSpeed": 1.0,
+              "playType": "Loop",
+              "avoidLastPick": true,
+              "upperOnly": false,
+              "animDurationMinMax": {
+                "x": 1.0,
+                "y": 2.0
+              },
+              "exitAutomatically": true,
+              "interruptStop": true,
+              "mirror": false,
+              "doCallbackNode": true,
+              "callbackNode": {
+                "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+                "evaluateAllNodesOnCycle": false,
+                "childs": [
+                  {
+                    "$type": "ThunderRoad.AI.Action.DrawItem, ThunderRoad",
+                    "holsterRightItem": true,
+                    "holsterLeftItem": false,
+                    "waitForFinished": true,
+                    "targetTransformVariableName": "",
+                    "drawRightWeapon": true,
+                    "rightInfo": {
+                      "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+                      "weaponClass": "Melee",
+                      "weaponHandling": "OneHanded",
+                      "checkAmmo": false,
+                      "checkInHolder": false
+                    },
+                    "drawLeftWeapon": false,
+                    "leftInfo": {
+                      "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+                      "weaponClass": "None",
+                      "weaponHandling": "None",
+                      "checkAmmo": false,
+                      "checkInHolder": false
+                    },
+                    "blackboard": null,
+                    "creature": null,
+                    "brainData": null
+                  },
+                  {
+                    "$type": "ThunderRoad.AI.Control.Selector, ThunderRoad",
+                    "evaluateAllNodesOnCycle": false,
+                    "childs": [
+                      {
+                        "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+                        "operation": "AND",
+                        "ifConditions": [
+                          {
+                            "$type": "ThunderRoad.AI.Condition.RandomChance, ThunderRoad",
+                            "chance": 0.4,
+                            "valueUpdateFrequency": 10.0
+                          }
+                        ],
+                        "ifNotConditions": null,
+                        "child": {
+                          "$type": "ThunderRoad.AI.Action.PlayAnimation, ThunderRoad",
+                          "useAddressableAddress": true,
+                          "animationDataID": null,
+                          "overrideSpeed": false,
+                          "animationAddress": "Bas.Animation.Idle.InspectSword",
+                          "animationSpeed": 1.0,
+                          "playType": "LimitedOneShot",
+                          "avoidLastPick": false,
+                          "upperOnly": false,
+                          "animDurationMinMax": {
+                            "x": 4.0,
+                            "y": 4.0
+                          },
+                          "exitAutomatically": false,
+                          "interruptStop": true,
+                          "mirror": false,
+                          "doCallbackNode": true,
+                          "callbackNode": {
+                            "$type": "ThunderRoad.AI.Action.PlayAnimation, ThunderRoad",
+                            "useAddressableAddress": false,
+                            "animationDataID": "HumanIdle1hSwings",
+                            "overrideSpeed": false,
+                            "animationAddress": null,
+                            "animationSpeed": 1.0,
+                            "playType": "OneShot",
+                            "avoidLastPick": true,
+                            "upperOnly": false,
+                            "animDurationMinMax": {
+                              "x": 1.0,
+                              "y": 3.0
+                            },
+                            "exitAutomatically": true,
+                            "interruptStop": true,
+                            "mirror": false,
+                            "doCallbackNode": true,
+                            "callbackNode": {
+                              "$type": "ThunderRoad.AI.Action.HolsterItem, ThunderRoad",
+                              "holsterRight": true,
+                              "holsterLeft": false,
+                              "waitForFinished": true,
+                              "blackboard": null,
+                              "creature": null,
+                              "brainData": null
+                            },
+                            "blackboard": null,
+                            "creature": null,
+                            "brainData": null
+                          },
+                          "blackboard": null,
+                          "creature": null,
+                          "brainData": null
+                        }
+                      },
+                      {
+                        "$type": "ThunderRoad.AI.Action.PlayAnimation, ThunderRoad",
+                        "useAddressableAddress": true,
+                        "animationDataID": null,
+                        "overrideSpeed": false,
+                        "animationAddress": "Bas.Animation.Idle.InspectSword",
+                        "animationSpeed": 1.0,
+                        "playType": "OneShot",
+                        "avoidLastPick": false,
+                        "upperOnly": false,
+                        "animDurationMinMax": {
+                          "x": 1.0,
+                          "y": 3.0
+                        },
+                        "exitAutomatically": true,
+                        "interruptStop": true,
+                        "mirror": false,
+                        "doCallbackNode": true,
+                        "callbackNode": {
+                          "$type": "ThunderRoad.AI.Action.HolsterItem, ThunderRoad",
+                          "holsterRight": true,
+                          "holsterLeft": false,
+                          "waitForFinished": true,
+                          "blackboard": null,
+                          "creature": null,
+                          "brainData": null
+                        },
+                        "blackboard": null,
+                        "creature": null,
+                        "brainData": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              "blackboard": null,
+              "creature": null,
+              "brainData": null
+            }
+          ]
+        }
+      },
+      {
+        "$type": "ThunderRoad.AI.Action.PlayAnimation, ThunderRoad",
+        "useAddressableAddress": false,
+        "animationDataID": "HumanIdle",
+        "overrideSpeed": false,
+        "animationAddress": null,
+        "animationSpeed": 1.0,
+        "playType": "Loop",
+        "avoidLastPick": false,
+        "upperOnly": false,
+        "animDurationMinMax": {
+          "x": 2.0,
+          "y": 3.0
+        },
+        "exitAutomatically": true,
+        "interruptStop": true,
+        "mirror": false,
+        "doCallbackNode": false,
+        "callbackNode": null,
+        "blackboard": null,
+        "creature": null,
+        "brainData": null
+      }
+    ]
+  }
+}

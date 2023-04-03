@@ -10,22 +10,27 @@ using EasyButtons;
 namespace ThunderRoad
 {
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/HandlePose")]
-    public class HandlePose : MonoBehaviour
+	public class HandlePose : MonoBehaviour
     {
+        [Tooltip("References the handle this handpose is attached to.")]
         public Handle handle;
+        [Tooltip("Depicts which hand this handpose directs to.")]
         public Side side = Side.Right;
-        [CatalogPicker(Catalog.Category.HandPose)]
+        [Tooltip("ID of the handpose that is set to default if the target weight is zero.")]
+        [CatalogPicker(new[] {Category.HandPose})]
         public string defaultHandPoseId = "HandleDefault";
         [NonSerialized]
         public HandPoseData defaultHandPoseData;
         protected HandPoseData.Pose defaultHandPose;
 
         [Range(0f, 1f)]
+        [Tooltip("Blends the \"Default\" handpose and the \"Target\" handpose, allowing you to create more unique and fitting handposes without needing to create new ones.")]
         public float targetWeight;
         [NonSerialized]
         public float lastTargetWeight = -1;
 
-        [CatalogPicker(Catalog.Category.HandPose)]
+        [Tooltip("ID of the handpose that is used to blend against the default handpose. Handpose that is used if the target weight is one.")]
+        [CatalogPicker(new[] {Category.HandPose})]
         public string targetHandPoseId;
         [NonSerialized]
         public HandPoseData targetHandPoseData;
@@ -43,7 +48,7 @@ namespace ThunderRoad
 
         public void LoadHandPosesData()
         {
-            defaultHandPoseData = Catalog.GetData<HandPoseData>(defaultHandPoseId) ??
+            defaultHandPoseData = Catalog.GetData<HandPoseData>(defaultHandPoseId) ?? 
                                   Catalog.GetData<HandPoseData>("HandleDefault");
             targetHandPoseData = Catalog.GetData<HandPoseData>(targetHandPoseId);
         }
@@ -51,20 +56,31 @@ namespace ThunderRoad
 #if UNITY_EDITOR
 
         [Header("Editor Only")]
+        [Tooltip("Allows you to select a creature to test the handpose on.")]
         public Creature creature;
         [CatalogCreatureNamePicker()]
+        [Tooltip("Uses the ID of the creature to ensure that the hand bones are correct.")]
         public string creatureName = "HumanMale";
 
+        
+#if UNITY_EDITOR
         public virtual void OnValidate()
         {
-            //if (this.InPrefabMode()) return;
+            if (!this.InPrefabScene() && !Application.isBatchMode)
+            {
+                UnityEditor.EditorApplication.delayCall += _OnValidate;
+            }
+        }
+        private void _OnValidate()
+        {
+            UnityEditor.EditorApplication.delayCall -= _OnValidate;
+            if(this == null) return;
+            if (!gameObject.activeInHierarchy) return;
             if (!handle) handle = this.GetComponentInParent<Handle>();
             if (!Application.isPlaying)
             {
-                if (Catalog.gameData == null)
-                {
-                    Catalog.LoadAllJson();
-                }
+#if UNITY_EDITOR                
+                Catalog.EditorLoadAllJson();
                 defaultHandPoseData = Catalog.GetData<HandPoseData>(defaultHandPoseId);
                 if (defaultHandPoseData != null) defaultHandPose = defaultHandPoseData.GetCreaturePose(creatureName);
 
@@ -85,8 +101,11 @@ namespace ThunderRoad
                     creature.GetHand(side).poser.EditorRefreshPose(creature);
                     creature.GetHand(side).poser.SetTargetWeight(targetWeight);
                 }
+#endif
             }
         }
+#endif
+        
 
         [Button]
         public void EditorCreatureGrab()
@@ -102,7 +121,14 @@ namespace ThunderRoad
                 objectGrip.position = this.transform.position + (handle.transform.up * handle.GetDefaultAxisLocalPosition());
                 objectGrip.rotation = this.transform.rotation;
 
-                creature.GetHand(side).poser.SetGripFromPose(creature.GetHand(side).poser.defaultHandPoseData);
+                foreach (RagdollHand hand in creature.GetComponentsInChildren<RagdollHand>())
+                {
+                    if (hand.side == Side.Right) creature.handRight = hand;
+                    if (hand.side == Side.Left) creature.handLeft = hand;
+                }
+                creature.GetHand(side).poser.SetGripFromPose(defaultHandPoseData);
+                creature.GetHand(side).poser.targetWeight = targetWeight;
+                creature.GetHand(side).poser.EditorRefreshPose(creature);
 
                 alignObject.MoveAlign(objectGrip, creature.GetHand(side).grip.position, creature.GetHand(side).grip.rotation);
 
@@ -112,14 +138,13 @@ namespace ThunderRoad
 
         protected void OnDrawGizmosSelected()
         {
-            // I imagine this may need to change for the public SDK, unless we keep a stripped-down version of the catalog for it
             if (Catalog.gameData != null)
             {
-                defaultHandPoseData = Catalog.GetData<HandPoseData>(defaultHandPoseId);
-                defaultHandPose = defaultHandPoseData?.GetCreaturePose(creatureName);
+                defaultHandPoseData ??= Catalog.GetData<HandPoseData>(defaultHandPoseId);
+                if (defaultHandPoseData != null) defaultHandPose ??= defaultHandPoseData.GetCreaturePose(creatureName);
 
-                targetHandPoseData = Catalog.GetData<HandPoseData>(targetHandPoseId);
-                targetHandPose = targetHandPoseData?.GetCreaturePose(creatureName);
+                targetHandPoseData ??= Catalog.GetData<HandPoseData>(targetHandPoseId);
+                if (targetHandPoseData != null) targetHandPose ??= targetHandPoseData.GetCreaturePose(creatureName);
             }
             if (!handle) handle = GetComponentInParent<Handle>();
             if (defaultHandPose != null && CheckQuaternion(defaultHandPose.GetFingers(side).gripLocalRotation))

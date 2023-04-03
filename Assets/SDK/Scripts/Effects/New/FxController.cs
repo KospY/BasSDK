@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System;
+
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -27,8 +28,9 @@ namespace ThunderRoad
         public List<FxModule> modules;
 
 #if ODIN_INSPECTOR
-        [NonSerialized, ShowInInspector, ReadOnly]
+        [ShowInInspector, ReadOnly] 
 #endif
+        [NonSerialized]
         public object source;
 
         public event Action onLifetimeExpired;
@@ -37,6 +39,7 @@ namespace ThunderRoad
 
         private void OnValidate()
         {
+            if (!gameObject.activeInHierarchy) return;
             modules = new List<FxModule>(this.GetComponentsInChildren<FxModule>());
             foreach (FxModule module in modules)
             {
@@ -63,8 +66,10 @@ namespace ThunderRoad
         public void Play()
         {
             Refresh();
-            foreach (FxModule module in modules)
+            int modulesCount = modules.Count;
+            for (var i = 0; i < modulesCount; i++)
             {
+                FxModule module = modules[i];
                 module.controller = this;
                 module.Play();
             }
@@ -74,8 +79,10 @@ namespace ThunderRoad
         public void SetIntensity(float intensity)
         {
             this.intensity = intensity;
-            foreach (FxModule module in modules)
+            int modulesCount = modules.Count;
+            for (var i = 0; i < modulesCount; i++)
             {
+                FxModule module = modules[i];
                 module.controller = this;
                 module.SetIntensity(intensity);
             }
@@ -84,16 +91,20 @@ namespace ThunderRoad
         public void SetSpeed(float speed)
         {
             this.speed = speed;
-            foreach (FxModule module in modules)
+            var modulesCount = modules.Count;
+            for (var i = 0; i < modulesCount; i++)
             {
+                FxModule module = modules[i];
                 module.SetSpeed(speed);
             }
         }
 
         public void Refresh()
         {
-            foreach (FxModule module in modules)
+            int modulesCount = modules.Count;
+            for (var i = 0; i < modulesCount; i++)
             {
+                FxModule module = modules[i];
                 module.controller = this;
                 module.SetIntensity(intensity);
                 module.SetSpeed(speed);
@@ -103,8 +114,10 @@ namespace ThunderRoad
         [Button]
         public void Stop()
         {
-            foreach (FxModule module in modules)
+            int modulesCount = modules.Count;
+            for (var i = 0; i < modulesCount; i++)
             {
+                FxModule module = modules[i];
                 module.controller = this;
                 module.Stop();
             }

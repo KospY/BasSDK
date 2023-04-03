@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using ThunderRoad.Plugins;
 using UnityEngine;
 
 #if ODIN_INSPECTOR
@@ -42,16 +41,16 @@ namespace ThunderRoad
         protected MaterialInstance materialInstance;
         private SpringJoint springJoint;
         private Transform meshTransform;
-#if PrivateSDK
-        private EffectInstance effectInstance;
+
         private static readonly int BaseMapSt = Shader.PropertyToID("_BaseMap_ST");
         private Vector4 ropeScaling = Vector4.zero;
-#endif
+        private Area area = null;
+
 
 #if ODIN_INSPECTOR
         public List<ValueDropdownItem<string>> GetAllEffectID()
         {
-            return Catalog.GetDropdownAllID(Catalog.Category.Effect);
+            return Catalog.GetDropdownAllID(Category.Effect);
         }
 #endif
 
@@ -111,6 +110,13 @@ namespace ThunderRoad
             meshTransform.position = Vector3.Lerp(position, targetAnchorPosition, 0.5f);
             meshTransform.rotation = Quaternion.FromToRotation(mesh.transform.TransformDirection(Vector3.up), targetAnchorPosition - position) * mesh.transform.rotation;
             float distance = Vector3.Distance(position, targetAnchorPosition);
+            mesh.transform.localScale = new Vector3(radius, distance * 0.5f, radius);
+            if (materialInstance && materialInstance.CachedRenderer && materialInstance.CachedRenderer.isVisible)
+            {
+                ropeScaling.y = distance * tilingOffset;
+                materialInstance.material.SetVector(BaseMapSt, ropeScaling);
+            }
+
         }
 
         protected void OnDrawGizmos()

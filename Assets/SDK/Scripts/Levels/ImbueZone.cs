@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
+
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
 using EasyButtons;
 #endif
-using UnityEngine;
 
 namespace ThunderRoad
 {
@@ -17,6 +18,5 @@ namespace ThunderRoad
         public float transferMaxPercent = 50f;
 
         public string imbueSpellId;
-
     }
 }

@@ -1,0 +1,29 @@
+{
+  "$type": "ThunderRoad.AreaTable, ThunderRoad",
+  "id": "GL_End",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "areaSettingTable": {
+    "$type": "ThunderRoad.AreaTable+AreaSettingsTable, ThunderRoad",
+    "drops": [
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "GL_End_Cave_TheLostCove",
+            "category": "Area"
+          },
+          "exitConnection": [],
+          "entranceConnection": [
+            0
+          ],
+          "maxCreature": 4
+        },
+        "probabilityWeight": 1.0
+      }
+    ]
+  }
+}

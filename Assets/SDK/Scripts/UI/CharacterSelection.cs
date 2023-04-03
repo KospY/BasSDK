@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +14,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
-	public class CharacterSelection : MonoBehaviour
+    public class CharacterSelection : MonoBehaviour
     {
         [Serializable]
         public class CharacterSlot
@@ -30,6 +31,9 @@ namespace ThunderRoad
         public GameObject canvas = null;
 
         public GameObject messagePage = null;
+        public GameObject optionsPage = null;
+        public GameObject modManager = null;
+        public GameObject loadingBarScreen = null;
         public GameObject characterSelectionPage = null;
         public GameObject gameModeSelectionPage = null;
         public GameObject customisationPage = null;
@@ -37,26 +41,43 @@ namespace ThunderRoad
         public GameObject mapSelectionPage = null;
         public GameObject deleteMessagePage = null;
         public GameObject tutorialMessagePage = null;
+        public GameObject characterMovementUI;
+        public GameObject optionsMenuAnchor;
+
+        
+        public TextMeshProUGUI loadingBarStage = null;
+        public TextMeshProUGUI loadingBarPercentage = null;
 
         public Button customizeButton = null;
         public Button deleteButton = null;
         public Button characterSelectionStartButton = null;
+        public GameObject disabledModManagerWarning = null;
+        public UICustomisableButton modManagerButton = null;
 
-        public Text[] currentGameModeText = null;
-        public Text[] currentPlayerIndexText = null;
+        public TextMeshProUGUI currentPlaytime = null;
+        public TextMeshProUGUI[] currentGameModeText = null;
+        public TextMeshProUGUI[] currentPlayerIndexText = null;
 
         public string validationSound = "";
+        public AudioSource uiValidatioAudioSource = null;
+        public float validationVolumeDB;
         public string cancelSound = "";
+        public AudioSource uiCancelAudioSource = null;
+        public float cancelVolumeDB;
         public string switchSound = "";
+        public AudioSource uiSwitchAudioSource = null;
+        public float switchVolumeDB;
+        public string lightSound = "";
+        public AudioSource uiLightAudioSource = null;
+        public float lightVolumeDB;
 
         public AnimationClip characterMalePose;
         public AnimationClip characterFemalePose;
 
-        private AudioClip validationSoundClip = null;
-        private AudioClip cancelSoundClip = null;
-        private AudioClip switchSoundClip = null;
-
-        private AudioSource uiAudioSource = null;
+        private AudioContainer validationSoundClipContainer = null;
+        private AudioContainer cancelSoundClipContainer = null;
+        private AudioContainer switchSoundClipContainer = null;
+        private AudioContainer lightSoundClipContainer = null;
 
         private List<Texture2D> loadedTextures = null;
 
@@ -87,6 +108,13 @@ namespace ThunderRoad
         [Header("MAP SELECTION")]
         public UISelectionListButtonsMapSelection mapSelectionButton = null;
         public UIMapLevelMode mapSelectionLevelMode = null;
+
+        [Header("Character movement")]
+        public Transform characterMinPosition;
+        public Transform characterMaxPosition;
+        public float characterTranslationSpeed = 2f;
+        public float characterRotationSpeed = 100f;
+
 
     }
 }

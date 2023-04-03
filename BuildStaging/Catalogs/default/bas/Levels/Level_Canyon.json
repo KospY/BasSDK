@@ -1,0 +1,54 @@
+{
+  "$type": "ThunderRoad.LevelData, ThunderRoad",
+  "id": "Canyon",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 3,
+  "name": "Canyon",
+  "description": "A temple village lies hidden above a flowing river.\nThe Canyon has many ropes and bridges connecting both sides.",
+  "descriptionLocalizationId": "CanyonDescription",
+  "sceneAddress": "Bas.Level.Canyon",
+  "showOnlyDevMode": false,
+  "showInLevelSelection": false,
+  "savePlayerInventoryOnUnload": false,
+  "worldmapPrefabAddress": "Bas.Image.Map.Default",
+  "mapLocationIndex": 5,
+  "showOnMap": true,
+  "hideOnAndroid": false,
+  "mapLocationIconAddress": "Bas.Icon.Location.Arena",
+  "mapLocationIconHoverAddress": "Bas.Icon.Location.ArenaHover",
+  "mapPreviewImageAddress": "Bas.Image.Preview.Canyon",
+  "modes": [
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "Sandbox",
+      "displayName": "Sandbox",
+      "description": "SandboxDescription",
+      "allowGameModes": [
+        "Sandbox"
+      ],
+      "mapOrder": 0,
+      "difficultyMultipliers": [],
+      "playerCanDie": true,
+      "deathLossAddress": "Bas.Loss.Death",
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleMusic, ThunderRoad",
+          "dynamicMusic": "MusicArenaCanyon"
+        },
+        {
+          "$type": "LevelModuleResetSpawners, ThunderRoad"
+        }
+      ],
+      "availableOptions": []
+    }
+  ],
+  "modePickCountPerRank": 2,
+  "customCameras": [],
+  "throwableRefType": "Item",
+  "improvisedThrowableID": null
+}

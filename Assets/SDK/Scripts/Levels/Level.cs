@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine.Events;
-using UnityEngine.InputSystem.Controls;
 
 #if DUNGEN
 #endif
@@ -23,13 +22,24 @@ namespace ThunderRoad
         public static Level current;
         public static Level master;
 
+        [Tooltip("When ticked, player will spawn.")]
         public bool spawnPlayer = true;
-#if UNITY_EDITOR
-        public bool forceLinearFog = true;
-#endif
-
+        [Tooltip("Container of the player when the player loads in to this level.")]
         public string playerSpawnerId = "default";
 
+#if ODIN_INSPECTOR
+        [InlineButton("CreateLightingPreset", "Create")]
+#endif
+        public LightingPreset defaultLightingPreset;
+        [System.NonSerialized]
+        public LightingPreset currentLightingPreset;
+
+#if UNITY_EDITOR
+        protected void CreateLightingPreset()
+        {
+            defaultLightingPreset = LightingPreset.Create(this);
+        }
+#endif
 
         public List<CustomReference> customReferences;
 
@@ -39,10 +49,31 @@ namespace ThunderRoad
         [NonSerialized]
         public bool loaded;
 
+#if ODIN_INSPECTOR
+        [ShowInInspector]
+#endif
+        public static int seed
+        {
+            get
+            {
+                return _seed;
+            }
+            set
+            {
+                _seed = value;
+                UnityEngine.Random.InitState(_seed);
+            }
+        }
+
+        private static int _seed;
+
         [NonSerialized]
         public Color originalFogColor;
         [NonSerialized]
         public Color originalShadowColor;
+
+        [NonSerialized]
+        public bool forceSavePlayerInventoryOnUnload;
 
         [Serializable]
         public class CustomReference
@@ -60,14 +91,6 @@ namespace ThunderRoad
 
         public UnityEvent loadedEvent;
 
-#if UNITY_EDITOR
-       private void OnValidate () 
-       {
-            UnityEditor.EditorPrefs.SetBool("TRAB.ForceLinearFog", forceLinearFog);
-       }
-#endif
-
-#if PrivateSDK
         [Button]
         public static void CheckLightMapMode()
         {
@@ -88,25 +111,10 @@ namespace ThunderRoad
             LightProbes.Tetrahedralize();
         }
 
-        protected virtual void Awake()
+        public static void GenerateNewSeed()
         {
-            if (gameObject.scene.name.ToLower() == "master")
-            {
-                master = this;
-                return;
-            }
-            else
-            {
-                current = this;
-            }
-            originalFogColor = RenderSettings.fogColor;
-            originalShadowColor = RenderSettings.subtractiveShadowColor;
-            dungeon = GameObject.FindObjectOfType<Dungeon>();
+            seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
         }
-
-        [NonSerialized, ShowInInspector, ReadOnly]
-        public Dungeon dungeon;
-#endif
-
+        
     }
 }

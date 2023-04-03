@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;

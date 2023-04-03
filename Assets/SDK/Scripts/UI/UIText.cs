@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -13,7 +13,7 @@ namespace ThunderRoad
     public class UIText : MonoBehaviour
     {
 #if ODIN_INSPECTOR
-        [ValueDropdown("GetAllTextGroupID")]
+        [ValueDropdown("GetAllTextGroupID")] 
 #endif
         public string textGroupId;
 

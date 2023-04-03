@@ -1,0 +1,25 @@
+{
+  "$type": "ThunderRoad.AreaConnectionTypeData, ThunderRoad",
+  "id": "GL_Exterior",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "size": {
+    "x": 2.5,
+    "y": 2.75
+  },
+  "randomBlockerTableAdress": {
+    "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+    "drops": [
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[System.String, mscorlib]], ThunderRoad",
+        "dropItem": "Bas.AreaBlockers.WoodFenceDoor",
+        "probabilityWeight": 1.0
+      }
+    ]
+  },
+  "randomGateTableAdress": {
+    "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+    "drops": []
+  }
+}

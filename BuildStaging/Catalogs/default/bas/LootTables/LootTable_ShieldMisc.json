@@ -1,0 +1,22 @@
+{
+  "$type": "ThunderRoad.LootTable, ThunderRoad",
+  "id": "ShieldMisc",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "groupPath": "Shields",
+  "drops": [
+    {
+      "$type": "ThunderRoad.LootTable+Drop, ThunderRoad",
+      "referenceID": "ShieldBucklers",
+      "reference": "Table",
+      "probabilityWeight": 4.0
+    },
+    {
+      "$type": "ThunderRoad.LootTable+Drop, ThunderRoad",
+      "referenceID": "ShieldStrapped",
+      "reference": "Table",
+      "probabilityWeight": 3.0
+    }
+  ]
+}

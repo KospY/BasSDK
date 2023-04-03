@@ -1,12 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using System;
-
-#if ODIN_INSPECTOR
-#else
-using EasyButtons;
-#endif
 
 namespace ThunderRoad
 {
@@ -16,6 +10,7 @@ namespace ThunderRoad
         [Header("Audio")]
         public string audioContainerAddress;
         public AssetReferenceAudioContainer audioContainerReference;
+        public AudioClip audioClip;
         public bool abnormalNoise;
         public float volumeDb;
         public bool useRandomTime;
@@ -68,12 +63,12 @@ namespace ThunderRoad
             audioSource = this.GetComponent<AudioSource>();
         }
 
-        private void OnDisable()
+        protected override void ManagedOnDisable()
         {
             wasPlaying = audioSource.isPlaying;
         }
 
-        private void OnEnable()
+        protected override void ManagedOnEnable()
         {
             if (wasPlaying)
             {
@@ -114,31 +109,31 @@ namespace ThunderRoad
             // Load audioclip
             if (audioContainerAddress != null && audioContainerAddress != "")
             {
-                Addressables.LoadAssetAsync<AudioContainer>(audioContainerAddress).Completed += (handle) =>
+                Catalog.LoadAssetAsync<AudioContainer>(audioContainerAddress, (result) =>
                 {
-                    if (handle.Status == AsyncOperationStatus.Succeeded)
-                    {
-                        audioContainer = handle.Result;
-                        audioSource.clip = audioContainer.PickAudioClip();
-                        if (playOnLoad) Play();
-                        playOnLoad = false;
-                        clipLoadedFromAddressable = true;
-                    }
-                };
+                    audioContainer = result;
+                    audioSource.clip = audioContainer.PickAudioClip();
+                    if (playOnLoad) Play();
+                    playOnLoad = false;
+                    clipLoadedFromAddressable = true;
+                },audioContainerAddress);
             }
             else if (audioContainerReference != null && !string.IsNullOrEmpty(audioContainerReference.AssetGUID))
             {
-                Addressables.LoadAssetAsync<AudioContainer>(audioContainerReference).Completed += (handle) =>
+                Catalog.LoadAssetAsync<AudioContainer>(audioContainerReference, (result) =>
                 {
-                    if (handle.Status == AsyncOperationStatus.Succeeded)
-                    {
-                        audioContainer = handle.Result;
-                        audioSource.clip = audioContainer.PickAudioClip();
-                        if (playOnLoad) Play();
-                        playOnLoad = false;
-                        clipLoadedFromAddressable = true;
-                    }
-                };
+                    audioContainer = result;
+                    audioSource.clip = audioContainer.PickAudioClip();
+                    if (playOnLoad) Play();
+                    playOnLoad = false;
+                    clipLoadedFromAddressable = true;
+                }, audioContainerReference.AssetGUID);
+            }
+            else if (audioClip)
+            {
+                audioSource.clip = audioClip;
+                playOnLoad = false;
+                clipLoadedFromAddressable = false;
             }
         }
 
@@ -155,11 +150,11 @@ namespace ThunderRoad
 
         public override void SetSpeed(float speed)
         {
-            this.speed = speed;
+            this.speed = speed < 0.00001f ? 0.0f : speed;
             Refresh();
         }
 
-        protected void Refresh()
+        public void Refresh()
         {
             if (volume.TryGetValue(intensity, speed, out float value))
             {

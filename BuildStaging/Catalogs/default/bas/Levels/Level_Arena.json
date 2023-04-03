@@ -1,0 +1,179 @@
+{
+  "$type": "ThunderRoad.LevelData, ThunderRoad",
+  "id": "Arena",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 3,
+  "name": "Arena",
+  "description": "The Arena is a small amphitheater where gladiators do battle.\nA great map for new players to hone their skills or fight 1v1.",
+  "descriptionLocalizationId": "ArenaDescription",
+  "sceneAddress": "Bas.Level.Arena",
+  "showOnlyDevMode": false,
+  "showInLevelSelection": true,
+  "savePlayerInventoryOnUnload": false,
+  "worldmapPrefabAddress": "Bas.Image.Map.Default",
+  "mapLocationIndex": 1,
+  "showOnMap": true,
+  "hideOnAndroid": false,
+  "mapLocationIconAddress": "Bas.Icon.Location.Arena",
+  "mapLocationIconHoverAddress": "Bas.Icon.Location.ArenaHover",
+  "mapPreviewImageAddress": "Bas.Image.Preview.Arena",
+  "modes": [
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "Sandbox",
+      "displayName": "Sandbox",
+      "description": "SandboxDescription",
+      "allowGameModes": [
+        "Sandbox"
+      ],
+      "mapOrder": 0,
+      "difficultyMultipliers": [],
+      "playerCanDie": true,
+      "deathLossAddress": "Bas.Loss.Death",
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleMusic, ThunderRoad",
+          "dynamicMusic": "MusicArena "
+        },
+        {
+          "$type": "LevelModuleResetSpawners, ThunderRoad"
+        }
+      ],
+      "availableOptions": []
+    },
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "Survival",
+      "displayName": "Survival",
+      "description": "SurvivalDescription",
+      "allowGameModes": [
+        "Sandbox",
+        "Arcade"
+      ],
+      "mapOrder": 1,
+      "difficultyMultipliers": [],
+      "playerCanDie": true,
+      "deathLossAddress": "Bas.Loss.Death",
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleSurvival, ThunderRoad",
+          "textGroupId": "Survival",
+          "textNextWaveId": "NextWave",
+          "textFightId": "Fight",
+          "textWaveId": "Wave",
+          "startDelay": 3.0,
+          "delayBetweenWave": 3,
+          "disallowHealthPotions": true,
+          "repeatLastWaveIndefinitely": true,
+          "canOnlyUseRewards": false,
+          "rewardsToSpawn": 3,
+          "drivePositionSpring": 100.0,
+          "drivePositionDamper": 2.0,
+          "slerpPositionSpring": 200.0,
+          "slerpPositionDamper": 0.0,
+          "spawnPositionHeight": 2.0,
+          "wavesNumberForReward": 1,
+          "waves": [
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Recruit1",
+              "containerID": "WeaponRewards1"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Recruit2",
+              "containerID": "WeaponRewards1"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Recruit3",
+              "containerID": "WeaponRewards1"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Gladiator1",
+              "containerID": "WeaponRewards2"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Gladiator2",
+              "containerID": "WeaponRewards3"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Gladiator3",
+              "containerID": "WeaponRewards4"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Bandit1",
+              "containerID": "WeaponRewards5"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Bandit2",
+              "containerID": "WeaponRewards6"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Bandit3",
+              "containerID": "WeaponRewards7"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Knight1",
+              "containerID": "WeaponRewards8"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Knight2",
+              "containerID": "WeaponRewards9"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Knight3",
+              "containerID": "WeaponRewards10"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Knight2",
+              "containerID": "WeaponRewards9"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Knight3",
+              "containerID": "WeaponRewards10"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "MixedSpecial",
+              "containerID": "WeaponRewards10"
+            }
+          ],
+          "firstRewardsContainerID": "WeaponRewards1"
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleMusic, ThunderRoad",
+          "dynamicMusic": "MusicArena "
+        },
+        {
+          "$type": "LevelModuleResetSpawners, ThunderRoad"
+        }
+      ],
+      "availableOptions": []
+    }
+  ],
+  "modePickCountPerRank": 2,
+  "customCameras": [],
+  "throwableRefType": "Item",
+  "improvisedThrowableID": ""
+}

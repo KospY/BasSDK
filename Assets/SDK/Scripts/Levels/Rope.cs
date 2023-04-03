@@ -21,6 +21,8 @@ namespace ThunderRoad
         public float raycastRange = 50.0f;
         public float heightFromGround = 2.0f;
 
+        private bool isGenerated = false;
+
 
         protected virtual void OnDrawGizmos()
         {

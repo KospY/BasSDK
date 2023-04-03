@@ -1,0 +1,22 @@
+{
+  "$type": "ThunderRoad.LootTable, ThunderRoad",
+  "id": "MiscHandL",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "groupPath": "Armors",
+  "drops": [
+    {
+      "$type": "ThunderRoad.LootTable+Drop, ThunderRoad",
+      "referenceID": "LeatherHandL",
+      "reference": "Table",
+      "probabilityWeight": 2.0
+    },
+    {
+      "$type": "ThunderRoad.LootTable+Drop, ThunderRoad",
+      "referenceID": "PlateHandL",
+      "reference": "Table",
+      "probabilityWeight": 1.0
+    }
+  ]
+}

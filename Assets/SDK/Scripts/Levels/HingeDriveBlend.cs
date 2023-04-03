@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
-using System.Collections.Generic;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -18,28 +17,11 @@ namespace ThunderRoad
         public DisableBehavior disableBehavior = DisableBehavior.OutputLastCurveValue;
         public UnityEvent<float> output = new UnityEvent<float>();
 
-#if ODIN_INSPECTOR
-        [ShowInInspector, ReadOnly]
-#endif
-        private float hingeAngleRatio;
-
         public enum DisableBehavior
         {
             None,
             OutputLastCurveValue,
             OutputFirstCurveValue,
-        }
-
-        private void OnDisable()
-        {
-            if (disableBehavior == DisableBehavior.OutputLastCurveValue)
-            {
-                output?.Invoke(curve.GetLastValue());
-            }
-            else if (disableBehavior == DisableBehavior.OutputFirstCurveValue)
-            {
-                output?.Invoke(curve.GetFirstValue());
-            }
         }
 
     }

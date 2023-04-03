@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System;
-using UnityEngine.UIElements;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -16,11 +15,13 @@ namespace ThunderRoad
     {
         public RagdollHand ragdollHand;
 
+        [CatalogPicker(new[] {Category.HandPose})]
         public string defaultHandPoseId = "DefaultOpen";
 
         [Range(0f, 1f)]
         public float targetWeight;
 
+        [CatalogPicker(new[] {Category.HandPose})]
         public string targetHandPoseId = "DefaultClose";
 
         public bool globalRatio = true;
@@ -40,6 +41,8 @@ namespace ThunderRoad
         public bool allowMiddleTracking = true;
         public bool allowRingTracking = true;
         public bool allowLittleTracking = true;
+
+        public HandPoseData.Pose.MirrorParams mirrorParams;
 
         [NonSerialized]
         public bool thumbPositionReached;
@@ -66,20 +69,79 @@ namespace ThunderRoad
         protected Coroutine moveToFingerPoseCoroutine;
 
 #if UNITY_EDITOR
+        [CatalogPicker(new[] {Category.HandPose})]
         public string saveHandPoseId = "NewHandPose";
+        protected string lastSaveHandPoseId;
 
         public void OnValidate()
         {
+            if (!gameObject.activeInHierarchy) return;
+            if (Application.isBatchMode) return;
             if (ragdollHand == null) ragdollHand = GetComponentInParent<RagdollHand>();
             if (ragdollHand.creature)
             {
+                Catalog.EditorLoadAllJson();
 
-                EditorRefreshPose(ragdollHand.creature);
+                if (ragdollHand.creature.data == null)
+                {
+                    ragdollHand.creature.data = Catalog.GetData<CreatureData>(ragdollHand.creature.creatureId);
+                }
+
+                if (defaultHandPoseData == null || defaultHandPoseData.id != defaultHandPoseId)
+                {
+                    defaultHandPoseData = Catalog.GetData<HandPoseData>(defaultHandPoseId);
+                }
+
+                if (targetHandPoseData == null || targetHandPoseData.id != targetHandPoseId)
+                {
+                    targetHandPoseData = Catalog.GetData<HandPoseData>(targetHandPoseId);
+                }
+                if (lastSaveHandPoseId == saveHandPoseId)
+                {
+                    // Avoid refresh when selecting a save pose ID
+                    EditorRefreshPose(ragdollHand.creature);              
+                }
+                lastSaveHandPoseId = saveHandPoseId;
             }
         }
 
         public void EditorRefreshPose(Creature creature)
         {
+            if (ragdollHand.creature.data == null)
+            {
+                ragdollHand.creature.data = Catalog.GetData<CreatureData>(ragdollHand.creature.creatureId);
+            }
+
+            if (defaultHandPoseData != null)
+            {
+                HandPoseData.Pose pose = defaultHandPoseData.GetCreaturePose(ragdollHand.creature);
+                if (pose != null)
+                {
+                    defaultHandPoseFingers = pose.GetFingers(ragdollHand.side);
+                }
+                else
+                {
+                    Debug.LogError($"Could not find creature pose {defaultHandPoseData.id} for {ragdollHand.creature.data.name}");
+                }
+            }
+            if (targetHandPoseData != null)
+            {
+                HandPoseData.Pose pose = targetHandPoseData.GetCreaturePose(ragdollHand.creature);
+                if (pose != null)
+                {
+                    targetHandPoseFingers = pose.GetFingers(ragdollHand.side);
+                    hasTargetHandPose = true;
+                }
+                else
+                {
+                    Debug.LogError($"Could not find creature pose {targetHandPoseData.id} for {ragdollHand.creature.data.name}");
+                    hasTargetHandPose = false;
+                }
+            }
+            else
+            {
+                hasTargetHandPose = false;
+            }
 
             if (defaultHandPoseFingers != null && targetHandPoseFingers != null)
             {
@@ -110,6 +172,43 @@ namespace ThunderRoad
 
         public void SaveToHandPose(string handPoseId)
         {
+            if (handPoseId != null && handPoseId != "")
+            {
+                if (ragdollHand.creature.data == null)
+                {
+                    ragdollHand.creature.data = Catalog.GetData<CreatureData>(ragdollHand.creature.creatureId);
+                }
+                HandPoseData handPoseData = Catalog.GetData<HandPoseData>(handPoseId, false);
+                if (handPoseData == null)
+                {
+                    Debug.Log("Handpose " + handPoseId + " doesn't exist, creating a new one...");
+                    handPoseData = new HandPoseData();
+                    handPoseData.id = handPoseId;
+                    handPoseData.Init();
+                    handPoseData.OnCatalogRefresh();
+                    Catalog.GetDataList(Category.HandPose).Add(handPoseData);
+                    handPoseData.AddCreaturePose(ragdollHand.creature);
+                }
+
+                HandPoseData.Pose pose = handPoseData.GetCreaturePose(ragdollHand.creature);
+                if (pose == null)
+                {
+                    handPoseData.AddCreaturePose(ragdollHand.creature.data.name);
+                }
+
+                HandPoseData.Pose.Fingers handCreaturePoseFingers = handPoseData.GetCreaturePose(ragdollHand.creature).GetFingers(ragdollHand.side);
+                SaveFinger(handCreaturePoseFingers.thumb, ragdollHand.fingerThumb);
+                SaveFinger(handCreaturePoseFingers.index, ragdollHand.fingerIndex);
+                SaveFinger(handCreaturePoseFingers.middle, ragdollHand.fingerMiddle);
+                SaveFinger(handCreaturePoseFingers.ring, ragdollHand.fingerRing);
+                SaveFinger(handCreaturePoseFingers.little, ragdollHand.fingerLittle);
+                handCreaturePoseFingers.gripLocalPosition = ragdollHand.grip.localPosition;
+                handCreaturePoseFingers.gripLocalRotation = ragdollHand.grip.localRotation;
+                handCreaturePoseFingers.rootLocalPosition = ragdollHand.grip.InverseTransformPoint(ragdollHand.transform.position);
+                handPoseData.GetCreaturePose(ragdollHand.creature).Save(ragdollHand.side, mirrorParams);
+                Catalog.SaveToJson(handPoseData);
+                Debug.Log("Handpose " + handPoseId + " Saved!");
+            }
         }
 
         protected virtual void SaveFinger(HandPoseData.Pose.Finger poseFinger, RagdollHand.Finger finger)
@@ -122,6 +221,7 @@ namespace ThunderRoad
             poseFinger.distal.localRotation = finger.distal.mesh.transform.localRotation;
             poseFinger.tipLocalPosition = finger.tip.localPosition;
         }
+
 #endif
 
         public void UpdatePoseThumb(float targetWeight)
@@ -154,26 +254,30 @@ namespace ThunderRoad
             else UpdateFinger(ragdollHand.fingerLittle, defaultHandPoseFingers.little);
         }
 
+        public void UpdatePose(HandPoseData.FingerType finger, float weight)
+        {
+            UpdateFinger(ragdollHand.GetFinger(finger), defaultHandPoseFingers.GetFinger(finger));
+        }
         public virtual void UpdateFinger(RagdollHand.Finger finger, HandPoseData.Pose.Finger defaultHandPoseFingers, HandPoseData.Pose.Finger targetHandPoseFingers, float targetWeight)
         {
-            Vector3 proximalPos = Vector3.Lerp(defaultHandPoseFingers.proximal.localPosition, targetHandPoseFingers.proximal.localPosition, targetWeight);
-            Quaternion proximalRot = Quaternion.Lerp(defaultHandPoseFingers.proximal.localRotation, targetHandPoseFingers.proximal.localRotation, targetWeight);
-            Transform proximalTransform = finger.proximal.collider.transform;
-            proximalTransform.localPosition = proximalPos;
-            proximalTransform.localRotation = proximalRot;
 
+            HandPoseData.Pose.Finger.Bone proximal = defaultHandPoseFingers.proximal;
+            Vector3 proximalPos = Vector3.Lerp(proximal.localPosition, targetHandPoseFingers.proximal.localPosition, targetWeight);
+            Quaternion proximalRot = Quaternion.Lerp(proximal.localRotation, targetHandPoseFingers.proximal.localRotation, targetWeight);
+            Transform proximalTransform = finger.proximal.collider.transform;
+            proximalTransform.SetPositionAndRotation(ragdollHand.transform.TransformPoint(proximalPos), ragdollHand.transform.TransformRotation(proximalRot));
+            
             Vector3 intermediatePos = Vector3.Lerp(defaultHandPoseFingers.intermediate.localPosition, targetHandPoseFingers.intermediate.localPosition, targetWeight);
             Quaternion intermediateRot = Quaternion.Lerp(defaultHandPoseFingers.intermediate.localRotation, targetHandPoseFingers.intermediate.localRotation, targetWeight);
             Transform intermediateTransform = finger.intermediate.collider.transform;
-            intermediateTransform.localPosition = intermediatePos;
-            intermediateTransform.localRotation = intermediateRot;
+            intermediateTransform.SetLocalPositionAndRotation(intermediatePos, intermediateRot);
 
             Vector3 distalPos = Vector3.Lerp(defaultHandPoseFingers.distal.localPosition, targetHandPoseFingers.distal.localPosition, targetWeight);
             Quaternion distalRot = Quaternion.Lerp(defaultHandPoseFingers.distal.localRotation, targetHandPoseFingers.distal.localRotation, targetWeight);
             Transform distalTransform = finger.distal.collider.transform;
-            distalTransform.localPosition = distalPos;
-            distalTransform.localRotation = distalRot;
-
+            distalTransform.SetLocalPositionAndRotation(distalPos, distalRot);
+            
+#if UNITY_EDITOR
             if (!Application.isPlaying)
             {
                 proximalTransform = finger.proximal.mesh.transform;
@@ -186,35 +290,42 @@ namespace ThunderRoad
                 distalTransform.localPosition = distalPos;
                 distalTransform.localRotation = distalRot;
             }
+#endif            
         }
 
         public virtual void UpdateFinger(RagdollHand.Finger finger, HandPoseData.Pose.Finger defaultHandPoseFingers)
         {
             Transform proximalTransform = finger.proximal.collider.transform;
-            proximalTransform.localPosition = defaultHandPoseFingers.proximal.localPosition;
-            proximalTransform.localRotation = defaultHandPoseFingers.proximal.localRotation;
+            proximalTransform.SetLocalPositionAndRotation(defaultHandPoseFingers.proximal.localPosition, defaultHandPoseFingers.proximal.localRotation);
             Transform intermediateTransform = finger.intermediate.collider.transform;
-            intermediateTransform.localPosition = defaultHandPoseFingers.intermediate.localPosition;
-            intermediateTransform.localRotation = defaultHandPoseFingers.intermediate.localRotation;
+            intermediateTransform.SetLocalPositionAndRotation(defaultHandPoseFingers.intermediate.localPosition, defaultHandPoseFingers.intermediate.localRotation);
             Transform distalTransform = finger.distal.collider.transform;
-            distalTransform.localPosition = defaultHandPoseFingers.distal.localPosition;
-            distalTransform.localRotation = defaultHandPoseFingers.distal.localRotation;
+            distalTransform.SetLocalPositionAndRotation(defaultHandPoseFingers.distal.localPosition, defaultHandPoseFingers.distal.localRotation);
         }
 
         public void SetGripFromPose(HandPoseData handPoseData)
         {
             if (handPoseData == null)
             {
-                if (defaultHandPoseData == null)
+                if(defaultHandPoseData == null)
                     ResetDefaultPose();
-
+                
                 handPoseData = defaultHandPoseData;
                 if (handPoseData == null) return;
             }
 
-            ragdollHand.grip.localPosition = handPoseData.GetCreaturePose(ragdollHand.creature).GetFingers(ragdollHand.side).gripLocalPosition;
-            ragdollHand.grip.localRotation = handPoseData.GetCreaturePose(ragdollHand.creature).GetFingers(ragdollHand.side).gripLocalRotation;
-            ragdollHand.grip.localScale = Vector3.one;
+            HandPoseData.Pose pose = handPoseData.GetCreaturePose(ragdollHand.creature);
+            if (pose != null)
+            {
+                Transform handGrip = ragdollHand.grip;
+                HandPoseData.Pose.Fingers fingers = pose.GetFingers(ragdollHand.side);
+                handGrip.SetLocalPositionAndRotation(fingers.gripLocalPosition, fingers.gripLocalRotation);
+                handGrip.localScale = Vector3.one;
+            }
+            else
+            {
+                Debug.LogError($"Could not find creature pose {handPoseData.id} for {ragdollHand.creature.data.name}");
+            }
         }
 
         public void SetDefaultPose(HandPoseData handPoseData)
@@ -231,51 +342,8 @@ namespace ThunderRoad
 
         public void ResetDefaultPose()
         {
+            defaultHandPoseData = Catalog.GetData<HandPoseData>(defaultHandPoseId);
             defaultHandPoseFingers = defaultHandPoseData.GetCreaturePose(ragdollHand.creature).GetFingers(ragdollHand.side);
-        }
-
-        public void SetTargetPose(HandPoseData handPoseData, bool allowThumbTracking = false, bool allowIndexTracking = false, bool allowMiddleTracking = false, bool allowRingTracking = false, bool allowLittleTracking = false)
-        {
-            if (handPoseData == null)
-            {
-                ResetTargetPose();
-                return;
-            }
-
-            targetHandPoseData = handPoseData;
-            if (targetHandPoseData == null)
-            {
-                targetHandPoseFingers = null;
-                hasTargetHandPose = false;
-                this.allowThumbTracking = this.allowIndexTracking = this.allowMiddleTracking = this.allowRingTracking = this.allowLittleTracking = false;
-            }
-            else
-            {
-                targetHandPoseFingers = targetHandPoseData.GetCreaturePose(ragdollHand.creature).GetFingers(ragdollHand.side);
-                hasTargetHandPose = true;
-                this.allowThumbTracking = allowThumbTracking;
-                this.allowIndexTracking = allowIndexTracking;
-                this.allowMiddleTracking = allowMiddleTracking;
-                this.allowRingTracking = allowRingTracking;
-                this.allowLittleTracking = allowLittleTracking;
-            }
-        }
-
-        public void ResetTargetPose()
-        {
-
-            if (targetHandPoseData == null)
-            {
-                targetHandPoseFingers = null;
-                hasTargetHandPose = false;
-                allowThumbTracking = allowIndexTracking = allowMiddleTracking = allowRingTracking = allowLittleTracking = false;
-            }
-            else
-            {
-                targetHandPoseFingers = targetHandPoseData.GetCreaturePose(ragdollHand.creature).GetFingers(ragdollHand.side);
-                hasTargetHandPose = true;
-                allowThumbTracking = allowIndexTracking = allowMiddleTracking = allowRingTracking = allowLittleTracking = true;
-            }
         }
 
         public void SetTargetWeight(float weight)
@@ -314,6 +382,19 @@ namespace ThunderRoad
                 Gizmos.DrawWireCube(new Vector3(0, 0, 0), new Vector3(0.01f, 0.05f, 0.01f));
                 Gizmos.DrawWireCube(new Vector3(0f, 0.03f, 0.01f), new Vector3(0.01f, 0.01f, 0.03f));
             }
+        }
+
+        public float GetCloseWeight(HandPoseData.FingerType type)
+        {
+            return type switch
+            {
+                HandPoseData.FingerType.Thumb => thumbCloseWeight,
+                HandPoseData.FingerType.Index => indexCloseWeight,
+                HandPoseData.FingerType.Middle => middleCloseWeight,
+                HandPoseData.FingerType.Ring => ringCloseWeight,
+                HandPoseData.FingerType.Little => littleCloseWeight,
+                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+            };
         }
     }
 }

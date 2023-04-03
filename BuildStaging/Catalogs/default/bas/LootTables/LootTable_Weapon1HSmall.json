@@ -1,0 +1,22 @@
+{
+  "$type": "ThunderRoad.LootTable, ThunderRoad",
+  "id": "Weapon1HSmall",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "groupPath": "Weapons",
+  "drops": [
+    {
+      "$type": "ThunderRoad.LootTable+Drop, ThunderRoad",
+      "referenceID": "SwordShortAntic",
+      "reference": "Item",
+      "probabilityWeight": 2.0
+    },
+    {
+      "$type": "ThunderRoad.LootTable+Drop, ThunderRoad",
+      "referenceID": "AxeShortCommon",
+      "reference": "Item",
+      "probabilityWeight": 2.0
+    }
+  ]
+}

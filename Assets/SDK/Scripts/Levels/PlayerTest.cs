@@ -41,13 +41,6 @@ namespace ThunderRoad
 
         void Start()
         {
-#if PrivateSDK
-            if (Level.current && Level.current.dungeon && !Level.current.dungeon.initialized)
-            {
-                Level.current.dungeon.onDungeonGenerated += OnDungeonGenerated;
-                rigidbody.isKinematic = true;
-            }
-#endif
             if (onSpawn != null) onSpawn.Invoke(this);
         }
 
@@ -68,21 +61,22 @@ namespace ThunderRoad
             }
         }
 
-#if DUNGEN
-        private void OnDungeonGenerated(EventTime eventTime)
+        private void OnAreaManagerInitialized(EventTime eventTime)
         {
             if (eventTime == EventTime.OnEnd)
             {
-                PlayerSpawner playerSpawner = Level.current.dungeon.rooms[0].GetPlayerSpawner();
-                if (playerSpawner)
+                if (AreaManager.Instance.CurrentArea != null && AreaManager.Instance.CurrentArea.IsSpawned)
                 {
-                    Level.current.dungeon.playerTransform = cam.transform;
-                    this.transform.SetPositionAndRotation(playerSpawner.transform.position, playerSpawner.transform.rotation);
+                    PlayerSpawner playerSpawner = AreaManager.Instance.CurrentArea.SpawnedArea.GetPlayerSpawner();
+                    if (playerSpawner)
+                    {
+                        //AreaManager.Instance.playerTransform = cam.transform;
+                        this.transform.SetPositionAndRotation(playerSpawner.transform.position, playerSpawner.transform.rotation);
+                    }
+                    rigidbody.isKinematic = false;
                 }
-                rigidbody.isKinematic = false;
             }
         }
-#endif
 
         private void OnDisable()
         {

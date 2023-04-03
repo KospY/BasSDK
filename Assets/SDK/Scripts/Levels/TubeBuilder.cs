@@ -26,6 +26,7 @@ namespace ThunderRoad
 
         protected virtual void OnValidate()
         {
+            if (!gameObject.activeInHierarchy) return;
             if (preGenerate) Generate();
             else ClearTube();
         }

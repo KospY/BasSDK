@@ -1,0 +1,98 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "GL_Transi_Castle_Chasm",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "groupPath": "Outpost/Transi",
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.GL_Transi_Castle_Chasm",
+  "Bounds": {
+    "center": {
+      "x": -6.125,
+      "y": -7.287922,
+      "z": 0.534461
+    },
+    "size": {
+      "x": 28.25,
+      "y": 53.3630447,
+      "z": 30.555706
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 8.0,
+        "y": -1.5,
+        "z": 0.0
+      },
+      "face": "Right",
+      "fakeViewAddress": "Bas.Area.GL_Transi_Castle_Chasm.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -20.25,
+        "y": 3.0,
+        "z": 0.0
+      },
+      "face": "Left",
+      "fakeViewAddress": "Bas.Area.GL_Transi_Castle_Chasm.FakeView.1"
+    }
+  ],
+  "areaGlobalParameters": [
+    {
+      "$type": "ThunderRoad.AreaSunGlobalParameter, ThunderRoad",
+      "dirLightColor": {
+        "r": 1.0,
+        "g": 0.9137255,
+        "b": 0.8,
+        "a": 1.0
+      },
+      "dirLightIntensity": 5.0,
+      "dirLightIndirectMultiplier": 9.5,
+      "directionalLightLocalRotation": {
+        "x": -0.2683885,
+        "y": -0.464199126,
+        "z": 0.838197052,
+        "w": 0.09956208
+      },
+      "visibleFromGate": true
+    }
+  ]
+}

@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.AddressableAssets;
 using System.Collections;
+using System.Linq;
+using Random = UnityEngine.Random;
+using ThunderRoad.Manikin;
+
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -32,15 +36,15 @@ namespace ThunderRoad
         [NonSerialized]
         public Locomotion locomotion;
         [NonSerialized]
-        public Mana mana;
-        [NonSerialized]
-        public FeetClimber climber;
-        [NonSerialized]
-        public Equipment equipment;
-        [NonSerialized]
         public RagdollHand handLeft;
         [NonSerialized]
         public RagdollHand handRight;
+        [NonSerialized]
+        public Equipment equipment;
+        [NonSerialized]
+        public Mana mana;
+        [NonSerialized]
+        public FeetClimber climber;
         [NonSerialized]
         public RagdollFoot footLeft;
         [NonSerialized]
@@ -48,14 +52,6 @@ namespace ThunderRoad
         [NonSerialized]
         public LightVolumeReceiver lightVolumeReceiver;
 
-        [NonSerialized]
-        public WaterHandler waterHandler;
-        protected float waterEyesEnterUnderwaterTime;
-        protected float waterLastDrowningTime;
-        [NonSerialized]
-        public bool eyesUnderwater;
-        public event Action onEyesEnterUnderwater;
-        public event Action onEyesExitUnderwater;
 
         [Header("Speak")]
         public Transform jaw;
@@ -64,13 +60,15 @@ namespace ThunderRoad
         [Header("Face")]
         public bool autoEyeClipsActive = true;
         public List<CreatureEye> allEyes = new List<CreatureEye>();
-
+        public List<CreatureData.EyeClip> eyeClips = new List<CreatureData.EyeClip>();
 
         [Header("Fall")]
         public float fallAliveAnimationHeight = 0.5f;
         public float fallAliveDestabilizeHeight = 3;
         public float groundStabilizationMaxVelocity = 1;
         public float groundStabilizationMinDuration = 3;
+        [Range(0f, 1f)]
+        public float swimFallAnimationRatio = 0.6f;
 
         public bool toogleTPose;
 
@@ -87,19 +85,9 @@ namespace ThunderRoad
         public float ikLocomotionSpeedThreshold = 1;
         public float ikLocomotionAngularSpeedThreshold = 30f;
 
-        public AnimationClip dynamicStartReplaceClipA;
-        public AnimationClip dynamicStartReplaceClipB;
-        public AnimationClip dynamicLoopReplaceClip;
-        public AnimationClip dynamicEndReplaceClip;
-        public AnimationClip upperBodyDynamicOneShotReplaceClipA;
-        public AnimationClip upperBodyDynamicOneShotReplaceClipB;
-        public AnimationClip upperBodyDynamicLoopReplaceClip;
-        public AnimationClip subStanceAReplaceClip;
-        public AnimationClip subStanceBReplaceClip;
-
         public static int hashDynamicOneShot, hashDynamicLoop, hashDynamicLoop3, hashDynamicInterrupt, hashDynamicSpeedMultiplier, hashDynamicMirror;
         public static int hashDynamicUpperOneShot, hashDynamicUpperLoop, hashDynamicUpperMultiplier, hashDynamicUpperMirror;
-        public static int hashExitDynamic, hashIsBusy, hashFeminity, hashHeight, hashFalling, hashGetUp, hashTstance, hashStaticIdle, hashFreeHands;
+        public static int hashExitDynamic, hashInvokeCallback, hashIsBusy, hashFeminity, hashHeight, hashFalling, hashUnderwater, hashGetUp, hashTstance, hashStaticIdle, hashFreeHands;
         public static bool hashInitialized;
 
         public enum StaggerAnimation
@@ -121,19 +109,186 @@ namespace ThunderRoad
             Parry,
         }
 
+#if ODIN_INSPECTOR
+        [ReadOnly]
+#endif
+        public FallState fallState = FallState.None;
+
+        public enum FallState
+        {
+            None,
+            Falling,
+            NearGround,
+            Stabilizing,
+            StabilizedOnGround,
+        }
+
 
 #if ODIN_INSPECTOR
-        [NonSerialized, ShowInInspector, ReadOnly]
+        [ShowInInspector, ReadOnly]
 #endif
+        [NonSerialized]
+        public List<Holder> holders;
+
+#if ODIN_INSPECTOR
+        [ShowInInspector]
+#endif
+        [NonSerialized]
+        public List<RendererData> renderers = new List<RendererData>();
+
+        [NonSerialized]
+        public CreatureMouthRelay mouthRelay;
+
+        public class RendererData
+        {
+            public SkinnedMeshRenderer renderer;
+            public SkinnedMeshRenderer splitRenderer;
+            public MeshPart meshPart;
+            public RevealDecal revealDecal;
+            public RevealDecal splitReveal;
+            public int lod;
+
+        }
+
+        public static List<Creature> all = new List<Creature>();
+        public static List<Creature> allActive = new List<Creature>();
+        [NonSerialized]
+        public static Dictionary<string, AnimatorBundle> creatureAnimatorControllers = new Dictionary<string, AnimatorBundle>();
+
+        [NonSerialized]
+        public AsyncOperationHandle<GameObject> addressableHandle;
+
+        [NonSerialized]
+        public bool isPlayer;
+
+        [NonSerialized]
+        public bool hidden;
+        [NonSerialized]
+        public bool holsterItemsHidden;
+
+#if ODIN_INSPECTOR
+        [ValueDropdown("GetAllFactionID")]
+#endif
+        public int factionId;
+        public GameData.Faction faction;
+
+#if ODIN_INSPECTOR
+        [ShowInInspector, ReadOnly]
+#endif
+        [NonSerialized]
         public CreatureData data;
 
+        [NonSerialized]
+        public bool pooled;
+
+        [NonSerialized]
+        public WaveData.Group spawnGroup = null;
+        [NonSerialized]
+        public CreatureSpawner creatureSpawner;
+        [NonSerialized]
+        public bool countTowardsMaxAlive = false;
+
+        [NonSerialized]
+        public float spawnTime;
+        [NonSerialized]
+        public float lastInteractionTime;
+        [NonSerialized]
+        public Creature lastInteractionCreature;
+        [NonSerialized]
+        public float swimVerticalRatio;
+
+        [NonSerialized] public CreatureData.EthnicGroup currentEthnicGroup;
+
+#if ODIN_INSPECTOR
+        [ReadOnly]
+#endif
+        public bool initialized = false;
+#if ODIN_INSPECTOR
+        [ReadOnly]
+#endif
+        public bool loaded = false;
+
+#if ODIN_INSPECTOR
+        [ReadOnly]
+#endif
+        public bool isPlayingDynamicAnimation;
+        protected Action dynamicAnimationendEndCallback;
+        protected Action upperDynamicAnimationendEndCallback;
+        protected AnimatorOverrideController animatorOverrideController;
+        protected KeyValuePair<AnimationClip, AnimationClip>[] animationClipOverrides;
+
+        public delegate void ZoneEvent(Zone zone, bool enter);
+        public event ZoneEvent OnZoneEvent;
+
+        public delegate void SimpleDelegate();
+        public event SimpleDelegate OnDataLoaded;
+        public event SimpleDelegate OnHeightChanged;
+
+        [NonSerialized]
+        public bool updateReveal;
+
+#if ODIN_INSPECTOR
+        [ReadOnly]
+#endif
+        public bool isKilled = false;
+
+        public enum State
+        {
+            Dead,
+            Destabilized,
+            Alive,
+        }
+
+        public State state
+        {
+            get
+            {
+                if (isKilled) return State.Dead;
+                if (ragdoll.state == Ragdoll.State.Destabilized || ragdoll.state == Ragdoll.State.Inert) return State.Destabilized;
+                return State.Alive;
+            }
+        }
+
+        public enum ProtectToAim
+        {
+            Protect,
+            Idle,
+            Aim,
+        }
+
+
+        public enum AnimFootStep
+        {
+            Slow = 0,
+            Walk = 1,
+            Run = 2,
+        }
+
+        public enum ColorModifier
+        {
+            Hair,
+            HairSecondary,
+            HairSpecular,
+            EyesIris,
+            EyesSclera,
+            Skin,
+        }
+
+#if ODIN_INSPECTOR
+        public List<ValueDropdownItem<string>> GetAllCreatureID()
+        {
+            return Catalog.GetDropdownAllID(Category.Creature);
+        }
+
+        public List<ValueDropdownItem<int>> GetAllFactionID()
+        {
+            if (Catalog.gameData == null) return null;
+            return Catalog.gameData.GetFactions();
+        }
+#endif
 
         protected void Awake()
         {
-#if PrivateSDK
-            this.gameObject.AddComponent<RagdollTester>();
-#endif
-
             foreach (SkinnedMeshRenderer smr in this.GetComponentsInChildren<SkinnedMeshRenderer>())
             {
                 smr.updateWhenOffscreen = true;
@@ -143,7 +298,6 @@ namespace ThunderRoad
 
             ragdoll = this.GetComponentInChildren<Ragdoll>();
 
-
             brain = this.GetComponentInChildren<Brain>();
             equipment = this.GetComponentInChildren<Equipment>();
             if (!container) container = this.GetComponentInChildren<Container>();
@@ -152,6 +306,7 @@ namespace ThunderRoad
             mana = this.GetComponent<Mana>();
             climber = this.GetComponentInChildren<FeetClimber>();
 
+            holders = new List<Holder>(this.GetComponentsInChildren<Holder>());
 
             foreach (RagdollHand hand in this.GetComponentsInChildren<RagdollHand>())
             {
@@ -164,9 +319,13 @@ namespace ThunderRoad
                 if (foot.side == Side.Left) footLeft = foot;
             }
 
+            lightVolumeReceiver = this.GetComponent<LightVolumeReceiver>();
+            if (!lightVolumeReceiver) lightVolumeReceiver = gameObject.AddComponent<LightVolumeReceiver>();
+            lightVolumeReceiver.initRenderersOnStart = false;
+            lightVolumeReceiver.addMaterialInstances = false;
+
             if (!hashInitialized) InitAnimatorHashs();
 
-#if !PrivateSDK
             Rigidbody locomotionRb = locomotion.GetComponent<Rigidbody>();
             locomotionRb.isKinematic = true;
 
@@ -177,7 +336,6 @@ namespace ThunderRoad
                 ragdollPart.transform.SetParent(ragdollPart.meshBone);
                 ragdollPart.SetPositionToBone();
             }
-#endif
 
         }
 
@@ -211,15 +369,12 @@ namespace ThunderRoad
 
         public static ReplaceClipIndexHolder clipIndex = new ReplaceClipIndexHolder();
 
-        public void ApplyAnimatorController(RuntimeAnimatorController runtimeController)
-        {
-        }
-
         protected void InitAnimatorHashs()
         {
             hashFeminity = Animator.StringToHash("Feminity");
             hashHeight = Animator.StringToHash("Height");
             hashFalling = Animator.StringToHash("Falling");
+            hashUnderwater = Animator.StringToHash("Underwater");
             hashGetUp = Animator.StringToHash("GetUp");
             hashIsBusy = Animator.StringToHash("IsBusy");
             hashTstance = Animator.StringToHash("TStance");
@@ -236,10 +391,23 @@ namespace ThunderRoad
             hashDynamicUpperMultiplier = Animator.StringToHash("UpperBodyDynamicSpeed");
             hashDynamicUpperMirror = Animator.StringToHash("UpperBodyDynamicMirror");
             hashExitDynamic = Animator.StringToHash("ExitDynamic");
+            hashInvokeCallback = Animator.StringToHash("InvokeCallback");
             hashInitialized = true;
         }
 
-        protected override ManagedLoops ManagedLoops => ManagedLoops.Update | ManagedLoops.LateUpdate;
+        public RagdollHand GetHand(Side side)
+        {
+            if (side == Side.Left) return handLeft;
+            return handRight;
+        }
+
+        public RagdollFoot GetFoot(Side side)
+        {
+            if (side == Side.Left) return footLeft;
+            return footRight;
+        }
+
+        public override ManagedLoops EnabledManagedLoops => ManagedLoops.Update | ManagedLoops.LateUpdate;
         protected internal override void ManagedUpdate()
         {
         }
@@ -266,20 +434,5 @@ namespace ThunderRoad
 #endif
 
 
-        #region MISC
-
-        public RagdollHand GetHand(Side side)
-        {
-            if (side == Side.Left) return handLeft;
-            return handRight;
-        }
-
-        public RagdollFoot GetFoot(Side side)
-        {
-            if (side == Side.Left) return footLeft;
-            return footRight;
-        }
-
-        #endregion
     }
 }

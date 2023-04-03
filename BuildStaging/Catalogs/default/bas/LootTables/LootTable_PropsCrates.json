@@ -1,0 +1,22 @@
+{
+  "$type": "ThunderRoad.LootTable, ThunderRoad",
+  "id": "PropsCrates",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "groupPath": "Props",
+  "drops": [
+    {
+      "$type": "ThunderRoad.LootTable+Drop, ThunderRoad",
+      "referenceID": "Crate",
+      "reference": "Item",
+      "probabilityWeight": 1.0
+    },
+    {
+      "$type": "ThunderRoad.LootTable+Drop, ThunderRoad",
+      "referenceID": "CrateOpen1",
+      "reference": "Item",
+      "probabilityWeight": 0.7
+    }
+  ]
+}

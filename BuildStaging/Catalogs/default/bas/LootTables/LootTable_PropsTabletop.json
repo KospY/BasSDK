@@ -1,0 +1,52 @@
+{
+  "$type": "ThunderRoad.LootTable, ThunderRoad",
+  "id": "PropsTabletop",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "groupPath": "Props",
+  "drops": [
+    {
+      "$type": "ThunderRoad.LootTable+Drop, ThunderRoad",
+      "referenceID": "FoodApple",
+      "reference": "Item",
+      "probabilityWeight": 0.4
+    },
+    {
+      "$type": "ThunderRoad.LootTable+Drop, ThunderRoad",
+      "referenceID": "Mug1",
+      "reference": "Item",
+      "probabilityWeight": 0.5
+    },
+    {
+      "$type": "ThunderRoad.LootTable+Drop, ThunderRoad",
+      "referenceID": "Mug2",
+      "reference": "Item",
+      "probabilityWeight": 0.5
+    },
+    {
+      "$type": "ThunderRoad.LootTable+Drop, ThunderRoad",
+      "referenceID": "PotionHealth",
+      "reference": "Item",
+      "probabilityWeight": 0.1
+    },
+    {
+      "$type": "ThunderRoad.LootTable+Drop, ThunderRoad",
+      "referenceID": "PropsBooks",
+      "reference": "Table",
+      "probabilityWeight": 0.7
+    },
+    {
+      "$type": "ThunderRoad.LootTable+Drop, ThunderRoad",
+      "referenceID": "PropsPotterySmall",
+      "reference": "Table",
+      "probabilityWeight": 1.0
+    },
+    {
+      "$type": "ThunderRoad.LootTable+Drop, ThunderRoad",
+      "referenceID": "WickerBasket_01",
+      "reference": "Item",
+      "probabilityWeight": 0.9
+    }
+  ]
+}

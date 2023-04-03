@@ -1,0 +1,146 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "GL_Transi_Castle_Sewer1",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "groupPath": "Outpost/Transi",
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.GL_Transi_Castle_Sewer1",
+  "Bounds": {
+    "center": {
+      "x": -12.7475,
+      "y": -1.63697529,
+      "z": -2.03930378
+    },
+    "size": {
+      "x": 26.995,
+      "y": 26.72605,
+      "z": 28.3906078
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 0.75,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "face": "Right",
+      "fakeViewAddress": "Bas.Area.GL_Std_Castle_Sewer1.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -26.245,
+        "y": -4.0,
+        "z": 0.0
+      },
+      "face": "Left",
+      "fakeViewAddress": "Bas.Area.GL_Std_Castle_Sewer1.FakeView.1"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -6.0,
+        "y": -3.0,
+        "z": 12.156
+      },
+      "face": "Front",
+      "fakeViewAddress": "Bas.Area.GL_Std_Castle_Sewer1.FakeView.2"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -22.0,
+        "y": -3.0,
+        "z": 12.236
+      },
+      "face": "Front",
+      "fakeViewAddress": "Bas.Area.GL_Std_Castle_Sewer1.FakeView.3"
+    }
+  ],
+  "areaGlobalParameters": [
+    {
+      "$type": "ThunderRoad.AreaOceanGlobalParameter, ThunderRoad",
+      "visibleFromGate": true
+    },
+    {
+      "$type": "ThunderRoad.AreaSunGlobalParameter, ThunderRoad",
+      "dirLightColor": {
+        "r": 1.0,
+        "g": 0.9607843,
+        "b": 0.8784314,
+        "a": 1.0
+      },
+      "dirLightIntensity": 3.3,
+      "dirLightIndirectMultiplier": 6.5,
+      "directionalLightLocalRotation": {
+        "x": 0.4967246,
+        "y": -0.0989595354,
+        "z": -0.0571342669,
+        "w": 0.860353053
+      },
+      "visibleFromGate": true
+    }
+  ]
+}

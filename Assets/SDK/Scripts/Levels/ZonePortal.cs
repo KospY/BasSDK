@@ -1,13 +1,5 @@
 ﻿using UnityEngine;
-using System;
-using System.Collections.Generic;
 using UnityEngine.Events;
-
-#if ODIN_INSPECTOR
-using Sirenix.OdinInspector;
-#else
-using EasyButtons;
-#endif
 
 namespace ThunderRoad
 {
@@ -22,10 +14,6 @@ namespace ThunderRoad
         public UnityEvent<UnityEngine.Object> enterEvent = new UnityEvent<UnityEngine.Object>();
         public UnityEvent<UnityEngine.Object> exitEvent = new UnityEvent<UnityEngine.Object>();
 
-        public bool IsInside(Vector3 position)
-        {
-            return false;
-        }
 
         private void OnDrawGizmos()
         {

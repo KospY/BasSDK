@@ -3,7 +3,7 @@
 namespace ThunderRoad
 {
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/EffectLight")]
-    [ExecuteInEditMode]
+	[ExecuteInEditMode]
     public class EffectLight : Effect
     {
         public Light pointLight;
@@ -30,6 +30,15 @@ namespace ThunderRoad
 
         private void Awake()
         {
+            pointLight = GetComponent<Light>();
+            if (!pointLight)
+            {
+                pointLight = gameObject.AddComponent<Light>();
+            }
+            pointLight.range = 0;
+            pointLight.intensity = 0;
+            pointLight.type = LightType.Point;
+            pointLight.enabled = false;
         }
 
         public override void Play()
@@ -54,9 +63,9 @@ namespace ThunderRoad
             stopping = true;
         }
 
-        protected override ManagedLoops ManagedLoops => ManagedLoops.Update;
-
-        protected internal override void ManagedUpdate()
+        public override ManagedLoops EnabledManagedLoops => ManagedLoops.Update ;
+  
+        protected internal override void  ManagedUpdate()
         {
             if (intensitySmoothFactor > 0)
                 intensity = Mathf.Lerp(intensity, targetIntensity, Time.deltaTime * intensitySmoothFactor);

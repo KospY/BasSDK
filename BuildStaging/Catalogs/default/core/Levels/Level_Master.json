@@ -1,0 +1,40 @@
+{
+  "$type": "ThunderRoad.LevelData, ThunderRoad",
+  "id": "Master",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 3,
+  "name": null,
+  "description": null,
+  "descriptionLocalizationId": null,
+  "sceneAddress": null,
+  "showOnlyDevMode": false,
+  "showInLevelSelection": false,
+  "savePlayerInventoryOnUnload": false,
+  "worldmapPrefabAddress": "Bas.Image.Map.Default",
+  "mapLocationIndex": 0,
+  "showOnMap": false,
+  "hideOnAndroid": false,
+  "mapLocationIconAddress": "Bas.Icon.Location.Default",
+  "mapLocationIconHoverAddress": "Bas.Icon.Location.DefaultHover",
+  "mapPreviewImageAddress": null,
+  "modes": [
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "Default",
+      "displayName": "Default",
+      "description": "NoDescription",
+      "allowGameModes": [],
+      "mapOrder": 0,
+      "difficultyMultipliers": [],
+      "playerCanDie": false,
+      "deathLossAddress": "Bas.Loss.Death",
+      "modules": [],
+      "availableOptions": []
+    }
+  ],
+  "modePickCountPerRank": 2,
+  "customCameras": [],
+  "throwableRefType": "Item",
+  "improvisedThrowableID": "ThrowablesRock"
+}

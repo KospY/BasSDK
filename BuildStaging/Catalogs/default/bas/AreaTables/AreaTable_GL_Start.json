@@ -1,0 +1,30 @@
+{
+  "$type": "ThunderRoad.AreaTable, ThunderRoad",
+  "id": "GL_Start",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "areaSettingTable": {
+    "$type": "ThunderRoad.AreaTable+AreaSettingsTable, ThunderRoad",
+    "drops": [
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "GL_Start_Lighthouse",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1
+          ],
+          "entranceConnection": [],
+          "maxCreature": 3
+        },
+        "probabilityWeight": 1.0
+      }
+    ]
+  }
+}

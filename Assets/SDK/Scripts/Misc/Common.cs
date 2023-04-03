@@ -70,6 +70,8 @@ namespace ThunderRoad
         Music,
         SlowMotion,
         Underwater,
+        Stinger,
+        SwimmingUnderwater
     }
 
     public enum BlendMode
@@ -105,6 +107,18 @@ namespace ThunderRoad
         MovingObjectOnly,
         SkyDome,
         Highlighter,
+        TransparentFX,
+        Water,
+    }
+
+    [Flags]
+    public enum NavmeshArea
+    {
+        Walkable = (1 << 0),
+        NotWalkable = (1 << 1),
+        Jump = (1 << 2),
+        Door = (1 << 3),
+        Edge = (1 << 4),
     }
 
     public enum Cardinal
@@ -177,7 +191,6 @@ namespace ThunderRoad
     {
         Windows,
         Android,
-
     }
 
     [Flags]
@@ -198,15 +211,23 @@ namespace ThunderRoad
         Difficulty,
         DungeonLength,
         DungeonRoom,
-        DungeonSeed,
+        Seed,
     }
 
     public enum HapticDevice
     {
-        None,
-        LeftController,
-        RightController,
-        Headset,
+        None = 0,
+        LeftController = 1,
+        RightController = 2,
+        Headset = 4,
+    }
+
+    public enum MessageAnchorType
+    {
+        Head,
+        HandLeft,
+        HandRight,
+        Transform
     }
 
     [Serializable]
@@ -228,7 +249,6 @@ namespace ThunderRoad
             channelMask = audioClip.channels;
             //UpdateSamples(data, sampleRate, channelMask, 0);
         }
-
 
     }
 
@@ -259,20 +279,13 @@ namespace ThunderRoad
         public Component transform;
     }
 
-    public class ModData
-    {
-        public string Name;
-        public string Description;
-        public string Author;
-        public string ModVersion;
-        public string GameVersion;
-
-        [NonSerialized]
-        public string folderName;
-    }
-
     public static class Common
     {
+        /// <summary>
+        /// File size references.
+        /// </summary>
+        private static string[] SizeReferences { get; } = new string[] { "B", "KB", "MB", "GB", "TB", "PB", "EB" };
+
         private static int _lightProbeVolumeLayer;
 
         public static int lightProbeVolumeLayer
@@ -287,6 +300,118 @@ namespace ThunderRoad
         {
             get { return _zoneLayer > 0 ? _zoneLayer : _zoneLayer = LayerMask.NameToLayer("Zone"); }
             private set { _zoneLayer = value; }
+        }
+
+        /// <summary>
+        /// Wrap an enumerator in a try/catch block to catch exceptions they may throw.
+        /// </summary>
+        public static IEnumerator WrapSafely(this IEnumerator enumerator, Action<Exception> errorThrown = null)
+        {
+            while (true)
+            {
+                try
+                {
+                    if (enumerator.MoveNext() == false)
+                    { break; }
+                }
+                catch (Exception error)
+                {
+                    errorThrown?.Invoke(error);
+                    Debug.LogError(error);
+                    yield break;
+                }
+
+                yield return enumerator.Current;
+            }
+        }
+
+        /// <summary>
+        /// Try get the child directory or return the original path.
+        /// </summary>
+        public static string TryGetChildDirectory(this string directory)
+        {
+            if (!Directory.Exists(directory))
+            { return directory; }
+
+            string[] children = Directory.GetDirectories(directory);
+
+            return children.IsNullOrEmpty() ? directory : children[0];
+        }
+
+        /// <summary>
+        /// Get the total directory size and return it as a formatted string.
+        /// </summary>
+        public static string FormatSizeFromDirectory(this string directory)
+        {
+            if (!Directory.Exists(directory))
+            { return string.Empty; }
+
+            DirectoryInfo dir = new DirectoryInfo(directory);
+            FileInfo[] files = dir.GetFiles("*.*", SearchOption.AllDirectories);
+
+            long size = 0;
+            for (int i = 0; i < files.Length; i++)
+            {
+                size += files[i].Length;
+            }
+
+            return size.FormatSizeFromBytes();
+        }
+
+        /// <summary>
+        /// Convert the input bytes to a readable size..
+        /// </summary>
+        public static string FormatSizeFromBytes(this int byteCount) => FormatSizeFromBytes((long)byteCount);
+
+        /// <summary>
+        /// Convert the input bytes to a readable size..
+        /// </summary>
+        public static string FormatSizeFromBytes(this long byteCount, string format = "00")
+        {
+            if (byteCount == 0)
+            { return "0" + SizeReferences[0]; }
+
+            long bytes = Math.Abs(byteCount);
+            int place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1024)));
+            double num = Math.Round(bytes / Math.Pow(1024, place), 2);
+
+            return (Math.Sign(byteCount) * num).ToString(format) + SizeReferences[place];
+        }
+
+        /// <summary>
+        /// Get the total free space left on the main drive.
+        /// </summary>
+        public static long GetTotalFreeSpace(out long total)
+        {
+            foreach (DriveInfo drive in DriveInfo.GetDrives())
+            {
+                if (drive.IsReady && Application.dataPath.StartsWith(drive.Name.Replace("\\", "/")))
+                {
+                    total = drive.TotalSize;
+                    return drive.TotalSize - drive.AvailableFreeSpace;
+                }
+            }
+
+            total = 0;
+            return -1;
+        }
+
+        /// <summary>
+        /// Create a sprite from the target texture.
+        /// </summary>
+        public static Sprite CreateSprite(this Texture2D texture)
+        {
+            return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f, 1, 0, SpriteMeshType.FullRect);
+        }
+
+        /// <summary>
+        /// Load a Texture2D from raw bytes.
+        /// </summary>
+        public static Texture2D LoadTexture(this byte[] rawData)
+        {
+            Texture2D tex = new Texture2D(1, 1);
+            tex.LoadImage(rawData);
+            return tex;
         }
 
         public static bool ActiveInPrefabHierarchy(this GameObject gameObject)
@@ -308,6 +433,24 @@ namespace ThunderRoad
             }
         }
 
+        public static void CacheLayers()
+        {
+            layers = new int[Enum.GetValues(typeof(LayerName)).Length];
+            foreach (LayerName layerName in Enum.GetValues(typeof(LayerName)))
+            {
+                if (layerName == LayerName.None) continue;
+                layers[(int)layerName] = LayerMask.NameToLayer(layerName.ToString());
+            }
+        }
+
+        public static int[] layers;
+
+        public static int GetLayer(LayerName layerName)
+        {
+            if (layers == null) return LayerMask.NameToLayer(layerName.ToString());
+            return layers[(int)layerName];
+        }
+
         public static bool Contains(this LayerMask mask, int layer)
         {
             return mask == (mask | (1 << layer));
@@ -325,19 +468,9 @@ namespace ThunderRoad
 
         private static bool platformCached;
         private static Platform currentPlatform;
-        private static string currentPlatformString;
-        public static string GetPlatformName()
-        {
-            if (currentPlatformString is null)
-            {
-                currentPlatformString = GetPlatform().ToString();
-            }
-            return currentPlatformString;
-        }
 
         public static Platform GetPlatform()
         {
-
             if (platformCached) return currentPlatform;
             if (Enum.TryParse(QualitySettings.names[QualitySettings.GetQualityLevel()], out Platform platform))
             {
@@ -346,10 +479,14 @@ namespace ThunderRoad
                 currentPlatform = platform;
                 return platform;
             }
-
             Debug.LogError("Quality Settings names don't match platform enum!");
             return Platform.Windows;
+        }
 
+        public static void SetPlatform(Platform platform)
+        {
+            QualitySettings.SetQualityLevel((int)platform);
+            currentPlatform = platform;
         }
 
         public static int GetRandomWeightedIndex(float[] weights)
@@ -560,28 +697,16 @@ namespace ThunderRoad
             return transform.position + (transform.right * rowSpace * (index % rowCount)) + (transform.forward * rowSpace * Mathf.FloorToInt((index / rowCount)));
         }
 
-        public static bool InPrefabMode(this Component component)
+        public static bool InPrefabScene(this Component component)
         {
-#if UNITY_EDITOR
-            if (!Application.isPlaying)
+            if (String.IsNullOrEmpty(component.gameObject.scene.path))
             {
-                var prefabStage = UnityEditor.Experimental.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage();
-                if (prefabStage)
-                {
-                    return true;
-                }
-                else if (component.gameObject.scene != null && !component.gameObject.scene.isLoaded)
-                {
-                    // Sometimes some prefab seem to run in invisible scene?
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return true;
             }
-#endif
-            return false;
+            else
+            {
+                return false;
+            }
         }
 
         public static int GetIndexByName(this Dropdown dropDown, string name)
@@ -623,9 +748,8 @@ namespace ThunderRoad
 
         public static void SetParentOrigin(this Transform transform, Transform parent)
         {
-            transform.SetParent(parent);
-            transform.localPosition = Vector3.zero;
-            transform.localRotation = Quaternion.identity;
+            transform.SetParent(parent, false);
+            transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             transform.localScale = Vector3.one;
         }
 
@@ -653,6 +777,19 @@ namespace ThunderRoad
             // parenting
             if (parent) transform.transform.SetParent(parent, true);
         }
+
+        public static Vector3 InverseTransformPoint(Vector3 transforPos, Quaternion transformRotation, Vector3 transformScale, Vector3 pos)
+        {
+            Matrix4x4 matrix = Matrix4x4.TRS(transforPos, transformRotation, transformScale);
+            Matrix4x4 inverse = matrix.inverse;
+            return inverse.MultiplyPoint3x4(pos);
+        }
+
+        public static void SetPositionLocalPseudoParent(this Transform transform, Transform pseudoParent, Vector3 localPosition) => transform.position = pseudoParent.TransformPoint(localPosition);
+
+        public static void SetRotationLocalPseudoParent(this Transform transform, Transform pseudoParent, Quaternion localRotation) => transform.rotation = pseudoParent.TransformRotation(localRotation);
+
+        public static void SetEulersLocalPseudoParent(this Transform transform, Transform pseudoParent, Vector3 localEulers) => transform.eulerAngles = pseudoParent.TransformRotation(Quaternion.Euler(localEulers)).eulerAngles;
 
         /// <summary>
         /// Transforms rotation from world space to local space.

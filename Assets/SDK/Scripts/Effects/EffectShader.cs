@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System;
-using ThunderRoad.Plugins;
 
 namespace ThunderRoad
 {
@@ -28,6 +27,7 @@ namespace ThunderRoad
 
         private void OnValidate()
         {
+            if (!gameObject.activeInHierarchy) return;
             Awake();
         }
 

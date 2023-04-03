@@ -13,7 +13,7 @@ namespace ThunderRoad
 {
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Locomotion")]
     [AddComponentMenu("ThunderRoad/Locomotion")]
-    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Rigidbody), typeof(ConstantForce))]
     public class Locomotion : ThunderBehaviour
     {
         [Header("Ground movement")]
@@ -35,6 +35,7 @@ namespace ThunderRoad
         protected float backwardSpeedMultiplier = 1f;
         protected float strafeSpeedMultiplier = 1f;
         protected float runSpeedMultiplier = 1f;
+        protected float crouchSpeedMultiplier = 1f;
         protected float jumpForceMultiplier = 1f;
 
         public float forwardAngle = 10;
@@ -50,6 +51,7 @@ namespace ThunderRoad
 
         [Header("Jump / Fall")]
         public float airSpeed = 0.02f;
+        public float waterSpeed = 0.08f;
         public ForceMode airForceMode = ForceMode.VelocityChange;
         public float jumpGroundForce = 0.3f;
         public float jumpClimbVerticalMultiplier = 0.8f;
@@ -150,6 +152,21 @@ namespace ThunderRoad
 
 
         private Vector3 accelerationCurrentSpeed;
+
+        public enum TurnMode
+        {
+            Instant,
+            Snap,
+            Smooth,
+            Disabled,
+        }
+
+        public enum CrouchMode
+        {
+            Disabled,
+            Hold,
+            Toggle
+        }
 
     }
 }

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using System.Collections;
+using ThunderRoad.Manikin;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
-using Chabuk.ManikinMono;
 #else
 using EasyButtons;
 #endif
@@ -19,6 +19,14 @@ namespace ThunderRoad
     {
         public delegate void OnArmourEquipped(Wearable slot, Item item);
         public delegate void OnArmourUnEquipped(Wearable slot, Item item);
+
+        public class WeaponDrawInfo
+        {
+            public ItemModuleAI.WeaponClass weaponClass = ItemModuleAI.WeaponClass.None;
+            public ItemModuleAI.WeaponHandling weaponHandling = ItemModuleAI.WeaponHandling.None;
+            public bool checkAmmo = false;
+            public bool checkInHolder = false;
+        }
 
         public bool canSwapExistingArmour = true;
         public bool equipWardrobesOnLoad = true;

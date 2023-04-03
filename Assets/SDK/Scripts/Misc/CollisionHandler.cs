@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
+
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -11,7 +12,6 @@ namespace ThunderRoad
 {
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/CollisionHandler")]
     [AddComponentMenu("ThunderRoad/Collision handler")]
-    [RequireComponent(typeof(Rigidbody))]
     public class CollisionHandler : ThunderBehaviour
     {
         public bool active = true;
@@ -35,6 +35,7 @@ namespace ThunderRoad
 
         private void OnValidate()
         {
+            if (!gameObject.activeInHierarchy) return;
             if (customInertiaTensor)
             {
                 if (customInertiaTensorCollider == null)

@@ -1,0 +1,104 @@
+{
+  "$type": "ThunderRoad.LevelData, ThunderRoad",
+  "id": "Test",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 3,
+  "name": "test",
+  "description": null,
+  "descriptionLocalizationId": null,
+  "sceneAddress": "Level.Test",
+  "showOnlyDevMode": false,
+  "showInLevelSelection": false,
+  "savePlayerInventoryOnUnload": false,
+  "worldmapPrefabAddress": "Bas.Image.Map.Test",
+  "mapLocationIndex": 0,
+  "showOnMap": true,
+  "hideOnAndroid": false,
+  "mapLocationIconAddress": "Bas.Icon.Location.Default",
+  "mapLocationIconHoverAddress": "Bas.Icon.Location.DefaultHover",
+  "mapPreviewImageAddress": null,
+  "modes": [
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "Default",
+      "displayName": "Default",
+      "description": "NoDescription",
+      "allowGameModes": [
+        "Sandbox"
+      ],
+      "mapOrder": 0,
+      "difficultyMultipliers": [],
+      "playerCanDie": true,
+      "deathLossAddress": "Bas.Loss.Death",
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        }
+      ],
+      "availableOptions": []
+    }
+  ],
+  "modePickCountPerRank": 2,
+  "customCameras": [
+    {
+      "$type": "ThunderRoad.LevelData+CustomCameras, ThunderRoad",
+      "position": {
+        "x": 10.5303793,
+        "y": 1.76192212,
+        "z": 4.19459963
+      },
+      "rotation": {
+        "x": -0.007869011,
+        "y": 0.892450869,
+        "z": -0.015578079,
+        "w": -0.450806826
+      }
+    },
+    {
+      "$type": "ThunderRoad.LevelData+CustomCameras, ThunderRoad",
+      "position": {
+        "x": 12.0865145,
+        "y": 2.02658,
+        "z": 7.607708
+      },
+      "rotation": {
+        "x": -0.001845775,
+        "y": 0.9979257,
+        "z": -0.03354114,
+        "w": -0.05491614
+      }
+    },
+    {
+      "$type": "ThunderRoad.LevelData+CustomCameras, ThunderRoad",
+      "position": {
+        "x": 12.0865145,
+        "y": 2.02658,
+        "z": 7.607708
+      },
+      "rotation": {
+        "x": -0.00590145076,
+        "y": 0.9556015,
+        "z": -0.0191832222,
+        "w": -0.293977857
+      }
+    },
+    {
+      "$type": "ThunderRoad.LevelData+CustomCameras, ThunderRoad",
+      "position": {
+        "x": 8.042642,
+        "y": 2.02658,
+        "z": 9.447024
+      },
+      "rotation": {
+        "x": -0.00723219849,
+        "y": 0.9872444,
+        "z": -0.04698951,
+        "w": -0.151947841
+      }
+    }
+  ],
+  "throwableRefType": "Item",
+  "improvisedThrowableID": null
+}

@@ -1,0 +1,42 @@
+namespace ThunderRoad
+{
+    public enum Category
+    {
+        Text,
+        Wave,
+        Creature,
+        CreatureTable,
+        LootTable,
+        Container,
+        Item,
+        Spell,
+        Brain,
+        Effect,
+        Material,
+        Interactable,
+        Damager,
+        HandPose,
+        Expression,
+        Level,
+        Menu,
+        ColliderGroup,
+        DamageModifier,
+        Skill,
+        BehaviorTree,
+        EffectGroup,
+        Liquid,
+        MusicGroup,
+        Music,
+        Tutorial,
+        Animation,
+        Voice,
+        AreaConnectionType,
+        Area,
+        AreaTable,
+        AreaCollection,
+        Custom,
+        Keyboard,
+        Script
+    }
+    
+}

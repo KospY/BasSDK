@@ -24,6 +24,7 @@ namespace ThunderRoad
 
         void OnValidate()
         {
+            if (!gameObject.activeInHierarchy) return;
             if (assetBundleName == null || assetBundleName == "") assetBundleName = this.gameObject.scene.name + "Preview";
         }
 

@@ -1,0 +1,75 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "GL_XSTransi_Castle_03",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "groupPath": "Outpost/XSTransi",
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.GL_XSTransi_Castle_03",
+  "Bounds": {
+    "center": {
+      "x": 3.71614361,
+      "y": 3.18494654,
+      "z": 2.95716763
+    },
+    "size": {
+      "x": 22.1922874,
+      "y": 15.4256392,
+      "z": 18.5943356
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -7.38,
+        "y": -2.6,
+        "z": 0.659999847
+      },
+      "face": "Left",
+      "fakeViewAddress": "Bas.Area.GL_XSTransi_Castle_03.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -0.3800001,
+        "y": -2.1,
+        "z": -6.34
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.GL_XSTransi_Castle_03.FakeView.1"
+    }
+  ],
+  "areaGlobalParameters": []
+}

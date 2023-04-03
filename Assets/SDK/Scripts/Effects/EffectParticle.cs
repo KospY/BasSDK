@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 
@@ -42,9 +43,11 @@ namespace ThunderRoad
         private static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
         private static readonly int TintColor = Shader.PropertyToID("_TintColor");
         private static readonly int EmissionColor = Shader.PropertyToID("_EmissionColor");
-
+        private Coroutine despawnCoroutine;
+        
         private void OnValidate()
         {
+            if (!gameObject.activeInHierarchy) return;
             if (!Application.isPlaying)
             {
                 Init();
@@ -80,39 +83,24 @@ namespace ThunderRoad
 
         public override void Play()
         {
-            CancelInvoke();
-            foreach (EffectParticleChild p in childs)
+            int childsCount = childs.Count;
+            for (var index = 0; index < childsCount; index++)
             {
+                EffectParticleChild p = childs[index];
                 if (p == null)
                 {
-                    Debug.LogError(this.name + " have an EffectParticleChild that has been destroyed! (this could happen if a effectParticle component has been added to one of the childs)");
+                    Debug.LogError($"{this.name} have an EffectParticleChild that has been destroyed! (this could happen if a effectParticle component has been added to one of the childs)");
                     continue;
                 }
 
                 ParticleSystem.ShapeModule shapeModule = p.particleSystem.shape;
-                if (shapeModule.shapeType == ParticleSystemShapeType.SkinnedMeshRenderer && shapeModule.skinnedMeshRenderer == null)
-                {
-                    shapeModule.enabled = false;
-                }
-                else if (shapeModule.shapeType == ParticleSystemShapeType.MeshRenderer && shapeModule.meshRenderer == null)
-                {
-                    shapeModule.enabled = false;
-                }
-                else if (shapeModule.shapeType == ParticleSystemShapeType.Mesh && shapeModule.mesh == null)
-                {
-                    shapeModule.enabled = false;
-                }
-#if PrivateSDK
-                // Set light volume if in dungeon
-                if (Level.current?.dungeon)
-                {
-                    LightVolumeReceiver.ApplyProbeVolume(p.particleRenderer, materialPropertyBlock);
-                }
-                else
-                {
-                    LightVolumeReceiver.DisableProbeVolume(p.particleRenderer);
-                }
-#endif
+                ParticleSystemShapeType particleSystemShapeType = shapeModule.shapeType;
+                shapeModule.enabled = particleSystemShapeType switch {
+                    ParticleSystemShapeType.SkinnedMeshRenderer when shapeModule.skinnedMeshRenderer == null => false,
+                    ParticleSystemShapeType.MeshRenderer when shapeModule.meshRenderer == null => false,
+                    ParticleSystemShapeType.Mesh when shapeModule.mesh == null => false,
+                    _ => shapeModule.enabled
+                };
             }
             rootParticleSystem.Play(true);
             if (step == Step.Start || step == Step.End)
@@ -120,6 +108,12 @@ namespace ThunderRoad
                 Invoke("Despawn", lifeTime);
             }
             playTime = Time.time;
+        }
+
+        public IEnumerator TimedDespawn(float lifeTime)
+        {
+            yield return Yielders.ForSeconds(lifeTime);
+            Despawn();
         }
 
         public override void Stop()
@@ -136,15 +130,17 @@ namespace ThunderRoad
                 Invoke("Despawn", lifeTime);
             }
         }
-        protected override ManagedLoops ManagedLoops => ManagedLoops.LateUpdate;
+        public override ManagedLoops EnabledManagedLoops => renderInLateUpdate ? ManagedLoops.LateUpdate : 0;
 
         protected internal override void ManagedLateUpdate()
         {
             if (renderInLateUpdate && playTime > 0)
             {
-                for (int i = 0; i < childs.Count; i++)
+                int childsCount = childs.Count;
+                for (int i = 0; i < childsCount; i++)
                 {
                     EffectParticleChild p = childs[i];
+                    if(p == null) continue;
                     p.particleSystem.Simulate(Time.deltaTime, true, false, false);
                 }
             }
@@ -186,14 +182,12 @@ namespace ThunderRoad
             for (int i = 0; i < childsCount; i++)
             {
                 EffectParticleChild p = childs[i];
-                ParticleSystem.MainModule mainModule = p.particleSystem.main;
-
                 if (p == null)
                 {
-                    Debug.LogError($"{this.name} have an EffectParticleChild that has been destroyed! (this could happen if a effectParticle component has been added to one of the childs)");
+                    Debug.LogError($"{this.name} has an EffectParticleChild that has been destroyed! (this could happen if a effectParticle component has been added to one of the childs)");
                     continue;
                 }
-
+                ParticleSystem.MainModule mainModule = p.particleSystem.main;
                 if (p.duration && !p.particleSystem.isPlaying)
                 {
                     mainModule.duration = p.curveDuration.Evaluate(currentValue);
@@ -358,8 +352,15 @@ namespace ThunderRoad
         public override void SetMesh(Mesh mesh)
         {
             if (mesh == null) return;
-            foreach (EffectParticleChild p in childs)
+            int childsCount = childs.Count;
+            for (var i = 0; i < childsCount; i++)
             {
+                EffectParticleChild p = childs[i];
+                if (p == null)
+                {
+                    Debug.LogError($"{this.name} has an EffectParticleChild that has been destroyed! (this could happen if a effectParticle component has been added to one of the childs)");
+                    continue;
+                }
                 if (p.mesh)
                 {
                     ParticleSystem.ShapeModule shapeModule = p.particleSystem.shape;
@@ -373,8 +374,15 @@ namespace ThunderRoad
         public override void SetRenderer(Renderer renderer, bool secondary)
         {
             if (renderer == null) return;
-            foreach (EffectParticleChild p in childs)
+            int childsCount = childs.Count;
+            for (var i = 0; i < childsCount; i++)
             {
+                EffectParticleChild p = childs[i];
+                if (p == null)
+                {
+                    Debug.LogError($"{this.name} has an EffectParticleChild that has been destroyed! (this could happen if a effectParticle component has been added to one of the childs)");
+                    continue;
+                }
                 ParticleSystem.ShapeModule shapeModule = p.particleSystem.shape;
                 if ((p.useRenderer == EffectTarget.Main && !secondary) || (p.useRenderer == EffectTarget.Secondary && secondary))
                 {
@@ -396,46 +404,72 @@ namespace ThunderRoad
 
         public override void SetCollider(Collider collider)
         {
-            foreach (EffectParticleChild p in childs)
+            int childsCount = childs.Count;
+            for (var i = 0; i < childsCount; i++)
             {
+                EffectParticleChild p = childs[i];
+                if (p == null)
+                {
+                    Debug.LogError($"{this.name} has an EffectParticleChild that has been destroyed! (this could happen if a effectParticle component has been added to one of the childs)");
+                    continue;
+                }
+
                 if (p.collider)
                 {
                     ParticleSystem.MainModule mainModule = p.particleSystem.main;
                     mainModule.scalingMode = ParticleSystemScalingMode.Hierarchy;
                     ParticleSystem.ShapeModule shapeModule = p.particleSystem.shape;
+                    Transform colliderTransform = collider.transform;
+                    Vector3 colliderLossyScale = colliderTransform.lossyScale;
                     if (collider is SphereCollider)
                     {
                         shapeModule.shapeType = ParticleSystemShapeType.Sphere;
-                        shapeModule.radius = (collider as SphereCollider).radius * collider.transform.lossyScale.magnitude;
-                        shapeModule.position = p.transform.InverseTransformPoint(collider.transform.TransformPoint((collider as SphereCollider).center));
+                        shapeModule.radius = (collider as SphereCollider).radius * colliderLossyScale.magnitude;
+                        shapeModule.position = p.transform.InverseTransformPoint(colliderTransform.TransformPoint((collider as SphereCollider).center));
                     }
                     else if (collider is CapsuleCollider)
                     {
                         shapeModule.shapeType = ParticleSystemShapeType.Box;
                         float height = (collider as CapsuleCollider).height;
                         float radius = (collider as CapsuleCollider).radius;
-                        if ((collider as CapsuleCollider).direction == 0) shapeModule.scale = new Vector3(height * collider.transform.lossyScale.x, radius * Mathf.Max(collider.transform.lossyScale.y, collider.transform.lossyScale.z), radius * Mathf.Max(collider.transform.lossyScale.y, collider.transform.lossyScale.z));
-                        if ((collider as CapsuleCollider).direction == 1) shapeModule.scale = new Vector3(radius * Mathf.Max(collider.transform.lossyScale.x, collider.transform.lossyScale.z), height * collider.transform.lossyScale.y, radius * Mathf.Max(collider.transform.lossyScale.x, collider.transform.lossyScale.z));
-                        if ((collider as CapsuleCollider).direction == 2) shapeModule.scale = new Vector3(radius * Mathf.Max(collider.transform.lossyScale.x, collider.transform.lossyScale.y), radius * Mathf.Max(collider.transform.lossyScale.x, collider.transform.lossyScale.y), height * collider.transform.lossyScale.z);
-                        shapeModule.position = p.transform.InverseTransformPoint(collider.transform.TransformPoint((collider as CapsuleCollider).center));
+                        if ((collider as CapsuleCollider).direction == 0) shapeModule.scale = new Vector3(height * colliderLossyScale.x, radius * Mathf.Max(colliderLossyScale.y, colliderLossyScale.z), radius * Mathf.Max(colliderLossyScale.y, colliderLossyScale.z));
+                        if ((collider as CapsuleCollider).direction == 1) shapeModule.scale = new Vector3(radius * Mathf.Max(colliderLossyScale.x, colliderLossyScale.z), height * colliderLossyScale.y, radius * Mathf.Max(colliderLossyScale.x, colliderLossyScale.z));
+                        if ((collider as CapsuleCollider).direction == 2) shapeModule.scale = new Vector3(radius * Mathf.Max(colliderLossyScale.x, colliderLossyScale.y), radius * Mathf.Max(colliderLossyScale.x, colliderLossyScale.y), height * colliderLossyScale.z);
+                        shapeModule.position = p.transform.InverseTransformPoint(colliderTransform.TransformPoint((collider as CapsuleCollider).center));
                     }
                     else if (collider is BoxCollider)
                     {
                         shapeModule.shapeType = ParticleSystemShapeType.Box;
-                        shapeModule.scale = new Vector3((collider as BoxCollider).size.x * collider.transform.lossyScale.x, (collider as BoxCollider).size.y * collider.transform.lossyScale.y, (collider as BoxCollider).size.z * collider.transform.lossyScale.z);
-                        shapeModule.position = p.transform.InverseTransformPoint(collider.transform.TransformPoint((collider as BoxCollider).center));
+                        shapeModule.scale = new Vector3((collider as BoxCollider).size.x * colliderLossyScale.x, (collider as BoxCollider).size.y * colliderLossyScale.y, (collider as BoxCollider).size.z * colliderLossyScale.z);
+                        shapeModule.position = p.transform.InverseTransformPoint(colliderTransform.TransformPoint((collider as BoxCollider).center));
                         shapeModule.scale = (collider as BoxCollider).size;
                     }
-                    shapeModule.rotation = (Quaternion.Inverse(p.transform.rotation) * collider.transform.rotation).eulerAngles;
+                    shapeModule.rotation = (Quaternion.Inverse(p.transform.rotation) * colliderTransform.rotation).eulerAngles;
                 }
+            }
+        }
+
+        /// <summary>
+        /// This is used by the pooling system to sort of fake despawn the effect without returning it to the pool, because we are going to use it again right away
+        /// </summary>
+        public void FakeDespawn()
+        {
+            playTime = 0;
+            if (rootParticleSystem != null)
+            {
+                rootParticleSystem.Stop();
+                CancelInvoke();
             }
         }
 
         public override void Despawn()
         {
             playTime = 0;
-            rootParticleSystem?.Stop();
-            CancelInvoke();
+            if (rootParticleSystem != null)
+            {
+                rootParticleSystem.Stop();
+                CancelInvoke();
+            }
             InvokeDespawnCallback();
             if (Application.isPlaying)
             {

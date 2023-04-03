@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using EasyButtons;
-using System.Reflection;
 using System;
-using UnityEditor;
 
 namespace ThunderRoad
 {
@@ -12,13 +9,17 @@ namespace ThunderRoad
     public class AudioContainer : ScriptableObject
     {
         public List<AudioClip> sounds;
+        public bool useShuffle = false;
 
+        //this list contains all sounds except the last played
         [NonSerialized]
-        protected AudioClip[] filteredSounds;
+        protected int[] filteredSounds;
         [NonSerialized]
         protected bool filteredSoundsInitialized;
         [NonSerialized]
-        protected AudioClip lastPlayedClip = null;
+        protected ShuffleOrder _shuffleOrder = null;
+        [NonSerialized]
+        protected int lastPlayedClipHash = -1;
         [NonSerialized]
         protected int filteredSoundsCount = 0;
 
@@ -34,26 +35,7 @@ namespace ThunderRoad
         [NonSerialized]
         protected bool pcmDataCached;
 
-#if (UNITY_EDITOR)
-        [Button]
-        public void TestRandomAudioClip()
-        {
-            Assembly assembly = typeof(AudioImporter).Assembly;
-            Type audioUtilType = assembly.GetType("UnityEditor.AudioUtil");
 
-            Type[] typeParams = { typeof(AudioClip), typeof(int), typeof(bool) };
-
-            // It was not PlayClip but PlayPreviewClip
-            MethodInfo method = audioUtilType.GetMethod("PlayPreviewClip", typeParams);
-
-            AudioClip clip = GetRandomAudioClip(sounds);
-            object[] objParams = { clip, 0, false };
-
-            method.Invoke(null, BindingFlags.Static | BindingFlags.Public, null, objParams, null);
-
-            Debug.Log("Playing clip : " + clip);
-        }
-#endif
 
         public bool TryPickAudioClip(out AudioClip audioClip)
         {
@@ -62,7 +44,23 @@ namespace ThunderRoad
         }
         public AudioClip PickAudioClip()
         {
-            return GetRandomAudioClip(sounds);
+            if (useShuffle)
+            {
+                if(_shuffleOrder == null)
+                {
+                    _shuffleOrder = new ShuffleOrder(sounds.Count);
+                }
+
+                int index = _shuffleOrder.Next();
+                if(index < 0)
+                {
+                    return null;
+                }
+
+                return sounds[index];
+            }
+
+            return GetRandomAudioClip();
         }
         public bool TryPickAudioClipHash(out int audioClipHash)
         {
@@ -115,37 +113,63 @@ namespace ThunderRoad
             }
         }
 
-        protected void FilterClips(List<AudioClip> audioClips)
+        protected void FilterClips(int[] audioClips)
         {
             if (!filteredSoundsInitialized)
             {
-                filteredSounds = new AudioClip[sounds.Count];
+                filteredSounds = new int[sounds.Count];
                 filteredSoundsInitialized = true;
             }
             filteredSoundsCount = 0;
 
-            for (int i = 0; i < sounds.Count; i++)
+            for (int i = 0; i < hashes.Length; i++)
             {
-                if (sounds[i] != lastPlayedClip)
+                if (hashes[i] != lastPlayedClipHash)
                 {
-                    filteredSounds[filteredSoundsCount] = sounds[i];
+                    filteredSounds[filteredSoundsCount] = hashes[i];
                     filteredSoundsCount++;
                 }
             }
         }
 
-        public AudioClip GetRandomAudioClip(List<AudioClip> audioClips)
+        public AudioClip GetRandomAudioClip()
         {
-            if (audioClips.Count == 0) return null;
-            if (audioClips.Count == 1) return audioClips[0];
-            FilterClips(sounds);
-            int index = UnityEngine.Random.Range(0, filteredSoundsCount);
-            lastPlayedClip = filteredSounds[index];
-            return lastPlayedClip;
+            GenerateAudioClipHashes();
+            if (hashes.Length == 0) return null;
+            if (hashes.Length == 1) return sounds[0];
+ 
+            int newClipHash = lastPlayedClipHash;
+            //make sure we dont play the same one as last time;
+            while (lastPlayedClipHash == newClipHash)
+            {
+                int index = UnityEngine.Random.Range(0, hashes.Length);
+                newClipHash = hashes[index];
+            }
+            
+            if (TryGetAudioClip(newClipHash, out var clip))
+            {
+                lastPlayedClipHash = newClipHash;
+                return clip;
+            }
+            return null;
         }
-
+        
         public void GenerateAudioClipHashes()
         {
+            //generate hashes for the audioClip names in the audioContainer for quicker comparison later
+            if (!hashesToClips.IsNullOrEmpty()) return;
+            int soundsCount = sounds.Count;
+            hashesToClips = new Dictionary<int, AudioClip>(soundsCount);
+            clipToHashes = new Dictionary<AudioClip, int>(soundsCount);
+            hashes = new int[soundsCount];
+            for (int i = 0; i < soundsCount; i++)
+            {
+                AudioClip audioClip = sounds[i];
+                int key = Animator.StringToHash(audioClip.name);
+                hashes[i] = key;
+                hashesToClips.Add(key, audioClip);
+                clipToHashes.Add(audioClip, key);
+            }
         }
     }
 }

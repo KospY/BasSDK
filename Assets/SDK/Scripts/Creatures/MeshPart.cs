@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System;
-
+using ThunderRoad.Manikin;
 
 #if ODIN_INSPECTOR
 #else

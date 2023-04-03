@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: ShadersAndroid
+  m_EditorClassIdentifier: 
+  m_GroupName: ShadersAndroid
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 7ae0240c4705dd34296543284aae24f6
+  m_SerializeEntries:
+  - m_GUID: 9f0c153d6a6ca314295050c219e9fbef
+    m_Address: Shader.Custom.vfx_fake_bloom_additive
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Android
+  - m_GUID: 36d1d76087165f2438e3efad3897f4bb
+    m_Address: Shader.Custom.vfx_fake_bloom_additive_flipbook
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Android
+  - m_GUID: 416fc131c27060146863f7f35063c394
+    m_Address: Shader.Custom.vfx_fake_bloom_additive_flowmap
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Android
+  - m_GUID: 421427e8c1adedc40a7b2027b282a378
+    m_Address: Shader.Collection
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Android
+  - m_GUID: 9e5d0e1953e8e264d9a89bac16e5efea
+    m_Address: Shader.Collection.Sdk
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Android
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: b14c4d9d8b63f3247be008fe8b53d3ae, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 59b278025e0f1364288b65c21600df57, type: 2}
+    - {fileID: 11400000, guid: 4f8c377c0641aea46ba38c083d31974b, type: 2}

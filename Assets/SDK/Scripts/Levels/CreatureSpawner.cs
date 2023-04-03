@@ -76,14 +76,9 @@ namespace ThunderRoad
 #if ODIN_INSPECTOR
         public List<ValueDropdownItem<string>> GetAllCreatureTableID()
         {
-            return Catalog.GetDropdownAllID(Catalog.Category.CreatureTable);
+            return Catalog.GetDropdownAllID(Category.CreatureTable);
         }
 #endif
-
-        private void OnValidate()
-        {
-            IconManager.SetIcon(this.gameObject, null);
-        }
 
         public void Spawn()
         {
@@ -91,30 +86,17 @@ namespace ThunderRoad
         }
 
         [Button]
-        public void Spawn(Action completeCallback = null)
+        public void Spawn(Action completeCallback = null, System.Random randomGen = null)
         {
         }
 
-
-        private IEnumerator ResetSpawnerCoroutine()
+        public void SpawnCreature(CreatureData creatureData, Action completeCallback = null)
         {
-            // Despawn any alive and dead creatures
-            yield return DespawnCreaturesCoroutine(true);
-
-            CurrentState = State.Init;
-
-            // Spawn the creatures again
-            Spawn();
         }
 
-        /// <summary>
-        /// Despawn creatures
-        /// </summary>
-        /// <param name="allCreatures">True if the dead creatures should also be despawned</param>
-        /// <returns></returns>
-        private IEnumerator DespawnCreaturesCoroutine(bool allCreatures)
+        [Button]
+        public void ResetSpawner()
         {
-            yield break;
         }
 
     }

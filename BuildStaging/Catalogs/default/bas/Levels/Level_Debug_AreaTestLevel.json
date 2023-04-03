@@ -1,0 +1,206 @@
+{
+  "$type": "ThunderRoad.LevelData, ThunderRoad",
+  "id": "Debug_AreaTestLevel",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 3,
+  "name": "Debug_AreaTestLevel",
+  "description": "New Area system\nBegin your first Dungeon adventure in the Greenlands; characterized by its ruined castle-like stone structures and cave systems. ",
+  "descriptionLocalizationId": "OutpostDescription",
+  "sceneAddress": "Level.Areas",
+  "showOnlyDevMode": true,
+  "showInLevelSelection": true,
+  "savePlayerInventoryOnUnload": false,
+  "worldmapPrefabAddress": "Bas.Image.Map.Debug",
+  "mapLocationIndex": 12,
+  "showOnMap": true,
+  "hideOnAndroid": false,
+  "mapLocationIconAddress": "Bas.Icon.Location.Dungeon",
+  "mapLocationIconHoverAddress": "Bas.Icon.Location.DungeonHover",
+  "mapPreviewImageAddress": "Bas.Image.Preview.Outpost",
+  "modes": [
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "Sandbox",
+      "displayName": "Sandbox",
+      "description": "DungeonSandboxDescription",
+      "allowGameModes": [
+        "Sandbox"
+      ],
+      "mapOrder": 0,
+      "difficultyMultipliers": [
+        {
+          "$type": "ThunderRoad.LevelData+Mode+DifficultyMultipliers, ThunderRoad",
+          "playerHealthMultiplier": 1.0,
+          "playerDamageMultiplier": 1.0,
+          "creatureDamageMultiplier": 1.0
+        },
+        {
+          "$type": "ThunderRoad.LevelData+Mode+DifficultyMultipliers, ThunderRoad",
+          "playerHealthMultiplier": 1.0,
+          "playerDamageMultiplier": 1.0,
+          "creatureDamageMultiplier": 1.0
+        },
+        {
+          "$type": "ThunderRoad.LevelData+Mode+DifficultyMultipliers, ThunderRoad",
+          "playerHealthMultiplier": 0.75,
+          "playerDamageMultiplier": 0.75,
+          "creatureDamageMultiplier": 1.5
+        },
+        {
+          "$type": "ThunderRoad.LevelData+Mode+DifficultyMultipliers, ThunderRoad",
+          "playerHealthMultiplier": 0.5,
+          "playerDamageMultiplier": 0.5,
+          "creatureDamageMultiplier": 2.0
+        },
+        {
+          "$type": "ThunderRoad.LevelData+Mode+DifficultyMultipliers, ThunderRoad",
+          "playerHealthMultiplier": 1.0,
+          "playerDamageMultiplier": 0.5,
+          "creatureDamageMultiplier": 3.0
+        }
+      ],
+      "playerCanDie": true,
+      "deathLossAddress": "Bas.Loss.Death",
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleMusic, ThunderRoad",
+          "dynamicMusic": "MusicDungeon"
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        },
+        {
+          "$type": "ThunderRoad.LevelTestAreaModule, ThunderRoad",
+          "areaListToConnect": [
+            {
+              "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+              "dataId": "GL_XSTransi_Castle_01",
+              "category": "Area"
+            },
+            {
+              "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+              "dataId": "GL_XSTransi_Cave_10",
+              "category": "Area"
+            },
+            {
+              "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+              "dataId": "GL_Transi_Cave_Mine",
+              "category": "Area"
+            }
+          ]
+        }
+      ],
+      "availableOptions": [
+        {
+          "$type": "ThunderRoad.LevelData+Option, ThunderRoad",
+          "name": "Difficulty",
+          "displayName": "Number of NPC",
+          "description": "Number of NPC (1 star is 0 NPC)",
+          "type": "Stars",
+          "minValue": 0,
+          "maxValue": 3,
+          "defaultValue": 0,
+          "valueList": []
+        },
+        {
+          "$type": "ThunderRoad.LevelData+Option, ThunderRoad",
+          "name": "DungeonLength",
+          "displayName": "Connected",
+          "description": "Connect area to each connection",
+          "type": "Toggle",
+          "minValue": 0,
+          "maxValue": 1,
+          "defaultValue": 1,
+          "valueList": []
+        },
+        {
+          "$type": "ThunderRoad.LevelData+Option, ThunderRoad",
+          "name": "DungeonRoom",
+          "displayName": "Area Id",
+          "description": "Area to spawn",
+          "type": "StringList",
+          "minValue": 0,
+          "maxValue": 0,
+          "defaultValue": 0,
+          "valueList": [
+            "GL_Arena_Castle_Library",
+            "GL_Arena_Ext_WaterMill",
+            "GL_Arena_xC&C_Chapel",
+            "GL_End_Arena_Outpost",
+            "GL_End_Arena_Watchtower",
+            "GL_End_Cave_TheLostCove",
+            "GL_Start_Lighthouse",
+            "GL_Std_C&C_ElevatedStairs",
+            "GL_Std_C&C_FallenCorridor",
+            "GL_Std_Castle_Ascent",
+            "GL_Std_Castle_CliffTerrace",
+            "GL_Std_Castle_CollapsedCeiling",
+            "GL_Std_Castle_Courtyard",
+            "GL_Std_Castle_KingCorridor",
+            "GL_Std_Castle_SewerGate",
+            "GL_Std_Castle_SmallGarden",
+            "GL_Std_Castle_ViaductZipline",
+            "GL_Std_xCastle&Cave_Source",
+            "GL_Transi_C&C_RavineZipline",
+            "GL_Transi_Castle_Barracks",
+            "GL_Transi_Castle_BelowTheBridge",
+            "GL_Transi_Castle_Chasm",
+            "GL_Transi_Castle_ClimbingChasm",
+            "GL_Transi_Castle_Courtyard",
+            "GL_Transi_Castle_Hallway01",
+            "GL_Transi_Castle_RopeTraverse",
+            "GL_Transi_Castle_Sewer1",
+            "GL_Transi_Castle_SewerRerout",
+            "GL_Transi_Castle_StorageHallway",
+            "GL_Transi_Castle_TwoFloorsCorridor",
+            "GL_Transi_Cave_AbandonedSewers",
+            "GL_Transi_Cave_Mine",
+            "GL_Transi_Cave_Streamline",
+            "GL_Transi_Cave_Underground",
+            "GL_Transi_Cave_UndergroundParkour",
+            "GL_Transi_Cave_UndergroundZipline",
+            "GL_Transi_Ext_TowerSite",
+            "GL_Transi_SewerMaintenance",
+            "GL_Transi_xC&C_03",
+            "GL_Transi_xC&C_08",
+            "GL_Transi_xC&C_RockyWell",
+            "GL_Transi_xGrass&Cave_Granary",
+            "GL_XSTransi_Castle_01",
+            "GL_XSTransi_Castle_02",
+            "GL_XSTransi_Castle_03",
+            "GL_XSTransi_Castle_04",
+            "GL_XSTransi_Castle_05",
+            "GL_XSTransi_Castle_06",
+            "GL_XSTransi_Castle_07",
+            "GL_XSTransi_Castle_08",
+            "GL_XSTransi_Castle_09",
+            "GL_XSTransi_Castle_10",
+            "GL_XSTransi_Castle_11",
+            "GL_XSTransi_Castle_13",
+            "GL_XSTransi_Castle_14",
+            "GL_XSTransi_Castle_15",
+            "GL_XSTransi_Castle_16",
+            "GL_XSTransi_Castle_17",
+            "GL_XSTransi_Castle_18",
+            "GL_XSTransi_Castle_19",
+            "GL_XSTransi_Castle_20",
+            "GL_XSTransi_Castle_21",
+            "GL_XSTransi_Castle_22",
+            "GL_XSTransi_Castle_23",
+            "GL_XSTransi_Castle_Underwater1",
+            "GL_XSTransi_Cave_10",
+            "GL_XSTransi_Cave_11",
+            "GL_XSTransi_Cave_12",
+            "GL_XSTransi_xC&C_ForgottenEntrance"
+          ]
+        }
+      ]
+    }
+  ],
+  "modePickCountPerRank": 2,
+  "customCameras": [],
+  "throwableRefType": "Item",
+  "improvisedThrowableID": null
+}

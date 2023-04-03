@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -11,7 +12,7 @@ using EasyButtons;
 namespace ThunderRoad
 {
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/ColliderGroup")]
-    public class ColliderGroup : MonoBehaviour
+    public class ColliderGroup : ThunderBehaviour
     {
         [Tooltip("(Optional) Use a mesh instead of collider(s) to apply imbue vfx and particles effects")]
         public Renderer imbueEffectRenderer;
@@ -31,25 +32,25 @@ namespace ThunderRoad
         public List<Collider> colliders;
         [NonSerialized]
         public HashSet<Collider> colliderSet;
+
 #if ODIN_INSPECTOR
         [ShowInInspector]
 #endif
-#if PrivateSDK
         [NonSerialized]
         public ColliderGroupData data;
-#endif
+
 #if ODIN_INSPECTOR
         [ShowInInspector]
 #endif
         [NonSerialized]
         public CollisionHandler collisionHandler;
+
 #if ODIN_INSPECTOR
         [ShowInInspector]
 #endif
-#if PrivateSDK
         [NonSerialized]
         public ColliderGroupData.Modifier modifier;
-#endif
+
 
         [Button("Generate imbue mesh")]
         public void GenerateImbueMesh()

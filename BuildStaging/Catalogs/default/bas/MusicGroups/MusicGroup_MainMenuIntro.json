@@ -1,0 +1,28 @@
+{
+  "$type": "ThunderRoad.MusicGroup, ThunderRoad",
+  "id": "MainMenuIntro",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "musicSegments": [
+    {
+      "$type": "ThunderRoad.MusicSegment, ThunderRoad",
+      "volumeDb": 0.0,
+      "musicAddress": "Bas.AudioClip.DynamicMusic.MainMenuIntro",
+      "timesPlayedInSerie": 1
+    },
+    {
+      "$type": "ThunderRoad.MusicSegment, ThunderRoad",
+      "volumeDb": -2.0,
+      "musicAddress": "Bas.AudioClip.DynamicMusic.MainMenuLoop",
+      "timesPlayedInSerie": 1
+    }
+  ],
+  "shuffleMode": false,
+  "restartSequenceIndex": 1,
+  "volumeDb": -8.0,
+  "BPM": 90,
+  "beatsPerBar": 4,
+  "barPerGrid": 4,
+  "SegmentOrderCount": -1
+}

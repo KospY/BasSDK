@@ -8,14 +8,16 @@ using EasyButtons;
 namespace ThunderRoad
 {
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/DisableOnPlatform")]
-	[AddComponentMenu("ThunderRoad/Misc/Disable or Strip GameObject relative to platform")]
+    [AddComponentMenu("ThunderRoad/Misc/Disable or Strip GameObject relative to platform")]
     public class DisableOnPlatform : MonoBehaviour
     {
         public PlatformFilter platformFilter = PlatformFilter.OnlyOn;
         public Platform platform = Platform.Windows;
-
+        
+        
         [Tooltip("Strip can happen when generating platform specific scene or room")]
         public bool allowStrip = false;
+        
 
         public enum PlatformFilter
         {
@@ -23,18 +25,21 @@ namespace ThunderRoad
             ExcludeOn = 2,
         }
 
-        protected void Awake()
+        protected void Start()
         {
             if (platformFilter == PlatformFilter.OnlyOn)
             {
-                if (Common.GetPlatform() == platform)
+                if (Common.GetPlatform() == platform
+                    
+                   )
                 {
                     this.gameObject.SetActive(false);
                 }
             }
             else if (platformFilter == PlatformFilter.ExcludeOn)
             {
-                if (Common.GetPlatform() != platform)
+                if (Common.GetPlatform() != platform
+                   )
                 {
                     this.gameObject.SetActive(false);
                 }
@@ -45,14 +50,18 @@ namespace ThunderRoad
         {
             if (platformFilter == PlatformFilter.OnlyOn)
             {
-                if (platform == this.platform)
+                if (platform == this.platform 
+                    
+                   )
                 {
                     return true;
                 }
             }
             else if (platformFilter == PlatformFilter.ExcludeOn)
             {
-                if (platform != this.platform)
+                if (platform != this.platform
+                
+                   )
                 {
                     return true;
                 }

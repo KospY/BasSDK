@@ -1,0 +1,70 @@
+{
+  "$type": "ThunderRoad.Music, ThunderRoad",
+  "id": "MusicArenaCitadel",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "volumeDb": -2.0,
+  "groupsToLoad": [
+    "ArenaCitadelStartFight",
+    "ArenaCitadelIntroFight",
+    "ArenaCitadelStopFight"
+  ],
+  "transitions": [
+    {
+      "$type": "ThunderRoad.Music+MusicTransition, ThunderRoad",
+      "sourceGroup": "",
+      "destinationGroup": "ArenaCitadelStartFight",
+      "musicGroup": "ArenaCitadelIntroFight",
+      "timeBeforeTransition": 0,
+      "transitionType": "OnBeat",
+      "timeBeforeDestStart": 2,
+      "transitionDestStartType": "OnGrid"
+    },
+    {
+      "$type": "ThunderRoad.Music+MusicTransition, ThunderRoad",
+      "sourceGroup": "ArenaCitadelStartFight",
+      "destinationGroup": "",
+      "musicGroup": "ArenaCitadelStopFight",
+      "timeBeforeTransition": 0,
+      "transitionType": "OnGrid",
+      "timeBeforeDestStart": 1,
+      "transitionDestStartType": "OnGrid"
+    }
+  ],
+  "dynamicModules": {
+    "$type": "ThunderRoad.MusicDynamicModuleMap, ThunderRoad",
+    "WaveSpawnerTransition": {
+      "$type": "ThunderRoad.MusicWaveSpawnerTransitionModule, ThunderRoad",
+      "ambianceMusicGroupId": "",
+      "waveMusicGroupId": "ArenaCitadelStartFight"
+    },
+    "CombatKillStingerMele": {
+      "$type": "ThunderRoad.MusicStingerCombatKillModule, ThunderRoad",
+      "killType": "mele",
+      "damageRatioThreshold": 0.75,
+      "timeComboKill": 0.01,
+      "stingerEffectIdList": [
+        "ArenaOnKillStingerMele"
+      ]
+    },
+    "CombatKillStingerRange": {
+      "$type": "ThunderRoad.MusicStingerCombatKillModule, ThunderRoad",
+      "killType": "range",
+      "damageRatioThreshold": 0.75,
+      "timeComboKill": 0.01,
+      "stingerEffectIdList": [
+        "ArenaOnKillStingerRange"
+      ]
+    },
+    "CombatKillStingerIndirect": {
+      "$type": "ThunderRoad.MusicStingerCombatKillModule, ThunderRoad",
+      "killType": "indirectCause",
+      "damageRatioThreshold": 0.75,
+      "timeComboKill": 0.01,
+      "stingerEffectIdList": [
+        "ArenaOnKillStingerIndirect"
+      ]
+    }
+  }
+}

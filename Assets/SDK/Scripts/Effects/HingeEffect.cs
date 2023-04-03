@@ -24,7 +24,7 @@ namespace ThunderRoad
 #if ODIN_INSPECTOR
         public List<ValueDropdownItem<string>> GetAllEffectID()
         {
-            return Catalog.GetDropdownAllID(Catalog.Category.Effect);
+            return Catalog.GetDropdownAllID(Category.Effect);
         }
 #endif
 

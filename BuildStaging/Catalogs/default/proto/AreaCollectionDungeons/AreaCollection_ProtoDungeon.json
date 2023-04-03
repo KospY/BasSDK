@@ -1,0 +1,57 @@
+{
+  "$type": "ThunderRoad.AreaCollectionDungeon, ThunderRoad",
+  "id": "ProtoDungeon",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "path": [
+    {
+      "$type": "ThunderRoad.AreaCollectionDungeon+PathGroup, ThunderRoad",
+      "numberAreaMinToSpawn": 1,
+      "numberAreaMaxToSpawn": 1,
+      "creatureFillPercentage": 1.0,
+      "lootFillPercentage": 1.0,
+      "isSharedNPCAlert": true,
+      "areaPoolIdContainer": [
+        {
+          "$type": "ThunderRoad.AreaCollectionDungeon+AreaTableIdContainer, ThunderRoad",
+          "dataId": "ProtoTable"
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionDungeon+PathGroup, ThunderRoad",
+      "numberAreaMinToSpawn": 3,
+      "numberAreaMaxToSpawn": 3,
+      "creatureFillPercentage": 1.0,
+      "lootFillPercentage": 1.0,
+      "isSharedNPCAlert": true,
+      "areaPoolIdContainer": [
+        {
+          "$type": "ThunderRoad.AreaCollectionDungeon+AreaTableIdContainer, ThunderRoad",
+          "dataId": "ProtoTable"
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionDungeon+PathGroup, ThunderRoad",
+      "numberAreaMinToSpawn": 1,
+      "numberAreaMaxToSpawn": 1,
+      "creatureFillPercentage": 1.0,
+      "lootFillPercentage": 1.0,
+      "isSharedNPCAlert": true,
+      "areaPoolIdContainer": [
+        {
+          "$type": "ThunderRoad.AreaCollectionDungeon+AreaTableIdContainer, ThunderRoad",
+          "dataId": "ProtoTable"
+        }
+      ]
+    }
+  ],
+  "retry_previous_area_allowed": 10000,
+  "bounds_margin": 0.1,
+  "backupList": [],
+  "StatsResultFileFolderPath": "BuildStaging/DungeonsResults",
+  "numberTest": 0,
+  "plateformTypes": []
+}

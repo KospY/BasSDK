@@ -43,6 +43,7 @@ namespace ThunderRoad
 
         protected virtual void OnValidate()
         {
+            if (!gameObject.activeInHierarchy) return;
             if (slots.Count == 0) slots.Add(this.transform);
         }
 
@@ -50,7 +51,6 @@ namespace ThunderRoad
         public void FillWithDefault()
         {
         }
-
 
         [Button("Align start object")]
         public void AlignObject(Item item)

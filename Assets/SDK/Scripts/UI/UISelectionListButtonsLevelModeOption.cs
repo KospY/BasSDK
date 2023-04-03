@@ -23,7 +23,7 @@ namespace ThunderRoad
         public Transform starPlace = null;
 
         public string descriptionText = "This is a description test.\n Your text go here.";
-        public UIMap uiLevelSelector = null;
+        public UIWorldMapBoard uiLevelSelector = null;
 
         public void OnPointerEnter(UnityEngine.EventSystems.PointerEventData eventData)
         {

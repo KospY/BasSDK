@@ -20,6 +20,41 @@ namespace ThunderRoad
         [Range(0, 360)]
         public float allowedAngle = 60;
 
+        [NonSerialized]
+        public Vector3 navPosition;
+        [NonSerialized]
+#if ODIN_INSPECTOR
+        [ShowInInspector, ReadOnly]
+#endif
+        public Creature currentCreature;
+
+        protected override void ManagedOnEnable()
+        {
+            base.ManagedOnEnable();
+            list.Add(this);
+            if (NavMesh.SamplePosition(this.transform.position, out NavMeshHit navMeshHit, 100, -1) && this.transform.position.y > navMeshHit.position.y)
+            {
+                navPosition = navMeshHit.position;
+            }
+            else
+            {
+                navPosition = this.transform.position;
+            }
+        }
+
+        public override ManagedLoops EnabledManagedLoops => ManagedLoops.LateUpdate;
+        protected internal override void ManagedLateUpdate()
+        {
+            base.ManagedLateUpdate();
+            if (currentCreature?.state == Creature.State.Dead) currentCreature = null;
+        }
+
+        protected override void ManagedOnDisable()
+        {
+            base.ManagedOnDisable();
+            list.Remove(this);
+        }
+
         public void OnDrawGizmos()
         {
             if (allowedAngle > 0 && allowedAngle < 360)

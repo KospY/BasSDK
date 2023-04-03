@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ThunderRoad
 {
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/FxModule")]
-    public class FxModule : MonoBehaviour
+    public class FxModule : ThunderBehaviour
     {
         public bool useControllerDirection;
 

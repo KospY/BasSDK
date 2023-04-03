@@ -8,8 +8,8 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
-        [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/FxModuleParticle")]
-	public class FxModuleParticle : FxModule
+    [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/FxModuleParticle")]
+    public class FxModuleParticle : FxModule
     {
         [Header("Emission Rate Over Time")]
 #if ODIN_INSPECTOR
@@ -108,11 +108,13 @@ namespace ThunderRoad
 #endif
         public AnimationCurve startSpeedLinkCurve;
 #if ODIN_INSPECTOR
-        [HideIf("emissionBurstLink", Link.None), LabelText("Min speed ratio"), Range(0,1)]
+        [HideIf("emissionBurstLink", Link.None), LabelText("Min speed ratio"), Range(0, 1)]
 #endif
         public float startSpeedMinSpeedRatio = 1;
 
+        protected MaterialPropertyBlock materialPropertyBlock;
         protected new ParticleSystem particleSystem;
+        protected ParticleSystemRenderer particleSystemRenderer;
         protected ParticleSystem.MainModule particleSystemMain;
         protected ParticleSystem.MinMaxCurve minMaxCurve = new ParticleSystem.MinMaxCurve();
 
@@ -123,8 +125,16 @@ namespace ThunderRoad
 
         private void Awake()
         {
-            particleSystem = this.GetComponent<ParticleSystem>();
-            particleSystemMain = particleSystem.main;
+            materialPropertyBlock = new MaterialPropertyBlock();
+            if (this.TryGetComponent<ParticleSystem>(out particleSystem))
+            {
+                particleSystemMain = particleSystem.main;
+                particleSystemRenderer = particleSystem.GetComponent<ParticleSystemRenderer>();
+            }
+            else
+            {
+                Debug.LogError($"FXModuleParticle {this.gameObject.GetPathFromRoot()} is missing its particleSYstem");
+            }
         }
 
         public override bool IsPlaying()

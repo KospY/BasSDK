@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #if UNITY_EDITOR
 using UnityEditor;
-using UnityEditor.Experimental.SceneManagement;
+
 using UnityEditor.AddressableAssets.Settings;
 using UnityEditor.AddressableAssets;
 #endif
@@ -20,10 +20,15 @@ namespace ThunderRoad
     [AddComponentMenu("ThunderRoad/Items/Preview")]
     public class Preview : MonoBehaviour
     {
+        [Tooltip("If ticked, will generate a separate preview with \"Close-up\", which is used for close-up preview in the item spawner")]
         public bool closeUpPreview;
+        [Tooltip("Determine size of the preview. Scales with X Scale")]
         public float size = 1;
+        [Tooltip("Default resolution of the generated preview")]
         public int iconResolution = 512;
+        [Tooltip("Temporarily changes layer when taking a picture. Change this if the layers are already in use/changed.")]
         public int tempLayer = 2;
+        [Tooltip("List of renderers which can be used in the preview. Not neccessary for weapon mesh.")]
         public List<Renderer> renderers;
         public Texture2D generatedIcon;
 
@@ -71,11 +76,11 @@ namespace ThunderRoad
 
 
             string iconPath = null;
-            if (PrefabStageUtility.GetCurrentPrefabStage() != null)
+            if (UnityEditor.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage() != null)
             {
                 // Prefab editor
-                iconPath = PrefabStageUtility.GetCurrentPrefabStage().assetPath;
-                cam.scene = PrefabStageUtility.GetCurrentPrefabStage().scene;
+                iconPath = UnityEditor.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage().assetPath;
+                cam.scene = UnityEditor.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage().scene;
             }
             else if (PrefabUtility.GetNearestPrefabInstanceRoot(this))
             {

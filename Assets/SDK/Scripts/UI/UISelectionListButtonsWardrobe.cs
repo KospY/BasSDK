@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace ThunderRoad
 {
-	public class UISelectionListButtonsWardrobe : UISelectionListButtons
+    public class UISelectionListButtonsWardrobe : UISelectionListButtons
     {
         public Equipment.WardRobeCategory category = Equipment.WardRobeCategory.Body;
         public string channel = "Head";

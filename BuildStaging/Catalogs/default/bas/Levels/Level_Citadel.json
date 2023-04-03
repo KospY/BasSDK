@@ -1,0 +1,54 @@
+{
+  "$type": "ThunderRoad.LevelData, ThunderRoad",
+  "id": "Citadel",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 3,
+  "name": "Citadel",
+  "description": "Perched atop a craggy mountainside, the Citadel is an imposing structure.\nLong walkways and verticality create many climbing opportunities in this large map.",
+  "descriptionLocalizationId": "CitadelDescription",
+  "sceneAddress": "Bas.Level.Citadel",
+  "showOnlyDevMode": false,
+  "showInLevelSelection": false,
+  "savePlayerInventoryOnUnload": false,
+  "worldmapPrefabAddress": "Bas.Image.Map.Default",
+  "mapLocationIndex": 20,
+  "showOnMap": true,
+  "hideOnAndroid": true,
+  "mapLocationIconAddress": "Bas.Icon.Location.Arena",
+  "mapLocationIconHoverAddress": "Bas.Icon.Location.ArenaHover",
+  "mapPreviewImageAddress": "Bas.Image.Preview.Citadel",
+  "modes": [
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "Sandbox",
+      "displayName": "Sandbox",
+      "description": "SandboxDescription",
+      "allowGameModes": [
+        "Sandbox"
+      ],
+      "mapOrder": 0,
+      "difficultyMultipliers": [],
+      "playerCanDie": true,
+      "deathLossAddress": "Bas.Loss.Death",
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        },
+        {
+          "$type": "LevelModuleResetSpawners, ThunderRoad"
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleMusic, ThunderRoad",
+          "dynamicMusic": "MusicArenaCitadel"
+        }
+      ],
+      "availableOptions": []
+    }
+  ],
+  "modePickCountPerRank": 2,
+  "customCameras": [],
+  "throwableRefType": "Item",
+  "improvisedThrowableID": null
+}

@@ -9,7 +9,7 @@ using EasyButtons;
 namespace ThunderRoad
 {
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/ImbueController")]
-    [AddComponentMenu("ThunderRoad/Items/Imbue Controller")]
+	[AddComponentMenu("ThunderRoad/Items/Imbue Controller")]
     [DisallowMultipleComponent]
     public class ImbueController : ThunderBehaviour
     {
@@ -19,7 +19,6 @@ namespace ThunderRoad
         [Range(0f, 100f)]
         public float imbueMaxPercent = 50f;
         public string imbueSpellId;
-
 
         private void OnValidate()
         {
@@ -47,5 +46,16 @@ namespace ThunderRoad
 
         [Button]
         public void ClearImbueID() => SetImbueID(string.Empty);
+
+        [Button]
+        public void ImbueUseStart()
+        {
+        }
+
+        [Button]
+        public void ImbueUseEnd()
+        {
+        }
+
     }
 }

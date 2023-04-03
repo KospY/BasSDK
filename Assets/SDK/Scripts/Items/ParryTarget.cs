@@ -4,8 +4,9 @@ using UnityEngine;
 namespace ThunderRoad
 {
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/ParryTarget")]
-    public class ParryTarget : MonoBehaviour
+    public class ParryTarget : ThunderBehaviour
     {
+        [Tooltip("Depicts the length of the ParryTarget. With this, AI will know how long your weapon is, and be able to parry it.\nCan be adjusted via button.")]
         public float length = 0.25f;
 
         public Vector3 GetLineStart()

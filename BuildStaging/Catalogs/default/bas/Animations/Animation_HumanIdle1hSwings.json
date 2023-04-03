@@ -1,0 +1,101 @@
+{
+  "$type": "ThunderRoad.AnimationData, ThunderRoad",
+  "id": "HumanIdle1hSwings",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "autoMinMaxRange": true,
+  "minRange": 1.05,
+  "maxRange": 1.1,
+  "usesDifficulty": true,
+  "animationClips": [
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Attack.Sword1h.Stance1.RtLSwing",
+      "step": "Start",
+      "animationSpeed": 1.0,
+      "loopType": "NonSpecific",
+      "range": 1.05,
+      "attackType": "None",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.316666663,
+        "y": 0.6666667
+      },
+      "sourceSubStance": "SimpleStance",
+      "peakRangeTime": 0.433333337,
+      "endSubStance": "SimpleStance",
+      "aimDirection": "Left",
+      "aimHeight": "Mid",
+      "weight": 1.0,
+      "chance": 1.0,
+      "difficulty": 1
+    },
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Attack.Sword1h.Stance1.LtRSwing",
+      "step": "Start",
+      "animationSpeed": 1.0,
+      "loopType": "NonSpecific",
+      "range": 1.05,
+      "attackType": "None",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.35,
+        "y": 0.75
+      },
+      "sourceSubStance": "SimpleStance",
+      "peakRangeTime": 0.516666651,
+      "endSubStance": "SimpleStance",
+      "aimDirection": "Right",
+      "aimHeight": "Mid",
+      "weight": 1.0,
+      "chance": 1.0,
+      "difficulty": 1
+    },
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Attack.Sword1h.Stance3.TtLSwing",
+      "step": "Start",
+      "animationSpeed": 1.0,
+      "loopType": "NonSpecific",
+      "range": 1.1,
+      "attackType": "None",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.2,
+        "y": 0.5
+      },
+      "sourceSubStance": "HighStance",
+      "peakRangeTime": 0.333333343,
+      "endSubStance": "SimpleStance",
+      "aimDirection": "Left",
+      "aimHeight": "Up",
+      "weight": 1.0,
+      "chance": 1.0,
+      "difficulty": 1
+    },
+    {
+      "$type": "ThunderRoad.AnimationData+Clip, ThunderRoad",
+      "address": "Bas.Animation.Attack.Sword1h.Stance3.TtRSwing",
+      "step": "Start",
+      "animationSpeed": 1.0,
+      "loopType": "NonSpecific",
+      "range": 1.1,
+      "attackType": "None",
+      "attackMotion": "RightSwing",
+      "startAndEndTime": {
+        "x": 0.183333337,
+        "y": 0.533333361
+      },
+      "sourceSubStance": "HighStance",
+      "peakRangeTime": 0.35,
+      "endSubStance": "SimpleStance",
+      "aimDirection": "Right",
+      "aimHeight": "Up",
+      "weight": 1.0,
+      "chance": 1.0,
+      "difficulty": 1
+    }
+  ]
+}

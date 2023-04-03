@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.AddressableAssets;
 using System;
 
 #if ODIN_INSPECTOR
@@ -36,13 +35,14 @@ namespace ThunderRoad
         [Button]
         public void Spawn()
         {
+            Transform cachedTransform = this.transform;
             if ((Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer) && platform.HasFlag(Platform.Windows))
             {
-                Addressables.InstantiateAsync(address, this.transform.position, this.transform.rotation, this.transform);
+                Catalog.InstantiateAsync(address, cachedTransform.position, cachedTransform.rotation, cachedTransform, null, "PrefabSpawner");
             }
             else if (Application.platform == RuntimePlatform.Android && platform.HasFlag(Platform.Android))
             {
-                Addressables.InstantiateAsync(address, this.transform.position, this.transform.rotation, this.transform);
+                Catalog.InstantiateAsync(address, cachedTransform.position, cachedTransform.rotation, cachedTransform, null, "PrefabSpawner");
             }
         }
     }

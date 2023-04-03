@@ -18,27 +18,42 @@ namespace ThunderRoad
     {
         public static List<WaveSpawner> instances = new List<WaveSpawner>();
 
+        [Tooltip("List of spawn points, where NPC will spawn during a wave start.")]
         public List<Transform> spawns = new List<Transform>();
+        [Tooltip("Adds FleePoint to the Spawn Point locations. When wave ends, alive NPC will move to these spots to despawn.")]
         public bool addAsFleepointOnStart = true;
 
+        [Tooltip("Begins wave apon loading in to the level.")]
         public bool beginWaveOnStart;
+        [Tooltip("Delay of Wave activation on start.")]
         public float beginWaveOnStartDelay;
+        [Tooltip("ID of wave that begins on start")]
         public string startWaveId;
+        [Tooltip("When ticked, the WaveSpawner will use creatures from the pool.")]
         public bool pooled = true;
+        [Tooltip("When ticked, items and dead bodies will despawn when the wave starts. When disabled, bodies and items do not despawn on start.")]
         public bool cleanBodiesAndItemsOnWaveStart = true;
 
 #if ODIN_INSPECTOR
         [ValueDropdown("GetAllFactionID")]
 #endif
+        [Tooltip("ID of the faction that is ignored by the NPCs of this wave.")]
         public int ignoredFactionId = -1;
+        [Tooltip("Determines how often the spawner checks to see if it can spawn a new creature.")]
         public float updateRate = 2;
+        [Tooltip("Determines the delay between spawning creatures at the same spawn point.")]
         public float sameSpawnDelay = 3;
+        [Tooltip("Delay between NPC spawns.")]
         public float spawnDelay = 2;
 
         [Header("Music")]
+        [Tooltip("Address of the music that plays when the wave is in progress.")]
         public string musicWaveAddress = "Bas.Audio.Music.Gladiator";
+        [Tooltip("Default volume of the Wave music. Separate from in-game audio settings.")]
         public float musicAudioVolume = 1;
+        [Tooltip("Address of the audio used when the wave has ended.")]
         public string stepAudioGroupAddress = "Bas.AudioGroup.Misc.WaveRound";
+        [Tooltip("Volume of the Step Audio. Separate from in-game audio settings.")]
         public float stepAudioVolume = 1;
 
         [Header("Event")]

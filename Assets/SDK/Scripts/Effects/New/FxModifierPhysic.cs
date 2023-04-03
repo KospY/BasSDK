@@ -1,11 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using System;
-#if ODIN_INSPECTOR
-using Sirenix.OdinInspector;
-#else
-using EasyButtons;
-#endif
+﻿using UnityEngine;
 
 namespace ThunderRoad
 {
@@ -37,7 +30,7 @@ namespace ThunderRoad
         protected float dampenedVelocity;
         protected float dampenedTorque;
 
-        protected override ManagedLoops ManagedLoops => ManagedLoops.Update;
+        public override ManagedLoops EnabledManagedLoops => ManagedLoops.Update;
 
         private void OnValidate()
         {

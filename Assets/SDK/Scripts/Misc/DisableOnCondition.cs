@@ -12,28 +12,10 @@ namespace ThunderRoad
             OnPlay,
             IsBuildRelease,
             OnRoomCulled,
-            GoreNotAllowed,
+            ContentFilterSetting
         }
 
-        protected void OnEnable()
-        {
-            if (condition == Condition.OnPlay)
-            {
-                this.gameObject.SetActive(false);
-            }
-            else if (condition == Condition.GoreNotAllowed)
-            {
-                if (!GameSettings.instance.activeContent.HasFlag(GameSettings.ContentFlag.Blood))
-                {
-                    this.gameObject.SetActive(false);
-                }
-            }
-#if PrivateSDK
-            else if (condition == Condition.IsBuildRelease && !Debug.isDebugBuild)
-            {
-                this.gameObject.SetActive(false);
-            }
-#endif
-        }
+        public BuildSettings.SingleContentFlag contentFlag = BuildSettings.SingleContentFlag.Blood;
+
     }
 }

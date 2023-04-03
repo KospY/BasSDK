@@ -1,0 +1,47 @@
+{
+  "$type": "ThunderRoad.LevelData, ThunderRoad",
+  "id": "Home",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 3,
+  "name": "{Home}",
+  "description": null,
+  "descriptionLocalizationId": null,
+  "sceneAddress": "Bas.Level.Home",
+  "showOnlyDevMode": false,
+  "showInLevelSelection": false,
+  "savePlayerInventoryOnUnload": true,
+  "worldmapPrefabAddress": "Bas.Image.Map.Default",
+  "mapLocationIndex": 14,
+  "showOnMap": false,
+  "hideOnAndroid": false,
+  "mapLocationIconAddress": "Bas.Icon.Location.Home",
+  "mapLocationIconHoverAddress": "Bas.Icon.Location.HomeHover",
+  "mapPreviewImageAddress": null,
+  "modes": [
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "Default",
+      "displayName": "Default",
+      "description": "NoDescription",
+      "allowGameModes": [
+        "SandBox"
+      ],
+      "mapOrder": 0,
+      "difficultyMultipliers": [],
+      "playerCanDie": true,
+      "deathLossAddress": "Bas.Loss.Respawn",
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        }
+      ],
+      "availableOptions": []
+    }
+  ],
+  "modePickCountPerRank": 2,
+  "customCameras": [],
+  "throwableRefType": "Item",
+  "improvisedThrowableID": null
+}

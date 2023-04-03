@@ -1,0 +1,137 @@
+{
+  "$type": "ThunderRoad.LevelData, ThunderRoad",
+  "id": "DungeonOutpost",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 3,
+  "name": "Outpost",
+  "description": "Begin your first Dungeon adventure in the Greenlands; characterized by its ruined castle-like stone structures and cave systems. ",
+  "descriptionLocalizationId": "OutpostDescription",
+  "sceneAddress": "Level.Areas",
+  "showOnlyDevMode": false,
+  "showInLevelSelection": true,
+  "savePlayerInventoryOnUnload": false,
+  "worldmapPrefabAddress": "Bas.Image.Map.Default",
+  "mapLocationIndex": 12,
+  "showOnMap": true,
+  "hideOnAndroid": false,
+  "mapLocationIconAddress": "Bas.Icon.Location.Dungeon",
+  "mapLocationIconHoverAddress": "Bas.Icon.Location.DungeonHover",
+  "mapPreviewImageAddress": "Bas.Image.Preview.Outpost",
+  "modes": [
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "Sandbox",
+      "displayName": "Sandbox",
+      "description": "DungeonSandboxDescription",
+      "allowGameModes": [
+        "Sandbox"
+      ],
+      "mapOrder": 0,
+      "difficultyMultipliers": [
+        {
+          "$type": "ThunderRoad.LevelData+Mode+DifficultyMultipliers, ThunderRoad",
+          "playerHealthMultiplier": 1.0,
+          "playerDamageMultiplier": 1.0,
+          "creatureDamageMultiplier": 1.0
+        },
+        {
+          "$type": "ThunderRoad.LevelData+Mode+DifficultyMultipliers, ThunderRoad",
+          "playerHealthMultiplier": 1.0,
+          "playerDamageMultiplier": 1.0,
+          "creatureDamageMultiplier": 1.0
+        },
+        {
+          "$type": "ThunderRoad.LevelData+Mode+DifficultyMultipliers, ThunderRoad",
+          "playerHealthMultiplier": 0.75,
+          "playerDamageMultiplier": 0.75,
+          "creatureDamageMultiplier": 1.5
+        },
+        {
+          "$type": "ThunderRoad.LevelData+Mode+DifficultyMultipliers, ThunderRoad",
+          "playerHealthMultiplier": 0.5,
+          "playerDamageMultiplier": 0.5,
+          "creatureDamageMultiplier": 2.0
+        },
+        {
+          "$type": "ThunderRoad.LevelData+Mode+DifficultyMultipliers, ThunderRoad",
+          "playerHealthMultiplier": 1.0,
+          "playerDamageMultiplier": 0.5,
+          "creatureDamageMultiplier": 3.0
+        }
+      ],
+      "playerCanDie": true,
+      "deathLossAddress": "Bas.Loss.Death",
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleMusic, ThunderRoad",
+          "dynamicMusic": "MusicDungeon"
+        },
+        {
+          "$type": "ThunderRoad.LevelAreaModule, ThunderRoad",
+          "areaSpawnDepth": 100,
+          "areaDespawnDepth": 101,
+          "areaCullDepth": 2,
+          "listAreaByLengthAndDifficulty": [
+            [
+              {
+                "$type": "ThunderRoad.LevelAreaModule+AreaSpawnerData, ThunderRoad",
+                "areaCollectionId": "GL_Short",
+                "numberCreature": 50,
+                "isSharedNPCAlert": true
+              }
+            ],
+            [
+              {
+                "$type": "ThunderRoad.LevelAreaModule+AreaSpawnerData, ThunderRoad",
+                "areaCollectionId": "GL_Medium",
+                "numberCreature": 50,
+                "isSharedNPCAlert": true
+              }
+            ],
+            [
+              {
+                "$type": "ThunderRoad.LevelAreaModule+AreaSpawnerData, ThunderRoad",
+                "areaCollectionId": "GL_Large",
+                "numberCreature": 50,
+                "isSharedNPCAlert": true
+              }
+            ]
+          ]
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        }
+      ],
+      "availableOptions": [
+        {
+          "$type": "ThunderRoad.LevelData+Option, ThunderRoad",
+          "name": "Difficulty",
+          "displayName": "Difficulty",
+          "description": "DifficultyDescription",
+          "type": "Stars",
+          "minValue": 1,
+          "maxValue": 3,
+          "defaultValue": 2,
+          "valueList": null
+        },
+        {
+          "$type": "ThunderRoad.LevelData+Option, ThunderRoad",
+          "name": "DungeonLength",
+          "displayName": "Length",
+          "description": "LengthDescription",
+          "type": "Stars",
+          "minValue": 1,
+          "maxValue": 3,
+          "defaultValue": 2,
+          "valueList": null
+        }
+      ]
+    }
+  ],
+  "modePickCountPerRank": 2,
+  "customCameras": [],
+  "throwableRefType": "Item",
+  "improvisedThrowableID": null
+}

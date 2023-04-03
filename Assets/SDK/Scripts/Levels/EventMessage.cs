@@ -1,20 +1,22 @@
 using System.Collections;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Video;
+
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
 using EasyButtons;
 #endif
-using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Video;
 
 namespace ThunderRoad
 {
     public class EventMessage : MonoBehaviour
     {
 #if ODIN_INSPECTOR
-        [TextArea(0, 20), HideLabel]
+        [HideLabel] 
 #endif
+        [TextArea(0, 20)]
         public string text;
         public string localizationGroupId;
         public string localizationStringId;
@@ -25,6 +27,7 @@ namespace ThunderRoad
         public bool fitVideoHorizontally;
 
         public bool warnPlayer = true; // Uses haptics until the player looked at the message
+        public MessageAnchorType anchorType = MessageAnchorType.HandLeft;
         public Transform anchorTargetTransform; // Used only if anchor type is "Transform"
 
         public bool dismissAutomatically;
@@ -35,8 +38,25 @@ namespace ThunderRoad
         [HideInInspector] public bool startFromZoneTrigger;
         [HideInInspector] public bool stopFromZoneTrigger;
         [HideInInspector] public bool isTutorialMessage;
+        [HideInInspector] public bool isSkippable = true;
+
+        private IEnumerator loadMediaAssetsCoroutine;
+        private IEnumerator showMessageCoroutine;
+
 
         public void ShowMessage()
+        {
+        }
+
+
+        /// <summary>
+        /// Reset the state of this event message
+        /// </summary>
+        public void ResetMessage()
+        {
+        }
+
+        public void StopMessage()
         {
         }
     }

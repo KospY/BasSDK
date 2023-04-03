@@ -58,13 +58,14 @@ namespace ThunderRoad
 #if ODIN_INSPECTOR
         public List<ValueDropdownItem<string>> GetAllAnimationID()
         {
-            return Catalog.GetDropdownAllID(Catalog.Category.Animation);
+            return Catalog.GetDropdownAllID(Category.Animation);
         }
 #endif
 
 
         private void OnValidate()
         {
+            if (!gameObject.activeInHierarchy) return;
             //IconManager.SetIcon(this.gameObject, IconManager.LabelIcon.Purple);
             navMeshPath = new NavMeshPath();
         }
@@ -172,9 +173,7 @@ namespace ThunderRoad
                         meshCollider.Item1.convex = true;
                     }
                 }
-
-                LayerMask groundMask = 1 << 1 | 1 << 12;
-                
+                LayerMask groundMask = 1 << Common.GetLayer(LayerName.Default) | 1 << Common.GetLayer(LayerName.LocomotionOnly);
                 var physicsScene = gameObject.scene.GetPhysicsScene();
                 if (physicsScene.Raycast(rayHitPosition, Vector3.down, out RaycastHit hit, 10f, groundMask, QueryTriggerInteraction.Ignore))
                 {
@@ -214,7 +213,7 @@ namespace ThunderRoad
         {
             if (waypoints && waypoints.childCount > 0)
             {
-                NavMesh.CalculatePath(spawner.position, waypoints.GetChild(0).transform.position, -1, navMeshPath);
+                NavMesh.CalculatePath(spawner.position, waypoints.GetChild(0).transform.position, -1, navMeshPath ?? (navMeshPath = new NavMeshPath()));
 
                 if (navMeshPath.status == NavMeshPathStatus.PathComplete)
                 {

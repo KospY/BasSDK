@@ -6,7 +6,7 @@ using UnityEngine;
 namespace ThunderRoad
 {
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/RotateThumbLatch")]
-    public class RotateThumbLatch : MonoBehaviour
+	public class RotateThumbLatch : MonoBehaviour
     {
         [Header("Thumb latch rotation")]
         public Transform transformToRotate; // Transform that will be rotated by the script
@@ -27,44 +27,6 @@ namespace ThunderRoad
         public Handle frontHandle; // Front handle of the door
 
         public Handle backHandle; // Back handle of the door
-
-
-        // Rotates to front handle's goal in timeToMatch seconds
-        public void RotateToFrontHandleGoal(float timeToMatch)
-        {
-        }
-
-        // Rotates to back handle's goal in timeToMatch seconds
-        public void RotateToBackHandleGoal(float timeToMatch)
-        {
-        }
-
-        // Rotates to default rotation in timeToMatch seconds
-        public void RotateToDefault(float timeToMatch)
-        {
-        }
-
-        // Check if the handle is one of the front/back, and if it is, rotate and blends hand poses
-        // Called as a callback from the HingeDrive script: player pressing latch button event
-        public void Rotate(float angle, HingeDrive.HingeDriveSpeedState speedState, Handle handle)
-        {
-        }
-
-        // Check if the handle is one of the front/back, and if it is, rotate and blends hand poses toward defaults
-        // Called as a callback from the HingeDrive script: player pressing latch button event
-        public void RotateToDefault(float angle, HingeDrive.HingeDriveSpeedState speedState, Handle handle)
-        {
-        }
-
-        // Rotates to default rotation in timeToMatch seconds
-        public void TranslateToDefault(float timeToMatch)
-        {
-        }
-
-        // Translates to default position in timeToMatch seconds
-        public void TranslateToGoal(float timeToMatch)
-        {
-        }
 
     }
 }

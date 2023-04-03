@@ -20,9 +20,7 @@ namespace ThunderRoad
         [Header("Draw and animation")]
         public new Animation animation;
         [Tooltip("This allows you to adjust the animation time so that the pink line matches where your bow is drawn to better.")]
-
         public AnimationCurve pullCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
-
         [Tooltip("Defines how far your bow string can be pulled (in meters). This gets set automatically by the auto-configure, but can be manually adjusted if you feel it's wrong.")]
         public float stringDrawLength = 0.5f;
         [Tooltip("Set the minimum speed for the bow to fire an arrow.")]
@@ -49,34 +47,20 @@ namespace ThunderRoad
         public AudioClip audioClipString;
 
         public Item item { get; protected set; }
-        public Rigidbody rb { get; protected set; }
+        public PhysicBody pb { get; protected set; }
         public ConfigurableJoint stringJoint { get; protected set; }
         public Handle stringHandle { get; protected set; }
         public Vector3 orgBowStringPos { get; protected set; }
 
-        public bool blockStringRelease
-        {
-            get
-            {
-                bool startValue = _blockStringRelease;
-                _blockStringRelease = false;
-                return startValue;
-            }
-            set
-            {
-                _blockStringRelease = value;
-            }
-        }
-        private bool _blockStringRelease;
-
-        protected float currentTargetRatio = 0f;
         protected bool setupFinished = false;
-        protected Vector3 stringCorrectionVelocity = new Vector3();
+        protected float currentTargetRatio = 0f;
+
+        public ItemModuleBow module { get; protected set; }
 
         private void TryAssignReferences()
         {
             item ??= GetComponentInParent<Item>();
-            rb ??= GetComponent<Rigidbody>() ?? gameObject.AddComponent<Rigidbody>();
+            pb ??= gameObject.GetPhysicBody();
             stringJoint ??= GetComponent<ConfigurableJoint>() ?? gameObject.AddComponent<ConfigurableJoint>();
             stringHandle ??= GetComponentInChildren<Handle>();
             if (!stringHandle)
@@ -90,9 +74,10 @@ namespace ThunderRoad
             if (init && (!setupFinished || !Application.isPlaying))
             {
                 SetStringTargetRatio(0f);
-                orgBowStringPos = rb.transform.localPosition;
+                orgBowStringPos = pb.transform.localPosition;
+                SetStringSpring(module?.stringSpring ?? 500f);
             }
-            stringJoint.connectedBody = item?.rb;
+            stringJoint.SetConnectedPhysicBody(item.gameObject.GetPhysicBody()); ;
             stringJoint.autoConfigureConnectedAnchor = false;
             stringJoint.configuredInWorldSpace = false;
             stringJoint.anchor = Vector3.zero;
@@ -111,9 +96,10 @@ namespace ThunderRoad
             setupFinished = true;
         }
 
-        public void SetMinFireVelocity(float fireVelocity)
+        public void SetStringTargetRatio(float targetRatio)
         {
-            minFireVelocity = fireVelocity;
+            currentTargetRatio = targetRatio;
+            stringJoint.targetPosition = new Vector3(0f, 0f, -0.5f * stringDrawLength) + new Vector3(0f, 0f, targetRatio * stringDrawLength);
         }
 
         public void SetStringSpring(float spring)
@@ -123,25 +109,6 @@ namespace ThunderRoad
             stringJoint.zDrive = jointDrive;
         }
 
-        public void SetStringTargetRatio(float targetRatio)
-        {
-            currentTargetRatio = targetRatio;
-            stringJoint.targetPosition = new Vector3(0f, 0f, -0.5f * stringDrawLength) + new Vector3(0f, 0f, targetRatio * stringDrawLength);
-        }
-
-        public void ReleaseString()
-        {
-            if (currentTargetRatio > 0f) SetStringTargetRatio(0f);
-        }
-
-        public void SpawnAndAttachArrow(string arrowID)
-        {
-        }
-
-        //[Button]
-        public void RemoveArrow(bool despawn)
-        {
-        }
 
 #if UNITY_EDITOR
         [Header("Editor only")]
@@ -164,6 +131,8 @@ namespace ThunderRoad
 
         private void OnValidate()
         {
+            if (!this.InPrefabScene() || gameObject.scene == null || !gameObject.scene.isLoaded || Application.isPlaying) return;
+
             bool itemHasErrors = false;
             if (animation == null)
             {
@@ -293,7 +262,14 @@ namespace ThunderRoad
 
         private void OnDrawGizmos()
         {
-            if (Mathf.Approximately(stringDrawLength, 0f) || item == null || restLeft == null || restRight == null) return;
+            if (this.InPrefabScene() && item == null)
+            {
+                item = GetComponentInParent<Item>();
+            }
+            else
+            {
+                if (Mathf.Approximately(stringDrawLength, 0f) || item == null || restLeft == null || restRight == null) return;
+            }
             Vector3 originalPosition = item.transform.TransformPoint(orgBowStringPos);
             Vector3 maxDrawPos = originalPosition - (transform.forward * stringDrawLength);
             Gizmos.color = Color.white;

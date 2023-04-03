@@ -16,6 +16,7 @@ namespace ThunderRoad
 
         private void OnValidate()
         {
+            if (!gameObject.activeInHierarchy) return;
             Refresh();
         }
 

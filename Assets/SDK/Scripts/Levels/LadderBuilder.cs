@@ -12,9 +12,13 @@ namespace ThunderRoad
     public class LadderBuilder : MonoBehaviour
     {
 #if UNITY_EDITOR
+        [Tooltip("How many ladder rungs spawn when ladder is created")]
         public int rungCount = 1;
+        [Tooltip("Height between each rung.")]
         public float rungHeight = 0.5f;
+        [Tooltip("Disables the mesh of the rungs")]
         public bool disableRungMesh = false;
+        [Tooltip("Prefab used as the rung for the ladder.")]
         public GameObject rungPrefab;
 
         [Button]

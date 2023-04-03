@@ -14,14 +14,21 @@ namespace ThunderRoad
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Damager")]
     public class Damager : MonoBehaviour
     {
-        public ColliderGroup colliderGroup;        
+        public static bool easyDismemberment = false;
+        
+        [Tooltip("Specify Collider Group of which this damager will apply to.")]
+        public ColliderGroup colliderGroup;
+        [Tooltip("(Optional) Can reference collider inside group if it is only using one collider")]
         public Collider colliderOnly;
         [NonSerialized]
         public bool isColliderOnly = false;
+        [Tooltip("Specify which direction the damager will deal damage in.\nAll is best for Blunt Damage.\nForward and Back is best for Slash Damage.\nForward is best for Piercing Damage.")]
         public Direction direction = Direction.All;
+        [Tooltip("Length of which the item can pierce/slash with.\nSet to 0 for Blunt damage and single-point Pierce damage.")]
         public float penetrationLength = 0;
+        [Tooltip("Depth of which a damager can deal slash damage.\nSet to 0 for Blunt damage")]
         public float penetrationDepth = 0f;
-        [Tooltip("Experimental")]
+        [Tooltip("(Experimental) Once the Penetration Length is at max, unpierce from the object")]
         public bool penetrationExitOnMaxDepth;
         
         /// <summary>

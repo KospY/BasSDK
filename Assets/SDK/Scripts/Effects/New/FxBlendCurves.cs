@@ -23,9 +23,8 @@ namespace ThunderRoad
         [ShowIf("useSpeedCurve")]
 #endif
         public AnimationCurve speedCurve;
-
 #if ODIN_INSPECTOR
-        [ShowIf("useIntensityCurve"), ShowIf("useSpeedCurve")]
+        [ShowIf("useIntensityCurve"), ShowIf("useSpeedCurve")] 
 #endif
         public BlendMode blendMode = BlendMode.Min;
 

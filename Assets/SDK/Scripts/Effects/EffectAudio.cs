@@ -2,10 +2,7 @@
 using System;
 using System.Collections;
 using Debug = UnityEngine.Debug;
-#if PrivateSDK
-using ThunderRoad.Pools;
-using SteamAudio;
-#endif
+
 
 namespace ThunderRoad
 {
@@ -16,11 +13,14 @@ namespace ThunderRoad
 
         public float globalVolumeDb = 0;
         public float globalPitch = 1;
+        public float reverbZoneMix = 1;
 
         public HapticDevice hapticDevice = HapticDevice.None;
+        public GameData.HapticClip hapticClipFallBack;
 
         public bool doNoise;
         protected bool hasNoise;
+
 
         public bool useVolumeIntensity;
         public AnimationCurve volumeIntensityCurve;
@@ -43,6 +43,11 @@ namespace ThunderRoad
         public float playTime;
 
         public float playDelay;
+
+        [Header("Dynamic Music")]
+        public bool onDynamicMusic = false;
+        public Music.MusicTransition.TransitionType dynamicMusicTiming = Music.MusicTransition.TransitionType.OnBeat;
+
 
         [Header("Random play")]
         public bool randomPlay;
@@ -75,10 +80,6 @@ namespace ThunderRoad
         [NonSerialized]
         public AudioReverbFilter reverbFilter;
 
-#if PrivateSDK
-        [NonSerialized]
-        public SteamAudioSource steamAudioSource;
-
         protected float intensity;
         protected float speed;
 
@@ -99,95 +100,83 @@ namespace ThunderRoad
             {
                 return;
             }
-            CancelInvoke();
+            if (invokeRandomPlay)
+            {
+                CancelInvoke("RandomPlay");
+                invokeRandomPlay = false;
+            }
+            if (invokeDespawn)
+            {
+                CancelInvoke("Despawn");
+                invokeDespawn = false;
+            }
             StopAllCoroutines();
 
             //Debug.Log("Play " + (module as EffectModuleAudio).audioContainerAddress + " volume: " + audioSource.volume + " parent: " + this.transform.parent + " parent2: " + this.transform.parent?.parent + " parent3: " + this.transform.parent?.parent?.parent);
 
             //Reset the spatialBlend back to what it is in the effectModuleAudio
-            audioSource.spatialBlend = (module as EffectModuleAudio).spatialBlend;
-            if (containingInstance != null)
-            {
-                if (!containingInstance.fromPlayer && (module as EffectModuleAudio).globalOnPlayerOnly)
-                {
-                    audioSource.spatialBlend = 1;
-                }
-            }
 
-            if (audioSource.clip == null)
+            if (module is EffectModuleAudio effectModuleAudio)
             {
-                Debug.LogWarning(
-                    $"No Audioclip set on EffectAudio for [{audioContainer.name}]. Is this Effect not using pooling");
-                if (audioContainer.TryPickAudioClip(out AudioClip clip))
+                audioSource.spatialBlend = effectModuleAudio.spatialBlend;
+
+
+                if (audioSource.clip == null)
                 {
-                    audioSource.clip = clip;
+                    Debug.LogWarning(
+                        $"No Audioclip set on EffectAudio for [{audioContainer.name}]. Is this Effect not using pooling");
+                    if (audioContainer.TryPickAudioClip(out AudioClip clip))
+                    {
+                        audioSource.clip = clip;
+                    }
+                    else
+                    {
+                        Debug.LogError("Picked audio from audioContainer [" + audioContainer.name + "] is null ");
+                        return;
+                    }
+                }
+
+                float pitch = audioSource.pitch;
+                if (randomPitch)
+                {
+                    pitch = pitchCurve.Evaluate(UnityEngine.Random.Range(0f, 1f));
+                }
+                pitch *= globalPitch;
+                audioSource.pitch = pitch;
+                
+                float delay = playDelay;
+                if (onDynamicMusic)
+                {
+                }
+                else if (randomPlay)
+                {
+                    Debug.LogWarning($"EffectAudio {this.gameObject.name} for [{audioContainer.name}] uses randomPlay. This effect may not be pooled");
+                    audioSource.loop = false;
+                    RandomPlay();
                 }
                 else
                 {
-                    Debug.LogError("Picked audio from audioContainer [" + audioContainer.name + "] is null ");
-                    return;
+                    audioSource.loop = step == Step.Loop ? true : false;
+                    if (playDelay > 0)
+                    {
+                        audioSource.PlayDelayed(playDelay);
+                    }
+                    else
+                    {
+                        audioSource.Play();
+                    }
                 }
-            }
 
+                if (step == Step.Start || step == Step.End)
+                {
+                    Invoke("Despawn", audioSource.clip.length + delay + 0.1f);
+                    invokeDespawn = true;
+                }
 
-            if (randomPitch)
-            {
-                audioSource.pitch = pitchCurve.Evaluate(UnityEngine.Random.Range(0f, 1f));
+                playTime = Time.time;
             }
-            audioSource.pitch *= globalPitch;
-
-            if (step == Step.Start || step == Step.End)
-            {
-                Invoke("Despawn", audioSource.clip.length + playDelay + 0.1f);
-            }
-
-            if (randomPlay)
-            {
-                Debug.LogWarning($"EffectAudio {this.gameObject.name} for [{audioContainer.name}] uses randomPlay. This effect may not be pooled");
-                audioSource.loop = false;
-                RandomPlay();
-            }
-            else
-            {
-                audioSource.loop = step == Step.Loop ? true : false;
-                if (playDelay > 0)
-                {
-                    audioSource.PlayDelayed(playDelay);
-                }
-                else
-                {
-                    audioSource.Play();
-                }
-            }
-
-            if ((module as EffectModuleAudio).useAudioForHaptic)
-            {
-                if (hapticDevice == HapticDevice.LeftController)
-                {
-                    PlayerControl.handLeft.Haptic(audioContainer.GetPcmData(audioSource.clip));
-                }
-                else if (hapticDevice == HapticDevice.RightController)
-                {
-                    PlayerControl.handRight.Haptic(audioContainer.GetPcmData(audioSource.clip));
-                }
-            }
-
-            hasNoise = false;
-            if (doNoise)
-            {
-                if (audioSource.loop)
-                {
-                    noise = NoiseManager.AddLoopNoise(audioSource, containingInstance?.source);
-                    if (noise != null) hasNoise = true;
-                }
-                else
-                {
-                    noise = NoiseManager.AddNoise(this.transform.position, audioSource.volume, containingInstance?.source);
-                    if (noise != null) hasNoise = true;
-                }
-            }
-            playTime = Time.time;
         }
+        public bool invokeDespawn { get; private set; }
 
         protected void RandomPlay()
         {
@@ -197,27 +186,27 @@ namespace ThunderRoad
                 if (!audioSource.isPlaying) audioSource.Play();
                 float randomDelay = UnityEngine.Random.Range(randomMinTime, randomMaxTime);
                 Invoke("RandomPlay", randomDelay);
+                invokeRandomPlay = true;
                 Debug.Log(randomDelay);
             }
         }
+        public bool invokeRandomPlay { get; private set; }
 
         public override void Stop()
         {
             audioSource.Stop();
-
-            if (audioSource.loop)
-            {
-                NoiseManager.RemoveLoopNoise(audioSource);
-            }
-
-            noise = null;
             hasNoise = false;
             hapticDevice = HapticDevice.None;
         }
 
         public override void End(bool loopOnly = false)
         {
-            CancelInvoke("RandomPlay");
+            if (invokeRandomPlay)
+            {
+                CancelInvoke("RandomPlay");
+                invokeRandomPlay = false;
+            }
+            
             if (loopFadeDelay > 0)
             {
                 StopAllCoroutines();
@@ -229,9 +218,10 @@ namespace ThunderRoad
             }
         }
 
-        public override void SetHapticDevice(HapticDevice hapticDevice)
+        public override void SetHaptic(HapticDevice hapticDevice, GameData.HapticClip hapticClipFallBack)
         {
             this.hapticDevice = hapticDevice;
+            this.hapticClipFallBack = hapticClipFallBack;
         }
 
         public override void SetNoise(bool noise)
@@ -334,11 +324,6 @@ namespace ThunderRoad
                     break;
             }
 
-            // Update noise volume to max played
-            if (NoiseManager.isActive && hasNoise)
-            {
-                noise.UpdateVolume(audioSource.volume);
-            }
 
             if (useLowPassFilter)
             {
@@ -365,6 +350,8 @@ namespace ThunderRoad
                 highPassFilter.highpassResonanceQ = highPassResonanceQCurve.Evaluate(value);
             }
 
+            audioSource.reverbZoneMix = reverbZoneMix;
+
             if (useReverbFilter)
             {
                 float value = reverbEffectLink switch
@@ -383,7 +370,7 @@ namespace ThunderRoad
             while (audioSource.volume > 0)
             {
                 audioSource.volume -= Time.deltaTime / loopFadeDelay;
-                yield return Yielders.EndOfFrame;
+                yield return new WaitForEndOfFrame();
             }
             Despawn();
         }
@@ -411,21 +398,34 @@ namespace ThunderRoad
         public void FullStop()
         {
             Stop();
-            CancelInvoke();
+            if (invokeRandomPlay)
+            {
+                CancelInvoke("RandomPlay");
+                invokeRandomPlay = false;
+            }
+            if (invokeDespawn)
+            {
+                CancelInvoke("Despawn");
+                invokeDespawn = false;
+            }
             StopAllCoroutines();
         }
 
+        /// <summary>
+        /// This is used by the pooling system to sort of fake despawn the effect without returning it to the pool, because we are going to use it again right away
+        /// </summary>
+        public void FakeDespawn()
+        {
+            intensity = speed = 0;
+            hapticDevice = HapticDevice.None;
+            FullStop();
+        }
+        
         public override void Despawn()
         {
             intensity = speed = 0;
             hapticDevice = HapticDevice.None;
             FullStop();
-            if (Application.isPlaying)
-            {
-                EffectModuleAudio.Despawn(this);
-                InvokeDespawnCallback();
-            }
-
             InvokeDespawnCallback();
             if (Application.isPlaying)
             {
@@ -436,6 +436,5 @@ namespace ThunderRoad
                 DestroyImmediate(this.gameObject);
             }
         }
-#endif
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine.UI;
 
 namespace ThunderRoad
@@ -7,9 +8,9 @@ namespace ThunderRoad
     {
         public RawImage gameModeImage = null;
 
-        public Text gameModeDescription = null;
+        public TextMeshProUGUI gameModeDescription = null;
         public Button selectButton;
-        public Text gameModeWarning;
+        public TextMeshProUGUI gameModeWarning;
 
     }
 }

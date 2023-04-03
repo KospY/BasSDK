@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3594d5eb59ee554fa63daca277c5f46, type: 3}
+  m_Name: ProtoArea02_LightingPreset
+  m_EditorClassIdentifier: 
+  ambientIntensity: 0
+  shadowColor: {r: 0.7, g: 0.7, b: 0.7, a: 1}
+  indirectIntensity: 1
+  AOIndirectContribution: 1.2
+  AODirectContribution: 0.15
+  applyAtRuntime: 0
+  dirLightColor: {r: 1, g: 0.87058824, b: 0.7137255, a: 1}
+  dirLightIntensity: 1e-12
+  dirLightIndirectMultiplier: 1
+  directionalLightLocalRotation: {x: -0.029246256, y: 0.99129736, z: -0.12834135,
+    w: -0.0016299625}
+  fog: 2
+  fogColor: {r: 0.9803922, g: 0.9960785, b: 0.8588236, a: 1}
+  fogStartDistance: 50
+  fogEndDistance: 2000
+  skybox: 2
+  skyBoxMaterial: {fileID: 2100000, guid: bed09de67ac60ef41b48559cca4640e7, type: 2}
+  skyBoxSunSize: 0.03
+  skyBoxSunConvergence: 5
+  skyBoxAtmosphereThickness: 1.2
+  skyBoxSkyTint: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  skyBoxGroundTint: {r: 0, g: 0, b: 0, a: 1}
+  skyBoxExposure: 1.5
+  clouds: 2
+  cloudsSoftness: 1
+  cloudsSpeed: 1
+  cloudsSize: 1
+  cloudsAlpha: 1
+  cloudsColor: {r: 0, g: 0, b: 0, a: 0}
+  serializedLightmaps:
+  - color: {fileID: 2800000, guid: 64abd40ec6fc91e49a1d94ef44100c77, type: 3}
+    directional: {fileID: 0}
+    shadowMask: {fileID: 2800000, guid: 14865df2dd3805b4093815bee6c3d22e, type: 3}
+  rendererDataListForLightmaps:
+  - meshRendererGuid: dfc7b3ab-bb9b-4488-8e4e-e466060854c7
+    offsetScale: {x: 0.21582031, y: 0.21582031, z: 0.21875, w: 0.000000012863893}
+    generateSecondaryUV: 0
+  - meshRendererGuid: d42947b3-74cd-4a4f-86a6-bb6ff57ce807
+    offsetScale: {x: 0.18310547, y: 0.18310547, z: 0, w: 0.65625}
+    generateSecondaryUV: 0
+  - meshRendererGuid: 9dafc60a-ae8f-4cdb-a72d-f8c739fc553d
+    offsetScale: {x: 0.122558594, y: 0.122558594, z: 0.875, w: 0.0000000073050614}
+    generateSecondaryUV: 0
+  - meshRendererGuid: 6dcffac2-499c-46f1-86b2-ee3a32d22062
+    offsetScale: {x: 0.053710938, y: 0.053710938, z: 0.875, w: 0.12548828}
+    generateSecondaryUV: 0
+  - meshRendererGuid: 871a62f6-131b-4c3b-8ad1-4649da74803e
+    offsetScale: {x: 0.122558594, y: 0.122558594, z: 0.34423828, w: 0.21875}
+    generateSecondaryUV: 0
+  - meshRendererGuid: eb38aef6-0401-4904-8470-6ff69fa64637
+    offsetScale: {x: 0.21582031, y: 0.21582031, z: 0, w: 0.4375}
+    generateSecondaryUV: 0
+  - meshRendererGuid: b07e15b7-18c8-408e-b954-ee0ca1728949
+    offsetScale: {x: 0.21582031, y: 0.21582031, z: 0.4375, w: 0.000000012863893}
+    generateSecondaryUV: 0
+  - meshRendererGuid: f91b743d-d700-493d-9f86-1cca3814688a
+    offsetScale: {x: 0.122558594, y: 0.122558594, z: -0.0000000073050614, w: 0.84228516}
+    generateSecondaryUV: 0
+  - meshRendererGuid: 04fe73a5-2191-4810-a5e9-3a148ce10aee
+    offsetScale: {x: 0.053710938, y: 0.053710938, z: 0.9316406, w: 0.12548828}
+    generateSecondaryUV: 0
+  - meshRendererGuid: 954e8821-ed5c-4f4d-992a-7f5c894a2f6c
+    offsetScale: {x: 0.122558594, y: 0.122558594, z: 0.21875, w: 0.21875}
+    generateSecondaryUV: 0
+  - meshRendererGuid: bb016825-845e-4922-9664-b989ab512897
+    offsetScale: {x: 0.21582031, y: 0.21582031, z: 0, w: 0.21875001}
+    generateSecondaryUV: 0
+  - meshRendererGuid: 827185c0-b496-4b22-894e-844ce1b8582a
+    offsetScale: {x: 0.21582031, y: 0.21582031, z: 0, w: 0.000000012863893}
+    generateSecondaryUV: 0
+  - meshRendererGuid: f3d91fc3-0141-4d29-bfa4-7ef542f4fd4e
+    offsetScale: {x: 0.21582031, y: 0.21582031, z: 0.65625, w: 0.000000012863893}
+    generateSecondaryUV: 0
+  indexLightmapsRendererMeshCount: 0d000000
+  lightmapLights:
+  - lightGuid: 82191b6f-f7d1-4059-bd3b-b60c941196c9
+    baketype: 1
+    mixedLightingMode: 2
+    probeOcclusionLightIndex: 0
+    occlusionMaskChannel: -1
+  - lightGuid: 7446e776-d481-4ef6-aadb-ce04c625549b
+    baketype: 4
+    mixedLightingMode: 2
+    probeOcclusionLightIndex: -1
+    occlusionMaskChannel: -1
+  lightProbeVolumes: []
+  reflectionProbes:
+  - reflectionProbeGuid: e6fbc5e8-9506-4f1b-957c-bb1f427f146e
+    texture: {fileID: 8900000, guid: 156db1faa26f9ee4184628b5869ace70, type: 3}
+  bakedProbes: []
+  probePositions: []
+  lastSave:
+    _dateTime: 2023-03-28T07:44:32.4266042Z

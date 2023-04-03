@@ -1,0 +1,154 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "GL_Std_Castle_Ascent",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "groupPath": "Outpost/Standard",
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.GL_Std_Castle_Ascent",
+  "Bounds": {
+    "center": {
+      "x": 1.75446224,
+      "y": 19.3587322,
+      "z": 11.0
+    },
+    "size": {
+      "x": 26.0089245,
+      "y": 40.8094635,
+      "z": 22.0
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.GL_Std_Castle_Ascent.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 4.0,
+        "y": 5.0,
+        "z": 0.0
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.GL_Std_Castle_Ascent.FakeView.1"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -11.25,
+        "y": 9.0,
+        "z": 11.0
+      },
+      "face": "Left",
+      "fakeViewAddress": "Bas.Area.GL_Std_Castle_Ascent.FakeView.2"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 8.0,
+        "y": 13.0,
+        "z": 22.0
+      },
+      "face": "Front",
+      "fakeViewAddress": "Bas.Area.GL_Std_Castle_Ascent.FakeView.3"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 4.0,
+        "y": 18.0,
+        "z": 0.0
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.GL_Std_Castle_Ascent.FakeView.4"
+    }
+  ],
+  "areaGlobalParameters": [
+    {
+      "$type": "ThunderRoad.AreaSunGlobalParameter, ThunderRoad",
+      "dirLightColor": {
+        "r": 1.0,
+        "g": 0.972549,
+        "b": 0.9019608,
+        "a": 1.0
+      },
+      "dirLightIntensity": 6.5,
+      "dirLightIndirectMultiplier": 4.0,
+      "directionalLightLocalRotation": {
+        "x": 0.5605456,
+        "y": -0.541788757,
+        "z": 0.477376163,
+        "w": 0.4054202
+      },
+      "visibleFromGate": true
+    }
+  ]
+}

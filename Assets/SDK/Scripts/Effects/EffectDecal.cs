@@ -39,6 +39,7 @@ namespace ThunderRoad
 
         private void OnValidate()
         {
+            if (!gameObject.activeInHierarchy) return;
             materialPropertyBlock = new MaterialPropertyBlock();
             meshRenderer = this.GetComponentInChildren<MeshRenderer>();
             if (colorPropertyID == 0) colorPropertyID = Shader.PropertyToID("_Color");
@@ -105,17 +106,6 @@ namespace ThunderRoad
                 InvokeRepeating("UpdateLifeTime", 0, fadeRefreshSpeed);
             }
 
-#if PrivateSDK
-            // Set light volume if in dungeon
-            if (Level.current.dungeon)
-            {
-                LightVolumeReceiver.ApplyProbeVolume(meshRenderer, materialPropertyBlock);
-            }
-            else
-            {
-                LightVolumeReceiver.DisableProbeVolume(meshRenderer);
-            }
-#endif
 
             meshRenderer.enabled = true;
         }

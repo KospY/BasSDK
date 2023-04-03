@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System;
-using Newtonsoft.Json;
 
 namespace ThunderRoad
 {
     public class FileManager
     {
         public static string defaultFolderName = "Default";
-        public static string modFolderName = "Mods";
         public static string logFolderName = "Logs";
         public static bool useObb = false;
 
@@ -23,11 +21,6 @@ namespace ThunderRoad
                 this.text = text;
                 this.path = path;
             }
-        }
-
-        public class LoadOrder
-        {
-            public List<string> modNames;
         }
 
         public enum Source
@@ -68,13 +61,13 @@ namespace ThunderRoad
 #if UNITY_EDITOR
                         if (UnityEditor.EditorUserBuildSettings.activeBuildTarget == UnityEditor.BuildTarget.Android)
                         {
-                            string path = Path.Combine(Application.dataPath.Replace("/Assets", ""), Path.Combine(GameSettings.instance.addressableEditorPath, "Android"));
+                            string path = Path.Combine(Application.dataPath.Replace("/Assets", ""), Path.Combine(ThunderRoadSettings.current.addressableEditorPath, "Android"));
                             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                             return Path.Combine(path, relativePath);
                         }
                         else
                         {
-                            string path = Path.Combine(Application.dataPath.Replace("/Assets", ""), Path.Combine(GameSettings.instance.addressableEditorPath, "Windows"));
+                            string path = Path.Combine(Application.dataPath.Replace("/Assets", ""), Path.Combine(ThunderRoadSettings.current.addressableEditorPath, "Windows"));
                             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                             return Path.Combine(path, relativePath);
                         }
@@ -82,7 +75,9 @@ namespace ThunderRoad
                     }
                     else if (type == Type.JSONCatalog)
                     {
-                        string path = Path.Combine(Application.dataPath.Replace("/Assets", ""), GameSettings.instance.catalogsEditorPath);
+                        string path = Path.Combine(Application.dataPath.Replace("/Assets", ""), ThunderRoadSettings.current.catalogsEditorPath);
+                        if (source == Source.Default) path = Path.Combine(path, defaultFolderName);
+                        else if (source == Source.Mods) path = Path.Combine(path, ModManager.modFolderName);
                         if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                         return Path.Combine(path, relativePath);
                     }
@@ -96,10 +91,11 @@ namespace ThunderRoad
                 }
                 else if (source == Source.Mods)
                 {
-                    return Path.Combine(Application.persistentDataPath, modFolderName, relativePath);
-                } else if (source == Source.Logs)
+                    return Path.Combine(Application.persistentDataPath, ModManager.modFolderName, relativePath);
+                }
+                else if (source == Source.Logs)
                 {
-                    return Path.Combine(Application.persistentDataPath, logFolderName, relativePath); 
+                    return Path.Combine(Application.persistentDataPath, logFolderName, relativePath);
                 }
             }
             else
@@ -113,11 +109,12 @@ namespace ThunderRoad
                 }
                 else if (source == Source.Mods)
                 {
-                    string pathFolder = Path.Combine(Application.streamingAssetsPath, modFolderName);
+                    string pathFolder = Path.Combine(Application.streamingAssetsPath, ModManager.modFolderName);
                     string path = Path.Combine(pathFolder, relativePath);
                     if (!Directory.Exists(path)) Directory.CreateDirectory(pathFolder);
                     return path;
-                } else if (source == Source.Logs)
+                }
+                else if (source == Source.Logs)
                 {
                     string pathFolder = Path.Combine(Application.streamingAssetsPath, logFolderName);
                     string path = Path.Combine(pathFolder, relativePath);
@@ -132,51 +129,6 @@ namespace ThunderRoad
         {
             string fullPath = GetFullPath(type, source, localPath);
             return Directory.GetDirectories(fullPath).Select(Path.GetFileName).ToArray();
-        }
-
-        public static List<ModData> GetOrderedMods()
-        {
-            List<ModData> modList = new List<ModData>();
-
-            string[] modFolders = GetFolderNames(Type.JSONCatalog, Source.Mods);
-            string loadOrderPath = GetFullPath(Type.JSONCatalog, Source.Mods, "loadorder.json");
-
-            if (File.Exists(loadOrderPath))
-            {
-                LoadOrder loadOrder = JsonUtility.FromJson<LoadOrder>(File.ReadAllText(loadOrderPath));
-                if (loadOrder != null)
-                {
-                    List<string> modFoldersOrdered = new List<string>();
-                    for (int i = 0; i < modFolders.Length; i++)
-                    {
-                        if (!loadOrder.modNames.Contains(modFolders[i])) modFoldersOrdered.Add(modFolders[i]);
-                    }
-                    foreach (string loadOrderModName in loadOrder.modNames)
-                    {
-                        if (modFolders.Contains(loadOrderModName)) modFoldersOrdered.Add(loadOrderModName);
-                    }
-                    modFolders = modFoldersOrdered.ToArray();
-                }
-            }
-
-            foreach (string modFolder in modFolders)
-            {
-                if (Catalog.loadModFolders.Count > 0)
-                {
-                    if (!Catalog.loadModFolders.Contains(modFolder.ToLower())) continue;
-                }
-                else if (modFolder.StartsWith("_") || (!FileExist(Type.JSONCatalog, Source.Mods, modFolder + "/manifest.json")))
-                {
-                    continue;
-                }
-                string json = ReadAllText(Type.JSONCatalog, Source.Mods, modFolder + "/manifest.json");
-                ModData modData = JsonConvert.DeserializeObject<ModData>(json, Catalog.GetJsonNetSerializerSettings());
-                modData.folderName = modFolder;
-
-
-                modList.Add(modData);
-            }
-            return modList;
         }
 
         public static ReadFile[] ReadFiles(Type type, Source source, string localPath = "", string searchPattern = "*.*")
@@ -219,7 +171,16 @@ namespace ThunderRoad
         public static string[] GetFullFilePaths(Type type, Source source, string localPath = "", string searchPattern = "*.*")
         {
             string fullPath = GetFullPath(type, source, localPath);
-            return Directory.GetFiles(fullPath, searchPattern, SearchOption.AllDirectories);
+            try
+            {
+                return Directory.GetFiles(fullPath, searchPattern, SearchOption.AllDirectories);
+                
+            }
+            catch(DirectoryNotFoundException e)
+            {
+                Debug.LogWarning($"Directory Not Found: {e}");
+            }
+            return new string[0];
         }
 
         public static bool FileExist(Type type, Source source, string localPath)

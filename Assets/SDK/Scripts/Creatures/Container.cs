@@ -20,7 +20,7 @@ namespace ThunderRoad
         [ValueDropdown("GetAllContainerID")]
 #endif
         public string containerID;
-
+        public bool loadOnStart = true;
         public bool saveOnLevelUnload;
         public string saveToPlayerContainerID;
 
@@ -35,7 +35,7 @@ namespace ThunderRoad
 #if ODIN_INSPECTOR
         public List<ValueDropdownItem<string>> GetAllContainerID()
         {
-            return Catalog.GetDropdownAllID(Catalog.Category.Container);
+            return Catalog.GetDropdownAllID(Category.Container);
         }
 
 #endif

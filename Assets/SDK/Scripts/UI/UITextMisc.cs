@@ -1,4 +1,5 @@
-﻿using UnityEngine.UI;
+﻿using UnityEngine;
+using TMPro;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;

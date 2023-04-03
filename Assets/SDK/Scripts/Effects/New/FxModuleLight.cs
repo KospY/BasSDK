@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
 namespace ThunderRoad
 {
@@ -29,12 +29,17 @@ namespace ThunderRoad
             {
                 StartCoroutine(FlickerCoroutine());
             }
-
         }
 
         IEnumerator FlickerCoroutine()
         {
-            yield break;
+            while (true)
+            {
+                RefreshLightIntensity();
+                //Do not use Yielders.ForSeconds with a random number every frame, it grows the dictionary too large
+                //and ends up spending loads of time searching the dictionary for an existing yield with that value
+                yield return new WaitForSeconds(UnityEngine.Random.Range(flickerMinSpeed, flickerMaxSpeed));
+            }
         }
 
         protected void RefreshLightIntensity()

@@ -1,0 +1,16 @@
+{
+  "$type": "ThunderRoad.LootTable, ThunderRoad",
+  "id": "WeaponDagger",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "groupPath": "Weapons",
+  "drops": [
+    {
+      "$type": "ThunderRoad.LootTable+Drop, ThunderRoad",
+      "referenceID": "DaggerCommon",
+      "reference": "Item",
+      "probabilityWeight": 1.0
+    }
+  ]
+}

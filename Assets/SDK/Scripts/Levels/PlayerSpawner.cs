@@ -35,10 +35,12 @@ namespace ThunderRoad
             Stage,
         }
 
-
-        public IEnumerator SpawnCoroutine(Action callback = null)
+#if ODIN_INSPECTOR
+        public List<ValueDropdownItem<string>> GetAllContainerID()
         {
-            yield break;
+            return Catalog.GetDropdownAllID(Category.Container);
         }
+#endif
+
     }
 }

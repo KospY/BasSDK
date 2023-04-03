@@ -1,0 +1,98 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "GL_Transi_xGrass&Cave_Granary",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "groupPath": "Outpost/Transi",
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.GL_Transi_xGrass&Cave_Granary",
+  "Bounds": {
+    "center": {
+      "x": -3.88838959,
+      "y": 6.9664526,
+      "z": 13.9369993
+    },
+    "size": {
+      "x": 29.59517,
+      "y": 23.67292,
+      "z": 28.126
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Cave"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 3.5,
+        "y": 0.5,
+        "z": 28.0
+      },
+      "face": "Front",
+      "fakeViewAddress": "Bas.Area.GL_Transi_xGrass&Cave_Granary.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Cave"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -2.0,
+        "y": 0.004,
+        "z": -0.126
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.GL_Transi_xGrass&Cave_Granary.FakeView.1"
+    }
+  ],
+  "areaGlobalParameters": [
+    {
+      "$type": "ThunderRoad.AreaSunGlobalParameter, ThunderRoad",
+      "dirLightColor": {
+        "r": 1.0,
+        "g": 0.8687521,
+        "b": 0.7122642,
+        "a": 1.0
+      },
+      "dirLightIntensity": 5.0,
+      "dirLightIndirectMultiplier": 6.0,
+      "directionalLightLocalRotation": {
+        "x": 0.398437321,
+        "y": 0.0359674729,
+        "z": 0.14942719,
+        "w": 0.904226542
+      },
+      "visibleFromGate": true
+    }
+  ]
+}

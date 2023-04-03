@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System;
 using System.Collections.Generic;
 
 #if ODIN_INSPECTOR
@@ -18,6 +17,22 @@ namespace ThunderRoad
         public List<GameObject> gameObjects = new List<GameObject>();
 
         public bool updateOnAndroidExport = true;
+
+        public void Toggle()
+        {
+            foreach (Renderer renderer in renderers)
+            {
+                if (renderer) renderer.enabled = !renderer.enabled;
+            }
+            foreach (Behaviour behaviour in behaviours)
+            {
+                if (behaviour) behaviour.enabled = !behaviour.enabled;
+            }
+            foreach (GameObject gameObject in gameObjects)
+            {
+                if (gameObject) gameObject.SetActive(!gameObject.activeSelf);
+            }
+        }
 
         public void Toggle(bool enabled)
         {

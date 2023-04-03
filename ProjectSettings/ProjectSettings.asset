@@ -3,7 +3,7 @@
 --- !u!129 &1
 PlayerSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 22
+  serializedVersion: 23
   productGUID: 65ec1c00ede42874c8480b846a425984
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: Warpfrog
-  productName: BladeAndSorcery
+  productName: ThunderRoad
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -316,30 +316,32 @@ PlayerSettings:
     enable360StereoCapture: 0
   isWsaHolographicRemotingEnabled: 0
   enableFrameTimingStats: 0
+  enableOpenGLProfilerGPURecorders: 1
   useHDRDisplay: 1
   D3DHDRBitDepth: 0
   m_ColorGamuts: 00000000
   targetPixelDensity: 30
   resolutionScalingMode: 0
+  resetResolutionOnWindowResize: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.Warpfrog.BladeAndSorcery
-    Standalone: com.WarpFrog.BladeAndSorcery
+    Android: com.Warpfrog.ThunderRoad
+    Standalone: com.Warpfrog.ThunderRoad
   buildNumber:
     Standalone: 0
     iPhone: 0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
-  AndroidBundleVersionCode: 0
-  AndroidMinSdkVersion: 26
+  AndroidBundleVersionCode: 1
+  AndroidMinSdkVersion: 29
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 0
   aotOptions: 
   stripEngineCode: 0
   iPhoneStrippingLevel: 0
   iPhoneScriptCallOptimization: 0
-  ForceInternetPermission: 0
+  ForceInternetPermission: 1
   ForceSDCardPermission: 1
   CreateWallpaper: 0
   APKExpansionFiles: 0
@@ -388,6 +390,7 @@ PlayerSettings:
   iOSLaunchScreeniPadCustomStoryboardPath: 
   iOSDeviceRequirements: []
   iOSURLSchemes: []
+  macOSURLSchemes: []
   iOSBackgroundModes: 0
   iOSMetalForceHardShadows: 0
   metalEditorSupport: 1
@@ -479,38 +482,32 @@ PlayerSettings:
       m_Height: 81
       m_Kind: 2
       m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
+    - m_Textures: []
       m_Width: 192
       m_Height: 192
       m_Kind: 1
       m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
+    - m_Textures: []
       m_Width: 144
       m_Height: 144
       m_Kind: 1
       m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
+    - m_Textures: []
       m_Width: 96
       m_Height: 96
       m_Kind: 1
       m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
+    - m_Textures: []
       m_Width: 72
       m_Height: 72
       m_Kind: 1
       m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
+    - m_Textures: []
       m_Width: 48
       m_Height: 48
       m_Kind: 1
       m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
+    - m_Textures: []
       m_Width: 36
       m_Height: 36
       m_Kind: 1
@@ -521,37 +518,33 @@ PlayerSettings:
       m_Height: 192
       m_Kind: 0
       m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
+    - m_Textures: []
       m_Width: 144
       m_Height: 144
       m_Kind: 0
       m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
+    - m_Textures: []
       m_Width: 96
       m_Height: 96
       m_Kind: 0
       m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
+    - m_Textures: []
       m_Width: 72
       m_Height: 72
       m_Kind: 0
       m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
+    - m_Textures: []
       m_Width: 48
       m_Height: 48
       m_Kind: 0
       m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
+    - m_Textures: []
       m_Width: 36
       m_Height: 36
       m_Kind: 0
       m_SubKind: 
   m_BuildTargetBatching: []
+  m_BuildTargetShaderSettings: []
   m_BuildTargetGraphicsJobs:
   - m_BuildTarget: MacStandaloneSupport
     m_GraphicsJobs: 0
@@ -590,8 +583,14 @@ PlayerSettings:
     m_Automatic: 0
   - m_BuildTarget: WindowsStandaloneSupport
     m_APIs: 02000000
-    m_Automatic: 1
+    m_Automatic: 0
   - m_BuildTarget: iOSSupport
+    m_APIs: 10000000
+    m_Automatic: 1
+  - m_BuildTarget: LinuxStandaloneSupport
+    m_APIs: 1100000015000000
+    m_Automatic: 1
+  - m_BuildTarget: MacStandaloneSupport
     m_APIs: 10000000
     m_Automatic: 1
   m_BuildTargetVRSettings:
@@ -601,6 +600,8 @@ PlayerSettings:
   - m_BuildTarget: Android
     m_Enabled: 0
     m_Devices: []
+  m_DefaultShaderChunkSizeInMB: 1
+  m_DefaultShaderChunkCount: 1
   openGLRequireES31: 1
   openGLRequireES31AEP: 0
   openGLRequireES32: 0
@@ -612,6 +613,9 @@ PlayerSettings:
   m_BuildTargetGroupLightmapEncodingQuality: []
   m_BuildTargetGroupLightmapSettings: []
   m_BuildTargetNormalMapEncoding: []
+  m_BuildTargetDefaultTextureCompressionFormat:
+  - m_BuildTarget: Android
+    m_Format: 3
   playModeTestRunnerEnabled: 0
   runPlayModeTestAsEditModeTest: 0
   actionOnDotNetUnhandledException: 1
@@ -630,6 +634,7 @@ PlayerSettings:
   switchScreenResolutionBehavior: 2
   switchUseCPUProfiler: 0
   switchUseGOLDLinker: 0
+  switchLTOSetting: 0
   switchApplicationID: 0x01004b9000490000
   switchNSODependencies: 
   switchTitleNames_0: 
@@ -759,6 +764,7 @@ PlayerSettings:
   switchNetworkInterfaceManagerInitializeEnabled: 1
   switchPlayerConnectionEnabled: 1
   switchUseNewStyleFilepaths: 0
+  switchUseLegacyFmodPriorities: 1
   switchUseMicroSleepForYield: 1
   switchEnableRamDiskSupport: 0
   switchMicroSleepForYieldTime: 25
@@ -858,27 +864,23 @@ PlayerSettings:
   webGLLinkerTarget: 0
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
+  webGLPowerPreference: 2
   scriptingDefineSymbols:
-    1: V_UNIVERSAL_RENDER;LIV_UNIVERSAL_RENDER;TERRAINPACKAGE_EXIST;CREST
-    4: CT_TPS
-    7: UNITY_POST_PROCESSING_STACK_V2
-    13: UNITY_POST_PROCESSING_STACK_V2;CT_TPS;ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
-    14: UNITY_POST_PROCESSING_STACK_V2;CT_TPS;ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
-    17: UNITY_POST_PROCESSING_STACK_V2
-    18: UNITY_POST_PROCESSING_STACK_V2
-    19: UNITY_POST_PROCESSING_STACK_V2;CT_TPS;ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
-    20: UNITY_POST_PROCESSING_STACK_V2
-    21: UNITY_POST_PROCESSING_STACK_V2;CT_TPS;ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
-    23: UNITY_POST_PROCESSING_STACK_V2
-    24: UNITY_POST_PROCESSING_STACK_V2
-    25: UNITY_POST_PROCESSING_STACK_V2;CT_TPS;ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
-    26: UNITY_POST_PROCESSING_STACK_V2
-    27: UNITY_POST_PROCESSING_STACK_V2;CT_TPS;ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
-    28: UNITY_POST_PROCESSING_STACK_V2;CT_TPS;ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
-    29: UNITY_POST_PROCESSING_STACK_V2;CT_TPS;ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
-    30: ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
-    32: ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
-    33: ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
+    : UNITY_POST_PROCESSING_STACK_V2
+    Android: UNITY_POST_PROCESSING_STACK_V2;AMPLIFY_SHADER_EDITOR
+    GameCoreXboxOne: ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
+    LinuxHeadlessSimulation: ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
+    Lumin: UNITY_POST_PROCESSING_STACK_V2;CT_TPS;ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
+    Nintendo Switch: UNITY_POST_PROCESSING_STACK_V2;CT_TPS;ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
+    PS4: UNITY_POST_PROCESSING_STACK_V2;CT_TPS;ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
+    PS5: ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
+    Stadia: UNITY_POST_PROCESSING_STACK_V2;CT_TPS;ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
+    Standalone: V_UNIVERSAL_RENDER;LIV_UNIVERSAL_RENDER;TERRAINPACKAGE_EXIST;CREST;AMPLIFY_SHADER_EDITOR
+    WebGL: UNITY_POST_PROCESSING_STACK_V2;CT_TPS;ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
+    Windows Store Apps: UNITY_POST_PROCESSING_STACK_V2;CT_TPS;ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
+    XboxOne: UNITY_POST_PROCESSING_STACK_V2;CT_TPS;ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
+    iPhone: CT_TPS
+    tvOS: UNITY_POST_PROCESSING_STACK_V2;CT_TPS;ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
@@ -890,8 +892,8 @@ PlayerSettings:
   suppressCommonWarnings: 1
   allowUnsafeCode: 0
   useDeterministicCompilation: 1
-  useReferenceAssemblies: 1
   enableRoslynAnalyzers: 1
+  selectedPlatform: 0
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
   gcIncremental: 1
@@ -971,6 +973,7 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 3
   activeInputHandler: 1
+  windowsGamepadBackendHint: 0
   cloudProjectId: 
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
@@ -978,4 +981,6 @@ PlayerSettings:
   organizationId: 
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 1
+  playerDataPath: 
+  forceSRGBBlit: 1
   virtualTexturingSupportEnabled: 0

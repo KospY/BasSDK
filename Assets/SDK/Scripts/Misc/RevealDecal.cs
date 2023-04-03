@@ -1,11 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
-using ThunderRoad.Plugins;
 
-#if PrivateSDK
-using RainyReignGames.RevealMask;
-#endif
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -19,11 +15,11 @@ namespace ThunderRoad
     [AddComponentMenu("ThunderRoad/Reveal Decal")]
     public class RevealDecal : MonoBehaviour
     {
-        [Tooltip("Resolution of the reveal mask")]
+        [Tooltip("Resolution of the width of the reveal mask")]
         public RevealMaskResolution maskWidth = RevealMaskResolution.Size_512;
-        [Tooltip("Resolution of the reveal mask")]
+        [Tooltip("Resolution of the height of the reveal mask")]
         public RevealMaskResolution maskHeight = RevealMaskResolution.Size_512;
-        [Tooltip("Reveal type")]
+        [Tooltip("Specifies what type of reveal is used.\nDefault is for Items and Weapons.\nOutfit is for clothing/armor.\nBody is for NPC/Player.")]
         public Type type = Type.Default;
 
 
@@ -89,30 +85,6 @@ namespace ThunderRoad
             }
         }
 
-#if PrivateSDK
-        [NonSerialized]
-        public RevealMaterialController revealMaterialController;
-
-        void Awake()
-        {
-            if (!Level.master || !Catalog.gameData.platformParameters.enableEffectReveal)
-            {
-                this.enabled = false;
-                return;
-            }
-            if (!this.gameObject.GetComponent<MaterialInstance>())
-            {
-                this.gameObject.AddComponent<MaterialInstance>();
-            }
-            revealMaterialController = this.gameObject.AddComponent<RevealMaterialController>();
-            revealMaterialController.width = (int)maskWidth;
-            revealMaterialController.height = (int)maskHeight;
-            revealMaterialController.maskPropertyName = "_RevealMask";
-            revealMaterialController.restoreMaterialsOnReset = false;
-            //revealMaterialController.preserveRenderQueue = true;
-            revealMaterialController.renderTextureFormat = RenderTextureFormat.ARGB64;
-        }
-#endif
 
     }
 }

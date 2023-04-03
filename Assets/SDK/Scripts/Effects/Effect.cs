@@ -13,13 +13,10 @@ namespace ThunderRoad
 
         public bool isOutOfPool;
 
-#if PrivateSDK
         [NonSerialized]
         public EffectModule module;
-      
-        [NonSerialized]
-        public EffectInstance containingInstance;
-#endif
+
+
         public Step step = Step.Start;
         public enum Step
         {
@@ -56,7 +53,7 @@ namespace ThunderRoad
 
         }
 
-        public virtual void SetHapticDevice(HapticDevice hapticDevice)
+        public virtual void SetHaptic(HapticDevice hapticDevice, GameData.HapticClip hapticClipFallBack)
         {
 
         }
@@ -137,11 +134,8 @@ namespace ThunderRoad
 
         protected void InvokeDespawnCallback()
         {
-            if (despawnCallback != null)
-            {
-                despawnCallback.Invoke(this);
-                despawnCallback = null;
-            }
+            despawnCallback?.Invoke(this);
+            despawnCallback = null;
         }
     }
 }

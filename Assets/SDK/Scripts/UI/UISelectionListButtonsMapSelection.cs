@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine.UI;
 
 namespace ThunderRoad
@@ -6,11 +7,8 @@ namespace ThunderRoad
 	public class UISelectionListButtonsMapSelection : UISelectionListButtons
     {
         public RawImage levelImage = null;
-
-        public Text levelDescription = null;
-
-        public Text levelCount = null;
-
+        public TextMeshProUGUI levelDescription = null;
+        public TextMeshProUGUI levelCount = null;
         public UIMapLevelMode UISelectionLevelMode = null;
 
     }

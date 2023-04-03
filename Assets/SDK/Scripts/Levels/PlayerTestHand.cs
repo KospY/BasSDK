@@ -27,54 +27,7 @@ namespace ThunderRoad
         void Update()
         {
             device = InputDevices.GetDeviceAtXRNode(xrNode);
-#if DUNGEN
-            if (xrNode == XRNode.LeftHand)
-            {
-                if (device.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryPressed))
-                {
-                    if (primaryPressed)
-                    {
-                        if (!primaryPressState)
-                        {
-                            PlayerTest playerControllerTest = this.GetComponentInParent<PlayerTest>();
 
-                            DunGen.AdjacentRoomCulling adjacentRoomCulling = GameObject.FindObjectOfType<DunGen.AdjacentRoomCulling>();
-                            if (adjacentRoomCulling) adjacentRoomCulling.enabled = !adjacentRoomCulling.enabled;
-                            primaryPressState = true;
-                        }
-                    }
-                    else
-                    {
-                        if (primaryPressState)
-                        {
-                            primaryPressState = false;
-                        }
-                    }
-                }
-                if (device.TryGetFeatureValue(CommonUsages.secondaryButton, out bool secondaryPressed))
-                {
-                    if (secondaryPressed)
-                    {
-                        if (!secondaryPressState)
-                        {
-                            Level level = GameObject.FindObjectOfType<Level>();
-                            if (level && level.dungeon)
-                            {
-                                level.dungeon.GenerateDungeon();
-                            }
-                            secondaryPressState = true;
-                        }
-                    }
-                    else
-                    {
-                        if (secondaryPressState)
-                        {
-                            secondaryPressState = false;
-                        }
-                    }
-                }
-            }
-#endif
             if (device.TryGetFeatureValue(CommonUsages.gripButton, out bool gripPressed))
             {
                 if (gripPressed)

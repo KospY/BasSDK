@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using UnityEngine.Events;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -15,36 +16,57 @@ namespace ThunderRoad
     public class Handle : Interactable
     {
         [Range(-1, 1)]
+        [Tooltip("Define where the handle is automatically grabbed along the axis length")]
         public float defaultGrabAxisRatio;
         public Vector3 ikAnchorOffset;
 
         [NonSerialized]
         public List<HandlePose> orientations = new List<HandlePose>();
+        [Tooltip("The default handpose to be grabbed (Right Hand)")]
         public HandlePose orientationDefaultRight;
+        [Tooltip("The default handpose to be grabbed (Left Hand)")]
         public HandlePose orientationDefaultLeft;
-
+		[Tooltip("When linked handle is grabbed, ungrip this handle.")]
         public Handle releaseHandle;
 
+        [Tooltip("When ticked, no sound will play when the handle is grabbed")]
         public bool silentGrab = false;
+        [Tooltip("When ticked, the player will ungrab the handle when grounded (touching the ground)")]
         public bool forceAutoDropWhenGrounded;
+        [Tooltip("The default handpose to be grabbed (Right Hand)")]
+        public bool ignoreClimbingForceOverride;
 
+		[Tooltip("Lets AI know how far the item is away from the player. You can use the button to calculate this automatically, so long as a ColliderGroup is set up with sufficient colliders.")]
         public float reach = 0.5f;
+		[Tooltip("(Optional)Disables listed colliders once the handle is grabbed.")]
         public List<Collider> handOverlapColliders;
+		[Tooltip("(Optional) Allows you to add a custom rigidbody to the handle. (Do not reference item!)")]
         public Rigidbody customRigidBody;
+		[Tooltip("(Optional) When player hand reaches the top of the handle via slide, it will switch to listed handle once the top is reached.")]
         public Handle slideToUpHandle;
+        [Tooltip("(Optional) When player hand reaches the bottom of the handle via slide, it will switch to listed handle once the bottom is reached.")]
         public Handle slideToBottomHandle;
+        [Tooltip("(Optional) Offset of the bottom and top slide up handles. Can switch handle when reaching 0.2 meters away from the top/bottom, for example.")]
         public float slideToHandleOffset = 0.01f;
-        [Tooltip("Only works on handles with a length greater than 0!")]
+        [Tooltip("Allows you to enable/disable handle sliding (Only works on handles with a length greater than 0!)")]
         public SlideBehavior slideBehavior = SlideBehavior.CanSlide;
 
+        [Tooltip("(Optional) When you slide up the handle, and the axis length is 0, sliding will instead snap to the referenced handle.")]
         public Handle moveToHandle;
+        [Tooltip("Axis Position for the \"Move To Handle\" handle")]
         public float moveToHandleAxisPos = 0;
 
         [NonSerialized]
         public bool updatePosesWhenWeightChanges = false;
 
-        [Obsolete, Header("Obsolete! Use child HandleOrientation instead")]
+        [Obsolete, Header("This is Obsolete. Please use Handle Pose button instead.")]
         public List<Orientation> allowedOrientations = new List<Orientation>();
+
+
+        [Header("Controller axis override")]
+        public bool redirectControllerAxis;
+        public UnityEvent<float> controllerAxisOutputX = new UnityEvent<float>();
+        public UnityEvent<float> controllerAxisOutputY = new UnityEvent<float>();
 
         public new enum HandSide
         {
@@ -75,6 +97,13 @@ namespace ThunderRoad
                 this.allowedHand = allowedHand;
                 this.isDefault = isDefault;
             }
+        }
+        public enum TwoHandedMode
+        {
+            Position,
+            Dominant,
+            AutoFront,
+            AutoRear,
         }
 
 
@@ -185,7 +214,7 @@ namespace ThunderRoad
             return this.transform.TransformPoint(new Vector3(0, GetNearestAxisPosition(position), 0));
         }
 
-        public bool IsAllowed(Side side)
+        public virtual bool IsAllowed(Side side)
         {
             foreach (HandlePose orientation in orientations)
             {
@@ -198,7 +227,7 @@ namespace ThunderRoad
         }
 
         [Button("Calculate Reach")]
-        public void CalculateReach()
+        public virtual void CalculateReach()
         {
             float farthestDamagerDist = 0;
             foreach (ColliderGroup colliderGroup in this.GetComponentInParent<Item>().GetComponentsInChildren<ColliderGroup>())
@@ -216,7 +245,7 @@ namespace ThunderRoad
             reach = farthestDamagerDist - GetDefaultAxisLocalPosition();
         }
 
-        public void SetUpdatePoses(bool active)
+        public virtual void SetUpdatePoses(bool active)
         {
             updatePosesWhenWeightChanges = active;
         }

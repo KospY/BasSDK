@@ -19,7 +19,6 @@ namespace ThunderRoad
         {
             Light light = this.GetComponent<Light>();
             light.enabled = active;
-
         }
 
         public virtual void SetIntensity(float value)

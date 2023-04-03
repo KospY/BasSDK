@@ -9,13 +9,6 @@ namespace ThunderRoad
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/ContainerSpawner")]
     public class ContainerSpawner : MonoBehaviour
     {
-        public enum Tier
-        {
-            None,
-            Common,
-            Rare
-        }
-
         #region VARIABLES
 #if ODIN_INSPECTOR
         [BoxGroup("Properties", true, true)]
@@ -26,7 +19,6 @@ namespace ThunderRoad
 #if ODIN_INSPECTOR
         [BoxGroup("Properties", true, true)]
 #endif
-        public Tier tier = Tier.None;
 
 #if ODIN_INSPECTOR
         [BoxGroup("Properties", true, true)]

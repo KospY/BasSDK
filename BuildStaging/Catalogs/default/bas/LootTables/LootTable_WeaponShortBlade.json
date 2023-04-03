@@ -1,0 +1,16 @@
+{
+  "$type": "ThunderRoad.LootTable, ThunderRoad",
+  "id": "WeaponShortBlade",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "groupPath": "Weapons",
+  "drops": [
+    {
+      "$type": "ThunderRoad.LootTable+Drop, ThunderRoad",
+      "referenceID": "SwordShortAntic",
+      "reference": "Item",
+      "probabilityWeight": 1.0
+    }
+  ]
+}

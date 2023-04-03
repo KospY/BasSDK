@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
-using UnityEngine.UIElements;
 
 
 #if ODIN_INSPECTOR
@@ -41,7 +40,7 @@ namespace ThunderRoad
         public List<Finger> fingers = new List<Finger>();
         public Collider palmCollider;
         public Collider simplifiedCollider;
-        
+
         /// <summary>
         /// The colliders of the linked forearm
         /// </summary>
@@ -50,9 +49,9 @@ namespace ThunderRoad
             get
             {
                 if (foreArmColliders != null) return foreArmColliders;
-                
+
                 if (!lowerArmPart) return null;
-                
+
                 var armColliderGroup = lowerArmPart.colliderGroup;
                 if (!armColliderGroup) return null;
 
@@ -94,7 +93,22 @@ namespace ThunderRoad
                 public Transform mesh;
                 public Transform animation;
                 public CapsuleCollider collider;
+                public Transform colliderTransform;
             }
+        }
+
+
+        public Finger GetFinger(HandPoseData.FingerType type)
+        {
+            return type switch
+            {
+                HandPoseData.FingerType.Thumb => fingerThumb,
+                HandPoseData.FingerType.Index => fingerIndex,
+                HandPoseData.FingerType.Middle => fingerMiddle,
+                HandPoseData.FingerType.Ring => fingerRing,
+                HandPoseData.FingerType.Little => fingerLittle,
+                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+            };
         }
 
         [NonSerialized]
@@ -110,7 +124,6 @@ namespace ThunderRoad
         protected override void OnValidate()
         {
             base.OnValidate();
-            IconManager.SetIcon(this.gameObject, null);
             if (!this.gameObject.activeInHierarchy) return;
             grip = this.transform.Find("Grip");
             if (!grip) grip = CreateDefaultGrip();
@@ -171,10 +184,9 @@ namespace ThunderRoad
         [Button]
         public virtual void SetupFingers()
         {
-            creature = this.GetComponentInParent<Creature>();
+            if (!creature) creature = this.GetComponentInParent<Creature>();
 
             fingers = new List<Finger>();
-            Transform meshBone = null;
 
             palmCollider = this.transform.Find("Palm")?.GetComponent<Collider>();
             if (palmCollider == null)
@@ -185,33 +197,33 @@ namespace ThunderRoad
                 palmCollider.gameObject.AddComponent<ColliderGroup>();
             }
 
-            meshBone = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightThumbProximal : HumanBodyBones.LeftThumbProximal); if (meshBone) fingerThumb.proximal.mesh = meshBone;
-            meshBone = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightThumbIntermediate : HumanBodyBones.LeftThumbIntermediate); if (meshBone) fingerThumb.intermediate.mesh = meshBone;
-            meshBone = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightThumbDistal : HumanBodyBones.LeftThumbDistal); if (meshBone) fingerThumb.distal.mesh = meshBone;
+            fingerThumb.proximal.mesh = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightThumbProximal : HumanBodyBones.LeftThumbProximal); if (!fingerThumb.proximal.mesh) Debug.LogError("Could not find ThumbProximal bone on animator");
+            fingerThumb.intermediate.mesh = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightThumbIntermediate : HumanBodyBones.LeftThumbIntermediate); if (!fingerThumb.intermediate.mesh) Debug.LogError("Could not find ThumbIntermediate bone on animator");
+            fingerThumb.distal.mesh = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightThumbDistal : HumanBodyBones.LeftThumbDistal); if (!fingerThumb.distal.mesh) Debug.LogError("Could not find ThumbDistal bone on animator");
             SetupFinger(fingerThumb, "Thumb");
             if (fingerThumb.proximal.mesh) fingers.Add(fingerThumb);
 
-            meshBone = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightIndexProximal : HumanBodyBones.LeftIndexProximal); if (meshBone) fingerIndex.proximal.mesh = meshBone;
-            meshBone = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightIndexIntermediate : HumanBodyBones.LeftIndexIntermediate); if (meshBone) fingerIndex.intermediate.mesh = meshBone;
-            meshBone = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightIndexDistal : HumanBodyBones.LeftIndexDistal); if (meshBone) fingerIndex.distal.mesh = meshBone;
+            fingerIndex.proximal.mesh = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightIndexProximal : HumanBodyBones.LeftIndexProximal); if (!fingerIndex.proximal.mesh) Debug.LogError("Could not find IndexProximal bone on animator");
+            fingerIndex.intermediate.mesh = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightIndexIntermediate : HumanBodyBones.LeftIndexIntermediate); if (!fingerIndex.intermediate.mesh) Debug.LogError("Could not find IndexIntermediate bone on animator");
+            fingerIndex.distal.mesh = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightIndexDistal : HumanBodyBones.LeftIndexDistal); if (!fingerIndex.distal.mesh) Debug.LogError("Could not find IndexDistal bone on animator");
             SetupFinger(fingerIndex, "Index");
             if (fingerIndex.proximal.mesh) fingers.Add(fingerIndex);
 
-            meshBone = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightMiddleProximal : HumanBodyBones.LeftMiddleProximal); if (meshBone) fingerMiddle.proximal.mesh = meshBone;
-            meshBone = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightMiddleIntermediate : HumanBodyBones.LeftMiddleIntermediate); if (meshBone) fingerMiddle.intermediate.mesh = meshBone;
-            meshBone = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightMiddleDistal : HumanBodyBones.LeftMiddleDistal); if (meshBone) fingerMiddle.distal.mesh = meshBone;
+            fingerMiddle.proximal.mesh = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightMiddleProximal : HumanBodyBones.LeftMiddleProximal); if (!fingerMiddle.proximal.mesh) Debug.LogError("Could not find MiddleProximal bone on animator");
+            fingerMiddle.intermediate.mesh = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightMiddleIntermediate : HumanBodyBones.LeftMiddleIntermediate); if (!fingerMiddle.intermediate.mesh) Debug.LogError("Could not find MiddleIntermediate bone on animator");
+            fingerMiddle.distal.mesh = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightMiddleDistal : HumanBodyBones.LeftMiddleDistal); if (!fingerMiddle.distal.mesh) Debug.LogError("Could not find MiddleDistal bone on animator");
             SetupFinger(fingerMiddle, "Middle");
             if (fingerMiddle.proximal.mesh) fingers.Add(fingerMiddle);
 
-            meshBone = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightRingProximal : HumanBodyBones.LeftRingProximal); if (meshBone) fingerRing.proximal.mesh = meshBone;
-            meshBone = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightRingIntermediate : HumanBodyBones.LeftRingIntermediate); if (meshBone) fingerRing.intermediate.mesh = meshBone;
-            meshBone = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightRingDistal : HumanBodyBones.LeftRingDistal); if (meshBone) fingerRing.distal.mesh = meshBone;
+            fingerRing.proximal.mesh = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightRingProximal : HumanBodyBones.LeftRingProximal); if (!fingerRing.proximal.mesh) Debug.LogError("Could not find RingProximal bone on animator");
+            fingerRing.intermediate.mesh = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightRingIntermediate : HumanBodyBones.LeftRingIntermediate); if (!fingerRing.intermediate.mesh) Debug.LogError("Could not find RingIntermediate bone on animator");
+            fingerRing.distal.mesh = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightRingDistal : HumanBodyBones.LeftRingDistal); if (!fingerRing.distal.mesh) Debug.LogError("Could not find RingDistal bone on animator");
             SetupFinger(fingerRing, "Ring");
             if (fingerRing.proximal.mesh) fingers.Add(fingerRing);
 
-            meshBone = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightLittleProximal : HumanBodyBones.LeftLittleProximal); if (meshBone) fingerLittle.proximal.mesh = meshBone;
-            meshBone = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightLittleIntermediate : HumanBodyBones.LeftLittleIntermediate); if (meshBone) fingerLittle.intermediate.mesh = meshBone;
-            meshBone = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightLittleDistal : HumanBodyBones.LeftLittleDistal); if (meshBone) fingerLittle.distal.mesh = meshBone;
+            fingerLittle.proximal.mesh = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightLittleProximal : HumanBodyBones.LeftLittleProximal); if (!fingerLittle.proximal.mesh) Debug.LogError("Could not find LittleProximal bone on animator");
+            fingerLittle.intermediate.mesh = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightLittleIntermediate : HumanBodyBones.LeftLittleIntermediate); if (!fingerLittle.intermediate.mesh) Debug.LogError("Could not find LittleIntermediate bone on animator");
+            fingerLittle.distal.mesh = creature.animator.GetBoneTransform(side == Side.Right ? HumanBodyBones.RightLittleDistal : HumanBodyBones.LeftLittleDistal); if (!fingerLittle.distal.mesh) Debug.LogError("Could not find LittleDistal bone on animator");
             SetupFinger(fingerLittle, "Little");
             if (fingerLittle.proximal.mesh) fingers.Add(fingerLittle);
         }
@@ -220,6 +232,7 @@ namespace ThunderRoad
         {
             // Ragdoll proximal
             if (!finger.proximal.collider) finger.proximal.collider = palmCollider.transform.Find(name + "Proximal")?.GetComponent<CapsuleCollider>();
+            
             if (!finger.proximal.collider)
             {
                 finger.proximal.collider = new GameObject(name + "Proximal").AddComponent<CapsuleCollider>();
@@ -227,43 +240,51 @@ namespace ThunderRoad
                 finger.proximal.collider.height = 0.05f;
                 finger.proximal.collider.direction = 0;
                 finger.proximal.collider.transform.SetParent(palmCollider.transform);
-                finger.proximal.collider.transform.localPosition = finger.proximal.mesh.localPosition;
-                finger.proximal.collider.transform.localRotation = finger.proximal.mesh.localRotation;
             }
-            if (!finger.intermediate.collider) finger.intermediate.collider = finger.proximal.collider.transform.Find(name + "Intermediate")?.GetComponent<CapsuleCollider>();
+            Transform proximalColliderTransform = finger.proximal.collider.transform;
+            proximalColliderTransform.SetPositionAndRotation(finger.proximal.mesh.position,finger.proximal.mesh.rotation);
+            finger.proximal.colliderTransform = proximalColliderTransform;
+
+            if (!finger.intermediate.collider) finger.intermediate.collider = proximalColliderTransform.Find(name + "Intermediate")?.GetComponent<CapsuleCollider>();
             // Ragdoll intermediate
+            
             if (!finger.intermediate.collider)
             {
                 finger.intermediate.collider = new GameObject(name + "Intermediate").AddComponent<CapsuleCollider>();
                 finger.intermediate.collider.radius = 0.01f;
                 finger.intermediate.collider.height = 0.05f;
                 finger.intermediate.collider.direction = 0;
-                finger.intermediate.collider.transform.SetParent(finger.proximal.collider.transform);
-                finger.intermediate.collider.transform.localPosition = finger.intermediate.mesh.localPosition;
-                finger.intermediate.collider.transform.localRotation = finger.intermediate.mesh.localRotation;
+                finger.intermediate.collider.transform.SetParent(proximalColliderTransform);
             }
+            Transform intermediateColliderTransform = finger.intermediate.collider.transform;
+            intermediateColliderTransform.SetPositionAndRotation(finger.intermediate.mesh.position,finger.intermediate.mesh.rotation);
+            finger.intermediate.colliderTransform = intermediateColliderTransform;
+            
             // Ragdoll distal
-            if (!finger.distal.collider) finger.distal.collider = finger.intermediate.collider.transform.Find(name + "Distal")?.GetComponent<CapsuleCollider>();
+            if (!finger.distal.collider) finger.distal.collider = intermediateColliderTransform.Find(name + "Distal")?.GetComponent<CapsuleCollider>();
+            
             if (!finger.distal.collider)
             {
                 finger.distal.collider = new GameObject(name + "Distal").AddComponent<CapsuleCollider>();
                 finger.distal.collider.radius = 0.01f;
                 finger.distal.collider.height = 0.05f;
                 finger.distal.collider.direction = 0;
-                finger.distal.collider.transform.SetParent(finger.intermediate.collider.transform);
-                finger.distal.collider.transform.localPosition = finger.distal.mesh.localPosition;
-                finger.distal.collider.transform.localRotation = finger.distal.mesh.localRotation;
+                finger.distal.collider.transform.SetParent(intermediateColliderTransform);
             }
+            Transform distalColliderTransform = finger.distal.collider.transform;
+            distalColliderTransform.SetPositionAndRotation(finger.distal.mesh.position,finger.distal.mesh.rotation);
+            finger.distal.colliderTransform = distalColliderTransform;
+            
             // Tip
             string tipName = name + "Tip";
-            finger.tip = finger.distal.collider.transform.Find(tipName);
+            finger.tip = distalColliderTransform.Find(tipName);
             if (!finger.tip)
             {
                 finger.tip = new GameObject(tipName).transform;
-                finger.tip.SetParent(finger.distal.collider.transform);
-                finger.tip.localRotation = Quaternion.identity;
-                finger.tip.localPosition = Vector3.zero;
+                finger.tip.SetParent(distalColliderTransform);
             }
+            finger.tip.localRotation = Quaternion.identity;
+            finger.tip.localPosition = Vector3.zero;
         }
 
     }

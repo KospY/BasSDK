@@ -26,6 +26,7 @@ namespace ThunderRoad
         public bool allowArmourEditing = false;
         [Space]
         public ReflectionDirection reflectionDirection = ReflectionDirection.Up;
+        public Vector2 widthAndHeight = Vector2.one;
         [Range(0, 1)]
         public float quality = 1;
         [Range(0, 1)]
@@ -68,6 +69,7 @@ namespace ThunderRoad
 
         void OnValidate()
         {
+            if (!gameObject.activeInHierarchy) return;
             Refresh();
         }
 
@@ -93,14 +95,6 @@ namespace ThunderRoad
             else if (reflectionDirection == ReflectionDirection.Right)
                 reflectionLocalDirection = Vector3.right;
             reflectionWorldDirection = this.transform.TransformDirection(reflectionLocalDirection);
-        }
-
-        /// <summary>
-        /// Toggle the armour edit mode.
-        /// This is used in the Lever event for the bench.
-        /// </summary>
-        public void SetEditMode(bool state)
-        {
         }
 
         public static void DrawGizmoArrow(Vector3 pos, Vector3 direction, Color color, float arrowHeadLength = 0.25f, float arrowHeadAngle = 20.0f)

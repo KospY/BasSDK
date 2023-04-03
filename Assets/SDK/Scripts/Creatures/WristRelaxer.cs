@@ -31,8 +31,11 @@ namespace ThunderRoad
         [Range(-180f, 180f)]
         public float twistAngleOffset;
 
+        protected bool noTwistBone;
+
         private void OnValidate()
         {
+            if (!gameObject.activeInHierarchy) return;
             if (!upperArmBone || !lowerArmBone || !handBone || !armTwistBone)
             {
                 RagdollHand ragdollHand = this.GetComponentInParent<RagdollHand>();
