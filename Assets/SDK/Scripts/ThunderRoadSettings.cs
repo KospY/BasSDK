@@ -31,8 +31,7 @@ namespace ThunderRoad
                     }
                     else
                     {
-                        var op = Addressables.LoadAssetAsync<ThunderRoadSettings>(address);
-                        thunderRoadSettings = op.WaitForCompletion();
+                        thunderRoadSettings = Catalog.EditorLoad<ThunderRoadSettings>(address);  
                     }
 
                     if (thunderRoadSettings)
