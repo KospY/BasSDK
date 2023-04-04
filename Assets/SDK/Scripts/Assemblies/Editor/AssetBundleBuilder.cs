@@ -182,11 +182,6 @@ namespace ThunderRoad
                     if (bundledAssetGroupSchema != null)
                     {
                         bundledAssetGroupSchema.IncludeInBuild = false;
-                        if (group.Default)
-                        {
-                            bundledAssetGroupSchema.BuildPath.SetVariableByName(AddressableAssetSettingsDefaultObject.Settings, "LocalBuildPath");
-                            bundledAssetGroupSchema.LoadPath.SetVariableByName(AddressableAssetSettingsDefaultObject.Settings, "LocalLoadPath");
-                        }
                         bundledAssetGroupSchema.BundleNaming = BundledAssetGroupSchema.BundleNamingStyle.NoHash;
 
                         if (assetBundleGroup.addressableAssetGroups.Contains(group))
