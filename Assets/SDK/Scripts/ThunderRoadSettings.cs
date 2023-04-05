@@ -22,7 +22,7 @@ namespace ThunderRoad
             get
             {
                 if (!initialized)
-                {
+                { 
                     ThunderRoadSettings thunderRoadSettings = null;
                     if (Application.isBatchMode)
                     {
@@ -31,7 +31,12 @@ namespace ThunderRoad
                     }
                     else
                     {
-                        thunderRoadSettings = Catalog.EditorLoad<ThunderRoadSettings>(address);  
+#if UNITY_EDITOR                        
+                        thunderRoadSettings = Catalog.EditorLoad<ThunderRoadSettings>(address);
+#else
+                        var op = Addressables.LoadAssetAsync<ThunderRoadSettings>(address);
+                        thunderRoadSettings = op.WaitForCompletion();
+#endif
                     }
 
                     if (thunderRoadSettings)
