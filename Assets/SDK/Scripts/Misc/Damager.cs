@@ -54,7 +54,7 @@ namespace ThunderRoad
             colliderOnly = this.GetComponent<Collider>();
             isColliderOnly = colliderOnly;
         }
-
+#if UNITY_EDITOR
         protected void OnDrawGizmosSelected()
         {
             /*
@@ -89,6 +89,7 @@ namespace ThunderRoad
                 }
             }
         }
+#endif        
 
     }
 }

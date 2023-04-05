@@ -472,6 +472,56 @@ namespace ThunderRoad
 
             reflectionSorcery.SetCaptureName(areaFolderPath, fakesourceName);
         }
+
+        public void BakeFakeViewData(AreaData areaData, int indexGateway, string prefabAdress)
+        {
+
+            ReflectionSorcery fakeView = GetComponentInChildren<ReflectionSorcery>();
+            FakeViewData fakeViewData = null;
+            string fakeViewDataPath = Path.Combine(fakeView.FolderLocation, fakeView.CaptureName + "_FakeViewData.asset");
+            if (string.IsNullOrEmpty(areaData.connections[indexGateway].fakeViewAddress))
+            {
+                // Create FakeView Data
+                fakeViewData = Common.EditorCreateOrReplaceAsset(ScriptableObject.CreateInstance<FakeViewData>(), fakeViewDataPath);
+            }
+            else
+            {
+                fakeViewData = Catalog.EditorLoad<FakeViewData>(areaData.connections[indexGateway].fakeViewAddress);
+                if (fakeViewData == null)
+                {
+                    Debug.LogError("Can not find fake view data for Area : " + areaData.id + " with connection " + indexConnection + "Create a new one");
+                    // Create FakeView Data
+                    string newFakeViewDataPath = Path.Combine(fakeView.FolderLocation, fakeView.CaptureName + "_FakeViewData.asset");
+                    fakeViewData = Common.EditorCreateOrReplaceAsset(ScriptableObject.CreateInstance<FakeViewData>(), newFakeViewDataPath);
+                }
+                else
+                {
+                    string path = UnityEditor.AssetDatabase.GetAssetPath(fakeViewData);
+                    if (!path.Equals(fakeViewDataPath))
+                    {
+                        // rename
+                        UnityEditor.AssetDatabase.RenameAsset(path, fakeView.CaptureName + "_FakeViewData.asset");
+                    }
+                }
+
+            }
+
+            // Set Cubemap
+            fakeViewData.resolution = fakeView.resolution;
+            fakeViewData.mask = fakeView.mask;
+            fakeViewData.capturePosition = fakeView.capturePosition;
+            fakeViewData.roomVolumePosition = fakeView.roomVolumePosition;
+            fakeViewData.roomVolumeRotation = fakeView.roomVolumeRotation;
+            fakeViewData.roomVolumeScale = fakeView.roomVolumeScale;
+
+            fakeView.Capture();
+            string texturePath = fakeView.FolderLocation + "/" + fakeView.CaptureName + ".exr";
+            fakeViewData.captureTexture = UnityEditor.AssetDatabase.LoadAssetAtPath<Cubemap>(texturePath);
+            fakeViewData.capturedMatrix = fakeView.CapturedMatrix;
+
+            UnityEditor.EditorUtility.SetDirty(fakeViewData);
+            UnityEditor.AssetDatabase.SaveAssets();
+        }
 #endif //UNITY_EDITOR
         #endregion Tool
     }

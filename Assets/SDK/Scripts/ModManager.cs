@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Linq;
 using System;
 using System.Collections;
+using System.Text.RegularExpressions;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;

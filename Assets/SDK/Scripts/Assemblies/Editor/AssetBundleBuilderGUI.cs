@@ -1,20 +1,14 @@
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEditor.AddressableAssets;
-using UnityEditor.Build.Pipeline.Utilities;
 using UnityEditor.AddressableAssets.Settings.GroupSchemas;
 using System.IO;
 using System.Collections.Generic;
 using System;
-using UnityEditor.Android;
 using Newtonsoft.Json;
-using System.Linq;
-using Ionic.Zip;
-using UnityEngine.Rendering;
-using System.Reflection;
-using UnityEditor.Build.Content;
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 namespace ThunderRoad
 {
@@ -93,23 +87,30 @@ namespace ThunderRoad
             }
             EditorGUILayout.EndScrollView();
 
-            if (GUILayout.Button("Create New Asset Group"))
+            EditorGUILayout.BeginHorizontal();
             {
-                if (File.Exists("Assets/SDK/AssetBundleGroups/NewMod.asset"))
+                if (GUILayout.Button("Create New Asset Group"))
                 {
-                    Debug.LogWarning("You already have a new asset group");
-                }
-                else
-                {
-                    AssetBundleGroup newGroup = CreateInstance<AssetBundleGroup>();
-                    newGroup.folderName = "NewMod";
-                    newGroup.addressableAssetGroups = new List<AddressableAssetGroup>();
+                    if (File.Exists("Assets/SDK/AssetBundleGroups/NewMod.asset"))
+                    {
+                        Debug.LogWarning("You already have a new asset group");
+                    }
+                    else
+                    {
+                        AssetBundleGroup newGroup = CreateInstance<AssetBundleGroup>();
+                        newGroup.folderName = "NewMod";
+                        newGroup.addressableAssetGroups = new List<AddressableAssetGroup>();
 
-                    AssetDatabase.CreateAsset(newGroup, "Assets/SDK/AssetBundleGroups/NewMod.asset");
-                    assetBundleGroups.Add(newGroup);
+                        AssetDatabase.CreateAsset(newGroup, "Assets/SDK/AssetBundleGroups/NewMod.asset");
+                        assetBundleGroups.Add(newGroup);
+                    }
                 }
+                if (GUILayout.Button("Open Addressables Group Window"))
+                {
+                    OpenAddressablesGroupsWindow();
+                } 
             }
-            
+            EditorGUILayout.EndHorizontal();
             GUILayout.Space(5);
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
@@ -213,7 +214,15 @@ namespace ThunderRoad
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         }
 
-
+#if UNITY_EDITOR
+        [MenuItem("ThunderRoad (SDK)/Addressables Groups")]
+#endif
+        protected static void OpenAddressablesGroupsWindow()
+        {
+            //open the menu, but unfortunatly doesnt redock it on the last place it was
+            EditorApplication.ExecuteMenuItem("Window/Asset Management/Addressables/Groups");
+        }
+        
         protected static void CloseAddressablesGroupsWindow()
         {
             var window = EditorWindow.GetWindow(typeof(EditorWindow), false, "Addressables Groups");
@@ -222,6 +231,41 @@ namespace ThunderRoad
 
         protected static void BuildSelected()
         {
+            bool reopenLastScene = false;
+            
+            //save reference to current scene path
+            string scenePath = null;
+            
+            if (!Application.isBatchMode)
+            {
+                Scene activeScene = EditorSceneManager.GetActiveScene();
+                //prompt user to save the current scene if modified
+                if (activeScene.isDirty)
+                {
+                    // Prompt the user with a warning
+                    bool userResponse = EditorUtility.DisplayDialog("Warning - Unsaved scene", "Do you want to save the scene and continue build?", "Save and continue", "Abort build");
+
+                    if (!userResponse)
+                    {
+                        //user clicked cancel
+                        Debug.Log("Aborting build, please save your changes before building as the scene needs to be closed");
+                        return;
+                    }
+                    
+                    //save the scene
+                    if (!EditorSceneManager.SaveScene(activeScene))
+                    {
+                        Debug.LogWarning("Failed to save current modified scene, aborting build. Please save your changes.");
+                        return;
+                    }
+                }
+                //update the active scene since its a struct, the path could have changed on save
+                scenePath = EditorSceneManager.GetActiveScene().path;
+                reopenLastScene = true;
+            }
+   
+            
+            // Open a new scene
             UnityEditor.SceneManagement.EditorSceneManager.NewScene(UnityEditor.SceneManagement.NewSceneSetup.EmptyScene, UnityEditor.SceneManagement.NewSceneMode.Single);
 
             EditorUtility.UnloadUnusedAssetsImmediate(); // https://issuetracker.unity3d.com/issues/addressables-very-slow-build-when-editor-heap-memory-is-full
@@ -229,11 +273,27 @@ namespace ThunderRoad
 
             CloseAddressablesGroupsWindow(); // https://forum.unity.com/threads/buildplayercontent-calculate-asset-dependency-data-takes-forever.1015951/
 
+            
             foreach (AssetBundleGroup assetBundleGroup in assetBundleGroups)
             {
                 if (assetBundleGroup.selected) Build(assetBundleGroup);
             }
-
+        
+            OpenAddressablesGroupsWindow();
+            
+            if (!Application.isBatchMode && reopenLastScene)
+            {
+                if (string.IsNullOrEmpty(scenePath))
+                {
+                    Debug.LogWarning($"Last scene path is empty, but we were expected to reopen the last scene. Unable to open last scene.");
+                }
+                else
+                {
+                    // Reopen the original scene
+                    EditorSceneManager.OpenScene(scenePath);
+                }
+            }
+            
             if (runGameAfterBuild)
             {
                 RunGame();
@@ -333,8 +393,6 @@ namespace ThunderRoad
 
         protected static void Build(AssetBundleGroup assetBundleGroup)
         {
-            if (assetBundleGroup.exportAfterBuild && !CheckGameExe(gameExePath)) return;
-
             SetCompression(uncompressed ? BundledAssetGroupSchema.BundleCompressionMode.Uncompressed : BundledAssetGroupSchema.BundleCompressionMode.LZ4);
 
             AssetBundleBuilder.Build(assetBundleGroup, clearCache);

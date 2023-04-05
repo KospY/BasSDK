@@ -137,7 +137,13 @@ namespace ThunderRoad
 #endif
             if (this.InPrefabScene()) return;
             if (!gameObject.activeInHierarchy) return;
+            SetupDefaultComponents();
+        }
 
+  
+        [Button]
+        public void SetupDefaultComponents()
+        {
             if (physicBody == null && GetComponent<Rigidbody>() == null && GetComponent<ArticulationBody>() == null)
             {
                 gameObject.AddComponent<Rigidbody>();
@@ -234,7 +240,7 @@ namespace ThunderRoad
                 customInertiaTensorCollider.gameObject.layer = 2;
             }
         }
-
+#if UNITY_EDITOR   
         public static void DrawGizmoArrow(Vector3 pos, Vector3 direction, Vector3 upwards, Color color, float arrowHeadLength = 0.25f, float arrowHeadAngle = 20.0f)
         {
             Gizmos.color = color;
@@ -247,18 +253,25 @@ namespace ThunderRoad
 
         protected virtual void OnDrawGizmosSelected()
         {
-            Gizmos.DrawWireSphere(transform.TransformPoint(gameObject.GetPhysicBodyInParent().centerOfMass), 0.01f);
+            PhysicBody physicBodyInParent = gameObject.GetPhysicBodyInParent();
+            if(physicBodyInParent != null)
+                Gizmos.DrawWireSphere(transform.TransformPoint(physicBodyInParent.centerOfMass), 0.01f);
 
-            int count = additionalHolderPoints.Count;
-            for (int i = 0; i < count; i++)
+
+            if (!additionalHolderPoints.IsNullOrEmpty())
             {
-                HolderPoint holderPoint = additionalHolderPoints[i];
-                Gizmos.matrix = holderPoint.anchor.localToWorldMatrix;
-                DrawGizmoArrow(Vector3.zero, Vector3.forward * 0.1f, Vector3.up, Common.HueColourValue(HueColorName.Purple), 0.1f, 10);
-                DrawGizmoArrow(Vector3.zero, Vector3.up * 0.05f, Vector3.up, Common.HueColourValue(HueColorName.Green), 0.05f);
+                int count = additionalHolderPoints.Count;
+                for (int i = 0; i < count; i++)
+                {
+                    HolderPoint holderPoint = additionalHolderPoints[i];
+                    Gizmos.matrix = holderPoint.anchor.localToWorldMatrix;
+                    DrawGizmoArrow(Vector3.zero, Vector3.forward * 0.1f, Vector3.up, Common.HueColourValue(HueColorName.Purple), 0.1f, 10);
+                    DrawGizmoArrow(Vector3.zero, Vector3.up * 0.05f, Vector3.up, Common.HueColourValue(HueColorName.Green), 0.05f);
+                }
             }
 
         }
+#endif
 
 
         public void SwapWith(string itemID)

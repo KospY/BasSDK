@@ -922,7 +922,11 @@ namespace ThunderRoad
         /// <returns>[0,100] percentage value</returns>
         public static int DecibelsToPercentage(float decibels)
         {
-            return Mathf.Clamp((int) ((decibels + 80) * (5 / 4f)), 0, 100);
+            if (decibels <= -80)
+            {
+                return 0;
+            }
+            return (int)(Mathf.Pow(10f, decibels / 20f) * 100f);
         }
 
         /// <summary>
@@ -932,7 +936,8 @@ namespace ThunderRoad
         /// <returns>[-80,0] decibel value</returns>
         public static float PercentageToDecibels(float percentage)
         {
-            return Mathf.Clamp(percentage / (5 / 4f) - 80, -80, 0);
+            if (percentage <= 0) return -80;
+            return 20 * Mathf.Log10(percentage / 100f);
         }
 
         /// <summary>

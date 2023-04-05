@@ -364,7 +364,7 @@ namespace ThunderRoad
 #if UNITY_EDITOR
                 if (clip.animationClip == null && !Application.isPlaying)
                 {
-                    //Debug.LogWarning($"Clip index {i} in AnimationData [ {id} ] points to an address that doesn't exist! Currently trying to access: [ {clip.address} ] but it does not exist in the addressables!");
+                    //Debug.LogError($"Clip index {i} in AnimationData [ {id} ] points to an address that doesn't exist! Currently trying to access: [ {clip.address} ] but it does not exist in the addressables!");
                     clip.isMissing = true;
                 }
 #endif

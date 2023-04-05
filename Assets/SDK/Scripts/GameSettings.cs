@@ -7,6 +7,10 @@ using Sirenix.OdinInspector;
 using EasyButtons;
 #endif
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace ThunderRoad
 {
     public class GameSettings : ScriptableObject
@@ -27,6 +31,7 @@ namespace ThunderRoad
 #endif
         public string appIdentifier;
 
+
 #if ODIN_INSPECTOR
         [ValueDropdown("GetJsonFolders")]
 #endif
@@ -44,8 +49,13 @@ namespace ThunderRoad
             }
         }
 
+
+    #if UNITY_EDITOR
+        [MenuItem("ThunderRoad (SDK)/Load All JSON")]
+    #endif
+    
         [Button("Load all JSON")]
-        public void LoadAllJson()
+        public static void LoadAllJson()
         {
             Catalog.EditorLoadAllJson(true);
         }

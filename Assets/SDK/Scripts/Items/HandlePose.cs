@@ -151,8 +151,6 @@ namespace ThunderRoad
                     targetHandPoseData = Catalog.GetData<HandPoseData>(targetHandPoseId);
                     if (targetHandPoseData != null) targetHandPose = targetHandPoseData.GetCreaturePose(creatureName);
                 }
-                
-                
             }
             if (!handle) handle = GetComponentInParent<Handle>();
             if (defaultHandPose != null && CheckQuaternion(defaultHandPose.GetFingers(side).gripLocalRotation))

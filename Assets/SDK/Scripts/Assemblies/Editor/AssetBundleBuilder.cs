@@ -68,6 +68,7 @@ namespace ThunderRoad
             }
         }
 
+
         public static void CopyDirectory(string strSource, string strDestination, string searchPattern = "*.*")
         {
             if (!Directory.Exists(strDestination))
@@ -184,8 +185,21 @@ namespace ThunderRoad
                         bundledAssetGroupSchema.IncludeInBuild = false;
                         bundledAssetGroupSchema.BundleNaming = BundledAssetGroupSchema.BundleNamingStyle.NoHash;
 
+                        if (assetBundleGroup.isDefault)
+                        {
+                            AddressableAssetSettingsDefaultObject.Settings.DefaultGroup = group;
+                        }
+
                         if (assetBundleGroup.addressableAssetGroups.Contains(group))
                         {
+                            if (!assetBundleGroup.isDefault)
+                            {
+                                BundledAssetGroupSchema defaultAssetGroupSchema = AddressableAssetSettingsDefaultObject.Settings.DefaultGroup.GetSchema<BundledAssetGroupSchema>();
+                                if (defaultAssetGroupSchema.BuildPath.GetName(AddressableAssetSettingsDefaultObject.Settings) == "DefaultBuildPath")
+                                {
+                                    AddressableAssetSettingsDefaultObject.Settings.DefaultGroup = group;
+                                }
+                            }
                             bundledAssetGroupSchema.IncludeInBuild = true;
                         }
 
@@ -209,7 +223,7 @@ namespace ThunderRoad
                                     haveWindowsLabel = true;
                                 }
                             }
-
+              
                             if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android && !haveAndroidLabel)
                             {
                                 bundledAssetGroupSchema.IncludeInBuild = false;
@@ -218,9 +232,13 @@ namespace ThunderRoad
                             {
                                 bundledAssetGroupSchema.IncludeInBuild = false;
                             }
+                            else if (assetBundleGroup.isDefault && group.name == "Default")
+                            {
+                                AddressableAssetSettingsDefaultObject.Settings.DefaultGroup = group;
+                            }
                             else
                             {
-                                bundledAssetGroupSchema.IncludeInBuild = true;
+                                bundledAssetGroupSchema.IncludeInBuild = true;     
                             }
                         }
 
@@ -235,7 +253,7 @@ namespace ThunderRoad
                                 }
                             }
                         }
-
+      
                         AddressableAssetSettingsDefaultObject.Settings.OverridePlayerVersion = assetBundleGroup.folderName;
                         AddressableAssetSettingsDefaultObject.Settings.profileSettings.SetValue(group.Settings.activeProfileId, "LocalBuildPath", "[ThunderRoad.AssetBundleBuilder.assetsLocalPath]");
                         AddressableAssetSettingsDefaultObject.Settings.profileSettings.SetValue(group.Settings.activeProfileId, "LocalLoadPath", assetBundleGroup.isDefault ? "{ThunderRoad.FileManager.aaDefaultPath}" : ("{ThunderRoad.FileManager.aaModPath}/" + assetBundleGroup.folderName));
@@ -288,17 +306,11 @@ namespace ThunderRoad
                 AddressableAssetSettings.CleanPlayerContent(AddressableAssetSettingsDefaultObject.Settings.ActivePlayerDataBuilder);
             }
 
-#if !ProjectCore
             AssetBundleShaderStripPreprocess.SetShadersToStripDuringBuild(shadersToStrip);
-#endif
             AddressableAssetSettings.BuildPlayerContent(out var buildResult);
             //The PostProcessBuild callback for our shader stripper doesnt get called by Addressables BuildPlayerContent. Only in the PlayerBuilder
-#if ProjectCore            
-            ThunderRoad.ShaderStripPreProcess.PostProcessBuild(EditorUserBuildSettings.activeBuildTarget, null);
-#endif            
-#if !ProjectCore
+            
             AssetBundleShaderStripPreprocess.SetShadersToStripDuringBuild(null);
-#endif
 
             if (!string.IsNullOrEmpty(buildResult.Error))
             {

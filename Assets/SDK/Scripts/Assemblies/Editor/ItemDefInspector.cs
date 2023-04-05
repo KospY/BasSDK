@@ -22,7 +22,10 @@ namespace ThunderRoad
             Item item = (Item)target;
 
             base.OnInspectorGUI();
-
+            if (GUILayout.Button("Setup default components"))
+            {
+                item.SetupDefaultComponents();
+            }
             if (item.useCustomCenterOfMass)
             {
                 if (GUILayout.Button("Move Center of Mass " + showCenterOfMassHandle))

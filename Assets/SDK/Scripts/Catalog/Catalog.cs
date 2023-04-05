@@ -34,9 +34,8 @@ namespace ThunderRoad
 {
     public static class Catalog
     {
-        
         public static List<string> loadModFolders = new List<string>();
-        
+
         //A lookup for holding (int)Category lookup tables and the catalogData together
         public static CatalogCategory[] data = new CatalogCategory[Enum.GetNames(typeof(Category)).Length];
 
@@ -96,7 +95,7 @@ namespace ThunderRoad
             category = Category.Custom;
             return TryGetCategory(typeof(T), out category);
         }
-        
+
         public static bool TryGetCategory(Type type, out Category category)
         {
             if (typeCategories.TryGetValue(type, out category))
@@ -118,7 +117,7 @@ namespace ThunderRoad
             }
             return false;
         }
-        
+
         public static Category GetCategory(Type type)
         {
             if (typeCategories.TryGetValue(type, out Category category))
@@ -131,7 +130,7 @@ namespace ThunderRoad
                 Debug.LogError($"Type: {type} is not a subclass of CatalogData!");
                 return Category.Custom;
             }
-            
+
             for (int i = 0; i < baseTypeCategories.Length; i++)
             {
                 (Type Type, Category Category) tuple = baseTypeCategories[i];
@@ -150,7 +149,7 @@ namespace ThunderRoad
         }
 
         #region JSON
-        
+
         //create a reusable serializer
         public static JsonSerializer GetJsonNetSerializer() => jsonSerializer ??= JsonSerializer.CreateDefault(GetJsonNetSerializerSettings());
 
@@ -179,7 +178,7 @@ namespace ThunderRoad
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // LOAD JSON
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
+
         public static bool IsJsonLoaded()
         {
             return gameData != null;
@@ -268,7 +267,7 @@ namespace ThunderRoad
                     continue;
                 }
                 Debug.LogError($"[JSON][{folderName}] - Failed to load file: {localPath}");
-                
+
             }
         }
 
@@ -300,7 +299,7 @@ namespace ThunderRoad
             return true;
         }
 
-       
+
         public static bool LoadJson(object jsonObj, string jsonText, string jsonPath, string folder, ModManager.ModData modData = null)
         {
             Profiler.BeginSample("LoadJson");
@@ -328,18 +327,12 @@ namespace ThunderRoad
                     Profiler.EndSample();
                     return true;
                 default: {
-                    Debug.LogError($"[{folder}] - Unsupported JSON: {jsonPath}");
-                    if (modData != null)
-                    {
-                        modData.errors.Add(new ModManager.ModData.Error(ModManager.ModData.ErrorType.Json, "Unsupported JSON", $"[{folder}] - Unsupported JSON: {jsonPath}", jsonPath));
-                        //add it to the loaded mods, even though we never really loaded it, this is to show it has been processed, but there is an error with it
-                        ModManager.loadedMods.Add(modData);
-                    }
+                    Debug.LogWarning($"[{folder}] - Custom Json File or malformed CatalogData skipped: {jsonPath}");
                     Profiler.EndSample();
                     return false;
                 }
             }
-            
+
         }
 
         public static void LoadGameData(GameData newGameData, string jsonText, string jsonPath, string folder, ModManager.ModData modData = null)
@@ -359,14 +352,14 @@ namespace ThunderRoad
             }
         }
 
-        public static bool LoadCatalogData(CatalogData catalogData , string jsonText, string jsonPath, string folder, ModManager.ModData modData = null)
+        public static bool LoadCatalogData(CatalogData catalogData, string jsonText, string jsonPath, string folder, ModManager.ModData modData = null)
         {
             if (!TryGetCategory(catalogData.GetType(), out Category category))
             {
                 Debug.LogError($"[{folder}] - CatalogData: [{catalogData.GetType()}][{catalogData.id}] JSON: {jsonPath} does not map to a valid category. Please subclass CustomData to extend catalog data types");
                 return false;
             }
-            
+
             CatalogData existingData = GetData(category, catalogData.id, false);
             if (existingData != null)
             {
@@ -396,7 +389,7 @@ namespace ThunderRoad
             return true;
             //Debug.Log($"[JSON] - loading {catalogData.id} | {catalogData.GetType()} - Category: {category}");
         }
-        
+
         public static object[] DeserializeJsons(List<string> jsons, List<string> jsonPaths, ModManager.ModData modData = null)
         {
             int jsonsCount = jsons.Count;
@@ -536,12 +529,12 @@ namespace ThunderRoad
         }
 
         #endregion
-        
+
         [Button]
         public static void Clear()
         {
             data ??= new CatalogCategory[Enum.GetNames(typeof(Category)).Length];
-            
+
             for (int i = 0; i < data.Length; i++)
             {
                 if (data[i] == null)
@@ -558,7 +551,7 @@ namespace ThunderRoad
         }
 
         #region LOAD CATALOG
-        
+
         public static void EditorLoadAllJson(bool force = false)
         {
             if (gameData != null && !force) return;
@@ -602,7 +595,7 @@ namespace ThunderRoad
 
         public static void LoadModCatalog(ModManager.ModData mod)
         {
-            if(mod.Incompatible) return;
+            if (mod.Incompatible) return;
             Debug.Log($"Loading mod catalog {mod.Name} by {mod.Author}");
             // Load json archive file if any
             foreach (string jsondbPath in FileManager.GetFullFilePaths(FileManager.Type.JSONCatalog, FileManager.Source.Mods, mod.folderName, "*.jsondb"))
@@ -614,24 +607,25 @@ namespace ThunderRoad
             LoadJsonLooseFiles(mod.folderName, inputJsons, inputJsonPaths, mod);
             Debug.Log($"Loaded mod catalog {mod.Name} by {mod.Author}");
         }
+
         #endregion
 
         public static bool DoesCatalogVersionMatch(CatalogData catalogData)
         {
             return !checkFileVersion || catalogData.version == catalogData.GetCurrentVersion();
         }
-        
+
         #region REFRESH
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // REFRESH
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
+
         public static void Refresh()
         {
             RefreshCoroutine().AsSynchronous();
         }
-        
+
         public static IEnumerator RefreshCoroutine()
         {
             IEnumerator BatchYield(List<Coroutine> list, int batchCount)
@@ -642,45 +636,35 @@ namespace ThunderRoad
                 }
                 list.Clear();
             }
-            
             float timer = Time.realtimeSinceStartup;
             gameData.OnCatalogRefresh();
-            
+
             yield return gameData.OnCatalogRefreshCoroutine();
-#if UNITY_EDITOR                 
+#if UNITY_EDITOR
             Debug.Log($"[Catalog] Game data refreshed in {Time.realtimeSinceStartup - timer:F2} sec");
 #endif
             //Batch the coroutines so we dont create too many at once
             //As it can cause a stack overflow in unity
             int batchSize = 100;
             int batchCount = 0;
- 
+
             List<Coroutine> coroutines = new List<Coroutine>();
             for (int i = 0; i < data.Length; i++)
             {
                 timer = Time.realtimeSinceStartup;
                 //get the category
                 Category category = (Category)i;
-                
                 List<CatalogData> catalogDatas = data[i].catalogDatas;
                 if (catalogDatas == null) continue;
-                
-                
+
+
                 int catalogDatasCount = catalogDatas.Count;
                 batchCount = 0; //reset batch count for each category
                 for (int d = 0; d < catalogDatasCount; d++)
                 {
                     CatalogData catalogData = catalogDatas[d];
                     catalogData.OnCatalogRefresh();
-
-#if ProjectCore
-                    if (GameManager.local == null) continue;
-                    coroutines.Add(GameManager.local.StartCoroutine(catalogData.OnCatalogRefreshCoroutine()));
-#else
                     catalogData.OnCatalogRefreshCoroutine().AsSynchronous();
-#endif
-
-#if ProjectCore
                     batchCount++;
                     //yield on the batch if the batch is full
                     if (batchCount >= batchSize)
@@ -688,35 +672,28 @@ namespace ThunderRoad
                         yield return BatchYield(coroutines, batchCount);
                         batchCount = 0;
                     }
-#endif
                 }
-                #if ProjectCore
-                //yield the rest
-                yield return BatchYield(coroutines, batchCount);
-#endif
-                
-#if UNITY_EDITOR
+
+   
+#if UNITY_EDITOR                
                 Debug.Log($"[Catalog] {Enum.GetName(typeof(Category), i)} refreshed {catalogDatasCount} entries in {(Time.realtimeSinceStartup - timer):F2} sec");
 #endif
             }
-
         }
-        
-#endregion
 
-#region ADDRESSABLES
+        #endregion
 
-        
+        #region ADDRESSABLES
 
 
-#endregion
+        #endregion
 
-#region TEXT
-        
+        #region TEXT
+
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // TEXTS
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
+
         /// <summary>
         /// Method to update data when the language changes
         /// </summary>
@@ -741,7 +718,7 @@ namespace ThunderRoad
         }
 
 
-#endregion
+        #endregion
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // GET
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -751,7 +728,7 @@ namespace ThunderRoad
             catalogCategory = GetCategoryData(category);
             return catalogCategory != null;
         }
-        
+
         public static CatalogCategory GetCategoryData(Category category) => data?[(int)category];
 
         public static bool TryGetData<T>(string id, out T outputData, bool logError = true) where T : CatalogData
@@ -787,7 +764,7 @@ namespace ThunderRoad
             if (logError) Debug.LogError($"Data [{id} | {Animator.StringToHash(id.ToLower())}] of type [{category}] cannot be found in catalog");
             return null;
         }
-        
+
         public static List<CatalogData> GetDataList(Category category)
         {
             if (!TryGetCategoryData(category, out CatalogCategory categoryData)) return new List<CatalogData>();
@@ -802,7 +779,7 @@ namespace ThunderRoad
                 where catalogData is T
                 select (T)catalogData).ToList();
         }
-        
+
         public static IEnumerable<T> GetDataEnumerable<T>() where T : CatalogData
         {
             if (!TryGetCategory<T>(out Category category)) return new T[0];
@@ -811,10 +788,10 @@ namespace ThunderRoad
                 select (T)catalogData;
         }
 
-        
 
 #if ODIN_INSPECTOR
-#region ODIN
+        #region ODIN
+
         public static List<ValueDropdownItem<string>> GetDropdownAllID(Category category, string noneText = "None")
         {
             List<ValueDropdownItem<string>> dropdownList = new List<ValueDropdownItem<string>>();
@@ -847,14 +824,15 @@ namespace ThunderRoad
             }
             return dropdownList;
         }
-#endregion
+
+        #endregion
 #endif
 
         public static List<string> GetAllID(Category category)
         {
             return GetDataList(category).Select(x => x.id).ToList();
         }
-        
+
         public static List<string> GetAllID<T>() where T : CatalogData
         {
             // Get the target category.
@@ -884,13 +862,13 @@ namespace ThunderRoad
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // ASSETS
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
+
         //Load single location
         public static void LoadLocationAsync<T>(string address, Action<IResourceLocation> result, string requestName)
         {
             LoadResourceLocationsAsync<T>(address).Completed += operationHandle => OnLoadResourceLocations<T>(address, result, operationHandle, requestName);
         }
-        
+
         public static IEnumerator LoadLocationCoroutine<T>(string address, Action<IResourceLocation> result, string requestName)
         {
             if (!Application.isPlaying || string.IsNullOrEmpty(address))
@@ -902,7 +880,7 @@ namespace ThunderRoad
             if (TryGetAddressLocation<T>(address, out IResourceLocation location))
             {
                 result?.Invoke(location);
-                yield break; 
+                yield break;
             }
             AsyncOperationHandle<IList<IResourceLocation>> handle = LoadResourceLocationsAsync<T>(address);
             if (!handle.IsDone)
@@ -917,13 +895,13 @@ namespace ThunderRoad
         {
             return LoadResourceLocationsAsync(address, typeof(T));
         }
-        
+
         private static AsyncOperationHandle<IList<IResourceLocation>> LoadResourceLocationsAsync(string address, Type type = null)
         {
-         
+
             GetAddressAndSubAddress(address, out string addressOnly, out string subAddress);
             bool hasSubAddress = subAddress != null;
-            
+
 #if UNITY_EDITOR
             if (type == null)
             {
@@ -951,7 +929,7 @@ namespace ThunderRoad
             }
 #endif
         }
-        
+
         //Helper method
         private static void GetAddressAndSubAddress(string address, out string addressOnly, out string subAddress)
         {
@@ -984,7 +962,7 @@ namespace ThunderRoad
                 IResourceLocation resultLocation = null;
                 IList<IResourceLocation> locations = handle.Result;
                 resultLocation = handle.Result[0];
-            
+
                 if (locations.Count > 1)
                 {
 #if UNITY_EDITOR
@@ -997,7 +975,7 @@ namespace ThunderRoad
                         List<AddressableAssetEntry> entriesList = new List<AddressableAssetEntry>();
                         AddressableAssetSettingsDefaultObject.Settings.GetAllAssets(entriesList, true);
                         string platformLabel = Common.GetPlatform().ToString();
-                        
+
                         //filter out the ones which have the wrong platform
                         foreach (AddressableAssetEntry addressableAssetEntry in entriesList)
                         {
@@ -1006,7 +984,7 @@ namespace ThunderRoad
                                 AddressableAssetEntries.Add(addressableAssetEntry);
                             }
                         }
-                        
+
                     }
                     List<IResourceLocation> found = new List<IResourceLocation>();
                     foreach (AddressableAssetEntry addressableAssetEntry in AddressableAssetEntries)
@@ -1039,13 +1017,13 @@ namespace ThunderRoad
                         Debug.LogWarning($"Was unable to find a single matching addressable location for this address: {address} with platform: {Common.GetPlatform().ToString()}. We think its one of these and will default to the first one: {sb}");
                         resultLocation = found[0];
                     }
-                    
+
                     //Hopefully this never happens, because unity found one already, so we should find it, unless our checks are wrong
                     if (found.Count == 0)
                     {
                         Debug.LogWarning($"Was unable to find a matching addressable location for this address: {address} with platform: {Common.GetPlatform().ToString()}. Unity thinks {resultLocation.InternalId} is the right one");
                     }
-                    
+
 #else
                     //multiple locations, if its a sub address, try to filter on that one
                     GetAddressAndSubAddress(address, out string addressOnly, out string subAddress);
@@ -1059,7 +1037,7 @@ namespace ThunderRoad
                     }
 #endif
                 }
-                
+
                 TryAddAddressLocation(address, type, resultLocation);
                 callback?.Invoke(resultLocation);
             }
@@ -1070,8 +1048,8 @@ namespace ThunderRoad
                 callback?.Invoke(null);
             }
         }
-        
-        
+
+
         //Load Asset
         public static void LoadAssetAsync<T>(string address, Action<T> callback, string handlerName) where T : UnityEngine.Object
         {
@@ -1087,12 +1065,12 @@ namespace ThunderRoad
                 callback?.Invoke(null);
                 return;
             }
-            
+
             //try to get the result from the cache first
             if (TryGetAddressLocation<T>(address, out IResourceLocation cachedLocation))
             {
                 LoadAssetAsync<T>(cachedLocation, callback, handlerName);
-                return; 
+                return;
             }
             //Otherwise load the location
             LoadLocationAsync<T>(address, location => LoadAssetAsync<T>(location, callback, handlerName), handlerName);
@@ -1143,13 +1121,13 @@ namespace ThunderRoad
                 callback?.Invoke(null);
                 yield break;
             }
-            
+
             IResourceLocation location = null;
             yield return LoadLocationCoroutine<T>(address, value => location = value, handlerName);
             yield return LoadAssetCoroutine<T>(location, callback, handlerName);
-            
+
         }
-        
+
         public static IEnumerator LoadAssetCoroutine<T>(IResourceLocation location, Action<T> callback, string handlerName) where T : UnityEngine.Object
         {
             if (location == null)
@@ -1157,7 +1135,7 @@ namespace ThunderRoad
                 callback?.Invoke(null);
                 yield break;
             }
-            
+
             AsyncOperationHandle<T> handle = Addressables.LoadAssetAsync<T>(location);
             yield return handle;
 
@@ -1166,7 +1144,7 @@ namespace ThunderRoad
                 callback.Invoke(handle.Result);
                 yield break;
             }
-            
+
             Debug.LogWarning($"Unable to find asset at resource location [{typeof(T).Name}][{location.ResourceType}][{location.PrimaryKey}] for object [{handlerName}]");
             Addressables.Release(handle);
             callback?.Invoke(null);
@@ -1191,18 +1169,18 @@ namespace ThunderRoad
                 return;
             }
 #endif
-            
+
             if (!Application.isPlaying || string.IsNullOrEmpty(address))
             {
                 callback?.Invoke(null);
                 return;
             }
-            
+
             //try to get the result from the cache first
             if (TryGetAddressLocation<GameObject>(address, out IResourceLocation cachedLocation))
             {
                 InstantiateAsync(cachedLocation, position, rotation, parent, callback, handlerName);
-                return; 
+                return;
             }
             //Otherwise load the location
             LoadLocationAsync<GameObject>(address, location => InstantiateAsync(location, position, rotation, parent, callback, handlerName), handlerName);
@@ -1218,7 +1196,7 @@ namespace ThunderRoad
                 callback?.Invoke(null);
                 return;
             }
-            
+
             AsyncOperationHandle<GameObject> handle;
             //This is to support calling the appropriate Addressables API for loading a location vs a key
             IResourceLocation resourceLocation = null;
@@ -1243,9 +1221,9 @@ namespace ThunderRoad
                     callback?.Invoke(null);
                 }
             };
-            
+
         }
-        
+
         public static IEnumerator InstantiateCoroutine<T>(string address, Action<T> callback, string handlerName) where T : UnityEngine.Object
         {
             if (!Application.isPlaying || string.IsNullOrEmpty(address))
@@ -1253,7 +1231,7 @@ namespace ThunderRoad
                 callback?.Invoke(null);
                 yield break;
             }
-            
+
             IResourceLocation location = null;
             //Load location type here is always a gameobject, since were instantiating a prefab instance
             yield return LoadLocationCoroutine<GameObject>(address, value => location = value, handlerName);
@@ -1275,7 +1253,7 @@ namespace ThunderRoad
                 callback?.Invoke(null);
                 yield break;
             }
-            
+
             AsyncOperationHandle<GameObject> handle;
             //This is to support calling the appropriate Addressables API for loading a location vs a key
             IResourceLocation resourceLocation = null;
@@ -1289,7 +1267,7 @@ namespace ThunderRoad
                 handle = Addressables.InstantiateAsync(location);
             }
             yield return handle;
-            
+
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
                 if (typeof(T) == typeof(GameObject))
@@ -1302,12 +1280,12 @@ namespace ThunderRoad
                 }
                 yield break;
             }
-            
+
             Debug.LogWarning($"Unable to find asset at location [{resourceLocation?.PrimaryKey}] of type [{typeof(T).Name}] for object [{handlerName}]");
             Addressables.Release(handle);
             callback?.Invoke(null);
         }
-        
+
         //Release Asset
         public static void ReleaseAsset<TObject>(AsyncOperationHandle<TObject> handle)
         {
@@ -1339,7 +1317,7 @@ namespace ThunderRoad
             Addressables.Release(handle);
         }
 
-       
+
         public static T EditorLoad<T>(string address) where T : UnityEngine.Object
         {
             if (string.IsNullOrEmpty(address)) return null;
@@ -1435,6 +1413,5 @@ namespace ThunderRoad
 #endif
         }
 
-        
     }
 }

@@ -366,7 +366,7 @@ namespace ThunderRoad
         /// <summary>
         /// Convert the input bytes to a readable size..
         /// </summary>
-        public static string FormatSizeFromBytes(this long byteCount, string format = "00")
+        public static string FormatSizeFromBytes(this long byteCount, string format = "0")
         {
             if (byteCount == 0)
             { return "0" + SizeReferences[0]; }
@@ -381,15 +381,30 @@ namespace ThunderRoad
         /// <summary>
         /// Get the total free space left on the main drive.
         /// </summary>
+        /// <returns>Available, out is total drive size</returns>
         public static long GetTotalFreeSpace(out long total)
         {
-            foreach (DriveInfo drive in DriveInfo.GetDrives())
+            switch (GetPlatform())
             {
-                if (drive.IsReady && Application.dataPath.StartsWith(drive.Name.Replace("\\", "/")))
-                {
-                    total = drive.TotalSize;
-                    return drive.TotalSize - drive.AvailableFreeSpace;
-                }
+                case Platform.Windows:
+                    foreach (DriveInfo drive in DriveInfo.GetDrives())
+                    {
+                        if (drive.IsReady && Application.dataPath.StartsWith(drive.Name.Replace("\\", "/")))
+                        {
+                            total = drive.TotalSize;
+
+                            // return available
+                            return drive.TotalSize - drive.AvailableFreeSpace;
+                        }
+                    }
+                    break;
+
+                case Platform.Android:
+                    AndroidJavaObject statFs = new AndroidJavaObject("android.os.StatFs", Application.persistentDataPath);
+                    total = statFs.Call<long>("getAvailableBlocksLong");
+
+                    // return available
+                    return statFs.Call<long>("getFreeBytes");
             }
 
             total = 0;

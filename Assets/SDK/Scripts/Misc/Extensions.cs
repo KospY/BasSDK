@@ -567,17 +567,91 @@ namespace ThunderRoad
             return clonedCollider;
         }
 
-        public static void FocusPoints(this CapsuleCollider capsule, out Vector3 pointA, out Vector3 pointB)
+        public static float GetScaledRadius(this SphereCollider sphere) => sphere.radius * Mathf.Max(sphere.transform.lossyScale.x, sphere.transform.lossyScale.y, sphere.transform.lossyScale.z);
+
+        public static void ScaledWorldInfo(this CapsuleCollider capsule, out Vector3 pointA, out Vector3 pointB, out float height, out float radius)
         {
-            float halfHeightMinusRadius = (capsule.height / 2f) - capsule.radius;
-            if (halfHeightMinusRadius <= 0f)
+            pointA = pointB = capsule.transform.TransformPoint(capsule.center);
+            capsule.GetScaledHeightRadius(out height, out radius);
+            float halfHeightMinusRadius = (height / 2f) - radius;
+            if (halfHeightMinusRadius <= 0f) return;
+            Vector3 capsuleAxis = capsule.transform.TransformDirection(capsule.AxisVector());
+            pointA = capsule.transform.TransformPoint(capsule.center) + (capsuleAxis * halfHeightMinusRadius);
+            pointB = capsule.transform.TransformPoint(capsule.center) + (capsuleAxis * -halfHeightMinusRadius);
+        }
+
+        public static void FocusPoints(this CapsuleCollider capsule, out Vector3 pointA, out Vector3 pointB) => capsule.ScaledWorldInfo(out pointA, out pointB, out _, out _);
+
+        public static Vector3 AxisVector(this CapsuleCollider capsule) => new Vector3(capsule.direction == 0 ? 1f : 0f, capsule.direction == 1 ? 1f : 0f, capsule.direction == 2 ? 1f : 0f);
+
+        public static float GetScaledRadius(this CapsuleCollider capsule)
+        {
+            capsule.GetScaledHeightRadius(out _, out var radius);
+            return radius;
+        }
+
+        public static float GetScaledHeight(this CapsuleCollider capsule)
+        {
+            capsule.GetScaledHeightRadius(out var height, out _);
+            return height;
+        }
+
+        public static void GetScaledHeightRadius(this CapsuleCollider capsule, out float height, out float radius)
+        {
+            float axisScale = 1f;
+            float radiusScale = 1f;
+            switch (capsule.direction)
             {
-                pointA = pointB = capsule.transform.TransformPoint(capsule.center);
-                return;
+                case 0:
+                    axisScale = capsule.transform.lossyScale.x;
+                    radiusScale = Mathf.Max(capsule.transform.lossyScale.y, capsule.transform.lossyScale.z);
+                    break;
+                case 1:
+                    axisScale = capsule.transform.lossyScale.y;
+                    radiusScale = Mathf.Max(capsule.transform.lossyScale.x, capsule.transform.lossyScale.z);
+                    break;
+                case 2:
+                    axisScale = capsule.transform.lossyScale.z;
+                    radiusScale = Mathf.Max(capsule.transform.lossyScale.x, capsule.transform.lossyScale.y);
+                    break;
             }
-            Vector3 capsuleDir = new Vector3(capsule.direction == 0 ? 1f : 0f, capsule.direction == 1 ? 1f : 0f, capsule.direction == 2 ? 1f : 0f);
-            pointA = capsule.transform.TransformPoint(capsule.center + (capsuleDir * halfHeightMinusRadius));
-            pointB = capsule.transform.TransformPoint(capsule.center + (capsuleDir * -halfHeightMinusRadius));
+            radius = capsule.radius * radiusScale;
+            height = capsule.height * axisScale;
+        }
+
+        public static bool DistanceTouchCheck(this Collider colliderA, Collider colliderB)
+        {
+            ColliderClosenessInfo(colliderA, colliderB.transform.position, out var lineA, out var aIsLine, out var aDist);
+            ColliderClosenessInfo(colliderB, colliderA.transform.position, out var lineB, out var bIsLine, out var bDist);
+            var pointA = lineA.a;
+            var pointB = lineB.a;
+            if (aIsLine && bIsLine) Utils.ClosestPointsOnTwoLines(lineA.a, lineA.b, lineB.a, lineB.b, out pointA, out pointB);
+            if (aIsLine && !bIsLine) pointA = Utils.ClosestPointOnLine(lineA.a, lineA.b, pointB);
+            if (!aIsLine && bIsLine) pointB = Utils.ClosestPointOnLine(lineB.a, lineB.b, pointA);
+            return pointA.PointInRadius(pointB, aDist + bDist);
+        }
+
+        private static void ColliderClosenessInfo(Collider col, Vector3 otherCenter, out (Vector3 a, Vector3 b) line, out bool needLine, out float distance)
+        {
+            line = (Vector3.zero, Vector3.zero);
+            distance = 0f;
+            needLine = false;
+            if (col is CapsuleCollider capsule)
+            {
+                capsule.ScaledWorldInfo(out line.a, out line.b, out _, out distance);
+                needLine = true;
+            }
+            else if (col is SphereCollider sphere)
+            {
+                line.a = line.b = sphere.transform.TransformPoint(sphere.center);
+                distance = sphere.GetScaledRadius();
+            }
+            else if (col is BoxCollider box)
+            {
+                line.a = line.b = box.transform.TransformPoint(box.center);
+                // if we really wanted to I'm sure we could get the true distance, but a rough distance is fine. this method should be best suited for round colliders
+                distance = Vector3.Distance(box.transform.position, box.ClosestPoint(otherCenter));
+            }
         }
 
         public static float GetFirstValue(this AnimationCurve animationCurve)

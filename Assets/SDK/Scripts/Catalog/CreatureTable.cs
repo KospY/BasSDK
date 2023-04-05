@@ -298,6 +298,39 @@ namespace ThunderRoad
                 generationBrain = null;
             }
         }
+
+        [BoxGroup("Population test"), NonSerialized, ShowInInspector]
+        public float percentMale;
+        [BoxGroup("Population test"), NonSerialized, ShowInInspector]
+        public float percentFemale;
+        [BoxGroup("Population test"), NonSerialized, ShowInInspector]
+        public float percentNone;
+
+        [Button]
+        public void TestSmallPopulation() => TestPopulation(1000);
+
+        [Button]
+        public void TestBigPopulation() => TestPopulation(50000);
+
+        public void TestPopulation(int size)
+        {
+            int males = 0;
+            int females = 0;
+            int nones = 0;
+            for (int i = 0; i < size; i++)
+            {
+                if (TryPick((int)showWeightDifficulty, out CreatureData creatureData))
+                {
+                    if (creatureData.name == "HumanMale") males++;
+                    if (creatureData.name == "HumanFemale") females++;
+                    continue;
+                }
+                nones++;
+            }
+            percentMale = males / (float)size;
+            percentFemale = females / (float)size;
+            percentNone = nones / (float)size;
+        }
 #endif
 
         public override int GetCurrentVersion()
