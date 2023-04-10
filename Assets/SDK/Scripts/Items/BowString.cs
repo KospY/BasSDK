@@ -42,8 +42,11 @@ namespace ThunderRoad
         public bool loseNockOnUngrab = true;
 
         [Header("Audio")]
+        [Tooltip("Plays when the bow is released and the arrow gets fired.")]
         public AudioContainer audioContainerShoot;
+        [Tooltip("Plays on a loop while the player is pulling the string back.")]
         public AudioContainer audioContainerDraw;
+        [Tooltip("Plays on loop while the string is moving (Either being pulled back, or snapping forward when released)")]
         public AudioClip audioClipString;
 
         public Item item { get; protected set; }
@@ -52,18 +55,22 @@ namespace ThunderRoad
         public Handle stringHandle { get; protected set; }
         public Vector3 orgBowStringPos { get; protected set; }
 
+        public ItemModuleBow module { get; protected set; }
+
         protected bool setupFinished = false;
         protected float currentTargetRatio = 0f;
 
-        public ItemModuleBow module { get; protected set; }
+        private string clipName;
 
         private void TryAssignReferences()
         {
-            item ??= GetComponentInParent<Item>();
-            pb ??= gameObject.GetPhysicBody();
-            stringJoint ??= GetComponent<ConfigurableJoint>() ?? gameObject.AddComponent<ConfigurableJoint>();
-            stringHandle ??= GetComponentInChildren<Handle>();
-            if (!stringHandle)
+            if (item == null) item = GetComponentInParent<Item>();
+            if (pb == null) pb = gameObject.GetPhysicBody();
+            if (pb == null) pb = gameObject.AddComponent<Rigidbody>().AsPhysicBody();
+            if (stringJoint == null) stringJoint = GetComponent<ConfigurableJoint>();
+            if (stringJoint == null) stringJoint = gameObject.AddComponent<ConfigurableJoint>();
+            if (stringHandle == null) stringHandle = GetComponent<Handle>() ?? GetComponentInChildren<Handle>();
+            if (stringHandle == null)
             {
                 Debug.LogError($"Could not assign Handle reference! Make sure that this BowString component ({gameObject.name}) has a Handle on it, or has a Handle as a child object!");
             }
@@ -96,12 +103,14 @@ namespace ThunderRoad
             setupFinished = true;
         }
 
+        // This method should be exposed when exporting the SDK; modders may have an interest in utilizing this method through an event linker or other Unity Event
         public void SetStringTargetRatio(float targetRatio)
         {
             currentTargetRatio = targetRatio;
             stringJoint.targetPosition = new Vector3(0f, 0f, -0.5f * stringDrawLength) + new Vector3(0f, 0f, targetRatio * stringDrawLength);
         }
 
+        // This method should be exposed when exporting the SDK; modders may have an interest in utilizing this method through an event linker or other Unity Event
         public void SetStringSpring(float spring)
         {
             JointDrive jointDrive = stringJoint.zDrive;
@@ -109,6 +118,41 @@ namespace ThunderRoad
             stringJoint.zDrive = jointDrive;
         }
 
+        // This property should be exposed when exporting the SDK; modders may have an interest in utilizing this property through an event linker or other Unity Event
+        public bool blockStringRelease
+        {
+            get
+            {
+                bool startValue = _blockStringRelease;
+                _blockStringRelease = false;
+                return startValue;
+            }
+            set
+            {
+                _blockStringRelease = value;
+            }
+        }
+        private bool _blockStringRelease;
+
+        // This method should be exposed when exporting the SDK; modders may have an interest in utilizing this method through an event linker or other Unity Event
+        public void SetMinFireVelocity(float fireVelocity)
+        {
+        }
+
+        // This method should be exposed when exporting the SDK; modders may have an interest in utilizing this method through an event linker or other Unity Event
+        public void ReleaseString()
+        {
+        }
+
+        // This method should be exposed when exporting the SDK; modders may have an interest in utilizing this method through an event linker or other Unity Event
+        public void SpawnAndAttachArrow(string arrowID)
+        {
+        }
+
+        // This method should be exposed when exporting the SDK; modders may have an interest in utilizing this method through an event linker or other Unity Event
+        public void RemoveArrow(bool despawn)
+        {
+        }
 
 #if UNITY_EDITOR
         [Header("Editor only")]
@@ -151,6 +195,10 @@ namespace ThunderRoad
                 {
                     Debug.LogWarning("Animation is not set to legacy! It is being changed automatically.");
                     animation.clip.legacy = true;
+                }
+                if (!itemHasErrors)
+                {
+                    clipName = animation.clip.name;
                 }
             }
             if (restLeft == null || restRight == null)
@@ -252,7 +300,7 @@ namespace ThunderRoad
 
         private void SampleAnimation(float time, bool useCurve = false)
         {
-            AnimationState state = animation[animation.clip.name];
+            AnimationState state = animation[clipName];
             state.speed = 0;
             state.enabled = true;
             state.normalizedTime = useCurve && pullCurve != null ? pullCurve.Evaluate(time) : time;
@@ -262,14 +310,8 @@ namespace ThunderRoad
 
         private void OnDrawGizmos()
         {
-            if (this.InPrefabScene() && item == null)
-            {
-                item = GetComponentInParent<Item>();
-            }
-            else
-            {
-                if (Mathf.Approximately(stringDrawLength, 0f) || item == null || restLeft == null || restRight == null) return;
-            }
+            if (this.InPrefabScene() && item == null) item = GetComponentInParent<Item>();
+            if (Mathf.Approximately(stringDrawLength, 0f) || item == null || restLeft == null || restRight == null) return;
             Vector3 originalPosition = item.transform.TransformPoint(orgBowStringPos);
             Vector3 maxDrawPos = originalPosition - (transform.forward * stringDrawLength);
             Gizmos.color = Color.white;
