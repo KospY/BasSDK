@@ -6,5 +6,7 @@ namespace ThunderRoad
 {
     public class UiItemSpawnerCategoryElement : UIItemSpawnerGridElement
     {
+
+        [SerializeField] private TextMeshProUGUI itemCount;
     }
 }
