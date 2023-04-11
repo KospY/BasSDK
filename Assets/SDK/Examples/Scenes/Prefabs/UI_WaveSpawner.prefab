@@ -4239,7 +4239,6 @@ MonoBehaviour:
   lastEntityExitEvent:
     m_PersistentCalls:
       m_Calls: []
-  collidersInside: 0
 --- !u!1 &6951589170562366141
 GameObject:
   m_ObjectHideFlags: 0
@@ -4408,8 +4407,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6952089445981902093}
   m_HandleRect: {fileID: 6952089445981902092}
   m_Direction: 0
-  m_Value: -0.22413793
-  m_Size: 0.9999982
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4508,8 +4507,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1769682261}
   m_HandleRect: {fileID: 3125662804406491421}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 1
+  m_Value: 0
+  m_Size: 0.01
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4551,7 +4550,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.105245456}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &6952089444393430014
