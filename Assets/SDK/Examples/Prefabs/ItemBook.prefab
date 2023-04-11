@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7561842525478204660}
   m_Layer: 0
   m_Name: Book
-  m_TagString: Untagged
+  m_TagString: PointerActive
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -178,6 +178,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1163002750276272999, guid: eb56f9bcfdaa14949a8b53432e5dec86,
+        type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1277439821048578365, guid: eb56f9bcfdaa14949a8b53432e5dec86,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -333,6 +338,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.0009765625
       objectReference: {fileID: 0}
+    - target: {fileID: 5152178716357567451, guid: eb56f9bcfdaa14949a8b53432e5dec86,
+        type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5152178716836298412, guid: eb56f9bcfdaa14949a8b53432e5dec86,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -347,6 +357,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UI_ItemSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 5643611322778937341, guid: eb56f9bcfdaa14949a8b53432e5dec86,
+        type: 3}
+      propertyPath: playerExitEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3123643438775767446}
+    - target: {fileID: 5643611322778937341, guid: eb56f9bcfdaa14949a8b53432e5dec86,
+        type: 3}
+      propertyPath: playerExitEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1494403825037665870}
+    - target: {fileID: 5643611322778937341, guid: eb56f9bcfdaa14949a8b53432e5dec86,
+        type: 3}
+      propertyPath: playerEnterEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3123643438775767446}
+    - target: {fileID: 5643611322778937341, guid: eb56f9bcfdaa14949a8b53432e5dec86,
+        type: 3}
+      propertyPath: playerEnterEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1494403825037665870}
+    - target: {fileID: 5643611322778937341, guid: eb56f9bcfdaa14949a8b53432e5dec86,
+        type: 3}
+      propertyPath: playerExitEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_enabled
+      objectReference: {fileID: 0}
+    - target: {fileID: 5643611322778937341, guid: eb56f9bcfdaa14949a8b53432e5dec86,
+        type: 3}
+      propertyPath: playerExitEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: set_enabled
+      objectReference: {fileID: 0}
+    - target: {fileID: 5643611322778937341, guid: eb56f9bcfdaa14949a8b53432e5dec86,
+        type: 3}
+      propertyPath: playerEnterEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_enabled
+      objectReference: {fileID: 0}
+    - target: {fileID: 5643611322778937341, guid: eb56f9bcfdaa14949a8b53432e5dec86,
+        type: 3}
+      propertyPath: playerEnterEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: set_enabled
       objectReference: {fileID: 0}
     - target: {fileID: 6657990488761024113, guid: eb56f9bcfdaa14949a8b53432e5dec86,
         type: 3}
@@ -490,9 +540,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb56f9bcfdaa14949a8b53432e5dec86, type: 3}
+--- !u!223 &1494403825037665870 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 1226388830144038224, guid: eb56f9bcfdaa14949a8b53432e5dec86,
+    type: 3}
+  m_PrefabInstance: {fileID: 412134860227142430}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1802758054271698015 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2070702134989563713, guid: eb56f9bcfdaa14949a8b53432e5dec86,
+    type: 3}
+  m_PrefabInstance: {fileID: 412134860227142430}
+  m_PrefabAsset: {fileID: 0}
+--- !u!223 &3123643438775767446 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 3378081597383340680, guid: eb56f9bcfdaa14949a8b53432e5dec86,
     type: 3}
   m_PrefabInstance: {fileID: 412134860227142430}
   m_PrefabAsset: {fileID: 0}

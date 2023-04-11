@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7561842525478204660}
   m_Layer: 0
   m_Name: Book
-  m_TagString: Untagged
+  m_TagString: PointerActive
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -223,6 +223,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3125662804406491421, guid: 7e7a69f6a076bb44eb62731e1d5c584d,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6952089444141486996, guid: 7e7a69f6a076bb44eb62731e1d5c584d,
         type: 3}
       propertyPath: m_Size
@@ -236,7 +241,7 @@ PrefabInstance:
     - target: {fileID: 6952089444362389627, guid: 7e7a69f6a076bb44eb62731e1d5c584d,
         type: 3}
       propertyPath: m_Size
-      value: 0.01
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6952089444362389627, guid: 7e7a69f6a076bb44eb62731e1d5c584d,
         type: 3}
@@ -247,6 +252,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6952089444393430008, guid: 7e7a69f6a076bb44eb62731e1d5c584d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.00019904226
       objectReference: {fileID: 0}
     - target: {fileID: 6952089444900446538, guid: 7e7a69f6a076bb44eb62731e1d5c584d,
         type: 3}
