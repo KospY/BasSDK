@@ -122,6 +122,35 @@ namespace ThunderRoad
         }
 #endif
 
+#if UNITY_EDITOR
+        public void OnDrawGizmos()
+        {
+            if (randomRadius > 0)
+            {
+                UnityEditor.Handles.color = Color.white;
+                UnityEditor.Handles.DrawWireDisc(transform.position, transform.up, randomRadius);
+                Vector3 size = Vector3.one * 0.02f;
+                for (int i = 0; i < spawnCount; i++)
+                {
+                    Random.InitState(gameObject.GetInstanceID() + i);
+                    UnityEditor.Handles.DrawWireCube(transform.position + Vector3.ProjectOnPlane(Random.insideUnitSphere * randomRadius, transform.up), size);
+                    Random.InitState((int)Time.realtimeSinceStartup);
+                }
+            }
+            if (parentSpawner)
+            {
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawLine(this.transform.position, parentSpawner.transform.position);
+            }
+            if (priority == Priority.Mandatory) Gizmos.color = Color.green;
+            else if (priority == Priority.Default) Gizmos.color = Color.blue;
+            else if (priority == Priority.IgnoreOnAndroid) Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(transform.position, Vector3.one / 2);
+            Handles.Label(transform.position+Vector3.up*0.25f, this.referenceId);
+        }
+#endif
+
+
 
         public void SubscribeChildSpawner(ItemSpawner child)
         {
