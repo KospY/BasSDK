@@ -68,21 +68,30 @@ namespace ThunderRoad
             int selectedCount = 0;
             foreach (AssetBundleGroup assetBundleGroup in assetBundleGroups)
             {
+                bool dirty = false;
                 EditorGUILayout.BeginHorizontal();
                 {
+                    var prevSelected = assetBundleGroup.selected;
                     assetBundleGroup.selected = EditorGUILayout.Toggle(assetBundleGroup.selected, GUILayout.MaxWidth(20));
+                    if (prevSelected != assetBundleGroup.selected) EditorUtility.SetDirty(assetBundleGroup);
+                    
                     if (assetBundleGroup.selected) selectedCount++;
                     EditorGUI.BeginDisabledGroup(true);
                     EditorGUILayout.ObjectField(assetBundleGroup, typeof(AssetBundleGroup), false);
                     EditorGUI.EndDisabledGroup();
+                    var prevexportAfterBuild = assetBundleGroup.exportAfterBuild;
                     EditorGUILayout.LabelField("Export", GUILayout.Width(60));
                     assetBundleGroup.exportAfterBuild = EditorGUILayout.Toggle(assetBundleGroup.exportAfterBuild, GUILayout.MaxWidth(20));
+                    if (prevexportAfterBuild != assetBundleGroup.exportAfterBuild) EditorUtility.SetDirty(assetBundleGroup);
                     if (GUILayout.Button("Export now", GUILayout.Width(80)))
                     {
                         AssetBundleBuilder.exportFolderName = assetBundleGroup.folderName;
                         Export(assetBundleGroup);
                     }
                 }
+               
+                AssetDatabase.SaveAssetIfDirty(assetBundleGroup);
+                
                 EditorGUILayout.EndHorizontal();
             }
             EditorGUILayout.EndScrollView();
@@ -270,16 +279,16 @@ namespace ThunderRoad
 
             EditorUtility.UnloadUnusedAssetsImmediate(); // https://issuetracker.unity3d.com/issues/addressables-very-slow-build-when-editor-heap-memory-is-full
             GC.Collect();
-
-            CloseAddressablesGroupsWindow(); // https://forum.unity.com/threads/buildplayercontent-calculate-asset-dependency-data-takes-forever.1015951/
-
             
+            if (Application.isBatchMode)
+            {
+                CloseAddressablesGroupsWindow(); // https://forum.unity.com/threads/buildplayercontent-calculate-asset-dependency-data-takes-forever.1015951/
+            }
+
             foreach (AssetBundleGroup assetBundleGroup in assetBundleGroups)
             {
                 if (assetBundleGroup.selected) Build(assetBundleGroup);
             }
-        
-            OpenAddressablesGroupsWindow();
             
             if (!Application.isBatchMode && reopenLastScene)
             {
