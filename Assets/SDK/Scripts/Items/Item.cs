@@ -169,6 +169,7 @@ namespace ThunderRoad
                 spawnPoint = new GameObject("SpawnPoint").transform;
                 spawnPoint.SetParent(transform, false);
             }
+            if (!flyDirRef) flyDirRef = transform.Find("FlyRef");
             if (!flyDirRef)
             {
                 flyDirRef = new GameObject("FlyRef").transform;
