@@ -106,6 +106,21 @@ namespace ThunderRoad
             AutoRear,
         }
 
+        protected virtual void OnValidate()
+        {
+            if (Application.isPlaying) return;
+#if UNITY_EDITOR
+            if (UnityEditor.BuildPipeline.isBuildingPlayer) return;
+#endif
+            if (this.InPrefabScene()) return;
+            if (!gameObject.activeInHierarchy) return;
+            SetupDefaultComponents();
+        }
+
+        private void SetupDefaultComponents()
+        {
+            if (orientations.Count == 0) CheckOrientations();
+        }
 
         [Button("Update Orientations")]
         public virtual void CheckOrientations()
