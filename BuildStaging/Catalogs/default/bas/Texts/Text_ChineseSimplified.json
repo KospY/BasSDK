@@ -505,42 +505,42 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraOculusTouch",
-          "text": "同时按“Y”和“B”键可以使用外部视角镜头，\n同时按“Y”和“A”键则可以锁定外部视角镜头。",
+          "text": "同时按“Y”和“B”键可以使用外部视角镜头，同时按“Y”和“A”键则可以锁定外部视角镜头。",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraViveWand",
-          "text": "同时按“右触摸板”和“左扳机”键可以使用外部视角镜头，\n同时按“右触摸板”和“右扳机”键则可以锁定外部视角镜头。",
+          "text": "同时按“右触摸板”和“左扳机”键可以使用外部视角镜头，同时按“右触摸板”和“右扳机”键则可以锁定外部视角镜头。",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraWMR",
-          "text": "同时按“左菜单”和“右菜单”键可以使用外部视角镜头，\n同时按“左菜单”和“右扳机”键则可以锁定外部视角镜头。",
+          "text": "同时按“左菜单”和“右菜单”键可以使用外部视角镜头，同时按“左菜单”和“右扳机”键则可以锁定外部视角镜头。",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraIndex",
-          "text": "同时按“左B”和“右B”键可以使用外部视角镜头，\n同时按“左B”和“右A”键则可以锁定外部视角镜头。",
+          "text": "同时按“左B”和“右B”键可以使用外部视角镜头，同时按“左B”和“右A”键则可以锁定外部视角镜头。",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraPicoNeo3",
-          "text": "同时按“Y”和“B”键可以使用外部视角镜头，\n同时按“Y”和“A”键则可以锁定外部视角镜头。",
+          "text": "同时按“Y”和“B”键可以使用外部视角镜头，同时按“Y”和“A”键则可以锁定外部视角镜头。",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraPico4",
-          "text": "同时按“Y”和“B”键可以使用外部视角镜头，\n同时按“Y”和“A”键则可以锁定外部视角镜头。",
+          "text": "同时按“Y”和“B”键可以使用外部视角镜头，同时按“Y”和“A”键则可以锁定外部视角镜头。",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -4077,6 +4077,69 @@
           "text": "免费",
           "spriteAddress": null,
           "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InvalidEmail",
+          "text": "无效的电子邮件地址！",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InvalidEmailDescription",
+          "text": "提交的电子邮件地址无效！",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SendingAuthCode",
+          "text": "将认证代码发送到电子邮件地址",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModIoEnterAuthCode",
+          "text": "请输入您的身份验证代码",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModIoEnterAuthCodeDescription",
+          "text": "你可以在你的电子邮件中找到它，检查你的收件箱或垃圾邮件文件夹中是否有来自mod.io的代码",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ShowSpellNames",
+          "text": "显示法术名称",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReportBug",
+          "text": "报告错误",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Timeout",
+          "text": "超时",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TimeoutDescription",
+          "text": "Mod.io 服务器目前繁忙，请稍候",
+          "spriteAddress": null,
+          "videoAddress": null
         }
       ]
     },
@@ -5908,6 +5971,24 @@
       "id": "Urn",
       "name": "瓮",
       "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellFire",
+      "name": "火",
+      "description": null
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellGravity",
+      "name": "重力",
+      "description": null
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellLightning",
+      "name": "闪电",
+      "description": null
     }
   ],
   "waves": [

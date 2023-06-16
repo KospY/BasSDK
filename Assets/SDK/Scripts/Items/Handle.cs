@@ -28,6 +28,8 @@ namespace ThunderRoad
         public HandlePose orientationDefaultLeft;
 		[Tooltip("When linked handle is grabbed, ungrip this handle.")]
         public Handle releaseHandle;
+        [Tooltip("Handle will only activate when the linked handle is grabbed.")]
+        public Handle activateHandle;
 
         [Tooltip("When ticked, no sound will play when the handle is grabbed")]
         public bool silentGrab = false;
@@ -248,6 +250,15 @@ namespace ThunderRoad
         public virtual void SetUpdatePoses(bool active)
         {
             updatePosesWhenWeightChanges = active;
+        }
+
+        // These methods intentionally exposed for public SDK use
+        public virtual void Release()
+        {
+        }
+
+        protected virtual void ForcePlayerGrab()
+        {
         }
 
         protected override void OnDrawGizmosSelected()

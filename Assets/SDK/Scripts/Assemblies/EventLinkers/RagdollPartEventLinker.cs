@@ -10,7 +10,7 @@ namespace ThunderRoad
 {
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/RagdollPartEventLinker")]
 	[AddComponentMenu("ThunderRoad/Ragdoll Part Event Linker")]
-    public class RagdollPartEventLinker : EventLinker
+    public class RagdollPartEventLinker : EventLinker, IToolControllable
     {
         // These are explicitly assigned int values so that even if the order of the list gets changed, the assignments in prefabs and scenes will remain the same
         public enum PartEvent
@@ -39,6 +39,7 @@ namespace ThunderRoad
             OnNonGrabbedUseRelease = 21,
             OnNonGrabbedAlternateUsePress = 22,
             OnNonGrabbedAlternateUseRelease = 23,
+            OnLinkerStart = 24,
         }
 
         public enum LifeState
@@ -54,6 +55,16 @@ namespace ThunderRoad
             public PartEvent partEvent;
             public LifeState aliveState;
             public UnityEvent onActivate;
+
+            public PartUnityEvent Copy()
+            {
+                return new PartUnityEvent()
+                {
+                    partEvent = this.partEvent,
+                    aliveState = this.aliveState,
+                    onActivate = this.onActivate
+                };
+            }
         }
 
         public RagdollPart part;
@@ -65,6 +76,14 @@ namespace ThunderRoad
         private void OnValidate()
         {
             part ??= GetComponent<RagdollPart>();
+        }
+
+        public void CopyFrom(IToolControllable original)
+        {
+        }
+
+        public void Remove()
+        {
         }
 
     }

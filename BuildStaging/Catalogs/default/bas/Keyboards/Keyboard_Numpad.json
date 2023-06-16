@@ -1,0 +1,379 @@
+{
+  "$type": "ThunderRoad.KeyboardData, ThunderRoad",
+  "id": "Numpad",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "prefabAddress": "Bas.Core.KeyboardNumpad",
+  "localizationIds": [
+    "English",
+    "ChineseSimplified",
+    "ChineseTraditional",
+    "French",
+    "German",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Portuguese",
+    "Spanish",
+    "Thai"
+  ],
+  "RepeatDelayMilliseconds": 500,
+  "RepeatRatePerSecond": 15,
+  "AllowSimultaneousKeyPresses": false,
+  "placeholderText": "65",
+  "PasswordMode": false,
+  "keyboardConfig": {
+    "$type": "ThunderRoadVRKBSharedData.KeyboardConfiguration, TRVRKBSharedData",
+    "defaultLayerName": "defaultLayer",
+    "KeyProperties": {
+      "$type": "ThunderRoadVRKBSharedData.KeyProperties, TRVRKBSharedData",
+      "fontSize": 6.0,
+      "fontColor": {
+        "r": 0.215686277,
+        "g": 0.184313729,
+        "b": 0.184313729,
+        "a": 1.0
+      },
+      "imageAddress": null,
+      "imageColor": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      }
+    },
+    "layers": {
+      "$type": "ThunderRoadVRKBSharedData.StringLayerDictionary, TRVRKBSharedData",
+      "defaultLayer": {
+        "$type": "ThunderRoadVRKBSharedData.KeyboardLayerConfiguration, TRVRKBSharedData",
+        "inheritsFromLayer": "",
+        "keys": {
+          "$type": "ThunderRoadVRKBSharedData.StringKeyDictionary, TRVRKBSharedData",
+          "03": {
+            "$type": "ThunderRoadVRKBSharedData.KeyConfiguration, TRVRKBSharedData",
+            "label": "3",
+            "actionType": "OutputLabel",
+            "actionArg": "3",
+            "overrideProperties": {
+              "$type": "ThunderRoadVRKBSharedData.KeyProperties, TRVRKBSharedData",
+              "fontSize": 0.0,
+              "fontColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              },
+              "imageAddress": null,
+              "imageColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              }
+            }
+          },
+          "Confirm": {
+            "$type": "ThunderRoadVRKBSharedData.KeyConfiguration, TRVRKBSharedData",
+            "label": "",
+            "actionType": "Confirm",
+            "actionArg": "",
+            "overrideProperties": {
+              "$type": "ThunderRoadVRKBSharedData.KeyProperties, TRVRKBSharedData",
+              "fontSize": 0.0,
+              "fontColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              },
+              "imageAddress": "Bas.Input.Keyboard.Confirm",
+              "imageColor": {
+                "r": 0.0,
+                "g": 1.0,
+                "b": 0.0,
+                "a": 1.0
+              }
+            }
+          },
+          "Backspace": {
+            "$type": "ThunderRoadVRKBSharedData.KeyConfiguration, TRVRKBSharedData",
+            "label": "",
+            "actionType": "Backspace",
+            "actionArg": "",
+            "overrideProperties": {
+              "$type": "ThunderRoadVRKBSharedData.KeyProperties, TRVRKBSharedData",
+              "fontSize": 0.0,
+              "fontColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              },
+              "imageAddress": "Bas.Input.Keyboard.Backspace",
+              "imageColor": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+              }
+            }
+          },
+          "05": {
+            "$type": "ThunderRoadVRKBSharedData.KeyConfiguration, TRVRKBSharedData",
+            "label": "5",
+            "actionType": "OutputLabel",
+            "actionArg": "5",
+            "overrideProperties": {
+              "$type": "ThunderRoadVRKBSharedData.KeyProperties, TRVRKBSharedData",
+              "fontSize": 0.0,
+              "fontColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              },
+              "imageAddress": null,
+              "imageColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              }
+            }
+          },
+          "-": {
+            "$type": "ThunderRoadVRKBSharedData.KeyConfiguration, TRVRKBSharedData",
+            "label": "-",
+            "actionType": "OutputLabel",
+            "actionArg": "-",
+            "overrideProperties": {
+              "$type": "ThunderRoadVRKBSharedData.KeyProperties, TRVRKBSharedData",
+              "fontSize": 0.0,
+              "fontColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              },
+              "imageAddress": null,
+              "imageColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              }
+            }
+          },
+          "04": {
+            "$type": "ThunderRoadVRKBSharedData.KeyConfiguration, TRVRKBSharedData",
+            "label": "4",
+            "actionType": "OutputLabel",
+            "actionArg": "4",
+            "overrideProperties": {
+              "$type": "ThunderRoadVRKBSharedData.KeyProperties, TRVRKBSharedData",
+              "fontSize": 0.0,
+              "fontColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              },
+              "imageAddress": null,
+              "imageColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              }
+            }
+          },
+          "07": {
+            "$type": "ThunderRoadVRKBSharedData.KeyConfiguration, TRVRKBSharedData",
+            "label": "7",
+            "actionType": "OutputLabel",
+            "actionArg": "7",
+            "overrideProperties": {
+              "$type": "ThunderRoadVRKBSharedData.KeyProperties, TRVRKBSharedData",
+              "fontSize": 0.0,
+              "fontColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              },
+              "imageAddress": null,
+              "imageColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              }
+            }
+          },
+          "00": {
+            "$type": "ThunderRoadVRKBSharedData.KeyConfiguration, TRVRKBSharedData",
+            "label": "0",
+            "actionType": "OutputLabel",
+            "actionArg": "0",
+            "overrideProperties": {
+              "$type": "ThunderRoadVRKBSharedData.KeyProperties, TRVRKBSharedData",
+              "fontSize": 0.0,
+              "fontColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              },
+              "imageAddress": null,
+              "imageColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              }
+            }
+          },
+          "06": {
+            "$type": "ThunderRoadVRKBSharedData.KeyConfiguration, TRVRKBSharedData",
+            "label": "6",
+            "actionType": "OutputLabel",
+            "actionArg": "6",
+            "overrideProperties": {
+              "$type": "ThunderRoadVRKBSharedData.KeyProperties, TRVRKBSharedData",
+              "fontSize": 0.0,
+              "fontColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              },
+              "imageAddress": null,
+              "imageColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              }
+            }
+          },
+          "Cancel": {
+            "$type": "ThunderRoadVRKBSharedData.KeyConfiguration, TRVRKBSharedData",
+            "label": null,
+            "actionType": "Cancel",
+            "actionArg": null,
+            "overrideProperties": {
+              "$type": "ThunderRoadVRKBSharedData.KeyProperties, TRVRKBSharedData",
+              "fontSize": 0.0,
+              "fontColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              },
+              "imageAddress": "Bas.Input.Keyboard.Cancel",
+              "imageColor": {
+                "r": 1.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0
+              }
+            }
+          },
+          "01": {
+            "$type": "ThunderRoadVRKBSharedData.KeyConfiguration, TRVRKBSharedData",
+            "label": "1",
+            "actionType": "OutputLabel",
+            "actionArg": "1",
+            "overrideProperties": {
+              "$type": "ThunderRoadVRKBSharedData.KeyProperties, TRVRKBSharedData",
+              "fontSize": 0.0,
+              "fontColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              },
+              "imageAddress": null,
+              "imageColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              }
+            }
+          },
+          "08": {
+            "$type": "ThunderRoadVRKBSharedData.KeyConfiguration, TRVRKBSharedData",
+            "label": "8",
+            "actionType": "OutputLabel",
+            "actionArg": "8",
+            "overrideProperties": {
+              "$type": "ThunderRoadVRKBSharedData.KeyProperties, TRVRKBSharedData",
+              "fontSize": 0.0,
+              "fontColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              },
+              "imageAddress": "",
+              "imageColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              }
+            }
+          },
+          "02": {
+            "$type": "ThunderRoadVRKBSharedData.KeyConfiguration, TRVRKBSharedData",
+            "label": "2",
+            "actionType": "OutputLabel",
+            "actionArg": "2",
+            "overrideProperties": {
+              "$type": "ThunderRoadVRKBSharedData.KeyProperties, TRVRKBSharedData",
+              "fontSize": 0.0,
+              "fontColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              },
+              "imageAddress": "",
+              "imageColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              }
+            }
+          },
+          "09": {
+            "$type": "ThunderRoadVRKBSharedData.KeyConfiguration, TRVRKBSharedData",
+            "label": "9",
+            "actionType": "OutputLabel",
+            "actionArg": "9",
+            "overrideProperties": {
+              "$type": "ThunderRoadVRKBSharedData.KeyProperties, TRVRKBSharedData",
+              "fontSize": 0.0,
+              "fontColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              },
+              "imageAddress": "",
+              "imageColor": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 0.0
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

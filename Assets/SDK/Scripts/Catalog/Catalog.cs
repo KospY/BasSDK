@@ -84,7 +84,8 @@ namespace ThunderRoad
             (typeof(MenuData), Category.Menu),
             (typeof(BehaviorTreeData), Category.BehaviorTree),
             (typeof(CustomData), Category.Custom),
-            (typeof(KeyboardData), Category.Keyboard)
+            (typeof(KeyboardData), Category.Keyboard),
+            (typeof(GameModeData), Category.GameMode)
         };
 
         // A map of all types and subtypes to their catalog category
@@ -186,9 +187,10 @@ namespace ThunderRoad
 
         private static void LoadJsonDbFile(string zipPath, string folderName, ModManager.ModData modData = null)
         {
+            string logTag = modData != null ? $"[ModManager][Catalog][{folderName}]" : $"[Catalog][{folderName}]";
             FileInfo fileInfo = new FileInfo(zipPath);
             string localPathFile = $"{fileInfo.Directory.Name}/{fileInfo.Name}";
-            Debug.Log($"[JSON][{folderName}] - Loading file: {localPathFile}");
+            Debug.Log($"{logTag} Loading file: {localPathFile}");
 
             ZipFile zip = null;
             try
@@ -197,7 +199,7 @@ namespace ThunderRoad
             }
             catch (Exception ex)
             {
-                Debug.LogError($"[JSON][{folderName}] - Error: Exception reading .jsondb file: {localPathFile}");
+                Debug.LogError($"{logTag} Error: Exception reading .jsondb file: {localPathFile}");
                 if (modData != null)
                 {
                     modData.errors.Add(new ModManager.ModData.Error(ModManager.ModData.ErrorType.Json, "Exception reading .jsondb file", ex.Message, localPathFile));
@@ -209,7 +211,7 @@ namespace ThunderRoad
 
             if (zip == null)
             {
-                Debug.LogError($"[JSON][{folderName}] - Error: Can't read .jsondb file: {localPathFile}");
+                Debug.LogError($"{logTag} Error: Can't read .jsondb file: {localPathFile}");
                 if (modData != null)
                 {
                     modData.errors.Add(new ModManager.ModData.Error(ModManager.ModData.ErrorType.Json, "Can't read .jsondb file", "", localPathFile));
@@ -241,32 +243,42 @@ namespace ThunderRoad
             }
 
             LoadJsonLooseFiles(folderName, inputJsons, inputJsonPaths, modData);
-            Debug.Log($"[JSON][{folderName}] - Loaded file: {localPathFile}");
+            Debug.Log($"{logTag}- Loaded file: {localPathFile}");
         }
 
         private static void LoadJsonLooseFiles(string folderName, List<string> inputJsons, List<string> inputJsonPaths, ModManager.ModData modData = null)
         {
+            string basePath = modData != null ? FileManager.GetFullPath(FileManager.Type.JSONCatalog, FileManager.Source.Mods) : FileManager.GetFullPath(FileManager.Type.JSONCatalog, FileManager.Source.Default);
+            basePath = Path.Combine(basePath, folderName);
+            string logTag = modData != null ? $"[ModManager][Catalog][{folderName}]" : $"[Catalog][{folderName}]";
             object[] deserializedObjects = DeserializeJsons(inputJsons, inputJsonPaths, modData);
             //loop over the objects and load them
             for (int i = 0; i < deserializedObjects.Length; i++)
             {
                 object catalogObject = deserializedObjects[i];
                 if (catalogObject is null) continue;
+                // skip if the file isnt a catalog or game data
+                if (catalogObject is not CatalogData && catalogObject is not GameData) continue;
+  
                 FileInfo fileInfo = new FileInfo(inputJsonPaths[i]);
                 if (fileInfo.Directory == null)
                 {
-                    Debug.LogError($"[JSON][{folderName}] - Failed to load file: {inputJsonPaths[i]}");
+                    Debug.LogError($"{logTag} Failed to load file: {inputJsonPaths[i]}");
                     continue;
                 }
 
-                string localPath = $"{fileInfo.Directory.Name}/{fileInfo.Name}";
-                if (modData != null) Debug.Log($"[JSON][{folderName}] - Loading file: {localPath}");
-                if (LoadJson(catalogObject, inputJsons[i], inputJsonPaths[i], folderName, modData))
+                string localPath = Path.GetRelativePath(basePath, inputJsonPaths[i]);
+                if (!LoadJson(catalogObject, inputJsons[i], inputJsonPaths[i], folderName, modData))
                 {
-                    if (modData != null) Debug.Log($"[JSON][{folderName}] - Loaded file: {localPath}");
-                    continue;
+                    Debug.LogError($"{logTag} Failed to load file: {localPath}");
                 }
-                Debug.LogError($"[JSON][{folderName}] - Failed to load file: {localPath}");
+                //     if (modData != null)
+                //     {
+                //         Debug.Log($"{logTag} Loaded file: {localPath}");
+                //     }
+                //     continue;
+                
+                
 
             }
         }
@@ -302,15 +314,16 @@ namespace ThunderRoad
 
         public static bool LoadJson(object jsonObj, string jsonText, string jsonPath, string folder, ModManager.ModData modData = null)
         {
+            string logTag = modData != null ? $"[ModManager][Catalog][{folder}]" : $"[Catalog][{folder}]";
             Profiler.BeginSample("LoadJson");
             switch (jsonObj)
             {
                 // Load CatalogData
                 case CatalogData catalogData when !DoesCatalogVersionMatch(catalogData): {
-                    Debug.LogWarning($"[{folder}] - Version mismatch (file {catalogData.version}, current {catalogData.GetCurrentVersion()}) ignoring file: {jsonPath}");
+                    Debug.LogWarning($"{logTag} Version mismatch (file {catalogData.version}, current {catalogData.GetCurrentVersion()}) ignoring file: {jsonPath}");
                     if (modData != null)
                     {
-                        modData.errors.Add(new ModManager.ModData.Error(ModManager.ModData.ErrorType.Json, "Catalog version incompatible", $"[{folder}] - Version mismatch (file {catalogData.version}, current {catalogData.GetCurrentVersion()}) ignoring file: {jsonPath}", jsonPath));
+                        modData.errors.Add(new ModManager.ModData.Error(ModManager.ModData.ErrorType.Json, "Catalog version incompatible", $"[{folder}] Version mismatch (file {catalogData.version}, current {catalogData.GetCurrentVersion()}) ignoring file: {jsonPath}", jsonPath));
                         //add it to the loaded mods, even though we never really loaded it, this is to show it has been processed, but there is an error with it
                         ModManager.loadedMods.Add(modData);
                     }
@@ -327,7 +340,7 @@ namespace ThunderRoad
                     Profiler.EndSample();
                     return true;
                 default: {
-                    Debug.LogWarning($"[{folder}] - Custom Json File or malformed CatalogData skipped: {jsonPath}");
+                    Debug.LogWarning($"{logTag} Custom Json File or malformed CatalogData skipped: {jsonPath}");
                     Profiler.EndSample();
                     return false;
                 }
@@ -342,7 +355,11 @@ namespace ThunderRoad
             {
                 if (!ThunderRoadSettings.current.overrideData) return;
                 JsonConvert.PopulateObject(jsonText, gameData, jsonSerializerSettings);
-                if (modData != null) Debug.Log($"[{folder}] - Overriding default data: [GameData] with: {jsonPath}");
+                if (modData != null)
+                {
+                    string relativePath = jsonPath.Substring(jsonPath.IndexOf(folder, StringComparison.Ordinal));
+                    Debug.Log($"[ModManager][Catalog][{folder}] Overriding: [GameData] with: {relativePath}");
+                }
                 if (Application.isEditor) gameData.sourceFolders += $"+{folder}";
             }
             else
@@ -354,9 +371,10 @@ namespace ThunderRoad
 
         public static bool LoadCatalogData(CatalogData catalogData, string jsonText, string jsonPath, string folder, ModManager.ModData modData = null)
         {
+            string logTag = modData != null ? $"[ModManager][Catalog][{folder}]" : $"[Catalog][{folder}]";
             if (!TryGetCategory(catalogData.GetType(), out Category category))
             {
-                Debug.LogError($"[{folder}] - CatalogData: [{catalogData.GetType()}][{catalogData.id}] JSON: {jsonPath} does not map to a valid category. Please subclass CustomData to extend catalog data types");
+                Debug.LogError($"{logTag} CatalogData: [{catalogData.GetType()}][{catalogData.id}] JSON: {jsonPath} does not map to a valid category. Please subclass CustomData to extend catalog data types");
                 return false;
             }
 
@@ -364,13 +382,17 @@ namespace ThunderRoad
             if (existingData != null)
             {
                 if (!ThunderRoadSettings.current.overrideData) return false;
-                if (modData != null) Debug.Log($"[{folder}] - Overriding default data: [{category.ToString()}][{existingData.GetType()}][{existingData.id}] with: {jsonPath}");
+                if (modData != null)
+                {
+                    string relativePath = jsonPath.Substring(jsonPath.IndexOf(folder, StringComparison.Ordinal));
+                    Debug.Log($"{logTag} Overriding: [{category.ToString()}][{existingData.GetType()}][{existingData.id}] with: {relativePath}");
+                }
                 JsonConvert.PopulateObject(jsonText, existingData, jsonSerializerSettings);
                 if (Application.isEditor) existingData.sourceFolders += $"+{folder}";
             }
             else
             {
-                //Debug.Log("[JSON] - Add data: " + catalogData.id + " | " + catalogData.GetType());
+                //Debug.Log("[Catalog] Add data: " + catalogData.id + " | " + catalogData.GetType());
 
                 if (Application.isEditor)
                 {
@@ -387,7 +409,7 @@ namespace ThunderRoad
 
             }
             return true;
-            //Debug.Log($"[JSON] - loading {catalogData.id} | {catalogData.GetType()} - Category: {category}");
+            //Debug.Log($"[Catalog] loading {catalogData.id} | {catalogData.GetType()} - Category: {category}");
         }
 
         public static object[] DeserializeJsons(List<string> jsons, List<string> jsonPaths, ModManager.ModData modData = null)
@@ -552,13 +574,16 @@ namespace ThunderRoad
 
         #region LOAD CATALOG
 
-        public static void EditorLoadAllJson(bool force = false)
+        public static void EditorLoadAllJson(bool requiresRefresh = false, bool force = false)
         {
             if (gameData != null && !force) return;
             LoadDefaultCatalogs();
             //Need to load mods twice, once for the core mods, then once for game mods
             ModManager.Load(true);
-            Refresh();
+            if (requiresRefresh)
+            {
+                Refresh();
+            }
         }
 
         public static void LoadDefaultCatalogs()
@@ -596,7 +621,6 @@ namespace ThunderRoad
         public static void LoadModCatalog(ModManager.ModData mod)
         {
             if (mod.Incompatible) return;
-            Debug.Log($"Loading mod catalog {mod.Name} by {mod.Author}");
             // Load json archive file if any
             foreach (string jsondbPath in FileManager.GetFullFilePaths(FileManager.Type.JSONCatalog, FileManager.Source.Mods, mod.folderName, "*.jsondb"))
             {
@@ -605,7 +629,6 @@ namespace ThunderRoad
             // Load json loose files
             ReadCatalogJsonFiles(FileManager.Source.Mods, mod.folderName, out List<string> inputJsons, out List<string> inputJsonPaths);
             LoadJsonLooseFiles(mod.folderName, inputJsons, inputJsonPaths, mod);
-            Debug.Log($"Loaded mod catalog {mod.Name} by {mod.Author}");
         }
 
         #endregion
@@ -621,6 +644,7 @@ namespace ThunderRoad
         // REFRESH
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        
         public static void Refresh()
         {
             RefreshCoroutine().AsSynchronous();
@@ -665,17 +689,9 @@ namespace ThunderRoad
                     CatalogData catalogData = catalogDatas[d];
                     catalogData.OnCatalogRefresh();
                     catalogData.OnCatalogRefreshCoroutine().AsSynchronous();
-                    batchCount++;
-                    //yield on the batch if the batch is full
-                    if (batchCount >= batchSize)
-                    {
-                        yield return BatchYield(coroutines, batchCount);
-                        batchCount = 0;
-                    }
                 }
 
-   
-#if UNITY_EDITOR                
+#if UNITY_EDITOR
                 Debug.Log($"[Catalog] {Enum.GetName(typeof(Category), i)} refreshed {catalogDatasCount} entries in {(Time.realtimeSinceStartup - timer):F2} sec");
 #endif
             }
@@ -866,7 +882,13 @@ namespace ThunderRoad
         //Load single location
         public static void LoadLocationAsync<T>(string address, Action<IResourceLocation> result, string requestName)
         {
-            LoadResourceLocationsAsync<T>(address).Completed += operationHandle => OnLoadResourceLocations<T>(address, result, operationHandle, requestName);
+            var operation = LoadResourceLocationsAsync<T>(address);
+            if (operation.Status == AsyncOperationStatus.Failed)
+            {
+                Debug.LogError($"Addressable operation failed load location for address: {address} - Please check the bundles have been built correctly. {operation.OperationException}");
+                if (operation.OperationException == null) Catalog.ReleaseAsset(operation);
+            }
+            operation.Completed += operationHandle => OnLoadResourceLocations<T>(address, result, operationHandle, requestName);
         }
 
         public static IEnumerator LoadLocationCoroutine<T>(string address, Action<IResourceLocation> result, string requestName)
@@ -883,6 +905,13 @@ namespace ThunderRoad
                 yield break;
             }
             AsyncOperationHandle<IList<IResourceLocation>> handle = LoadResourceLocationsAsync<T>(address);
+            if (handle.Status == AsyncOperationStatus.Failed)
+            {
+                Debug.LogError($"Addressable operation failed load location for address: {address} - Please check the bundles have been built correctly. {handle.OperationException}");
+                if (handle.OperationException == null) Catalog.ReleaseAsset(handle);
+                result?.Invoke(null);
+                yield break;
+            }
             if (!handle.IsDone)
             {
                 yield return handle;
@@ -1095,6 +1124,13 @@ namespace ThunderRoad
             {
                 handle = Addressables.LoadAssetAsync<T>(location);
             }
+            if (handle.Status == AsyncOperationStatus.Failed)
+            {
+                Debug.LogError($"Addressable operation failed load location for handlerName: {handlerName} - Please check the bundles have been built correctly. {handle.OperationException}");
+                if (handle.OperationException == null) Catalog.ReleaseAsset(handle);
+                callback?.Invoke(null);
+                return;
+            }
             handle.Completed += (operationHandle) => {
                 if (operationHandle.Status == AsyncOperationStatus.Succeeded)
                 {
@@ -1102,7 +1138,7 @@ namespace ThunderRoad
                     return;
                 }
                 Debug.LogWarning($"Unable to find asset at resource location [{typeof(T).Name}][{resourceLocation?.ResourceType}][{resourceLocation?.PrimaryKey}] for object [{handlerName}]");
-                Addressables.Release(operationHandle);
+                if (handle.OperationException == null) Catalog.ReleaseAsset(operationHandle);
                 callback?.Invoke(null);
             };
         }
@@ -1137,6 +1173,13 @@ namespace ThunderRoad
             }
 
             AsyncOperationHandle<T> handle = Addressables.LoadAssetAsync<T>(location);
+            if (handle.Status == AsyncOperationStatus.Failed)
+            {
+                Debug.LogError($"Addressable operation failed load location for handlerName: {handlerName} - Please check the bundles have been built correctly. {handle.OperationException}");
+                if (handle.OperationException == null) Catalog.ReleaseAsset(handle);
+                callback?.Invoke(null);
+                yield break;
+            }
             yield return handle;
 
             if (handle.Status == AsyncOperationStatus.Succeeded)
@@ -1146,7 +1189,7 @@ namespace ThunderRoad
             }
 
             Debug.LogWarning($"Unable to find asset at resource location [{typeof(T).Name}][{location.ResourceType}][{location.PrimaryKey}] for object [{handlerName}]");
-            Addressables.Release(handle);
+            if (handle.OperationException == null) Catalog.ReleaseAsset(handle);
             callback?.Invoke(null);
         }
 
@@ -1209,6 +1252,13 @@ namespace ThunderRoad
             {
                 handle = Addressables.InstantiateAsync(location, position, rotation, parent);
             }
+            if (handle.Status == AsyncOperationStatus.Failed)
+            {
+                Debug.LogError($"Addressable operation failed InstantiateAsync for handlerName: {handlerName} - Please check the bundles have been built correctly. {handle.OperationException}");
+                if (handle.OperationException == null) Catalog.ReleaseAsset(handle);
+                callback?.Invoke(null);
+                return;
+            }
             handle.Completed += (operationHandle) => {
                 if (operationHandle.Status == AsyncOperationStatus.Succeeded)
                 {
@@ -1217,7 +1267,7 @@ namespace ThunderRoad
                 else
                 {
                     Debug.LogWarning($"Unable to instantiate gameObject from location {resourceLocation?.PrimaryKey} for object {handlerName}");
-                    Addressables.ReleaseInstance(operationHandle);
+                    if (handle.OperationException == null) Addressables.ReleaseInstance(operationHandle);
                     callback?.Invoke(null);
                 }
             };
@@ -1265,6 +1315,13 @@ namespace ThunderRoad
             else
             {
                 handle = Addressables.InstantiateAsync(location);
+            }
+            if (handle.Status == AsyncOperationStatus.Failed)
+            {
+                Debug.LogError($"Addressable operation failed InstantiateAsync for handlerName: {handlerName} - Please check the bundles have been built correctly. {handle.OperationException}");
+                if (handle.OperationException == null) Catalog.ReleaseAsset(handle);
+                callback?.Invoke(null);
+                yield break;
             }
             yield return handle;
 

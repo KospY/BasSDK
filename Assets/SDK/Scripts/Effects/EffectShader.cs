@@ -75,6 +75,7 @@ namespace ThunderRoad
 
         public override void SetIntensity(float value, bool loopOnly = false)
         {
+            base.SetIntensity(value, loopOnly);
             if (!loopOnly || (loopOnly && step == Step.Loop))
             {
                 currentValue = value;

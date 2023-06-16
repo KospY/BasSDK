@@ -1,0 +1,37 @@
+{
+  "$type": "ThunderRoad.GameModeData, ThunderRoad",
+  "id": "Sandbox",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "name": "Sandbox",
+  "nameLocalizationId": "DungeonSandBoxName",
+  "description": "Access all weapons and powers without restriction. Spawn enemies of your choice in arena-based environments or enter the dungeon in sandbox mode.",
+  "descriptionLocalizationId": "DungeonSandboxDescription",
+  "warning": "",
+  "iconAddress": "Bas.Icon.Sandbox",
+  "order": 1,
+  "state": "Show",
+  "resetSpells": true,
+  "resetApparels": false,
+  "allowMenuOptions": true,
+  "allowMenuSandbox": true,
+  "allowLevelSelection": false,
+  "defaultPlayerInvincibility": false,
+  "defaultPlayerFallDamage": true,
+  "defaultPlayerInfiniteMana": false,
+  "defaultPlayerInfiniteFocus": false,
+  "defaultInfiniteImbue": false,
+  "defaultInfiniteArrows": false,
+  "levelHome": "Home",
+  "levelHomeModeName": null,
+  "tutorialEnabled": true,
+  "tutorialPlayerSpawnerId": "tutorial",
+  "tutorialContainerId": "PlayerTutorial",
+  "defaultPlayerHomeContainerID": "PlayerHomeDefault",
+  "modules": [
+    {
+      "$type": "ThunderRoad.Modules.SandboxLevelInstancesModule, ThunderRoad"
+    }
+  ]
+}

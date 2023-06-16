@@ -79,6 +79,7 @@ namespace ThunderRoad
             [NonSerialized]
             public HashSet<Error> errors = new HashSet<Error>();
 
+
             public class Error
             {
                 public ErrorType type;
@@ -182,10 +183,9 @@ namespace ThunderRoad
                 if (gameModsLoaded && !isGameModsCatalogRefreshed)
                 {
                     //refresh catalog and apply mod options
-                    float timer = Time.realtimeSinceStartup;
-                    Debug.Log("Refresh catalog...");
+                    
                     yield return Catalog.RefreshCoroutine();
-                    Debug.Log($"------------> Catalog refreshed in {(Time.realtimeSinceStartup - timer):F2} sec");
+                    
                     isGameModsCatalogRefreshed = true;
                 }
         }
@@ -220,21 +220,24 @@ namespace ThunderRoad
 
 
         public static IEnumerator LoadModCatalogs(List<ModData> modDatas)
-        {        
+        {
+            if (modDatas.IsNullOrEmpty()) yield break;
             int modCount = modDatas.Count;
+            
+            Debug.Log($"{debugLine}[{ModLoadEventType.Catalog}] Loading Mod Catalogs");
+            
             for (int i = 0; i < modCount; i++)
             {
                 ModData mod = modDatas[i];
                 if(mod.Incompatible) continue; //mod has an issue so we skip loading this one
-                Debug.Log($"{debugLine}[{ModLoadEventType.Catalog}] - Loading Mod: {mod.Name}");
+                
                   
 
                 Catalog.LoadModCatalog(mod);
             
                 loadedMods.Add(mod);
-                Debug.Log($"{debugLine}[{ModLoadEventType.Catalog}] - Loaded Mod: {mod.Name}");
             }
-      
+            Debug.Log($"{debugLine}[{ModLoadEventType.Catalog}] Loaded Mod Catalogs");
             yield break;
         }
         
@@ -247,6 +250,7 @@ namespace ThunderRoad
         public static IEnumerator LoadModThunderScripts(List<ModData> modDatas)
         {
             
+            Debug.Log($"{debugLine}[{ModLoadEventType.ThunderScript}] Loaded Mod ThunderScripts");
             yield break;
         }
         
@@ -277,9 +281,7 @@ namespace ThunderRoad
                 if (TryReadManifest(topLevelModFolder, out ModData modData))
                 {
                     modDatas.Add(modData);
-                    Debug.Log($"[ModManager] Added valid mod folder: {topLevelModFolder}. Mod: {modData.Name}");
                     return true;
-
                 }
                 return false;
             }

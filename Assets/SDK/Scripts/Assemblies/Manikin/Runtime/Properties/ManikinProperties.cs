@@ -37,43 +37,40 @@ namespace ThunderRoad.Manikin
 
         public void ApplyProperties(GameObject obj, bool useSRPBatcher, Renderer renderer)
         {
-            if (set != null)
-            {
-                if (!apply)
-                {
-                    return;
-                }
-
-                switch (materialIndices)
-                {
-                    case 0:
-                        set.ApplyProperties(obj, values, useSRPBatcher, renderer, 0, payload);
-                        break;
-                    case -1:
-                        for (int bitIndex = 0; bitIndex < 31; bitIndex++)
-                        {
-                            set.ApplyProperties(obj, values, useSRPBatcher, renderer, bitIndex, payload);
-                        }
-                        break;
-                    default:
-                        for (int bitIndex = 0; bitIndex < 31; bitIndex++)
-                        {
-                            if ((materialIndices & (1 << bitIndex)) != 0)
-                            {
-                                set.ApplyProperties(obj, values, useSRPBatcher, renderer, bitIndex, payload);
-                            }
-                        }
-                        break;
-                }
-            }
-            else
+            if (set == null)
             {
                 //TODO, hacky, check if we have a parent, then we know this is a prefab on it's own and not to display the error.
                 if (obj.transform.parent != null)
                 {
                     Debug.LogError("Missing ManikinPropertySet on ManikinPartProperty!");
                 }
+                return;
             }
+
+            if (!apply) return;
+
+            switch (materialIndices)
+            {
+                case 0:
+                    set.ApplyProperties(obj, values, useSRPBatcher, renderer, 0, payload);
+                    break;
+                case -1:
+                    for (int bitIndex = 0; bitIndex < 31; bitIndex++)
+                    {
+                        set.ApplyProperties(obj, values, useSRPBatcher, renderer, bitIndex, payload);
+                    }
+                    break;
+                default:
+                    for (int bitIndex = 0; bitIndex < 31; bitIndex++)
+                    {
+                        if ((materialIndices & (1 << bitIndex)) != 0)
+                        {
+                            set.ApplyProperties(obj, values, useSRPBatcher, renderer, bitIndex, payload);
+                        }
+                    }
+                    break;
+            }
+            
         }
 
         public bool[] MaterialIndicesMaskToBools()
@@ -240,13 +237,14 @@ namespace ThunderRoad.Manikin
             //Set the bitmask for all children with matching occlusionID
             for (int i = 0; i < childrenProperties.Count; i++)
             {
-                if (occlusionBitmasks.TryGetValue(childrenProperties[i].occlusionIDHash, out int value))
+                ManikinProperties manikinProperties = childrenProperties[i];
+                if (occlusionBitmasks.TryGetValue(manikinProperties.occlusionIDHash, out int value))
                 {
-                    childrenProperties[i].occlusionBitmask = value;
+                    manikinProperties.occlusionBitmask = value;
                 }
                 else
                 {
-                    childrenProperties[i].occlusionBitmask = 0;
+                    manikinProperties.occlusionBitmask = 0;
                 }
             }
 
@@ -259,16 +257,17 @@ namespace ThunderRoad.Manikin
 
                 for (int i = childrenProperties.Count - 1; i >= 0; i--)
                 {
-                    if (childrenProperties[i] != null)
+                    ManikinProperties manikinProperties = childrenProperties[i];
+                    if (manikinProperties != null)
                     {
                         int count = properties.Length;
                         for (int j = 0; j < count; j++)
                         {
                             ManikinProperty property = properties[j];
-                            childrenProperties[i].UpdatePropertyValues(property.values, property.propertyType, property.set, property.payload);
+                            manikinProperties.UpdatePropertyValues(property.values, property.propertyType, property.set, property.payload);
                         }
                         //Cascade properties downward
-                        childrenProperties[i].UpdateProperties();
+                        manikinProperties.UpdateProperties();
                     }
                     else
                     {

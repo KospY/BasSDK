@@ -97,6 +97,30 @@ namespace ThunderRoad
         #endregion NonSerializedFields
 
         #region Methods
+
+        public override HashSet<string> GetSpawnableAreasIds()
+        {
+            var areaIds = new HashSet<string>();
+            
+            for (var i = 0; i < layout.Length; i++)
+            {
+                var areaLayout = layout[i];
+                var bpGenerator = areaLayout.bpGeneratorId.BlueprintGenerator;
+                if (bpGenerator == null)
+                {
+                    Debug.LogError("Blueprint generator Id: " + areaLayout.bpGeneratorId.dataId + " - has a null generator.");
+                    continue;
+                }
+
+                var spawnableAreaids = bpGenerator.GetSpawnableAreasIds();
+                foreach (var areaId in spawnableAreaids)
+                {
+                    areaIds.Add(areaId);
+                }
+            }
+            return areaIds;
+        }
+
         public override List<AreaData.AreaConnection> GetConnections()
         {
 #if UNITY_EDITOR

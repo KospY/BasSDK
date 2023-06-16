@@ -79,9 +79,8 @@ namespace ThunderRoad
         public AudioHighPassFilter highPassFilter;
         [NonSerialized]
         public AudioReverbFilter reverbFilter;
-
-        protected float intensity;
-        protected float speed;
+        
+        
 
         private void Awake()
         {
@@ -260,13 +259,14 @@ namespace ThunderRoad
 
         public override void SetIntensity(float value, bool loopOnly = false)
         {
+            base.SetIntensity(value, loopOnly);
             if (!loopOnly || (loopOnly && step == Step.Loop))
             {
                 if (((module as EffectModuleAudio)?.intensitySmoothingSampleCount ?? 0) > 0)
                 {
                     value = Smooth(value, ref intensitySmoothingBuffer, ref intensitySmoothingIndex, (module as EffectModuleAudio).intensitySmoothingSampleCount);
                 }
-                intensity = value;
+                effectIntensity = value;
                 Refresh();
             }
         }
@@ -279,48 +279,52 @@ namespace ThunderRoad
                 {
                     value = Smooth(value, ref speedSmoothingBuffer, ref speedSmoothingIndex, (module as EffectModuleAudio).speedSmoothingSampleCount);
                 }
-                speed = value;
+                effectSpeed = value;
                 Refresh();
             }
         }
 
-        public void Refresh()
+        public static float CalculateVolume(float globalVolumeDb, bool useVolumeIntensity, bool useVolumeSpeed, BlendMode volumeBlendMode, float intensity, float speed, AnimationCurve volumeIntensityCurve, AnimationCurve volumeSpeedCurve)
         {
+            volumeIntensityCurve ??= new AnimationCurve(new Keyframe(0, 1), new Keyframe(1, 1));
+            volumeSpeedCurve ??= new AnimationCurve(new Keyframe(0, 1), new Keyframe(1, 1));
             float linearVolume = DecibelToLinear(globalVolumeDb);
             if (useVolumeIntensity && useVolumeSpeed)
             {
                 switch (volumeBlendMode)
                 {
                     case BlendMode.Min:
-                        audioSource.volume = Mathf.Min(volumeIntensityCurve.Evaluate(intensity), volumeSpeedCurve.Evaluate(speed)) * linearVolume;
-                        break;
+                        return Mathf.Min(volumeIntensityCurve.Evaluate(intensity), volumeSpeedCurve.Evaluate(speed)) * linearVolume;
                     case BlendMode.Max:
-                        audioSource.volume = Mathf.Max(volumeIntensityCurve.Evaluate(intensity), volumeSpeedCurve.Evaluate(speed)) * linearVolume;
-                        break;
+                        return Mathf.Max(volumeIntensityCurve.Evaluate(intensity), volumeSpeedCurve.Evaluate(speed)) * linearVolume;
                     case BlendMode.Average:
-                        audioSource.volume = Mathf.Lerp(volumeIntensityCurve.Evaluate(intensity), volumeSpeedCurve.Evaluate(speed), 0.5f) * linearVolume;
-                        break;
+                        return Mathf.Lerp(volumeIntensityCurve.Evaluate(intensity), volumeSpeedCurve.Evaluate(speed), 0.5f) * linearVolume;
                     case BlendMode.Multiply:
-                        audioSource.volume = volumeIntensityCurve.Evaluate(intensity) * volumeIntensityCurve.Evaluate(speed) * linearVolume;
-                        break;
+                        return volumeIntensityCurve.Evaluate(intensity) * volumeIntensityCurve.Evaluate(speed) * linearVolume;
                 }
             }
             else if (useVolumeIntensity)
             {
-                audioSource.volume = volumeIntensityCurve.Evaluate(intensity) * linearVolume;
+                return volumeIntensityCurve.Evaluate(intensity) * linearVolume;
             }
             else if (useVolumeSpeed)
             {
-                audioSource.volume = volumeSpeedCurve.Evaluate(speed) * linearVolume;
+                return volumeSpeedCurve.Evaluate(speed) * linearVolume;
             }
+            return 0;
+        }
+        
+        public void Refresh()
+        {
+            audioSource.volume = CalculateVolume(globalVolumeDb, useVolumeIntensity, useVolumeSpeed, volumeBlendMode, effectIntensity, effectSpeed, volumeIntensityCurve, volumeSpeedCurve);
 
             switch (pitchEffectLink)
             {
                 case EffectLink.Intensity:
-                    audioSource.pitch = pitchCurve.Evaluate(intensity) * globalPitch;
+                    audioSource.pitch = pitchCurve.Evaluate(effectIntensity) * globalPitch;
                     break;
                 case EffectLink.Speed:
-                    audioSource.pitch = pitchCurve.Evaluate(speed) * globalPitch;
+                    audioSource.pitch = pitchCurve.Evaluate(effectSpeed) * globalPitch;
                     break;
             }
 
@@ -329,8 +333,8 @@ namespace ThunderRoad
             {
                 float value = lowPassEffectLink switch
                 {
-                    EffectLink.Intensity => intensity,
-                    EffectLink.Speed => speed,
+                    EffectLink.Intensity => effectIntensity,
+                    EffectLink.Speed => effectSpeed,
                     _ => 0
                 };
 
@@ -342,8 +346,8 @@ namespace ThunderRoad
             {
                 float value = highPassEffectLink switch
                 {
-                    EffectLink.Intensity => intensity,
-                    EffectLink.Speed => speed,
+                    EffectLink.Intensity => effectIntensity,
+                    EffectLink.Speed => effectSpeed,
                     _ => 0
                 };
                 highPassFilter.cutoffFrequency = highPassCutoffFrequencyCurve.Evaluate(value);
@@ -356,8 +360,8 @@ namespace ThunderRoad
             {
                 float value = reverbEffectLink switch
                 {
-                    EffectLink.Intensity => intensity,
-                    EffectLink.Speed => speed,
+                    EffectLink.Intensity => effectIntensity,
+                    EffectLink.Speed => effectSpeed,
                     _ => 0
                 };
                 reverbFilter.dryLevel = reverbDryLevelCurve.Evaluate(value);
@@ -416,14 +420,14 @@ namespace ThunderRoad
         /// </summary>
         public void FakeDespawn()
         {
-            intensity = speed = 0;
+            effectIntensity = effectSpeed = 0;
             hapticDevice = HapticDevice.None;
             FullStop();
         }
         
         public override void Despawn()
         {
-            intensity = speed = 0;
+            effectIntensity = effectSpeed = 0;
             hapticDevice = HapticDevice.None;
             FullStop();
             InvokeDespawnCallback();

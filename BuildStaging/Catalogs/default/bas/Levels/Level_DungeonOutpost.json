@@ -69,8 +69,8 @@
         },
         {
           "$type": "ThunderRoad.LevelAreaModule, ThunderRoad",
-          "areaSpawnDepth": 100,
-          "areaDespawnDepth": 101,
+          "areaFullMemoryDepth": 3,
+          "areaLiteMemoryDepth": 4,
           "areaCullDepth": 2,
           "listAreaByLengthAndDifficulty": [
             [
@@ -114,7 +114,7 @@
           "minValue": 1,
           "maxValue": 3,
           "defaultValue": 2,
-          "valueList": null
+          "valueList": []
         },
         {
           "$type": "ThunderRoad.LevelData+Option, ThunderRoad",
@@ -125,7 +125,7 @@
           "minValue": 1,
           "maxValue": 3,
           "defaultValue": 2,
-          "valueList": null
+          "valueList": []
         }
       ]
     }

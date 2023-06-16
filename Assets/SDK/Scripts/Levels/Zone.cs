@@ -2,6 +2,7 @@
 using UnityEngine.Events;
 using System.Collections.Generic;
 using System.Collections;
+using System;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 
@@ -63,11 +64,32 @@ namespace ThunderRoad
         [Tooltip("GameObject of which the position is where the player/item teleports to.")]
         public Transform customTeleportTarget;
 
+        public enum CreatureForceMode
+        {
+            NoForce,
+            ForceRoot,
+            ForceParts,
+        }
+
+        [Header("Force")]
+        public bool forceNonCreatures;
+        public bool forcePlayer;
+        public CreatureForceMode creatureForceMode = CreatureForceMode.NoForce;
+        public Transform forceTransform;
+        public bool linearForceActive;
+        public ForceMode linearForceMode = ForceMode.Force;
+        public Vector3 linearForce;
+        public bool radialForceActive;
+        public ForceMode radialForceMode = ForceMode.Force;
+        public AnimationCurve radialForce = new AnimationCurve(new Keyframe(0f, 1f));
+
         [Header("Creature settings")]
         [Tooltip("If enabled, this zone will not work with the player creature.")]
         public bool ignorePlayerCreature = false;
         [Tooltip("If enabled, the zone will only react to the root bone of creatures (hip bone).")]
         public bool ignoreNonRootParts = true;
+        [Tooltip("If enabled, creatures in or touching this zone will have physics culling forced off.")]
+        public bool blockPhysicsCulling = false;
 
         [Header("Portals")]
         public List<ZonePortal> portals = new List<ZonePortal>();

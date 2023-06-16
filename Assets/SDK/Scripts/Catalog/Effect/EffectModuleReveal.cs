@@ -14,12 +14,14 @@ namespace ThunderRoad
 {
     public class EffectModuleReveal : EffectModule
     {
+        
 #if ODIN_INSPECTOR
         [BoxGroup("Reveal")] 
 #endif
-        public string maskTextureAddress;
+        public string maskTextureContainerAddress;
         [NonSerialized]
-        public Texture maskTexture;
+        public TextureContainer textureContainer;
+        
 
 #if ODIN_INSPECTOR
         [BoxGroup("Reveal")] 

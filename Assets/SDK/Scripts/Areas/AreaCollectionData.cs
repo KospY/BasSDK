@@ -16,6 +16,7 @@ namespace ThunderRoad
             return id;
         }
 
+        public abstract HashSet<string> GetSpawnableAreasIds();
         public abstract List<AreaData.AreaConnection> GetConnections();
         public abstract AreaData.AreaConnection GetConnection(int index);
 

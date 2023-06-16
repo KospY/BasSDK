@@ -30,8 +30,6 @@ namespace ThunderRoad
 
         [NonSerialized]
         public List<Collider> colliders;
-        [NonSerialized]
-        public HashSet<Collider> colliderSet;
 
 #if ODIN_INSPECTOR
         [ShowInInspector]
@@ -56,7 +54,6 @@ namespace ThunderRoad
         public void GenerateImbueMesh()
         {
             colliders = new List<Collider>(this.GetComponentsInChildren<Collider>());
-            colliderSet = new HashSet<Collider>(colliders);
             List<CombineInstance> combines = new List<CombineInstance>();
             List<Vector3> orgScales = new List<Vector3>();
 

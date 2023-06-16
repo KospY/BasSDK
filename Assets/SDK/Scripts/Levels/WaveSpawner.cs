@@ -45,17 +45,7 @@ namespace ThunderRoad
         public float sameSpawnDelay = 3;
         [Tooltip("Delay between NPC spawns.")]
         public float spawnDelay = 2;
-
-        [Header("Music")]
-        [Tooltip("Address of the music that plays when the wave is in progress.")]
-        public string musicWaveAddress = "Bas.Audio.Music.Gladiator";
-        [Tooltip("Default volume of the Wave music. Separate from in-game audio settings.")]
-        public float musicAudioVolume = 1;
-        [Tooltip("Address of the audio used when the wave has ended.")]
-        public string stepAudioGroupAddress = "Bas.AudioGroup.Misc.WaveRound";
-        [Tooltip("Volume of the Step Audio. Separate from in-game audio settings.")]
-        public float stepAudioVolume = 1;
-
+        
         [Header("Event")]
         public UnityEvent OnWaveBeginEvent = new UnityEvent();
         public UnityEvent OnWaveAnyEndEvent = new UnityEvent();

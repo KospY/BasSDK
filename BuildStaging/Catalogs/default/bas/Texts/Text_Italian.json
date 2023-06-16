@@ -505,7 +505,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraOculusTouch",
-          "text": "Premi contemporaneamente 'Y' e 'B' per utilizzare la telecamera esterna,\noppure 'Y' e 'A' per bloccare la telecamera esterna.",
+          "text": "Premi contemporaneamente 'Y' e 'B' per utilizzare la telecamera esterna, oppure 'Y' e 'A' per bloccare la telecamera esterna.",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -526,21 +526,21 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraIndex",
-          "text": "Premi contemporaneamente 'B sinistro' e 'B destro' per utilizzare la telecamera esterna,\noppure 'B sinistro' e 'A destro' per bloccare la telecamera esterna.",
+          "text": "Premi contemporaneamente 'B sinistro' e 'B destro' per utilizzare la telecamera esterna, oppure 'B sinistro' e 'A destro' per bloccare la telecamera esterna.",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraPicoNeo3",
-          "text": "Premi contemporaneamente 'Y' e 'B' per utilizzare la telecamera esterna,\noppure 'Y' e 'A' per bloccare la telecamera esterna.",
+          "text": "Premi contemporaneamente 'Y' e 'B' per utilizzare la telecamera esterna, oppure 'Y' e 'A' per bloccare la telecamera esterna.",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraPico4",
-          "text": "Premi contemporaneamente 'Y' e 'B' per utilizzare la telecamera esterna,\noppure 'Y' e 'A' per bloccare la telecamera esterna.",
+          "text": "Premi contemporaneamente 'Y' e 'B' per utilizzare la telecamera esterna, oppure 'Y' e 'A' per bloccare la telecamera esterna.",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -4077,6 +4077,69 @@
           "text": "Gratuito",
           "spriteAddress": null,
           "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InvalidEmail",
+          "text": "Indirizzo email non valido!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InvalidEmailDescription",
+          "text": "L'email inviata non è valida!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SendingAuthCode",
+          "text": "Invio del codice di autenticazione all'indirizzo email",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModIoEnterAuthCode",
+          "text": "Inserisci il tuo codice di autenticazione",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModIoEnterAuthCodeDescription",
+          "text": "Puoi trovarlo nella tua email, controlla la tua casella di posta o la cartella dello spam per un codice da mod.io",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ShowSpellNames",
+          "text": "Mostra nomi degli incantesimi",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReportBug",
+          "text": "Segnala un bug",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Timeout",
+          "text": "Tempo limite",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TimeoutDescription",
+          "text": "Il server Mod.io sembra occupato al momento. Si prega di attendere.",
+          "spriteAddress": null,
+          "videoAddress": null
         }
       ]
     },
@@ -5908,6 +5971,24 @@
       "id": "Urn",
       "name": "Urna",
       "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellFire",
+      "name": "Fuoco",
+      "description": null
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellGravity",
+      "name": "Gravità",
+      "description": null
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellLightning",
+      "name": "Fulmine",
+      "description": null
     }
   ],
   "waves": [

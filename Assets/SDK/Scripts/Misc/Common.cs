@@ -212,6 +212,7 @@ namespace ThunderRoad
         DungeonLength,
         DungeonRoom,
         Seed,
+        InstanceGuid
     }
 
     public enum HapticDevice
@@ -375,7 +376,7 @@ namespace ThunderRoad
             int place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1024)));
             double num = Math.Round(bytes / Math.Pow(1024, place), 2);
 
-            return (Math.Sign(byteCount) * num).ToString(format) + SizeReferences[place];
+            return Math.Abs((Math.Sign(byteCount) * num)).ToString(format) + SizeReferences[place];
         }
 
         /// <summary>
@@ -387,24 +388,24 @@ namespace ThunderRoad
             switch (GetPlatform())
             {
                 case Platform.Windows:
-                    foreach (DriveInfo drive in DriveInfo.GetDrives())
+                foreach (DriveInfo drive in DriveInfo.GetDrives())
+                {
+                    if (drive.IsReady && Application.dataPath.StartsWith(drive.Name.Replace("\\", "/")))
                     {
-                        if (drive.IsReady && Application.dataPath.StartsWith(drive.Name.Replace("\\", "/")))
-                        {
-                            total = drive.TotalSize;
+                        total = drive.TotalSize;
 
-                            // return available
-                            return drive.TotalSize - drive.AvailableFreeSpace;
-                        }
+                        // return available
+                        return Math.Abs(drive.TotalSize - drive.AvailableFreeSpace);
                     }
-                    break;
+                }
+                break;
 
                 case Platform.Android:
-                    AndroidJavaObject statFs = new AndroidJavaObject("android.os.StatFs", Application.persistentDataPath);
-                    total = statFs.Call<long>("getAvailableBlocksLong");
+                AndroidJavaObject statFs = new AndroidJavaObject("android.os.StatFs", Application.persistentDataPath);
+                total = statFs.Call<long>("getAvailableBlocksLong");
 
-                    // return available
-                    return statFs.Call<long>("getFreeBytes");
+                // return available
+                return Math.Abs(statFs.Call<long>("getFreeBytes"));
             }
 
             total = 0;
@@ -453,7 +454,8 @@ namespace ThunderRoad
             layers = new int[Enum.GetValues(typeof(LayerName)).Length];
             foreach (LayerName layerName in Enum.GetValues(typeof(LayerName)))
             {
-                if (layerName == LayerName.None) continue;
+                if (layerName == LayerName.None)
+                    continue;
                 layers[(int)layerName] = LayerMask.NameToLayer(layerName.ToString());
             }
         }
@@ -462,8 +464,16 @@ namespace ThunderRoad
 
         public static int GetLayer(LayerName layerName)
         {
-            if (layers == null) return LayerMask.NameToLayer(layerName.ToString());
+            if (layers == null)
+                return LayerMask.NameToLayer(layerName.ToString());
             return layers[(int)layerName];
+        }
+
+        public static int MakeLayerMask(params LayerName[] layers)
+        {
+            int mask = 0;
+            for (int i = 0; i < layers.Length; i++) mask = mask | (1 << GetLayer(layers[i]));
+            return mask;
         }
 
         public static bool Contains(this LayerMask mask, int layer)
@@ -486,7 +496,8 @@ namespace ThunderRoad
 
         public static Platform GetPlatform()
         {
-            if (platformCached) return currentPlatform;
+            if (platformCached)
+                return currentPlatform;
             if (Enum.TryParse(QualitySettings.names[QualitySettings.GetQualityLevel()], out Platform platform))
             {
                 //We can only access the cached version if the app is playing, so set if its cached here
@@ -506,7 +517,8 @@ namespace ThunderRoad
 
         public static int GetRandomWeightedIndex(float[] weights)
         {
-            if (weights == null || weights.Length == 0) return -1;
+            if (weights == null || weights.Length == 0)
+                return -1;
 
             float w;
             float t = 0;
@@ -531,10 +543,12 @@ namespace ThunderRoad
             for (i = 0; i < weights.Length; i++)
             {
                 w = weights[i];
-                if (float.IsNaN(w) || w <= 0f) continue;
+                if (float.IsNaN(w) || w <= 0f)
+                    continue;
 
                 s += w / t;
-                if (s >= r) return i;
+                if (s >= r)
+                    return i;
             }
 
             return -1;
@@ -571,44 +585,44 @@ namespace ThunderRoad
 
         private static NavMeshPath navMeshPath = new NavMeshPath();
 
-        public static T GetClosest<T>(List<T> behaviours, Vector3 position, bool prioritizeShortestPath) where T : Behaviour
+        public static T GetClosest<T>(List<T> components, Vector3 position, bool prioritizeShortestPath) where T : Component
         {
             if (prioritizeShortestPath)
             {
                 float shortestPathLength = Mathf.Infinity;
-                Behaviour shortestPathBehaviour = null;
-                foreach (Behaviour behaviour in behaviours)
+                Component shortestPathComponent = null;
+                foreach (Component component in components)
                 {
                     navMeshPath.ClearCorners();
-                    if (NavMesh.CalculatePath(position, behaviour.transform.position, -1, navMeshPath))
+                    if (NavMesh.CalculatePath(position, component.transform.position, -1, navMeshPath))
                     {
                         float pathLength = GetPathLength(navMeshPath);
                         if (pathLength < shortestPathLength)
                         {
                             shortestPathLength = pathLength;
-                            shortestPathBehaviour = behaviour;
+                            shortestPathComponent = component;
                         }
                     }
                 }
-                if (shortestPathBehaviour)
+                if (shortestPathComponent)
                 {
-                    return shortestPathBehaviour as T;
+                    return shortestPathComponent as T;
                 }
             }
 
             float closestDistanceSqr = Mathf.Infinity;
-            Behaviour closestBehaviour = null;
-            foreach (Behaviour behaviour in behaviours)
+            Component closestComponent = null;
+            foreach (Component component in components)
             {
-                Vector3 directionToTarget = behaviour.transform.position - position;
+                Vector3 directionToTarget = component.transform.position - position;
                 float dSqrToTarget = directionToTarget.sqrMagnitude;
                 if (dSqrToTarget < closestDistanceSqr)
                 {
                     closestDistanceSqr = dSqrToTarget;
-                    closestBehaviour = behaviour;
+                    closestComponent = component;
                 }
             }
-            return closestBehaviour as T;
+            return closestComponent as T;
         }
 
         public static Transform GetClosest(List<Transform> transforms, Vector3 position, bool prioritizeShortestPath)
@@ -672,7 +686,8 @@ namespace ThunderRoad
             {
                 foreach (PropertyInfo property in source.GetType().GetProperties())
                 {
-                    if (property.CanWrite) property.SetValue(destinationComponent, property.GetValue(source, null), null);
+                    if (property.CanWrite)
+                        property.SetValue(destinationComponent, property.GetValue(source, null), null);
                 }
             }
             foreach (FieldInfo field in source.GetType().GetFields())
@@ -790,7 +805,14 @@ namespace ThunderRoad
             Vector3 displacement = targetPosition - child.position;
             transform.transform.position += displacement;
             // parenting
-            if (parent) transform.transform.SetParent(parent, true);
+            if (parent)
+                transform.transform.SetParent(parent, true);
+        }
+
+        public static void RotateAroundPivot(this Transform transform, Vector3 pivot, Quaternion rotation)
+        {
+            transform.position = rotation * (transform.position - pivot) + pivot;
+            transform.rotation = rotation * transform.rotation;
         }
 
         public static Vector3 InverseTransformPoint(Vector3 transforPos, Quaternion transformRotation, Vector3 transformScale, Vector3 pos)
@@ -832,7 +854,8 @@ namespace ThunderRoad
         {
             foreach (Transform child in transform.GetComponentsInChildren<Transform>())
             {
-                if (child == transform) continue;
+                if (child == transform)
+                    continue;
                 Transform orgParent = child.parent;
                 Transform mirror = new GameObject("Mirror").transform;
                 mirror.SetParent(orgParent, false);
@@ -842,8 +865,10 @@ namespace ThunderRoad
                 child.SetParent(mirror, true);
                 mirror.localScale = Vector3.Scale(mirrorAxis, transform.localScale);
                 child.SetParent(orgParent, true);
-                if (UnityEngine.Application.isPlaying) GameObject.Destroy(mirror.gameObject);
-                else GameObject.DestroyImmediate(mirror.gameObject);
+                if (UnityEngine.Application.isPlaying)
+                    GameObject.Destroy(mirror.gameObject);
+                else
+                    GameObject.DestroyImmediate(mirror.gameObject);
                 child.localScale = Vector3.Scale(mirrorAxis, transform.localScale);
             }
         }
@@ -858,8 +883,10 @@ namespace ThunderRoad
             transform.SetParent(root, true);
             root.MirrorChilds(mirrorAxis);
             transform.SetParent(root.parent, true);
-            if (UnityEngine.Application.isPlaying) GameObject.Destroy(root.gameObject);
-            else GameObject.DestroyImmediate(root.gameObject);
+            if (UnityEngine.Application.isPlaying)
+                GameObject.Destroy(root.gameObject);
+            else
+                GameObject.DestroyImmediate(root.gameObject);
         }
 
         private static Hashtable hueColourValues = new Hashtable {
@@ -882,10 +909,13 @@ namespace ThunderRoad
             {
                 for (int i = 0; i < lods[lodIndex].renderers.Length; i++)
                 {
-                    if (!lods[lodIndex].renderers[i]) continue;
+                    if (!lods[lodIndex].renderers[i])
+                        continue;
                     MeshFilter currentMeshFilter = lods[lodIndex].renderers[i].GetComponent<MeshFilter>();
-                    if (!currentMeshFilter || !currentMeshFilter.sharedMesh) continue;
-                    if (currentMeshFilter.sharedMesh == lod0MeshFilter.sharedMesh) continue;
+                    if (!currentMeshFilter || !currentMeshFilter.sharedMesh)
+                        continue;
+                    if (currentMeshFilter.sharedMesh == lod0MeshFilter.sharedMesh)
+                        continue;
                     meshFilter = currentMeshFilter;
                     if (StripLODStringPart(lod0MeshFilter.sharedMesh.name) == StripLODStringPart(meshFilter.sharedMesh.name))
                     {

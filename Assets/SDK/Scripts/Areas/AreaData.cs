@@ -55,7 +55,13 @@ namespace ThunderRoad
             public AreaConnectionTypeData.PrefabAdressTable overrideBlockerTableAdress;
             public Vector3 position;
             public AreaRotationHelper.Face face;
+
             public string fakeViewAddress = null;
+
+            [NonSerialized]
+            public IResourceLocation fakeViewAddressLocation;
+            private FakeViewData _fakeviewData;
+            private int _fakeviewDataCounter = 0;
 
             public void Refresh()
             {
@@ -85,6 +91,12 @@ namespace ThunderRoad
             }
             public bool TryGetFirstConnectionValid(AreaConnection other, out AreaConnectionTypeData connectionType)
             {
+                if (other?.connectionTypeIdContainerList == null)
+                {
+                    connectionType = null;
+                    return false;
+                }
+
                 int otherTypeCount = other.connectionTypeIdContainerList.Count;
                 int typeCount = connectionTypeIdContainerList.Count;
                 for (int otherTypeIndex = 0; otherTypeIndex < otherTypeCount; otherTypeIndex++)
@@ -108,6 +120,34 @@ namespace ThunderRoad
             {
                 return face == AreaRotationHelper.Face.Down || face == AreaRotationHelper.Face.Up;
             }
+
+            public void GetFakeviewData(Action<FakeViewData> callback)
+            {
+                if (_fakeviewData != null)
+                {
+                    if (callback != null) callback(_fakeviewData);
+                    _fakeviewDataCounter++;
+                    return;
+                }
+
+                Catalog.LoadAssetAsync<FakeViewData>(fakeViewAddressLocation,
+                    (FakeViewData fakeview) =>
+                    {
+                        _fakeviewDataCounter++;
+                        _fakeviewData = fakeview;
+                        if (callback != null) callback(_fakeviewData);
+                    }, fakeViewAddress);
+            }
+
+            public void ReleaseFakeview()
+            {
+                _fakeviewDataCounter--;
+                if (_fakeviewDataCounter <= 0)
+                {
+                    Catalog.ReleaseAsset(_fakeviewData);
+                    _fakeviewData = null;
+                }
+            }
         }
         #endregion InternalClass
 
@@ -119,8 +159,13 @@ namespace ThunderRoad
 
         public bool isUnique = true;
         public string areaPrefabAddress;
+        public string lightingPresetAddress;
+
         [NonSerialized]
         public IResourceLocation areaPrefabAddressLocation;
+
+        [NonSerialized]
+        public IResourceLocation lightingPresetAddressLocation;
 
         public Bounds Bounds;
         public List<AreaRotationHelper.Rotation> allowedRotation;
@@ -132,10 +177,22 @@ namespace ThunderRoad
         public AreaGlobalParameter[] areaGlobalParameters;
         #endregion Data
 
+        #region Fields
+        private Area _areaPrefab;
+        private int _areaPrefabLoadCounter = 0;
+        private LightingPreset _lightingPreset;
+        private int _lightingPresetLoadCounter = 0;
+        #endregion Fields
+
         #region Methods
         public string GetId()
         {
             return id;
+        }
+
+        public HashSet<string> GetSpawnableAreasIds()
+        {
+            return new HashSet<string> {GetId()};
         }
 
         public List<AreaConnection> GetConnections()
@@ -195,6 +252,62 @@ namespace ThunderRoad
                 areaBp.root.SetCreatureData(numberCreature, isShareNPCAlert);
             }
         }
+
+        public void GetAreaPrefab(Action<Area> callback)
+        {
+            if (_areaPrefab != null)
+            {
+                if(callback != null) callback(_areaPrefab);
+                _areaPrefabLoadCounter++;
+                return;
+            }
+
+            Catalog.LoadAssetAsync<GameObject>(areaPrefabAddressLocation,
+                (GameObject gameObject) =>
+                {
+                    _areaPrefabLoadCounter++;
+                    _areaPrefab = gameObject.GetComponent<Area>();
+                    if (callback != null) callback(_areaPrefab);
+                }, id);
+        }
+
+        public void ReleaseAreaPrefab()
+        {
+            _areaPrefabLoadCounter--;
+            if (_areaPrefabLoadCounter <= 0)
+            {
+                Catalog.ReleaseAsset(_areaPrefab.gameObject);
+                _areaPrefab = null;
+            }
+        }
+
+        public void GetLightingPreset(Action<LightingPreset> callback)
+        {
+            if(_lightingPreset != null)
+            {
+                if(callback != null) callback(_lightingPreset);
+                _lightingPresetLoadCounter++;
+                return;
+            }
+
+            Catalog.LoadAssetAsync<LightingPreset>(lightingPresetAddressLocation,
+                (LightingPreset preset) =>
+                {
+                    _lightingPresetLoadCounter++;
+                    _lightingPreset = preset;
+                    if (callback!= null) callback(_lightingPreset);
+                    }, id);
+        }
+
+        public void ReleaseLightingPreset()
+        {
+            _lightingPresetLoadCounter--;
+            if(_lightingPresetLoadCounter <= 0 && _lightingPreset != null)
+            {
+                Catalog.ReleaseAsset(_lightingPreset);
+                _lightingPreset = null;
+            }
+        }
         #endregion Methods
 
         #region Tools
@@ -214,6 +327,13 @@ namespace ThunderRoad
         public override IEnumerator OnCatalogRefreshCoroutine()
         {
             yield return Catalog.LoadLocationCoroutine<GameObject>(areaPrefabAddress, value => areaPrefabAddressLocation = value, id);
+            yield return Catalog.LoadLocationCoroutine<LightingPreset>(lightingPresetAddress, value => lightingPresetAddressLocation = value, id);
+
+            int connectionCount = connections.Count;
+            for (int i = 0; i < connectionCount; i++)
+            {
+                yield return Catalog.LoadLocationCoroutine<FakeViewData>(connections[i].fakeViewAddress, value => connections[i].fakeViewAddressLocation = value, id + " connection " + i);                
+            }
         }
 
 #if UNITY_EDITOR

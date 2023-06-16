@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -30,11 +29,11 @@ namespace ThunderRoad
 #if ODIN_INSPECTOR
         [ShowInInspector]
 #endif
-        private int _areaSpawnDepth = 100;
+        private int _areaFullMemoryDepth = 100;
 #if ODIN_INSPECTOR
         [ShowInInspector]
 #endif
-        private int _areaDespawnDepth = 100;
+        private int _areaLiteMemoryDepth = 100;
 #if ODIN_INSPECTOR
         [ShowInInspector]
 #endif
@@ -50,8 +49,8 @@ namespace ThunderRoad
 
         #region Properties
         public override ManagedLoops EnabledManagedLoops => ManagedLoops.Update;
-        public int AreaSpawnDepth { get { return _areaSpawnDepth; } set { _areaSpawnDepth = value; } }
-        public int AreaDespawnDepth { get { return _areaDespawnDepth; } set { _areaDespawnDepth = value; } }
+        public int AreaFullMemoryDepth { get { return _areaFullMemoryDepth; } set { _areaFullMemoryDepth = value; } }
+        public int AreaLiteMemoryDepth { get { return _areaLiteMemoryDepth; } set { _areaLiteMemoryDepth = value; } }
         public int AreaCullDepth { get { return _areaCullDepth; } set { _areaCullDepth = value; } }
 
         public SpawnableArea CurrentArea { get { return _currentArea; } }
@@ -94,28 +93,29 @@ namespace ThunderRoad
             {
                 RegisterArea(_currentTree[i]);
             }
-
-
+            
             // Spawn/Cull Area
-            int indexMaxToSpawn = _areaSpawnDepth - 1 < _currentTreeDepthIndex.Count ? _currentTreeDepthIndex[_areaSpawnDepth - 1] : treeCount;
+            int indexLiteMemory = _areaFullMemoryDepth - 1 < _currentTreeDepthIndex.Count ? _currentTreeDepthIndex[_areaFullMemoryDepth - 1] : treeCount;
             for (int i = 0; i < treeCount; i++)
             {
                 _currentTree[i].IsCulled = true;
-
-                if (i <= indexMaxToSpawn)
-                {
-                    yield return _currentTree[i].SpawnCoroutine(true);
-                }
+                _currentTree[i].IsLiteMemoryState = (i >= indexLiteMemory);
+                    
+                    //Kick off loading the prefabs
+                    this.StartCoroutine(_currentTree[i].PreloadResources());
             }
+            
+            
+            float timer = Time.realtimeSinceStartup;
 
-            for (int i = 0; i < indexMaxToSpawn; i++)
+            for (int i = 0; i < treeCount; i++)
             {
-                while (!_currentTree[i].SpawnedArea.initialized)
-                {
-                    yield return null;
-                }
+                timer = Time.realtimeSinceStartup;
+                Debug.Log($"[Area] SpawnCoroutine area: {_currentTree[i].AreaDataId}");
+                yield return _currentTree[i].SpawnCoroutine(true);
+                Debug.Log($"[Area] SpawnCoroutine area: {_currentTree[i].AreaDataId} completed in {(Time.realtimeSinceStartup - timer):F2} sec");
             }
-
+            
             _currentArea.IsCulled = false;
 
             // Activate only the first player spawner
@@ -157,6 +157,18 @@ namespace ThunderRoad
                 playerSpawnerGo.AddComponent<PlayerSpawner>();                
             }
 
+            //Once all of the prefabs have spawned, the StaticBatchingUtility has run and the mesh colliders have baked, we dont need the system memory copies of the meshes
+            //So mark them as no longer readable
+            int count = 0;
+            for (int i = 0; i < treeCount; i++)
+            {
+                var spawnableArea = _currentTree[i];
+                Area spawnedArea = spawnableArea.SpawnedArea;
+            }
+            Debug.Log($"[AreaManager] Marked {count} meshes as no longer read/writeable");
+
+            Debug.Log($"[AreaManager] UnloadingUnusedAssets");
+            yield return Resources.UnloadUnusedAssets();
             initialized = true;
             OnInitializedEvent?.Invoke(EventTime.OnEnd);
         }
@@ -240,23 +252,23 @@ namespace ThunderRoad
                 return;
             }
 
-            // Spawn/Despawn/Cull Area
+            // Set Lite Memory / Cull Area
             int treeCount = _currentTree.Count;
-            int indexMaxToSpawn = _areaSpawnDepth - 1 < _currentTreeDepthIndex.Count ? _currentTreeDepthIndex[_areaSpawnDepth - 1] : treeCount;
-            int indexMinToDeSpawn = _areaDespawnDepth - 1 < _currentTreeDepthIndex.Count ? _currentTreeDepthIndex[_areaDespawnDepth - 1] : treeCount;
+            int indexMaxLiteMemoryState = _areaFullMemoryDepth - 1 < _currentTreeDepthIndex.Count ? _currentTreeDepthIndex[_areaFullMemoryDepth - 1] : treeCount;
+            int indexMinLiteMemoryState = _areaLiteMemoryDepth - 1 < _currentTreeDepthIndex.Count ? _currentTreeDepthIndex[_areaLiteMemoryDepth - 1] : treeCount;
             int indexToCull = _areaCullDepth - 1 < _currentTreeDepthIndex.Count ? _currentTreeDepthIndex[_areaCullDepth - 1] : treeCount;
             for (int i = 0; i < treeCount; i++)
             {
                 _currentTree[i].IsCulled = i >= indexToCull;
 
-                if (i <= indexMaxToSpawn)
+                if (i <= indexMaxLiteMemoryState)
                 {
-                    _currentTree[i].Spawn(false);
+                    _currentTree[i].IsLiteMemoryState = false;
                 }
 
-                if (i >= indexMinToDeSpawn)
+                if (i >= indexMinLiteMemoryState)
                 {
-                    _currentTree[i].Unload();
+                    _currentTree[i].IsLiteMemoryState = true;
                 }
             }
         }

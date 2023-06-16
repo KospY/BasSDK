@@ -19,6 +19,7 @@ namespace ThunderRoad
         public bool alwaysUseHighQuality = false;
         public string lowQualityPrefabAddress = "Bas.Ocean.LowQuality";
         public GameObject lowQuality;
+        public Transform heightReference;
         public bool showWhenInRoomOnly = true;
 
         public enum Quality

@@ -48,9 +48,9 @@ namespace ThunderRoad
         public TextMeshProUGUI loadingBarStage = null;
         public TextMeshProUGUI loadingBarPercentage = null;
 
-        public Button customizeButton = null;
-        public Button deleteButton = null;
-        public Button characterSelectionStartButton = null;
+        public UICustomisableButton customizeButton = null;
+        public UICustomisableButton deleteButton = null;
+        public UICustomisableButton characterSelectionStartButton = null;
         public GameObject disabledModManagerWarning = null;
         public UICustomisableButton modManagerButton = null;
 
@@ -58,26 +58,8 @@ namespace ThunderRoad
         public TextMeshProUGUI[] currentGameModeText = null;
         public TextMeshProUGUI[] currentPlayerIndexText = null;
 
-        public string validationSound = "";
-        public AudioSource uiValidatioAudioSource = null;
-        public float validationVolumeDB;
-        public string cancelSound = "";
-        public AudioSource uiCancelAudioSource = null;
-        public float cancelVolumeDB;
-        public string switchSound = "";
-        public AudioSource uiSwitchAudioSource = null;
-        public float switchVolumeDB;
-        public string lightSound = "";
-        public AudioSource uiLightAudioSource = null;
-        public float lightVolumeDB;
-
         public AnimationClip characterMalePose;
         public AnimationClip characterFemalePose;
-
-        private AudioContainer validationSoundClipContainer = null;
-        private AudioContainer cancelSoundClipContainer = null;
-        private AudioContainer switchSoundClipContainer = null;
-        private AudioContainer lightSoundClipContainer = null;
 
         private List<Texture2D> loadedTextures = null;
 
@@ -99,9 +81,9 @@ namespace ThunderRoad
         public Transform rightFootGrip;
         public Transform leftFootBone;
         public Transform leftFootGrip;
-
-        public Button playButton = null;
-        public Button calibrateTrackerStartButton = null;
+        
+        public UICustomisableButton playButton = null;
+        public UICustomisableButton calibrateTrackerStartButton = null;
 
         public UISelectionListButtonsSwitchMeterImperial switchMeterImperial = null;
 

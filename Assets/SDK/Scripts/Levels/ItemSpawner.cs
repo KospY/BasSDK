@@ -81,17 +81,26 @@ namespace ThunderRoad
 
         public enum VelocityReference
         {
-            WorldSpace,
-            SpawnerSpace,
-            ItemSpace,
+            WorldSpace = 0,
+            SpawnerSpace = 1,
+            ItemSpace = 2,
+            InheritWorldSpace = 3,
         }
 
         [Header("Spawn in Motion")]
-        [Tooltip("Sets the reference transform for the item's linear velocity on spawn.\nWorld Space applies force in the world directions (X/Y/Z direction is world-based).\nSpawner Space applies force in the item spawner's transform directions (X/Y/Z direction is based on spawner rotation).\nItem Space applies force based on the item's rotation. (X/Y/Z direction is local to the item)")]
+        [Tooltip("Sets the reference transform for the item's linear velocity on spawn." +
+            "\nWorld Space applies force in the world directions (X/Y/Z direction is world-based)." +
+            "\nSpawner Space applies force in the item spawner's transform directions (X/Y/Z direction is based on spawner rotation)." +
+            "\nItem Space applies force based on the item's rotation. (X/Y/Z direction is local to the item)" +
+            "\nInherit World Space will make the spawned item match the motion of the item spawner, if it's on a moving physics body.")]
         public VelocityReference linearVelocityMode = VelocityReference.WorldSpace;
         [Tooltip("Measured in meters per second")]
         public Vector3 linearVelocity = new Vector3();
-        [Tooltip("Sets the reference transform for the item's angular velocity on spawn.")]
+        [Tooltip("Sets the reference transform for the item's angular velocity on spawn." +
+            "\nWorld Space applies torque in the world directions (X/Y/Z direction is world-based)." +
+            "\nSpawner Space applies torque in the item spawner's transform directions (X/Y/Z direction is based on spawner rotation)." +
+            "\nItem Space applies force torque on the item's rotation. (X/Y/Z direction is local to the item)" +
+            "\nInherit World Space will make the spawned item match the motion of the item spawner, if it's on a moving physics body.")]
         public VelocityReference angularVelocityMode = VelocityReference.WorldSpace;
         [Tooltip("Measured in radians per second")]
         public Vector3 angularVelocity = new Vector3();

@@ -22,6 +22,7 @@ namespace ThunderRoad
             OnStringUngrab = 4,
             OnStringReleaseStart = 5,
             OnStringReleaseEnd = 6,
+            OnLinkerStart = 7,
         }
 
         public enum ArrowState
@@ -37,8 +38,8 @@ namespace ThunderRoad
             public BowEvent bowEvent;
             public ArrowState arrowStateRequired;
             [Range(0f, 1f)]
-            public float pullPercent = 0f;
-            [Range(0f, 1f)]
+            public float pullPercent = 0.5f;
+            [Range(0f, 1.1f)]
             public float allowance = 1f;
             public UnityEvent onActivate;
         }

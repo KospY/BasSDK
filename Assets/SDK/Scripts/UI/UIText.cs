@@ -13,7 +13,7 @@ namespace ThunderRoad
     public class UIText : MonoBehaviour
     {
 #if ODIN_INSPECTOR
-        [ValueDropdown("GetAllTextGroupID")] 
+        [ValueDropdown("GetAllTextGroupID")]
 #endif
         public string textGroupId;
 
@@ -30,6 +30,9 @@ namespace ThunderRoad
         private bool hasCustomLocalization;
 
         private bool wasInitializedFromScript;
+
+        // If this is true the text string will be used as the Item localization ID and we will try to get the Items localization on refresh
+        private bool textIsItem;
 
     }
 }

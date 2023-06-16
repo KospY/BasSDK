@@ -505,42 +505,42 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraOculusTouch",
-          "text": "'Y' 및 'B'를 동시에 눌러서 외부 뷰 카메라를 사용하거나,\n또는 'Y' 및 'A'를 동시에 눌러서 외부 뷰 카메라를 잠글 수 있습니다.",
+          "text": "'Y' 및 'B'를 동시에 눌러서 외부 뷰 카메라를 사용하거나, 또는 'Y' 및 'A'를 동시에 눌러서 외부 뷰 카메라를 잠글 수 있습니다.",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraViveWand",
-          "text": "'오른쪽 터치패드' 및 '왼쪽 트리거'를 동시에 눌러서 외부 뷰 카메라를 사용하거나,\n또는 '오른쪽 터치패드' 및 '오른쪽 트리거'를 동시에 눌러서 외부 뷰 카메라를 잠글 수 있습니다.",
+          "text": "'오른쪽 터치패드' 및 '왼쪽 트리거'를 동시에 눌러서 외부 뷰 카메라를 사용하거나, 또는 '오른쪽 터치패드' 및 '오른쪽 트리거'를 동시에 눌러서 외부 뷰 카메라를 잠글 수 있습니다.",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraWMR",
-          "text": "'왼쪽 메뉴' 및 '오른쪽 메뉴'를 동시에 눌러서 외부 뷰 카메라를 사용하거나,\n또는 '왼쪽 메뉴' 및 '오른쪽 트리거'를 동시에 눌러서 외부 뷰 카메라를 잠글 수 있습니다.",
+          "text": "'왼쪽 메뉴' 및 '오른쪽 메뉴'를 동시에 눌러서 외부 뷰 카메라를 사용하거나, 또는 '왼쪽 메뉴' 및 '오른쪽 트리거'를 동시에 눌러서 외부 뷰 카메라를 잠글 수 있습니다.",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraIndex",
-          "text": "'왼쪽 B' 및 '오른쪽 B'를 동시에 눌러서 외부 뷰 카메라를 사용하거나,\n또는 '왼쪽 B' 및 '오른쪽 A'를 동시에 눌러서 외부 뷰 카메라를 잠글 수 있습니다.",
+          "text": "'왼쪽 B' 및 '오른쪽 B'를 동시에 눌러서 외부 뷰 카메라를 사용하거나, 또는 '왼쪽 B' 및 '오른쪽 A'를 동시에 눌러서 외부 뷰 카메라를 잠글 수 있습니다.",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraPicoNeo3",
-          "text": "'Y' 및 'B'를 동시에 눌러서 외부 뷰 카메라를 사용하거나,\n또는 'Y' 및 'A'를 동시에 눌러서 외부 뷰 카메라를 잠글 수 있습니다.",
+          "text": "'Y' 및 'B'를 동시에 눌러서 외부 뷰 카메라를 사용하거나, 또는 'Y' 및 'A'를 동시에 눌러서 외부 뷰 카메라를 잠글 수 있습니다.",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraPico4",
-          "text": "'Y' 및 'B'를 동시에 눌러서 외부 뷰 카메라를 사용하거나,\n또는 'Y' 및 'A'를 동시에 눌러서 외부 뷰 카메라를 잠글 수 있습니다.",
+          "text": "'Y' 및 'B'를 동시에 눌러서 외부 뷰 카메라를 사용하거나, 또는 'Y' 및 'A'를 동시에 눌러서 외부 뷰 카메라를 잠글 수 있습니다.",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -4077,6 +4077,69 @@
           "text": "무료",
           "spriteAddress": null,
           "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InvalidEmail",
+          "text": "잘못된 이메일 주소입니다!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InvalidEmailDescription",
+          "text": "제출한 이메일 주소가 유효하지 않습니다! ",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SendingAuthCode",
+          "text": "이메일 주소로 인증 코드를 전송 중",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModIoEnterAuthCode",
+          "text": "인증 코드를 입력하세요",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModIoEnterAuthCodeDescription",
+          "text": "이메일에서 찾을 수 있습니다. mod.io에서의 코드를 위해 받은 편지함 또는 스팸 편지함을 확인하십시오",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ShowSpellNames",
+          "text": "주문 이름 표시하기",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReportBug",
+          "text": "버그 신고하기",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Timeout",
+          "text": "시간 초과",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TimeoutDescription",
+          "text": "현재 Mod.io 서버가 바쁘게 돌아가고 있습니다. 잠시 기다려 주세요",
+          "spriteAddress": null,
+          "videoAddress": null
         }
       ]
     },
@@ -5908,6 +5971,24 @@
       "id": "Urn",
       "name": "납골 단지",
       "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellFire",
+      "name": "불",
+      "description": null
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellGravity",
+      "name": "중력",
+      "description": null
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellLightning",
+      "name": "번개",
+      "description": null
     }
   ],
   "waves": [

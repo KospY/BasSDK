@@ -70,7 +70,7 @@ namespace ThunderRoad
         private void OnEnable()
         {
             script = damager = (Damager)target;
-            depthPoint = damager.GetMaxDepthPosition(false);
+            depthPoint = damager.GetMaxDepthPosition();
             ResetPoints(damager.penetrationLength);
         }
         

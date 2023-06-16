@@ -20,6 +20,7 @@ namespace ThunderRoad
             OnCollisionExit = 2,
             OnDamageDealt = 3,
             OnKillDealt = 4,
+            OnLinkerStart = 5,
         }
 
         [System.Serializable]

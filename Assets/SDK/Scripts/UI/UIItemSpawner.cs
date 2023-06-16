@@ -39,10 +39,10 @@ namespace ThunderRoad
         [SerializeField] private UIScrollController itemsScroll;
 
         // Item Buttons
-        [SerializeField] private UIButtonBook infoButton;
-        [SerializeField] private UIButtonBook spawnButton;
-        [SerializeField] private UIButtonBook equipButton;
-        [SerializeField] private UIButtonBook backButton;
+        [SerializeField] private UICustomisableButton infoButton;
+        [SerializeField] private UICustomisableButton spawnButton;
+        [SerializeField] private UICustomisableButton equipButton;
+        [SerializeField] private UICustomisableButton backButton;
 
         [Header("Setup")]
         [SerializeField] private bool showExistingOnly = true;
@@ -128,7 +128,7 @@ namespace ThunderRoad
             
         }
 
-        public void GrabSelectedItem()
+        public void EquipSelectedItem()
         {
             
         }

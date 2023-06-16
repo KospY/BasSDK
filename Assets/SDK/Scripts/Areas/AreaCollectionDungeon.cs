@@ -88,7 +88,7 @@ namespace ThunderRoad
             public void RemoveLast()
             {
                 int lastIndex = allPlacement.Count - 1;
-                if (lastIndex <= 0) return;
+                if (lastIndex < 0) return;
 
                 AreaPlacement areaToRemove = allPlacement[lastIndex];
 
@@ -256,6 +256,38 @@ namespace ThunderRoad
         #endregion InternalClass
 
         #region Methods
+
+        public override HashSet<string> GetSpawnableAreasIds()
+        {
+            var areaIds = new HashSet<string>();
+            for (var i = 0; i < path.Count; i++)
+            {
+                var tables = path[i].areaPoolIdContainer;
+                if (tables == null)
+                {
+                    Debug.LogError(id + " - Path empty at index : " + i);
+                    continue;
+                }
+
+                for (var j = 0; j < tables.Count; j++)
+                {
+                    var table = tables[j];
+                    if (table.Data == null)
+                    {
+                        Debug.LogError("Table data is null: " + table.dataId);
+                        continue;
+                    }
+
+                    var spawnableAreaids = table.Data.GetSpawnableAreasIds();
+                    foreach (var areaId in spawnableAreaids)
+                    {
+                        areaIds.Add(areaId);
+                    }
+                }
+            }
+            return areaIds;
+        }
+
         public override List<AreaData.AreaConnection> GetConnections()
         {
             return null;
@@ -289,7 +321,7 @@ namespace ThunderRoad
                 return dungeonBp;
             }
 
-            Debug.LogError("[DungeonManager] : Retry max, take a bakup area");
+            Debug.LogError("[DungeonManager] : Retry max, take a backup area");
             if (backupList == null || backupList.Count == 0)
             {
                 Debug.LogError("[DungeonManager] : No data backup found");
@@ -340,7 +372,7 @@ namespace ThunderRoad
                     if (areasIndex == 0)
                     {
                         Debug.LogError("[DungeonManager] : Can not find correct start room");
-                        break;
+                        return false;
                     }
 
                     if (retry < retry_previous_area_allowed)

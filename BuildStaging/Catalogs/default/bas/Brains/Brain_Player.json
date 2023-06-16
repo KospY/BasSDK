@@ -101,7 +101,8 @@
       "focusGainOnKill": 10.0,
       "focusGainOnParry": 5.0,
       "focusGainOnDeflect": 10.0,
-      "lookLockAngle": 30.0,
+      "playerEyeAnimation": true,
+      "focusAngle": 30.0,
       "lookDistanceMinMax": {
         "x": 0.2,
         "y": 1.5
@@ -184,6 +185,7 @@
       "forceUprightSpeed": 1.0,
       "customEyeTargetOnly": true,
       "lookMaxAngle": 80.0,
+      "forceAimPostIK": true,
       "torso": {
         "$type": "ThunderRoad.BrainModuleLookAt+IKWeight, ThunderRoad",
         "clampWeight": 0.7,

@@ -19,6 +19,14 @@ namespace ThunderRoad
 #endif
         public EffectLink effectLink = EffectLink.Intensity;
 #if ODIN_INSPECTOR
+        [BoxGroup("Particle")]
+#endif
+        public float cullMinIntensity = 0.05f;
+#if ODIN_INSPECTOR
+        [BoxGroup("Particle")]
+#endif
+        public float cullMinSpeed = 0.05f;        
+#if ODIN_INSPECTOR
         [BoxGroup("Particle")] 
 #endif
         public string effectParticleAddress;

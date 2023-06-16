@@ -505,42 +505,42 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraOculusTouch",
-          "text": "同時按下「Y」和「B」可使用外部視野攝影機，\n同時按下「Y」和「A」可鎖定外部視野攝影機。",
+          "text": "同時按下「Y」和「B」可使用外部視野攝影機，同時按下「Y」和「A」可鎖定外部視野攝影機。",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraViveWand",
-          "text": "同時按下「右觸控板」和「左扳機」可使用外部視野攝影機，\n同時按下「右觸控板」和「右扳機」可鎖定外部視野攝影機。",
+          "text": "同時按下「右觸控板」和「左扳機」可使用外部視野攝影機，同時按下「右觸控板」和「右扳機」可鎖定外部視野攝影機。",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraWMR",
-          "text": "同時按下「左選單」和「右選單」可使用外部視野攝影機，\n同時按下「左選單」和「右扳機」可鎖定外部視野攝影機。",
+          "text": "同時按下「左選單」和「右選單」可使用外部視野攝影機，同時按下「左選單」和「右扳機」可鎖定外部視野攝影機。",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraIndex",
-          "text": "同時按下「左 B」和「右 B」可使用外部視野攝影機，\n同時按下「左 B」和「右 A」可鎖定外部視野攝影機。",
+          "text": "同時按下「左 B」和「右 B」可使用外部視野攝影機，同時按下「左 B」和「右 A」可鎖定外部視野攝影機。",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraPicoNeo3",
-          "text": "同時按下「Y」和「B」可使用外部視野攝影機，\n同時按下「Y」和「A」可鎖定外部視野攝影機。",
+          "text": "同時按下「Y」和「B」可使用外部視野攝影機，同時按下「Y」和「A」可鎖定外部視野攝影機。",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraPico4",
-          "text": "同時按下「Y」和「B」可使用外部視野攝影機，\n同時按下「Y」和「A」可鎖定外部視野攝影機。",
+          "text": "同時按下「Y」和「B」可使用外部視野攝影機，同時按下「Y」和「A」可鎖定外部視野攝影機。",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -4077,6 +4077,69 @@
           "text": "免費",
           "spriteAddress": null,
           "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InvalidEmail",
+          "text": "無效的電子郵件地址！",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InvalidEmailDescription",
+          "text": "提交的電子郵件地址無效！",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SendingAuthCode",
+          "text": "將驗證碼發送到電子郵件地址",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModIoEnterAuthCode",
+          "text": "請輸入您的身份驗證代碼",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModIoEnterAuthCodeDescription",
+          "text": "你可以在你的電子郵件中找到它，檢查你的收件箱或垃圾郵件資料夾中是否有來自 mod.io 的代碼",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ShowSpellNames",
+          "text": "顯示法術名稱",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReportBug",
+          "text": "回報錯誤",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Timeout",
+          "text": "逾時",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TimeoutDescription",
+          "text": "Mod.io 伺服器目前繁忙，請稍候",
+          "spriteAddress": null,
+          "videoAddress": null
         }
       ]
     },
@@ -5908,6 +5971,24 @@
       "id": "Urn",
       "name": "甕",
       "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellFire",
+      "name": "火",
+      "description": null
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellGravity",
+      "name": "重力",
+      "description": null
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellLightning",
+      "name": "閃電",
+      "description": null
     }
   ],
   "waves": [

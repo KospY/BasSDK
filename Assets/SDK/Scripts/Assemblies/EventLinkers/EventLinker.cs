@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
+using System;
 #if ODIN_INSPECTOR
 #else
 using EasyButtons;
@@ -74,7 +75,7 @@ namespace ThunderRoad
             currentWait = null;
         }
 
-        protected IEnumerator ExecuteInOrder(List<UnityEvent> events)
+        protected IEnumerator ExecuteInOrder(List<UnityEvent> events, Action preInvoke = null)
         {
             yield return null;
         }

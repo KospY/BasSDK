@@ -43,7 +43,7 @@ namespace ThunderRoad
             ForwardAndBackward,
         }
 
-        public Vector3 GetMaxDepthPosition(bool reverted)
+        public Vector3 GetMaxDepthPosition(bool reverted = false)
         {
             return this.transform.position + ((reverted ? this.transform.forward : -this.transform.forward) * penetrationDepth);
         }
@@ -80,7 +80,7 @@ namespace ThunderRoad
             if (penetrationDepth > 0)
             {
                 Gizmos.color = Color.yellow;
-                if (direction == Direction.Forward) Gizmos.DrawLine(this.transform.position, GetMaxDepthPosition(false));
+                if (direction == Direction.Forward) Gizmos.DrawLine(this.transform.position, GetMaxDepthPosition());
                 if (direction == Direction.ForwardAndBackward) Gizmos.DrawLine(this.transform.position + this.transform.forward * penetrationDepth, this.transform.position - this.transform.forward * penetrationDepth);
                 if (penetrationLength > 0)
                 {
@@ -91,5 +91,9 @@ namespace ThunderRoad
         }
 #endif        
 
+
+        public void UnPenetrateAll()
+        {
+        }
     }
 }

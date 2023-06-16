@@ -121,7 +121,6 @@ namespace ThunderRoad
 
         protected internal override void ManagedFixedUpdate()
         {
-            base.ManagedFixedUpdate();
             foreach (KeyValuePair<int, int> blendShapePairing in blendShapeDictionary)
             {
                 skinnedMeshRenderer.SetBlendShapeWeight(blendShapePairing.Value, driverSMR.GetBlendShapeWeight(blendShapePairing.Key));

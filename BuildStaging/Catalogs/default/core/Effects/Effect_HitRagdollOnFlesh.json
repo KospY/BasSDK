@@ -9,7 +9,7 @@
   "modules": [
     {
       "$type": "ThunderRoad.EffectModuleReveal, ThunderRoad",
-      "maskTextureAddress": "Bas.Texture.RevealMask.FleshBlunt",
+      "maskTextureContainerAddress": "Bas.TextureContainer.RevealMask.FleshBlunt",
       "applyOn": "Target",
       "typeFilter": "Default, Body, Outfit",
       "depth": 0.25,

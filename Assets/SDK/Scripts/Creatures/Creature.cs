@@ -57,10 +57,11 @@ namespace ThunderRoad
         public Transform jaw;
         public Vector3 jawMaxRotation = new Vector3(0, -30, 0);
 
-        [Header("Face")]
+        [Header("Head")]
         public bool autoEyeClipsActive = true;
         public List<CreatureEye> allEyes = new List<CreatureEye>();
         public List<CreatureData.EyeClip> eyeClips = new List<CreatureData.EyeClip>();
+        public List<SkinnedMeshRenderer> meshesToHideForFPV;
 
         [Header("Fall")]
         public float fallAliveAnimationHeight = 0.5f;
@@ -433,6 +434,33 @@ namespace ThunderRoad
         }
 #endif
 
+        #region Exposed SDK methods
+        public void Heal(float healing)
+        {
+        }
+
+        public void SetFaction(int factionId)
+        {
+        }
+
+        public void Damage(float amount)
+        {
+        }
+
+        public void Kill()
+        {
+        }
+
+        [Button]
+        public void Despawn(float delay)
+        {
+        }
+
+        [Button]
+        public void Despawn()
+        {
+        }
+        #endregion
 
     }
 }

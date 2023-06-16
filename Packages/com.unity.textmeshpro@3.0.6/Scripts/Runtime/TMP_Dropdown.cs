@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -737,7 +737,7 @@ namespace TMPro
         /// For world space canvases we don't know how it's used, but it could be e.g. for an in-game monitor.
         /// We consider it a fair constraint that the canvas must be big enough to contain dropdowns.
         /// </summary>
-        public void Show()
+        public virtual bool Show()
         {
             if (m_Coroutine != null)
             {
@@ -746,13 +746,13 @@ namespace TMPro
             }
 
             if (!IsActive() || !IsInteractable() || m_Dropdown != null)
-                return;
+                return false;
 
             // Get root Canvas.
             var list = TMP_ListPool<Canvas>.Get();
             gameObject.GetComponentsInParent(false, list);
             if (list.Count == 0)
-                return;
+                return false;
 
             Canvas rootCanvas = list[list.Count - 1];
             for (int i = 0; i < list.Count; i++)
@@ -770,7 +770,7 @@ namespace TMPro
             {
                 SetupTemplate();
                 if (!validTemplate)
-                    return;
+                    return false;
             }
 
             m_Template.gameObject.SetActive(true);
@@ -893,6 +893,8 @@ namespace TMPro
             itemTemplate.gameObject.SetActive(false);
 
             m_Blocker = CreateBlocker(rootCanvas);
+
+            return true;
         }
 
         /// <summary>
@@ -1083,7 +1085,7 @@ namespace TMPro
         /// <summary>
         /// Hide the dropdown list. I.e. close it.
         /// </summary>
-        public void Hide()
+        public virtual void Hide()
         {
             if (m_Coroutine == null)
             {
