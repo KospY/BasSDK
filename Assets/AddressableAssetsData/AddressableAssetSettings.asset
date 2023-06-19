@@ -30,7 +30,7 @@ MonoBehaviour:
   m_StripUnityVersionFromBundleBuild: 1
   m_DisableVisibleSubAssetRepresentations: 0
   m_ShaderBundleNaming: 2
-  m_ShaderBundleCustomNaming: Proto
+  m_ShaderBundleCustomNaming: bas
   m_MonoScriptBundleNaming: 0
   m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
@@ -39,14 +39,48 @@ MonoBehaviour:
     m_Id: f0d6e0cdd8192a84f819089abb779b64
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 2
-  m_overridePlayerVersion: Proto
+  m_overridePlayerVersion: bas
   m_GroupAssets:
+  - {fileID: 11400000, guid: fbe88945f5fd22549a3b2283780ee7c2, type: 2}
   - {fileID: 11400000, guid: cfc7bd780798872419ab40cac555580b, type: 2}
+  - {fileID: 11400000, guid: 7b5cd7845295efe449821e24b3a47891, type: 2}
   - {fileID: 11400000, guid: dada93e4e3a09ef4ba4a1759a0d8f911, type: 2}
   - {fileID: 11400000, guid: 8056bd77f330a8348bb12d7cb956bea0, type: 2}
   - {fileID: 11400000, guid: 256939aa0931a9f448e8a6a0765902d7, type: 2}
   - {fileID: 11400000, guid: 9f937fc8a19b3ae429f92c02db43898a, type: 2}
   - {fileID: 11400000, guid: 6c00cdf8a2c6afb419ce6148fbb245c0, type: 2}
+  - {fileID: 11400000, guid: 1cbfe3a3842f0e547bb344352a88b99b, type: 2}
+  - {fileID: 11400000, guid: a594160ac04c1be4a9acc4c6122953ed, type: 2}
+  - {fileID: 11400000, guid: 90202793340463146b349a0700568e84, type: 2}
+  - {fileID: 11400000, guid: 92895d259cb16fc43be50d1050208e55, type: 2}
+  - {fileID: 11400000, guid: b80440ab508e1cc4fb8ee958c4b7b789, type: 2}
+  - {fileID: 11400000, guid: ebe379b717d6b2c48b6aaefaac1d8a0d, type: 2}
+  - {fileID: 11400000, guid: 3aa89b373a1efa14fafbff5c7372dcc8, type: 2}
+  - {fileID: 11400000, guid: 6d365c0dc0532324e899cfa057d49684, type: 2}
+  - {fileID: 11400000, guid: b08f1e5e1520f074e80acdb0ddb671c9, type: 2}
+  - {fileID: 11400000, guid: 5088161152a501f45a535505b7ed3ecd, type: 2}
+  - {fileID: 11400000, guid: 851661a908877b04fa449c4bec6aea1e, type: 2}
+  - {fileID: 11400000, guid: 90e4c1c48c87cd5469fcc5b7478a5308, type: 2}
+  - {fileID: 11400000, guid: 00080dd5eaf88594b8ac3b5372d73b6b, type: 2}
+  - {fileID: 11400000, guid: 72120b58888e1064f833e64392f6b7e3, type: 2}
+  - {fileID: 11400000, guid: 53753514782f4b54aab1832255592318, type: 2}
+  - {fileID: 11400000, guid: 96f5df46332f5c143a92354addfd92fc, type: 2}
+  - {fileID: 11400000, guid: af6c372f60a9d5c468c97a281e7dbf0f, type: 2}
+  - {fileID: 11400000, guid: 3727da12dfd3ba244af931e0e4898927, type: 2}
+  - {fileID: 11400000, guid: 3197c86ec5041654383fa4a89875fc91, type: 2}
+  - {fileID: 11400000, guid: e285b2c9229bad744b4dbd30f9d059b7, type: 2}
+  - {fileID: 11400000, guid: a19dc6cacab42af46beb847307bf4b56, type: 2}
+  - {fileID: 11400000, guid: 1cfb3b4fcb76b57488d3c0b083d8a767, type: 2}
+  - {fileID: 11400000, guid: 7ebeaff67d496a5488c8470e1d347556, type: 2}
+  - {fileID: 11400000, guid: f3a26f749a957284dafdac961f2905d1, type: 2}
+  - {fileID: 11400000, guid: 9b369e2d588cce846ab15bc5e53ad7ad, type: 2}
+  - {fileID: 11400000, guid: d2fba4d351c1bbb45a74b19fd3b14ee4, type: 2}
+  - {fileID: 11400000, guid: 37d1797fb99cd4148b75245ba6d9cf76, type: 2}
+  - {fileID: 11400000, guid: 489c52152fac8df40b46d20de9914d2b, type: 2}
+  - {fileID: 11400000, guid: 6a1dce99e32e3264398a2b7825163c1b, type: 2}
+  - {fileID: 11400000, guid: 29eff7bece0c19841a0a14b0dcedf4dc, type: 2}
+  - {fileID: 11400000, guid: e9d6f398fee948b4ca5e6a716cbec735, type: 2}
+  - {fileID: 11400000, guid: 73506c337072016438bbf65538b87502, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -61,7 +95,7 @@ MonoBehaviour:
       - m_Id: ce15733c007f6d84a9cd434894e23ab1
         m_Value: '[ThunderRoad.AssetBundleBuilder.assetsLocalPath]'
       - m_Id: f0d6e0cdd8192a84f819089abb779b64
-        m_Value: '{ThunderRoad.FileManager.aaModPath}/Proto'
+        m_Value: '{ThunderRoad.FileManager.aaDefaultPath}'
       - m_Id: d8fad135d0762f943a80ca7860c8e9fc
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]'
       - m_Id: 3868748ffde3b334bbd8b7acf4ed429e
@@ -82,9 +116,133 @@ MonoBehaviour:
     m_ProfileVersion: 1
   m_LabelTable:
     m_LabelNames:
+    - Room
     - Windows
     - Android
     - Area
+    - Soldier
+    - Mercenary
+    - Gladiator
+    - Civilian
+    - Battlemage
+    - Bandit
+    - Druid
+    - ImprovisedLeather
+    - ImprovisedMage
+    - ImprovisedArmor
+    - WarMage
+    - Rogue
+    - Human
+    - Shopkeeper
+    - Officer
+    - Eradian
+    - Kharese
+    - Sentari
+    - Raike
+    - Madene
+    - Chicken
+    - Hat
+    - Apparel
+    - Props1
+    - Props2
+    - Apple
+    - Tools_01
+    - SP00-01
+    - PotionHealth
+    - SimpleAtlas
+    - ComplexAtlas
+    - HorizontalAtlas
+    - TransparantAtlas
+    - Rope
+    - WoodenPicFence
+    - Books
+    - Table
+    - WoodLog
+    - Pottery
+    - Bone
+    - Bench
+    - Cart
+    - DoorHome
+    - Crate
+    - Barrel
+    - Board
+    - Chandelier
+    - Lever
+    - Anvil
+    - Colonne
+    - Wheelbarrow
+    - VFX
+    - Map
+    - Altar
+    - Stone
+    - GL_XSTransi_xC&C_ForgottenEntrance
+    - GL_Arena_Castle_Library
+    - GL_Arena_Ext_WaterMill
+    - GL_Arena_xC&C_Chapel
+    - GL_End_Arena_Outpost
+    - GL_End_Arena_Watchtower
+    - GL_End_Cave_TheLostCove
+    - GL_Start_Lighthouse
+    - GL_Std_C&C_ElevatedStairs
+    - GL_Std_C&C_FallenCorridor
+    - GL_Std_Castle_Ascent
+    - GL_Std_Castle_CliffTerrace
+    - GL_Std_Castle_Courtyard
+    - GL_Std_Castle_KingCorridor
+    - GL_Std_Castle_SewerGate
+    - GL_Std_Castle_SmallGarden
+    - GL_Std_Castle_ViaductZipline
+    - GL_Std_Int_CollapsedCeiling
+    - GL_Std_xCastle&Cave_Source
+    - GL_Transi_C&C_RavineZipline
+    - GL_Transi_Castle_Barracks
+    - GL_Transi_Castle_BelowTheBridge
+    - GL_Transi_Castle_Chasm
+    - GL_Transi_Castle_ClimbingChasm
+    - GL_Transi_Castle_Courtyard
+    - GL_Transi_Castle_Hallway01
+    - GL_Transi_Castle_RopeTraverse
+    - GL_Transi_Castle_Sewer1
+    - GL_Transi_Castle_SewerMaintenance
+    - GL_Transi_Castle_SewerRerout
+    - GL_Transi_Castle_StorageHallway
+    - GL_Transi_Castle_TwoFloorsCorridor
+    - GL_Transi_Cave_AbandonedSewers
+    - GL_Transi_Cave_Mine
+    - GL_Transi_Cave_Streamline
+    - GL_Transi_Cave_Underground
+    - GL_Transi_Cave_UndergroundParkour
+    - GL_Transi_Cave_UndergroundZipline
+    - GL_Transi_Ext_TowerSite
+    - GL_Transi_xC&C_03
+    - GL_Transi_xC&C_08
+    - GL_Transi_xC&C_RockyWell
+    - GL_Transi_xGrass&Cave_Granary
+    - GL_XSTransi_Castle_01
+    - GL_XSTransi_Castle_02
+    - GL_XSTransi_Castle_03
+    - GL_XSTransi_Castle_04
+    - GL_XSTransi_Castle_05
+    - GL_XSTransi_Castle_06
+    - GL_XSTransi_Castle_08
+    - GL_XSTransi_Castle_09
+    - GL_XSTransi_Castle_10
+    - GL_XSTransi_Castle_11
+    - GL_XSTransi_Castle_13
+    - GL_XSTransi_Castle_14
+    - GL_XSTransi_Castle_15
+    - GL_XSTransi_Castle_16
+    - GL_XSTransi_Castle_17
+    - GL_XSTransi_Castle_18
+    - GL_XSTransi_Castle_19
+    - GL_XSTransi_Castle_20
+    - GL_XSTransi_Castle_21
+    - GL_XSTransi_Castle_22
+    - GL_XSTransi_Castle_23
+    - GL_XSTransi_Castle_Underwater1
+    - GL_XSTransi_Cave_10
+    - GL_XSTransi_Cave_11
+    - GL_XSTransi_Cave_12
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: b2091e8321e676b4eb1c72cfbde3dec2, type: 2}
