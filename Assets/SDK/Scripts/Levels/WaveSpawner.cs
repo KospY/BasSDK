@@ -58,5 +58,25 @@ namespace ThunderRoad
         public static UnityEvent<WaveSpawner> OnWaveSpawnerStartRunningEvent = new UnityEvent<WaveSpawner>();
         public static UnityEvent<WaveSpawner> OnWaveSpawnerStopRunningEvent = new UnityEvent<WaveSpawner>();
 
+        #region Exposed SDK methods
+        public void StartWave(string waveId)
+        {
+        }
+
+        [Button]
+        public void CancelWave()
+        {
+        }
+
+        [Button]
+        public void StopWave(bool success)
+        {
+        }
+
+        public void Clean()
+        {
+        }
+        #endregion
+
     }
 }

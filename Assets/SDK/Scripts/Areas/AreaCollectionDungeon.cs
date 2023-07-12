@@ -515,9 +515,11 @@ namespace ThunderRoad
 
                         if (tempSpawnableArea != null)
                         {
-                            DropTable<AreaPlacement>.Drop drop = new DropTable<AreaPlacement>.Drop();
-                            drop.dropItem = tempSpawnableArea;
-                            drop.probabilityWeight = areaGroup.areaSettingTable.drops[indexArea].probabilityWeight;
+                            DropTable<AreaPlacement>.Drop drop = new DropTable<AreaPlacement>.Drop
+                            {
+                                dropItem = tempSpawnableArea,
+                                probabilityWeight = areaGroup.areaSettingTable.drops[indexArea].probabilityWeight
+                            };
                             areaPool.drops.Add(drop);
                         }
                     }
@@ -597,8 +599,8 @@ namespace ThunderRoad
                             if (exitCount == 0 && allowNoExit)
                             {
                                 AreaPlacement spawnArea = new AreaPlacement(spawnableBp, entranceConnectionIndex, -1, bpGenerator, areaSetting, pathGroup);
-                                if (!root.IntersectRecursif(spawnableBp, bounds_margin)
-                                     && !IsDeadEnd(deadEndAreaSettings, spawnArea))
+                                if (!root.IntersectRecursive(spawnableBp, bounds_margin)
+                                    && !IsDeadEnd(deadEndAreaSettings, spawnArea))
                                 {
                                     spawnableDataList.Add(spawnArea);
                                 }
@@ -623,9 +625,7 @@ namespace ThunderRoad
                                                                             areaSetting,
                                                                             pathGroup);
 
-
-
-                                if (!root.IntersectRecursif(spawnableBp, bounds_margin)
+                                if (!root.IntersectRecursive(spawnableBp, bounds_margin)
                                     && !IsDeadEnd(deadEndAreaSettings, spawnArea))
                                 {
                                     spawnableDataList.Add(spawnArea);
@@ -781,16 +781,20 @@ namespace ThunderRoad
             for (int indexBackup = 0; indexBackup < backupCount; indexBackup++)
             {
                 BackupData backupData = backupList[indexBackup];
-                AreaCollectionFixLayout backupFixLayout = new AreaCollectionFixLayout();
-                backupFixLayout.id = "DungeonBackup_" + id + "_" + indexBackup;
+                AreaCollectionFixLayout backupFixLayout = new AreaCollectionFixLayout
+                {
+                    id = "DungeonBackup_" + id + "_" + indexBackup
+                };
                 backupData.areaDataBackupIdContainer.dataId = backupFixLayout.id;
                 backupData.areaDataBackupIdContainer.category = Category.AreaCollection;
 
-                backupFixLayout.allowedRotation = new List<AreaRotationHelper.Rotation>();
-                backupFixLayout.allowedRotation.Add(AreaRotationHelper.Rotation.Front);
-                backupFixLayout.allowedRotation.Add(AreaRotationHelper.Rotation.Back);
-                backupFixLayout.allowedRotation.Add(AreaRotationHelper.Rotation.Left);
-                backupFixLayout.allowedRotation.Add(AreaRotationHelper.Rotation.Right);
+                backupFixLayout.allowedRotation = new List<AreaRotationHelper.Rotation>
+                {
+                    AreaRotationHelper.Rotation.Front,
+                    AreaRotationHelper.Rotation.Back,
+                    AreaRotationHelper.Rotation.Left,
+                    AreaRotationHelper.Rotation.Right
+                };
 
                 DungeonBlueprint dungeonBlueprint;
 
@@ -818,7 +822,7 @@ namespace ThunderRoad
                 {
                     AreaCollectionFixLayout.AreaLayout tempLayout = new AreaCollectionFixLayout.AreaLayout();
                     AreaPlacement areaPlacement = dungeonBlueprint.GetAreaPlacementAt(indexArea);
-                    ThunderRoad.Category category = areaPlacement.SpawnableBluePrint is AreaData.AreaBlueprint ? Category.Area : Category.AreaCollection;
+                    Category category = areaPlacement.SpawnableBluePrint is AreaData.AreaBlueprint ? Category.Area : Category.AreaCollection;
                     tempLayout.bpGeneratorId = new IAreaBlueprintGenerator.IAreaBlueprintGeneratorIdContainer(areaPlacement.BpGeneratorId, category);
                     tempLayout.rotation = areaPlacement.SpawnableBluePrint.Rotation;
                     tempLayout.creatureNumberWeight = areaPlacement.AreaSettings.maxCreature * areaPlacement.PathGroup.creatureFillPercentage;
@@ -845,33 +849,36 @@ namespace ThunderRoad
         }
 
         // Stat Tool
+        [JsonIgnore]
         public string StatsResultFileFolderPath = "BuildStaging/DungeonsResults";
+        [JsonIgnore]
         public int numberTest;
-        public List<Platform> plateformTypes;
+        [JsonIgnore]
+        public List<Platform> platformTypes;
 
         [Button]
         public void UpdateStats()
         {
-            if (plateformTypes == null || plateformTypes.Count == 0)
+            if (platformTypes == null || platformTypes.Count == 0)
             {
-                Debug.LogError("No plateform Type selected");
+                Debug.LogError("No platform Type selected");
                 return;
             }
 
             Platform currentPlatform = Common.GetPlatform();
 
-            int plateformCount = plateformTypes.Count;
+            int platformCount = platformTypes.Count;
 
-            Dictionary<string, int>[] areaPickCount = new Dictionary<string, int>[plateformCount];
-            Dictionary<string, int>[] areaDeadEndCount = new Dictionary<string, int>[plateformCount];
-            Dictionary<string, bool>[] areaIsSpawnable = new Dictionary<string, bool>[plateformCount];
+            Dictionary<string, int>[] areaPickCount = new Dictionary<string, int>[platformCount];
+            Dictionary<string, int>[] areaDeadEndCount = new Dictionary<string, int>[platformCount];
+            Dictionary<string, bool>[] areaIsSpawnable = new Dictionary<string, bool>[platformCount];
             int dungeonPathGroupCount = path.Count;
 
-            for (int indexPlatefom = 0; indexPlatefom < plateformCount; indexPlatefom++)
+            for (int indexPlatform = 0; indexPlatform < platformCount; indexPlatform++)
             {
-                areaPickCount[indexPlatefom] = new Dictionary<string, int>();
-                areaDeadEndCount[indexPlatefom] = new Dictionary<string, int>();
-                areaIsSpawnable[indexPlatefom] = new Dictionary<string, bool>();
+                areaPickCount[indexPlatform] = new Dictionary<string, int>();
+                areaDeadEndCount[indexPlatform] = new Dictionary<string, int>();
+                areaIsSpawnable[indexPlatform] = new Dictionary<string, bool>();
 
                 for (int indexPathGroup = 0; indexPathGroup < dungeonPathGroupCount; indexPathGroup++)
                 {
@@ -882,32 +889,32 @@ namespace ThunderRoad
                         foreach (var drops in table.areaSettingTable.drops)
                         {
                             string id = drops.dropItem.bpGeneratorIdContainer.dataId;
-                            if (!areaPickCount[indexPlatefom].ContainsKey(id))
+                            if (!areaPickCount[indexPlatform].ContainsKey(id))
                             {
-                                areaPickCount[indexPlatefom].Add(id, 0);
+                                areaPickCount[indexPlatform].Add(id, 0);
 
                                 bool isSpawnable = drops.dropItem.bpGeneratorIdContainer.BlueprintGenerator.IsSpawnable();
 
-                                areaIsSpawnable[indexPlatefom].Add(id, isSpawnable);
+                                areaIsSpawnable[indexPlatform].Add(id, isSpawnable);
                             }
 
-                            if (!areaDeadEndCount[indexPlatefom].ContainsKey(id))
+                            if (!areaDeadEndCount[indexPlatform].ContainsKey(id))
                             {
-                                areaDeadEndCount[indexPlatefom].Add(id, 0);
+                                areaDeadEndCount[indexPlatform].Add(id, 0);
                             }
                         }
                     }
                 }
             }
 
-            List<int>[] failureSeed = new List<int>[plateformCount];
-            float[] meanRetry = new float[plateformCount];
+            List<int>[] failureSeed = new List<int>[platformCount];
+            float[] meanRetry = new float[platformCount];
 
-            for (int indexPlatefom = 0; indexPlatefom < plateformCount; indexPlatefom++)
+            for (int indexPlatform = 0; indexPlatform < platformCount; indexPlatform++)
             {
-                Common.SetPlatform(plateformTypes[indexPlatefom]);
-                failureSeed[indexPlatefom] = new List<int>();
-                meanRetry[indexPlatefom] = 0.0f;
+                Common.SetPlatform(platformTypes[indexPlatform]);
+                failureSeed[indexPlatform] = new List<int>();
+                meanRetry[indexPlatform] = 0.0f;
                 for (int indexTest = 0; indexTest < numberTest; indexTest++)
                 {
                     if (indexTest > 0)
@@ -924,22 +931,22 @@ namespace ThunderRoad
 
                     if (!success)
                     {
-                        failureSeed[indexPlatefom].Add(tempSeed);
+                        failureSeed[indexPlatform].Add(tempSeed);
                     }
                     else
                     {
-                        meanRetry[indexPlatefom] += retry;
+                        meanRetry[indexPlatform] += retry;
                         int tempAreaCount = resultBp.AreaCount;
                         for (int indexArea = 0; indexArea < tempAreaCount; indexArea++)
                         {
                             AreaPlacement areaPlacement = resultBp.GetAreaPlacementAt(indexArea);
-                            areaPickCount[indexPlatefom][areaPlacement.BpGeneratorId]++;
+                            areaPickCount[indexPlatform][areaPlacement.BpGeneratorId]++;
                         }
                     }
 
                     foreach (string areaId in areaDeadEnd)
                     {
-                        areaDeadEndCount[indexPlatefom][areaId]++;
+                        areaDeadEndCount[indexPlatform][areaId]++;
                     }
                 }
             }
@@ -953,31 +960,31 @@ namespace ThunderRoad
             writer.WriteLine("Dungeon Id : " + id + "; Number Test : " + numberTest);
             writer.WriteLine("");
             int areaCount = areaPickCount[0].Count;
-            string linePlateform = string.Empty;
+            string linePlatform = string.Empty;
             string lineHeader = string.Empty;
             string retryHeader = string.Empty;
             string[] lineArea = new string[areaCount];
-            for (int indexPlateform = 0; indexPlateform < plateformCount; indexPlateform++)
+            for (int indexPlatform = 0; indexPlatform < platformCount; indexPlatform++)
             {
-                linePlateform += plateformTypes[indexPlateform].ToString() + ";Number failure : ;" + failureSeed[indexPlateform].Count + ";;";
-                float numberSuccess = numberTest - failureSeed[indexPlateform].Count;
-                retryHeader += ";" + ((numberSuccess > 0) ? "Mean retry :; " + (meanRetry[indexPlateform] / numberSuccess) + ";;"
+                linePlatform += platformTypes[indexPlatform] + ";Number failure : ;" + failureSeed[indexPlatform].Count + ";;";
+                float numberSuccess = numberTest - failureSeed[indexPlatform].Count;
+                retryHeader += ";" + ((numberSuccess > 0) ? "Mean retry :; " + (meanRetry[indexPlatform] / numberSuccess) + ";;"
                                                             : ";;;");
                 lineHeader += "Area Id;Pick Count;Dead End Count;;";
 
                 int lineIndex = 0;
-                foreach (KeyValuePair<string, int> pair in areaPickCount[indexPlateform])
+                foreach (KeyValuePair<string, int> pair in areaPickCount[indexPlatform])
                 {
                     string areaId = pair.Key;
                     int pickCount = pair.Value;
-                    int deadEndCount = areaDeadEndCount[indexPlateform][areaId];
+                    int deadEndCount = areaDeadEndCount[indexPlatform][areaId];
 
                     lineArea[lineIndex] += areaId + ";" + pickCount + ";" + deadEndCount + ";;";
                     lineIndex++;
                 }
             }
 
-            writer.WriteLine(linePlateform);
+            writer.WriteLine(linePlatform);
             writer.WriteLine(retryHeader);
             writer.WriteLine("");
             writer.WriteLine(lineHeader);
@@ -988,17 +995,17 @@ namespace ThunderRoad
 
             string failureHeader = string.Empty;
             List<string> lineFailure = new List<string>();
-            for (int indexPlateform = 0; indexPlateform < plateformCount; indexPlateform++)
+            for (int indexPlatform = 0; indexPlatform < platformCount; indexPlatform++)
             {
                 failureHeader += "Failure seed : ;;;;";
-                for (int indexFailure = 0; indexFailure < failureSeed[indexPlateform].Count; indexFailure++)
+                for (int indexFailure = 0; indexFailure < failureSeed[indexPlatform].Count; indexFailure++)
                 {
                     if (indexFailure >= lineFailure.Count)
                     {
                         lineFailure.Add(string.Empty);
                     }
 
-                    lineFailure[indexFailure] += failureSeed[indexPlateform][indexFailure] + ";;;;";
+                    lineFailure[indexFailure] += failureSeed[indexPlatform][indexFailure] + ";;;;";
                 }
             }
 

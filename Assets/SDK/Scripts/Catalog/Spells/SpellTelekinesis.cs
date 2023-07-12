@@ -86,8 +86,10 @@ namespace ThunderRoad
         public float gripDistance;
         [NonSerialized]
         public Rigidbody grip;
-        protected ConfigurableJoint joint;
-        protected ConstantForce hangingMassForce;
+        [NonSerialized]
+        public ConfigurableJoint joint;
+        [NonSerialized]
+        public ConstantForce hangingMassForce;
         [NonSerialized]
         public bool justCatched;
 

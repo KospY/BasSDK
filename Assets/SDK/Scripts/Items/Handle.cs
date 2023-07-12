@@ -57,9 +57,8 @@ namespace ThunderRoad
         public Handle moveToHandle;
         [Tooltip("Axis Position for the \"Move To Handle\" handle")]
         public float moveToHandleAxisPos = 0;
-
-        [NonSerialized]
-        public bool updatePosesWhenWeightChanges = false;
+        [Tooltip("When this box is checked, hand poses will update whenever the target weight changes or whenever the pose data changes.")]
+        public bool updatePosesAutomatically = false;
 
         [Obsolete, Header("This is Obsolete. Please use Handle Pose button instead.")]
         public List<Orientation> allowedOrientations = new List<Orientation>();
@@ -249,7 +248,7 @@ namespace ThunderRoad
 
         public virtual void SetUpdatePoses(bool active)
         {
-            updatePosesWhenWeightChanges = active;
+            updatePosesAutomatically = active;
         }
 
         // These methods intentionally exposed for public SDK use

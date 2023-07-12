@@ -409,7 +409,7 @@ namespace ThunderRoad
 
             if (connection == null)
             {
-                Debug.LogError($"connection Index : {indexConnection} is invalide for sub area Managed");
+                Debug.LogError($"connection Index : {indexConnection} is invalid for sub area Managed");
                 return Vector3.zero;
             }
 
@@ -501,7 +501,6 @@ namespace ThunderRoad
 
         public ConnectedArea GetConnectedArea(string areaId, int indexConnection)
         {
-
             SpawnableArea subArea;
             int indexConnectionSubArea;
             string subAreaId;
@@ -610,13 +609,13 @@ namespace ThunderRoad
             return resultTree;
         }
 
-        public bool IntersectRecursif(Bounds otherBound, float boundsMargin)
+        public bool IntersectRecursive(Bounds otherBound, float boundsMargin)
         {
             HashSet<SpawnableArea> taggedArea = new HashSet<SpawnableArea>();
-            return IntersectRecursif(otherBound, boundsMargin, ref taggedArea);
+            return IntersectRecursive(otherBound, boundsMargin, ref taggedArea);
         }
 
-        private bool IntersectRecursif(Bounds otherBound, float boundsMargin, ref HashSet<SpawnableArea> taggedArea)
+        private bool IntersectRecursive(Bounds otherBound, float boundsMargin, ref HashSet<SpawnableArea> taggedArea)
         {
             if (!taggedArea.Add(this))
             {
@@ -635,7 +634,7 @@ namespace ThunderRoad
 
             foreach (KeyValuePair<int, ConnectedArea> pair in _connectedArea)
             {
-                if (pair.Value.connectedArea.IntersectRecursif(otherBound, boundsMargin, ref taggedArea))
+                if (pair.Value.connectedArea.IntersectRecursive(otherBound, boundsMargin, ref taggedArea))
                 {
                     return true;
                 }
@@ -644,13 +643,13 @@ namespace ThunderRoad
             return false;
         }
 
-        public bool IntersectRecursif(IAreaBlueprintGenerator.SpawnableBlueprint bluePrint, float boundsMargin)
+        public bool IntersectRecursive(IAreaBlueprintGenerator.SpawnableBlueprint bluePrint, float boundsMargin)
         {
             HashSet<SpawnableArea> taggedArea = new HashSet<SpawnableArea>();
-            return IntersectRecursif(bluePrint, boundsMargin, ref taggedArea);
+            return IntersectRecursive(bluePrint, boundsMargin, ref taggedArea);
         }
 
-        private bool IntersectRecursif(IAreaBlueprintGenerator.SpawnableBlueprint bluePrint, float boundsMargin, ref HashSet<SpawnableArea> taggedArea)
+        private bool IntersectRecursive(IAreaBlueprintGenerator.SpawnableBlueprint bluePrint, float boundsMargin, ref HashSet<SpawnableArea> taggedArea)
         {
             if (!taggedArea.Add(this))
             {
@@ -669,7 +668,7 @@ namespace ThunderRoad
 
             foreach (KeyValuePair<int, ConnectedArea> pair in _connectedArea)
             {
-                if (pair.Value.connectedArea.IntersectRecursif(bluePrint, boundsMargin, ref taggedArea))
+                if (pair.Value.connectedArea.IntersectRecursive(bluePrint, boundsMargin, ref taggedArea))
                 {
                     return true;
                 }
