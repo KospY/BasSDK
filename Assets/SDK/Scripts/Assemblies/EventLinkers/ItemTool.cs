@@ -8,6 +8,7 @@ namespace ThunderRoad
     {
         public static Item currentEventItem;
 
+        public bool clearAfterAction = false;
         public List<SelectionSetting> selectors = new List<SelectionSetting>();
 
         [NonSerialized]
@@ -82,22 +83,27 @@ namespace ThunderRoad
         #region Selected item tools
         public void CopyComponentToSelection(Component component)
         {
+            if (clearAfterAction) ClearSelections();
         }
 
         public void RemoveComponentFromSelection(Component component)
         {
+            if (clearAfterAction) ClearSelections();
         }
 
         public void BreakSelectedBreakables()
         {
+            if (clearAfterAction) ClearSelections();
         }
 
         public void EquipOneSelectedToHand(RagdollHand hand)
         {
+            if (clearAfterAction) ClearSelections();
         }
 
         public void SwapSelectedWith(string itemID)
         {
+            if (clearAfterAction) ClearSelections();
         }
         #endregion
 

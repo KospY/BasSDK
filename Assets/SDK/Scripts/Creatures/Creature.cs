@@ -439,6 +439,14 @@ namespace ThunderRoad
         {
         }
 
+        public void ResurrectMaxHealth()
+        {
+        }
+
+        public void Resurrect(float healing)
+        {
+        }
+
         public void SetFaction(int factionId)
         {
         }

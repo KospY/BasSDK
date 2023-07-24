@@ -12,6 +12,7 @@ namespace ThunderRoad
         public static Creature currentEventCreature;
         public static RagdollPart currentEventPart;
 
+        public bool clearAfterAction = false;
         public string defaultNameFilter = "Human";
         public CreatureEventLinker.LifeState defaultAliveState = CreatureEventLinker.LifeState.Either;
         public List<SelectionSetting> selectors = new List<SelectionSetting>();
@@ -113,34 +114,52 @@ namespace ThunderRoad
         #region Selected creature tools
         public void CopyComponentToSelection(Component component)
         {
+            if (clearAfterAction) ClearSelections();
         }
 
         public void RemoveComponentFromSelection(Component component)
         {
+            if (clearAfterAction) ClearSelections();
         }
 
         public void CopyComponentToAllSelectionParts(Component component)
         {
+            if (clearAfterAction) ClearSelections();
         }
 
         public void RemoveComponentFromAllSelectionParts(Component component)
         {
+            if (clearAfterAction) ClearSelections();
         }
 
         public void RunRagdollPartActionAtIndex(int index)
         {
+            if (clearAfterAction) ClearSelections();
         }
 
         public void HealSelection(float healing)
         {
+            if (clearAfterAction) ClearSelections();
+        }
+
+        public void ResurrectSelection(float healing)
+        {
+            if (clearAfterAction) ClearSelections();
+        }
+
+        public void ResurrectSelectionMaxHealth()
+        {
+            if (clearAfterAction) ClearSelections();
         }
 
         public void OneSelectedRightHandGrab(Handle handle)
         {
+            if (clearAfterAction) ClearSelections();
         }
 
         public void OneSelectedLeftHandGrab(Handle handle)
         {
+            if (clearAfterAction) ClearSelections();
         }
 
         public void ReleaseRightHandsSelection() => ReleaseHandsSelection(false, true);
@@ -151,6 +170,7 @@ namespace ThunderRoad
 
         protected void ReleaseHandsSelection(bool left, bool right)
         {
+            if (clearAfterAction) ClearSelections();
         }
 
         public void FreezeSelection() => RagdollStateSelection(Ragdoll.State.Frozen);
@@ -161,38 +181,47 @@ namespace ThunderRoad
 
         protected void RagdollStateSelection(Ragdoll.State state)
         {
+            if (clearAfterAction) ClearSelections();
         }
 
         public void TeleportSelection(Transform target)
         {
+            if (clearAfterAction) ClearSelections();
         }
 
         public void ManaDeltaSelection(float manaChange)
         {
+            if (clearAfterAction) ClearSelections();
         }
 
         public void DamageSelection(float damage)
         {
+            if (clearAfterAction) ClearSelections();
         }
 
         public void KillSelection()
         {
+            if (clearAfterAction) ClearSelections();
         }
 
-        public void SliceSelectionNecks(bool dontKill)
+        public void DecapitateSelection(bool dontKill)
         {
+            if (clearAfterAction) ClearSelections();
         }
 
         public void FullSliceSelection(bool dontKill)
         {
+            if (clearAfterAction) ClearSelections();
         }
 
         public void ShredSelection(bool dontKill)
         {
+            if (clearAfterAction) ClearSelections();
         }
 
         public void DespawnSelection()
         {
+            if (clearAfterAction) ClearSelections();
         }
         #endregion
 
@@ -218,6 +247,14 @@ namespace ThunderRoad
         }
 
         public void HealEventTarget(float healing)
+        {
+        }
+
+        public void ResurrectEventTarget(float healing)
+        {
+        }
+
+        public void ResurrectEventTargetMaxHealth()
         {
         }
 
@@ -265,7 +302,7 @@ namespace ThunderRoad
         {
         }
 
-        public void SliceEventTargetNeck(bool dontKill)
+        public void DecapitateEventTarget(bool dontKill)
         {
         }
 
