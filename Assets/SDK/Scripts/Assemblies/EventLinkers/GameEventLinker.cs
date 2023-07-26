@@ -25,6 +25,9 @@ namespace ThunderRoad
             OnItemDespawn = 7,
             OnPlayerSpawn = 8,
             OnPlayerPossessCreature = 9,
+            OnLinkerStart = 10,
+            ItemBreakStart = 11,
+            ItemBreakEnd = 12,
         }
 
         public enum FromType

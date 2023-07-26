@@ -8,7 +8,7 @@ using System.IO;
 namespace ThunderRoad
 {
     
-    public class AreaGateway : MonoBehaviour
+    public class AreaGateway : MonoBehaviour, ILiteMemoryToggle
     {
         public Bounds localBounds;
 
@@ -23,6 +23,13 @@ namespace ThunderRoad
 
         [NonSerialized]
         public ReflectionSorcery fakeView;
+        [NonSerialized]
+        public Matrix4x4 capturedMatrix;
+        [NonSerialized]
+        public bool isFakeviewData;
+        [NonSerialized]
+        public bool isFakeviewDataInUse;
+
 
         [NonSerialized]
         public Area area;
@@ -34,7 +41,9 @@ namespace ThunderRoad
         [NonSerialized]
         public Area connectedArea;
         [NonSerialized]
-        public int connectedAreaIndexConnection;
+        public AreaData.AreaConnection connectedConnection;
+
+        private bool _isInitialized = false;
 
         private Bounds _worldBounds;
         private bool _isActive = false;
@@ -69,10 +78,9 @@ namespace ThunderRoad
             area = spawnableArea.SpawnedArea;
             this.indexConnection = indexGateway;
 
-            InitFakeView(spawnableArea, indexGateway, connectedSpawnableArea);
-
-            this.connectedAreaIndexConnection = connectedAreaIndexConnection;
+            this.connectedConnection = connectedSpawnableArea.GetConnection(connectedSpawnableArea.AreaDataId, connectedAreaIndexConnection);
             this.connectedSpawnableArea = connectedSpawnableArea;
+            InitFakeView();
 
             connectedSpawnableArea.SpawnAreaEvent += OnConnectedAreaSpawn;
             connectedSpawnableArea.DespawnAreaEvent += OnConnectedAreaDeSpawn;
@@ -84,6 +92,7 @@ namespace ThunderRoad
             // Compute WorldBounds
 
             _worldBounds = GetWorldBounds();
+            _isInitialized = true;
         }
 
         public Bounds GetWorldBounds()
@@ -98,65 +107,118 @@ namespace ThunderRoad
             return new Bounds(boundsWorldCenter, boundsWorldSize);
         }
 
-        public void InitFakeView(SpawnableArea spawnableArea, int indexGateway, SpawnableArea connectedSpawnableArea)
+        public void InitFakeView()
         {
-            fakeView = this.GetComponentInChildren<ReflectionSorcery>();
+            if(fakeView == null) fakeView = this.GetComponentInChildren<ReflectionSorcery>();
             if (fakeView == null) return;
 
-            FakeViewData fakeViewData = spawnableArea.GetFakeViewData(indexGateway);
-            if (fakeViewData == null)
+            isFakeviewData = connectedConnection.fakeViewAddressLocation != null;
+            if (!isFakeviewData)
             {
                 fakeView.gameObject.SetActive(false);
                 fakeView = null;
             }
             else
             {
-                float connectedAreaRotationAngle = AreaRotationHelper.GetRotationDegreeFromRotation(connectedSpawnableArea.Rotation);
-                Quaternion connectedAreaRotation = Quaternion.Euler(0.0f, -connectedAreaRotationAngle, 0.0f);
-
-                float areaRotationAngle = AreaRotationHelper.GetRotationDegreeFromRotation(spawnableArea.Rotation);
-                Quaternion areaRotation = Quaternion.Euler(0.0f, areaRotationAngle, 0.0f);
-
-                Quaternion rotation = Quaternion.Euler(0.0f, connectedAreaRotationAngle - areaRotationAngle, 0.0f);
-
-                // Flip renderer
-                PassRotationMatrix renderer = fakeView.GetComponentInChildren<PassRotationMatrix>();
-                renderer.transform.rotation *= Quaternion.Euler(0.0f, 180.0f, 0.0f);
-
-                fakeView.resolution = fakeViewData.resolution;
-                fakeView.mask = fakeViewData.mask;
-                fakeView.capturePosition = fakeViewData.capturePosition;
-
-                Matrix4x4 capturedMatrix = Matrix4x4.Rotate(connectedAreaRotation * areaRotation);
-                bool isVertical = spawnableArea.GetConnection(spawnableArea.AreaDataId, indexGateway).IsVertical();
-                if (isVertical)
-                {
-                    fakeView.roomVolumePosition = fakeViewData.roomVolumePosition;
-                    fakeView.roomVolumeRotation = fakeViewData.roomVolumeRotation;
-                    fakeView.roomVolumeScale = fakeViewData.roomVolumeScale;
-                    capturedMatrix = fakeViewData.capturedMatrix;
-
-                    fakeView.transform.rotation *= rotation;
-                }
-                else
-                {
-                    fakeView.roomVolumePosition = rotation * fakeViewData.roomVolumePosition;
-                    fakeView.roomVolumeRotation = fakeViewData.roomVolumeRotation;
-                    Vector3 roomVolumeScale = rotation * fakeViewData.roomVolumeScale;
-                    roomVolumeScale.x = Mathf.Abs(roomVolumeScale.x);
-                    roomVolumeScale.y = Mathf.Abs(roomVolumeScale.y);
-                    roomVolumeScale.z = Mathf.Abs(roomVolumeScale.z);
-                    fakeView.roomVolumeScale = roomVolumeScale;
-                    capturedMatrix = Matrix4x4.Rotate(connectedAreaRotation * areaRotation) * fakeViewData.capturedMatrix;
-                }
-
-                fakeView.SetCaptureTexture(fakeViewData.captureTexture, capturedMatrix);
+                connectedConnection.GetFakeviewData(OnInitFakeviewDataLoaded);
             }
-
         }
 
+        private void OnInitFakeviewDataLoaded(FakeViewData fakeViewData)
+        {
+            ComputeFakeview(fakeViewData);
+            ApplyFakeviewTexture(fakeViewData);
+        }
+
+        private void ComputeFakeview(FakeViewData fakeViewData)
+        {
+            float connectedAreaRotationAngle = AreaRotationHelper.GetRotationDegreeFromRotation(connectedSpawnableArea.Rotation);
+            Quaternion connectedAreaRotation = Quaternion.Euler(0.0f, -connectedAreaRotationAngle, 0.0f);
+
+            float areaRotationAngle = AreaRotationHelper.GetRotationDegreeFromRotation(area.spawnableArea.Rotation);
+            Quaternion areaRotation = Quaternion.Euler(0.0f, areaRotationAngle, 0.0f);
+
+            Quaternion rotation = Quaternion.Euler(0.0f, connectedAreaRotationAngle - areaRotationAngle, 0.0f);
+
+            // Flip renderer
+            PassRotationMatrix renderer = fakeView.GetComponentInChildren<PassRotationMatrix>();
+            renderer.transform.rotation *= Quaternion.Euler(0.0f, 180.0f, 0.0f);
+
+            fakeView.resolution = fakeViewData.resolution;
+            fakeView.mask = fakeViewData.mask;
+            fakeView.capturePosition = fakeViewData.capturePosition;
+
+            capturedMatrix = Matrix4x4.Rotate(connectedAreaRotation * areaRotation);
+            bool isVertical = area.spawnableArea.GetConnection(area.spawnableArea.AreaDataId, indexConnection).IsVertical();
+            if (isVertical)
+            {
+                fakeView.roomVolumePosition = fakeViewData.roomVolumePosition;
+                fakeView.roomVolumeRotation = fakeViewData.roomVolumeRotation;
+                fakeView.roomVolumeScale = fakeViewData.roomVolumeScale;
+                capturedMatrix = fakeViewData.capturedMatrix;
+
+                fakeView.transform.rotation *= rotation;
+            }
+            else
+            {
+                fakeView.roomVolumePosition = rotation * fakeViewData.roomVolumePosition;
+                fakeView.roomVolumeRotation = fakeViewData.roomVolumeRotation;
+                Vector3 roomVolumeScale = rotation * fakeViewData.roomVolumeScale;
+                roomVolumeScale.x = Mathf.Abs(roomVolumeScale.x);
+                roomVolumeScale.y = Mathf.Abs(roomVolumeScale.y);
+                roomVolumeScale.z = Mathf.Abs(roomVolumeScale.z);
+                fakeView.roomVolumeScale = roomVolumeScale;
+                capturedMatrix = Matrix4x4.Rotate(connectedAreaRotation * areaRotation) * fakeViewData.capturedMatrix;
+            }
+        }
+        private void ApplyFakeviewTexture(FakeViewData fakeViewData)
+        {
+            fakeView.SetCaptureTexture(fakeViewData.captureTexture, capturedMatrix);
+
+            fakeView.gameObject.SetActive(true);
+            isFakeviewDataInUse = true;
+        }
+
+        public void LoadFakeview()
+        {
+            if (isFakeviewData
+                && fakeView != null
+                && !isFakeviewDataInUse)
+            {
+                connectedConnection.GetFakeviewData(ApplyFakeviewTexture);
+            }
+        }
+
+        public void ReleaseFakeview()
+        {
+            if (isFakeviewData 
+                && fakeView != null
+                && isFakeviewDataInUse)
+            {
+                fakeView.SetCaptureTexture(null, Matrix4x4.identity);
+                fakeView.gameObject.SetActive(false);
+                connectedConnection.ReleaseFakeview();
+                isFakeviewDataInUse = false;
+            }
+        }
+
+        public void SetLiteMemory(bool isInLiteMemory)
+        {
+            if (!_isInitialized) return;
+
+            if (isInLiteMemory)
+            {
+                ReleaseFakeview();
+            }
+            else
+            {
+                LoadFakeview();
+            }
+        }
         public void OnDestroy()
         {
+            ReleaseFakeview();
+
             if (connectedSpawnableArea != null)
             {
                 connectedSpawnableArea.SpawnAreaEvent -= OnConnectedAreaSpawn;
@@ -197,7 +259,7 @@ namespace ThunderRoad
             connectedArea = null;
         }
 
-        public bool CheckActif(Vector3 playerPosition)
+        public bool CheckActive(Vector3 playerPosition)
         {
             if (_worldBounds.Contains(playerPosition))
             {
@@ -390,9 +452,32 @@ namespace ThunderRoad
             Gizmos.DrawWireSphere(this.transform.position, fadeMaxDistance * fadeRoomMinDistanceRatio);
             Gizmos.DrawWireSphere(this.transform.position, fadeMaxDistance);
         }
+        public MonoBehaviour GetMonoBehaviourReference()
+        {
+            return this;
+        }
+
 
         #region Tool
 #if UNITY_EDITOR
+        public void EditorInitFakeView()
+        {
+            if (fakeView == null) fakeView = this.GetComponentInChildren<ReflectionSorcery>();
+            if (fakeView == null) return;
+
+            isFakeviewData = Catalog.EditorExist<FakeViewData>(connectedConnection.fakeViewAddress);
+            if (!isFakeviewData)
+            {
+                fakeView.gameObject.SetActive(false);
+                fakeView = null;
+            }
+            else
+            {
+                FakeViewData fakeviewData = Catalog.EditorLoad<FakeViewData>(connectedConnection.fakeViewAddress);
+                OnInitFakeviewDataLoaded(fakeviewData);
+            }
+        }
+
         public void SetupFakeView(AreaData areaData, int indexGateway, string prefabAdress)
         {
             List<AreaData.AreaConnectionTypeIdContainer> listConnectionType = areaData.connections[indexGateway].connectionTypeIdContainerList;

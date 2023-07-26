@@ -2,66 +2,30 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using PointerEventData = UnityEngine.EventSystems.PointerEventData;
-using System;
 
-public class UIWorldMapLocation : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class UIWorldMapLocation : MonoBehaviour
 {
-    public Button button;
-    public RawImage image;
+    public UICustomisableButton button;
     public TextMeshProUGUI label;
+    [SerializeField] public RawImage defaultImage;
+    [SerializeField] public RawImage highlightedImage;
+    
+    private LevelData levelData;
 
-    private bool isSelected;
-
-    [NonSerialized]
-    public LevelData levelData;
-    [NonSerialized]
-    public Texture normalTexture;
-    [NonSerialized]
-    public Texture hoverTexture;
-
-    private void Start()
+    public void Setup(LevelData levelData, ToggleGroup locationsToggleGroup)
     {
-        image = GetComponent<RawImage>();
+        this.levelData = levelData;
+
+        defaultImage.texture = levelData.mapLocationIcon;
+        highlightedImage.texture = levelData.mapLocationIconHover;
+
+        button.toggle.group = locationsToggleGroup;
+
+        UpdateLocalizedField();
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public void UpdateLocalizedField()
     {
-        if (!isSelected)
-        {
-            SetHover();
-        }
-    }
-
-    public void SetHover()
-    {
-        image.texture = hoverTexture;
-    }
-
-    public void SetNormal()
-    {
-        image.texture = normalTexture;
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (!isSelected)
-        {
-            SetNormal();
-        }
-    }
-
-    public void SetSelected(bool newState)
-    {
-        isSelected = newState;
-        if (isSelected)
-        {
-            SetHover();
-        }
-        else
-        {
-            SetNormal();
-        }
+        if(levelData == null) return;
     }
 }

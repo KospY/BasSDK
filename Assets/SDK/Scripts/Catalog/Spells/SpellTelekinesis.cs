@@ -21,9 +21,9 @@ namespace ThunderRoad
         public float radius = 1f;
         public float maxAngle = 40;
         [Range(0f, 1f)]
-        public float raycastTurnInfluence = 0.2f;
+        public float raycastArmInfluence = 0.7f;
         [Range(0f, 1f)]
-        public float targetingLookInfluence = 0.3f;
+        public float targetingLookInfluence = 0.2f;
         [Range(0f, 1f)]
         public float antiBrokenBias = 1.0f;
         [Range(0f, 1f)]
@@ -86,8 +86,10 @@ namespace ThunderRoad
         public float gripDistance;
         [NonSerialized]
         public Rigidbody grip;
-        protected ConfigurableJoint joint;
-        protected ConstantForce hangingMassForce;
+        [NonSerialized]
+        public ConfigurableJoint joint;
+        [NonSerialized]
+        public ConstantForce hangingMassForce;
         [NonSerialized]
         public bool justCatched;
 

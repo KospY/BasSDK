@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
+using static UnityEditor.EditorGUILayout;
 
 namespace ThunderRoad
 {
@@ -16,34 +17,45 @@ namespace ThunderRoad
         public override void OnInspectorGUI()
         {
             breakable = target as Breakable;
-            if (!breakable) return;
+            if (breakable == null)
+            { return; }
 
-            if (GUILayout.Button("Set up handles"))
-                breakable.AutoMatchHandles();
-            
-            if (GUILayout.Button("Check for collider intersection (using 10cm threshold)"))
-                CheckForIntersection(0.1f);
-            
-            if (GUILayout.Button("Check for collider intersection (using 5cm threshold)"))
-                CheckForIntersection(0.05f);
+            BeginVertical(EditorStyles.helpBox);
+            BeginHorizontal(EditorStyles.toolbar);
+            if (GUILayout.Button("Set up handles", EditorStyles.toolbarButton))
+            { breakable.AutoMatchHandles(); }
+            EndHorizontal();
 
-            if (GUILayout.Button("Check for collider intersection (using 1cm threshold)"))
-                CheckForIntersection(0.01f);
-            
-            if (GUILayout.Button("Check for collider intersection (no threshold)"))
-                CheckForIntersection();
+            if (GUILayout.Button("(No threshold) Check Intersection", EditorStyles.miniButton))
+            { CheckForIntersection(); }
 
-            breakable.editingBreakpointsThroughEditor =
-                EditorGUILayout.Toggle("Edit Breakpoints", breakable.editingBreakpointsThroughEditor);
+            if (GUILayout.Button("(1cm)  Check Intersection", EditorStyles.miniButton))
+            { CheckForIntersection(0.01f); }
 
-            EditorGUILayout.Space();
+            if (GUILayout.Button("(5cm)  Check Intersection", EditorStyles.miniButton))
+            { CheckForIntersection(0.05f); }
 
+            if (GUILayout.Button("(10cm) Check Intersection", EditorStyles.miniButton))
+            { CheckForIntersection(0.1f); }
+
+            breakable.editingBreakpointsThroughEditor = Toggle("Edit Breakpoints", breakable.editingBreakpointsThroughEditor);
+            EndVertical();
+
+            Space();
+            BeginHorizontal(EditorStyles.helpBox);
+            EndHorizontal();
+            Space();
+
+            BeginVertical(EditorStyles.helpBox);
             base.OnInspectorGUI();
+            EndVertical();
         }
 
         private void CheckForIntersection(float threshold = 0f)
         {
-            if (!breakable) return;
+            if (breakable == null)
+            { return; }
+
             breakable.RetrieveSubItems();
 
             Debug.Log($"Checking for intersection on {breakable.name}!", breakable);
@@ -69,27 +81,30 @@ namespace ThunderRoad
             {
                 foreach (var c2 in colliders)
                 {
-                    if (c1 == c2) continue;
-                    if (c1.item == c2.item) continue;
-                    
+                    if (c1 == c2)
+                        continue;
+                    if (c1.item == c2.item)
+                        continue;
+
                     var i1 = breakable.subBrokenItems.IndexOf(c1.item);
                     var i2 = breakable.subBrokenItems.IndexOf(c2.item);
 
                     var color1 = "#" +
                                  ColorUtility.ToHtmlStringRGB(
-                                     Color.HSVToRGB(i1 / (float) breakable.subBrokenItems.Count, .35f, 1f));
+                                     Color.HSVToRGB(i1 / (float)breakable.subBrokenItems.Count, .35f, 1f));
                     var color2 = "#" +
                                  ColorUtility.ToHtmlStringRGB(
-                                     Color.HSVToRGB(i2 / (float) breakable.subBrokenItems.Count, .35f, 1f));
+                                     Color.HSVToRGB(i2 / (float)breakable.subBrokenItems.Count, .35f, 1f));
 
-                    if(!alreadyChecked.ContainsKey(c1.collider))
+                    if (!alreadyChecked.ContainsKey(c1.collider))
                         alreadyChecked.Add(c1.collider, new List<Collider>());
-                    
-                    if(!alreadyChecked.ContainsKey(c2.collider))
+
+                    if (!alreadyChecked.ContainsKey(c2.collider))
                         alreadyChecked.Add(c2.collider, new List<Collider>());
 
-                    if (alreadyChecked[c1.collider].Contains(c2.collider)) continue;
-                    
+                    if (alreadyChecked[c1.collider].Contains(c2.collider))
+                        continue;
+
                     alreadyChecked[c1.collider].Add(c2.collider);
                     alreadyChecked[c2.collider].Add(c1.collider);
 
@@ -97,7 +112,7 @@ namespace ThunderRoad
                         c1.collider.transform.rotation,
                         c2.collider, c2.collider.transform.position, c2.collider.transform.rotation, out direction,
                         out distance);
-                    
+
                     if (isIntersecting && distance >= threshold)
                     {
                         Debug.Log(
@@ -115,7 +130,7 @@ namespace ThunderRoad
                     }
                 }
             }
-            
+
             breakable.brokenObjectsHolder.SetActive(false);
 
             Debug.Log(!hasIntersected ? "No intersection!" : $"Found {intersectionAmount} intersections");
@@ -124,12 +139,15 @@ namespace ThunderRoad
         private void OnSceneGUI()
         {
             breakable = target as Breakable;
-            if (!breakable) return;
-            if (!breakable.brokenObjectsHolder) return;
+            if (!breakable)
+                return;
+            if (!breakable.brokenObjectsHolder)
+                return;
 
             CheckBreakPoints();
 
-            if (breakable.editingBreakpointsThroughEditor) return;
+            if (breakable.editingBreakpointsThroughEditor)
+                return;
 
             var rbs = breakable.brokenObjectsHolder.GetComponentsInChildren<Rigidbody>(true);
             var center = breakable.brokenObjectsHolder.transform.position;
@@ -159,11 +177,11 @@ namespace ThunderRoad
                 // simple colored things. In this case, we just want to use
                 // a blend mode that inverts destination colors.
                 Shader shader = Shader.Find("Hidden/Internal-Colored");
-                mat = new Material(shader) {hideFlags = HideFlags.HideAndDontSave};
+                mat = new Material(shader) { hideFlags = HideFlags.HideAndDontSave };
 
                 // Turn off backface culling, depth writes, depth test.
                 mat.SetInt("_ZWrite", 0);
-                mat.SetInt("_ZTest", (int) CompareFunction.Always);
+                mat.SetInt("_ZTest", (int)CompareFunction.Always);
             }
 
             for (var i = 0; i < orderedRbs.Length; i++)
@@ -180,7 +198,7 @@ namespace ThunderRoad
                     {
                         if (breakable.handleLinks[j] == handleLink)
                         {
-                            color = Color.HSVToRGB(j / (float) breakable.handleLinks.Length, 1f, 1f);
+                            color = Color.HSVToRGB(j / (float)breakable.handleLinks.Length, 1f, 1f);
                             break;
                         }
                     }
@@ -189,16 +207,18 @@ namespace ThunderRoad
                 Gizmos.color = color;
                 mat.SetColor("_Color", color);
 
-                var angle = (i + 1) / ((float) orderedRbs.Length + 1) * (Mathf.PI);
+                var angle = (i + 1) / ((float)orderedRbs.Length + 1) * (Mathf.PI);
 
                 var meshes = rb.GetComponentsInChildren<MeshFilter>(true);
 
                 for (var j = 0; j < meshes.Length; j++)
                 {
                     var filter = meshes[j];
-                    if(!filter) continue;
-                    if(!filter.sharedMesh) continue;
-                    
+                    if (!filter)
+                        continue;
+                    if (!filter.sharedMesh)
+                        continue;
+
                     var start = filter.transform.TransformPoint(filter.sharedMesh.bounds.center);
 
                     var p = center + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f) *
@@ -226,7 +246,8 @@ namespace ThunderRoad
 
         private void CheckBreakPoints()
         {
-            if (!breakable.editingBreakpointsThroughEditor) return;
+            if (!breakable.editingBreakpointsThroughEditor)
+                return;
 
             for (int i = 0; i < breakable.breakPoints.Count; i++)
             {

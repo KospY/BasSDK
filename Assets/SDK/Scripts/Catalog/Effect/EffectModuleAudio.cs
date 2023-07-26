@@ -60,7 +60,7 @@ namespace ThunderRoad
 #if ODIN_INSPECTOR
         [BoxGroup("Tab/Audio/Volume")]
 #endif
-        public float cullMinVolume = 0.05f;
+        public float cullMinVolume = 0.1f;
 #if ODIN_INSPECTOR
         [BoxGroup("Tab/Audio/Volume")]
 #endif

@@ -1133,7 +1133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1363,7 +1363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1517,7 +1517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1671,7 +1671,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1901,7 +1901,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2055,7 +2055,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2209,7 +2209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2523,12 +2523,14 @@ MonoBehaviour:
   allowPhysicalClick: 0
   clickCoolDown: 0
   hoverCoolDown: 0
-  defaultFontAsset: {fileID: 0}
-  outlineFontAsset: {fileID: 0}
+  defaultFontAsset: {fileID: 11400000, guid: 8917a362182edac42b4513b4263afa3e, type: 2}
+  outlineFontAsset: {fileID: 11400000, guid: c716ea6f2394d7143a57a231823b6337, type: 2}
+  customOutlineFontMaterial: {fileID: 2100000, guid: 2aa6abfc99bb7e94d9da8ce6566b0955,
+    type: 2}
   defaultColor: {r: 0.21568628, g: 0.1764706, b: 0.1764706, a: 1}
-  hoverColor: {r: 0.5294118, g: 0.5137255, b: 1, a: 1}
-  pressedColor: {r: 0.5294118, g: 0.5137255, b: 1, a: 1}
-  disabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+  hoverColor: {r: 0.21568628, g: 0.1764706, b: 0.1764706, a: 1}
+  pressedColor: {r: 0.21568628, g: 0.1764706, b: 0.1764706, a: 1}
+  disabledColor: {r: 0.21568628, g: 0.1764706, b: 0.1764706, a: 0.5019608}
   useHapticOnPointerEnter: 1
   useHapticOnPointerExit: 0
   useHapticOnPointerClick: 1
@@ -2617,7 +2619,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2770,7 +2772,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2950,7 +2952,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3192,8 +3194,10 @@ MonoBehaviour:
   allowPhysicalClick: 0
   clickCoolDown: 0
   hoverCoolDown: 0
-  defaultFontAsset: {fileID: 0}
-  outlineFontAsset: {fileID: 0}
+  defaultFontAsset: {fileID: 11400000, guid: 8917a362182edac42b4513b4263afa3e, type: 2}
+  outlineFontAsset: {fileID: 11400000, guid: c716ea6f2394d7143a57a231823b6337, type: 2}
+  customOutlineFontMaterial: {fileID: 2100000, guid: 2aa6abfc99bb7e94d9da8ce6566b0955,
+    type: 2}
   defaultColor: {r: 0.21568628, g: 0.18431373, b: 0.18431373, a: 1}
   hoverColor: {r: 0.21568628, g: 0.18431373, b: 0.18431373, a: 1}
   pressedColor: {r: 0.21568628, g: 0.18431373, b: 0.18431373, a: 1}
@@ -3299,7 +3303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3452,7 +3456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3590,7 +3594,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3920,7 +3924,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -4072,173 +4076,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &6867009582637592648
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7947120011824639453}
-  - component: {fileID: 3991872219031883638}
-  - component: {fileID: 319810509077692128}
-  m_Layer: 29
-  m_Name: Zone
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
---- !u!4 &7947120011824639453
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6867009582637592648}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 777130406707414529}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &3991872219031883638
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6867009582637592648}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 4
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &319810509077692128
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6867009582637592648}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a5a332dc4144db488ad4600e1b266a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  invokePlayerExitOnAwake: 0
-  navSpeedModifier: 0
-  runSpeed: 0
-  killPlayer: 0
-  killNPC: 0
-  despawnNPC: 0
-  despawnItem: 0
-  despawnDelay: 0
-  spawnEffect: 0
-  effectID: 
-  effectMassVelocityCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  effectOrientation: {x: 0, y: 0, z: 1}
-  teleportPlayer: 0
-  keepPlayerVelocity: 0
-  teleportItem: 0
-  keepItemVelocity: 0
-  customTeleportTarget: {fileID: 0}
-  ignorePlayerCreature: 0
-  ignoreNonRootParts: 1
-  portals: []
-  playerEnterEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8014073260955597385}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 3062236496558456334}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  playerExitEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8014073260955597385}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3062236496558456334}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  creatureEnterEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  creatureExitEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  firstCreatureEnterEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  lastCreatureExitEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  itemEnterEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  itemExitEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  firstItemEnterEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  lastItemExitEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  firstEntityEnterEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  lastEntityExitEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &6951589170562366141
 GameObject:
   m_ObjectHideFlags: 0
@@ -4346,7 +4183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 8f12c3701e1e6104d8183e96ad49e626, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 0.41960785}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -4407,8 +4244,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6952089445981902093}
   m_HandleRect: {fileID: 6952089445981902092}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4508,7 +4345,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 3125662804406491421}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.01
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4550,7 +4387,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.07011532}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &6952089444393430014
@@ -5152,7 +4989,6 @@ Transform:
   m_Children:
   - {fileID: 3400015077791620888}
   - {fileID: 1409899216993756305}
-  - {fileID: 7947120011824639453}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 71, y: -180, z: 0}
@@ -5253,13 +5089,16 @@ MonoBehaviour:
   - {fileID: 322876843}
   buttonGraphicsSwap:
   - {fileID: 2760120237667777964}
-  labels: []
+  labels:
+  - {fileID: 4927795961773988418}
   fadeDuration: 0.1
   allowPhysicalClick: 0
   clickCoolDown: 0
   hoverCoolDown: 0
-  defaultFontAsset: {fileID: 0}
-  outlineFontAsset: {fileID: 0}
+  defaultFontAsset: {fileID: 11400000, guid: 8917a362182edac42b4513b4263afa3e, type: 2}
+  outlineFontAsset: {fileID: 11400000, guid: c716ea6f2394d7143a57a231823b6337, type: 2}
+  customOutlineFontMaterial: {fileID: 2100000, guid: 2aa6abfc99bb7e94d9da8ce6566b0955,
+    type: 2}
   defaultColor: {r: 0.21568628, g: 0.18431373, b: 0.18431373, a: 1}
   hoverColor: {r: 0.21568628, g: 0.18431373, b: 0.18431373, a: 1}
   pressedColor: {r: 0.21568628, g: 0.18431373, b: 0.18431373, a: 1}
@@ -5491,7 +5330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -5899,7 +5738,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -6039,7 +5878,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -6170,7 +6009,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 350, y: 260}
+  m_AnchoredPosition: {x: 325, y: 260}
   m_SizeDelta: {x: 325, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &9004855705088326357

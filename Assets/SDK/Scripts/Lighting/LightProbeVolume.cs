@@ -50,7 +50,38 @@ namespace ThunderRoad
         /// Used from the custom editor to change the gizmos.
         /// </summary>
         [NonSerialized] public bool editingSizeThroughEditor;
+
+        private Action _textureUpdatedEvent;
+        public event Action TextureUpdatedEvent
+        {
+            add
+            {
+                _textureUpdatedEvent -= value;
+                _textureUpdatedEvent += value;
+            }
+
+            remove
+            {
+                _textureUpdatedEvent -= value;
+            }
+        }
         
+        public void SetTexture(Texture3D SHAr,
+                                Texture3D SHAg,
+                                Texture3D SHAb,
+                                Texture3D occ)
+        {
+            this.SHAr = SHAr;
+            this.SHAg = SHAg;
+            this.SHAb = SHAb;
+            this.occ = occ;
+
+            if(_textureUpdatedEvent != null)
+            {
+                _textureUpdatedEvent.Invoke();
+            }
+        }
+
         private void OnEnable()
         {
             list.Add(this);

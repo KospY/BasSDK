@@ -10,7 +10,7 @@ namespace ThunderRoad
 {
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/ItemEventLinker")]
 	[AddComponentMenu("ThunderRoad/Items/Item Event Linker")]
-    public class ItemEventLinker : EventLinker
+    public class ItemEventLinker : EventLinker, IToolControllable
     {
         // These are explicitly assigned int values so that even if the order of the list gets changed, the assignments in prefabs and scenes will remain the same
         public enum ItemEvent
@@ -53,6 +53,7 @@ namespace ThunderRoad
             OnTelePullStart = 35,
             OnTelePullEnd = 36,
             OnConsumed = 37,
+            OnLinkerStart = 38,
         }
 
         [System.Serializable]
@@ -60,15 +61,33 @@ namespace ThunderRoad
         {
             public ItemEvent itemEvent;
             public UnityEvent onActivate;
+
+            public ItemUnityEvent Copy()
+            {
+                return new ItemUnityEvent()
+                {
+                    itemEvent = this.itemEvent,
+                    onActivate = this.onActivate
+                };
+            }
         }
 
         public Item item;
+        public float justSpawnedTolerance = 0.1f;
         public List<ItemUnityEvent> itemEvents = new List<ItemUnityEvent>();
         protected Dictionary<ItemEvent, List<UnityEvent>> eventsDictionary;
 
         private void OnValidate()
         {
             item ??= GetComponent<Item>();
+        }
+
+        public void CopyFrom(IToolControllable original)
+        {
+        }
+
+        public void Remove()
+        {
         }
 
     }

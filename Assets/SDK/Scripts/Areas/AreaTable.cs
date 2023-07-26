@@ -51,6 +51,26 @@ namespace ThunderRoad
         {
             base.OnCatalogRefresh();
             if (areaSettingTable != null) areaSettingTable.CalculateWeight();
-        }        
+        }
+        
+        public HashSet<string> GetSpawnableAreasIds()
+        {
+            var areaIds = new HashSet<string>();
+            var drops = areaSettingTable.drops;
+
+            for (var i = 0; i < drops.Count; i++)
+            {
+                if (drops[i].dropItem.bpGeneratorIdContainer == null ||
+                    drops[i].dropItem.bpGeneratorIdContainer.BlueprintGenerator == null) continue;
+
+                var spawnableAreaids = drops[i].dropItem.bpGeneratorIdContainer.BlueprintGenerator.GetSpawnableAreasIds();
+                foreach (var areaId in spawnableAreaids)
+                {
+                    areaIds.Add(areaId);
+                }
+            }
+
+            return areaIds;
+        }
     }
 }

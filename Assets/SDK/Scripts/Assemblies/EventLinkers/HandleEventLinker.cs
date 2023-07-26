@@ -40,6 +40,7 @@ namespace ThunderRoad
             OnTeleRepelEnd = 22,
             OnTelePullStart = 23,
             OnTelePullEnd = 24,
+            OnLinkerStart = 25,
         }
 
         public enum InteractorSide

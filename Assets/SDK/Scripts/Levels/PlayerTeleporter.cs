@@ -8,6 +8,7 @@ namespace ThunderRoad
     public class PlayerTeleporter : MonoBehaviour
     {
         public Transform targetTeleportTransform;
+        public bool useRelativePosition;
         public bool useFading = true;
         public float fadeInDuration = 1;
         public float fadeOutDuration = 1;

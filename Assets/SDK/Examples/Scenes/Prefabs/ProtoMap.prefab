@@ -126,14 +126,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 343630458956057275}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.311, y: -0.021, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 1, y: -0, z: -0.000000029802315, w: -0.00000020861621}
+  m_LocalPosition: {x: 0.311, y: -0.023, z: -0}
+  m_LocalScale: {x: 0.0911839, y: 0.0911839, z: 0.0911839}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2324766352608585291}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
 --- !u!33 &3514883760386688737
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -141,7 +141,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 343630458956057275}
-  m_Mesh: {fileID: -6713576662768945162, guid: ebfe305f2033e7a4498a7e20d0518153, type: 3}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &6160292190816004241
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -162,7 +162,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5e092b31ffd6959458dffaa59cb70d29, type: 2}
+  - {fileID: 2100000, guid: 5277778c5148bca4486811b0bf38a91f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1041,6 +1041,7 @@ GameObject:
   - component: {fileID: 3073042782792355230}
   - component: {fileID: 3073042782792355229}
   - component: {fileID: 4258925213670709990}
+  - component: {fileID: 8114519063809270684}
   m_Layer: 5
   m_Name: Next
   m_TagString: Untagged
@@ -1162,6 +1163,61 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8114519063809270684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3073042782792355171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fda9a648a0000240898b59fc5d438ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactable: 1
+  toggle: {fileID: 0}
+  buttonGraphics: []
+  buttonGraphicsSwap: []
+  labels: []
+  fadeDuration: 0.1
+  allowPhysicalClick: 0
+  clickCoolDown: 0
+  hoverCoolDown: 0
+  defaultFontAsset: {fileID: 0}
+  outlineFontAsset: {fileID: 0}
+  customOutlineFontMaterial: {fileID: 0}
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  hoverColor: {r: 1, g: 1, b: 1, a: 1}
+  pressedColor: {r: 1, g: 1, b: 1, a: 1}
+  disabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  useHapticOnPointerEnter: 1
+  useHapticOnPointerExit: 0
+  useHapticOnPointerClick: 1
+  hapticOnPointerEnterIntensity: 1
+  hapticOnPointerExitIntensity: 0.5
+  hapticOnPointerClickIntensity: 2
+  onPointerEnterSoundAddress: Bas.AudioGroup.UI.LightClick
+  onPointerExitSoundAddress: 
+  onPointerClickSoundAddress: Bas.AudioGroup.UI.PlayerMenuValidationDefault
+  onPointerEnterSoundVolume: 1
+  onPointerExitSoundVolume: 1
+  onPointerClickSoundVolume: 1
+  onPointerClick:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerDown:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerUp:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3073042783082617384
 GameObject:
   m_ObjectHideFlags: 0
@@ -1741,6 +1797,7 @@ GameObject:
   - component: {fileID: 3073042784247611737}
   - component: {fileID: 3073042784247611736}
   - component: {fileID: 4258925213670709991}
+  - component: {fileID: 4919465530360927350}
   m_Layer: 5
   m_Name: Previous
   m_TagString: Untagged
@@ -1862,6 +1919,61 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4919465530360927350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3073042784247611742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fda9a648a0000240898b59fc5d438ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactable: 1
+  toggle: {fileID: 0}
+  buttonGraphics: []
+  buttonGraphicsSwap: []
+  labels: []
+  fadeDuration: 0.1
+  allowPhysicalClick: 0
+  clickCoolDown: 0
+  hoverCoolDown: 0
+  defaultFontAsset: {fileID: 0}
+  outlineFontAsset: {fileID: 0}
+  customOutlineFontMaterial: {fileID: 0}
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  hoverColor: {r: 1, g: 1, b: 1, a: 1}
+  pressedColor: {r: 1, g: 1, b: 1, a: 1}
+  disabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  useHapticOnPointerEnter: 1
+  useHapticOnPointerExit: 0
+  useHapticOnPointerClick: 1
+  hapticOnPointerEnterIntensity: 1
+  hapticOnPointerExitIntensity: 0.5
+  hapticOnPointerClickIntensity: 2
+  onPointerEnterSoundAddress: Bas.AudioGroup.UI.LightClick
+  onPointerExitSoundAddress: 
+  onPointerClickSoundAddress: Bas.AudioGroup.UI.PlayerMenuValidationDefault
+  onPointerEnterSoundVolume: 1
+  onPointerExitSoundVolume: 1
+  onPointerClickSoundVolume: 1
+  onPointerClick:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerDown:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerUp:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3446885820735920449
 GameObject:
   m_ObjectHideFlags: 0
@@ -2097,7 +2209,7 @@ GameObject:
   - component: {fileID: 4258925212671719788}
   - component: {fileID: 4258925212671719789}
   - component: {fileID: 4258925212671719790}
-  - component: {fileID: 4258925213670709988}
+  - component: {fileID: 896404041297702151}
   m_Layer: 5
   m_Name: Previous
   m_TagString: Untagged
@@ -2219,7 +2331,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &4258925213670709988
+--- !u!114 &896404041297702151
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2228,12 +2340,52 @@ MonoBehaviour:
   m_GameObject: {fileID: 4258925212671719776}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 274ac4677960e3a4a856486565660f98, type: 3}
+  m_Script: {fileID: 11500000, guid: 6fda9a648a0000240898b59fc5d438ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalButtonSprite: {fileID: 21300000, guid: 03412ab88d9f1614e844db473299d382, type: 3}
-  hoverButtonSprite: {fileID: 21300000, guid: ae22c6e69b31dd24eab6fc2e1220c343, type: 3}
-  _image: {fileID: 0}
+  interactable: 1
+  toggle: {fileID: 0}
+  buttonGraphics: []
+  buttonGraphicsSwap: []
+  labels: []
+  fadeDuration: 0.1
+  allowPhysicalClick: 0
+  clickCoolDown: 0
+  hoverCoolDown: 0
+  defaultFontAsset: {fileID: 0}
+  outlineFontAsset: {fileID: 0}
+  customOutlineFontMaterial: {fileID: 0}
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  hoverColor: {r: 1, g: 1, b: 1, a: 1}
+  pressedColor: {r: 1, g: 1, b: 1, a: 1}
+  disabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  useHapticOnPointerEnter: 1
+  useHapticOnPointerExit: 0
+  useHapticOnPointerClick: 1
+  hapticOnPointerEnterIntensity: 1
+  hapticOnPointerExitIntensity: 0.5
+  hapticOnPointerClickIntensity: 2
+  onPointerEnterSoundAddress: Bas.AudioGroup.UI.LightClick
+  onPointerExitSoundAddress: 
+  onPointerClickSoundAddress: Bas.AudioGroup.UI.PlayerMenuValidationDefault
+  onPointerEnterSoundVolume: 1
+  onPointerExitSoundVolume: 1
+  onPointerClickSoundVolume: 1
+  onPointerClick:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerDown:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerUp:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4258925212944898261
 GameObject:
   m_ObjectHideFlags: 0
@@ -2404,7 +2556,7 @@ GameObject:
   - component: {fileID: 4258925213640807148}
   - component: {fileID: 4258925213640807149}
   - component: {fileID: 4258925213640807150}
-  - component: {fileID: 4258925213670709987}
+  - component: {fileID: 9205866164619882012}
   m_Layer: 5
   m_Name: Next
   m_TagString: Untagged
@@ -2526,7 +2678,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &4258925213670709987
+--- !u!114 &9205866164619882012
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2535,12 +2687,52 @@ MonoBehaviour:
   m_GameObject: {fileID: 4258925213640807136}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 274ac4677960e3a4a856486565660f98, type: 3}
+  m_Script: {fileID: 11500000, guid: 6fda9a648a0000240898b59fc5d438ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalButtonSprite: {fileID: 21300000, guid: 03412ab88d9f1614e844db473299d382, type: 3}
-  hoverButtonSprite: {fileID: 21300000, guid: ae22c6e69b31dd24eab6fc2e1220c343, type: 3}
-  _image: {fileID: 0}
+  interactable: 1
+  toggle: {fileID: 0}
+  buttonGraphics: []
+  buttonGraphicsSwap: []
+  labels: []
+  fadeDuration: 0.1
+  allowPhysicalClick: 0
+  clickCoolDown: 0
+  hoverCoolDown: 0
+  defaultFontAsset: {fileID: 0}
+  outlineFontAsset: {fileID: 0}
+  customOutlineFontMaterial: {fileID: 0}
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  hoverColor: {r: 1, g: 1, b: 1, a: 1}
+  pressedColor: {r: 1, g: 1, b: 1, a: 1}
+  disabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  useHapticOnPointerEnter: 1
+  useHapticOnPointerExit: 0
+  useHapticOnPointerClick: 1
+  hapticOnPointerEnterIntensity: 1
+  hapticOnPointerExitIntensity: 0.5
+  hapticOnPointerClickIntensity: 2
+  onPointerEnterSoundAddress: Bas.AudioGroup.UI.LightClick
+  onPointerExitSoundAddress: 
+  onPointerClickSoundAddress: Bas.AudioGroup.UI.PlayerMenuValidationDefault
+  onPointerEnterSoundVolume: 1
+  onPointerExitSoundVolume: 1
+  onPointerClickSoundVolume: 1
+  onPointerClick:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerDown:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerUp:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4258925213839372616
 GameObject:
   m_ObjectHideFlags: 0
@@ -4004,22 +4196,19 @@ MonoBehaviour:
   mapCollider: {fileID: 4258925212544953282}
   levelCollider: {fileID: 4258925212944898259}
   canvasDetails: {fileID: 3073042782674269596}
-  mapLoops: 1
   worldMapLabel: {fileID: 4087683193754672022}
   mapTitleText: {fileID: 7208083458197314413}
   modeDescriptionText: {fileID: 6013428632488042096}
   mapPreview: {fileID: 3740968561066039896}
-  travelButton: {fileID: 530165757402469630}
   mapLocationPrefab: {fileID: 6579239403737123840, guid: 43fe311d82a3d0d4ebc82470ab42698a,
     type: 3}
   optionsPanel: {fileID: 4258925212591847444}
-  descriptionText: {fileID: 1022453398399696175}
-  nextOptionsButton: {fileID: 4258925213640807150}
-  previousOptionsButton: {fileID: 4258925212671719790}
+  levelOptionDescriptionText: {fileID: 0}
+  nextOptionsButton: {fileID: 0}
+  previousOptionsButton: {fileID: 0}
   mapRenderer: {fileID: 6160292190816004241}
   pageText: {fileID: 3959262464963615405}
-  LevelModeOptionPrefab: {fileID: 1688020779595477821, guid: 7adab4f6415a42642b74315d16e379dc,
-    type: 3}
+  LevelOptionPrefab: {fileID: 0}
   levelModeOptions: []
 --- !u!1 &8924912750815130392
 GameObject:
@@ -4306,5 +4495,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7422d89a5c45629448aa68c9a1c2c012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextButton: {fileID: 0}
+  previousButton: {fileID: 0}
+  title: {fileID: 0}
+  value: {fileID: 0}
   levelModeDescription: {fileID: 3407906690898566013}
   levelModeTitle: {fileID: 367003007795237894}

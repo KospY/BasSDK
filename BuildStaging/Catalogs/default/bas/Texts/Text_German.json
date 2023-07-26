@@ -505,42 +505,42 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraOculusTouch",
-          "text": "Drücke gleichzeitig „Y“ und „B“, um die externe Sichtkamera zu verwenden,\noder „Y“ und „A“, um die externe Sichtkamera zu fixieren.",
+          "text": "Drücke gleichzeitig „Y“ und „B“, um die externe Sichtkamera zu verwenden, oder „Y“ und „A“, um die externe Sichtkamera zu fixieren.",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraViveWand",
-          "text": "Drücke gleichzeitig „Rechtes Touchpad“ und „Linker Trigger“, um die externe Sichtkamera zu verwenden,\noder „Rechtes Touchpad“ und „Rechter Trigger“, um die externe Sichtkamera zu fixieren.",
+          "text": "Drücke gleichzeitig „Rechtes Touchpad“ und „Linker Trigger“, um die externe Sichtkamera zu verwenden, oder „Rechtes Touchpad“ und „Rechter Trigger“, um die externe Sichtkamera zu fixieren.",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraWMR",
-          "text": "Drücke gleichzeitig „Linkes Menü“ und „Rechtes Menü“, um die externe Sichtkamera zu verwenden, ,\noder „Linkes Menü“ und „Rechter Trigger“, um die externe Sichtkamera zu fixieren.",
+          "text": "Drücke gleichzeitig „Linkes Menü“ und „Rechtes Menü“, um die externe Sichtkamera zu verwenden, oder „Linkes Menü“ und „Rechter Trigger“, um die externe Sichtkamera zu fixieren.",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraIndex",
-          "text": "Drücke gleichzeitig „Linkes B“ und „Rechtes B“, um die externe Sichtkamera zu verwenden,\noder „Linkes B“ und „Rechtes A“, um die externe Sichtkamera zu fixieren.",
+          "text": "Drücke gleichzeitig „Linkes B“ und „Rechtes B“, um die externe Sichtkamera zu verwenden, oder „Linkes B“ und „Rechtes A“, um die externe Sichtkamera zu fixieren.",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraPicoNeo3",
-          "text": "Drücke gleichzeitig „Y“ und „B“, um die externe Sichtkamera zu verwenden,\noder „Y“ und „A“, um die externe Sichtkamera zu fixieren.",
+          "text": "Drücke gleichzeitig „Y“ und „B“, um die externe Sichtkamera zu verwenden, oder „Y“ und „A“, um die externe Sichtkamera zu fixieren.",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraPico4",
-          "text": "Drücke gleichzeitig „Y“ und „B“, um die externe Sichtkamera zu verwenden,\noder „Y“ und „A“, um die externe Sichtkamera zu fixieren.",
+          "text": "Drücke gleichzeitig „Y“ und „B“, um die externe Sichtkamera zu verwenden, oder „Y“ und „A“, um die externe Sichtkamera zu fixieren.",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -4077,6 +4077,83 @@
           "text": "Kostenlos",
           "spriteAddress": null,
           "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InvalidEmail",
+          "text": "Ungültige E-Mail-Adresse!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InvalidEmailDescription",
+          "text": "Die angegebene E-Mail ist ungültig!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SendingAuthCode",
+          "text": "Senden des Authentifizierungscodes an die E-Mail-Adresse",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModIoEnterAuthCode",
+          "text": "Bitte geben Sie Ihren Authentifizierungscode ein",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModIoEnterAuthCodeDescription",
+          "text": "Sie können es in Ihrer E-Mail finden, überprüfen Sie Ihren Posteingang oder Spam-Ordner auf einen Code von mod.io",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ShowSpellNames",
+          "text": "Zaubernamen anzeigen",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReportBug",
+          "text": "Fehler melden",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Timeout",
+          "text": "Auszeit",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TimeoutDescription",
+          "text": "Der Mod.io-Server scheint momentan beschäftigt zu sein. Bitte warten.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NotEnoughStorage",
+          "text": "\rNicht genügend freier Festplattenspeicherplatz, um dieses Modul zu installieren.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MusicStingerVolume",
+          "text": "Musik-Stinger-Lautstärke",
+          "spriteAddress": null,
+          "videoAddress": null
         }
       ]
     },
@@ -5908,6 +5985,24 @@
       "id": "Urn",
       "name": "Urne",
       "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellFire",
+      "name": "Feuer",
+      "description": null
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellGravity",
+      "name": "Schwerkraft",
+      "description": null
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellLightning",
+      "name": "Blitz",
+      "description": null
     }
   ],
   "waves": [

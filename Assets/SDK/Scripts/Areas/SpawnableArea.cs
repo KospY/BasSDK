@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.ResourceManagement.ResourceLocations;
@@ -17,7 +18,7 @@ namespace ThunderRoad
     {
         #region Constants
 
-        private const float NAV_MESH_LINK_SIZE = 1.0f;
+        public const float NAV_MESH_LINK_SIZE = 1.0f;
 
         #endregion Constants
 
@@ -69,21 +70,21 @@ namespace ThunderRoad
         private Dictionary<string, List<ExternalConnectionData>> _subAreaTableExternalConnection = null;
 
         // Prefab load
-        private IResourceLocation _resourceLocation;
         private Area _areaPrefab = null;
+        private bool _isLigthingPresetFromAddress = false;
+        private LightingPreset _preloadLigthingPreset = null;
         private Area _areaPrefabSpawn = null;
         private Coroutine _spawnCoroutine = null;
+        private bool _isLiteMemoryState = false; // In Lite memory state some data are unload (use when area is far away) 
         private bool _isCulled = false; // true -> area spawn disable
+
+        private bool _prefabsLoaded = false;
+        private bool _prefabLoadInProgress = false;
 
         // Blockers load
         private Dictionary<int, string> _connectionBlockerAddress = null;
         Dictionary<int, IResourceLocation> _blockerResourceLocation;
         private Dictionary<int, GameObject> _connectionBlockerPrefab = null;
-
-        // Fake view load
-        private Dictionary<int, string> _connectionFakeViewAddress = null;
-        Dictionary<int, IResourceLocation> _fakeViewResourceLocation;
-        private Dictionary<int, FakeViewData> _connectionFakeViewData = null;
 
         // Gates load
         private Dictionary<int, string> _connectionGateAddress = null;
@@ -107,29 +108,22 @@ namespace ThunderRoad
         #endregion Fields
 
         #region Properties
+        public string AreaAddress => _areaData.areaPrefabAddress;
+        public IResourceLocation AreaAddressLocation => _areaData.areaPrefabAddressLocation;
+        public IResourceLocation LightingPresetAddressLocation => _areaData.lightingPresetAddressLocation;
+        public AreaRotationHelper.Rotation Rotation => _rotation;
+        public Vector3 Position => _position;
 
-        public string AreaAddress
-        {
-            get { return _areaData.areaPrefabAddress; }
-        }
-
-        public AreaRotationHelper.Rotation Rotation
-        {
-            get { return _rotation; }
-        }
-
-        public Vector3 Position
-        {
-            get { return _position; }
-        }
+        public Dictionary<int, GameObject> connectionBlockerPrefab => _connectionBlockerPrefab;
+        public Dictionary<int, GameObject> connectionGatePrefab => _connectionGatePrefab;
+        public Dictionary<int, GameObject> connectionGateSpawn => _connectionGateSpawn;
+        public Dictionary<int, GameObject> connectionLinkNavMesh => _connectionLinkNavMesh;
 
 #if ODIN_INSPECTOR
         [ShowInInspector]
 #endif
-        public string AreaDataId
-        {
-            get { return _areaData.id; }
-        }
+        public string AreaDataId => _areaData.id;
+        public AreaData AreaData => _areaData;
 
         public bool IsUnique
         {
@@ -151,6 +145,9 @@ namespace ThunderRoad
             get { return _areaPrefabSpawn; }
         }
 
+        /// <summary>
+        /// When cull Most of the area is deactivate 
+        /// </summary>
         public bool IsCulled
         {
             get { return _isCulled; }
@@ -169,16 +166,32 @@ namespace ThunderRoad
             }
         }
 
-        public int NumberCreature
+        /// <summary>
+        /// In lite memory state some data are unload, use when area is far away for memory performance
+        /// </summary>
+        public bool IsLiteMemoryState
         {
-            get { return _numberCreature; }
+            get
+            {
+                return _isLiteMemoryState;
+            }
+            set
+            {
+                if (_isLiteMemoryState == value)
+                {
+                    return;
+                }
+
+                _isLiteMemoryState = value;
+                if (IsSpawned)
+                {
+                    _areaPrefabSpawn.SetLiteMemoryState(_isLiteMemoryState);
+                }
+            }
         }
 
-        public bool ResapawnDeadCreature
-        {
-            get { return _respawnDeadCreature; }
-        }
-
+        public int NumberCreature => _numberCreature;
+        public bool ResapawnDeadCreature => _respawnDeadCreature;
         #endregion Properties
 
         #region Events
@@ -396,7 +409,7 @@ namespace ThunderRoad
 
             if (connection == null)
             {
-                Debug.LogError($"connection Index : {indexConnection} is invalide for sub area Managed");
+                Debug.LogError($"connection Index : {indexConnection} is invalid for sub area Managed");
                 return Vector3.zero;
             }
 
@@ -446,14 +459,6 @@ namespace ThunderRoad
 
             _connectedArea.Add(indexConnectionSubArea, new ConnectedArea(connectedArea, connectedAreaIndexConnection, connectionTypeId, isCrossAreaAlert));
 
-            // SetFakeView
-            if (_connectionFakeViewAddress == null)
-            {
-                _connectionFakeViewAddress = new Dictionary<int, string>();
-            }
-
-            _connectionFakeViewAddress.Add(indexConnectionSubArea, fakeViewAddress);
-
             // Set Gate Prefab
             if (_connectionGateAddress == null)
             {
@@ -487,12 +492,6 @@ namespace ThunderRoad
 
             _connectedArea.Remove(indexConnectionSubArea);
 
-            // Remove Fake View
-            if (_connectionFakeViewAddress != null)
-            {
-                _connectionFakeViewAddress.Remove(indexConnectionSubArea);
-            }
-
             // Remove Gate Prefab
             if (_connectionGateAddress != null)
             {
@@ -502,7 +501,6 @@ namespace ThunderRoad
 
         public ConnectedArea GetConnectedArea(string areaId, int indexConnection)
         {
-
             SpawnableArea subArea;
             int indexConnectionSubArea;
             string subAreaId;
@@ -520,17 +518,6 @@ namespace ThunderRoad
             if (_connectedArea.TryGetValue(indexConnectionSubArea, out result))
             {
                 return result;
-            }
-
-            return null;
-        }
-
-        public FakeViewData GetFakeViewData(int connectionIndex)
-        {
-            if (_connectionFakeViewData == null) return null;
-            if (_connectionFakeViewData.TryGetValue(connectionIndex, out FakeViewData fakeViewData))
-            {
-                return fakeViewData;
             }
 
             return null;
@@ -622,13 +609,13 @@ namespace ThunderRoad
             return resultTree;
         }
 
-        public bool IntersectRecursif(Bounds otherBound, float boundsMargin)
+        public bool IntersectRecursive(Bounds otherBound, float boundsMargin)
         {
             HashSet<SpawnableArea> taggedArea = new HashSet<SpawnableArea>();
-            return IntersectRecursif(otherBound, boundsMargin, ref taggedArea);
+            return IntersectRecursive(otherBound, boundsMargin, ref taggedArea);
         }
 
-        private bool IntersectRecursif(Bounds otherBound, float boundsMargin, ref HashSet<SpawnableArea> taggedArea)
+        private bool IntersectRecursive(Bounds otherBound, float boundsMargin, ref HashSet<SpawnableArea> taggedArea)
         {
             if (!taggedArea.Add(this))
             {
@@ -647,7 +634,7 @@ namespace ThunderRoad
 
             foreach (KeyValuePair<int, ConnectedArea> pair in _connectedArea)
             {
-                if (pair.Value.connectedArea.IntersectRecursif(otherBound, boundsMargin, ref taggedArea))
+                if (pair.Value.connectedArea.IntersectRecursive(otherBound, boundsMargin, ref taggedArea))
                 {
                     return true;
                 }
@@ -656,13 +643,13 @@ namespace ThunderRoad
             return false;
         }
 
-        public bool IntersectRecursif(IAreaBlueprintGenerator.SpawnableBlueprint bluePrint, float boundsMargin)
+        public bool IntersectRecursive(IAreaBlueprintGenerator.SpawnableBlueprint bluePrint, float boundsMargin)
         {
             HashSet<SpawnableArea> taggedArea = new HashSet<SpawnableArea>();
-            return IntersectRecursif(bluePrint, boundsMargin, ref taggedArea);
+            return IntersectRecursive(bluePrint, boundsMargin, ref taggedArea);
         }
 
-        private bool IntersectRecursif(IAreaBlueprintGenerator.SpawnableBlueprint bluePrint, float boundsMargin, ref HashSet<SpawnableArea> taggedArea)
+        private bool IntersectRecursive(IAreaBlueprintGenerator.SpawnableBlueprint bluePrint, float boundsMargin, ref HashSet<SpawnableArea> taggedArea)
         {
             if (!taggedArea.Add(this))
             {
@@ -681,7 +668,7 @@ namespace ThunderRoad
 
             foreach (KeyValuePair<int, ConnectedArea> pair in _connectedArea)
             {
-                if (pair.Value.connectedArea.IntersectRecursif(bluePrint, boundsMargin, ref taggedArea))
+                if (pair.Value.connectedArea.IntersectRecursive(bluePrint, boundsMargin, ref taggedArea))
                 {
                     return true;
                 }
@@ -792,20 +779,37 @@ namespace ThunderRoad
         }
 
 
-        public IEnumerator LoadPrefab()
+        public IEnumerator PreloadResources()
         {
             // Area prefab
-            GameObject prefab = null;
-            yield return Catalog.LoadLocationCoroutine<GameObject>(AreaAddress, value => _resourceLocation = value, AreaAddress);
-            yield return Catalog.LoadAssetCoroutine<GameObject>(_resourceLocation, value => prefab = value, "SpawnableArea");
-            _areaPrefab = prefab.GetComponent<Area>();
+            if(_prefabsLoaded) yield break;
+            if (_prefabLoadInProgress) yield break;
+
+            _prefabLoadInProgress = true;
+
+            _areaData.GetAreaPrefab((Area area) => _areaPrefab = area);
+            while (_areaPrefab == null)
+            {
+                yield return null;
+            }
+
+            // Preload lighitng Group
+            _isLigthingPresetFromAddress = _areaData.lightingPresetAddressLocation != null && _areaPrefab.lightingGroup.lightingPreset == null;
+            if (_isLigthingPresetFromAddress)
+            {
+                _areaData.GetLightingPreset((LightingPreset preset) => _preloadLigthingPreset = preset);
+                while (_preloadLigthingPreset == null)
+                {
+                    yield return null;
+                }
+            }
 
             yield return LoadBlockers();
 
-            yield return LoadFakeViews();
-
             yield return LoadGates();
 
+            _prefabLoadInProgress = false;
+            _prefabsLoaded = true;
         }
 
         private IEnumerator LoadGates()
@@ -832,30 +836,7 @@ namespace ThunderRoad
                 }
             }
         }
-        private IEnumerator LoadFakeViews()
-        {
-            // FakeView
-            _fakeViewResourceLocation ??= new Dictionary<int, IResourceLocation>();
-            _connectionFakeViewData ??= new Dictionary<int, FakeViewData>();
-            if (_connectionFakeViewAddress == null) yield break;
 
-            foreach (KeyValuePair<int, string> pair in _connectionFakeViewAddress)
-            {
-                if (!string.IsNullOrEmpty(pair.Value))
-                {
-                    IResourceLocation tempLocation = null;
-                    if (!_fakeViewResourceLocation.TryGetValue(pair.Key, out tempLocation))
-                    {
-                        yield return Catalog.LoadLocationCoroutine<FakeViewData>(pair.Value, value => _fakeViewResourceLocation.Add(pair.Key, value), AreaAddress);
-                        tempLocation = _fakeViewResourceLocation[pair.Key];
-                    }
-
-                    yield return Catalog.LoadAssetCoroutine<FakeViewData>(tempLocation,
-                        value => _connectionFakeViewData.Add(pair.Key, value),
-                        "SpawnableArea");
-                }
-            }
-        }
         private IEnumerator LoadBlockers()
         {
             // Blocker
@@ -892,10 +873,9 @@ namespace ThunderRoad
             {
                 return;
             }
-
             _spawnCoroutine = AreaManager.Instance.StartCoroutine(SpawnCoroutine(inLoadingMenu));
         }
-
+                
         public IEnumerator SpawnCoroutine(bool inLoadingMenu)
         {
             yield break;
@@ -909,31 +889,7 @@ namespace ThunderRoad
                 _spawnCoroutine = null;
             }
 
-            if (_areaPrefabSpawn == null)
-            {
-                return;
-            }
-
-            UnityEngine.Object.Destroy(_areaPrefabSpawn.gameObject);
-            _areaPrefabSpawn = null;
-
-            Catalog.ReleaseAsset(_areaPrefab.gameObject);
-            _areaPrefab = null;
-
-            foreach (KeyValuePair<int, FakeViewData> pair in _connectionFakeViewData)
-            {
-                Catalog.ReleaseAsset(pair.Value);
-            }
-            _connectionFakeViewData.Clear();
-            _connectionFakeViewData = null;
-
-            foreach (KeyValuePair<int, GameObject> pair in _connectionBlockerPrefab)
-            {
-                Catalog.ReleaseAsset(pair.Value);
-            }
-            _connectionBlockerPrefab.Clear();
-            _connectionBlockerPrefab = null;
-
+            // Gate destroy if needed or change parent to the next area
             foreach (KeyValuePair<int, GameObject> pair in _connectionGatePrefab)
             {
                 Catalog.ReleaseAsset(pair.Value);
@@ -979,6 +935,38 @@ namespace ThunderRoad
                 _connectionLinkNavMesh = null;
             }
 
+            // Release prefab and lighting Preset
+            if (_areaPrefabSpawn != null)
+            {
+                if (_areaPrefabSpawn.lightingPresetFromData && _areaPrefabSpawn.lightingGroup.lightingPreset != null)
+                {
+                    _areaData.ReleaseLightingPreset();
+                }
+
+                UnityEngine.Object.Destroy(_areaPrefabSpawn.gameObject);
+                _areaPrefabSpawn = null;
+            }
+
+            if (_preloadLigthingPreset != null)
+            {
+                _preloadLigthingPreset = null;
+                _areaData.ReleaseLightingPreset();
+            }
+
+            _areaPrefab = null;
+            _areaData.ReleaseAreaPrefab();
+
+            // Releases blockers (need after destroy area)
+            foreach (KeyValuePair<int, GameObject> pair in _connectionBlockerPrefab)
+            {
+                Catalog.ReleaseAsset(pair.Value);
+            }
+            _connectionBlockerPrefab.Clear();
+            _connectionBlockerPrefab = null;
+
+            // Prefabs fully unload
+            _prefabsLoaded = false;
+
             if (_despawnAreaEvent != null) _despawnAreaEvent.Invoke(this);
         }
 
@@ -1020,10 +1008,10 @@ namespace ThunderRoad
 #if UNITY_EDITOR
         public void EditorSpawnArea(Transform root, bool spawnItem)
         {
-            EditorSpawnArea(root, spawnItem, AreaAddress);
+            EditorSpawnArea(root, spawnItem, AreaAddress, _areaData.lightingPresetAddress);
         }
 
-        private void EditorSpawnArea(Transform root, bool spawnItem, string areaAddress)
+        private void EditorSpawnArea(Transform root, bool spawnItem, string areaAddress, string lightingPresetAddress)
         {
             
         }

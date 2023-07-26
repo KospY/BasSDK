@@ -1245,7 +1245,7 @@
     },
     {
       "$type": "ThunderRoad.EffectModuleReveal, ThunderRoad",
-      "maskTextureAddress": "Bas.Texture.RevealMask.FleshPierce",
+      "maskTextureContainerAddress": "Bas.TextureContainer.RevealMask.FleshPierce",
       "applyOn": "Target",
       "typeFilter": "Default, Body, Outfit",
       "depth": 0.25,
@@ -1431,7 +1431,7 @@
     },
     {
       "$type": "ThunderRoad.EffectModuleReveal, ThunderRoad",
-      "maskTextureAddress": "Bas.Texture.RevealMask.FleshBurn",
+      "maskTextureContainerAddress": "Bas.TextureContainer.RevealMask.FleshBurn",
       "applyOn": "Target",
       "typeFilter": "Default, Body, Outfit",
       "depth": 0.25,

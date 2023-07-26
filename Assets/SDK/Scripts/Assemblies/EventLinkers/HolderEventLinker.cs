@@ -23,6 +23,7 @@ namespace ThunderRoad
             OnHoverUseRelease = 5,
             OnHoverAlternateUsePress = 6,
             OnHoverAlternateUseRelease = 7,
+            OnLinkerStart = 8,
         }
 
         [System.Serializable]

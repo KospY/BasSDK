@@ -505,42 +505,42 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraOculusTouch",
-          "text": "[Y]と[B]を同時に押して外部ビューカメラを使用する、\nまたは[Y]と[A]を同時に押して外部ビューカメラを固定します。",
+          "text": "[Y]と[B]を同時に押して外部ビューカメラを使用する、または[Y]と[A]を同時に押して外部ビューカメラを固定します。",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraViveWand",
-          "text": "[右タッチパッド]と[左トリガー]を同時に押して外部ビューカメラを使用する、\nまたは[右タッチパッド]と[右トリガー]を同時に押して外部ビューカメラを固定します。",
+          "text": "[右タッチパッド]と[左トリガー]を同時に押して外部ビューカメラを使用する、または[右タッチパッド]と[右トリガー]を同時に押して外部ビューカメラを固定します。",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraWMR",
-          "text": "[左メニュー]と[右メニュー]を同時に押して外部ビューカメラを使用する、\nまたは[右メニュー]と[右トリガー]を同時に押して外部ビューカメラを固定します。",
+          "text": "[左メニュー]と[右メニュー]を同時に押して外部ビューカメラを使用する、または[右メニュー]と[右トリガー]を同時に押して外部ビューカメラを固定します。",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraIndex",
-          "text": "[左B]と[右B]を同時に押して外部ビューカメラを使用する、\nまたは[左B]と[右A]を同時に押して外部ビューカメラを固定します。",
+          "text": "[左B]と[右B]を同時に押して外部ビューカメラを使用する、または[左B]と[右A]を同時に押して外部ビューカメラを固定します。",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraPicoNeo3",
-          "text": "[Y]と[B]を同時に押して外部ビューカメラを使用する、\nまたは[Y]と[A]を同時に押して外部ビューカメラを固定します。",
+          "text": "[Y]と[B]を同時に押して外部ビューカメラを使用する、または[Y]と[A]を同時に押して外部ビューカメラを固定します。",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraPico4",
-          "text": "[Y]と[B]を同時に押して外部ビューカメラを使用する、\nまたは[Y]と[A]を同時に押して外部ビューカメラを固定します。",
+          "text": "[Y]と[B]を同時に押して外部ビューカメラを使用する、または[Y]と[A]を同時に押して外部ビューカメラを固定します。",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -4077,6 +4077,83 @@
           "text": "無料",
           "spriteAddress": null,
           "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InvalidEmail",
+          "text": "無効な電子メールアドレス！",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InvalidEmailDescription",
+          "text": " 送信されたメールアドレスは無効です！",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SendingAuthCode",
+          "text": "メールアドレスに認証コードを送信する",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModIoEnterAuthCode",
+          "text": "認証コードを入力してください",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModIoEnterAuthCodeDescription",
+          "text": "あなたのメールにそれを見つけることができます、mod.ioからのコードのためにあなたの受信トレイまたはスパムフォルダを確認してください",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ShowSpellNames",
+          "text": "呪文の名前を表示する",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReportBug",
+          "text": "バグ報告する",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Timeout",
+          "text": "タイムアウト",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TimeoutDescription",
+          "text": "Mod.io サーバーは現在混雑しています。お待ちください",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NotEnoughStorage",
+          "text": "\rこのモッドをインストールするために十分なディスク容量がありません。",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MusicStingerVolume",
+          "text": "ミュージックスティンガーボリューム",
+          "spriteAddress": null,
+          "videoAddress": null
         }
       ]
     },
@@ -5908,6 +5985,24 @@
       "id": "Urn",
       "name": "骨壺",
       "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellFire",
+      "name": "火",
+      "description": null
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellGravity",
+      "name": "重力",
+      "description": null
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellLightning",
+      "name": "稲妻",
+      "description": null
     }
   ],
   "waves": [

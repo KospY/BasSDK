@@ -44,6 +44,9 @@ namespace ThunderRoad
 
         protected void RefreshLightIntensity()
         {
+            if (light == null)
+            { return; }
+
             if (flicker)
             {
                 light.intensity = Mathf.Clamp(currentLightIntensity - UnityEngine.Random.Range(0, flickerIntensityReduction), 0, Mathf.Infinity);

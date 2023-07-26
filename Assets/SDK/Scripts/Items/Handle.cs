@@ -28,6 +28,8 @@ namespace ThunderRoad
         public HandlePose orientationDefaultLeft;
 		[Tooltip("When linked handle is grabbed, ungrip this handle.")]
         public Handle releaseHandle;
+        [Tooltip("Handle will only activate when the linked handle is grabbed.")]
+        public Handle activateHandle;
 
         [Tooltip("When ticked, no sound will play when the handle is grabbed")]
         public bool silentGrab = false;
@@ -55,9 +57,8 @@ namespace ThunderRoad
         public Handle moveToHandle;
         [Tooltip("Axis Position for the \"Move To Handle\" handle")]
         public float moveToHandleAxisPos = 0;
-
-        [NonSerialized]
-        public bool updatePosesWhenWeightChanges = false;
+        [Tooltip("When this box is checked, hand poses will update whenever the target weight changes or whenever the pose data changes.")]
+        public bool updatePosesAutomatically = false;
 
         [Obsolete, Header("This is Obsolete. Please use Handle Pose button instead.")]
         public List<Orientation> allowedOrientations = new List<Orientation>();
@@ -247,7 +248,16 @@ namespace ThunderRoad
 
         public virtual void SetUpdatePoses(bool active)
         {
-            updatePosesWhenWeightChanges = active;
+            updatePosesAutomatically = active;
+        }
+
+        // These methods intentionally exposed for public SDK use
+        public virtual void Release()
+        {
+        }
+
+        protected virtual void ForcePlayerGrab()
+        {
         }
 
         protected override void OnDrawGizmosSelected()

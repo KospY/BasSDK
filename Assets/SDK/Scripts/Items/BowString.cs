@@ -34,12 +34,15 @@ namespace ThunderRoad
         [Header("Resting and nocking")]
         public Transform restLeft;
         public Transform restRight;
+        public string ammoCategory = "Arrow";
         [Tooltip("Allow the player to always grab the string, even if the bow itself isn't grabbed. Defaults to false.")]
         public bool stringAlwaysGrabbable = false;
         [Tooltip("Sets whether or not arrows can be nocked when holding the non-main handle. Defaults to true.")]
         public bool nockOnlyMainHandle = true;
         [Tooltip("Defines whether or not to drop the arrow when the bow is ungrabbed. If set to false, the bow can hold an arrow even when not held.")]
         public bool loseNockOnUngrab = true;
+        [Tooltip("If true, allows arrows to drop out of the bow. If false, prevents arrows from falling out of the bow.")]
+        public bool allowOverdraw = true;
 
         [Header("Audio")]
         [Tooltip("Plays when the bow is released and the arrow gets fired.")]
@@ -84,12 +87,12 @@ namespace ThunderRoad
                 orgBowStringPos = pb.transform.localPosition;
                 SetStringSpring(module?.stringSpring ?? 500f);
             }
-            stringJoint.SetConnectedPhysicBody(item.gameObject.GetPhysicBody()); ;
+            stringJoint.SetConnectedPhysicBody(item.gameObject.GetPhysicBody());
+            ;
             stringJoint.autoConfigureConnectedAnchor = false;
             stringJoint.configuredInWorldSpace = false;
             stringJoint.anchor = Vector3.zero;
-            stringJoint.linearLimit = new SoftJointLimit()
-            {
+            stringJoint.linearLimit = new SoftJointLimit() {
                 limit = 0.5f * (stringDrawLength + allowance),
                 contactDistance = 0.01f
             };
@@ -127,11 +130,9 @@ namespace ThunderRoad
                 _blockStringRelease = false;
                 return startValue;
             }
-            set
-            {
-                _blockStringRelease = value;
-            }
+            set { _blockStringRelease = value; }
         }
+
         private bool _blockStringRelease;
 
         // This method should be exposed when exporting the SDK; modders may have an interest in utilizing this method through an event linker or other Unity Event
@@ -153,6 +154,7 @@ namespace ThunderRoad
         public void RemoveArrow(bool despawn)
         {
         }
+
 
 #if UNITY_EDITOR
         [Header("Editor only")]
@@ -250,8 +252,7 @@ namespace ThunderRoad
             Debug.Log($"Got {trackedCount} tracked vertices to follow for bow draw length.");
             if (trackedCount == 0)
             {
-                Debug.LogError($"In order to properly auto-configure, there have to be enough mesh vertices within a certain radius to the transform center." +
-                    $"\nIncrease Vertex Grab Distance or move the {gameObject.name} transform to better line up with the bow's mesh.");
+                Debug.LogError($"In order to properly auto-configure, there have to be enough mesh vertices within a certain radius to the transform center." + $"\nIncrease Vertex Grab Distance or move the {gameObject.name} transform to better line up with the bow's mesh.");
                 return;
             }
             pullCurve = new AnimationCurve();
@@ -312,6 +313,7 @@ namespace ThunderRoad
         {
             if (this.InPrefabScene() && item == null) item = GetComponentInParent<Item>();
             if (Mathf.Approximately(stringDrawLength, 0f) || item == null || restLeft == null || restRight == null) return;
+            if (!Application.isPlaying) orgBowStringPos = item.transform.InverseTransformPoint(transform.position);
             Vector3 originalPosition = item.transform.TransformPoint(orgBowStringPos);
             Vector3 maxDrawPos = originalPosition - (transform.forward * stringDrawLength);
             Gizmos.color = Color.white;

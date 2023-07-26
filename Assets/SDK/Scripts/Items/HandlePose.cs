@@ -79,17 +79,17 @@ namespace ThunderRoad
             if (!handle) handle = this.GetComponentInParent<Handle>();
             if (!Application.isPlaying)
             {
-#if UNITY_EDITOR                
-                Catalog.EditorLoadAllJson();
-                defaultHandPoseData = Catalog.GetData<HandPoseData>(defaultHandPoseId);
-                if (defaultHandPoseData != null) defaultHandPose = defaultHandPoseData.GetCreaturePose(creatureName);
-
-                targetHandPoseData = Catalog.GetData<HandPoseData>(targetHandPoseId);
-                if (targetHandPoseData != null) targetHandPose = targetHandPoseData.GetCreaturePose(creatureName);
-
+#if UNITY_EDITOR     
                 UpdateName();
                 if (creature)
                 {
+                    Catalog.EditorLoadAllJson();
+                    defaultHandPoseData = Catalog.GetData<HandPoseData>(defaultHandPoseId);
+                    if (defaultHandPoseData != null) defaultHandPose = defaultHandPoseData.GetCreaturePose(creatureName);
+
+                    targetHandPoseData = Catalog.GetData<HandPoseData>(targetHandPoseId);
+                    if (targetHandPoseData != null) targetHandPose = targetHandPoseData.GetCreaturePose(creatureName);
+                    
                     foreach (RagdollHand hand in creature.GetComponentsInChildren<RagdollHand>())
                     {
                         if (hand.side == Side.Right) creature.handRight = hand;

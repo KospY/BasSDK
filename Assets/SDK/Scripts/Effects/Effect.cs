@@ -42,12 +42,14 @@ namespace ThunderRoad
         {
 
         }
-
+        
+        public float effectIntensity;
         public virtual void SetIntensity(float value, bool loopOnly = false)
         {
-
+            effectIntensity = value;
         }
-
+        
+        public float effectSpeed;
         public virtual void SetSpeed(float value, bool loopOnly = false)
         {
 
@@ -77,10 +79,11 @@ namespace ThunderRoad
         {
 
         }
-
+        
+        public float effectSize;
         public virtual void SetSize(float value)
         {
-
+            effectSize = value;
         }
 
         public virtual void SetMesh(Mesh mesh)
