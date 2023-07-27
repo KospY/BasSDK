@@ -96,6 +96,14 @@ namespace ThunderRoad
             if (clearAfterAction) ClearSelections();
         }
 
+        public void EquipOneSelectedToPlayerRightHand()
+        {
+        }
+
+        public void EquipOneSelectedToPlayerLeftHand()
+        {
+        }
+
         public void EquipOneSelectedToHand(RagdollHand hand)
         {
             if (clearAfterAction) ClearSelections();
@@ -117,6 +125,14 @@ namespace ThunderRoad
         }
 
         public void BreakEventTargetBreakable()
+        {
+        }
+
+        public void EquipEventTargetToPlayerRightHand()
+        {
+        }
+
+        public void EquipEventTargetToPlayerLeftHand()
         {
         }
 
