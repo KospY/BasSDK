@@ -341,32 +341,44 @@
                 }
               },
               {
-                "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
-                "operation": "AND",
-                "ifConditions": [
+                "$type": "ThunderRoad.AI.Control.Selector, ThunderRoad",
+                "evaluateAllNodesOnCycle": false,
+                "childs": [
                   {
-                    "$type": "ThunderRoad.AI.Condition.BlackboardTimeValue, ThunderRoad",
-                    "variableName": "BrainStart",
-                    "variableComparator": "LowerThanOrEqual",
-                    "timeDiff": 3.0
-                  }
-                ],
-                "ifNotConditions": null,
-                "child": {
-                  "$type": "ThunderRoad.AI.Action.MoveInDirection, ThunderRoad",
-                  "moveDirection": {
-                    "x": 0.0,
-                    "y": 1.0
+                    "$type": "ThunderRoad.AI.ChildTreeNode, ThunderRoad",
+                    "reference": "ForceID",
+                    "childTreeID": "HumanFollow",
+                    "childTreeName": null
                   },
-                  "moveSpeedRatio": 0.7,
-                  "turnSpeed": 0.0,
-                  "moveMinDuration": 0.7,
-                  "stuckRadius": 0.1,
-                  "stuckMaxDuration": 5.0,
-                  "blackboard": null,
-                  "creature": null,
-                  "brainData": null
-                }
+                  {
+                    "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
+                    "operation": "AND",
+                    "ifConditions": [
+                      {
+                        "$type": "ThunderRoad.AI.Condition.BlackboardTimeValue, ThunderRoad",
+                        "variableName": "BrainStart",
+                        "variableComparator": "LowerThanOrEqual",
+                        "timeDiff": 3.0
+                      }
+                    ],
+                    "ifNotConditions": null,
+                    "child": {
+                      "$type": "ThunderRoad.AI.Action.MoveInDirection, ThunderRoad",
+                      "moveDirection": {
+                        "x": 0.0,
+                        "y": 1.0
+                      },
+                      "moveSpeedRatio": 0.7,
+                      "turnSpeed": 0.0,
+                      "moveMinDuration": 0.7,
+                      "stuckRadius": 0.1,
+                      "stuckMaxDuration": 5.0,
+                      "blackboard": null,
+                      "creature": null,
+                      "brainData": null
+                    }
+                  }
+                ]
               }
             ]
           }

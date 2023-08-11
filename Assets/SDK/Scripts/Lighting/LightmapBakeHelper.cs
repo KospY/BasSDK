@@ -58,6 +58,23 @@ namespace ThunderRoad
             Lightmapping.bakeCompleted += OnBakeCompleted;
         }
 
+        public static void SetEditorContributeGI(MeshRenderer meshRenderer, bool active)
+        {
+            StaticEditorFlags staticEditorFlags = GameObjectUtility.GetStaticEditorFlags(meshRenderer.gameObject);
+            if (active && !staticEditorFlags.HasFlag(StaticEditorFlags.ContributeGI))
+            {
+                staticEditorFlags = staticEditorFlags | StaticEditorFlags.ContributeGI;
+                GameObjectUtility.SetStaticEditorFlags(meshRenderer.gameObject, staticEditorFlags);
+                meshRenderer.receiveGI = ReceiveGI.Lightmaps;
+            }
+            if (!active && staticEditorFlags.HasFlag(StaticEditorFlags.ContributeGI))
+            {
+                staticEditorFlags = staticEditorFlags & ~(StaticEditorFlags.ContributeGI);
+                GameObjectUtility.SetStaticEditorFlags(meshRenderer.gameObject, staticEditorFlags);
+                meshRenderer.receiveGI = ReceiveGI.LightProbes;
+            }
+        }
+
         public static void Bake(bool stopIfCPU = false)
         {
             stopBakeIfCPU = stopIfCPU;

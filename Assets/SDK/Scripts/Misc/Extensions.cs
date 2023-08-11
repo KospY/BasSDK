@@ -13,6 +13,20 @@ namespace ThunderRoad
 {
     public static class Extensions
     {
+        public static bool TryGetCount(this ICollection collection, out int count)
+        {
+            count = 0;
+            if (collection == null) return false;
+            count = collection.Count;
+            return true;
+        }
+        
+        public static bool TryGetComponentInChildren<T>(this GameObject gameObject, out T component) where T : Component
+        {
+            component = gameObject.GetComponentInChildren<T>();
+            return component;
+        }
+        
         public static bool TryGetOrAddComponentInChildren<T>(this GameObject gameObject, out T component) where T : Component
         {
             component = gameObject.GetComponentInChildren<T>();
@@ -24,6 +38,7 @@ namespace ThunderRoad
             }
             return component;
         }
+        
         public static bool TryGetOrAddComponent<T>(this GameObject gameObject, out T component) where T : Component
         {
             if (!gameObject.TryGetComponent<T>(out component))
@@ -103,6 +118,13 @@ namespace ThunderRoad
         public static PhysicBody AsPhysicBody(this Rigidbody rb) => new PhysicBody(rb);
 
         public static PhysicBody AsPhysicBody(this ArticulationBody ab) => new PhysicBody(ab);
+
+        public static PhysicBody GetPhysicBody(this RaycastHit hit)
+        {
+            if (hit.rigidbody != null) return hit.rigidbody.AsPhysicBody();
+            if (hit.articulationBody != null) return hit.articulationBody.AsPhysicBody();
+            return hit.transform.GetPhysicBody();
+        }
 
         public static PhysicBody GetPhysicBody(this Component component)
         {

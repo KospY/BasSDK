@@ -17,6 +17,7 @@ namespace ThunderRoad
         {
             OnDamageDealt = 0,
             OnKillDealt = 1,
+            OnLinkerStart = 2,
         }
 
         [System.Serializable]

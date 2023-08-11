@@ -11,6 +11,7 @@ namespace ThunderRoad
         public string label;
         public Texture2D texture;
         public RawImage background;
+        public ToggleGroup locationsToggleGroup;
 
         private void OnValidate()
         {

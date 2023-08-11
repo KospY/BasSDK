@@ -158,6 +158,11 @@ namespace ThunderRoad
 
         public static Quaternion QuaternionFromTo(Quaternion from, Quaternion to) => from.To(to);
 
+        public static float FlatAngleAroundAxis(Vector3 from, Vector3 to, Vector3 axis)
+        {
+            return Vector3.SignedAngle(Vector3.ProjectOnPlane(from, axis), Vector3.ProjectOnPlane(to, axis), axis);
+        }
+
         public static Vector3 ClampMagnitude(Vector3 v, float max, float min)
         {
             double sm = v.sqrMagnitude;

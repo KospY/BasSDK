@@ -494,10 +494,9 @@ public class ReflectionSorcery : MonoBehaviour
         }
         else
         {
-            var success = false;
             try
             {
-                success = Lightmapping.BakeReflectionProbe(captureProbe, savePath);
+                var success = Lightmapping.BakeReflectionProbe(captureProbe, savePath);
                 if (!success) throw new Exception("Lightmapping.BakeReflectionProbe returned false");
                 if (!System.IO.File.Exists(savePath)) throw new Exception("BakeReflectionProbe: File does not exist: " + savePath);
             }
@@ -506,10 +505,7 @@ public class ReflectionSorcery : MonoBehaviour
                 Debug.LogError("BakeReflectionProbe: Failed: " + savePath + " error: " + e.Message);
                 return;
             }
-
-
-            Debug.Log("Testing: " + success);
-
+            
             captureTexture = AssetDatabase.LoadAssetAtPath<Texture>(savePath);
             SetCubeSettings(savePath);
             renderMaterial.SetTexture("_Cubemap", captureTexture);

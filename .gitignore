@@ -130,7 +130,7 @@ atlassian-ide-plugin.xml
 .idea/replstate.xml
 
 # SonarLint plugin
-.idea/sonarlint/
+.idea/**/sonarlint/
 
 # Crashlytics plugin (for Android Studio and IntelliJ)
 com_crashlytics_export_strings.xml
@@ -157,3 +157,6 @@ UserSettings/Layouts/default-2021.dwlt
 Packages/packages-lock.json
 UserSettings/AndroidLogcatSettings.asset
 UserSettings/Search.settings
+
+# All idea
+.idea/**/*

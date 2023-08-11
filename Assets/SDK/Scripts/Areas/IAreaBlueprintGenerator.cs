@@ -57,6 +57,7 @@ namespace ThunderRoad
         }
         #endregion InternalClass
         public string GetId();
+        public HashSet<string> GetSpawnableAreasIds();
         public List<AreaData.AreaConnection> GetConnections();
         public AreaData.AreaConnection GetConnection(int index);
 

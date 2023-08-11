@@ -505,42 +505,42 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraOculusTouch",
-          "text": "Pressione 'Y' e 'B' simultaneamente para usar a câmera de visão externa,\nou 'Y' e 'A' para travar a câmera de visão externa.",
+          "text": "Pressione 'Y' e 'B' simultaneamente para usar a câmera de visão externa, ou 'Y' e 'A' para travar a câmera de visão externa.",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraViveWand",
-          "text": "Pressione o 'Touchpad Direito' e o 'Gatilho Esquerdo' simultaneamente para usar a câmera de visão externa,\nou o 'Touchpad Direito' e o 'Gatilho Direito' para travar a câmera de visão externa.",
+          "text": "Pressione o 'Touchpad Direito' e o 'Gatilho Esquerdo' simultaneamente para usar a câmera de visão externa, ou o 'Touchpad Direito' e o 'Gatilho Direito' para travar a câmera de visão externa.",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraWMR",
-          "text": "Pressione 'Menu Esquerdo' e 'Menu Direito' simultaneamente para usar a câmera de visão externa,\nou 'Menu Esquerdo' e 'Gatilho Direito' para travar a câmera de visão externa.",
+          "text": "Pressione 'Menu Esquerdo' e 'Menu Direito' simultaneamente para usar a câmera de visão externa, ou 'Menu Esquerdo' e 'Gatilho Direito' para travar a câmera de visão externa.",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraIndex",
-          "text": "Pressione 'B Esquerdo' e 'B Direito' simultaneamente para usar a câmera de visão externa,\nou 'B Esquerdo' e 'A Direito' para travar a câmera de visão externa.",
+          "text": "Pressione 'B Esquerdo' e 'B Direito' simultaneamente para usar a câmera de visão externa, ou 'B Esquerdo' e 'A Direito' para travar a câmera de visão externa.",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraPicoNeo3",
-          "text": "Pressione 'Y' e 'B' simultaneamente para usar a câmera de visão externa,\nou 'Y' e 'A' para travar a câmera de visão externa.",
+          "text": "Pressione 'Y' e 'B' simultaneamente para usar a câmera de visão externa, ou 'Y' e 'A' para travar a câmera de visão externa.",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraPico4",
-          "text": "Pressione 'Y' e 'B' simultaneamente para usar a câmera de visão externa,\nou 'Y' e 'A' para travar a câmera de visão externa.",
+          "text": "Pressione 'Y' e 'B' simultaneamente para usar a câmera de visão externa, ou 'Y' e 'A' para travar a câmera de visão externa.",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -4077,6 +4077,83 @@
           "text": "Grátis",
           "spriteAddress": null,
           "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InvalidEmail",
+          "text": "Endereço de e-mail inválido!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InvalidEmailDescription",
+          "text": "O email submetido não é válido!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SendingAuthCode",
+          "text": "Enviando código de autenticação para o endereço de e-mail",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModIoEnterAuthCode",
+          "text": "Por favor, digite seu código de autenticação",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModIoEnterAuthCodeDescription",
+          "text": "Você pode encontrá-lo em seu e-mail, verifique sua caixa de entrada ou pasta de spam por um código da mod.io",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ShowSpellNames",
+          "text": "Mostrar nomes dos feitiços",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReportBug",
+          "text": "Reportar erro",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Timeout",
+          "text": "Tempo de espera",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TimeoutDescription",
+          "text": "O servidor Mod.io parece ocupado no momento. Por favor, aguarde.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NotEnoughStorage",
+          "text": "Não há espaço em disco suficiente livre para instalar esta modificação.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MusicStingerVolume",
+          "text": "Volume de Efeito Musical",
+          "spriteAddress": null,
+          "videoAddress": null
         }
       ]
     },
@@ -5908,6 +5985,24 @@
       "id": "Urn",
       "name": "Urna",
       "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellFire",
+      "name": "Fogo",
+      "description": null
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellGravity",
+      "name": "Gravidade",
+      "description": null
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellLightning",
+      "name": "Raio",
+      "description": null
     }
   ],
   "waves": [

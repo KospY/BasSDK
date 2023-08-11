@@ -45,7 +45,6 @@ namespace ThunderRoad
         public override ManagedLoops EnabledManagedLoops => ManagedLoops.LateUpdate;
         protected internal override void ManagedLateUpdate()
         {
-            base.ManagedLateUpdate();
             if (currentCreature?.state == Creature.State.Dead) currentCreature = null;
         }
 

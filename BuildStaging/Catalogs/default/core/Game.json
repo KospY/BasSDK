@@ -11,20 +11,6 @@
   "debugDungeonCaptureMemoryUsage": false,
   "debugDungeonWaitPress": false,
   "dungeonStaticBatching": true,
-  "pointerMeshAddress": "DefaultPointerMesh",
-  "forceLoadAssetAddress": null,
-  "highlighterAddress": "Ui.Highlighter",
-  "levelStart": "test",
-  "levelStartModeName": null,
-  "levelStartOptions": {
-    "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.String, mscorlib]], mscorlib",
-    "DungeonLength": "1",
-    "DungeonSeed": "0",
-    "Difficulty": "2",
-    "DungeonRoom": "0",
-    "PlayerContainerId_Disabled": "PlayerTutorial",
-    "PlayerSpawnerId_Disabled": "Tutorial3"
-  },
   "defaultPlayerMaleCreatureID": "PlayerTest",
   "defaultPlayerFemaleCreatureID": "PlayerTest",
   "gameModes": [
@@ -49,8 +35,6 @@
       "defaultPlayerInfiniteFocus": false,
       "defaultInfiniteImbue": false,
       "defaultInfiniteArrows": false,
-      "levelCharacterSelection": "CharacterSelection",
-      "levelCharacterSelectionModeName": null,
       "levelHome": "Home",
       "levelHomeModeName": null,
       "tutorialEnabled": true,
@@ -59,6 +43,7 @@
       "defaultPlayerHomeContainerID": "PlayerHomeDefault"
     }
   ],
+  "skipIntro": false,
   "water": {
     "$type": "ThunderRoad.WaterHandler+Data, ThunderRoad",
     "footstepEffectId": "FootstepWater",
@@ -244,6 +229,7 @@
     "postWrapMode": "ClampForever"
   },
   "deathEffectId": "Death",
+  "playerRespawnDelay": 10.0,
   "pc": {
     "$type": "ThunderRoad.GameData+PlatformParameters, ThunderRoad",
     "maxWaveAlive": 50,
@@ -251,6 +237,8 @@
     "itemSpawnerMaxItems": 100,
     "itemSpawnerDelay": 0,
     "mirrorQuality": 1.0,
+    "cleanDeadLastInteractionDelay": 7.0,
+    "cleanObjectsLastInteractionDelay": 7.0,
     "aiCycleMinSpeed": 0.1,
     "aiCycleMaxSpeed": 1.0,
     "poolingAudioCount": 20,
@@ -260,7 +248,6 @@
     "poolingPaintCount": 100,
     "poolingMeshCount": 100,
     "poolingLightCount": 100,
-    "poolingEffectInstanceCount": 600,
     "enableEffectAudio": true,
     "enableEffectVfx": true,
     "enableEffectParticle": true,
@@ -277,6 +264,8 @@
     "itemSpawnerMaxItems": 8,
     "itemSpawnerDelay": 1,
     "mirrorQuality": 0.5,
+    "cleanDeadLastInteractionDelay": 7.0,
+    "cleanObjectsLastInteractionDelay": 7.0,
     "aiCycleMinSpeed": 0.1,
     "aiCycleMaxSpeed": 1.0,
     "poolingAudioCount": 20,
@@ -286,7 +275,6 @@
     "poolingPaintCount": 70,
     "poolingMeshCount": 70,
     "poolingLightCount": 100,
-    "poolingEffectInstanceCount": 600,
     "enableEffectAudio": true,
     "enableEffectVfx": true,
     "enableEffectParticle": true,
@@ -295,100 +283,6 @@
     "enableEffectReveal": true,
     "enableEffectPaint": false,
     "enableEffectLight": true
-  },
-  "experience": {
-    "$type": "ThunderRoad.GameData+Experience, ThunderRoad",
-    "actions": {
-      "$type": "ThunderRoad.GameData+Actions, ThunderRoad",
-      "decapitation": 80,
-      "dismemberment": 60,
-      "magicDismemberment": 0,
-      "cutThroat": 60,
-      "slashHeadOrNeck": 30,
-      "pierceHeadOrNeck": 50,
-      "pierceTorso": 40,
-      "bluntHead": 40,
-      "punchOrKick": 30,
-      "ragdollHit": 60,
-      "staticBlunt": 40,
-      "staticSlash": 60,
-      "staticPierce": 70,
-      "electrocuted": 0,
-      "burned": 20,
-      "frozen": 20,
-      "drained": 30,
-      "poisoned": 40,
-      "throwDecapitation": 90,
-      "throwDismemberment": 70,
-      "throwSlashHeadOrNeck": 40,
-      "throwPierceHeadOrNeck": 60,
-      "throwPierce": 50,
-      "throwBlunt": 50
-    },
-    "modifiers": {
-      "$type": "ThunderRoad.GameData+Modifiers, ThunderRoad",
-      "flying": 50,
-      "grabbed": 30,
-      "electrocuted": 0,
-      "onGround": 0,
-      "unarmed": 0,
-      "dead": 0
-    },
-    "aiDifficulty": 50,
-    "apparelTier": 80,
-    "weaponTier": 20,
-    "shieldTier": 50,
-    "historyMaxSameAction": -30,
-    "historyMaxSameActionAndModifier": -60,
-    "historyMultiKill": 20,
-    "historyMinTime": 2.0,
-    "historyMaxTime": 30.0,
-    "historyMaxCount": 20
-  },
-  "honor": {
-    "$type": "ThunderRoad.GameData+Honor, ThunderRoad",
-    "max": 1000,
-    "actions": {
-      "$type": "ThunderRoad.GameData+Actions, ThunderRoad",
-      "decapitation": 2,
-      "dismemberment": 0,
-      "magicDismemberment": 0,
-      "cutThroat": 2,
-      "slashHeadOrNeck": 1,
-      "pierceHeadOrNeck": 1,
-      "pierceTorso": 0,
-      "bluntHead": 1,
-      "punchOrKick": 3,
-      "ragdollHit": 3,
-      "staticBlunt": 1,
-      "staticSlash": 0,
-      "staticPierce": 0,
-      "electrocuted": 0,
-      "burned": -1,
-      "frozen": -1,
-      "drained": -2,
-      "poisoned": -2,
-      "throwDecapitation": 1,
-      "throwDismemberment": 0,
-      "throwSlashHeadOrNeck": 1,
-      "throwPierceHeadOrNeck": 1,
-      "throwPierce": 0,
-      "throwBlunt": 1
-    },
-    "modifiers": {
-      "$type": "ThunderRoad.GameData+Modifiers, ThunderRoad",
-      "flying": 0,
-      "grabbed": 0,
-      "electrocuted": 0,
-      "onGround": -3,
-      "unarmed": -5,
-      "dead": -3
-    }
-  },
-  "score": {
-    "$type": "ThunderRoad.GameData+Score, ThunderRoad",
-    "hitReceived": -4,
-    "waveReached": 5
   },
   "factions": [
     {
@@ -823,88 +717,6 @@
     }
   ],
   "holderSlots": [],
-  "skillTree": [
-    {
-      "$type": "ThunderRoad.GameData+SkillCluster, ThunderRoad",
-      "id": 0,
-      "depth": 0,
-      "skills": [
-        {
-          "$type": "ThunderRoad.GameData+Skill, ThunderRoad",
-          "id": 0,
-          "name": "Fire",
-          "description": "Throws a fireball at your opponents.",
-          "unlocked": false,
-          "dependancies": [],
-          "multiLevel": true,
-          "levels": 3,
-          "levelEffects": null,
-          "effectId": "SpellOrbFire"
-        },
-        {
-          "$type": "ThunderRoad.GameData+Skill, ThunderRoad",
-          "id": 1,
-          "name": "Lightning",
-          "description": "Unleash a lightning storm at your opponents.",
-          "unlocked": false,
-          "dependancies": [],
-          "multiLevel": false,
-          "levels": 3,
-          "levelEffects": null,
-          "effectId": "SpellOrbLightning"
-        }
-      ],
-      "dependancies": [],
-      "effectId": "SpellOrbCenter"
-    },
-    {
-      "$type": "ThunderRoad.GameData+SkillCluster, ThunderRoad",
-      "id": 1,
-      "depth": 1,
-      "skills": [
-        {
-          "$type": "ThunderRoad.GameData+Skill, ThunderRoad",
-          "id": 2,
-          "name": "Gravity",
-          "description": "Create a gravity field around you.",
-          "unlocked": false,
-          "dependancies": [
-            1,
-            2
-          ],
-          "multiLevel": false,
-          "levels": 3,
-          "levelEffects": null,
-          "effectId": "SpellOrbGravity"
-        }
-      ],
-      "dependancies": [
-        0
-      ],
-      "effectId": "SpellOrbCenter"
-    },
-    {
-      "$type": "ThunderRoad.GameData+SkillCluster, ThunderRoad",
-      "id": 2,
-      "depth": 1,
-      "skills": [
-        {
-          "$type": "ThunderRoad.GameData+Skill, ThunderRoad",
-          "id": 5,
-          "name": null,
-          "description": null,
-          "unlocked": false,
-          "dependancies": [],
-          "multiLevel": false,
-          "levels": 3,
-          "levelEffects": null,
-          "effectId": "SpellOrbLightning"
-        }
-      ],
-      "dependancies": [],
-      "effectId": "SpellOrbCenter"
-    }
-  ],
   "categoryGroupDefaultSounds": {
     "$type": "ThunderRoad.GameData+CategoryGroupAudioContainersAddresses, ThunderRoad",
     "defaultHoverSounds": {
@@ -955,7 +767,9 @@
   "screenshotFormat": "JPG",
   "screenshotJpegQuality": 75,
   "locomotionGroundDetection": "Collision",
+  "locomotionPhysicsLayers": [],
   "playerMenuPrefabAddress": "Bas.Core.PlayerMenu",
+  "endGameMenuPrefabAddress": null,
   "playerHighlighterAddress": "Bas.Highlighter.PlayerHolder",
   "itemIconResolution": 512,
   "throwVelocity": 2.0,
@@ -975,8 +789,6 @@
   "maxObjectCollision": 10,
   "maxFramesToKeepCollision": 5,
   "maxCollisionStayCheckPerFrame": 100,
-  "cleanDeadLastInteractionDelay": 7,
-  "cleanObjectsLastInteractionDelay": 7,
   "cleanFarObjectsSqrDistance": 62500,
   "motionBlurIntensity": 0.35,
   "useDynamicMusic": true,

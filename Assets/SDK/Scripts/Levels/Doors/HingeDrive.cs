@@ -272,5 +272,67 @@ namespace ThunderRoad
 
         #endregion
 
+        // Collision handling for latch opening / breaking.
+        // Called from a callback of collision event bridge.
+        public void CollisionOnHingeHolderEnter(Collision collision)
+        {
+        }
+
+        public void TryBruteForceLatch() // Unlocks the hinge latch if the latch is brute-forceable
+        {
+        }
+
+        public void ReleaseLatch() // Unlocks the hinge with the latch
+        {
+        }
+
+        /// <summary>
+        /// Activate a motor on the joint to close it with default parameters specified in editor.
+        /// </summary>
+        public void AutoClose()
+        {
+        }
+
+        /// <summary>
+        /// Activate a motor on the joint to open it to minimal angle with default parameters specified in editor.
+        /// </summary>
+        public void AutoOpenMin()
+        {
+        }
+
+        /// <summary>
+        /// Activate a motor on the joint to open it to maximal angle with default parameters specified in editor.
+        /// </summary>
+        public void AutoOpenMax()
+        {
+        }
+
+        /// <summary>
+        /// Activate a motor on the joint to open it to some desired angle in degrees
+        /// with default parameters specified in editor.
+        /// </summary>
+        /// <param name="targetAngle">Desired angle for the door to open to in degrees.</param>
+        public void AutoRotateTo(float targetAngle)
+        {
+        }
+
+        private void StopAutoRotate()
+        {
+        }
+
+        /// <summary>
+        /// Prevent opening this hinge drive
+        /// </summary>
+        public void PreventOpening()
+        {
+        }
+
+        /// <summary>
+        /// Allow opening this hinge drive with restored previous allowed inputs
+        /// </summary>
+        public void AllowOpening()
+        {
+        }
+
     }
 }

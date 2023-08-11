@@ -94,6 +94,8 @@ namespace ThunderRoad
         [NonSerialized]
         public PhysicBody physicBody;
         [NonSerialized]
+        public Breakable breakable;
+        [NonSerialized]
         public List<ParryTarget> parryTargets = new List<ParryTarget>();
         [NonSerialized]
         public Holder holder;
@@ -140,7 +142,7 @@ namespace ThunderRoad
             SetupDefaultComponents();
         }
 
-  
+
         [Button]
         public void SetupDefaultComponents()
         {
@@ -262,7 +264,7 @@ namespace ThunderRoad
                 itemId = transform.name;
             }
         }
-#if UNITY_EDITOR   
+#if UNITY_EDITOR
         public static void DrawGizmoArrow(Vector3 pos, Vector3 direction, Vector3 upwards, Color color, float arrowHeadLength = 0.25f, float arrowHeadAngle = 20.0f)
         {
             Gizmos.color = color;
@@ -276,7 +278,7 @@ namespace ThunderRoad
         protected virtual void OnDrawGizmosSelected()
         {
             PhysicBody physicBodyInParent = gameObject.GetPhysicBodyInParent();
-            if(physicBodyInParent != null)
+            if (physicBodyInParent != null)
                 Gizmos.DrawWireSphere(transform.TransformPoint(physicBodyInParent.centerOfMass), 0.01f);
 
 
@@ -296,6 +298,7 @@ namespace ThunderRoad
 #endif
 
 
+        [Button]
         public void SwapWith(string itemID)
         {
         }
@@ -395,7 +398,6 @@ namespace ThunderRoad
         /// </summary>
         public void ResetToSpawningTransformation()
         {
-            
         }
 
     }

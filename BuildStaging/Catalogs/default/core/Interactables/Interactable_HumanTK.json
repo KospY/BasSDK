@@ -17,9 +17,11 @@
   "forceLiftGrabCondition": 0,
   "forceLiftTKCondition": 0,
   "liftOffset": 0.05,
-  "telekinesisSpinningFix": false,
+  "telekinesisSpinningFix": true,
   "liftSpinningFix": false,
-  "LiftLockCharJointLimits": false,
+  "liftSpinningFacingPower": 10.0,
+  "liftSpinningFacingMaxSpeed": 5.0,
+  "liftSpinEnableMaxSpeed": 1.5,
   "applyStabilizationJoint": false,
   "telekinesisStabilizationJointAxis": {
     "x": 0.0,

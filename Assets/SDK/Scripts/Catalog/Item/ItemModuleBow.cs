@@ -15,6 +15,8 @@ namespace ThunderRoad
 
         public static bool forceAutoSpawnArrow;
         public bool autoSpawnArrow;
+
+        public bool spawnArrow => autoSpawnArrow || forceAutoSpawnArrow;
 #if ODIN_INSPECTOR
         [ValueDropdown("GetAllItemID")] 
 #endif

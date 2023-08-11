@@ -8,7 +8,7 @@ using EasyButtons;
 
 namespace ThunderRoad
 {
-    class PhysicBodyForceApplier : ThunderBehaviour
+    class PhysicBodyForceApplier : ThunderBehaviour, IToolControllable
     {
         public enum ForceApplyMode
         {
@@ -71,6 +71,26 @@ namespace ThunderRoad
         public void StartLinearForce()
         {
             linearForceRemainingDuration = linearForceDuration;
+        }
+
+        public void CopyFrom(IToolControllable original)
+        {
+            var originalApplier = original as PhysicBodyForceApplier;
+            linearForceActive = originalApplier.linearForceActive;
+            linearForceDuration = originalApplier.linearForceDuration;
+            linearForceApplyMode = originalApplier.linearForceApplyMode;
+            linearForceType = originalApplier.linearForceType;
+            linearForce = originalApplier.linearForce;
+            angularForceActive = originalApplier.angularForceActive;
+            angularForceDuration = originalApplier.angularForceDuration;
+            localAngularForce = originalApplier.localAngularForce;
+            angularForceType = originalApplier.angularForceType;
+            angularForce = originalApplier.angularForce;
+        }
+
+        public void Remove()
+        {
+            Destroy(this);
         }
 
     }

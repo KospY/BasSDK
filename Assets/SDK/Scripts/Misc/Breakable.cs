@@ -12,10 +12,21 @@ namespace ThunderRoad
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Breakable")]
     public class Breakable : ThunderBehaviour
     {
-        private const string DefaultHandleID = "ObjectHandleProp";
+        /// <summary>
+        /// Default handle ID.
+        /// </summary>
+        private string DefaultHandleID { get; } = "ObjectHandleProp";
+
+        /// <summary>
+        /// Allow breakables to be broken?
+        /// </summary>
+        public static bool AllowBreaking { get; set; } = true;
 
         /// <summary>
         /// Allows two handles to be linked between meshes.
+        /// 
+        /// TODO: Possibly overhaul this to instead allow Handle[] and GetClosest to handler?
+        ///       Also might be worth making this a struct, it should be immutable anyway.
         /// </summary>
         [Serializable]
         public class HandleLink
@@ -52,15 +63,19 @@ namespace ThunderRoad
                 this.radius = radius;
             }
 
+            /// <summary>
+            /// Check if the target transform is within the contact point.
+            /// </summary>
             public bool CheckIfHit(Transform transform, ContactPoint contactPoint)
             {
-                var p = contactPoint.point;
-                var c = transform.TransformPoint(center);
+                Vector3 p = contactPoint.point;
+                Vector3 c = transform.TransformPoint(center);
 
                 switch (type)
                 {
+                    // Distance check using the sphere point type.
                     case BreakPointType.Sphere:
-                        return (p - c).sqrMagnitude < radius * radius;
+                    return (p - c).sqrMagnitude < radius * radius;
                 }
 
                 return false;
@@ -78,7 +93,7 @@ namespace ThunderRoad
         public bool useBreakPoints;
 
         [Tooltip("This is the list of the Break Points if you have any. Currently, only spheres are accepted.")]
-        public List<BreakPoint> breakPoints;
+        public List<BreakPoint> breakPoints = new List<BreakPoint>();
 
         [Tooltip("Number of hits required for the item to break."), Header("Damage")]
         public int hitsUntilBreak = 1;
@@ -125,26 +140,22 @@ namespace ThunderRoad
         [Tooltip("Multiplication factor used when applying the explosion force. It multiplies the hit force.")]
         public float explosionForceFactor = 50f;
 
-        [Header("Events")] public UnityEvent<float> onBreak;
-        public UnityEvent<float> onTakeDamage;
-
-        public List<Item> subUnbrokenItems;
-        [HideInInspector] public List<PhysicBody> subUnbrokenBodies;
-        [HideInInspector] public List<Item> subBrokenItems;
-        [HideInInspector] public List<PhysicBody> subBrokenBodies;
-        [HideInInspector] public List<PhysicBody> allSubBodies;
-
-        public bool IsBroken { get; private set; }
+        public List<Item> subUnbrokenItems = new List<Item>();
+        [HideInInspector] public List<PhysicBody> subUnbrokenBodies = new List<PhysicBody>();
+        [HideInInspector] public List<Item> subBrokenItems = new List<Item>();
+        [HideInInspector] public List<PhysicBody> subBrokenBodies = new List<PhysicBody>();
+        [HideInInspector] public List<PhysicBody> allSubBodies = new List<PhysicBody>();
 
         private bool isInitialized = false;
-
-        public Item linkedItem { get; private set; }
         private Rigidbody currentRigidbody;
-
         private float lastHitTime;
-
         private Vector3[] subBrokenItemsBarycenters;
-        public Vector3 itemLocalBarycenter { get; private set; }
+        private List<Damager> piercedDamagers = new List<Damager>();
+        private List<(Transform transform, PhysicBody body)> bodyTransforms = new List<(Transform transform, PhysicBody body)>();
+
+        [Header("Events")]
+        public UnityEvent<float> onBreak;
+        public UnityEvent<float> onTakeDamage;
 
         /// <summary>
         /// Used as a buffer to cache collision contact points
@@ -152,16 +163,29 @@ namespace ThunderRoad
         private ContactPoint[] contactPoints = new ContactPoint[16];
 
         /// <summary>
+        /// Is this broken?
+        /// </summary>
+        public bool IsBroken { get; private set; }
+
+        /// <summary>
+        /// Unbroken item if any.
+        /// </summary>
+        public Item LinkedItem { get; private set; }
+
+        public Vector3 ItemLocalBarycenter { get; private set; }
+
+#if UNITY_EDITOR
+        /// <summary>
         /// Used from the custom editor to change the gizmos.
         /// </summary>
         [NonSerialized] public bool editingBreakpointsThroughEditor;
 
-        public static bool allowBreaking = true;
 
-#if UNITY_EDITOR
         private void OnValidate()
         {
-            if (!gameObject.activeInHierarchy) return;
+            if (!gameObject.activeInHierarchy)
+            { return; }
+
             RetrieveSubItems();
         }
 #endif
@@ -171,60 +195,73 @@ namespace ThunderRoad
         /// </summary>
         public void RetrieveSubItems()
         {
-            subBrokenItems = new List<Item>();
-            subBrokenBodies = new List<PhysicBody>();
-            subUnbrokenItems = new List<Item>();
-            subUnbrokenBodies = new List<PhysicBody>();
-            allSubBodies = new List<PhysicBody>();
+            if (!unbrokenObjectsHolder || !brokenObjectsHolder)
+            { return; }
 
-            if (!unbrokenObjectsHolder || !brokenObjectsHolder) return;
-
-            var subBreakables = new List<Breakable>();
-            var rigidbodies = unbrokenObjectsHolder.GetComponentsInChildren<Rigidbody>(true);
+            List<Breakable> subBreakables = new List<Breakable>();
+            Rigidbody[] rigidbodies = unbrokenObjectsHolder.GetComponentsInChildren<Rigidbody>(true);
             for (int i = 0; i < rigidbodies.Length; i++)
             {
-                var isItem = rigidbodies[i].GetComponent<Item>();
+                Item isItem = rigidbodies[i].GetComponent<Item>();
 
-                if (isItem) subUnbrokenItems.Add(isItem);
-                else subUnbrokenBodies.Add(rigidbodies[i].AsPhysicBody());
+                if (isItem != null)
+                { subUnbrokenItems.Add(isItem); }
+                else
+                { subUnbrokenBodies.Add(rigidbodies[i].AsPhysicBody()); }
+
                 allSubBodies.Add(rigidbodies[i].AsPhysicBody());
             }
 
             // GetComponentsInChildren Doesn't pick up current item for whatever reason
             if (TryGetComponent(out Rigidbody currentBody))
             {
-                var isItem = currentBody.GetComponent<Item>();
-                if (isItem && !subUnbrokenItems.Contains(isItem)) subUnbrokenItems.Add(isItem);
-                else if (!subUnbrokenBodies.Contains(currentBody.AsPhysicBody())) subUnbrokenBodies.Add(currentBody.AsPhysicBody());
+                Item isItem = currentBody.GetComponent<Item>();
+
+                if (isItem != null && !subUnbrokenItems.Contains(isItem))
+                { subUnbrokenItems.Add(isItem); }
+                else if (!subUnbrokenBodies.Contains(currentBody.AsPhysicBody()))
+                { subUnbrokenBodies.Add(currentBody.AsPhysicBody()); }
             }
 
             rigidbodies = brokenObjectsHolder.GetComponentsInChildren<Rigidbody>(true);
             for (int i = 0; i < rigidbodies.Length; i++)
             {
-                var isSubBreakable = rigidbodies[i].gameObject.GetComponent<Breakable>();
+                Breakable isSubBreakable = rigidbodies[i].gameObject.GetComponent<Breakable>();
                 if (isSubBreakable)
                 {
                     isSubBreakable.RetrieveSubItems();
                     subBreakables.Add(isSubBreakable);
                 }
 
-                var isItem = rigidbodies[i].GetComponent<Item>();
+                Item isItem = rigidbodies[i].GetComponent<Item>();
 
-                if (isItem) subBrokenItems.Add(isItem);
-                else subBrokenBodies.Add(rigidbodies[i].AsPhysicBody());
+                if (isItem)
+                { subBrokenItems.Add(isItem); }
+                else
+                { subBrokenBodies.Add(rigidbodies[i].AsPhysicBody()); }
+
                 allSubBodies.Add(rigidbodies[i].AsPhysicBody());
             }
 
             // Remove sub breakables items & rb from this list, otherwise it un-parent them on break
             for (int i = 0; i < subBreakables.Count; i++)
             {
-                var subBreakable = subBreakables[i];
+                Breakable subBreakable = subBreakables[i];
+
                 for (int j = 0; j < subBreakable.subBrokenItems.Count; j++)
-                    subBrokenItems.Remove(subBreakable.subBrokenItems[j]);
+                { subBrokenItems.Remove(subBreakable.subBrokenItems[j]); }
 
                 for (int j = 0; j < subBreakable.subBrokenBodies.Count; j++)
-                    subBrokenBodies.Remove(subBreakable.subBrokenBodies[j]);
+                { subBrokenBodies.Remove(subBreakable.subBrokenBodies[j]); }
             }
+        }
+
+        /// <summary>
+        /// Break the breakable.
+        /// This is used as a fake method to bypass the real behaviour, to break via events for example.
+        /// </summary>
+        public void Break()
+        {
         }
 
         /// <summary>
@@ -241,8 +278,10 @@ namespace ThunderRoad
             float rotationThreshold = 10f,
             bool checkRotation = false)
         {
-            if (checkRotation && Quaternion.Angle(source.rotation, other.rotation) > rotationThreshold) return false;
-            if ((source.position - other.position).magnitude > positionThreshold) return false;
+            if (checkRotation && Quaternion.Angle(source.rotation, other.rotation) > rotationThreshold)
+                return false;
+            if ((source.position - other.position).magnitude > positionThreshold)
+                return false;
 
             return true;
         }
@@ -252,8 +291,10 @@ namespace ThunderRoad
         /// </summary>
         public void AutoMatchHandles()
         {
-            if (!unbrokenObjectsHolder) return;
-            if (!brokenObjectsHolder) return;
+            if (!unbrokenObjectsHolder)
+                return;
+            if (!brokenObjectsHolder)
+                return;
 
             Handle GetClosestHandle(List<Handle> handles, Handle handle)
             {
@@ -286,7 +327,8 @@ namespace ThunderRoad
             {
                 var unbrokenHandle = unbrokenHandles[i];
                 var closest = GetClosestHandle(brokenHandlesList, unbrokenHandle);
-                if (!closest) continue;
+                if (!closest)
+                    continue;
 
                 if (IsTransformsRoughlyMatching(unbrokenHandle.transform, closest.transform))
                 {
@@ -298,16 +340,20 @@ namespace ThunderRoad
             handleLinks = handleLinksBuffer.ToArray();
         }
 
+#if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             for (var i = 0; i < handleLinks.Length; i++)
             {
                 var handleLink = handleLinks[i];
-                if (handleLink == null) continue;
-                if (handleLink.handleMain == null) continue;
-                if (handleLink.handleSecondary == null) continue;
+                if (handleLink == null)
+                    continue;
+                if (handleLink.handleMain == null)
+                    continue;
+                if (handleLink.handleSecondary == null)
+                    continue;
 
-                var color = Color.HSVToRGB(i / (float) handleLinks.Length, 1f, 1f);
+                var color = Color.HSVToRGB(i / (float)handleLinks.Length, 1f, 1f);
                 Gizmos.color = color;
                 var p1 = handleLink.handleMain.transform.position;
                 var p2 = handleLink.handleSecondary.transform.position;
@@ -340,24 +386,26 @@ namespace ThunderRoad
 
         private void OnDrawGizmosSelected()
         {
-            if (!useBreakPoints) return;
+            if (!useBreakPoints)
+                return;
 
             for (int i = 0; i < breakPoints.Count; i++)
             {
                 var bp = breakPoints[i];
-                var color = Color.HSVToRGB(i / (float) breakPoints.Count, 1f, 1f);
+                var color = Color.HSVToRGB(i / (float)breakPoints.Count, 1f, 1f);
                 Gizmos.color = color;
                 switch (bp.type)
                 {
                     case BreakPoint.BreakPointType.Sphere:
-                        Gizmos.DrawWireSphere(transform.TransformPoint(bp.center), bp.radius);
-                        color.a = .5f;
-                        Gizmos.color = color;
-                        if (editingBreakpointsThroughEditor)
-                            Gizmos.DrawSphere(transform.TransformPoint(bp.center), bp.radius);
-                        break;
+                    Gizmos.DrawWireSphere(transform.TransformPoint(bp.center), bp.radius);
+                    color.a = .5f;
+                    Gizmos.color = color;
+                    if (editingBreakpointsThroughEditor)
+                        Gizmos.DrawSphere(transform.TransformPoint(bp.center), bp.radius);
+                    break;
                 }
             }
         }
+#endif //UNITY_EDITOR
     }
 }

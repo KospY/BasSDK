@@ -109,11 +109,13 @@ namespace ThunderRoad
 
         public override void SetSize(float value)
         {
+            base.SetSize(value);
             if (vfx.HasFloat(p_Size)) vfx.SetFloat(p_Size, value);
         }
 
         public override void SetIntensity(float value, bool loopOnly = false)
         {
+            base.SetIntensity(value, loopOnly);
             if (!loopOnly || (loopOnly && step == Step.Loop))
             {
                 if (vfx.HasFloat(p_Intensity)) vfx.SetFloat(p_Intensity, intensityCurve.Evaluate(value));

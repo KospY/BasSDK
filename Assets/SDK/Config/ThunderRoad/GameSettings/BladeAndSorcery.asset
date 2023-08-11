@@ -12,10 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58f2147e4fa6dc344959179e71b74af7, type: 3}
   m_Name: BladeAndSorcery
   m_EditorClassIdentifier: 
+  versionMajor: 0
+  versionMinor: 0
+  versionRevision: 0
+  versionBuild: 1
   minModVersion: 0.12.0.0
   productName: BladeAndSorcery
   appIdentifier: com.Warpfrog.BladeAndSorcery
+  exeDescription: Blade & Sorcery
+  androidModReadme: 'Mod folders can be dropped here
+
+    Find mods on https://www.nexusmods.com/bladeandsorcerynomad'
+  mainMenuLevelId: MainMenu
+  defaultGameModeId: Sandbox
+  pointerAddress: Bas.Ui.Pointer
+  highlighterAddress: Bas.Ui.Highlighter
+  optionsMenuAddress: Bas.Ui.OptionsMenu
+  loadingBarAddress: Bas.Ui.LoadingBar
+  buildLoadDefaultFolders:
+  - core
+  - bas
   editorLoadDefaultFolders:
   - core
-  - proto
   - bas

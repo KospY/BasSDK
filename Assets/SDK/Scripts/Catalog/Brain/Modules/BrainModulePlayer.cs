@@ -37,7 +37,8 @@ namespace ThunderRoad
         public float focusGainOnParry = 5;
         public float focusGainOnDeflect = 10;
 
-        [Header("Misc")]
+        [Header("Player eyes")]
+        public bool playerEyeAnimation = true;
         public float focusAngle = 30f;
         public Vector2 lookDistanceMinMax = new Vector2(0.2f, 1.5f);
 

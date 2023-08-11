@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -55,6 +56,7 @@ namespace ThunderRoad
         [Header("Fonts")]
         public TMP_FontAsset defaultFontAsset;
         public TMP_FontAsset outlineFontAsset;
+        public Material customOutlineFontMaterial;
 
         [Header("Colors")] 
         public Color defaultColor = Color.white;
@@ -73,7 +75,7 @@ namespace ThunderRoad
         [Header("Sounds")] 
         public string onPointerEnterSoundAddress = "Bas.AudioGroup.UI.LightClick";
         public string onPointerExitSoundAddress;
-        public string onPointerClickSoundAddress = "Bas.AudioGroup.UI.Validation";
+        public string onPointerClickSoundAddress = "Bas.AudioGroup.UI.PlayerMenuValidationDefault";
         public float onPointerEnterSoundVolume = 1f;
         public float onPointerExitSoundVolume = 1f;
         public float onPointerClickSoundVolume = 1f;

@@ -64,13 +64,6 @@ namespace ThunderRoad
         public event SpawnEvent OnDespawnEvent;
         
 
-        public static Keyboard instance;
-
-        private void Awake()
-        {
-            instance = this;
-        }
-
         protected virtual void Start()
         {
             //Add the keyboard behaviour

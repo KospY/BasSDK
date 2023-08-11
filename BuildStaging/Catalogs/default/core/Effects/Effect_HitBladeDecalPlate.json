@@ -9,7 +9,7 @@
   "modules": [
     {
       "$type": "ThunderRoad.EffectModuleReveal, ThunderRoad",
-      "maskTextureAddress": "Bas.Texture.RevealMask.PlateSlash",
+      "maskTextureContainerAddress": "Bas.TextureContainer.RevealMask.PlateSlash",
       "applyOn": "Target",
       "typeFilter": "Default, Body, Outfit",
       "depth": 0.25,
@@ -103,7 +103,7 @@
     },
     {
       "$type": "ThunderRoad.EffectModuleReveal, ThunderRoad",
-      "maskTextureAddress": "Bas.Texture.RevealMask.PlateSlashBurn",
+      "maskTextureContainerAddress": "Bas.TextureContainer.RevealMask.PlateSlashBurn",
       "applyOn": "Target",
       "typeFilter": "Default, Body, Outfit",
       "depth": 0.25,
@@ -211,7 +211,7 @@
     },
     {
       "$type": "ThunderRoad.EffectModuleReveal, ThunderRoad",
-      "maskTextureAddress": "Bas.Texture.RevealMask.PlateBlunt",
+      "maskTextureContainerAddress": "Bas.TextureContainer.RevealMask.PlateBlunt",
       "applyOn": "Target",
       "typeFilter": "Default, Body, Outfit",
       "depth": 0.25,
@@ -305,7 +305,7 @@
     },
     {
       "$type": "ThunderRoad.EffectModuleReveal, ThunderRoad",
-      "maskTextureAddress": "Bas.Texture.RevealMask.PlateBurn",
+      "maskTextureContainerAddress": "Bas.TextureContainer.RevealMask.PlateBurn",
       "applyOn": "Target",
       "typeFilter": "Default, Body, Outfit",
       "depth": 0.25,
@@ -413,7 +413,7 @@
     },
     {
       "$type": "ThunderRoad.EffectModuleReveal, ThunderRoad",
-      "maskTextureAddress": "Bas.Texture.RevealMask.PlateBlunt",
+      "maskTextureContainerAddress": "Bas.TextureContainer.RevealMask.PlateBlunt",
       "applyOn": "Target",
       "typeFilter": "Default, Body, Outfit",
       "depth": 0.25,
@@ -507,7 +507,7 @@
     },
     {
       "$type": "ThunderRoad.EffectModuleReveal, ThunderRoad",
-      "maskTextureAddress": "Bas.Texture.RevealMask.PlateBurn",
+      "maskTextureContainerAddress": "Bas.TextureContainer.RevealMask.PlateBurn",
       "applyOn": "Target",
       "typeFilter": "Default, Body, Outfit",
       "depth": 0.25,
@@ -615,7 +615,7 @@
     },
     {
       "$type": "ThunderRoad.EffectModuleReveal, ThunderRoad",
-      "maskTextureAddress": "Bas.Texture.RevealMask.PlateBlunt",
+      "maskTextureContainerAddress": "Bas.TextureContainer.RevealMask.PlateBlunt",
       "applyOn": "Target",
       "typeFilter": "Default, Body, Outfit",
       "depth": 0.25,
@@ -631,7 +631,7 @@
       "maxChannelMultiplier": {
         "x": 0.0,
         "y": 0.0,
-        "z": 1.5,
+        "z": 1.0,
         "w": 0.0
       },
       "penetrationChannelMultiplier": {
@@ -718,7 +718,7 @@
     },
     {
       "$type": "ThunderRoad.EffectModuleReveal, ThunderRoad",
-      "maskTextureAddress": "Bas.Texture.RevealMask.PlateSlash",
+      "maskTextureContainerAddress": "Bas.TextureContainer.RevealMask.PlateSlash",
       "applyOn": "Target",
       "typeFilter": "Default, Body, Outfit",
       "depth": 0.25,
@@ -734,7 +734,7 @@
       "maxChannelMultiplier": {
         "x": 0.0,
         "y": 0.0,
-        "z": 2.0,
+        "z": 1.0,
         "w": 0.0
       },
       "penetrationChannelMultiplier": {

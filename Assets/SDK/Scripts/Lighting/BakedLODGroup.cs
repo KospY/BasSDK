@@ -99,13 +99,7 @@ namespace ThunderRoad
                     }
 #if UNITY_EDITOR
                     targetMeshRenderer.scaleInLightmap = meshRenderer.scaleInLightmap;
-                    StaticEditorFlags meshStaticEditorFlags = GameObjectUtility.GetStaticEditorFlags(targetMeshRenderer.gameObject);
-                    if (!meshStaticEditorFlags.HasFlag(StaticEditorFlags.ContributeGI))
-                    {
-                        meshStaticEditorFlags = meshStaticEditorFlags | StaticEditorFlags.ContributeGI;
-                        GameObjectUtility.SetStaticEditorFlags(targetMeshRenderer.gameObject, meshStaticEditorFlags);
-                    }
-                    targetMeshRenderer.receiveGI = ReceiveGI.Lightmaps;
+                    LightmapBakeHelper.SetEditorContributeGI(targetMeshRenderer, true);
 #endif
                 }
             }
@@ -200,13 +194,7 @@ namespace ThunderRoad
 
             if (meshRenderer)
             {
-                StaticEditorFlags meshStaticEditorFlags = GameObjectUtility.GetStaticEditorFlags(meshRenderer.gameObject);
-                if (!meshStaticEditorFlags.HasFlag(StaticEditorFlags.ContributeGI))
-                {
-                    meshStaticEditorFlags = meshStaticEditorFlags | StaticEditorFlags.ContributeGI;
-                    GameObjectUtility.SetStaticEditorFlags(meshRenderer.gameObject, meshStaticEditorFlags);
-                }
-                meshRenderer.receiveGI = ReceiveGI.Lightmaps;
+                LightmapBakeHelper.SetEditorContributeGI(meshRenderer, true);
             }
 
             // Reset targets to no lightmaps
@@ -215,13 +203,7 @@ namespace ThunderRoad
                 if (targetMeshRenderer == null) continue;
                 targetMeshRenderer.lightmapIndex = -1;
                 targetMeshRenderer.realtimeLightmapIndex = -1;
-                StaticEditorFlags staticEditorFlags = GameObjectUtility.GetStaticEditorFlags(targetMeshRenderer.gameObject);
-                if (staticEditorFlags.HasFlag(StaticEditorFlags.ContributeGI))
-                {
-                    staticEditorFlags = staticEditorFlags & ~(StaticEditorFlags.ContributeGI);
-                    GameObjectUtility.SetStaticEditorFlags(targetMeshRenderer.gameObject, staticEditorFlags);
-                }
-                targetMeshRenderer.receiveGI = ReceiveGI.Lightmaps;
+                LightmapBakeHelper.SetEditorContributeGI(targetMeshRenderer, false);
             }
 
             if (meshRenderer)

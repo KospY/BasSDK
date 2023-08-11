@@ -14,13 +14,14 @@ namespace ThunderRoad
     {
         public enum ImbueEvent
         {
-            OnEmpty,
-            OnNewSpell,
-            OnFill,
-            OnTryUse,
-            OnUseAbility,
-            OnHit,
-            OnHitEffect,
+            OnEmpty = 0,
+            OnNewSpell = 1,
+            OnFill = 2,
+            OnTryUse = 3,
+            OnUseAbility = 4,
+            OnHit = 5,
+            OnHitEffect = 6,
+            OnLinkerStart = 7,
         }
 
         [System.Serializable]

@@ -505,7 +505,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraOculusTouch",
-          "text": "Appuyez simultanément sur les touches 'Y' et 'B' pour utiliser la caméra externe,\nou sur les touches 'Y' et 'A' pour verrouiller la caméra externe.",
+          "text": "Appuyez simultanément sur les touches 'Y' et 'B' pour utiliser la caméra externe, ou sur les touches 'Y' et 'A' pour verrouiller la caméra externe.",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -519,28 +519,28 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraWMR",
-          "text": "Appuyez simultanément sur les touches Menu gauche et Menu droit pour utiliser la caméra externe,\nou sur les touches Menu gauche et Gâchette droite pour verrouiller la caméra externe.",
+          "text": "Appuyez simultanément sur les touches Menu gauche et Menu droit pour utiliser la caméra externe, ou sur les touches Menu gauche et Gâchette droite pour verrouiller la caméra externe.",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraIndex",
-          "text": "Appuyez simultanément sur B gauche et B droit pour utiliser la caméra externe,\nou sur B gauche et A droite pour verrouiller la caméra externe.",
+          "text": "Appuyez simultanément sur B gauche et B droit pour utiliser la caméra externe, ou sur B gauche et A droite pour verrouiller la caméra externe.",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraPicoNeo3",
-          "text": "Appuyez simultanément sur les touches 'Y' et 'B' pour utiliser la caméra externe,\nou sur les touches 'Y' et 'A' pour verrouiller la caméra externe.",
+          "text": "Appuyez simultanément sur les touches 'Y' et 'B' pour utiliser la caméra externe, ou sur les touches 'Y' et 'A' pour verrouiller la caméra externe.",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipExternalCameraPico4",
-          "text": "Appuyez simultanément sur les touches 'Y' et 'B' pour utiliser la caméra externe,\nou sur les touches 'Y' et 'A' pour verrouiller la caméra externe.",
+          "text": "Appuyez simultanément sur les touches 'Y' et 'B' pour utiliser la caméra externe, ou sur les touches 'Y' et 'A' pour verrouiller la caméra externe.",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -4077,6 +4077,83 @@
           "text": "Gratuit",
           "spriteAddress": null,
           "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InvalidEmail",
+          "text": "Adresse e-mail invalide !",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "InvalidEmailDescription",
+          "text": "L'adresse e-mail soumise n'est pas valide !",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SendingAuthCode",
+          "text": "Envoi du code d'authentification à l'adresse e-mail",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModIoEnterAuthCode",
+          "text": "Veuillez saisir votre code d'authentification",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModIoEnterAuthCodeDescription",
+          "text": "Vous pouvez le trouver dans votre e-mail, vérifiez votre boîte de réception ou votre dossier de spam pour un code provenant de mod.io",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ShowSpellNames",
+          "text": "Afficher les noms des sorts",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReportBug",
+          "text": "Signaler un bug",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Timeout",
+          "text": "Temps d'attente",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TimeoutDescription",
+          "text": "Le serveur Mod.io semble occupé pour le moment. Veuillez patienter.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "NotEnoughStorage",
+          "text": "Pas assez d'espace disque disponible pour installer ce mod.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MusicStingerVolume",
+          "text": "Volume de l'Indicateur Musical",
+          "spriteAddress": null,
+          "videoAddress": null
         }
       ]
     },
@@ -5907,6 +5984,24 @@
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
       "id": "Urn",
       "name": "Urne",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellFire",
+      "name": "Feu",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellGravity",
+      "name": "Gravité",
+      "description": ""
+    },
+    {
+      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
+      "id": "SpellLightning",
+      "name": "Foudre",
       "description": ""
     }
   ],

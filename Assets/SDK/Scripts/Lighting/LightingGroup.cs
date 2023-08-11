@@ -113,6 +113,9 @@ namespace ThunderRoad
 
         protected LightingPreset currentLightingPreset;
         protected List<BakedLODGroup> bakedLODGroups;
+
+        private bool isStarted = false;
+
         [NonSerialized]
         public bool initialized;
 
@@ -271,6 +274,9 @@ namespace ThunderRoad
                     if (_lightmapIndexCountMapping[index] <= 0)
                     {
                         // release
+                        _lightmaps[index].lightmapColor = null;
+                        _lightmaps[index].lightmapDir = null;
+                        _lightmaps[index].shadowMask = null;
                         _lightmaps[index] = _defaultEmptyLightmap;
                         _freeIndex.Enqueue(index);
                         _lightmapIndexCountMapping.Remove(index);
@@ -295,7 +301,7 @@ namespace ThunderRoad
         {
             if (Application.isPlaying) return;
 #if UNITY_EDITOR            
-            if(UnityEditor.BuildPipeline.isBuildingPlayer) return;
+            if (UnityEditor.BuildPipeline.isBuildingPlayer) return;
 #endif            
             if (this.InPrefabScene()) return;
             if (currentLightingPreset != lightingPreset)
@@ -314,7 +320,7 @@ namespace ThunderRoad
 
         private void Awake()
         {
-            bakedLODGroups = new List<BakedLODGroup>(this.GetComponentsInChildren<BakedLODGroup>());
+            GetBakedLODGroups();
             if (Application.isPlaying && lightingPreset)
             {
                 foreach (LightingPreset.MeshRendererData meshRendererData in lightingPreset.rendererDataListForLightmaps)
@@ -334,17 +340,18 @@ namespace ThunderRoad
 
         public void Start()
         {
-            if (!initialized)
+            if (lightingPreset != null)
             {
                 ApplyAll();
-                initialized = true;
             }
+
+            isStarted = true;
         }
 
         private void OnEnable()
         {
-            allActive.Add(this);
-            if (initialized)
+            if (!isStarted) return;
+            if (lightingPreset != null)
             {
                 ApplyAll();
             }
@@ -356,10 +363,7 @@ namespace ThunderRoad
         private void OnDisable()
         {
             allActive.Remove(this);
-            if (initialized)
-            {
-                ClearAll();
-            }
+            ClearAll();
 #if UNITY_EDITOR
             LightmapBakeHelper.onBakeStarted -= OnBakeStarted;
 #endif
@@ -373,82 +377,43 @@ namespace ThunderRoad
             }
         }
 
+        private void GetBakedLODGroups()
+        {
+            //only get the components if its empty
+            bakedLODGroups ??= new List<BakedLODGroup>();
+            if (bakedLODGroups.Count == 0)
+            {
+                this.GetComponentsInChildren<BakedLODGroup>(bakedLODGroups);
+            }
+        }
+
         [Button, ContextMenu("ApplyAll")]
         public void ApplyAll()
         {
+#if UNITY_EDITOR
+            if (Application.isPlaying && initialized) return;
+#else
+            if (initialized) return;
+#endif //UNITY_EDITOR
+
+            if (allActive != null) allActive.Add(this);
             ApplyLightmaps(false);
             ApplyLightProbeVolumes(false);
             ApplySceneSettings(false);
             if (lightingPreset) Debug.LogFormat(this, "Apply lightmaps, lightProbe and Scene settings from " + lightingPreset.name + " on lightingGroup " + this.name);
+            initialized = true;
+        }
+
+        public void ApplyPresetWithoutSceneSettings(LightingPreset preset)
+        {
+            if (lightingPreset != null) return;
+            lightingPreset = preset;
+            ApplyLightmaps();
+            ApplyLightProbeVolumes();
         }
 
         public void ApplyLightmaps(bool showDebugLine = true)
         {
-            if (lightingPreset == null)
-            {
-                Debug.LogWarningFormat(this, "Cannot apply lighting data as LightingPreset field is null");
-                return;
-            }
-
-            if (showDebugLine) Debug.LogFormat(this, "Apply lightmaps from " + lightingPreset.name + " on lightingGroup " + this.name);
-
-            if (lightmapIndexHelper == null)
-            {
-                lightmapIndexHelper = new LightmapIndexHelper();
-            }
-
-            int meshCount = lightingPreset.rendererDataListForLightmaps.Count;
-            int indexLightmap = -1;
-            int indexNextLightmapMesh = -1;
-            while (indexNextLightmapMesh == -1 && indexLightmap < lightingPreset.indexLightmapsRendererMeshCount.Count - 1)
-            {
-                indexLightmap++;
-                indexNextLightmapMesh = lightingPreset.indexLightmapsRendererMeshCount[indexLightmap] - 1;
-            }
-            if (indexNextLightmapMesh >= 0)
-            {
-                lightmapIndexHelper.InitFromLightmap();
-                List<MeshRenderer> meshList = new List<MeshRenderer>();
-                for (int indexMesh = 0; indexMesh < meshCount; ++indexMesh)
-                {
-                    MeshRenderer meshRenderer = null;
-                    if (TryGetMeshRenderer(lightingPreset.rendererDataListForLightmaps[indexMesh].meshRendererGuid, out meshRenderer))
-                    {
-                        meshList.Add(meshRenderer);
-
-                        if (!meshRenderer.isPartOfStaticBatch)
-                        {
-                            meshRenderer.lightmapScaleOffset = lightingPreset.rendererDataListForLightmaps[indexMesh].offsetScale;
-                        }
-                    }
-                    /*else
-                    {
-                        Debug.LogError("lighting bake : " + lightingPreset.name + " Error can not find mesh renderer uid : " + lightingPreset.rendererDataListForLightmaps[indexMesh].meshRendererGuid);
-                    }*/
-
-                    if (indexMesh == indexNextLightmapMesh)
-                    {
-                        if (meshList.Count > 0 && lightingPreset.serializedLightmaps.Count > 0)
-                        {
-                            lightmapIndexHelper.SetMeshLightmapIndex(meshList, lightingPreset.serializedLightmaps[indexLightmap].ToLightmapData());
-                        }
-
-                        meshList.Clear();
-
-                        while (indexNextLightmapMesh == indexMesh && indexLightmap < lightingPreset.indexLightmapsRendererMeshCount.Count - 1)
-                        {
-                            indexLightmap++;
-                            indexNextLightmapMesh = lightingPreset.indexLightmapsRendererMeshCount[indexLightmap] - 1;
-                        }
-                    }
-                }
-                lightmapIndexHelper.SetLightmap();
-            }
-
-            foreach (BakedLODGroup bakedLODGroup in bakedLODGroups)
-            {
-                bakedLODGroup.ApplyLightmaps();
-            }
         }
 
         public void ApplyLightProbeVolumes(bool showDebugLine = true)
@@ -491,11 +456,10 @@ namespace ThunderRoad
             {
                 if (TryGetLightProbeVolume(lightProbeVolumeData.lightProbeVolumeGuid, out LightProbeVolume lightProbeVolume))
                 {
-                    if (lightProbeVolume == null) continue;
-                    lightProbeVolume.SHAr = lightProbeVolumeData.SHAr;
-                    lightProbeVolume.SHAg = lightProbeVolumeData.SHAg;
-                    lightProbeVolume.SHAb = lightProbeVolumeData.SHAb;
-                    lightProbeVolume.occ = lightProbeVolumeData.occ;
+                    if (lightProbeVolume != null)
+                    {
+                        lightProbeVolume.SetTexture(lightProbeVolumeData.SHAr, lightProbeVolumeData.SHAg, lightProbeVolumeData.SHAb, lightProbeVolumeData.occ);
+                    }
                 }
             }
         }
@@ -717,7 +681,7 @@ namespace ThunderRoad
             }
 #if UNITY_EDITOR
             if (showDebugLine) Debug.LogFormat(this, "Blend current Scene Settings with " + lightingPreset.name + " with t = " + t);
-#endif            
+#endif
             // We only blend fog for now
             if (lightingPreset.fog != LightingPreset.State.NoChange)
             {
@@ -753,7 +717,7 @@ namespace ThunderRoad
                         fogEndDistance = FogDistanceSmoothStep(fogEndDistance, Camera.main.farClipPlane, t);
                     }
 
-                    if(fogStartDistance > fogEndDistance)
+                    if (fogStartDistance > fogEndDistance)
                     {
                         fogStartDistance = fogEndDistance - 0.01f;
                     }
@@ -774,14 +738,14 @@ namespace ThunderRoad
             float smoothRatioStopValue = 500.0f;
             float min = from;
             float tSmooth = t;
-            if(to < min)
+            if (to < min)
             {
                 min = to;
                 tSmooth = 1.0f - t;
             }
 
             float smoothRatio = 1.0f;
-            if(min < smoothRatioStopValue)
+            if (min < smoothRatioStopValue)
             {
                 smoothRatio = Mathf.Lerp(min, smoothRatioStopValue, tSmooth) / smoothRatioStopValue;
                 smoothRatio *= smoothRatio;
@@ -798,13 +762,26 @@ namespace ThunderRoad
         [Button]
         public void ClearAll()
         {
+            if (!initialized) return;
             ClearAll(lightingPreset);
+            initialized = false;
+        }
+
+        public void ClearLightingPreset()
+        {
+            if (!initialized) return;
+            if (lightingPreset == null) return;
+            ClearLightmaps(lightingPreset);
+            ClearLightProbeVolumes(lightingPreset);
+            lightingPreset = null;
+            currentLightingPreset = null;
         }
 
         public void ClearAll(LightingPreset lightingPreset)
         {
             ClearLightmaps(lightingPreset);
             ClearLightProbeVolumes(lightingPreset);
+
             ClearSceneSettings();
         }
 
@@ -824,28 +801,17 @@ namespace ThunderRoad
 
         public void ClearLightProbeVolumes(LightingPreset lightingPreset)
         {
-            var lightingPresetName = lightingPreset != null ? lightingPreset.name : "Unknown - Lighting Preset already Destroyed";
-            Debug.LogFormat(this, "Clear lightProbeVolume from {0}", lightingPresetName);
-            // Clear light probe volumes used by this group
-            if (lightingPreset != null)
+            int count = lightProbeVolumeReferences.Count;
+            for (int i = 0; i < count; i++)
             {
-                foreach (LightingPreset.LightProbeVolumeData lightProbeVolumeData in lightingPreset.lightProbeVolumes)
+                LightProbeVolumeReference lightProbeVolumeReference = lightProbeVolumeReferences[i];
+                LightProbeVolume lightProbeVolume = lightProbeVolumeReference.lightProbeVolume;
+
+                if (lightProbeVolume != null)
                 {
-                    if (TryGetLightProbeVolume(lightProbeVolumeData.lightProbeVolumeGuid, out LightProbeVolume lightProbeVolume))
-                    {
-                        if (lightProbeVolume == null) continue;
-                        lightProbeVolume.SHAr = null;
-                        lightProbeVolume.SHAg = null;
-                        lightProbeVolume.SHAb = null;
-                        lightProbeVolume.occ = null;
-                    }
+                    lightProbeVolume.SetTexture(null, null, null, null);
                 }
             }
-            else
-            {
-                Debug.LogError("Unable to clear lightProbeVolume. Lighting Preset is null");
-            }
-            
         }
 
         public void ClearSceneSettings()
@@ -1077,14 +1043,31 @@ namespace ThunderRoad
             return false;
         }
 
+        [Button]
+        public bool TryGetMeshRendererGuid(MeshRenderer meshRenderer, out string meshRendererGuid)
+        {
+            foreach (MeshRendererReference meshRendererReference in meshRendererReferences)
+            {
+                if (meshRendererReference.meshRenderer == meshRenderer)
+                {
+                    meshRendererGuid = meshRendererReference.guid;
+                    return true;
+                }
+            }
+            meshRendererGuid = null;
+            return false;
+        }
+
+        [Button]
         public bool TryGetMeshRenderer(string meshRendererGuid, out MeshRenderer meshRenderer)
         {
             if (_meshRendererByGuid == null)
             {
-                _meshRendererByGuid = new Dictionary<string, MeshRenderer>();
-
-                foreach (MeshRendererReference meshRendererReference in meshRendererReferences)
+                int count = meshRendererReferences.Count;
+                _meshRendererByGuid = new Dictionary<string, MeshRenderer>(count);
+                for (var i = 0; i < count; i++)
                 {
+                    MeshRendererReference meshRendererReference = meshRendererReferences[i];
                     if (meshRendererReference.meshRenderer == null)
                     {
                         //Debug.LogError("mesh is null : " + meshRendererReference.guid + " in lighting group :" + gameObject.name);

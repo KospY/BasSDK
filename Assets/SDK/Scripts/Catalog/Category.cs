@@ -36,7 +36,8 @@ namespace ThunderRoad
         AreaCollection,
         Custom,
         Keyboard,
-        Script
+        Script,
+        GameMode
     }
     
 }

@@ -19,12 +19,12 @@ namespace ThunderRoad.Manikin
 
         public void ApplyProperties(GameObject obj, float[] values, bool useSRPBatcher, Renderer renderer = null, int materialIndex = 0, object payload = null)
         {
-            if( converters != null)
+            if (converters == null) return;
+            int convertersCount = converters.Count;
+            for (var i = 0; i < convertersCount; i++)
             {
-                foreach (ManikinPropertyConverterBase converter in converters)
-                {
-                    converter.ApplyProperty(obj, values, useSRPBatcher, renderer, materialIndex, payload);
-                }
+                ManikinPropertyConverterBase converter = converters[i];
+                converter.ApplyProperty(obj, values, useSRPBatcher, renderer, materialIndex, payload);
             }
         }
     }

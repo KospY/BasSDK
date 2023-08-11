@@ -10,7 +10,7 @@ namespace ThunderRoad
 {
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/CreatureEventLinker")]
 	[AddComponentMenu("ThunderRoad/Creature Event Linker")]
-    public class CreatureEventLinker : EventLinker
+    public class CreatureEventLinker : EventLinker, IToolControllable
     {
         // These are explicitly assigned int values so that even if the order of the list gets changed, the assignments in prefabs and scenes will remain the same
         public enum CreatureEvent
@@ -51,6 +51,7 @@ namespace ThunderRoad
             OnNonGrabbedUseRelease = 33,
             OnNonGrabbedAlternateUsePress = 34,
             OnNonGrabbedAlternateUseRelease = 35,
+            OnLinkerStart = 36,
         }
 
         public enum LifeState
@@ -66,8 +67,19 @@ namespace ThunderRoad
             public CreatureEvent creatureEvent;
             public LifeState aliveState;
             public UnityEvent onActivate;
+
+            public CreatureUnityEvent Copy()
+            {
+                return new CreatureUnityEvent()
+                {
+                    creatureEvent = this.creatureEvent,
+                    aliveState = this.aliveState,
+                    onActivate = this.onActivate
+                };
+            }
         }
 
+        public bool linkToPlayer = false;
         public Creature creature;
         public List<CreatureUnityEvent> creatureEvents = new List<CreatureUnityEvent>();
         public Ragdoll ragdoll { get; protected set; }
@@ -76,6 +88,13 @@ namespace ThunderRoad
         private void OnValidate()
         {
             creature ??= GetComponent<Creature>();
+        }
+        public void CopyFrom(IToolControllable original)
+        {
+        }
+
+        public void Remove()
+        {
         }
 
     }

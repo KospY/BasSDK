@@ -9,8 +9,6 @@ namespace ThunderRoad
 {
     public class UIWaveSpawner : MonoBehaviour
     {
-
-
         [Header("Setup")]
         public string id;
         [SerializeField] private float startDelay = 5;
@@ -38,5 +36,6 @@ namespace ThunderRoad
         // Buttons
         [SerializeField] private UICustomisableButton startButton;
         [SerializeField] private UICustomisableButton stopButton;
+
     }
 }

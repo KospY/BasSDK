@@ -6,11 +6,10 @@ using System.Collections;
 using System.Linq;
 using Unity.Jobs;
 using Unity.Collections;
-
+using UnityEngine.AI;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -30,7 +29,7 @@ namespace ThunderRoad
             public BlendAudioSource(AudioSource audioSource)
             {
                 FxModuleAudio audioFx = audioSource.GetComponentInParent<FxModuleAudio>();
-                if(audioFx != null && audioFx.audioSource == audioSource)
+                if (audioFx != null && audioFx.audioSource == audioSource)
                 {
                     this.audioFx = audioFx;
                     this.orgVolume = EffectAudio.DecibelToLinear(audioFx.volumeDb);
@@ -130,6 +129,10 @@ namespace ThunderRoad
         [HideInInspector]
         public LightingGroup lightingGroup;
         [HideInInspector]
+        public ListMonoBehaviourReference<ILiteMemoryToggle> liteMemoryToggles;
+        [NonSerialized]
+        public bool lightingPresetFromData;
+        [HideInInspector]
         public Ocean[] oceans;
         [HideInInspector]
         public UnityEngine.VFX.VisualEffect[] visualEffects;
@@ -148,8 +151,6 @@ namespace ThunderRoad
         [HideInInspector]
         public ReflectionProbe[] reflectionProbes;
         [HideInInspector]
-        public LightProbeVolume[] lightProbeVolumes;
-        [HideInInspector]
         public MeshRenderer[] meshRenderers;
         [HideInInspector]
         public List<MeshColliderRef> meshColliderRefList = new List<MeshColliderRef>();
@@ -163,6 +164,12 @@ namespace ThunderRoad
 #endif
         [NonSerialized]
         public Dictionary<int, AreaGateway> connectedGateways = new Dictionary<int, AreaGateway>();
+
+#if ODIN_INSPECTOR
+        [ShowInInspector, Sirenix.OdinInspector.ReadOnly]
+#endif
+        [NonSerialized]
+        public List<GameObject> blockers = new List<GameObject>();
 
 #if ODIN_INSPECTOR
         [ShowInInspector, Sirenix.OdinInspector.ReadOnly]
@@ -208,8 +215,10 @@ namespace ThunderRoad
         public bool IsActive = false;
 
         protected Coroutine toggleRoomObjectCoroutine;
-        #endregion NonSerializedFields
-        #endregion Fields
+
+
+#endregion NonSerializedFields
+#endregion Fields
 
         #region Properties
         public bool IsInitialized { get { return initialized; } }
@@ -229,81 +238,10 @@ namespace ThunderRoad
         #endregion Event
 
         #region Methods
-        public void Init(SpawnableArea spawnableArea, bool inLoadingMenu)
+        public IEnumerator Init(SpawnableArea spawnableArea, bool inLoadingMenu)
         {
-            this.spawnableArea = spawnableArea;
-
-            System.Random rng = new System.Random(Level.seed + spawnableArea.managedId);
-
-            // Disable all player spawner (reactivate if we need it later)
-            DisableAllPlayerSpawner();
-
-            // Audio ambient loop to blend
-            blendAudioSources = new List<BlendAudioSource>();
-            int audioSourcesToBlendCount = audioSourcesToBlend.Count;
-            for (int i = 0; i < audioSourcesToBlendCount; i++)
-            {
-                AudioSource audioSource = audioSourcesToBlend[i];
-                if (audioSource)
-                {
-                    BlendAudioSource blendAudioSource = new BlendAudioSource(audioSource);
-                    blendAudioSources.Add(blendAudioSource);
-                    blendAudioSource.ApplyVolume(0.0f);
-                }
-            }
-
-            if (gateways != null)
-            {
-                for (int indexGateway = 0; indexGateway < gateways.Length; indexGateway++)
-                {
-                    SpawnableArea.ConnectedArea connectedAreaInfo = spawnableArea.GetConnectedArea(spawnableArea.AreaDataId, indexGateway);
-                    if (connectedAreaInfo == null)
-                    {
-                        gateways[indexGateway].gameObject.SetActive(false);
-                    }
-                    else
-                    {
-                        gateways[indexGateway].Init(spawnableArea, indexGateway, connectedAreaInfo.connectedArea, connectedAreaInfo.connectedAreaConnectionIndex);
-                        connectedGateways.Add(indexGateway, gateways[indexGateway]);
-                    }
-                }
-            }
-            else
-            {
-                Debug.LogError("No Gateway in area : " + spawnableArea.AreaDataId);
-            }
-
-            if(rootNoCulling == null)
-            {
-                Debug.LogError("Area " + spawnableArea.AreaDataId + " has no RootNoCulling. \nSomething went wrong with the area import");
-                return;
-            }
-
-            // Light volume
-            GameObject rootLightProbeVolumes = new GameObject("LightProbeVolumes");
-            rootLightProbeVolumes.transform.SetParentOrigin(rootNoCulling.transform);
-
-            int lightProbeVolumesCount = lightProbeVolumes.Length;
-            for (int i = 0; i < lightProbeVolumesCount; i++)
-            {
-                // Isolate probe volume to avoid separating them from script (colliders being moved after)
-                lightProbeVolumes[i].transform.SetParent(rootLightProbeVolumes.transform, true);
-            }
-
-            int colliderCount = colliderList.Count;
-            for (int i = 0; i < colliderCount; i++)
-            {
-                if (colliderList[i] == null)
-                {
-                    Debug.LogError("A collider is null in area " + spawnableArea.AreaDataId);
-                    continue;
-                }
-
-                colliderList[i].enabled = true;
-
-            }
-
-            StartCoroutine(InitCoroutine(inLoadingMenu, rng));
+            yield return null;
+            
         }
 
         protected bool IsAdditionalNonLOD0Collider(LODGroup lODGroup, Collider collider)
@@ -351,279 +289,53 @@ namespace ThunderRoad
             return false;
         }
 
-        IEnumerator InitCoroutine(bool inLoadingMenu, System.Random rng)
-        {
-
-            int reflectionProbesCount = reflectionProbes.Length;
-            for (int i = 0; i < reflectionProbesCount; i++)
-            {
-                ReflectionProbe reflectionProbe = reflectionProbes[i];
-                // Rotate reflection probes
-                InitReflectionProbeRotation(reflectionProbe);
-                // Force Custom parameters
-                reflectionProbe.mode = UnityEngine.Rendering.ReflectionProbeMode.Realtime;
-                reflectionProbe.refreshMode = UnityEngine.Rendering.ReflectionProbeRefreshMode.ViaScripting;
-                reflectionProbe.timeSlicingMode = inLoadingMenu ? UnityEngine.Rendering.ReflectionProbeTimeSlicingMode.NoTimeSlicing : UnityEngine.Rendering.ReflectionProbeTimeSlicingMode.IndividualFaces;
-                // Capture cubemap
-                int renderId = reflectionProbe.RenderProbe();
-
-                if (!reflectionProbe.IsFinishedRendering(renderId))
-                {
-                    yield return Yielders.EndOfFrame;
-                }
-
-                while (!reflectionProbe.realtimeTexture)
-                {
-                    yield return Yielders.EndOfFrame;
-                }
-
-                reflectionProbe.bakedTexture = reflectionProbe.realtimeTexture;
-                reflectionProbe.realtimeTexture = null;
-                reflectionProbe.mode = UnityEngine.Rendering.ReflectionProbeMode.Baked;
-            }
-
-
-            // Wait lighting group to be initialized
-            if (lightingGroup != null)
-            {
-                while (!lightingGroup.initialized)
-                {
-                    yield return null;
-                }
-
-                StaticBatch();
-            }
-
-            if (itemLimiterSpawner != null)
-            {
-                itemLimiterSpawner.randomGen = rng;
-                itemLimiterSpawner.SpawnAll();
-
-                // Wait for all item to spawn
-                while (itemLimiterSpawner.IsItemSpawning())
-                {
-                    yield return null;
-                }
-            }
-
-
-            yield return InitCullCoroutine(spawnableArea.IsCulled);
-            ForceHide(isHidden);
-            initialized = true;
-            onInitialized?.Invoke();
-        }
-
 
         public void Shuffle<T>(IList<T> list, System.Random randomGen)
         {
-            int n = list.Count;
-
-            while (n > 1)
-            {
-                n--;
-                int k = randomGen.Next(n + 1);
-                T value = list[k];
-                list[k] = list[n];
-                list[n] = value;
-            }
+            
         }
 
-        public IEnumerator BakeMeshCollider()
+        public bool BakeMeshCollider(out JobHandle jobHandle)
         {
-            if (meshColliderRefList == null || meshColliderRefList.Count == 0)
-            {
-                yield break;
-            }
-
-            int meshColliderCount = meshColliderRefList.Count;
-            NativeArray<int> meshIds = new NativeArray<int>(meshColliderCount, Allocator.Persistent);
-            NativeArray<bool> meshConvex = new NativeArray<bool>(meshColliderCount, Allocator.Persistent);
-
-            for (int i = 0; i < meshColliderCount; ++i)
-            {
-                if (meshColliderRefList[i] == null || meshColliderRefList[i].mesh == null)
-                {
-                    yield break;
-                }
-
-                meshIds[i] = meshColliderRefList[i].mesh.GetInstanceID();
-                meshConvex[i] = meshColliderRefList[i].convex;
-            }
-
-            // This spreads the expensive operation over all cores.
-            BakeJob job = new BakeJob(meshIds, meshConvex);
-            JobHandle jobHandle = job.Schedule(meshIds.Length, BakeJob.MESH_PER_JOB);
-
-            while (!jobHandle.IsCompleted)
-            {
-                yield return null;
-            }
-
-            jobHandle.Complete(); // job is already complete here but we need to call complete to avoid log error
-
-            meshIds.Dispose();
-            meshConvex.Dispose();
+            jobHandle = new JobHandle();
+            if (meshColliderRefList == null || meshColliderRefList.Count == 0) return false;
+            
+            return true;
         }
-
-        private void OnDestroy()
-        {
-            // As we set the renderTexture to baked texture, we have to release the render texture from memory manually
-            if (reflectionProbes != null)
-            {
-                int reflectionProbeCount = reflectionProbes.Length;
-                for (int i = 0; i < reflectionProbeCount; i++)
-                {
-                    ReflectionProbe reflectionProbe = reflectionProbes[i];
-                    if (reflectionProbe.realtimeTexture)
-                    {
-                        reflectionProbe.realtimeTexture.Release();
-                    }
-                    if (reflectionProbe.bakedTexture && (reflectionProbe.bakedTexture is RenderTexture))
-                    {
-                        (reflectionProbe.bakedTexture as RenderTexture).Release();
-                    }
-                }
-            }
-
-        }
-
         public void DisableAllPlayerSpawner()
         {
-            if (playerSpawners == null) return;
-            int count = playerSpawners.Count;
-            for (int i = 0; i < count; i++)
-            {
-                playerSpawners[i].gameObject.SetActive(false);
-            }
+                        
         }
 
         public PlayerSpawner GetPlayerSpawner()
         {
-            if (playerSpawners.Count == 0) return null;
-
-            else if (playerSpawners.Count == 1) return playerSpawners[0];
-
-            PlayerSpawner defaultspawner = playerSpawners[0];
-            float val = UnityEngine.Random.value * 100;
-            for (int i = playerSpawners.Count - 1; i >= 0; i--)
-            {
-
-                // Default the spawners to 50 if set to -1.
-                if (playerSpawners[i].spawnWeight == -1)
-                {
-                    playerSpawners[i].spawnWeight = 50;
-                }
-
-                if (playerSpawners[i].spawnWeight < val)
-                {
-                    playerSpawners.Remove(playerSpawners[i]);
-                }
-            }
-
-            //return playerSpawners.Count == 0 ? defaultspawner : playerSpawners[UnityEngine.Random.Range(0, playerSpawners.Count)];
-            PlayerSpawner selectedSpawner = playerSpawners.Count == 0 ? defaultspawner : playerSpawners[UnityEngine.Random.Range(0, playerSpawners.Count)];
-            if (!selectedSpawner.gameObject.activeInHierarchy)
-            {
-                selectedSpawner.transform.parent = transform;
-                selectedSpawner.gameObject.SetActive(true);
-            }
-
-            return selectedSpawner;
+            return null;            
+            
         }
 
         public void InitReflectionProbeRotation(ReflectionProbe reflectionProbe)
         {
-            // Keep the original center and size if you want to use more than one time
-            Bounds bounds = new Bounds(reflectionProbe.center, reflectionProbe.size);
-
-            Matrix4x4 mat = Matrix4x4.TRS(Vector3.zero, transform.rotation, transform.localScale);
-            Vector3 newMax = mat.MultiplyPoint3x4(bounds.max);
-            Vector3 newMin = mat.MultiplyPoint3x4(bounds.min);
-
-            bounds = new Bounds();
-            bounds.Encapsulate(newMax);
-            bounds.Encapsulate(newMin);
-
-            reflectionProbe.center = bounds.center;
-            reflectionProbe.size = bounds.size;
+            
         }
 
         [Button]
         public void StaticBatch()
         {
-            if (Catalog.gameData.dungeonStaticBatching)
-            {
-                List<GameObject> objectsToBatch = new List<GameObject>();
-                int meshRendererCount = meshRenderers.Length;
-                for (int i = 0; i < meshRendererCount; i++)
-                {
-                    MeshRenderer meshRenderer = meshRenderers[i];
-                    if (meshRenderer.lightmapIndex >= 0 && !meshRenderer.gameObject.CompareTag("NoRoomStaticBatching")) // We can't check if static is checked at runtime, so check if lightmap exist
-                    {
-                        objectsToBatch.Add(meshRenderer.gameObject);
-                    }
-                }
-                StaticBatchingUtility.Combine(objectsToBatch.ToArray(), this.gameObject);
-                Debug.Log("Static batched " + objectsToBatch.Count + " objects for room " + this.name);
-            }
         }
 
         public void OnPlayerEnter(Area previousArea)
         {
-            IsActive = true;
-
-            lightingGroup.ApplySceneSettings(applySun: false);
-
-            if (blendAudioSources != null)
-            {
-                int blendAudioSourceCount = blendAudioSources.Count;
-                for (int i = 0; i < blendAudioSourceCount; i++)
-                {
-                    blendAudioSources[i].ApplyVolume(1.0f);
-                }
-            }
-
-            onPlayerEnter.Invoke();
-
-            if (connectedGateways != null)
-            {
-                foreach (KeyValuePair<int, AreaGateway> pair in connectedGateways)
-                {
-                    pair.Value.OnPlayerChangeArea(previousArea, this);
-                }
-            }
-
-
-            Transform playerTransform = PlayerTest.local.transform;
-            if (!CheckActifGateways(playerTransform.position))
-            {
-                spawnableArea.ApplyGlobalParameters(true, false, null);
-            }
+            
         }
 
         public void OnPlayerExit(Area newArea)
         {
-            IsActive = false;
-            onPlayerExit.Invoke();
-
-            foreach (KeyValuePair<int, AreaGateway> pair in connectedGateways)
-            {
-                pair.Value.OnPlayerChangeArea(this, newArea);
-            }
         }
 
-        public bool CheckActifGateways(Vector3 playerPosition)
+        public bool CheckActiveGateways(Vector3 playerPosition)
         {
-            bool isActifGateway = false;
-            foreach (KeyValuePair<int, AreaGateway> pair in connectedGateways)
-            {
-                if (pair.Value.CheckActif(playerPosition))
-                {
-                    isActifGateway = true;
-                }
-            }
-
-            return isActifGateway;
+            return false;
+            
         }
 
         /// <summary>
@@ -632,10 +344,7 @@ namespace ThunderRoad
         /// <param name="t"> when t = 0 volume is 0, when t is 1 volume will be the original one</param>
         public void BlendAudio(float t)
         {
-            foreach (Area.BlendAudioSource blendAudioSource in blendAudioSources)
-            {
-                blendAudioSource.ApplyVolume(t);
-            }
+            
         }
 
         /// <summary>
@@ -645,7 +354,7 @@ namespace ThunderRoad
         /// <param name="t">When t is 0 current level preset is fully apply, when t is 1 this area preset is fully apply</param>
         public void BlendLight(float t)
         {
-            lightingGroup.BlendSceneSettingsWithCurrent(t,showDebugLine: false, applySun: false);
+            
         }
 
 
@@ -661,133 +370,43 @@ namespace ThunderRoad
                 creatures.Remove(creature);
         }
 
-        public void SetCull(bool cull)
+        public void SetLiteMemoryState(bool isLiteMemoryState)
         {
             if (!initialized)
             {
                 return;
             }
 
-            if (cull && !isCulled)
+            int count = liteMemoryToggles.Count;
+            for (int index = 0; index < count; index++)
             {
-                isCulled = true;
-                foreach (Transform transform in this.transform)
+                if (liteMemoryToggles.TryGetAtIndex(index, out ILiteMemoryToggle memoryToggle))
                 {
-                    if (transform == rootNoCulling.transform)
-                        continue;
-                    transform.gameObject.SetActive(false);
+                    memoryToggle.SetLiteMemory(isLiteMemoryState);
                 }
-
-
-                if (onCullChange != null)
-                {
-                    onCullChange.Invoke(true);
-                }
-            }
-            else if (!cull && isCulled)
-            {
-                isCulled = false;
-                foreach (Transform transform in this.transform)
-                {
-                    if (transform == rootNoCulling.transform)
-                        continue;
-                    transform.gameObject.SetActive(true);
-                }
-
             }
         }
 
-        public IEnumerator InitCullCoroutine (bool cull)
+        public void SetCull(bool cull)
         {
-            if (cull && !isCulled)
-            {
-                isCulled = true;
-                foreach (Transform transform in this.transform)
-                {
-                    if (transform == rootNoCulling.transform)
-                        continue;
-                    transform.gameObject.SetActive(false);
-                }
+            
+        }
 
-
-                if (onCullChange != null)
-                {
-                    onCullChange.Invoke(true);
-                }
-            }
-            else if (!cull && isCulled)
-            {
-                isCulled = false;
-                foreach (Transform transform in this.transform)
-                {
-                    if (transform == rootNoCulling.transform)
-                        continue;
-                    transform.gameObject.SetActive(true);
-                }
-
-            }
+        public IEnumerator InitCullCoroutine(bool cull)
+        {
+            
             yield break;
         }
 
         public void Hide(bool hide)
         {
-            if (!initialized)
-            {
-                // do not hide before initialized (reflection probe bake)
-                isHidden = hide;
-                return;
-            }
-
-            if (hide != isHidden)
-            {
-                ForceHide(hide);
-            }
+            
         }
 
         private void ForceHide(bool hide)
         {
-            // Hide Gate
-            foreach (KeyValuePair<int, AreaGateway> pair in connectedGateways)
-            {
-                pair.Value.gameObject.SetActive(!hide);
-            }
-
-            // Hide Ocean
-            if (oceans != null)
-            {
-                for (int i = 0; i < oceans.Length; i++)
-                {
-                    oceans[i].gameObject.SetActive(!hide);
-                }
-            }
-
-            // Hide VisualEffect
-            if (visualEffects != null)
-            {
-                for (int i = 0; i < visualEffects.Length; i++)
-                {
-                    visualEffects[i].enabled = !hide;
-                }
-            }
-
-            // Hide Particle Systems
-            if (particlesSystem != null)
-            {
-                for (int i = 0; i < particlesSystem.Length; i++)
-                {
-                    particlesSystem[i].gameObject.SetActive(!hide);
-                }
-            }
-
-
-            isHidden = hide;
-
-            if (onHideChange != null)
-            {
-                onHideChange.Invoke(isHidden);
-            }
+            
         }
-
 
         #endregion Methods
 
@@ -796,6 +415,14 @@ namespace ThunderRoad
         public void OnImport(UnityEditor.AssetPostprocessor postProcess)
         {
             lightingGroup = this.GetComponent<LightingGroup>();
+
+            ILiteMemoryToggle[] liteMemory = this.GetComponentsInChildren<ILiteMemoryToggle>(true);
+            liteMemoryToggles = new ListMonoBehaviourReference<ILiteMemoryToggle>();
+            for (int i = 0; i < liteMemory.Length; i++)
+            {
+                liteMemoryToggles.Add(liteMemory[i]);
+            }
+
 
             oceans = GetComponentsInChildren<Ocean>();
             visualEffects = GetComponentsInChildren<UnityEngine.VFX.VisualEffect>();
@@ -836,9 +463,7 @@ namespace ThunderRoad
                 reflectionProbe.refreshMode = UnityEngine.Rendering.ReflectionProbeRefreshMode.ViaScripting;
             }
 
-            lightProbeVolumes = GetComponentsInChildren<LightProbeVolume>(true);
             meshRenderers = GetComponentsInChildren<MeshRenderer>(true);
-
 
             // Set collider to no culling
             if (rootNoCulling == null)
@@ -846,6 +471,7 @@ namespace ThunderRoad
                 rootNoCulling = new GameObject("NoCulling");
                 postProcess.context.AddObjectToAsset("NoCulling", rootNoCulling);
             }
+
             rootNoCulling.transform.SetParentOrigin(this.transform);
 
             // Copy all colliders to a dedicated gameobject and destroy original ones
@@ -944,12 +570,26 @@ namespace ThunderRoad
 
                 colliderList.Add(newCollider);
 
-                postProcess.context.AddObjectToAsset("Collider" + count, newCollider.gameObject);
+                postProcess.context.AddObjectToAsset($"Collider{count}", newCollider.gameObject);
                 count++;
             }
 
+            // Isolate probe volume to avoid separating them from script 
+
+            LightProbeVolume[] lightProbeVolumes = GetComponentsInChildren<LightProbeVolume>(true);
+            GameObject rootLightProbeVolumes = new GameObject("LightProbeVolumes");
+            rootLightProbeVolumes.transform.SetParentOrigin(rootNoCulling.transform);
+
+            int lightProbeVolumesCount = lightProbeVolumes.Length;
+            for (int i = 0; i < lightProbeVolumesCount; i++)
+            {
+                lightProbeVolumes[i].transform.SetParent(rootLightProbeVolumes.transform, true);
+            }
+
+
+
             // Check That area audio loader on import has no audio preload 
-            foreach(AudioLoader audioLoader in GetComponentsInChildren<AudioLoader>())
+            foreach (AudioLoader audioLoader in GetComponentsInChildren<AudioLoader>())
             {
                 AudioClip audioClip = null;
                 if (audioLoader.useAudioClipAddress)
@@ -1026,7 +666,6 @@ namespace ThunderRoad
             itemLimiterSpawner = null;
             creatureSpawners = null;
             reflectionProbes = null;
-            lightProbeVolumes = null;
             meshRenderers = null;
             rootNoCulling = null;
             meshColliderRefList = null;
@@ -1064,13 +703,13 @@ namespace ThunderRoad
                 Collider col = go.GetComponent<Collider>();
                 if (col != null)
                 {
-                    Debug.LogError("A collider is present in go : " + go.name);
+                    Debug.LogError($"A collider is present in go : {go.name}");
                 }
 
                 Collider[] colChild = go.GetComponentsInChildren<Collider>();
                 if (colChild.Length > 0)
                 {
-                    Debug.LogError("A collider is present in go : " + go.name);
+                    Debug.LogError($"A collider is present in go : {go.name}");
                 }
             }
 
@@ -1224,7 +863,7 @@ namespace ThunderRoad
                 }
                 else
                 {
-                    Debug.LogError("Cannot find a proper Face for gateway index : " + i);
+                    Debug.LogError($"Cannot find a proper Face for gateway index : {i}");
                 }
             }
 

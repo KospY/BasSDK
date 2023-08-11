@@ -109,6 +109,70 @@
       {
         "$type": "ThunderRoad.AI.Decorator.AlwaysSuccess, ThunderRoad",
         "child": {
+          "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+          "evaluateAllNodesOnCycle": false,
+          "childs": [
+            {
+              "$type": "ThunderRoad.AI.Get.GetCreaturePart, ThunderRoad",
+              "target": "InputCreature",
+              "inputCreatureVariableName": "FollowTarget",
+              "targetPart": "RagdollEyes",
+              "outputTransformVariableName": "FollowEyes",
+              "blackboard": null,
+              "creature": null,
+              "brainData": null
+            },
+            {
+              "$type": "ThunderRoad.AI.Action.SetLookAt, ThunderRoad",
+              "enabled": true,
+              "bodyBehaviour": "BodyUpright",
+              "target": "InputTransform",
+              "inputVariableName": "FollowEyes",
+              "localOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "blackboard": null,
+              "creature": null,
+              "brainData": null
+            }
+          ]
+        }
+      },
+      {
+        "$type": "ThunderRoad.AI.Decorator.AlwaysSuccess, ThunderRoad",
+        "child": {
+          "$type": "ThunderRoad.AI.Control.Sequence, ThunderRoad",
+          "evaluateAllNodesOnCycle": false,
+          "childs": [
+            {
+              "$type": "ThunderRoad.AI.Get.GetCreaturePart, ThunderRoad",
+              "target": "InputCreature",
+              "inputCreatureVariableName": "FollowTarget",
+              "targetPart": "CreatureRoot",
+              "outputTransformVariableName": "FollowRoot",
+              "blackboard": null,
+              "creature": null,
+              "brainData": null
+            },
+            {
+              "$type": "ThunderRoad.AI.Action.TurnTo, ThunderRoad",
+              "target": "InputTransform",
+              "inputVariableName": "FollowRoot",
+              "successIfAngleReached": false,
+              "successAngle": 0.0,
+              "becomeExclusiveHandler": false,
+              "blackboard": null,
+              "creature": null,
+              "brainData": null
+            }
+          ]
+        }
+      },
+      {
+        "$type": "ThunderRoad.AI.Decorator.AlwaysSuccess, ThunderRoad",
+        "child": {
           "$type": "ThunderRoad.AI.Action.MoveTo, ThunderRoad",
           "moveTarget": "InputCreature",
           "inputMoveTargetVariableName": "FollowTarget",
