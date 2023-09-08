@@ -157,6 +157,7 @@ namespace ThunderRoad
                             CatalogData data = (CatalogData)Activator.CreateInstance(type);
                             // CatalogData init doesn't like null strings as the id
                             data.id = "";
+                            data.version = data.GetCurrentVersion();
                             string jsonString = JsonConvert.SerializeObject(data, Catalog.GetJsonNetSerializerSettings());
                             File.WriteAllText(Path.Combine(Application.dataPath, "../", path), jsonString);
                             AssetDatabase.ImportAsset(path);
