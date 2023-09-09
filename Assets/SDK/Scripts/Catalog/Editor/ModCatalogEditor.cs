@@ -29,7 +29,7 @@ namespace ThunderRoad
         private Vector2 scrollPos;
 
         private SerializedObject obj;
-        private string currentPath;
+        // Needed for the property drawers
         [SerializeField, SerializeReference]
         private CatalogData currentData;
         private SerializedProperty currentDataProp;
@@ -105,19 +105,10 @@ namespace ThunderRoad
         {
             hasUnsavedChanges = treeView.GetUnsaved().Count > 0;
             
-            IList<int> selected = treeView.GetSelection();
-            currentPath = null;
-            currentData = null;
             CatalogTreeViewItem currentItem = null;
+            IList<int> selected = treeView.GetSelection();
             if (selected.Count != 0)
-            {
                 currentItem = treeView.items[selected[0]] as CatalogTreeViewItem;
-                if (currentItem != null)
-                {
-                    currentPath = currentItem.data.Key;
-                    currentData = currentItem.data.Value;
-                }
-            }
 
             // Build toolbar
             Rect toolbarRect = new(0, 0, position.width, GUI.skin.button.CalcHeight(new GUIContent(""), position.width));
@@ -186,7 +177,7 @@ namespace ThunderRoad
             treeView.OnGUI(new Rect(mainRect) { width = treeWidth });
             EditorPrefs.SetFloat("ModCatalogEditor.treeWidth", treeWidth);
 
-            if (currentData == null)
+            if (currentItem == null)
                 return;
 
             // Draw actual editor part
@@ -200,16 +191,17 @@ namespace ThunderRoad
                     scrollPos = scrollView.scrollPosition;
 
                     // Prevent loading mismatched data
-                    if (currentData.version != currentData.GetCurrentVersion()
+                    if (currentItem.data.version != currentItem.data.GetCurrentVersion()
                         && !EditorUtility.DisplayDialog("Warning!", "Attempting to load a JSON with an incompatible version. It is recommended to back up before proceeding or data may be lost.", "Proceed", "Cancel"))
                     {
                         treeView.SetSelection(new List<int>());
                         return;
                     }
-
+                    
+                    currentData = currentItem.data;
                     obj.Update();
 
-                    Type currentDataType = currentData.GetType();
+                    Type currentDataType = currentItem.data.GetType();
                     if (!props.ContainsKey(currentDataType))
                     {
                         List<SerializedProperty> dataProps = new();
@@ -265,9 +257,9 @@ namespace ThunderRoad
 
         public void SaveItem(CatalogTreeViewItem item)
         {
-            string jsonString = JsonConvert.SerializeObject(item.data.Value, Catalog.GetJsonNetSerializerSettings());
-            File.WriteAllText(Path.Combine(Application.dataPath, item.data.Key), jsonString);
-            AssetDatabase.ImportAsset(Path.Combine("Assets", item.data.Key));
+            string jsonString = JsonConvert.SerializeObject(item.data, Catalog.GetJsonNetSerializerSettings());
+            File.WriteAllText(Path.Combine(Application.dataPath, item.path), jsonString);
+            AssetDatabase.ImportAsset(Path.Combine("Assets", item.path));
             treeView.GetUnsaved().Remove(item.id);
         }
 

@@ -40,8 +40,8 @@ namespace ThunderRoad
 
             foreach (KeyValuePair<string, CatalogData> entry in openFiles)
             {
-                Category dataCategory = Catalog.GetCategory(entry.Value.GetType());
-                CatalogTreeViewItem item = new(++i, 2, entry);
+                CatalogTreeViewItem item = new(++i, 2, entry.Value, entry.Key);
+                Category dataCategory = Catalog.GetCategory(item.data.GetType());
                 items[i] = item;
                 categories[dataCategory].AddChild(item);
             }
@@ -79,7 +79,7 @@ namespace ThunderRoad
             if (args.item is CatalogTreeViewItem item)
             {
                 bool unsaved = GetUnsaved().Contains(item.id);
-                GUIContent idGUIContent = new(item.data.Value.id + (unsaved ? "*" : ""));
+                GUIContent idGUIContent = new(item.data.id + (unsaved ? "*" : ""));
                 GUI.Label(args.rowRect, idGUIContent);
 
                 args.rowRect.x += GUI.skin.label.CalcSize(idGUIContent).x;
@@ -89,7 +89,7 @@ namespace ThunderRoad
                     normal = { textColor = Color.gray },
                     hover = { textColor = Color.gray }
                 };
-                GUI.Label(args.rowRect, new GUIContent($"({item.data.Key})"), italics);
+                GUI.Label(args.rowRect, new GUIContent($"({item.path})"), italics);
             }
             else
                 GUI.Label(args.rowRect, new GUIContent(args.label));
@@ -104,11 +104,13 @@ namespace ThunderRoad
 
     public class CatalogTreeViewItem : TreeViewItem
     {
-        public KeyValuePair<string, CatalogData> data;
+        public CatalogData data;
+        public string path;
 
-        public CatalogTreeViewItem(int id, int depth, KeyValuePair<string, CatalogData> data) : base(id, depth)
+        public CatalogTreeViewItem(int id, int depth, CatalogData data, string path) : base(id, depth)
         {
             this.data = data;
+            this.path = path;
         }
     }
 
