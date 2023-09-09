@@ -243,6 +243,9 @@ namespace ThunderRoad
 
 #if ODIN_INSPECTOR
             [ShowInInspector]
+#elif UNITY_EDITOR
+            // This is needed just for the ModCatalogEditor to work
+            [SerializeReference]
 #endif
             public List<LevelModule> modules = new List<LevelModule>();
 

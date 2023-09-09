@@ -34,6 +34,7 @@ namespace ThunderRoad
         private CatalogData currentData;
         private SerializedProperty currentDataProp;
         private readonly Dictionary<Type, List<SerializedProperty>> props = new();
+        private readonly Dictionary<SerializedProperty, SubclassListDrawer> listDrawers = new();
 
         [MenuItem("ThunderRoad (SDK)/Mod Catalog Editor")]
         private static void Open()
@@ -219,15 +220,13 @@ namespace ThunderRoad
                             if (prop != null)
                             {
                                 dataProps.Add(prop);
-                                EditorGUILayout.PropertyField(prop);
+                                DrawPropGUI(prop);
                             }
                         }
                     }
                     else
-                    {
                         foreach (SerializedProperty prop in props[currentDataType])
-                            EditorGUILayout.PropertyField(prop);
-                    }
+                            DrawPropGUI(prop);
 
                     IList<int> unsaved = treeView.GetUnsaved();
                     if (obj.ApplyModifiedProperties() && !unsaved.Contains(currentItem.id))
@@ -236,6 +235,23 @@ namespace ThunderRoad
             }
 
             EditorGUIUtility.labelWidth = originalLabelWidth;
+        }
+
+        private void DrawPropGUI(SerializedProperty prop)
+        {
+            // If it's a list type that won't be drawn correctly, draw it ourselves
+            if (prop.type == "Module" && prop.name == "modules")
+            {
+                // Make first letter uppercase
+                GUIContent content = new(prop.name[0].ToString().ToUpper() + prop.name[1..]);
+                Rect rect = EditorGUILayout.GetControlRect(true, EditorGUI.GetPropertyHeight(prop, content, true));
+
+                if (!listDrawers.TryGetValue(prop, out SubclassListDrawer drawer))
+                    drawer = new SubclassListDrawer(prop);
+                drawer.Draw(rect, content);
+            }
+            else
+                EditorGUILayout.PropertyField(prop);
         }
 
         public override void SaveChanges()
@@ -280,7 +296,6 @@ namespace ThunderRoad
             for (int i = 0; i < openFilesKeys.Count; i++)
                 openFiles[openFilesKeys[i]] = openFilesValues[i];
         }
-
 
         private class JsonImportNotifier : AssetPostprocessor
         {   
