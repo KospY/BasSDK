@@ -114,6 +114,7 @@ namespace ThunderRoad
                 }
             }
 
+            // Build toolbar
             Rect toolbarRect = new(0, 0, position.width, GUI.skin.button.CalcHeight(new GUIContent(""), position.width));
             using (new GUILayout.AreaScope(toolbarRect))
             {
@@ -142,6 +143,7 @@ namespace ThunderRoad
                         List<string> pathes = openFiles.Keys.ToList();
                         openFiles.Clear();
                         AddPaths(pathes);
+                        hasUnsavedChanges = false;
                     }
 
                     GUIContent dropDownContent = new("New", "Create new catalog JSON.");
@@ -181,6 +183,7 @@ namespace ThunderRoad
             guiOutlineMethod.Invoke(null, new object[3] { mainRect, 2, new Color(0.12f, 0.12f, 0.12f) });
             mainRect = new Rect(mainRect.x + 2, mainRect.y + 2, mainRect.width - 4, mainRect.height - 4);
 
+            // Draw tree and resize bar
             Rect resizeRect = new(treeWidth - 2.5f, toolbarRect.height, 5, position.height - toolbarRect.height);
             treeWidth = (float)resizerMethod.Invoke(null, new object[4] { resizeRect, treeWidth, 16, position.width });
             
@@ -190,6 +193,7 @@ namespace ThunderRoad
             if (currentData == null)
                 return;
 
+            // Draw actual editor part
             float originalLabelWidth = EditorGUIUtility.labelWidth;
             EditorGUIUtility.labelWidth = 200;
             
