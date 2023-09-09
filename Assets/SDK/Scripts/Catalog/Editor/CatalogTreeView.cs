@@ -11,7 +11,7 @@ namespace ThunderRoad
         public Dictionary<string, CatalogData> openFiles;
         public Dictionary<int, TreeViewItem> items = new();
 
-        public CatalogTreeView(Dictionary<string, CatalogData> openFiles, TreeViewState treeViewState) : base(treeViewState)
+        public CatalogTreeView(Dictionary<string, CatalogData> openFiles, CatalogTreeViewState treeViewState) : base(treeViewState)
         {
             this.openFiles = openFiles;
 
@@ -20,6 +20,10 @@ namespace ThunderRoad
 
             Reload();
         }
+
+        public void SetUnsaved(IList<int> unsavedIDs) => (state as CatalogTreeViewState).UnsavedIDs = (List<int>)unsavedIDs;
+
+        public IList<int> GetUnsaved() => (state as CatalogTreeViewState).UnsavedIDs;
 
         protected override TreeViewItem BuildRoot()
         {
@@ -74,7 +78,8 @@ namespace ThunderRoad
             args.rowRect.height = GetCustomRowHeight(args.row, args.item);
             if (args.item is CatalogTreeViewItem item)
             {
-                GUIContent idGUIContent = new(item.data.Value.id + (item.unsaved ? "*" : ""));
+                bool unsaved = GetUnsaved().Contains(item.id);
+                GUIContent idGUIContent = new(item.data.Value.id + (unsaved ? "*" : ""));
                 GUI.Label(args.rowRect, idGUIContent);
 
                 args.rowRect.x += GUI.skin.label.CalcSize(idGUIContent).x;
@@ -95,16 +100,24 @@ namespace ThunderRoad
 
         protected override bool CanMultiSelect(TreeViewItem item)
             => false;
+    }
 
-        public class CatalogTreeViewItem : TreeViewItem
+    public class CatalogTreeViewItem : TreeViewItem
+    {
+        public KeyValuePair<string, CatalogData> data;
+
+        public CatalogTreeViewItem(int id, int depth, KeyValuePair<string, CatalogData> data) : base(id, depth)
         {
-            public KeyValuePair<string, CatalogData> data;
-            public bool unsaved = false;
-
-            public CatalogTreeViewItem(int id, int depth, KeyValuePair<string, CatalogData> data) : base(id, depth) 
-            {
-                this.data = data;
-            }
+            this.data = data;
         }
+    }
+
+    [Serializable]
+    public class  CatalogTreeViewState : TreeViewState
+    {
+        [SerializeField]
+        private List<int> m_UnsavedIDs = new();
+
+        public List<int> UnsavedIDs { get => m_UnsavedIDs; set => m_UnsavedIDs = value; }
     }
 }

@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
-using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
 namespace ThunderRoad
@@ -15,11 +14,12 @@ namespace ThunderRoad
         public static Dictionary<string, CatalogData> openFiles = new();
         // These 2 fields are only for serialization
         private List<string> openFilesKeys;
+        [SerializeReference]
         private List<CatalogData> openFilesValues;
 
         private MethodInfo guiOutlineMethod;
         [SerializeField]
-        private TreeViewState treeState;
+        private CatalogTreeViewState treeState;
         private static CatalogTreeView treeView;
         [SerializeField]
         private float treeWidth;
@@ -44,16 +44,19 @@ namespace ThunderRoad
         private void OnEnable()
         {
             // Look for all jsons
-            List<string> paths = new();
-            foreach (string file in Directory.GetFiles(Application.dataPath, "*.json", SearchOption.AllDirectories))
-                if (!openFiles.ContainsKey(file))
-                    paths.Add(Path.GetRelativePath(Application.dataPath, file));
-            AddPaths(paths, false);
+            if (openFiles.Count == 0)
+            {
+                List<string> paths = new();
+                foreach (string file in Directory.GetFiles(Application.dataPath, "*.json", SearchOption.AllDirectories))
+                    if (!openFiles.ContainsKey(file))
+                        paths.Add(Path.GetRelativePath(Application.dataPath, file));
+                AddPaths(paths, false);
+            }
 
             // No clue why this is internal
             guiOutlineMethod = typeof(EditorGUI).GetMethod("DrawOutline", BindingFlags.NonPublic | BindingFlags.Static);
 
-            treeState ??= new TreeViewState();
+            treeState ??= new CatalogTreeViewState();
             treeView = new CatalogTreeView(openFiles, treeState);
 
             // I have no clue why this method is internal but it works so /shrug
@@ -100,13 +103,15 @@ namespace ThunderRoad
 
         private void OnGUI()
         {
+            hasUnsavedChanges = treeView.GetUnsaved().Count > 0;
+            
             IList<int> selected = treeView.GetSelection();
             currentPath = null;
             currentData = null;
-            CatalogTreeView.CatalogTreeViewItem currentItem = null;
+            CatalogTreeViewItem currentItem = null;
             if (selected.Count != 0)
             {
-                currentItem = treeView.items[selected[0]] as CatalogTreeView.CatalogTreeViewItem;
+                currentItem = treeView.items[selected[0]] as CatalogTreeViewItem;
                 if (currentItem != null)
                 {
                     currentPath = currentItem.data.Key;
@@ -121,17 +126,8 @@ namespace ThunderRoad
                 using (new EditorGUILayout.HorizontalScope(GUILayout.ExpandWidth(true)))
                 {
                     using (new EditorGUI.DisabledGroupScope(currentItem == null))
-                    {
                         if (GUILayout.Button(new GUIContent("Save", "Saves current file.")))
-                        {
-                            string jsonString = JsonConvert.SerializeObject(currentData, Catalog.GetJsonNetSerializerSettings());
-                            File.WriteAllText(Path.Combine(Application.dataPath, currentPath), jsonString);
-                            AssetDatabase.ImportAsset(Path.Combine("Assets", currentPath));
-                            currentItem.unsaved = false;
-                            hasUnsavedChanges = treeView.GetRows().Any(row => row is CatalogTreeView.CatalogTreeViewItem catalogItem && catalogItem.unsaved);
-
-                        }
-                    }
+                            SaveItem(currentItem);
 
                     if (GUILayout.Button(new GUIContent("Save All", "Saves all unsaved files.")))
                         SaveChanges();
@@ -143,7 +139,7 @@ namespace ThunderRoad
                         List<string> pathes = openFiles.Keys.ToList();
                         openFiles.Clear();
                         AddPaths(pathes);
-                        hasUnsavedChanges = false;
+                        treeView.GetUnsaved().Clear();
                     }
 
                     GUIContent dropDownContent = new("New", "Create new catalog JSON.");
@@ -241,11 +237,9 @@ namespace ThunderRoad
                             EditorGUILayout.PropertyField(prop);
                     }
 
-                    if (obj.ApplyModifiedProperties() && !currentItem.unsaved)
-                    {
-                        currentItem.unsaved = true;
-                        hasUnsavedChanges = true;
-                    }
+                    IList<int> unsaved = treeView.GetUnsaved();
+                    if (obj.ApplyModifiedProperties() && !unsaved.Contains(currentItem.id))
+                        unsaved.Add(currentItem.id);
                 }
             }
 
@@ -257,22 +251,24 @@ namespace ThunderRoad
             AssetDatabase.StartAssetEditing();
             try
             {
-                foreach (TreeViewItem item in treeView.GetRows())
-                {
-                    if (item is not CatalogTreeView.CatalogTreeViewItem catalogItem || !catalogItem.unsaved)
-                        continue;
-
-                    string jsonString = JsonConvert.SerializeObject(catalogItem.data.Value, Catalog.GetJsonNetSerializerSettings());
-                    File.WriteAllText(Path.Combine(Application.dataPath, catalogItem.data.Key), jsonString);
-                    AssetDatabase.ImportAsset(Path.Combine("Assets", catalogItem.data.Key));
-                    catalogItem.unsaved = false;
-                }
+                IList<int> unsaved = treeView.GetUnsaved();
+                foreach (int id in unsaved)
+                    SaveItem(treeView.items[id] as CatalogTreeViewItem);
+                unsaved.Clear();
             }
             finally
             {
                 AssetDatabase.StopAssetEditing();
             }
             hasUnsavedChanges = false;
+        }
+
+        public void SaveItem(CatalogTreeViewItem item)
+        {
+            string jsonString = JsonConvert.SerializeObject(item.data.Value, Catalog.GetJsonNetSerializerSettings());
+            File.WriteAllText(Path.Combine(Application.dataPath, item.data.Key), jsonString);
+            AssetDatabase.ImportAsset(Path.Combine("Assets", item.data.Key));
+            treeView.GetUnsaved().Remove(item.id);
         }
 
         public void OnBeforeSerialize()
@@ -292,6 +288,7 @@ namespace ThunderRoad
             for (int i = 0; i < openFilesKeys.Count; i++)
                 openFiles[openFilesKeys[i]] = openFilesValues[i];
         }
+
 
         private class JsonImportNotifier : AssetPostprocessor
         {   
