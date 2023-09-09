@@ -34,7 +34,6 @@ namespace ThunderRoad
         private CatalogData currentData;
         private SerializedProperty currentDataProp;
         private readonly Dictionary<Type, List<SerializedProperty>> props = new();
-        private readonly Dictionary<SerializedProperty, SubclassListDrawer> listDrawers = new();
 
         [MenuItem("ThunderRoad (SDK)/Mod Catalog Editor")]
         private static void Open()
@@ -240,15 +239,13 @@ namespace ThunderRoad
         private void DrawPropGUI(SerializedProperty prop)
         {
             // If it's a list type that won't be drawn correctly, draw it ourselves
-            if (prop.type == "Module" && prop.name == "modules")
+            if (prop.isArray && prop.propertyType == SerializedPropertyType.Generic)
             {
                 // Make first letter uppercase
                 GUIContent content = new(prop.name[0].ToString().ToUpper() + prop.name[1..]);
                 Rect rect = EditorGUILayout.GetControlRect(true, EditorGUI.GetPropertyHeight(prop, content, true));
 
-                if (!listDrawers.TryGetValue(prop, out SubclassListDrawer drawer))
-                    drawer = new SubclassListDrawer(prop);
-                drawer.Draw(rect, content);
+                SubclassListDrawer.GetDrawer(prop).Draw(rect, content);
             }
             else
                 EditorGUILayout.PropertyField(prop);
