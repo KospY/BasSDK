@@ -38,7 +38,7 @@ namespace ThunderRoad
         [MenuItem("ThunderRoad (SDK)/Mod Catalog Editor")]
         private static void Open()
         {
-            GetWindow<CatalogEditor>();
+            GetWindow<ModCatalogEditor>();
         }
 
         private void OnEnable()
@@ -98,7 +98,7 @@ namespace ThunderRoad
             }
 
             if (reload)
-                treeView.Reload();
+                treeView?.Reload();
         }
 
         private static void RemovePaths(List<string> jsonPaths, bool reload = true)
@@ -107,7 +107,7 @@ namespace ThunderRoad
                 openFiles.Remove(path);
 
             if (reload)
-                treeView.Reload();
+                treeView?.Reload();
         }
 
         private void OnGUI()
