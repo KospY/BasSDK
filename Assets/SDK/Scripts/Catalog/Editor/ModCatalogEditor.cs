@@ -54,13 +54,13 @@ namespace ThunderRoad
             }
 
             // No clue why this is internal
-            guiOutlineMethod = typeof(EditorGUI).GetMethod("DrawOutline", BindingFlags.NonPublic | BindingFlags.Static);
+            guiOutlineMethod ??= typeof(EditorGUI).GetMethod("DrawOutline", BindingFlags.NonPublic | BindingFlags.Static);
 
             treeState ??= new CatalogTreeViewState();
             treeView = new CatalogTreeView(openFiles, treeState);
 
             // I have no clue why this method is internal but it works so /shrug
-            resizerMethod = typeof(EditorGUI).GetMethod("WidthResizer", BindingFlags.NonPublic | BindingFlags.Static, null, new Type[4] { typeof(Rect), typeof(float), typeof(float), typeof(float) }, null);
+            resizerMethod ??= typeof(EditorGUI).GetMethod("WidthResizer", BindingFlags.NonPublic | BindingFlags.Static, null, new Type[4] { typeof(Rect), typeof(float), typeof(float), typeof(float) }, null);
             treeWidth = EditorPrefs.GetFloat("ModCatalogEditor.treeWidth");
 
             if (obj == null)
@@ -101,6 +101,15 @@ namespace ThunderRoad
                 treeView.Reload();
         }
 
+        private static void RemovePaths(List<string> jsonPaths, bool reload = true)
+        {
+            foreach (string path in jsonPaths)
+                openFiles.Remove(path);
+
+            if (reload)
+                treeView.Reload();
+        }
+
         private void OnGUI()
         {
             hasUnsavedChanges = treeView.GetUnsaved().Count > 0;
@@ -126,11 +135,10 @@ namespace ThunderRoad
                     if (GUILayout.Button(new GUIContent("Reload Catalog", "Clears all catalog data then reloads everything."))
                         && (!hasUnsavedChanges || EditorUtility.DisplayDialog("Warning!", "You have unsaved data in this JSON file.", "Proceed", "Cancel")))
                     {
-                        Catalog.EditorLoadAllJson();
-                        List<string> pathes = openFiles.Keys.ToList();
                         openFiles.Clear();
-                        AddPaths(pathes);
                         treeView.GetUnsaved().Clear();
+                        OnEnable();
+                        Catalog.EditorLoadAllJson(force: true);
                     }
 
                     GUIContent dropDownContent = new("New", "Create new catalog JSON.");
@@ -296,13 +304,19 @@ namespace ThunderRoad
 
         private class JsonImportNotifier : AssetPostprocessor
         {   
-            private static void OnPostprocessAllAssets(string[] importedAssets, string[] _, string[] __, string[] ___)
+            private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] _, string[] __)
             {
                 List<string> res = new();
                 foreach (string path in importedAssets)
                     if (Path.GetExtension(path) == ".json")
                         res.Add(Path.GetRelativePath(Application.dataPath, path));
                 AddPaths(res);
+
+                res.Clear();
+                foreach (string path in deletedAssets)
+                    if (Path.GetExtension(path) == ".json")
+                        res.Add(Path.GetRelativePath(Application.dataPath, path));
+                RemovePaths(res);
             }
         }
     }

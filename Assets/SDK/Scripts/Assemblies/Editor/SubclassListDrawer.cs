@@ -46,8 +46,8 @@ namespace ThunderRoad
             object subclassObj = null;
             object nextObj = prop.serializedObject.targetObject;
 
-            string[] pathes = prop.propertyPath.Replace("Array.data[", "[").Split('.');
-            foreach (string path in pathes)
+            string[] paths = prop.propertyPath.Replace("Array.data[", "[").Split('.');
+            foreach (string path in paths)
             {
                 // This is to deal with arrays in the property path
                 if (path[0] == '[')
