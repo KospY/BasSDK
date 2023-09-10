@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace ThunderRoad
 {
-    public class CatalogEditor : EditorWindow, ISerializationCallbackReceiver
+    public class ModCatalogEditor : EditorWindow, ISerializationCallbackReceiver
     {
         public static Dictionary<string, CatalogData> openFiles = new();
         // These 2 fields are only for serialization
