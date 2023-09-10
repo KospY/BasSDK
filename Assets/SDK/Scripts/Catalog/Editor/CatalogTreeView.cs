@@ -100,6 +100,15 @@ namespace ThunderRoad
 
         protected override bool CanMultiSelect(TreeViewItem item)
             => false;
+
+        protected override bool DoesItemMatchSearch(TreeViewItem item, string search)
+        {
+            if (item is CatalogTreeViewItem catalogItem)
+                return catalogItem.path.IndexOf(search, StringComparison.OrdinalIgnoreCase) >= 0 
+                    || catalogItem.data.id.IndexOf(search, StringComparison.OrdinalIgnoreCase) >= 0;
+            else
+                return base.DoesItemMatchSearch(item, search);
+        }
     }
 
     public class CatalogTreeViewItem : TreeViewItem

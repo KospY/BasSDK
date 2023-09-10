@@ -123,7 +123,7 @@ namespace ThunderRoad
             Rect toolbarRect = new(0, 0, position.width, GUI.skin.button.CalcHeight(new GUIContent(""), position.width));
             using (new GUILayout.AreaScope(toolbarRect))
             {
-                using (new EditorGUILayout.HorizontalScope(GUILayout.ExpandWidth(true)))
+                using (new EditorGUILayout.HorizontalScope())
                 {
                     using (new EditorGUI.DisabledGroupScope(currentItem == null))
                         if (GUILayout.Button(new GUIContent("Save", "Saves current file.")))
@@ -171,6 +171,8 @@ namespace ThunderRoad
                         }
                         menu.DropDown(dropDownRect);
                     }
+
+                    treeView.searchString = EditorGUILayout.TextField(treeView.searchString, EditorStyles.toolbarSearchField);
                 }
             }
 
