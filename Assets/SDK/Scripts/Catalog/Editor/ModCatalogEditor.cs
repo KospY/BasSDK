@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace ThunderRoad
 {
@@ -46,17 +47,20 @@ namespace ThunderRoad
             // Look for all jsons
             if (openFiles.Count == 0)
             {
-                List<string> paths = new();
-                foreach (string file in Directory.GetFiles(Application.dataPath, "*.json", SearchOption.AllDirectories))
-                    if (!openFiles.ContainsKey(file))
-                        paths.Add(Path.GetRelativePath(Application.dataPath, file));
-                AddPaths(paths, false);
+                // Refreshing all files may move around rows making ids change
+                treeState?.selectedIDs.Clear();
+                treeState?.UnsavedIDs.Clear();
+                treeState?.expandedIDs.Clear();
+
+                FileManager.ReadFile[] readJsons = FileManager.ReadFiles(FileManager.Type.JSONCatalog, FileManager.Source.Mods, searchPattern: "*.json");
+                AddFiles(false, readJsons);
             }
 
             // No clue why this is internal
             guiOutlineMethod ??= typeof(EditorGUI).GetMethod("DrawOutline", BindingFlags.NonPublic | BindingFlags.Static);
 
             treeState ??= new CatalogTreeViewState();
+            treeState.selectedIDs.Clear();
             treeView = new CatalogTreeView(openFiles, treeState);
 
             // I have no clue why this method is internal but it works so /shrug
@@ -70,30 +74,32 @@ namespace ThunderRoad
             }
         }
 
-        private static void AddPaths(List<string> jsonPaths, bool reload = true)
+        private static void AddFiles(bool reload = true, params FileManager.ReadFile[] files)
         {
-            if (jsonPaths.Count == 0)
+            if (files.Length == 0)
                 return;
 
-            List<string> jsons = new();
-            foreach (string jsonPath in jsonPaths)
+
+            List<string> paths = new(files.Length);
+            List<string> jsons = new(files.Length);
+            for (int i = 0; i < files.Length; i++)
             {
-                string absolutePath = Path.Combine(Application.dataPath, jsonPath);
-                if (File.Exists(absolutePath))
-                    jsons.Add(File.ReadAllText(absolutePath));
+                paths.Add(files[i].path);
+                jsons.Add(files[i].text);
             }
 
             // Make sure serializer is able to deserialize properly
             Catalog.GetJsonNetSerializer();
 
-            object[] deserializedObjects = Catalog.DeserializeJsons(jsons, jsonPaths);
+            object[] deserializedObjects = Catalog.DeserializeJsons(jsons, paths);
 
+            string catalogsFolder = FileManager.GetFullPath(FileManager.Type.JSONCatalog, FileManager.Source.Mods);
             for (int i = 0; i < jsons.Count; i++)
             {
                 if (deserializedObjects[i] is CatalogData data)
                 {
-                    openFiles[jsonPaths[i]] = data;
-                    Catalog.LoadJson(deserializedObjects[i], jsons[i], jsonPaths[i], Path.GetFileName(Path.GetDirectoryName(jsonPaths[i])));
+                    openFiles[Path.GetRelativePath(catalogsFolder, paths[i])] = data;
+                    Catalog.LoadJson(deserializedObjects[i], jsons[i], paths[i], Path.GetFileName(Path.GetDirectoryName(paths[i])));
                 }
             }
 
@@ -101,14 +107,14 @@ namespace ThunderRoad
                 treeView?.Reload();
         }
 
-        private static void RemovePaths(List<string> jsonPaths, bool reload = true)
-        {
-            foreach (string path in jsonPaths)
-                openFiles.Remove(path);
+        //private static void RemovePaths(List<string> jsonPaths, bool reload = true)
+        //{
+        //    foreach (string path in jsonPaths)
+        //        openFiles.Remove(path);
 
-            if (reload)
-                treeView?.Reload();
-        }
+        //    if (reload)
+        //        treeView?.Reload();
+        //}
 
         private void OnGUI()
         {
@@ -136,7 +142,6 @@ namespace ThunderRoad
                         && (!hasUnsavedChanges || EditorUtility.DisplayDialog("Warning!", "You have unsaved data in this JSON file.", "Proceed", "Cancel")))
                     {
                         openFiles.Clear();
-                        treeView.GetUnsaved().Clear();
                         OnEnable();
                         Catalog.EditorLoadAllJson(force: true);
                     }
@@ -147,7 +152,8 @@ namespace ThunderRoad
                     {
                         static void newAction(Type type)
                         {
-                            string path = EditorUtility.SaveFilePanelInProject("New CatalogData", $"{Catalog.GetCategory(type)}_new", "json", "Enter file name for new CatalogData");
+                            string catalogPath = FileManager.GetFullPath(FileManager.Type.JSONCatalog, FileManager.Source.Mods);
+                            string path = EditorUtility.SaveFilePanel("New CatalogData", catalogPath, $"{Catalog.GetCategory(type)}_new", "json");
                             if (string.IsNullOrEmpty(path))
                                 return;
 
@@ -156,7 +162,7 @@ namespace ThunderRoad
                             data.id = "";
                             data.version = data.GetCurrentVersion();
                             string jsonString = JsonConvert.SerializeObject(data, Catalog.GetJsonNetSerializerSettings());
-                            File.WriteAllText(Path.Combine(Application.dataPath, "../", path), jsonString);
+                            File.WriteAllText(path, jsonString);
                             AssetDatabase.ImportAsset(path);
                         }
                         GenericMenu menu = new();
@@ -183,7 +189,7 @@ namespace ThunderRoad
             // Draw tree and resize bar
             Rect resizeRect = new(treeWidth - 2.5f, toolbarRect.height, 5, position.height - toolbarRect.height);
             treeWidth = (float)resizerMethod.Invoke(null, new object[4] { resizeRect, treeWidth, 16, position.width });
-            
+
             treeView.OnGUI(new Rect(mainRect) { width = treeWidth });
             EditorPrefs.SetFloat("ModCatalogEditor.treeWidth", treeWidth);
 
@@ -211,35 +217,28 @@ namespace ThunderRoad
                     currentData = currentItem.data;
                     obj.Update();
 
-                    Type currentDataType = currentItem.data.GetType();
-                    if (!props.ContainsKey(currentDataType))
-                    {
-                        List<SerializedProperty> dataProps = new();
-                        props[currentDataType] = dataProps;
-                        foreach (FieldInfo field in currentDataType.GetFields())
-                        {
-                            switch (field.Name)
-                            {
-                                case "hashId":
-                                case "version":
-                                    continue;
-                            }
+                    SerializedProperty currProp = currentDataProp.Copy();
+                    SerializedProperty endProp = currProp.GetEndProperty(true);
+                    if (!currProp.NextVisible(true))
+                        return;
 
-                            SerializedProperty prop = currentDataProp.FindPropertyRelative(field.Name);
-                            if (prop != null)
-                            {
-                                dataProps.Add(prop);
-                                DrawPropGUI(prop);
-                            }
+                    do
+                    {
+                        switch (currProp.name)
+                        {
+                            case "hashId":
+                            case "version":
+                                continue;
                         }
+
+                        DrawPropGUI(currProp);
                     }
-                    else
-                        foreach (SerializedProperty prop in props[currentDataType])
-                            DrawPropGUI(prop);
+                    while (currProp.NextVisible(false) && !SerializedProperty.EqualContents(currProp, endProp));
 
                     IList<int> unsaved = treeView.GetUnsaved();
                     if (obj.ApplyModifiedProperties() && !unsaved.Contains(currentItem.id))
                         unsaved.Add(currentItem.id);
+
                 }
             }
 
@@ -281,7 +280,7 @@ namespace ThunderRoad
         public void SaveItem(CatalogTreeViewItem item)
         {
             string jsonString = JsonConvert.SerializeObject(item.data, Catalog.GetJsonNetSerializerSettings());
-            File.WriteAllText(Path.Combine(Application.dataPath, item.path), jsonString);
+            File.WriteAllText(Path.Combine(FileManager.GetFullPath(FileManager.Type.JSONCatalog, FileManager.Source.Mods), item.path), jsonString);
             AssetDatabase.ImportAsset(Path.Combine("Assets", item.path));
             treeView.GetUnsaved().Remove(item.id);
         }
@@ -299,27 +298,31 @@ namespace ThunderRoad
 
         public void OnAfterDeserialize()
         {
+            if (openFilesKeys == null)
+                return;
+
             openFiles = new Dictionary<string, CatalogData>();
             for (int i = 0; i < openFilesKeys.Count; i++)
                 openFiles[openFilesKeys[i]] = openFilesValues[i];
         }
 
-        private class JsonImportNotifier : AssetPostprocessor
-        {   
-            private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] _, string[] __)
-            {
-                List<string> res = new();
-                foreach (string path in importedAssets)
-                    if (Path.GetExtension(path) == ".json")
-                        res.Add(Path.GetRelativePath(Application.dataPath, path));
-                AddPaths(res);
+        // Doesn't function outside of `Assets` folder
+        //private class JsonImportNotifier : AssetPostprocessor
+        //{   
+        //    private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] _, string[] __)
+        //    {
+        //        List<string> res = new();
+        //        foreach (string path in importedAssets)
+        //            if (Path.GetExtension(path) == ".json")
+        //                res.Add(Path.GetRelativePath(Application.dataPath, path));
+        //        AddPaths(res);
 
-                res.Clear();
-                foreach (string path in deletedAssets)
-                    if (Path.GetExtension(path) == ".json")
-                        res.Add(Path.GetRelativePath(Application.dataPath, path));
-                RemovePaths(res);
-            }
-        }
+        //        res.Clear();
+        //        foreach (string path in deletedAssets)
+        //            if (Path.GetExtension(path) == ".json")
+        //                res.Add(Path.GetRelativePath(Application.dataPath, path));
+        //        RemovePaths(res);
+        //    }
+        //}
     }
 }

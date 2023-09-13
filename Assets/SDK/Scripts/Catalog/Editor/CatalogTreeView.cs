@@ -76,14 +76,15 @@ namespace ThunderRoad
             // Render text
             args.rowRect.x = GetContentIndent(args.item) + GetFoldoutIndent(args.item);
             args.rowRect.height = GetCustomRowHeight(args.row, args.item);
+            GUIStyle style = new(GUI.skin.label) { alignment = TextAnchor.MiddleLeft };
             if (args.item is CatalogTreeViewItem item)
             {
                 bool unsaved = GetUnsaved().Contains(item.id);
                 GUIContent idGUIContent = new(item.data.id + (unsaved ? "*" : ""));
-                GUI.Label(args.rowRect, idGUIContent);
+                GUI.Label(args.rowRect, idGUIContent, style);
 
                 args.rowRect.x += GUI.skin.label.CalcSize(idGUIContent).x;
-                GUIStyle italics = new(GUI.skin.label) 
+                GUIStyle italics = new(style) 
                 { 
                     fontStyle = FontStyle.Italic, 
                     normal = { textColor = Color.gray },
@@ -92,7 +93,7 @@ namespace ThunderRoad
                 GUI.Label(args.rowRect, new GUIContent($"({item.path})"), italics);
             }
             else
-                GUI.Label(args.rowRect, new GUIContent(args.label));
+                GUI.Label(args.rowRect, new GUIContent(args.label), style);
         }
 
         protected override float GetCustomRowHeight(int row, TreeViewItem item)
