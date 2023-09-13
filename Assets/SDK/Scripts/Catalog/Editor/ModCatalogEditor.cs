@@ -29,12 +29,10 @@ namespace ThunderRoad
         [SerializeField]
         private Vector2 scrollPos;
 
+        [SerializeField]
+        private CatalogDataWrapper currentData;
         private SerializedObject obj;
-        // Needed for the property drawers
-        [SerializeField, SerializeReference]
-        private CatalogData currentData;
-        private SerializedProperty currentDataProp;
-        private readonly Dictionary<Type, List<SerializedProperty>> props = new();
+        private SerializedProperty dataProp;
 
         [MenuItem("ThunderRoad (SDK)/Mod Catalog Editor")]
         private static void Open()
@@ -66,12 +64,6 @@ namespace ThunderRoad
             // I have no clue why this method is internal but it works so /shrug
             resizerMethod ??= typeof(EditorGUI).GetMethod("WidthResizer", BindingFlags.NonPublic | BindingFlags.Static, null, new Type[4] { typeof(Rect), typeof(float), typeof(float), typeof(float) }, null);
             treeWidth = EditorPrefs.GetFloat("ModCatalogEditor.treeWidth");
-
-            if (obj == null)
-            {
-                obj = new SerializedObject(this);
-                currentDataProp = obj.FindProperty("currentData");
-            }
         }
 
         private static void AddFiles(bool reload = true, params FileManager.ReadFile[] files)
@@ -213,11 +205,13 @@ namespace ThunderRoad
                         treeView.SetSelection(new List<int>());
                         return;
                     }
-                    
-                    currentData = currentItem.data;
+
+                    // Unity likes to occasionally delete scriptable objects without calling OnEnable
+                    // not sure why, GetCurrentData just makes sure currentData and obj have valid targets
+                    GetCurrentData().data = currentItem.data;
                     obj.Update();
 
-                    SerializedProperty currProp = currentDataProp.Copy();
+                    SerializedProperty currProp = dataProp.Copy();
                     SerializedProperty endProp = currProp.GetEndProperty(true);
                     if (!currProp.NextVisible(true))
                         return;
@@ -243,6 +237,23 @@ namespace ThunderRoad
             }
 
             EditorGUIUtility.labelWidth = originalLabelWidth;
+        }
+
+        private CatalogDataWrapper GetCurrentData()
+        {
+            if (currentData == null)
+            {
+                currentData = CreateInstance<CatalogDataWrapper>();
+                obj = null;
+            }
+
+            if (obj == null)
+            {
+                obj = new SerializedObject(currentData);
+                dataProp = obj.FindProperty("data");
+            }
+
+            return currentData;
         }
 
         private void DrawPropGUI(SerializedProperty prop)
@@ -324,5 +335,11 @@ namespace ThunderRoad
         //        RemovePaths(res);
         //    }
         //}
+
+        private class CatalogDataWrapper : ScriptableObject
+        {
+            [SerializeReference]
+            public CatalogData data;
+        }
     }
 }
