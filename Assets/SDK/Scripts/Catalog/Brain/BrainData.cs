@@ -69,9 +69,16 @@ namespace ThunderRoad
 
 #if ODIN_INSPECTOR
         [BoxGroup("Modules"), ShowInInspector]
+#elif UNITY_EDITOR
+        // This is needed just for the ModCatalogEditor to work
+        [SerializeReference]
 #endif
         public List<Module> modules;
 
+#if UNITY_EDITOR
+        // This is needed just for the ModCatalogEditor to work
+        [Serializable]
+#endif
         public class Module
         {
 #if ODIN_INSPECTOR
