@@ -21,6 +21,13 @@ namespace ThunderRoad.Manikin
         [SerializeField, ShowOnlyInspector]
         private int[] weightedBoneNameHashes = default;
 
+#if UNITY_EDITOR
+        [SerializeField, HideInInspector]
+        public Transform singleBone;
+        [SerializeField, HideInInspector]
+        public SkinnedMeshRenderer[] fromSmrs;
+#endif
+
         protected override void Awake()
         {
             base.Awake();
@@ -34,7 +41,7 @@ namespace ThunderRoad.Manikin
         }
 
 #if UNITY_EDITOR
-        void OnValidate()
+        public void OnValidate()
         {
             if (smr == null) { smr = GetComponent<SkinnedMeshRenderer>(); }
 
@@ -136,6 +143,26 @@ namespace ThunderRoad.Manikin
 
             Debug.LogWarning(name + " has no renderers for preview!");
             return null;
+        }
+
+        public void SetSmrBonesFromHashes()
+        {
+            if (rigPrefab == null)
+            {
+                Debug.LogError("No reference to rig found!");
+                return;
+            }
+
+            var rig = rigPrefab.GetComponentInParent<ManikinRig>();
+            if (rig == null)
+            {
+                rig = rigPrefab.AddComponent<ManikinRig>();
+                rig.rootBone = rigPrefab.transform;
+                rig.rootBone.rotation = Quaternion.Euler(rootRotation);
+                rig.InitializeBones();
+            }
+
+            RuntimeInitialize(gameObject, rig);
         }
 #endif
 
