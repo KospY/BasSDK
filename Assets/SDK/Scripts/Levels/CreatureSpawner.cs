@@ -99,5 +99,9 @@ namespace ThunderRoad
         {
         }
 
+        [Button]
+        public void SetCreaturesToWaveNPCS()
+        {
+        }
     }
 }

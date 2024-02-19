@@ -28,6 +28,11 @@ namespace ThunderRoad
         public static List<Item> allWorldAttached = new List<Item>();
 
 #if ODIN_INSPECTOR
+        public List<ValueDropdownItem<string>> GetAllItemID()
+        {
+            return Catalog.GetDropdownAllID(Category.Item);
+        }
+
         [ValueDropdown("GetAllItemID")]
 #endif
         [Tooltip("The Item ID of the item specified in the Catelog")]
@@ -128,6 +133,18 @@ namespace ThunderRoad
                 this.direction = direction;
                 this.directionAngle = directionAngle;
             }
+        }
+
+        public void AddNonStorableModifier(UnityEngine.Object handler)
+        {
+        }
+
+        public void RemoveNonStorableModifier(UnityEngine.Object handler)
+        {
+        }
+
+        public void ClearNonStorableModifiers()
+        {
         }
 
 
