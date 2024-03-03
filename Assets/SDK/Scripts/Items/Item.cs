@@ -188,6 +188,12 @@ namespace ThunderRoad
                 spawnPoint = new GameObject("SpawnPoint").transform;
                 spawnPoint.SetParent(transform, false);
             }
+            if (!flyDirRef) flyDirRef = transform.Find("FlyRef");
+            if (!flyDirRef)
+            {
+                flyDirRef = new GameObject("FlyRef").transform;
+                flyDirRef.SetParent(transform, false);
+            }
 
             preview = GetComponentInChildren<Preview>();
             if (!preview && transform.Find("Preview")) preview = transform.Find("Preview").gameObject.AddComponent<Preview>();
@@ -205,6 +211,13 @@ namespace ThunderRoad
 
             if (!mainHandleRight)
             {
+                Transform handleTransform = transform.Find("Handle");
+                if (handleTransform == null || handleTransform != null && !handleTransform.GetComponent<Handle>())
+                {
+                    Handle handle = new GameObject("Handle").AddComponent<Handle>();
+                    handles.Add(handle);
+                    handle.transform.SetParent(transform, false);
+                }
                 Handle[] children = GetComponentsInChildren<Handle>();
                 for (int i = 0; i < children.Length; i++)
                 {
@@ -234,6 +247,10 @@ namespace ThunderRoad
             {
                 mainHandleRight = GetComponentInChildren<Handle>();
             }
+            if (!mainHandleLeft)
+            {
+                mainHandleLeft = GetComponentInChildren<Handle>();
+            }
 
             physicBody = this.gameObject.GetPhysicBody();
             if (useCustomCenterOfMass)
@@ -257,6 +274,11 @@ namespace ThunderRoad
                 customInertiaTensorCollider.enabled = false;
                 customInertiaTensorCollider.isTrigger = true;
                 customInertiaTensorCollider.gameObject.layer = 2;
+            }
+            // Optional
+            if(string.IsNullOrEmpty(itemId))
+            {
+                itemId = transform.name;
             }
         }
 #if UNITY_EDITOR
