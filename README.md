@@ -1,7 +1,7 @@
 # Blade and Sorcery official U12.3 SDK
 
 This SDK is used to create custom contents for the VR game "Blade and Sorcery".
-The game currently support JSON/data modding, custom assets and plugins support (custom c# code).
+The game currently supports JSON/data modding, custom assets and plugins support (custom c# code).
 
 This repository is still a work in progress and should evolve over time depending of game updates and community involvement.
 
