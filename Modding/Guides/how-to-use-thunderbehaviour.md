@@ -10,7 +10,7 @@ For more information on why this is useful, read [1k update calls](https://blog.
     - instead of `void FixedUpdate()` use `protected override void ManagedFixedUpdate()`
     - instead of `void OnEnable()` use `protected override void ManagedOnEnable()`
     - instead of `void OnDisable()` use `protected override void ManagedOnDisable()`
-    - Implement `protected override ManagedLoops ManagedLoops => ManagedLoops.Update | ManagedLoops.LateUpdate | ManagedLoops.FixedUpdate`
+    - Implement `public override ManagedLoops EnabledManagedLoops => ManagedLoops.Update | ManagedLoops.LateUpdate | ManagedLoops.FixedUpdate`
         - Specify one or more of the `ManagedLoops` enum to indicate to the UpdateManager which loops you want to run on your ThunderBehaviour
 
 
@@ -29,7 +29,7 @@ public class ExampleUpdate : ThunderBehaviour
     protected override void ManagedOnDisable() {}
 
     //This tells the update manager to only call your ManagedUpdate() function
-    protected override ManagedLoops ManagedLoops => ManagedLoops.Update;
+    public override ManagedLoops EnabledManagedLoops => ManagedLoops.Update;
 
     //This will get called
     protected internal override void ManagedUpdate() {}
@@ -44,7 +44,7 @@ using ThunderRoad;
 public class ExampleFixedAndUpdate : ThunderBehaviour
 {
     //This tells the update manager to only call your ManagedUpdate() AND ManagedFixedUpdate() functions
-    protected override ManagedLoops ManagedLoops => ManagedLoops.Update | ManagedLoops.FixedUpdate;
+    public override ManagedLoops EnabledManagedLoops => ManagedLoops.Update | ManagedLoops.FixedUpdate;
 
     //This will get called
     protected internal override void ManagedUpdate() {}
