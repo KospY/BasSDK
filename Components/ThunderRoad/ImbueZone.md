@@ -3,18 +3,18 @@ parent: ThunderRoad
 ---
 # Imbue Zone
 
-```note
+{: .note}
 Not to be confused with [Zone][Zone]
 
 [Zone]: {{ site.baseurl }}{% link Components/ThunderRoad/Zone.md %}
-```
+
 
 
 Imbue zone is a zone that imbues items based on what Spell ID is indicated. Before this zone can be placed, a collider with "Trigger" enabled is required. This collider will be the zone of which the item gets imbued.
 
-```tip
+{: .tip}
 This only imbues items when an item is put in to the zone first. Will not imbue a weapon if the zone is stored on the same item.
-```
+
 
 ## Components
 
@@ -24,9 +24,9 @@ This only imbues items when an item is put in to the zone first. Will not imbue 
 | Transfer Max Percent        | Indicates the maximum percentage that the item can be imbued.
 | Imbue Spell ID              | Specifies the Spell ID that this zone will imbue with. For base-game spells, this would be `Fire`, `Gravity` and `Lightning`.
 
-```note
+{: .note}
 This zone also accepts modded spells.
-```
+
 
 ![ImbueZone][ImbueZone]
 

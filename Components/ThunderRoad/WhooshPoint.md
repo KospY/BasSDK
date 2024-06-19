@@ -3,11 +3,11 @@ parent: ThunderRoad
 ---
 # Whoosh Point
 
-```note
+{: .note}
 Not to be confused with Whoosh Point in [ColliderGroup][ColliderGroup]
 
 [ColliderGroup]: {{ site.baseurl }}{% link Components/ThunderRoad/ColliderGroup.md %}
-```
+
 
 The Whoosh Point is a transform which emits sound when the item is thrown or swung at a velocity. 
 

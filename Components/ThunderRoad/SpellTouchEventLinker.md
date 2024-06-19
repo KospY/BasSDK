@@ -9,9 +9,9 @@ The Spell Touch Event Linker detects when a spell enters its area of effect.
 
 For this event linker to work, a 3D collider component must first be added to the object. Events are activated when a spell enters the area defined by this collider.
 
-```danger
+{: .danger}
 The attached collider **must** have its `Is Trigger` field enabled to be used by this event linker.
-```
+
 
 ## Event Fields
 

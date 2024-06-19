@@ -13,9 +13,9 @@ This event linker will only respond to collisions with the specified collider gr
 
 A reference to a [Collider Group][ColliderGroup] component is required in order for this Event Linker to function.  
 
-```danger
+{: .danger}
 The linked collider group must have a rigidbody component on itself or one of its parent objects. Otherwise, this event linker will not function.
-```
+
 
 ## Events
 

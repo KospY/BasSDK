@@ -5,9 +5,9 @@ parent: ThunderRoad
 
 The Hinge Effect component plays an effect when a [HingeJoint] moves. 
 
-```note
+{: .note}
 This component cannot reference a HingeDrive unless it is referenced at runtime, when the HingeDrive generates one.
-```
+
 
 ## Component Properties
 

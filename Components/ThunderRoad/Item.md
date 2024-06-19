@@ -9,9 +9,9 @@ The `Item` script is the core component for items and weapons in Blade and Sorce
 
 When this component is added, a Rigidbody is added to the object, as well as three gameobjects: HolderPoint, ParryPoint and [Preview][Preview]. 
 
-```warning
+{: .warning}
 Do not adjust Rigidbody weight, drag and angular drag, as this is overwritten in the json.
-```
+
 
 ![Inspector][Inspector]
 

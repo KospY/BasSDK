@@ -3,12 +3,12 @@ parent: ThunderRoad
 ---
 # Container Spawner
 
-```note
+{: .note}
 Not to be confused with [ItemSpawner][ItemSpawner] and [CreatureSpawner][CreatureSpawner].
 
 [ItemSpawner]: {{ site.baseurl }}{% link Components/ThunderRoad/ItemSpawner.md %}
 [CreatureSpawner]: {{ site.baseurl }}{% link Components/ThunderRoad/CreatureSpawner.md %}
-```
+
 
 The Container Spawner is a script used to spawn items contained within a Container json. It will spawn the item from the list, which could make spawning of an item random.
 

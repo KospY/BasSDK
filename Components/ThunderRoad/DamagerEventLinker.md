@@ -19,9 +19,9 @@ A reference to a [Damager][Damager] is required in order for this Event Linker t
 
 <br>
 
-```note
+{: .note}
 `On Damage Dealt` will still be invoked when the linked damager kills a creature.
-```
+
 
 
 

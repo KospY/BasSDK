@@ -7,12 +7,12 @@ parent: ThunderRoad
 
 This component will create an ocean inside your level. The height of the ocean is determined by the **Y position** of the object holding this component.
 
-```warning
+{: .warning}
 The object holding this component should not be rotated in any way. Doing so will create holes on the surface of the ocean mesh.
-```
-```warning
+
+{: .warning}
 The object holding this component should not be moved after the level has loaded. Doing so will change where the game thinks the ocean is, but not move the visual representation, causing players to drown in air. 
-```
+
 
 ## Component Fields
 

@@ -11,8 +11,8 @@ Flee points can be automatically generated from the [Wave Spawner][WaveSpawner] 
 
 The gameobject this component is attached to must be placed near to the ground.
 
-```note
+{: .note}
 There are no fields on this component.
-```
+
 
 [WaveSpawner]: {{ site.baseurl }}{% link Components/ThunderRoad/WaveSpawner.md %}

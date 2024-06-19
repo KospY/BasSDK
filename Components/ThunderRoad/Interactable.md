@@ -3,9 +3,9 @@ parent: ThunderRoad
 ---
 # Interactable
 
-```danger
+{: .danger}
 This component is not intended to be used directly. Instead, use one of the components that inherit from this one.
-```
+
 #### Components That Inherit From Interactable:
 - [Handle][Handle]
   - [Handle Ragdoll][HandleRagdoll]

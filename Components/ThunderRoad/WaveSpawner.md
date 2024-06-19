@@ -3,9 +3,9 @@ parent: ThunderRoad
 ---
 # Waves Spawner
 
-```note
+{: .note}
 The Waves Spawner is a requirement for `UI Wave Spawner` 
-```
+
 
 The Wave Spawner is a script which allows AI to spawn in the map. Through the use of spawn points, as well as music handling and Events, this script allows you to adjust the way AI spawn.
 
@@ -34,11 +34,11 @@ The Wave Spawner is a script which allows AI to spawn in the map. Through the us
 
 ## Events
 
-```note
+{: .note}
 When the event is met, its output is played. For information on Unity Events, see [Unity Events][UnityEvents].
 
 [UnityEvents]: https://docs.unity3d.com/Manual/UnityEvents.html
-```
+
 
 | Event                       | Description
 | ---                         | ---

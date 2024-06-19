@@ -3,7 +3,7 @@ parent: ThunderRoad
 ---
 # Hinge Drive
 
-```note
+{: .note}
 Not to be confused with HingeJoint, however the Hinge Drive does generate a HingeJoint on playmode
 ```
 
@@ -86,7 +86,7 @@ For more about UnityEvents and how to use them, refer to the official [Unity Doc
 
 ### Gizmo
 
-```Tip
+{: .tip}
 This component has a gizmo which easily displays angles and axis, while also being configurable for easy assistance
 ```
 

@@ -7,13 +7,13 @@ Item Spawner is a script that allows you to spawn an item, whether it be to spaw
 
 ![ItemSpawner][ItemSpawner]
 
-```note
+{: .note}
 "Spawn" Button is for internal use only, it may be removed in the future.
-```
 
-```note
+
+{: .note}
 If your item has a JSON inside the Unity Catelog, it will show a gizmo of the item if the ID matches. It will also do the same for a LootTable, of which it shows all the items in the selection.
-```
+
 
 ## Components
 
@@ -51,14 +51,14 @@ This script now supports "On Spawn Event". When an item is spawned via this comp
 | Set Player Last Handler   | Depicts that when spawned, the player will be seen as the last handler, and therefore counts as player kills if it kills NPCs.
 | Ignored Player Parts      | Depicts parts that the item spawner ignores when spawned. Ones still enabled will deal damage/affect the player.
 
-```note 
+{: .note} 
 This is the gizmo of the ItemSpawner when Random Radius is above 0.
-```
+
 ![RadiusGizmo][RadiusGizmo]
 
-```note
+{: .note}
 This is the definition of Priorities as stated above. This diagram also shows how priority affects the gizmo of the object if the item is in the catelog and referenced correctly.
-```
+
 ![PriorityGizmo][PriorityGizmo]
 
 

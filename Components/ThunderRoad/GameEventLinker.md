@@ -26,11 +26,11 @@ The Game Event Linker listens for a number of common events emitted from the gam
 Using the From/To properties it is possible to only activate events under certain conditions.
 
 For example, this configuration will only react to a hostile creature being killed by the player:
-```
+
 - Game Event: On Creature Kill
 - From: Player
 - To: Enemy NPC
-```  
+  
 
 The following events are **not** affected by these filter properties. 
 - On Creature Spawn

@@ -8,11 +8,11 @@ This component is intended to be placed on creatures, and is required for creatu
 
 The object this component is attached to must be rotated such that it's y-axis (green arrow) is pointing **outwards** from the creatures mouth.
 
-```warning
+{: .warning}
 This component requires a [Creature Mouth Relay][CreatureMouthRelay] component on one of its parents.
 
 [CreatureMouthRelay]: {{ site.baseurl }}{% link Components/ThunderRoad/CreatureMouthRelay.md %}
-```
+
 
 
 ## Component Properties

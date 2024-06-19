@@ -38,9 +38,9 @@ Using event linkers, you can make items perform complex actions such as playing 
 
 
 
-```tip
+{: .tip}
 Event linkers are compatable with both Nomad and PCVR!
-```
+
 
 ## Common Functions
 
@@ -59,11 +59,11 @@ If an event linker is not listening, its events will not trigger even when the a
 
 Prints a message to the ingame console and player log. These may be useful to you if you're trying to figure out why your linker isn't behaving as intended.
 
-```tip
+{: .tip}
 Adding exclamation marks (`!`) to the start of the message will change the output type of your message.  
 A single exclamation mark will output a yellow warning message in the console.  
 Two exclamation marks will output a red error message in the console.
-```
+
 
 ### WaitFor...
 
@@ -78,7 +78,7 @@ These functions will add a time delay between the current event, and the next ev
 - WaitForSecondsRealtime
   - Waits a number of realtime seconds. This delay will not be affected when slow-motion is active.
 
-```warning
+{: .warning}
 WaitFor... creates a delay between events, not within them. Once the delay has elapsed, the next event in the list will be invoked based on if that action **occurred in the frame the delay was started in**. 
 
 This can be used to your advantage to create **timers**. By adding duplicate events to your events list and adding a delay to the first of these events, you can offset when your UnityEvent is invoked.
@@ -88,7 +88,7 @@ The following example will play a particle system when the alternate-use button 
 ![WaitFor Example Usage][WaitForExample]
 
 [WaitForExample]: {{ site.baseurl }}/assets/components/EventLinker/WaitFor.jpg
-```
+
 
 
 

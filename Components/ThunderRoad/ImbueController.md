@@ -3,11 +3,11 @@ parent: ThunderRoad
 ---
 # Imbue Controller
 
-```note
+{: .note}
 Not to be confused with [ImbueZone][ImbueZone]
 
 [ImbueZone]: {{ site.baseurl }}{% link Components/ThunderRoad/ImbueZone.md %}
-```
+
 
 Imbue Controller is used to imbue a specific weapon in scene, or the [Item][Item] that it is attached to.
 

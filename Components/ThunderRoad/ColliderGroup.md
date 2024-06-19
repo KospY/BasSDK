@@ -18,13 +18,13 @@ Once all colliders are completed, you can click the "Generate imbue mesh". Once 
 For the Imbue Effect Renderer, you can either use this generated mesh, or create your own.
 
 ![Imbue Generated Mesh][ImbueGenMesh]
-```warning
+{: .warning}
 The mesh on the right is to show what the mesh looks like, do not duplicate and put it to the side and reference this one.
-```
 
-```tip
+
+{: .tip}
 You must disable the pink mesh by clicking on it, and unticking the "mesh renderer" checkbox.
-```
+
 
 > ![Turn off Mesh Renderer][MeshRenderer]
 
@@ -32,17 +32,17 @@ You must disable the pink mesh by clicking on it, and unticking the "mesh render
 
 The Imbue Emission Renderer is where you reference the mesh that will show the emission once the item is imbued. When referenced, ensure that the emission color is black, as if emission is already another color, it will be overwritten by the imbue emission. 
 
-```warning
+{: .warning}
 It is recommended that there is one mesh per collider group. Do not reference a mesh in more than one collider group, this is not supported.
-```
+
 
 ## Imbue Shoot
 
 The Imbue Shoot transform is to depict where spells shoot from if the weapon is set up like a magic staff. The Z Axis / Blue Arrow points forward as to where the projectile appears from
 
-```tip
+{: .tip}
 The Magic Staff Collider group reference is referenced in the Item JSON. This will be useless if not set up so.
-```
+
 
 ## Whoosh Point
 

@@ -5,9 +5,9 @@ parent: ThunderRoad
 
 Player Spawner is a script required to spawn the player in a map. Multiple of these can be used on a map to randomise spawn locations.
 
-```tip
+{: .tip}
 Ensure that this GameObject is placed on the floor or near the floor, as if it is placed too high, player can die of fall damage.
-```
+
 
 ![PlayerSpawner][PlayerSpawner]
 

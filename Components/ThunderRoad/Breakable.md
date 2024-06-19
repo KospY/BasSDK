@@ -19,9 +19,9 @@ This item is the core component to allow an item to break in Blade and Sorcery. 
 7. Set the "Unbroken" Gameobject in the "Unbroken Objects Holder" and the "Broken" Gameobject in the "Broken Objects Holder".
 8. The Breakables Item is now setup, now you can adjust the fields to your liking.
 
-```tip
+{: .tip}
 The broken items can use the same Item ID as the broken mesh, however they can also contain different item IDs, even their own, to ensure that they have the same weight and item properties.
-```
+
 
 ![BreakableOrganisation][BreakableOrganisation]
 
