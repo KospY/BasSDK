@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Breakables
 
 This item is the core component to allow an item to break in Blade and Sorcery. This component supports GameObjects that contain the [Item][Item] Script, as well as supporting components that only contain rigidbody.

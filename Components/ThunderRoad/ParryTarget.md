@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Parry Target
 
 ![ParryTargetScript][ParryTargetScript]

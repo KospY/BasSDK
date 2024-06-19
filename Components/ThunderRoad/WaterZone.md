@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Water Zone
 
 Water Zone is similar to [ImbueZone][ImbueZone], except instead, it depletes the imbue on that item. 

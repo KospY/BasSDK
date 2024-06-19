@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Bow String
 ###### This component has an [Event Linker][EventLinker].
 

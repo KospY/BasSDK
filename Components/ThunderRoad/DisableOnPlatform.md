@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Disable on Platform
 
 Disable on Platform, also known as `Disable or Strip GameObject relative to platform` is an internal script which is used to strip the GameObject when a tool is used to create an android varient.

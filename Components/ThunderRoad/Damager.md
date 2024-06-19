@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Damager
 
 ###### This component has an [Event Linker][EventLinker].

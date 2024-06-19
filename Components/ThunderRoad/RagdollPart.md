@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Ragdoll Part
 ###### This component has an [Event Linker][EventLinker].
 

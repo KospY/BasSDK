@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Holder
 ###### This component inherits from [Interactable][Interactable]. <br> This component has an [Event Linker][EventLinker].
 

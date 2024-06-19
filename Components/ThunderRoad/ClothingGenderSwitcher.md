@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Clothing Gender Switcher
 
 The Clothing Gender Switcher is a script which swaps the mesh of armor part items depending on what gender the player is. This is used for apparel items, which are used to equip armor and clothing.

@@ -1,0 +1,7 @@
+/* Sidebar goes to left on wide screens */
+@media (min-width: 66.5rem) { .side-bar { width: auto; min-width: 16.5rem; } }
+/* mainsection goes  to the left goes to left on wide screens */
+@media (min-width: 66.5rem) { .side-bar + .main { margin-left: 16.5rem; } }
+
+/* Main section  takes up full screen */
+@media (min-width: 50rem) { .main { position: relative; max-width: 100%; } }

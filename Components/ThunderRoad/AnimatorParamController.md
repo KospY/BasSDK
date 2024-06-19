@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Animator Param Controller
 The Animator param controller is used to manipulate parameters you create on Animators; using a combination of an Animator and the controller, you can create very complex state machines where button presses, ungrabbing, regrabbing, etc. all manipulate the item/object state. The Animator param controller doesn't do a whole lot on its own, and will generally need to be paired with event linkers or other Unity events. Animator param controllers have to be added onto GameObjects with Animators on them.
 

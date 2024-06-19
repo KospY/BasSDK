@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Hinge Drive
 
 ```note

@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # FleePoint
 
 Flee Points are positions enemies will attempt to reach when fleeing. Upon reaching a flee point, the enemy will despawn from the level. These are often placed near doors or exits that the player cannot interact with.

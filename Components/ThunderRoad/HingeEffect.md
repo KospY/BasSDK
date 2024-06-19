@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Hinge Effect
 
 The Hinge Effect component plays an effect when a [HingeJoint] moves. 

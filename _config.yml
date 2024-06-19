@@ -2,7 +2,7 @@ title: bas-wiki
 lang: en
 description: Blade and Sorcery Wiki
 repository: KospY/BasSDK
-remote_theme: rundocs/jekyll-rtd-theme
+remote_theme: just-the-docs/just-the-docs
 
 defaults:
   # Add styling to all pages front matter
@@ -11,7 +11,7 @@ defaults:
       path: "" # an empty string here means all files in the project
     values:
       sass: _includes/extra/styles.scss
-      layout: default_sidebar 
+      layout: "default"
       
 
 twitter_username: 
@@ -24,9 +24,33 @@ exclude:
   - Makefile
   - Gemfile
   - Gemfile.lock
+  - node_modules
 
 plugins:
   - jemoji
   - jekyll-avatar
   - jekyll-mentions
   - jekyll-github-metadata
+
+# just the docs config
+# Set a path/url to a logo that will be displayed instead of the title
+logo: "/assets/site/BS_LOGO_TEXT.png"
+# Set a path/url to a favicon that will be displayed by the browser
+favicon_ico: "/assets/site/favicon.ico"
+# Enable or disable the side/mobile menu globally
+# Nav menu can also be selectively enabled or disabled using page variables or the minimal layout
+nav_enabled: true
+
+# Color scheme supports "light" (default) and "dark"
+color_scheme: dark
+
+callouts:
+  tip:
+    title: Tip
+    color: grey-lt
+  warning:
+    title: Warning
+    color: yellow
+  danger:
+    title: Danger
+    color: red

@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Item
 
 ###### This component has an [Event Linker][EventLinker].

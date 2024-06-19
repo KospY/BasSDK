@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Item Spawner
 
 Item Spawner is a script that allows you to spawn an item, whether it be to spawn a prop, shoot an item or any other means. This script allows you to spawn items through [Unity Events][UnityEvents], spawning items with motion, to allow you to create spawnable projectiles.

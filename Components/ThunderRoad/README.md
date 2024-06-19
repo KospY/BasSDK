@@ -1,3 +1,0 @@
-# ThunderRoad
-
-source: `{{ page.path }}`

@@ -1,1 +1,4 @@
+---
+parent: ThunderRoad
+---
 # Effect Particle

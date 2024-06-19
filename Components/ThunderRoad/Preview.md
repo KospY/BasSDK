@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Preview
 
 The Preview script generates an image for the item, which is used to preview what the weapon looks like inside the Item Spawner and is generated from the [Item][Item] script. This script generates a Preview Image for when the item is selected, and an "Up-close" image which is shown for the small preview in the book.

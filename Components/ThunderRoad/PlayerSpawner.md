@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Player Spawner
 
 Player Spawner is a script required to spawn the player in a map. Multiple of these can be used on a map to randomise spawn locations.

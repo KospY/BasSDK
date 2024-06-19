@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Render Cubemap
 
 ```danger

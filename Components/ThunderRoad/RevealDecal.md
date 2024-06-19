@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Reveal Decal
 
 Reveal Decal is the script needed to spawn blood decals on weapons and props. The shader "ThunderRoad/Lit" is required for this, and requires a set up before Reveal starts working.

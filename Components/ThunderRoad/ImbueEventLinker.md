@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Imbue Event Linker
 *If you have not done so already, go read the [Event Linker][EventLinker]'s wiki page. This page only lists and explains the events available to this linker. It will not explain how to use the component itself.*
 

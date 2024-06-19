@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Liquid Receiver
 
 ## Overview

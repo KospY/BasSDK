@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Toggle Objects
 
 Toggle Objects is a script which makes it an easy function to disable a mass amount of GameObjects and Renderers stored in one script, to allow for one reference to disable many game objects in an [UnityEvents][UnityEvents] Call. 

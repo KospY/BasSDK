@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Waves Spawner
 
 ```note

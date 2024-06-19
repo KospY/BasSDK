@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Anim Random
 *This is an animation component, meaning it can only be added to **Animation States**. This component cannot be added to regular GameObjects.*
 

@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Rope
 ###### This component inherits from [Handle][Handle].
 

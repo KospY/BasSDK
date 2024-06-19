@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Disable on Condition
 
 The Disable on Condition script disables the object depending on the condition given to it.

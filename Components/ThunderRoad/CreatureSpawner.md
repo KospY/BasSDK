@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Creature Spawner
 
 Creature Spawner, or CreatureTable Spawner is a script used to spawn creatures within a level. 

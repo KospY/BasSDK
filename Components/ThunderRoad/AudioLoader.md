@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Audio Loader
 
 The Audio Loader is a script used to load audio from an addressables rather than placing the Audio Source in the scene directly. This script requires an Audio Source with this script, however it should be left blank (however you can adjust Audio settings (like volume, reverb filter etc)). With this, you can reference in-game audio addressables that may not be available to you in raw form, loading it straight from the addressables.

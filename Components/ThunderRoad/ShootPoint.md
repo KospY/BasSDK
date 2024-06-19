@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Shoot Point
 
 Shoot Point is a component that AI will use to move to and shoot from. This point is where archers (usually) will move to in order to shoot at you. 

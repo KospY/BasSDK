@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Whoosh Point
 
 ```note

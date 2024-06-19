@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Handle Pose
 
 The Handle Pose is dependent on the [Handle][Handle] component, for which this script shows what the hand pose looks like in game when that handle is grabbed. This script also manages handle orientations, so with all orientations from 0, 90, 180 and 270, and up-side down handles, some handles can have 8 to 16 handle pose scripts. 

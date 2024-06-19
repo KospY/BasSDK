@@ -1,3 +1,6 @@
+---
+parent: ThunderRoad
+---
 # Collider Group
 ###### This component has an [Event Linker][EventLinker].
 
