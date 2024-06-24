@@ -5,3 +5,18 @@
 
 /* Main section  takes up full screen */
 @media (min-width: 50rem) { .main { position: relative; max-width: 100%; } }
+
+.nav-list-expander
+{
+    color:hsl(280, 1%, 38%) !important;
+}
+
+.nav-list .nav-list-item .nav-list-link:hover, .nav-list .nav-list-item .nav-list-link.active
+{
+    color: hsl(0, 0%, 91%) !important
+}
+
+.nav-list .nav-list-item .nav-list-link
+{ 
+    color: hsl(224, 100%, 79%);
+}

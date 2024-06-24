@@ -1,0 +1,13 @@
+---
+parent: Items
+grand_parent: ThunderRoad
+---
+# Bow String
+###### This component has an [Event Linker][EventLinker].
+
+
+
+
+
+
+[EventLinker]: {{ site.baseurl }}{% link Components/ThunderRoad/Event-Linkers/BowEventLinker.md %}

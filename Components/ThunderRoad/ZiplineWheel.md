@@ -1,4 +1,0 @@
----
-parent: ThunderRoad
----
-# Zipline Wheel

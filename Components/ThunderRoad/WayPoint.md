@@ -1,4 +1,0 @@
----
-parent: ThunderRoad
----
-# Way Point
