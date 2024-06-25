@@ -1,5 +1,5 @@
 ---
-parent: Event Linkers
+parent: Event-Linkers
 grand_parent: ThunderRoad
 ---
 # Damager Event Linker
