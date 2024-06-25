@@ -10,7 +10,7 @@ Mod options are a way for modders to add configuration options to their **script
 
 They are attributes in c# which sit in top of static methods, properties or fields and automatically add the options to the player menu without the need for additional json.
 
-![Untitled](ModOptions%20f0a58cc5464a4b6aa462f9b920320e46/Untitled.png)
+![ModOptions][ModOptions]
 
 ## What are the features of ModOptions
 
@@ -81,6 +81,7 @@ For the above subclasses, the static `defaultValue` fields on them are used when
 
 It includes the **title, titleLocalizationId** and the **value** which is returned to the member the ModOption is on.
 
+{: .note}
 As of U12.1 we do not support the extension of `ModOptionParameters` to provide your own subtypes as the UI does not support it yet.
 
 ### Simple Mod Options
@@ -289,3 +290,5 @@ private static void MyEnumMagic(MyEnum value)
 	Debug.Log($"MyEnumMagic: {value}");
 }
 ```
+
+[ModOptions]: {{ site.baseurl }}/assets/components/Guides/ModOptions/ModOptions.png

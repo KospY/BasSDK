@@ -10,15 +10,11 @@ grand_parent: Guides
 - Open the area prefab, make a child GameObject, and start creating the area (models and assets, etc). You can also add child GameObjects for creature spawners, items spawners, etc. 
 Remember that the gate you want to make on the side of the area needs to be the same size as the AreaConnectionType you want to assign.
 
-<aside>
-⚠️ Don’t forget to add a PlayerSpawner (in Start Area, or for debug/teleport in other areas).  See [Player Spawner](../Map%20Level%20Components%20316991d06f5648f9885927fc95adf057/Player%20Spawner%2068d3456dc0a34d589737798507f453dc.md).
+{: .warning}
+Don’t forget to add a PlayerSpawner (in Start Area, or for debug/teleport in other areas).  See [Player Spawner][PlayerSpawner].
 
-</aside>
-
-<aside>
-⚠️ Don’t forget to add a way to load other levels in End Area so the player can leave when they end the dungeon.
-
-</aside>
+{: .note}
+Don’t forget to add a way to load other levels in End Area so the player can leave when they end the dungeon.
 
 - **Area Catalog Data**
     
@@ -35,7 +31,7 @@ Remember that the gate you want to make on the side of the area needs to be the 
     
 - Don’t forget to add the Data in SDK, then click on ThunderRoad (SDK) / load All Json. Every time you change the data reload all JSON to avoid log errors.
 - Return to the Area Prefab view
-- On the root/parent, add the Area component and set the field DataId with the ID you chose in the catalog Data. See [Area](Area%201c1da74578e9400ab9a3d3f4b891e4f3.md).
+- On the root/parent, add the Area component and set the field DataId with the ID you chose in the catalog Data. See [Area][Area].
 - Create a box collider as a separate GameObject of the root, make sure its position is 0,0,0.
 - Edit the box collider so it contains all the colliders in the prefab (wall etc).
 - Make sure this box stopped at connection position.
@@ -45,7 +41,7 @@ Remember that the gate you want to make on the side of the area needs to be the 
 For each connection your Area has :
     - Add an areaConnection to the connections list (copy-paste from the sample)
     - Edit the fields :
-        - connectionTypeIdContainerList :  the list of the different AreaConnectionTypeData that this connection can connect to. See [Creating Connections](Creating%20Connections%20460edccee1b44e3dbd0e6968865990e9.md) on AreaConnections.
+        - connectionTypeIdContainerList :  the list of the different AreaConnectionTypeData that this connection can connect to. See [Creating Connections][CreatingConnections] on AreaConnections.
         - overrideBlockerTableAdress : same as blocker in the AreaConnectionType, if there is something in the Drop list then those blocker will be used for this specific area instead of the one from AreaConnectionType. 
         Leave empty unless you want something specific for this area connection.
         - position : the coordinate of the connection from the center of the area (when area root is at 0,0,0).
@@ -64,14 +60,14 @@ For each connection your Area has :
     Create an empty game object under Gateways 
     
     - change its coordinate so it is at the connection position, and rotate it so the Z axis face the outside of the area.
-    - Add the AreaGateway Component to it. See [Area Gateway](Area%20Gateway%205f8c690b01c9452a9e8d247b7f564baa.md)
+    - Add the AreaGateway Component to it. See [Area Gateway][AreaGateway]
     - Setup the LocalBound of this component (value or with gizmos).
     When the player enters this box it will fade the fake view and set active the adjacent Area.
     - Click on the SetupFakeView button.
     - A GameObject called reflection sorcery should appear as a child.
     Select it and click on the ToggleEditMode Button.
         
-        ![Untitled](How%20to%20create%20an%20Area%20019f888f57f249a8960f6f237a8bb3c5/Untitled.png)
+        ![ToggleEditMode][ToggleEditMode]
         
     
     A GameObject named room volume appear, it's a box on the prefab scene, edit it so it fits to the near wall. Then Click on ToggleEditMode button on reflection sorcery again.
@@ -89,10 +85,8 @@ For each connection your Area has :
 - Drag and drop the area prefab on the scene at the coordinates 0,0,0.
 - The prefab appears in red on the hierarchy. Next to its name, there should be a grey square, click on it. A popup should open and choose to unlock. (this is a security because importing the prefab changes it and we don’t want to apply those automatic changes on the real prefab)
 
-<aside>
-⚠️ When a prefab is red, it is locked, and cannot be edited. It may also lag if you try to edit any components while it is locked. To edit the prefab, click the “Unlock” button on the prefab in the hierarchy, and unlock it. When the prefab is saved, it will lock again.
-
-</aside>
+{: .note}
+When a prefab is red, it is locked, and cannot be edited. It may also lag if you try to edit any components while it is locked. To edit the prefab, click the “Unlock” button on the prefab in the hierarchy, and unlock it. When the prefab is saved, it will lock again.
 
 - Once unlocked, the prefab should appear normal on the scene. Select the root of the Area and click “Bake” for the NavMeshSurface.
 - Then apply all the overrides on the prefab. The prefab should re-appear red again (locked)
@@ -106,8 +100,15 @@ On the folder of the prefab, Right click create lighting Data.
 - Open the lightmap window (Window/Rendering/Lighting). Open BakedLightmap tab and bake the lightmap (generate lighting).
 - After the baking, select the area in the scene. On the component LightingGroup, right-click and select “UpdateReferencesAndSaveAlll”.
 
-![Untitled](How%20to%20create%20an%20Area%20019f888f57f249a8960f6f237a8bb3c5/Untitled%201.png)
+![UpdateReferencesAndSaveAll][UpdateReferences]
 
 - Apply all the changes to the prefab. The Area should be locked again.
 - The Area should be ready to use 🙂
 - You can now add the AreaData to Area Tables, and be able to spawn it inside Dungeons.
+
+[AreaGateway]: {{ site.baseurl }}{% link Components/ThunderRoad/Areas/AreaGateway.md %}
+[Area]: {{ site.baseurl }}{% link Components/ThunderRoad/Areas/Area.md %}
+[PlayerSpawner]: {{ site.baseurl }}{% link Components/ThunderRoad/Levels/PlayerSpawner.md %}
+[CreatingConnections]: {{ site.baseurl }}{% link Components/Guides/Areas/Connections.md %}
+[UpdateReferences]: {{ site.baseurl }}/assets/components/Guides/Areas/UpdateReferences.png
+[ToggleEditMode]: {{ site.baseurl }}/assets/components/Guides/Areas/ToggleEditMode.png

@@ -41,4 +41,6 @@ Note that transition segment will CONTINUE playing until it end. So you can have
 **”OnBar”** : Transition will start on Y bar. If Y is 0 next group will start immediatly.
 **”OnGrid”** : Transition will start on Y grid. If Y is 0 next group will start immediatly.
 
-![Untitled](Music%20Data%20Group%20and%20transition%20bc7eef1175c74fe78134da8adfb9ff80/Untitled.png)
+![DynamicMusic][DynamicMusic]
+
+[DynamicMusic]: {{ site.baseurl }}/assets/components/Guides/DynamicMusic/DynamicMusic.png

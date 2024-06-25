@@ -58,6 +58,10 @@ A `manifest.json` file is required in the mod folder, without it, the folder/mod
 
 </aside>
 
+{: .important}
+NOTE: ADD OVERRIDE STUFF WHERE YOU DONT NEED ALL VALUES FOR A CERTAIN OVERRIDE
+
+
 ## JSON types
 
 ---
