@@ -2,14 +2,24 @@
 parent: SDK-HowTo
 grand_parent: Guides
 ---
-# How to install mods
+{: .warning}
+This Wiki is currently under active development, and pages may change drastically. Some pages under this wiki are either out of date or not fully finished.
 
-# Preferred Installation
+# How to Install mods
+---
+# Preffered Installation - In-Game Mod Manager
 
-{: .important}
 In-game, go to the "Mods" section in the Main Menu, and install mods through the mod manager. These mods are hosted on [Mod.io](https://mod.io/g/blade-and-sorcery)
 
-### Manual Installation (For advanced users or Nexus Downloads)
+Additionally, you can go to [Mod.io](https://mod.io/g/blade-and-sorcery) and subscribe to the mods on there. Then, when you create an account and log in to Mod.io in Blade and Sorcery, your mods will automatically download from your subscribed list.
+
+From the Mod Manager inside Blade and Sorcery, you can disable, uninstall and unsubscribe directly in game.
+
+
+# Manual Installation
+The manual installation for mods is a more advanced way to install mods in to Blade and Sorcery. This is a requirement for manual installations of mod files, and for creating your own mods or testing a mod that is not public. 
+
+For Nexus mods, you can also use [Nexus Vortex](https://www.nexusmods.com/site/mods/1) to download mods and install them. This does not support mods hosted on Mod.io.
 
 ## PCVR (Steam)
 
@@ -30,8 +40,7 @@ In-game, go to the "Mods" section in the Main Menu, and install mods through the
 3. Plug your Quest Headset into your PC
 4. Drag and drop mod folder into `This PC\Quest (2/3/Pro)\Internal shared storage\Android\data\com.Warpfrog.BladeAndSorcery\files\Mods`
 
-
-### Common mod issues with manual installation
+## Common mod issues with manual installation 
 
 If your mods are not working, here are the solutions to very common issues:
 
@@ -40,7 +49,7 @@ If your mods are not working, here are the solutions to very common issues:
     
     ![InstallMods][InstallMods]
     
-3. If you still are having issues, please ask for help in `#pcvr-modding-help` or #nomad-modding-help in the Blade and Sorcery Discord.
-[Discord](https://discord.gg/bladeandsorcery){: .btn .btn-blue }
+3. If you still are having issues, please ask for help in `#pcvr-modding-help` or #nomad-modding-help in the Blade and Sorcery [Discord.](https://discord.gg/bladeandsorcery)
+
 
 [InstallMods]: {{ site.baseurl }}/assets/components/Guides/InstallingMods/InstallMods.png

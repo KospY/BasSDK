@@ -14,10 +14,9 @@ The default JSON files used by the base game are packed in a`.jsondb` archive fi
 
 To create a mod, most of the time you have to create a json that will act as a new item or an override of an existing game json that use the same ID. To do so, you can copy the configuration files from the SDK or the game, modify it, then place it in a dedicated mod folder in `[Blade & Sorcery folder]\BladeAndSorcery_Data\StreamingAssets\Mods` for the PCVR version of the game or in  `[Device storage]\Android\data\com.Warpfrog.BladeAndSorcery\files\Mods`for the Nomad version of the game.
 
-<aside>
-🗒️ It's highly recommended to keep in the customized JSON only the fields you want to change, this way, if another mods do changes to another field in the same JSON it will not conflict.
+{: .warning}
+It's highly recommended to keep in the customized JSON only the fields you want to change, this way, if another mods do changes to another field in the same JSON it will not conflict.
 
-</aside>
 
 Each customized JSON should contain at least the fields `$type`, `id` and `version`. It is recommended that you do not edit these, and that if there is a new update that changes the JSON files you edit, it is recommended to start with a fresh new json parameters to prevent any issues.
 
@@ -35,7 +34,10 @@ Each customized JSON should contain at least the fields `$type`, `id` and `versi
 
 ---
 
-A `manifest.json` file is required in the mod folder, without it, the folder/mod will be ignored by the game. This file contain some data about the mod, like the mod version, the description, the author, etc...
+A `manifest.json` file is required in the mod folder, without it, the folder/mod will be ignored by the game. This file contain some data about the mod, like the mod version, the description, the author, etc.
+
+The SDK has a manifest.json creator on the Asset Bundle Group when creating the mod. See [Creating Asset Bundles.][CreatingAssetBundles]
+![Manifest][Manifest]
 
 ```json
 {
@@ -43,23 +45,18 @@ A `manifest.json` file is required in the mod folder, without it, the folder/mod
     "Description": "This is my cool mod",
     "Author": "Someone",
     "ModVersion": "1.0.0",
-    "GameVersion": "0.12.0.0",
+    "GameVersion": "1.0.0.0",
 		"Thumbnail": "thumbnail.png"
 }
 ```
 
-<aside>
-🗒️ Thumbnail path is relative to the mod folder path, and it’s also possible to use an http address like `"https://www.some.image.link/123.png"`
+{: .tip}
+Thumbnail path is relative to the mod folder path, and it’s also possible to use an http address like `"https://www.some.image.link/123.png"`
 
-</aside>
 
-<aside>
-🗒️ GameVersion is the game mod version compatible with the mod
+{: .note}
+GameVersion is the game mod version compatible with the mod
 
-</aside>
-
-{: .important}
-NOTE: ADD OVERRIDE STUFF WHERE YOU DONT NEED ALL VALUES FOR A CERTAIN OVERRIDE
 
 
 ## JSON types
@@ -102,3 +99,6 @@ As for the U12 version, the game use around 30 types of JSON:
 | Texts | Define text used in game to assist in different languages |
 | Voices | Voice definition used by NPC |
 | Waves | Wave definition (creature spawned, order, min/max count...) |
+
+[Manifest]: {{ site.baseurl }}/assets/components/Guides/JSONModding/manifest.png
+[CreatingAssetBundles]: {{ site.baseurl }}{% link Components/Guides/SDK-HowTo/CreatingAssetBundles.md %}
