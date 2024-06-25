@@ -32,6 +32,9 @@ For Nexus mods, you can also use [Nexus Vortex](https://www.nexusmods.com/site/m
 
 ## Nomad (Android)
 
+{: .tip}
+Since Android version V63, installing mods manually to Android is now much more difficult. Follow [This guide](https://youtu.be/7H3pfTvzDBc?si=GBgbL1ltAPg3k4lv) to learn how to access the Oculus/Meta Quest 2/3 file system.
+
 1. Download the mod from either source
 
  [Mod.io](https://mod.io/g/blade-and-sorcery){: .btn .btn-blue .mr-4} [Nexus](https://www.nexusmods.com/bladeandsorcery/mods/){: .btn .btn-purple .mr-4}

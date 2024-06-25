@@ -13,25 +13,22 @@ The SDK is based on Unity, this guide will show you how to setup Unity and the S
 First thing is to download the [Unity Hub](https://public-cdn.cloud.unity3d.com/hub/prod/UnityHubSetup.exe) and install it.
 
 Once installed, you then need to install the current Unity version BAS is using.
-Generally having the same MAJOR.MINOR LTS version of Unity is fine. But for full compatibility, try to use the same version BAS itself uses.
+Generally having the same MAJOR.MINOR LTS version of Unity is fine. But for full compatibility, try to use the same version BAS itself uses. 
 
-<aside>
-🗒️ U12.1 use 2021.3.17f1, but we can use the latest 2021.3 LTS version if necessary.
-
-</aside>
+{: .important}
+Blade and Sorcery uses 2021.3.38f1.
 
 1. Open the Unity Hub.
 2. Click Installs on the left side.
 3. Click Install Editor.
-4. Click Install next to `2021.3` `LTS` version of Unity.
-    - If you are building mods for Nomad also check Android Build Support.
-5. Click Install.
+4. Unity Version 2021.3.38 is a previous Unity LTS version, so you must go to "Archive" then "download archive".
+Alternatively, you can click [Here.](unityhub://2021.3.38f1/7a2fa5d8d101)  
+5. Click on 2021 at the top of the page, and locate `2021.3.38f1`. 
+6. Click Install, allow the Unity page to access programs outside of the webpage (for Unity Hub) and agree to the Terms of Service.
 
 Unity will now download and install the editor.
 
-[This video may use the wrong version, but the method stay the same](Unity%20SDK%20Setup%204f14e579b2724ea9a38053af1158989b/editor-install.mp4)
-
-This video may use the wrong version, but the method stay the same
+<video src="/assets/components/Guides/UnitySDKSetup/editor-install.mp4" width="880" height="440" controls></video>
 
 ## Sync SDK repository on your computer
 
@@ -43,26 +40,20 @@ The SDK is hosted on Github. To make further updates easily, we highly recommend
 2. Go to the [SDK Git repository](https://github.com/KospY/BasSDK)
 3. Copy the Git URL
     
-    [firefox_OxTdSUw6j3.mp4](Unity%20SDK%20Setup%204f14e579b2724ea9a38053af1158989b/firefox_OxTdSUw6j3.mp4)
+  <video src="/assets/components/Guides/UnitySDKSetup/CopyURL.mp4" width="880" height="440" controls></video>
     
 4. Open Github Desktop, go to `File> Clone repository` and paste the URL to clone the repository on your machine
     
-    [GitHubDesktop_qrB3XsbQRN.mp4](Unity%20SDK%20Setup%204f14e579b2724ea9a38053af1158989b/GitHubDesktop_qrB3XsbQRN.mp4)
+      <video src="/assets/components/Guides/UnitySDKSetup/GitClone.mp4" width="880" height="440" controls></video>
     
+{: .note}
+Once synced, you can switch from different SDK version by changing branch (`Master` will always be the latest version of the SDK)
+![Fetch][Fetch]
 
-<aside>
-🗒️ Once synced, you can switch from different SDK version by changing branch (`Master` will always be the latest version of the SDK
+{: .important}
+Fetch button will update your local repository if any updates has been pushed on the online repositor
 
-![Untitled](Unity%20SDK%20Setup%204f14e579b2724ea9a38053af1158989b/Untitled.png)
-
-</aside>
-
-<aside>
-🗒️ Fetch button will update your local repository if any updates has been pushed on the online repositor
-
-![Untitled](Unity%20SDK%20Setup%204f14e579b2724ea9a38053af1158989b/Untitled%201.png)
-
-</aside>
+![Branch][Branch]
 
 ## Open SDK with Unity
 
@@ -81,4 +72,10 @@ Unity will then open the project and start to process and import the project fil
 
 Once the import is finished, you should see the Unity editor scene and/or game view.
 
-[import-sdk.mp4](Unity%20SDK%20Setup%204f14e579b2724ea9a38053af1158989b/import-sdk.mp4)
+<video src="/assets/components/Guides/UnitySDKSetup/nomad-log-windows.mp4" width="880" height="440" controls></video>
+
+[EditorInstall]: {{ site.baseurl }}/assets/components/Guides/UnitySDKSetup/editor-install.mp4
+[CopyURL]: {{ site.baseurl }}/assets/components/Guides/UnitySDKSetup/CopyURL.mp4
+[GitClone]: {{ site.baseurl }}/assets/components/Guides/UnitySDKSetup/GitClone.mp4
+[Fetch]: {{ site.baseurl }}/assets/components/Guides/UnitySDKSetup/Fetch.png
+[Branch]: {{ site.baseurl }}/assets/components/Guides/UnitySDKSetup/Branch.png
