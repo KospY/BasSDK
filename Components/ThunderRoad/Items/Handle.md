@@ -4,7 +4,11 @@ grand_parent: ThunderRoad
 ---
 # Handle
 
-###### This component inherits from [Interactable][Interactable]. <br> This component has an [Event Linker][EventLinker].
+#### This component has an [Event Linker][EventLinker].
+
+{: .note }
+
+This component inherits from [Interactable][Interactable]
 
 {: .note }
 > Not to be confused with HandleRagdoll, though most of its components are alike.

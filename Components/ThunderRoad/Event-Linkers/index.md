@@ -39,12 +39,8 @@ Using event linkers, you can make items perform complex actions such as playing 
 - [Creature Event Linker][CreatureEventLinker] for triggering events when a creature is hit, grabbed, healed, or attacks 
 - [Ragdoll Part Event Linker][RagdollPartEventLinker] for damage, grab, or touch based triggers 
 
-
-
-
 {: .tip}
-Event linkers are compatable with both Nomad and PCVR!
-
+Event linkers are compatable with both PCVR and Android versions of Blade and Sorcery
 
 ## Common Functions
 
@@ -82,7 +78,7 @@ These functions will add a time delay between the current event, and the next ev
 - WaitForSecondsRealtime
   - Waits a number of realtime seconds. This delay will not be affected when slow-motion is active.
 
-{: .warning}
+{: .note}
 WaitFor... creates a delay between events, not within them. Once the delay has elapsed, the next event in the list will be invoked based on if that action **occurred in the frame the delay was started in**. 
 
 This can be used to your advantage to create **timers**. By adding duplicate events to your events list and adding a delay to the first of these events, you can offset when your UnityEvent is invoked.

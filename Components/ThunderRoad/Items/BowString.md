@@ -4,6 +4,7 @@ grand_parent: ThunderRoad
 ---
 # Bow String
 ###### This component has an [Event Linker][EventLinker].
+[Unity Event Documentation](https://docs.unity3d.com/Manual/UnityEvents.html){: .btn .btn-purple }
 
 # Bow String
 

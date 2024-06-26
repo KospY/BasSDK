@@ -39,13 +39,30 @@ Do not adjust Rigidbody weight, drag and angular drag, as this is overwritten in
 
 ![HolderPoint][HolderPoint]
 
+### Weapon rack holder setup
+
+Create a second `HolderPoint` (Transform) like in the pictures below.
+
+Then add an additional `HolderPoint` on the `Item` component named **HolderRackTopAnchor** for the weapon rack, **HolderRackTopAnchorBow** for the bow rack and **HolderRackSideAnchor** for the shield rack.
+
+#### Swords/Blades
+
+![PointSetupSword][PointSetupSword]
+![HolderPointRack][HolderPointRack]
+
+#### Bows
+
+![BowRack][BowRack]
+![HolderPointRackBow][HolderPointRackBow]
+
+#### Shields
+
+![ShieldRack][ShieldRack]
+![ShieldPoint][ShieldPoint]
+
 ## ParryPoint
 
 ![ParryPoint][ParryPoint]
-
-
-
-
 
 
 [Handle]: {{ site.baseurl }}{% link Components/ThunderRoad/Items/Handle.md %}
@@ -55,3 +72,9 @@ Do not adjust Rigidbody weight, drag and angular drag, as this is overwritten in
 [ParryPoint]: {{ site.baseurl }}/assets/components/Item/ParryPoint.PNG
 [Inspector]: {{ site.baseurl }}/assets/components/Item/ItemScript.png
 [EventLinker]: {{ site.baseurl }}{% link Components/ThunderRoad/Event-Linkers/ItemEventLinker.md %}
+[PointSetupSword]: {{ site.baseurl }}/assets/components/Item/PointSetupSword.jpeg
+[HolderPointRack]: {{ site.baseurl }}/assets/components/Item/HolderPointRack.png
+[BowRack]: {{ site.baseurl }}/assets/components/Item/BowRack.jpeg
+[HolderPointRackBow]: {{ site.baseurl }}/assets/components/Item/HolderPointRackBow.png
+[ShieldRack]: {{ site.baseurl }}/assets/components/Item/ShieldRack.png
+[ShieldPoint]: {{ site.baseurl }}/assets/components/Item/ShieldPoint.png

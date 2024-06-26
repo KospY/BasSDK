@@ -24,6 +24,7 @@ It is recommended to keep the reveal resolution low to prevent the game to crash
 | ---                         | ---
 | Mask Width                  | Adjust the Width of the resolution of the Reveal Texture.
 | Mask Width                  | Adjust the Height of the resolution of the Reveal Texture.
+|
 | **Type**
 | Default                     | Applies to Weapons, Items, and non clothing itmes that require Reveal.
 | Body                        | Applies to bodies/creatures. Reveal is removed on drinking Health Potions.
@@ -40,7 +41,7 @@ The Textures required for this are located in SDK/Examples/Reveal
 "Reveal Layers" in the material needs to be enabled to see this area of the material. Ensure that you untick it once it is finished.
 
 
-![RevealMaterial][]
+![RevealMaterial][RevealMaterial]
 
 | Field                       | File Name
 | ---                         | ---

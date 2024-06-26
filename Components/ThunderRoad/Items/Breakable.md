@@ -67,7 +67,7 @@ This component contains a lot of Gizmo to help you check visually if the item is
 
 ### Events
 The Breakables component has a number of UnityEvents that are invoked when a Breakable item is Hit or Broken.   
-For more about UnityEvents and how to use them, refer to the official [Unity Documentation][UnityEvents].
+[Unity Event Documentation](https://docs.unity3d.com/Manual/UnityEvents.html){: .btn .btn-purple }
 
 | Event										  | Description
 | ---										  | ---

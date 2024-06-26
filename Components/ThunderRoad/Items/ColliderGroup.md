@@ -23,7 +23,7 @@ For the Imbue Effect Renderer, you can either use this generated mesh, or create
 The mesh on the right is to show what the mesh looks like, do not duplicate and put it to the side and reference this one.
 
 
-{: .tip}
+{: .important}
 You must disable the pink mesh by clicking on it, and unticking the "mesh renderer" checkbox.
 
 
@@ -56,6 +56,14 @@ This is your [FX Controller][FXController] if you want to make a custom FX for y
 ## Imbue Custom Fx ID
 
 This is needed to spawn the Imbue Custom Fx Controller, where the ID is the spell that can trigger this FX. (e.g. Fire, Gravity, Lightning)
+
+## Sub Imbue Groups
+{: .note}
+Picture will be provided soon
+
+Sub imbue groups allows you to share an imbue across multiple collider groups. The one that uses the sub imbue groups is seen as a parent imbue, and will share it's imbue across the referenced ones. This allows you to create an item, such as a double sided axe, to have an imbue shared across both blades, despite them being on separate collider groups.
+
+With this, it is also possible to share Imbue across weapon LODs. You can create multiple ColliderGroups that utilise a different Imbue Emission Renderer for each of the LOD, so they share emissions.
 
 [EventLinker]: {{ site.baseurl }}{% link Components/ThunderRoad/Event-Linkers/CollisionEventLinker.md %}
 [Damager]:      {{ site.baseurl }}{% link Components/ThunderRoad/Items/Damager.md %}
