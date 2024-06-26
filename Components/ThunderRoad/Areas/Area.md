@@ -4,13 +4,11 @@ grand_parent: ThunderRoad
 ---
 # Area
 
-*This is a current work in progress*
-
 ## Summary
 
 The Area script is the main component for making dungeon rooms. This script is attached to the main parent of the room, and lets the game know where to spawn your new area.
 
-When created, your area will create a `Boundary` around the renderers. This Boundary is important, as it connects rooms together. Please note, that the boundaries SHOULD sit on all [Area Gateway](Area%20Gateway%205f8c690b01c9452a9e8d247b7f564baa.md)  placed in the Area.
+When created, your area will create a `Boundary` around the renderers. This Boundary is important, as it connects rooms together. Please note, that the boundaries SHOULD sit on all [Area Gateway][AreaGateway] placed in the Area. To assist with bounds listed in the JSON, you can create a box collider to fit the room, and use it's scale/transform size for the JSON boundry.
 
 ## Component Properties
 
@@ -29,16 +27,13 @@ When created, your area will create a `Boundary` around the renderers. This Boun
 | Audio Sources to Blend | Listed audio sources will blend between themselves and other rooms. |
 | Root No Culling | This will assign automatically when the room is locked. Ensure that the prefab contains a "RootNoCulling" game object when it is locked, as without it, the room will fail to load. |
 
-![AreaScript.PNG](Area%201c1da74578e9400ab9a3d3f4b891e4f3/AreaScript.png)
+![AreaScript][AreaScript]
 
 ### Events
 
 The Area component has a number of UnityEvents that are invoked when the conditions are met.
 
-<aside>
-🗒️ For more about UnityEvents and how to use them, refer to the official [Unity Documentation](https://docs.unity3d.com/Manual/UnityEvents.html).
-
-</aside>
+[Unity Event Documentation](https://docs.unity3d.com/Manual/UnityEvents.html){: .btn .btn-purple }
 
 | Event  | Description |
 | --- | --- |
@@ -59,3 +54,6 @@ This component can utilise buttons to assist in debugging, as well as creating y
 | Add Selection to Bound Renderer Ignore  | When highlighting renderers, click this button to add it to the "Bound Renderer to Ignore" list. |
 | Update Data Bounds | *Internal Test Tool, not usable by user. |
 | Update Data Connection Position and Direction | *Internal Test Tool, not usable by user. |
+
+[AreaScript]: {{ site.baseurl }}/assets/components/Area/AreaScript.png
+[AreaGateway]: {{ site.baseurl }}{% link Components/ThunderRoad/Areas/AreaGateway.md %}

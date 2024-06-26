@@ -22,4 +22,6 @@ Note that this
 | Fade Room Min Distance Ratio | Depicts the maximum distance of which the Area Gateway will fade the fake door view (Slider of the "Fade Max Distance") |
 | Fade Audio Min Distance Ratio | Depicts the maximum distance of which the Audio will fade in/out when getting near the Gateway. |
 
-![AreaGateway.PNG](Area%20Gateway%205f8c690b01c9452a9e8d247b7f564baa/AreaGateway.png)
+![AreaGateway][AreaGateway]
+
+[AreaGateway]: {{ site.baseurl }}/assets/components/AreaGateway/AreaGateway.png

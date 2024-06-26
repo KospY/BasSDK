@@ -10,11 +10,11 @@ grand_parent: Guides
 - Open the area prefab, make a child GameObject, and start creating the area (models and assets, etc). You can also add child GameObjects for creature spawners, items spawners, etc. 
 Remember that the gate you want to make on the side of the area needs to be the same size as the AreaConnectionType you want to assign.
 
-{: .warning}
+{: .important}
 Don’t forget to add a PlayerSpawner (in Start Area, or for debug/teleport in other areas).  See [Player Spawner][PlayerSpawner].
 
 {: .note}
-Don’t forget to add a way to load other levels in End Area so the player can leave when they end the dungeon.
+Don’t forget to add a way to load other levels in End Area so the player can leave when they end the dungeon. You can do this utilising an Event Level Loader and any sort of event linker.
 
 - **Area Catalog Data**
     

@@ -7,7 +7,7 @@ grand_parent: Guides
 ### **Create AreaConnectionTypeData**:
 
 AreaConnectionTypeData is the catalog data that defines how areas can be connected to each other.
-Each Area will have a different connection, each can have a different ConnectionData associated with it. Two areas can be connected through a connection only if they both contain a connectionData.
+Each Area will have a different connection and can have a different ConnectionData associated with it. Two areas can be connected through a connection only if they both contain a connectionData.
 
 **AreaConnectionTypeData fields** :
 

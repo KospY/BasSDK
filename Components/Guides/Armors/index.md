@@ -104,7 +104,7 @@ SDK contain textures of each material type and an IdMapTest shader to visualize 
 ---
 
 {: .note}
-🗒️ A wardrobe is a scriptable object that contain the data about how to render the part on the character (slot, channel, layers, etc…)
+A wardrobe is a scriptable object that contain the data about how to render the part on the character (slot, channel, layers, etc…)
 
 To create a new wardrobe, right click on the project folder you want and select `Create → Manikin → Wardrobe Data`
 

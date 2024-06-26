@@ -35,7 +35,7 @@ The `ProtoAssets`group is an already setup group that serves as an example for d
 
 The process to create a new group and assign assets is the following:
 
-1. Create a new group with `New → Packed assets`
+1. Create a new group with `New → Packed assets`. It is recommended to rename this packed asset
 2. Drag and drop your asset in the group
 3. Set a unique address for it, we recommend using an address like `[Your Mod Name or Author Name].Item.XX` to avoid conflicts with other mods or default assets
 4. Assign a label, either `Windows` and/or `Android`. If you are asset is used on both platforms, use both labels. 

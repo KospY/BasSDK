@@ -24,7 +24,7 @@ The Preview script generates an image for the item, which is used to preview wha
 
 | Fields                            | Description
 | ---                               | ---
-|Close Up Preview                   | Changes to creating a Close up preview, shown for the small preview in the book/
+|Close Up Preview                   | Changes to creating a Close up preview, shown for the small preview in the book. You can use a new preview just for the close up if you prefer.
 |Size                               | Adjust the size to fit the weapon. Scales with X Scale of the Preview Script.
 |Icon Resolution                    | Adjust the resolution of the image. `Recommended Resolution: 512`
 |Temp Layer                         | Temporarily changes layer when taking a picture. Change this if the layers are already in use/changed.

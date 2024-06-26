@@ -33,6 +33,7 @@ Using event linkers, you can make items perform complex actions such as playing 
 - [Damager Event Linker][DamagerEventLinker] for triggering events when a specific damager deals damage
 - [Imbue Event Linker][ImbueEventLinker] for triggering events when imbue is added, filled, or used
 - [Item Event Linker][ItemEventLinker] for any item-related triggers
+- [AnimatorParamController][AnimatorParamController] for events to be able to change animation parameters
 
 #### Creature-Focused Linkers
 - [Creature Event Linker][CreatureEventLinker] for triggering events when a creature is hit, grabbed, healed, or attacks 
@@ -91,12 +92,6 @@ The following example will play a particle system when the alternate-use button 
 ![WaitFor Example Usage][WaitForExample]
 
 [WaitForExample]: {{ site.baseurl }}/assets/components/EventLinker/WaitFor.jpg
-
-
-
-
-
-
 [Preview]:                {{ site.baseurl }}/assets/components/EventLinker/Preview.jpg
 [CommonFunctions]:        {{ site.baseurl }}/assets/components/EventLinker/CommonFunctions.jpg
 
@@ -114,3 +109,4 @@ The following example will play a particle system when the alternate-use button 
 [ItemEventLinker]:        {{ site.baseurl }}{% link Components/ThunderRoad/Event-Linkers/ItemEventLinker.md %}
 [CreatureEventLinker]:    {{ site.baseurl }}{% link Components/ThunderRoad/Event-Linkers/CreatureEventLinker.md %}
 [RagdollPartEventLinker]: {{ site.baseurl }}{% link Components/ThunderRoad/Event-Linkers/RagdollPartEventLinker.md %}
+[AnimatorParamController]: {{ site.baseurl }}{% link Components/ThunderRoad/Event-Linkers/AnimatorParamController.md %}
