@@ -5,10 +5,8 @@ grand_parent: ThunderRoad
 # Hinge Drive
 
 {: .note}
-Not to be confused with HingeJoint, however the Hinge Drive does generate a HingeJoint on playmode
-```
+The HingeDrive script is a component which creates a [HingeJoint](https://docs.unity3d.com/Manual/class-HingeJoint.html) on play, and has many features in addition to help with stylised dynamic objects. It includes features such as a motors, latches and [UnityEvents](https://docs.unity3d.com/Manual/UnityEvents.html).
 
-The HingeJoint script is a component which creates a [HingeJoint] on play, and has many features in addition to help with stylised dynamic objects. It inclused features such as a motors, latches and [UnityEvents].
 
 ## Component Properties
 
@@ -19,7 +17,7 @@ The HingeJoint script is a component which creates a [HingeJoint] on play, and h
 | Frame                                       | The reference transform links the hinge joint to it.
 | Hinge Targets                               | This list depicts the transforms that are used as targets for defining the hinge anchors in the scene.
 | Colliders to Ignore                         | This list references colliders to which the object assigned to the Hinge Joint ignores.
-| Handles                                     | This references the [Handle] attached to the object with the Hinge Joint. These handles are used for latches.
+| Handles                                     | This references the [Handle][Handle] attached to the object with the Hinge Joint. These handles are used for latches.
 | **Angles config values**
 | Rotation Axis                               | This defines the axis of which the hinge rotates
 | Is Limited                                  | When disabled, this object ignores the minimum/maximum axis, and are able to move in full 360 degrees, and will not stop once the maximum angle is reached.
@@ -54,7 +52,7 @@ The HingeJoint script is a component which creates a [HingeJoint] on play, and h
 | Enable Haptic Angle Bump                    | When enabled, the grabbed handle will vibrate each time it reaches the threshold/desired angle.
 | Angle Step for Bumps                        | Determines the angle of which the handle will vibrate. (In degrees)
 | Angle Step Haptic Amplitude                 | Determines the intensity of the bump vibration.
-| **Autio Config Values**                     | **These inputs require a component which utilises the [FxModule] component.**
+| **Autio Config Values**                     | **These inputs require a component which utilises the [FxModule][FxModule] component.**
 | Soothing Samples                            | Determines how smooth the looping sound effects are. The higher the number, the smoother the sound effect.
 | Effect Audio Hinge Moving Positive          | FX plays when the hinge moves from minimim to maximum angle.
 | Effect Audio Hinge Moving Negative          | FX plays when the hinge moves from maximum to minimum angle.
@@ -72,7 +70,7 @@ The HingeJoint script is a component which creates a [HingeJoint] on play, and h
 
 ### Events
 The HingeJoint component has a number of UnityEvents that are invoked when the conditions are met.   
-For more about UnityEvents and how to use them, refer to the official [Unity Documentation][UnityEvents].
+[Unity Event Documentation](https://docs.unity3d.com/Manual/UnityEvents.html){: .btn .btn-purple }
 
 | Event                                       | Description
 | On Hinge Move                               | Event will play when the hinge moves.

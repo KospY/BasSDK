@@ -17,7 +17,8 @@ Zones are a highly flexible tool for activating certain behaviours when an objec
 
 ### Events
 The Zone component has a number of UnityEvents that are invoked when something enters or exits its area of effect.   
-For more about UnityEvents and how to use them, refer to the official [Unity Documentation][UnityEvents].
+
+[Unity Event Documentation](https://docs.unity3d.com/Manual/UnityEvents.html){: .btn .btn-purple }
 
 ## Component Properties
 
@@ -71,7 +72,7 @@ Entry events are invoked at inconsistent times. The chart below depicts the orde
 ### • Effect Spawn Position Behavior
 Zone effects will not spawn at the exact point of contact, rather the position will be approximated based on the what entered the zone. 
 
-![][FXPosition]
+![FXPosition][FXPosition]
 
 
 

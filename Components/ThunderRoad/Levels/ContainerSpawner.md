@@ -7,7 +7,7 @@ grand_parent: ThunderRoad
 {: .note}
 Not to be confused with [ItemSpawner][ItemSpawner] and [CreatureSpawner][CreatureSpawner].
 
-[ItemSpawner]: {{ site.baseurl }}{% link Components/ThunderRoad/Levels/ItemSpawner.md %}
+[ItemSpawner]: {{ site.baseurl }}{% link Components/ThunderRoad/Items/ItemSpawner.md %}
 [CreatureSpawner]: {{ site.baseurl }}{% link Components/ThunderRoad/Levels/CreatureSpawner.md %}
 
 
