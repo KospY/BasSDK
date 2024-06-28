@@ -13,6 +13,9 @@ This documentation references [Light Probe Volumes][LightProbeVolume] and [Areas
 {: .warning}
 Light Probe Volume Receivers will only work with mesh renderers that have a material and shader that supports 3D Volumes. In the Bas-SDK, this will be LitMoss and FabricAndFoliage. For your own shader, the 3D volume integration will be documented at a later date.
 
+{: .tip}
+This componant can be placed on a parent of an object. It will add the light probe volumes on to all of the child renderers under it. For example, if you want to dynamically light all your vegetation, you can place them all under one parent gameobject, and place this script on to it to light all your vegetation. You can also place this at a prefab level and have one for each model. 
+
 The Light Volume receiver is a component that utilises the Light Probe Volume on dynamicly lit objects. This allows you to light certain objects correctly without the need to use lightmaps (such as vegetation), and is required to light dynamic objects, such as creatures and items. This is a requirement in [Areas][Areas] with a [Light Probe Volume(s)][LightProbeVolume].
 
 ![Component][Component]
