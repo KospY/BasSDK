@@ -7,6 +7,9 @@ grand_parent: ThunderRoad
 {: .note}
 Not to be confused with Whoosh Point in [ColliderGroup][ColliderGroup]
 
+{: .note}
+Most of these fields are overwritten in JSON, and do not need to be adjusted.
+
 [ColliderGroup]: {{ site.baseurl }}{% link Components/ThunderRoad/Items/ColliderGroup.md %}
 
 

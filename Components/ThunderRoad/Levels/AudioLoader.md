@@ -18,4 +18,4 @@ The Audio Loader is a script used to load audio from an addressables rather than
 | Audio Mixer                 | Allows you to adjust volume for sound via in-game audio settings. See [AudioMixerLinker][AudioMixerLinker] for more information.
 
 [AudioLoader]: {{ site.baseurl }}/assets/components/AudioLoader/AudioLoader.PNG
-[AudioMixerLinker]: {{ site.baseurl }}{% link Components/ThunderRoad/Levels/AudioMixerLinker.md %}
+[AudioMixerLinker]: {{ site.baseurl }}{% link Components/ThunderRoad/Effects/AudioMixerLinker.md %}

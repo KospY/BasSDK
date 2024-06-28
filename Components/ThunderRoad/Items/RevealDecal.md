@@ -12,7 +12,17 @@ You can copy the material from the example weapons provided in the SDK, as they 
 
 ![RevealScript][RevealScript]
 
-You can use the buttons on this script to set the resolution of the reveal material.
+You can use the buttons on this script to set the resolution of the reveal material. It is recommended to keep this as low as possible to avoid any reveal texture size bloat. 
+
+For examples from Blade and Sorcery:
+- Common Dagger: 128x128
+- The Maul: 512x512 (256x256 would also suffice)
+- Antique Sword: 256x256
+- Buckler: 256x256
+- Javelin: 128x128
+- Wristblade: 128x128
+- Old Arrow: 64x64
+- The Bandit Chestplate: 512x512 (1024x1024 would also be supported)
 
 {: .danger}
 It is recommended to keep the reveal resolution low to prevent the game to crash on `B&S Nomad`, or to cause a lag spike on `B&S PCVR`. It is recommended not to go above `512x512`, or `Mask Resolution Quarter`, to avoid any issues. You are unlikely to see a big change in resolutions above this point unless your item is very large. 

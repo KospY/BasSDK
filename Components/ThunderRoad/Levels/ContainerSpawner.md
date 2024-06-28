@@ -15,7 +15,7 @@ The Container Spawner is a script used to spawn items contained within a Contain
 
 ![ContainerSpawner][ContainerSpawner]
 
-## Componants
+## components
 
 | Field                       | Description
 | ---                         | ---
