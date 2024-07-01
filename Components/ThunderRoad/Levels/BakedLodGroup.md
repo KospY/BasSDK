@@ -19,7 +19,7 @@ The "Scale by Object Scale" tickbox makes it so the min/max values are altered d
 
 ## Apply Source Lightmap on Target
 
-This section of the Baked LOD Group applies the lightmap to its LODs. When ticked, and the LODs are referenced, all lightmaps from the LOD0 will be applied to the lower LODs. 
+This section of the Baked LOD Group applies the lightmap to its LODs. When ticked, and the LODs are referenced, all lightmaps from the LOD0 will be applied to the lower LODs, and so the models' UVs are placed in the same position in the lightmap. 
 This will only be effective if the LODs have the same Lightmap UV between then, and it will likely not work properly if the model is using Unity Generated UVs.
 
 For them to take the LOD0 lightmap, the LOD0 must be referenced in the "Mesh Renderer" under "Source".

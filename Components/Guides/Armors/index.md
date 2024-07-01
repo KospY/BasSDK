@@ -172,4 +172,4 @@ The latest stage then will be to create the asset bundles (see [Using SDK to cre
 [ClothingSwitcher]: {{ site.baseurl }}/assets/components/Guides/Armor/ClothingSwitcher.png
 [ItemMesh]: {{ site.baseurl }}/assets/components/Guides/Armor/ItemMesh.png
 [AssetBundles]: {{ site.baseurl }}{% link Components/Guides/SDK-HowTo/CreatingAssetBundles.md %}
-[ClothingGenderSwitcher]: {{ site.baseurl }}{% link Components/ThunderRoad/Components/Items/ClothingGenderSwitcher.md %}
+[ClothingGenderSwitcher]: {{ site.baseurl }}{% link Components/ThunderRoad/Items/ClothingGenderSwitcher.md %}
