@@ -75,29 +75,25 @@ Like items and environments colliders, armors can also use a physic material. To
 
 ![MeshPart][MeshPart]
 
-As character only use simple colliders, the game use a custom system to determine the physic material on the collision point. This work by ray casting the low poly mesh to get an UV coordinate that can be then used to retrieve a specific color on an IDMap.
+As characters only use simple colliders, the game uses a custom system to determine the physics material on the collision point. This work by raycasting the low poly mesh to get a UV coordinate that can be then used to retrieve a specific color on an IDMap.
 
 ID map of the chest part of the gladiator armor
 ![IDMap][IDMap]
 
-ID map of the chest part of the gladiator armor
-
 Mesh part component:
 
-{: .note}
-`Skinned mesh renderer` reference the mesh that will be used to retrieve the ID map color. For better performance, we recommend to use an higher lod so the raycast will be faster on a low poly mesh
+| Field                       | Description
+| ---                         | ---
+| Skinned Mesh Renderer       | This references the mesh that you want the game to use to create collisions with. It is recommended to use the last LOD available so that the collission is less expensive. It will use this mesh to calculate the ID Map color.
+| Default Physic Material     | This informs the "Default Material" that the game will use for the basic collission. If the part does not have an ID map, but is fully plate, you can reference the plate physics material. If it has an ID map, it is recommended to use the "Flesh" physics material. 
+| ID Map           			  | Insert the texture here that you wish to create an ID Array with. Ensure that this is empty before you export your armor.
+| ID Map Array				  | This is created my pressing the "Convert Id Map to Id Map Array" button when an ID map has been placed in the "Id Map" field. This array is used for cheaper physics materials calculations.
+| Scale						  | The scale section scales the ID map down by this multiplier. The recommended amount is 4.
 
-{: .note}
-`Default physic material` is the default material that will be used on the whole mesh. If the part is only one physic material, setting this should be enough.
-
-{: .note}
-`Id Map` is the texture to use in case the armor have multiple physic material
-
-
-SDK contain textures of each material type and an IdMapTest shader to visualize your idmap on your armor
+The SDK contains textures of each material type and an IdMapTest shader to visualize your idmap on your armor.
 ![IDTextures][IDTextures]
 
-SDK contain textures of each material type and an IdMapTest shader to visualize your idmap on your armor
+The SDK contains textures of each material type and an IdMapTest shader to visualize your idmap on your armor
 
 ## Creating wardrobe
 
@@ -108,7 +104,7 @@ A wardrobe is a scriptable object that contain the data about how to render the 
 
 To create a new wardrobe, right click on the project folder you want and select `Create → Manikin → Wardrobe Data`
 
-Once the wardrobe is created, drag and drop the asset in an addressable group of your choice, and define an address to it.
+Once the wardrobe is created, drag and drop the asset in an addressable group of your choice, and define an address to it with sufficient labels.
 
 Then reference the part you created in `asset Prefab`, set the `editor location label`, and define the slot (channel), and layer that will be used for this part.
 
@@ -126,11 +122,8 @@ You can optionally fully or partially occlude a layer (in the above example, we 
 
 Armor need a physical item, so armor can be manipulated and dropped anywhere. For this, you need to create a new item. The creation of an item is not covered on this tutorial, so we will focus on the specifics for an armor. For an example of an already configured armor item, you can check `ArmorItems_ProtoHelmet` prefab in the SDK.
 
-In the case the male and female armor have a different look, you will need to add on the prefab the component: `Clothing Gender Switcher`
+In the case the male and female armor have a different look for armor items, you will need to add on the prefab the component: [ClothingGenderSwitcher][ClothingGenderSwitcher]
 
-This component will switch the mesh on the item depending on the player gender. The component should be pretty self explanatory, you only have to reference you different meshes and optionally reference the handles.
-
-![ClothingSwitcher][ClothingSwitcher]
 
 ![ItemMesh][ItemMesh]
 
@@ -179,3 +172,4 @@ The latest stage then will be to create the asset bundles (see [Using SDK to cre
 [ClothingSwitcher]: {{ site.baseurl }}/assets/components/Guides/Armor/ClothingSwitcher.png
 [ItemMesh]: {{ site.baseurl }}/assets/components/Guides/Armor/ItemMesh.png
 [AssetBundles]: {{ site.baseurl }}{% link Components/Guides/SDK-HowTo/CreatingAssetBundles.md %}
+[ClothingGenderSwitcher]: {{ site.baseurl }}{% link Components/ThunderRoad/Components/Items/ClothingGenderSwitcher.md %}
