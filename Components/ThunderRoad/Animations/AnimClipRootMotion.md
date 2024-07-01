@@ -7,7 +7,6 @@ grand_parent: ThunderRoad
 
 ## Overview
 
-This animation component will set the ["Apply Root Motion"][ApplyRootMotion] property to true on the animator component while this state is the active state.
+This animation component will set the [Anim Clip Root Motion](https://docs.unity3d.com/ScriptReference/Animator-applyRootMotion.html) property to true on the animator component while this state is the active state.
 
 
-[ApplyRootMotion]: https://docs.unity3d.com/ScriptReference/Animator-applyRootMotion.html

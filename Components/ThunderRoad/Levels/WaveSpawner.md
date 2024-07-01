@@ -8,7 +8,7 @@ grand_parent: ThunderRoad
 The Waves Spawner is a requirement for `UI Wave Spawner` 
 
 
-The Wave Spawner is a script which allows AI to spawn in the map. Through the use of spawn points, as well as music handling and Events, this script allows you to adjust the way AI spawn.
+The Wave Spawner is a script which allows creatures to spawn in the map. Through the use of spawn points, as well as music handling and Events, this script allows you to adjust the way AI spawn.
 
 ![WaveSpawner][WaveSpawner]
 

@@ -9,7 +9,7 @@ grand_parent: ThunderRoad
 
 This animation component will set the ["Apply Root Motion"][ApplyRootMotion] property on the animator component to the given value.
 
-Unlike the [Anim Clip Root Motion][AnimClipRootMotion] component, this value will persist even after the controller moves to a new state.
+Unlike the [Anim Clip Root Motion](https://docs.unity3d.com/ScriptReference/Animator-applyRootMotion.html) component, this value will persist even after the controller moves to a new state.
 
 ## Component Fields
 
@@ -18,6 +18,4 @@ Unlike the [Anim Clip Root Motion][AnimClipRootMotion] component, this value wil
 | State         | Determines if the `Apply Root Motion` property should be toggled on or off.
 | Transition    | Sets whether the change is applied when the state is entered, or exited.
 
-
-[ApplyRootMotion]: https://docs.unity3d.com/ScriptReference/Animator-applyRootMotion.html
 [AnimClipRootMotion]: {{ site.baseurl }}{% link Components/ThunderRoad/Animations/AnimClipRootMotion.md %}

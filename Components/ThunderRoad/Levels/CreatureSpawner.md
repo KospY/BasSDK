@@ -26,7 +26,7 @@ Creature Spawner, or CreatureTable Spawner is a script used to spawn creatures w
 
 ## Events
 
-> For Events, see [UnityEvents][UnityEvents]
+[Unity Event Documentation](https://docs.unity3d.com/Manual/UnityEvents.html){: .btn .btn-purple }
 
 | Field                       | Description
 | ---                         | ---
@@ -36,4 +36,3 @@ Creature Spawner, or CreatureTable Spawner is a script used to spawn creatures w
 
 [CreatureSpawner]: {{ site.baseurl }}/assets/components/CreatureSpawner/CreatureSpawner.PNG
 [WayPoint]: {{ site.baseurl }}{% link Components/ThunderRoad/Levels/WayPoint.md %}
-[UnityEvents]: https://docs.unity3d.com/Manual/UnityEvents.html
