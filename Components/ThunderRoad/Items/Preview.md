@@ -8,9 +8,11 @@ The Preview script generates an image for the item, which is used to preview wha
 
 ![PreviewScript][PreviewScript]
 
->Note: Full preview is used as a fallback if the Close-up image is not present in JSON.
+{: .important}
+Full preview is used as a fallback if the Close-up image is not present in JSON.
 
->Note: Generated previews need to be put in addressables and referenced in JSON.
+{: .important}
+Generated previews need to be put in addressables and referenced in JSON.
 
 ## Buttons
 
@@ -26,7 +28,7 @@ The Preview script generates an image for the item, which is used to preview wha
 | ---                               | ---
 |Close Up Preview                   | Changes to creating a Close up preview, shown for the small preview in the book. You can use a new preview just for the close up if you prefer.
 |Size                               | Adjust the size to fit the weapon. Scales with X Scale of the Preview Script.
-|Icon Resolution                    | Adjust the resolution of the image. `Recommended Resolution: 512`
+|Icon Resolution                    | Adjust the resolution of the image.
 |Temp Layer                         | Temporarily changes layer when taking a picture. Change this if the layers are already in use/changed.
 | Renderers                         | Select Renderers which can used in the preview. Not neccessary for the weapon mesh.
 | Generated Icon                    | Generated Icon goes here. User can create their own preview and put it here too.

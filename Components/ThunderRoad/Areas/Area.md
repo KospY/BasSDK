@@ -37,9 +37,9 @@ The Area component has a number of UnityEvents that are invoked when the conditi
 
 | Event  | Description |
 | --- | --- |
-| On Player Enter | The event will play when the player enters the area. |
-| On Player Exit  | The event will play when the player exits the area. |
-| On Initialised  | The event will play when the room is initialised in the scene. |
+| On Player Enter | The event will play when the player enters the area. 
+| On Player Exit  | The event will play when the player exits the area. 
+| On Initialised  | The event will play when the room is initialised in the scene. 
 
 ### Buttons
 
