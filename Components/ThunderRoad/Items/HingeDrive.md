@@ -8,7 +8,7 @@ grand_parent: ThunderRoad
 The HingeDrive script is a component which creates a [HingeJoint](https://docs.unity3d.com/Manual/class-HingeJoint.html) on play, and has many features in addition to help with stylised dynamic objects. It includes features such as a motors, latches and [UnityEvents](https://docs.unity3d.com/Manual/UnityEvents.html).
 
 
-## Component Properties
+## Fields
 
 | Field                                       | Description
 | ---                                         | ---

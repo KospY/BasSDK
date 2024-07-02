@@ -8,11 +8,11 @@ grand_parent: ThunderRoad
 
 The `Item` script is the core component for items and weapons in Blade and Sorcery. This component is required for the item to work, and is a dependency on a lot of components listed on the weapon.
 
-When this component is added, a Rigidbody is added to the object, as well as three gameobjects: HolderPoint, ParryPoint and [Preview][Preview]. 
-
 {: .warning}
 Do not adjust Rigidbody weight, drag and angular drag, as this is overwritten in the json.
 
+{: .tip}
+You can press the "Setup Default Components" button to create the default components for an item. This includes a HolderPoint, ParryPoint and [Preview][Preview].
 
 ![Inspector][Inspector]
 
@@ -27,7 +27,6 @@ Do not adjust Rigidbody weight, drag and angular drag, as this is overwritten in
 | Main Handle Left/Right            | Used for the handle that is grabbed by Default. See [Handle][Handle] to see handle setup.
 | Fly Dir Ref                       | Used to point in this direction when thrown, so long as "Fly On Throw" is enabled in JSON. Z Axis / Blue arrow points forwards.
 | Preview                           | Automatically added when `Item` script is added. See [Preview][Preview] for setup.
-| Disallow Room Despawn             | When ticked, will not despawn when situated inside a Dungeon room.
 | World Attached                    | Used for Items that are connected to the world. An example is hanging items and doors.
 | Creature Physic Toggle Radius     | Radius to depict how close this item needs to be to a creature before the creatures' collision is enabled.
 | Use Custom Center of Mass         | Allows user to adjust the center of mass on object. If unticked, this is automatically adjusted. When ticked, adds a custom gizmo to adjust. Use this if weight on the item is acting strange.
