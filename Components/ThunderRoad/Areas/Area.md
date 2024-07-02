@@ -47,13 +47,13 @@ This component can utilise buttons to assist in debugging, as well as creating y
 
 | Button  | Description |
 | --- | --- |
-| Static Batch  | *Internal Test Tool, not usable by user. |
-| Active Collider   | When a room is locked in scene, all mesh colliders are disabled (this is enabled in game). This button, for testing, enables the mesh colliders. |
-| Disable Mesh Collider | This button will disable the mesh colliders in the area. You can use the "Active Collider" to re-enable them. |
-| Reset Import  |  *Internal Test Tool, not usable by user. |
-| Add Selection to Bound Renderer Ignore  | When highlighting renderers, click this button to add it to the "Bound Renderer to Ignore" list. |
-| Update Data Bounds | *Internal Test Tool, not usable by user. |
-| Update Data Connection Position and Direction | *Internal Test Tool, not usable by user. |
+| Static Batch  | *Internal Test Tool, not usable by user.
+| Active Collider   | When a room is locked in scene, all mesh colliders are disabled (this is enabled in game). This button, for testing, enables the mesh colliders.
+| Disable Mesh Collider | This button will disable the mesh colliders in the area. You can use the "Active Collider" to re-enable them. 
+| Reset Import  |  *Internal Test Tool, not usable by user.
+| Add Selection to Bound Renderer Ignore  | When highlighting renderers, click this button to add it to the "Bound Renderer to Ignore" list. 
+| Update Data Bounds | *Internal Test Tool, not usable by user.
+| Update Data Connection Position and Direction | *Internal Test Tool, not usable by user.
 
 [AreaScript]: {{ site.baseurl }}/assets/components/Area/AreaScript.png
 [AreaGateway]: {{ site.baseurl }}{% link Components/ThunderRoad/Areas/AreaGateway.md %}

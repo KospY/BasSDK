@@ -20,7 +20,7 @@ You can press the "Setup Default Components" button to create the default compon
 
 | Field                             | Description
 | ---                               | ---
-| Item ID                           | The Item ID should match what you put as `ID` in the Item JSON. Ensure that these components match.
+| Item ID                           | The Item ID should match what you put as `ID` in the Item JSON. Ensure that these components match. In update 1.0.2, this field is no longer required to insert any ID for weapons you usually spawn. However, this is still required for world-attached items and items placed in levles, such as Lanterns, as well as items that may be children of items that are spawned in via an item book (such as a flail, where the ball would be a child of the handle).
 | HolderPoint                       | The HolderPoint is a transform which depicts the rotation of the item when stored on a [Holder][Holder]. For example, the Z direction depicts downward direction when stored on the player sides or back.
 | Additional HolderPoints           | Like `HolderPoint`, this allows adding more HolderPoints for specific holders. An example is the Weapon Rack in home, which utilises the `HolderRackTopAnchor` HolderPoint.
 | ParryPoint                        | Shows the point that `AI` will try to block with when holding the weapon.
