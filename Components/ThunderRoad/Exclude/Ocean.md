@@ -1,8 +1,11 @@
 ---
-parent: Levels
+parent: Exclude
 grand_parent: ThunderRoad
 ---
 # Ocean
+
+{: .important}
+This Component is obsolete and is no longer in the SDK. Its' replacement is [Water][Water]. The current water system is not integrated in to the SDK and will be added to the SDK in the future.
 
 ## Overview
 
@@ -47,3 +50,5 @@ Any of the following addresses can be entered into the `Prefab Address` and `Low
 `Bas.Ocean.LowQuality.LostCove`  
 `Bas.Ocean.Home.LowQuality`  
 `Bas.Ocean.Citadel.LowQuality`  
+
+[Water]: {{ site.baseurl }}{% link Components/ThunderRoad/Levels/Water.md %}
