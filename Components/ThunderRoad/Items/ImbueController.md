@@ -4,10 +4,8 @@ grand_parent: ThunderRoad
 ---
 # Imbue Controller
 
-{: .note}
-Not to be confused with [ImbueZone][ImbueZone]
-
-[ImbueZone]: {{ site.baseurl }}{% link Components/ThunderRoad/Levels/ImbueZone.md %}
+{: .important}
+For a component that imbues an item in a zone, see [ImbueZone][ImbueZone].
 
 
 Imbue Controller is used to imbue a specific weapon in scene, or the [Item][Item] that it is attached to.
@@ -26,4 +24,5 @@ Imbue Controller is used to imbue a specific weapon in scene, or the [Item][Item
 
 [ColliderGroup]: {{ site.baseurl }}{% link Components/ThunderRoad/Items/ColliderGroup.md %}
 [Item]: {{ site.baseurl }}{% link Components/ThunderRoad/Items/Item.md %}
+[ImbueZone]: {{ site.baseurl }}{% link Components/ThunderRoad/Items/ImbueZone.md %}
 [ImbueController]: {{ site.baseurl }}/assets/components/ImbueController/ImbueController.PNG
