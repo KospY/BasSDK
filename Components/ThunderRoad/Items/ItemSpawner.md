@@ -4,13 +4,11 @@ grand_parent: ThunderRoad
 ---
 # Item Spawner
 
-Item Spawner is a script that allows you to spawn an item, whether it be to spawn a prop, shoot an item or any other means. This script allows you to spawn items through [Unity Events][UnityEvents], spawning items with motion, to allow you to create spawnable projectiles.
+Item Spawner is a script that allows you to spawn an item, whether it be to spawn a prop, shoot an item or any other means. This script allows you to spawn items through events, spawning items with motion, to allow you to create spawnable projectiles.
+
+[Unity Event Documentation](https://docs.unity3d.com/Manual/UnityEvents.html){: .btn .btn-purple }
 
 ![ItemSpawner][ItemSpawner]
-
-{: .note}
-"Spawn" Button is for internal use only, it may be removed in the future.
-
 
 {: .note}
 If your item has a JSON inside the Unity Catelog, it will show a gizmo of the item if the ID matches. It will also do the same for a LootTable, of which it shows all the items in the selection.
@@ -23,9 +21,11 @@ If your item has a JSON inside the Unity Catelog, it will show a gizmo of the it
 | Reference ID          | The Item ID of the [Item][Item] you want to spawn OR the LootTable ID.
 | Reference Type        | If the Reference is an Item, set to ``Item`` and if it is a Group of Items (LootTable), set to ``Loot Table``.
 | Priority              | This depicts how items spawn in Levels and Dungeons. For more information, see picture at the bottom of this page.
+| Spawner Type          | This allows you to change the type of spawner. This will let you pick if the item uses the reference ID, or if the Spawner spawns items for Dungeon rooms. See Below.
 | Parent Spawner        | When referencing another spawner, this item spawner will spawn the item AFTER the referenced spawner has spawned an item. This prevents item overlap.
 | Pooled                | Spawns items that are stored in pool (For items like Arrows, rocks).
-| Spawn on Start        | Spawns the item on level load or on component enable.
+| Spawn on Start        | Spawns the item on start/component load.
+| Spawn on Level Load   | Spawns the item on Level Load.
 | Allow Despawn         | Allows the item to be able to be despawned (e.g. on new wave start).
 | Spawn Count           | Depicts the amount of the item that spawn at one time.
 | Random Radius         | Radius of the item spawn (Indicates items don't spawn at one point).
@@ -33,7 +33,21 @@ If your item has a JSON inside the Unity Catelog, it will show a gizmo of the it
 | Holder Object         | Reference the [Holder][Holder] that the item gets spawned in to.
 | Rope Template         | Reference the [RopeSimple][RopeSimple] that the item hooks on to.
 
+### Spawner Type
+
+| Type                  | Description
+| ---                   | ---
+| Use Reference Id      | Uses the Reference ID.
+| Side Room             | Will spawn Outpost SideRoom loot.
+| Enemy Drop            | The item spawner will classify this as an "enemy drop" and will be counted as stolen.
+| Treasure              | Will spawn "Treasure" loot.
+| Reward                | Will spawn Outpost "End Chest" loot.
+| Alt Side Room         | Will spawn Dalgarian SideRoom loot.
+| Alt Treasure          | Will spawn Dalgarian "Treasure" loot.
+
 ## Events
+
+[Unity Event Documentation](https://docs.unity3d.com/Manual/UnityEvents.html){: .btn .btn-purple }
 
 This script now supports "On Spawn Event". When an item is spawned via this component, this event will trigger.
 
@@ -63,7 +77,6 @@ This is the definition of Priorities as stated above. This diagram also shows ho
 ![PriorityGizmo][PriorityGizmo]
 
 
-[UnityEvents]: https://docs.unity3d.com/Manual/UnityEvents.html
 [ItemSpawner]: {{ site.baseurl }}/assets/components/ItemSpawner/ItemSpawner.PNG
 [RadiusGizmo]: {{ site.baseurl }}/assets/components/ItemSpawner/SpawnerGizmo.PNG
 [PriorityGizmo]: {{ site.baseurl }}/assets/components/ItemSpawner/PriorityGizmo.png
