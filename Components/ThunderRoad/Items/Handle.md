@@ -7,7 +7,6 @@ grand_parent: ThunderRoad
 #### This component has an [Event Linker][EventLinker].
 
 {: .note }
-
 This component inherits from [Interactable][Interactable]
 
 {: .note }
