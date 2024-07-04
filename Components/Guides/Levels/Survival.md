@@ -13,6 +13,7 @@ The Arena Pillars are not included in the SDK, however, the way they are coded m
 
 1. Create your Level, the [Level Component][Level] is required for this, especially for Survival setup
 2. Create an Empty GameObject, and under it, place three gameobjects. You can name these "RewardPillar1/2/3", ensure that these pillars are far apart from eachother. In arena, they are placed like this:
+
 ![PillarPlacements][PillarPlacements]
 
 3. Under the [Level Component][Level], under Custom references, apply these references. Ensure that the names match the image. Place the Wave Book under "WaveSelector", Racks under "Rack", the Item Spawner Book(s) under "WeaponSelector" and finally, reference all the reward pillar gameobjects you created under "RewardSpawnPosition".
@@ -24,6 +25,7 @@ The WeaponSelector/Rack/WaveSelector references disable these objects when in su
 
 4. Set up waves like normal.
 5. In the JSON, ensure that you have the Survival Module. This references all the waves, loot tablers for rewards, and the pillar address. You can copy the survival module from the Arena.json or other levels.
+
 ![JSON][JSON]
 
 6. Now it should be done. Load the game, and at the Map Selection Board, use the arrows next to "Sandbox" to select "Survival".
@@ -31,6 +33,7 @@ The WeaponSelector/Rack/WaveSelector references disable these objects when in su
 ### Wave Assault
 
 Wave Assault is Crystal Hunt's survival wave on the map board. This will randomly appear on the map board every now and then, and contains coins when the wave has ended. You can add your own custom map here, by inserting this under the modes section of your Level.JSON. Copying the Arena.json file will also contain this method.
+
 ![WaveAssault][WaveAssault]
 
 
