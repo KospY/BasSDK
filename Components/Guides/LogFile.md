@@ -1,6 +1,8 @@
 ---
-parent: SDK-HowTo
-grand_parent: Guides
+layout: default
+has_children: false
+parent: Guides
+title: Log Files
 ---
 # Retrieve your game log file
 

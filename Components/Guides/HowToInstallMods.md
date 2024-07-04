@@ -1,6 +1,8 @@
 ---
-parent: SDK-HowTo
-grand_parent: Guides
+layout: default
+has_children: false
+parent: Guides
+title: Installing Mods
 ---
 {: .warning}
 This Wiki is currently under active development, and pages may change drastically. Some pages under this wiki are either out of date or not fully finished.
