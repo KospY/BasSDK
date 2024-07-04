@@ -30,7 +30,7 @@ The Wave Spawner is a script which allows creatures to spawn in the map. Through
 | **Music**
 | Music Wave Address          | The addressable of what music plays when a wave is in progress.
 | Music Audio Volume          | The audio of the playing music when wave is in progress. Separate from in game audio settings.
-| Step Audio Group Address    | [Needs Info]
+| Step Audio Group Address    | The address of the audio that plays 1 second after a wave ends/finishes.
 | Step Audio Volume           | Audio volume of `Step Audio Group Address`.
 
 ## Events
