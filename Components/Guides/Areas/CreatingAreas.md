@@ -4,12 +4,6 @@ grand_parent: Guides
 ---
 # How To create an Area
 
-- Create a folder for the area in your project.
-- Create an empty prefab in this folder for your area and make it addressable. (you may want to put all your area in the same addressable bundle)
-- In the Addressables Groups tab, find the area addressable and add its Labels: Windows, Android, and Area.
-- Open the area prefab, make a child GameObject, and start creating the area (models and assets, etc). You can also add child GameObjects for creature spawners, items spawners, etc. 
-Remember that the gate you want to make on the side of the area needs to be the same size as the AreaConnectionType you want to assign.
-
 1. Create a folder for your area. This folder is primarily for your area, and will host all the lightmap data, and you can put any area-specific assets in here as well.
 2. Create your area in your scene or as a new prefab. You can place models, scripts (like ropes and CreatureSpawners) and other normal level assets. 
 3. Add [AreaGateways][AreaGateway] so that your rooms can connect eachother. It is recommended that no models go past this gate, as they will be visible in other rooms, or the collider can block progress in other rooms also. For each connection, in the same order as in the AreaData :
