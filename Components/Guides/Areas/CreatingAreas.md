@@ -2,7 +2,7 @@
 parent: Areas
 grand_parent: Guides
 ---
-# How To create an Area
+# How To Create an Area
 
 1. Create a folder for your area. This folder is primarily for your area, and will host all the lightmap data, and you can put any area-specific assets in here as well.
 2. Create your area in your scene or as a new prefab. You can place models, scripts (like ropes and CreatureSpawners) and other normal level assets. 
