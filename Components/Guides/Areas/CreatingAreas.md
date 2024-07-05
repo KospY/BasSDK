@@ -54,6 +54,7 @@ If your room is an "End" room, you'll want a way to get back home. You can do th
 [LightingGroup]: {{ site.baseurl }}{% link Components/ThunderRoad/Areas/LightingGroup.md %}
 [Area]: {{ site.baseurl }}{% link Components/ThunderRoad/Areas/Area.md %}
 [Zone]: {{ site.baseurl }}{% link Components/ThunderRoad/Levels/Zone.md %}
+[AddressableAssets]: {{ site.baseurl }}{% link Components/Guides/SDK-HowTo/CreatingAssetBundles.md %}
 [PlayerSpawner]: {{ site.baseurl }}{% link Components/ThunderRoad/Levels/PlayerSpawner.md %}
 [CreatingConnections]: {{ site.baseurl }}{% link Components/Guides/Areas/Connections.md %}
 [UpdateReferences]: {{ site.baseurl }}/assets/components/Guides/Areas/UpdateReferences.png
