@@ -41,10 +41,12 @@ Static Per Mesh is a more utilised detection method, in which the volume will be
 
 The field "Init Renderers On Start" is recommended to stay true. This is to ensure that the items are initialized to retrieve Light Probe Volumes on start, so they are not incorrectly lit on initialization of the game.
 
-"Add Material Instance" is an important aspect of the receiver. This box makes the renderer have an instanced material, meaning it is a copy of the material per instance of the object. For example, if there is two items that share a material, the instance will make a copy material for each object so that they wont be incorrect when one material has a light volume change. This is recommended to be enabled to ensure that all game objects that utilise a Light Volume Receiver are lit correctly.
+"Add [Material Instance][MaterialInstance]" is an important aspect of the receiver. This box makes the renderer have an instanced material, meaning it is a copy of the material per instance of the object. This is recommended to be enabled to ensure that all game objects that utilise a Light Volume Receiver are lit correctly.
+
 
 [Component]: {{ site.baseurl }}/assets/components/LightVolumeReceiver/Component.png
 
 [LightProbeVolume]: {{ site.baseurl }}{% link Components/ThunderRoad/Areas/LightProbeVolume.md %}
 [Areas]: {{ site.baseurl }}{% link Components/ThunderRoad/Areas/Area.md %}
 [Item]: {{ site.baseurl }}{% link Components/ThunderRoad/Items/Item.md %}
+[MaterialInstance]: {{ site.baseurl }}{% link Components/ThunderRoad/Misc/MaterialInstance.md %}
