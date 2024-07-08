@@ -21,11 +21,11 @@ The Item JSON is the primary JSON used to spawn items, from swords and axes to c
 | value                         | How much the item will cost (by valueType) |
 | rewardValue                   | Utilised by the reward loot tables to define rarity |
 | tier                          | Up to 5, will determine the power of the weapon in its slicing, decapitation and imbue power/strength. |
-| flags                         | Used for Spell flags. Current integrated flags are:<details>• *None (no flags)*<br>• *Throwable - Orients itself when thrown, in the direction of the FlyRef*<br>• *Heavy*<br>• *Spinnable - Can spin with Telekinesis*<br>• *Jabbing - Works with Dive Strike skill*<br>• *Defensive*<br>• *Recochet - Works with Boomerang skill*<br>• *Piercing - Works with Ranged Expertise skill*<br>• *Electromagnetic - Works with Electromagnetic skill*<br>• *Blunt - Determines if the item is fully blunt, for the Dive Strike skill*</details> |
+| flags                         | Used for Spell flags. Current integrated flags are:<details>• *None (no flags)*<br>• *Throwable - Orients itself when thrown, in the direction of the FlyRef*<br>• *Heavy*<br>• *Spinnable - Can spin with Telekinesis*<br>• *Jabbing - Works with Dive Strike skill*<br>• *Defensive*<br>• *Ricochet - Works with Boomerang skill*<br>• *Piercing - Works with Ranged Expertise skill*<br>• *Electromagnetic - Works with Electromagnetic skill*<br>• *Blunt - Determines if the item is fully blunt, for the Dive Strike skill*</details> |
 | levelRequired                 | The level required for the item to show up in the shop. |
 | category                      | The category the item will appear in in the item spawner book. The categories can be found in the game.json |
 | iconEffectId                  | ID for the effect used for Spell Orbs |
-| preferredItemCenter           | Sets the item center to specified. List is:<details>•*Mass*<br>• *Root*<br>• *Renderer*<br>• *Main Handle*<br>• *Holder*</details> |
+| preferredItemCenter           | Sets the item center to specified. List is:<details>• *Mass*<br>• *Root*<br>• *Renderer*<br>• *Main Handle*<br>• *Holder*</details> |
 | drainImbueWhenIdle            | When "true", the imbue will drain when stored in holders (like back holder, hip holder etc) |
 | prefabAddress                 | The addressable asset name for the item |
 | iconAddress                   | The addressable asset name for the item icon |
