@@ -9,7 +9,7 @@ This Wiki is currently under active development, and pages may change drasticall
 
 # How to Install mods
 ---
-# Preffered Installation - In-Game Mod Manager
+# Preferred Installation - In-Game Mod Manager
 
 In-game, go to the "Mods" section in the Main Menu, and install mods through the mod manager. These mods are hosted on [Mod.io](https://mod.io/g/blade-and-sorcery)
 
@@ -29,7 +29,7 @@ For Nexus mods, you can also use [Nexus Vortex](https://www.nexusmods.com/site/m
 
  [Mod.io](https://mod.io/g/blade-and-sorcery){: .btn .btn-blue .mr-4} [Nexus](https://www.nexusmods.com/bladeandsorcery/mods/){: .btn .btn-purple .mr-4}
 
-2. Open your B&S installation folder and go to StreamingAssets. The file path by default is `C:\\Program Files (x86)\Steam\steamapps\common\Blade & Sorcery\BladeAndSorcery_Data\StreamingAssets\Mods`
+2. Open your B&S installation folder and go to StreamingAssets. The file path by default is `C:\Program Files (x86)\Steam\steamapps\common\Blade & Sorcery\BladeAndSorcery_Data\StreamingAssets\Mods`
 3. Drag your mod folder from the archive and drop it into `StreamingAssets\Mods`. Be sure to check that your mod folder is in `StreamingAssets\Mods` and not inside some subfolder.
 
 ## Nomad (Android)

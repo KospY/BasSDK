@@ -12,7 +12,7 @@ The dungeon is a list of areas chosen randomly, connecting to each other. There 
 
 The dungeon uses an AreaTable to make the path. Consider an Area Table as a group of Areas that should randomly spawn at a certain depth of the dungeon.
 
-If you want to add your Area to the Greenland Dungeon from the game, you need to find the AreaTable from the game data and copy it, then edit it to add your custom Area. We use a different table so find the one where you want to add your area.
+If you want to add your Area to the a Dungeon from the game, you need to find the AreaTable from the game data and copy it, then edit it to add your custom Area. We use a different table so find the one where you want to add your area.
 
 If you want to create your own dungeon, you must Create your own AreaTable. You can copy-paste the data from the proto and edit them.
 
@@ -48,7 +48,7 @@ Note that to have different lengths with level parameters you need to set an Are
 For Each edit data :
     - numberAreaMinToSpawn / maxToSpawn : number of areas to pick from this table in a row.
     - creatureFillPercentage : 0 to 1, will multiply the max number of creatures set in the table (use 0 if you want no creatures)
-    - lootFillPercentage : ***Not used/Not yet implemented***
+    - lootFillPercentage : Indicates the amount of "Loot" that can spawn in the room.
     - isSharedNPCAlert : if true, when an NPC finds the player, all the other creatures in the area will be alerted.
     - areaPoolIdContainer : dataId set the AreaTable id you want to pick the area from.
 - Set Fields :
