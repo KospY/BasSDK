@@ -68,8 +68,8 @@ The Item JSON is the primary JSON used to spawn items, from swords and axes to c
 | telekinesisAutoGrabAnyHandle  | When pulled back to hand with telekinesis, will automatically grab any handle on the weapon. |
 | grippable                     | When enabled, item can be gripped (grabing an area that does not have a handle) |
 | grabAndGripClimb              | When enabled, item can be "climbed" with when grabbed or gripped |
-| playerGrabAndGripChangeLayer  | When grabAndGripClimb is enabled, and the player tries grip climbing, will change the item layer |
-| customSnaps                   | Allows you to adjust certain snaps for specific holders. See at the bottom of the page for more info. <details>List of Usable Holders: <br>• *HipsLeft*<br>• *HipsRight*<br>• *BackLeft*<br>• *BackRight*</details> |
+| playerGrabAndGripChangeLayer  | When `grabAndGripClimb` is enabled, and the player tries grip climbing, it will change will change the item layer |
+| customSnaps                   | Allows you to adjust certain snaps for specific holders. See the [Custom Snaps Section](#custom-snaps). <details>List of Usable Holders: <br>• *HipsLeft*<br>• *HipsRight*<br>• *BackLeft*<br>• *BackRight*</details> |
 | drainImbueOnSnap              | When enabled, item will drain imbue to 0 when stored in a holder |
 | imbueEnergyOverTimeOnSnap     | Curve of how fast imbue will drain on snap |
 
@@ -674,7 +674,7 @@ This is from the BowCommon JSON. With this custom snap, on the "BackLeft" holder
 ```
 --- 
 
-  With this example, which is used for the large shield, the position is -0.1 on the back, to adjust the height so it doesn't look strange on the back.
+  In this example used for the large shield, the position is y: -0.1 on BackRight, to adjust the height so it doesn't look too high/offset in its holster.
   ```json
   "customSnaps": [
     {
