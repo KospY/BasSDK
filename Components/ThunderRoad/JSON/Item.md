@@ -22,18 +22,18 @@ The Item JSON is the primary JSON used to spawn items, from swords and axes to c
 | rewardValue                   | Utilised by the reward loot tables to define rarity |
 | tier                          | Up to 5, will determine the power of the weapon in its slicing, decapitation and imbue power/strength. |
 | flags                         | Used for Spell flags. Current integrated flags are:<details>• *None (no flags)*<br>• *Throwable - Orients itself when thrown, in the direction of the FlyRef*<br>• *Heavy*<br>• *Spinnable - Can spin with Telekinesis*<br>• *Jabbing - Works with Dive Strike skill*<br>• *Defensive*<br>• *Ricochet - Works with Boomerang skill*<br>• *Piercing - Works with Ranged Expertise skill*<br>• *Electromagnetic - Works with Electromagnetic skill*<br>• *Blunt - Determines if the item is fully blunt, for the Dive Strike skill*</details> |
-| levelRequired                 | The level required for the item to show up in the shop. |
+| levelRequired                 | The level required for the item to show up in the shop. <details>This is calculated 1+however many Dalgarian Dungeons has been run. For weapoons that should be available in the tutorial shop, it should be set to zero.</details> |
 | category                      | The category the item will appear in in the item spawner book. The categories can be found in the game.json |
 | iconEffectId                  | ID for the effect used for Spell Orbs |
 | preferredItemCenter           | Sets the item center to specified. List is:<details>• *Mass*<br>• *Root*<br>• *Renderer*<br>• *Main Handle*<br>• *Holder*</details> |
 | drainImbueWhenIdle            | When "true", the imbue will drain when stored in holders (like back holder, hip holder etc) |
 | prefabAddress                 | The addressable asset name for the item |
-| iconAddress                   | The addressable asset name for the item icon |
-| closeUpIconAddress            | The addressable asset name for the item close-up icon |
+| iconAddress                   | The addressable asset name for the item icon. This is required for items spawned via the item book or that can be stored in the inventory. |
+| closeUpIconAddress            | The addressable asset name for the item close-up icon. If not provided, this will fall back to the icon address |
 | pooledCount                   | How many of this item is stored in the item pool (recommended for quiver contents, having too many can cause memory problems) |
 | androidPooledCount            | How many of this item is stored in the item pool, on android |
 | type                          | What type of item this is, this key has many different uses for each type, so ensure this is accurate to your item. Item type list is:<details>• *Misc*<br>• *Weapon*<br>• *Quiver*<br>• *Potion*<br>• *Body*<br>• *Shield*<br>• *Wardrobe*<br>• *Spell*<br>• *Crystal*<br>• *Valuable*<br>• *Tool*<br>• *Food*<br>• *Note* </details> |
-| allowedStorage                 | Depict that storage this item is allowed in:<details>• *Inventory*<br>• *SandboxAllitems*<br>• *Container* </details> |
+| allowedStorage                 | Depict that storage this item is allowed in:<details>0 - Hidden from all<br>• *Inventory*<br>• *SandboxAllitems*<br>• *Container* </details> |
 | despawnOnStoredInInventory     | Despawns the item when placed in the inventory. Mainly used for Gold/crystal additions |
 | isStackable                    | If the item is stackable in inventory (like apples) |
 | consumableID                   | ***obsolete*** |
@@ -86,12 +86,12 @@ The ItemModuleAI module specifies how an NPC uses this weapon. It displays what 
 | ---                           | --- |
 | primaryClass                  | States what type of class this weapon is. The choice is:<details>• None<br>• Melee<br>• Bow<br>• Arrow<br>• Shield<br>• Wand<br>• Crossbow<br>• Bolt<br>• Firearm<br>• Throwable </details> |
 | secondaryClass               | States the secondary class, seprate from the primary class. This means a sword can be both a melee weapon and classed as a shield. |
-| weaponHandling               | States what handling it uses. "oneHanded" or "twoHanded" (Two Handed is unused) |
+| weaponHandling               | States what handling it uses. <details>• oneHanded<br> • twoHanded(unused)</details> |
 | secondaryHandling            | Depicts the secondary use of handling. |
-| weaponAttackTypes            | What attacks can be used with this weapon. Supports "Swing" and "Thrust" |
+| weaponAttackTypes            | What attacks can be used with this weapon.<details>• Swing - Only supports "weapon swing" animations<br>• Thrust - Only supports thrust animations<br> Note: You can support both attacks by making the field "Swing, Thrust". |
 | ignoredByDefense             | if true, it is ignored by AI, they wont try to parry it |
 | alwaysPrimary                | If true, will ignore the Secondary Class/Handling |
-| armResistanceMultiplier      | States the resistance multiplier enemies will use to defend with the weapon |
+| armResistanceMultiplier      | States the strength multiplier enemies will use when handling the weapon. This is more recommended if this weapon is heavy, as it gives the NPC more strength to handle the weapon. |
 | allowDynamicHeight           | Utilises the Enemy's Animator height variable to take the weapon in to account for defence (unused) |
 | defenceHasPriority           | When ticked, defence has priority over attacking. |
 
@@ -149,7 +149,7 @@ The ItemModuleAI module specifies how an NPC uses this weapon. It displays what 
 
 | Keys                          | Description |
 | ---                           | --- |
-| offhand                       | Depicts how it uses an off-hand weapon. When selected, the AI will only pickup specified items:<br>• Empty<br>• Same Item<br>• Item Duplicate<br>• Any Melee<br>• Any Shield<br>• Any Firearm<br>• Any Throwable<br>• Anything |
+| offhand                       | Depicts how it uses an off-hand weapon. When selected, the AI will only pickup specified items:<details>• Empty<br>• Same Item<br>• Item Duplicate<br>• Any Melee<br>• Any Shield<br>• Any Firearm<br>• Any Throwable<br>• Anything </details> |
 | grabAIHandleRadius            | The Handle radius for the NPC to pick up the item |
 | stanceDataID                  | The Stance Data ID for the NPC to use when handling this item |
 
@@ -157,7 +157,7 @@ The ItemModuleAI module specifies how an NPC uses this weapon. It displays what 
 
 | Keys                          | Description |
 | ---                           | --- |
-| ammoType                      | What type of ammo can be used with this weapon, if it is a ranged weapon. Supports all different type of "slots" |
+| ammoType                      | What type of ammo can be used with this weapon, if it is a ranged weapon. Supports all different type of items by their "slots" |
 | tooCloseDistance              | What classifies as "too close" when handling the item, of which they will switch to their secondary/melee item on the hips |
 | spread                        | Changes accuracy spread of the projectile. Higher the spread, the less accurate the projectile |
 | projectileSpeed               | The speed of the projectiles the NPC will fire from this item |
