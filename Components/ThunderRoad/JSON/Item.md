@@ -68,7 +68,7 @@ The Item JSON is the primary JSON used to spawn items, from swords and axes to c
 | telekinesisAutoGrabAnyHandle  | When pulled back to hand with telekinesis, will automatically grab any handle on the weapon. |
 | grippable                     | When enabled, item can be gripped (grabing an area that does not have a handle) |
 | grabAndGripClimb              | When enabled, item can be "climbed" with when grabbed or gripped |
-| playerGrabAndGripChangeLayer  | When `grabAndGripClimb` is enabled, and the player tries grip climbing, it will change will change the item layer |
+| playerGrabAndGripChangeLayer  | When the player grips this item by a point other than it's handle, the item's layer will be changed to this value. Requires `gripAndGrabClimb` to be enabled. |
 | customSnaps                   | Allows you to adjust certain snaps for specific holders. See the [Custom Snaps Section](#custom-snaps). <details>List of Usable Holders: <br>• *HipsLeft*<br>• *HipsRight*<br>• *BackLeft*<br>• *BackRight*</details> |
 | drainImbueOnSnap              | When enabled, item will drain imbue to 0 when stored in a holder |
 | imbueEnergyOverTimeOnSnap     | Curve of how fast imbue will drain on snap |
