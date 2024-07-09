@@ -69,7 +69,7 @@ The Item JSON is the primary JSON used to spawn items, from swords and axes to c
 | grippable                     | When enabled, item can be gripped (grabing an area that does not have a handle) |
 | grabAndGripClimb              | When enabled, item can be "climbed" with when grabbed or gripped |
 | playerGrabAndGripChangeLayer  | When grabAndGripClimb is enabled, and the player tries grip climbing, will change the item layer |
-| customSnaps                   | Custom Item Snaps |
+| customSnaps                   | Allows you to adjust certain snaps for specific holders. See at the bottom of the page for more info. <details>List of Usable Holders: <br>• *HipsLeft*<br>• *HipsRight*<br>• *BackLeft*<br>• *BackRight*</details> |
 | drainImbueOnSnap              | When enabled, item will drain imbue to 0 when stored in a holder |
 | imbueEnergyOverTimeOnSnap     | Curve of how fast imbue will drain on snap |
 
@@ -647,3 +647,49 @@ Whoosh is a component utilised to play a windy "whoosh" sound when the item is s
 | stopOnSnap                    | Will stop the whoosh sound when the item is snapped to a holder. |
 | min/max velocity              | The minimum/maximum velocity of which the sound will start to play. Max velocity plays the whoosh at the maximum set volume. |
 | dampening                     | The speed of which the whoosh sound will stop. |
+
+
+## Custom Snaps
+
+A few items in Blade and Sorcery utilise custom snaps to allow certain holsters to have a specific rotation or position for specific slots. 
+
+This is from the BowCommon JSON. With this custom snap, on the "BackLeft" holder, the bow is flipped 180 degrees on the Y axis to flip the bow the other way around when on the back.
+```json
+"customSnaps": [
+    {
+      "$type": "ThunderRoad.ItemData+CustomSnap, ThunderRoad",
+      "holderName": "BackLeft",
+      "localPosition": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 180.0,
+        "z": 0.0
+      }
+    }
+  ]
+```
+--- 
+
+  With this example, which is used for the large shield, the position is -0.1 on the back, to adjust the height so it doesn't look strange on the back.
+  ```json
+  "customSnaps": [
+    {
+      "$type": "ThunderRoad.ItemData+CustomSnap, ThunderRoad",
+      "holderName": "BackRight",
+      "localPosition": {
+        "x": 0.0,
+        "y": -1.0,
+        "z": 0.0
+      },
+      "localRotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      }
+    }
+  ]
+  ```
