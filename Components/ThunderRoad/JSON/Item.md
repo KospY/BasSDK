@@ -188,18 +188,18 @@ The ItemModuleAI module specifies how an NPC uses this weapon. It displays what 
 
 ```json
 {
-      "$type": "ThunderRoad.ItemModuleBow, ThunderRoad",
-      "velocityMultiplier": 1.5,
-      "stringSpring": 500.0,
-      "autoSpawnArrow": false,
-      "arrowProjectileID": null,
-      "audioShootMinPull": 0.1,
-      "audioDrawPullSpeed": 0.02,
-      "audioStringAddress": null,
-      "audioGroupDrawAddress": null,
-      "audioGroupShootAddress": null,
-      "maxPullRatioAI": 0.75,
-      "spawnArrow": false
+    "$type": "ThunderRoad.ItemModuleBow, ThunderRoad",
+    "velocityMultiplier": 1.5,
+    "stringSpring": 500.0,
+    "autoSpawnArrow": false,
+    "arrowProjectileID": null,
+    "audioShootMinPull": 0.1,
+    "audioDrawPullSpeed": 0.02,
+    "audioStringAddress": null,
+    "audioGroupDrawAddress": null,
+    "audioGroupShootAddress": null,
+    "maxPullRatioAI": 0.75,
+    "spawnArrow": false
 }
 ```
 
@@ -215,8 +215,8 @@ The collectSoundEffectId field plays the audio when it is placed in the inventor
 
 ```json
 {
-      "$type": "ThunderRoad.ItemModuleConvertToCurrency, ThunderRoad",
-      "CollectSoundEffectId": "CollectCurrency"
+    "$type": "ThunderRoad.ItemModuleConvertToCurrency, ThunderRoad",
+    "CollectSoundEffectId": "CollectCurrency"
 }
 ```
 </details>
@@ -315,13 +315,13 @@ The Edible Item Module is used for edible items, such as apples.
 
 ```json
 {
-      "$type": "ThunderRoad.ItemModuleEdible, ThunderRoad",
-      "nextStageItemID": null,
-      "onConsumeAudioContainerAddress": null,
-      "healthGain": 0.0,
-      "focusGain": 0.0,
-      "consumeTime": 0.0,
-      "transferCustomData": true
+    "$type": "ThunderRoad.ItemModuleEdible, ThunderRoad",
+    "nextStageItemID": null,
+    "onConsumeAudioContainerAddress": null,
+    "healthGain": 0.0,
+    "focusGain": 0.0,
+    "consumeTime": 0.0,
+    "transferCustomData": true
 }
 ```
 </details>
@@ -475,15 +475,15 @@ Items with the ItemModuleReturnInInventory module will return the item to the pl
 
 ```json
 {
-      "$type": "ThunderRoad.ItemModuleReturnInInventory, ThunderRoad",
-      "returnsToLastHolder": false,
-      "returnsOnItemRelease": false,
-      "returnsWhenNotLookingAtIt": true,
-      "returnsAfterReachingMaxDistance": true,
-      "maxDistanceBeforeReturning": 15.0,
-      "timeAfterWhichItemReturn": 2.0,
-      "useReturningAnimation": false,
-      "returningVelocityValue": 0.0
+    "$type": "ThunderRoad.ItemModuleReturnInInventory, ThunderRoad",
+    "returnsToLastHolder": false,
+    "returnsOnItemRelease": false,
+    "returnsWhenNotLookingAtIt": true,
+    "returnsAfterReachingMaxDistance": true,
+    "maxDistanceBeforeReturning": 15.0,
+    "timeAfterWhichItemReturn": 2.0,
+    "useReturningAnimation": false,
+    "returningVelocityValue": 0.0
 }
 ```
 </details>
@@ -562,10 +562,10 @@ The Tint module allows you to change the color of any specific shader section in
         "g": 1.0,
         "b": 1.0,
         "a": 1.0
-  },
+        },    
       "shaderProperty": "_BaseColor"
 }
-```
+```     
 </details>
 
 <details markdown="block">
@@ -611,9 +611,9 @@ The name of the "transformName" MUST meet the same name as the collider group of
 
 ```json
 {
-      "$type": "ThunderRoad.ItemData+ColliderGroup, ThunderRoad",
-      "transformName": "Colliders",
-      "colliderGroupId": "PropDefault"
+    "$type": "ThunderRoad.ItemData+ColliderGroup, ThunderRoad",
+    "transformName": "Colliders",
+    "colliderGroupId": "PropDefault"
 }
 ```
 
@@ -625,9 +625,9 @@ The name of the "transformName" MUST meet the same name as the handle transform.
 
 ```json
 {
-      "$type": "ThunderRoad.ItemData+Interactable, ThunderRoad",
-      "transformName": "Handle",
-      "interactableId": "ObjectHandleTKOnly"
+    "$type": "ThunderRoad.ItemData+Interactable, ThunderRoad",
+    "transformName": "Handle",
+    "interactableId": "ObjectHandleTKOnly"
 }
 ```
 
