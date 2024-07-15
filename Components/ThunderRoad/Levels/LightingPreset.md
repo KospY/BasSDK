@@ -63,6 +63,15 @@ These fields will actively overwrite scene Lighting Settings. Make sure you make
 | Clouds Alpha                | Will adjust the transparency of the clouds |
 | Clouds Color                | Will adjust the colour of the clouds. |
 
+## Setup
 
+{: .important}
+For the Lighting Preset to apply to meshes, the meshes MUST be a child of the Lighting Preset script. They do not need to specifically be children, but they must be under the Lighting Preset for it to bake correctly.
+
+To get this to apply to an area/scene, they will need a Lighting Group. Add the ```Lighting Group``` script to the area/scene, add the Lighting Preset to it, and then ensure that the Lighting Preset is addressable. 
+
+{: .important}
+For Dungeon Areas specifically, this object must be at the root, with the [AreaLightingGroupLiteMemoryToggle][AreaLightingGroupLiteMemoryToggle] script added.
 
 [CreateData]: {{ site.baseurl }}/assets/components/LevelData/Create.png
+[AreaLightingGroupLiteMemoryToggle]: {{ site.baseurl }}{% link Components/ThunderRoad/Areas/AreaLightingGroupLiteMemoryToggle.md %}
