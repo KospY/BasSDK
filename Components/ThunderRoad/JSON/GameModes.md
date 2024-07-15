@@ -110,7 +110,7 @@ The Crystal Hunt level module determines all settings related to Crystal Hunt, f
 | dalgarianFactionTierBalanceAddress | The addressable address relating to the dalgarian faction tiers balance configuration |
 
 <details markdown="block">
-<summary>JSON block</summary>
+<summary>JSON Block</summary>
 
     {
       "$type": "ThunderRoad.Modules.CrystalHuntLevelInstancesModule, ThunderRoad",
