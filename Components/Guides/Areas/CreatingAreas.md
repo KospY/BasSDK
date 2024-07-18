@@ -32,15 +32,17 @@ grand_parent: Guides
 13.  Select each AreaGateway again. Under it, on the AreaGateway component, click on the "BakeFakeViewData", it should create a FakeViewData file in your Area folder. Once complete, make that FakeViewData Addressable by placing it under either a new addressable packed assets, or the same one for the area you made. Name it something appropriate with the Windows/Android tag, and reference it in the Area JSON. Make sure that the fake view matches the doors you place them under, so that they show the correct fake view in play. After this, the room MAY lock itself, unlock it to keep editing.
 14. Under your parent gameObject, under the NavMeshSurface, change the "Include Layers" to "Default" and "LocomotionOnly", and for "Use Geometry", set it to "Physics Colliders". Then, press Bake. The room MAY lock itself, unlock it to keep editing.
 15. Once done, go to the top left of your Inspector while on the parent, and apply all changes. The room will lock itself.
-16. - Unlock your room to edit once more, and create a "Lighting Data" (Right Click > Create > ThunderRoad > Levels > Lighting Data)
-17. Add the lighting data to this component, such as the directional light direction, fog, light color, etc. Place this lighting data in the "Lighting Group" script you placed on the parent earlier.
-18. Open the Lighting window (Window > Rendering > Lighting). You now will bake your room.
-19. Once the baking is complete, select the Area in your scene again. On the LightingGroup, right click it and select "UpdateReferencesAndSaveAll".
+16. Set up [Light Probe Volumes][LightProbeVolume] and make sure that they go to each Area Gateway or past it so it can affect the Door Blockers.
+17. Unlock your room to edit once more, and create a "Lighting Data" (Right Click > Create > ThunderRoad > Levels > Lighting Data)
+18. Add the lighting data to this component, such as the directional light direction, fog, light color, etc. Place this lighting data in the "Lighting Group" script you placed on the parent earlier.
+19. Open the Lighting window (Window > Rendering > Lighting). You now will bake your room.
+20. Once the baking is complete, select the Area in your scene again. On the LightingGroup, right click it and select "UpdateReferencesAndSaveAll".
+
 ![UpdateReferencesAndSaveAll][UpdateReferences]
 
-20. Apply all the changes to the prefab. The Area should be locked again.
-21. Go to the Area JSON, ensure that all of the references are correct and positions/scales of the room and its' gateways are correct. "IsUnique" ensures thatr your room can only spawn once in a run, while "allowedRotation" allows different rotations of the room. You should set it to allow 4 rotations (Front, Back, Left, Right).
-22. You can now add your Area to the AreaTables, to allow your room to spawn
+21. Apply all the changes to the prefab. The Area should be locked again.
+22. Go to the Area JSON, ensure that all of the references are correct and positions/scales of the room and its' gateways are correct. "IsUnique" ensures thatr your room can only spawn once in a run, while "allowedRotation" allows different rotations of the room. You should set it to allow 4 rotations (Front, Back, Left, Right).
+23. You can now add your Area to the AreaTables, to allow your room to spawn
 
 {: .important}
 Don’t forget to add a PlayerSpawner in your Room. This is a requirement for if your room is a "Start" room, or if you want to debug your Area.  See [Player Spawner][PlayerSpawner].
@@ -52,6 +54,7 @@ If your room is an "End" room, you'll want a way to get back home. You can do th
 [AreaLightingGroupLiteMemoryToggle]: {{ site.baseurl }}{% link Components/ThunderRoad/Areas/AreaLightingGroupLiteMemoryToggle.md %}
 [ItemSpawnerLimiter]: {{ site.baseurl }}{% link Components/ThunderRoad/Areas/ItemSpawnerLimiter.md %}
 [LightingGroup]: {{ site.baseurl }}{% link Components/ThunderRoad/Areas/LightingGroup.md %}
+[LightProbeVolume]: {{ site.baseurl }}{% link Components/ThunderRoad/Areas/LightProbeVolume.md %}
 [Area]: {{ site.baseurl }}{% link Components/ThunderRoad/Areas/Area.md %}
 [Zone]: {{ site.baseurl }}{% link Components/ThunderRoad/Levels/Zone.md %}
 [EventLoadLevel]: {{ site.baseurl }}{% link Components/ThunderRoad/Levels/EventLoadLevel.md %}
