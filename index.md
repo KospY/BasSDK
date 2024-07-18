@@ -8,14 +8,14 @@ nav_order: 1
 
 ## Useful links
 
-* [BasSDK](https://github.com/KospY/BasSDK/)
-* [Blade and Sorcery Subreddit](https://www.reddit.com/r/BladeAndSorcery/)
-* [B&S Steam Store Page](https://store.steampowered.com/app/629730)
-* [B&S Oculus Store Page](https://www.meta.com/en-gb/experiences/pcvr/2472374902778951/)
-* [B&S: Nomad Store Page](https://www.meta.com/en-gb/experiences/2031826350263349/)
-* [Discord](https://discord.gg/nqCR8KG)
-* [Twitter](https://twitter.com/BladeAndSorcery)
-* [PCVR/Nomad ModIo Mods](https://mod.io/g/blade-and-sorcery)
-* [PCVR Nexus Mods](https://www.nexusmods.com/bladeandsorcery/)
-* [Nomad Nexus Mods](https://www.nexusmods.com/bladeandsorcerynomad)
+* [BasSDK](https://github.com/KospY/BasSDK/){: .btn .btn-purple }
+* [Reddit](https://www.reddit.com/r/BladeAndSorcery/){: .btn .bg-red-100 .text-grey-lt-200} 
+* [Steam Store Page](https://store.steampowered.com/app/629730){: .btn .bg-grey-dk-100 .text-grey-lt-000}
+* [Oculus Store Page](https://www.meta.com/en-gb/experiences/pcvr/2472374902778951/){: .btn .bg-grey-lt-100 .text-grey-dk-300}
+* [Nomad Store Page](https://www.meta.com/en-gb/experiences/2031826350263349/){: .btn 	.bg-red-200  .text-grey-lt-100}
+* [Discord](https://discord.gg/nqCR8KG){: .btn 	.bg-blue-200  .text-grey-lt-100}
+* [X](https://x.com/BladeAndSorcery){: .btn  .bg-grey-dk-250  .text-grey-lt-100}
+* [PCVR/Nomad ModIo Mods](https://mod.io/g/blade-and-sorcery){: .btn  .bg-grey-lt-300  .text-blue-300}
+* [PCVR Nexus Mods](https://www.nexusmods.com/bladeandsorcery/){: .btn  .bg-yellow-300  .text-grey-dk-300}
+* [Nomad Nexus Mods](https://www.nexusmods.com/bladeandsorcerynomad){: .btn  .bg-yellow-300  .text-grey-dk-300}
 
