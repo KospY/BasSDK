@@ -75,6 +75,8 @@ You can reset this in the options file. On PCVR open the Options.opt file with a
 You can find this file in `Documents > MyGames > BladeAndSorcery > Saves > Default`
 The file should be called `Options.opt`
 
+For Nomad, it is a bit harder. The Options file can be edited `located Quest 2\Internal shared storage\Android\data\com.Warpfrog.BladeAndSorcery\files\Saves`, or deleted to refresh a new file. 
+
 ## When I try to see downloadable mods using the in-game launcher with Mod.Io, it stays there is a server connection issue and try again later
 
 Unfortunatly, this is an issue with the mod.io servers in your region. Usually, this will resolve itself by refreshing the page after a minute or so. If the problem persists, you can contact mod.io support, or give it more time. In the meantime, you can still install mods manually, using the mod.io or Nexus page. 
