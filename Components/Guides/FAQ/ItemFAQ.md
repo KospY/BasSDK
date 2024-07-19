@@ -12,7 +12,7 @@ Question not here, or none of the points worked? Ask for help in the #pcvr-moddi
 
 ## How do I make items/weapons in Blade and Sorcery?
 
-To make Weapons in Blade and Sorcery, you can follow this video guide [Here](https://youtu.be/-yjZAnniklM) (this video will be updated to 1.0 later. This video still works for 1.0). Ensure that your Unity Version is `2021.3.39f1`. 
+To make Weapons in Blade and Sorcery, you can follow this video guide [Here](https://youtu.be/-yjZAnniklM) (this video will be updated to 1.0 later. This video still works for 1.0). Ensure that your Unity Version is `2021.3.38f1`. 
 
 You can also follow the guides in the #modding-resources channel in the [Discord](https://discord.gg/atdUuvd6).
 
