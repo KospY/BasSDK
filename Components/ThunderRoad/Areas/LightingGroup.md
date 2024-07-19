@@ -17,4 +17,4 @@ This component can also be used in levels, but it isn't neccessary.
 
 [Areas]: {{ site.baseurl }}{% link Components/Guides/Areas/index.md %}
 [Component]: {{ site.baseurl }}/assets/components/LightingGroup/Component.png
-[AreaLightingGroupLiteMemoryToggle] {{ site.baseurl }}{% link Components/ThunderRoad/Areas/AreaLightingGroupLiteMemoryToggle.md %}
+[AreaLightingGroupLiteMemoryToggle]: {{ site.baseurl }}{% link Components/ThunderRoad/Areas/AreaLightingGroupLiteMemoryToggle.md %}
