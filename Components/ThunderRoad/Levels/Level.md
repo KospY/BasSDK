@@ -4,7 +4,7 @@ grand_parent: ThunderRoad
 ---
 # Level
 
-The level script is required for a map to load properly. It references spawning the player, as well as allowing custom references for easy referencing in custom scripts. ]
+The level script is required for a map to load properly. It references spawning the player, as well as allowing custom references for easy referencing in custom scripts. 
 
 ![LevelScript][LevelScript]
 
