@@ -16,6 +16,8 @@ The Arena Pillars are not included in the SDK, however, the way they are coded m
 
 ![PillarPlacements][PillarPlacements]
 
+Ensure that you take close attention to both the positions AND rotations of the axis.
+
 3. Under the [Level Component][Level], under Custom references, apply these references. Ensure that the names match the image. Place the Wave Book under "WaveSelector", Racks under "Rack", the Item Spawner Book(s) under "WeaponSelector" and finally, reference all the reward pillar gameobjects you created under "RewardSpawnPosition".
 
 {: .note}
@@ -24,6 +26,10 @@ The WeaponSelector/Rack/WaveSelector references disable these objects when in su
 ![CustomReferences][CustomReferences]
 
 4. Set up waves like normal.
+
+{: .tip}
+You can add a "Zone" around the pillars and reference the transforms of it in the JSON as "PillarZone". This makes it so when the wave ends, if the player is outside the zone, it will teleport the player in front of the pillars.
+
 5. In the JSON, ensure that you have the Survival Module. This references all the waves, loot tablers for rewards, and the pillar address. You can copy the survival module from the Arena.json or other levels.
 
 ![JSON][JSON]
