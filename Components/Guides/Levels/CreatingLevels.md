@@ -5,7 +5,7 @@ grand_parent: Guides
 
 # Creating Custom Levels
 
-This guide will show how to create your own custom level. This guide will show both the neccesities of components needed, as well as components you are able to use to enhance your levels. 
+This guide will show how to create your own custom level. This guide will show both the necessities of components needed, as well as components you are able to use to enhance your levels. 
 
 ## Starting Out
 
@@ -98,9 +98,7 @@ When you build your asset, this may take a while depending on your level. This c
 {: .note}
 Once your mod has been exported once, a cache will be generated to make it faster next time the mod is exported. You can clear this cache by clicking "Clear build cache" when you export next, if the cache caused problems such as shader issues.
 
-The final step, once your level is built, is to add a level.json. Go to `the Blade and Sorcery directory > BladeAndSorcery_Data > StreamingAssets > Default ` and find a file called `bas.jsondb`. Here you will find all the JSONs stored. Open the file up in a zip software of your choice, or duplicate it and change the extension to .zip. 
-
-Once inside the zip, find "Levels" and grab the file named `Level_Arena.json`, and put it in your mod folder. You should see the mod folder when you have exported, it will be in `the Blade and Sorcery directory > BladeAndSorcery_Data > StreamingAssets > Mods`. Rename the Level_Arena to something responsible, ensuring that it begins with `Level_`, and start to edit it with a text editor program of your choosing. 
+The final step, once your level is built, is to add a level.json. In your SDK directory, go to `BuildStaging/Catelogs/Default`, you will find all the JSONs here. Go to the "Levels" folder, and grab `Level_Arena`and put it in your mod folder. You should see the mod folder when you have exported, it will be in `the Blade and Sorcery directory > BladeAndSorcery_Data > StreamingAssets > Mods`. Copy the Arena level JSON to your mod folder and rename the Level_Arena to something responsible, ensuring that it begins with `Level_`, and start to edit it with a text editor program of your choosing. 
 
 Inside the JSON, edit the "ID" to something unique, as well as changing the "name" to the name of your map, and set the description accordingly. Next, change the "sceneAddress" to the name of the scene that you put in to the addressables asset, the one that is like `MyName.Level.MyTestLevel`. You may also edit the "mapLocationIndex to something in a range of 1 to 95. This changes where the map will appear on the map board.
 
@@ -136,6 +134,7 @@ Having troubles with your map? Check out the [LevelFAQ][LevelFAQ], or ask in the
 [Level]: {{ site.baseurl }}{% link Components/ThunderRoad/Levels/Level.md %}
 [WaveSpawner]: {{ site.baseurl }}{% link Components/ThunderRoad/Levels/WaveSpawner.md %}
 [WaveJSON]: {{ site.baseurl }}{% link Components/ThunderRoad/JSON/Wave.md %}
+[PlayerSpawner]: {{ site.baseurl }}{% link Components/ThunderRoad/Levels/PlayerSpawner.md %}
 [LevelJSON]: {{ site.baseurl }}{% link Components/ThunderRoad/JSON/Level.md %}
 [LevelComponents]: {{ site.baseurl }}{% link Components/ThunderRoad/Levels/index.md %}
 [AreaGuides]: {{ site.baseurl }}{% link Components/Guides/Areas/index.md %}
