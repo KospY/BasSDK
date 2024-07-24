@@ -63,6 +63,12 @@ Then add an additional `HolderPoint` on the `Item` component named **HolderRackT
 
 ![ParryPoint][ParryPoint]
 
+## SpawnPoint
+
+The spawnpoint should be positioned in the middle of the item, rotated like so:
+
+![SpawnPoint][SpawnPoint]
+
 
 [Handle]: {{ site.baseurl }}{% link Components/ThunderRoad/Items/Handle.md %}
 [Preview]: {{ site.baseurl }}{% link Components/ThunderRoad/Items/Preview.md %}
@@ -77,3 +83,4 @@ Then add an additional `HolderPoint` on the `Item` component named **HolderRackT
 [HolderPointRackBow]: {{ site.baseurl }}/assets/components/Item/HolderPointRackBow.png
 [ShieldRack]: {{ site.baseurl }}/assets/components/Item/ShieldRack.png
 [ShieldPoint]: {{ site.baseurl }}/assets/components/Item/ShieldPoint.png
+[SpawnPoint]: {{ site.baseurl }}/assets/components/Item/SpawnPoint.png
