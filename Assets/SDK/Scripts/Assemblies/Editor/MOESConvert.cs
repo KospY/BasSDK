@@ -20,7 +20,7 @@ namespace ThunderRoad
         static bool fixColorSpace = true;
 
         static Shader shaderMoesConvert;
-        static Shader shaderThunderRoadLit;
+ 
 
         static GUIStyle fontAdd = new GUIStyle();
         static GUIStyle fontSkip = new GUIStyle();
@@ -29,70 +29,12 @@ namespace ThunderRoad
         public static void Initialize()
         {
             shaderMoesConvert = Shader.Find("Hidden/MOESConvert");
-            shaderThunderRoadLit = Shader.Find("ThunderRoad/Lit");
 
             fontAdd.normal.textColor = Color.green;
             fontSkip.normal.textColor = Color.yellow;
             fontError.normal.textColor = Color.red;
         }
-        public static void ImportMaterialsRightClick()
-        {
-            materials = new List<MoesTexture>();
-
-            foreach (Object o in Selection.objects)
-            {
-                if (o.GetType() == typeof(Material))
-                {
-                    try
-                    {
-                        var path = AssetDatabase.GetAssetPath(o);
-                        if (path.EndsWith("_MOES.mat")) continue;
-
-                        var material = AssetDatabase.LoadAssetAtPath<Material>(path);
-
-                        var item = new MoesTexture()
-                        {
-                            path = path.Substring(0, path.Length - 4),
-                            material = material,
-                            metallic = (Texture2D)material.GetTexture("_MetallicGlossMap"),
-                            occlusion = (Texture2D)material.GetTexture("_OcclusionMap"),
-                            emission = (Texture2D)material.GetTexture("_EmissionMap"),
-                            smoothness = (Texture2D)material.GetTexture("_SpecGlossMap"),
-                            isAlphaClip = material.GetInt("_AlphaClip") == 1,
-                            isAutodesk = material.shader.name.Contains("Autodesk"),
-                            moesExists = AssetDatabase.LoadAssetAtPath<Material>(path.Replace(".mat", "_MOES.mat")) != null
-                        };
-                        if (!item.smoothness)
-                        {
-                            item.smoothness = item.material.GetInt("_SmoothnessTextureChannel") == 0 ? (Texture2D)material.GetTexture("_MetallicGlossMap") : (Texture2D)material.GetTexture("_BaseMap");
-                            item.smoothnessIsAlpha = true;
-                        }
-
-                        if (item.metallic || item.occlusion || item.emission || item.smoothness) materials.Add(item);
-                    }
-                    catch { }
-                }
-            }
-        }
-
-
-        [MenuItem("Assets/ThunderRoad/Convert MOES")]
-        public static void ConvertMOES()
-        {
-            Initialize();
-
-            ImportMaterialsRightClick();
-
-            foreach (MoesTexture moes in materials)
-            {
-                if (!moes.moesExists || updateExistingMaterials)
-                {
-                    CreateTexture(moes);
-                    ModifyMaterial(moes);
-                }
-            }
-            AssetDatabase.Refresh();
-        }
+  
         public static void CreateTexture(MoesTexture moes)
         {
             Material _material = new Material(shaderMoesConvert)
@@ -152,63 +94,6 @@ namespace ThunderRoad
             Debug.Log("Created " + outputPath);
             AssetDatabase.ImportAsset(outputPath);
             Debug.LogWarning("ImportAsset: MOESConvert: " + outputPath);
-        }
-        public static void CreateMaterial(MoesTexture moes)
-        {
-            var material = new Material(shaderThunderRoadLit);
-
-            // Copying material properties can sometimes prevent BaseMap and BaseColor from being set
-            if (copyMaterialProperties) material.CopyPropertiesFromMaterial(moes.material);
-
-            var mainTex = moes.material.GetTexture("_MainTex");
-            material.SetColor("_BaseColor", mainTex ? Color.white : moes.isAutodesk ? moes.material.GetColor("_Color") : moes.material.GetColor("_BaseColor"));
-            if (moes.isAutodesk) material.SetTexture("_BaseMap", mainTex ?? moes.material.mainTexture ?? moes.material.GetTexture("_BaseMap"));
-            else material.SetTexture("_BaseMap", moes.material.GetTexture("_BaseMap") ?? mainTex ?? moes.material.mainTexture);
-            material.SetTexture("_MetallicGlossMap", AssetDatabase.LoadAssetAtPath<Texture2D>(moes.path + "_MOES.png"));
-            material.SetTexture("_BumpMap", moes.material.GetTexture("_BumpMap"));
-
-            material.SetTexture("_OcclusionMap", null);
-            material.SetTexture("_SpecGlossMap", null);
-
-            if (moes.emission) material.EnableKeyword("_EMISSIONMAP_ON");
-            if (moes.isAutodesk) material.SetFloat("_Smoothness", 1f);
-
-            material.renderQueue = -1;
-
-            //Debug.Log(material.GetTexture("_BaseMap"));
-            //Debug.Log(material.GetColor("_BaseColor"));
-            Debug.Log(material.name);
-            Debug.Log(material.shader.name);
-
-            var outputPath = moes.path + "_MOES.mat";
-            AssetDatabase.CreateAsset(material, outputPath);
-            Debug.Log("Created " + outputPath);
-            AssetDatabase.ImportAsset(outputPath);
-            Debug.LogWarning("ImportAsset: MOESConvert: " + outputPath);
-        }
-        public static void ModifyMaterial(MoesTexture moes)
-        {
-            moes.material.shader = shaderThunderRoadLit;
-
-            var mainTex = moes.material.GetTexture("_MainTex");
-            moes.material.SetColor("_BaseColor", mainTex ? Color.white : moes.isAutodesk ? moes.material.GetColor("_Color") : moes.material.GetColor("_BaseColor"));
-            if (moes.isAutodesk) moes.material.SetTexture("_BaseMap", mainTex ?? moes.material.mainTexture ?? moes.material.GetTexture("_BaseMap"));
-            else moes.material.SetTexture("_BaseMap", moes.material.GetTexture("_BaseMap") ?? mainTex ?? moes.material.mainTexture);
-            moes.material.SetTexture("_MetallicGlossMap", AssetDatabase.LoadAssetAtPath<Texture2D>(moes.path + "_MOES.png"));
-            moes.material.SetTexture("_BumpMap", moes.material.GetTexture("_BumpMap"));
-
-            moes.material.SetTexture("_OcclusionMap", null);
-            moes.material.SetTexture("_SpecGlossMap", null);
-
-            if (moes.emission) moes.material.EnableKeyword("_EMISSIONMAP_ON");
-            if (moes.isAutodesk) moes.material.SetFloat("_Smoothness", 1f);
-
-            moes.material.renderQueue = -1;
-
-            Debug.Log(moes.material.GetTexture("_BaseMap"));
-            Debug.Log(moes.material.GetColor("_BaseColor"));
-
-            AssetDatabase.SaveAssets();
         }
     }
     public class MoesTexture
