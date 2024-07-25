@@ -1,0 +1,78 @@
+{
+  "$type": "ThunderRoad.Skill.Spell.SkillOvercharge, ThunderRoad",
+  "id": "Overcharge",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "overchargeStartMaxCharge": 0.4,
+  "intensityMultiplier": 1.5,
+  "efficiencyMultiplier": 1.2,
+  "speedMultiplier": 3.0,
+  "gradient": {
+    "$type": "UnityEngine.Gradient, UnityEngine.CoreModule",
+    "colorKeys": [
+      {
+        "$type": "UnityEngine.GradientColorKey, UnityEngine.CoreModule",
+        "color": {
+          "r": 0.0,
+          "g": 0.209921554,
+          "b": 0.7490196,
+          "a": 1.0
+        },
+        "time": 0.00294499123
+      },
+      {
+        "$type": "UnityEngine.GradientColorKey, UnityEngine.CoreModule",
+        "color": {
+          "r": 0.7490196,
+          "g": 0.09803923,
+          "b": 0.09803923,
+          "a": 1.0
+        },
+        "time": 0.6147097
+      }
+    ],
+    "alphaKeys": [
+      {
+        "$type": "UnityEngine.GradientAlphaKey, UnityEngine.CoreModule",
+        "alpha": 1.0,
+        "time": 0.0
+      },
+      {
+        "$type": "UnityEngine.GradientAlphaKey, UnityEngine.CoreModule",
+        "alpha": 1.0,
+        "time": 1.0
+      }
+    ],
+    "mode": "Blend"
+  },
+  "shardId": "Crystal_Small_01_Shard",
+  "prefabAddress": "Bas.Item.Misc.SkillOrb",
+  "meshAddress": null,
+  "meshSize": 1.0,
+  "orbLinkEffectId": "SkillTreeOrbLink",
+  "tier": 1,
+  "allowSkill": true,
+  "forceAllowRefund": false,
+  "showInTree": true,
+  "hideInSkillMenu": false,
+  "skillTreeDisplayName": "{OverchargeName}",
+  "description": "{OverchargeDescription}",
+  "imageAddress": "",
+  "videoAddress": "Bas.Video.Skill.Overcharge",
+  "buttonSpriteSheetAddress": "Bas.Ui.SkillTree.Icons",
+  "buttonEnabledIconAddress": "Bas.Ui.SkillTree.Icons[Lightning_ButtonColor]",
+  "buttonDisabledIconAddress": "Bas.Ui.SkillTree.Icons[Lightning_Button]",
+  "orbIconAddress": "Bas.Ui.SkillTree.Icons[Overcharge]",
+  "tutorial": null,
+  "tutorialLocalizationId": null,
+  "tutorialGoal": null,
+  "tutorialGoalLocalizationId": null,
+  "costOverride": -1,
+  "isDefaultSkill": false,
+  "primarySkillTreeId": "Lightning",
+  "secondarySkillTreeId": null,
+  "isTierBlocker": false,
+  "groupPath": null,
+  "IsCombinedSkill": false
+}

@@ -1,0 +1,204 @@
+{
+  "$type": "ThunderRoad.LevelData, ThunderRoad",
+  "id": "Citadel",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 3,
+  "name": "Citadel",
+  "description": "A citadel built into a mountainside. Has many stairs leading to dangerous heights and a bridge crossing the cliffs to a grand tower.",
+  "descriptionLocalizationId": "CitadelDescription",
+  "sceneAddress": "Bas.Level.Citadel",
+  "showOnlyDevMode": false,
+  "showInLevelSelection": false,
+  "worldmapPrefabAddress": "Bas.Image.Map.Default",
+  "worldmapTextureAddress": "Bas.Worldmap.Eraden",
+  "worldmapLabel": null,
+  "worldMapTravelAudioContainerAddress": "Bas.AudioGroup.Dungeon.Start",
+  "mapLocationIndex": 20,
+  "showOnMap": true,
+  "hideOnAndroid": false,
+  "mapLocationIconAddress": "Bas.Icon.Location.Arena",
+  "mapLocationIconHoverAddress": "Bas.Icon.Location.Arena_Highlight",
+  "mapPreviewImageAddress": "Bas.Image.Preview.Citadel",
+  "modes": [
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "Sandbox",
+      "displayName": "Sandbox",
+      "description": "SandboxDescription",
+      "allowGameModes": [
+        "Sandbox"
+      ],
+      "mapOrder": 0,
+      "playerDeathAction": "AskReload",
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        },
+        {
+          "$type": "LevelModuleResetSpawners, ThunderRoad"
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleMusic, ThunderRoad",
+          "dynamicMusic": "MusicArenaCitadel"
+        }
+      ],
+      "availableOptions": []
+    },
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "Survival",
+      "displayName": "Survival",
+      "description": "SurvivalDescription",
+      "allowGameModes": [
+        "Sandbox",
+        "Arcade"
+      ],
+      "mapOrder": 1,
+      "playerDeathAction": "AskReload",
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleSurvival, ThunderRoad",
+          "canOnlyUseRewards": true,
+          "rewardPillarAddress": "Bas.LevelModule.RewardPillar",
+          "pillarZone": {
+            "center": {
+              "x": -16.3399963,
+              "y": 77.095,
+              "z": 5.92
+            },
+            "size": {
+              "x": 100.0,
+              "y": 6.0,
+              "z": 74.0
+            }
+          },
+          "rewardsToSpawn": 3,
+          "firstRewardsContainerID": "WeaponRewards0",
+          "startDelay": 3.0,
+          "loop": "Loop",
+          "wavesNumberForReward": 1,
+          "waves": [
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Survival_Wave0",
+              "containerID": "WeaponRewards1"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Survival_Wave1",
+              "containerID": "WeaponRewards2"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Survival_Wave2",
+              "containerID": "WeaponRewards3"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Survival_Wave3",
+              "containerID": "WeaponRewards4"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Survival_Wave4",
+              "containerID": "WeaponRewards5"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Survival_Wave5",
+              "containerID": "WeaponRewards6"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Survival_Wave6",
+              "containerID": "WeaponRewards7"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Survival_Wave7",
+              "containerID": "WeaponRewards8"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Survival_Wave8",
+              "containerID": "WeaponRewards9"
+            },
+            {
+              "$type": "ThunderRoad.LevelModuleSurvival+Waves, ThunderRoad",
+              "waveID": "Survival_Wave9",
+              "containerID": "WeaponRewards9"
+            }
+          ],
+          "textGroupId": "Survival",
+          "textNextWaveId": "NextWave",
+          "textFightId": "Fight",
+          "textWaveId": "Wave"
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleMusic, ThunderRoad",
+          "dynamicMusic": "MusicArenaCitadel"
+        },
+        {
+          "$type": "LevelModuleResetSpawners, ThunderRoad"
+        }
+      ],
+      "availableOptions": []
+    },
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "WaveAssault",
+      "displayName": "WaveAssault",
+      "description": "WaveAssaultDescription",
+      "allowGameModes": [
+        "CrystalHunt"
+      ],
+      "mapOrder": 1,
+      "playerDeathAction": "AskReload",
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleWaveAssault, ThunderRoad",
+          "rewardPillarAddress": "Bas.LevelModule.RewardPillar",
+          "defaultLength": 3,
+          "textFightGroupId": "Survival",
+          "textFightId": "GetReady",
+          "textWaveId": "Wave",
+          "textReturnHomeGroupId": "Survival",
+          "textReturnHomeId": "RewardHome",
+          "pillarZone": {
+            "center": {
+              "x": 17.0,
+              "y": 93.5,
+              "z": 1.0
+            },
+            "size": {
+              "x": 78.0,
+              "y": 8.0,
+              "z": 32.0
+            }
+          },
+          "returnHomeFadeInDuration": 2.0
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleMusic, ThunderRoad",
+          "dynamicMusic": "MusicArenaCitadel"
+        }
+      ],
+      "availableOptions": []
+    }
+  ],
+  "modePickCountPerRank": 2,
+  "customCameras": [],
+  "throwableRefType": "Item",
+  "improvisedThrowableID": null,
+  "groupPath": "Arena Maps"
+}

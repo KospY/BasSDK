@@ -1,0 +1,102 @@
+{
+  "$type": "ThunderRoad.ContainerData, ThunderRoad",
+  "id": "CrystalHuntStartingEquipmentLighning",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "displayName": "FireCrystal",
+  "description": "You start with a gravity crystal",
+  "contents": [],
+  "containerContents": [
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateWorn, ThunderRoad"
+      },
+      "customDataList": null,
+      "referenceID": "ApparelShirt03"
+    },
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateWorn, ThunderRoad"
+      },
+      "customDataList": null,
+      "referenceID": "ApparelRuggedTrousers"
+    },
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateWorn, ThunderRoad"
+      },
+      "customDataList": null,
+      "referenceID": "ApparelWornSandals"
+    },
+    {
+      "$type": "ThunderRoad.SpellContent, ThunderRoad",
+      "referenceID": "Telekinesis"
+    },
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStatePlaced, ThunderRoad",
+        "position": {
+          "x": 35.792,
+          "y": 2.264,
+          "z": -54.695
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "w": 0.0
+        },
+        "levelId": "Home",
+        "lastSpawnTime": 0.0
+      },
+      "customDataList": null,
+      "referenceID": "CrystalLightningT1"
+    },
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": null,
+      "customDataList": null,
+      "referenceID": "Journal"
+    },
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": null,
+      "customDataList": null,
+      "referenceID": "ZiplineWheel01"
+    },
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStatePlaced, ThunderRoad",
+        "position": {
+          "x": 35.561,
+          "y": 2.2531,
+          "z": -54.076
+        },
+        "rotation": {
+          "x": -0.612372458,
+          "y": 0.612372458,
+          "z": -0.353553355,
+          "w": 0.353553355
+        },
+        "levelId": "Home",
+        "lastSpawnTime": 0.0
+      },
+      "customDataList": null,
+      "referenceID": "DaggerAntique"
+    }
+  ],
+  "groupPath": "Player"
+}

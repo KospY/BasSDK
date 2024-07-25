@@ -1,0 +1,111 @@
+{
+  "$type": "ThunderRoad.ContainerData, ThunderRoad",
+  "id": "SoldierHelot",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "displayName": "Soldier Helot",
+  "description": null,
+  "contents": [],
+  "containerContents": [
+    {
+      "$type": "ThunderRoad.TableContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateHolder, ThunderRoad",
+        "holderName": "BackRight"
+      },
+      "customDataList": [],
+      "referenceID": "WeaponSoldierFootman"
+    },
+    {
+      "$type": "ThunderRoad.SkillContent, ThunderRoad",
+      "referenceID": "MeleeImbueGravity"
+    },
+    {
+      "$type": "ThunderRoad.SpellContent, ThunderRoad",
+      "referenceID": "Gravity"
+    },
+    {
+      "$type": "ThunderRoad.SkillContent, ThunderRoad",
+      "referenceID": "ChargeSpeedBoost"
+    },
+    {
+      "$type": "ThunderRoad.SkillContent, ThunderRoad",
+      "referenceID": "ModifierArmored"
+    },
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateWorn, ThunderRoad"
+      },
+      "customDataList": [],
+      "referenceID": "ApparelMercenaryHeadband"
+    },
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateWorn, ThunderRoad"
+      },
+      "customDataList": [],
+      "referenceID": "ApparelSoldierGloveR"
+    },
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateWorn, ThunderRoad"
+      },
+      "customDataList": [],
+      "referenceID": "ApparelSoldierGloveL"
+    },
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateWorn, ThunderRoad"
+      },
+      "customDataList": [],
+      "referenceID": "ApparelSoldierJacket"
+    },
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateWorn, ThunderRoad"
+      },
+      "customDataList": [],
+      "referenceID": "ApparelSoldierPants"
+    },
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateWorn, ThunderRoad"
+      },
+      "customDataList": [],
+      "referenceID": "ApparelSoldierBoots"
+    },
+    {
+      "$type": "ThunderRoad.TableContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateWorn, ThunderRoad"
+      },
+      "customDataList": [],
+      "referenceID": "BeardsSoldier"
+    },
+    {
+      "$type": "ThunderRoad.TableContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateWorn, ThunderRoad"
+      },
+      "customDataList": [],
+      "referenceID": "HairsSoldier"
+    }
+  ],
+  "groupPath": "Factions/Soldier"
+}

@@ -1,0 +1,105 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "DA_Std_Senate",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.DA_Std_Senate",
+  "lightingPresetAddress": "Bas.Area.DA_Std_Senate.LightingPreset",
+  "cullingAddress": "Bas.Area.DA_Std_Senate.CullData",
+  "Bounds": {
+    "center": {
+      "x": -2.10717773,
+      "y": 39.05642,
+      "z": -3.07500076
+    },
+    "size": {
+      "x": 66.68564,
+      "y": 118.849258,
+      "z": 92.15
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -35.4499969,
+        "y": 1.0,
+        "z": 2.75
+      },
+      "face": "Left",
+      "fakeViewAddress": "Bas.Area.DA_Std_Senate.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 0.0,
+        "y": 7.0,
+        "z": 43.0
+      },
+      "face": "Front",
+      "fakeViewAddress": "Bas.Area.DA_Std_Senate.FakeView.1"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 0.0,
+        "y": 1.0,
+        "z": -49.15
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.DA_Std_Senate.FakeView.2"
+    }
+  ],
+  "areaGlobalParameters": [],
+  "groupPath": "Dalgarian/Standard"
+}

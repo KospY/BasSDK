@@ -1,0 +1,35 @@
+{
+  "$type": "ThunderRoad.SkillTreeData, ThunderRoad",
+  "id": "Lightning",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "localizationGroupID": "Skills",
+  "displayName": "{Lightning}",
+  "description": "{LightningPathDescription}",
+  "maxTier": 3,
+  "showInInfuser": true,
+  "color": {
+    "r": 0.0,
+    "g": 0.5879531,
+    "b": 1.0,
+    "a": 1.0
+  },
+  "emissionColor": {
+    "r": 0.433962345,
+    "g": 1.70483875,
+    "b": 4.0,
+    "a": 1.0
+  },
+  "orbPitch": 1.4,
+  "costMultiplier": 1.0,
+  "crystalItemId": "CrystalLightningT1",
+  "orbIconAddress": "Bas.Ui.SkillTree.Icons[Lightning]",
+  "infuserTopParticleAddress": "Bas.Particle.Infuser.Lightning",
+  "infuserBeamAudioAddress": "Bas.AudioClip.Infuser.Beam.Lightning",
+  "musicAddress": "Bas.AudioClip.SkillTree.Music.Lightning",
+  "videoAddress": "Bas.Video.Infuser.Lightning",
+  "iconEnabledAddress": "Bas.Ui.SkillTree.Icons[Lightning_ButtonColor]",
+  "iconDisabledAddress": "Bas.Ui.SkillTree.Icons[Lightning_Button]",
+  "groupPath": null
+}

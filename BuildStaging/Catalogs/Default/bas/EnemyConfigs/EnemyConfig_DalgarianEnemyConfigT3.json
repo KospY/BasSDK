@@ -1,0 +1,52 @@
+{
+  "$type": "ThunderRoad.EnemyConfig, ThunderRoad",
+  "id": "DalgarianEnemyConfigT3",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "iconAddress": "Bas.Icon.EnemyConfig.The_Eye",
+  "customIconColor": true,
+  "iconColor": {
+    "r": 1.0,
+    "g": 1.0,
+    "b": 1.0,
+    "a": 1.0
+  },
+  "color": {
+    "r": 0.5647059,
+    "g": 0.152941182,
+    "b": 0.172549024,
+    "a": 1.0
+  },
+  "name": "{TheEyeOutpost}",
+  "nameLocalizationId": "TheEyeOutpost",
+  "descriptionsByLevelId": [
+    {
+      "$type": "ThunderRoad.EnemyConfig+DescriptionByLevelId, ThunderRoad",
+      "levelId": "DungeonDalgarian",
+      "description": "TheEyeDalgDesc"
+    }
+  ],
+  "patrolMixId": "CultistPatrolMix",
+  "patrolMeleeId": "CultistPatrolMelee",
+  "patrolRangedId": "CultistPatrolRanged",
+  "alertMixId": "CultistAlertMix",
+  "alertMeleeId": "CultistAlertMelee",
+  "alertRangedId": "CultistAlertRanged",
+  "rareMixId": "CultistRareMix",
+  "rareMeleeId": "CultistRareMelee",
+  "rareRangedId": "CultistRareRanged",
+  "meleeOnlyStd": "Dungeon_Cultist_Std_MeleeOnly",
+  "meleeFocusedStd": "Dungeon_Cultist_Std_MeleeFocused",
+  "mixedStd": "Dungeon_Cultist_Std_Mixed",
+  "rangedFocusedStd": "Dungeon_Cultist_Std_RangedFocused",
+  "meleeOnlyArena": "Dungeon_Cultist_Arena_MeleeOnly",
+  "meleeFocusedArena": "Dungeon_Cultist_Arena_MeleeFocused",
+  "mixedArena": "Dungeon_Cultist_Arena_Mixed",
+  "rangedFocusedArena": "Dungeon_Cultist_Arena_RangedFocused",
+  "meleeOnlyEnd": "Dungeon_Cultist_End_MeleeOnly",
+  "meleeFocusedEnd": "Dungeon_Cultist_End_MeleeFocused",
+  "mixedEnd": "Dungeon_Cultist_End_Mixed",
+  "rangedFocusedEnd": "Dungeon_Cultist_End_RangedFocused",
+  "groupPath": null
+}

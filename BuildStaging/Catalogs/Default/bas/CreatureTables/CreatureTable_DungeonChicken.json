@@ -1,0 +1,40 @@
+{
+  "$type": "ThunderRoad.CreatureTable, ThunderRoad",
+  "id": "DungeonChicken",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "description": null,
+  "linkedToGenderRatio": false,
+  "drops": [
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Creature",
+      "referenceID": "Chicken",
+      "overrideFaction": false,
+      "factionID": -1,
+      "overrideContainer": false,
+      "overrideContainerID": "Knight1H",
+      "overrideBrain": false,
+      "overrideBrainID": "HumanMedium",
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 1
+    },
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Creature",
+      "referenceID": null,
+      "overrideFaction": false,
+      "factionID": 0,
+      "overrideContainer": false,
+      "overrideContainerID": null,
+      "overrideBrain": false,
+      "overrideBrainID": null,
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 4
+    }
+  ],
+  "groupPath": null
+}

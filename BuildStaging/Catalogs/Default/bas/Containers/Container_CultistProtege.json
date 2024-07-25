@@ -1,0 +1,102 @@
+{
+  "$type": "ThunderRoad.ContainerData, ThunderRoad",
+  "id": "CultistProtege",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "displayName": "Cultist Protege",
+  "description": "",
+  "contents": [],
+  "containerContents": [
+    {
+      "$type": "ThunderRoad.TableContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateHolder, ThunderRoad",
+        "holderName": "HipsRight"
+      },
+      "customDataList": [],
+      "referenceID": "WeaponCultistDuelist"
+    },
+    {
+      "$type": "ThunderRoad.SkillContent, ThunderRoad",
+      "referenceID": "MeleeImbueLightning"
+    },
+    {
+      "$type": "ThunderRoad.SkillContent, ThunderRoad",
+      "referenceID": "StaticDisarm"
+    },
+    {
+      "$type": "ThunderRoad.SkillContent, ThunderRoad",
+      "referenceID": "ChargeSpeedBoost"
+    },
+    {
+      "$type": "ThunderRoad.SpellContent, ThunderRoad",
+      "referenceID": "Lightning"
+    },
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateWorn, ThunderRoad"
+      },
+      "customDataList": [],
+      "referenceID": "ApparelDruidHeadband"
+    },
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateWorn, ThunderRoad"
+      },
+      "customDataList": [],
+      "referenceID": "ApparelRogueHandL"
+    },
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateWorn, ThunderRoad"
+      },
+      "customDataList": [],
+      "referenceID": "ApparelRogueHandR"
+    },
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateWorn, ThunderRoad"
+      },
+      "customDataList": [],
+      "referenceID": "ApparelRogueChestplate"
+    },
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateWorn, ThunderRoad"
+      },
+      "customDataList": [],
+      "referenceID": "ApparelRoguePants"
+    },
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateWorn, ThunderRoad"
+      },
+      "customDataList": [],
+      "referenceID": "ApparelRogueBoots"
+    },
+    {
+      "$type": "ThunderRoad.TableContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateWorn, ThunderRoad"
+      },
+      "customDataList": [],
+      "referenceID": "HairsSoldier"
+    }
+  ],
+  "groupPath": "Factions/Cultist"
+}

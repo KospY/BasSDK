@@ -1,0 +1,112 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "GL_Transi_xC&C_RockyWell",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.GL_Transi_xC&C_RockyWell",
+  "lightingPresetAddress": "Bas.Area.GL_Transi_xC&C_RockyWell.LightingPreset",
+  "cullingAddress": "Bas.Area.GL_Transi_xC&C_RockyWell.CullData",
+  "Bounds": {
+    "center": {
+      "x": -5.61942863,
+      "y": 17.2466984,
+      "z": -14.2826509
+    },
+    "size": {
+      "x": 37.36414,
+      "y": 37.83741,
+      "z": 29.5653019
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -7.81,
+        "y": 3.65,
+        "z": -29.0653019
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.GL_Transi_xC&C_RockyWell.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -0.114,
+        "y": 0.0,
+        "z": 0.5
+      },
+      "face": "Front",
+      "fakeViewAddress": "Bas.Area.GL_Transi_xC&C_RockyWell.FakeView.1"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_CaveVertical"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -6.384999,
+        "y": -1.672006,
+        "z": -14.643
+      },
+      "face": "Down",
+      "fakeViewAddress": "Bas.Area.GL_Transi_xC&C_RockyWell.FakeView.2"
+    }
+  ],
+  "areaGlobalParameters": [
+    {
+      "$type": "ThunderRoad.AreaSunGlobalParameter, ThunderRoad",
+      "dirLightColor": {
+        "r": 1.0,
+        "g": 0.93235296,
+        "b": 0.85,
+        "a": 1.0
+      },
+      "dirLightIntensity": 2.5,
+      "dirLightIndirectMultiplier": 2.0,
+      "directionalLightLocalRotation": {
+        "x": 1.60932518E-06,
+        "y": 0.8175767,
+        "z": -0.5758197,
+        "w": 2.35438324E-06
+      },
+      "visibleFromGate": true
+    }
+  ],
+  "groupPath": "Outpost/Transi"
+}

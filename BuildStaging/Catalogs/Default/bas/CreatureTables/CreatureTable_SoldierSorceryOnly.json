@@ -1,0 +1,40 @@
+{
+  "$type": "ThunderRoad.CreatureTable, ThunderRoad",
+  "id": "SoldierSorceryOnly",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "description": "",
+  "linkedToGenderRatio": false,
+  "drops": [
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Soldier_Base_MeleeSpecial",
+      "overrideFaction": false,
+      "factionID": 8,
+      "overrideContainer": false,
+      "overrideContainerID": "SoldierFootman",
+      "overrideBrain": false,
+      "overrideBrainID": "HumanMedium",
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 1
+    },
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Soldier_Base_RangedStrong",
+      "overrideFaction": false,
+      "factionID": 8,
+      "overrideContainer": false,
+      "overrideContainerID": "SoldierWatchman",
+      "overrideBrain": false,
+      "overrideBrainID": "HumanMedium",
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 1
+    }
+  ],
+  "groupPath": "Factions/Sandbox"
+}

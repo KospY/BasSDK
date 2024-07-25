@@ -1,0 +1,26 @@
+{
+  "$type": "ThunderRoad.CreatureTable, ThunderRoad",
+  "id": "ScavengerMeleeOnly",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "description": null,
+  "linkedToGenderRatio": false,
+  "drops": [
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Scavenger_Base_MeleeWeak",
+      "overrideFaction": false,
+      "factionID": 4,
+      "overrideContainer": false,
+      "overrideContainerID": "ScavengerMugger",
+      "overrideBrain": false,
+      "overrideBrainID": "HumanEasy",
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 1
+    }
+  ],
+  "groupPath": "Factions/Sandbox"
+}

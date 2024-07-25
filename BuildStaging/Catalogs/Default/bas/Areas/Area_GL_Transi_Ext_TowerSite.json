@@ -1,0 +1,104 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "GL_Transi_Ext_TowerSite",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.GL_Transi_Ext_TowerSite",
+  "lightingPresetAddress": "Bas.Area.GL_Transi_Ext_TowerSite.LightingPreset",
+  "cullingAddress": "Bas.Area.GL_Transi_Ext_TowerSite.CullData",
+  "Bounds": {
+    "center": {
+      "x": 28.4310112,
+      "y": -1.752531,
+      "z": -19.7174168
+    },
+    "size": {
+      "x": 101.031807,
+      "y": 51.01138,
+      "z": 47.01025
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Cave"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 12.8535185,
+        "y": -6.021,
+        "z": -43.22254
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.GL_Transi_Ext_TowerSite.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Cave"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 0.299,
+        "y": -7.839,
+        "z": 3.78770781
+      },
+      "face": "Front",
+      "fakeViewAddress": "Bas.Area.GL_Transi_Ext_TowerSite.FakeView.1"
+    }
+  ],
+  "areaGlobalParameters": [
+    {
+      "$type": "ThunderRoad.AreaOceanGlobalParameter, ThunderRoad",
+      "visibleFromGate": true
+    },
+    {
+      "$type": "ThunderRoad.AreaSunGlobalParameter, ThunderRoad",
+      "dirLightColor": {
+        "r": 1.0,
+        "g": 0.956862748,
+        "b": 0.8392157,
+        "a": 1.0
+      },
+      "dirLightIntensity": 2.2,
+      "dirLightIndirectMultiplier": 1.0,
+      "directionalLightLocalRotation": {
+        "x": -0.05343922,
+        "y": 0.5722578,
+        "z": -0.5209308,
+        "w": -0.63110733
+      },
+      "visibleFromGate": true
+    }
+  ],
+  "groupPath": "Outpost/Transi"
+}

@@ -1,0 +1,81 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "DA_XSTransi_UrbanChasm",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.DA_XSTransi_UrbanChasm",
+  "lightingPresetAddress": "Bas.Area.DA_XSTransi_UrbanChasm.LightingPreset",
+  "cullingAddress": "Bas.Area.DA_XSTransi_UrbanChasm.CullData",
+  "Bounds": {
+    "center": {
+      "x": 6.42227173,
+      "y": -1.63469124,
+      "z": -8.599998
+    },
+    "size": {
+      "x": 59.4936066,
+      "y": 62.3011742,
+      "z": 66.0
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -16.8499851,
+        "y": 2.0,
+        "z": -41.6
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.DA_XSTransi_UrbanChasm.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 9.9,
+        "y": 0.0,
+        "z": 24.4
+      },
+      "face": "Front",
+      "fakeViewAddress": "Bas.Area.DA_XSTransi_UrbanChasm.FakeView.1"
+    }
+  ],
+  "areaGlobalParameters": [],
+  "groupPath": "Dalgarian/XSTransi"
+}

@@ -1,0 +1,104 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "DA_Start_DalgarianGate",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.DA_Start_DalgarianGate",
+  "lightingPresetAddress": "Bas.Area.DA_Start_DalgarianGate.LightingPreset",
+  "cullingAddress": "Bas.Area.DA_Start_DalgarianGate.CullData",
+  "Bounds": {
+    "center": {
+      "x": 21.9910278,
+      "y": 46.7360764,
+      "z": 20.6054077
+    },
+    "size": {
+      "x": 237.922058,
+      "y": 162.498688,
+      "z": 258.210815
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -26.2000046,
+        "y": 15.0,
+        "z": -108.5
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.DA_Start_DalgarianGate.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -96.97,
+        "y": 18.0,
+        "z": -32.0000229
+      },
+      "face": "Left",
+      "fakeViewAddress": "Bas.Area.DA_Start_DalgarianGate.FakeView.1"
+    }
+  ],
+  "areaGlobalParameters": [
+    {
+      "$type": "ThunderRoad.AreaOceanGlobalParameter, ThunderRoad",
+      "visibleFromGate": true
+    },
+    {
+      "$type": "ThunderRoad.AreaSunGlobalParameter, ThunderRoad",
+      "dirLightColor": {
+        "r": 1.0,
+        "g": 0.7618187,
+        "b": 0.5803922,
+        "a": 1.0
+      },
+      "dirLightIntensity": 3.0,
+      "dirLightIndirectMultiplier": 2.0,
+      "directionalLightLocalRotation": {
+        "x": -0.01958757,
+        "y": -0.965043366,
+        "z": 0.0535649136,
+        "w": -0.255809575
+      },
+      "visibleFromGate": true
+    }
+  ],
+  "groupPath": "Dalgarian/GameSpecific"
+}

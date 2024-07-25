@@ -1,0 +1,146 @@
+{
+  "$type": "ThunderRoad.Skill.Spell.SkillFireSapping, ThunderRoad",
+  "id": "FireSapping",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "heatTransferPerBolt": 10.0,
+  "spellId": "Fire",
+  "sapGradient": {
+    "$type": "UnityEngine.Gradient, UnityEngine.CoreModule",
+    "colorKeys": [
+      {
+        "$type": "UnityEngine.GradientColorKey, UnityEngine.CoreModule",
+        "color": {
+          "r": 0.7490196,
+          "g": 0.25665164,
+          "b": 0.0549019352,
+          "a": 1.0
+        },
+        "time": 0.00294499123
+      },
+      {
+        "$type": "UnityEngine.GradientColorKey, UnityEngine.CoreModule",
+        "color": {
+          "r": 0.7490196,
+          "g": 0.503109753,
+          "b": 0.0549019352,
+          "a": 1.0
+        },
+        "time": 1.0
+      }
+    ],
+    "alphaKeys": [
+      {
+        "$type": "UnityEngine.GradientAlphaKey, UnityEngine.CoreModule",
+        "alpha": 1.0,
+        "time": 0.0
+      },
+      {
+        "$type": "UnityEngine.GradientAlphaKey, UnityEngine.CoreModule",
+        "alpha": 1.0,
+        "time": 1.0
+      }
+    ],
+    "mode": "Blend"
+  },
+  "boltGradient": {
+    "$type": "UnityEngine.Gradient, UnityEngine.CoreModule",
+    "colorKeys": [
+      {
+        "$type": "UnityEngine.GradientColorKey, UnityEngine.CoreModule",
+        "color": {
+          "r": 0.0,
+          "g": 0.117647059,
+          "b": 0.7490196,
+          "a": 1.0
+        },
+        "time": 0.00294499123
+      },
+      {
+        "$type": "UnityEngine.GradientColorKey, UnityEngine.CoreModule",
+        "color": {
+          "r": 0.5330324,
+          "g": 0.315594375,
+          "b": 0.3617683,
+          "a": 1.0
+        },
+        "time": 0.252948821
+      },
+      {
+        "$type": "UnityEngine.GradientColorKey, UnityEngine.CoreModule",
+        "color": {
+          "r": 0.7310249,
+          "g": 0.389121,
+          "b": 0.217925549,
+          "a": 1.0
+        },
+        "time": 0.4264744
+      },
+      {
+        "$type": "UnityEngine.GradientColorKey, UnityEngine.CoreModule",
+        "color": {
+          "r": 0.9622642,
+          "g": 0.474994153,
+          "b": 0.0499288067,
+          "a": 1.0
+        },
+        "time": 0.7617609
+      },
+      {
+        "$type": "UnityEngine.GradientColorKey, UnityEngine.CoreModule",
+        "color": {
+          "r": 1.0,
+          "g": 0.207729459,
+          "b": 0.0,
+          "a": 1.0
+        },
+        "time": 1.0
+      }
+    ],
+    "alphaKeys": [
+      {
+        "$type": "UnityEngine.GradientAlphaKey, UnityEngine.CoreModule",
+        "alpha": 1.0,
+        "time": 0.0
+      },
+      {
+        "$type": "UnityEngine.GradientAlphaKey, UnityEngine.CoreModule",
+        "alpha": 1.0,
+        "time": 1.0
+      }
+    ],
+    "mode": "Blend"
+  },
+  "statusEffectId": "Burning",
+  "statusDuration": 5.0,
+  "shardId": "Crystal_Small_01_Shard",
+  "prefabAddress": "Bas.Item.Misc.SkillOrb",
+  "meshAddress": null,
+  "meshSize": 1.0,
+  "orbLinkEffectId": "SkillTreeOrbLink",
+  "tier": 1,
+  "allowSkill": true,
+  "forceAllowRefund": false,
+  "showInTree": true,
+  "hideInSkillMenu": false,
+  "skillTreeDisplayName": "{FireSappingName}",
+  "description": "{FireSappingDescription}",
+  "imageAddress": "",
+  "videoAddress": "Bas.Video.Skill.FireSapping",
+  "buttonSpriteSheetAddress": "Bas.Ui.SkillTree.Icons",
+  "buttonEnabledIconAddress": "Bas.Ui.SkillTree.Icons[Fire_Lightning_ButtonColor]",
+  "buttonDisabledIconAddress": "Bas.Ui.SkillTree.Icons[Fire_Lightning_Button]",
+  "orbIconAddress": "Bas.Ui.SkillTree.Icons[FireSapping]",
+  "tutorial": null,
+  "tutorialLocalizationId": null,
+  "tutorialGoal": null,
+  "tutorialGoalLocalizationId": null,
+  "costOverride": -1,
+  "isDefaultSkill": false,
+  "primarySkillTreeId": "Lightning",
+  "secondarySkillTreeId": "Fire",
+  "isTierBlocker": false,
+  "groupPath": null,
+  "IsCombinedSkill": true
+}

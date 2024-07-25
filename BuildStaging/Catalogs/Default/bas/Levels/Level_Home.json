@@ -1,0 +1,74 @@
+{
+  "$type": "ThunderRoad.LevelData, ThunderRoad",
+  "id": "Home",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 3,
+  "name": "Home",
+  "description": "Home sweet home",
+  "descriptionLocalizationId": "HomeDescription",
+  "sceneAddress": "Bas.Level.Home",
+  "showOnlyDevMode": false,
+  "showInLevelSelection": false,
+  "worldmapPrefabAddress": "Bas.Image.Map.Default",
+  "worldmapTextureAddress": "Bas.Worldmap.Eraden",
+  "worldmapLabel": null,
+  "worldMapTravelAudioContainerAddress": "Bas.AudioGroup.UI.PinSelected",
+  "mapLocationIndex": 95,
+  "showOnMap": true,
+  "hideOnAndroid": false,
+  "mapLocationIconAddress": "Bas.Icon.Location.Home",
+  "mapLocationIconHoverAddress": "bas.Icon.Location.Home_Highlight",
+  "mapPreviewImageAddress": "Bas.Image.Preview.Home",
+  "modes": [
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "Sandbox",
+      "displayName": "Sandbox",
+      "description": "NoDescription",
+      "allowGameModes": [
+        "Sandbox"
+      ],
+      "mapOrder": 0,
+      "playerDeathAction": "ReloadLevel",
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleMusic, ThunderRoad",
+          "dynamicMusic": "MusicDalgarian"
+        }
+      ],
+      "availableOptions": []
+    },
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "CrystalHunt",
+      "displayName": "{Default}",
+      "description": "{NoDescription}",
+      "allowGameModes": [
+        "CrystalHunt"
+      ],
+      "mapOrder": 0,
+      "playerDeathAction": "ReloadLevel",
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleMusic, ThunderRoad",
+          "dynamicMusic": "MusicDalgarian"
+        }
+      ],
+      "availableOptions": []
+    }
+  ],
+  "modePickCountPerRank": 2,
+  "customCameras": [],
+  "throwableRefType": "Item",
+  "improvisedThrowableID": null,
+  "groupPath": null
+}

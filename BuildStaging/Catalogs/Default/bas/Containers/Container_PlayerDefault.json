@@ -1,0 +1,142 @@
+{
+  "$type": "ThunderRoad.ContainerData, ThunderRoad",
+  "id": "SandboxDefault",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "displayName": "Sandbox Player",
+  "description": null,
+  "contents": [],
+  "containerContents": [
+    {
+      "$type": "ThunderRoad.TableContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateHolder, ThunderRoad",
+        "holderName": "BackRight"
+      },
+      "customDataList": null,
+      "referenceID": "WeaponCivilian"
+    },
+    {
+      "$type": "ThunderRoad.TableContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateHolder, ThunderRoad",
+        "holderName": "HipsLeft"
+      },
+      "customDataList": null,
+      "referenceID": "WeaponCivilianDagger"
+    },
+    {
+      "$type": "ThunderRoad.SpellContent, ThunderRoad",
+      "referenceID": "Telekinesis"
+    },
+    {
+      "$type": "ThunderRoad.SpellContent, ThunderRoad",
+      "referenceID": "SlowTime"
+    },
+    {
+      "$type": "ThunderRoad.SpellContent, ThunderRoad",
+      "referenceID": "Fire"
+    },
+    {
+      "$type": "ThunderRoad.SpellContent, ThunderRoad",
+      "referenceID": "Gravity"
+    },
+    {
+      "$type": "ThunderRoad.SpellContent, ThunderRoad",
+      "referenceID": "Lightning"
+    },
+    {
+      "$type": "ThunderRoad.SkillContent, ThunderRoad",
+      "referenceID": "BoostJump"
+    },
+    {
+      "$type": "ThunderRoad.SkillContent, ThunderRoad",
+      "referenceID": "StaticDisarm"
+    },
+    {
+      "$type": "ThunderRoad.SkillContent, ThunderRoad",
+      "referenceID": "CombatFocus"
+    },
+    {
+      "$type": "ThunderRoad.SkillContent, ThunderRoad",
+      "referenceID": "Telespin"
+    },
+    {
+      "$type": "ThunderRoad.SkillContent, ThunderRoad",
+      "referenceID": "Telethrow"
+    },
+    {
+      "$type": "ThunderRoad.SkillContent, ThunderRoad",
+      "referenceID": "Arcwire"
+    },
+    {
+      "$type": "ThunderRoad.SkillContent, ThunderRoad",
+      "referenceID": "InfernoStaff"
+    },
+    {
+      "$type": "ThunderRoad.SkillContent, ThunderRoad",
+      "referenceID": "GravityHammer"
+    },
+    {
+      "$type": "ThunderRoad.SpellContent, ThunderRoad",
+      "referenceID": "FireMerge"
+    },
+    {
+      "$type": "ThunderRoad.SpellContent, ThunderRoad",
+      "referenceID": "GravityMerge"
+    },
+    {
+      "$type": "ThunderRoad.SpellContent, ThunderRoad",
+      "referenceID": "LightningMerge"
+    },
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateWorn, ThunderRoad"
+      },
+      "customDataList": null,
+      "referenceID": "ApparelCivilianChest"
+    },
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateWorn, ThunderRoad"
+      },
+      "customDataList": null,
+      "referenceID": "ApparelCivilianHandL"
+    },
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateWorn, ThunderRoad"
+      },
+      "customDataList": null,
+      "referenceID": "ApparelCivilianHandR"
+    },
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateWorn, ThunderRoad"
+      },
+      "customDataList": null,
+      "referenceID": "ApparelCivilianLegs"
+    },
+    {
+      "$type": "ThunderRoad.ItemContent, ThunderRoad",
+      "quantity": 1,
+      "state": {
+        "$type": "ThunderRoad.ContentStateWorn, ThunderRoad"
+      },
+      "customDataList": null,
+      "referenceID": "ApparelCivilianBoots"
+    }
+  ],
+  "groupPath": "Player"
+}

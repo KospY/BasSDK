@@ -1,0 +1,120 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "GL_Std_xCastle&Cave_Source",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.GL_Std_xCastle&Cave_Source",
+  "lightingPresetAddress": "Bas.Area.GL_Std_xCastle&Cave_Source.LightingPreset",
+  "cullingAddress": "Bas.Area.GL_Std_xCastle&Cave_Source.CullData",
+  "Bounds": {
+    "center": {
+      "x": 19.4777451,
+      "y": 12.6979055,
+      "z": -9.625
+    },
+    "size": {
+      "x": 40.95549,
+      "y": 29.9700146,
+      "z": 46.25
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -1.0,
+        "y": -0.25,
+        "z": -1.25
+      },
+      "face": "Left",
+      "fakeViewAddress": "Bas.Area.GL_Std_xCastle&Cave_Source.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 17.0,
+        "y": 2.75,
+        "z": 13.5
+      },
+      "face": "Front",
+      "fakeViewAddress": "Bas.Area.GL_Std_xCastle&Cave_Source.FakeView.1"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 17.5,
+        "y": 0.75,
+        "z": -32.75
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.GL_Std_xCastle&Cave_Source.FakeView.2"
+    }
+  ],
+  "areaGlobalParameters": [
+    {
+      "$type": "ThunderRoad.AreaSunGlobalParameter, ThunderRoad",
+      "dirLightColor": {
+        "r": 1.0,
+        "g": 0.956862748,
+        "b": 0.8392157,
+        "a": 1.0
+      },
+      "dirLightIntensity": 5.0,
+      "dirLightIndirectMultiplier": 1.5,
+      "directionalLightLocalRotation": {
+        "x": -0.285161138,
+        "y": 0.6647582,
+        "z": -0.4249683,
+        "w": -0.5442257
+      },
+      "visibleFromGate": true
+    }
+  ],
+  "groupPath": "Outpost/Standard"
+}

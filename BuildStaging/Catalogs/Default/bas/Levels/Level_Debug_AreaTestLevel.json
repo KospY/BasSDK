@@ -1,0 +1,86 @@
+{
+  "$type": "ThunderRoad.LevelData, ThunderRoad",
+  "id": "Debug_AreaTestLevel",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 3,
+  "name": "Debug_AreaTestLevel",
+  "description": "New Area system\nBegin your first Dungeon adventure in the Greenlands; characterized by its ruined castle-like stone structures and cave systems. ",
+  "descriptionLocalizationId": "OutpostDescription",
+  "sceneAddress": "Level.Areas",
+  "showOnlyDevMode": true,
+  "showInLevelSelection": true,
+  "worldmapPrefabAddress": "Bas.Image.Map.Debug",
+  "worldmapTextureAddress": "Bas.Worldmap.Eraden",
+  "worldmapLabel": null,
+  "worldMapTravelAudioContainerAddress": "Bas.AudioGroup.UI.LightClick",
+  "mapLocationIndex": 12,
+  "showOnMap": true,
+  "hideOnAndroid": false,
+  "mapLocationIconAddress": "Bas.Icon.Location.Dungeon",
+  "mapLocationIconHoverAddress": "Bas.Icon.Location.DungeonHover",
+  "mapPreviewImageAddress": "Bas.Image.Preview.Outpost",
+  "modes": [
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "Sandbox",
+      "displayName": "Sandbox",
+      "description": "DungeonSandboxDescription",
+      "allowGameModes": [
+        "Sandbox"
+      ],
+      "mapOrder": 0,
+      "playerDeathAction": "AskReload",
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleMusic, ThunderRoad",
+          "dynamicMusic": "MusicDungeon"
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        },
+        {
+          "$type": "ThunderRoad.LevelTestAreaModule, ThunderRoad"
+        }
+      ],
+      "availableOptions": [
+        {
+          "$type": "ThunderRoad.Option, ThunderRoad",
+          "minValue": 0,
+          "maxValue": 3,
+          "defaultValue": 0,
+          "stepValue": 1,
+          "name": "Difficulty",
+          "displayName": "Number of NPC",
+          "description": "Number of NPC (1 star is 0 NPC)"
+        },
+        {
+          "$type": "ThunderRoad.Option, ThunderRoad",
+          "minValue": 0,
+          "maxValue": 1,
+          "defaultValue": 1,
+          "stepValue": 1,
+          "name": "DungeonLength",
+          "displayName": "Connected",
+          "description": "Connect area to each connection"
+        },
+        {
+          "$type": "ThunderRoad.Option, ThunderRoad",
+          "minValue": 0,
+          "maxValue": 0,
+          "defaultValue": 0,
+          "stepValue": 1,
+          "name": "DungeonRoom",
+          "displayName": "Area Id",
+          "description": "Area to spawn"
+        }
+      ]
+    }
+  ],
+  "modePickCountPerRank": 2,
+  "customCameras": [],
+  "throwableRefType": "Item",
+  "improvisedThrowableID": null,
+  "groupPath": "Debug"
+}

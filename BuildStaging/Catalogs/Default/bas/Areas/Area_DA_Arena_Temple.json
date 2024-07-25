@@ -1,0 +1,129 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "DA_Arena_Temple",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.DA_Arena_Temple",
+  "lightingPresetAddress": "Bas.Area.DA_Arena_Temple.LightingPreset",
+  "cullingAddress": "Bas.Area.DA_Arena_Temple.CullData",
+  "Bounds": {
+    "center": {
+      "x": 2.78499985,
+      "y": 11.0065441,
+      "z": -46.75
+    },
+    "size": {
+      "x": 104.13,
+      "y": 70.49659,
+      "z": 111.5
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -9.0,
+        "y": -0.4999714,
+        "z": 9.000004
+      },
+      "face": "Front",
+      "fakeViewAddress": "Bas.Area.DA_Arena_Temple.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 54.85,
+        "y": -7.0,
+        "z": -78.5
+      },
+      "face": "Right",
+      "fakeViewAddress": "Bas.Area.DA_Arena_Temple.FakeView.1"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -12.0,
+        "y": 30.0,
+        "z": -102.5
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.DA_Arena_Temple.FakeView.2"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -49.28,
+        "y": -0.5,
+        "z": -78.65
+      },
+      "face": "Left",
+      "fakeViewAddress": "Bas.Area.DA_Arena_Temple.FakeView.3"
+    }
+  ],
+  "areaGlobalParameters": [],
+  "groupPath": "Dalgarian/Arena"
+}

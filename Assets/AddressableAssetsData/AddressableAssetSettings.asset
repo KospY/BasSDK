@@ -1,0 +1,295 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468a46d0ae32c3544b7d98094e6448a9, type: 3}
+  m_Name: AddressableAssetSettings
+  m_EditorClassIdentifier: 
+  m_DefaultGroup: de43681218a0fc2409e418a9cf3027e3
+  m_currentHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_OptimizeCatalogSize: 0
+  m_BuildRemoteCatalog: 1
+  m_BundleLocalCatalog: 0
+  m_CatalogRequestsTimeout: 0
+  m_DisableCatalogUpdateOnStart: 0
+  m_IgnoreUnsupportedFilesInBuild: 0
+  m_UniqueBundleIds: 0
+  m_NonRecursiveBuilding: 1
+  m_CCDEnabled: 0
+  m_maxConcurrentWebRequests: 500
+  m_ContiguousBundles: 1
+  m_StripUnityVersionFromBundleBuild: 1
+  m_DisableVisibleSubAssetRepresentations: 0
+  m_ShaderBundleNaming: 2
+  m_ShaderBundleCustomNaming: Proto
+  m_MonoScriptBundleNaming: 0
+  m_CheckForContentUpdateRestrictionsOption: 0
+  m_MonoScriptBundleCustomNaming: 
+  m_RemoteCatalogBuildPath:
+    m_Id: ce15733c007f6d84a9cd434894e23ab1
+  m_RemoteCatalogLoadPath:
+    m_Id: f0d6e0cdd8192a84f819089abb779b64
+  m_ContentStateBuildPathProfileVariableName: <default settings path>
+  m_CustomContentStateBuildPath: 
+  m_ContentStateBuildPath: 
+  m_BuildAddressablesWithPlayerBuild: 2
+  m_overridePlayerVersion: Proto
+  m_GroupAssets:
+  - {fileID: 11400000, guid: fbe88945f5fd22549a3b2283780ee7c2, type: 2}
+  - {fileID: 11400000, guid: cfc7bd780798872419ab40cac555580b, type: 2}
+  - {fileID: 11400000, guid: 7b5cd7845295efe449821e24b3a47891, type: 2}
+  - {fileID: 11400000, guid: dada93e4e3a09ef4ba4a1759a0d8f911, type: 2}
+  - {fileID: 11400000, guid: 256939aa0931a9f448e8a6a0765902d7, type: 2}
+  - {fileID: 11400000, guid: 9f937fc8a19b3ae429f92c02db43898a, type: 2}
+  - {fileID: 11400000, guid: 6c00cdf8a2c6afb419ce6148fbb245c0, type: 2}
+  - {fileID: 11400000, guid: 8056bd77f330a8348bb12d7cb956bea0, type: 2}
+  m_BuildSettings:
+    m_CompileScriptsInVirtualMode: 0
+    m_CleanupStreamingAssetsAfterBuilds: 1
+    m_LogResourceManagerExceptions: 1
+    m_BundleBuildPath: Temp/com.unity.addressables/AssetBundles
+  m_ProfileSettings:
+    m_Profiles:
+    - m_InheritedParent: 
+      m_Id: beb5d4ddf477d9144afd1a99cbaaca60
+      m_ProfileName: Default
+      m_Values:
+      - m_Id: ce15733c007f6d84a9cd434894e23ab1
+        m_Value: '[ThunderRoad.AssetBundleBuilder.assetsLocalPath]'
+      - m_Id: f0d6e0cdd8192a84f819089abb779b64
+        m_Value: '{ThunderRoad.FileManager.aaDefaultPath}'
+      - m_Id: d8fad135d0762f943a80ca7860c8e9fc
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]'
+      - m_Id: 3868748ffde3b334bbd8b7acf4ed429e
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}'
+      - m_Id: ebabd56f856c87f47810de635632fa27
+        m_Value: '{ThunderRoad.FileManager.aaModPath}/Proto'
+    m_ProfileEntryNames:
+    - m_Id: ce15733c007f6d84a9cd434894e23ab1
+      m_Name: DefaultBuildPath
+      m_InlineUsage: 0
+    - m_Id: f0d6e0cdd8192a84f819089abb779b64
+      m_Name: DefaultLoadPath
+      m_InlineUsage: 0
+    - m_Id: d8fad135d0762f943a80ca7860c8e9fc
+      m_Name: RuntimeBuildPath
+      m_InlineUsage: 0
+    - m_Id: 3868748ffde3b334bbd8b7acf4ed429e
+      m_Name: RuntimeLoadPath
+      m_InlineUsage: 0
+    - m_Id: ebabd56f856c87f47810de635632fa27
+      m_Name: ModLoadPath
+      m_InlineUsage: 0
+    m_ProfileVersion: 1
+  m_LabelTable:
+    m_LabelNames:
+    - Room
+    - Windows
+    - Android
+    - Area
+    - Soldier
+    - Mercenary
+    - Gladiator
+    - Civilian
+    - Battlemage
+    - Bandit
+    - Druid
+    - ImprovisedLeather
+    - ImprovisedMage
+    - ImprovisedArmor
+    - WarMage
+    - Rogue
+    - Human
+    - Shopkeeper
+    - Officer
+    - Eradian
+    - Kharese
+    - Sentari
+    - Raike
+    - Madene
+    - Chicken
+    - Hat
+    - Apparel
+    - Props1
+    - Props2
+    - Apple
+    - Tools_01
+    - SP00-01
+    - PotionHealth
+    - SimpleAtlas
+    - ComplexAtlas
+    - HorizontalAtlas
+    - TransparantAtlas
+    - Rope
+    - WoodenPicFence
+    - Books
+    - Table
+    - WoodLog
+    - Pottery
+    - Bone
+    - Bench
+    - Cart
+    - DoorHome
+    - Crate
+    - Barrel
+    - Board
+    - Chandelier
+    - Lever
+    - Anvil
+    - Colonne
+    - Wheelbarrow
+    - VFX
+    - Map
+    - Altar
+    - Stone
+    - Crystal
+    - GL_XSTransi_xC&C_ForgottenEntrance
+    - GL_Arena_Castle_Library
+    - GL_Arena_Ext_WaterMill
+    - GL_Arena_xC&C_Chapel
+    - GL_End_Arena_Outpost
+    - GL_End_Arena_Watchtower
+    - GL_End_Cave_TheLostCove
+    - GL_Start_Lighthouse
+    - GL_Std_C&C_ElevatedStairs
+    - GL_Std_C&C_FallenCorridor
+    - GL_Std_Castle_Ascent
+    - GL_Std_Castle_CliffTerrace
+    - GL_Std_Castle_Courtyard
+    - GL_Std_Castle_KingCorridor
+    - GL_Std_Castle_SewerGate
+    - GL_Std_Castle_SmallGarden
+    - GL_Std_Castle_ViaductZipline
+    - GL_Std_Int_CollapsedCeiling
+    - GL_Std_xCastle&Cave_Source
+    - GL_Transi_C&C_RavineZipline
+    - GL_Transi_Castle_Barracks
+    - GL_Transi_Castle_BelowTheBridge
+    - GL_Transi_Castle_Chasm
+    - GL_Transi_Castle_ClimbingChasm
+    - GL_Transi_Castle_Courtyard
+    - GL_Transi_Castle_Hallway01
+    - GL_Transi_Castle_RopeTraverse
+    - GL_Transi_Castle_Sewer1
+    - GL_Transi_Castle_SewerMaintenance
+    - GL_Transi_Castle_SewerRerout
+    - GL_Transi_Castle_StorageHallway
+    - GL_Transi_Castle_TwoFloorsCorridor
+    - GL_Transi_Cave_AbandonedSewers
+    - GL_Transi_Cave_Mine
+    - GL_Transi_Cave_Streamline
+    - GL_Transi_Cave_Underground
+    - GL_Transi_Cave_UndergroundParkour
+    - GL_Transi_Cave_UndergroundZipline
+    - GL_Transi_Ext_TowerSite
+    - GL_Transi_xC&C_03
+    - GL_Transi_xC&C_08
+    - GL_Transi_xC&C_RockyWell
+    - GL_Transi_xGrass&Cave_Granary
+    - GL_XSTransi_Castle_01
+    - GL_XSTransi_Castle_02
+    - GL_XSTransi_Castle_03
+    - GL_XSTransi_Castle_04
+    - GL_XSTransi_Castle_05
+    - GL_XSTransi_Castle_06
+    - GL_XSTransi_Castle_08
+    - GL_XSTransi_Castle_09
+    - GL_XSTransi_Castle_10
+    - GL_XSTransi_Castle_11
+    - GL_XSTransi_Castle_13
+    - GL_XSTransi_Castle_14
+    - GL_XSTransi_Castle_15
+    - GL_XSTransi_Castle_16
+    - GL_XSTransi_Castle_17
+    - GL_XSTransi_Castle_18
+    - GL_XSTransi_Castle_19
+    - GL_XSTransi_Castle_20
+    - GL_XSTransi_Castle_21
+    - GL_XSTransi_Castle_22
+    - GL_XSTransi_Castle_23
+    - GL_XSTransi_Castle_Underwater1
+    - GL_XSTransi_Cave_10
+    - GL_XSTransi_Cave_11
+    - GL_XSTransi_Cave_12
+    - GL_Std_Castle_CollapsedCeiling
+    - LightingTest_Room
+    - DA_Parkour_CrackedRoom
+    - DA_Std_CaveTerrace
+    - DA_Std_CollapsedCliff
+    - DA_Transi_BrokenDoor
+    - DA_XSTransi_UrbanChasm
+    - DA_XSTransi_UrbanStreets2
+    - DA_Start_DalgarianGate
+    - DA_Parkour_BrokenBridge
+    - DA_Parkour_MiningHub
+    - DA_XSTransi_MetalStorage1
+    - DA_XSTransi_MetalStorage2
+    - DA_XSTransi_Underpass
+    - DA_XSTransi_WaterCisturn
+    - DA_Parkour_Drainage
+    - DA_Std_Museum
+    - DA_Std_Senate
+    - DA_Transi_Theater
+    - DA_XSTransi_Beastiary
+    - DA_XSTransi_Corridor1
+    - DA_XSTransi_GatheringHall
+    - GL_Transi_SewerMaintenance
+    - Dalgarian
+    - Greenland
+    - DA_Arena_Forge
+    - DA_Arena_TownSquare
+    - DA_End_GolemArena
+    - DA_Std_Refinary
+    - DA_Arena_Temple
+    - DA_Transi_CollapsedCliff
+    - DA_Std_UndergroundLake
+    - DA_Std_UrbanStreets
+    - DA_XSTransi_UrbanTunnel
+    - DA_Parkour_MiningShaft
+    - DA_Transi_Cave1
+    - DA_Transi_Underpass
+    - DA_Parkour_MonumentalWaterfall
+    - DA_Parkour_RoundtableOfLords
+    - DA_XSTransi_GreatGarden
+    - DA_XSTransi_Observatory
+    - GL_Start_CoastalFort
+    - IngotsAndCoins
+    - DA_XSTransi_RoundtableOfLords
+    - Shield
+    - Notes
+    - Chalice
+    - Pendant
+    - Statuette
+    - LootDalg2
+    - LootDalg1
+    - Arrow
+    - Throwables
+  m_SchemaTemplates: []
+  m_GroupTemplateObjects:
+  - {fileID: 11400000, guid: b2091e8321e676b4eb1c72cfbde3dec2, type: 2}
+  m_InitializationObjects: []
+  m_CertificateHandlerType:
+    m_AssemblyName: 
+    m_ClassName: 
+  m_ActivePlayerDataBuilderIndex: 3
+  m_DataBuilders:
+  - {fileID: 11400000, guid: b19550bd55f325f44bda043e62247d38, type: 2}
+  - {fileID: 11400000, guid: ca313cc5305c38748bf80f9c13840cc4, type: 2}
+  - {fileID: 11400000, guid: d722b5f3530ca794e974ca88a2b591eb, type: 2}
+  - {fileID: 11400000, guid: b431520692249114aa9a84243ea9ce38, type: 2}
+  m_ActiveProfileId: beb5d4ddf477d9144afd1a99cbaaca60
+  m_HostingServicesManager:
+    m_HostingServiceInfos: []
+    m_Settings: {fileID: 11400000}
+    m_NextInstanceId: 0
+    m_RegisteredServiceTypeRefs: []
+    m_PingTimeoutInMilliseconds: 5000

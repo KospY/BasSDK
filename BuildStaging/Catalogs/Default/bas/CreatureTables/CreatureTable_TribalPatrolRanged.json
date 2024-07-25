@@ -1,0 +1,40 @@
+{
+  "$type": "ThunderRoad.CreatureTable, ThunderRoad",
+  "id": "TribalPatrolRanged",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "description": "",
+  "linkedToGenderRatio": false,
+  "drops": [
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Tribal_Base_RangedWeak",
+      "overrideFaction": false,
+      "factionID": 7,
+      "overrideContainer": false,
+      "overrideContainerID": "TribalWarrior",
+      "overrideBrain": false,
+      "overrideBrainID": "HumanMedium",
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 2
+    },
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Tribal_Base_RangedStrong",
+      "overrideFaction": false,
+      "factionID": 7,
+      "overrideContainer": false,
+      "overrideContainerID": "TribalRaider",
+      "overrideBrain": false,
+      "overrideBrainID": "HumanMedium",
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 2
+    }
+  ],
+  "groupPath": "Factions/Dungeon"
+}

@@ -1,0 +1,35 @@
+{
+  "$type": "ThunderRoad.SkillTreeData, ThunderRoad",
+  "id": "Fire",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "localizationGroupID": "Skills",
+  "displayName": "{Fire}",
+  "description": "{FirePathDescription}",
+  "maxTier": 3,
+  "showInInfuser": true,
+  "color": {
+    "r": 1.0,
+    "g": 0.471974254,
+    "b": 0.0,
+    "a": 1.0
+  },
+  "emissionColor": {
+    "r": 5.992157,
+    "g": 1.03529418,
+    "b": 0.0,
+    "a": 1.0
+  },
+  "orbPitch": 0.8,
+  "costMultiplier": 1.0,
+  "crystalItemId": "CrystalFireT1",
+  "orbIconAddress": "Bas.Ui.SkillTree.Icons[Fire]",
+  "infuserTopParticleAddress": "Bas.Particle.Infuser.Fire",
+  "infuserBeamAudioAddress": "Bas.AudioClip.Infuser.Beam.Fire",
+  "musicAddress": "Bas.AudioClip.SkillTree.Music.Fire",
+  "videoAddress": "Bas.Video.Infuser.Fire",
+  "iconEnabledAddress": "Bas.Ui.SkillTree.Icons[Fire_ButtonColor]",
+  "iconDisabledAddress": "Bas.Ui.SkillTree.Icons[Fire_Button]",
+  "groupPath": null
+}

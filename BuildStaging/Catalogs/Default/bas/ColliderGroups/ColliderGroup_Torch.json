@@ -1,0 +1,36 @@
+{
+  "$type": "ThunderRoad.ColliderGroupData, ThunderRoad",
+  "id": "Torch",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "collisionHandling": "ByGroup",
+  "allowPenetration": false,
+  "modifiers": [
+    {
+      "$type": "ThunderRoad.ColliderGroupData+Modifier, ThunderRoad",
+      "tierFilter": "Tier0, Tier1, Tier2, Tier3, Tier4, Tier5, Tier6",
+      "imbueType": "Custom",
+      "imbueMax": 50.0,
+      "imbueRate": 1.0,
+      "imbueConstantLoss": -10.0,
+      "staffSlamLoss": 90.0,
+      "imbueHitLoss": 5.0,
+      "imbueVelocityLossPerSecond": 0.0,
+      "imbueEffectiveness": 1.0,
+      "waterLossRateMultiplier": 1000.0,
+      "deflectMaxAngleCollision": 0.0,
+      "deflectMaxAngleTarget": 0.0,
+      "deflectSpeedMultiplier": 2.0,
+      "deflectSpreadHeight": 1.0,
+      "deflectSpreadWidth": 1.0,
+      "spellFilterLogic": "AnyExcept",
+      "spellIds": []
+    }
+  ],
+  "ignoredImbueEffectModules": null,
+  "customSpellEffects": false,
+  "customSpellEffectIDs": null,
+  "customSpellEffectData": null,
+  "groupPath": null
+}

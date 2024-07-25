@@ -1,0 +1,26 @@
+{
+  "$type": "ThunderRoad.CreatureTable, ThunderRoad",
+  "id": "SoldierRareRanged",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "description": "",
+  "linkedToGenderRatio": false,
+  "drops": [
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Soldier_Base_RangedStrong",
+      "overrideFaction": false,
+      "factionID": 8,
+      "overrideContainer": false,
+      "overrideContainerID": "SoldierBowman",
+      "overrideBrain": false,
+      "overrideBrainID": "HumanMedium",
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 1
+    }
+  ],
+  "groupPath": "Factions/Dungeon"
+}

@@ -1,0 +1,145 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Shaders
+  m_EditorClassIdentifier: 
+  m_GroupName: Shaders
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 6237709eb85317c489c81cd5ed115742
+  m_SerializeEntries:
+  - m_GUID: f9635d0df331a5b4793ebbcac6811d1d
+    m_Address: Shader.Custom.AlwaysVisibleTexture
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Windows
+    - Android
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eb579d3ad5006914ba3c93c831ddc4bd
+    m_Address: Shader.Custom.SuperSampleUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Windows
+    - Android
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 650dd9526735d5b46b79224bc6e94025
+    m_Address: Shader.Urp.Unlit
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Windows
+    - Android
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e7857e9d0c934dc4f83f270f8447b006
+    m_Address: Shader.Urp.UberPost
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Windows
+    - Android
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0406db5a14f94604a8c57ccfbc9f3b46
+    m_Address: Shader.Urp.Particles.Unlit
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Windows
+    - Android
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8516d7a69675844a7a0b7095af7c46af
+    m_Address: Shader.Urp.Particles.SimpleLit
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Windows
+    - Android
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b7839dad95683814aa64166edc107ae2
+    m_Address: Shader.Urp.Particles.Lit
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Windows
+    - Android
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe393ace9b354375a9cb14cdbbc28be4
+    m_Address: TMP_SDF-Mobile
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Windows
+    - Android
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 14eb328de4b8eb245bb7cea29e4ac00b
+    m_Address: TMP_SDF SSD
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Windows
+    - Android
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 36e335017ad71d54fbb10842863188ae
+    m_Address: Shader.FallbackShader
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Windows
+    - Android
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e6e9a19c3678ded42a3bc431ebef7dbd
+    m_Address: Shader.FallbackError
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Windows
+    - Android
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0634eff38bf7f81469db9f8843c3c4bc
+    m_Address: Shader.ASshader.Shoreline
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Windows
+    - Android
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f2ccc783dd448614ebfe96a78331e1de
+    m_Address: Shader.ASshader.LitMoss
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Windows
+    - Android
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 85223a223cda538449b409e75850e586
+    m_Address: Shader.ASshader.SkySorcery
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Windows
+    - Android
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 82a5a921ef7fcdc46a3e77926311c8a6
+    m_Address: Shader.ASshader.SkyboxProceduralCustom
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Windows
+    - Android
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bad63f306d09bd342b144e1bfb9b2a8d
+    m_Address: Shader.ASshader.Foliage
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Windows
+    - Android
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cdb6b8b9cb7e18a4da22d21affb2675a
+    m_Address: Shader.ASshader.River
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Windows
+    - Android
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: b14c4d9d8b63f3247be008fe8b53d3ae, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 5aa53f2901447bd469f46725a437354f, type: 2}
+    - {fileID: 11400000, guid: e0bac7c07c4868c448ca92efd2c64f44, type: 2}
+    - {fileID: 11400000, guid: ad0d2329e4af7f64db0ff9d9262d196b, type: 2}

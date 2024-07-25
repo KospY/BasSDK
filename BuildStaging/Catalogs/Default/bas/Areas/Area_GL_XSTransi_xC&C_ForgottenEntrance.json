@@ -1,0 +1,73 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "GL_XSTransi_xC&C_ForgottenEntrance",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.GL_XSTransi_xC&C_ForgottenEntrance",
+  "lightingPresetAddress": "Bas.Area.GL_XSTransi_xC&C_ForgottenEntrance.LightingPreset",
+  "cullingAddress": "Bas.Area.GL_XSTransi_xC&C_ForgottenEntrance.CullData",
+  "Bounds": {
+    "center": {
+      "x": -0.7743397,
+      "y": 0.357317924,
+      "z": -8.127975
+    },
+    "size": {
+      "x": 14.4513206,
+      "y": 15.2861652,
+      "z": 17.74405
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -8.0,
+        "y": -6.25,
+        "z": -8.0
+      },
+      "face": "Left",
+      "fakeViewAddress": "Bas.Area.GL_XSTransi_xC&C_ForgottenEntrance.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -17.0
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.GL_XSTransi_xC&C_ForgottenEntrance.FakeView.1"
+    }
+  ],
+  "areaGlobalParameters": [],
+  "groupPath": "Outpost/XSTransi"
+}

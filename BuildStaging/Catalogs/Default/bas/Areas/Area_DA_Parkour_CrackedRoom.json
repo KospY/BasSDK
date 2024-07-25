@@ -1,0 +1,81 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "DA_Parkour_CrackedRoom",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.DA_Parkour_CrackedRoom",
+  "lightingPresetAddress": "Bas.Area.DA_Parkour_CrackedRoom.LightingPreset",
+  "cullingAddress": "Bas.Area.DA_Parkour_CrackedRoom.CullData",
+  "Bounds": {
+    "center": {
+      "x": -20.8500023,
+      "y": 3.28684616,
+      "z": 3.51242065
+    },
+    "size": {
+      "x": 72.6,
+      "y": 109.033882,
+      "z": 65.73154
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 15.45,
+        "y": 0.149999976,
+        "z": -1.33
+      },
+      "face": "Right",
+      "fakeViewAddress": "Bas.Area.DA_Parkour_CrackedRoom.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -57.15,
+        "y": -5.105,
+        "z": -0.4
+      },
+      "face": "Left",
+      "fakeViewAddress": "Bas.Area.DA_Parkour_CrackedRoom.FakeView.1"
+    }
+  ],
+  "areaGlobalParameters": [],
+  "groupPath": "Dalgarian/Parkour"
+}

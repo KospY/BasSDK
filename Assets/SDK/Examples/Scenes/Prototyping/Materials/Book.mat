@@ -1,0 +1,388 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Book
+  m_Shader: {fileID: -6465566751694194690, guid: f2ccc783dd448614ebfe96a78331e1de,
+    type: 3}
+  m_ValidKeywords:
+  - _CAUSTICSENABLE_ON
+  m_InvalidKeywords:
+  - LAYER_MAX3
+  - MODED_MOSS
+  - TEXTURE_MAX8
+  - _SIMPLESTOCHASTIC
+  - _USECAUSTICEXTRASAMPLER_ON
+  - _USECAUSTICRAINBOW_ON
+  - _USECAUSTICSFROMABOVE_ON
+  - _USEDETAILMASK_ON
+  - _USEGRADIENTFOG_ON
+  - _USEMOSSDIRECTION_ON
+  - _USENORMALMAP_ON
+  - _USEOCCLUSION_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap:
+    RenderType: Opaque
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Billboard:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ColorMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMapPacked:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DiffuseArray:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 2800000, guid: a196fd6788131ec459bfb26012466fc1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ExtraArray:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer0NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer1NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MossMetalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MossPacked:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MossSlopeNormal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalArray:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ProbeVolumeOcc:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ProbeVolumeShB:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ProbeVolumeShG:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ProbeVolumeShR:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RevealMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - HeaderColorMask: 0
+    - HeaderDebug: 0
+    - HeaderDetailMaps: 0
+    - HeaderDetailMapsSpace: 0
+    - HeaderFresnel: 0
+    - HeaderFresnel1: 0
+    - HeaderGeneral: 0
+    - HeaderMetallic: 0
+    - HeaderMetallic1: 0
+    - HeaderMetallic2: 0
+    - HeaderMetallic3: 0
+    - HeaderMetallic4: 0
+    - HeaderMetallic5: 0
+    - HeaderMetallic6: 0
+    - HeaderMetallic7: 0
+    - HeaderMetallic8: 0
+    - HeaderMisc: 0
+    - HeaderMoss: 0
+    - HeaderMossMasks: 0
+    - HeaderMossSlope: 0
+    - HeaderOceanFog: 0
+    - HeaderSSS: 0
+    - HeaderSplat: 0
+    - HeaderSubMossAlbedo: 0
+    - HeaderSubNormal: 0
+    - HeaderSubStochastic: 0
+    - HeaderTransparency: 0
+    - HeaderVertexOcclusion: 0
+    - LAYER: 2
+    - LabelWarn: 0
+    - LabelWarn3: 0
+    - LabelWarning2: 0
+    - Label_UseMossMaskWithAlpha1: 0
+    - Label_UseMossMaskWithAlpha2: 0
+    - MODED: 0
+    - TEXTURE: 1
+    - WarningTexMissing: 0
+    - _ALPHAMODE: 0
+    - _AUTONORMAL: 0
+    - _AlphaClip: 0
+    - _AlphaClipThreshold: 0.5
+    - _AlphaCutoff: 0.5
+    - _AlphaTestRef: 0.5
+    - _Anisotrophy: 0
+    - _ArrayLengthUsed: 16
+    - _Bitmask: 0
+    - _Blend: 0
+    - _BlendMode_UseColorMask: 0
+    - _BumpScale: 1
+    - _CausticsEnable: 1
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
+    - _Cull: 2
+    - _Cullmode: 2
+    - _Cutoff: 0.5
+    - _DETAIL: 0
+    - _DRAWERMinMax_MossDetailRemapx_MossDetailRemapyRange_MOSS_UseMossDetails: 0
+    - _DRAWERMinMax_MossDetailRemapz_MossDetailRemapwClamp_MOSS_UseMossDetails: 0
+    - _DRAWERMinMax_MossSlopeMM: 0
+    - _DRAWERPacked_MossNoiseNoise_RemapRMode_Negative_MossNoiseMM_MOSS_UseMossNoise: 0
+    - _DebugCounter: 0
+    - _DebugScale: 4
+    - _DebugVisual: 0
+    - _DebugVisuals: 0
+    - _DetailAlbedoMapScale: 1
+    - _DetailNormalMapScale: 1
+    - _DetailNormalMapScale1: 0.3
+    - _DetailsOverMoss: -1
+    - _Dither: 0
+    - _DstBlend: 0
+    - _EmissionScaleUI: 2
+    - _EnvironmentReflections: 1
+    - _Glitter: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.1
+    - _GlossyReflections: 1
+    - _Int0: 0
+    - _Layer0Metallic: 0
+    - _Layer0NormalStrength: 1
+    - _Layer0Red_UseReveal: 0
+    - _Layer0Smoothness: 0.5
+    - _Layer1Green_UseReveal: 0
+    - _Layer1Metallic: 0
+    - _Layer1NormalStrength: 1
+    - _Layer1Smoothness: 0.5
+    - _Layer2Blue_UseReveal: 0
+    - _Layer2Height: -1
+    - _Layer3Alpha_UseReveal: 0
+    - _Lightmapping: 1
+    - _MODE: 0
+    - _MapContrast: 0.5
+    - _MapContrastOffset: 0.5
+    - _MetalUV: 0
+    - _Metallic: 0.1
+    - _MetallicSpecGlossMap: 0
+    - _Mode: 0
+    - _Moss: 0
+    - _MossBase: 0.5
+    - _MossDetailNormalMapScale: -2
+    - _MossDetailRemapping_MOSS_UseMossDetails: 0
+    - _MossDirContrast: 0.9
+    - _MossLevel: 0.1500682
+    - _MossMetalMode: 0
+    - _MossMetallic: 0
+    - _MossMode: 0
+    - _MossMultAlbedo: 0
+    - _MossNormalAffectStrength: 1
+    - _MossNormalContrast: 0.5
+    - _MossNormalStrength: 0
+    - _MossNormalStrength2: 0
+    - _MossNormalSubtract: 0.5
+    - _MossScale: 1
+    - _MossSlopeDistort: 1
+    - _MossSlopeNormRotate: 0
+    - _MossSmoothness: 0
+    - _MossUV: 0
+    - _NormalMossMask_MOSS_UseNormalMap: -1
+    - _NormalStrength: 1
+    - _NormalStrength_USE_SSS: 0.5
+    - _Occlusion: 1
+    - _OcclusionMossMask: -1
+    - _OcclusionStrength: 1
+    - _PRVOL: 0
+    - _Parallax: 0.02
+    - _QueueControl: -1
+    - _QueueOffset: 0
+    - _REFLECTIONBILLBOARDSTOCHASTIC: 0
+    - _ReceiveShadows: 1
+    - _ReflectionBillboardsHeader: 0
+    - _Remappers: 1
+    - _RevealLayers: 0
+    - _SIMPLESTOCHASTIC: 1
+    - _SSSDimAlbedo: 0.5
+    - _SSSRadius: 0.8
+    - _SSScattering: 0.2
+    - _SSShadcowMix: 1
+    - _ShadowThreshold: 0.5
+    - _SimLighting: 0
+    - _Smoothness: 0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _StochasticCount: 1
+    - _Surface: 0
+    - _USE_SSS: 0
+    - _UVSec: 0
+    - _UseCausticExtraSampler: 1
+    - _UseCausticRainbow: 1
+    - _UseCausticsFromAbove: 1
+    - _UseColorMask: 0
+    - _UseDetailMask: 1
+    - _UseEmission: 0
+    - _UseGradientFog: 1
+    - _UseMossDirection: 1
+    - _UseMossFresnel: 0
+    - _UseMossMaskWithAlpha: 0
+    - _UseMossMetalMap: 0
+    - _UseMossNoise: 0
+    - _UseMossSlopeDistort: 0
+    - _UseMossVertexMask: 0
+    - _UseNormalMap: 1
+    - _UseOcclusion: 1
+    - _UseProbeVolume: 0
+    - _UseReveal: 0
+    - _UseSplat: 0
+    - _UseStochasticMoss: 0
+    - _UseVertexOcclusion: 0
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    m_Colors:
+    - _BaseColor: {r: 0.8156863, g: 0.5803921, b: 0.46666658, a: 1}
+    - _Color: {r: 0.8156863, g: 0.5803921, b: 0.46666652, a: 1}
+    - _DRAWERVectorSlider_MossFresnelFirstSliderSecondSliderThirdSlider_MOSS_UseMossFresnel: {r: 0,
+        g: 0, b: 0, a: 0}
+    - _DetailMapScale: {r: 1, g: 1, b: 0, a: 0}
+    - _DetailMaskRemap: {r: 0, g: 1, b: 0, a: 1}
+    - _DetailSmoothnessRemap: {r: 0, g: 1, b: -1, a: 1}
+    - _EmissionColor: {r: 1.4980392, g: 1.4980392, b: 1.4980392, a: 1.3348337}
+    - _EmissionColorUI: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColorWithMapUI: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionRemap: {r: 0, g: 1, b: 0, a: 1}
+    - _Layer3EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _LayerSurfaceExp: {r: 1, g: 1, b: 1, a: 1}
+    - _MetallicRemap: {r: 0, g: 1, b: 0, a: 1}
+    - _MossAlbedoRemap: {r: 0, g: 1, b: 0, a: 1}
+    - _MossAlphaMaskMM: {r: 0, g: 1, b: 0, a: 1}
+    - _MossColor: {r: 1, g: 1, b: 1, a: 0}
+    - _MossDirection: {r: 0, g: 1, b: 0, a: 0}
+    - _MossFresnel: {r: 0, g: 1, b: 5, a: 0.5}
+    - _MossFresnelColor: {r: 1, g: 1, b: 1, a: 0}
+    - _MossSlopeMM: {r: 0, g: 1, b: 0, a: 1}
+    - _MossSmoothnessRemap: {r: 0, g: 1, b: 0, a: 1}
+    - _OcclusionRemap: {r: 0, g: 1, b: 0, a: 1}
+    - _ProbeVolumeMin: {r: 0, g: 0, b: 0, a: 0}
+    - _ProbeVolumeSizeInv: {r: 0, g: 0, b: 0, a: 0}
+    - _SSSColor: {r: 0.945098, g: 0.7137255, b: 0.6078432, a: 0}
+    - _SmoothnessRemap: {r: 0, g: 1, b: 0, a: 1}
+    - _SpecColor: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
+    - _SpecularColor: {r: 0.15686275, g: 0.15686275, b: 0.15686275, a: 1}
+    - _Tint0: {r: 1, g: 0.72183, b: 0, a: 1}
+    - _Tint1: {r: 0, g: 1, b: 0.26607487, a: 1}
+    - _Tint2: {r: 0, g: 0, b: 1, a: 1}
+    - _Tint3: {r: 1, g: 0, b: 0.40315866, a: 1}
+  m_BuildTextureStacks: []
+--- !u!114 &1859079289418582803
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5

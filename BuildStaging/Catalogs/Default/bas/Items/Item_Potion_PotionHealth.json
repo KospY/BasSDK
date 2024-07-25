@@ -1,0 +1,296 @@
+{
+  "$type": "ThunderRoad.ItemData, ThunderRoad",
+  "id": "PotionHealth",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 4,
+  "localizationId": "PotionHealth",
+  "displayName": "Health potion",
+  "description": "A wound-healing liquid concoction imbued with magic. Its healing properties are scarcely understood, but it is said that excessive ingestion can drive one mad.",
+  "author": "Racknam",
+  "valueType": "Gold",
+  "value": 123.0,
+  "rewardValue": 0.0,
+  "tier": 2,
+  "flags": "None",
+  "levelRequired": 0,
+  "category": "Consumables",
+  "iconEffectId": null,
+  "preferredItemCenter": "Mass",
+  "drainImbueWhenIdle": true,
+  "prefabAddress": "Bas.Item.Potion.Health",
+  "iconAddress": "Bas.Item.Potion.Health.Icon[PotionHealth]",
+  "closeUpIconAddress": null,
+  "pooledCount": 0,
+  "androidPooledCount": 0,
+  "type": "Potion",
+  "allowedStorage": "Inventory, Container, SandboxAllItems",
+  "despawnOnStoredInInventory": false,
+  "isStackable": false,
+  "consumableId": null,
+  "inventoryAudioContainerAddress": "Bas.AudioGroup.Inventory.Store.Potions",
+  "inventoryAudioVolume_dB": 0.0,
+  "slot": "Potion",
+  "snapAudioContainerAddress": "Bas.AudioGroup.Snap.Default",
+  "snapAudioVolume_dB": 0.0,
+  "overrideMassAndDrag": true,
+  "mass": 0.1,
+  "drag": 1.0,
+  "angularDrag": 0.05,
+  "focusRegenMultiplier": 1.0,
+  "spellChargeSpeedPlayerMultiplier": 1.0,
+  "spellChargeSpeedNPCMultiplier": 1.0,
+  "collisionMaxOverride": 0,
+  "collisionEnterOnly": false,
+  "collisionNoMinVelocityCheck": false,
+  "forceLayer": "None",
+  "diffForceLayerWhenHeld": false,
+  "forceLayerHeld": "None",
+  "waterHandSpringMultiplierCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 0.3,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 1.0,
+        "value": 0.15,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "waterDragMultiplierCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 1.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 1.0,
+        "value": 10.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "waterSampleMinRadius": 0.2,
+  "throwMultiplier": 1.0,
+  "runSpeedMultiplier": 1.0,
+  "flyRotationSpeed": 2.0,
+  "flyThrowAngle": 0.0,
+  "allowFlyBackwards": false,
+  "telekinesisSafeDistance": 0.5,
+  "telekinesisThrowRatio": 1.0,
+  "telekinesisAutoGrabAnyHandle": false,
+  "grippable": true,
+  "grabAndGripClimb": false,
+  "playerGrabAndGripChangeLayer": true,
+  "customSnaps": [],
+  "drainImbueOnSnap": true,
+  "imbueEnergyOverTimeOnSnap": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 1.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 3.0,
+        "value": 0.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "modules": [
+    {
+      "$type": "ThunderRoad.ItemModulePotion, ThunderRoad",
+      "id": null,
+      "sensitiveContent": "None",
+      "sensitiveFilterBehaviour": "Discard",
+      "version": 0,
+      "contents": [
+        {
+          "$type": "ThunderRoad.LiquidData+Content, ThunderRoad",
+          "liquidId": "PotionHealth",
+          "level": 8.0
+        }
+      ],
+      "maxLevel": 8.0,
+      "popCorkOnAltUse": true,
+      "corkPopForce": 0.3,
+      "corkPopForceMode": "Impulse",
+      "collisionLayer": 16385,
+      "healthIndicatorGradient": {
+        "$type": "UnityEngine.Gradient, UnityEngine.CoreModule",
+        "colorKeys": [
+          {
+            "$type": "UnityEngine.GradientColorKey, UnityEngine.CoreModule",
+            "color": {
+              "r": 0.8962264,
+              "g": 0.274283141,
+              "b": 0.190236762,
+              "a": 1.0
+            },
+            "time": 0.0
+          },
+          {
+            "$type": "UnityEngine.GradientColorKey, UnityEngine.CoreModule",
+            "color": {
+              "r": 2.980994,
+              "g": 1.0708425,
+              "b": 0.7452485,
+              "a": 1.0
+            },
+            "time": 0.997055
+          }
+        ],
+        "alphaKeys": [
+          {
+            "$type": "UnityEngine.GradientAlphaKey, UnityEngine.CoreModule",
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "$type": "UnityEngine.GradientAlphaKey, UnityEngine.CoreModule",
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": "Blend"
+      },
+      "levelIndicatorGradient": {
+        "$type": "UnityEngine.Gradient, UnityEngine.CoreModule",
+        "colorKeys": [
+          {
+            "$type": "UnityEngine.GradientColorKey, UnityEngine.CoreModule",
+            "color": {
+              "r": 0.291966468,
+              "g": 0.155660391,
+              "b": 1.0,
+              "a": 1.0
+            },
+            "time": 0.0
+          },
+          {
+            "$type": "UnityEngine.GradientColorKey, UnityEngine.CoreModule",
+            "color": {
+              "r": 1.3569051,
+              "g": 0.999786556,
+              "b": 3.163504,
+              "a": 1.0
+            },
+            "time": 1.0
+          }
+        ],
+        "alphaKeys": [
+          {
+            "$type": "UnityEngine.GradientAlphaKey, UnityEngine.CoreModule",
+            "alpha": 1.0,
+            "time": 0.0
+          },
+          {
+            "$type": "UnityEngine.GradientAlphaKey, UnityEngine.CoreModule",
+            "alpha": 1.0,
+            "time": 1.0
+          }
+        ],
+        "mode": "Blend"
+      },
+      "flowSpeed": 1.2,
+      "flowMinAngle": 70.0,
+      "flowMaxAngle": 100.0,
+      "effectFlowId": "PotionFlow",
+      "healthEffectId": "WristHealth",
+      "levelEffectId": "WristMana",
+      "groupPath": null
+    },
+    {
+      "$type": "ThunderRoad.ItemModuleStats, ThunderRoad",
+      "id": null,
+      "sensitiveContent": "None",
+      "sensitiveFilterBehaviour": "Discard",
+      "version": 0,
+      "stats": [
+        {
+          "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
+          "value": 5,
+          "name": "Healing"
+        }
+      ],
+      "groupPath": null
+    }
+  ],
+  "colliderGroups": [],
+  "damagers": [
+    {
+      "$type": "ThunderRoad.ItemData+Damager, ThunderRoad",
+      "transformName": "Blunt",
+      "damagerID": "HandleHeavy"
+    }
+  ],
+  "Interactables": [
+    {
+      "$type": "ThunderRoad.ItemData+Interactable, ThunderRoad",
+      "transformName": "Handle",
+      "interactableId": "ObjectHandleProp"
+    },
+    {
+      "$type": "ThunderRoad.ItemData+Interactable, ThunderRoad",
+      "transformName": "Handle2",
+      "interactableId": "ObjectHandleProp"
+    }
+  ],
+  "effectHinges": [],
+  "whooshs": [],
+  "entityModules": [],
+  "groupPath": null
+}

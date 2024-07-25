@@ -1,0 +1,100 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "GL_Transi_C&C_RavineZipline",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.GL_Transi_C&C_RavineZipline",
+  "lightingPresetAddress": "Bas.Area.GL_Transi_C&C_RavineZipline.LightingPreset",
+  "cullingAddress": "Bas.Area.GL_Transi_C&C_RavineZipline.CullData",
+  "Bounds": {
+    "center": {
+      "x": 6.93999863,
+      "y": 19.37379,
+      "z": 51.27047
+    },
+    "size": {
+      "x": 109.119995,
+      "y": 88.44014,
+      "z": 71.87767
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -47.62,
+        "y": 24.3500023,
+        "z": 44.23
+      },
+      "face": "Left",
+      "fakeViewAddress": "Bas.Area.GL_Transi_C&C_RavineZipline.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Cave"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 61.5,
+        "y": -7.47999954,
+        "z": 39.27
+      },
+      "face": "Right",
+      "fakeViewAddress": "Bas.Area.GL_Transi_C&C_RavineZipline.FakeView.1"
+    }
+  ],
+  "areaGlobalParameters": [
+    {
+      "$type": "ThunderRoad.AreaOceanGlobalParameter, ThunderRoad",
+      "visibleFromGate": false
+    },
+    {
+      "$type": "ThunderRoad.AreaSunGlobalParameter, ThunderRoad",
+      "dirLightColor": {
+        "r": 1.0,
+        "g": 0.956862748,
+        "b": 0.8392157,
+        "a": 1.0
+      },
+      "dirLightIntensity": 2.5,
+      "dirLightIndirectMultiplier": 2.0,
+      "directionalLightLocalRotation": {
+        "x": -0.476912141,
+        "y": 0.496211767,
+        "z": -0.6151816,
+        "w": -0.3845522
+      },
+      "visibleFromGate": true
+    }
+  ],
+  "groupPath": "Outpost/Transi"
+}

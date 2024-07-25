@@ -1,0 +1,53 @@
+{
+  "$type": "ThunderRoad.WaveData, ThunderRoad",
+  "id": "Training2",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 2,
+  "category": "1Combat Practice",
+  "localizationId": "Training2",
+  "title": "2Outnumbered",
+  "description": "Taking multiple opponents at once requires more awareness. Watch out for your back during combat.",
+  "loopBehavior": "NoLoop",
+  "totalMaxAlive": 3,
+  "alwaysAvailable": false,
+  "waveSelectors": [
+    "Arena",
+    "Ruins",
+    "Market",
+    "Canyon",
+    "Citadel"
+  ],
+  "factions": [
+    {
+      "$type": "ThunderRoad.WaveData+WaveFaction, ThunderRoad",
+      "factionID": 3,
+      "factionHealthMultiplier": 1.0,
+      "factionMaxAlive": 8
+    }
+  ],
+  "groups": [
+    {
+      "$type": "ThunderRoad.WaveData+Group, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Civilian",
+      "overrideFaction": true,
+      "factionID": 3,
+      "overrideContainer": true,
+      "overrideContainerID": "CivilianMelee",
+      "overrideBrain": true,
+      "overrideBrainID": "HumanEasy",
+      "overrideMaxMelee": false,
+      "overrideMaxMeleeCount": 2,
+      "groupHealthMultiplier": 1.0,
+      "minMaxCount": {
+        "x": 10,
+        "y": 10
+      },
+      "spawnPointIndex": -1,
+      "prereqGroupIndex": -1,
+      "prereqMaxRemainingAlive": 0
+    }
+  ],
+  "groupPath": "Sandbox"
+}

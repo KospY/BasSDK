@@ -1,0 +1,41 @@
+{
+  "$type": "ThunderRoad.Music, ThunderRoad",
+  "id": "MusicMainMenu",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "volumeDb": 0.0,
+  "groupsToLoad": [
+    "MainMenuIntro"
+  ],
+  "transitions": [
+    {
+      "$type": "ThunderRoad.Music+MusicTransition, ThunderRoad",
+      "sourceGroup": "",
+      "destinationGroup": "MainMenuIntro",
+      "musicGroup": "",
+      "timeBeforeTransition": 0,
+      "transitionType": "Immediate",
+      "timePreTransition": 0,
+      "preTransitionType": "Immediate",
+      "timeBeforeDestStart": 0,
+      "transitionDestStartType": "OnBar"
+    },
+    {
+      "$type": "ThunderRoad.Music+MusicTransition, ThunderRoad",
+      "sourceGroup": "MainMenuIntro",
+      "destinationGroup": "",
+      "musicGroup": "",
+      "timeBeforeTransition": 0,
+      "transitionType": "OnBeat",
+      "timePreTransition": 0,
+      "preTransitionType": "Immediate",
+      "timeBeforeDestStart": 0,
+      "transitionDestStartType": "OnBeat"
+    }
+  ],
+  "dynamicModules": {
+    "$type": "ThunderRoad.MusicDynamicModuleMap, ThunderRoad"
+  },
+  "groupPath": null
+}

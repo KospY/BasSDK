@@ -1,0 +1,1000 @@
+{
+  "$type": "ThunderRoad.GameData, ThunderRoad",
+  "overrideSaveCharacters": false,
+  "overrideSaveOptions": false,
+  "disableCharacterCustomization": false,
+  "disableCharacterDeletion": false,
+  "showControlPanelOnStart": false,
+  "fullscreen": false,
+  "screenWidth": 1920,
+  "screenHeight": 1080,
+  "dungeonStaticBatching": true,
+  "defaultPlayerMaleCreatureID": "PlayerDefaultMale",
+  "defaultPlayerFemaleCreatureID": "PlayerDefaultFemale",
+  "skipIntro": false,
+  "water": {
+    "$type": "ThunderRoad.WaterHandler+Data, ThunderRoad",
+    "footstepEffectId": "FootstepWater",
+    "splashFxAddress": "Bas.Fx.WaterSplash01",
+    "minGravityLocomotion": 0.1,
+    "minGravityItem": 0.3,
+    "outVelocityMultiplier": 0.5,
+    "splashIntensityRadiusCurve": {
+      "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+      "keys": [
+        {
+          "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+          "time": 0.0,
+          "value": 0.0,
+          "inTangent": 0.381079882,
+          "outTangent": 0.381079882,
+          "inWeight": 0.0,
+          "outWeight": 0.0368852429,
+          "weightedMode": "None",
+          "tangentMode": 0
+        },
+        {
+          "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+          "time": 3.0,
+          "value": 1.0,
+          "inTangent": 0.09526994,
+          "outTangent": 0.09526994,
+          "inWeight": 0.0450281128,
+          "outWeight": 0.0,
+          "weightedMode": "None",
+          "tangentMode": 0
+        }
+      ],
+      "length": 2,
+      "preWrapMode": "ClampForever",
+      "postWrapMode": "ClampForever"
+    },
+    "splashSpeedVelocityCurve": {
+      "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+      "keys": [
+        {
+          "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+          "time": 0.0,
+          "value": 0.0,
+          "inTangent": 0.0,
+          "outTangent": 0.0,
+          "inWeight": 0.0,
+          "outWeight": 0.04918033,
+          "weightedMode": "None",
+          "tangentMode": 0
+        },
+        {
+          "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+          "time": 5.0,
+          "value": 1.0,
+          "inTangent": 0.0,
+          "outTangent": 0.0,
+          "inWeight": 0.06557379,
+          "outWeight": 0.0,
+          "weightedMode": "None",
+          "tangentMode": 0
+        }
+      ],
+      "length": 2,
+      "preWrapMode": "ClampForever",
+      "postWrapMode": "ClampForever"
+    },
+    "swimmingEnabled": true,
+    "imbueDepletionRate": 50.0,
+    "underwaterEffectId": "Underwater"
+  },
+  "airFluidData": {
+    "$type": "ThunderRoad.DragArea+Fluid, ThunderRoad",
+    "density": 50.0,
+    "flow": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "MassDensity": 50.0
+  },
+  "waterFluidData": {
+    "$type": "ThunderRoad.DragArea+Fluid, ThunderRoad",
+    "density": 750.0,
+    "flow": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "MassDensity": 750.0
+  },
+  "spellWheelEffectId": "SpellOrbCenter",
+  "SpellWheelOpenHandPoseId": "SpellSelClose",
+  "SpellWheelCloseHandPoseId": "Pointing",
+  "uiPointingCloseHandPoseId": "Pointing",
+  "skillOrbInHandEffectId": "HeldSkillOrb",
+  "defaultWheelOrbEffectId": "SpellOrbFire",
+  "defaultPostProcessAddress": "ThunderRoad.PostProcess.Default",
+  "postProcessProfiles": [
+    {
+      "$type": "ThunderRoad.GameData+PostProcessProfile, ThunderRoad",
+      "id": "Neutral",
+      "address": "ThunderRoad.PostProcess.Neutral"
+    },
+    {
+      "$type": "ThunderRoad.GameData+PostProcessProfile, ThunderRoad",
+      "id": "Cinematic",
+      "address": "ThunderRoad.PostProcess.Cinematic"
+    },
+    {
+      "$type": "ThunderRoad.GameData+PostProcessProfile, ThunderRoad",
+      "id": "Filmic",
+      "address": "ThunderRoad.PostProcess.Filmic"
+    },
+    {
+      "$type": "ThunderRoad.GameData+PostProcessProfile, ThunderRoad",
+      "id": "HighContrast",
+      "address": "ThunderRoad.PostProcess.HighContrast"
+    }
+  ],
+  "tierColors": [
+    {
+      "r": 0.504,
+      "g": 0.487741947,
+      "b": 0.47690323,
+      "a": 1.0
+    },
+    {
+      "r": 0.0,
+      "g": 0.645,
+      "b": 0.0203952231,
+      "a": 1.0
+    },
+    {
+      "r": 0.38,
+      "g": 0.452333421,
+      "b": 1.0,
+      "a": 1.0
+    },
+    {
+      "r": 0.4720001,
+      "g": 0.120000005,
+      "b": 1.0,
+      "a": 1.0
+    },
+    {
+      "r": 1.0,
+      "g": 1.0,
+      "b": 0.0,
+      "a": 1.0
+    },
+    {
+      "r": 0.7529412,
+      "g": 0.213333338,
+      "b": 0.0,
+      "a": 1.0
+    }
+  ],
+  "heartBeatLoopAddress": "Bas.Audio.Misc.HeartBeatLoop",
+  "deathEffectId": "Death",
+  "deathSlowMoRatio": 0.1,
+  "deathSlowMoDuration": 10.0,
+  "deathSlowMoEnterCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 1.0,
+        "inTangent": "Infinity",
+        "outTangent": -9.47256,
+        "inWeight": 0.333333343,
+        "outWeight": 0.333333343,
+        "weightedMode": "None",
+        "tangentMode": 1
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.1,
+        "value": 0.0,
+        "inTangent": 0.0593232848,
+        "outTangent": 0.0593232848,
+        "inWeight": 0.333333343,
+        "outWeight": 0.333333343,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "deathSlowMoExitCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 0.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.333333343,
+        "outWeight": 0.333333343,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.2,
+        "value": 1.0,
+        "inTangent": 4.6972,
+        "outTangent": "Infinity",
+        "inWeight": 0.333333343,
+        "outWeight": 0.333333343,
+        "weightedMode": "None",
+        "tangentMode": 1
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "mergeDistanceCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 0.0,
+        "inTangent": 11.6753464,
+        "outTangent": 11.6753464,
+        "inWeight": 0.0,
+        "outWeight": 0.1398804,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.05,
+        "value": 0.35,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.76682657,
+        "outWeight": 0.09065738,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.3,
+        "value": 0.35,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.333333343,
+        "outWeight": 0.333333343,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 1.0,
+        "value": 0.9,
+        "inTangent": 2.22192764,
+        "outTangent": 2.22192764,
+        "inWeight": 0.0493959,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 4,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "mergeLeftoverShardMultiplier": 4,
+  "playerRespawnDelay": 10.0,
+  "pc": {
+    "$type": "ThunderRoad.GameData+PlatformParameters, ThunderRoad",
+    "maxHomeItem": 30,
+    "maxWaveAlive": 50,
+    "maxRoomNpc": 10,
+    "itemSpawnerMaxItems": 100,
+    "itemSpawnerDelay": 0,
+    "mirrorQuality": 1.0,
+    "cleanDeadLastInteractionDelay": 7.0,
+    "cleanObjectsLastInteractionDelay": 7.0,
+    "aiCycleMinSpeed": 0.1,
+    "aiCycleMaxSpeed": 1.0,
+    "poolingAudioCount": 20,
+    "poolingVfxCount": 10,
+    "poolingShaderCount": 100,
+    "poolingRevealCount": 100,
+    "poolingMeshCount": 100,
+    "poolingLightCount": 100,
+    "enableEffectAudio": true,
+    "enableEffectVfx": true,
+    "enableEffectParticle": true,
+    "enableEffectDecal": true,
+    "enableEffectMesh": true,
+    "enableEffectReveal": true,
+    "enableEffectLight": true
+  },
+  "android": {
+    "$type": "ThunderRoad.GameData+PlatformParameters, ThunderRoad",
+    "maxHomeItem": 30,
+    "maxWaveAlive": 3,
+    "maxRoomNpc": 2,
+    "itemSpawnerMaxItems": 8,
+    "itemSpawnerDelay": 1,
+    "mirrorQuality": 0.5,
+    "cleanDeadLastInteractionDelay": 3.0,
+    "cleanObjectsLastInteractionDelay": 3.0,
+    "aiCycleMinSpeed": 0.1,
+    "aiCycleMaxSpeed": 1.0,
+    "poolingAudioCount": 20,
+    "poolingVfxCount": 5,
+    "poolingShaderCount": 70,
+    "poolingRevealCount": 70,
+    "poolingMeshCount": 70,
+    "poolingLightCount": 100,
+    "enableEffectAudio": true,
+    "enableEffectVfx": true,
+    "enableEffectParticle": true,
+    "enableEffectDecal": false,
+    "enableEffectMesh": true,
+    "enableEffectReveal": true,
+    "enableEffectLight": true
+  },
+  "factions": [
+    {
+      "$type": "ThunderRoad.GameData+Faction, ThunderRoad",
+      "id": -1,
+      "name": "Passive",
+      "attackBehaviour": "Passive"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Faction, ThunderRoad",
+      "id": 0,
+      "name": "None",
+      "attackBehaviour": "Agressive"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Faction, ThunderRoad",
+      "id": 1,
+      "name": "Ignore",
+      "attackBehaviour": "Ignored"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Faction, ThunderRoad",
+      "id": 2,
+      "name": "Player",
+      "attackBehaviour": "Default"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Faction, ThunderRoad",
+      "id": 3,
+      "name": "MixedEnemies",
+      "attackBehaviour": "Default"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Faction, ThunderRoad",
+      "id": 4,
+      "name": "Bandits",
+      "attackBehaviour": "Default"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Faction, ThunderRoad",
+      "id": 5,
+      "name": "Cult",
+      "attackBehaviour": "Default"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Faction, ThunderRoad",
+      "id": 6,
+      "name": "Mercenary",
+      "attackBehaviour": "Default"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Faction, ThunderRoad",
+      "id": 7,
+      "name": "Gladiator",
+      "attackBehaviour": "Default"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Faction, ThunderRoad",
+      "id": 8,
+      "name": "Soldier",
+      "attackBehaviour": "Default"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Faction, ThunderRoad",
+      "id": 9,
+      "name": "Rogue",
+      "attackBehaviour": "Default"
+    }
+  ],
+  "categories": [
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Unknown",
+      "group": "Unknown",
+      "iconAddress": "Ui.Icon.Unknown[ui_ItemUnknown]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Daggers",
+      "group": "Weapons",
+      "iconAddress": "Bas.Icon.plain-dagger[ui_WpnDaggers]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Swords",
+      "group": "Weapons",
+      "iconAddress": "Bas.Icon.sword[ui_WpnSwordsShort]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Greatswords",
+      "group": "Weapons",
+      "iconAddress": "Bas.Icon.greatsword[ui_WpnSwordsGreat]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Axes",
+      "group": "Weapons",
+      "iconAddress": "Bas.Icon.war-axe[ui_WpnAxesShort]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Spears",
+      "group": "Weapons",
+      "iconAddress": "Bas.Icon.spear[ui_WpnSpears]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Blunt",
+      "group": "Weapons",
+      "iconAddress": "Bas.Icon.blunt[ui_WpnBluntsLong]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Exotics",
+      "group": "Weapons",
+      "iconAddress": "Bas.Icon.exotics[ui_WpnExotics]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Bows",
+      "group": "Weapons",
+      "iconAddress": "Bas.Icon.bow[ui_WpnRanged]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Crossbow",
+      "group": "Weapons",
+      "iconAddress": "Bas.Icon.crossbow[crossbow]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Firearms",
+      "group": "Weapons",
+      "iconAddress": "Bas.Icon.blunderbuss[blunderbuss]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Staves",
+      "group": "Weapons",
+      "iconAddress": "Bas.Icon.staves[ui_WpnStaves]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Shields",
+      "group": "Weapons",
+      "iconAddress": "Bas.Icon.shields[ui_WpnShields]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Potions",
+      "group": "Consumables",
+      "iconAddress": "Bas.Icon.potions[ui_ItemPotions]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Consumables",
+      "group": "Equipment",
+      "iconAddress": "Bas.Icon.potions[ui_ItemPotions]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Utilities",
+      "group": "Equipment",
+      "iconAddress": "Bas.Icon.utilities[ui_ItemUtilities]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Traps",
+      "group": "Equipment",
+      "iconAddress": "Bas.Icon.wolf-trap[wolf-trap]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Clothes",
+      "group": "Apparels",
+      "iconAddress": "Bas.Icon.armor-cloth[ui_ArmorCloth]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Food",
+      "group": "Consumables",
+      "iconAddress": "Bas.Icon.food[ui_ItemFood]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Leather",
+      "group": "Apparels",
+      "iconAddress": "Bas.Icon.armor-leather[ui_ArmorLeather]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Plate",
+      "group": "Apparels",
+      "iconAddress": "Bas.Icon.armor-plate[ui_ArmorPlate]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Tools",
+      "group": "Equipment",
+      "iconAddress": "Bas.Icon.utilities[ui_ItemUtilities]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Crystals",
+      "group": "Equipment",
+      "iconAddress": "Bas.Icon.crystals[ui_ItemCrystals]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Valuables",
+      "group": "Equipment",
+      "iconAddress": "Bas.Icon.Reward.Gold_T5[UI_Reward_Gold_T5]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Mages",
+      "group": "Apparels",
+      "iconAddress": "Bas.Icon.armor-mage[ui_ArmorMage]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Ammo",
+      "group": "Equipment",
+      "iconAddress": "Bas.Icon.quiver[quiver]"
+    },
+    {
+      "$type": "ThunderRoad.GameData+Category, ThunderRoad",
+      "name": "Breakable",
+      "group": "Equipment",
+      "iconAddress": "Bas.Icon.props[ui_ItemProps]"
+    }
+  ],
+  "holderSlots": [
+    "Small",
+    "Medium",
+    "Large",
+    "Potion",
+    "Head",
+    "Shield",
+    "ShieldSmall",
+    "Bow",
+    "Quiver",
+    "Arrow",
+    "Throwables",
+    "Bolt",
+    "Cork",
+    "Torch",
+    "SkillTreeReceptacle",
+    "InventoryBag",
+    "Gigantic"
+  ],
+  "baseSkillCost": 3,
+  "skillCostScalingMode": "Linear",
+  "skillCostMultiplierPerTier": 1.5,
+  "screenshotFormat": "JPG",
+  "screenshotJpegQuality": 75,
+  "locomotionPhysicsLayers": [
+    "PlayerLocomotion",
+    "BodyLocomotion",
+    "LocomotionOnly"
+  ],
+  "endGameMenuPrefabAddress": "Bas.Core.EndGameMenu",
+  "itemIconResolution": 512,
+  "throwVelocity": 2.0,
+  "throwMultiplier": 2.0,
+  "collisionEnterVelocityRange": {
+    "x": 0.25,
+    "y": 15.0
+  },
+  "collisionStayVelocityRange": {
+    "x": 0.25,
+    "y": 3.0
+  },
+  "penetrationVelocityEffectRange": {
+    "x": 0.0,
+    "y": 1.0
+  },
+  "maxObjectCollision": 10,
+  "maxFramesToKeepCollision": 5,
+  "maxCollisionStayCheckPerFrame": 100,
+  "cleanFarObjectsSqrDistance": 62500,
+  "motionBlurIntensity": 0.35,
+  "droppedItemImbueDrainNpc": 10.0,
+  "droppedItemImbueDrainPlayer": 5.0,
+  "useDynamicMusic": true,
+  "errorAudioGroupAddress": "Bas.AudioGroup.Misc.Errors",
+  "collisionDetection": {
+    "$type": "ThunderRoad.GameData+CollisionDetection, ThunderRoad",
+    "grabbed": "Discrete",
+    "dropped": "Discrete",
+    "throwed": "ContinuousDynamic",
+    "telekinesis": "Discrete",
+    "npcAttack": "ContinuousDynamic",
+    "kick": "ContinuousDynamic"
+  },
+  "physicMaterialIDMapColours": [
+    {
+      "$type": "ThunderRoad.GameData+IDMapColors, ThunderRoad",
+      "id": 0,
+      "color": {
+        "r": 0.0,
+        "g": 1.0,
+        "b": 1.0,
+        "a": 1.0
+      },
+      "label": "Chainmail"
+    },
+    {
+      "$type": "ThunderRoad.GameData+IDMapColors, ThunderRoad",
+      "id": 1,
+      "color": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 0.0,
+        "a": 1.0
+      },
+      "label": "Cloth"
+    },
+    {
+      "$type": "ThunderRoad.GameData+IDMapColors, ThunderRoad",
+      "id": 2,
+      "color": {
+        "r": 1.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 1.0
+      },
+      "label": "Flesh"
+    },
+    {
+      "$type": "ThunderRoad.GameData+IDMapColors, ThunderRoad",
+      "id": 3,
+      "color": {
+        "r": 0.0,
+        "g": 1.0,
+        "b": 0.0,
+        "a": 1.0
+      },
+      "label": "Leather"
+    },
+    {
+      "$type": "ThunderRoad.GameData+IDMapColors, ThunderRoad",
+      "id": 4,
+      "color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 1.0,
+        "a": 1.0
+      },
+      "label": "Plate Metal"
+    }
+  ],
+  "haptics": {
+    "$type": "ThunderRoad.GameData+Haptics, ThunderRoad",
+    "hit": {
+      "$type": "ThunderRoad.GameData+HapticClip, ThunderRoad",
+      "curveIntensity": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 1.0,
+            "inTangent": -0.0111419288,
+            "outTangent": -0.0111419288,
+            "inWeight": 0.333333343,
+            "outWeight": 0.129513338,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 0.0,
+            "inTangent": -2.92779732,
+            "outTangent": -2.92779732,
+            "inWeight": 0.0211930871,
+            "outWeight": 0.333333343,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      },
+      "curvePeriod": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 0.05,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 0.07,
+            "inTangent": 0.0346465074,
+            "outTangent": 0.0346465074,
+            "inWeight": 0.0408163071,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      },
+      "duration": 0.3
+    },
+    "bowShoot": {
+      "$type": "ThunderRoad.GameData+HapticClip, ThunderRoad",
+      "curveIntensity": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 1.0,
+            "inTangent": 0.0164383221,
+            "outTangent": 0.0164383221,
+            "inWeight": 0.333333343,
+            "outWeight": 0.333333343,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 0.0,
+            "inTangent": -2.8025918,
+            "outTangent": -2.8025918,
+            "inWeight": 0.0272482634,
+            "outWeight": 0.333333343,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      },
+      "curvePeriod": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 0.05,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 0.07,
+            "inTangent": 0.0507395454,
+            "outTangent": 0.0507395454,
+            "inWeight": 0.03924644,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      },
+      "duration": 0.3
+    },
+    "telekinesisThrow": {
+      "$type": "ThunderRoad.GameData+HapticClip, ThunderRoad",
+      "curveIntensity": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 1.0,
+            "inTangent": -0.00689419126,
+            "outTangent": -0.00689419126,
+            "inWeight": 0.0,
+            "outWeight": 0.115384616,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 0.0,
+            "inTangent": -2.712128,
+            "outTangent": -2.712128,
+            "inWeight": 0.0204081535,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      },
+      "curvePeriod": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 0.05,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 0.1,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      },
+      "duration": 0.5
+    },
+    "spellSelected": {
+      "$type": "ThunderRoad.GameData+HapticClip, ThunderRoad",
+      "curveIntensity": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 0.1,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 0.0,
+            "inTangent": -0.1500644,
+            "outTangent": -0.1500644,
+            "inWeight": 0.03622804,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      },
+      "curvePeriod": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 0.05,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 0.05,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      },
+      "duration": 0.25
+    },
+    "telekinesisIntensity": {
+      "x": 0.05,
+      "y": 0.2
+    },
+    "telekinesisViveCosmosMultiplier": 0.1,
+    "telekinesisPeriod": {
+      "x": 0.06,
+      "y": 0.03
+    },
+    "telekinesisFocus": 0.1,
+    "telekinesisMassIntensity": {
+      "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+      "keys": [
+        {
+          "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+          "time": 0.5,
+          "value": 0.6,
+          "inTangent": 0.0,
+          "outTangent": 0.252631575,
+          "inWeight": 0.0,
+          "outWeight": 0.0,
+          "weightedMode": "None",
+          "tangentMode": 0
+        },
+        {
+          "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+          "time": 10.0,
+          "value": 3.0,
+          "inTangent": 0.252631575,
+          "outTangent": 0.0,
+          "inWeight": 0.0,
+          "outWeight": 0.0,
+          "weightedMode": "None",
+          "tangentMode": 0
+        }
+      ],
+      "length": 2,
+      "preWrapMode": "ClampForever",
+      "postWrapMode": "ClampForever"
+    },
+    "bowDrawPeriod": 0.02,
+    "bowDrawIntensity": 0.8,
+    "rubbingPeriod": 0.02,
+    "rubbingIntensity": 0.8,
+    "penetrationPeriod": 0.01,
+    "penetrationIntensity": 0.9
+  }
+}

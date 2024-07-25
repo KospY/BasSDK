@@ -1,0 +1,40 @@
+{
+  "$type": "ThunderRoad.CreatureTable, ThunderRoad",
+  "id": "Scavenger_Base_MeleeSpecial",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "description": "Base tables for factions contain the settings used for each unit type, so we only have to edit them from one place. These should be used in other creature tables and waves instead of overriding containers.",
+  "linkedToGenderRatio": false,
+  "drops": [
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Humans",
+      "overrideFaction": true,
+      "factionID": 4,
+      "overrideContainer": true,
+      "overrideContainerID": "ScavengerFiend",
+      "overrideBrain": true,
+      "overrideBrainID": "HumanEasy",
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 1
+    },
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Humans",
+      "overrideFaction": true,
+      "factionID": 4,
+      "overrideContainer": true,
+      "overrideContainerID": "ScavengerHoncho",
+      "overrideBrain": true,
+      "overrideBrainID": "HumanEasy",
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 1
+    }
+  ],
+  "groupPath": "Factions/Base"
+}

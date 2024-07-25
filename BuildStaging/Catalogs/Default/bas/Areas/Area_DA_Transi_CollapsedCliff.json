@@ -1,0 +1,104 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "DA_Transi_CollapsedCliff",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.DA_Transi_CollapsedCliff",
+  "lightingPresetAddress": "Bas.Area.DA_Transi_CollapsedCliff.LightingPreset",
+  "cullingAddress": "Bas.Area.DA_Transi_CollapsedCliff.CullData",
+  "Bounds": {
+    "center": {
+      "x": -103.687943,
+      "y": 102.249275,
+      "z": 34.63597
+    },
+    "size": {
+      "x": 270.375854,
+      "y": 361.340576,
+      "z": 273.2719
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -41.25,
+        "y": 120.0,
+        "z": -101.999985
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.DA_Transi_CollapsedCliff.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 31.5,
+        "y": 112.14,
+        "z": 7.0
+      },
+      "face": "Right",
+      "fakeViewAddress": "Bas.Area.DA_Transi_CollapsedCliff.FakeView.1"
+    }
+  ],
+  "areaGlobalParameters": [
+    {
+      "$type": "ThunderRoad.AreaOceanGlobalParameter, ThunderRoad",
+      "visibleFromGate": true
+    },
+    {
+      "$type": "ThunderRoad.AreaSunGlobalParameter, ThunderRoad",
+      "dirLightColor": {
+        "r": 1.0,
+        "g": 0.7618187,
+        "b": 0.5803922,
+        "a": 1.0
+      },
+      "dirLightIntensity": 1.9,
+      "dirLightIndirectMultiplier": 0.8,
+      "directionalLightLocalRotation": {
+        "x": 0.03748534,
+        "y": 0.9669214,
+        "z": -0.05363782,
+        "w": 0.246537924
+      },
+      "visibleFromGate": true
+    }
+  ],
+  "groupPath": "Dalgarian/Transi"
+}

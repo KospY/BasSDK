@@ -1,0 +1,79 @@
+{
+  "$type": "ThunderRoad.AreaCollectionDungeon, ThunderRoad",
+  "id": "DA_FlowTest",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "path": [
+    {
+      "$type": "ThunderRoad.AreaCollectionDungeon+PathGroup, ThunderRoad",
+      "numberAreaMinToSpawn": 1,
+      "numberAreaMaxToSpawn": 1,
+      "creatureFillPercentage": 1.0,
+      "lootFillPercentage": 1.0,
+      "isSharedNPCAlert": true,
+      "areaPoolIdContainer": [
+        {
+          "$type": "ThunderRoad.AreaCollectionDungeon+AreaTableIdContainer, ThunderRoad",
+          "dataId": "DA_Start"
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionDungeon+PathGroup, ThunderRoad",
+      "numberAreaMinToSpawn": 2,
+      "numberAreaMaxToSpawn": 2,
+      "creatureFillPercentage": 1.0,
+      "lootFillPercentage": 1.0,
+      "isSharedNPCAlert": true,
+      "areaPoolIdContainer": [
+        {
+          "$type": "ThunderRoad.AreaCollectionDungeon+AreaTableIdContainer, ThunderRoad",
+          "dataId": "DA_XSTransi"
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionDungeon+PathGroup, ThunderRoad",
+      "numberAreaMinToSpawn": 1,
+      "numberAreaMaxToSpawn": 1,
+      "creatureFillPercentage": 1.0,
+      "lootFillPercentage": 1.0,
+      "isSharedNPCAlert": true,
+      "areaPoolIdContainer": [
+        {
+          "$type": "ThunderRoad.AreaCollectionDungeon+AreaTableIdContainer, ThunderRoad",
+          "dataId": "DA_Parkour"
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionDungeon+PathGroup, ThunderRoad",
+      "numberAreaMinToSpawn": 2,
+      "numberAreaMaxToSpawn": 2,
+      "creatureFillPercentage": 1.0,
+      "lootFillPercentage": 1.0,
+      "isSharedNPCAlert": true,
+      "areaPoolIdContainer": [
+        {
+          "$type": "ThunderRoad.AreaCollectionDungeon+AreaTableIdContainer, ThunderRoad",
+          "dataId": "DA_XSTransi"
+        }
+      ]
+    }
+  ],
+  "retry_previous_area_allowed": 10000,
+  "bounds_margin": 0.1,
+  "backupList": [
+    {
+      "$type": "ThunderRoad.AreaCollectionDungeon+BackupData, ThunderRoad",
+      "areaDataBackupIdContainer": {
+        "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+        "dataId": "",
+        "category": "Text"
+      },
+      "maxCreature": 0.0
+    }
+  ],
+  "groupPath": "DungeonRun/Dalgarian/Old"
+}

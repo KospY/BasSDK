@@ -1,0 +1,242 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3594d5eb59ee554fa63daca277c5f46, type: 3}
+  m_Name: ProtoArea01_LightingPreset
+  m_EditorClassIdentifier: 
+  ambientIntensity: 0
+  shadowColor: {r: 0.7, g: 0.7, b: 0.7, a: 1}
+  bakedShadowAngle: 0
+  multipleImportanceSamplingTool: 1
+  directSamples: 1
+  indirectSamples: 8
+  environmentSamples: 8
+  minBounces: 0
+  maxBounces: 0
+  indirectIntensity: 1
+  AOIndirectContribution: 1.2
+  AODirectContribution: 0.15
+  applyAtRuntime: 0
+  dirLightColor: {r: 1, g: 0.87058824, b: 0.7137255, a: 1}
+  dirLightIntensity: 1e-12
+  dirLightIndirectMultiplier: 1
+  directionalLightLocalRotation: {x: -0.029246256, y: 0.99129736, z: -0.12834135,
+    w: -0.0016299625}
+  fog: 2
+  fogColor: {r: 0.9803922, g: 0.9960785, b: 0.8588236, a: 1}
+  fogStartDistance: 50
+  fogEndDistance: 2000
+  skybox: 2
+  skyBoxMaterialProp:
+    _material: {fileID: 2100000, guid: bed09de67ac60ef41b48559cca4640e7, type: 2}
+    _properties:
+    - _type: 2
+      _name: _SunDisk
+      _displayName: Sun
+      _colorValue: {r: 0, g: 0, b: 0, a: 0}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+      _floatValue: 2
+      _isRange: 0
+      _rangeLimits: {x: 0, y: 0}
+      _rotationModifier: 0
+      _textureValue: {fileID: 0}
+      _intValue: 0
+    - _type: 2
+      _name: _SunSize
+      _displayName: Sun Size
+      _colorValue: {r: 0, g: 0, b: 0, a: 0}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+      _floatValue: 0.03
+      _isRange: 1
+      _rangeLimits: {x: 0, y: 1}
+      _rotationModifier: 0
+      _textureValue: {fileID: 0}
+      _intValue: 0
+    - _type: 2
+      _name: _SunSizeConvergence
+      _displayName: Sun Size Convergence
+      _colorValue: {r: 0, g: 0, b: 0, a: 0}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+      _floatValue: 5
+      _isRange: 1
+      _rangeLimits: {x: 1, y: 10}
+      _rotationModifier: 0
+      _textureValue: {fileID: 0}
+      _intValue: 0
+    - _type: 2
+      _name: _AtmosphereThickness
+      _displayName: Atmosphere Thickness
+      _colorValue: {r: 0, g: 0, b: 0, a: 0}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+      _floatValue: 1.2
+      _isRange: 1
+      _rangeLimits: {x: 0, y: 5}
+      _rotationModifier: 0
+      _textureValue: {fileID: 0}
+      _intValue: 0
+    - _type: 0
+      _name: _SkyTint
+      _displayName: Sky Tint
+      _colorValue: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+      _floatValue: 0
+      _isRange: 0
+      _rangeLimits: {x: 0, y: 0}
+      _rotationModifier: 0
+      _textureValue: {fileID: 0}
+      _intValue: 0
+    - _type: 0
+      _name: _GroundColor
+      _displayName: Ground
+      _colorValue: {r: 0, g: 0, b: 0, a: 1}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+      _floatValue: 0
+      _isRange: 0
+      _rangeLimits: {x: 0, y: 0}
+      _rotationModifier: 0
+      _textureValue: {fileID: 0}
+      _intValue: 0
+    - _type: 0
+      _name: _HorizonColor
+      _displayName: Horizon
+      _colorValue: {r: 1, g: 1, b: 1, a: 1}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+      _floatValue: 0
+      _isRange: 0
+      _rangeLimits: {x: 0, y: 0}
+      _rotationModifier: 0
+      _textureValue: {fileID: 0}
+      _intValue: 0
+    - _type: 2
+      _name: _HorizonMin
+      _displayName: Horizon Min fade distance
+      _colorValue: {r: 0, g: 0, b: 0, a: 0}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+      _floatValue: -19
+      _isRange: 1
+      _rangeLimits: {x: -50, y: 0}
+      _rotationModifier: 0
+      _textureValue: {fileID: 0}
+      _intValue: 0
+    - _type: 2
+      _name: _HorizonMax
+      _displayName: Horizon Max fade distance
+      _colorValue: {r: 0, g: 0, b: 0, a: 0}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+      _floatValue: 28.2
+      _isRange: 1
+      _rangeLimits: {x: 0, y: 50}
+      _rotationModifier: 0
+      _textureValue: {fileID: 0}
+      _intValue: 0
+    - _type: 2
+      _name: _Exposure
+      _displayName: Exposure
+      _colorValue: {r: 0, g: 0, b: 0, a: 0}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+      _floatValue: 2
+      _isRange: 1
+      _rangeLimits: {x: 0, y: 8}
+      _rotationModifier: 0
+      _textureValue: {fileID: 0}
+      _intValue: 0
+    - _type: 2
+      _name: _TONEMAPPING
+      _displayName: Use Tonemapping
+      _colorValue: {r: 0, g: 0, b: 0, a: 0}
+      _vectorValue: {x: 0, y: 0, z: 0, w: 0}
+      _floatValue: 1
+      _isRange: 0
+      _rangeLimits: {x: 0, y: 0}
+      _rotationModifier: 0
+      _textureValue: {fileID: 0}
+      _intValue: 0
+  clouds: 2
+  cloudsSoftness: 1
+  cloudsSpeed: 1
+  cloudsSize: 1
+  cloudsAlpha: 1
+  cloudsColor: {r: 0, g: 0, b: 0, a: 0}
+  serializedLightmaps:
+  - color: {fileID: 2800000, guid: 075daedcfd8837a4a8079b877ba97ef7, type: 3}
+    directional: {fileID: 2800000, guid: b7b4edb2d6fabf64695c4af389552633, type: 3}
+    shadowMask: {fileID: 2800000, guid: 6b5e8f4155c3e7e478ddb740a579adaa, type: 3}
+  - color: {fileID: 2800000, guid: 7e531a835bc68f24a8c6726fc8db3609, type: 3}
+    directional: {fileID: 2800000, guid: b50178b795c5a1d4ea6681482084208b, type: 3}
+    shadowMask: {fileID: 2800000, guid: bca3c1c46556f274d83fd42d48733d34, type: 3}
+  - color: {fileID: 2800000, guid: daa36035ea182c64db914768f3fbf4d6, type: 3}
+    directional: {fileID: 2800000, guid: 3b740610f4a80564bb6cf88ab69e6676, type: 3}
+    shadowMask: {fileID: 2800000, guid: 949a18d4e8eb7404c9849765eb558306, type: 3}
+  rendererDataListForLightmaps:
+  - meshRendererGuid: 324dcde7-22f5-44a1-b057-c98b66212ddf
+    offsetScale: {x: 0.49316406, y: 0.49316406, z: 0.4951172, w: 0.000000029394869}
+    generateSecondaryUV: 0
+  - meshRendererGuid: 3e08a83f-fa39-4c69-a9b9-a1f1e2a8c386
+    offsetScale: {x: 0.41796875, y: 0.41796875, z: 0, w: 0.4951172}
+    generateSecondaryUV: 0
+  - meshRendererGuid: ba1e8d53-148c-4118-b352-9fc97f907a51
+    offsetScale: {x: 0.28027344, y: 0.28027344, z: 0.41992185, w: 0.49511722}
+    generateSecondaryUV: 0
+  - meshRendererGuid: 5254c8e9-76a1-4c08-959a-5ec137599347
+    offsetScale: {x: 0.123046875, y: 0.123046875, z: 0.5449219, w: 0.77734375}
+    generateSecondaryUV: 0
+  - meshRendererGuid: 096a9c9c-7fc1-496f-96fd-747f8f45aaee
+    offsetScale: {x: 0.123046875, y: 0.123046875, z: 0.41992188, w: 0.77734375}
+    generateSecondaryUV: 0
+  - meshRendererGuid: e71b6330-4c0c-44d3-9d12-67e7e9032157
+    offsetScale: {x: 0.28027344, y: 0.28027344, z: 0.70214844, w: 0.49511722}
+    generateSecondaryUV: 0
+  - meshRendererGuid: 932fa453-e21f-4906-be4d-3f6ce1655462
+    offsetScale: {x: 0.49316406, y: 0.49316406, z: 0, w: 0.000000029394869}
+    generateSecondaryUV: 0
+  - meshRendererGuid: 5d5566a2-2b33-4d1c-8ad7-bba34fb247b4
+    offsetScale: {x: 0.28027344, y: 0.28027344, z: 0.2822265, w: 0.000000016705599}
+    generateSecondaryUV: 0
+  - meshRendererGuid: 5973838e-9c3f-48c3-ad30-67c7c95a264f
+    offsetScale: {x: 0.28027344, y: 0.28027344, z: -0.000000016705599, w: 0.000000016705599}
+    generateSecondaryUV: 0
+  - meshRendererGuid: 80f37e58-4982-402d-b31d-b42f6f11974d
+    offsetScale: {x: 0.49316406, y: 0.49316406, z: 0, w: 0.49511722}
+    generateSecondaryUV: 0
+  - meshRendererGuid: 6ec0b033-71c3-4e12-8b7e-d67c7334045b
+    offsetScale: {x: 0.49316406, y: 0.49316406, z: 0, w: 0.000000029394869}
+    generateSecondaryUV: 0
+  - meshRendererGuid: 02033013-1812-406b-a149-cc9697a7bbed
+    offsetScale: {x: 0.49316406, y: 0.49316406, z: 0.4951172, w: 0.49511722}
+    generateSecondaryUV: 0
+  - meshRendererGuid: 05a47a00-91dc-47f9-9ae0-2769690a8156
+    offsetScale: {x: 0.49316406, y: 0.49316406, z: 0.4951172, w: 0.000000029394869}
+    generateSecondaryUV: 0
+  indexLightmapsRendererMeshCount: 07000000090000000d000000
+  lightmapLights:
+  - lightGuid: 98ec94a3-81e3-48a1-addb-76612a14651e
+    baketype: 2
+    mixedLightingMode: 2
+    probeOcclusionLightIndex: 1
+    occlusionMaskChannel: -1
+  - lightGuid: 56d821ce-9191-426e-a2b7-b0d499f26369
+    baketype: 2
+    mixedLightingMode: 2
+    probeOcclusionLightIndex: 0
+    occlusionMaskChannel: -1
+  lightProbeVolumes:
+  - lightProbeVolumeGuid: d6a11d07-c9d2-449a-be6d-f65c5051c387
+    SHAr: {fileID: 11700000, guid: 7bfe22bfb2845f94a9da77d2f0eec316, type: 2}
+    SHAg: {fileID: 11700000, guid: e0f4a1a82bc369c4ebfe051d30bcc682, type: 2}
+    SHAb: {fileID: 11700000, guid: 10111f7c21f795b45af03b9a6610f088, type: 2}
+    occ: {fileID: 11700000, guid: b6c31167ad00dd348b47e152f5d3c0e1, type: 2}
+  reflectionProbes:
+  - reflectionProbeGuid: 4b51fe8d-d185-479a-9ffa-37691bedd2a5
+    texture: {fileID: 8900000, guid: cd93385abcb5efe4d952f57c4c21f78e, type: 3}
+  bakedProbes: []
+  probePositions: []
+  lastSave:
+    _dateTime: 2024-07-22T14:46:58.4881811Z

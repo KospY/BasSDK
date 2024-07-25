@@ -1,0 +1,78 @@
+{
+  "$type": "ThunderRoad.AreaTable, ThunderRoad",
+  "id": "DA_Industrial_Large",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "areaSettingTable": {
+    "$type": "ThunderRoad.AreaTable+AreaSettingsTable, ThunderRoad",
+    "drops": [
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "DA_Arena_Forge",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1,
+            2
+          ],
+          "entranceConnection": [
+            0,
+            1,
+            2
+          ],
+          "maxCreature": 4
+        },
+        "probabilityWeight": 1.0
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "DA_Parkour_MiningShaft",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0
+          ],
+          "entranceConnection": [
+            1
+          ],
+          "maxCreature": 34
+        },
+        "probabilityWeight": 1.0
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "DA_Std_Refinary",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1,
+            2
+          ],
+          "entranceConnection": [
+            0,
+            1,
+            2
+          ],
+          "maxCreature": 4
+        },
+        "probabilityWeight": 0.5
+      }
+    ]
+  },
+  "groupPath": "Dalgarian"
+}

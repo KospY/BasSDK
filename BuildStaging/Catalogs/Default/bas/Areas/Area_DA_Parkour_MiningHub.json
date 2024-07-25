@@ -1,0 +1,81 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "DA_Parkour_MiningHub",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.DA_Parkour_MiningHub",
+  "lightingPresetAddress": "Bas.Area.DA_Parkour_MiningHub.LightingPreset",
+  "cullingAddress": "Bas.Area.DA_Parkour_MiningHub.CullData",
+  "Bounds": {
+    "center": {
+      "x": -6.174999,
+      "y": 7.26591873,
+      "z": -4.48045349
+    },
+    "size": {
+      "x": 67.75,
+      "y": 79.353714,
+      "z": 135.94902
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 27.7,
+        "y": -18.03,
+        "z": -20.88
+      },
+      "face": "Right",
+      "fakeViewAddress": "Bas.Area.DA_Parkour_MiningHub.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -40.05,
+        "y": -20.24,
+        "z": 5.75
+      },
+      "face": "Left",
+      "fakeViewAddress": "Bas.Area.DA_Parkour_MiningHub.FakeView.1"
+    }
+  ],
+  "areaGlobalParameters": [],
+  "groupPath": "Dalgarian/Parkour"
+}

@@ -1,0 +1,128 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "DA_Std_Museum",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.DA_Std_Museum",
+  "lightingPresetAddress": "Bas.Area.DA_Std_Museum.LightingPreset",
+  "cullingAddress": "Bas.Area.DA_Std_Museum.CullData",
+  "Bounds": {
+    "center": {
+      "x": 676.071,
+      "y": 8.416107,
+      "z": -8.7033
+    },
+    "size": {
+      "x": 1573.7,
+      "y": 637.9585,
+      "z": 53.4934
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -38.6,
+        "y": -4.85,
+        "z": -35.45
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.DA_Std_Museum.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -110.779,
+        "y": 5.594,
+        "z": -11.9
+      },
+      "face": "Left",
+      "fakeViewAddress": "Bas.Area.DA_Std_Museum.FakeView.1"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -87.531,
+        "y": -4.37095833,
+        "z": 18.0433979
+      },
+      "face": "Front",
+      "fakeViewAddress": "Bas.Area.DA_Std_Museum.FakeView.2"
+    }
+  ],
+  "areaGlobalParameters": [
+    {
+      "$type": "ThunderRoad.AreaOceanGlobalParameter, ThunderRoad",
+      "visibleFromGate": false
+    },
+    {
+      "$type": "ThunderRoad.AreaSunGlobalParameter, ThunderRoad",
+      "dirLightColor": {
+        "r": 1.0,
+        "g": 0.7618187,
+        "b": 0.5803922,
+        "a": 1.0
+      },
+      "dirLightIntensity": 3.0,
+      "dirLightIndirectMultiplier": 2.5,
+      "directionalLightLocalRotation": {
+        "x": 0.0267940648,
+        "y": -0.755437434,
+        "z": 0.0236775484,
+        "w": 0.6542445
+      },
+      "visibleFromGate": true
+    }
+  ],
+  "groupPath": "Dalgarian/Standard"
+}

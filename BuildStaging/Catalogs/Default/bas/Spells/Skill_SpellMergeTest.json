@@ -1,0 +1,193 @@
+{
+  "$type": "ThunderRoad.Skill.Spell.SpellMergeTest, ThunderRoad",
+  "id": "SpellMergeTest",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "throwDelay": 0.5,
+  "leftSpellId": "SpellCastTest",
+  "rightSpellId": "SpellCastTest",
+  "chargeSpeed": 0.2,
+  "chargeSpeedPerSkill": 0.05,
+  "chargeStartHandsRatio": 0.5,
+  "stopSpeed": 0.6,
+  "stopIfManaDepleted": true,
+  "handEnterAngle": 30.0,
+  "handEnterDistance": 0.2,
+  "handExitAngle": 90.0,
+  "handExitDistance": 0.6,
+  "handCompletedDistance": 0.001,
+  "minCharge": 0.9,
+  "hapticIntensityCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 0.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 1.0,
+        "value": 1.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "hapticCurveModifier": 0.5,
+  "handForceCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 120.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.05,
+        "value": 180.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.1,
+        "value": 120.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 3,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "Loop"
+  },
+  "handForceMultiplierDistanceCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 1.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.2,
+        "value": 0.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "handForceChargeCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 0.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 1.0,
+        "value": 1.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "handPositionSpringMultiplier": 0.4,
+  "handPositionDamperMultiplier": 1.0,
+  "handLocomotionVelocityCorrectionMultiplier": 0.3,
+  "chargeEffectId": null,
+  "effectLerpFactor": 0.0,
+  "fingerEffectId": null,
+  "allowThrow": false,
+  "throwEffectId": null,
+  "throwMinHandVelocity": 2.0,
+  "closeHandPoseId": "ChargeClose",
+  "openHandPoseId": "ChargeOpen",
+  "shardId": "Crystal_Small_01_Shard",
+  "prefabAddress": "Bas.Item.Misc.SkillOrb",
+  "meshAddress": null,
+  "meshSize": 1.0,
+  "orbLinkEffectId": "SkillTreeOrbLink",
+  "tier": 1,
+  "allowSkill": true,
+  "forceAllowRefund": true,
+  "showInTree": true,
+  "hideInSkillMenu": true,
+  "skillTreeDisplayName": "Cupswarm",
+  "description": "The greatest secret of the Dalgarian race.",
+  "imageAddress": "",
+  "videoAddress": "",
+  "buttonSpriteSheetAddress": "",
+  "buttonEnabledIconAddress": "Bas.Ui.SkillTree.Icons[Fire_ButtonColor]",
+  "buttonDisabledIconAddress": "Bas.Ui.SkillTree.Icons[Fire_Button]",
+  "orbIconAddress": "Bas.Icon.Cups",
+  "tutorial": null,
+  "tutorialLocalizationId": null,
+  "tutorialGoal": null,
+  "tutorialGoalLocalizationId": null,
+  "costOverride": -1,
+  "isDefaultSkill": false,
+  "primarySkillTreeId": "Test",
+  "secondarySkillTreeId": null,
+  "isTierBlocker": true,
+  "groupPath": null,
+  "IsCombinedSkill": false
+}

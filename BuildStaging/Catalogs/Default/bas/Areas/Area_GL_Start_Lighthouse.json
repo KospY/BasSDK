@@ -1,0 +1,96 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "GL_Start_Lighthouse",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.GL_Start_Lighthouse",
+  "lightingPresetAddress": "Bas.Area.GL_Start_Lighthouse.LightingPreset",
+  "cullingAddress": "Bas.Area.GL_Start_Lighthouse.CullData",
+  "Bounds": {
+    "center": {
+      "x": 282.217651,
+      "y": -29.3692017,
+      "z": 71.5461
+    },
+    "size": {
+      "x": 568.4353,
+      "y": 135.5984,
+      "z": 168.5922
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 42.0,
+        "y": 10.0,
+        "z": -12.75
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.GL_Start_Lighthouse.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -2.0,
+        "y": 0.0,
+        "z": -0.062
+      },
+      "face": "Left",
+      "fakeViewAddress": "Bas.Area.GL_Start_Lighthouse.FakeView.1"
+    }
+  ],
+  "areaGlobalParameters": [
+    {
+      "$type": "ThunderRoad.AreaOceanGlobalParameter, ThunderRoad",
+      "visibleFromGate": false
+    },
+    {
+      "$type": "ThunderRoad.AreaSunGlobalParameter, ThunderRoad",
+      "dirLightColor": {
+        "r": 1.0,
+        "g": 0.934682369,
+        "b": 0.8392157,
+        "a": 1.0
+      },
+      "dirLightIntensity": 2.4,
+      "dirLightIndirectMultiplier": 1.5,
+      "directionalLightLocalRotation": {
+        "x": -0.183058083,
+        "y": 0.7566345,
+        "z": -0.238565892,
+        "w": -0.5805862
+      },
+      "visibleFromGate": true
+    }
+  ],
+  "groupPath": "Outpost/Start-End"
+}

@@ -1,0 +1,63 @@
+{
+    "name": "Needle.ShaderGraphMarkdown",
+    "rootNamespace": "",
+    "references": [
+        "GUID:3eae0364be2026648bf74846acb8a731",
+        "GUID:be0903cd8e1546f498710afdc59db5eb",
+        "GUID:c579267770062bf448e75eb160330b7f",
+        "GUID:78bd2ddd6e276394a9615c203e574844",
+        "GUID:726e6ef943d5ed944951f18a60851f76",
+        "GUID:270d048a808d7de489542fd0df53923c",
+        "GUID:e653bc590854a5244a0cfe829a7fbbe2",
+        "GUID:0c8d3c58800556341a36d8a3180ad721",
+        "GUID:ca960c18b38b1cf4eb871ec2a9703929",
+        "GUID:058c70d56e3a904409bd86e47168dae4"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.shadergraph",
+            "expression": "7.0.0",
+            "define": "SHADERGRAPH_7_OR_NEWER"
+        },
+        {
+            "name": "com.unity.shadergraph",
+            "expression": "10.0.0",
+            "define": "SHADERGRAPH_10_OR_NEWER"
+        },
+        {
+            "name": "com.unity.shadergraph",
+            "expression": "12.0.0",
+            "define": "SHADERGRAPH_12_OR_NEWER"
+        },
+        {
+            "name": "com.unity.render-pipelines.high-definition",
+            "expression": "7.0.0",
+            "define": "HDRP_7_OR_NEWER"
+        },
+        {
+            "name": "com.unity.render-pipelines.high-definition",
+            "expression": "10.0.0",
+            "define": "HDRP_10_OR_NEWER"
+        },
+        {
+            "name": "com.unity.render-pipelines.universal",
+            "expression": "7.0.0",
+            "define": "URP_7_OR_NEWER"
+        },
+        {
+            "name": "com.unity.render-pipelines.core",
+            "expression": "7.0.0",
+            "define": "RP_CORE_7_OR_NEWER"
+        }
+    ],
+    "noEngineReferences": false
+}

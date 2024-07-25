@@ -1,0 +1,418 @@
+{
+  "$type": "ThunderRoad.AreaTable, ThunderRoad",
+  "id": "GL_TransiMedium",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "areaSettingTable": {
+    "$type": "ThunderRoad.AreaTable+AreaSettingsTable, ThunderRoad",
+    "drops": [
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "GL_Transi_Castle_Courtyard",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1,
+            2
+          ],
+          "entranceConnection": [
+            0,
+            1,
+            2
+          ],
+          "maxCreature": 3
+        },
+        "probabilityWeight": 1.8
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "GL_Transi_Castle_Chasm",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1
+          ],
+          "entranceConnection": [
+            0,
+            1
+          ],
+          "maxCreature": 2
+        },
+        "probabilityWeight": 1.8
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "GL_Transi_Cave_UndergroundParkour",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1
+          ],
+          "entranceConnection": [
+            0,
+            1
+          ],
+          "maxCreature": 4
+        },
+        "probabilityWeight": 0.7
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "GL_Transi_Cave_Underground",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1
+          ],
+          "entranceConnection": [
+            0,
+            1
+          ],
+          "maxCreature": 3
+        },
+        "probabilityWeight": 0.6
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "GL_Transi_Castle_RopeTraverse",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1
+          ],
+          "entranceConnection": [
+            0,
+            1
+          ],
+          "maxCreature": 3
+        },
+        "probabilityWeight": 2.2
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "GL_Transi_Castle_ClimbingChasm",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1
+          ],
+          "entranceConnection": [
+            0,
+            1
+          ],
+          "maxCreature": 2
+        },
+        "probabilityWeight": 1.9
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "GL_Transi_Cave_AbandonedSewers",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1
+          ],
+          "entranceConnection": [
+            0,
+            1
+          ],
+          "maxCreature": 4
+        },
+        "probabilityWeight": 0.4
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "GL_Transi_Castle_BelowTheBridge",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1
+          ],
+          "entranceConnection": [
+            0,
+            1
+          ],
+          "maxCreature": 3
+        },
+        "probabilityWeight": 4.0
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "GL_XSTransi_Cave_12",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1
+          ],
+          "entranceConnection": [
+            0,
+            1
+          ],
+          "maxCreature": 2
+        },
+        "probabilityWeight": 1.5
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "GL_Transi_Castle_Hallway01",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1,
+            2
+          ],
+          "entranceConnection": [
+            0,
+            1,
+            2
+          ],
+          "maxCreature": 2
+        },
+        "probabilityWeight": 0.8
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "GL_Transi_Castle_SewerMaintenance",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1
+          ],
+          "entranceConnection": [
+            0,
+            1
+          ],
+          "maxCreature": 2
+        },
+        "probabilityWeight": 1.4
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "GL_Transi_Ext_TowerSite",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1
+          ],
+          "entranceConnection": [
+            0,
+            1
+          ],
+          "maxCreature": 3
+        },
+        "probabilityWeight": 5.0
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "GL_Transi_Castle_SewerRerout",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1
+          ],
+          "entranceConnection": [
+            0,
+            1
+          ],
+          "maxCreature": 3
+        },
+        "probabilityWeight": 1.5
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "GL_Transi_Castle_Sewer1",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "entranceConnection": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "maxCreature": 2
+        },
+        "probabilityWeight": 0.6
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "GL_Transi_C&C_RavineZipline",
+            "category": "Area"
+          },
+          "exitConnection": [
+            1
+          ],
+          "entranceConnection": [
+            0
+          ],
+          "maxCreature": 2
+        },
+        "probabilityWeight": 4.0
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "GL_Transi_Cave_UndergroundZipline",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0
+          ],
+          "entranceConnection": [
+            1
+          ],
+          "maxCreature": 2
+        },
+        "probabilityWeight": 2.5
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "GL_Transi_xC&C_RockyWell",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1,
+            2
+          ],
+          "entranceConnection": [
+            0,
+            1,
+            2
+          ],
+          "maxCreature": 3
+        },
+        "probabilityWeight": 0.1
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "GL_Transi_xGrass&Cave_Granary",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1
+          ],
+          "entranceConnection": [
+            0,
+            1
+          ],
+          "maxCreature": 3
+        },
+        "probabilityWeight": 1.0
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "GL_XSTransi_Castle_Underwater1",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1
+          ],
+          "entranceConnection": [
+            0,
+            1
+          ],
+          "maxCreature": 3
+        },
+        "probabilityWeight": 5.0
+      }
+    ]
+  },
+  "groupPath": "Outpost"
+}

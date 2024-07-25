@@ -1,0 +1,81 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "DA_Std_CaveTerrace",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.DA_Std_CaveTerrace",
+  "lightingPresetAddress": "Bas.Area.DA_Std_CaveTerrace.LightingPreset",
+  "cullingAddress": "Bas.Area.DA_Std_CaveTerrace.CullData",
+  "Bounds": {
+    "center": {
+      "x": 44.36097,
+      "y": 60.63804,
+      "z": 20.12872
+    },
+    "size": {
+      "x": 178.894379,
+      "y": 242.65744,
+      "z": 128.714111
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 17.8337784,
+        "y": -0.774946,
+        "z": -44.2283363
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.DA_Std_CaveTerrace.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -45.08622,
+        "y": 15.8238544,
+        "z": 25.6706638
+      },
+      "face": "Left",
+      "fakeViewAddress": "Bas.Area.DA_Std_CaveTerrace.FakeView.1"
+    }
+  ],
+  "areaGlobalParameters": [],
+  "groupPath": "Dalgarian/Standard"
+}

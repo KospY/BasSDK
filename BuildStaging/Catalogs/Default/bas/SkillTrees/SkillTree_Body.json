@@ -1,0 +1,35 @@
+{
+  "$type": "ThunderRoad.SkillTreeData, ThunderRoad",
+  "id": "Body",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "localizationGroupID": "Skills",
+  "displayName": "{Body}",
+  "description": "{BodyPathDescription}",
+  "maxTier": 3,
+  "showInInfuser": true,
+  "color": {
+    "r": 0.9339623,
+    "g": 0.198246732,
+    "b": 0.233170167,
+    "a": 1.0
+  },
+  "emissionColor": {
+    "r": 5.992157,
+    "g": 0.847058833,
+    "b": 1.12941182,
+    "a": 1.0
+  },
+  "orbPitch": 1.0,
+  "costMultiplier": 1.0,
+  "crystalItemId": "CrystalBodyT1",
+  "orbIconAddress": "Bas.Ui.SkillTree.Icons[Body]",
+  "infuserTopParticleAddress": "Bas.Particle.Infuser.Body",
+  "infuserBeamAudioAddress": "Bas.AudioClip.Infuser.Beam.Body",
+  "musicAddress": "Bas.AudioClip.SkillTree.Music.Body",
+  "videoAddress": "Bas.Video.Infuser.Body",
+  "iconEnabledAddress": "Bas.Ui.SkillTree.Icons[Body_ButtonColor]",
+  "iconDisabledAddress": "Bas.Ui.SkillTree.Icons[Body_Button]",
+  "groupPath": null
+}

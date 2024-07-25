@@ -1,0 +1,73 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "ProtoArea02",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "groupPath": null,
+  "isUnique": false,
+  "areaPrefabAddress": "Area.Proto02",
+  "lightingPresetAddress": "Area.LightingPresetProto02",
+  "cullingAddress": null,
+  "Bounds": {
+    "center": {
+      "x": -3.49999332,
+      "y": 3.71933E-05,
+      "z": 0.00156283379
+    },
+    "size": {
+      "x": 16.0000134,
+      "y": 8.000078,
+      "z": 7.99712563
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "ProtoDefault"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -0.517,
+        "y": 0.0,
+        "z": -3.997
+      },
+      "face": "Back",
+      "fakeViewAddress": "Area.Proto02.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "ProtoDefault"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -11.5,
+        "y": 0.0,
+        "z": -9.536743E-07
+      },
+      "face": "Left",
+      "fakeViewAddress": "Area.Proto02.FakeView.1"
+    }
+  ],
+  "areaGlobalParameters": []
+}

@@ -1,0 +1,26 @@
+{
+  "$type": "ThunderRoad.CreatureTable, ThunderRoad",
+  "id": "ScavengerAlertRanged",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "description": null,
+  "linkedToGenderRatio": false,
+  "drops": [
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Scavenger_Base_Ranged",
+      "overrideFaction": false,
+      "factionID": 4,
+      "overrideContainer": false,
+      "overrideContainerID": "ScavengerFiend",
+      "overrideBrain": false,
+      "overrideBrainID": "HumanEasy",
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 1
+    }
+  ],
+  "groupPath": "Factions/Dungeon"
+}

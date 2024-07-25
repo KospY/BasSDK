@@ -1,0 +1,56 @@
+{
+  "name": "com.needle.shadergraph-markdown",
+  "displayName": "Shader Graph Markdown",
+  "version": "1.5.1",
+  "author": {
+    "name": "Needle",
+    "email": "hi@needle.tools",
+    "url": "https://needle.tools"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/needle-tools/shadergraph-markdown.git"
+  },
+  "unity": "2019.4",
+  "description": "Markdown-like syntax for shaders, to make better material inspectors. Works with ShaderGraph, Amplify, BetterShaders, custom shaders, ...",
+  "keywords": [
+    "shadergraph",
+    "markdown",
+    "editor"
+  ],
+  "type": "tool",
+  "dependencies": {
+  },
+  "samples": [
+    {
+      "displayName": "Uber Shader Sample (Unity 2020.2+)",
+      "description": "Shows how to use Shader Graph Markdown complex conditions.",
+      "path": "Samples~/Uber Shader (Unity 2020.2+)"
+    },
+    {
+      "displayName": "URP and HDRP 10+ (Unity 2020.2+)",
+      "description": "Shows how to use Shader Graph Markdown annotations.",
+      "path": "Samples~/URP and HDRP 10+ (Unity 2020.2+)"
+    },
+    {
+      "displayName": "URP 7+ (Unity 2019.4+)",
+      "description": "Shows how to use Shader Graph Markdown.",
+      "path": "Samples~/URP 7+ (Unity 2019.4+)"
+    },
+    {
+      "displayName": "HDRP 7+ (Unity 2019.4+)",
+      "description": "Shows how to use Shader Graph Markdown.",
+      "path": "Samples~/HDRP 7+ (Unity 2019.4+)"
+    },
+    {
+      "displayName": "Built-In",
+      "description": "Shows how to use Shader Graph Markdown in Surface Shaders.",
+      "path": "Samples~/Built-In"
+    },
+    {
+      "displayName": "Amplify",
+      "description": "Shows how to use Shader Graph Markdown in Amplify Shader Editor.",
+      "path": "Samples~/Amplify"
+    }
+  ]
+}

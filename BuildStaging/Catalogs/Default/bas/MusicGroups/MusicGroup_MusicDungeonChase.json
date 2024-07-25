@@ -1,0 +1,35 @@
+{
+  "$type": "ThunderRoad.MusicGroup, ThunderRoad",
+  "id": "MusicDungeonChase",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "musicSegments": [
+    {
+      "$type": "ThunderRoad.MusicSegment, ThunderRoad",
+      "volumeDb": 0.0,
+      "musicAddress": "Bas.AudioClip.DynamicMusicOutpost.Chase1",
+      "timesPlayedInSerie": 1
+    },
+    {
+      "$type": "ThunderRoad.MusicSegment, ThunderRoad",
+      "volumeDb": 0.0,
+      "musicAddress": "Bas.AudioClip.DynamicMusicOutpost.Chase2",
+      "timesPlayedInSerie": 1
+    },
+    {
+      "$type": "ThunderRoad.MusicSegment, ThunderRoad",
+      "volumeDb": 0.0,
+      "musicAddress": "Bas.AudioClip.DynamicMusicOutpost.Chase3",
+      "timesPlayedInSerie": 1
+    }
+  ],
+  "shuffleMode": true,
+  "restartSequenceIndex": 0,
+  "volumeDb": -10.0,
+  "BPM": 170,
+  "beatsPerBar": 4,
+  "barPerGrid": 4,
+  "groupPath": null,
+  "SegmentOrderCount": 3
+}

@@ -1,0 +1,204 @@
+{
+  "$type": "ThunderRoad.VoiceData, ThunderRoad",
+  "id": "ShopkeeperVoice",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "pooledCount": 1,
+  "androidPooledCount": 1,
+  "dialogs": [
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "falling",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.Hurt"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "muffled",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Male.Muffle"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "muffleddeath",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Male.MuffleDeath"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "breathlessdeath",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Male.BreathlessDeath"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "AttackShopkeeper",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.AttackShopkeeper"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "Buying",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.Buying"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "Checkout",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.Checkout"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "Greeting",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.Greeting"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "ItemApple",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.ItemApple"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "ItemAxe",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.ItemAxe"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "ItemBowArrows",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.ItemBowArrows"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "ItemDagger",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.ItemDagger"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "ItemEggs",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.ItemEggs"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "ItemFalchion",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.ItemFalchion"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "ItemGeneric",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.ItemGeneric"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "ItemHat",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.ItemHat"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "ItemMace",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.ItemMace"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "ItemShield",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.ItemShield"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "ItemSpear",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.ItemSpear"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "ItemStaff",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.ItemStaff"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "ItemSword",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.ItemSword"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "Leaving",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.Leaving"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "NoMoney",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.NoMoney"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "PlayerSteals",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.PlayerSteals"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "PlayerThrownOut",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.PlayerThrownOut"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "Selling",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.Selling"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "hit",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.Hurt"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "ShopDialogueA",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.ShopDialogueA"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "ShopDialogueB",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.ShopDialogueB"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "ShopDialogueC",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.ShopDialogueC"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "death",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.Hurt"
+    },
+    {
+      "$type": "ThunderRoad.VoiceData+Dialog, ThunderRoad",
+      "id": "deathlong",
+      "mixerChannel": "Voice",
+      "audioGroupAddress": "Bas.AudioGroup.Voice.Baron.Hurt"
+    }
+  ],
+  "groupPath": null
+}

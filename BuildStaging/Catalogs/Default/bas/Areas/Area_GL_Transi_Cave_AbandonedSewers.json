@@ -1,0 +1,73 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "GL_Transi_Cave_AbandonedSewers",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.GL_Transi_Cave_AbandonedSewers",
+  "lightingPresetAddress": "Bas.Area.GL_Transi_Cave_AbandonedSewers.LightingPreset",
+  "cullingAddress": "Bas.Area.GL_Transi_Cave_AbandonedSewers.CullData",
+  "Bounds": {
+    "center": {
+      "x": -4.49334335,
+      "y": -3.43092537,
+      "z": -10.5404911
+    },
+    "size": {
+      "x": 34.3312531,
+      "y": 18.5978661,
+      "z": 36.93302
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_CaveVertical"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 5.0,
+        "y": 5.86800671,
+        "z": -14.0
+      },
+      "face": "Up",
+      "fakeViewAddress": "Bas.Area.GL_Transi_Cave_AbandonedSewers.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 2.0,
+        "y": -10.137,
+        "z": -29.0070019
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.GL_Transi_Cave_AbandonedSewers.FakeView.1"
+    }
+  ],
+  "areaGlobalParameters": [],
+  "groupPath": "Outpost/Transi"
+}

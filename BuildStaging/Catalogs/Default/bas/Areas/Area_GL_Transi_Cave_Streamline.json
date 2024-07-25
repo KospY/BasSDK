@@ -1,0 +1,77 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "GL_Transi_Cave_Streamline",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.GL_Transi_Cave_Streamline",
+  "lightingPresetAddress": "Bas.Area.GL_Transi_Cave_Streamline.LightingPreset",
+  "cullingAddress": "Bas.Area.GL_Transi_Cave_Streamline.CullData",
+  "Bounds": {
+    "center": {
+      "x": 1.85709953,
+      "y": 7.54205561,
+      "z": 12.2730274
+    },
+    "size": {
+      "x": 43.28788,
+      "y": 26.439888,
+      "z": 40.6980553
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_CaveVertical"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 9.969,
+        "y": 20.762,
+        "z": 21.442
+      },
+      "face": "Up",
+      "fakeViewAddress": "Bas.Area.GL_Transi_Cave_Streamline.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Cave"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 9.3029995,
+        "y": 1.644,
+        "z": -8.076
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.GL_Transi_Cave_Streamline.FakeView.1"
+    }
+  ],
+  "areaGlobalParameters": [],
+  "groupPath": "Outpost/Transi"
+}

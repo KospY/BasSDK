@@ -1,0 +1,135 @@
+{
+  "$type": "ThunderRoad.Skill.Spell.SkillSapStatusApplier, ThunderRoad",
+  "id": "GravitySapping",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "spellId": "Gravity",
+  "sapGradient": {
+    "$type": "UnityEngine.Gradient, UnityEngine.CoreModule",
+    "colorKeys": [
+      {
+        "$type": "UnityEngine.GradientColorKey, UnityEngine.CoreModule",
+        "color": {
+          "r": 0.469638139,
+          "g": 0.0549019352,
+          "b": 0.7490196,
+          "a": 1.0
+        },
+        "time": 0.00294499123
+      },
+      {
+        "$type": "UnityEngine.GradientColorKey, UnityEngine.CoreModule",
+        "color": {
+          "r": 0.317388147,
+          "g": 0.0549019352,
+          "b": 0.7490196,
+          "a": 1.0
+        },
+        "time": 1.0
+      }
+    ],
+    "alphaKeys": [
+      {
+        "$type": "UnityEngine.GradientAlphaKey, UnityEngine.CoreModule",
+        "alpha": 1.0,
+        "time": 0.0
+      },
+      {
+        "$type": "UnityEngine.GradientAlphaKey, UnityEngine.CoreModule",
+        "alpha": 1.0,
+        "time": 1.0
+      }
+    ],
+    "mode": "Blend"
+  },
+  "boltGradient": {
+    "$type": "UnityEngine.Gradient, UnityEngine.CoreModule",
+    "colorKeys": [
+      {
+        "$type": "UnityEngine.GradientColorKey, UnityEngine.CoreModule",
+        "color": {
+          "r": 0.0,
+          "g": 0.117647059,
+          "b": 0.7490196,
+          "a": 1.0
+        },
+        "time": 0.00294499123
+      },
+      {
+        "$type": "UnityEngine.GradientColorKey, UnityEngine.CoreModule",
+        "color": {
+          "r": 0.221310943,
+          "g": 0.08805783,
+          "b": 0.7490196,
+          "a": 1.0
+        },
+        "time": 0.2411841
+      },
+      {
+        "$type": "UnityEngine.GradientColorKey, UnityEngine.CoreModule",
+        "color": {
+          "r": 0.377930343,
+          "g": 0.06711785,
+          "b": 0.7490196,
+          "a": 1.0
+        },
+        "time": 0.655878544
+      },
+      {
+        "$type": "UnityEngine.GradientColorKey, UnityEngine.CoreModule",
+        "color": {
+          "r": 0.469298542,
+          "g": 0.0549019352,
+          "b": 0.7490196,
+          "a": 1.0
+        },
+        "time": 1.0
+      }
+    ],
+    "alphaKeys": [
+      {
+        "$type": "UnityEngine.GradientAlphaKey, UnityEngine.CoreModule",
+        "alpha": 1.0,
+        "time": 0.0
+      },
+      {
+        "$type": "UnityEngine.GradientAlphaKey, UnityEngine.CoreModule",
+        "alpha": 1.0,
+        "time": 1.0
+      }
+    ],
+    "mode": "Blend"
+  },
+  "statusEffectId": "Floating",
+  "statusDuration": 2.0,
+  "shardId": "Crystal_Small_01_Shard",
+  "prefabAddress": "Bas.Item.Misc.SkillOrb",
+  "meshAddress": null,
+  "meshSize": 1.0,
+  "orbLinkEffectId": "SkillTreeOrbLink",
+  "tier": 1,
+  "allowSkill": true,
+  "forceAllowRefund": false,
+  "showInTree": true,
+  "hideInSkillMenu": false,
+  "skillTreeDisplayName": "{GravitySappingName}",
+  "description": "{GravitySappingDescription}",
+  "imageAddress": "",
+  "videoAddress": "Bas.Video.Skill.GravitySapping",
+  "buttonSpriteSheetAddress": "Bas.Ui.SkillTree.Icons",
+  "buttonEnabledIconAddress": "Bas.Ui.SkillTree.Icons[Gravity_Lightning_ButtonColor]",
+  "buttonDisabledIconAddress": "Bas.Ui.SkillTree.Icons[Gravity_Lightning_Button]",
+  "orbIconAddress": "Bas.Ui.SkillTree.Icons[GravitySapping]",
+  "tutorial": null,
+  "tutorialLocalizationId": null,
+  "tutorialGoal": null,
+  "tutorialGoalLocalizationId": null,
+  "costOverride": -1,
+  "isDefaultSkill": false,
+  "primarySkillTreeId": "Lightning",
+  "secondarySkillTreeId": "Gravity",
+  "isTierBlocker": false,
+  "groupPath": null,
+  "IsCombinedSkill": true
+}

@@ -1,0 +1,109 @@
+{
+  "$type": "ThunderRoad.LevelData, ThunderRoad",
+  "id": "Debug_DungeonOutpost",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 3,
+  "name": "Debug_Outpost",
+  "description": "New Area system\nBegin your first Dungeon adventure in the Greenlands; characterized by its ruined castle-like stone structures and cave systems. ",
+  "descriptionLocalizationId": "OutpostDescription",
+  "sceneAddress": "Level.Areas",
+  "showOnlyDevMode": true,
+  "showInLevelSelection": true,
+  "worldmapPrefabAddress": "Bas.Image.Map.Debug",
+  "worldmapTextureAddress": "Bas.Worldmap.Eraden",
+  "worldmapLabel": null,
+  "worldMapTravelAudioContainerAddress": "Bas.AudioGroup.UI.LightClick",
+  "mapLocationIndex": 13,
+  "showOnMap": true,
+  "hideOnAndroid": false,
+  "mapLocationIconAddress": "Bas.Icon.Location.Dungeon",
+  "mapLocationIconHoverAddress": "Bas.Icon.Location.DungeonHover",
+  "mapPreviewImageAddress": "Bas.Image.Preview.Outpost",
+  "modes": [
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "Sandbox",
+      "displayName": "Sandbox",
+      "description": "DungeonSandboxDescription",
+      "allowGameModes": [
+        "Sandbox"
+      ],
+      "mapOrder": 0,
+      "playerDeathAction": "AskReload",
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleMusic, ThunderRoad",
+          "dynamicMusic": "MusicDungeon"
+        },
+        {
+          "$type": "ThunderRoad.LevelAreaModule, ThunderRoad",
+          "areaFullMemoryDepth": 3,
+          "areaLiteMemoryDepth": 4,
+          "areaCullDepth": 2,
+          "areaByLength": [
+            {
+              "$type": "ThunderRoad.LevelAreaModule+AreaSpawnerData, ThunderRoad",
+              "areaCollectionId": "GL_Short",
+              "numberCreature": 50,
+              "isSharedNPCAlert": true
+            },
+            {
+              "$type": "ThunderRoad.LevelAreaModule+AreaSpawnerData, ThunderRoad",
+              "areaCollectionId": "GL_Medium",
+              "numberCreature": 50,
+              "isSharedNPCAlert": true
+            },
+            {
+              "$type": "ThunderRoad.LevelAreaModule+AreaSpawnerData, ThunderRoad",
+              "areaCollectionId": "GL_Large",
+              "numberCreature": 50,
+              "isSharedNPCAlert": true
+            }
+          ]
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        }
+      ],
+      "availableOptions": [
+        {
+          "$type": "ThunderRoad.Option, ThunderRoad",
+          "minValue": 1,
+          "maxValue": 3,
+          "defaultValue": 2,
+          "stepValue": 1,
+          "name": "Difficulty",
+          "displayName": "Difficulty",
+          "description": "DifficultyDescription"
+        },
+        {
+          "$type": "ThunderRoad.Option, ThunderRoad",
+          "minValue": 1,
+          "maxValue": 3,
+          "defaultValue": 2,
+          "stepValue": 1,
+          "name": "DungeonLength",
+          "displayName": "Length",
+          "description": "LengthDescription"
+        },
+        {
+          "$type": "ThunderRoad.Option, ThunderRoad",
+          "minValue": 0,
+          "maxValue": 0,
+          "defaultValue": 0,
+          "stepValue": 1,
+          "name": "DungeonRoom",
+          "displayName": "Specific Area",
+          "description": "Increase the area spawn rate a lot"
+        }
+      ]
+    }
+  ],
+  "modePickCountPerRank": 2,
+  "customCameras": [],
+  "throwableRefType": "Item",
+  "improvisedThrowableID": null,
+  "groupPath": "Debug"
+}

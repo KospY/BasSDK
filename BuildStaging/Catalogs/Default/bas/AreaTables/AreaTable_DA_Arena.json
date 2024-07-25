@@ -1,0 +1,81 @@
+{
+  "$type": "ThunderRoad.AreaTable, ThunderRoad",
+  "id": "DA_Arena",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "areaSettingTable": {
+    "$type": "ThunderRoad.AreaTable+AreaSettingsTable, ThunderRoad",
+    "drops": [
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "DA_Arena_Temple",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1,
+            3
+          ],
+          "entranceConnection": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "maxCreature": 4
+        },
+        "probabilityWeight": 0.2
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "DA_Arena_Forge",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1,
+            2
+          ],
+          "entranceConnection": [
+            0,
+            1,
+            2
+          ],
+          "maxCreature": 4
+        },
+        "probabilityWeight": 1.0
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "DA_Arena_TownSquare",
+            "category": "Area"
+          },
+          "exitConnection": [
+            1,
+            2
+          ],
+          "entranceConnection": [
+            0,
+            3
+          ],
+          "maxCreature": 4
+        },
+        "probabilityWeight": 0.8
+      }
+    ]
+  },
+  "groupPath": "Dalgarian/Old"
+}

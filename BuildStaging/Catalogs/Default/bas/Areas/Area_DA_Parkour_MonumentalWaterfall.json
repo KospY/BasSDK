@@ -1,0 +1,100 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "DA_Parkour_MonumentalWaterfall",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.DA_Parkour_MonumentalWaterfall",
+  "lightingPresetAddress": "Bas.Area.DA_Parkour_MonumentalWaterfall.LightingPreset",
+  "cullingAddress": "Bas.Area.DA_Parkour_MonumentalWaterfall.CullData",
+  "Bounds": {
+    "center": {
+      "x": -9.903763,
+      "y": 89.5785,
+      "z": 93.675
+    },
+    "size": {
+      "x": 397.102722,
+      "y": 317.455261,
+      "z": 187.35
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -50.57,
+        "y": -14.27,
+        "z": 187.35
+      },
+      "face": "Front",
+      "fakeViewAddress": "Bas.Area.DA_Parkour_MonumentalWaterfall.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.DA_Parkour_MonumentalWaterfall.FakeView.1"
+    }
+  ],
+  "areaGlobalParameters": [
+    {
+      "$type": "ThunderRoad.AreaSunGlobalParameter, ThunderRoad",
+      "dirLightColor": {
+        "r": 1.0,
+        "g": 0.7618187,
+        "b": 0.5803922,
+        "a": 1.0
+      },
+      "dirLightIntensity": 3.5,
+      "dirLightIndirectMultiplier": 2.2,
+      "directionalLightLocalRotation": {
+        "x": 0.06227352,
+        "y": -0.5740852,
+        "z": 0.160146192,
+        "w": 0.800563157
+      },
+      "visibleFromGate": true
+    }
+  ],
+  "groupPath": "Dalgarian/Parkour"
+}

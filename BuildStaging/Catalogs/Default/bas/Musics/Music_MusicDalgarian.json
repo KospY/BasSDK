@@ -1,0 +1,247 @@
+{
+  "$type": "ThunderRoad.Music, ThunderRoad",
+  "id": "MusicDalgarian",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "volumeDb": -1.0,
+  "groupsToLoad": [
+    "MusicDalgarianChase",
+    "MusicDalgarianChaseOutro",
+    "MusicDalgarianLowerFight",
+    "MusicDalgarianFight",
+    "MusicDalgarianXriserFight",
+    "GolemFight",
+    "GolemFightIntro",
+    "GolemUnprotected",
+    "GolemFightToUnprotected",
+    "GolemUnprotectedOutro",
+    "GolemFightOutro"
+  ],
+  "transitions": [
+    {
+      "$type": "ThunderRoad.Music+MusicTransition, ThunderRoad",
+      "sourceGroup": "",
+      "destinationGroup": "MusicDalgarianChase",
+      "musicGroup": "",
+      "timeBeforeTransition": 0,
+      "transitionType": "Immediate",
+      "timePreTransition": 0,
+      "preTransitionType": "Immediate",
+      "timeBeforeDestStart": 0,
+      "transitionDestStartType": "Immediate"
+    },
+    {
+      "$type": "ThunderRoad.Music+MusicTransition, ThunderRoad",
+      "sourceGroup": "",
+      "destinationGroup": "MusicDalgarianFight",
+      "musicGroup": "MusicDalgarianXriserFight",
+      "timeBeforeTransition": 0,
+      "transitionType": "Immediate",
+      "timePreTransition": 0,
+      "preTransitionType": "Immediate",
+      "timeBeforeDestStart": 2,
+      "transitionDestStartType": "OnBeat"
+    },
+    {
+      "$type": "ThunderRoad.Music+MusicTransition, ThunderRoad",
+      "sourceGroup": "MusicDalgarianChase",
+      "destinationGroup": "MusicDalgarianFight",
+      "musicGroup": "MusicDalgarianXriserFight",
+      "timeBeforeTransition": 0,
+      "transitionType": "OnBeat",
+      "timePreTransition": 0,
+      "preTransitionType": "Immediate",
+      "timeBeforeDestStart": 2,
+      "transitionDestStartType": "OnBeat"
+    },
+    {
+      "$type": "ThunderRoad.Music+MusicTransition, ThunderRoad",
+      "sourceGroup": "MusicDalgarianChase",
+      "destinationGroup": "",
+      "musicGroup": "MusicDalgarianChaseOutro",
+      "timeBeforeTransition": 0,
+      "transitionType": "OnGrid",
+      "timePreTransition": 0,
+      "preTransitionType": "Immediate",
+      "timeBeforeDestStart": 0,
+      "transitionDestStartType": "Immediate"
+    },
+    {
+      "$type": "ThunderRoad.Music+MusicTransition, ThunderRoad",
+      "sourceGroup": "MusicDalgarianFight",
+      "destinationGroup": "MusicDalgarianChase",
+      "musicGroup": "MusicDalgarianLowerFight",
+      "timeBeforeTransition": 2,
+      "transitionType": "OnGrid",
+      "timePreTransition": 0,
+      "preTransitionType": "Immediate",
+      "timeBeforeDestStart": 1,
+      "transitionDestStartType": "OnBar"
+    },
+    {
+      "$type": "ThunderRoad.Music+MusicTransition, ThunderRoad",
+      "sourceGroup": "MusicDalgarianFight",
+      "destinationGroup": "",
+      "musicGroup": "MusicDalgarianLowerFight",
+      "timeBeforeTransition": 2,
+      "transitionType": "OnGrid",
+      "timePreTransition": 0,
+      "preTransitionType": "Immediate",
+      "timeBeforeDestStart": 0,
+      "transitionDestStartType": "Immediate"
+    },
+    {
+      "$type": "ThunderRoad.Music+MusicTransition, ThunderRoad",
+      "sourceGroup": "",
+      "destinationGroup": "GolemFight",
+      "musicGroup": "GolemFightIntro",
+      "timeBeforeTransition": 0,
+      "transitionType": "OnBeat",
+      "timePreTransition": 0,
+      "preTransitionType": "Immediate",
+      "timeBeforeDestStart": 2,
+      "transitionDestStartType": "OnBeat"
+    },
+    {
+      "$type": "ThunderRoad.Music+MusicTransition, ThunderRoad",
+      "sourceGroup": "GolemFight",
+      "destinationGroup": "GolemUnprotected",
+      "musicGroup": "GolemFightToUnprotected",
+      "timeBeforeTransition": 0,
+      "transitionType": "OnBar",
+      "timePreTransition": 2,
+      "preTransitionType": "OnBeat",
+      "timeBeforeDestStart": 0,
+      "transitionDestStartType": "OnBar"
+    },
+    {
+      "$type": "ThunderRoad.Music+MusicTransition, ThunderRoad",
+      "sourceGroup": "GolemUnprotected",
+      "destinationGroup": "",
+      "musicGroup": "GolemUnprotectedOutro",
+      "timeBeforeTransition": 0,
+      "transitionType": "OnBar",
+      "timePreTransition": 2,
+      "preTransitionType": "OnBeat",
+      "timeBeforeDestStart": 0,
+      "transitionDestStartType": "OnBar"
+    },
+    {
+      "$type": "ThunderRoad.Music+MusicTransition, ThunderRoad",
+      "sourceGroup": "GolemUnprotected",
+      "destinationGroup": "GolemFight",
+      "musicGroup": "",
+      "timeBeforeTransition": 0,
+      "transitionType": "OnGrid",
+      "timePreTransition": 0,
+      "preTransitionType": "Immediate",
+      "timeBeforeDestStart": 0,
+      "transitionDestStartType": "Immediate"
+    },
+    {
+      "$type": "ThunderRoad.Music+MusicTransition, ThunderRoad",
+      "sourceGroup": "GolemFight",
+      "destinationGroup": "",
+      "musicGroup": "GolemFightOutro",
+      "timeBeforeTransition": 0,
+      "transitionType": "OnBar",
+      "timePreTransition": 2,
+      "preTransitionType": "OnBeat",
+      "timeBeforeDestStart": 0,
+      "transitionDestStartType": "OnBar"
+    },
+    {
+      "$type": "ThunderRoad.Music+MusicTransition, ThunderRoad",
+      "sourceGroup": "",
+      "destinationGroup": "GolemUnprotected",
+      "musicGroup": "",
+      "timeBeforeTransition": 0,
+      "transitionType": "OnBeat",
+      "timePreTransition": 0,
+      "preTransitionType": "Immediate",
+      "timeBeforeDestStart": 0,
+      "transitionDestStartType": "Immediate"
+    }
+  ],
+  "dynamicModules": {
+    "$type": "ThunderRoad.MusicDynamicModuleMap, ThunderRoad",
+    "ExposureTransition": {
+      "$type": "ThunderRoad.MusicDynamicPlayerBrainTransitionModule, ThunderRoad",
+      "exposureMusicGroupId": {
+        "$type": "ThunderRoad.BrainMusicMapping, ThunderRoad",
+        "None": null,
+        "Danger": null,
+        "Alert": "MusicDalgarianChase",
+        "RangedCombat": "MusicDalgarianFight",
+        "CloseCombat": "MusicDalgarianFight"
+      },
+      "isDefault": true,
+      "IsConnected": false
+    },
+    "CombatKillStinger": {
+      "$type": "ThunderRoad.MusicStingerCombatKillModule, ThunderRoad",
+      "killType": "mele",
+      "damageRatioThreshold": 0.75,
+      "timeComboKill": 0.01,
+      "stingerEffectIdList": [
+        "ArenaOnKillStingerMele"
+      ],
+      "isDefault": true,
+      "IsConnected": false
+    },
+    "FurtifKillStinger": {
+      "$type": "ThunderRoad.MusicStingerFurtifKillModule, ThunderRoad",
+      "killType": "mele",
+      "damageRatioThreshold": 0.0,
+      "timeComboKill": 2.0,
+      "stingerEffectIdList": [
+        "OnFurtifKillStinger"
+      ],
+      "isDefault": true,
+      "IsConnected": false
+    },
+    "DetectedStinger": {
+      "$type": "ThunderRoad.MusicStingerOnPlayerDetected, ThunderRoad",
+      "stingerEffectIdList": [
+        "OnDetectionStinger"
+      ],
+      "isDefault": true,
+      "IsConnected": false
+    },
+    "CombatKillStingerRange": {
+      "$type": "ThunderRoad.MusicStingerCombatKillModule, ThunderRoad",
+      "killType": "range",
+      "damageRatioThreshold": 0.75,
+      "timeComboKill": 0.01,
+      "stingerEffectIdList": [
+        "ArenaOnKillStingerRange"
+      ],
+      "isDefault": true,
+      "IsConnected": false
+    },
+    "GolemTransition": {
+      "$type": "ThunderRoad.MusicDynamicGolemArenaModule, ThunderRoad",
+      "headshotStingerId": "GolemHeadshot",
+      "stingerOnGolemStateChange": [],
+      "golemStateActiveMusicId": {
+        "$type": "ThunderRoad.GolemMusicMapping, ThunderRoad",
+        "Active": "GolemFight",
+        "Rampage": "GolemFight",
+        "Stunned": "GolemUnprotected"
+      },
+      "dynamicModuleToDisconnectOnGolemActivation": [
+        "CombatKillStinger",
+        "CombatKillStingerRange",
+        "DetectedStinger",
+        "ExposureTransition",
+        "FurtifKillStinger"
+      ],
+      "dynamicModuleToConnectOnGolemActivation": [],
+      "stingerEffectIdList": [],
+      "isDefault": true,
+      "IsConnected": false
+    }
+  },
+  "groupPath": null
+}

@@ -1,0 +1,749 @@
+{
+  "$type": "ThunderRoad.ItemData, ThunderRoad",
+  "id": "SwordGreatDalgarian",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 4,
+  "localizationId": "SwordGreatDalgarian",
+  "displayName": "Sword of Naa",
+  "description": "Darkness and chaos! The endless war! Jikarazins! Oh Nar Kayosvam!\r\nWe Implore You, Grant Us Harmony!\r\nOh Khemenet, summon the Sword of Naa!",
+  "author": "Glitch",
+  "valueType": "Gold",
+  "value": 11472.0,
+  "rewardValue": 0.0,
+  "tier": 5,
+  "flags": "Spinnable, Jabbing",
+  "levelRequired": 0,
+  "category": "Greatswords",
+  "iconEffectId": null,
+  "preferredItemCenter": "Mass",
+  "drainImbueWhenIdle": true,
+  "prefabAddress": "Bas.Item.Melee.Greatsword.Dalgarian",
+  "iconAddress": "Bas.Item.Melee.Greatsword.Dalgarian.Icon[wpn_SD_DalgarianSword]",
+  "closeUpIconAddress": "Bas.Item.Melee.Greatsword.Dalgarian.IconClose[wpn_SD_DalgarianSword-close-up]",
+  "pooledCount": 0,
+  "androidPooledCount": 0,
+  "type": "Weapon",
+  "allowedStorage": "Container",
+  "despawnOnStoredInInventory": false,
+  "isStackable": false,
+  "consumableId": null,
+  "inventoryAudioContainerAddress": null,
+  "inventoryAudioVolume_dB": 0.0,
+  "slot": "Large",
+  "snapAudioContainerAddress": "Bas.AudioGroup.Snap.Heavy",
+  "snapAudioVolume_dB": 0.0,
+  "overrideMassAndDrag": true,
+  "mass": 2.0,
+  "drag": 1.0,
+  "angularDrag": 0.05,
+  "focusRegenMultiplier": 1.5,
+  "spellChargeSpeedPlayerMultiplier": 1.7,
+  "spellChargeSpeedNPCMultiplier": 1.7,
+  "collisionMaxOverride": 0,
+  "collisionEnterOnly": false,
+  "collisionNoMinVelocityCheck": false,
+  "forceLayer": "None",
+  "diffForceLayerWhenHeld": false,
+  "forceLayerHeld": "None",
+  "waterHandSpringMultiplierCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 0.3,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 1.0,
+        "value": 0.15,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "waterDragMultiplierCurve": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 1.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 1.0,
+        "value": 10.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "waterSampleMinRadius": 0.2,
+  "throwMultiplier": 1.0,
+  "runSpeedMultiplier": 1.0,
+  "flyRotationSpeed": 3.0,
+  "flyThrowAngle": 0.0,
+  "allowFlyBackwards": false,
+  "telekinesisSafeDistance": 1.0,
+  "telekinesisThrowRatio": 1.0,
+  "telekinesisAutoGrabAnyHandle": false,
+  "grippable": true,
+  "grabAndGripClimb": false,
+  "playerGrabAndGripChangeLayer": true,
+  "customSnaps": [],
+  "drainImbueOnSnap": true,
+  "imbueEnergyOverTimeOnSnap": {
+    "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+    "keys": [
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 0.0,
+        "value": 1.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      },
+      {
+        "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+        "time": 3.0,
+        "value": 0.0,
+        "inTangent": 0.0,
+        "outTangent": 0.0,
+        "inWeight": 0.0,
+        "outWeight": 0.0,
+        "weightedMode": "None",
+        "tangentMode": 0
+      }
+    ],
+    "length": 2,
+    "preWrapMode": "ClampForever",
+    "postWrapMode": "ClampForever"
+  },
+  "modules": [
+    {
+      "$type": "ThunderRoad.ItemModuleAI, ThunderRoad",
+      "primaryClass": "Melee",
+      "secondaryClass": "None",
+      "weaponHandling": "TwoHanded",
+      "secondaryHandling": "None",
+      "weaponAttackTypes": "Swing, Thrust",
+      "ignoredByDefense": false,
+      "alwaysPrimary": false,
+      "defaultStanceInfo": {
+        "$type": "ThunderRoad.ItemModuleAI+StanceInfo, ThunderRoad",
+        "offhand": "Anything",
+        "grabAIHandleRadius": 0.0,
+        "stanceDataID": "HumanMelee1hStance"
+      },
+      "stanceInfosByOffhand": [
+        {
+          "$type": "ThunderRoad.ItemModuleAI+StanceInfo, ThunderRoad",
+          "offhand": "SameItem",
+          "grabAIHandleRadius": 0.0,
+          "stanceDataID": ""
+        }
+      ],
+      "rangedWeaponData": null,
+      "armResistanceMultiplier": 3.0,
+      "allowDynamicHeight": false,
+      "defenseHasPriority": false
+    },
+    {
+      "$type": "ThunderRoad.ItemModuleStats, ThunderRoad",
+      "stats": [
+        {
+          "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
+          "value": 5,
+          "name": "FleshDamage"
+        },
+        {
+          "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
+          "value": 3,
+          "name": "LeatherDamage"
+        },
+        {
+          "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
+          "value": 2,
+          "name": "PlateDamage"
+        },
+        {
+          "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
+          "value": 4,
+          "name": "Penetration"
+        },
+        {
+          "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
+          "value": 4,
+          "name": "Dismemberment"
+        },
+        {
+          "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
+          "value": 3,
+          "name": "Stagger"
+        },
+        {
+          "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
+          "value": 5,
+          "name": "Imbue"
+        },
+        {
+          "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
+          "value": 2,
+          "name": "Handling"
+        }
+      ]
+    },
+    {
+      "$type": "ThunderRoad.ItemModuleSwordOfNaa, ThunderRoad",
+      "maxOrbIntensity": 0.2,
+      "lockHaptic": {
+        "$type": "ThunderRoad.GameData+HapticClip, ThunderRoad",
+        "curveIntensity": {
+          "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+          "keys": [
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.0,
+              "value": 0.000721749442,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.00255102036,
+              "value": 0.000721749442,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.012528345,
+              "value": 0.0293662548,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.017517006,
+              "value": 0.101175264,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.05005669,
+              "value": 0.06722471,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.0525510162,
+              "value": 0.3198916,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.0600340143,
+              "value": 0.307296336,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.0825396851,
+              "value": 0.224225149,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.09750567,
+              "value": 0.18324858,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.13503401,
+              "value": 0.112240665,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.162528351,
+              "value": 0.08244235,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.187528342,
+              "value": 0.06538278,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.192517,
+              "value": 0.07308986,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.2250567,
+              "value": 0.04835818,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.252551,
+              "value": 0.0336905755,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.270011336,
+              "value": 0.06728684,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.317517,
+              "value": 0.03890062,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.340022683,
+              "value": 0.0319468565,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.3500567,
+              "value": 0.101233654,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.352551,
+              "value": 0.153030172,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.375056684,
+              "value": 0.111216873,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.377551019,
+              "value": 0.412387669,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.3825397,
+              "value": 0.4057904,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.40504536,
+              "value": 0.299244225,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.422505647,
+              "value": 0.230343938,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.442517,
+              "value": 0.167255908,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.457539678,
+              "value": 0.132102489,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.485034,
+              "value": 0.0869236737,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.487528324,
+              "value": 0.1531099,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.4900227,
+              "value": 0.322309881,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.532539666,
+              "value": 0.185820714,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.560034,
+              "value": 0.116855972,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.5825397,
+              "value": 0.07984929,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.607539654,
+              "value": 0.05304536,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.655045331,
+              "value": 0.0240216814,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.702551,
+              "value": 0.0110392366,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.765022635,
+              "value": 0.0041648536,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.8475056,
+              "value": 0.001347055,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 1.0,
+              "value": 0.000204703567,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            }
+          ],
+          "length": 39,
+          "preWrapMode": "ClampForever",
+          "postWrapMode": "ClampForever"
+        },
+        "curvePeriod": {
+          "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+          "keys": [
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 0.0,
+              "value": 0.05,
+              "inTangent": 0.0,
+              "outTangent": 0.0,
+              "inWeight": 0.0,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            },
+            {
+              "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+              "time": 1.0,
+              "value": 0.07,
+              "inTangent": 0.0507395454,
+              "outTangent": 0.0507395454,
+              "inWeight": 0.03924644,
+              "outWeight": 0.0,
+              "weightedMode": "None",
+              "tangentMode": 0
+            }
+          ],
+          "length": 2,
+          "preWrapMode": "ClampForever",
+          "postWrapMode": "ClampForever"
+        },
+        "duration": 0.3
+      }
+    }
+  ],
+  "colliderGroups": [
+    {
+      "$type": "ThunderRoad.ItemData+ColliderGroup, ThunderRoad",
+      "transformName": "Blades",
+      "colliderGroupId": "BladeSwordCrystal"
+    }
+  ],
+  "damagers": [
+    {
+      "$type": "ThunderRoad.ItemData+Damager, ThunderRoad",
+      "transformName": "Pierce",
+      "damagerID": "SwordPierce"
+    },
+    {
+      "$type": "ThunderRoad.ItemData+Damager, ThunderRoad",
+      "transformName": "Slash",
+      "damagerID": "SwordSlash2H"
+    },
+    {
+      "$type": "ThunderRoad.ItemData+Damager, ThunderRoad",
+      "transformName": "Blunt",
+      "damagerID": "HandleHeavy"
+    }
+  ],
+  "Interactables": [
+    {
+      "$type": "ThunderRoad.ItemData+Interactable, ThunderRoad",
+      "transformName": "Handle",
+      "interactableId": "ObjectHandleHeavy"
+    }
+  ],
+  "effectHinges": [],
+  "whooshs": [
+    {
+      "$type": "ThunderRoad.ItemData+Whoosh, ThunderRoad",
+      "transformName": "Whoosh",
+      "effectId": "WhooshSwordLong",
+      "trigger": "Always",
+      "stopOnSnap": true,
+      "minVelocity": 3.0,
+      "maxVelocity": 14.0,
+      "dampening": 0.1
+    }
+  ],
+  "entityModules": [],
+  "groupPath": null
+}

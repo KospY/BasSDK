@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51053b7aeda920747a3580acd2aeb5e4, type: 3}
+  m_Name: ThunderRoadSettings
+  m_EditorClassIdentifier: 
+  addressableEditorPath: BuildStaging/AddressableAssets
+  catalogsEditorPath: BuildStaging/Catalogs
+  areaSceneAddress: Level.Areas
+  overrideData: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 36865
+  game: {fileID: 11400000, guid: 9072208e35c019342931a425144d2f6a, type: 2}
+  build: {fileID: 11400000, guid: 20d8f415ca922af45ab6a5b7baf8f97d, type: 2}
+  audioMixer: {fileID: 24100000, guid: 3e7ceaad016e2b44ea341850ad1f6b64, type: 2}
+  mirrorMaterial: {fileID: 2100000, guid: 7fef9fea59eec0b4d8f25dc024e975e8, type: 2}
+  mirrorOutlineMaterial: {fileID: 2100000, guid: 0c0183b8823e4f2438c7465726129d66,
+    type: 2}
+  pauseOnVRPresence: 0

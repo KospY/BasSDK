@@ -1,0 +1,159 @@
+{
+  "$type": "ThunderRoad.LevelData, ThunderRoad",
+  "id": "DungeonDalgarian",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 3,
+  "name": "Dalgarian",
+  "description": "An ancient Dalgarian ruin. Be prepared for a long and treacherous run through a labyrinth.",
+  "descriptionLocalizationId": "DalgarianDescription",
+  "sceneAddress": "Level.Areas",
+  "showOnlyDevMode": false,
+  "showInLevelSelection": true,
+  "worldmapPrefabAddress": "Bas.Image.Map.Default",
+  "worldmapTextureAddress": "Bas.Worldmap.Eraden",
+  "worldmapLabel": null,
+  "worldMapTravelAudioContainerAddress": "Bas.AudioGroup.Dungeon.DalgarianStart",
+  "mapLocationIndex": 25,
+  "showOnMap": true,
+  "hideOnAndroid": false,
+  "mapLocationIconAddress": "Bas.Icon.Location.DungeonDalgarian",
+  "mapLocationIconHoverAddress": "Bas.Icon.Location.DungeonDalgarian_Highlight",
+  "mapPreviewImageAddress": "Bas.Image.Preview.Dalgarian",
+  "modes": [
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "CrystalHunt",
+      "displayName": "CrystalHunt",
+      "description": "CrystalHunt",
+      "allowGameModes": [
+        "CrystalHunt"
+      ],
+      "mapOrder": 0,
+      "playerDeathAction": "AskReload",
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleMusic, ThunderRoad",
+          "dynamicMusic": "MusicDalgarian"
+        },
+        {
+          "$type": "ThunderRoad.LevelAreaModule, ThunderRoad",
+          "areaFullMemoryDepth": 100,
+          "areaLiteMemoryDepth": 100,
+          "areaCullDepth": 2,
+          "areaByLength": [
+            {
+              "$type": "ThunderRoad.LevelAreaModule+AreaSpawnerData, ThunderRoad",
+              "areaCollectionId": "DA_Downtown",
+              "numberCreature": 50,
+              "isSharedNPCAlert": true
+            },
+            {
+              "$type": "ThunderRoad.LevelAreaModule+AreaSpawnerData, ThunderRoad",
+              "areaCollectionId": "DA_Uptown",
+              "numberCreature": 50,
+              "isSharedNPCAlert": true
+            },
+            {
+              "$type": "ThunderRoad.LevelAreaModule+AreaSpawnerData, ThunderRoad",
+              "areaCollectionId": "DA_Industrial",
+              "numberCreature": 50,
+              "isSharedNPCAlert": true
+            }
+          ]
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        }
+      ],
+      "availableOptions": []
+    },
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "Sandbox",
+      "displayName": "Sandbox",
+      "description": "DungeonSandboxDescription",
+      "allowGameModes": [
+        "Sandbox"
+      ],
+      "mapOrder": 0,
+      "playerDeathAction": "AskReload",
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleMusic, ThunderRoad",
+          "dynamicMusic": "MusicDalgarian"
+        },
+        {
+          "$type": "ThunderRoad.LevelAreaModule, ThunderRoad",
+          "areaFullMemoryDepth": 100,
+          "areaLiteMemoryDepth": 100,
+          "areaCullDepth": 2,
+          "areaByLength": [
+            {
+              "$type": "ThunderRoad.LevelAreaModule+AreaSpawnerData, ThunderRoad",
+              "areaCollectionId": "DA_Downtown",
+              "numberCreature": 50,
+              "isSharedNPCAlert": true
+            },
+            {
+              "$type": "ThunderRoad.LevelAreaModule+AreaSpawnerData, ThunderRoad",
+              "areaCollectionId": "DA_Uptown",
+              "numberCreature": 50,
+              "isSharedNPCAlert": true
+            },
+            {
+              "$type": "ThunderRoad.LevelAreaModule+AreaSpawnerData, ThunderRoad",
+              "areaCollectionId": "DA_Industrial",
+              "numberCreature": 50,
+              "isSharedNPCAlert": true
+            }
+          ]
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        }
+      ],
+      "availableOptions": [
+        {
+          "$type": "ThunderRoad.EnemyConfigOption, ThunderRoad",
+          "valueList": [
+            "DalgarianEnemyConfigT1",
+            "DalgarianEnemyConfigT2",
+            "DalgarianEnemyConfigT3"
+          ],
+          "name": "EnemyConfig",
+          "displayName": "EnemyConfig",
+          "description": "EnemyConfigDesc"
+        },
+        {
+          "$type": "ThunderRoad.DalgDistrictOption, ThunderRoad",
+          "valueList": [
+            "Downtown",
+            "Uptown",
+            "Industrial"
+          ],
+          "name": "DungeonLength",
+          "displayName": "District",
+          "description": "Area of the dungeon"
+        },
+        {
+          "$type": "ThunderRoad.Option, ThunderRoad",
+          "minValue": 1,
+          "maxValue": 4,
+          "defaultValue": 1,
+          "stepValue": 1,
+          "name": "GolemTier",
+          "displayName": "GolemTier",
+          "description": "GolemTierDesc"
+        }
+      ]
+    }
+  ],
+  "modePickCountPerRank": 2,
+  "customCameras": [],
+  "throwableRefType": "Item",
+  "improvisedThrowableID": null,
+  "groupPath": "Dungeon Biomes"
+}

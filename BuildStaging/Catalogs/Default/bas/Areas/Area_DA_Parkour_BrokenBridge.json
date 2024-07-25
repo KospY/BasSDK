@@ -1,0 +1,81 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "DA_Parkour_BrokenBridge",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.DA_Parkour_BrokenBridge",
+  "lightingPresetAddress": "Bas.Area.DA_Parkour_BrokenBridge.LightingPreset",
+  "cullingAddress": "Bas.Area.DA_Parkour_BrokenBridge.CullData",
+  "Bounds": {
+    "center": {
+      "x": -157.287659,
+      "y": 90.15721,
+      "z": 19.9159164
+    },
+    "size": {
+      "x": 843.869263,
+      "y": 478.5916,
+      "z": 176.068146
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 24.36,
+        "y": 17.6,
+        "z": 107.95
+      },
+      "face": "Front",
+      "fakeViewAddress": "Bas.Area.DA_Parkour_BrokenBridge.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -68.13885,
+        "y": 83.15,
+        "z": -68.11816
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.DA_Parkour_BrokenBridge.FakeView.1"
+    }
+  ],
+  "areaGlobalParameters": [],
+  "groupPath": "Dalgarian/Parkour"
+}

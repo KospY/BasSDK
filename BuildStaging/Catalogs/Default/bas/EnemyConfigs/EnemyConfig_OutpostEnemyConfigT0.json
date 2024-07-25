@@ -1,0 +1,52 @@
+{
+  "$type": "ThunderRoad.EnemyConfig, ThunderRoad",
+  "id": "OutpostEnemyConfigT0",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "iconAddress": "Bas.Icon.EnemyConfig.Outlaws",
+  "customIconColor": false,
+  "iconColor": {
+    "r": 1.0,
+    "g": 1.0,
+    "b": 1.0,
+    "a": 1.0
+  },
+  "color": {
+    "r": 0.282352954,
+    "g": 0.3647059,
+    "b": 0.384313762,
+    "a": 1.0
+  },
+  "name": "{OutlawsOutpost}",
+  "nameLocalizationId": "OutlawsOutpost",
+  "descriptionsByLevelId": [
+    {
+      "$type": "ThunderRoad.EnemyConfig+DescriptionByLevelId, ThunderRoad",
+      "levelId": "DungeonOutpost",
+      "description": "OutlawsOutpostDesc"
+    }
+  ],
+  "patrolMixId": "ScavengerPatrolMix",
+  "patrolMeleeId": "ScavengerPatrolMelee",
+  "patrolRangedId": "ScavengerPatrolRanged",
+  "alertMixId": "ScavengerAlertMix",
+  "alertMeleeId": "ScavengerAlertMelee",
+  "alertRangedId": "ScavengerAlertRanged",
+  "rareMixId": "ScavengerRareMix",
+  "rareMeleeId": "ScavengerRareMelee",
+  "rareRangedId": "ScavengerRareRanged",
+  "meleeOnlyStd": "Dungeon_Scavenger_Std_MeleeOnly",
+  "meleeFocusedStd": "Dungeon_Scavenger_Std_MeleeFocused",
+  "mixedStd": "Dungeon_Scavenger_Std_Mixed",
+  "rangedFocusedStd": "Dungeon_Scavenger_Std_RangedFocused",
+  "meleeOnlyArena": "Dungeon_Scavenger_Arena_MeleeOnly",
+  "meleeFocusedArena": "Dungeon_Scavenger_Arena_MeleeFocused",
+  "mixedArena": "Dungeon_Scavenger_Arena_Mixed",
+  "rangedFocusedArena": "Dungeon_Scavenger_Arena_RangedFocused",
+  "meleeOnlyEnd": "Dungeon_Scavenger_End_MeleeOnly",
+  "meleeFocusedEnd": "Dungeon_Scavenger_End_MeleeFocused",
+  "mixedEnd": "Dungeon_Scavenger_End_Mixed",
+  "rangedFocusedEnd": "Dungeon_Scavenger_End_RangedFocused",
+  "groupPath": null
+}

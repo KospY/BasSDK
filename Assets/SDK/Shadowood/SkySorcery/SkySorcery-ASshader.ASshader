@@ -1,0 +1,121 @@
+{
+    "MonoBehaviour": {
+        "m_Enabled": true,
+        "m_EditorHideFlags": 0,
+        "m_Name": "",
+        "m_EditorClassIdentifier": "",
+        "realtimeUpdate": true,
+        "replaceShaders": [
+            {
+                "fileID": 4800000,
+                "guid": "d74cba543884b1d4ca093f2bfed24002",
+                "type": 3
+            }
+        ],
+        "targetShader": {
+            "fileID": 4800000,
+            "guid": "d74cba543884b1d4ca093f2bfed24002",
+            "type": 3
+        },
+        "debug": false,
+        "shaderSettings": {
+            "customShaderName": "Skybox/SkySorcery - ASshader",
+            "outputShaderFName": "SkySorcery",
+            "PlatformAS": 2,
+            "tessellationDesktop": false,
+            "tessellationMobile": false,
+            "passItems": [
+                {
+                    "displayName": "ON - ON - Unlit",
+                    "passName": "Unlit",
+                    "present": true,
+                    "indexSubShader": 0,
+                    "enabledDesktop": true,
+                    "enabledMobile": true
+                }
+            ],
+            "shaderKeywords": [
+                {
+                    "displayName": " -- ON - ON -  OCEANFOG ON : multi compile",
+                    "line": "#pragma multi_compile_local __ _OCEANFOG_ON",
+                    "replace": "",
+                    "replaceDesktop": "",
+                    "replaceMobile": "",
+                    "replaceEditor": "",
+                    "keywordName": "__ _OCEANFOG_ON",
+                    "keywordLast": "_OCEANFOG",
+                    "keywordType": 2,
+                    "keywordTypeReplace": 0,
+                    "keywordDomain": 0,
+                    "local": true,
+                    "enabledDesktop": true,
+                    "enabledMobile": true,
+                    "present": false,
+                    "comment": "",
+                    "instructions": 0.0,
+                    "mali": ""
+                },
+                {
+                    "displayName": " -- ON - REP -  TONEMAPPING ON : shader feature",
+                    "line": "#pragma shader_feature _TONEMAPPING_ON",
+                    "replace": "",
+                    "replaceDesktop": "",
+                    "replaceMobile": "#define _TONEMAPPING_ON 1",
+                    "replaceEditor": "",
+                    "keywordName": "_TONEMAPPING_ON",
+                    "keywordLast": "_TONEMAPPING",
+                    "keywordType": 1,
+                    "keywordTypeReplace": 0,
+                    "keywordDomain": 0,
+                    "local": false,
+                    "enabledDesktop": true,
+                    "enabledMobile": true,
+                    "present": false,
+                    "comment": "",
+                    "instructions": 0.0,
+                    "mali": ""
+                },
+                {
+                    "displayName": "ON - ON -  USEUNDERWATER : multi compile",
+                    "line": "#pragma multi_compile __ _USEUNDERWATER",
+                    "replace": "",
+                    "replaceDesktop": "",
+                    "replaceMobile": "",
+                    "replaceEditor": "",
+                    "keywordName": "__ _USEUNDERWATER",
+                    "keywordLast": "_USEUNDERWATER",
+                    "keywordType": 2,
+                    "keywordTypeReplace": 0,
+                    "keywordDomain": 0,
+                    "local": false,
+                    "enabledDesktop": true,
+                    "enabledMobile": true,
+                    "present": true,
+                    "comment": "",
+                    "instructions": 0.0,
+                    "mali": ""
+                },
+                {
+                    "displayName": "ON - ON - GLOBALTONEMAPPING : shader feature",
+                    "line": "#pragma shader_feature GLOBALTONEMAPPING",
+                    "replace": "",
+                    "replaceDesktop": "",
+                    "replaceMobile": "",
+                    "replaceEditor": "",
+                    "keywordName": "GLOBALTONEMAPPING",
+                    "keywordLast": "GLOBALTONEMAPPING",
+                    "keywordType": 1,
+                    "keywordTypeReplace": 0,
+                    "keywordDomain": 0,
+                    "local": false,
+                    "enabledDesktop": true,
+                    "enabledMobile": true,
+                    "present": true,
+                    "comment": "",
+                    "instructions": 0.0,
+                    "mali": ""
+                }
+            ]
+        }
+    }
+}

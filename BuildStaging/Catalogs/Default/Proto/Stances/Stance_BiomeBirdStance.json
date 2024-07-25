@@ -1,0 +1,59 @@
+{
+  "$type": "ThunderRoad.FirearmStanceData, ThunderRoad",
+  "id": "BiomeBirdStance",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "rootName": "BiomeBird",
+  "idlePose": {
+    "$type": "ThunderRoad.FirearmPose, ThunderRoad",
+    "nextIdles": null,
+    "id": "BiomeBirdIdlePose",
+    "address": "Bas.Animation.Gun.Idle",
+    "animationSpeed": 1.0,
+    "difficulty": 0,
+    "allowPlayAndMove": true,
+    "weight": 0.0,
+    "customID": false,
+    "showDifficulty": false,
+    "showWeight": false
+  },
+  "aimPose": {
+    "$type": "ThunderRoad.FirearmPose, ThunderRoad",
+    "nextIdles": null,
+    "id": "BiomeBirdAimPose",
+    "address": "Bas.Animation.Gun.Aim",
+    "animationSpeed": 1.0,
+    "difficulty": 0,
+    "allowPlayAndMove": true,
+    "weight": 0.0,
+    "customID": false,
+    "showDifficulty": false,
+    "showWeight": false
+  },
+  "fireAction": {
+    "$type": "ThunderRoad.FirearmAction, ThunderRoad",
+    "id": "BiomeBirdShootAnimation",
+    "address": "Bas.Animation.Gun.Shoot",
+    "animationSpeed": 1.0,
+    "difficulty": 0,
+    "allowPlayAndMove": true,
+    "weight": 0.0,
+    "customID": false,
+    "showDifficulty": false,
+    "showWeight": false
+  },
+  "reloadAction": {
+    "$type": "ThunderRoad.FirearmAction, ThunderRoad",
+    "id": "BiomeBirdReloadAnimation",
+    "address": "Bas.Animation.Gun.Reload",
+    "animationSpeed": 1.0,
+    "difficulty": 0,
+    "allowPlayAndMove": true,
+    "weight": 0.0,
+    "customID": false,
+    "showDifficulty": false,
+    "showWeight": false
+  },
+  "baseStance": "Staff"
+}

@@ -1,0 +1,100 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "DA_Parkour_Drainage",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.DA_Parkour_Drainage",
+  "lightingPresetAddress": "Bas.Area.DA_Parkour_Drainage.LightingPreset",
+  "cullingAddress": "Bas.Area.DA_Parkour_Drainage.CullData",
+  "Bounds": {
+    "center": {
+      "x": -23.075,
+      "y": 9.274622,
+      "z": 22.0802917
+    },
+    "size": {
+      "x": 81.85,
+      "y": 63.2492447,
+      "z": 64.91733
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 17.85,
+        "y": -2.20000076,
+        "z": 18.8
+      },
+      "face": "Right",
+      "fakeViewAddress": "Bas.Area.DA_Parkour_Drainage.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -64.0,
+        "y": -2.25,
+        "z": 19.05
+      },
+      "face": "Left",
+      "fakeViewAddress": "Bas.Area.DA_Parkour_Drainage.FakeView.1"
+    }
+  ],
+  "areaGlobalParameters": [
+    {
+      "$type": "ThunderRoad.AreaSunGlobalParameter, ThunderRoad",
+      "dirLightColor": {
+        "r": 1.0,
+        "g": 0.7618187,
+        "b": 0.5803922,
+        "a": 1.0
+      },
+      "dirLightIntensity": 6.0,
+      "dirLightIndirectMultiplier": 7.0,
+      "directionalLightLocalRotation": {
+        "x": 0.147301555,
+        "y": 0.199210629,
+        "z": -0.0873845,
+        "w": 0.964873731
+      },
+      "visibleFromGate": true
+    }
+  ],
+  "groupPath": "Dalgarian/Parkour"
+}

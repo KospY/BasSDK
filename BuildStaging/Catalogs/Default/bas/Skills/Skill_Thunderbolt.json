@@ -1,0 +1,92 @@
+{
+  "$type": "ThunderRoad.Skill.Spell.SkillThunderbolt, ThunderRoad",
+  "id": "Thunderbolt",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "chainRadius": 2.0,
+  "range": 10.0,
+  "angle": 15.0,
+  "damageNpc": 20.0,
+  "damagePlayer": 10.0,
+  "allowSurfaceBounce": false,
+  "itemForce": 10.0,
+  "creatureForce": 10.0,
+  "breakForce": 20.0,
+  "layerMask": 230702081,
+  "mainBoltEffectId": "SpellThunderbolt",
+  "impactEffectId": "SpellThunderboltImpact",
+  "statusEffectId": null,
+  "defaultBoltGradient": {
+    "$type": "UnityEngine.Gradient, UnityEngine.CoreModule",
+    "colorKeys": [
+      {
+        "$type": "UnityEngine.GradientColorKey, UnityEngine.CoreModule",
+        "color": {
+          "r": 0.01461502,
+          "g": 0.112755612,
+          "b": 1.03279662,
+          "a": 1.0
+        },
+        "time": 0.0
+      },
+      {
+        "$type": "UnityEngine.GradientColorKey, UnityEngine.CoreModule",
+        "color": {
+          "r": 0.01461502,
+          "g": 0.112755612,
+          "b": 1.03279662,
+          "a": 1.0
+        },
+        "time": 1.0
+      }
+    ],
+    "alphaKeys": [
+      {
+        "$type": "UnityEngine.GradientAlphaKey, UnityEngine.CoreModule",
+        "alpha": 0.0,
+        "time": 0.0
+      },
+      {
+        "$type": "UnityEngine.GradientAlphaKey, UnityEngine.CoreModule",
+        "alpha": 1.0,
+        "time": 0.5070268
+      },
+      {
+        "$type": "UnityEngine.GradientAlphaKey, UnityEngine.CoreModule",
+        "alpha": 0.0,
+        "time": 1.0
+      }
+    ],
+    "mode": "Blend"
+  },
+  "shardId": "Crystal_Small_01_Shard",
+  "prefabAddress": "Bas.Item.Misc.SkillOrb",
+  "meshAddress": null,
+  "meshSize": 1.0,
+  "orbLinkEffectId": "SkillTreeOrbLink",
+  "tier": 2,
+  "allowSkill": true,
+  "forceAllowRefund": false,
+  "showInTree": true,
+  "hideInSkillMenu": false,
+  "skillTreeDisplayName": "{ThunderboltName}",
+  "description": "{ThunderboltDescription}",
+  "imageAddress": "",
+  "videoAddress": "Bas.Video.Skill.Thunderbolt",
+  "buttonSpriteSheetAddress": "Bas.Ui.SkillTree.Icons",
+  "buttonEnabledIconAddress": "Bas.Ui.SkillTree.Icons[Lightning_ButtonColor]",
+  "buttonDisabledIconAddress": "Bas.Ui.SkillTree.Icons[Lightning_Button]",
+  "orbIconAddress": "Bas.Ui.SkillTree.Icons[Thunderbolt]",
+  "tutorial": null,
+  "tutorialLocalizationId": null,
+  "tutorialGoal": null,
+  "tutorialGoalLocalizationId": null,
+  "costOverride": -1,
+  "isDefaultSkill": false,
+  "primarySkillTreeId": "Lightning",
+  "secondarySkillTreeId": null,
+  "isTierBlocker": false,
+  "groupPath": null,
+  "IsCombinedSkill": false
+}

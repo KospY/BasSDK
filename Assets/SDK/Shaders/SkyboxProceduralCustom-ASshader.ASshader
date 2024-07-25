@@ -1,0 +1,74 @@
+{
+    "MonoBehaviour": {
+        "m_Enabled": true,
+        "m_EditorHideFlags": 0,
+        "m_Name": "",
+        "m_EditorClassIdentifier": "",
+        "realtimeUpdate": true,
+        "replaceShaders": [],
+        "targetShader": {
+            "fileID": 4800000,
+            "guid": "bd39f08836c47444999b5908db2673fe",
+            "type": 3
+        },
+        "debug": false,
+        "shaderSettings": {
+            "customShaderName": "ThunderRoad/SkyboxProceduralCustom - ASshader",
+            "outputShaderName": "",
+            "outputShaderFilename": "",
+            "PlatformAS": 1,
+            "tessellationDesktop": false,
+            "tessellationMobile": false,
+            "passItems": [
+                {
+                    "displayName": "ON - ON - <Unnamed Pass 0>",
+                    "passName": "<Unnamed Pass 0>",
+                    "present": true,
+                    "indexSubShader": 0,
+                    "enabledDesktop": true,
+                    "enabledMobile": true
+                }
+            ],
+            "shaderKeywords": [
+                {
+                    "displayName": "ON - ON -  SUNDISK NONE  SUNDISK SIMPLE  SUNDISK HIGH QUALITY : multi compile",
+                    "line": "#pragma multi_compile_local _SUNDISK_NONE _SUNDISK_SIMPLE _SUNDISK_HIGH_QUALITY",
+                    "replace": "",
+                    "replaceDesktop": "",
+                    "replaceMobile": "",
+                    "keywordName": "_SUNDISK_NONE _SUNDISK_SIMPLE _SUNDISK_HIGH_QUALITY",
+                    "keywordLast": "_SUNDISK_HIGH_QUALITY",
+                    "keywordType": 2,
+                    "keywordTypeReplace": 0,
+                    "keywordDomain": 0,
+                    "local": true,
+                    "enabledDesktop": true,
+                    "enabledMobile": true,
+                    "present": true,
+                    "comment": "",
+                    "instructions": 0.0,
+                    "mali": ""
+                },
+                {
+                    "displayName": "OFF - OFF -  TONEMAPPING ON : multi compile",
+                    "line": "#pragma multi_compile_local __ _TONEMAPPING_ON",
+                    "replace": "",
+                    "replaceDesktop": "",
+                    "replaceMobile": "",
+                    "keywordName": "__ _TONEMAPPING_ON",
+                    "keywordLast": "_TONEMAPPING",
+                    "keywordType": 2,
+                    "keywordTypeReplace": 0,
+                    "keywordDomain": 0,
+                    "local": true,
+                    "enabledDesktop": false,
+                    "enabledMobile": true,
+                    "present": true,
+                    "comment": "",
+                    "instructions": 0.0,
+                    "mali": ""
+                }
+            ]
+        }
+    }
+}

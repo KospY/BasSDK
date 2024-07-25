@@ -1,0 +1,35 @@
+{
+  "$type": "ThunderRoad.SkillTreeData, ThunderRoad",
+  "id": "Mind",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "localizationGroupID": "Skills",
+  "displayName": "{Mind}",
+  "description": "{MindPathDescription}",
+  "maxTier": 3,
+  "showInInfuser": true,
+  "color": {
+    "r": 0.305830032,
+    "g": 0.764151,
+    "b": 0.06848521,
+    "a": 1.0
+  },
+  "emissionColor": {
+    "r": 0.7515852,
+    "g": 3.84905672,
+    "b": 0.272338867,
+    "a": 1.0
+  },
+  "orbPitch": 1.2,
+  "costMultiplier": 1.0,
+  "crystalItemId": "CrystalMindT1",
+  "orbIconAddress": "Bas.Ui.SkillTree.Icons[Mind]",
+  "infuserTopParticleAddress": "Bas.Particle.Infuser.Mind",
+  "infuserBeamAudioAddress": "Bas.AudioClip.Infuser.Beam.Mind",
+  "musicAddress": "Bas.AudioClip.SkillTree.Music.Mind",
+  "videoAddress": "Bas.Video.Infuser.Mind",
+  "iconEnabledAddress": "Bas.Ui.SkillTree.Icons[Mind_ButtonColor]",
+  "iconDisabledAddress": "Bas.Ui.SkillTree.Icons[Mind_Button]",
+  "groupPath": null
+}

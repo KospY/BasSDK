@@ -1,0 +1,48 @@
+{
+  "$type": "ThunderRoad.LevelData, ThunderRoad",
+  "id": "EndSpace",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 3,
+  "name": "EndSpace",
+  "description": "To be continued",
+  "descriptionLocalizationId": null,
+  "sceneAddress": "Bas.Level.EndSpace",
+  "showOnlyDevMode": false,
+  "showInLevelSelection": true,
+  "worldmapPrefabAddress": "Bas.Image.Map.Default",
+  "worldmapTextureAddress": "Bas.Worldmap.Eraden",
+  "worldmapLabel": null,
+  "worldMapTravelAudioContainerAddress": "Bas.AudioGroup.UI.PinSelected",
+  "mapLocationIndex": 0,
+  "showOnMap": false,
+  "hideOnAndroid": false,
+  "mapLocationIconAddress": "Bas.Icon.Location.Home",
+  "mapLocationIconHoverAddress": "bas.Icon.Location.Home_Highlight",
+  "mapPreviewImageAddress": "Bas.Image.Preview.Home",
+  "modes": [
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "Default",
+      "displayName": "Default",
+      "description": "NoDescription",
+      "allowGameModes": [
+        "SandBox"
+      ],
+      "mapOrder": 0,
+      "playerDeathAction": "AskReload",
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        }
+      ],
+      "availableOptions": []
+    }
+  ],
+  "modePickCountPerRank": 2,
+  "customCameras": [],
+  "throwableRefType": "Item",
+  "improvisedThrowableID": null,
+  "groupPath": null
+}

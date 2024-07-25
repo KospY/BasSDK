@@ -1,0 +1,273 @@
+{
+  "$type": "ThunderRoad.SandboxGameModeData, ThunderRoad",
+  "id": "Sandbox",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "name": "Sandbox",
+  "nameLocalizationId": "DungeonSandBoxName",
+  "description": "Access all weapons and powers without restriction. Spawn enemies of your choice in arena-based environments or enter the dungeon in sandbox mode.",
+  "descriptionLocalizationId": "DungeonSandboxDescription",
+  "warning": "",
+  "warningId": "",
+  "iconAddress": "Bas.Icon.Sandbox",
+  "order": 2,
+  "state": "Show",
+  "refreshMapOnlyWhenPlayerNear": false,
+  "saveGameOnSkillUnlock": true,
+  "allowLevelSelection": false,
+  "allowRefundCoreSkills": true,
+  "defaultPlayerInvincibility": false,
+  "defaultPlayerFallDamage": true,
+  "defaultPlayerInfiniteFocus": false,
+  "defaultPlayerFastCast": false,
+  "defaultInfiniteImbue": false,
+  "defaultInfiniteSupply": false,
+  "defaultClimbFree": false,
+  "defaultEasyDismemberment": false,
+  "defaultInfiniteArrows": false,
+  "defaultArmorDetection": true,
+  "levelHome": "Home",
+  "levelHomeModeName": "Sandbox",
+  "levelHomeTravelSpawnerId": "boat",
+  "hasTutorial": false,
+  "tutorialPlayerSpawnerId": null,
+  "playerInventoryStart": [
+    {
+      "$type": "ThunderRoad.InventoryStart, ThunderRoad",
+      "containerID": "SandboxDefault",
+      "textGroupId": "CrystalHunt",
+      "titleTextID": "SandboxLoadoutBasicTitle",
+      "titleText": null,
+      "descriptionTextID": "SandboxLoadoutBasicDesc",
+      "descriptionText": null,
+      "titleImageAddress": "Bas.Ui.SkillTree.Icons[ElementarySorcerer]",
+      "currencies": {
+        "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Single, mscorlib]], mscorlib",
+        "Gold": "Infinity",
+        "CrystalShard": "Infinity"
+      }
+    },
+    {
+      "$type": "ThunderRoad.InventoryStart, ThunderRoad",
+      "containerID": "CrystalHuntStartingEquipmentNoMagic",
+      "textGroupId": "CrystalHunt",
+      "titleTextID": "SandboxLoadoutNothingTitle",
+      "titleText": null,
+      "descriptionTextID": "StartingItemNoMagicDesc",
+      "descriptionText": null,
+      "titleImageAddress": "Bas.Ui.SkillTree.Icons[Commoner]",
+      "currencies": {
+        "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Single, mscorlib]], mscorlib",
+        "Gold": "Infinity",
+        "CrystalShard": "Infinity"
+      }
+    },
+    {
+      "$type": "ThunderRoad.InventoryStart, ThunderRoad",
+      "containerID": "SandboxFire",
+      "textGroupId": "CrystalHunt",
+      "titleTextID": "SandboxLoadoutFireTitle",
+      "titleText": null,
+      "descriptionTextID": "StartingItemFireDesc",
+      "descriptionText": null,
+      "titleImageAddress": "Bas.Ui.SkillTree.Icons[FireColor]",
+      "currencies": {
+        "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Single, mscorlib]], mscorlib",
+        "Gold": "Infinity",
+        "CrystalShard": "Infinity"
+      }
+    },
+    {
+      "$type": "ThunderRoad.InventoryStart, ThunderRoad",
+      "containerID": "SandboxLightning",
+      "textGroupId": "CrystalHunt",
+      "titleTextID": "SandboxLoadoutLightningTitle",
+      "titleText": null,
+      "descriptionTextID": "StartingItemLightningDesc",
+      "descriptionText": null,
+      "titleImageAddress": "Bas.Ui.SkillTree.Icons[LightningColor]",
+      "currencies": {
+        "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Single, mscorlib]], mscorlib",
+        "Gold": "Infinity",
+        "CrystalShard": "Infinity"
+      }
+    },
+    {
+      "$type": "ThunderRoad.InventoryStart, ThunderRoad",
+      "containerID": "SandboxGravity",
+      "textGroupId": "CrystalHunt",
+      "titleTextID": "SandboxLoadoutGravityTitle",
+      "titleText": null,
+      "descriptionTextID": "StartingItemGravityDesc",
+      "descriptionText": null,
+      "titleImageAddress": "Bas.Ui.SkillTree.Icons[GravityColor]",
+      "currencies": {
+        "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Single, mscorlib]], mscorlib",
+        "Gold": "Infinity",
+        "CrystalShard": "Infinity"
+      }
+    },
+    {
+      "$type": "ThunderRoad.InventoryStart, ThunderRoad",
+      "containerID": "SandboxMind",
+      "textGroupId": "CrystalHunt",
+      "titleTextID": "SandboxLoadoutMindTitle",
+      "titleText": null,
+      "descriptionTextID": "StartingItemMindDesc",
+      "descriptionText": null,
+      "titleImageAddress": "Bas.Ui.SkillTree.Icons[MindColor]",
+      "currencies": {
+        "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Single, mscorlib]], mscorlib",
+        "Gold": "Infinity",
+        "CrystalShard": "Infinity"
+      }
+    },
+    {
+      "$type": "ThunderRoad.InventoryStart, ThunderRoad",
+      "containerID": "SandboxBody",
+      "textGroupId": "CrystalHunt",
+      "titleTextID": "SandboxLoadoutBodyTitle",
+      "titleText": null,
+      "descriptionTextID": "StartingItemBody",
+      "descriptionText": null,
+      "titleImageAddress": "Bas.Ui.SkillTree.Icons[BodyColor]",
+      "currencies": {
+        "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Single, mscorlib]], mscorlib",
+        "Gold": "Infinity",
+        "CrystalShard": "Infinity"
+      }
+    },
+    {
+      "$type": "ThunderRoad.InventoryStart, ThunderRoad",
+      "containerID": "SandboxEverything",
+      "textGroupId": "CrystalHunt",
+      "titleTextID": "SandboxLoadoutEverythingTitle",
+      "titleText": null,
+      "descriptionTextID": "SandboxLoadoutEverythingDesc",
+      "descriptionText": null,
+      "titleImageAddress": "Bas.Ui.SkillTree.Icons[MasterStory]",
+      "currencies": {
+        "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Single, mscorlib]], mscorlib",
+        "Gold": "Infinity",
+        "CrystalShard": "Infinity"
+      }
+    }
+  ],
+  "mainCurrency": "Gold",
+  "otherCurrencies": [],
+  "modules": [
+    {
+      "$type": "ThunderRoad.Modules.SandboxLevelInstancesModule, ThunderRoad"
+    }
+  ],
+  "characterStatPrefabAddresses": [
+    "Bas.UI.Stat.Health",
+    "Bas.UI.Stat.Focus",
+    "Bas.UI.Stat.ArmorStats"
+  ],
+  "difficultyOptions": [
+    {
+      "$type": "ThunderRoad.EnemyDamageOption, ThunderRoad",
+      "minValue": 20,
+      "maxValue": 200,
+      "defaultValue": 100,
+      "stepValue": 20,
+      "name": "EnemyDamageMultiplier",
+      "displayName": "EnemyDamageMultiplier",
+      "description": "EnemyDamageMultiplierDescription"
+    },
+    {
+      "$type": "ThunderRoad.PlayerDamageOption, ThunderRoad",
+      "minValue": 25,
+      "maxValue": 400,
+      "defaultValue": 100,
+      "stepValue": 25,
+      "name": "PlayerDamageMultiplier",
+      "displayName": "PlayerDamageMultiplier",
+      "description": "PlayerDamageMultiplierDescription"
+    },
+    {
+      "$type": "ThunderRoad.EnableCheatMenuOption, ThunderRoad",
+      "defaultValue": true,
+      "name": "Cheat",
+      "displayName": "Cheats",
+      "description": "Cheats"
+    }
+  ],
+  "difficultyPresets": [
+    {
+      "$type": "ThunderRoad.DifficultyPreset, ThunderRoad",
+      "name": "Easy",
+      "localizationGroupId": "Options",
+      "localizationId": "PresetEasyName",
+      "localizationDescriptionId": "PresetEasyDescription",
+      "optionPresets": {
+        "$type": "ThunderRoad.OptionPresets, ThunderRoad",
+        "EnemyDamageMultiplier": {
+          "$type": "ThunderRoad.OptionIntValue, ThunderRoad",
+          "value": 100
+        },
+        "PlayerDamageMultiplier": {
+          "$type": "ThunderRoad.OptionIntValue, ThunderRoad",
+          "value": 50
+        },
+        "Cheat": {
+          "$type": "ThunderRoad.OptionBooleanValue, ThunderRoad",
+          "value": true
+        }
+      }
+    },
+    {
+      "$type": "ThunderRoad.DifficultyPreset, ThunderRoad",
+      "name": "Normal",
+      "localizationGroupId": "Options",
+      "localizationId": "PresetNormalName",
+      "localizationDescriptionId": "PresetNormalDescription",
+      "optionPresets": {
+        "$type": "ThunderRoad.OptionPresets, ThunderRoad",
+        "EnemyDamageMultiplier": {
+          "$type": "ThunderRoad.OptionIntValue, ThunderRoad",
+          "value": 100
+        },
+        "PlayerDamageMultiplier": {
+          "$type": "ThunderRoad.OptionIntValue, ThunderRoad",
+          "value": 100
+        },
+        "Cheat": {
+          "$type": "ThunderRoad.OptionBooleanValue, ThunderRoad",
+          "value": true
+        }
+      }
+    },
+    {
+      "$type": "ThunderRoad.DifficultyPreset, ThunderRoad",
+      "name": "Hard",
+      "localizationGroupId": "Options",
+      "localizationId": "PresetHardName",
+      "localizationDescriptionId": "PresetHardDescription",
+      "optionPresets": {
+        "$type": "ThunderRoad.OptionPresets, ThunderRoad",
+        "EnemyDamageMultiplier": {
+          "$type": "ThunderRoad.OptionIntValue, ThunderRoad",
+          "value": 100
+        },
+        "PlayerDamageMultiplier": {
+          "$type": "ThunderRoad.OptionIntValue, ThunderRoad",
+          "value": 150
+        },
+        "Cheat": {
+          "$type": "ThunderRoad.OptionBooleanValue, ThunderRoad",
+          "value": true
+        }
+      }
+    }
+  ],
+  "defaultDifficultyPreset": 1,
+  "warningMessageGroupId": "Default",
+  "warningMessageTextId": "CHSpoilerWarning",
+  "cheatsAllowed": [
+    "Skills"
+  ],
+  "groupPath": null
+}

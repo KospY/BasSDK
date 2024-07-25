@@ -1,0 +1,26 @@
+{
+  "$type": "ThunderRoad.AreaConnectionTypeData, ThunderRoad",
+  "id": "DA_RoundDoor",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "size": {
+    "x": 6.0,
+    "y": 6.0
+  },
+  "randomBlockerTableAdress": {
+    "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+    "drops": [
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[System.String, mscorlib]], ThunderRoad",
+        "dropItem": "Bas.AreaBlockers.Dalg_RoundDoor_Blocker_01",
+        "probabilityWeight": 1.0
+      }
+    ]
+  },
+  "randomGateTableAdress": {
+    "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+    "drops": []
+  },
+  "groupPath": null
+}

@@ -1,0 +1,46 @@
+{
+  "$type": "ThunderRoad.LevelData, ThunderRoad",
+  "id": "Tower",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 3,
+  "name": "Tower",
+  "description": "Tower sweet tower",
+  "descriptionLocalizationId": null,
+  "sceneAddress": "Bas.Level.Tower",
+  "showOnlyDevMode": false,
+  "showInLevelSelection": true,
+  "worldmapPrefabAddress": "Bas.Image.Map.Default",
+  "worldmapTextureAddress": "Bas.Worldmap.Eraden",
+  "worldmapLabel": null,
+  "worldMapTravelAudioContainerAddress": "Bas.AudioGroup.UI.PinSelected",
+  "mapLocationIndex": 2,
+  "showOnMap": true,
+  "hideOnAndroid": false,
+  "mapLocationIconAddress": "Bas.Icon.Location.Home",
+  "mapLocationIconHoverAddress": "bas.Icon.Location.Home_Highlight",
+  "mapPreviewImageAddress": "Bas.Image.Preview.Dalgarian",
+  "modes": [
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "Default",
+      "displayName": "Default",
+      "description": "NoDescription",
+      "allowGameModes": [],
+      "mapOrder": 0,
+      "playerDeathAction": "AskReload",
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        }
+      ],
+      "availableOptions": []
+    }
+  ],
+  "modePickCountPerRank": 2,
+  "customCameras": [],
+  "throwableRefType": "Item",
+  "improvisedThrowableID": null,
+  "groupPath": null
+}

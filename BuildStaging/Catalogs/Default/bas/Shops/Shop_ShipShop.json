@@ -1,0 +1,100 @@
+{
+  "$type": "ThunderRoad.ShopData, ThunderRoad",
+  "id": "ShipShop",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "shopKeeperCreatureID": "Shopkeeper",
+  "displaySorting": "Random",
+  "tradeCurrency": "Gold",
+  "defaultUsedValueMultiplier": 0.0,
+  "roundingMethod": "RoundUp",
+  "restockDayInterval": 2,
+  "shopStockCategories": [
+    {
+      "$type": "ThunderRoad.ShopData+ShopStockCategory, ThunderRoad",
+      "stockCategory": "Weapons",
+      "usedValueMultiplier": 0.25,
+      "despawnOnTrade": false,
+      "restockTableID": "Shop_WeaponRack_Main",
+      "minMaxStockQuantity": {
+        "x": 30,
+        "y": 30
+      },
+      "upgradeCheckpoints": "1,3,5,7"
+    },
+    {
+      "$type": "ThunderRoad.ShopData+ShopStockCategory, ThunderRoad",
+      "stockCategory": "Shields",
+      "usedValueMultiplier": 0.25,
+      "despawnOnTrade": false,
+      "restockTableID": "Shop_ShieldRack_Main",
+      "minMaxStockQuantity": {
+        "x": 2,
+        "y": 2
+      },
+      "upgradeCheckpoints": "1,3,5,7"
+    },
+    {
+      "$type": "ThunderRoad.ShopData+ShopStockCategory, ThunderRoad",
+      "stockCategory": "Archery",
+      "usedValueMultiplier": 0.25,
+      "despawnOnTrade": false,
+      "restockTableID": "Shop_ArcheryRack_Main",
+      "minMaxStockQuantity": {
+        "x": 3,
+        "y": 3
+      },
+      "upgradeCheckpoints": "1,3,5,7"
+    },
+    {
+      "$type": "ThunderRoad.ShopData+ShopStockCategory, ThunderRoad",
+      "stockCategory": "Armor",
+      "usedValueMultiplier": 0.25,
+      "despawnOnTrade": false,
+      "restockTableID": "Shop_ApparelRack_Main",
+      "minMaxStockQuantity": {
+        "x": 32,
+        "y": 32
+      },
+      "upgradeCheckpoints": "1,3,5,7"
+    },
+    {
+      "$type": "ThunderRoad.ShopData+ShopStockCategory, ThunderRoad",
+      "stockCategory": "Potions",
+      "usedValueMultiplier": 0.0,
+      "despawnOnTrade": false,
+      "restockTableID": "ShipShopPotionsRestock",
+      "minMaxStockQuantity": {
+        "x": 4,
+        "y": 8
+      },
+      "upgradeCheckpoints": null
+    },
+    {
+      "$type": "ThunderRoad.ShopData+ShopStockCategory, ThunderRoad",
+      "stockCategory": "Food",
+      "usedValueMultiplier": 0.0,
+      "despawnOnTrade": false,
+      "restockTableID": "ShipShopFoodRestock",
+      "minMaxStockQuantity": {
+        "x": 10,
+        "y": 20
+      },
+      "upgradeCheckpoints": null
+    },
+    {
+      "$type": "ThunderRoad.ShopData+ShopStockCategory, ThunderRoad",
+      "stockCategory": "Sellables",
+      "usedValueMultiplier": 1.0,
+      "despawnOnTrade": true,
+      "restockTableID": "Shop_AllSellableValuables",
+      "minMaxStockQuantity": {
+        "x": 0,
+        "y": 0
+      },
+      "upgradeCheckpoints": null
+    }
+  ],
+  "groupPath": null
+}

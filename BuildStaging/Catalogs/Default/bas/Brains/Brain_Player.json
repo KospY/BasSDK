@@ -1,0 +1,223 @@
+{
+  "$type": "ThunderRoad.BrainData, ThunderRoad",
+  "id": "Player",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 2,
+  "pooledCount": 1,
+  "cycle": true,
+  "cyclePlayerMinDistance": 0.0,
+  "cyclePlayerMaxDistance": 0.0,
+  "difficulty": 0,
+  "treeID": "",
+  "treeDebugLog": false,
+  "updateTree": true,
+  "modules": [
+    {
+      "$type": "ThunderRoad.BrainModuleMove, ThunderRoad",
+      "allowMove": true,
+      "runDistance": 3.0,
+      "useAcceleration": true,
+      "acceleration": 0.3,
+      "baseTurnSpeedMultiplier": 4.0,
+      "navReachDistance": 0.05,
+      "strafeMinDelay": 1.0,
+      "strafeMaxDelay": 5.0,
+      "samplePositionCircleSteps": 6,
+      "areaMask": -5,
+      "stuckRadius": 0.01,
+      "stuckMaxDuration": 0.5,
+      "preventTooClose": true,
+      "tooCloseDistance": 0.7,
+      "edgeAvoidanceDistance": 0.1,
+      "locomotionOverride": false,
+      "locomotionForwardSpeedMultiplier": 1.0,
+      "locomotionBackwardSpeedMultiplier": 1.0,
+      "locomotionStrafeSpeedMultiplier": 1.0,
+      "locomotionRunSpeedMultiplier": 1.0,
+      "reachTime": 0.5,
+      "reachCurve": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 0.0,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 1.0,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      },
+      "doorReachClip": "Bas.Animation.Interaction.ReachDoorHandleLeft",
+      "turnOffsetDegrees": 0.0,
+      "path": null,
+      "interactingDoors": [],
+      "creature": null
+    },
+    {
+      "$type": "ThunderRoad.BrainModuleSightable, ThunderRoad",
+      "sightThickness": 0.1,
+      "sightDetectionMaxDistance": 20.0,
+      "sightMaxDistance": 30.0,
+      "minMaxBrightness": {
+        "x": 0.0,
+        "y": 0.25
+      },
+      "shootPointSightThickness": 0.0,
+      "sightableRagdollParts": [
+        "TargetPart",
+        "HeadPart",
+        "HandRightPart",
+        "HandLeftPart"
+      ],
+      "shootPositionCircleSteps": 15,
+      "shootPositionDepthSteps": 4,
+      "shootPositionMinRadius": 8,
+      "navSamplePositionMaxDistance": 50.0,
+      "lastShootUpdateDelay": 1.0,
+      "lastShootUpdatePositionMaxDistance": 0.5,
+      "debug": false,
+      "creature": null
+    },
+    {
+      "$type": "ThunderRoad.BrainModulePlayer, ThunderRoad",
+      "dangerDistanceEntrance": 14.0,
+      "dangerDistanceExit": 16.0,
+      "playerEyeAnimation": true,
+      "focusAngle": 30.0,
+      "lookDistanceMinMax": {
+        "x": 0.2,
+        "y": 1.5
+      },
+      "creature": null
+    },
+    {
+      "$type": "ThunderRoad.BrainModuleFollow, ThunderRoad",
+      "followBehavior": "OnlyWhenSet",
+      "clearFollowBrainStates": [],
+      "allowFollowers": true,
+      "maxFollowers": 3,
+      "creature": null
+    },
+    {
+      "$type": "ThunderRoad.BrainModuleSpeak, ThunderRoad",
+      "audioEnabled": true,
+      "audioVolume": 1.0,
+      "audioPitchRange": {
+        "x": 1.0,
+        "y": 1.0
+      },
+      "audioFallVelocityThreshold": 5.0,
+      "audioAttackChance": 0.7,
+      "audioHitChance": 1.0,
+      "audioDeathChance": 1.0,
+      "moveMouth": true,
+      "audioLipSyncUpdateRate": 0.05,
+      "audioLipSyncMaxValue": 0.3,
+      "audioLipSampleDataLength": 1024,
+      "lipSyncSpeed": 5.0,
+      "speakOnAttackMelee": false,
+      "speakOnAttackCast": false,
+      "speakOnAttackBow": false,
+      "speakOnChoke": false,
+      "neckStabSilencelevel": 1,
+      "headStabSilenceLevel": 1,
+      "backStabSilenceLevel": 1,
+      "randomSpeakIdleChance": 0.0,
+      "randomSpeakAlertChance": 0.0,
+      "randomSpeakInvestigateChance": 0.0,
+      "randomSpeakCombatChance": 0.0,
+      "randomSpeakDelay": 5.0,
+      "muffleSpeakDelay": 1.5,
+      "speakLoudness": 0.0,
+      "creature": null
+    },
+    {
+      "$type": "ThunderRoad.BrainModuleLookAt, ThunderRoad",
+      "weightChangeSpeed": 2.0,
+      "defaultBlendTime": 0.5,
+      "defaultBlendCurve": {
+        "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
+        "keys": [
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 0.0,
+            "value": 0.0,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          },
+          {
+            "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
+            "time": 1.0,
+            "value": 1.0,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.0,
+            "outWeight": 0.0,
+            "weightedMode": "None",
+            "tangentMode": 0
+          }
+        ],
+        "length": 2,
+        "preWrapMode": "ClampForever",
+        "postWrapMode": "ClampForever"
+      },
+      "snapPreventionAngle": 30.0,
+      "forceUprightSpeed": 1.0,
+      "customEyeTargetOnly": true,
+      "lookMaxAngle": 80.0,
+      "forceAimPostIK": true,
+      "uprightWhileMoving": true,
+      "torso": {
+        "$type": "ThunderRoad.BrainModuleLookAt+IKWeight, ThunderRoad",
+        "clampWeight": 0.7,
+        "targetWeight": 0.0
+      },
+      "head": {
+        "$type": "ThunderRoad.BrainModuleLookAt+IKWeight, ThunderRoad",
+        "clampWeight": 0.75,
+        "targetWeight": 0.0
+      },
+      "eyes": {
+        "$type": "ThunderRoad.BrainModuleLookAt+IKWeight, ThunderRoad",
+        "clampWeight": 0.95,
+        "targetWeight": 0.0
+      },
+      "spine": {
+        "$type": "ThunderRoad.BrainModuleLookAt+IKWeight, ThunderRoad",
+        "clampWeight": 0.9,
+        "targetWeight": 0.0
+      },
+      "eyesDeathPosition": {
+        "x": -3.0,
+        "y": 0.0,
+        "z": 3.0
+      },
+      "deathEyeRollDuration": 5.0,
+      "creature": null
+    }
+  ],
+  "groupPath": null
+}

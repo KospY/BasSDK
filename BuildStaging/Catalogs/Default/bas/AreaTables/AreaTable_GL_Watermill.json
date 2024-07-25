@@ -1,0 +1,36 @@
+{
+  "$type": "ThunderRoad.AreaTable, ThunderRoad",
+  "id": "GL_Watermill",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "areaSettingTable": {
+    "$type": "ThunderRoad.AreaTable+AreaSettingsTable, ThunderRoad",
+    "drops": [
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "GL_Arena_Ext_WaterMill",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1,
+            2
+          ],
+          "entranceConnection": [
+            0,
+            1,
+            2
+          ],
+          "maxCreature": 4
+        },
+        "probabilityWeight": 1.0
+      }
+    ]
+  },
+  "groupPath": "IndividualRooms/Outpost"
+}

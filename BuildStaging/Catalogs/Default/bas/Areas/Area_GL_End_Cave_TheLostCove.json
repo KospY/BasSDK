@@ -1,0 +1,76 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "GL_End_Cave_TheLostCove",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.GL_End_Cave_TheLostCove",
+  "lightingPresetAddress": "Bas.Area.GL_End_Cave_TheLostCove.LightingPreset",
+  "cullingAddress": "Bas.Area.GL_End_Cave_TheLostCove.CullData",
+  "Bounds": {
+    "center": {
+      "x": -33.00203,
+      "y": 10.6757965,
+      "z": 7.589527
+    },
+    "size": {
+      "x": 171.531067,
+      "y": 77.30002,
+      "z": 97.0790558
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 44.466,
+        "y": 13.36,
+        "z": -40.95
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.GL_End_Cave_TheLostCove.FakeView.0"
+    }
+  ],
+  "areaGlobalParameters": [
+    {
+      "$type": "ThunderRoad.AreaOceanGlobalParameter, ThunderRoad",
+      "visibleFromGate": true
+    },
+    {
+      "$type": "ThunderRoad.AreaSunGlobalParameter, ThunderRoad",
+      "dirLightColor": {
+        "r": 1.0,
+        "g": 0.9380174,
+        "b": 0.8392157,
+        "a": 1.0
+      },
+      "dirLightIntensity": 5.5,
+      "dirLightIndirectMultiplier": 6.0,
+      "directionalLightLocalRotation": {
+        "x": 0.657862663,
+        "y": -0.183940426,
+        "z": 0.6646442,
+        "w": 0.3027058
+      },
+      "visibleFromGate": false
+    }
+  ],
+  "groupPath": "Outpost/Start-End"
+}

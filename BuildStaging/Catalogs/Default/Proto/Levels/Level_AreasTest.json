@@ -1,0 +1,137 @@
+{
+  "$type": "ThunderRoad.LevelData, ThunderRoad",
+  "id": "AreasTest",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 3,
+  "name": "AreasTest",
+  "description": "",
+  "descriptionLocalizationId": "",
+  "sceneAddress": "Level.AreaTest",
+  "showOnlyDevMode": false,
+  "showInLevelSelection": true,
+  "savePlayerInventoryOnUnload": false,
+  "worldmapPrefabAddress": "Bas.Image.Map.Test",
+  "mapLocationIndex": 1,
+  "showOnMap": true,
+  "hideOnAndroid": false,
+  "mapLocationIconAddress": "Bas.Icon.Location.Default",
+  "mapLocationIconHoverAddress": "Bas.Icon.Location.DefaultHover",
+  "mapPreviewImageAddress": "",
+  "modes": [
+    {
+      "$type": "ThunderRoad.LevelData+Mode, ThunderRoad",
+      "name": "Default",
+      "displayName": "Default",
+      "description": "",
+      "allowGameModes": [
+        "Sandbox"
+      ],
+      "mapOrder": 0,
+      "difficultyMultipliers": [
+        {
+          "$type": "ThunderRoad.LevelData+Mode+DifficultyMultipliers, ThunderRoad",
+          "playerHealthMultiplier": 1.0,
+          "playerDamageMultiplier": 1.0,
+          "creatureDamageMultiplier": 1.0
+        },
+        {
+          "$type": "ThunderRoad.LevelData+Mode+DifficultyMultipliers, ThunderRoad",
+          "playerHealthMultiplier": 1.0,
+          "playerDamageMultiplier": 1.0,
+          "creatureDamageMultiplier": 1.0
+        },
+        {
+          "$type": "ThunderRoad.LevelData+Mode+DifficultyMultipliers, ThunderRoad",
+          "playerHealthMultiplier": 0.75,
+          "playerDamageMultiplier": 0.75,
+          "creatureDamageMultiplier": 1.5
+        },
+        {
+          "$type": "ThunderRoad.LevelData+Mode+DifficultyMultipliers, ThunderRoad",
+          "playerHealthMultiplier": 0.5,
+          "playerDamageMultiplier": 0.5,
+          "creatureDamageMultiplier": 2.0
+        },
+        {
+          "$type": "ThunderRoad.LevelData+Mode+DifficultyMultipliers, ThunderRoad",
+          "playerHealthMultiplier": 1.0,
+          "playerDamageMultiplier": 0.5,
+          "creatureDamageMultiplier": 3.0
+        }
+      ],
+      "playerCanDie": true,
+      "deathLossAddress": "Bas.Loss.Death",
+      "modules": [
+        {
+          "$type": "ThunderRoad.LevelModuleMusic, ThunderRoad",
+          "dynamicMusic": "MusicDungeon"
+        },
+        {
+          "$type": "ThunderRoad.LevelAreaModule, ThunderRoad",
+          "areaSpawnDepth": 100,
+          "areaDespawnDepth": 101,
+          "areaCullDepth": 2,
+          "listAreaByLengthAndDifficulty": [
+            [
+              {
+                "$type": "ThunderRoad.LevelAreaModule+AreaSpawnerData, ThunderRoad",
+                "areaCollectionId": "ProtoDungeon",
+                "numberCreature": 50,
+                "isSharedNPCAlert": true
+              }
+            ],
+            [
+              {
+                "$type": "ThunderRoad.LevelAreaModule+AreaSpawnerData, ThunderRoad",
+                "areaCollectionId": "ProtoDungeon",
+                "numberCreature": 50,
+                "isSharedNPCAlert": true
+              }
+            ],
+            [
+              {
+                "$type": "ThunderRoad.LevelAreaModule+AreaSpawnerData, ThunderRoad",
+                "areaCollectionId": "ProtoDungeon",
+                "numberCreature": 50,
+                "isSharedNPCAlert": true
+              }
+            ]
+          ]
+        },
+        {
+          "$type": "ThunderRoad.LevelModuleCleaner, ThunderRoad",
+          "cleanerRate": 5.0
+        }
+      ],
+      "availableOptions": [
+        {
+          "$type": "ThunderRoad.Option, ThunderRoad",
+          "name": "Difficulty",
+          "displayName": "Difficulty",
+          "description": "DifficultyDescription",
+          "type": "Stars",
+          "minValue": 1,
+          "maxValue": 3,
+          "defaultValue": 2,
+          "valueList": []
+        },
+        {
+          "$type": "ThunderRoad.Option, ThunderRoad",
+          "name": "DungeonLength",
+          "displayName": "Length",
+          "description": "LengthDescription",
+          "type": "Stars",
+          "minValue": 1,
+          "maxValue": 3,
+          "defaultValue": 2,
+          "valueList": []
+        }
+      ]
+    }
+  ],
+  "modePickCountPerRank": 2,
+  "customCameras": [],
+  "throwableRefType": "Item",
+  "improvisedThrowableID": null
+}

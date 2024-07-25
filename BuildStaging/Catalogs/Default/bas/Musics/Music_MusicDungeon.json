@@ -1,0 +1,149 @@
+{
+  "$type": "ThunderRoad.Music, ThunderRoad",
+  "id": "MusicDungeon",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "volumeDb": -1.0,
+  "groupsToLoad": [
+    "MusicDungeonChase",
+    "MusicDungeonChaseOutro",
+    "MusicDungeonLowerChase",
+    "MusicDungeonLowerFight",
+    "MusicDungeonFight",
+    "MusicDungeonFightOutro",
+    "MusicDungeonXriserFight"
+  ],
+  "transitions": [
+    {
+      "$type": "ThunderRoad.Music+MusicTransition, ThunderRoad",
+      "sourceGroup": "",
+      "destinationGroup": "MusicDungeonChase",
+      "musicGroup": "",
+      "timeBeforeTransition": 0,
+      "transitionType": "Immediate",
+      "timePreTransition": 0,
+      "preTransitionType": "Immediate",
+      "timeBeforeDestStart": 0,
+      "transitionDestStartType": "Immediate"
+    },
+    {
+      "$type": "ThunderRoad.Music+MusicTransition, ThunderRoad",
+      "sourceGroup": "",
+      "destinationGroup": "MusicDungeonFight",
+      "musicGroup": "MusicDungeonXriserFight",
+      "timeBeforeTransition": 0,
+      "transitionType": "Immediate",
+      "timePreTransition": 0,
+      "preTransitionType": "Immediate",
+      "timeBeforeDestStart": 2,
+      "transitionDestStartType": "OnBeat"
+    },
+    {
+      "$type": "ThunderRoad.Music+MusicTransition, ThunderRoad",
+      "sourceGroup": "MusicDungeonChase",
+      "destinationGroup": "MusicDungeonFight",
+      "musicGroup": "MusicDungeonXriserFight",
+      "timeBeforeTransition": 0,
+      "transitionType": "OnBeat",
+      "timePreTransition": 0,
+      "preTransitionType": "Immediate",
+      "timeBeforeDestStart": 2,
+      "transitionDestStartType": "OnBeat"
+    },
+    {
+      "$type": "ThunderRoad.Music+MusicTransition, ThunderRoad",
+      "sourceGroup": "MusicDungeonChase",
+      "destinationGroup": "",
+      "musicGroup": "MusicDungeonChaseOutro",
+      "timeBeforeTransition": 0,
+      "transitionType": "OnGrid",
+      "timePreTransition": 0,
+      "preTransitionType": "Immediate",
+      "timeBeforeDestStart": 0,
+      "transitionDestStartType": "OnBar"
+    },
+    {
+      "$type": "ThunderRoad.Music+MusicTransition, ThunderRoad",
+      "sourceGroup": "MusicDungeonFight",
+      "destinationGroup": "MusicDungeonChase",
+      "musicGroup": "MusicDungeonLowerFight",
+      "timeBeforeTransition": 1,
+      "transitionType": "OnGrid",
+      "timePreTransition": 0,
+      "preTransitionType": "Immediate",
+      "timeBeforeDestStart": 0,
+      "transitionDestStartType": "OnBar"
+    },
+    {
+      "$type": "ThunderRoad.Music+MusicTransition, ThunderRoad",
+      "sourceGroup": "MusicDungeonFight",
+      "destinationGroup": "",
+      "musicGroup": "MusicDungeonFightOutro",
+      "timeBeforeTransition": 1,
+      "transitionType": "OnGrid",
+      "timePreTransition": 0,
+      "preTransitionType": "Immediate",
+      "timeBeforeDestStart": 0,
+      "transitionDestStartType": "OnBar"
+    }
+  ],
+  "dynamicModules": {
+    "$type": "ThunderRoad.MusicDynamicModuleMap, ThunderRoad",
+    "ExposureTransition": {
+      "$type": "ThunderRoad.MusicDynamicPlayerBrainTransitionModule, ThunderRoad",
+      "exposureMusicGroupId": {
+        "$type": "ThunderRoad.BrainMusicMapping, ThunderRoad",
+        "None": null,
+        "Danger": null,
+        "Alert": "MusicDungeonChase",
+        "RangedCombat": "MusicDungeonFight",
+        "CloseCombat": "MusicDungeonFight"
+      },
+      "isDefault": true,
+      "IsConnected": false
+    },
+    "CombatKillStinger": {
+      "$type": "ThunderRoad.MusicStingerCombatKillModule, ThunderRoad",
+      "killType": "mele",
+      "damageRatioThreshold": 0.75,
+      "timeComboKill": 0.01,
+      "stingerEffectIdList": [
+        "ArenaOnKillStingerMele"
+      ],
+      "isDefault": true,
+      "IsConnected": false
+    },
+    "FurtifKillStinger": {
+      "$type": "ThunderRoad.MusicStingerFurtifKillModule, ThunderRoad",
+      "killType": "mele",
+      "damageRatioThreshold": 0.0,
+      "timeComboKill": 2.0,
+      "stingerEffectIdList": [
+        "OnFurtifKillStinger"
+      ],
+      "isDefault": true,
+      "IsConnected": false
+    },
+    "DetectedStinger": {
+      "$type": "ThunderRoad.MusicStingerOnPlayerDetected, ThunderRoad",
+      "stingerEffectIdList": [
+        "OnDetectionStinger"
+      ],
+      "isDefault": true,
+      "IsConnected": false
+    },
+    "CombatKillStingerRange": {
+      "$type": "ThunderRoad.MusicStingerCombatKillModule, ThunderRoad",
+      "killType": "range",
+      "damageRatioThreshold": 0.75,
+      "timeComboKill": 0.01,
+      "stingerEffectIdList": [
+        "ArenaOnKillStingerRange"
+      ],
+      "isDefault": true,
+      "IsConnected": false
+    }
+  },
+  "groupPath": null
+}

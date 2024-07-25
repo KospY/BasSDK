@@ -1,0 +1,101 @@
+{
+  "$type": "ThunderRoad.Skill.SkillIntimidation, ThunderRoad",
+  "id": "Intimidation",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "intimidateRadius": 6.0,
+  "genericKill": {
+    "$type": "ThunderRoad.Skill.SkillIntimidation+FearAction, ThunderRoad",
+    "minMaxCreaturesScared": {
+      "x": 0,
+      "y": 1
+    },
+    "alliesOnly": true
+  },
+  "dismember": {
+    "$type": "ThunderRoad.Skill.SkillIntimidation+FearAction, ThunderRoad",
+    "minMaxCreaturesScared": {
+      "x": 0,
+      "y": 2
+    },
+    "alliesOnly": true
+  },
+  "decapitate": {
+    "$type": "ThunderRoad.Skill.SkillIntimidation+FearAction, ThunderRoad",
+    "minMaxCreaturesScared": {
+      "x": 1,
+      "y": 3
+    },
+    "alliesOnly": true
+  },
+  "burnKill": {
+    "$type": "ThunderRoad.Skill.SkillIntimidation+FearAction, ThunderRoad",
+    "minMaxCreaturesScared": {
+      "x": 1,
+      "y": 2
+    },
+    "alliesOnly": true
+  },
+  "electrocutionKill": {
+    "$type": "ThunderRoad.Skill.SkillIntimidation+FearAction, ThunderRoad",
+    "minMaxCreaturesScared": {
+      "x": 1,
+      "y": 2
+    },
+    "alliesOnly": true
+  },
+  "impactKill": {
+    "$type": "ThunderRoad.Skill.SkillIntimidation+FearAction, ThunderRoad",
+    "minMaxCreaturesScared": {
+      "x": 1,
+      "y": 2
+    },
+    "alliesOnly": true
+  },
+  "impaleKill": {
+    "$type": "ThunderRoad.Skill.SkillIntimidation+FearAction, ThunderRoad",
+    "minMaxCreaturesScared": {
+      "x": 1,
+      "y": 3
+    },
+    "alliesOnly": true
+  },
+  "ripping": {
+    "$type": "ThunderRoad.Skill.SkillIntimidation+FearAction, ThunderRoad",
+    "minMaxCreaturesScared": {
+      "x": 2,
+      "y": 4
+    },
+    "alliesOnly": true
+  },
+  "shardId": "Crystal_Small_01_Shard",
+  "prefabAddress": "Bas.Item.Misc.SkillOrb",
+  "meshAddress": null,
+  "meshSize": 1.0,
+  "orbLinkEffectId": "SkillTreeOrbLink",
+  "tier": 2,
+  "allowSkill": true,
+  "forceAllowRefund": false,
+  "showInTree": true,
+  "hideInSkillMenu": false,
+  "skillTreeDisplayName": "{IntimidationName}",
+  "description": "{IntimidationDescription}",
+  "imageAddress": "",
+  "videoAddress": "Bas.Video.Skill.Intimidation",
+  "buttonSpriteSheetAddress": "Bas.Ui.SkillTree.Icons",
+  "buttonEnabledIconAddress": "Bas.Ui.SkillTree.Icons[Body_ButtonColor]",
+  "buttonDisabledIconAddress": "Bas.Ui.SkillTree.Icons[Body_Button]",
+  "orbIconAddress": "Bas.Ui.SkillTree.Icons[Intimidation]",
+  "tutorial": null,
+  "tutorialLocalizationId": null,
+  "tutorialGoal": null,
+  "tutorialGoalLocalizationId": null,
+  "costOverride": -1,
+  "isDefaultSkill": false,
+  "primarySkillTreeId": "Body",
+  "secondarySkillTreeId": null,
+  "isTierBlocker": false,
+  "groupPath": null,
+  "IsCombinedSkill": false
+}

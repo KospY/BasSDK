@@ -1,0 +1,26 @@
+{
+  "$type": "ThunderRoad.AreaConnectionTypeData, ThunderRoad",
+  "id": "GL_CaveVertical",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "size": {
+    "x": 2.0,
+    "y": 2.0
+  },
+  "randomBlockerTableAdress": {
+    "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+    "drops": [
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[System.String, mscorlib]], ThunderRoad",
+        "dropItem": "Bas.AreaBlockers.VeticalCaveBlocker",
+        "probabilityWeight": 1.0
+      }
+    ]
+  },
+  "randomGateTableAdress": {
+    "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+    "drops": []
+  },
+  "groupPath": null
+}

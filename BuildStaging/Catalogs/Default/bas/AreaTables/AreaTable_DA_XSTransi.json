@@ -1,0 +1,275 @@
+{
+  "$type": "ThunderRoad.AreaTable, ThunderRoad",
+  "id": "DA_XSTransi",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "areaSettingTable": {
+    "$type": "ThunderRoad.AreaTable+AreaSettingsTable, ThunderRoad",
+    "drops": [
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "DA_XSTransi_Beastiary",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1,
+            2
+          ],
+          "entranceConnection": [
+            0,
+            1,
+            2
+          ],
+          "maxCreature": 3
+        },
+        "probabilityWeight": 0.001875
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "DA_XSTransi_Corridor1",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1
+          ],
+          "entranceConnection": [
+            0,
+            1
+          ],
+          "maxCreature": 3
+        },
+        "probabilityWeight": 0.4
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "DA_XSTransi_UrbanChasm",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1
+          ],
+          "entranceConnection": [
+            0,
+            1
+          ],
+          "maxCreature": 3
+        },
+        "probabilityWeight": 0.56
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "DA_XSTransi_WaterCisturn",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "entranceConnection": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "maxCreature": 3
+        },
+        "probabilityWeight": 0.88
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "DA_XSTransi_MetalStorage1",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1,
+            2
+          ],
+          "entranceConnection": [
+            0,
+            1,
+            2
+          ],
+          "maxCreature": 3
+        },
+        "probabilityWeight": 1.8
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "DA_XSTransi_MetalStorage2",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1,
+            2
+          ],
+          "entranceConnection": [
+            0,
+            1,
+            2
+          ],
+          "maxCreature": 3
+        },
+        "probabilityWeight": 0.003125
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "DA_XSTransi_GreatGarden",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1
+          ],
+          "entranceConnection": [
+            0,
+            1
+          ],
+          "maxCreature": 3
+        },
+        "probabilityWeight": 1.32
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "DA_XSTransi_Observatory",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1
+          ],
+          "entranceConnection": [
+            0,
+            1
+          ],
+          "maxCreature": 3
+        },
+        "probabilityWeight": 0.9
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "DA_XSTransi_UrbanTunnel",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1
+          ],
+          "entranceConnection": [
+            0,
+            1
+          ],
+          "maxCreature": 3
+        },
+        "probabilityWeight": 2.7
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "DA_XSTransi_GatheringHall",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1
+          ],
+          "entranceConnection": [
+            0,
+            1
+          ],
+          "maxCreature": 3
+        },
+        "probabilityWeight": 1.6
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "DA_XSTransi_UrbanStreets2",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1
+          ],
+          "entranceConnection": [
+            0,
+            1
+          ],
+          "maxCreature": 3
+        },
+        "probabilityWeight": 1.1
+      },
+      {
+        "$type": "ThunderRoad.DropTable`1+Drop[[ThunderRoad.AreaTable+AreaSettings, ThunderRoad]], ThunderRoad",
+        "dropItem": {
+          "$type": "ThunderRoad.AreaTable+AreaSettings, ThunderRoad",
+          "bpGeneratorIdContainer": {
+            "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+            "dataId": "DA_XSTransi_RoundtableOfLords",
+            "category": "Area"
+          },
+          "exitConnection": [
+            0,
+            1
+          ],
+          "entranceConnection": [
+            0,
+            1
+          ],
+          "maxCreature": 2
+        },
+        "probabilityWeight": 0.8
+      }
+    ]
+  },
+  "groupPath": "Dalgarian/Old"
+}

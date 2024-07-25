@@ -1,0 +1,445 @@
+{
+  "$type": "ThunderRoad.CrystalHuntGameModeData, ThunderRoad",
+  "id": "CrystalHunt",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "name": "CrystalHunt",
+  "nameLocalizationId": "DungeonCrystalHuntName",
+  "description": "-in Text",
+  "descriptionLocalizationId": "DungeonCrystalHuntDescription",
+  "warning": "",
+  "warningId": "",
+  "iconAddress": "Bas.Icon.Dungeon",
+  "order": 1,
+  "state": "Show",
+  "refreshMapOnlyWhenPlayerNear": true,
+  "saveGameOnSkillUnlock": false,
+  "allowLevelSelection": false,
+  "allowRefundCoreSkills": false,
+  "defaultPlayerInvincibility": false,
+  "defaultPlayerFallDamage": true,
+  "defaultPlayerInfiniteFocus": false,
+  "defaultPlayerFastCast": false,
+  "defaultInfiniteImbue": false,
+  "defaultInfiniteSupply": false,
+  "defaultClimbFree": false,
+  "defaultEasyDismemberment": false,
+  "defaultInfiniteArrows": false,
+  "defaultArmorDetection": true,
+  "levelHome": "Home",
+  "levelHomeModeName": "CrystalHunt",
+  "levelHomeTravelSpawnerId": "boat",
+  "hasTutorial": true,
+  "tutorialPlayerSpawnerId": "tutorial",
+  "playerInventoryStart": [
+    {
+      "$type": "ThunderRoad.InventoryStart, ThunderRoad",
+      "containerID": "CrystalHuntStartingEquipmentMind",
+      "textGroupId": "CrystalHunt",
+      "titleTextID": "StartingItemMindTitle",
+      "titleText": null,
+      "descriptionTextID": "StartingItemMindDesc",
+      "descriptionText": null,
+      "titleImageAddress": "Bas.Ui.SkillTree.Icons[MindColor]",
+      "currencies": {
+        "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Single, mscorlib]], mscorlib",
+        "Gold": 100.0,
+        "CrystalShard": 0.0
+      }
+    },
+    {
+      "$type": "ThunderRoad.InventoryStart, ThunderRoad",
+      "containerID": "CrystalHuntStartingEquipmentBody",
+      "textGroupId": "CrystalHunt",
+      "titleTextID": "StartingItemBodyTitle",
+      "titleText": null,
+      "descriptionTextID": "StartingItemBodyDesc",
+      "descriptionText": null,
+      "titleImageAddress": "Bas.Ui.SkillTree.Icons[BodyColor]",
+      "currencies": {
+        "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Single, mscorlib]], mscorlib",
+        "Gold": 100.0,
+        "CrystalShard": 0.0
+      }
+    },
+    {
+      "$type": "ThunderRoad.InventoryStart, ThunderRoad",
+      "containerID": "CrystalHuntStartingEquipmentFire",
+      "textGroupId": "CrystalHunt",
+      "titleTextID": "StartingItemFireTitle",
+      "titleText": null,
+      "descriptionTextID": "StartingItemFireDesc",
+      "descriptionText": null,
+      "titleImageAddress": "Bas.Ui.SkillTree.Icons[FireColor]",
+      "currencies": {
+        "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Single, mscorlib]], mscorlib",
+        "Gold": 100.0,
+        "CrystalShard": 0.0
+      }
+    },
+    {
+      "$type": "ThunderRoad.InventoryStart, ThunderRoad",
+      "containerID": "CrystalHuntStartingEquipmentLighning",
+      "textGroupId": "CrystalHunt",
+      "titleTextID": "StartingItemLightningTitle",
+      "titleText": null,
+      "descriptionTextID": "StartingItemLightningDesc",
+      "descriptionText": null,
+      "titleImageAddress": "Bas.Ui.SkillTree.Icons[LightningColor]",
+      "currencies": {
+        "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Single, mscorlib]], mscorlib",
+        "Gold": 100.0,
+        "CrystalShard": 0.0
+      }
+    },
+    {
+      "$type": "ThunderRoad.InventoryStart, ThunderRoad",
+      "containerID": "CrystalHuntStartingEquipmentGravity",
+      "textGroupId": "CrystalHunt",
+      "titleTextID": "StartingItemGravityTitle",
+      "titleText": null,
+      "descriptionTextID": "StartingItemGravityDesc",
+      "descriptionText": null,
+      "titleImageAddress": "Bas.Ui.SkillTree.Icons[GravityColor]",
+      "currencies": {
+        "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Single, mscorlib]], mscorlib",
+        "Gold": 100.0,
+        "CrystalShard": 0.0
+      }
+    },
+    {
+      "$type": "ThunderRoad.InventoryStart, ThunderRoad",
+      "containerID": "CrystalHuntStartingEquipmentNoMagic",
+      "textGroupId": "CrystalHunt",
+      "titleTextID": "StartingItemNoMagicTitle",
+      "titleText": null,
+      "descriptionTextID": "StartingItemNoMagicDesc",
+      "descriptionText": null,
+      "titleImageAddress": "Bas.Ui.SkillTree.Icons[Commoner]",
+      "currencies": {
+        "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Single, mscorlib]], mscorlib",
+        "Gold": 100.0,
+        "CrystalShard": 0.0
+      }
+    }
+  ],
+  "mainCurrency": "Gold",
+  "otherCurrencies": [],
+  "modules": [
+    {
+      "$type": "ThunderRoad.Modules.TimeTrackModule, ThunderRoad",
+      "isTestBuild": true
+    },
+    {
+      "$type": "ThunderRoad.Modules.CrystalHuntLevelInstancesModule, ThunderRoad",
+      "mapInfoPrefabAddress": "Bas.Map.CrystalHuntMapInfos",
+      "difficultyIcon": "Bas.Icon.Skull",
+      "difficultyIconColor": {
+        "r": 0.215686277,
+        "g": 0.1764706,
+        "b": 0.1764706,
+        "a": 1.0
+      },
+      "minPinsToGeneratePerDay": 3,
+      "maxPinsToGeneratePerDay": 5,
+      "arenasLevelInfo": [
+        {
+          "$type": "ThunderRoad.Modules.CrystalHuntLevelInstancesModule+LevelInfo, ThunderRoad",
+          "levelId": "Arena",
+          "modId": "WaveAssault"
+        },
+        {
+          "$type": "ThunderRoad.Modules.CrystalHuntLevelInstancesModule+LevelInfo, ThunderRoad",
+          "levelId": "Sanctuary",
+          "modId": "WaveAssault"
+        },
+        {
+          "$type": "ThunderRoad.Modules.CrystalHuntLevelInstancesModule+LevelInfo, ThunderRoad",
+          "levelId": "Canyon",
+          "modId": "WaveAssault"
+        },
+        {
+          "$type": "ThunderRoad.Modules.CrystalHuntLevelInstancesModule+LevelInfo, ThunderRoad",
+          "levelId": "Citadel",
+          "modId": "WaveAssault"
+        },
+        {
+          "$type": "ThunderRoad.Modules.CrystalHuntLevelInstancesModule+LevelInfo, ThunderRoad",
+          "levelId": "Market",
+          "modId": "WaveAssault"
+        }
+      ],
+      "minNumberOfArenasAllowedPerDay": 1,
+      "maxNumberOfArenasAllowedPerDay": 2,
+      "dalgarianDungeonLevelInfo": {
+        "$type": "ThunderRoad.Modules.CrystalHuntLevelInstancesModule+LevelInfo, ThunderRoad",
+        "levelId": "DungeonDalgarian",
+        "modId": "CrystalHunt"
+      },
+      "dalgarianEnemyConfigs": [
+        "DalgarianEnemyConfigT1",
+        "DalgarianEnemyConfigT1",
+        "DalgarianEnemyConfigT2",
+        "DalgarianEnemyConfigT3"
+      ],
+      "dalgarianLootConfigs": [
+        "DalgarianLootConfigT0",
+        "DalgarianLootConfigT1",
+        "DalgarianLootConfigT2",
+        "DalgarianLootConfigT3"
+      ],
+      "dalgarianMapLocationRandomNearest": 3,
+      "tutorialDungeonLevelInfo": {
+        "$type": "ThunderRoad.Modules.CrystalHuntLevelInstancesModule+LevelInfo, ThunderRoad",
+        "levelId": "DungeonTutorial",
+        "modId": "CrystalHunt"
+      },
+      "tutorialEnemyConfig": "OutpostEnemyConfigT0",
+      "tutorialLootConfig": "OutpostLootConfigT0",
+      "outpostDungeonLevelInfo": {
+        "$type": "ThunderRoad.Modules.CrystalHuntLevelInstancesModule+LevelInfo, ThunderRoad",
+        "levelId": "DungeonOutpost",
+        "modId": "CrystalHunt"
+      },
+      "outpostEnemyConfigs": [
+        "OutpostEnemyConfigT0",
+        "OutpostEnemyConfigT1",
+        "OutpostEnemyConfigT2",
+        "OutpostEnemyConfigT3"
+      ],
+      "outpostLootConfigs": [
+        "OutpostLootConfigT0",
+        "OutpostLootConfigT1",
+        "OutpostLootConfigT2",
+        "OutpostLootConfigT3"
+      ],
+      "outpostMapLocationRandomNearest": 5,
+      "shopID": "Shop",
+      "endRewardBalanceAddress": "Bas.Config.CrystalHunt.DungeonEndReward",
+      "dungeonLengthBalanceAddress": "Bas.Config.CrystalHunt.DungeonLength",
+      "dungeonLootMultiplierBalanceAddress": "Bas.Config.CrystalHunt.DungeonLootMultiplier",
+      "dungeonTypeBalanceAddress": "Bas.Config.CrystalHunt.DungeonType",
+      "outpostFactionTierBalanceAddress": "Bas.Config.CrystalHunt.DungeonOutpostFactionTiers",
+      "dalgarianFactionTierBalanceAddress": "Bas.Config.CrystalHunt.DungeonDalgarianFactionTiers"
+    },
+    {
+      "$type": "ThunderRoad.Modules.CrystalHuntProgressionModule, ThunderRoad"
+    },
+    {
+      "$type": "ThunderRoad.Modules.LoreModule, ThunderRoad",
+      "loreAddressList": [
+        "Bas.Core.CrystalHuntLore.Wildfolks",
+        "Bas.Core.CrystalHuntLore.TheEye",
+        "Bas.Core.CrystalHuntLore.Outlaw",
+        "Bas.Core.CrystalHuntLore.Eraden",
+        "Bas.Core.CrystalHuntLore.DalgarianPreservationSociety",
+        "Bas.Core.CrystalHuntLore.Dalgarian",
+        "Bas.Core.CrystalHuntLore.Byeth"
+      ],
+      "loreSpawnProbabiltyWeight": 1.0,
+      "VisibilityProbabilityWeights": {
+        "$type": "System.Collections.Generic.Dictionary`2[[ThunderRoad.LorePackCondition+Visibility, ThunderRoad],[System.Single, mscorlib]], mscorlib",
+        "Hidden": 0.75,
+        "PartiallyHidden": 0.75,
+        "Visibile": 0.5,
+        "VeryVisibile": 0.5
+      },
+      "LoreLookDistanceThreshold": 1.5,
+      "LoreReadDuration": 0.1,
+      "LoreLookThreshold": 0.95,
+      "LoreOutlineColor": {
+        "r": 0.30111146,
+        "g": 1.0,
+        "b": 0.0,
+        "a": 1.0
+      },
+      "loreAquiredTextGroupId": null,
+      "textLoreAquired": "LoreAcquire",
+      "loreAquiredText": null,
+      "allLoreSO": null,
+      "loreNotRead": null,
+      "availableLore": null,
+      "LoreFoundSfxID": "LoreFound"
+    }
+  ],
+  "characterStatPrefabAddresses": [
+    "Bas.UI.Stat.Health",
+    "Bas.UI.Stat.Focus",
+    "Bas.UI.Stat.ArmorStats"
+  ],
+  "difficultyOptions": [
+    {
+      "$type": "ThunderRoad.DeathPenaltyOption, ThunderRoad",
+      "defaultValue": "None",
+      "name": "DeathPenalty",
+      "displayName": "DeathPenalty",
+      "description": "DeathPenaltyDescription"
+    },
+    {
+      "$type": "ThunderRoad.EnemyDamageOption, ThunderRoad",
+      "minValue": 20,
+      "maxValue": 200,
+      "defaultValue": 100,
+      "stepValue": 20,
+      "name": "EnemyDamageMultiplier",
+      "displayName": "EnemyDamageMultiplier",
+      "description": "EnemyDamageMultiplierDescription"
+    },
+    {
+      "$type": "ThunderRoad.PlayerDamageOption, ThunderRoad",
+      "minValue": 25,
+      "maxValue": 400,
+      "defaultValue": 100,
+      "stepValue": 25,
+      "name": "PlayerDamageMultiplier",
+      "displayName": "PlayerDamageMultiplier",
+      "description": "PlayerDamageMultiplierDescription"
+    },
+    {
+      "$type": "ThunderRoad.AutoTranslateOption, ThunderRoad",
+      "defaultValue": true,
+      "name": "AutoDalgTranslate",
+      "displayName": "AutoDalgTranslateOption",
+      "description": "AutoDalgTranslateDesc"
+    },
+    {
+      "$type": "ThunderRoad.EnableCheatMenuOption, ThunderRoad",
+      "defaultValue": false,
+      "name": "CheatMenu",
+      "displayName": "Cheats",
+      "description": "Cheats"
+    }
+  ],
+  "difficultyPresets": [
+    {
+      "$type": "ThunderRoad.DifficultyPreset, ThunderRoad",
+      "name": "Easy",
+      "localizationGroupId": "Options",
+      "localizationId": "PresetEasyName",
+      "localizationDescriptionId": "PresetEasyDescription",
+      "optionPresets": {
+        "$type": "ThunderRoad.OptionPresets, ThunderRoad",
+        "DeathPenalty": {
+          "$type": "ThunderRoad.OptionEnumValue`1[[ThunderRoad.DeathPenalty, ThunderRoad]], ThunderRoad",
+          "value": 0,
+          "enumValue": "None"
+        },
+        "EnemyDamageMultiplier": {
+          "$type": "ThunderRoad.OptionIntValue, ThunderRoad",
+          "value": 100
+        },
+        "PlayerDamageMultiplier": {
+          "$type": "ThunderRoad.OptionIntValue, ThunderRoad",
+          "value": 50
+        },
+        "AutoDalgTranslate": {
+          "$type": "ThunderRoad.OptionBooleanValue, ThunderRoad",
+          "value": true
+        },
+        "CheatMenu": {
+          "$type": "ThunderRoad.OptionBooleanValue, ThunderRoad",
+          "value": false
+        }
+      }
+    },
+    {
+      "$type": "ThunderRoad.DifficultyPreset, ThunderRoad",
+      "name": "Normal",
+      "localizationGroupId": "Options",
+      "localizationId": "PresetNormalName",
+      "localizationDescriptionId": "PresetNormalDescription",
+      "optionPresets": {
+        "$type": "ThunderRoad.OptionPresets, ThunderRoad",
+        "DeathPenalty": {
+          "$type": "ThunderRoad.OptionEnumValue`1[[ThunderRoad.DeathPenalty, ThunderRoad]], ThunderRoad",
+          "value": 0,
+          "enumValue": "None"
+        },
+        "EnemyDamageMultiplier": {
+          "$type": "ThunderRoad.OptionIntValue, ThunderRoad",
+          "value": 100
+        },
+        "PlayerDamageMultiplier": {
+          "$type": "ThunderRoad.OptionIntValue, ThunderRoad",
+          "value": 100
+        },
+        "AutoDalgTranslate": {
+          "$type": "ThunderRoad.OptionBooleanValue, ThunderRoad",
+          "value": true
+        },
+        "CheatMenu": {
+          "$type": "ThunderRoad.OptionBooleanValue, ThunderRoad",
+          "value": false
+        }
+      }
+    },
+    {
+      "$type": "ThunderRoad.DifficultyPreset, ThunderRoad",
+      "name": "Hard",
+      "localizationGroupId": "Options",
+      "localizationId": "PresetHardName",
+      "localizationDescriptionId": "PresetHardDescription",
+      "optionPresets": {
+        "$type": "ThunderRoad.OptionPresets, ThunderRoad",
+        "DeathPenalty": {
+          "$type": "ThunderRoad.OptionEnumValue`1[[ThunderRoad.DeathPenalty, ThunderRoad]], ThunderRoad",
+          "value": 1,
+          "enumValue": "LoseGold"
+        },
+        "EnemyDamageMultiplier": {
+          "$type": "ThunderRoad.OptionIntValue, ThunderRoad",
+          "value": 100
+        },
+        "PlayerDamageMultiplier": {
+          "$type": "ThunderRoad.OptionIntValue, ThunderRoad",
+          "value": 150
+        },
+        "AutoDalgTranslate": {
+          "$type": "ThunderRoad.OptionBooleanValue, ThunderRoad",
+          "value": false
+        },
+        "CheatMenu": {
+          "$type": "ThunderRoad.OptionBooleanValue, ThunderRoad",
+          "value": false
+        }
+      }
+    },
+    {
+      "$type": "ThunderRoad.DifficultyPreset, ThunderRoad",
+      "name": "One Life",
+      "localizationGroupId": "Options",
+      "localizationId": "PresetOneLifeName",
+      "localizationDescriptionId": "PresetOneLifeDescription",
+      "optionPresets": {
+        "$type": "ThunderRoad.OptionPresets, ThunderRoad",
+        "DeathPenalty": {
+          "$type": "ThunderRoad.OptionEnumValue`1[[ThunderRoad.DeathPenalty, ThunderRoad]], ThunderRoad",
+          "value": 2,
+          "enumValue": "Permadeath"
+        },
+        "EnemyDamageMultiplier": {
+          "$type": "ThunderRoad.OptionIntValue, ThunderRoad",
+          "value": 100
+        },
+        "PlayerDamageMultiplier": {
+          "$type": "ThunderRoad.OptionIntValue, ThunderRoad",
+          "value": 100
+        },
+        "AutoDalgTranslate": {
+          "$type": "ThunderRoad.OptionBooleanValue, ThunderRoad",
+          "value": false
+        },
+        "CheatMenu": {
+          "$type": "ThunderRoad.OptionBooleanValue, ThunderRoad",
+          "value": false
+        }
+      }
+    }
+  ],
+  "defaultDifficultyPreset": 1,
+  "warningMessageGroupId": "Default",
+  "warningMessageTextId": "InstalledModsWarning",
+  "cheatsAllowed": [],
+  "groupPath": null
+}

@@ -1,0 +1,82 @@
+{
+  "$type": "ThunderRoad.CreatureTable, ThunderRoad",
+  "id": "SoldierAlertMix",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "description": "",
+  "linkedToGenderRatio": false,
+  "drops": [
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Soldier_Base_MeleeWeak",
+      "overrideFaction": false,
+      "factionID": 8,
+      "overrideContainer": false,
+      "overrideContainerID": "SoldierFootman",
+      "overrideBrain": false,
+      "overrideBrainID": "HumanMedium",
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 3
+    },
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Soldier_Base_MeleeStrong",
+      "overrideFaction": false,
+      "factionID": 8,
+      "overrideContainer": false,
+      "overrideContainerID": "SoldierWatchman",
+      "overrideBrain": false,
+      "overrideBrainID": "HumanMedium",
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 2
+    },
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Soldier_Base_RangedWeak",
+      "overrideFaction": false,
+      "factionID": 8,
+      "overrideContainer": false,
+      "overrideContainerID": "SoldierOppressor",
+      "overrideBrain": false,
+      "overrideBrainID": "HumanMedium",
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 2
+    },
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Soldier_Base_RangedStrong",
+      "overrideFaction": false,
+      "factionID": 8,
+      "overrideContainer": false,
+      "overrideContainerID": "SoldierBowman",
+      "overrideBrain": false,
+      "overrideBrainID": "HumanMedium",
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 2
+    },
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Soldier_Base_MeleeSpecial",
+      "overrideFaction": false,
+      "factionID": 0,
+      "overrideContainer": false,
+      "overrideContainerID": null,
+      "overrideBrain": false,
+      "overrideBrainID": null,
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 2
+    }
+  ],
+  "groupPath": "Factions/Dungeon"
+}

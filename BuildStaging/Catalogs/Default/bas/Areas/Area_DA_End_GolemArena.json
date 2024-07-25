@@ -1,0 +1,104 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "DA_End_GolemArena",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.DA_End_GolemArena",
+  "lightingPresetAddress": "Bas.Area.DA_End_GolemArena.LightingPreset",
+  "cullingAddress": "Bas.Area.DA_End_GolemArena.CullData",
+  "Bounds": {
+    "center": {
+      "x": 25.2822571,
+      "y": -26.2984619,
+      "z": 275.0261
+    },
+    "size": {
+      "x": 1002.59766,
+      "y": 504.385925,
+      "z": 736.9513
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 24.7791729,
+        "y": 4.0,
+        "z": -93.44955
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.DA_End_GolemArena.FakeView.0"
+    },
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "DA_Interior"
+        },
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": 38.8791733,
+        "y": -2.0,
+        "z": -93.44955
+      },
+      "face": "Back",
+      "fakeViewAddress": "Bas.Area.DA_End_GolemArena.FakeView.1"
+    }
+  ],
+  "areaGlobalParameters": [
+    {
+      "$type": "ThunderRoad.AreaOceanGlobalParameter, ThunderRoad",
+      "visibleFromGate": false
+    },
+    {
+      "$type": "ThunderRoad.AreaSunGlobalParameter, ThunderRoad",
+      "dirLightColor": {
+        "r": 1.0,
+        "g": 0.7618187,
+        "b": 0.5803922,
+        "a": 1.0
+      },
+      "dirLightIntensity": 3.2,
+      "dirLightIndirectMultiplier": 2.0,
+      "directionalLightLocalRotation": {
+        "x": 0.201052353,
+        "y": 0.655768454,
+        "z": 0.167018846,
+        "w": 0.7082728
+      },
+      "visibleFromGate": false
+    }
+  ],
+  "groupPath": "Dalgarian/GameSpecific"
+}

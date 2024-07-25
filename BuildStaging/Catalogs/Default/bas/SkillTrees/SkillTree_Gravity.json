@@ -1,0 +1,35 @@
+{
+  "$type": "ThunderRoad.SkillTreeData, ThunderRoad",
+  "id": "Gravity",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "localizationGroupID": "Skills",
+  "displayName": "{Gravity}",
+  "description": "{GravityPathDescription}",
+  "maxTier": 3,
+  "showInInfuser": true,
+  "color": {
+    "r": 0.449999958,
+    "g": 0.117924511,
+    "b": 1.0,
+    "a": 1.0
+  },
+  "emissionColor": {
+    "r": 0.5647059,
+    "g": 0.09411765,
+    "b": 5.992157,
+    "a": 1.0
+  },
+  "orbPitch": 0.6,
+  "costMultiplier": 1.0,
+  "crystalItemId": "CrystalGravityT1",
+  "orbIconAddress": "Bas.Ui.SkillTree.Icons[Gravity]",
+  "infuserTopParticleAddress": "Bas.Particle.Infuser.Gravity",
+  "infuserBeamAudioAddress": "Bas.AudioClip.Infuser.Beam.Gravity",
+  "musicAddress": "Bas.AudioClip.SkillTree.Music.Gravity",
+  "videoAddress": "Bas.Video.Infuser.Gravity",
+  "iconEnabledAddress": "Bas.Ui.SkillTree.Icons[Gravity_ButtonColor]",
+  "iconDisabledAddress": "Bas.Ui.SkillTree.Icons[Gravity_Button]",
+  "groupPath": null
+}

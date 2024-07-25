@@ -1,0 +1,13 @@
+{
+  "$type": "ThunderRoad.BehaviorTreeData, ThunderRoad",
+  "id": "HumanCombatCrossbow",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "type": "SubTree",
+  "rootNode": {
+    "$type": "ThunderRoad.AI.Decorator.AlwaysFailure, ThunderRoad",
+    "child": null
+  },
+  "groupPath": null
+}

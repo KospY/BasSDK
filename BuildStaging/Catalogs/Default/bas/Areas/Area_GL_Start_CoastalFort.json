@@ -1,0 +1,76 @@
+{
+  "$type": "ThunderRoad.AreaData, ThunderRoad",
+  "id": "GL_Start_CoastalFort",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "isUnique": true,
+  "areaPrefabAddress": "Bas.Area.GL_Start_CoastalFort",
+  "lightingPresetAddress": "Bas.Area.GL_Start_CoastalFort.LightingPreset",
+  "cullingAddress": "Bas.Area.GL_Start_CoastalFort.CullData",
+  "Bounds": {
+    "center": {
+      "x": 84.20596,
+      "y": -6.276657,
+      "z": -39.44867
+    },
+    "size": {
+      "x": 296.279327,
+      "y": 133.4904,
+      "z": 388.658142
+    }
+  },
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "connections": [
+    {
+      "$type": "ThunderRoad.AreaData+AreaConnection, ThunderRoad",
+      "connectionTypeIdContainerList": [
+        {
+          "$type": "ThunderRoad.AreaData+AreaConnectionTypeIdContainer, ThunderRoad",
+          "dataId": "GL_Cave"
+        }
+      ],
+      "overrideBlockerTableAdress": {
+        "$type": "ThunderRoad.AreaConnectionTypeData+PrefabAdressTable, ThunderRoad",
+        "drops": []
+      },
+      "position": {
+        "x": -63.9337044,
+        "y": 4.884,
+        "z": 33.31568
+      },
+      "face": "Left",
+      "fakeViewAddress": "Bas.Area.GL_Start_CoastalFort.FakeView.0"
+    }
+  ],
+  "areaGlobalParameters": [
+    {
+      "$type": "ThunderRoad.AreaOceanGlobalParameter, ThunderRoad",
+      "visibleFromGate": false
+    },
+    {
+      "$type": "ThunderRoad.AreaSunGlobalParameter, ThunderRoad",
+      "dirLightColor": {
+        "r": 1.0,
+        "g": 0.9447893,
+        "b": 0.87,
+        "a": 1.0
+      },
+      "dirLightIntensity": 2.2,
+      "dirLightIndirectMultiplier": 2.0,
+      "directionalLightLocalRotation": {
+        "x": -0.211836532,
+        "y": 0.581639647,
+        "z": -0.274853617,
+        "w": -0.735714734
+      },
+      "visibleFromGate": true
+    }
+  ],
+  "groupPath": "Outpost/Start-End"
+}

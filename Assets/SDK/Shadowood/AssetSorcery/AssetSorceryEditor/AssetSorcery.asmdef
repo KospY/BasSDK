@@ -1,0 +1,29 @@
+{
+    "name": "AssetSorceryEditorTools",
+    "rootNamespace": "",
+    "references": [
+        "GUID:478a2357cc57436488a56e564b08d223",
+        "GUID:c579267770062bf448e75eb160330b7f",
+        "GUID:3eae0364be2026648bf74846acb8a731",
+        "GUID:0c8d3c58800556341a36d8a3180ad721",
+        "GUID:ca960c18b38b1cf4eb871ec2a9703929",
+        "GUID:d0d48119f127b5d4a8d0552ed0d1c6c6"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.render-pipelines.universal",
+            "expression": "",
+            "define": "THUNDERROAD_URP_AVAILABLE"
+        }
+    ],
+    "noEngineReferences": false
+}

@@ -1,0 +1,54 @@
+{
+  "$type": "ThunderRoad.CreatureTable, ThunderRoad",
+  "id": "TribalAlertMelee",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "description": "",
+  "linkedToGenderRatio": false,
+  "drops": [
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Tribal_Base_MeleeWeak",
+      "overrideFaction": false,
+      "factionID": 7,
+      "overrideContainer": false,
+      "overrideContainerID": "TribalGladiator",
+      "overrideBrain": false,
+      "overrideBrainID": "HumanMedium",
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 4
+    },
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Tribal_Base_MeleeStrong",
+      "overrideFaction": false,
+      "factionID": 7,
+      "overrideContainer": false,
+      "overrideContainerID": "TribalBerserker",
+      "overrideBrain": false,
+      "overrideBrainID": "HumanMedium",
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 5
+    },
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Tribal_Base_MeleeSpecial",
+      "overrideFaction": false,
+      "factionID": 0,
+      "overrideContainer": false,
+      "overrideContainerID": null,
+      "overrideBrain": false,
+      "overrideBrainID": null,
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 2
+    }
+  ],
+  "groupPath": "Factions/Dungeon"
+}

@@ -1,0 +1,40 @@
+{
+  "$type": "ThunderRoad.CreatureTable, ThunderRoad",
+  "id": "Scavenger_Base_Ranged",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "description": "Base tables for factions contain the settings used for each unit type, so we only have to edit them from one place. These should be used in other creature tables and waves instead of overriding containers.",
+  "linkedToGenderRatio": false,
+  "drops": [
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Humans",
+      "overrideFaction": true,
+      "factionID": 4,
+      "overrideContainer": true,
+      "overrideContainerID": "ScavengerHunter",
+      "overrideBrain": true,
+      "overrideBrainID": "HumanEasy",
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 6
+    },
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Humans",
+      "overrideFaction": true,
+      "factionID": 4,
+      "overrideContainer": true,
+      "overrideContainerID": "ScavengerCharlatan",
+      "overrideBrain": true,
+      "overrideBrainID": "HumanEasy",
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 4
+    }
+  ],
+  "groupPath": "Factions/Base"
+}

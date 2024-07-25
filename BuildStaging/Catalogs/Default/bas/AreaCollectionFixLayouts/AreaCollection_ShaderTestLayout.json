@@ -1,0 +1,151 @@
+{
+  "$type": "ThunderRoad.AreaCollectionFixLayout, ThunderRoad",
+  "id": "ShaderTestLayout",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "layout": [
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+AreaLayout, ThunderRoad",
+      "bpGeneratorId": {
+        "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+        "dataId": "LightingTest_Room",
+        "category": "Area"
+      },
+      "rotation": "Back",
+      "creatureNumberWeight": 4.0,
+      "isShareNPCAlert": true
+    }
+  ],
+  "internalLinks": [
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+InternalLink, ThunderRoad",
+      "indexArea1": 0,
+      "indexConnectionArea1": 0,
+      "indexArea2": 1,
+      "indexConnectionArea2": 1,
+      "crossAreaAlert": false
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+InternalLink, ThunderRoad",
+      "indexArea1": 1,
+      "indexConnectionArea1": 0,
+      "indexArea2": 2,
+      "indexConnectionArea2": 1,
+      "crossAreaAlert": false
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+InternalLink, ThunderRoad",
+      "indexArea1": 2,
+      "indexConnectionArea1": 0,
+      "indexArea2": 3,
+      "indexConnectionArea2": 1,
+      "crossAreaAlert": false
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+InternalLink, ThunderRoad",
+      "indexArea1": 3,
+      "indexConnectionArea1": 0,
+      "indexArea2": 4,
+      "indexConnectionArea2": 1,
+      "crossAreaAlert": false
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+InternalLink, ThunderRoad",
+      "indexArea1": 4,
+      "indexConnectionArea1": 0,
+      "indexArea2": 5,
+      "indexConnectionArea2": 0,
+      "crossAreaAlert": false
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+InternalLink, ThunderRoad",
+      "indexArea1": 5,
+      "indexConnectionArea1": 1,
+      "indexArea2": 6,
+      "indexConnectionArea2": 0,
+      "crossAreaAlert": false
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+InternalLink, ThunderRoad",
+      "indexArea1": 6,
+      "indexConnectionArea1": 1,
+      "indexArea2": 7,
+      "indexConnectionArea2": 1,
+      "crossAreaAlert": false
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+InternalLink, ThunderRoad",
+      "indexArea1": 7,
+      "indexConnectionArea1": 0,
+      "indexArea2": 8,
+      "indexConnectionArea2": 4,
+      "crossAreaAlert": false
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+InternalLink, ThunderRoad",
+      "indexArea1": 8,
+      "indexConnectionArea1": 2,
+      "indexArea2": 9,
+      "indexConnectionArea2": 2,
+      "crossAreaAlert": false
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+InternalLink, ThunderRoad",
+      "indexArea1": 9,
+      "indexConnectionArea1": 1,
+      "indexArea2": 10,
+      "indexConnectionArea2": 1,
+      "crossAreaAlert": false
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+InternalLink, ThunderRoad",
+      "indexArea1": 10,
+      "indexConnectionArea1": 0,
+      "indexArea2": 11,
+      "indexConnectionArea2": 1,
+      "crossAreaAlert": false
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+InternalLink, ThunderRoad",
+      "indexArea1": 11,
+      "indexConnectionArea1": 0,
+      "indexArea2": 12,
+      "indexConnectionArea2": 1,
+      "crossAreaAlert": false
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+InternalLink, ThunderRoad",
+      "indexArea1": 12,
+      "indexConnectionArea1": 2,
+      "indexArea2": 13,
+      "indexConnectionArea2": 0,
+      "crossAreaAlert": false
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+InternalLink, ThunderRoad",
+      "indexArea1": 13,
+      "indexConnectionArea1": 1,
+      "indexArea2": 14,
+      "indexConnectionArea2": 2,
+      "crossAreaAlert": false
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+InternalLink, ThunderRoad",
+      "indexArea1": 14,
+      "indexConnectionArea1": 1,
+      "indexArea2": 15,
+      "indexConnectionArea2": 0,
+      "crossAreaAlert": false
+    }
+  ],
+  "externalConnections": [],
+  "distanceBetweenConnectionMax": 0.01,
+  "groupPath": null
+}
