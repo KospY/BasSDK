@@ -28,7 +28,7 @@ Alternatively, you can click [Here.](unityhub://2021.3.38f1/7a2fa5d8d101)
 
 Unity will now download and install the editor.
 
-<video src="/assets/components/Guides/UnitySDKSetup/editor-install.mp4" width="880" height="440" controls></video>
+<video src="{{ site.baseurl }}/assets/components/Guides/UnitySDKSetup/editor-install.mp4" width="880" height="440" controls></video>
 
 ## Sync SDK repository on your computer
 
@@ -40,11 +40,11 @@ The SDK is hosted on Github. To make further updates easily, we highly recommend
 2. Go to the [SDK Git repository](https://github.com/KospY/BasSDK)
 3. Copy the Git URL
     
-  <video src="/assets/components/Guides/UnitySDKSetup/CopyURL.mp4" width="880" height="440" controls></video>
+  <video src="{{ site.baseurl }}/assets/components/Guides/UnitySDKSetup/CopyURL.mp4" width="880" height="440" controls></video>
     
 4. Open Github Desktop, go to `File> Clone repository` and paste the URL to clone the repository on your machine
     
-      <video src="/assets/components/Guides/UnitySDKSetup/GitClone.mp4" width="880" height="440" controls></video>
+      <video src="{{ site.baseurl }}/assets/components/Guides/UnitySDKSetup/GitClone.mp4" width="880" height="440" controls></video>
     
 {: .note}
 Once synced, you can switch from different SDK version by changing branch (`Master` will always be the latest version of the SDK)
@@ -71,8 +71,6 @@ We will use the Unity Hub to open the BAS SDK.
 Unity will then open the project and start to process and import the project files. This may take some time, so let it complete.
 
 Once the import is finished, you should see the Unity editor scene and/or game view.
-
-<video src="/assets/components/Guides/UnitySDKSetup/nomad-log-windows.mp4" width="880" height="440" controls></video>
 
 [EditorInstall]: {{ site.baseurl }}/assets/components/Guides/UnitySDKSetup/editor-install.mp4
 [CopyURL]: {{ site.baseurl }}/assets/components/Guides/UnitySDKSetup/CopyURL.mp4
