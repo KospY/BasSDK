@@ -16,7 +16,7 @@ Asset management is managed by [Unity Addressables](https://docs.unity3d.com/Pac
 
 The first time you open the SDK, we recommend opening the asset bundle builder `ThunderRoad (SDK) → Asset bundle builder` and the addressable group windows `Window → Asset management → Addressable -> Groups`
 
-<video src="/assets/components/Guides/AddressableBundle/AssetBundleSetup.mp4" width="880" height="440" controls></video>
+<video src="{{ site.baseurl }}/assets/components/Guides/AddressableBundle/AssetBundleSetup.mp4" width="880" height="440" controls></video>
 
 
 ## Addressable groups
@@ -40,7 +40,7 @@ The process to create a new group and assign assets is the following:
 3. Set a unique address for it, we recommend using an address like `[Your Mod Name or Author Name].Item.XX` to avoid conflicts with other mods or default assets
 4. Assign a label, either `Windows` and/or `Android`. If you are asset is used on both platforms, use both labels. 
 
-<video src="/assets/components/Guides/AddressableBundle/NewAssetBundle.mp4" width="880" height="440" controls></video>
+<video src="{{ site.baseurl }}/assets/components/Guides/AddressableBundle/NewAssetBundle.mp4" width="880" height="440" controls></video>
 
 
 {: .tip}
@@ -70,7 +70,7 @@ To create a new **Asset Bundle Group**, you can right-click anywhere in the proj
 
 A new **Asset Bundle Group** will be then created and can be edited to include any Addressable group you need.
 
-<video src="/assets/components/Guides/AddressableBundle/CreateBundle.mp4" width="880" height="440" controls></video>
+<video src="{{ site.baseurl }}/assets/components/Guides/AddressableBundle/CreateBundle.mp4" width="880" height="440" controls></video>
 
 To edit an **Asset Bundle Group**, double-click on it in the Asset Bundle Builder or find it in the project and click on it.
 
