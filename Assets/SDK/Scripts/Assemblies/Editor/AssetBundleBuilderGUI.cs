@@ -287,7 +287,21 @@ namespace ThunderRoad
 
             foreach (AssetBundleGroup assetBundleGroup in assetBundleGroups)
             {
-                if (assetBundleGroup.selected) Build(assetBundleGroup);
+                if (assetBundleGroup.selected)
+                {
+                    //check if the group selected is a mod, as modders should be checking isMod
+                    if (Application.isEditor && !Application.isBatchMode && !assetBundleGroup.isMod)
+                    {
+                        //popup warning
+                        bool userResponse = EditorUtility.DisplayDialog("Warning", $"You are trying to build a bundle is not a mod bundle.\nIf this sounds incorrect please check 'Is Mod' on the Asset Bundle Group: {assetBundleGroup.folderName}.\n Do you want to continue building?", "Yes", "No");
+                        if (!userResponse)
+                        {
+                            Debug.Log($"Aborting build, please check the 'Is Mod' on the Asset Bundle Group: {assetBundleGroup.folderName}");
+                            return;
+                        }
+                    }
+                    Build(assetBundleGroup);
+                }
             }
             
             if (!Application.isBatchMode && reopenLastScene)
