@@ -7,6 +7,26 @@ grand_parent: Guides
 
 In this guide, it will show you an in-order guide to creating your own weapons. 
 
+## Contents
+
+- [Getting Started](#getting-started)
+- [Default Components](#default-components)
+    - [HolderPoint](#holderpoint)
+    - [ParryPoint](#parrypoint)
+    - [Preview](#preview)
+    - [SpawnPoint](#spawnpoint)
+- [Adding the neccessary components](#adding-the-neccessary-components)
+    - [Colliders and Damagers](#colliders-and-damagers)
+    - [ParryTarget](#parrytarget)
+    - [Handle](#handle)
+        - [HandlePose](#handle-pose)
+    - [Whoosh](#whoosh)
+    - [Addressable](#addressable)
+    - [Preview](#preview)
+- [Exporting your Mod](#exporting-your-mod)
+- [JSON](#json)
+
+
 ## Getting Started
 
 First, you will want to install the [SDK](https://github.com/KospY/BasSDK) (recommended using [GitHub Desktop](https://desktop.github.com/download/)) on the Unity version [2021.3.38f1](unityhub://2021.3.38f1/7a2fa5d8d101) (recommend installing on [Unity Hub](https://unity.com/download)).
@@ -113,13 +133,13 @@ Finally, once that is all done, go back to your `Blades` collider group. Assign 
 
 ![ColliderGroup][ColliderGroup]
 
-## ParryTarget
+### ParryTarget
 
 The parry target script is used for AI detection, showing the points on the weapon where an NPC will try to avoid attacks from your weapon. You'll want the AI to avoid all parts of your weapon, so it is best to extend it from tip of the blade to bottom of your weapon.
 
 ![ParryTarget][ParryTarget]
 
-## Handle
+### Handle
 
 The next step is adding handles. Handles are essential for being able to grab your weapon, as well as being able to use telekinesis only, for items like big props. 
 
@@ -131,7 +151,7 @@ Once the handle is created, you'll want to click the `Calculate Reach` button, a
 
 Once added, go to the main parent, to the item script, and drag the Handle you created to `Main Handle Right` and `Main Handle Left`.
 
-### Handle Pose
+#### Handle Pose
 
 {: .tip}
 If you can't see the handle pose gizmo, click "Catelog Picker" on the Handle Pose component.#
@@ -142,13 +162,13 @@ Once complete, duplicate both handle poses, and rotate it 180 degrees on the Y R
 
 ![HandlePose][HandlePose]
 
-## Whoosh
+### Whoosh
 
 The "Whoosh" is the game object that creates the swinging sound when swinging the weapon. Add an empty gameobject and call it "Whoosh". Drag it to the point that you want the sound to be played (usually on the blade) and add the `Whoosh` component on to it. You do not need to edit any of its' fields.
 
 ![Whoosh][Whoosh]
 
-## Addressable
+### Addressable
 
 Finally, your weapon is now usable. You just need to add it as an addressable. The first thing you will want to do is to make the dagger a prefab. Go to the folder you want the dagger to be located, click on the main parent (where your Item script is located),and drag the parent down in to the folder. The dagger in the hierarchy will now be blue, which is known as a "Prefab". 
 
@@ -156,7 +176,7 @@ Next, go to `ThunderRoad (SDK) > Addressables Groups` and you will see the Addre
 
 ![Addressable][Addressable]
 
-## Preview
+### Preview
 
 Finally, we get back to the preview script. The preview script will create an image of your item to use in the item book. There are two types of preview:
 - Preview : Used for the main preview when you click on the weapon in the book
