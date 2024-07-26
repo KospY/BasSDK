@@ -755,7 +755,7 @@ namespace ThunderRoad
 
         protected static int index;
 
-#if ODIN_INSPECTOR && UNITY_EDITOR
+#if ODIN_INSPECTOR
         #region ODIN
 
         public List<ValueDropdownItem<string>> GetAllHeadsId()

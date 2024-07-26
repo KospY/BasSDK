@@ -109,7 +109,7 @@ namespace ThunderRoad
         }
         #endregion
 
-#if ODIN_INSPECTOR && UNITY_EDITOR
+#if ODIN_INSPECTOR
         public List<ValueDropdownItem<int>> GetAllFactionID()
         {
             if (Catalog.gameData == null) return null;

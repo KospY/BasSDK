@@ -117,7 +117,7 @@ namespace ThunderRoad
             {
             }
 
-#if ODIN_INSPECTOR && UNITY_EDITOR
+#if ODIN_INSPECTOR
             public List<ValueDropdownItem<string>> GetAllItemOrLootTableID()
             {
                 if (reference == Reference.Item)

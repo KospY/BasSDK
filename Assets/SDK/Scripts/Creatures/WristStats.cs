@@ -35,7 +35,7 @@ namespace ThunderRoad
         public bool isShown = true;
 
         
-#if ODIN_INSPECTOR && UNITY_EDITOR
+#if ODIN_INSPECTOR
         public List<ValueDropdownItem<string>> GetAllEffectID()
         {
             return Catalog.GetDropdownAllID(Category.Effect);

@@ -250,14 +250,14 @@ namespace ThunderRoad
             public enum Height { None, Lower, Mid, Up, }
 
 
-#if UNITY_EDITOR
+
             [NonSerialized]
             public bool isDuplicate = false;
             [NonSerialized]
             public bool isMissing = false;
 
             protected Color EditorGetColor() { return isMissing ? Color.yellow : (isDuplicate ? Color.red : (lastPicked ? Color.green : Color.white)); }
-
+#if UNITY_EDITOR
             protected void EditorCalculateWeight()
             {
                 List<CatalogData> list = Catalog.GetDataList(Category.Animation);

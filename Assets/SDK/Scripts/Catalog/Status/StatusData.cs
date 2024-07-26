@@ -79,7 +79,7 @@ namespace ThunderRoad
             OnFullRemoveEvent?.Invoke(status);
         }
 
-#if ODIN_INSPECTOR && UNITY_EDITOR
+#if ODIN_INSPECTOR
         public List<ValueDropdownItem<Type>> GetStatusTypes()
         {
             var dropdownList = new List<ValueDropdownItem<Type>> { new("None", null) };
