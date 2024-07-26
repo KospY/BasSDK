@@ -17,9 +17,9 @@ namespace ThunderRoad
     [Serializable]
     public class CatalogData
     {
-#if ODIN_INSPECTOR
         [NonSerialized]
         public bool standaloneData = false;
+#if ODIN_INSPECTOR
         [ShowIfGroup("standaloneData")]
         [BoxGroup("standaloneData/Data")]
         [HorizontalGroup("standaloneData/Data/Split"), LabelWidth(15), JsonProperty(Order = -2)]
@@ -113,7 +113,7 @@ namespace ThunderRoad
         public virtual void OnCatalogRefresh()
         {
             version = GetCurrentVersion();
-
+            standaloneData = true;
         }
 
         public virtual CatalogData Clone()

@@ -100,4 +100,36 @@ namespace ThunderRoad
 #endif
         
     }
+
+    [Serializable]
+    public class StatusEntry
+    {
+        public string id;
+        public float duration;
+        public float parameter;
+        public StatusEntry() { }
+
+        public StatusEntry(string id, float duration, float parameter)
+        {
+            this.id = id;
+            this.duration = duration;
+            this.parameter = parameter;
+        }
+
+        public static implicit operator StatusEntry((string id, float duration, float? parameter) data)
+            => new(id: data.id, duration: data.duration, parameter: data.parameter ?? -1);
+
+        public static implicit operator StatusEntry((string id, float duration) data)
+            => new(id: data.id, duration: data.duration, parameter: -1);
+
+        public static implicit operator StatusEntry(string id)
+            => new(id: id, duration: Mathf.Infinity, parameter: -1);
+
+        public void Deconstruct(out string id, out float duration, out float? parameter)
+        {
+            id = this.id;
+            duration = this.duration;
+            parameter = this.parameter == -1 ? null : this.parameter;
+        }
+    }
 }

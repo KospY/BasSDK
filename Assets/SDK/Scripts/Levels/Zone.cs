@@ -74,6 +74,11 @@ namespace ThunderRoad
         [Tooltip("If true, inflicts the status effects constantly to anything in the zone.")]
         public bool constantStatus;
 
+        [Tooltip("Status Effect IDs to inflict/remove on entry/exit")]
+#if ODIN_INSPECTOR
+        [ShowInInspector]
+#endif
+        public List<StatusEntry> statusIDs;
 
         [Tooltip("When NPC/Item is in zone, does it apply a status effect?")]
         public bool playStatusEffects = true;
