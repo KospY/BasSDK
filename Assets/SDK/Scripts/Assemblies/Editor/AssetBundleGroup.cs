@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Text;
 using UnityEditor.AddressableAssets.Settings;
 
 #if ODIN_INSPECTOR
@@ -62,10 +63,11 @@ namespace ThunderRoad
             Debug.Log("Mod manifest created at " + path);
         }
         
-        //button to check if all entries have the Android or Windows label
-        [Button]
-        public void CheckAddressableLabels()
+        public bool CheckAddressableLabels(out string message)
         {
+            message = string.Empty;
+            bool missingLabels = false;
+            StringBuilder sb = new StringBuilder();
             foreach (AddressableAssetGroup group in addressableAssetGroups)
             {
                 foreach (AddressableAssetEntry entry in group.entries)
@@ -73,9 +75,14 @@ namespace ThunderRoad
                     if (!entry.labels.Contains("Android") && !entry.labels.Contains("Windows"))
                     {
                         Debug.LogWarning($"Entry {entry.address} in group {group.Name} has no Android or Windows label");
+                        sb.AppendLine($"[{group.name}][{entry.address}]");
+                        missingLabels = true;
                     }
                 }
             }
+            if (!missingLabels) return true;
+            message = sb.ToString();
+            return false;
         }
     }
 }

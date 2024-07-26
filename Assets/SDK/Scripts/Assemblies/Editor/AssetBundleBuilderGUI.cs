@@ -289,17 +289,33 @@ namespace ThunderRoad
             {
                 if (assetBundleGroup.selected)
                 {
+//warnings for the SDK
                     //check if the group selected is a mod, as modders should be checking isMod
-                    if (Application.isEditor && !Application.isBatchMode && !assetBundleGroup.isMod)
+                    if (Application.isEditor && !Application.isBatchMode)
                     {
-                        //popup warning
-                        bool userResponse = EditorUtility.DisplayDialog("Warning", $"You are trying to build a bundle is not a mod bundle.\nIf this sounds incorrect please check 'Is Mod' on the Asset Bundle Group: {assetBundleGroup.folderName}.\n Do you want to continue building?", "Yes", "No");
-                        if (!userResponse)
+                        //Check its marked as a mod
+                        if (!assetBundleGroup.isMod)
                         {
-                            Debug.Log($"Aborting build, please check the 'Is Mod' on the Asset Bundle Group: {assetBundleGroup.folderName}");
-                            return;
+                            //popup warning
+                            bool userResponse = EditorUtility.DisplayDialog("Warning", $"You are trying to build a bundle is not a mod bundle.\nIf this sounds incorrect please check 'Is Mod' on the Asset Bundle Group: {assetBundleGroup.name}\nDo you want to continue building?", "Yes", "No");
+                            if (!userResponse)
+                            {
+                                Debug.Log($"Aborting build, please check the 'Is Mod' on the Asset Bundle Group: {assetBundleGroup.name}");
+                                return;
+                            }
+                        }
+                        //Check the bundles entries have the correct labels
+                        if (!assetBundleGroup.CheckAddressableLabels(out string message))
+                        {
+                            bool userResponse = EditorUtility.DisplayDialog("Warning", $"Entries are missing Windows/Android labels.\nThey will not build correctly\n\n{message}\n\nDo you want to continue building?", "Yes", "No");
+                            if (!userResponse)
+                            {
+                                Debug.Log($"Aborting build, please check the labels on the Asset Bundle Group: {assetBundleGroup.name}");
+                                return;
+                            }
                         }
                     }
+                    
                     Build(assetBundleGroup);
                 }
             }

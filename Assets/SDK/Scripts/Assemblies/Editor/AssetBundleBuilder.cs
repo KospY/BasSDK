@@ -232,11 +232,23 @@ namespace ThunderRoad
                 foreach (AddressableAssetGroup group in settings.groups)
                 {
                     if (group == null) continue;
+                    bool isInBundleGroup = assetBundleGroup.addressableAssetGroups.Contains(group);
+                    
                     BundledAssetGroupSchema bundledAssetGroupSchema = group.GetSchema<BundledAssetGroupSchema>();
                     if (bundledAssetGroupSchema == null)
                     {
-                        Debug.LogWarning($"Group {group.name} is missing BundledAssetGroupSchema, skipping");
-                        continue;
+                        //if its in the bundle group
+                        if(isInBundleGroup && assetBundleGroup.isMod)
+                        {
+                            //we can only safely add them to mod groups because if its a base game one thats missing, we might set the wrong build/load paths
+                            bundledAssetGroupSchema = group.AddSchema<BundledAssetGroupSchema>();
+                            Debug.LogWarning($"Group {group.name} is missing BundledAssetGroupSchema, added one");
+                        }
+                        else
+                        {
+                            Debug.LogWarning($"Group {group.name} is missing BundledAssetGroupSchema, skipping, bundle will not be built");
+                            continue;
+                        }
                     }
 
                     ThunderRoadAAGroupSchema thunderRoadAAGroupSchema = group.GetSchema<ThunderRoadAAGroupSchema>();
@@ -251,8 +263,6 @@ namespace ThunderRoad
 
                     bundledAssetGroupSchema.IncludeInBuild = false;
                     bundledAssetGroupSchema.BundleNaming = BundledAssetGroupSchema.BundleNamingStyle.NoHash;
-
-                    bool isInBundleGroup = assetBundleGroup.addressableAssetGroups.Contains(group);
                     
                     //check if the bundle group is a mod, so we can set the correct build and load paths
                     if(assetBundleGroup.isMod && isInBundleGroup)
