@@ -37,11 +37,31 @@ namespace ThunderRoad
         public int invokeMaxIndex = 0;
 
         public UnityEvent timedEvent = new UnityEvent();
+        [Button]
+        public void Invoke()
+        {
+        }
 
-        protected int invokeCount = 0;
-        protected Coroutine coroutine;
+        [Button]
+        public void Invoke(int index)
+        {
+            
+        }
 
-        protected bool[] invokedIndex;
+        [Button]
+        public void StopInvoke(int index)
+        {
+        }
 
+        [Button]
+        public void InvokeNow()
+        {
+        }
+
+        [Button]
+        public void StopInvoke()
+        {
+            
+        }
     }
 }
