@@ -278,10 +278,13 @@ namespace ThunderRoad
                         bool haveWindowsLabel = false;
                         foreach (var entry in group.entries)
                         {
-                            Shader shader = AssetDatabase.LoadAssetAtPath<Shader>(entry.AssetPath);
-                            if (shader)
+                            if (thunderRoadAAGroupSchema.sharedBundle)
                             {
-                                shadersToStrip.Add(shader);
+                                Shader shader = AssetDatabase.LoadAssetAtPath<Shader>(entry.AssetPath);
+                                if (shader)
+                                {
+                                    shadersToStrip.Add(shader);
+                                }
                             }
                             if (entry.labels.Contains("Android"))
                             {
