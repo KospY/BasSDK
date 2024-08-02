@@ -54,7 +54,9 @@ namespace ThunderRoad
         [ShowIf("referenceType", Value = ReferenceType.EnemyConfig)]
 #endif
         public EnemyConfigType enemyConfigType;
-        
+
+        [Tooltip("Uses the creature pool to spawn the creature.")]
+        public bool pooled = true;
         [Tooltip("Spawns creatures in faster/immediately, but can break some of them. If your creatures are behaving weirdly, uncheck this box.")]
         public bool asyncSpawn = true;
         [Tooltip("The creature spawner is ignored by areas(?)")]
