@@ -152,6 +152,9 @@ On the item json, add the module `ItemModuleWardrobe`, and define two wardrobes 
 ],
 ```
 
+{: .important}
+The JSON used for the armor MUST start with `Wardrobe_`. JSONS that start with anything other than this may cause issues. It is recommended to copy a wardrobe JSON over any other JSON if you make a new armor part.
+
 If needed, a json example is available in the SDK in the proto json folder: `[SDK Path]\BuildStaging\Catalogs\default\proto\Items\Item_Wardrobe_ApparelProtoHelmet.json`
 
 The latest stage then will be to create the asset bundles (see [Using SDK to create asset bundles][AssetBundles]), and copy over the armor item json in your mod folder. Once in-game, the new armor part(s) should automatically show on the item spawners.
