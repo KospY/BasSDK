@@ -10,7 +10,7 @@ Area Gateway is a component used in the Area system to connect rooms together. I
 
 Please keep note of this Area Gateway Transform, as it is essential in connecting rooms together. These gateways are referenced in the "Area" JSON, which specifies what type of rooms it accepts (like cave or interior), as well as correctly connecting up two gateways.
 
-Note that this
+Note that gateways will connect to other gateways, so meshes past the gateway will merge or be visible in the connecting room.
 
 ## Component Properties
 
