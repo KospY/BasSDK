@@ -18,11 +18,9 @@ These are modifiers that should not be changed. This is to ensure that ocean cau
 
 ## Reveal Layers
 
-Reveal is what causes blood to be applied on items. 
+Reveal is what causes blood to be applied on items and creatures. For this to apply, the item/part should have the [Reveal Decal][Reveal] script applied. Read more on the [Reveal][Reveal] page to find out how to correctly apply this. 
 
-To add blood on to weapons with this weapon, see [Reveal][Reveal].
-
-{: .important}
+{: .warning}
 Do not keep Reveal Layers enabled. Once your textures have been applied for reveal, untick the box. 
 
 ## SSS
