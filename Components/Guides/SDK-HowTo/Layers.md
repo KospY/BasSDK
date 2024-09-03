@@ -17,7 +17,7 @@ Below is a matrix displaying which layers will collide with each other. If a box
 ### Layer Descriptions
 
 {: .note }
-> Some layer descriptions may not be accurate.
+Some of these layers are automatically managed by scripts in the SDK and in-game. 
 
 | Layer                  | Description 
 | :----:                 | :-------- 
@@ -44,7 +44,7 @@ Below is a matrix displaying which layers will collide with each other. If a box
 | SkyDome                | Used for internal tools
 | MovingObjectOnly       | Used for objects that have continuous movement (e.g. Waterwheels, portcullis etc)
 | PlayerLocomotion       | Used for the player locomotion collider
-| BodyLocomotion         | Used for the NPC body locomotion collider (?)
+| BodyLocomotion         | Used for the NPC body locomotion collider
 | ItemAndRagdollOnly     | Used for collisions to Items and Ragdolls only.
 | TouchObject            | Automatically applied as the active layer on an object when touched by the player.
 | Avatar                 | Used for the player's ragdoll body.
