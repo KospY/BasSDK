@@ -60,5 +60,15 @@ namespace ThunderRoad
         protected Coroutine playerShakeCoroutine;
         protected Coroutine endCoroutine;
 
+        [Button]
+        public void End()
+        {
+        }
+
+        [Button]
+        public void Begin()
+        {
+        }
+        
     }
 }
