@@ -70,14 +70,6 @@ namespace ThunderRoad
         {
         }
 
-        public void CastRight(bool press)
-        {
-        }
-
-        public void CastLeft(bool press)
-        {
-        }
-
         public void PowerButtonDown(string powerID)
         {
         }
