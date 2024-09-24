@@ -27,7 +27,7 @@ namespace ThunderRoad
         public class CollisionUnityEvent
         {
             public CollisionEvent collisionEvent;
-            public UnityEvent onActivate;
+            public UnityEvent<ColliderGroup> onActivate;
         }
 
         public ColliderGroup colliderGroup;

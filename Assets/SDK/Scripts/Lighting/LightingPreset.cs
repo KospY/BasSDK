@@ -8,16 +8,18 @@ using UnityEngine.Rendering;
 using UnityEditor;
 #endif
 
-#if ODIN_INSPECTOR
-using Sirenix.OdinInspector;
-#else
 using TriInspector;
-#endif
 
 namespace ThunderRoad
 {
     [CreateAssetMenu(menuName = "ThunderRoad/Level/Lighting Data")]
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Levels/LightingPreset.html")]
+    [DrawWithTriInspector]
+    [DeclareVerticalGroup("general")]
+    [DeclareVerticalGroup("baking")]
+    [DeclareVerticalGroup("directionalLight")]
+    [DeclareVerticalGroup("fog")]
+    [DeclareVerticalGroup("skybox")]
     public class LightingPreset : ScriptableObject
     {
         #region Fields
@@ -26,18 +28,14 @@ namespace ThunderRoad
         // ! WARNING !
 
         [Header("Runtime")]
-#if ODIN_INSPECTOR
-        [InlineButton("GetRenderSettings", "Current settings")]
-#endif
         [Header("General")]
+        [GroupNext("general")]
         public float ambientIntensity = 1;
         public Color shadowColor = new Color(0.7f, 0.7f, 0.7f);
         
 #if UNITY_EDITOR
-#if ODIN_INSPECTOR
-        [InlineButton("GetBakeSettings", "Current settings")]
-#endif
         [Header("Baking")]
+        [GroupNext("baking")]
         public float bakedShadowAngle = 0.0f;
         public LightingSettings.Sampling multipleImportanceSamplingTool;
         public int directSamples;
@@ -52,68 +50,47 @@ namespace ThunderRoad
         [Range(0, 10)]
         public float AODirectContribution = 0;
 #endif
-
-#if ODIN_INSPECTOR
-        [InlineButton("GetDirLightSettings", "Current settings")]
-#endif
         [Header("Directional light")]
+        [GroupNext("directionalLight")]
         public bool applyAtRuntime;
         public Color dirLightColor = new Color(1, 0.8687521f, 0.7122642f);
         public float dirLightIntensity = 2;
         public float dirLightIndirectMultiplier = 1;
         public Quaternion directionalLightLocalRotation;
 
-
-#if ODIN_INSPECTOR
-        [InlineButton("GetFogSettings", "Current settings")]
-#endif
+        
         [Header("Fog")]
+        [GroupNext("fog")]
         public State fog = State.NoChange;
-#if ODIN_INSPECTOR
         [ShowIf("fog", State.Enabled)]
-#endif
         public Color fogColor;
-#if ODIN_INSPECTOR
         [ShowIf("fog", State.Enabled)]
-#endif
         public float fogStartDistance;
-#if ODIN_INSPECTOR
         [ShowIf("fog", State.Enabled)]
-#endif
         public float fogEndDistance;
-
-#if ODIN_INSPECTOR
-        [InlineButton("GetSkyboxSettings", "Current settings")] 
-#endif
+        
         [Header("Skybox")]
+        [GroupNext("skybox")]
         public State skybox = State.NoChange;
-
         public SerializedMaterialProperties skyBoxMaterialProp = new SerializedMaterialProperties();
-
-#if ODIN_INSPECTOR
-        [InlineButton("GetCloudSettings", "Current settings")]
-#endif
+        
         [Header("Clouds")]
+        [GroupNext("clouds")]
         public State clouds = State.NoChange;
-#if ODIN_INSPECTOR
+
         [ShowIf("clouds", State.Enabled)]
-#endif
         public float cloudsSoftness = 1;
-#if ODIN_INSPECTOR
+
         [ShowIf("clouds", State.Enabled)]
-#endif
         public float cloudsSpeed = 1;
-#if ODIN_INSPECTOR
+
         [ShowIf("clouds", State.Enabled)]
-#endif
         public float cloudsSize = 1;
-#if ODIN_INSPECTOR
+        
         [ShowIf("clouds", State.Enabled)]
-#endif
         public float cloudsAlpha = 1;
-#if ODIN_INSPECTOR
+
         [ShowIf("clouds", State.Enabled)]
-#endif
         public Color cloudsColor;
 
         public enum State
@@ -122,37 +99,32 @@ namespace ThunderRoad
             Disabled,
             Enabled,
         }
-
+        [UnGroupNext]
         [Header("Lightmaps")]
-#if ODIN_INSPECTOR
+
         [TableList]
-#endif
         public List<SerializedLightmapData> serializedLightmaps = new List<SerializedLightmapData>();
-#if ODIN_INSPECTOR
+
         [TableList]
-#endif
         public List<MeshRendererData> rendererDataListForLightmaps = new List<MeshRendererData>();
         public List<int> indexLightmapsRendererMeshCount = new List<int>();
 
-#if ODIN_INSPECTOR
+
         [TableList]
-#endif
+
         public List<LightmapLightData> lightmapLights = new List<LightmapLightData>();
-#if ODIN_INSPECTOR
+
         [TableList]
-#endif
         public List<LightProbeVolumeData> lightProbeVolumes = new List<LightProbeVolumeData>();
-#if ODIN_INSPECTOR
+
         [TableList]
-#endif
         public List<ReflectionProbeData> reflectionProbes = new List<ReflectionProbeData>();
 
         public List<SphericalHarmonicsL2> bakedProbes;
         public List<Vector3> probePositions;
 
-#if ODIN_INSPECTOR
+
         [ReadOnly]
-#endif
         public UDateTime lastSave = DateTime.Now;
 
 
@@ -845,7 +817,7 @@ namespace ThunderRoad
             return AssetDatabase.LoadAssetAtPath<T>(destinationFilePath);
         }
 
-        protected bool IsLightmapUseCorrectFormatForAndroid(Texture2D lightmap)
+        public static bool IsLightmapUseCorrectFormatForAndroid(Texture2D lightmap)
         {
             string assetPath = AssetDatabase.GetAssetPath(lightmap);
             AssetImporter assetImporter = AssetImporter.GetAtPath(assetPath);
@@ -856,21 +828,25 @@ namespace ThunderRoad
             return true;
         }
 
-        protected void SetLightmapFormatForAndroid(Texture2D lightmap)
+        public static void SetLightmapFormatForAndroid(Texture2D lightmap)
         {
             string assetPath = AssetDatabase.GetAssetPath(lightmap);
             AssetImporter assetImporter = AssetImporter.GetAtPath(assetPath);
             // Set mipmap to false (fix lightmap issue on android lower resolution)
-            (assetImporter as TextureImporter).mipmapEnabled = false;
-            TextureImporterPlatformSettings textureImporterPlatformSettings = (assetImporter as TextureImporter).GetPlatformTextureSettings("Android");
-            textureImporterPlatformSettings.overridden = true;
-            // Set a texture format that don't cause color artifacts on android
-            textureImporterPlatformSettings.format = LightmapBakeHelper.defaultAndroidLightmapColorFormat;
-            // Prevent lightmap to be resized, causing light bleeding on edges
-            textureImporterPlatformSettings.maxTextureSize = 4096;
-            (assetImporter as TextureImporter).SetPlatformTextureSettings(textureImporterPlatformSettings);
-            EditorUtility.SetDirty(assetImporter);
-            assetImporter.SaveAndReimport();
+            if (assetImporter is TextureImporter textureImporter)
+            {
+                textureImporter.mipmapEnabled = false;
+                TextureImporterPlatformSettings textureImporterPlatformSettings = textureImporter.GetPlatformTextureSettings("Android");
+                textureImporterPlatformSettings.overridden = true;
+                // Set a texture format that don't cause color artifacts on android
+                textureImporterPlatformSettings.format = LightmapBakeHelper.defaultAndroidLightmapColorFormat;
+                // Prevent lightmap to be resized, causing light bleeding on edges
+                textureImporterPlatformSettings.maxTextureSize = 4096;
+                textureImporter.SetPlatformTextureSettings(textureImporterPlatformSettings);
+            
+                EditorUtility.SetDirty(assetImporter);
+                assetImporter.SaveAndReimport();
+            }
         }
 
         protected void SetLightmapFormatForDirectional(Texture2D lightmap)
@@ -895,6 +871,7 @@ namespace ThunderRoad
             GetFogSettings();
         }
 
+        [Button(ButtonSizes.Small,"Current Settings"), Group("general")] 
         protected void GetRenderSettings()
         {
             ambientIntensity = RenderSettings.ambientIntensity;
@@ -902,6 +879,7 @@ namespace ThunderRoad
             EditorUtility.SetDirty(this);
         }
 
+        [Button(ButtonSizes.Small,"Current Settings"), Group("baking")] 
         protected void GetBakeSettings()
         {
 #if UNITY_EDITOR            
@@ -919,6 +897,7 @@ namespace ThunderRoad
 #endif            
         }
 
+        [Button(ButtonSizes.Small,"Current Settings"), Group("directionalLight")]
         protected void GetDirLightSettings()
         {
             if (RenderSettings.sun)
@@ -944,6 +923,7 @@ namespace ThunderRoad
             }
         }
 
+        [Button(ButtonSizes.Small,"Current Settings"), Group("skybox")]
         protected void GetSkyboxSettings()
         {
             Material skyBoxMaterial = RenderSettings.skybox;
@@ -952,6 +932,7 @@ namespace ThunderRoad
             EditorUtility.SetDirty(this);
         }
 
+        [Button(ButtonSizes.Small,"Current Settings"), Group("clouds")]
         protected void GetCloudSettings()
         {
             if (Clouds.instance && Clouds.instance.meshRenderer)
@@ -981,6 +962,7 @@ namespace ThunderRoad
             }
         }
 
+        [Button(ButtonSizes.Small,"Current Settings"), Group("fog")]
         protected void GetFogSettings()
         {
             fogColor = RenderSettings.fogColor;

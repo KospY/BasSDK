@@ -178,8 +178,13 @@
   "Interactables": [
     {
       "$type": "ThunderRoad.ItemData+Interactable, ThunderRoad",
-      "transformName": "Handle",
+      "transformName": "HandleTK",
       "interactableId": "ObjectHandleTKOnly"
+    },
+    {
+      "$type": "ThunderRoad.ItemData+Interactable, ThunderRoad",
+      "transformName": "Handle",
+      "interactableId": "ObjectHandleProp"
     },
     {
       "$type": "ThunderRoad.ItemData+Interactable, ThunderRoad",

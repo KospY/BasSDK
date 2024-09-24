@@ -95,7 +95,7 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "SwimmingMessage",
+          "id": "Swimming",
           "text": "Pour vous déplacer dans l'eau, simulez un mouvement de nage à l'aide de vos bras.",
           "spriteAddress": null,
           "videoAddress": "Bas.Video.Swimming"
@@ -151,13 +151,6 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Stash",
-          "text": "Quand vous quittez un niveau, tout objet en votre possession et hors de votre inventaire se retrouvera dans votre réserve. Vous pouvez générer ou équiper n'importer quel objet de votre réserve en utilisant le livre de génération qui se trouve chez vous.",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "ClimbingOverLedge",
           "text": "Lorsque vous vous accrochez à une corniche que vous voulez escalader, maintenez le bouton Sauter enfoncé et déplacez-vous en avant pour vous hisser. Vous pouvez également pousser vers le bas pour bénéficier d'une impulsion.",
           "spriteAddress": null,
@@ -179,17 +172,52 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "EquipSpell",
-          "text": "Vous pouvez changer le sort équipé en maintenant le bouton Sort enfoncé. Vous pouvez choisir dans le menu circulaire.",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "InventoryTake",
           "text": "Vous pouvez prendre et stocker des objets dans votre inventaire, un artefact Dalgarien possédant une capacité de stockage infinie attaché à votre poitrine. Ouvrez-le en le saisissant avec votre main.",
           "spriteAddress": null,
           "videoAddress": "Bas.Video.InventoryRetrieving"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Stash",
+          "text": "Votre livre d'objets contient deux onglets : L'onglet Réserve affiche tous les objets que vous avez achetés ou stockés. Vous pouvez les sortir à tout moment. L'onglet Maison affiche tous les objets présents quelque part dans le niveau de la maison. Vous pouvez les stocker dans la réserve à tout moment.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Stash"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "OpenSpellWheel",
+          "text": "Accédez à vos sorts en maintenant appuyé le bouton de la roue des sorts sur votre manette.",
+          "spriteAddress": "Bas.Input.{Controller}.SpellMenu",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "UseSpells",
+          "text": "Sélectionnez un sort en relâchant le bouton de la roue des sorts lorsque votre main se trouve au-dessus du sort souhaité. Pour désélectionner un sort, relâchez le bouton lorsque votre main se trouve au-dessus d'un espace vide.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.SpellWheel"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Mirror",
+          "text": "Vous pouvez équiper vos vêtements ou vos armures devant un miroir. Vous en trouverez un dans la boutique et dans votre maison.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Mirror"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Armor",
+          "text": "Pour équiper un vêtement ou une pièce d'armure, tenez-la au-dessus de la partie de votre corps correspondante en regardant dans le miroir. Lorsqu'elle est en surbrillance, relâchez la gâchette pour l'équiper. Vous pouvez également échanger vos pièces d'armure et vêtements de cette façon.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Armor"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Quiver",
+          "text": "Vous pouvez retirer un carquois équipé en appuyant sur le bouton de la gâchette, puis sur le bouton de la poignée lorsque vous les saisissez.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Quiver"
         }
       ]
     },
@@ -10788,21 +10816,21 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap1",
           "text": "Appendice 1 - Plan de l'unité centrale de convergence de puissance (1/3)",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_01",
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap2",
           "text": "Appendice 1 - Plan de l'unité centrale de convergence de puissance (2/3)",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_02",
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap3",
           "text": "Appendice 1 - Plan de l'unité centrale de convergence de puissance (3/3)",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_03",
           "videoAddress": null
         },
         {

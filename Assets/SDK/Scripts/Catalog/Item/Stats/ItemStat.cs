@@ -32,6 +32,8 @@ namespace ThunderRoad
 	public class ItemStatInt : ItemStat<int>
 	{
 		public int value;
+        //shows with stars by default
+        public bool useStarIcons = true;
 		public ItemStatInt(string name, int value) : base(name)
 		{
 			this.value = value;

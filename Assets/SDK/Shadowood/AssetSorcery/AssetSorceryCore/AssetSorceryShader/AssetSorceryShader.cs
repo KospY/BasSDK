@@ -351,34 +351,40 @@ namespace ThunderRoad.AssetSorcery
                 source = string.Join("\n", lines);
             }
 
-
+                
             foreach (var o in package.shaderSettings.shaderKeywords)
             {
                 var enableThis = false;
+                var hideThis = false; // hide the properties from inspector, but keep the keyword and any replacements
 
                 switch (platform)
                 {
                     case AssetSorceryPlatformRuntime.ePlatformAS.Auto:
                         enableThis = true;
+                        hideThis = false;
                         break;
                     case AssetSorceryPlatformRuntime.ePlatformAS.Desktop:
                         if (o.enabledDesktop) enableThis = true;
+                        if (o.hideDesktop) hideThis = true;
                         break;
                     case AssetSorceryPlatformRuntime.ePlatformAS.Mobile:
                         if (o.enabledMobile) enableThis = true;
+                        if (o.hideMobile) hideThis = true;
                         break;
                 }
 
+                // Loops thru all the keywords, if we are processin for 'desktop' platform and the keyword is set to be disabled for that platform then 'enableThis' is set to false
+                // If 'enableThis' is false or 'hideThis' is true we loop thru all lines of source to hide the properties from the material inspector
 
                 if (!enableThis)
                 {
-                    if (source.Contains(o.line))
+                    if (source.Contains(o.line)) // Find the exact line for the keyword and remove/replace it
                     {
                         if (debug && !batchMode) Debug.Log($"ProcessShaderSource: Removing: {o.line}");
                         source = source.Replace(o.line, $"// AS-REMOVED // {o.line}");
                     }
 
-                    foreach (var line in lines)
+                    foreach (var line in lines) // Loop thru all lines and hide properties related to the keyword
                     {
                         if (line.Contains("/*ASEBEGIN")) break;
                         if (line.Contains("[Toggle(" + o.keywordLast + ")]"))
@@ -446,7 +452,7 @@ namespace ThunderRoad.AssetSorcery
                 }
 
 
-                if (!enableThis)
+                if (!enableThis || hideThis)
                 {
                     var needle = $"[Toggle({o.keywordLast}_ON)]";
                     if (source.Contains(needle)) source = source.Replace(needle, "[HideInInspector]");

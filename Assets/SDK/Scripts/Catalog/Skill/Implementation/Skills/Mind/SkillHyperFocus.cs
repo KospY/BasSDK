@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Shadowood;
 using ThunderRoad.Skill.SpellPower;
 using UnityEngine;
 #if ODIN_INSPECTOR

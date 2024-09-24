@@ -154,6 +154,8 @@ namespace ThunderRoad
 
         [NonSerialized]
         public bool standingUp;
+        [NonSerialized]
+        public float standStartTime = 0f;
         protected Coroutine getUpCoroutine;
 
 

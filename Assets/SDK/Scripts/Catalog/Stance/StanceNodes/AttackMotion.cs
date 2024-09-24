@@ -20,6 +20,10 @@ namespace ThunderRoad
 #endif
         public float skipChance = 0f;
 #if ODIN_INSPECTOR
+        [VerticalGroup("$prettifiedID/Horiz/Clip"), FoldoutGroup("$prettifiedID/Horiz/Clip/Curve")]
+#endif
+        public AnimationCurve rootZCurve = null;
+#if ODIN_INSPECTOR
         [HorizontalGroup("$prettifiedID/Horiz", Width = 0.6f)]
         [BoxGroup("$prettifiedID/Horiz/Attack")]
         [HorizontalGroup("$prettifiedID/Horiz/Attack/Motion", Width = 80), HideLabel]

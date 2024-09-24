@@ -83,21 +83,8 @@
     },
     {
       "$type": "ThunderRoad.AreaSunGlobalParameter, ThunderRoad",
-      "dirLightColor": {
-        "r": 1.0,
-        "g": 0.7618187,
-        "b": 0.5803922,
-        "a": 1.0
-      },
-      "dirLightIntensity": 3.0,
-      "dirLightIndirectMultiplier": 2.0,
-      "directionalLightLocalRotation": {
-        "x": -0.01958757,
-        "y": -0.965043366,
-        "z": 0.0535649136,
-        "w": -0.255809575
-      },
-      "visibleFromGate": true
+      "isZeroIntensity": false,
+      "visibleFromGate": false
     }
   ],
   "groupPath": "Dalgarian/GameSpecific"

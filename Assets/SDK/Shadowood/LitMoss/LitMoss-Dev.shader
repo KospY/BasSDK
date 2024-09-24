@@ -5,7 +5,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 	Properties
 	{
 		[HideInInspector] _AlphaCutoff("Alpha Cutoff ", Range(0, 1)) = 0.5
-		HeaderOceanFog("# Ocean Fog Caustics", Float) = 0
+		[Feature(_CAUSTICSENABLE)]HeaderOceanFog("# Ocean Fog Caustics", Float) = 0
 		[Toggle(_CAUSTICSENABLE_ON)] _CausticsEnable("CausticsEnable", Float) = 1
 		[Toggle(_USECAUSTICEXTRASAMPLER_ON)] _UseCausticExtraSampler("UseCausticExtraSamp[ler", Float) = 1
 		[Toggle(_USECAUSTICRAINBOW_ON)] _UseCausticRainbow("UseCausticRainbow", Float) = 1
@@ -13,31 +13,32 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 		[Toggle(_USEGRADIENTFOG_ON)] _UseGradientFog("UseGradientFog", Float) = 1
 		[Feature(_UseReveal)]_RevealLayers("# Reveal Layers", Float) = 0
 		[Toggle(_REVEALLAYERS)] _UseReveal("Use Reveal Layers", Float) = 0
-		[NoScaleOffset]_LayerMask("Layer Mask [_UseReveal]", 2D) = "white" {}
-		[NoScaleOffset]_RevealMask("Reveal Mask [_UseReveal]", 2D) = "black" {}
-		_LayerSurfaceExp("Layer Surface Exponents (Albedo, Normal, Metallic, Smoothness) [_UseReveal]", Vector) = (1,1,1,1)
-		_Layer0Red_UseReveal("## Layer0 Red [_UseReveal]", Float) = 0
-		_Layer0("-Layer0 (R) [_UseReveal]", 2D) = "black" {}
-		[NoScaleOffset]_Layer0NormalMap("-Layer0 (R) Normal [_UseReveal]", 2D) = "bump" {}
-		_Layer0Metallic("-Layer0 (R) Metallic [_UseReveal]", Range( 0 , 1)) = 0
-		_Layer0Smoothness("-Layer0 (R) Smoothness [_UseReveal]", Range( 0 , 1)) = 0.5
-		_Layer0NormalStrength("-Layer0 (R) Normal Strength [_UseReveal]", Range( 0 , 2)) = 1
-		_Layer1Green_UseReveal("## Layer1 Green [_UseReveal]", Float) = 0
-		_Layer1("-Layer1 (G) [_UseReveal]", 2D) = "black" {}
-		[NoScaleOffset]_Layer1NormalMap("-Layer1 (G) Normal [_UseReveal]", 2D) = "bump" {}
-		_Layer1Metallic("-Layer1 (G) Metallic [_UseReveal]", Range( 0 , 1)) = 0
-		_Layer1NormalStrength("-Layer1 (G) Normal Strength [_UseReveal]", Range( 0 , 2)) = 1
-		_Layer1Smoothness("-Layer1 (G) Smoothness [_UseReveal]", Range( 0 , 1)) = 0.5
-		_Layer2Blue_UseReveal("## Layer2 Blue [_UseReveal]", Float) = 0
-		_Layer2Height("-Layer2 (B) Height [_UseReveal]", Range( -20 , 20)) = -1
-		_Layer3Alpha_UseReveal("## Layer3 Alpha [_UseReveal]", Float) = 0
-		[HDR]_Layer3EmissionColor("-Layer3 (A) Emission Color [_UseReveal]", Color) = (0,0,0,1)
-		[Feature(_ReflectionBillboard)]_ReflectionBillboardsHeader("# Reflection Billboards", Float) = 0
+		[NoScaleOffset]_LayerMask("Layer Mask &", 2D) = "white" {}
+		[NoScaleOffset]_RevealMask("Reveal Mask &", 2D) = "black" {}
+		_LayerSurfaceExp("Layer Surface Exponents (Albedo, Normal, Metallic, Smoothness)", Vector) = (1,1,1,1)
+		_Layer0Red("## Layer0 Red", Float) = 0
+		_Layer0("-Layer0 (R) &", 2D) = "black" {}
+		[NoScaleOffset]_Layer0NormalMap("-Layer0 (R) Normal &", 2D) = "bump" {}
+		_Layer0Metallic("-Layer0 (R) Metallic", Range( 0 , 1)) = 0
+		_Layer0Smoothness("-Layer0 (R) Smoothness", Range( 0 , 1)) = 0.5
+		_Layer0NormalStrength("-Layer0 (R) Normal Strength", Range( 0 , 2)) = 1
+		_Layer1Green("## Layer1 Green", Float) = 0
+		_Layer1("-Layer1 (G) &", 2D) = "black" {}
+		[NoScaleOffset]_Layer1NormalMap("-Layer1 (G) Normal &", 2D) = "bump" {}
+		_Layer1Metallic("-Layer1 (G) Metallic", Range( 0 , 1)) = 0
+		_Layer1NormalStrength("-Layer1 (G) Normal Strength", Range( 0 , 2)) = 1
+		_Layer1Smoothness("-Layer1 (G) Smoothness", Range( 0 , 1)) = 0.5
+		_Layer2Blue("## Layer2 Blue", Float) = 0
+		_Layer2Height("-Layer2 (B) Height", Range( -20 , 20)) = -1
+		_Layer3Alpha("## Layer3 Alpha", Float) = 0
+		[HDR]_Layer3EmissionColor("-Layer3 (A) Emission Color", Color) = (0,0,0,1)
+		[Feature(_REFLECTIONBILLBOARD)]_ReflectionBillboardsHeader("# Reflection Billboards", Float) = 0
+		[Toggle(_REFLECTIONBILLBOARD_ON)] _ReflectionBillboard("Use Reflection Billboard", Float) = 0
 		[ShowIfDrawer(_ReflectionBillboard)][Toggle(_REFLECTIONBILLBOARDSTOCHASTIC_ON)] _REFLECTIONBILLBOARDSTOCHASTIC("Use Stochastic [_ReflectionBillboard]", Float) = 0
 		_StochasticCount("StochasticCount [_ReflectionBillboard]", Int) = 1
 		_ArrayLengthUsed("ArrayLengthUsed [_ReflectionBillboard]", Int) = 16
 		_Billboard("Billboard [_ReflectionBillboard]", 2D) = "white" {}
-		[Feature(_SSS)]HeaderSSS("# SSS", Int) = 0
+		[Feature(_USE_SSS)]HeaderSSS("# SSS", Int) = 0
 		[Toggle(_USE_SSS_ON)] _USE_SSS("Use SSS", Float) = 0
 		_SSSRadius("-Radius [_USE_SSS]", Range( 0 , 1)) = 0.8
 		_SSScattering("-Scattering [_USE_SSS]", Range( 0 , 1)) = 0.2
@@ -57,7 +58,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 		_AlphaClipThreshold("-AlphaClip Threshold [!_AlphaToCoverage&&_AlphaClip&&!_Dither]", Range( 0 , 1.01)) = 0.5
 		_ShadowThreshold("-ShadowThreshold [_AlphaClip]", Range( 0 , 1.01)) = 0.5
 		_Cutoff("Cutoff (Baked Lighting)", Range( 0 , 1.01)) = 0.5
-		[Feature(_UseSplat)]HeaderSplat("# Splat", Int) = 0
+		[Feature(_USESPLAT)]HeaderSplat("# Splat", Int) = 0
 		[Toggle(_USESPLAT_ON)] _UseSplat("Use Splat", Float) = 0
 		[NoScaleOffset]_DiffuseArray("Diffuse Array & [_UseSplat]", 2DArray) = "white" {}
 		[NoScaleOffset]_ExtraArray("Extra Array & [_UseSplat]", 2DArray) = "black" {}
@@ -79,7 +80,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 		_Bitmask("Bitmask [_VERTEXOCCLUSION]", Int) = 0
 		[Feature(_SKYFOG)]_SkyFogHeader("# Sky Fog", Float) = 0
 		[Feature(_SKYFOG)][Toggle(_SKYFOG_ON)] _SKYFOG("Use Sky Fog", Float) = 0
-		[FeatureCommentOut(_DebugVisuals)]HeaderDebug("# Debug", Int) = 0
+		[FeatureCommentOut(_DebugVisuals)][FeatureCommentOut(_DEBUGVISUALS)]HeaderDebug("# Debug", Int) = 0
 		[Toggle(_DEBUGVISUALS_ON)] _DebugVisuals("DebugVisuals", Float) = 0
 		[MaterialEnumDrawerExtended(ShaderCost,0,WorldNormal,1,MossMask,2,MossFresnel,3,MaskDirection,4,MossNoiseAB,5,MossVertexMask,6,NOTHING,7,DetailMapAlbedo,8,DetailMapNormal,9,DetailMapSmoothness,10,Smoothness,11,NormalRes,12,SlopeMask,13,SlopeNormal,14,MaskDebug,15)][Feature(_DebugVisuals)]_DebugVisual("DebugVisual [_DebugVisuals]", Int) = 0
 		[HideInInspector]_DebugCounter("DebugCounter", Float) = 0
@@ -104,7 +105,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 		HeaderMetallic("# Metallic (MOES/MODS/Moss ANSN)", Int) = 0
 		[Toggle(_MOSSMETALMODE_ON)] _MossMetalMode("Moss Metal Mode", Float) = 0
 		[MaterialEnumDrawerExtended(Metal MOES MODS,0,Moss ANSN,1)]_MossMode("MossMode [_MossMetalMode]", Int) = 0
-		[MaterialEnumDrawerExtended(MODS DetailMask,0,MOES EmissionMask,1)]_MODE("Mode [!_MossMode]", Int) = 0
+		[MaterialEnumDrawerExtended(MODS DetailMask,0,MOES EmissionMask,1)]_MODE("Mode [!_MossMode]", Int) = 1
 		HeaderMetallic8("###   [(_MossMetalMode&&_MossMode)||!MossMetalMode&&_MossMode]", Int) = 0
 		HeaderMetallic1("### 1 Map used for Moss ANSN (Albedo, Norm, Smoothness, Norm) [_MossMetalMode&&_MossMode]", Int) = 0
 		HeaderMetallic3("### 1 Map used for MOES (Metal, Occlusion, EmissionMask, Smooth) [_MossMetalMode&&!_MossMode&&_MODE]", Int) = 0
@@ -130,7 +131,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 		[Feature(_REMAPPERS)]_DRAWERPacked_MossMetalMapOcclusion_Remap_Moss_GG_OcclusionRemap_MOSSMETALMODE_ON_MossMode_UseOcclusion_UseMossMetalMap_Remappers("!DRAWER Packed _MossMetalMap Occlusion_Remap_Moss_(G) G  _OcclusionRemap [_MOSSMETALMODE_ON&&!_MossMode&&_UseOcclusion&&_UseMossMetalMap && _Remappers]", Float) = 0
 		[Feature(_REMAPPERS)]_DRAWERPacked_MetallicGlossMapOcclusion_Remap_Metal_GG_OcclusionRemap_MOSSMETALMODE_ON_UseOcclusion("!DRAWER Packed _MetallicGlossMap Occlusion_Remap_Metal_(G) G  _OcclusionRemap [!_MOSSMETALMODE_ON&&_MetallicSpecGlossMap&&_UseOcclusion&&_MetallicSpecGlossMap && _Remappers]", Float) = 0
 		_OcclusionMossMask("OcclusionMossMask [(!_MossMetalMode&&_UseOcclusion&&_MetallicSpecGlossMap)||(_MossMetalMode&&_UseOcclusion&&!_MossMode&&_UseMossMetalMap)]", Range( -2 , 2)) = -1
-		[Toggle]_UseEmission("Use Emission", Float) = 1
+		[Toggle]_UseEmission("Use Emission", Float) = 0
 		[HDR]_EmissionColor("-Emission Color [_UseEmission]", Color) = (0,0,0,0)
 		[HideInInspector]_EmissionRemap("EmissionRemap", Vector) = (0,1,0,1)
 		[Feature(_REMAPPERS)]Drawer_EmissionRemap2("!DRAWER Packed _MetallicGlossMap Emission_Remap_Metal_(B) B  _EmissionRemap [!_MOSSMETALMODE_ON&&_UseEmission&&_MODE&&_MetallicSpecGlossMap && _Remappers]", Float) = 0
@@ -139,15 +140,15 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 		[HideInInspector]_SmoothnessRemap("SmoothnessRemap", Vector) = (0,1,0,1)
 		[Feature(_REMAPPERS)]_DRAWERPacked_MetallicGlossMapSmoothness_Remap_MetalAA_SmoothnessRemap_MOSSMETALMODE_ON_MossMode1("!DRAWER Packed _MossMetalMap Smoothness_Remap_Moss_(A) A  _SmoothnessRemap [_MOSSMETALMODE_ON && !_MossMode && _UseMossMetalMap && _Remappers]", Float) = 0
 		[Feature(_REMAPPERS)]_DRAWERPacked_MetallicGlossMapSmoothness_Remap_MetalAA_SmoothnessRemap_MOSSMETALMODE_ON_MossMode("!DRAWER Packed _MetallicGlossMap Smoothness_Remap_Metal_(A) A  _SmoothnessRemap [!_MOSSMETALMODE_ON && _MetallicSpecGlossMap && _Remappers]", Float) = 0
-		HeaderDetailMaps("# Detail Maps", Int) = 0
+		[Feature(_DETAIL)]HeaderDetailMaps("# Detail Maps", Int) = 0
 		[Feature(_DETAIL)]HeaderDetailMapsSpace("###  [!_Moss&&_DETAIL]", Int) = 0
 		[Toggle(_DETAIL_ON)] _DETAIL("Use Details", Float) = 0
 		_DetailsOverMoss("-Details Over Moss [_MOSS && _DETAIL_ON && _DetailMapPacked]", Range( -2 , 2)) = -1
 		[NoScaleOffset]_DetailMapPacked("Detail Map Packed (ANSN) & [_DETAIL_ON]", 2D) = "black" {}
 		[Feature(_DETAIL)]WarningTexMissing("-### TEXTURE MISSING - will break! [_DETAIL_ON && !_DetailMapPacked]", Int) = 0
 		[HideInInspector]_DetailMaskRemap("DetailMaskRemap", Vector) = (0,1,0,1)
-		[Toggle]_UseDetailMask("Use Detail Mask [_DETAIL && !_MossMode&&((_MossMetalMode&&_UseMossMetalMap&&!_MODE)||(!_MossMetalMode&&_MetallicSpecGlossMap&&!_MODE))]", Float) = 1
 		[HideInInspector]_DETAIL("_DETAIL", Int) = 0
+		[Toggle][Feature(_DETAIL)]_UseDetailMask("-Use Detail Mask [_DETAIL_ON && !_MossMode && ((_MossMetalMode&&_UseMossMetalMap&&!_MODE)||(!_MossMetalMode&&_MetallicSpecGlossMap&&!_MODE))]", Float) = 1
 		[Feature(_REMAPPERS)]Drawer_EmissionRemap3("!DRAWER Packed _MossMetalMap DetailMask_Remap_Moss_(B) B  _DetailMaskRemap [_MOSSMETALMODE_ON&&!_MossMode&&!_MODE&&_UseDetailMask&&_DETAIL&&_DetailMapPacked&&_UseMossMetalMap && _Remappers]", Float) = 0
 		[Feature(_REMAPPERS)]Drawer_EmissionRemap1("!DRAWER Packed _MetallicGlossMap DetailMask_Remap_Metal_(B) B  _DetailMaskRemap [!_MossMetalMode && !_MODE && _UseDetailMask && _DETAIL && _DetailMapPacked && _Remappers]", Float) = 0
 		_DetailMapScale("Detail Map Scale [_DETAIL_ON && _DetailMapPacked]", Vector) = (1,1,0,0)
@@ -207,7 +208,6 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 		[HDR]_MossFresnelColor("-Moss Fresnel Color [_MOSS&&_UseMossFresnel]", Color) = (1,1,1,0)
 		_MossFresnel("Moss Fresnel (Bias, Scale, Power, Clamp)  [_MOSS]", Vector) = (0,1,5,0.5)
 		_DRAWERVectorSlider_MossFresnelFirstSliderSecondSliderThirdSlider_MOSS_UseMossFresnel("-!DRAWER VectorSlider _MossFresnel (First Slider, Second Slider, Third Slider) [_MOSS&&_UseMossFresnel]", Vector) = (0,0,0,0)
-		HeaderFresnel("# Fresnel", Float) = 0
 		[Toggle(_USEMOSSNOISE_ON)] _UseMossNoise("Use Moss Noise [_MOSS]", Float) = 0
 		_DRAWERPacked_MossNoiseNoise_RemapRMode_Negative_MossNoiseMM_MOSS_UseMossNoise("!DRAWER Packed _MossNoise Noise_Remap R Mode_Negative _MossNoiseMM [_MOSS&&_UseMossNoise]", Float) = 0
 		[Feature(_UseMossSlope)]HeaderMossSlope("# Moss Slope [_MOSS]", Float) = 0
@@ -275,7 +275,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 		
 
 		HLSLINCLUDE
-		#pragma target 4.0
+		#pragma target 5.0
 		#pragma prefer_hlslcc gles
 		#pragma exclude_renderers xboxone xboxseries playstation ps4 switch // ensure rendering platforms toggle list is visible
 
@@ -991,22 +991,24 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			#define ASE_NEEDS_FRAG_WORLD_BITANGENT
 			#define ASE_NEEDS_FRAG_WORLD_VIEW_DIR
 			#define ASE_NEEDS_FRAG_SCREEN_POSITION
+			#define ASE_NEEDS_VERT_NORMAL
 			#pragma shader_feature_local _USEMOSSNOISE_ON
 			#pragma shader_feature_local MODED_MOSS MODED_MOES MODED_MODS MODED_OFF
 			#pragma shader_feature_local _MOSS
-			#pragma shader_feature_local _MOSSMETALMODE_ON
 			#pragma shader_feature_local _AUTONORMAL
 			#pragma shader_feature_local LAYER_UNLIMITED LAYER_MAX2 LAYER_MAX3
 			#pragma shader_feature_local TEXTURE_MAX4 TEXTURE_MAX8 TEXTURE_MAX12 TEXTURE_MAX16
+			#pragma shader_feature _SKYFOG_ON
+			#pragma shader_feature GLOBALTONEMAPPING
+			#pragma shader_feature_local _MOSSMETALMODE_ON
+			#pragma multi_compile_local __ _PROBEVOLUME_ON
+			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local _REFLECTIONBILLBOARDSTOCHASTIC_ON
+			#pragma shader_feature_local _REFLECTIONBILLBOARD_ON
 			#pragma shader_feature_local _ALPHAMODE
 			#pragma shader_feature_local _SIMPLESTOCHASTIC
 			#pragma shader_feature_local _USESPLAT_ON
-			#pragma shader_feature _SKYFOG_ON
 			#pragma shader_feature_local _USE_SSS_ON
-			#pragma shader_feature GLOBALTONEMAPPING
-			#pragma shader_feature_local _REFLECTIONBILLBOARDSTOCHASTIC_ON
-			#pragma multi_compile __ _USEUNDERWATER
-			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#pragma shader_feature_local_vertex _VERTEXOCCLUSION_ON
 			#pragma shader_feature_local _REVEALLAYERS
 			#pragma shader_feature_local _DETAIL_ON
@@ -1073,6 +1075,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float4 ase_texcoord12 : TEXCOORD12;
 				float4 ase_texcoord13 : TEXCOORD13;
 				float4 ase_texcoord14 : TEXCOORD14;
+				float4 ase_texcoord15 : TEXCOORD15;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -1151,15 +1154,15 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			int _BlendMode_UseColorMask;
 			int _Moss;
 			int _Bitmask;
+			int _Cullmode;
+			int _ArrayLengthUsed;
 			int _StochasticCount;
 			float _Blend;
 			float _SrcBlend;
 			float _DstBlend;
-			int _ZWrite;
-			int _Cullmode;
 			float _Cutoff;
 			int _Int0;
-			int _ArrayLengthUsed;
+			int _ZWrite;
 			int _MetalUV;
 			float _MossMultAlbedo;
 			float _MossBase;
@@ -1217,14 +1220,6 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				int _PassValue;
 			#endif
 
-			TEXTURE2D_ARRAY(_ExtraArray);
-			SAMPLER(sampler_ExtraArray);
-			TEXTURE2D_ARRAY(_DiffuseArray);
-			SAMPLER(sampler_DiffuseArray);
-			TEXTURE2D_ARRAY(_NormalArray);
-			SAMPLER(sampler_NormalArray);
-			TEXTURE2D(_Billboard);
-			SAMPLER(sampler_Billboard);
 			float4 _skyGradientColor1;
 			float4 _skyGradientColor2;
 			float3 _CausticsDir;
@@ -1233,6 +1228,14 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			half4 _CausticsColor;
 			TEXTURE2D(_Caustics);
 			SAMPLER(sampler_Caustics);
+			TEXTURE2D(_Billboard);
+			SAMPLER(sampler_Billboard);
+			TEXTURE2D_ARRAY(_ExtraArray);
+			SAMPLER(sampler_ExtraArray);
+			TEXTURE2D_ARRAY(_DiffuseArray);
+			SAMPLER(sampler_DiffuseArray);
+			TEXTURE2D_ARRAY(_NormalArray);
+			SAMPLER(sampler_NormalArray);
 			float4x4 _QuadInverseMatrixArray[16];
 			float4 _QuadPositionArray[16];
 			float4 _QuadNormalArray[16];
@@ -1276,17 +1279,17 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			//#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/VisualEffectVertex.hlsl"
 			//#endif
 
-			float Random( float3 co )
-			{
-				return  frac(sin( dot(co ,float3(12.9898,78.233,45.5432) )) * 43758.5453);
-				//return frac(sin(dot(co, float2(12.9898, 78.233))) * 43758.5453);
-			}
-			
 			float calcFogFactor( float distance, float gradientFogDensity )
 			{
 					//beer-lambert law, Fog =1/e^(distance * density)
 					float e = 2.7182818284590452353602874713527f;
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
+			}
+			
+			float Random( float3 co )
+			{
+				return  frac(sin( dot(co ,float3(12.9898,78.233,45.5432) )) * 43758.5453);
+				//return frac(sin(dot(co, float2(12.9898, 78.233))) * 43758.5453);
 			}
 			
 			float3 VertVanisher3872( float3 vertex, float2 vtexcoord1, int bitMask )
@@ -1302,7 +1305,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				return half(2.0) * detailAlbedo * scale - scale + half(1.0);
 			}
 			
-			float3 RevealMaskNormalCrossFilter83_g2696( float2 uv, float height, float2 texelSize )
+			float3 RevealMaskNormalCrossFilter83_g3833( float2 uv, float height, float2 texelSize )
 			{
 						//float2 texelSize = float2(1.0 / texWidth, 1.0 / texHeight);
 						float4 h;
@@ -1350,7 +1353,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				return transpose( cofactors ) / determinant( input );
 			}
 			
-			inline float4 GetUnderWaterFogs240_g3750( float3 viewDir, float3 camWorldPos, float3 posWS, float4 oceanFogDensities, float oceanHeight, float4 oceanFogTop_RGB_Exponent, float4 oceanFogBottom_RGB_Intensity )
+			inline float4 GetUnderWaterFogs240_g3814( float3 viewDir, float3 camWorldPos, float3 posWS, float4 oceanFogDensities, float oceanHeight, float4 oceanFogTop_RGB_Exponent, float4 oceanFogBottom_RGB_Intensity )
 			{
 				return GetUnderWaterFog( viewDir, camWorldPos, posWS, oceanFogDensities, oceanHeight, oceanFogTop_RGB_Exponent, oceanFogBottom_RGB_Intensity );;
 			}
@@ -1376,14 +1379,19 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				return dither[r] / 16; // same # of instructions as pre-dividing due to compiler magic
 			}
 			
-			float3 MyCustomExpression6_g3764( float3 vertexPos, float4x4 ProbeWorldToTexture, float3 ProbeVolumeMin, float3 ProbeVolumeSizeInv )
+			float3x3 CastToFloat3x354_g3799( float3x3 Input )
+			{
+				return Input;
+			}
+			
+			float3 MyCustomExpression6_g3799( float3 vertexPos, float4x4 ProbeWorldToTexture, float3 ProbeVolumeMin, float3 ProbeVolumeSizeInv )
 			{
 				float3 position = mul(ProbeWorldToTexture, float4(TransformObjectToWorld(vertexPos.xyz), 1.0f)).xyz;
 				float3 texCoord = (position - ProbeVolumeMin.xyz) * ProbeVolumeSizeInv;
 				return texCoord;
 			}
 			
-			float3 SHEvalLinearL0L114_g3764( float3 worldNormal, float4 ProbeVolumeShR, float4 ProbeVolumeShG, float4 ProbeVolumeShB )
+			float3 SHEvalLinearL0L114_g3799( float3 worldNormal, float4 ProbeVolumeShR, float4 ProbeVolumeShG, float4 ProbeVolumeShB )
 			{
 				return SHEvalLinearL0L1(worldNormal, ProbeVolumeShR, ProbeVolumeShG,  ProbeVolumeShB);
 			}
@@ -1411,7 +1419,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				return float4(color, alpha);
 			}
 			
-			half4 CalculateShadowMask1_g3766( half2 LightmapUV )
+			half4 CalculateShadowMask1_g3801( half2 LightmapUV )
 			{
 				#if defined(SHADOWS_SHADOWMASK) && defined(LIGHTMAP_ON)
 				return SAMPLE_SHADOWMASK( LightmapUV.xy );
@@ -1492,28 +1500,34 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float vertexToFrag3925 = staticSwitch320;
 				o.ase_texcoord10.z = vertexToFrag3925;
 				float3 _Vector3 = float3(0,0,-1);
-				float4 Pos6_g3760 = float4( _Vector3 , 0.0 );
-				float4x4 Mat6_g3760 = _CausticMatrix;
-				float3 localMatrixMulThatWorks6_g3760 = MatrixMulThatWorks( Pos6_g3760 , Mat6_g3760 );
-				float3 normalizeResult147_g3758 = normalize( localMatrixMulThatWorks6_g3760 );
-				float3 vertexToFrag144_g3758 = normalizeResult147_g3758;
-				o.ase_texcoord11.xyz = vertexToFrag144_g3758;
-				float3 WorldPosition256_g3740 = ase_worldPos;
-				float3 temp_output_105_0_g3758 = WorldPosition256_g3740;
-				float4 Pos6_g3759 = float4( temp_output_105_0_g3758 , 0.0 );
-				float4x4 invertVal146_g3758 = Inverse4x4( _CausticMatrix );
-				float4x4 Mat6_g3759 = invertVal146_g3758;
-				float3 localMatrixMulThatWorks6_g3759 = MatrixMulThatWorks( Pos6_g3759 , Mat6_g3759 );
-				float2 vertexToFrag52_g3758 = (localMatrixMulThatWorks6_g3759).xy;
-				o.ase_texcoord12.xy = vertexToFrag52_g3758;
+				float4 Pos6_g3824 = float4( _Vector3 , 0.0 );
+				float4x4 Mat6_g3824 = _CausticMatrix;
+				float3 localMatrixMulThatWorks6_g3824 = MatrixMulThatWorks( Pos6_g3824 , Mat6_g3824 );
+				float3 normalizeResult147_g3822 = normalize( localMatrixMulThatWorks6_g3824 );
+				float3 vertexToFrag144_g3822 = normalizeResult147_g3822;
+				o.ase_texcoord11.xyz = vertexToFrag144_g3822;
+				float3 WorldPosition256_g3804 = ase_worldPos;
+				float3 temp_output_105_0_g3822 = WorldPosition256_g3804;
+				float4 Pos6_g3823 = float4( temp_output_105_0_g3822 , 0.0 );
+				float4x4 invertVal146_g3822 = Inverse4x4( _CausticMatrix );
+				float4x4 Mat6_g3823 = invertVal146_g3822;
+				float3 localMatrixMulThatWorks6_g3823 = MatrixMulThatWorks( Pos6_g3823 , Mat6_g3823 );
+				float2 vertexToFrag52_g3822 = (localMatrixMulThatWorks6_g3823).xy;
+				o.ase_texcoord12.xy = vertexToFrag52_g3822;
 				
-				float3 vertexPos6_g3764 = v.vertex.xyz;
-				float4x4 ProbeWorldToTexture6_g3764 = _ProbeWorldToTexture;
-				float3 ProbeVolumeMin6_g3764 = _ProbeVolumeMin;
-				float3 ProbeVolumeSizeInv6_g3764 = _ProbeVolumeSizeInv;
-				float3 localMyCustomExpression6_g3764 = MyCustomExpression6_g3764( vertexPos6_g3764 , ProbeWorldToTexture6_g3764 , ProbeVolumeMin6_g3764 , ProbeVolumeSizeInv6_g3764 );
-				float3 vertexToFrag7_g3764 = localMyCustomExpression6_g3764;
-				o.ase_texcoord13.xyz = vertexToFrag7_g3764;
+				float3 ase_worldNormal = TransformObjectToWorldNormal(v.ase_normal);
+				float4x4 temp_output_28_0_g3799 = _ProbeWorldToTexture;
+				float3x3 Input54_g3799 = 0;
+				float3x3 localCastToFloat3x354_g3799 = CastToFloat3x354_g3799( Input54_g3799 );
+				float3 vertexToFrag56_g3799 = mul( ase_worldNormal, localCastToFloat3x354_g3799 );
+				o.ase_texcoord13.xyz = vertexToFrag56_g3799;
+				float3 vertexPos6_g3799 = v.vertex.xyz;
+				float4x4 ProbeWorldToTexture6_g3799 = temp_output_28_0_g3799;
+				float3 ProbeVolumeMin6_g3799 = _ProbeVolumeMin;
+				float3 ProbeVolumeSizeInv6_g3799 = _ProbeVolumeSizeInv;
+				float3 localMyCustomExpression6_g3799 = MyCustomExpression6_g3799( vertexPos6_g3799 , ProbeWorldToTexture6_g3799 , ProbeVolumeMin6_g3799 , ProbeVolumeSizeInv6_g3799 );
+				float3 vertexToFrag7_g3799 = localMyCustomExpression6_g3799;
+				o.ase_texcoord14.xyz = vertexToFrag7_g3799;
 				
 				float2 texCoord861 = v.texcoord.xy * float2( 1,1 ) + float2( 0,0 );
 				float cos916 = cos( radians( _MossSlopeNormRotate ) );
@@ -1523,13 +1537,14 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				o.ase_texcoord12.zw = vertexToFrag1159;
 				
 				o.ase_texcoord8.xyz = v.texcoord.xyz;
-				o.ase_texcoord14.xy = v.texcoord1.xy;
+				o.ase_texcoord15.xy = v.texcoord1.xy;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
 				o.ase_texcoord10.w = 0;
 				o.ase_texcoord11.w = 0;
 				o.ase_texcoord13.w = 0;
-				o.ase_texcoord14.zw = 0;
+				o.ase_texcoord14.w = 0;
+				o.ase_texcoord15.zw = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
@@ -1763,7 +1778,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 
 				float2 uv_BaseMap = IN.ase_texcoord8.xyz.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
 				float2 UVBasemap02088 = uv_BaseMap;
-				float4 tex2DNode80 = SAMPLE_TEXTURE2D_BIAS( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088, 0.0 );
+				float4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
 				float3 temp_output_82_0 = ( (tex2DNode80).rgb * (_BaseColor).rgb );
 				float3 temp_output_17_0_g2518 = temp_output_82_0;
 				float4 ifLocalVars72_g2518 = 0;
@@ -2042,31 +2057,31 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float3 staticSwitch1045 = staticSwitch1236;
 				#endif
 				float3 AlbedoRes106 = staticSwitch1045;
-				float3 temp_output_35_0_g2696 = AlbedoRes106;
+				float3 temp_output_35_0_g3833 = AlbedoRes106;
 				float2 uv_Layer0 = IN.ase_texcoord8.xyz.xy * _Layer0_ST.xy + _Layer0_ST.zw;
-				float2 uvLayer0112_g2696 = uv_Layer0;
-				float3 appendResult37_g2696 = (float3(SAMPLE_TEXTURE2D( _Layer0, sampler_Layer0, uvLayer0112_g2696 ).rgb));
-				float2 texCoord24_g2696 = IN.ase_texcoord8.xyz.xy * float2( 1,1 ) + float2( 0,0 );
-				float2 baseuv25_g2696 = texCoord24_g2696;
-				float4 tex2DNode3_g2696 = SAMPLE_TEXTURE2D( _RevealMask, sampler_RevealMask, baseuv25_g2696 );
-				float4 tex2DNode4_g2696 = SAMPLE_TEXTURE2D( _LayerMask, sampler_LayerMask, baseuv25_g2696 );
-				float rt31_g2696 = saturate( ( tex2DNode3_g2696.r * tex2DNode4_g2696.r ) );
-				float LSAlbedo100_g2696 = _LayerSurfaceExp.x;
-				float3 lerpResult34_g2696 = lerp( temp_output_35_0_g2696 , appendResult37_g2696 , pow( rt31_g2696 , LSAlbedo100_g2696 ));
+				float2 uvLayer0112_g3833 = uv_Layer0;
+				float3 appendResult37_g3833 = (float3(SAMPLE_TEXTURE2D( _Layer0, sampler_Layer0, uvLayer0112_g3833 ).rgb));
+				float2 texCoord24_g3833 = IN.ase_texcoord8.xyz.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 baseuv25_g3833 = texCoord24_g3833;
+				float4 tex2DNode3_g3833 = SAMPLE_TEXTURE2D( _RevealMask, sampler_RevealMask, baseuv25_g3833 );
+				float4 tex2DNode4_g3833 = SAMPLE_TEXTURE2D( _LayerMask, sampler_LayerMask, baseuv25_g3833 );
+				float rt31_g3833 = saturate( ( tex2DNode3_g3833.r * tex2DNode4_g3833.r ) );
+				float LSAlbedo100_g3833 = _LayerSurfaceExp.x;
+				float3 lerpResult34_g3833 = lerp( temp_output_35_0_g3833 , appendResult37_g3833 , pow( rt31_g3833 , LSAlbedo100_g3833 ));
 				float2 uv_Layer1 = IN.ase_texcoord8.xyz.xy * _Layer1_ST.xy + _Layer1_ST.zw;
-				float2 uvLayer1114_g2696 = uv_Layer1;
-				float3 appendResult73_g2696 = (float3(SAMPLE_TEXTURE2D( _Layer1, sampler_Layer1, uvLayer1114_g2696 ).rgb));
-				float gt57_g2696 = saturate( ( tex2DNode3_g2696.g * tex2DNode4_g2696.g ) );
-				float3 lerpResult61_g2696 = lerp( lerpResult34_g2696 , appendResult73_g2696 , pow( gt57_g2696 , LSAlbedo100_g2696 ));
+				float2 uvLayer1114_g3833 = uv_Layer1;
+				float3 appendResult73_g3833 = (float3(SAMPLE_TEXTURE2D( _Layer1, sampler_Layer1, uvLayer1114_g3833 ).rgb));
+				float gt57_g3833 = saturate( ( tex2DNode3_g3833.g * tex2DNode4_g3833.g ) );
+				float3 lerpResult61_g3833 = lerp( lerpResult34_g3833 , appendResult73_g3833 , pow( gt57_g3833 , LSAlbedo100_g3833 ));
 				#ifdef _REVEALLAYERS
-				float3 staticSwitch1_g2696 = lerpResult61_g2696;
+				float3 staticSwitch1_g3833 = lerpResult61_g3833;
 				#else
-				float3 staticSwitch1_g2696 = temp_output_35_0_g2696;
+				float3 staticSwitch1_g3833 = temp_output_35_0_g3833;
 				#endif
-				float3 temp_output_3943_36 = staticSwitch1_g2696;
-				float3 temp_output_10_0_g3740 = float3( 0,0,0 );
-				float temp_output_23_0_g3740 = GlobalOceanUnder;
-				float3 temp_output_18_0_g3758 = temp_output_10_0_g3740;
+				float3 temp_output_4414_36 = staticSwitch1_g3833;
+				float3 temp_output_10_0_g3804 = float3( 0,0,0 );
+				float temp_output_23_0_g3804 = GlobalOceanUnder;
+				float3 temp_output_18_0_g3822 = temp_output_10_0_g3804;
 				float3 appendResult2618 = (float3(unpack2617));
 				float3 SimpleNormalXYSigned30 = appendResult2618;
 				int MossInt2938 = _Moss;
@@ -2097,122 +2112,123 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float3 staticSwitch4131 = SimpleNormalXYSigned30;
 				#endif
 				float2 DetailNormaMossMaskedSigned988 = ( _DetailNormalMapScale * (staticSwitch4132).yz );
-				float3 appendResult4007 = (float3(DetailNormaMossMaskedSigned988 , 1.0));
+				float3 appendResult4007 = (float3(DetailNormaMossMaskedSigned988 , 0.0));
+				float3 temp_output_4016_0 = ( staticSwitch4131 + appendResult4007 );
 				#ifdef _DETAIL_ON
-				float3 staticSwitch1105 = ( staticSwitch4131 + appendResult4007 );
+				float3 staticSwitch1105 = temp_output_4016_0;
 				#else
 				float3 staticSwitch1105 = staticSwitch4131;
 				#endif
 				float3 NormalPre2265 = staticSwitch1105;
 				float3 normalizeResult4009 = normalize( NormalPre2265 );
 				float3 NormalRes109 = normalizeResult4009;
-				float3 temp_output_42_0_g2696 = NormalRes109;
-				float3 unpack9_g2696 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer0NormalMap, sampler_Layer0NormalMap, uvLayer0112_g2696 ), _Layer0NormalStrength );
-				unpack9_g2696.z = lerp( 1, unpack9_g2696.z, saturate(_Layer0NormalStrength) );
-				float LSNormal101_g2696 = _LayerSurfaceExp.y;
-				float3 lerpResult41_g2696 = lerp( temp_output_42_0_g2696 , unpack9_g2696 , pow( rt31_g2696 , LSNormal101_g2696 ));
-				float3 unpack18_g2696 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer1NormalMap, sampler_Layer1NormalMap, uvLayer1114_g2696 ), _Layer1NormalStrength );
-				unpack18_g2696.z = lerp( 1, unpack18_g2696.z, saturate(_Layer1NormalStrength) );
-				float3 lerpResult64_g2696 = lerp( lerpResult41_g2696 , unpack18_g2696 , pow( gt57_g2696 , LSNormal101_g2696 ));
-				float2 uv83_g2696 = baseuv25_g2696;
-				float bt76_g2696 = saturate( ( tex2DNode3_g2696.b * tex2DNode4_g2696.b ) );
-				float height83_g2696 = ( _Layer2Height * bt76_g2696 );
-				float2 texelSize83_g2696 = (_RevealMask_TexelSize).xy;
-				float3 localRevealMaskNormalCrossFilter83_g2696 = RevealMaskNormalCrossFilter83_g2696( uv83_g2696 , height83_g2696 , texelSize83_g2696 );
-				float3 heightNormal89_g2696 = localRevealMaskNormalCrossFilter83_g2696;
+				float3 temp_output_42_0_g3833 = NormalRes109;
+				float3 unpack9_g3833 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer0NormalMap, sampler_Layer0NormalMap, uvLayer0112_g3833 ), _Layer0NormalStrength );
+				unpack9_g3833.z = lerp( 1, unpack9_g3833.z, saturate(_Layer0NormalStrength) );
+				float LSNormal101_g3833 = _LayerSurfaceExp.y;
+				float3 lerpResult41_g3833 = lerp( temp_output_42_0_g3833 , unpack9_g3833 , pow( rt31_g3833 , LSNormal101_g3833 ));
+				float3 unpack18_g3833 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer1NormalMap, sampler_Layer1NormalMap, uvLayer1114_g3833 ), _Layer1NormalStrength );
+				unpack18_g3833.z = lerp( 1, unpack18_g3833.z, saturate(_Layer1NormalStrength) );
+				float3 lerpResult64_g3833 = lerp( lerpResult41_g3833 , unpack18_g3833 , pow( gt57_g3833 , LSNormal101_g3833 ));
+				float2 uv83_g3833 = baseuv25_g3833;
+				float bt76_g3833 = saturate( ( tex2DNode3_g3833.b * tex2DNode4_g3833.b ) );
+				float height83_g3833 = ( _Layer2Height * bt76_g3833 );
+				float2 texelSize83_g3833 = (_RevealMask_TexelSize).xy;
+				float3 localRevealMaskNormalCrossFilter83_g3833 = RevealMaskNormalCrossFilter83_g3833( uv83_g3833 , height83_g3833 , texelSize83_g3833 );
+				float3 heightNormal89_g3833 = localRevealMaskNormalCrossFilter83_g3833;
 				#ifdef _REVEALLAYERS
-				float3 staticSwitch58_g2696 = BlendNormal( lerpResult64_g2696 , heightNormal89_g2696 );
+				float3 staticSwitch58_g3833 = BlendNormal( lerpResult64_g3833 , heightNormal89_g3833 );
 				#else
-				float3 staticSwitch58_g2696 = temp_output_42_0_g2696;
+				float3 staticSwitch58_g3833 = temp_output_42_0_g3833;
 				#endif
-				float3 temp_output_3943_43 = staticSwitch58_g2696;
-				float3 temp_output_9_0_g3740 = temp_output_3943_43;
-				float3 temp_output_30_0_g3758 = temp_output_9_0_g3740;
-				float3 tanNormal12_g3758 = temp_output_30_0_g3758;
-				float3 worldNormal12_g3758 = float3(dot(tanToWorld0,tanNormal12_g3758), dot(tanToWorld1,tanNormal12_g3758), dot(tanToWorld2,tanNormal12_g3758));
-				float3 vertexToFrag144_g3758 = IN.ase_texcoord11.xyz;
-				float dotResult1_g3758 = dot( worldNormal12_g3758 , vertexToFrag144_g3758 );
-				float2 vertexToFrag52_g3758 = IN.ase_texcoord12.xy;
-				float4 tex2DNode120_g3758 = SAMPLE_TEXTURE2D( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g3758 );
-				float3 appendResult121_g3758 = (float3(tex2DNode120_g3758.r , tex2DNode120_g3758.r , tex2DNode120_g3758.r));
-				float3 WorldPosition256_g3740 = WorldPosition;
-				float3 temp_output_105_0_g3758 = WorldPosition256_g3740;
-				float temp_output_117_0_g3758 = (temp_output_105_0_g3758).y;
-				float temp_output_67_0_g3740 = ( GlobalOceanOffset + GlobalOceanHeight );
-				float temp_output_63_0_g3758 = temp_output_67_0_g3740;
-				float2 DistanceFade134_g3758 = (_CausticsSettings).zw;
-				float2 break136_g3758 = DistanceFade134_g3758;
-				float temp_output_67_0_g3758 = ( saturate( (0.0 + (max( -( temp_output_117_0_g3758 - temp_output_63_0_g3758 ) , 0.0 ) - 0.2) * (1.0 - 0.0) / (1.0 - 0.2)) ) * saturate( (1.0 + (distance( temp_output_63_0_g3758 , temp_output_117_0_g3758 ) - break136_g3758.x) * (0.0 - 1.0) / (break136_g3758.y - break136_g3758.x)) ) );
-				float CausticMipLevel118_g3758 = ( ( 1.0 - temp_output_67_0_g3758 ) * 4.0 );
+				float3 temp_output_4414_43 = staticSwitch58_g3833;
+				float3 temp_output_9_0_g3804 = temp_output_4414_43;
+				float3 temp_output_30_0_g3822 = temp_output_9_0_g3804;
+				float3 tanNormal12_g3822 = temp_output_30_0_g3822;
+				float3 worldNormal12_g3822 = float3(dot(tanToWorld0,tanNormal12_g3822), dot(tanToWorld1,tanNormal12_g3822), dot(tanToWorld2,tanNormal12_g3822));
+				float3 vertexToFrag144_g3822 = IN.ase_texcoord11.xyz;
+				float dotResult1_g3822 = dot( worldNormal12_g3822 , vertexToFrag144_g3822 );
+				float2 vertexToFrag52_g3822 = IN.ase_texcoord12.xy;
+				float4 tex2DNode120_g3822 = SAMPLE_TEXTURE2D( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g3822 );
+				float3 appendResult121_g3822 = (float3(tex2DNode120_g3822.r , tex2DNode120_g3822.r , tex2DNode120_g3822.r));
+				float3 WorldPosition256_g3804 = WorldPosition;
+				float3 temp_output_105_0_g3822 = WorldPosition256_g3804;
+				float temp_output_117_0_g3822 = (temp_output_105_0_g3822).y;
+				float temp_output_67_0_g3804 = ( GlobalOceanOffset + GlobalOceanHeight );
+				float temp_output_63_0_g3822 = temp_output_67_0_g3804;
+				float2 DistanceFade134_g3822 = (_CausticsSettings).zw;
+				float2 break136_g3822 = DistanceFade134_g3822;
+				float temp_output_67_0_g3822 = ( saturate( (0.0 + (max( -( temp_output_117_0_g3822 - temp_output_63_0_g3822 ) , 0.0 ) - 0.2) * (1.0 - 0.0) / (1.0 - 0.2)) ) * saturate( (1.0 + (distance( temp_output_63_0_g3822 , temp_output_117_0_g3822 ) - break136_g3822.x) * (0.0 - 1.0) / (break136_g3822.y - break136_g3822.x)) ) );
+				float CausticMipLevel118_g3822 = ( ( 1.0 - temp_output_67_0_g3822 ) * 4.0 );
 				#ifdef _USECAUSTICRAINBOW_ON
-				float3 staticSwitch73_g3758 = ( ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g3758 + ( 0.0045 * 2.0 ) ), CausticMipLevel118_g3758 ).r * float3(0,0,1) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g3758 + 0.0045 ), CausticMipLevel118_g3758 ).r * float3(0,1,0) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g3758, CausticMipLevel118_g3758 ).r * float3(1,0,0) ) );
+				float3 staticSwitch73_g3822 = ( ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g3822 + ( 0.0045 * 2.0 ) ), CausticMipLevel118_g3822 ).r * float3(0,0,1) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g3822 + 0.0045 ), CausticMipLevel118_g3822 ).r * float3(0,1,0) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g3822, CausticMipLevel118_g3822 ).r * float3(1,0,0) ) );
 				#else
-				float3 staticSwitch73_g3758 = appendResult121_g3758;
+				float3 staticSwitch73_g3822 = appendResult121_g3822;
 				#endif
 				#ifdef _USECAUSTICEXTRASAMPLER_ON
-				float3 staticSwitch57_g3758 = staticSwitch73_g3758;
+				float3 staticSwitch57_g3822 = staticSwitch73_g3822;
 				#else
-				float3 staticSwitch57_g3758 = staticSwitch73_g3758;
+				float3 staticSwitch57_g3822 = staticSwitch73_g3822;
 				#endif
-				float3 appendResult62_g3758 = (float3(_CausticsColor.rgb));
+				float3 appendResult62_g3822 = (float3(_CausticsColor.rgb));
 				#ifdef _CAUSTICSENABLE_ON
-				float3 staticSwitch16_g3758 = ( temp_output_18_0_g3758 + ( max( dotResult1_g3758 , 0.0 ) * staticSwitch57_g3758 * appendResult62_g3758 * temp_output_67_0_g3758 ) );
+				float3 staticSwitch16_g3822 = ( temp_output_18_0_g3822 + ( max( dotResult1_g3822 , 0.0 ) * staticSwitch57_g3822 * appendResult62_g3822 * temp_output_67_0_g3822 ) );
 				#else
-				float3 staticSwitch16_g3758 = temp_output_18_0_g3758;
+				float3 staticSwitch16_g3822 = temp_output_18_0_g3822;
 				#endif
-				float3 lerpResult205_g3740 = lerp( staticSwitch16_g3758 , ( staticSwitch16_g3758 * 30.0 ) , temp_output_23_0_g3740);
-				float3 appendResult100_g3750 = (float3(OceanWaterTint_RGB.xyz));
-				float3 ViewDir264_g3740 = WorldViewDirection;
-				float3 viewDir240_g3750 = ViewDir264_g3740;
-				float3 camWorldPos240_g3750 = _WorldSpaceCameraPos;
-				float3 WorldPos252_g3750 = WorldPosition256_g3740;
-				float3 posWS240_g3750 = WorldPos252_g3750;
-				float4 oceanFogDensities240_g3750 = OceanFogDensities;
-				float temp_output_108_0_g3750 = temp_output_67_0_g3740;
-				float oceanHeight240_g3750 = temp_output_108_0_g3750;
-				float4 oceanFogTop_RGB_Exponent240_g3750 = OceanFogTop_RGB_Exponent;
-				float4 oceanFogBottom_RGB_Intensity240_g3750 = OceanFogBottom_RGB_Intensity;
-				float4 localGetUnderWaterFogs240_g3750 = GetUnderWaterFogs240_g3750( viewDir240_g3750 , camWorldPos240_g3750 , posWS240_g3750 , oceanFogDensities240_g3750 , oceanHeight240_g3750 , oceanFogTop_RGB_Exponent240_g3750 , oceanFogBottom_RGB_Intensity240_g3750 );
-				float4 FogRes185_g3750 = localGetUnderWaterFogs240_g3750;
-				float3 appendResult94_g3750 = (float3(FogRes185_g3750.xyz));
-				float3 lerpResult36_g3750 = lerp( ( lerpResult205_g3740 * appendResult100_g3750 ) , appendResult94_g3750 , (FogRes185_g3750).w);
-				float3 temp_output_261_32_g3740 = lerpResult36_g3750;
-				float3 ifLocalVar5_g3740 = 0;
+				float3 lerpResult205_g3804 = lerp( staticSwitch16_g3822 , ( staticSwitch16_g3822 * 30.0 ) , temp_output_23_0_g3804);
+				float3 appendResult100_g3814 = (float3(OceanWaterTint_RGB.xyz));
+				float3 ViewDir264_g3804 = WorldViewDirection;
+				float3 viewDir240_g3814 = ViewDir264_g3804;
+				float3 camWorldPos240_g3814 = _WorldSpaceCameraPos;
+				float3 WorldPos252_g3814 = WorldPosition256_g3804;
+				float3 posWS240_g3814 = WorldPos252_g3814;
+				float4 oceanFogDensities240_g3814 = OceanFogDensities;
+				float temp_output_108_0_g3814 = temp_output_67_0_g3804;
+				float oceanHeight240_g3814 = temp_output_108_0_g3814;
+				float4 oceanFogTop_RGB_Exponent240_g3814 = OceanFogTop_RGB_Exponent;
+				float4 oceanFogBottom_RGB_Intensity240_g3814 = OceanFogBottom_RGB_Intensity;
+				float4 localGetUnderWaterFogs240_g3814 = GetUnderWaterFogs240_g3814( viewDir240_g3814 , camWorldPos240_g3814 , posWS240_g3814 , oceanFogDensities240_g3814 , oceanHeight240_g3814 , oceanFogTop_RGB_Exponent240_g3814 , oceanFogBottom_RGB_Intensity240_g3814 );
+				float4 FogRes185_g3814 = localGetUnderWaterFogs240_g3814;
+				float3 appendResult94_g3814 = (float3(FogRes185_g3814.xyz));
+				float3 lerpResult36_g3814 = lerp( ( lerpResult205_g3804 * appendResult100_g3814 ) , appendResult94_g3814 , (FogRes185_g3814).w);
+				float3 temp_output_261_32_g3804 = lerpResult36_g3814;
+				float3 ifLocalVar5_g3804 = 0;
 				UNITY_BRANCH 
-				if( temp_output_23_0_g3740 >= 1.0 )
-				ifLocalVar5_g3740 = temp_output_261_32_g3740;
+				if( temp_output_23_0_g3804 >= 1.0 )
+				ifLocalVar5_g3804 = temp_output_261_32_g3804;
 				else
-				ifLocalVar5_g3740 = temp_output_10_0_g3740;
+				ifLocalVar5_g3804 = temp_output_10_0_g3804;
 				#ifdef _USEGRADIENTFOG_ON
-				float3 staticSwitch1_g3740 = ifLocalVar5_g3740;
+				float3 staticSwitch1_g3804 = ifLocalVar5_g3804;
 				#else
-				float3 staticSwitch1_g3740 = temp_output_10_0_g3740;
+				float3 staticSwitch1_g3804 = temp_output_10_0_g3804;
 				#endif
-				float temp_output_254_0_g3740 = (WorldPosition256_g3740).y;
-				float temp_output_24_0_g3756 = ( temp_output_254_0_g3740 - temp_output_67_0_g3740 );
-				float temp_output_44_0_g3756 = 0.1;
-				float temp_output_45_0_g3756 = 0.31;
-				float temp_output_46_0_g3756 = saturate( (0.0 + (( temp_output_24_0_g3756 - temp_output_44_0_g3756 ) - 0.0) * (1.0 - 0.0) / (temp_output_45_0_g3756 - 0.0)) );
-				float temp_output_160_47_g3740 = ( 1.0 - temp_output_46_0_g3756 );
+				float temp_output_254_0_g3804 = (WorldPosition256_g3804).y;
+				float temp_output_24_0_g3820 = ( temp_output_254_0_g3804 - temp_output_67_0_g3804 );
+				float temp_output_44_0_g3820 = 0.1;
+				float temp_output_45_0_g3820 = 0.31;
+				float temp_output_46_0_g3820 = saturate( (0.0 + (( temp_output_24_0_g3820 - temp_output_44_0_g3820 ) - 0.0) * (1.0 - 0.0) / (temp_output_45_0_g3820 - 0.0)) );
+				float temp_output_160_47_g3804 = ( 1.0 - temp_output_46_0_g3820 );
 				#ifdef _FadeWithHeight
-				float staticSwitch238_g3740 = temp_output_160_47_g3740;
+				float staticSwitch238_g3804 = temp_output_160_47_g3804;
 				#else
-				float staticSwitch238_g3740 = 1.0;
+				float staticSwitch238_g3804 = 1.0;
 				#endif
-				float temp_output_77_0_g3740 = ( temp_output_23_0_g3740 * staticSwitch238_g3740 );
-				float3 lerpResult174_g3740 = lerp( ( staticSwitch1_g3740 + lerpResult205_g3740 ) , staticSwitch1_g3740 , temp_output_77_0_g3740);
-				float3 lerpResult242_g3740 = lerp( temp_output_10_0_g3740 , lerpResult174_g3740 , staticSwitch238_g3740);
+				float temp_output_77_0_g3804 = ( temp_output_23_0_g3804 * staticSwitch238_g3804 );
+				float3 lerpResult174_g3804 = lerp( ( staticSwitch1_g3804 + lerpResult205_g3804 ) , staticSwitch1_g3804 , temp_output_77_0_g3804);
+				float3 lerpResult242_g3804 = lerp( temp_output_10_0_g3804 , lerpResult174_g3804 , staticSwitch238_g3804);
 				#ifdef _USECAUSTICSFROMABOVE_ON
-				float3 staticSwitch172_g3740 = lerpResult242_g3740;
+				float3 staticSwitch172_g3804 = lerpResult242_g3804;
 				#else
-				float3 staticSwitch172_g3740 = staticSwitch1_g3740;
+				float3 staticSwitch172_g3804 = staticSwitch1_g3804;
 				#endif
 				#ifdef _USEUNDERWATER
-				float3 staticSwitch211_g3740 = staticSwitch172_g3740;
+				float3 staticSwitch211_g3804 = staticSwitch172_g3804;
 				#else
-				float3 staticSwitch211_g3740 = float3( 0,0,0 );
+				float3 staticSwitch211_g3804 = float3( 0,0,0 );
 				#endif
-				float3 temp_output_4383_8 = staticSwitch211_g3740;
+				float3 temp_output_4406_8 = staticSwitch211_g3804;
 				
 				float fresnelNdotV135 = dot( WorldNormal, WorldViewDirection );
 				float fresnelNode135 = ( _MossFresnel.x + _MossFresnel.y * pow( 1.0 - fresnelNdotV135, ( _MossFresnel.z * 10.0 ) ) );
@@ -2306,13 +2322,13 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float EmissionMasked3065 = break3482.z;
 				float3 temp_output_3496_0 = ( appendResult3069 * EmissionMasked3065 );
 				float4 EmissionRes806 = ( MossFresnel203 + float4( temp_output_3496_0 , 0.0 ) );
-				float3 temp_output_91_0_g2696 = EmissionRes806.rgb;
-				float at79_g2696 = saturate( ( tex2DNode3_g2696.a * tex2DNode4_g2696.a ) );
-				float3 appendResult99_g2696 = (float3(_Layer3EmissionColor.rgb));
+				float3 temp_output_91_0_g3833 = EmissionRes806.rgb;
+				float at79_g3833 = saturate( ( tex2DNode3_g3833.a * tex2DNode4_g3833.a ) );
+				float3 appendResult99_g3833 = (float3(_Layer3EmissionColor.rgb));
 				#ifdef _REVEALLAYERS
-				float3 staticSwitch93_g2696 = ( ( temp_output_91_0_g2696 * ( 1.0 - at79_g2696 ) ) + ( appendResult99_g2696 * at79_g2696 ) );
+				float3 staticSwitch93_g3833 = ( ( temp_output_91_0_g3833 * ( 1.0 - at79_g3833 ) ) + ( appendResult99_g3833 * at79_g3833 ) );
 				#else
-				float3 staticSwitch93_g2696 = temp_output_91_0_g2696;
+				float3 staticSwitch93_g3833 = temp_output_91_0_g3833;
 				#endif
 				
 				float Metallic399 = break3482.x;
@@ -2324,14 +2340,14 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float staticSwitch1238 = MetallicSimpler398;
 				#endif
 				float MetallicResult1087 = staticSwitch1238;
-				float temp_output_47_0_g2696 = MetallicResult1087;
-				float LSMetallic102_g2696 = _LayerSurfaceExp.z;
-				float lerpResult46_g2696 = lerp( temp_output_47_0_g2696 , _Layer0Metallic , pow( rt31_g2696 , LSMetallic102_g2696 ));
-				float lerpResult67_g2696 = lerp( lerpResult46_g2696 , _Layer1Metallic , pow( gt57_g2696 , LSMetallic102_g2696 ));
+				float temp_output_47_0_g3833 = MetallicResult1087;
+				float LSMetallic102_g3833 = _LayerSurfaceExp.z;
+				float lerpResult46_g3833 = lerp( temp_output_47_0_g3833 , _Layer0Metallic , pow( rt31_g3833 , LSMetallic102_g3833 ));
+				float lerpResult67_g3833 = lerp( lerpResult46_g3833 , _Layer1Metallic , pow( gt57_g3833 , LSMetallic102_g3833 ));
 				#ifdef _REVEALLAYERS
-				float staticSwitch59_g2696 = lerpResult67_g2696;
+				float staticSwitch59_g3833 = lerpResult67_g3833;
 				#else
-				float staticSwitch59_g2696 = temp_output_47_0_g2696;
+				float staticSwitch59_g3833 = temp_output_47_0_g3833;
 				#endif
 				
 				float Smoothness400 = break3482.w;
@@ -2360,14 +2376,14 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float staticSwitch1093 = staticSwitch4121;
 				#endif
 				float SmoothnessResult1085 = staticSwitch1093;
-				float temp_output_54_0_g2696 = SmoothnessResult1085;
-				float LSSmoothness103_g2696 = _LayerSurfaceExp.w;
-				float lerpResult51_g2696 = lerp( temp_output_54_0_g2696 , _Layer0Smoothness , pow( rt31_g2696 , LSSmoothness103_g2696 ));
-				float lerpResult70_g2696 = lerp( lerpResult51_g2696 , _Layer1Smoothness , pow( gt57_g2696 , LSSmoothness103_g2696 ));
+				float temp_output_54_0_g3833 = SmoothnessResult1085;
+				float LSSmoothness103_g3833 = _LayerSurfaceExp.w;
+				float lerpResult51_g3833 = lerp( temp_output_54_0_g3833 , _Layer0Smoothness , pow( rt31_g3833 , LSSmoothness103_g3833 ));
+				float lerpResult70_g3833 = lerp( lerpResult51_g3833 , _Layer1Smoothness , pow( gt57_g3833 , LSSmoothness103_g3833 ));
 				#ifdef _REVEALLAYERS
-				float staticSwitch60_g2696 = lerpResult70_g2696;
+				float staticSwitch60_g3833 = lerpResult70_g3833;
 				#else
-				float staticSwitch60_g2696 = temp_output_54_0_g2696;
+				float staticSwitch60_g3833 = temp_output_54_0_g3833;
 				#endif
 				
 				float OcclusionDoodad3006 = break3482.y;
@@ -2407,18 +2423,19 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				
 				float ShadowThreshold2627 = _ShadowThreshold;
 				
-				float3 worldNormal14_g3764 = WorldNormal;
-				float3 vertexToFrag7_g3764 = IN.ase_texcoord13.xyz;
-				float4 ProbeVolumeShR14_g3764 = SAMPLE_TEXTURE3D( _ProbeVolumeShR, sampler_Linear_Clamp, vertexToFrag7_g3764 );
-				float4 ProbeVolumeShG14_g3764 = SAMPLE_TEXTURE3D( _ProbeVolumeShG, sampler_Linear_Clamp, vertexToFrag7_g3764 );
-				float4 ProbeVolumeShB14_g3764 = SAMPLE_TEXTURE3D( _ProbeVolumeShB, sampler_Linear_Clamp, vertexToFrag7_g3764 );
-				float3 localSHEvalLinearL0L114_g3764 = SHEvalLinearL0L114_g3764( worldNormal14_g3764 , ProbeVolumeShR14_g3764 , ProbeVolumeShG14_g3764 , ProbeVolumeShB14_g3764 );
+				float3 vertexToFrag56_g3799 = IN.ase_texcoord13.xyz;
+				float3 worldNormal14_g3799 = vertexToFrag56_g3799;
+				float3 vertexToFrag7_g3799 = IN.ase_texcoord14.xyz;
+				float4 ProbeVolumeShR14_g3799 = SAMPLE_TEXTURE3D( _ProbeVolumeShR, sampler_Linear_Clamp, vertexToFrag7_g3799 );
+				float4 ProbeVolumeShG14_g3799 = SAMPLE_TEXTURE3D( _ProbeVolumeShG, sampler_Linear_Clamp, vertexToFrag7_g3799 );
+				float4 ProbeVolumeShB14_g3799 = SAMPLE_TEXTURE3D( _ProbeVolumeShB, sampler_Linear_Clamp, vertexToFrag7_g3799 );
+				float3 localSHEvalLinearL0L114_g3799 = SHEvalLinearL0L114_g3799( worldNormal14_g3799 , ProbeVolumeShR14_g3799 , ProbeVolumeShG14_g3799 , ProbeVolumeShB14_g3799 );
 				#ifdef _PROBEVOLUME_ON
-				float3 staticSwitch20_g3764 = localSHEvalLinearL0L114_g3764;
+				float3 staticSwitch20_g3799 = localSHEvalLinearL0L114_g3799;
 				#else
-				float3 staticSwitch20_g3764 = LightmapOrSH2480;
+				float3 staticSwitch20_g3799 = LightmapOrSH2480;
 				#endif
-				float3 BakedGI1212 = staticSwitch20_g3764;
+				float3 BakedGI1212 = staticSwitch20_g3799;
 				
 				float4 ifLocalVars221 = 0;
 				Gradient gradient1_g3048 = NewGradient( 0, 3, 2, float4( 0, 0, 0, 0 ), float4( 0, 0.1608469, 1, 0.4974899 ), float4( 1, 0, 0.1051435, 1 ), 0, 0, 0, 0, 0, float2( 1, 0 ), float2( 1, 1 ), 0, 0, 0, 0, 0, 0 );
@@ -2496,77 +2513,77 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				if(_DebugVisual==15){ifLocalVars221 = temp_output_2_0_g937; };
 				float4 DebugVisuals210 = ifLocalVars221;
 				
-				half2 LightmapUV1_g3766 = (IN.ase_texcoord14.xy*(unity_LightmapST).xy + (unity_LightmapST).zw);
-				half4 localCalculateShadowMask1_g3766 = CalculateShadowMask1_g3766( LightmapUV1_g3766 );
-				float4 tex3DNode16_g3764 = SAMPLE_TEXTURE3D( _ProbeVolumeOcc, sampler_Linear_Clamp, vertexToFrag7_g3764 );
+				half2 LightmapUV1_g3801 = (IN.ase_texcoord15.xy*(unity_LightmapST).xy + (unity_LightmapST).zw);
+				half4 localCalculateShadowMask1_g3801 = CalculateShadowMask1_g3801( LightmapUV1_g3801 );
+				float4 tex3DNode16_g3799 = SAMPLE_TEXTURE3D( _ProbeVolumeOcc, sampler_Linear_Clamp, vertexToFrag7_g3799 );
 				#ifdef _PROBEVOLUME_ON
-				float4 staticSwitch25_g3764 = tex3DNode16_g3764;
+				float4 staticSwitch25_g3799 = tex3DNode16_g3799;
 				#else
-				float4 staticSwitch25_g3764 = localCalculateShadowMask1_g3766;
+				float4 staticSwitch25_g3799 = localCalculateShadowMask1_g3801;
 				#endif
-				float4 ShadowMask1213 = staticSwitch25_g3764;
+				float4 ShadowMask1213 = staticSwitch25_g3799;
 				
-				float3 appendResult50_g3740 = (float3(unity_FogColor.rgb));
-				float4 appendResult52_g3740 = (float4(appendResult50_g3740 , ( 1.0 - IN.fogFactorAndVertexLight.x )));
+				float3 appendResult50_g3804 = (float3(unity_FogColor.rgb));
+				float4 appendResult52_g3804 = (float4(appendResult50_g3804 , ( 1.0 - IN.fogFactorAndVertexLight.x )));
 				#ifdef FOG_LINEAR
-				float4 staticSwitch252_g3740 = appendResult52_g3740;
+				float4 staticSwitch252_g3804 = appendResult52_g3804;
 				#else
-				float4 staticSwitch252_g3740 = float4( 0,0,0,0 );
+				float4 staticSwitch252_g3804 = float4( 0,0,0,0 );
 				#endif
-				float4 FogLinear53_g3740 = staticSwitch252_g3740;
-				float4 appendResult47_g3740 = (float4(FogLinear53_g3740));
-				float3 temp_output_261_103_g3740 = appendResult94_g3750;
-				float temp_output_61_0_g3750 = ( 1.0 - (FogRes185_g3750).w );
-				float4 appendResult44_g3740 = (float4(temp_output_261_103_g3740 , ( 1.0 - temp_output_61_0_g3750 )));
-				float4 lerpResult227_g3740 = lerp( appendResult47_g3740 , appendResult44_g3740 , staticSwitch238_g3740);
-				float4 ifLocalVar49_g3740 = 0;
+				float4 FogLinear53_g3804 = staticSwitch252_g3804;
+				float4 appendResult47_g3804 = (float4(FogLinear53_g3804));
+				float3 temp_output_261_103_g3804 = appendResult94_g3814;
+				float temp_output_61_0_g3814 = ( 1.0 - (FogRes185_g3814).w );
+				float4 appendResult44_g3804 = (float4(temp_output_261_103_g3804 , ( 1.0 - temp_output_61_0_g3814 )));
+				float4 lerpResult227_g3804 = lerp( appendResult47_g3804 , appendResult44_g3804 , staticSwitch238_g3804);
+				float4 ifLocalVar49_g3804 = 0;
 				UNITY_BRANCH 
-				if( temp_output_23_0_g3740 >= 1.0 )
-				ifLocalVar49_g3740 = lerpResult227_g3740;
+				if( temp_output_23_0_g3804 >= 1.0 )
+				ifLocalVar49_g3804 = lerpResult227_g3804;
 				else
-				ifLocalVar49_g3740 = appendResult47_g3740;
+				ifLocalVar49_g3804 = appendResult47_g3804;
 				#ifdef _USEGRADIENTFOG_ON
-				float4 staticSwitch43_g3740 = ifLocalVar49_g3740;
+				float4 staticSwitch43_g3804 = ifLocalVar49_g3804;
 				#else
-				float4 staticSwitch43_g3740 = appendResult47_g3740;
+				float4 staticSwitch43_g3804 = appendResult47_g3804;
 				#endif
 				#ifdef _USEUNDERWATER
-				float4 staticSwitch215_g3740 = max( staticSwitch43_g3740 , float4( 0,0,0,0 ) );
+				float4 staticSwitch215_g3804 = max( staticSwitch43_g3804 , float4( 0,0,0,0 ) );
 				#else
-				float4 staticSwitch215_g3740 = appendResult47_g3740;
+				float4 staticSwitch215_g3804 = appendResult47_g3804;
 				#endif
 				
-				float lerpResult16_g2774 = lerp( 0.0 , _SSSDimAlbedo , _SSScattering);
-				float4 appendResult3_g2774 = (float4(_SSSRadius , _SSScattering , _NormalStrength_USE_SSS , lerpResult16_g2774));
+				float lerpResult16_g3832 = lerp( 0.0 , _SSSDimAlbedo , _SSScattering);
+				float4 appendResult3_g3832 = (float4(_SSSRadius , _SSScattering , _NormalStrength_USE_SSS , lerpResult16_g3832));
 				
-				float3 appendResult8_g2774 = (float3(_SSSColor.rgb));
-				float4 appendResult18_g2774 = (float4(appendResult8_g2774 , _SSShadcowMix));
+				float3 appendResult8_g3832 = (float3(_SSSColor.rgb));
+				float4 appendResult18_g3832 = (float4(appendResult8_g3832 , _SSShadcowMix));
 				
 				float4 appendResult11_g2776 = (float4(_TonemappingSettings.x , _TonemappingSettings.y , _TonemappingSettings.z , _TonemappingSettings.w));
 				
 				float3 temp_cast_65 = (1.0).xxx;
 				float3 temp_cast_66 = (1.0).xxx;
 				float3 temp_cast_67 = (1.0).xxx;
-				float3 ifLocalVar170_g3740 = 0;
+				float3 ifLocalVar170_g3804 = 0;
 				UNITY_BRANCH 
-				if( temp_output_23_0_g3740 >= 1.0 )
-				ifLocalVar170_g3740 = appendResult100_g3750;
+				if( temp_output_23_0_g3804 >= 1.0 )
+				ifLocalVar170_g3804 = appendResult100_g3814;
 				else
-				ifLocalVar170_g3740 = temp_cast_67;
-				float3 lerpResult226_g3740 = lerp( temp_cast_66 , ifLocalVar170_g3740 , staticSwitch238_g3740);
+				ifLocalVar170_g3804 = temp_cast_67;
+				float3 lerpResult226_g3804 = lerp( temp_cast_66 , ifLocalVar170_g3804 , staticSwitch238_g3804);
 				#ifdef _USEUNDERWATER
-				float3 staticSwitch212_g3740 = lerpResult226_g3740;
+				float3 staticSwitch212_g3804 = lerpResult226_g3804;
 				#else
-				float3 staticSwitch212_g3740 = temp_cast_65;
+				float3 staticSwitch212_g3804 = temp_cast_65;
 				#endif
 				
 
-				float3 BaseColor = ( temp_output_3943_36 + temp_output_4383_8 );
-				float3 Normal = temp_output_3943_43;
-				float3 Emission = staticSwitch93_g2696;
+				float3 BaseColor = ( temp_output_4414_36 + temp_output_4406_8 );
+				float3 Normal = temp_output_4414_43;
+				float3 Emission = staticSwitch93_g3833;
 				float3 Specular = 0.5;
-				float Metallic = staticSwitch59_g2696;
-				float Smoothness = staticSwitch60_g2696;
+				float Metallic = staticSwitch59_g3833;
+				float Smoothness = staticSwitch60_g3833;
 				float Occlusion = OcclusionResMStrength369;
 				float Alpha = AlbedoAlpha84;
 				float AlphaClipThreshold = ClipCalc3294;
@@ -2580,12 +2597,12 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				//Shadowood: new properties below:
 				float3 DebugVisuals = DebugVisuals210.xyz;
 				float4 ShadowMask = ShadowMask1213;
-				float4 FogColor = staticSwitch215_g3740;
+				float4 FogColor = staticSwitch215_g3804;
 				half FresnelControl = 0;
-				half4 SSSControl = appendResult3_g2774;
-				half4 SSSColor = appendResult18_g2774;
+				half4 SSSControl = appendResult3_g3832;
+				half4 SSSColor = appendResult18_g3832;
 				float4 Tonemapping = appendResult11_g2776;
-				float3 Tint = staticSwitch212_g3740;
+				float3 Tint = staticSwitch212_g3804;
 				float4 AnisotropicControl = 1;
 				
 				//float4 PostTonemapping = 0;
@@ -2950,20 +2967,21 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			#pragma shader_feature_local _USEMOSSNOISE_ON
 			#pragma shader_feature_local MODED_MOSS MODED_MOES MODED_MODS MODED_OFF
 			#pragma shader_feature_local _MOSS
-			#pragma shader_feature_local _MOSSMETALMODE_ON
-			#pragma shader_feature_local _DEBUGVISUALS_ON
 			#pragma shader_feature_local _AUTONORMAL
 			#pragma shader_feature_local LAYER_UNLIMITED LAYER_MAX2 LAYER_MAX3
 			#pragma shader_feature_local TEXTURE_MAX4 TEXTURE_MAX8 TEXTURE_MAX12 TEXTURE_MAX16
+			#pragma shader_feature _SKYFOG_ON
+			#pragma shader_feature GLOBALTONEMAPPING
+			#pragma shader_feature_local _MOSSMETALMODE_ON
+			#pragma multi_compile_local __ _PROBEVOLUME_ON
+			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local _REFLECTIONBILLBOARDSTOCHASTIC_ON
+			#pragma shader_feature_local _REFLECTIONBILLBOARD_ON
 			#pragma shader_feature_local _ALPHAMODE
 			#pragma shader_feature_local _SIMPLESTOCHASTIC
 			#pragma shader_feature_local _USESPLAT_ON
-			#pragma shader_feature _SKYFOG_ON
+			#pragma shader_feature_local _DEBUGVISUALS_ON
 			#pragma shader_feature_local _USE_SSS_ON
-			#pragma shader_feature GLOBALTONEMAPPING
-			#pragma shader_feature_local _REFLECTIONBILLBOARDSTOCHASTIC_ON
-			#pragma multi_compile __ _USEUNDERWATER
-			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#pragma shader_feature_local_vertex _VERTEXOCCLUSION_ON
 			#define _UseMossPacked
 			#define _DetailMapPacking
@@ -3075,15 +3093,15 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			int _BlendMode_UseColorMask;
 			int _Moss;
 			int _Bitmask;
+			int _Cullmode;
+			int _ArrayLengthUsed;
 			int _StochasticCount;
 			float _Blend;
 			float _SrcBlend;
 			float _DstBlend;
-			int _ZWrite;
-			int _Cullmode;
 			float _Cutoff;
 			int _Int0;
-			int _ArrayLengthUsed;
+			int _ZWrite;
 			int _MetalUV;
 			float _MossMultAlbedo;
 			float _MossBase;
@@ -3141,14 +3159,6 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				int _PassValue;
 			#endif
 
-			TEXTURE2D_ARRAY(_ExtraArray);
-			SAMPLER(sampler_ExtraArray);
-			TEXTURE2D_ARRAY(_DiffuseArray);
-			SAMPLER(sampler_DiffuseArray);
-			TEXTURE2D_ARRAY(_NormalArray);
-			SAMPLER(sampler_NormalArray);
-			TEXTURE2D(_Billboard);
-			SAMPLER(sampler_Billboard);
 			float4 _skyGradientColor1;
 			float4 _skyGradientColor2;
 			float3 _CausticsDir;
@@ -3157,6 +3167,14 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			half4 _CausticsColor;
 			TEXTURE2D(_Caustics);
 			SAMPLER(sampler_Caustics);
+			TEXTURE2D(_Billboard);
+			SAMPLER(sampler_Billboard);
+			TEXTURE2D_ARRAY(_ExtraArray);
+			SAMPLER(sampler_ExtraArray);
+			TEXTURE2D_ARRAY(_DiffuseArray);
+			SAMPLER(sampler_DiffuseArray);
+			TEXTURE2D_ARRAY(_NormalArray);
+			SAMPLER(sampler_NormalArray);
 			float4x4 _QuadInverseMatrixArray[16];
 			float4 _QuadPositionArray[16];
 			float4 _QuadNormalArray[16];
@@ -3172,17 +3190,17 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			//#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/VisualEffectVertex.hlsl"
 			//#endif
 
-			float Random( float3 co )
-			{
-				return  frac(sin( dot(co ,float3(12.9898,78.233,45.5432) )) * 43758.5453);
-				//return frac(sin(dot(co, float2(12.9898, 78.233))) * 43758.5453);
-			}
-			
 			float calcFogFactor( float distance, float gradientFogDensity )
 			{
 					//beer-lambert law, Fog =1/e^(distance * density)
 					float e = 2.7182818284590452353602874713527f;
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
+			}
+			
+			float Random( float3 co )
+			{
+				return  frac(sin( dot(co ,float3(12.9898,78.233,45.5432) )) * 43758.5453);
+				//return frac(sin(dot(co, float2(12.9898, 78.233))) * 43758.5453);
 			}
 			
 			float3 VertVanisher3872( float3 vertex, float2 vtexcoord1, int bitMask )
@@ -3390,7 +3408,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 
 				float2 uv_BaseMap = IN.ase_texcoord3.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
 				float2 UVBasemap02088 = uv_BaseMap;
-				float4 tex2DNode80 = SAMPLE_TEXTURE2D_BIAS( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088, 0.0 );
+				float4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
 				float temp_output_3952_0 = ( tex2DNode80.a * _BaseColor.a );
 				float4 ase_screenPosNorm = ScreenPos / ScreenPos.w;
 				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
@@ -3514,20 +3532,21 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			#pragma shader_feature_local _USEMOSSNOISE_ON
 			#pragma shader_feature_local MODED_MOSS MODED_MOES MODED_MODS MODED_OFF
 			#pragma shader_feature_local _MOSS
-			#pragma shader_feature_local _MOSSMETALMODE_ON
-			#pragma shader_feature_local _DEBUGVISUALS_ON
 			#pragma shader_feature_local _AUTONORMAL
 			#pragma shader_feature_local LAYER_UNLIMITED LAYER_MAX2 LAYER_MAX3
 			#pragma shader_feature_local TEXTURE_MAX4 TEXTURE_MAX8 TEXTURE_MAX12 TEXTURE_MAX16
+			#pragma shader_feature _SKYFOG_ON
+			#pragma shader_feature GLOBALTONEMAPPING
+			#pragma shader_feature_local _MOSSMETALMODE_ON
+			#pragma multi_compile_local __ _PROBEVOLUME_ON
+			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local _REFLECTIONBILLBOARDSTOCHASTIC_ON
+			#pragma shader_feature_local _REFLECTIONBILLBOARD_ON
 			#pragma shader_feature_local _ALPHAMODE
 			#pragma shader_feature_local _SIMPLESTOCHASTIC
 			#pragma shader_feature_local _USESPLAT_ON
-			#pragma shader_feature _SKYFOG_ON
+			#pragma shader_feature_local _DEBUGVISUALS_ON
 			#pragma shader_feature_local _USE_SSS_ON
-			#pragma shader_feature GLOBALTONEMAPPING
-			#pragma shader_feature_local _REFLECTIONBILLBOARDSTOCHASTIC_ON
-			#pragma multi_compile __ _USEUNDERWATER
-			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#pragma shader_feature_local_vertex _VERTEXOCCLUSION_ON
 			#define _UseMossPacked
 			#define _DetailMapPacking
@@ -3639,15 +3658,15 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			int _BlendMode_UseColorMask;
 			int _Moss;
 			int _Bitmask;
+			int _Cullmode;
+			int _ArrayLengthUsed;
 			int _StochasticCount;
 			float _Blend;
 			float _SrcBlend;
 			float _DstBlend;
-			int _ZWrite;
-			int _Cullmode;
 			float _Cutoff;
 			int _Int0;
-			int _ArrayLengthUsed;
+			int _ZWrite;
 			int _MetalUV;
 			float _MossMultAlbedo;
 			float _MossBase;
@@ -3705,14 +3724,6 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				int _PassValue;
 			#endif
 
-			TEXTURE2D_ARRAY(_ExtraArray);
-			SAMPLER(sampler_ExtraArray);
-			TEXTURE2D_ARRAY(_DiffuseArray);
-			SAMPLER(sampler_DiffuseArray);
-			TEXTURE2D_ARRAY(_NormalArray);
-			SAMPLER(sampler_NormalArray);
-			TEXTURE2D(_Billboard);
-			SAMPLER(sampler_Billboard);
 			float4 _skyGradientColor1;
 			float4 _skyGradientColor2;
 			float3 _CausticsDir;
@@ -3721,6 +3732,14 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			half4 _CausticsColor;
 			TEXTURE2D(_Caustics);
 			SAMPLER(sampler_Caustics);
+			TEXTURE2D(_Billboard);
+			SAMPLER(sampler_Billboard);
+			TEXTURE2D_ARRAY(_ExtraArray);
+			SAMPLER(sampler_ExtraArray);
+			TEXTURE2D_ARRAY(_DiffuseArray);
+			SAMPLER(sampler_DiffuseArray);
+			TEXTURE2D_ARRAY(_NormalArray);
+			SAMPLER(sampler_NormalArray);
 			float4x4 _QuadInverseMatrixArray[16];
 			float4 _QuadPositionArray[16];
 			float4 _QuadNormalArray[16];
@@ -3736,17 +3755,17 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			//#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/VisualEffectVertex.hlsl"
 			//#endif
 
-			float Random( float3 co )
-			{
-				return  frac(sin( dot(co ,float3(12.9898,78.233,45.5432) )) * 43758.5453);
-				//return frac(sin(dot(co, float2(12.9898, 78.233))) * 43758.5453);
-			}
-			
 			float calcFogFactor( float distance, float gradientFogDensity )
 			{
 					//beer-lambert law, Fog =1/e^(distance * density)
 					float e = 2.7182818284590452353602874713527f;
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
+			}
+			
+			float Random( float3 co )
+			{
+				return  frac(sin( dot(co ,float3(12.9898,78.233,45.5432) )) * 43758.5453);
+				//return frac(sin(dot(co, float2(12.9898, 78.233))) * 43758.5453);
 			}
 			
 			float3 VertVanisher3872( float3 vertex, float2 vtexcoord1, int bitMask )
@@ -3936,7 +3955,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 
 				float2 uv_BaseMap = IN.ase_texcoord3.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
 				float2 UVBasemap02088 = uv_BaseMap;
-				float4 tex2DNode80 = SAMPLE_TEXTURE2D_BIAS( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088, 0.0 );
+				float4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
 				float temp_output_3952_0 = ( tex2DNode80.a * _BaseColor.a );
 				float4 ase_screenPosNorm = ScreenPos / ScreenPos.w;
 				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
@@ -4051,20 +4070,21 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			#pragma shader_feature_local _USEMOSSNOISE_ON
 			#pragma shader_feature_local MODED_MOSS MODED_MOES MODED_MODS MODED_OFF
 			#pragma shader_feature_local _MOSS
-			#pragma shader_feature_local _MOSSMETALMODE_ON
-			#pragma shader_feature_local _DEBUGVISUALS_ON
 			#pragma shader_feature_local _AUTONORMAL
 			#pragma shader_feature_local LAYER_UNLIMITED LAYER_MAX2 LAYER_MAX3
 			#pragma shader_feature_local TEXTURE_MAX4 TEXTURE_MAX8 TEXTURE_MAX12 TEXTURE_MAX16
+			#pragma shader_feature _SKYFOG_ON
+			#pragma shader_feature GLOBALTONEMAPPING
+			#pragma shader_feature_local _MOSSMETALMODE_ON
+			#pragma multi_compile_local __ _PROBEVOLUME_ON
+			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local _REFLECTIONBILLBOARDSTOCHASTIC_ON
+			#pragma shader_feature_local _REFLECTIONBILLBOARD_ON
 			#pragma shader_feature_local _ALPHAMODE
 			#pragma shader_feature_local _SIMPLESTOCHASTIC
 			#pragma shader_feature_local _USESPLAT_ON
-			#pragma shader_feature _SKYFOG_ON
+			#pragma shader_feature_local _DEBUGVISUALS_ON
 			#pragma shader_feature_local _USE_SSS_ON
-			#pragma shader_feature GLOBALTONEMAPPING
-			#pragma shader_feature_local _REFLECTIONBILLBOARDSTOCHASTIC_ON
-			#pragma multi_compile __ _USEUNDERWATER
-			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#pragma shader_feature_local_vertex _VERTEXOCCLUSION_ON
 			#pragma shader_feature_local _REVEALLAYERS
 			#pragma shader_feature_local _DETAIL_ON
@@ -4195,15 +4215,15 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			int _BlendMode_UseColorMask;
 			int _Moss;
 			int _Bitmask;
+			int _Cullmode;
+			int _ArrayLengthUsed;
 			int _StochasticCount;
 			float _Blend;
 			float _SrcBlend;
 			float _DstBlend;
-			int _ZWrite;
-			int _Cullmode;
 			float _Cutoff;
 			int _Int0;
-			int _ArrayLengthUsed;
+			int _ZWrite;
 			int _MetalUV;
 			float _MossMultAlbedo;
 			float _MossBase;
@@ -4261,14 +4281,6 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				int _PassValue;
 			#endif
 
-			TEXTURE2D_ARRAY(_ExtraArray);
-			SAMPLER(sampler_ExtraArray);
-			TEXTURE2D_ARRAY(_DiffuseArray);
-			SAMPLER(sampler_DiffuseArray);
-			TEXTURE2D_ARRAY(_NormalArray);
-			SAMPLER(sampler_NormalArray);
-			TEXTURE2D(_Billboard);
-			SAMPLER(sampler_Billboard);
 			float4 _skyGradientColor1;
 			float4 _skyGradientColor2;
 			float3 _CausticsDir;
@@ -4277,6 +4289,14 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			half4 _CausticsColor;
 			TEXTURE2D(_Caustics);
 			SAMPLER(sampler_Caustics);
+			TEXTURE2D(_Billboard);
+			SAMPLER(sampler_Billboard);
+			TEXTURE2D_ARRAY(_ExtraArray);
+			SAMPLER(sampler_ExtraArray);
+			TEXTURE2D_ARRAY(_DiffuseArray);
+			SAMPLER(sampler_DiffuseArray);
+			TEXTURE2D_ARRAY(_NormalArray);
+			SAMPLER(sampler_NormalArray);
 			float4x4 _QuadInverseMatrixArray[16];
 			float4 _QuadPositionArray[16];
 			float4 _QuadNormalArray[16];
@@ -4314,17 +4334,17 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			//#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/VisualEffectVertex.hlsl"
 			//#endif
 
-			float Random( float3 co )
-			{
-				return  frac(sin( dot(co ,float3(12.9898,78.233,45.5432) )) * 43758.5453);
-				//return frac(sin(dot(co, float2(12.9898, 78.233))) * 43758.5453);
-			}
-			
 			float calcFogFactor( float distance, float gradientFogDensity )
 			{
 					//beer-lambert law, Fog =1/e^(distance * density)
 					float e = 2.7182818284590452353602874713527f;
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
+			}
+			
+			float Random( float3 co )
+			{
+				return  frac(sin( dot(co ,float3(12.9898,78.233,45.5432) )) * 43758.5453);
+				//return frac(sin(dot(co, float2(12.9898, 78.233))) * 43758.5453);
 			}
 			
 			float3 VertVanisher3872( float3 vertex, float2 vtexcoord1, int bitMask )
@@ -4340,7 +4360,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				return half(2.0) * detailAlbedo * scale - scale + half(1.0);
 			}
 			
-			float3 RevealMaskNormalCrossFilter83_g2696( float2 uv, float height, float2 texelSize )
+			float3 RevealMaskNormalCrossFilter83_g3833( float2 uv, float height, float2 texelSize )
 			{
 						//float2 texelSize = float2(1.0 / texWidth, 1.0 / texHeight);
 						float4 h;
@@ -4388,7 +4408,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				return transpose( cofactors ) / determinant( input );
 			}
 			
-			inline float4 GetUnderWaterFogs240_g3750( float3 viewDir, float3 camWorldPos, float3 posWS, float4 oceanFogDensities, float oceanHeight, float4 oceanFogTop_RGB_Exponent, float4 oceanFogBottom_RGB_Intensity )
+			inline float4 GetUnderWaterFogs240_g3814( float3 viewDir, float3 camWorldPos, float3 posWS, float4 oceanFogDensities, float oceanHeight, float4 oceanFogTop_RGB_Exponent, float4 oceanFogBottom_RGB_Intensity )
 			{
 				return GetUnderWaterFog( viewDir, camWorldPos, posWS, oceanFogDensities, oceanHeight, oceanFogTop_RGB_Exponent, oceanFogBottom_RGB_Intensity );;
 			}
@@ -4491,20 +4511,20 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float vertexToFrag3925 = staticSwitch320;
 				o.ase_texcoord5.w = vertexToFrag3925;
 				float3 _Vector3 = float3(0,0,-1);
-				float4 Pos6_g3760 = float4( _Vector3 , 0.0 );
-				float4x4 Mat6_g3760 = _CausticMatrix;
-				float3 localMatrixMulThatWorks6_g3760 = MatrixMulThatWorks( Pos6_g3760 , Mat6_g3760 );
-				float3 normalizeResult147_g3758 = normalize( localMatrixMulThatWorks6_g3760 );
-				float3 vertexToFrag144_g3758 = normalizeResult147_g3758;
-				o.ase_texcoord10.xyz = vertexToFrag144_g3758;
-				float3 WorldPosition256_g3740 = ase_worldPos;
-				float3 temp_output_105_0_g3758 = WorldPosition256_g3740;
-				float4 Pos6_g3759 = float4( temp_output_105_0_g3758 , 0.0 );
-				float4x4 invertVal146_g3758 = Inverse4x4( _CausticMatrix );
-				float4x4 Mat6_g3759 = invertVal146_g3758;
-				float3 localMatrixMulThatWorks6_g3759 = MatrixMulThatWorks( Pos6_g3759 , Mat6_g3759 );
-				float2 vertexToFrag52_g3758 = (localMatrixMulThatWorks6_g3759).xy;
-				o.ase_texcoord6.zw = vertexToFrag52_g3758;
+				float4 Pos6_g3824 = float4( _Vector3 , 0.0 );
+				float4x4 Mat6_g3824 = _CausticMatrix;
+				float3 localMatrixMulThatWorks6_g3824 = MatrixMulThatWorks( Pos6_g3824 , Mat6_g3824 );
+				float3 normalizeResult147_g3822 = normalize( localMatrixMulThatWorks6_g3824 );
+				float3 vertexToFrag144_g3822 = normalizeResult147_g3822;
+				o.ase_texcoord10.xyz = vertexToFrag144_g3822;
+				float3 WorldPosition256_g3804 = ase_worldPos;
+				float3 temp_output_105_0_g3822 = WorldPosition256_g3804;
+				float4 Pos6_g3823 = float4( temp_output_105_0_g3822 , 0.0 );
+				float4x4 invertVal146_g3822 = Inverse4x4( _CausticMatrix );
+				float4x4 Mat6_g3823 = invertVal146_g3822;
+				float3 localMatrixMulThatWorks6_g3823 = MatrixMulThatWorks( Pos6_g3823 , Mat6_g3823 );
+				float2 vertexToFrag52_g3822 = (localMatrixMulThatWorks6_g3823).xy;
+				o.ase_texcoord6.zw = vertexToFrag52_g3822;
 				
 				float4 ase_clipPos = TransformObjectToHClip((v.vertex).xyz);
 				float4 screenPos = ComputeScreenPos(ase_clipPos);
@@ -4673,7 +4693,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 
 				float2 uv_BaseMap = IN.ase_texcoord4.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
 				float2 UVBasemap02088 = uv_BaseMap;
-				float4 tex2DNode80 = SAMPLE_TEXTURE2D_BIAS( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088, 0.0 );
+				float4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
 				float3 temp_output_82_0 = ( (tex2DNode80).rgb * (_BaseColor).rgb );
 				float3 temp_output_17_0_g2518 = temp_output_82_0;
 				float4 ifLocalVars72_g2518 = 0;
@@ -4955,31 +4975,31 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float3 staticSwitch1045 = staticSwitch1236;
 				#endif
 				float3 AlbedoRes106 = staticSwitch1045;
-				float3 temp_output_35_0_g2696 = AlbedoRes106;
+				float3 temp_output_35_0_g3833 = AlbedoRes106;
 				float2 uv_Layer0 = IN.ase_texcoord4.xy * _Layer0_ST.xy + _Layer0_ST.zw;
-				float2 uvLayer0112_g2696 = uv_Layer0;
-				float3 appendResult37_g2696 = (float3(SAMPLE_TEXTURE2D( _Layer0, sampler_Layer0, uvLayer0112_g2696 ).rgb));
-				float2 texCoord24_g2696 = IN.ase_texcoord4.xy * float2( 1,1 ) + float2( 0,0 );
-				float2 baseuv25_g2696 = texCoord24_g2696;
-				float4 tex2DNode3_g2696 = SAMPLE_TEXTURE2D( _RevealMask, sampler_RevealMask, baseuv25_g2696 );
-				float4 tex2DNode4_g2696 = SAMPLE_TEXTURE2D( _LayerMask, sampler_LayerMask, baseuv25_g2696 );
-				float rt31_g2696 = saturate( ( tex2DNode3_g2696.r * tex2DNode4_g2696.r ) );
-				float LSAlbedo100_g2696 = _LayerSurfaceExp.x;
-				float3 lerpResult34_g2696 = lerp( temp_output_35_0_g2696 , appendResult37_g2696 , pow( rt31_g2696 , LSAlbedo100_g2696 ));
+				float2 uvLayer0112_g3833 = uv_Layer0;
+				float3 appendResult37_g3833 = (float3(SAMPLE_TEXTURE2D( _Layer0, sampler_Layer0, uvLayer0112_g3833 ).rgb));
+				float2 texCoord24_g3833 = IN.ase_texcoord4.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 baseuv25_g3833 = texCoord24_g3833;
+				float4 tex2DNode3_g3833 = SAMPLE_TEXTURE2D( _RevealMask, sampler_RevealMask, baseuv25_g3833 );
+				float4 tex2DNode4_g3833 = SAMPLE_TEXTURE2D( _LayerMask, sampler_LayerMask, baseuv25_g3833 );
+				float rt31_g3833 = saturate( ( tex2DNode3_g3833.r * tex2DNode4_g3833.r ) );
+				float LSAlbedo100_g3833 = _LayerSurfaceExp.x;
+				float3 lerpResult34_g3833 = lerp( temp_output_35_0_g3833 , appendResult37_g3833 , pow( rt31_g3833 , LSAlbedo100_g3833 ));
 				float2 uv_Layer1 = IN.ase_texcoord4.xy * _Layer1_ST.xy + _Layer1_ST.zw;
-				float2 uvLayer1114_g2696 = uv_Layer1;
-				float3 appendResult73_g2696 = (float3(SAMPLE_TEXTURE2D( _Layer1, sampler_Layer1, uvLayer1114_g2696 ).rgb));
-				float gt57_g2696 = saturate( ( tex2DNode3_g2696.g * tex2DNode4_g2696.g ) );
-				float3 lerpResult61_g2696 = lerp( lerpResult34_g2696 , appendResult73_g2696 , pow( gt57_g2696 , LSAlbedo100_g2696 ));
+				float2 uvLayer1114_g3833 = uv_Layer1;
+				float3 appendResult73_g3833 = (float3(SAMPLE_TEXTURE2D( _Layer1, sampler_Layer1, uvLayer1114_g3833 ).rgb));
+				float gt57_g3833 = saturate( ( tex2DNode3_g3833.g * tex2DNode4_g3833.g ) );
+				float3 lerpResult61_g3833 = lerp( lerpResult34_g3833 , appendResult73_g3833 , pow( gt57_g3833 , LSAlbedo100_g3833 ));
 				#ifdef _REVEALLAYERS
-				float3 staticSwitch1_g2696 = lerpResult61_g2696;
+				float3 staticSwitch1_g3833 = lerpResult61_g3833;
 				#else
-				float3 staticSwitch1_g2696 = temp_output_35_0_g2696;
+				float3 staticSwitch1_g3833 = temp_output_35_0_g3833;
 				#endif
-				float3 temp_output_3943_36 = staticSwitch1_g2696;
-				float3 temp_output_10_0_g3740 = float3( 0,0,0 );
-				float temp_output_23_0_g3740 = GlobalOceanUnder;
-				float3 temp_output_18_0_g3758 = temp_output_10_0_g3740;
+				float3 temp_output_4414_36 = staticSwitch1_g3833;
+				float3 temp_output_10_0_g3804 = float3( 0,0,0 );
+				float temp_output_23_0_g3804 = GlobalOceanUnder;
+				float3 temp_output_18_0_g3822 = temp_output_10_0_g3804;
 				float3 appendResult2618 = (float3(unpack2617));
 				float3 SimpleNormalXYSigned30 = appendResult2618;
 				int MossInt2938 = _Moss;
@@ -5010,124 +5030,125 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float3 staticSwitch4131 = SimpleNormalXYSigned30;
 				#endif
 				float2 DetailNormaMossMaskedSigned988 = ( _DetailNormalMapScale * (staticSwitch4132).yz );
-				float3 appendResult4007 = (float3(DetailNormaMossMaskedSigned988 , 1.0));
+				float3 appendResult4007 = (float3(DetailNormaMossMaskedSigned988 , 0.0));
+				float3 temp_output_4016_0 = ( staticSwitch4131 + appendResult4007 );
 				#ifdef _DETAIL_ON
-				float3 staticSwitch1105 = ( staticSwitch4131 + appendResult4007 );
+				float3 staticSwitch1105 = temp_output_4016_0;
 				#else
 				float3 staticSwitch1105 = staticSwitch4131;
 				#endif
 				float3 NormalPre2265 = staticSwitch1105;
 				float3 normalizeResult4009 = normalize( NormalPre2265 );
 				float3 NormalRes109 = normalizeResult4009;
-				float3 temp_output_42_0_g2696 = NormalRes109;
-				float3 unpack9_g2696 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer0NormalMap, sampler_Layer0NormalMap, uvLayer0112_g2696 ), _Layer0NormalStrength );
-				unpack9_g2696.z = lerp( 1, unpack9_g2696.z, saturate(_Layer0NormalStrength) );
-				float LSNormal101_g2696 = _LayerSurfaceExp.y;
-				float3 lerpResult41_g2696 = lerp( temp_output_42_0_g2696 , unpack9_g2696 , pow( rt31_g2696 , LSNormal101_g2696 ));
-				float3 unpack18_g2696 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer1NormalMap, sampler_Layer1NormalMap, uvLayer1114_g2696 ), _Layer1NormalStrength );
-				unpack18_g2696.z = lerp( 1, unpack18_g2696.z, saturate(_Layer1NormalStrength) );
-				float3 lerpResult64_g2696 = lerp( lerpResult41_g2696 , unpack18_g2696 , pow( gt57_g2696 , LSNormal101_g2696 ));
-				float2 uv83_g2696 = baseuv25_g2696;
-				float bt76_g2696 = saturate( ( tex2DNode3_g2696.b * tex2DNode4_g2696.b ) );
-				float height83_g2696 = ( _Layer2Height * bt76_g2696 );
-				float2 texelSize83_g2696 = (_RevealMask_TexelSize).xy;
-				float3 localRevealMaskNormalCrossFilter83_g2696 = RevealMaskNormalCrossFilter83_g2696( uv83_g2696 , height83_g2696 , texelSize83_g2696 );
-				float3 heightNormal89_g2696 = localRevealMaskNormalCrossFilter83_g2696;
+				float3 temp_output_42_0_g3833 = NormalRes109;
+				float3 unpack9_g3833 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer0NormalMap, sampler_Layer0NormalMap, uvLayer0112_g3833 ), _Layer0NormalStrength );
+				unpack9_g3833.z = lerp( 1, unpack9_g3833.z, saturate(_Layer0NormalStrength) );
+				float LSNormal101_g3833 = _LayerSurfaceExp.y;
+				float3 lerpResult41_g3833 = lerp( temp_output_42_0_g3833 , unpack9_g3833 , pow( rt31_g3833 , LSNormal101_g3833 ));
+				float3 unpack18_g3833 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer1NormalMap, sampler_Layer1NormalMap, uvLayer1114_g3833 ), _Layer1NormalStrength );
+				unpack18_g3833.z = lerp( 1, unpack18_g3833.z, saturate(_Layer1NormalStrength) );
+				float3 lerpResult64_g3833 = lerp( lerpResult41_g3833 , unpack18_g3833 , pow( gt57_g3833 , LSNormal101_g3833 ));
+				float2 uv83_g3833 = baseuv25_g3833;
+				float bt76_g3833 = saturate( ( tex2DNode3_g3833.b * tex2DNode4_g3833.b ) );
+				float height83_g3833 = ( _Layer2Height * bt76_g3833 );
+				float2 texelSize83_g3833 = (_RevealMask_TexelSize).xy;
+				float3 localRevealMaskNormalCrossFilter83_g3833 = RevealMaskNormalCrossFilter83_g3833( uv83_g3833 , height83_g3833 , texelSize83_g3833 );
+				float3 heightNormal89_g3833 = localRevealMaskNormalCrossFilter83_g3833;
 				#ifdef _REVEALLAYERS
-				float3 staticSwitch58_g2696 = BlendNormal( lerpResult64_g2696 , heightNormal89_g2696 );
+				float3 staticSwitch58_g3833 = BlendNormal( lerpResult64_g3833 , heightNormal89_g3833 );
 				#else
-				float3 staticSwitch58_g2696 = temp_output_42_0_g2696;
+				float3 staticSwitch58_g3833 = temp_output_42_0_g3833;
 				#endif
-				float3 temp_output_3943_43 = staticSwitch58_g2696;
-				float3 temp_output_9_0_g3740 = temp_output_3943_43;
-				float3 temp_output_30_0_g3758 = temp_output_9_0_g3740;
-				float3 tanNormal12_g3758 = temp_output_30_0_g3758;
-				float3 worldNormal12_g3758 = float3(dot(tanToWorld0,tanNormal12_g3758), dot(tanToWorld1,tanNormal12_g3758), dot(tanToWorld2,tanNormal12_g3758));
-				float3 vertexToFrag144_g3758 = IN.ase_texcoord10.xyz;
-				float dotResult1_g3758 = dot( worldNormal12_g3758 , vertexToFrag144_g3758 );
-				float2 vertexToFrag52_g3758 = IN.ase_texcoord6.zw;
-				float4 tex2DNode120_g3758 = SAMPLE_TEXTURE2D( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g3758 );
-				float3 appendResult121_g3758 = (float3(tex2DNode120_g3758.r , tex2DNode120_g3758.r , tex2DNode120_g3758.r));
-				float3 WorldPosition256_g3740 = WorldPosition;
-				float3 temp_output_105_0_g3758 = WorldPosition256_g3740;
-				float temp_output_117_0_g3758 = (temp_output_105_0_g3758).y;
-				float temp_output_67_0_g3740 = ( GlobalOceanOffset + GlobalOceanHeight );
-				float temp_output_63_0_g3758 = temp_output_67_0_g3740;
-				float2 DistanceFade134_g3758 = (_CausticsSettings).zw;
-				float2 break136_g3758 = DistanceFade134_g3758;
-				float temp_output_67_0_g3758 = ( saturate( (0.0 + (max( -( temp_output_117_0_g3758 - temp_output_63_0_g3758 ) , 0.0 ) - 0.2) * (1.0 - 0.0) / (1.0 - 0.2)) ) * saturate( (1.0 + (distance( temp_output_63_0_g3758 , temp_output_117_0_g3758 ) - break136_g3758.x) * (0.0 - 1.0) / (break136_g3758.y - break136_g3758.x)) ) );
-				float CausticMipLevel118_g3758 = ( ( 1.0 - temp_output_67_0_g3758 ) * 4.0 );
+				float3 temp_output_4414_43 = staticSwitch58_g3833;
+				float3 temp_output_9_0_g3804 = temp_output_4414_43;
+				float3 temp_output_30_0_g3822 = temp_output_9_0_g3804;
+				float3 tanNormal12_g3822 = temp_output_30_0_g3822;
+				float3 worldNormal12_g3822 = float3(dot(tanToWorld0,tanNormal12_g3822), dot(tanToWorld1,tanNormal12_g3822), dot(tanToWorld2,tanNormal12_g3822));
+				float3 vertexToFrag144_g3822 = IN.ase_texcoord10.xyz;
+				float dotResult1_g3822 = dot( worldNormal12_g3822 , vertexToFrag144_g3822 );
+				float2 vertexToFrag52_g3822 = IN.ase_texcoord6.zw;
+				float4 tex2DNode120_g3822 = SAMPLE_TEXTURE2D( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g3822 );
+				float3 appendResult121_g3822 = (float3(tex2DNode120_g3822.r , tex2DNode120_g3822.r , tex2DNode120_g3822.r));
+				float3 WorldPosition256_g3804 = WorldPosition;
+				float3 temp_output_105_0_g3822 = WorldPosition256_g3804;
+				float temp_output_117_0_g3822 = (temp_output_105_0_g3822).y;
+				float temp_output_67_0_g3804 = ( GlobalOceanOffset + GlobalOceanHeight );
+				float temp_output_63_0_g3822 = temp_output_67_0_g3804;
+				float2 DistanceFade134_g3822 = (_CausticsSettings).zw;
+				float2 break136_g3822 = DistanceFade134_g3822;
+				float temp_output_67_0_g3822 = ( saturate( (0.0 + (max( -( temp_output_117_0_g3822 - temp_output_63_0_g3822 ) , 0.0 ) - 0.2) * (1.0 - 0.0) / (1.0 - 0.2)) ) * saturate( (1.0 + (distance( temp_output_63_0_g3822 , temp_output_117_0_g3822 ) - break136_g3822.x) * (0.0 - 1.0) / (break136_g3822.y - break136_g3822.x)) ) );
+				float CausticMipLevel118_g3822 = ( ( 1.0 - temp_output_67_0_g3822 ) * 4.0 );
 				#ifdef _USECAUSTICRAINBOW_ON
-				float3 staticSwitch73_g3758 = ( ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g3758 + ( 0.0045 * 2.0 ) ), CausticMipLevel118_g3758 ).r * float3(0,0,1) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g3758 + 0.0045 ), CausticMipLevel118_g3758 ).r * float3(0,1,0) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g3758, CausticMipLevel118_g3758 ).r * float3(1,0,0) ) );
+				float3 staticSwitch73_g3822 = ( ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g3822 + ( 0.0045 * 2.0 ) ), CausticMipLevel118_g3822 ).r * float3(0,0,1) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g3822 + 0.0045 ), CausticMipLevel118_g3822 ).r * float3(0,1,0) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g3822, CausticMipLevel118_g3822 ).r * float3(1,0,0) ) );
 				#else
-				float3 staticSwitch73_g3758 = appendResult121_g3758;
+				float3 staticSwitch73_g3822 = appendResult121_g3822;
 				#endif
 				#ifdef _USECAUSTICEXTRASAMPLER_ON
-				float3 staticSwitch57_g3758 = staticSwitch73_g3758;
+				float3 staticSwitch57_g3822 = staticSwitch73_g3822;
 				#else
-				float3 staticSwitch57_g3758 = staticSwitch73_g3758;
+				float3 staticSwitch57_g3822 = staticSwitch73_g3822;
 				#endif
-				float3 appendResult62_g3758 = (float3(_CausticsColor.rgb));
+				float3 appendResult62_g3822 = (float3(_CausticsColor.rgb));
 				#ifdef _CAUSTICSENABLE_ON
-				float3 staticSwitch16_g3758 = ( temp_output_18_0_g3758 + ( max( dotResult1_g3758 , 0.0 ) * staticSwitch57_g3758 * appendResult62_g3758 * temp_output_67_0_g3758 ) );
+				float3 staticSwitch16_g3822 = ( temp_output_18_0_g3822 + ( max( dotResult1_g3822 , 0.0 ) * staticSwitch57_g3822 * appendResult62_g3822 * temp_output_67_0_g3822 ) );
 				#else
-				float3 staticSwitch16_g3758 = temp_output_18_0_g3758;
+				float3 staticSwitch16_g3822 = temp_output_18_0_g3822;
 				#endif
-				float3 lerpResult205_g3740 = lerp( staticSwitch16_g3758 , ( staticSwitch16_g3758 * 30.0 ) , temp_output_23_0_g3740);
-				float3 appendResult100_g3750 = (float3(OceanWaterTint_RGB.xyz));
+				float3 lerpResult205_g3804 = lerp( staticSwitch16_g3822 , ( staticSwitch16_g3822 * 30.0 ) , temp_output_23_0_g3804);
+				float3 appendResult100_g3814 = (float3(OceanWaterTint_RGB.xyz));
 				float3 ase_worldViewDir = ( _WorldSpaceCameraPos.xyz - WorldPosition );
 				ase_worldViewDir = normalize(ase_worldViewDir);
-				float3 ViewDir264_g3740 = ase_worldViewDir;
-				float3 viewDir240_g3750 = ViewDir264_g3740;
-				float3 camWorldPos240_g3750 = _WorldSpaceCameraPos;
-				float3 WorldPos252_g3750 = WorldPosition256_g3740;
-				float3 posWS240_g3750 = WorldPos252_g3750;
-				float4 oceanFogDensities240_g3750 = OceanFogDensities;
-				float temp_output_108_0_g3750 = temp_output_67_0_g3740;
-				float oceanHeight240_g3750 = temp_output_108_0_g3750;
-				float4 oceanFogTop_RGB_Exponent240_g3750 = OceanFogTop_RGB_Exponent;
-				float4 oceanFogBottom_RGB_Intensity240_g3750 = OceanFogBottom_RGB_Intensity;
-				float4 localGetUnderWaterFogs240_g3750 = GetUnderWaterFogs240_g3750( viewDir240_g3750 , camWorldPos240_g3750 , posWS240_g3750 , oceanFogDensities240_g3750 , oceanHeight240_g3750 , oceanFogTop_RGB_Exponent240_g3750 , oceanFogBottom_RGB_Intensity240_g3750 );
-				float4 FogRes185_g3750 = localGetUnderWaterFogs240_g3750;
-				float3 appendResult94_g3750 = (float3(FogRes185_g3750.xyz));
-				float3 lerpResult36_g3750 = lerp( ( lerpResult205_g3740 * appendResult100_g3750 ) , appendResult94_g3750 , (FogRes185_g3750).w);
-				float3 temp_output_261_32_g3740 = lerpResult36_g3750;
-				float3 ifLocalVar5_g3740 = 0;
+				float3 ViewDir264_g3804 = ase_worldViewDir;
+				float3 viewDir240_g3814 = ViewDir264_g3804;
+				float3 camWorldPos240_g3814 = _WorldSpaceCameraPos;
+				float3 WorldPos252_g3814 = WorldPosition256_g3804;
+				float3 posWS240_g3814 = WorldPos252_g3814;
+				float4 oceanFogDensities240_g3814 = OceanFogDensities;
+				float temp_output_108_0_g3814 = temp_output_67_0_g3804;
+				float oceanHeight240_g3814 = temp_output_108_0_g3814;
+				float4 oceanFogTop_RGB_Exponent240_g3814 = OceanFogTop_RGB_Exponent;
+				float4 oceanFogBottom_RGB_Intensity240_g3814 = OceanFogBottom_RGB_Intensity;
+				float4 localGetUnderWaterFogs240_g3814 = GetUnderWaterFogs240_g3814( viewDir240_g3814 , camWorldPos240_g3814 , posWS240_g3814 , oceanFogDensities240_g3814 , oceanHeight240_g3814 , oceanFogTop_RGB_Exponent240_g3814 , oceanFogBottom_RGB_Intensity240_g3814 );
+				float4 FogRes185_g3814 = localGetUnderWaterFogs240_g3814;
+				float3 appendResult94_g3814 = (float3(FogRes185_g3814.xyz));
+				float3 lerpResult36_g3814 = lerp( ( lerpResult205_g3804 * appendResult100_g3814 ) , appendResult94_g3814 , (FogRes185_g3814).w);
+				float3 temp_output_261_32_g3804 = lerpResult36_g3814;
+				float3 ifLocalVar5_g3804 = 0;
 				UNITY_BRANCH 
-				if( temp_output_23_0_g3740 >= 1.0 )
-				ifLocalVar5_g3740 = temp_output_261_32_g3740;
+				if( temp_output_23_0_g3804 >= 1.0 )
+				ifLocalVar5_g3804 = temp_output_261_32_g3804;
 				else
-				ifLocalVar5_g3740 = temp_output_10_0_g3740;
+				ifLocalVar5_g3804 = temp_output_10_0_g3804;
 				#ifdef _USEGRADIENTFOG_ON
-				float3 staticSwitch1_g3740 = ifLocalVar5_g3740;
+				float3 staticSwitch1_g3804 = ifLocalVar5_g3804;
 				#else
-				float3 staticSwitch1_g3740 = temp_output_10_0_g3740;
+				float3 staticSwitch1_g3804 = temp_output_10_0_g3804;
 				#endif
-				float temp_output_254_0_g3740 = (WorldPosition256_g3740).y;
-				float temp_output_24_0_g3756 = ( temp_output_254_0_g3740 - temp_output_67_0_g3740 );
-				float temp_output_44_0_g3756 = 0.1;
-				float temp_output_45_0_g3756 = 0.31;
-				float temp_output_46_0_g3756 = saturate( (0.0 + (( temp_output_24_0_g3756 - temp_output_44_0_g3756 ) - 0.0) * (1.0 - 0.0) / (temp_output_45_0_g3756 - 0.0)) );
-				float temp_output_160_47_g3740 = ( 1.0 - temp_output_46_0_g3756 );
+				float temp_output_254_0_g3804 = (WorldPosition256_g3804).y;
+				float temp_output_24_0_g3820 = ( temp_output_254_0_g3804 - temp_output_67_0_g3804 );
+				float temp_output_44_0_g3820 = 0.1;
+				float temp_output_45_0_g3820 = 0.31;
+				float temp_output_46_0_g3820 = saturate( (0.0 + (( temp_output_24_0_g3820 - temp_output_44_0_g3820 ) - 0.0) * (1.0 - 0.0) / (temp_output_45_0_g3820 - 0.0)) );
+				float temp_output_160_47_g3804 = ( 1.0 - temp_output_46_0_g3820 );
 				#ifdef _FadeWithHeight
-				float staticSwitch238_g3740 = temp_output_160_47_g3740;
+				float staticSwitch238_g3804 = temp_output_160_47_g3804;
 				#else
-				float staticSwitch238_g3740 = 1.0;
+				float staticSwitch238_g3804 = 1.0;
 				#endif
-				float temp_output_77_0_g3740 = ( temp_output_23_0_g3740 * staticSwitch238_g3740 );
-				float3 lerpResult174_g3740 = lerp( ( staticSwitch1_g3740 + lerpResult205_g3740 ) , staticSwitch1_g3740 , temp_output_77_0_g3740);
-				float3 lerpResult242_g3740 = lerp( temp_output_10_0_g3740 , lerpResult174_g3740 , staticSwitch238_g3740);
+				float temp_output_77_0_g3804 = ( temp_output_23_0_g3804 * staticSwitch238_g3804 );
+				float3 lerpResult174_g3804 = lerp( ( staticSwitch1_g3804 + lerpResult205_g3804 ) , staticSwitch1_g3804 , temp_output_77_0_g3804);
+				float3 lerpResult242_g3804 = lerp( temp_output_10_0_g3804 , lerpResult174_g3804 , staticSwitch238_g3804);
 				#ifdef _USECAUSTICSFROMABOVE_ON
-				float3 staticSwitch172_g3740 = lerpResult242_g3740;
+				float3 staticSwitch172_g3804 = lerpResult242_g3804;
 				#else
-				float3 staticSwitch172_g3740 = staticSwitch1_g3740;
+				float3 staticSwitch172_g3804 = staticSwitch1_g3804;
 				#endif
 				#ifdef _USEUNDERWATER
-				float3 staticSwitch211_g3740 = staticSwitch172_g3740;
+				float3 staticSwitch211_g3804 = staticSwitch172_g3804;
 				#else
-				float3 staticSwitch211_g3740 = float3( 0,0,0 );
+				float3 staticSwitch211_g3804 = float3( 0,0,0 );
 				#endif
-				float3 temp_output_4383_8 = staticSwitch211_g3740;
+				float3 temp_output_4406_8 = staticSwitch211_g3804;
 				
 				float fresnelNdotV135 = dot( ase_worldNormal, ase_worldViewDir );
 				float fresnelNode135 = ( _MossFresnel.x + _MossFresnel.y * pow( 1.0 - fresnelNdotV135, ( _MossFresnel.z * 10.0 ) ) );
@@ -5221,13 +5242,13 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float EmissionMasked3065 = break3482.z;
 				float3 temp_output_3496_0 = ( appendResult3069 * EmissionMasked3065 );
 				float4 EmissionRes806 = ( MossFresnel203 + float4( temp_output_3496_0 , 0.0 ) );
-				float3 temp_output_91_0_g2696 = EmissionRes806.rgb;
-				float at79_g2696 = saturate( ( tex2DNode3_g2696.a * tex2DNode4_g2696.a ) );
-				float3 appendResult99_g2696 = (float3(_Layer3EmissionColor.rgb));
+				float3 temp_output_91_0_g3833 = EmissionRes806.rgb;
+				float at79_g3833 = saturate( ( tex2DNode3_g3833.a * tex2DNode4_g3833.a ) );
+				float3 appendResult99_g3833 = (float3(_Layer3EmissionColor.rgb));
 				#ifdef _REVEALLAYERS
-				float3 staticSwitch93_g2696 = ( ( temp_output_91_0_g2696 * ( 1.0 - at79_g2696 ) ) + ( appendResult99_g2696 * at79_g2696 ) );
+				float3 staticSwitch93_g3833 = ( ( temp_output_91_0_g3833 * ( 1.0 - at79_g3833 ) ) + ( appendResult99_g3833 * at79_g3833 ) );
 				#else
-				float3 staticSwitch93_g2696 = temp_output_91_0_g2696;
+				float3 staticSwitch93_g3833 = temp_output_91_0_g3833;
 				#endif
 				
 				float4 screenPos = IN.ase_texcoord11;
@@ -5251,8 +5272,8 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float ClipCalc3294 = lerpResult3291;
 				
 
-				float3 BaseColor = ( temp_output_3943_36 + temp_output_4383_8 );
-				float3 Emission = staticSwitch93_g2696;
+				float3 BaseColor = ( temp_output_4414_36 + temp_output_4406_8 );
+				float3 Emission = staticSwitch93_g3833;
 				float Alpha = AlbedoAlpha84;
 				float AlphaClipThreshold = ClipCalc3294;
 
@@ -5350,20 +5371,21 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			#pragma shader_feature_local _USEMOSSNOISE_ON
 			#pragma shader_feature_local MODED_MOSS MODED_MOES MODED_MODS MODED_OFF
 			#pragma shader_feature_local _MOSS
-			#pragma shader_feature_local _MOSSMETALMODE_ON
-			#pragma shader_feature_local _DEBUGVISUALS_ON
 			#pragma shader_feature_local _AUTONORMAL
 			#pragma shader_feature_local LAYER_UNLIMITED LAYER_MAX2 LAYER_MAX3
 			#pragma shader_feature_local TEXTURE_MAX4 TEXTURE_MAX8 TEXTURE_MAX12 TEXTURE_MAX16
+			#pragma shader_feature _SKYFOG_ON
+			#pragma shader_feature GLOBALTONEMAPPING
+			#pragma shader_feature_local _MOSSMETALMODE_ON
+			#pragma multi_compile_local __ _PROBEVOLUME_ON
+			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local _REFLECTIONBILLBOARDSTOCHASTIC_ON
+			#pragma shader_feature_local _REFLECTIONBILLBOARD_ON
 			#pragma shader_feature_local _ALPHAMODE
 			#pragma shader_feature_local _SIMPLESTOCHASTIC
 			#pragma shader_feature_local _USESPLAT_ON
-			#pragma shader_feature _SKYFOG_ON
+			#pragma shader_feature_local _DEBUGVISUALS_ON
 			#pragma shader_feature_local _USE_SSS_ON
-			#pragma shader_feature GLOBALTONEMAPPING
-			#pragma shader_feature_local _REFLECTIONBILLBOARDSTOCHASTIC_ON
-			#pragma multi_compile __ _USEUNDERWATER
-			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#pragma shader_feature_local_vertex _VERTEXOCCLUSION_ON
 			#pragma shader_feature_local _REVEALLAYERS
 			#pragma shader_feature_local _DETAIL_ON
@@ -5489,15 +5511,15 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			int _BlendMode_UseColorMask;
 			int _Moss;
 			int _Bitmask;
+			int _Cullmode;
+			int _ArrayLengthUsed;
 			int _StochasticCount;
 			float _Blend;
 			float _SrcBlend;
 			float _DstBlend;
-			int _ZWrite;
-			int _Cullmode;
 			float _Cutoff;
 			int _Int0;
-			int _ArrayLengthUsed;
+			int _ZWrite;
 			int _MetalUV;
 			float _MossMultAlbedo;
 			float _MossBase;
@@ -5555,14 +5577,6 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				int _PassValue;
 			#endif
 
-			TEXTURE2D_ARRAY(_ExtraArray);
-			SAMPLER(sampler_ExtraArray);
-			TEXTURE2D_ARRAY(_DiffuseArray);
-			SAMPLER(sampler_DiffuseArray);
-			TEXTURE2D_ARRAY(_NormalArray);
-			SAMPLER(sampler_NormalArray);
-			TEXTURE2D(_Billboard);
-			SAMPLER(sampler_Billboard);
 			float4 _skyGradientColor1;
 			float4 _skyGradientColor2;
 			float3 _CausticsDir;
@@ -5571,6 +5585,14 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			half4 _CausticsColor;
 			TEXTURE2D(_Caustics);
 			SAMPLER(sampler_Caustics);
+			TEXTURE2D(_Billboard);
+			SAMPLER(sampler_Billboard);
+			TEXTURE2D_ARRAY(_ExtraArray);
+			SAMPLER(sampler_ExtraArray);
+			TEXTURE2D_ARRAY(_DiffuseArray);
+			SAMPLER(sampler_DiffuseArray);
+			TEXTURE2D_ARRAY(_NormalArray);
+			SAMPLER(sampler_NormalArray);
 			float4x4 _QuadInverseMatrixArray[16];
 			float4 _QuadPositionArray[16];
 			float4 _QuadNormalArray[16];
@@ -5602,17 +5624,17 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			//#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/VisualEffectVertex.hlsl"
 			//#endif
 
-			float Random( float3 co )
-			{
-				return  frac(sin( dot(co ,float3(12.9898,78.233,45.5432) )) * 43758.5453);
-				//return frac(sin(dot(co, float2(12.9898, 78.233))) * 43758.5453);
-			}
-			
 			float calcFogFactor( float distance, float gradientFogDensity )
 			{
 					//beer-lambert law, Fog =1/e^(distance * density)
 					float e = 2.7182818284590452353602874713527f;
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
+			}
+			
+			float Random( float3 co )
+			{
+				return  frac(sin( dot(co ,float3(12.9898,78.233,45.5432) )) * 43758.5453);
+				//return frac(sin(dot(co, float2(12.9898, 78.233))) * 43758.5453);
 			}
 			
 			float3 VertVanisher3872( float3 vertex, float2 vtexcoord1, int bitMask )
@@ -5628,7 +5650,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				return half(2.0) * detailAlbedo * scale - scale + half(1.0);
 			}
 			
-			float3 RevealMaskNormalCrossFilter83_g2696( float2 uv, float height, float2 texelSize )
+			float3 RevealMaskNormalCrossFilter83_g3833( float2 uv, float height, float2 texelSize )
 			{
 						//float2 texelSize = float2(1.0 / texWidth, 1.0 / texHeight);
 						float4 h;
@@ -6054,7 +6076,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float lerpResult4109 = lerp( _MossBase , temp_output_3796_0 , _UseMossDirection);
 				float MossMaskDirection1179 = lerpResult4109;
 				float temp_output_1811_0 = saturate( MossMaskDirection1179 );
-				float4 tex2DNode80 = SAMPLE_TEXTURE2D_BIAS( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088, 0.0 );
+				float4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
 				float temp_output_3952_0 = ( tex2DNode80.a * _BaseColor.a );
 				#ifdef _ALPHATEST_ON
 				float staticSwitch3756 = 1.0;
@@ -6149,45 +6171,46 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float4 staticSwitch4132 = appendResult3336;
 				#endif
 				float2 DetailNormaMossMaskedSigned988 = ( _DetailNormalMapScale * (staticSwitch4132).yz );
-				float3 appendResult4007 = (float3(DetailNormaMossMaskedSigned988 , 1.0));
+				float3 appendResult4007 = (float3(DetailNormaMossMaskedSigned988 , 0.0));
+				float3 temp_output_4016_0 = ( staticSwitch4131 + appendResult4007 );
 				#ifdef _DETAIL_ON
-				float3 staticSwitch1105 = ( staticSwitch4131 + appendResult4007 );
+				float3 staticSwitch1105 = temp_output_4016_0;
 				#else
 				float3 staticSwitch1105 = staticSwitch4131;
 				#endif
 				float3 NormalPre2265 = staticSwitch1105;
 				float3 normalizeResult4009 = normalize( NormalPre2265 );
 				float3 NormalRes109 = normalizeResult4009;
-				float3 temp_output_42_0_g2696 = NormalRes109;
+				float3 temp_output_42_0_g3833 = NormalRes109;
 				float2 uv_Layer0 = IN.ase_texcoord5.xy * _Layer0_ST.xy + _Layer0_ST.zw;
-				float2 uvLayer0112_g2696 = uv_Layer0;
-				float3 unpack9_g2696 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer0NormalMap, sampler_Layer0NormalMap, uvLayer0112_g2696 ), _Layer0NormalStrength );
-				unpack9_g2696.z = lerp( 1, unpack9_g2696.z, saturate(_Layer0NormalStrength) );
-				float2 texCoord24_g2696 = IN.ase_texcoord5.xy * float2( 1,1 ) + float2( 0,0 );
-				float2 baseuv25_g2696 = texCoord24_g2696;
-				float4 tex2DNode3_g2696 = SAMPLE_TEXTURE2D( _RevealMask, sampler_RevealMask, baseuv25_g2696 );
-				float4 tex2DNode4_g2696 = SAMPLE_TEXTURE2D( _LayerMask, sampler_LayerMask, baseuv25_g2696 );
-				float rt31_g2696 = saturate( ( tex2DNode3_g2696.r * tex2DNode4_g2696.r ) );
-				float LSNormal101_g2696 = _LayerSurfaceExp.y;
-				float3 lerpResult41_g2696 = lerp( temp_output_42_0_g2696 , unpack9_g2696 , pow( rt31_g2696 , LSNormal101_g2696 ));
+				float2 uvLayer0112_g3833 = uv_Layer0;
+				float3 unpack9_g3833 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer0NormalMap, sampler_Layer0NormalMap, uvLayer0112_g3833 ), _Layer0NormalStrength );
+				unpack9_g3833.z = lerp( 1, unpack9_g3833.z, saturate(_Layer0NormalStrength) );
+				float2 texCoord24_g3833 = IN.ase_texcoord5.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 baseuv25_g3833 = texCoord24_g3833;
+				float4 tex2DNode3_g3833 = SAMPLE_TEXTURE2D( _RevealMask, sampler_RevealMask, baseuv25_g3833 );
+				float4 tex2DNode4_g3833 = SAMPLE_TEXTURE2D( _LayerMask, sampler_LayerMask, baseuv25_g3833 );
+				float rt31_g3833 = saturate( ( tex2DNode3_g3833.r * tex2DNode4_g3833.r ) );
+				float LSNormal101_g3833 = _LayerSurfaceExp.y;
+				float3 lerpResult41_g3833 = lerp( temp_output_42_0_g3833 , unpack9_g3833 , pow( rt31_g3833 , LSNormal101_g3833 ));
 				float2 uv_Layer1 = IN.ase_texcoord5.xy * _Layer1_ST.xy + _Layer1_ST.zw;
-				float2 uvLayer1114_g2696 = uv_Layer1;
-				float3 unpack18_g2696 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer1NormalMap, sampler_Layer1NormalMap, uvLayer1114_g2696 ), _Layer1NormalStrength );
-				unpack18_g2696.z = lerp( 1, unpack18_g2696.z, saturate(_Layer1NormalStrength) );
-				float gt57_g2696 = saturate( ( tex2DNode3_g2696.g * tex2DNode4_g2696.g ) );
-				float3 lerpResult64_g2696 = lerp( lerpResult41_g2696 , unpack18_g2696 , pow( gt57_g2696 , LSNormal101_g2696 ));
-				float2 uv83_g2696 = baseuv25_g2696;
-				float bt76_g2696 = saturate( ( tex2DNode3_g2696.b * tex2DNode4_g2696.b ) );
-				float height83_g2696 = ( _Layer2Height * bt76_g2696 );
-				float2 texelSize83_g2696 = (_RevealMask_TexelSize).xy;
-				float3 localRevealMaskNormalCrossFilter83_g2696 = RevealMaskNormalCrossFilter83_g2696( uv83_g2696 , height83_g2696 , texelSize83_g2696 );
-				float3 heightNormal89_g2696 = localRevealMaskNormalCrossFilter83_g2696;
+				float2 uvLayer1114_g3833 = uv_Layer1;
+				float3 unpack18_g3833 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer1NormalMap, sampler_Layer1NormalMap, uvLayer1114_g3833 ), _Layer1NormalStrength );
+				unpack18_g3833.z = lerp( 1, unpack18_g3833.z, saturate(_Layer1NormalStrength) );
+				float gt57_g3833 = saturate( ( tex2DNode3_g3833.g * tex2DNode4_g3833.g ) );
+				float3 lerpResult64_g3833 = lerp( lerpResult41_g3833 , unpack18_g3833 , pow( gt57_g3833 , LSNormal101_g3833 ));
+				float2 uv83_g3833 = baseuv25_g3833;
+				float bt76_g3833 = saturate( ( tex2DNode3_g3833.b * tex2DNode4_g3833.b ) );
+				float height83_g3833 = ( _Layer2Height * bt76_g3833 );
+				float2 texelSize83_g3833 = (_RevealMask_TexelSize).xy;
+				float3 localRevealMaskNormalCrossFilter83_g3833 = RevealMaskNormalCrossFilter83_g3833( uv83_g3833 , height83_g3833 , texelSize83_g3833 );
+				float3 heightNormal89_g3833 = localRevealMaskNormalCrossFilter83_g3833;
 				#ifdef _REVEALLAYERS
-				float3 staticSwitch58_g2696 = BlendNormal( lerpResult64_g2696 , heightNormal89_g2696 );
+				float3 staticSwitch58_g3833 = BlendNormal( lerpResult64_g3833 , heightNormal89_g3833 );
 				#else
-				float3 staticSwitch58_g2696 = temp_output_42_0_g2696;
+				float3 staticSwitch58_g3833 = temp_output_42_0_g3833;
 				#endif
-				float3 temp_output_3943_43 = staticSwitch58_g2696;
+				float3 temp_output_4414_43 = staticSwitch58_g3833;
 				
 				float4 ase_screenPosNorm = ScreenPos / ScreenPos.w;
 				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
@@ -6209,7 +6232,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float ClipCalc3294 = lerpResult3291;
 				
 
-				float3 Normal = temp_output_3943_43;
+				float3 Normal = temp_output_4414_43;
 				float Alpha = AlbedoAlpha84;
 				float AlphaClipThreshold = ClipCalc3294;
 				#ifdef ASE_DEPTH_WRITE_ON
@@ -6355,23 +6378,25 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			#define ASE_NEEDS_FRAG_WORLD_BITANGENT
 			#define ASE_NEEDS_FRAG_WORLD_VIEW_DIR
 			#define ASE_NEEDS_FRAG_SCREEN_POSITION
+			#define ASE_NEEDS_VERT_NORMAL
 			#pragma shader_feature_local _USEMOSSNOISE_ON
 			#pragma shader_feature_local MODED_MOSS MODED_MOES MODED_MODS MODED_OFF
 			#pragma shader_feature_local _MOSS
-			#pragma shader_feature_local _MOSSMETALMODE_ON
-			#pragma shader_feature_local _DEBUGVISUALS_ON
 			#pragma shader_feature_local _AUTONORMAL
 			#pragma shader_feature_local LAYER_UNLIMITED LAYER_MAX2 LAYER_MAX3
 			#pragma shader_feature_local TEXTURE_MAX4 TEXTURE_MAX8 TEXTURE_MAX12 TEXTURE_MAX16
+			#pragma shader_feature _SKYFOG_ON
+			#pragma shader_feature GLOBALTONEMAPPING
+			#pragma shader_feature_local _MOSSMETALMODE_ON
+			#pragma multi_compile_local __ _PROBEVOLUME_ON
+			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local _REFLECTIONBILLBOARDSTOCHASTIC_ON
+			#pragma shader_feature_local _REFLECTIONBILLBOARD_ON
 			#pragma shader_feature_local _ALPHAMODE
 			#pragma shader_feature_local _SIMPLESTOCHASTIC
 			#pragma shader_feature_local _USESPLAT_ON
-			#pragma shader_feature _SKYFOG_ON
+			#pragma shader_feature_local _DEBUGVISUALS_ON
 			#pragma shader_feature_local _USE_SSS_ON
-			#pragma shader_feature GLOBALTONEMAPPING
-			#pragma shader_feature_local _REFLECTIONBILLBOARDSTOCHASTIC_ON
-			#pragma multi_compile __ _USEUNDERWATER
-			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#pragma shader_feature_local_vertex _VERTEXOCCLUSION_ON
 			#pragma shader_feature_local _REVEALLAYERS
 			#pragma shader_feature_local _DETAIL_ON
@@ -6432,6 +6457,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float4 ase_texcoord11 : TEXCOORD11;
 				float4 ase_texcoord12 : TEXCOORD12;
 				float4 ase_texcoord13 : TEXCOORD13;
+				float4 ase_texcoord14 : TEXCOORD14;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -6510,15 +6536,15 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			int _BlendMode_UseColorMask;
 			int _Moss;
 			int _Bitmask;
+			int _Cullmode;
+			int _ArrayLengthUsed;
 			int _StochasticCount;
 			float _Blend;
 			float _SrcBlend;
 			float _DstBlend;
-			int _ZWrite;
-			int _Cullmode;
 			float _Cutoff;
 			int _Int0;
-			int _ArrayLengthUsed;
+			int _ZWrite;
 			int _MetalUV;
 			float _MossMultAlbedo;
 			float _MossBase;
@@ -6576,14 +6602,6 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				int _PassValue;
 			#endif
 
-			TEXTURE2D_ARRAY(_ExtraArray);
-			SAMPLER(sampler_ExtraArray);
-			TEXTURE2D_ARRAY(_DiffuseArray);
-			SAMPLER(sampler_DiffuseArray);
-			TEXTURE2D_ARRAY(_NormalArray);
-			SAMPLER(sampler_NormalArray);
-			TEXTURE2D(_Billboard);
-			SAMPLER(sampler_Billboard);
 			float4 _skyGradientColor1;
 			float4 _skyGradientColor2;
 			float3 _CausticsDir;
@@ -6592,6 +6610,14 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			half4 _CausticsColor;
 			TEXTURE2D(_Caustics);
 			SAMPLER(sampler_Caustics);
+			TEXTURE2D(_Billboard);
+			SAMPLER(sampler_Billboard);
+			TEXTURE2D_ARRAY(_ExtraArray);
+			SAMPLER(sampler_ExtraArray);
+			TEXTURE2D_ARRAY(_DiffuseArray);
+			SAMPLER(sampler_DiffuseArray);
+			TEXTURE2D_ARRAY(_NormalArray);
+			SAMPLER(sampler_NormalArray);
 			float4x4 _QuadInverseMatrixArray[16];
 			float4 _QuadPositionArray[16];
 			float4 _QuadNormalArray[16];
@@ -6630,17 +6656,17 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/UnityGBuffer.hlsl"
 			//#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/PBRGBufferPass.hlsl"
 
-			float Random( float3 co )
-			{
-				return  frac(sin( dot(co ,float3(12.9898,78.233,45.5432) )) * 43758.5453);
-				//return frac(sin(dot(co, float2(12.9898, 78.233))) * 43758.5453);
-			}
-			
 			float calcFogFactor( float distance, float gradientFogDensity )
 			{
 					//beer-lambert law, Fog =1/e^(distance * density)
 					float e = 2.7182818284590452353602874713527f;
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
+			}
+			
+			float Random( float3 co )
+			{
+				return  frac(sin( dot(co ,float3(12.9898,78.233,45.5432) )) * 43758.5453);
+				//return frac(sin(dot(co, float2(12.9898, 78.233))) * 43758.5453);
 			}
 			
 			float3 VertVanisher3872( float3 vertex, float2 vtexcoord1, int bitMask )
@@ -6656,7 +6682,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				return half(2.0) * detailAlbedo * scale - scale + half(1.0);
 			}
 			
-			float3 RevealMaskNormalCrossFilter83_g2696( float2 uv, float height, float2 texelSize )
+			float3 RevealMaskNormalCrossFilter83_g3833( float2 uv, float height, float2 texelSize )
 			{
 						//float2 texelSize = float2(1.0 / texWidth, 1.0 / texHeight);
 						float4 h;
@@ -6704,7 +6730,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				return transpose( cofactors ) / determinant( input );
 			}
 			
-			inline float4 GetUnderWaterFogs240_g3750( float3 viewDir, float3 camWorldPos, float3 posWS, float4 oceanFogDensities, float oceanHeight, float4 oceanFogTop_RGB_Exponent, float4 oceanFogBottom_RGB_Intensity )
+			inline float4 GetUnderWaterFogs240_g3814( float3 viewDir, float3 camWorldPos, float3 posWS, float4 oceanFogDensities, float oceanHeight, float4 oceanFogTop_RGB_Exponent, float4 oceanFogBottom_RGB_Intensity )
 			{
 				return GetUnderWaterFog( viewDir, camWorldPos, posWS, oceanFogDensities, oceanHeight, oceanFogTop_RGB_Exponent, oceanFogBottom_RGB_Intensity );;
 			}
@@ -6730,14 +6756,19 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				return dither[r] / 16; // same # of instructions as pre-dividing due to compiler magic
 			}
 			
-			float3 MyCustomExpression6_g3764( float3 vertexPos, float4x4 ProbeWorldToTexture, float3 ProbeVolumeMin, float3 ProbeVolumeSizeInv )
+			float3x3 CastToFloat3x354_g3799( float3x3 Input )
+			{
+				return Input;
+			}
+			
+			float3 MyCustomExpression6_g3799( float3 vertexPos, float4x4 ProbeWorldToTexture, float3 ProbeVolumeMin, float3 ProbeVolumeSizeInv )
 			{
 				float3 position = mul(ProbeWorldToTexture, float4(TransformObjectToWorld(vertexPos.xyz), 1.0f)).xyz;
 				float3 texCoord = (position - ProbeVolumeMin.xyz) * ProbeVolumeSizeInv;
 				return texCoord;
 			}
 			
-			float3 SHEvalLinearL0L114_g3764( float3 worldNormal, float4 ProbeVolumeShR, float4 ProbeVolumeShG, float4 ProbeVolumeShB )
+			float3 SHEvalLinearL0L114_g3799( float3 worldNormal, float4 ProbeVolumeShR, float4 ProbeVolumeShG, float4 ProbeVolumeShB )
 			{
 				return SHEvalLinearL0L1(worldNormal, ProbeVolumeShR, ProbeVolumeShG,  ProbeVolumeShB);
 			}
@@ -6812,28 +6843,34 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float vertexToFrag3925 = staticSwitch320;
 				o.ase_texcoord10.z = vertexToFrag3925;
 				float3 _Vector3 = float3(0,0,-1);
-				float4 Pos6_g3760 = float4( _Vector3 , 0.0 );
-				float4x4 Mat6_g3760 = _CausticMatrix;
-				float3 localMatrixMulThatWorks6_g3760 = MatrixMulThatWorks( Pos6_g3760 , Mat6_g3760 );
-				float3 normalizeResult147_g3758 = normalize( localMatrixMulThatWorks6_g3760 );
-				float3 vertexToFrag144_g3758 = normalizeResult147_g3758;
-				o.ase_texcoord11.xyz = vertexToFrag144_g3758;
-				float3 WorldPosition256_g3740 = ase_worldPos;
-				float3 temp_output_105_0_g3758 = WorldPosition256_g3740;
-				float4 Pos6_g3759 = float4( temp_output_105_0_g3758 , 0.0 );
-				float4x4 invertVal146_g3758 = Inverse4x4( _CausticMatrix );
-				float4x4 Mat6_g3759 = invertVal146_g3758;
-				float3 localMatrixMulThatWorks6_g3759 = MatrixMulThatWorks( Pos6_g3759 , Mat6_g3759 );
-				float2 vertexToFrag52_g3758 = (localMatrixMulThatWorks6_g3759).xy;
-				o.ase_texcoord12.xy = vertexToFrag52_g3758;
+				float4 Pos6_g3824 = float4( _Vector3 , 0.0 );
+				float4x4 Mat6_g3824 = _CausticMatrix;
+				float3 localMatrixMulThatWorks6_g3824 = MatrixMulThatWorks( Pos6_g3824 , Mat6_g3824 );
+				float3 normalizeResult147_g3822 = normalize( localMatrixMulThatWorks6_g3824 );
+				float3 vertexToFrag144_g3822 = normalizeResult147_g3822;
+				o.ase_texcoord11.xyz = vertexToFrag144_g3822;
+				float3 WorldPosition256_g3804 = ase_worldPos;
+				float3 temp_output_105_0_g3822 = WorldPosition256_g3804;
+				float4 Pos6_g3823 = float4( temp_output_105_0_g3822 , 0.0 );
+				float4x4 invertVal146_g3822 = Inverse4x4( _CausticMatrix );
+				float4x4 Mat6_g3823 = invertVal146_g3822;
+				float3 localMatrixMulThatWorks6_g3823 = MatrixMulThatWorks( Pos6_g3823 , Mat6_g3823 );
+				float2 vertexToFrag52_g3822 = (localMatrixMulThatWorks6_g3823).xy;
+				o.ase_texcoord12.xy = vertexToFrag52_g3822;
 				
-				float3 vertexPos6_g3764 = v.vertex.xyz;
-				float4x4 ProbeWorldToTexture6_g3764 = _ProbeWorldToTexture;
-				float3 ProbeVolumeMin6_g3764 = _ProbeVolumeMin;
-				float3 ProbeVolumeSizeInv6_g3764 = _ProbeVolumeSizeInv;
-				float3 localMyCustomExpression6_g3764 = MyCustomExpression6_g3764( vertexPos6_g3764 , ProbeWorldToTexture6_g3764 , ProbeVolumeMin6_g3764 , ProbeVolumeSizeInv6_g3764 );
-				float3 vertexToFrag7_g3764 = localMyCustomExpression6_g3764;
-				o.ase_texcoord13.xyz = vertexToFrag7_g3764;
+				float3 ase_worldNormal = TransformObjectToWorldNormal(v.ase_normal);
+				float4x4 temp_output_28_0_g3799 = _ProbeWorldToTexture;
+				float3x3 Input54_g3799 = 0;
+				float3x3 localCastToFloat3x354_g3799 = CastToFloat3x354_g3799( Input54_g3799 );
+				float3 vertexToFrag56_g3799 = mul( ase_worldNormal, localCastToFloat3x354_g3799 );
+				o.ase_texcoord13.xyz = vertexToFrag56_g3799;
+				float3 vertexPos6_g3799 = v.vertex.xyz;
+				float4x4 ProbeWorldToTexture6_g3799 = temp_output_28_0_g3799;
+				float3 ProbeVolumeMin6_g3799 = _ProbeVolumeMin;
+				float3 ProbeVolumeSizeInv6_g3799 = _ProbeVolumeSizeInv;
+				float3 localMyCustomExpression6_g3799 = MyCustomExpression6_g3799( vertexPos6_g3799 , ProbeWorldToTexture6_g3799 , ProbeVolumeMin6_g3799 , ProbeVolumeSizeInv6_g3799 );
+				float3 vertexToFrag7_g3799 = localMyCustomExpression6_g3799;
+				o.ase_texcoord14.xyz = vertexToFrag7_g3799;
 				
 				o.ase_texcoord8.xyz = v.texcoord.xyz;
 				
@@ -6842,6 +6879,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				o.ase_texcoord11.w = 0;
 				o.ase_texcoord12.zw = 0;
 				o.ase_texcoord13.w = 0;
+				o.ase_texcoord14.w = 0;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
 				#else
@@ -7038,7 +7076,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 
 				float2 uv_BaseMap = IN.ase_texcoord8.xyz.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
 				float2 UVBasemap02088 = uv_BaseMap;
-				float4 tex2DNode80 = SAMPLE_TEXTURE2D_BIAS( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088, 0.0 );
+				float4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
 				float3 temp_output_82_0 = ( (tex2DNode80).rgb * (_BaseColor).rgb );
 				float3 temp_output_17_0_g2518 = temp_output_82_0;
 				float4 ifLocalVars72_g2518 = 0;
@@ -7317,31 +7355,31 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float3 staticSwitch1045 = staticSwitch1236;
 				#endif
 				float3 AlbedoRes106 = staticSwitch1045;
-				float3 temp_output_35_0_g2696 = AlbedoRes106;
+				float3 temp_output_35_0_g3833 = AlbedoRes106;
 				float2 uv_Layer0 = IN.ase_texcoord8.xyz.xy * _Layer0_ST.xy + _Layer0_ST.zw;
-				float2 uvLayer0112_g2696 = uv_Layer0;
-				float3 appendResult37_g2696 = (float3(SAMPLE_TEXTURE2D( _Layer0, sampler_Layer0, uvLayer0112_g2696 ).rgb));
-				float2 texCoord24_g2696 = IN.ase_texcoord8.xyz.xy * float2( 1,1 ) + float2( 0,0 );
-				float2 baseuv25_g2696 = texCoord24_g2696;
-				float4 tex2DNode3_g2696 = SAMPLE_TEXTURE2D( _RevealMask, sampler_RevealMask, baseuv25_g2696 );
-				float4 tex2DNode4_g2696 = SAMPLE_TEXTURE2D( _LayerMask, sampler_LayerMask, baseuv25_g2696 );
-				float rt31_g2696 = saturate( ( tex2DNode3_g2696.r * tex2DNode4_g2696.r ) );
-				float LSAlbedo100_g2696 = _LayerSurfaceExp.x;
-				float3 lerpResult34_g2696 = lerp( temp_output_35_0_g2696 , appendResult37_g2696 , pow( rt31_g2696 , LSAlbedo100_g2696 ));
+				float2 uvLayer0112_g3833 = uv_Layer0;
+				float3 appendResult37_g3833 = (float3(SAMPLE_TEXTURE2D( _Layer0, sampler_Layer0, uvLayer0112_g3833 ).rgb));
+				float2 texCoord24_g3833 = IN.ase_texcoord8.xyz.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 baseuv25_g3833 = texCoord24_g3833;
+				float4 tex2DNode3_g3833 = SAMPLE_TEXTURE2D( _RevealMask, sampler_RevealMask, baseuv25_g3833 );
+				float4 tex2DNode4_g3833 = SAMPLE_TEXTURE2D( _LayerMask, sampler_LayerMask, baseuv25_g3833 );
+				float rt31_g3833 = saturate( ( tex2DNode3_g3833.r * tex2DNode4_g3833.r ) );
+				float LSAlbedo100_g3833 = _LayerSurfaceExp.x;
+				float3 lerpResult34_g3833 = lerp( temp_output_35_0_g3833 , appendResult37_g3833 , pow( rt31_g3833 , LSAlbedo100_g3833 ));
 				float2 uv_Layer1 = IN.ase_texcoord8.xyz.xy * _Layer1_ST.xy + _Layer1_ST.zw;
-				float2 uvLayer1114_g2696 = uv_Layer1;
-				float3 appendResult73_g2696 = (float3(SAMPLE_TEXTURE2D( _Layer1, sampler_Layer1, uvLayer1114_g2696 ).rgb));
-				float gt57_g2696 = saturate( ( tex2DNode3_g2696.g * tex2DNode4_g2696.g ) );
-				float3 lerpResult61_g2696 = lerp( lerpResult34_g2696 , appendResult73_g2696 , pow( gt57_g2696 , LSAlbedo100_g2696 ));
+				float2 uvLayer1114_g3833 = uv_Layer1;
+				float3 appendResult73_g3833 = (float3(SAMPLE_TEXTURE2D( _Layer1, sampler_Layer1, uvLayer1114_g3833 ).rgb));
+				float gt57_g3833 = saturate( ( tex2DNode3_g3833.g * tex2DNode4_g3833.g ) );
+				float3 lerpResult61_g3833 = lerp( lerpResult34_g3833 , appendResult73_g3833 , pow( gt57_g3833 , LSAlbedo100_g3833 ));
 				#ifdef _REVEALLAYERS
-				float3 staticSwitch1_g2696 = lerpResult61_g2696;
+				float3 staticSwitch1_g3833 = lerpResult61_g3833;
 				#else
-				float3 staticSwitch1_g2696 = temp_output_35_0_g2696;
+				float3 staticSwitch1_g3833 = temp_output_35_0_g3833;
 				#endif
-				float3 temp_output_3943_36 = staticSwitch1_g2696;
-				float3 temp_output_10_0_g3740 = float3( 0,0,0 );
-				float temp_output_23_0_g3740 = GlobalOceanUnder;
-				float3 temp_output_18_0_g3758 = temp_output_10_0_g3740;
+				float3 temp_output_4414_36 = staticSwitch1_g3833;
+				float3 temp_output_10_0_g3804 = float3( 0,0,0 );
+				float temp_output_23_0_g3804 = GlobalOceanUnder;
+				float3 temp_output_18_0_g3822 = temp_output_10_0_g3804;
 				float3 appendResult2618 = (float3(unpack2617));
 				float3 SimpleNormalXYSigned30 = appendResult2618;
 				int MossInt2938 = _Moss;
@@ -7372,122 +7410,123 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float3 staticSwitch4131 = SimpleNormalXYSigned30;
 				#endif
 				float2 DetailNormaMossMaskedSigned988 = ( _DetailNormalMapScale * (staticSwitch4132).yz );
-				float3 appendResult4007 = (float3(DetailNormaMossMaskedSigned988 , 1.0));
+				float3 appendResult4007 = (float3(DetailNormaMossMaskedSigned988 , 0.0));
+				float3 temp_output_4016_0 = ( staticSwitch4131 + appendResult4007 );
 				#ifdef _DETAIL_ON
-				float3 staticSwitch1105 = ( staticSwitch4131 + appendResult4007 );
+				float3 staticSwitch1105 = temp_output_4016_0;
 				#else
 				float3 staticSwitch1105 = staticSwitch4131;
 				#endif
 				float3 NormalPre2265 = staticSwitch1105;
 				float3 normalizeResult4009 = normalize( NormalPre2265 );
 				float3 NormalRes109 = normalizeResult4009;
-				float3 temp_output_42_0_g2696 = NormalRes109;
-				float3 unpack9_g2696 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer0NormalMap, sampler_Layer0NormalMap, uvLayer0112_g2696 ), _Layer0NormalStrength );
-				unpack9_g2696.z = lerp( 1, unpack9_g2696.z, saturate(_Layer0NormalStrength) );
-				float LSNormal101_g2696 = _LayerSurfaceExp.y;
-				float3 lerpResult41_g2696 = lerp( temp_output_42_0_g2696 , unpack9_g2696 , pow( rt31_g2696 , LSNormal101_g2696 ));
-				float3 unpack18_g2696 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer1NormalMap, sampler_Layer1NormalMap, uvLayer1114_g2696 ), _Layer1NormalStrength );
-				unpack18_g2696.z = lerp( 1, unpack18_g2696.z, saturate(_Layer1NormalStrength) );
-				float3 lerpResult64_g2696 = lerp( lerpResult41_g2696 , unpack18_g2696 , pow( gt57_g2696 , LSNormal101_g2696 ));
-				float2 uv83_g2696 = baseuv25_g2696;
-				float bt76_g2696 = saturate( ( tex2DNode3_g2696.b * tex2DNode4_g2696.b ) );
-				float height83_g2696 = ( _Layer2Height * bt76_g2696 );
-				float2 texelSize83_g2696 = (_RevealMask_TexelSize).xy;
-				float3 localRevealMaskNormalCrossFilter83_g2696 = RevealMaskNormalCrossFilter83_g2696( uv83_g2696 , height83_g2696 , texelSize83_g2696 );
-				float3 heightNormal89_g2696 = localRevealMaskNormalCrossFilter83_g2696;
+				float3 temp_output_42_0_g3833 = NormalRes109;
+				float3 unpack9_g3833 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer0NormalMap, sampler_Layer0NormalMap, uvLayer0112_g3833 ), _Layer0NormalStrength );
+				unpack9_g3833.z = lerp( 1, unpack9_g3833.z, saturate(_Layer0NormalStrength) );
+				float LSNormal101_g3833 = _LayerSurfaceExp.y;
+				float3 lerpResult41_g3833 = lerp( temp_output_42_0_g3833 , unpack9_g3833 , pow( rt31_g3833 , LSNormal101_g3833 ));
+				float3 unpack18_g3833 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer1NormalMap, sampler_Layer1NormalMap, uvLayer1114_g3833 ), _Layer1NormalStrength );
+				unpack18_g3833.z = lerp( 1, unpack18_g3833.z, saturate(_Layer1NormalStrength) );
+				float3 lerpResult64_g3833 = lerp( lerpResult41_g3833 , unpack18_g3833 , pow( gt57_g3833 , LSNormal101_g3833 ));
+				float2 uv83_g3833 = baseuv25_g3833;
+				float bt76_g3833 = saturate( ( tex2DNode3_g3833.b * tex2DNode4_g3833.b ) );
+				float height83_g3833 = ( _Layer2Height * bt76_g3833 );
+				float2 texelSize83_g3833 = (_RevealMask_TexelSize).xy;
+				float3 localRevealMaskNormalCrossFilter83_g3833 = RevealMaskNormalCrossFilter83_g3833( uv83_g3833 , height83_g3833 , texelSize83_g3833 );
+				float3 heightNormal89_g3833 = localRevealMaskNormalCrossFilter83_g3833;
 				#ifdef _REVEALLAYERS
-				float3 staticSwitch58_g2696 = BlendNormal( lerpResult64_g2696 , heightNormal89_g2696 );
+				float3 staticSwitch58_g3833 = BlendNormal( lerpResult64_g3833 , heightNormal89_g3833 );
 				#else
-				float3 staticSwitch58_g2696 = temp_output_42_0_g2696;
+				float3 staticSwitch58_g3833 = temp_output_42_0_g3833;
 				#endif
-				float3 temp_output_3943_43 = staticSwitch58_g2696;
-				float3 temp_output_9_0_g3740 = temp_output_3943_43;
-				float3 temp_output_30_0_g3758 = temp_output_9_0_g3740;
-				float3 tanNormal12_g3758 = temp_output_30_0_g3758;
-				float3 worldNormal12_g3758 = float3(dot(tanToWorld0,tanNormal12_g3758), dot(tanToWorld1,tanNormal12_g3758), dot(tanToWorld2,tanNormal12_g3758));
-				float3 vertexToFrag144_g3758 = IN.ase_texcoord11.xyz;
-				float dotResult1_g3758 = dot( worldNormal12_g3758 , vertexToFrag144_g3758 );
-				float2 vertexToFrag52_g3758 = IN.ase_texcoord12.xy;
-				float4 tex2DNode120_g3758 = SAMPLE_TEXTURE2D( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g3758 );
-				float3 appendResult121_g3758 = (float3(tex2DNode120_g3758.r , tex2DNode120_g3758.r , tex2DNode120_g3758.r));
-				float3 WorldPosition256_g3740 = WorldPosition;
-				float3 temp_output_105_0_g3758 = WorldPosition256_g3740;
-				float temp_output_117_0_g3758 = (temp_output_105_0_g3758).y;
-				float temp_output_67_0_g3740 = ( GlobalOceanOffset + GlobalOceanHeight );
-				float temp_output_63_0_g3758 = temp_output_67_0_g3740;
-				float2 DistanceFade134_g3758 = (_CausticsSettings).zw;
-				float2 break136_g3758 = DistanceFade134_g3758;
-				float temp_output_67_0_g3758 = ( saturate( (0.0 + (max( -( temp_output_117_0_g3758 - temp_output_63_0_g3758 ) , 0.0 ) - 0.2) * (1.0 - 0.0) / (1.0 - 0.2)) ) * saturate( (1.0 + (distance( temp_output_63_0_g3758 , temp_output_117_0_g3758 ) - break136_g3758.x) * (0.0 - 1.0) / (break136_g3758.y - break136_g3758.x)) ) );
-				float CausticMipLevel118_g3758 = ( ( 1.0 - temp_output_67_0_g3758 ) * 4.0 );
+				float3 temp_output_4414_43 = staticSwitch58_g3833;
+				float3 temp_output_9_0_g3804 = temp_output_4414_43;
+				float3 temp_output_30_0_g3822 = temp_output_9_0_g3804;
+				float3 tanNormal12_g3822 = temp_output_30_0_g3822;
+				float3 worldNormal12_g3822 = float3(dot(tanToWorld0,tanNormal12_g3822), dot(tanToWorld1,tanNormal12_g3822), dot(tanToWorld2,tanNormal12_g3822));
+				float3 vertexToFrag144_g3822 = IN.ase_texcoord11.xyz;
+				float dotResult1_g3822 = dot( worldNormal12_g3822 , vertexToFrag144_g3822 );
+				float2 vertexToFrag52_g3822 = IN.ase_texcoord12.xy;
+				float4 tex2DNode120_g3822 = SAMPLE_TEXTURE2D( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g3822 );
+				float3 appendResult121_g3822 = (float3(tex2DNode120_g3822.r , tex2DNode120_g3822.r , tex2DNode120_g3822.r));
+				float3 WorldPosition256_g3804 = WorldPosition;
+				float3 temp_output_105_0_g3822 = WorldPosition256_g3804;
+				float temp_output_117_0_g3822 = (temp_output_105_0_g3822).y;
+				float temp_output_67_0_g3804 = ( GlobalOceanOffset + GlobalOceanHeight );
+				float temp_output_63_0_g3822 = temp_output_67_0_g3804;
+				float2 DistanceFade134_g3822 = (_CausticsSettings).zw;
+				float2 break136_g3822 = DistanceFade134_g3822;
+				float temp_output_67_0_g3822 = ( saturate( (0.0 + (max( -( temp_output_117_0_g3822 - temp_output_63_0_g3822 ) , 0.0 ) - 0.2) * (1.0 - 0.0) / (1.0 - 0.2)) ) * saturate( (1.0 + (distance( temp_output_63_0_g3822 , temp_output_117_0_g3822 ) - break136_g3822.x) * (0.0 - 1.0) / (break136_g3822.y - break136_g3822.x)) ) );
+				float CausticMipLevel118_g3822 = ( ( 1.0 - temp_output_67_0_g3822 ) * 4.0 );
 				#ifdef _USECAUSTICRAINBOW_ON
-				float3 staticSwitch73_g3758 = ( ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g3758 + ( 0.0045 * 2.0 ) ), CausticMipLevel118_g3758 ).r * float3(0,0,1) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g3758 + 0.0045 ), CausticMipLevel118_g3758 ).r * float3(0,1,0) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g3758, CausticMipLevel118_g3758 ).r * float3(1,0,0) ) );
+				float3 staticSwitch73_g3822 = ( ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g3822 + ( 0.0045 * 2.0 ) ), CausticMipLevel118_g3822 ).r * float3(0,0,1) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g3822 + 0.0045 ), CausticMipLevel118_g3822 ).r * float3(0,1,0) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g3822, CausticMipLevel118_g3822 ).r * float3(1,0,0) ) );
 				#else
-				float3 staticSwitch73_g3758 = appendResult121_g3758;
+				float3 staticSwitch73_g3822 = appendResult121_g3822;
 				#endif
 				#ifdef _USECAUSTICEXTRASAMPLER_ON
-				float3 staticSwitch57_g3758 = staticSwitch73_g3758;
+				float3 staticSwitch57_g3822 = staticSwitch73_g3822;
 				#else
-				float3 staticSwitch57_g3758 = staticSwitch73_g3758;
+				float3 staticSwitch57_g3822 = staticSwitch73_g3822;
 				#endif
-				float3 appendResult62_g3758 = (float3(_CausticsColor.rgb));
+				float3 appendResult62_g3822 = (float3(_CausticsColor.rgb));
 				#ifdef _CAUSTICSENABLE_ON
-				float3 staticSwitch16_g3758 = ( temp_output_18_0_g3758 + ( max( dotResult1_g3758 , 0.0 ) * staticSwitch57_g3758 * appendResult62_g3758 * temp_output_67_0_g3758 ) );
+				float3 staticSwitch16_g3822 = ( temp_output_18_0_g3822 + ( max( dotResult1_g3822 , 0.0 ) * staticSwitch57_g3822 * appendResult62_g3822 * temp_output_67_0_g3822 ) );
 				#else
-				float3 staticSwitch16_g3758 = temp_output_18_0_g3758;
+				float3 staticSwitch16_g3822 = temp_output_18_0_g3822;
 				#endif
-				float3 lerpResult205_g3740 = lerp( staticSwitch16_g3758 , ( staticSwitch16_g3758 * 30.0 ) , temp_output_23_0_g3740);
-				float3 appendResult100_g3750 = (float3(OceanWaterTint_RGB.xyz));
-				float3 ViewDir264_g3740 = WorldViewDirection;
-				float3 viewDir240_g3750 = ViewDir264_g3740;
-				float3 camWorldPos240_g3750 = _WorldSpaceCameraPos;
-				float3 WorldPos252_g3750 = WorldPosition256_g3740;
-				float3 posWS240_g3750 = WorldPos252_g3750;
-				float4 oceanFogDensities240_g3750 = OceanFogDensities;
-				float temp_output_108_0_g3750 = temp_output_67_0_g3740;
-				float oceanHeight240_g3750 = temp_output_108_0_g3750;
-				float4 oceanFogTop_RGB_Exponent240_g3750 = OceanFogTop_RGB_Exponent;
-				float4 oceanFogBottom_RGB_Intensity240_g3750 = OceanFogBottom_RGB_Intensity;
-				float4 localGetUnderWaterFogs240_g3750 = GetUnderWaterFogs240_g3750( viewDir240_g3750 , camWorldPos240_g3750 , posWS240_g3750 , oceanFogDensities240_g3750 , oceanHeight240_g3750 , oceanFogTop_RGB_Exponent240_g3750 , oceanFogBottom_RGB_Intensity240_g3750 );
-				float4 FogRes185_g3750 = localGetUnderWaterFogs240_g3750;
-				float3 appendResult94_g3750 = (float3(FogRes185_g3750.xyz));
-				float3 lerpResult36_g3750 = lerp( ( lerpResult205_g3740 * appendResult100_g3750 ) , appendResult94_g3750 , (FogRes185_g3750).w);
-				float3 temp_output_261_32_g3740 = lerpResult36_g3750;
-				float3 ifLocalVar5_g3740 = 0;
+				float3 lerpResult205_g3804 = lerp( staticSwitch16_g3822 , ( staticSwitch16_g3822 * 30.0 ) , temp_output_23_0_g3804);
+				float3 appendResult100_g3814 = (float3(OceanWaterTint_RGB.xyz));
+				float3 ViewDir264_g3804 = WorldViewDirection;
+				float3 viewDir240_g3814 = ViewDir264_g3804;
+				float3 camWorldPos240_g3814 = _WorldSpaceCameraPos;
+				float3 WorldPos252_g3814 = WorldPosition256_g3804;
+				float3 posWS240_g3814 = WorldPos252_g3814;
+				float4 oceanFogDensities240_g3814 = OceanFogDensities;
+				float temp_output_108_0_g3814 = temp_output_67_0_g3804;
+				float oceanHeight240_g3814 = temp_output_108_0_g3814;
+				float4 oceanFogTop_RGB_Exponent240_g3814 = OceanFogTop_RGB_Exponent;
+				float4 oceanFogBottom_RGB_Intensity240_g3814 = OceanFogBottom_RGB_Intensity;
+				float4 localGetUnderWaterFogs240_g3814 = GetUnderWaterFogs240_g3814( viewDir240_g3814 , camWorldPos240_g3814 , posWS240_g3814 , oceanFogDensities240_g3814 , oceanHeight240_g3814 , oceanFogTop_RGB_Exponent240_g3814 , oceanFogBottom_RGB_Intensity240_g3814 );
+				float4 FogRes185_g3814 = localGetUnderWaterFogs240_g3814;
+				float3 appendResult94_g3814 = (float3(FogRes185_g3814.xyz));
+				float3 lerpResult36_g3814 = lerp( ( lerpResult205_g3804 * appendResult100_g3814 ) , appendResult94_g3814 , (FogRes185_g3814).w);
+				float3 temp_output_261_32_g3804 = lerpResult36_g3814;
+				float3 ifLocalVar5_g3804 = 0;
 				UNITY_BRANCH 
-				if( temp_output_23_0_g3740 >= 1.0 )
-				ifLocalVar5_g3740 = temp_output_261_32_g3740;
+				if( temp_output_23_0_g3804 >= 1.0 )
+				ifLocalVar5_g3804 = temp_output_261_32_g3804;
 				else
-				ifLocalVar5_g3740 = temp_output_10_0_g3740;
+				ifLocalVar5_g3804 = temp_output_10_0_g3804;
 				#ifdef _USEGRADIENTFOG_ON
-				float3 staticSwitch1_g3740 = ifLocalVar5_g3740;
+				float3 staticSwitch1_g3804 = ifLocalVar5_g3804;
 				#else
-				float3 staticSwitch1_g3740 = temp_output_10_0_g3740;
+				float3 staticSwitch1_g3804 = temp_output_10_0_g3804;
 				#endif
-				float temp_output_254_0_g3740 = (WorldPosition256_g3740).y;
-				float temp_output_24_0_g3756 = ( temp_output_254_0_g3740 - temp_output_67_0_g3740 );
-				float temp_output_44_0_g3756 = 0.1;
-				float temp_output_45_0_g3756 = 0.31;
-				float temp_output_46_0_g3756 = saturate( (0.0 + (( temp_output_24_0_g3756 - temp_output_44_0_g3756 ) - 0.0) * (1.0 - 0.0) / (temp_output_45_0_g3756 - 0.0)) );
-				float temp_output_160_47_g3740 = ( 1.0 - temp_output_46_0_g3756 );
+				float temp_output_254_0_g3804 = (WorldPosition256_g3804).y;
+				float temp_output_24_0_g3820 = ( temp_output_254_0_g3804 - temp_output_67_0_g3804 );
+				float temp_output_44_0_g3820 = 0.1;
+				float temp_output_45_0_g3820 = 0.31;
+				float temp_output_46_0_g3820 = saturate( (0.0 + (( temp_output_24_0_g3820 - temp_output_44_0_g3820 ) - 0.0) * (1.0 - 0.0) / (temp_output_45_0_g3820 - 0.0)) );
+				float temp_output_160_47_g3804 = ( 1.0 - temp_output_46_0_g3820 );
 				#ifdef _FadeWithHeight
-				float staticSwitch238_g3740 = temp_output_160_47_g3740;
+				float staticSwitch238_g3804 = temp_output_160_47_g3804;
 				#else
-				float staticSwitch238_g3740 = 1.0;
+				float staticSwitch238_g3804 = 1.0;
 				#endif
-				float temp_output_77_0_g3740 = ( temp_output_23_0_g3740 * staticSwitch238_g3740 );
-				float3 lerpResult174_g3740 = lerp( ( staticSwitch1_g3740 + lerpResult205_g3740 ) , staticSwitch1_g3740 , temp_output_77_0_g3740);
-				float3 lerpResult242_g3740 = lerp( temp_output_10_0_g3740 , lerpResult174_g3740 , staticSwitch238_g3740);
+				float temp_output_77_0_g3804 = ( temp_output_23_0_g3804 * staticSwitch238_g3804 );
+				float3 lerpResult174_g3804 = lerp( ( staticSwitch1_g3804 + lerpResult205_g3804 ) , staticSwitch1_g3804 , temp_output_77_0_g3804);
+				float3 lerpResult242_g3804 = lerp( temp_output_10_0_g3804 , lerpResult174_g3804 , staticSwitch238_g3804);
 				#ifdef _USECAUSTICSFROMABOVE_ON
-				float3 staticSwitch172_g3740 = lerpResult242_g3740;
+				float3 staticSwitch172_g3804 = lerpResult242_g3804;
 				#else
-				float3 staticSwitch172_g3740 = staticSwitch1_g3740;
+				float3 staticSwitch172_g3804 = staticSwitch1_g3804;
 				#endif
 				#ifdef _USEUNDERWATER
-				float3 staticSwitch211_g3740 = staticSwitch172_g3740;
+				float3 staticSwitch211_g3804 = staticSwitch172_g3804;
 				#else
-				float3 staticSwitch211_g3740 = float3( 0,0,0 );
+				float3 staticSwitch211_g3804 = float3( 0,0,0 );
 				#endif
-				float3 temp_output_4383_8 = staticSwitch211_g3740;
+				float3 temp_output_4406_8 = staticSwitch211_g3804;
 				
 				float fresnelNdotV135 = dot( WorldNormal, WorldViewDirection );
 				float fresnelNode135 = ( _MossFresnel.x + _MossFresnel.y * pow( 1.0 - fresnelNdotV135, ( _MossFresnel.z * 10.0 ) ) );
@@ -7581,13 +7620,13 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float EmissionMasked3065 = break3482.z;
 				float3 temp_output_3496_0 = ( appendResult3069 * EmissionMasked3065 );
 				float4 EmissionRes806 = ( MossFresnel203 + float4( temp_output_3496_0 , 0.0 ) );
-				float3 temp_output_91_0_g2696 = EmissionRes806.rgb;
-				float at79_g2696 = saturate( ( tex2DNode3_g2696.a * tex2DNode4_g2696.a ) );
-				float3 appendResult99_g2696 = (float3(_Layer3EmissionColor.rgb));
+				float3 temp_output_91_0_g3833 = EmissionRes806.rgb;
+				float at79_g3833 = saturate( ( tex2DNode3_g3833.a * tex2DNode4_g3833.a ) );
+				float3 appendResult99_g3833 = (float3(_Layer3EmissionColor.rgb));
 				#ifdef _REVEALLAYERS
-				float3 staticSwitch93_g2696 = ( ( temp_output_91_0_g2696 * ( 1.0 - at79_g2696 ) ) + ( appendResult99_g2696 * at79_g2696 ) );
+				float3 staticSwitch93_g3833 = ( ( temp_output_91_0_g3833 * ( 1.0 - at79_g3833 ) ) + ( appendResult99_g3833 * at79_g3833 ) );
 				#else
-				float3 staticSwitch93_g2696 = temp_output_91_0_g2696;
+				float3 staticSwitch93_g3833 = temp_output_91_0_g3833;
 				#endif
 				
 				float Metallic399 = break3482.x;
@@ -7599,14 +7638,14 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float staticSwitch1238 = MetallicSimpler398;
 				#endif
 				float MetallicResult1087 = staticSwitch1238;
-				float temp_output_47_0_g2696 = MetallicResult1087;
-				float LSMetallic102_g2696 = _LayerSurfaceExp.z;
-				float lerpResult46_g2696 = lerp( temp_output_47_0_g2696 , _Layer0Metallic , pow( rt31_g2696 , LSMetallic102_g2696 ));
-				float lerpResult67_g2696 = lerp( lerpResult46_g2696 , _Layer1Metallic , pow( gt57_g2696 , LSMetallic102_g2696 ));
+				float temp_output_47_0_g3833 = MetallicResult1087;
+				float LSMetallic102_g3833 = _LayerSurfaceExp.z;
+				float lerpResult46_g3833 = lerp( temp_output_47_0_g3833 , _Layer0Metallic , pow( rt31_g3833 , LSMetallic102_g3833 ));
+				float lerpResult67_g3833 = lerp( lerpResult46_g3833 , _Layer1Metallic , pow( gt57_g3833 , LSMetallic102_g3833 ));
 				#ifdef _REVEALLAYERS
-				float staticSwitch59_g2696 = lerpResult67_g2696;
+				float staticSwitch59_g3833 = lerpResult67_g3833;
 				#else
-				float staticSwitch59_g2696 = temp_output_47_0_g2696;
+				float staticSwitch59_g3833 = temp_output_47_0_g3833;
 				#endif
 				
 				float Smoothness400 = break3482.w;
@@ -7635,14 +7674,14 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float staticSwitch1093 = staticSwitch4121;
 				#endif
 				float SmoothnessResult1085 = staticSwitch1093;
-				float temp_output_54_0_g2696 = SmoothnessResult1085;
-				float LSSmoothness103_g2696 = _LayerSurfaceExp.w;
-				float lerpResult51_g2696 = lerp( temp_output_54_0_g2696 , _Layer0Smoothness , pow( rt31_g2696 , LSSmoothness103_g2696 ));
-				float lerpResult70_g2696 = lerp( lerpResult51_g2696 , _Layer1Smoothness , pow( gt57_g2696 , LSSmoothness103_g2696 ));
+				float temp_output_54_0_g3833 = SmoothnessResult1085;
+				float LSSmoothness103_g3833 = _LayerSurfaceExp.w;
+				float lerpResult51_g3833 = lerp( temp_output_54_0_g3833 , _Layer0Smoothness , pow( rt31_g3833 , LSSmoothness103_g3833 ));
+				float lerpResult70_g3833 = lerp( lerpResult51_g3833 , _Layer1Smoothness , pow( gt57_g3833 , LSSmoothness103_g3833 ));
 				#ifdef _REVEALLAYERS
-				float staticSwitch60_g2696 = lerpResult70_g2696;
+				float staticSwitch60_g3833 = lerpResult70_g3833;
 				#else
-				float staticSwitch60_g2696 = temp_output_54_0_g2696;
+				float staticSwitch60_g3833 = temp_output_54_0_g3833;
 				#endif
 				
 				float OcclusionDoodad3006 = break3482.y;
@@ -7682,26 +7721,27 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				
 				float ShadowThreshold2627 = _ShadowThreshold;
 				
-				float3 worldNormal14_g3764 = WorldNormal;
-				float3 vertexToFrag7_g3764 = IN.ase_texcoord13.xyz;
-				float4 ProbeVolumeShR14_g3764 = SAMPLE_TEXTURE3D( _ProbeVolumeShR, sampler_Linear_Clamp, vertexToFrag7_g3764 );
-				float4 ProbeVolumeShG14_g3764 = SAMPLE_TEXTURE3D( _ProbeVolumeShG, sampler_Linear_Clamp, vertexToFrag7_g3764 );
-				float4 ProbeVolumeShB14_g3764 = SAMPLE_TEXTURE3D( _ProbeVolumeShB, sampler_Linear_Clamp, vertexToFrag7_g3764 );
-				float3 localSHEvalLinearL0L114_g3764 = SHEvalLinearL0L114_g3764( worldNormal14_g3764 , ProbeVolumeShR14_g3764 , ProbeVolumeShG14_g3764 , ProbeVolumeShB14_g3764 );
+				float3 vertexToFrag56_g3799 = IN.ase_texcoord13.xyz;
+				float3 worldNormal14_g3799 = vertexToFrag56_g3799;
+				float3 vertexToFrag7_g3799 = IN.ase_texcoord14.xyz;
+				float4 ProbeVolumeShR14_g3799 = SAMPLE_TEXTURE3D( _ProbeVolumeShR, sampler_Linear_Clamp, vertexToFrag7_g3799 );
+				float4 ProbeVolumeShG14_g3799 = SAMPLE_TEXTURE3D( _ProbeVolumeShG, sampler_Linear_Clamp, vertexToFrag7_g3799 );
+				float4 ProbeVolumeShB14_g3799 = SAMPLE_TEXTURE3D( _ProbeVolumeShB, sampler_Linear_Clamp, vertexToFrag7_g3799 );
+				float3 localSHEvalLinearL0L114_g3799 = SHEvalLinearL0L114_g3799( worldNormal14_g3799 , ProbeVolumeShR14_g3799 , ProbeVolumeShG14_g3799 , ProbeVolumeShB14_g3799 );
 				#ifdef _PROBEVOLUME_ON
-				float3 staticSwitch20_g3764 = localSHEvalLinearL0L114_g3764;
+				float3 staticSwitch20_g3799 = localSHEvalLinearL0L114_g3799;
 				#else
-				float3 staticSwitch20_g3764 = LightmapOrSH2480;
+				float3 staticSwitch20_g3799 = LightmapOrSH2480;
 				#endif
-				float3 BakedGI1212 = staticSwitch20_g3764;
+				float3 BakedGI1212 = staticSwitch20_g3799;
 				
 
-				float3 BaseColor = ( temp_output_3943_36 + temp_output_4383_8 );
-				float3 Normal = temp_output_3943_43;
-				float3 Emission = staticSwitch93_g2696;
+				float3 BaseColor = ( temp_output_4414_36 + temp_output_4406_8 );
+				float3 Normal = temp_output_4414_43;
+				float3 Emission = staticSwitch93_g3833;
 				float3 Specular = 0.5;
-				float Metallic = staticSwitch59_g2696;
-				float Smoothness = staticSwitch60_g2696;
+				float Metallic = staticSwitch59_g3833;
+				float Smoothness = staticSwitch60_g3833;
 				float Occlusion = OcclusionResMStrength369;
 				float Alpha = AlbedoAlpha84;
 				float AlphaClipThreshold = ClipCalc3294;
@@ -7876,20 +7916,21 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			#pragma shader_feature_local _USEMOSSNOISE_ON
 			#pragma shader_feature_local MODED_MOSS MODED_MOES MODED_MODS MODED_OFF
 			#pragma shader_feature_local _MOSS
-			#pragma shader_feature_local _MOSSMETALMODE_ON
-			#pragma shader_feature_local _DEBUGVISUALS_ON
 			#pragma shader_feature_local _AUTONORMAL
 			#pragma shader_feature_local LAYER_UNLIMITED LAYER_MAX2 LAYER_MAX3
 			#pragma shader_feature_local TEXTURE_MAX4 TEXTURE_MAX8 TEXTURE_MAX12 TEXTURE_MAX16
+			#pragma shader_feature _SKYFOG_ON
+			#pragma shader_feature GLOBALTONEMAPPING
+			#pragma shader_feature_local _MOSSMETALMODE_ON
+			#pragma multi_compile_local __ _PROBEVOLUME_ON
+			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local _REFLECTIONBILLBOARDSTOCHASTIC_ON
+			#pragma shader_feature_local _REFLECTIONBILLBOARD_ON
 			#pragma shader_feature_local _ALPHAMODE
 			#pragma shader_feature_local _SIMPLESTOCHASTIC
 			#pragma shader_feature_local _USESPLAT_ON
-			#pragma shader_feature _SKYFOG_ON
+			#pragma shader_feature_local _DEBUGVISUALS_ON
 			#pragma shader_feature_local _USE_SSS_ON
-			#pragma shader_feature GLOBALTONEMAPPING
-			#pragma shader_feature_local _REFLECTIONBILLBOARDSTOCHASTIC_ON
-			#pragma multi_compile __ _USEUNDERWATER
-			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#pragma shader_feature_local_vertex _VERTEXOCCLUSION_ON
 			#define _UseMossPacked
 			#define _DetailMapPacking
@@ -7987,15 +8028,15 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			int _BlendMode_UseColorMask;
 			int _Moss;
 			int _Bitmask;
+			int _Cullmode;
+			int _ArrayLengthUsed;
 			int _StochasticCount;
 			float _Blend;
 			float _SrcBlend;
 			float _DstBlend;
-			int _ZWrite;
-			int _Cullmode;
 			float _Cutoff;
 			int _Int0;
-			int _ArrayLengthUsed;
+			int _ZWrite;
 			int _MetalUV;
 			float _MossMultAlbedo;
 			float _MossBase;
@@ -8053,14 +8094,6 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				int _PassValue;
 			#endif
 
-			TEXTURE2D_ARRAY(_ExtraArray);
-			SAMPLER(sampler_ExtraArray);
-			TEXTURE2D_ARRAY(_DiffuseArray);
-			SAMPLER(sampler_DiffuseArray);
-			TEXTURE2D_ARRAY(_NormalArray);
-			SAMPLER(sampler_NormalArray);
-			TEXTURE2D(_Billboard);
-			SAMPLER(sampler_Billboard);
 			float4 _skyGradientColor1;
 			float4 _skyGradientColor2;
 			float3 _CausticsDir;
@@ -8069,6 +8102,14 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			half4 _CausticsColor;
 			TEXTURE2D(_Caustics);
 			SAMPLER(sampler_Caustics);
+			TEXTURE2D(_Billboard);
+			SAMPLER(sampler_Billboard);
+			TEXTURE2D_ARRAY(_ExtraArray);
+			SAMPLER(sampler_ExtraArray);
+			TEXTURE2D_ARRAY(_DiffuseArray);
+			SAMPLER(sampler_DiffuseArray);
+			TEXTURE2D_ARRAY(_NormalArray);
+			SAMPLER(sampler_NormalArray);
 			float4x4 _QuadInverseMatrixArray[16];
 			float4 _QuadPositionArray[16];
 			float4 _QuadNormalArray[16];
@@ -8084,17 +8125,17 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			//#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/VisualEffectVertex.hlsl"
 			//#endif
 
-			float Random( float3 co )
-			{
-				return  frac(sin( dot(co ,float3(12.9898,78.233,45.5432) )) * 43758.5453);
-				//return frac(sin(dot(co, float2(12.9898, 78.233))) * 43758.5453);
-			}
-			
 			float calcFogFactor( float distance, float gradientFogDensity )
 			{
 					//beer-lambert law, Fog =1/e^(distance * density)
 					float e = 2.7182818284590452353602874713527f;
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
+			}
+			
+			float Random( float3 co )
+			{
+				return  frac(sin( dot(co ,float3(12.9898,78.233,45.5432) )) * 43758.5453);
+				//return frac(sin(dot(co, float2(12.9898, 78.233))) * 43758.5453);
 			}
 			
 			float3 VertVanisher3872( float3 vertex, float2 vtexcoord1, int bitMask )
@@ -8264,7 +8305,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 
 				float2 uv_BaseMap = IN.ase_texcoord.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
 				float2 UVBasemap02088 = uv_BaseMap;
-				float4 tex2DNode80 = SAMPLE_TEXTURE2D_BIAS( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088, 0.0 );
+				float4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
 				float temp_output_3952_0 = ( tex2DNode80.a * _BaseColor.a );
 				float4 screenPos = IN.ase_texcoord1;
 				float4 ase_screenPosNorm = screenPos / screenPos.w;
@@ -8380,20 +8421,21 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			#pragma shader_feature_local _USEMOSSNOISE_ON
 			#pragma shader_feature_local MODED_MOSS MODED_MOES MODED_MODS MODED_OFF
 			#pragma shader_feature_local _MOSS
-			#pragma shader_feature_local _MOSSMETALMODE_ON
-			#pragma shader_feature_local _DEBUGVISUALS_ON
 			#pragma shader_feature_local _AUTONORMAL
 			#pragma shader_feature_local LAYER_UNLIMITED LAYER_MAX2 LAYER_MAX3
 			#pragma shader_feature_local TEXTURE_MAX4 TEXTURE_MAX8 TEXTURE_MAX12 TEXTURE_MAX16
+			#pragma shader_feature _SKYFOG_ON
+			#pragma shader_feature GLOBALTONEMAPPING
+			#pragma shader_feature_local _MOSSMETALMODE_ON
+			#pragma multi_compile_local __ _PROBEVOLUME_ON
+			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local _REFLECTIONBILLBOARDSTOCHASTIC_ON
+			#pragma shader_feature_local _REFLECTIONBILLBOARD_ON
 			#pragma shader_feature_local _ALPHAMODE
 			#pragma shader_feature_local _SIMPLESTOCHASTIC
 			#pragma shader_feature_local _USESPLAT_ON
-			#pragma shader_feature _SKYFOG_ON
+			#pragma shader_feature_local _DEBUGVISUALS_ON
 			#pragma shader_feature_local _USE_SSS_ON
-			#pragma shader_feature GLOBALTONEMAPPING
-			#pragma shader_feature_local _REFLECTIONBILLBOARDSTOCHASTIC_ON
-			#pragma multi_compile __ _USEUNDERWATER
-			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#pragma shader_feature_local_vertex _VERTEXOCCLUSION_ON
 			#define _UseMossPacked
 			#define _DetailMapPacking
@@ -8491,15 +8533,15 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			int _BlendMode_UseColorMask;
 			int _Moss;
 			int _Bitmask;
+			int _Cullmode;
+			int _ArrayLengthUsed;
 			int _StochasticCount;
 			float _Blend;
 			float _SrcBlend;
 			float _DstBlend;
-			int _ZWrite;
-			int _Cullmode;
 			float _Cutoff;
 			int _Int0;
-			int _ArrayLengthUsed;
+			int _ZWrite;
 			int _MetalUV;
 			float _MossMultAlbedo;
 			float _MossBase;
@@ -8557,14 +8599,6 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				int _PassValue;
 			#endif
 
-			TEXTURE2D_ARRAY(_ExtraArray);
-			SAMPLER(sampler_ExtraArray);
-			TEXTURE2D_ARRAY(_DiffuseArray);
-			SAMPLER(sampler_DiffuseArray);
-			TEXTURE2D_ARRAY(_NormalArray);
-			SAMPLER(sampler_NormalArray);
-			TEXTURE2D(_Billboard);
-			SAMPLER(sampler_Billboard);
 			float4 _skyGradientColor1;
 			float4 _skyGradientColor2;
 			float3 _CausticsDir;
@@ -8573,6 +8607,14 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			half4 _CausticsColor;
 			TEXTURE2D(_Caustics);
 			SAMPLER(sampler_Caustics);
+			TEXTURE2D(_Billboard);
+			SAMPLER(sampler_Billboard);
+			TEXTURE2D_ARRAY(_ExtraArray);
+			SAMPLER(sampler_ExtraArray);
+			TEXTURE2D_ARRAY(_DiffuseArray);
+			SAMPLER(sampler_DiffuseArray);
+			TEXTURE2D_ARRAY(_NormalArray);
+			SAMPLER(sampler_NormalArray);
 			float4x4 _QuadInverseMatrixArray[16];
 			float4 _QuadPositionArray[16];
 			float4 _QuadNormalArray[16];
@@ -8588,17 +8630,17 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			//#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/VisualEffectVertex.hlsl"
 			//#endif
 
-			float Random( float3 co )
-			{
-				return  frac(sin( dot(co ,float3(12.9898,78.233,45.5432) )) * 43758.5453);
-				//return frac(sin(dot(co, float2(12.9898, 78.233))) * 43758.5453);
-			}
-			
 			float calcFogFactor( float distance, float gradientFogDensity )
 			{
 					//beer-lambert law, Fog =1/e^(distance * density)
 					float e = 2.7182818284590452353602874713527f;
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
+			}
+			
+			float Random( float3 co )
+			{
+				return  frac(sin( dot(co ,float3(12.9898,78.233,45.5432) )) * 43758.5453);
+				//return frac(sin(dot(co, float2(12.9898, 78.233))) * 43758.5453);
 			}
 			
 			float3 VertVanisher3872( float3 vertex, float2 vtexcoord1, int bitMask )
@@ -8767,7 +8809,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 
 				float2 uv_BaseMap = IN.ase_texcoord.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
 				float2 UVBasemap02088 = uv_BaseMap;
-				float4 tex2DNode80 = SAMPLE_TEXTURE2D_BIAS( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088, 0.0 );
+				float4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
 				float temp_output_3952_0 = ( tex2DNode80.a * _BaseColor.a );
 				float4 screenPos = IN.ase_texcoord1;
 				float4 ase_screenPosNorm = screenPos / screenPos.w;

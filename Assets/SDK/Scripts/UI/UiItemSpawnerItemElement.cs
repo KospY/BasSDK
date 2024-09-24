@@ -9,13 +9,13 @@ namespace ThunderRoad
 		[SerializeField]
 		private TextMeshProUGUI tier;
 		[SerializeField]
-		private RawImage tierColor;
+		private Image tierColor;
 		[SerializeField]
 		private GameObject counter;
 		[SerializeField]
 		private TextMeshProUGUI counterText;
         [SerializeField]
-        private RawImage droppedIcon;
+        private Image droppedIcon;
 
 	}
 }

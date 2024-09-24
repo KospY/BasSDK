@@ -76,6 +76,12 @@
       "fakeViewAddress": "Bas.Area.DA_XSTransi_UrbanChasm.FakeView.1"
     }
   ],
-  "areaGlobalParameters": [],
+  "areaGlobalParameters": [
+    {
+      "$type": "ThunderRoad.AreaSunGlobalParameter, ThunderRoad",
+      "isZeroIntensity": true,
+      "visibleFromGate": true
+    }
+  ],
   "groupPath": "Dalgarian/XSTransi"
 }

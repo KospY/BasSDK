@@ -157,6 +157,7 @@
       "sensitiveContent": "None",
       "sensitiveFilterBehaviour": "Discard",
       "version": 0,
+      "castSpeedPerHand": null,
       "category": "Apparel",
       "castShadows": "PlayerAndNPC",
       "wardrobes": [
@@ -202,6 +203,17 @@
           "name": "FocusRegen"
         }
       ],
+      "groupPath": null
+    },
+    {
+      "$type": "ThunderRoad.ItemModuleGlove, ThunderRoad",
+      "id": null,
+      "sensitiveContent": "None",
+      "sensitiveFilterBehaviour": "Discard",
+      "version": 0,
+      "side": "Right",
+      "chargeSpeed": 1.2,
+      "strength": 1.0,
       "groupPath": null
     }
   ],

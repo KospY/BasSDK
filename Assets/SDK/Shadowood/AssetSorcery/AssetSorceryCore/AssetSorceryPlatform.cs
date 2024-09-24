@@ -64,9 +64,7 @@ namespace ThunderRoad.AssetSorcery
 
                 var stopwatch = new Stopwatch(); // stopwatch to record how long it takes to reload all assets
                 stopwatch.Start();
-                ReloadAll(AssetSorceryArray.ASSETSORCERY_FILE_EXTENSION);
-                ReloadAll(AssetSorceryShader.ASSETSORCERY_FILE_EXTENSION);
-                stopwatch.Stop(); //log how long it took to reload all assets
+                stopwatch.Stop(); // log how long it took to reload all assets
                 Debug.Log($"AssetSorceryShaderSetPlatform: ReloadAll took {stopwatch.ElapsedMilliseconds}ms");
             }
             else

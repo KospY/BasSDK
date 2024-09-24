@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ThunderRoad.Skill.SpellPower;
 using UnityEngine;
 using UnityEngine.Events;
@@ -55,13 +56,17 @@ namespace ThunderRoad
             OnTelePullEnd = 36,
             OnConsumed = 37,
             OnLinkerStart = 38,
+            OnPlayerBecomeOwner = 39,
+            OnPlayerLoseOwnership = 40,
+            OnItemBought = 41,
+            OnItemSold = 42,
         }
 
         [System.Serializable]
         public class ItemUnityEvent
         {
             public ItemEvent itemEvent;
-            public UnityEvent onActivate;
+            public UnityEvent<Item> onActivate;
 
             public ItemUnityEvent Copy()
             {
@@ -76,20 +81,28 @@ namespace ThunderRoad
         public Item item;
         public float justSpawnedTolerance = 0.1f;
         public List<ItemUnityEvent> itemEvents = new List<ItemUnityEvent>();
-        protected Dictionary<ItemEvent, List<UnityEvent>> eventsDictionary;
+        protected Dictionary<ItemEvent, List<UnityEvent<Item>>> eventsDictionary;
 
         private void OnValidate()
         {
             item ??= GetComponent<Item>();
         }
 
+        public bool IsCopyable() => true;
+
+        public void CopyTo(UnityEngine.Object other) => ((IToolControllable)this).CopyControllableTo(other);
+
         public void CopyFrom(IToolControllable original)
         {
         }
 
+        public void ReparentAlign(Component other) => ((IToolControllable)this).ReparentAlignTransform(other);
+
         public void Remove()
         {
         }
+
+        public Transform GetTransform() => transform;
 
 
         public override void UnsubscribeNamedMethods()

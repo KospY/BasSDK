@@ -19,6 +19,8 @@ namespace ThunderRoad
         public AnimationCurve defaultBlendCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
         public float snapPreventionAngle = 30f;
         public float forceUprightSpeed = 1f;
+        public float spineChangeMaxSpeed = 2f;
+        public float spineChangeSmooth = 0.1f;
 
         [Header("Controls")]
         public bool customEyeTargetOnly = false;

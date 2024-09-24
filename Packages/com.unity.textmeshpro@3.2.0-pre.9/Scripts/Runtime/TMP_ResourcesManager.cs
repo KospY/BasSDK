@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.AddressableAssets;
 
 namespace TMPro
 {
@@ -9,6 +9,35 @@ namespace TMPro
     /// </summary>
     public class TMP_ResourceManager
     {
+        // ==============================
+        // LOAD ASSETS FROM ADDRESSABLES
+        // ==============================
+
+        public static TMP_Settings LoadSettings()
+        {
+            return Addressables.LoadAssetAsync<TMP_Settings>($"TMP.Settings").WaitForCompletion();
+        }
+
+        public static TMP_FontAsset LoadFontAsset(string name)
+        {
+            return Addressables.LoadAssetAsync<TMP_FontAsset>($"TMP.Font.{name}").WaitForCompletion();
+        }
+
+        public static Material LoadMaterial(string name)
+        {
+            return Addressables.LoadAssetAsync<Material>($"TMP.Material.{name}").WaitForCompletion();
+        }
+
+        public static TMP_ColorGradient LoadColorGradient(string name)
+        {
+            return Addressables.LoadAssetAsync<TMP_ColorGradient>($"TMP.Gradient.{name}").WaitForCompletion();
+        }
+
+        public static TMP_SpriteAsset LoadSpriteAsset(string name)
+        {
+            return Addressables.LoadAssetAsync<TMP_SpriteAsset>($"TMP.Sprite.{name}").WaitForCompletion();
+        }
+
         // ======================================================
         // TEXT SETTINGS MANAGEMENT
         // ======================================================
@@ -20,13 +49,17 @@ namespace TMPro
             if (s_TextSettings == null)
             {
                 // Try loading the TMP Settings from a Resources folder in the user project.
-                s_TextSettings = Resources.Load<TMP_Settings>("TextSettings"); // ?? ScriptableObject.CreateInstance<TMP_Settings>();
+                //s_TextSettings = Resources.Load<TMP_Settings>("TextSettings"); // ?? ScriptableObject.CreateInstance<TMP_Settings>();
+                s_TextSettings = LoadSettings();
+
 
                 #if UNITY_EDITOR
                 if (s_TextSettings == null)
                 {
                     // Open TMP Resources Importer to enable the user to import the TMP Essential Resources and option TMP Examples & Extras
-                    TMP_PackageResourceImporterWindow.ShowPackageImporterWindow();
+                    Debug.LogWarning("TMP is complaining that the TMP Settings asset is missing. Opening the TMP Resources Importer window to help with this.");
+                    //wullys note, disabled this for now, I dont know if we need to fix something with the tmp settings asset being missing, or if we can just ignore it
+                    //TMP_PackageResourceImporterWindow.ShowPackageImporterWindow();
                 }
                 #endif
             }

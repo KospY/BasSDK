@@ -9,6 +9,8 @@ public class AssetSorceryInitOnLoad
 {
     static AssetSorceryInitOnLoad()
     {
+        //set the meta telemetry bool in the editor prefs so it doesnt annoy us, their codes broke
+        EditorPrefs.SetBool("OVRTelemetry.TelemetryEnabled", false);
         var platform = AssetSorceryPlatformRuntime.AssetSorceryGetBuildPlatform();
 
         Debug.Log($"AssetSorceryInitOnLoad: {platform} <-> {AssetSorceryPlatform.AssetSorceryGetPlatform()}");

@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
+using System.Collections;
+
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -36,6 +42,9 @@ namespace ThunderRoad
         public List<AttackMotion> chainAttacks = new List<AttackMotion>();
 #if ODIN_INSPECTOR
         [FoldoutGroup("Parrying", expanded: true)]
+#endif
+        public BrainModuleDefense.StanceDefenseSettings defenseSettings;
+#if ODIN_INSPECTOR
         [HorizontalGroup("Parrying/Upper", Width = (1f / 3f) - 0.02f, MarginLeft = 0.01f + ((1f - (0.04f + (2 * ((1 / 3f) - 0.02f)))) / 2f), MarginRight = 0.01f)]
         [BoxGroup("Parrying/Upper/Upper left", ShowLabel = false), HideLabel]
 #endif

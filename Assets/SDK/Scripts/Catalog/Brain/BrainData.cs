@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using UnityEngine.Profiling;
+using Newtonsoft.Json;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -80,6 +81,7 @@ namespace ThunderRoad
             [NonSerialized]
             public bool useHead, useArmLeft, useArmRight, useTorso, useLegs;
 
+            [JsonIgnore]
             public Creature creature { get; protected set; }
 
         }

@@ -79,11 +79,37 @@
             "childs": [
               {
                 "$type": "ThunderRoad.AI.Control.Selector, ThunderRoad",
-                "evaluateAllNodesOnCycle": false,
+                "evaluateAllNodesOnCycle": true,
                 "childs": [
                   {
                     "$type": "ThunderRoad.AI.Action.DrawItem, ThunderRoad",
-                    "holsterRightItem": true,
+                    "holsterRightItem": false,
+                    "holsterLeftItem": false,
+                    "waitForFinished": false,
+                    "targetTransformVariableName": "",
+                    "drawRightWeapon": true,
+                    "rightInfo": {
+                      "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+                      "weaponClass": "Melee",
+                      "weaponHandling": "OneHanded",
+                      "checkAmmo": false,
+                      "checkInHolder": true
+                    },
+                    "drawLeftWeapon": true,
+                    "leftInfo": {
+                      "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
+                      "weaponClass": "Throwable",
+                      "weaponHandling": "OneHanded",
+                      "checkAmmo": false,
+                      "checkInHolder": true
+                    },
+                    "blackboard": null,
+                    "creature": null,
+                    "brainData": null
+                  },
+                  {
+                    "$type": "ThunderRoad.AI.Action.DrawItem, ThunderRoad",
+                    "holsterRightItem": false,
                     "holsterLeftItem": false,
                     "waitForFinished": false,
                     "targetTransformVariableName": "",
@@ -109,7 +135,7 @@
                   },
                   {
                     "$type": "ThunderRoad.AI.Action.DrawItem, ThunderRoad",
-                    "holsterRightItem": true,
+                    "holsterRightItem": false,
                     "holsterLeftItem": false,
                     "waitForFinished": false,
                     "targetTransformVariableName": "",
@@ -230,6 +256,7 @@
                     "targetMinRadius": 7.0,
                     "targetMaxRadius": 20.0,
                     "keepWeaponDistance": 0.6,
+                    "advanceToMelee": true,
                     "blackboardMinName": null,
                     "blackboardMaxName": null,
                     "angleMode": "CheckAllies",
@@ -254,7 +281,7 @@
             "childs": [
               {
                 "$type": "ThunderRoad.AI.Action.DrawItem, ThunderRoad",
-                "holsterRightItem": true,
+                "holsterRightItem": false,
                 "holsterLeftItem": false,
                 "waitForFinished": false,
                 "targetTransformVariableName": "",
@@ -373,6 +400,7 @@
                     "targetMinRadius": 7.0,
                     "targetMaxRadius": 20.0,
                     "keepWeaponDistance": 0.6,
+                    "advanceToMelee": true,
                     "blackboardMinName": null,
                     "blackboardMaxName": null,
                     "angleMode": "CheckAllies",

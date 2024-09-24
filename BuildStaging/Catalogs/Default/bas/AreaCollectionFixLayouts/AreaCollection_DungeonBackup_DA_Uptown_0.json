@@ -18,7 +18,7 @@
         "dataId": "DA_Start_DalgarianGate",
         "category": "Area"
       },
-      "rotation": "Left",
+      "rotation": "Front",
       "creatureNumberWeight": 2.0,
       "isShareNPCAlert": true
     },
@@ -26,7 +26,18 @@
       "$type": "ThunderRoad.AreaCollectionFixLayout+AreaLayout, ThunderRoad",
       "bpGeneratorId": {
         "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
-        "dataId": "DA_XSTransi_GreatGarden",
+        "dataId": "DA_XSTransi_Corridor1",
+        "category": "Area"
+      },
+      "rotation": "Right",
+      "creatureNumberWeight": 3.0,
+      "isShareNPCAlert": true
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+AreaLayout, ThunderRoad",
+      "bpGeneratorId": {
+        "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+        "dataId": "DA_Transi_Theater",
         "category": "Area"
       },
       "rotation": "Front",
@@ -37,21 +48,10 @@
       "$type": "ThunderRoad.AreaCollectionFixLayout+AreaLayout, ThunderRoad",
       "bpGeneratorId": {
         "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
-        "dataId": "DA_Parkour_MonumentalWaterfall",
+        "dataId": "DA_XSTransi_GreatGarden",
         "category": "Area"
       },
-      "rotation": "Back",
-      "creatureNumberWeight": 4.0,
-      "isShareNPCAlert": true
-    },
-    {
-      "$type": "ThunderRoad.AreaCollectionFixLayout+AreaLayout, ThunderRoad",
-      "bpGeneratorId": {
-        "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
-        "dataId": "DA_XSTransi_GatheringHall",
-        "category": "Area"
-      },
-      "rotation": "Back",
+      "rotation": "Right",
       "creatureNumberWeight": 3.0,
       "isShareNPCAlert": true
     },
@@ -62,7 +62,7 @@
         "dataId": "DA_End_GolemArena",
         "category": "Area"
       },
-      "rotation": "Back",
+      "rotation": "Left",
       "creatureNumberWeight": 2.0,
       "isShareNPCAlert": true
     }
@@ -71,15 +71,15 @@
     {
       "$type": "ThunderRoad.AreaCollectionFixLayout+InternalLink, ThunderRoad",
       "indexArea1": 0,
-      "indexConnectionArea1": 0,
+      "indexConnectionArea1": 1,
       "indexArea2": 1,
-      "indexConnectionArea2": 0,
+      "indexConnectionArea2": 1,
       "crossAreaAlert": false
     },
     {
       "$type": "ThunderRoad.AreaCollectionFixLayout+InternalLink, ThunderRoad",
       "indexArea1": 1,
-      "indexConnectionArea1": 1,
+      "indexConnectionArea1": 0,
       "indexArea2": 2,
       "indexConnectionArea2": 1,
       "crossAreaAlert": false
@@ -89,7 +89,7 @@
       "indexArea1": 2,
       "indexConnectionArea1": 0,
       "indexArea2": 3,
-      "indexConnectionArea2": 2,
+      "indexConnectionArea2": 0,
       "crossAreaAlert": false
     },
     {

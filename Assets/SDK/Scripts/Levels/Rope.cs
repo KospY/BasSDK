@@ -33,7 +33,8 @@ namespace ThunderRoad
         public float heightFromGround = 2.0f;
 
         private bool isGenerated = false;
-
+        private LightProbeVolume _probeVolume;
+        private Area area;
 
         protected virtual void OnDrawGizmos()
         {

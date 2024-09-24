@@ -143,16 +143,16 @@ namespace ThunderRoad
 
         public StripConfig GetStripConfig()
         {
-            switch (EditorUserBuildSettings.activeBuildTarget)
+            switch (Common.GetQualityLevel())
             {
                 //if its android, return the android config
-                case BuildTarget.Android: {
+                case QualityLevel.Android: {
                     android.isAndroid = true;
                     android.Init();
                     return android;
                 }
-                case BuildTarget.StandaloneWindows:
-                case BuildTarget.StandaloneWindows64: {
+                case QualityLevel.Windows:
+                {
                     windows.isWindows = true;
                     windows.Init();
                     return windows;

@@ -19,7 +19,7 @@
       "overrideBrainID": "HumanHardHeavy",
       "overrideEthnicity": false,
       "overrideEthnicityID": null,
-      "probabilityWeight": 1
+      "probabilityWeight": 1.0
     },
     {
       "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
@@ -33,7 +33,35 @@
       "overrideBrainID": "HumanHardHeavy",
       "overrideEthnicity": false,
       "overrideEthnicityID": null,
-      "probabilityWeight": 1
+      "probabilityWeight": 1.0
+    },
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Humans",
+      "overrideFaction": true,
+      "factionID": 5,
+      "overrideContainer": true,
+      "overrideContainerID": "CultistHighborn2",
+      "overrideBrain": true,
+      "overrideBrainID": "HumanHardHeavy",
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 1.0
+    },
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Humans",
+      "overrideFaction": true,
+      "factionID": 5,
+      "overrideContainer": true,
+      "overrideContainerID": "CultistHighborn3",
+      "overrideBrain": true,
+      "overrideBrainID": "HumanHardHeavy",
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 1.0
     }
   ],
   "groupPath": "Factions/Base"

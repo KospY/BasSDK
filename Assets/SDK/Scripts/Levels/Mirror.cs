@@ -93,32 +93,34 @@ namespace ThunderRoad
 
         void OnValidate()
         {
-            if (!gameObject.activeInHierarchy) return;
-            Refresh();
+            if (!gameObject.activeInHierarchy)
+                return;
         }
 
-        [Button]
-        public void SetActive(bool active)
+
+        /// <summary>
+        /// Toggle the armour edit mode.
+        /// This is used in the Lever event for the bench.
+        /// </summary>
+        public void SetEditMode(bool state)
         {
-            this.active = active;
         }
 
-        [ContextMenu("Refresh")]
-        public void Refresh()
+
+        protected virtual void OnDrawGizmosSelected()
         {
-            if (reflectionDirection == ReflectionDirection.Forward)
-                reflectionLocalDirection = Vector3.forward;
-            else if (reflectionDirection == ReflectionDirection.Up)
-                reflectionLocalDirection = Vector3.up;
-            else if (reflectionDirection == ReflectionDirection.Back)
-                reflectionLocalDirection = Vector3.back;
-            else if (reflectionDirection == ReflectionDirection.Down)
-                reflectionLocalDirection = Vector3.down;
-            else if (reflectionDirection == ReflectionDirection.Left)
-                reflectionLocalDirection = Vector3.left;
-            else if (reflectionDirection == ReflectionDirection.Right)
-                reflectionLocalDirection = Vector3.right;
-            reflectionWorldDirection = this.transform.TransformDirection(reflectionLocalDirection);
+            DrawGizmoArrow(this.transform.position, reflectionWorldDirection * 0.5f, Color.blue);
+            Vector2 localXlowHigh = new Vector2(-widthAndHeight.x / 2, widthAndHeight.x / 2);
+            Vector2 localYlowHigh = new Vector2(-widthAndHeight.y / 2, widthAndHeight.y / 2);
+            Gizmos.color = Color.white;
+            for (int i = 0; i < 4; i++)
+            {
+                Vector3 reflectionDir = transform.TransformDirection(reflectionWorldDirection);
+                Vector3 offsetStart = Quaternion.FromToRotation(transform.forward, reflectionDir) * new Vector3((i < 2 ? localXlowHigh.x : localXlowHigh.y), (i == 1 || i == 2 ? localYlowHigh.x : localYlowHigh.y), 0f);
+                int j = (i + 1) % 4;
+                Vector3 offsetEnd = Quaternion.FromToRotation(transform.forward, reflectionDir) * new Vector3((j < 2 ? localXlowHigh.x : localXlowHigh.y), (j == 1 || j == 2 ? localYlowHigh.x : localYlowHigh.y), 0f);
+                Gizmos.DrawLine(transform.position + offsetStart, transform.position + offsetEnd);
+            }
         }
 
         public static void DrawGizmoArrow(Vector3 pos, Vector3 direction, Color color, float arrowHeadLength = 0.25f, float arrowHeadAngle = 20.0f)

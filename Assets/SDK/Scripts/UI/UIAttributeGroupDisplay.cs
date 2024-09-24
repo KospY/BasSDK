@@ -6,16 +6,16 @@ namespace ThunderRoad
 {
     public class UIAttributeGroupDisplay : MonoBehaviour
     {
-        [SerializeField] private RawImage backgroundImage;
+        [SerializeField] private Image backgroundImage;
         [SerializeField] private UIText title;
         [SerializeField] private UIText description;
         [SerializeField] private HorizontalOrVerticalLayoutGroup iconLayout;
-        [SerializeField] private List<RawImage> iconPool;
+        [SerializeField] private List<Image> iconPool;
         [SerializeField] private GameObject separator;
 
-        private List<(Texture iconCache, Color iconColor)> icons;
+        private List<(Sprite iconCache, Color iconColor)> icons;
         public float iconAspectRatio;
-        private List<(Texture iconCache, Color iconColor)> bgIcons;
+        private List<(Sprite iconCache, Color iconColor)> bgIcons;
 
         private int iconProgession;
 
@@ -46,9 +46,9 @@ namespace ThunderRoad
             }
         }
 
-        public UIAttributeGroupDisplay WithBackground(Texture backgroundImage, Color color, float aspectRatio = 1.0f)
+        public UIAttributeGroupDisplay WithBackground(Sprite backgroundImage, Color color, float aspectRatio = 1.0f)
         {
-            this.backgroundImage.texture = backgroundImage;
+            this.backgroundImage.sprite = backgroundImage;
             this.backgroundImage.color = color;
             if (aspectRatio != 1.0f
                 && this.backgroundImage.TryGetComponent<AspectRatioFitter>(out AspectRatioFitter aspectRatioFitter))
@@ -85,11 +85,11 @@ namespace ThunderRoad
         /// <summary>
         /// spawn thhe number of icons
         /// </summary>
-        public UIAttributeGroupDisplay WithIcons(Texture iconTexture, Color iconColor, int count = 1, float iconAspectRatio  = 1.0f)
+        public UIAttributeGroupDisplay WithIcons(Sprite iconTexture, Color iconColor, int count = 1, float iconAspectRatio  = 1.0f)
         {
             if (iconTexture == null) return this;
             
-            List<(Texture iconCache, Color iconColor)> tempList = new List<(Texture iconCache, Color iconColor)>();
+            List<(Sprite iconCache, Color iconColor)> tempList = new List<(Sprite iconCache, Color iconColor)>();
             for (int i = 0; i < count; i++)
             {
                 tempList.Add((iconTexture, iconColor));
@@ -101,7 +101,7 @@ namespace ThunderRoad
         /// <summary>
         /// spawn thhe list of icons
         /// </summary>
-        public UIAttributeGroupDisplay WithIcons(List<(Texture iconCache, Color iconColor)> icons, float iconAspectRatio  = 1.0f)
+        public UIAttributeGroupDisplay WithIcons(List<(Sprite iconCache, Color iconColor)> icons, float iconAspectRatio  = 1.0f)
         {
             if (icons == null)
             { return this; }
@@ -120,7 +120,7 @@ namespace ThunderRoad
         /// Spawns Icons from the list (0 to iconProgression) and then from bgIcons list (iconProgression to size of bgIcons list)
         /// icons and bgIcons must be the same size.
         /// </summary>
-        public UIAttributeGroupDisplay WithProgressionIcons(List<(Texture iconCache, Color iconColor)> icons, List<(Texture iconCache, Color iconColor)> bgIcons, int iconProgession, float iconAspectRatio = 1.0f)
+        public UIAttributeGroupDisplay WithProgressionIcons(List<(Sprite iconCache, Color iconColor)> icons, List<(Sprite iconCache, Color iconColor)> bgIcons, int iconProgession, float iconAspectRatio = 1.0f)
         {
             if (icons == null || bgIcons == null)
             { return this; }
@@ -146,13 +146,13 @@ namespace ThunderRoad
         /// <param name="progression"> icon  progression (number of icons to show)</param>
         /// <param name="aspectRatio">the aspect ratio of icons (they must ahve the same)</param>
         /// <returns></returns>
-        public UIAttributeGroupDisplay WithProgressionIcons(Texture icon, Color color, Texture bgIcon, Color bgColor, int count = 1, int progression = 1, float iconAspectRatio = 1.0f)
+        public UIAttributeGroupDisplay WithProgressionIcons(Sprite icon, Color color, Sprite bgIcon, Color bgColor, int count = 1, int progression = 1, float iconAspectRatio = 1.0f)
         {
             if (icon == null || bgIcon == null)
             { return this; }
 
-            List<(Texture iconCache, Color iconColor)> tempListIcons = new List<(Texture iconCache, Color iconColor)>();
-            List<(Texture iconCache, Color iconColor)> tempListBgIcons = new List<(Texture iconCache, Color iconColor)>();
+            List<(Sprite iconCache, Color iconColor)> tempListIcons = new List<(Sprite iconCache, Color iconColor)>();
+            List<(Sprite iconCache, Color iconColor)> tempListBgIcons = new List<(Sprite iconCache, Color iconColor)>();
             for (int i = 0; i < count; i++)
             {
                 tempListIcons.Add((icon, color));
@@ -239,9 +239,9 @@ namespace ThunderRoad
             int poolCount = iconPool.Count;
             for (int index = 0; index < iconProgession; index++)
             {
-                RawImage tempImage = index < poolCount ? iconPool[index]
+                Image tempImage = index < poolCount ? iconPool[index]
                                                             : CreateIcon();
-                tempImage.texture = icons[index].iconCache;
+                tempImage.sprite = icons[index].iconCache;
                 tempImage.color = icons[index].iconColor;
 
                 if (tempImage.TryGetComponent(out AspectRatioFitter ratioFitter))
@@ -278,9 +278,9 @@ namespace ThunderRoad
 
                 for (int index = iconProgession; index < totalIconCount; index++)
                 {
-                    RawImage tempImage = index < poolCount ? iconPool[index]
+                    Image tempImage = index < poolCount ? iconPool[index]
                                                                 : CreateIcon();
-                    tempImage.texture = bgIcons[index].iconCache;
+                    tempImage.sprite = bgIcons[index].iconCache;
                     tempImage.color = bgIcons[index].iconColor;
 
                     if (tempImage.TryGetComponent(out AspectRatioFitter ratioFitter))
@@ -309,7 +309,7 @@ namespace ThunderRoad
             int poolCount = iconPool.Count;
             for (int i = 0; i < poolCount; i++)
             {
-                iconPool[i].texture = null;
+                iconPool[i].sprite = null;
                 iconPool[i].gameObject.SetActive(false);
             }
         }
@@ -317,9 +317,9 @@ namespace ThunderRoad
         /// <summary>
         /// Create an icon from the cache address.
         /// </summary>
-        private RawImage CreateIcon()
+        private Image CreateIcon()
         {
-            RawImage newIcon = Instantiate(iconPool[0], iconLayout.transform);
+            Image newIcon = Instantiate(iconPool[0], iconLayout.transform);
             iconPool.Add(newIcon);
             return newIcon;
         }

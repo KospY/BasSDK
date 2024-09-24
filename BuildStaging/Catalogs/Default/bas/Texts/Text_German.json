@@ -95,7 +95,7 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "SwimmingMessage",
+          "id": "Swimming",
           "text": "Um dich durch Wasser zu bewegen, ahme eine Schwimmbewegung mit den Armen nach.",
           "spriteAddress": null,
           "videoAddress": "Bas.Video.Swimming"
@@ -158,13 +158,6 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Stash",
-          "text": "Wenn du ein Level verlässt, kehrt jeder Gegenstand, den du besitzt, in deinen Vorrat zurück, wenn er irgendwo außerhalb deiner Elemente gelassen wird. Du kannst mit dem Spawnbuch in deinem Zuhause beliebige Gegenstände aus deinem Vorrat aufrufen oder dich mit ihnen ausrüsten.",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "ClimbingOverLedge",
           "text": "Wenn du dich an einem Vorsprung festhältst, über den du klettern möchtest, halte Springen und bewege dich nach vorne, um dich hochzudrücken. Du kannst deine Arme auch nach unten drücken, um zusätzlichen Schwung zu erhalten.",
           "spriteAddress": null,
@@ -186,17 +179,52 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "EquipSpell",
-          "text": "Du kannst den ausgerüsteten Zauberspruch auswechseln, indem du die Zauberspruchtaste gedrückt hältst. Anschließend kannst du im strahlenförmigen Menü den gewünschten auswählen.",
+          "id": "InventoryTake",
+          "text": "Du kannst Gegenstände in deinen Elementen, einem dalgarianischen Geräter mit unendliche Speicherkapazität, das auf deiner Brust ist, halten und unterzubringen.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.InventoryRetrieving"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Stash",
+          "text": "Ihr Artikelbuch enthält zwei Registerkarten: Die Registerkarte Vorrat zeigt alle Gegenstände an, die Sie gekauft oder gelagert haben. Du kannst sie jederzeit spawnen. Die Registerkarte Zuhause zeigt alle Gegenstände an, die sich irgendwo in deinem Zuhause befinden. Du kannst sie jederzeit in den Vorrat legen.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Stash"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "OpenSpellWheel",
+          "text": "Überprüfe deine Zaubersprüche, indem du die Taste für das Zauberrad auf deinem Controller gedrückt hältst.",
+          "spriteAddress": "Bas.Input.{Controller}.SpellMenu",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "UseSpells",
+          "text": "Wähle einen Zauber aus, indem du die Taste des Zauberrads loslässt, während deine Hand über dem gewünschten Zauber schwebt. Um einen Zauber abzuwählen, lassen Sie die Taste los, während sich Ihre Hand über einem leeren Feld befindet.",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "InventoryTake",
-          "text": "Du kannst Gegenstände in deinen Elementen, einem dalgarianischen Geräter mit unendliche Speicherkapazität, das auf deiner Brust ist, halten und unterzubringen.",
+          "id": "Mirror",
+          "text": "Du kannst Kleidung oder Rüstungsteile ausrüsten, wenn du in einen Spiegel schaust. Du findest einen im Laden und in deinem Haus.",
           "spriteAddress": null,
-          "videoAddress": "Bas.Video.InventoryRetrieving"
+          "videoAddress": "Bas.Video.Mirror"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Armor",
+          "text": "Um Kleidung oder Rüstungsteile auszurüsten, halten Sie den Auslöser über das entsprechende Körperteil, während Sie in den Spiegel schauen. Wenn das Körperteil hervorgehoben ist, lassen Sie den Auslöser los, um es auszurüsten. Auf diese Weise kannst du auch Rüstungsteile und Kleidung austauschen.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Armor"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Quiver",
+          "text": "Entferne ausgerüstete Köcher, indem du die Auslösetaste und dann die Grifftaste drückst, um sie zu greifen.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Quiver"
         }
       ]
     },
@@ -10495,21 +10523,21 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap1",
           "text": "Anhang 1 - Energiekonvergenz-Großrechner-Konstruktionsplan 1/3",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_01",
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap2",
           "text": "Anhang 1 - Energiekonvergenz-Großrechner-Konstruktionsplan 2/3",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_02",
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap3",
           "text": "Anhang 1 - Energiekonvergenz-Großrechner-Konstruktionsplan 3/3",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_03",
           "videoAddress": null
         },
         {

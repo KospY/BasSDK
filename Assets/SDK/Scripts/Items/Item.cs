@@ -118,8 +118,9 @@ namespace ThunderRoad
         public List<HingeEffect> effectHinges = new List<HingeEffect>();
         [NonSerialized]
         public List<WhooshPoint> whooshPoints = new List<WhooshPoint>();
-        [NonSerialized]
+        [HideInInspector]
         public LightVolumeReceiver lightVolumeReceiver;
+        public AudioSource audioSource;
         [NonSerialized]
         public List<CollisionHandler> collisionHandlers = new List<CollisionHandler>();
         [NonSerialized]
@@ -333,6 +334,10 @@ namespace ThunderRoad
                 customInertiaTensorCollider.isTrigger = true;
                 customInertiaTensorCollider.gameObject.layer = 2;
             }
+            if (!this.TryGetComponent<LightVolumeReceiver>(out lightVolumeReceiver))
+                lightVolumeReceiver = this.gameObject.AddComponent<LightVolumeReceiver>();
+            if (!audioSource)
+                audioSource = gameObject.AddComponent<AudioSource>();
         }
 #if UNITY_EDITOR
         public static void DrawGizmoArrow(Vector3 pos, Vector3 direction, Vector3 upwards, Color color, float arrowHeadLength = 0.25f, float arrowHeadAngle = 20.0f)

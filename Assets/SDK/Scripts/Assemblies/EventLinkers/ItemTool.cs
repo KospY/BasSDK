@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace ThunderRoad
 {
@@ -10,6 +11,7 @@ namespace ThunderRoad
 
         public bool clearAfterAction = false;
         public List<SelectionSetting> selectors = new List<SelectionSetting>();
+        public UnityEvent<Item> itemEvent;
 
         [NonSerialized]
         public List<Item> selectedItems = new List<Item>();
@@ -80,6 +82,29 @@ namespace ThunderRoad
         }
 
 
+        #region Dynamic invocation item tools
+        public void RunEventWithItem(Item item)
+        {
+        }
+
+        public void BreakEventTargetBreakable(Item item)
+        {
+        }
+
+        public void DespawnItemInstantly(Item item)
+        {
+        }
+
+        public void EquipItemToPlayerRightHand(Item item)
+        {
+        }
+
+        public void EquipItemToPlayerLeftHand(Item item)
+        {
+        }
+
+        #endregion
+
         #region Selected item tools
         public void CopyComponentToSelection(Component component)
         {
@@ -87,6 +112,16 @@ namespace ThunderRoad
         }
 
         public void RemoveComponentFromSelection(Component component)
+        {
+            if (clearAfterAction) ClearSelections();
+        }
+
+        public void RunEventWithSelection()
+        {
+            if (clearAfterAction) ClearSelections();
+        }
+
+        public void ClearSelectionStatuses(string id)
         {
             if (clearAfterAction) ClearSelections();
         }
@@ -126,6 +161,14 @@ namespace ThunderRoad
         }
 
         public void RemoveComponentFromEventTarget(Component component)
+        {
+        }
+
+        public void RunEventWithEventTarget()
+        {
+        }
+
+        public void ClearEventTargetStatuses(string id)
         {
         }
 

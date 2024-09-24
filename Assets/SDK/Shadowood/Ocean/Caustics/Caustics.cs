@@ -102,7 +102,6 @@ namespace Shadowood
         /// </summary>
         public static void SetDefaults()
         {
-            Debug.Log("Caustics: SetDefaults (off)");
             Shader.SetGlobalColor(CausticsColorPropName, Color.black);
         }
 
@@ -191,7 +190,6 @@ namespace Shadowood
 
         private void OnEnable()
         {
-            Debug.Log("Caustics: OnEnable");
             count = 0;
             lastRan = 0;
             if (dirlight == null) FindSun();
@@ -320,7 +318,9 @@ namespace Shadowood
         [Button, ContextMenu("PropertyUpdate")]
         public void PropertyUpdate()
         {
+#if UNITY_EDITOR
             if (debug && Application.isEditor) Debug.Log("Caustic: PropertyUpdate");
+#endif
 
             if (dirlight)
             {

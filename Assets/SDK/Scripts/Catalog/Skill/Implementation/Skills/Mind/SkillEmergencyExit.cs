@@ -21,10 +21,18 @@ namespace ThunderRoad.Skill.Spell
         [BoxGroup("Status")]
 #endif
         public float duration;
+#if ODIN_INSPECTOR
+        [BoxGroup("Effect"), ValueDropdown("GetAllEffectID")]
+#endif
+        public string effectId;
+
+        protected EffectData effectData;
+        
         public override void OnCatalogRefresh()
         {
             base.OnCatalogRefresh();
             statusData = Catalog.GetData<StatusData>(statusId);
+            effectData = Catalog.GetData<EffectData>(effectId);
         }
 
     }

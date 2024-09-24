@@ -15,7 +15,7 @@ namespace ThunderRoad
     {
         [NonSerialized]
 #if ODIN_INSPECTOR
-        [ShowInInspector, HideLabel, PreviewField(ObjectFieldAlignment.Left, Height = 60f), FoldoutGroup("$prettifiedID", expanded: true), HorizontalGroup("$prettifiedID/Horiz", 65f)]
+        [ShowInInspector, HideLabel, PreviewField(ObjectFieldAlignment.Left, Height = 60f), FoldoutGroup("$prettifiedID", expanded: true), HorizontalGroup("$prettifiedID/Horiz", 65f), VerticalGroup("$prettifiedID/Horiz/Clip")]
 #if UNITY_EDITOR
         [OnValueChanged(nameof(EditorUpdateAddress))]
 #endif
@@ -31,15 +31,15 @@ namespace ThunderRoad
 #endif
         public string address;
 #if ODIN_INSPECTOR
-        [LabelWidth(125), HorizontalGroup("$prettifiedID/Horiz"), VerticalGroup("$prettifiedID/Horiz/Fields"), HorizontalGroup("$prettifiedID/Horiz/Fields/Row3", Order = 0)]
+        [LabelWidth(105), HorizontalGroup("$prettifiedID/Horiz"), VerticalGroup("$prettifiedID/Horiz/Fields"), HorizontalGroup("$prettifiedID/Horiz/Fields/Row3", Order = 0, Width = 170)]
 #endif
         public float animationSpeed = 1;
 #if ODIN_INSPECTOR
-        [LabelWidth(75), HorizontalGroup("$prettifiedID/Horiz"), VerticalGroup("$prettifiedID/Horiz/Fields"), HorizontalGroup("$prettifiedID/Horiz/Fields/Row3", Order = 1), ShowIf("showDifficulty")]
+        [LabelWidth(60), HorizontalGroup("$prettifiedID/Horiz"), VerticalGroup("$prettifiedID/Horiz/Fields"), HorizontalGroup("$prettifiedID/Horiz/Fields/Row3", Order = 1, Width = 95), ShowIf("showDifficulty")]
 #endif
         public int difficulty;
 #if ODIN_INSPECTOR
-        [LabelWidth(135), HorizontalGroup("$prettifiedID/Horiz"), VerticalGroup("$prettifiedID/Horiz/Fields"), HorizontalGroup("$prettifiedID/Horiz/Fields/Row3", Order = 3, Width = 150)]
+        [LabelWidth(135), HorizontalGroup("$prettifiedID/Horiz"), VerticalGroup("$prettifiedID/Horiz/Fields"), HorizontalGroup("$prettifiedID/Horiz/Fields/Row3", Order = 3, Width = 145, PaddingRight = 10)]
 #endif
         public bool allowPlayAndMove = true;
 #if ODIN_INSPECTOR
@@ -47,6 +47,7 @@ namespace ThunderRoad
 #endif
         public float weight;
 
+        [NonSerialized]
         public StanceData stanceData;
         [NonSerialized]
         public bool populated = false;

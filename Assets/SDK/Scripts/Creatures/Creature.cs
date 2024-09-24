@@ -496,26 +496,44 @@ namespace ThunderRoad
 #endif
 
         #region Exposed SDK methods
+        [Button]
         public void Heal(float healing)
         {
         }
 
+        [Button]
+        public bool TryAddSkill(string id)
+        {
+            return true;
+        }
+
+        [Button]
+        public bool TryRemoveSkill(string id)
+        {
+            return true;
+        }
+
+        [Button]
         public void ResurrectMaxHealth()
         {
         }
 
+        [Button]
         public void Resurrect(float healing)
         {
         }
 
+        [Button]
         public void SetFaction(int factionId)
         {
         }
 
+        [Button]
         public void Damage(float amount)
         {
         }
 
+        [Button]
         public void Kill()
         {
         }

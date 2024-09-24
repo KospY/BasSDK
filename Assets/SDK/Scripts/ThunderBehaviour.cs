@@ -105,7 +105,7 @@ namespace ThunderRoad
         /// </summary>
         [NonSerialized]
         public int TimeSliceFrames = 1;
-        private void SetTimeSliceId()
+        private void SetTimeSliceId ()
         {
             TimeSliceId = GetNextTimeSliceId % SliceOverNumFrames;
             TimeSliceFrames = SliceOverNumFrames;
@@ -114,13 +114,17 @@ namespace ThunderRoad
         public void OnEnable()
         {
 #if !TESTINGLOCALLY
+            UnityEngine.Profiling.Profiler.BeginSample(this.ThunderBehaviourTypeName);
             ManagedOnEnable();
+            UnityEngine.Profiling.Profiler.EndSample();
 #endif
         }
 
         public void OnDisable()
         {
+            UnityEngine.Profiling.Profiler.BeginSample(this.ThunderBehaviourTypeName);
             ManagedOnDisable();
+            UnityEngine.Profiling.Profiler.EndSample();
         }
 
         protected virtual void ManagedOnEnable()

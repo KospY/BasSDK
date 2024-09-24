@@ -244,8 +244,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8917a362182edac42b4513b4263afa3e, type: 2}
-  m_sharedMaterial: {fileID: 1097489544449028181, guid: 8917a362182edac42b4513b4263afa3e,
+  m_fontAsset: {fileID: 11400000, guid: ec0328fbe27e455478664cc6d2ea966e, type: 2}
+  m_sharedMaterial: {fileID: -8138513166946992755, guid: ec0328fbe27e455478664cc6d2ea966e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -286,15 +286,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -348,6 +350,8 @@ MonoBehaviour:
   setFromScript: 0
   text: 
   forceUpperCase: 0
+  ForceEnglishForNonLatin: 0
+  ForceLatinFontForNonLatin: 1
 --- !u!1 &3069240145240295498
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,8 +423,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: DATA TITLE
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8917a362182edac42b4513b4263afa3e, type: 2}
-  m_sharedMaterial: {fileID: 1097489544449028181, guid: 8917a362182edac42b4513b4263afa3e,
+  m_fontAsset: {fileID: 11400000, guid: ec0328fbe27e455478664cc6d2ea966e, type: 2}
+  m_sharedMaterial: {fileID: -8138513166946992755, guid: ec0328fbe27e455478664cc6d2ea966e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -461,15 +465,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -523,6 +529,8 @@ MonoBehaviour:
   setFromScript: 0
   text: 
   forceUpperCase: 0
+  ForceEnglishForNonLatin: 0
+  ForceLatinFontForNonLatin: 1
 --- !u!1 &4355190112128836346
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,6 +799,7 @@ MonoBehaviour:
   iconPool:
   - {fileID: 8575678594170909572}
   separator: {fileID: 4355190112128836346}
+  iconAspectRatio: 0
 --- !u!114 &7933309790778538394
 MonoBehaviour:
   m_ObjectHideFlags: 0

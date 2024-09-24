@@ -306,7 +306,8 @@ namespace ThunderRoad
             {
                 VideoClip clip = video;
                 video = null;
-                Catalog.ReleaseAsset(clip);
+                if (clip != null)
+                    Catalog.ReleaseAsset(clip);
             }
         }
 #if UNITY_EDITOR

@@ -1,4 +1,4 @@
-# Blade and Sorcery official 1.0.3 SDK
+# Blade and Sorcery official 1.0.4 SDK
 
 This SDK is used to create custom contents for the VR game "Blade and Sorcery".
 The game currently support JSON/data modding, custom assets and plugins support (custom c# code).

@@ -451,14 +451,18 @@ namespace TMPro
             {
                 if (isTMPSettingsNull)
                 {
-                    s_Instance = Resources.Load<TMP_Settings>("TMP Settings");
+                    //s_Instance = Resources.Load<TMP_Settings>("TMP Settings");
+                    s_Instance = TMP_ResourceManager.LoadSettings();
 
                     #if UNITY_EDITOR
                     // Make sure TextMesh Pro UPM packages resources have been added to the user project
                     if (isTMPSettingsNull && Time.frameCount != 0 || (!isTMPSettingsNull && s_Instance.assetVersion != s_CurrentAssetVersion))
                     {
-						// It needs to open after loading the default Editor layout
-                        DelayShowPackageImporterWindow();
+                        //Debug.LogWarning("TMP is complaining that the TMP Settings asset is missing. Opening the TMP Resources Importer window to help with this.");
+                        //wullys note, disabled this for now, I dont know if we need to fix something with the tmp settings asset being missing, or if we can just ignore it
+						
+                        // It needs to open after loading the default Editor layout
+                        //DelayShowPackageImporterWindow();
                     }
                     #endif
 
@@ -499,7 +503,9 @@ namespace TMPro
             if (s_Instance == null)
             {
                 // Load settings from TMP_Settings file
-                TMP_Settings settings = Resources.Load<TMP_Settings>("TMP Settings");
+                //TMP_Settings settings = Resources.Load<TMP_Settings>("TMP Settings");
+                TMP_Settings settings = TMP_ResourceManager.LoadSettings();
+
                 if (settings != null)
                     s_Instance = settings;
             }

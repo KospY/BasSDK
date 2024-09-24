@@ -8,11 +8,16 @@ namespace ThunderRoad
         {
             get
             {
-                if (!_instance) _instance = GameObject.FindObjectOfType<Clouds>();
                 return _instance;
             }
         }
         protected static Clouds _instance;
+
+        void Awake()
+        {
+            if(!_instance) _instance = this;
+            else if(_instance != this) Destroy(this.gameObject);
+        }
 
         public MeshRenderer meshRenderer
         {

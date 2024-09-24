@@ -145,7 +145,9 @@ namespace ThunderRoad
         }
 
         // This method should be exposed when exporting the SDK; modders may have an interest in utilizing this method through an event linker or other Unity Event
-        public bool ReleaseString()
+        public void ReleaseString() => TryReleaseString();
+
+        public bool TryReleaseString()
         {
             return true;
         }

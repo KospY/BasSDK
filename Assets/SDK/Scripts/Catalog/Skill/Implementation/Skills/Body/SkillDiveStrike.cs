@@ -26,15 +26,23 @@ namespace ThunderRoad.Skill
         [BoxGroup("Detection")]
 #endif
         public float minimumVelocity = 3f;
+
+#if ODIN_INSPECTOR
+        [BoxGroup("Detection")]
+#endif
+        public float grabWait = 0.5f;
+
 #if ODIN_INSPECTOR
         [BoxGroup("Detection")]
 #endif
         public float headAngleRange = 15f;
+
         [Header("Jab")]
 #if ODIN_INSPECTOR
         [BoxGroup("Detection")]
 #endif
         public float decelerationRatioThresholdStab = 0.1f;
+
 #if ODIN_INSPECTOR
         [BoxGroup("Detection")]
 #endif

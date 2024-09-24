@@ -84,8 +84,6 @@ public class FluidSimSettings
 
     public void ApplySettings(FluxyContainer fluxyContainer, FluxyTarget fluxyTarget)
     {
-        Debug.Log("FluidSimSettings: ApplySettings");
-        
         if (useNormalMap)
         {
             fluxyContainer.surfaceNormals = surfaceNormals;
@@ -104,7 +102,17 @@ public class FluidSimSettings
         fluxyTarget.velocityWeight = shoreCollision;
         fluxyTarget.densityWeight = foamDensity;
 
-        fluxyContainer.GetComponent<FluxySolver>().enabled = Application.isPlaying ? false : realtimeUpdate;
+        //in editor we can update in realtime for testing purposes, but in build this should always be disabled
+#if UNITY_EDITOR
+        var enabled = Application.isPlaying ? false : realtimeUpdate;
+        fluxyContainer.GetComponent<FluxySolver>().enabled = enabled;
+        if (enabled)
+        {
+            Debug.LogWarning("FluidSim Realtime Solver Update Enabled. Performance may be affected in editor.");
+        }
+#else
+        fluxyContainer.GetComponent<FluxySolver>().enabled = false;
+#endif
     }
 }
 

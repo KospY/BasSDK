@@ -1140,7 +1140,7 @@ namespace ThunderRoad
             }
             else
             {
-                Debug.LogWarning($"Address [{address}] not found for [{requestName}]");
+                Debug.LogWarning($"Address [{address}] of type {type} not found for [{requestName}]");
                 Addressables.Release(handle);
                 callback?.Invoke(null);
             }

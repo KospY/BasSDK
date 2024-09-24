@@ -73,6 +73,10 @@ namespace ThunderRoad
             linearForceRemainingDuration = linearForceDuration;
         }
 
+        public bool IsCopyable() => true;
+
+        public void CopyTo(UnityEngine.Object other) => ((IToolControllable)this).CopyControllableTo(other);
+
         public void CopyFrom(IToolControllable original)
         {
             var originalApplier = original as PhysicBodyForceApplier;
@@ -88,10 +92,14 @@ namespace ThunderRoad
             angularForce = originalApplier.angularForce;
         }
 
+        public void ReparentAlign(Component other) => ((IToolControllable)this).ReparentAlignTransform(other);
+
         public void Remove()
         {
             Destroy(this);
         }
+
+        public Transform GetTransform() => transform;
 
     }
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
+using System.Collections;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -27,17 +29,17 @@ namespace ThunderRoad
 
         [CustomContextMenu("Copy to other brains", nameof(CopyTime))]
 #endif
-        public float aboutToBeHitTiming = 0.5f;
+        public float aboutToBeHitTiming = 0.6f;
+        public float waitDodgeTime = 0.06f;
         public float dangerLevelDecreaseTime = 0.5f;
         public float shieldRiposteChance = 0.3f;
-        public List<StanceDefenseSettings> stanceSettings = new List<StanceDefenseSettings>();
 
         [Header("Swing defense")]
         public float defenseMaxDistance = 8f;
         public float parryDetectionRadius = 5f;
         public float parryHorizontalMaxAngle = 60;
-        public float parryCircleHeight = 0.64f;
-        public float parryCircleRadius = 0.66f;
+        public float parryCircleHeight = 0.35f;
+        public float parryCircleRadius = 0.6f;
         public float parryAdjustSpeed = 4f;
         public float riposteBlockRequirement = 0.5f;
 
@@ -49,7 +51,6 @@ namespace ThunderRoad
         [System.Serializable]
         public struct StanceDefenseSettings
         {
-            public BrainModuleStance.Stance stance;
             public Vector2 minMaxIncomingAttackSpeed;
             public float defenseColliderRotation;
             public ParryPoseMode parryPoseMode;
@@ -77,11 +78,14 @@ namespace ThunderRoad
         [CustomContextMenu("Copy to other brains", nameof(CopyCurveAcrossBrains))]
 #endif
         public AnimationCurve dodgeChanceCurve;
+        public Vector2 minMaxDodgeCooldown = new Vector2(0.5f, 1f);
         public float dodgeSpeed = 1f;
         public float dodgeMaxHeight = 0.2f;
         public bool dodgeWhenGrabbed = false;
         public bool dodgeWhenWeaponGrabbed = false;
         public bool sideDodgeEnabled = false;
+        public float lowDodgeLerpValue = 0.85f;
+        public float highDodgeLerpValue = 0.64f;
 
         [Header("Misc")]
         public float physicsCullParryBias = 10f;

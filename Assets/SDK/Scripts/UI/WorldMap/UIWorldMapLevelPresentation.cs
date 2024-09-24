@@ -15,14 +15,14 @@ namespace ThunderRoad
         [Header("Map Infos")]
         public RectTransform levelTitleBox;
         public TextMeshProUGUI levelTitleText;
-        public RawImage mapPreview = null;
+        public Image mapPreview = null;
         public TextMeshProUGUI modeDescriptionText;
 
         [Header("Faction Banner")]
         public GameObject enemyBanner;
-        public RawImage bannerlevelIcon;
-        public RawImage enemyBannerIcon;
-        public RawImage enemyBannerBackground;
+        public Image bannerlevelIcon;
+        public Image enemyBannerIcon;
+        public Image enemyBannerBackground;
         public float titleBannerOffset;
 
 

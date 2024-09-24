@@ -213,5 +213,21 @@ namespace ThunderRoad
 
         protected Collider mainCollider;
 
+        public void ForceCreatureEnterZone(Creature creature)
+        {
+        }
+
+        public void ForceCreatureExitZone(Creature creature)
+        {
+        }
+
+        public void ForceItemEnterZone(Item item)
+        {
+        }
+
+        public void ForceItemExitZone(Item item)
+        {
+        }
+
     }
 }

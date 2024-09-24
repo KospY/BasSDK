@@ -43,8 +43,7 @@
       "randomSpeakCombatChance": 0.0,
       "randomSpeakDelay": 5.0,
       "muffleSpeakDelay": 1.5,
-      "speakLoudness": 0.0,
-      "creature": null
+      "speakLoudness": 0.0
     },
     {
       "$type": "ThunderRoad.BrainModuleMove, ThunderRoad",
@@ -113,8 +112,7 @@
       "doorReachClip": "Bas.Animation.Interaction.ReachDoorHandleLeft",
       "turnOffsetDegrees": 0.0,
       "path": null,
-      "interactingDoors": [],
-      "creature": null
+      "interactingDoors": []
     },
     {
       "$type": "ThunderRoad.BrainModuleMelee, ThunderRoad",
@@ -169,9 +167,9 @@
       "moduleMove": null,
       "moduleEquipment": null,
       "moduleDetection": null,
+      "mostRecentAttack": null,
       "followingThrough": false,
-      "meleeIdle": null,
-      "creature": null
+      "meleeIdle": null
     },
     {
       "$type": "ThunderRoad.BrainModuleBow, ThunderRoad",
@@ -208,8 +206,7 @@
       "moduleMove": null,
       "moduleLook": null,
       "moduleEquipment": null,
-      "moduleStance": null,
-      "creature": null
+      "moduleStance": null
     },
     {
       "$type": "ThunderRoad.BrainModuleCast, ThunderRoad",
@@ -271,8 +268,7 @@
       "longRangeMinMaxDist": {
         "x": 4.0,
         "y": 100.0
-      },
-      "creature": null
+      }
     },
     {
       "$type": "ThunderRoad.BrainModuleLookAt, ThunderRoad",
@@ -310,6 +306,8 @@
       },
       "snapPreventionAngle": 30.0,
       "forceUprightSpeed": 1.0,
+      "spineChangeMaxSpeed": 2.0,
+      "spineChangeSmooth": 0.1,
       "customEyeTargetOnly": false,
       "lookMaxAngle": 80.0,
       "forceAimPostIK": true,
@@ -339,8 +337,7 @@
         "y": 0.0,
         "z": 3.0
       },
-      "deathEyeRollDuration": 5.0,
-      "creature": null
+      "deathEyeRollDuration": 5.0
     },
     {
       "$type": "ThunderRoad.BrainModuleDetection, ThunderRoad",
@@ -443,8 +440,7 @@
       },
       "defenseColliderRadius": 0.6,
       "defenseColliderHeightMultiplier": 1.0,
-      "defenseColliderRotation": 0.0,
-      "creature": null
+      "defenseColliderRotation": 0.0
     },
     {
       "$type": "ThunderRoad.BrainModulePatrol, ThunderRoad",
@@ -453,8 +449,7 @@
       "viewAngle": 100.0,
       "targetMask": 67108864,
       "obstacleMask": 419720465,
-      "runSpeedRatio": 0.5,
-      "creature": null
+      "runSpeedRatio": 0.5
     },
     {
       "$type": "ThunderRoad.BrainModuleEquipment, ThunderRoad",
@@ -469,8 +464,7 @@
       "chosenRightHandItem": null,
       "rightAIModule": null,
       "chosenLeftHandItem": null,
-      "leftAIModule": null,
-      "creature": null
+      "leftAIModule": null
     },
     {
       "$type": "ThunderRoad.BrainModuleGrabbed, ThunderRoad",
@@ -478,8 +472,7 @@
       "freeOneHandDelay": 2.0,
       "freeBothHand": true,
       "freeBothHandDelay": 5.0,
-      "grabThrowMinVelocity": 2.0,
-      "creature": null
+      "grabThrowMinVelocity": 2.0
     },
     {
       "$type": "ThunderRoad.BrainModuleHitReaction, ThunderRoad",
@@ -742,8 +735,7 @@
           "duringAttackJump": "Destabilize"
         }
       ],
-      "resistDestabilizeFromMagic": false,
-      "creature": null
+      "resistDestabilizeFromMagic": false
     },
     {
       "$type": "ThunderRoad.BrainModuleDeath, ThunderRoad",
@@ -754,22 +746,22 @@
             "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
             "time": 0.0,
             "value": 1.0,
-            "inTangent": -0.0392535143,
-            "outTangent": -0.0392535143,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
             "inWeight": 0.0,
-            "outWeight": 0.3442623,
-            "weightedMode": "None",
+            "outWeight": 0.61566484,
+            "weightedMode": "Both",
             "tangentMode": 0
           },
           {
             "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
             "time": 1.0,
             "value": 0.0,
-            "inTangent": -1.61096478,
-            "outTangent": -1.61096478,
-            "inWeight": 0.06375229,
+            "inTangent": 0.0,
+            "outTangent": 0.0,
+            "inWeight": 0.500910759,
             "outWeight": 0.0,
-            "weightedMode": "None",
+            "weightedMode": "Both",
             "tangentMode": 0
           }
         ],
@@ -789,8 +781,7 @@
       "defaultAnimationId": "HumanDeaths",
       "stabAnimationId": "HumanStabDeaths",
       "fireAnimationId": "HumanFireDeaths",
-      "lightningAnimationId": "HumanLightningDeaths",
-      "creature": null
+      "lightningAnimationId": "HumanLightningDeaths"
     },
     {
       "$type": "ThunderRoad.BrainModuleElectrocute, ThunderRoad",
@@ -802,8 +793,7 @@
       "boltCount": 8,
       "boltMinTime": 0.2,
       "imbueHitCount": 3,
-      "imbueHitMinTime": 2.0,
-      "creature": null
+      "imbueHitMinTime": 2.0
     },
     {
       "$type": "ThunderRoad.BrainModuleSightable, ThunderRoad",
@@ -830,8 +820,7 @@
       "navSamplePositionMaxDistance": 50.0,
       "lastShootUpdateDelay": 1.0,
       "lastShootUpdatePositionMaxDistance": 0.5,
-      "debug": false,
-      "creature": null
+      "debug": false
     },
     {
       "$type": "ThunderRoad.BrainModuleStance, ThunderRoad",
@@ -882,9 +871,7 @@
         "y": 10.0
       },
       "forceHoldUpperOff": false,
-      "moduleEquipment": null,
-      "switching": true,
-      "creature": null
+      "moduleEquipment": null
     },
     {
       "$type": "ThunderRoad.BrainModuleThrow, ThunderRoad",
@@ -921,71 +908,32 @@
       "moduleMove": null,
       "moduleLook": null,
       "moduleEquipment": null,
-      "moduleStance": null,
-      "creature": null
+      "moduleStance": null
     },
     {
       "$type": "ThunderRoad.BrainModuleFollow, ThunderRoad",
       "followBehavior": "OnlyWhenSet",
       "clearFollowBrainStates": [],
       "allowFollowers": true,
-      "maxFollowers": 3,
-      "creature": null
+      "maxFollowers": 3
     },
     {
       "$type": "ThunderRoad.BrainModuleDefense, ThunderRoad",
       "enabled": true,
       "parryEnabled": true,
       "aboutToBeHitTiming": 0.5,
+      "waitDodgeTime": 0.06,
       "dangerLevelDecreaseTime": 0.5,
       "shieldRiposteChance": 0.3,
-      "stanceSettings": [
-        {
-          "$type": "ThunderRoad.BrainModuleDefense+StanceDefenseSettings, ThunderRoad",
-          "stance": "Melee1H",
-          "minMaxIncomingAttackSpeed": {
-            "x": 2.5,
-            "y": 6.0
-          },
-          "defenseColliderRotation": -11.0,
-          "parryPoseMode": "NormalizedDirection",
-          "extentHorizontalValuesOnTop": true,
-          "extentHorizontalValuesOnBottom": false
-        },
-        {
-          "$type": "ThunderRoad.BrainModuleDefense+StanceDefenseSettings, ThunderRoad",
-          "stance": "DualWield",
-          "minMaxIncomingAttackSpeed": {
-            "x": 3.0,
-            "y": 8.0
-          },
-          "defenseColliderRotation": -13.0,
-          "parryPoseMode": "NormalizedDirection",
-          "extentHorizontalValuesOnTop": false,
-          "extentHorizontalValuesOnBottom": false
-        },
-        {
-          "$type": "ThunderRoad.BrainModuleDefense+StanceDefenseSettings, ThunderRoad",
-          "stance": "MeleeShield",
-          "minMaxIncomingAttackSpeed": {
-            "x": 1.75,
-            "y": 5.0
-          },
-          "defenseColliderRotation": 0.0,
-          "parryPoseMode": "NormalizedPosition",
-          "extentHorizontalValuesOnTop": false,
-          "extentHorizontalValuesOnBottom": false
-        }
-      ],
-      "defenseMaxDistance": 8.0,
+      "defenseMaxDistance": 5.0,
       "parryDetectionRadius": 5.0,
       "parryHorizontalMaxAngle": 60.0,
-      "parryCircleHeight": 0.64,
-      "parryCircleRadius": 0.66,
+      "parryCircleHeight": 0.35,
+      "parryCircleRadius": 0.6,
       "parryAdjustSpeed": 7.0,
       "riposteBlockRequirement": 0.5,
-      "thrustSensitivityVelocity": 0.8,
-      "thrustSensitivityDirection": 0.8,
+      "thrustSensitivityVelocity": 0.1,
+      "thrustSensitivityDirection": 0.1,
       "minimumThrustVelocity": -1.0,
       "dodgeEnabled": true,
       "dodgeChanceCurve": {
@@ -994,9 +942,9 @@
           {
             "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
             "time": 0.0,
-            "value": 0.7,
+            "value": 0.5,
             "inTangent": -0.000771741266,
-            "outTangent": 0.5,
+            "outTangent": 0.8333333,
             "inWeight": 0.0,
             "outWeight": 0.6678679,
             "weightedMode": "Both",
@@ -1006,7 +954,7 @@
             "$type": "UnityEngine.Keyframe, UnityEngine.CoreModule",
             "time": 0.6,
             "value": 1.0,
-            "inTangent": 0.5,
+            "inTangent": 0.8333333,
             "outTangent": -2.50000024,
             "inWeight": 0.0,
             "outWeight": 0.0,
@@ -1029,11 +977,17 @@
         "preWrapMode": "ClampForever",
         "postWrapMode": "ClampForever"
       },
+      "minMaxDodgeCooldown": {
+        "x": 0.5,
+        "y": 1.0
+      },
       "dodgeSpeed": 1.0,
       "dodgeMaxHeight": 0.2,
       "dodgeWhenGrabbed": false,
       "dodgeWhenWeaponGrabbed": false,
       "sideDodgeEnabled": false,
+      "lowDodgeLerpValue": 0.85,
+      "highDodgeLerpValue": 0.64,
       "physicsCullParryBias": 10.0,
       "turnSpeedRatio": 1.0,
       "heldDefenseMinRadius": 0.5,
@@ -1041,7 +995,7 @@
       "longDefenseMinRadius": 1.0,
       "longDefenseMaxRadius": 5.0,
       "shieldUsesIK": true,
-      "shieldMaxIKWeightPos": 0.5,
+      "shieldMaxIKWeightPos": 0.75,
       "shieldMaxIKWeightRot": 0.8,
       "shieldPassiveIKWeightPos": 0.0,
       "shieldPassiveIKWeightRot": 0.5,
@@ -1067,8 +1021,7 @@
         "y": 0.0,
         "z": 0.0,
         "w": 0.0
-      },
-      "creature": null
+      }
     },
     {
       "$type": "ThunderRoad.BrainModuleFear, ThunderRoad",
@@ -1078,8 +1031,7 @@
       "cowerAnimationID": "HumanCower",
       "speakModule": null,
       "stanceModule": null,
-      "lookModule": null,
-      "creature": null
+      "lookModule": null
     }
   ],
   "groupPath": "Humans"

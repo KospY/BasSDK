@@ -95,7 +95,7 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "SwimmingMessage",
+          "id": "Swimming",
           "text": "เพื่อที่จะเคลื่อนที่ผ่านน้ำ ให้เลียนแบบท่าเหมือนกับว่ากำลังว่ายน้ำด้วยการขยับแขนของคุณ",
           "spriteAddress": null,
           "videoAddress": "Bas.Video.Swimming"
@@ -151,13 +151,6 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Stash",
-          "text": "เมื่อคุณออกจากด่าน ไอเทมใดที่คุณเป็นเจ้าของและทิ้งไว้ที่ไหนสักแห่งนอกคลังเก็บของจะถูกส่งไปยังคลังที่ซ่อนของคุณ คุณสามารถเรียกหรือสวมใส่ไอเทมใดก็ได้จากคลังที่ซ่อนโดยใช้หนังสือเรียกในฐานที่พักของคุณ",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "ClimbingOverLedge",
           "text": "เมื่อคุณกำลังจับขอบที่ต้องการปีนขึ้นไป กดปุ่มกระโดดพร้อมกับเคลื่อนไปข้างหน้าเพื่อผลักตัวเองขึ้นไป คุณยังสามารถยกแขนขึ้นเพื่อเพิ่มแรงผลักได้อีกด้วย",
           "spriteAddress": null,
@@ -179,17 +172,52 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "EquipSpell",
-          "text": "คุณสามารถเปลี่ยนคาถาที่ติดตั้งได้โดยกดปุ่มคาถาค้างไว้ จากนั้นคุณจะสามารถเลือกคาถาที่ต้องการได้จากเมนูวงกลม",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "InventoryTake",
           "text": "ณสามารถรับและเก็บไอเท็มในกระเป๋าของคุณได้ ซึ่งเป็นอุปกรณ์ Dalgarian ที่มีความจุในการเก็บข้อมูลไม่จำกัด ตั้งอยู่บนหน้าอกของคุณ คุณสามารถเปิดกระเป๋าโดยจับไว้ด้วยมือ.",
           "spriteAddress": null,
           "videoAddress": "Bas.Video.InventoryRetrieving"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Stash",
+          "text": "หนังสือไอเทมของคุณมีสองแท็บ: แท็บคลังจะแสดงไอเทมทั้งหมดที่คุณซื้อหรือเก็บไว้ คุณสามารถเรียกพวกมันออกมาได้ทุกเมื่อ แท็บบ้านจะแสดงไอเทมทั้งหมดที่มีอยู่ในระดับบ้านของคุณ คุณสามารถเก็บพวกมันไว้ในคลังได้ทุกเมื่อ",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Stash"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "OpenSpellWheel",
+          "text": "ตรวจสอบเวทมนตร์ของคุณโดยการกดปุ่มวงล้อเวทมนตร์บนตัวควบคุมของคุณค้างไว้",
+          "spriteAddress": "Bas.Input.{Controller}.SpellMenu",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "UseSpells",
+          "text": "เลือกเวทมนตร์โดยปล่อยปุ่มวงล้อเวทมนตร์ขณะที่มือของคุณอยู่เหนือเวทมนตร์ที่คุณต้องการ เพื่อยกเลิกการเลือกเวทมนตร์ ปล่อยปุ่มขณะที่มือของคุณอยู่เหนือช่องว่าง",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.SpellWheel"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Mirror",
+          "text": "คุณสามารถสวมใส่เสื้อผ้าหรือชิ้นส่วนของชุดเกราะได้เมื่อคุณมองไปที่กระจก คุณจะพบกระจกได้ในร้านและในบ้านของคุณ",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Mirror"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Armor",
+          "text": "เพื่อสวมใส่เสื้อผ้าหรือชิ้นส่วนของชุดเกราะ ให้ถือชิ้นส่วนไปที่ส่วนของร่างกายที่ถูกต้องขณะที่คุณมองไปที่กระจก เมื่อส่วนของร่างกายถูกเน้น ให้ปล่อยปุ่มเพื่อติดตั้ง คุณสามารถสลับชิ้นส่วนของชุดเกราะและเสื้อผ้าได้ด้วยวิธีนี้",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Armor"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Quiver",
+          "text": "ถอดกระบอกธนูที่ติดตั้งไว้โดยการกดปุ่มไกและจากนั้นกดปุ่มที่มือจับเพื่อจับกระบอกธนู",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Quiver"
         }
       ]
     },
@@ -10488,21 +10516,21 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap1",
           "text": "ภาคผนวก 1 - พิมพ์เขียวเมนเฟรมการบรรจบกันของพลัง 1/3",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_01",
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap2",
           "text": "ภาคผนวก 1 - พิมพ์เขียวเมนเฟรมการบรรจบกันของพลัง 2/3",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_02",
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap3",
           "text": "ภาคผนวก 1 - พิมพ์เขียวเมนเฟรมการบรรจบกันของพลัง 3/3",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_03",
           "videoAddress": null
         },
         {

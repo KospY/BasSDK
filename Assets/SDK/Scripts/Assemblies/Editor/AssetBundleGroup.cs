@@ -62,7 +62,12 @@ namespace ThunderRoad
             AssetBundleBuilder.CopyDirectory(manifestTempFolderPath, path);
             Debug.Log("Mod manifest created at " + path);
         }
-        
+        [Button]
+        public void CheckLabels()
+        {
+            CheckAddressableLabels(out string message);
+            Debug.Log(message);
+        }
         public bool CheckAddressableLabels(out string message)
         {
             message = string.Empty;

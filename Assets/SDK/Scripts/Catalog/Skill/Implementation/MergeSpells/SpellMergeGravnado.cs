@@ -4,6 +4,8 @@ using Sirenix.OdinInspector;
 #endif
 using ThunderRoad.Skill.Spell;
 using UnityEngine;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 namespace ThunderRoad.Skill.SpellMerge
 {

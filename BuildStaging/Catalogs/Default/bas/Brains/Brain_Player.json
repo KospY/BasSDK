@@ -69,8 +69,7 @@
       "doorReachClip": "Bas.Animation.Interaction.ReachDoorHandleLeft",
       "turnOffsetDegrees": 0.0,
       "path": null,
-      "interactingDoors": [],
-      "creature": null
+      "interactingDoors": []
     },
     {
       "$type": "ThunderRoad.BrainModuleSightable, ThunderRoad",
@@ -94,8 +93,7 @@
       "navSamplePositionMaxDistance": 50.0,
       "lastShootUpdateDelay": 1.0,
       "lastShootUpdatePositionMaxDistance": 0.5,
-      "debug": false,
-      "creature": null
+      "debug": false
     },
     {
       "$type": "ThunderRoad.BrainModulePlayer, ThunderRoad",
@@ -106,16 +104,14 @@
       "lookDistanceMinMax": {
         "x": 0.2,
         "y": 1.5
-      },
-      "creature": null
+      }
     },
     {
       "$type": "ThunderRoad.BrainModuleFollow, ThunderRoad",
       "followBehavior": "OnlyWhenSet",
       "clearFollowBrainStates": [],
       "allowFollowers": true,
-      "maxFollowers": 3,
-      "creature": null
+      "maxFollowers": 3
     },
     {
       "$type": "ThunderRoad.BrainModuleSpeak, ThunderRoad",
@@ -147,8 +143,7 @@
       "randomSpeakCombatChance": 0.0,
       "randomSpeakDelay": 5.0,
       "muffleSpeakDelay": 1.5,
-      "speakLoudness": 0.0,
-      "creature": null
+      "speakLoudness": 0.0
     },
     {
       "$type": "ThunderRoad.BrainModuleLookAt, ThunderRoad",
@@ -186,6 +181,8 @@
       },
       "snapPreventionAngle": 30.0,
       "forceUprightSpeed": 1.0,
+      "spineChangeMaxSpeed": 2.0,
+      "spineChangeSmooth": 0.1,
       "customEyeTargetOnly": true,
       "lookMaxAngle": 80.0,
       "forceAimPostIK": true,
@@ -215,8 +212,7 @@
         "y": 0.0,
         "z": 3.0
       },
-      "deathEyeRollDuration": 5.0,
-      "creature": null
+      "deathEyeRollDuration": 5.0
     }
   ],
   "groupPath": null

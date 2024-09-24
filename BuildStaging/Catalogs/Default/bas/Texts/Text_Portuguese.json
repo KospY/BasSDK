@@ -102,7 +102,7 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "SwimmingMessage",
+          "id": "Swimming",
           "text": "Para se impulsionar na água, imite o movimento de natação com seus braços.",
           "spriteAddress": null,
           "videoAddress": "Bas.Video.Swimming"
@@ -158,13 +158,6 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Stash",
-          "text": "Ao sair de um nível, qualquer item que você possuir retornará ao seu Esconderijo quando deixado em algum lugar fora do inventário. Você pode gerar ou equipar qualquer item do seu esconderijo usando o livro de geração na sua casa.",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "ClimbingOverLedge",
           "text": "Ao segurar-se em um canto ou uma borda que deseja escalar, mantenha pressionado o botão de Saltar e mova-se para frente para impulsionar-se para cima. Você também pode empurrar os braços para cima para ganhar impulso extra.",
           "spriteAddress": null,
@@ -186,17 +179,52 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "EquipSpell",
-          "text": "Você pode alterar o Feitiço equipado ao segurar o botão de Feitiço. Em seguida, selecione o desejado no menu radial.",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "InventoryTake",
           "text": "Você pode obter e armazenar itens em seu inventário, um dispositivo Dalgariano de capacidade de armazenamento infinita localizado no seu peito. Para abri-lo, agarre-o com a sua mão.",
           "spriteAddress": null,
           "videoAddress": "Bas.Video.InventoryRetrieving"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Stash",
+          "text": "O seu livro de itens contém dois separadores: O separador Inventário mostra todos os itens que comprou ou guardou. Podes gerá-los em qualquer altura. O separador Casa mostra todos os itens que estão presentes algures no nível da sua casa. Pode guardá-los no inventário em qualquer altura.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Stash"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "OpenSpellWheel",
+          "text": "Verifique os seus feitiços mantendo premido o botão da roda de feitiços no seu comando.",
+          "spriteAddress": "Bas.Input.{Controller}.SpellMenu",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "UseSpells",
+          "text": "Selecione um feitiço soltando o botão da roda de feitiços enquanto a sua mão está sobre o feitiço que quer. Para anular a seleção de feitiços, solte o botão enquanto a sua mão está sobre um espaço vazio.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.SpellWheel"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Mirror",
+          "text": "Você pode equipar roupas ou peças de armadura quando olha para um espelho. Encontrará um na loja e na sua casa.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Mirror"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Armor",
+          "text": "Para equipar roupas ou peças de armadura, segure-as sobre a parte do corpo correcta enquanto olha para o espelho. Quando a parte do corpo estiver realçada, solte o gatilho para a equipar. Também pode trocar peças de armadura e roupas dessa forma.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Armor"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Quiver",
+          "text": "Remove as aljavas equipadas premindo o botão do gatilho e depois o botão do punho para as agarrar.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Quiver"
         }
       ]
     },
@@ -9550,7 +9578,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianPreservartionInnerCircle",
-          "text": "Sociedade de Preservação Dalgariana / Educação do Círculo Interno \n\tSe está lendo isso, significa que foi aprovado pelo próprio Raein para fazer parte do círculo interno da Sociedade de Preservação Dalgariana. \n\tSeu acesso ao círculo interno será concluído de forma gradativa, pois o que vai aprender pode ser difícil de assimilar. \n\tLeia os seguintes livros na ordem indicada. Você os encontrará na seção restrita da nossa biblioteca.\n- Kayosva: Um Fenômeno Astronômico Além das Considerações Religiosas\n- O Khemenet: Conectando os Fatos às Lendas\n- PMN: Vestígios das Tecnologias Dalgarianas\n- Receptáculos e Exaustão de Energia: O que os Dalgarianas Sabiam\n\tMantenha seus estudos em segredo e reserve qualquer pergunta ao próprio Raein. \nA discrição é crucial.",
+          "text": "Sociedade de Preservação Dalgariana / Educação do Círculo Interno \n\tSe está lendo isso, significa que foi aprovado pelo próprio Raein para fazer parte do círculo interno da Sociedade de Preservação Dalgariana. \n\tSeu acesso ao círculo interno será concluído de forma gradativa, pois o que vai aprender pode ser difícil de assimilar. \n\tLeia os seguintes livros na ordem indicada. Você os encontrará na seção restrita da nossa biblioteca.\n- Kayosva: Um Fenômeno Astronômico Além das Considerações Religiosas\n- O Khemenet: Conectando os Fatos às Lendas\n- PMN: Vestígios das Tecnologias Dalgarianas\n- Receptáculos e Exaustão de Energia: O que os Dalgarianos Sabiam\n\tMantenha seus estudos em segredo e reserve qualquer pergunta ao próprio Raein. \nA discrição é crucial.",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -10495,21 +10523,21 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap1",
           "text": "Apêndice 1 - Projeto do Núcleo de Convergência de Poder 1/3",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_01",
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap2",
           "text": "Apêndice 1 - Projeto do Núcleo de Convergência de Poder 2/3",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_02",
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap3",
           "text": "Apêndice 1 - Projeto do Núcleo de Convergência de Poder 3/3",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_03",
           "videoAddress": null
         },
         {

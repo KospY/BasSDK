@@ -9,9 +9,11 @@ namespace ThunderRoad
         public DespawnCallback despawnCallback;
         public delegate void DespawnCallback(Effect effect);
 
-        public bool isPooled;
-
-        public bool isOutOfPool;
+        //These should not be set in the editor, its for the pooling system to use
+        [NonSerialized] 
+        public bool isPooled = false;
+        [NonSerialized]
+        public bool isOutOfPool = false;
 
         [NonSerialized]
         public EffectModule module;

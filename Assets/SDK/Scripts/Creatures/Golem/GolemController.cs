@@ -296,35 +296,35 @@ namespace ThunderRoad
         public List<GolemAbility> abilities = new();
         
         private static readonly int EmissionColor = Shader.PropertyToID("_EmissionColor");
-        
+
         public enum AttackMotion
         {
-            Rampage,
-            SwingRight,
-            SwingLeft,
-            ComboSwing,
-            ComboSwingAndSlam,
-            SwingBehindRight,
-            SwingBehindLeft,
-            SwingBehindRightTurnBack,
-            SwingBehindLeftTurnBack,
-            SwingLeftStep,
-            SwingRightStep,
-            Slam,
-            Stampede,
-            Breakdance,
-            SlamLeftTurn90,
-            SlamRightTurn90,
-            SwingLeftTurn90,
-            SwingRightTurn90,
-            Spray,
-            SprayDance,
-            Throw,
-            Charge,
-            SelfImbue,
-            RadialBurst,
-            ShakeOff,
-            LightShake,
+            Rampage = 0,
+            SwingRight = 1,
+            SwingLeft = 2,
+            ComboSwing = 3,
+            ComboSwingAndSlam = 4,
+            SwingBehindRight = 5,
+            SwingBehindLeft = 6,
+            SwingBehindRightTurnBack = 7,
+            SwingBehindLeftTurnBack = 8,
+            SwingLeftStep = 9,
+            SwingRightStep = 10,
+            Slam = 11,
+            Stampede = 12,
+            Breakdance = 13,
+            SlamLeftTurn90 = 14,
+            SlamRightTurn90 = 15,
+            SwingLeftTurn90 = 16,
+            SwingRightTurn90 = 17,
+            Spray = 18,
+            SprayDance = 19,
+            Throw = 20,
+            Beam = 21,
+            SelfImbue = 22,
+            RadialBurst = 23,
+            ShakeOff = 24,
+            LightShake = 25,
         }
 
         [Flags]
@@ -359,7 +359,7 @@ namespace ThunderRoad
             AttackMotion.Spray => AttackSide.None,
             AttackMotion.SprayDance => AttackSide.Left,
             AttackMotion.Throw => AttackSide.None,
-            AttackMotion.Charge => AttackSide.None,
+            AttackMotion.Beam => AttackSide.None,
             AttackMotion.SelfImbue => AttackSide.None,
             AttackMotion.RadialBurst => AttackSide.None,
             AttackMotion.ShakeOff => AttackSide.Both,
@@ -475,6 +475,9 @@ namespace ThunderRoad
         public delegate void GolemStateChange(State newState);
         public event GolemStateChange OnGolemStateChange;
 
+        public delegate void GolemAttackEvent(AttackMotion motion, GolemAbility ability);
+        public event GolemAttackEvent OnGolemAttackEvent;
+
         public delegate void GolemRampageEvent();
         public event GolemRampageEvent OnGolemRampage;
 
@@ -539,6 +542,10 @@ namespace ThunderRoad
 #endif
         public virtual void Kill()
         {
+            this.StartCoroutine(KillCoroutine());
+        }
+        public virtual IEnumerator KillCoroutine(){
+            yield break;
         }
 
 #if ODIN_INSPECTOR
@@ -622,7 +629,10 @@ namespace ThunderRoad
             if (!animatorEvent) animatorEvent = this.GetComponentInChildren<GolemAnimatorEvent>();
             if (!headAimConstraint) headAimConstraint = this.GetComponentInChildren<MultiAimConstraint>();
             if (!characterController) characterController = this.GetComponentInParent<CharacterController>();
-            if (skinnedMeshRenderers.Count == 0) skinnedMeshRenderers = new List<SkinnedMeshRenderer>(this.GetComponentsInChildren<SkinnedMeshRenderer>());
+            //remove any null skinned mesh renderers
+            if (!skinnedMeshRenderers.IsNullOrEmpty()) skinnedMeshRenderers.RemoveAll(x => x == null);
+            if (skinnedMeshRenderers.IsNullOrEmpty()) skinnedMeshRenderers = new List<SkinnedMeshRenderer>(this.GetComponentsInChildren<SkinnedMeshRenderer>());
+            
             if (bodyParts.Count == 0) GetBodyParts();
             if (Application.isPlaying) SetMoveSpeedMultiplier(moveSpeedMultiplier);
         }

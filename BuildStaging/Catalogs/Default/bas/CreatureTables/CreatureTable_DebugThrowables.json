@@ -1,0 +1,26 @@
+{
+  "$type": "ThunderRoad.CreatureTable, ThunderRoad",
+  "id": "DebugThrowables",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "description": null,
+  "linkedToGenderRatio": false,
+  "drops": [
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Humans",
+      "overrideFaction": true,
+      "factionID": 3,
+      "overrideContainer": true,
+      "overrideContainerID": "ThrowableTest",
+      "overrideBrain": true,
+      "overrideBrainID": "HumanMedium",
+      "overrideEthnicity": false,
+      "overrideEthnicityID": null,
+      "probabilityWeight": 1.0
+    }
+  ],
+  "groupPath": "Factions/Testing"
+}

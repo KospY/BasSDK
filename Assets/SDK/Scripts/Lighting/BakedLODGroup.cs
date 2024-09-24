@@ -16,7 +16,7 @@ using TriInspector;
 namespace ThunderRoad
 {
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Levels/BakedLodGroup.html")]
-    [ExecuteInEditMode]
+    [ExecuteInEditMode] 
     public class BakedLODGroup : MonoBehaviour, ICheckAsset
     {
 #if ODIN_INSPECTOR
@@ -64,6 +64,7 @@ namespace ThunderRoad
         [BoxGroup("Source")]
         [ReadOnly]
         [Tooltip("The calculated lightmap scale")]
+        [ShowInInspector]
 #endif
         [NonSerialized]
         public float calculatedLightMapScale;
@@ -289,13 +290,13 @@ namespace ThunderRoad
             {
                 GetMeshRenderer();
             }
-
+            
         }
 
         [Button]
-        public void UpdateLightmapScale()
+        public void UpdateLightmapScale(bool applyToMeshRenderer = false)
         {
-            if(Application.isPlaying) return;
+            if (Application.isPlaying) return;
             bool inPrefabStage = PrefabStageUtility.GetCurrentPrefabStage() != null;
             if (!meshRenderer) return;
             //clamp the min and max lightmap scales so they are always positive
@@ -340,7 +341,10 @@ namespace ThunderRoad
 
             if (inPrefabStage)
             {
-                meshRenderer.scaleInLightmap = Mathf.Clamp(meshRenderer.scaleInLightmap, minLightMapScale, maxLightMapScale);
+                if (applyToMeshRenderer)
+                {
+                    meshRenderer.scaleInLightmap = Mathf.Clamp(meshRenderer.scaleInLightmap, minLightMapScale, maxLightMapScale);
+                }
                 calculatedLightMapScale = 1;
                 scaledMinLightMapScale = 1;
                 scaledMaxLightMapScale = 1;
@@ -350,10 +354,13 @@ namespace ThunderRoad
             {
                 //clamp the calculated scale so it is always between the min and max
                 CalculateLightMapScale();
-                meshRenderer.scaleInLightmap = calculatedLightMapScale;
+                if (applyToMeshRenderer)
+                {
+                    meshRenderer.scaleInLightmap = calculatedLightMapScale;
+                }
             }
             //mark the object as dirty so the changes are saved
-            UnityEditor.EditorUtility.SetDirty(meshRenderer);
+            if (applyToMeshRenderer) UnityEditor.EditorUtility.SetDirty(meshRenderer);
             UnityEditor.EditorUtility.SetDirty(this);
         }
 

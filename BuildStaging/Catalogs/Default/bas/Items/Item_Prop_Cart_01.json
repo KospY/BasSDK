@@ -156,22 +156,12 @@
       "$type": "ThunderRoad.ItemData+ColliderGroup, ThunderRoad",
       "transformName": "Colliders",
       "colliderGroupId": "PropDefault"
-    },
-    {
-      "$type": "ThunderRoad.ItemData+ColliderGroup, ThunderRoad",
-      "transformName": "CollidersWheels",
-      "colliderGroupId": "PropDefault"
     }
   ],
   "damagers": [
     {
       "$type": "ThunderRoad.ItemData+Damager, ThunderRoad",
       "transformName": "Blunt",
-      "damagerID": "PropBluntHeavy"
-    },
-    {
-      "$type": "ThunderRoad.ItemData+Damager, ThunderRoad",
-      "transformName": "BluntWheels",
       "damagerID": "PropBluntHeavy"
     }
   ],
@@ -183,12 +173,7 @@
     },
     {
       "$type": "ThunderRoad.ItemData+Interactable, ThunderRoad",
-      "transformName": "HandleR",
-      "interactableId": "ObjectHandlePropNoTK"
-    },
-    {
-      "$type": "ThunderRoad.ItemData+Interactable, ThunderRoad",
-      "transformName": "HandleL",
+      "transformName": "HandleNoTK",
       "interactableId": "ObjectHandlePropNoTK"
     }
   ],

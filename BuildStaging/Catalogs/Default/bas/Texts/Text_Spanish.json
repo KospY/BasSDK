@@ -95,7 +95,7 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "SwimmingMessage",
+          "id": "Swimming",
           "text": "Para impulsarte sobre el agua, simula el gesto de nadar con los brazos.",
           "spriteAddress": null,
           "videoAddress": "Bas.Video.Swimming"
@@ -151,13 +151,6 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Stash",
-          "text": "Cuando salgas de un nivel, los objetos que tengas regresarán a tu Reserva si los has dejado fuera del inventario. Puedes hacer que un objeto aparezca o equiparlo desde tu reserva con el Libro de Apariciones que está en tu casa.",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "ClimbingOverLedge",
           "text": "Cuando te sujetes a un saliente que quieras escalar, mantén pulsado Saltar y avanza para impulsarte hacia arriba. También puedes flexionar los brazos hacia abajo para tener un impulso adicional.",
           "spriteAddress": null,
@@ -179,17 +172,52 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "EquipSpell",
-          "text": "Puedes cambiar el hechizo equipado si mantienes pulsado el botón Hechizo, y después seleccionar el que quieras en el menú circular.",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "InventoryTake",
           "text": "Puedes obtener y almacenar items en tu inventorio, un dispositivo Dalgariano de capacidad infinita localizado en tu pecho. Para abrirlo, cógelo con tu mano.",
           "spriteAddress": null,
           "videoAddress": "Bas.Video.InventoryRetrieving"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Stash",
+          "text": "Tu libreta de artículos contiene dos pestañas: La pestaña Alijo muestra todos los objetos que has comprado o almacenado. Puedes recuperarlos en cualquier momento. La pestaña Casa muestra todos los objetos que están presentes en algún lugar de tu nivel de casa. Puedes guardarlos en el alijo en cualquier momento.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Stash"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "OpenSpellWheel",
+          "text": "Comprueba tus hechizos manteniendo pulsado el botón de la rueda de hechizos del mando.",
+          "spriteAddress": "Bas.Input.{Controller}.SpellMenu",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "UseSpells",
+          "text": "Selecciona un hechizo soltando el botón de la rueda de hechizos mientras tu mano está sobre el hechizo que quieres. Para deseleccionar hechizos suelta el botón mientras tu mano está sobre un espacio vacío.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.SpellWheel"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Mirror",
+          "text": "Puedes equiparte ropa o una pieza de armadura en frente a un espejo. Encontrarás uno en la tienda y en tu casa.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Mirror"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Armor",
+          "text": "Para equipar ropa o piezas de armadura, mantenlas sobre la parte del cuerpo correcta mientras te miras en el espejo. Cuando la parte del cuerpo esté resaltada, suelta el gatillo para equiparla. También puedes intercambiar piezas de armadura y ropa de esta forma.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Armor"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Quiver",
+          "text": "Quita el carcaj equipado pulsando el botón del gatillo y luego el botón de agarre para cogerlo.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Quiver"
         }
       ]
     },
@@ -10488,21 +10516,21 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap1",
           "text": "Apéndice 1 - Plano del sistema central de convergencia energética (1/3)",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_01",
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap2",
           "text": "Apéndice 1 - Plano del sistema central de convergencia energética (2/3)",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_02",
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap3",
           "text": "Apéndice 1 - Plano del sistema central de convergencia energética (3/3)",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_03",
           "videoAddress": null
         },
         {

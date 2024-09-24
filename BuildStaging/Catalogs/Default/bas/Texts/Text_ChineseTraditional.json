@@ -95,7 +95,7 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "SwimmingMessage",
+          "id": "Swimming",
           "text": "若要在水中前進，請用手臂模仿游泳的動作。",
           "spriteAddress": null,
           "videoAddress": "Bas.Video.Swimming"
@@ -151,13 +151,6 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Stash",
-          "text": "你的物品欄是放置在你胸口的一個 Dalgaria 裝置，儲存容量無限。你可以利用它來取得和存放物品，用手抓住即可打開。",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "ClimbingOverLedge",
           "text": "當你抓住你想要翻越的牆沿時，按住跳躍並向前移動，將自己向上推。你也可以舉起雙臂，來增加額外的動力。",
           "spriteAddress": null,
@@ -179,17 +172,52 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "EquipSpell",
-          "text": "你可以按住法術按鈕來更換裝備的法術，並接著在轉盤選單上選擇你想要的法術。",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "InventoryTake",
           "text": "你可以在背包中取得和儲存物品，這是一個置於你胸前的Dalgarian裝置，具有無限的儲存容量。你可以用手抓取來打開它。",
           "spriteAddress": null,
           "videoAddress": "Bas.Video.InventoryRetrieving"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Stash",
+          "text": "您的物品簿包含兩個標籤：儲藏頁籤顯示您購買或儲存的所有物品。您可以在任何時候取出它們。家園標籤顯示所有存在於您家園某處的物品。您可以隨時將它們存放在儲藏室中。",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Stash"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "OpenSpellWheel",
+          "text": "按住控制器上的咒語轉輪按鈕，檢查您的咒語。",
+          "spriteAddress": "Bas.Input.{Controller}.SpellMenu",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "UseSpells",
+          "text": "當您的手停留在您想要的咒語上時，鬆開咒語滾輪按鈕來選擇咒語。若要取消選取咒語，請在手放在空白處時鬆開按鈕。",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.SpellWheel"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Mirror",
+          "text": "照鏡子時可以裝備衣服或盔甲。您可以在商店和家中找到鏡子。",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Mirror"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Armor",
+          "text": "要裝備衣服或盔甲，請在照鏡子時將它們放在正確的身體部位上。當身體部位突出顯示時，放開扳機即可裝備。您也可以用這個方法交換裝甲和衣服。",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Armor"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Quiver",
+          "text": "按下扳機按鈕，然後再按握把按鈕，即可取下裝備好的箭箙。",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Quiver"
         }
       ]
     },
@@ -10488,21 +10516,21 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap1",
           "text": "附錄 1－能量集聚主機藍圖 1/3",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_01",
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap2",
           "text": "附錄 1－能量集聚主機藍圖 2/3",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_02",
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap3",
           "text": "附錄 1－能量集聚主機藍圖 3/3",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_03",
           "videoAddress": null
         },
         {

@@ -712,6 +712,16 @@ namespace ThunderRoad
             float num3 = a.z - b.z;
             return num1 * num1 + num2 * num2 + num3 * num3;
         }
+
+        public static bool ValueBetween(this Vector2Int vector, int value)
+        {
+            return value >= vector.x && value <= vector.y;
+        }
+
+        public static bool ValueBetween(this Vector2 vector, float value)
+        {
+            return value >= vector.x && value <= vector.y;
+        }
         
         public static bool PointInRadius(this Vector3 vectorA, Vector3 vectorB, float radius)
         {
@@ -785,6 +795,11 @@ namespace ThunderRoad
         }
 
         public static bool HasFlagNoGC(this EffectModule.PlatformFilter flags, EffectModule.PlatformFilter value)
+        {
+            return ((flags & value) > 0);
+        }
+
+        public static bool HasFlagNoGC(this ItemData.Storage flags, ItemData.Storage value)
         {
             return ((flags & value) > 0);
         }

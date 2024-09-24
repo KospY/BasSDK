@@ -71,9 +71,7 @@ namespace TriInspector
         public MinMaxSliderAttribute(string minMaxValueGetter, bool showFields = false)
         { }
     }
-    [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
-    public class TableListAttribute : Attribute
-    { }
+
     
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = true)]
     public abstract class PropertyGroupAttribute : Attribute

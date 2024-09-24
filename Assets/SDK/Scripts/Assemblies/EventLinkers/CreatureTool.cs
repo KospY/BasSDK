@@ -16,6 +16,7 @@ namespace ThunderRoad
         public string defaultNameFilter = "Human";
         public CreatureEventLinker.LifeState defaultAliveState = CreatureEventLinker.LifeState.Either;
         public List<SelectionSetting> selectors = new List<SelectionSetting>();
+        public UnityEvent<Creature> creatureEvent;
         public List<RagdollPartAction> ragdollPartActions = new List<RagdollPartAction>();
 
         [NonSerialized]
@@ -38,7 +39,7 @@ namespace ThunderRoad
         {
             public RagdollPart.Type type;
             public RagdollPart.Section section;
-            public UnityEvent action;
+            public UnityEvent<RagdollPart> action;
         }
 
         public enum SelectionCondition
@@ -111,6 +112,53 @@ namespace ThunderRoad
         #endregion
 
 
+        #region Dynamic invocation tools
+        public void RunEventWithCreature(Creature creature)
+        {
+        }
+
+        public void StopCreatureBrain(Creature creature)
+        {
+            if (clearAfterAction) ClearSelections();
+        }
+
+        public void RestartCreatureBrain(Creature creature)
+        {
+        }
+
+        public void ResurrectCreatureMaxHealth(Creature creature)
+        {
+        }
+
+        public void ReleaseCreatureRightHand(Creature creature) => ReleaseCreatureHands(creature, false, true);
+
+        public void ReleaseCreatureLeftHand(Creature creature) => ReleaseCreatureHands(creature, true, false);
+
+        public void ReleaseCreatureBothHands(Creature creature) => ReleaseCreatureHands(creature, true, true);
+
+        protected void ReleaseCreatureHands(Creature creature, bool left, bool right)
+        {
+        }
+
+        public void FreezeCreature(Creature creature) => RagdollStateCreature(creature, Ragdoll.State.Frozen);
+
+        public void DestabilizeCreature(Creature creature) => RagdollStateCreature(creature, Ragdoll.State.Destabilized);
+
+        public void RagdollCreature(Creature creature) => RagdollStateCreature(creature, Ragdoll.State.Inert);
+
+        protected void RagdollStateCreature(Creature creature, Ragdoll.State state)
+        {
+        }
+
+        public void KillSelection(Creature creature)
+        {
+        }
+
+        public void DespawnSelection(Creature creature)
+        {
+        }
+        #endregion
+
         #region Selected creature tools
         public void CopyComponentToSelection(Component component)
         {
@@ -137,6 +185,11 @@ namespace ThunderRoad
             if (clearAfterAction) ClearSelections();
         }
 
+        public void RunEventWithSelection()
+        {
+            if (clearAfterAction) ClearSelections();
+        }
+
         public void AnimateSelection(string animationDataID)
         {
             if (clearAfterAction) ClearSelections();
@@ -157,7 +210,22 @@ namespace ThunderRoad
             if (clearAfterAction) ClearSelections();
         }
 
+        public void GiveSelectionSkill(string skillID)
+        {
+            if (clearAfterAction) ClearSelections();
+        }
+
+        public void RemoveSelectionSkill(string skillID)
+        {
+            if (clearAfterAction) ClearSelections();
+        }
+
         public void HealSelection(float healing)
+        {
+            if (clearAfterAction) ClearSelections();
+        }
+
+        public void ClearSelectionStatuses(string id)
         {
             if (clearAfterAction) ClearSelections();
         }
@@ -266,6 +334,10 @@ namespace ThunderRoad
         {
         }
 
+        public void RunEventWithEventTarget()
+        {
+        }
+
         public void AnimateEventTarget(string animationDataID)
         {
         }
@@ -282,7 +354,19 @@ namespace ThunderRoad
         {
         }
 
+        public void GiveEventTargetSkill(string skillID)
+        {
+        }
+
+        public void RemoveEventTargetSkill(string skillID)
+        {
+        }
+
         public void HealEventTarget(float healing)
+        {
+        }
+
+        public void ClearEventTargetStatuses(string id)
         {
         }
 

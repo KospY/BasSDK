@@ -56,7 +56,7 @@ namespace ThunderRoad
         {
             public HandleEvent handleEvent;
             public InteractorSide side;
-            public UnityEvent onActivate;
+            public UnityEvent<Handle> onActivate;
         }
 
         public Handle handle;

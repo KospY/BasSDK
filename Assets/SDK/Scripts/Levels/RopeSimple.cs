@@ -81,7 +81,7 @@ namespace ThunderRoad
 
             if (!targetAnchor)
             {
-                Debug.LogError("RopeSimple component doesn't have any target anchor set!");
+                Debug.LogError("RopeSimple component doesn't have any target anchor set!", this);
                 this.enabled = false;
                 return;
             }

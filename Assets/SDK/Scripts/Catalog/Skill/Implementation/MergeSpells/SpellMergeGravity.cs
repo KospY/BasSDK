@@ -110,6 +110,8 @@ namespace ThunderRoad.Skill.SpellMerge
 
         [NonSerialized]
         public static bool bubbleActive;
+        [NonSerialized]
+        public static bool closing;
 
         [NonSerialized]
         public Vector3 bubblePosition;

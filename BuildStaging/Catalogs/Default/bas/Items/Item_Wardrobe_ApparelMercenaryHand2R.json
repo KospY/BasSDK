@@ -153,10 +153,6 @@
   "modules": [
     {
       "$type": "ThunderRoad.ItemModuleWardrobe, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
       "category": "Apparel",
       "castShadows": "PlayerAndNPC",
       "wardrobes": [
@@ -171,15 +167,10 @@
           "wardrobeDataAddress": "Bas.Creature.Wardrobe.HumanFemale.Mercenary.Hand.R02"
         }
       ],
-      "isMetal": true,
-      "groupPath": null
+      "isMetal": true
     },
     {
       "$type": "ThunderRoad.ItemModuleStats, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
       "stats": [
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
@@ -201,25 +192,12 @@
           "value": 5,
           "name": "FocusRegen"
         }
-      ],
-      "groupPath": null
+      ]
     }
   ],
   "colliderGroups": [],
-  "damagers": [
-    {
-      "$type": "ThunderRoad.ItemData+Damager, ThunderRoad",
-      "transformName": "Blunt",
-      "damagerID": "PropBlunt"
-    }
-  ],
-  "Interactables": [
-    {
-      "$type": "ThunderRoad.ItemData+Interactable, ThunderRoad",
-      "transformName": "Handle",
-      "interactableId": "ObjectHandleHeavy"
-    }
-  ],
+  "damagers": [],
+  "Interactables": [],
   "effectHinges": [],
   "whooshs": [],
   "entityModules": [],

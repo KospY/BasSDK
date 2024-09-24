@@ -14,12 +14,12 @@ public class UIWorldMapLocation : MonoBehaviour
     public Canvas canvas;
     public UICustomisableButton button;
     public TextMeshProUGUI label;
-    public RawImage mapIconImage;
-    public RawImage highlightedMapIconImage;
+    public Image mapIconImage;
+    public Image highlightedMapIconImage;
 
     public RectTransform enemyBanner;
-    public RawImage enemyIconImage;
-    public RawImage enemyBackground;
+    public Image enemyIconImage;
+    public Image enemyBackground;
 
     public float bannerDeployDuration = 0.1f;
     public float bannerFoldedAnchor = 0.0f;

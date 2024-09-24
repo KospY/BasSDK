@@ -95,7 +95,7 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "SwimmingMessage",
+          "id": "Swimming",
           "text": "水中を進むには、腕で泳ぐ動作を真似よう。",
           "spriteAddress": null,
           "videoAddress": "Bas.Video.Swimming"
@@ -151,13 +151,6 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Stash",
-          "text": "ステージを離れるとき、インベントリの外にある所有アイテムはすべて倉庫に戻される。倉庫のすべてのアイテムは自宅にある出現の書で出現させたり装備することができる。",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "ClimbingOverLedge",
           "text": "登りたい岩棚をつかむとき、ジャンプを長押しして前進すれば自分を押し上げることができる。また、腕を下方向へ引っ張ることで距離を伸ばすことも可能だ。",
           "spriteAddress": null,
@@ -179,17 +172,52 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "EquipSpell",
-          "text": "装備している魔法を変更するときは「魔法」ボタンを押す。表示された円形メニューから使用する魔法を選ぼう。",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "InventoryTake",
           "text": "ダルガリアデバイスは、胸に付いている無限の収納力をもつインベントリのことで、ゲットしたアイテムを収納することができる。手でつかんで開ける。",
           "spriteAddress": null,
           "videoAddress": "Bas.Video.InventoryRetrieving"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Stash",
+          "text": "アイテムブックには2つのタブがあります：スタッシュタブには、あなたが購入または保管しているすべてのアイテムが表示されます。これらのアイテムはいつでもスポーンできます。ホームタブには、あなたのホームレベルにあるすべてのアイテムが表示されます。アイテムはいつでもスタッシュに保管することができます。",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Stash"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "OpenSpellWheel",
+          "text": "コントローラーのスペルホイールボタンを押して呪文を確認します。",
+          "spriteAddress": "Bas.Input.{Controller}.SpellMenu",
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "UseSpells",
+          "text": "スペルを選択するには、スペルホイールボタンを押しながら手を離します。呪文の選択を解除するには、何もない場所に手を置いたままボタンを放します。",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.SpellWheel"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Mirror",
+          "text": "鏡を見ると、服や防具を装備することができます。鏡はショップや家にあります。",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Mirror"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Armor",
+          "text": "服や防具を装備するには、鏡を見ながら正しい体の部位にかざします。体の部位がハイライトされたら、トリガーを離すと装備できます。この方法で各アーマーや服を交換することもできます。",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Armor"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Quiver",
+          "text": "装備した 矢筒は、トリガーボタンを押しながらグリップボタンを押して取り出します。",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Quiver"
         }
       ]
     },
@@ -10488,21 +10516,21 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap1",
           "text": "別表1 – 電力収束メインフレーム設計図 1/3",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_01",
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap2",
           "text": "別表1 – 電力収束メインフレーム設計図 2/3",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_02",
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap3",
           "text": "別表1 – 電力収束メインフレーム設計図 3/3",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_03",
           "videoAddress": null
         },
         {

@@ -222,9 +222,13 @@ namespace ThunderRoad
         [NonSerialized]
         public List<GolemCrystal> linkedArenaCrystals = new List<GolemCrystal>();
         protected int disableArenaCrystalShieldIndex = 0;
+        private Quaternion climbInitialRelativeRotation;
+
+        public delegate void GolemCrystalBreak(GolemCrystal crystal);
+        public event GolemCrystalBreak OnGolemCrystalBreak;
+        public event GolemCrystalBreak OnArenaCrystalBreak;
 
         public static event Action OnLocalGolemSet;
-        private Quaternion climbInitialRelativeRotation;
 
         [Serializable]
         public class CrystalConfig

@@ -24,6 +24,7 @@ namespace ThunderRoad
             Snake = 7,
             Bird = 8,
             Fright = 9, // This should be a catch-all for anything we'd consider to be a "jumpscare" or otherwise potentially scary
+            SelfHarm = 10, // For anything where the player may harm themselves
         }
 
         [System.Flags]
@@ -40,6 +41,7 @@ namespace ThunderRoad
             Snake = (1 << SingleContentFlag.Snake),
             Bird = (1 << SingleContentFlag.Bird),
             Fright = (1 << SingleContentFlag.Fright), // This should be a catch-all for anything we'd consider to be a "jumpscare" or otherwise potentially scary
+            SelfHarm = (1 << SingleContentFlag.SelfHarm),  // For anything where the player may harm themselves
         }
 
         public enum ContentFlagBehaviour

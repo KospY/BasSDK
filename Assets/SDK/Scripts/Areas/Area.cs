@@ -164,6 +164,8 @@ namespace ThunderRoad
         [HideInInspector]
         public MeshRenderer[] meshRenderers;
         [HideInInspector]
+        public MeshRenderer[] activeMeshRenderers;
+        [HideInInspector]
         public List<MeshColliderRef> meshColliderRefList = new List<MeshColliderRef>();
         [HideInInspector]
         public List<Collider> colliderList = new List<Collider>();
@@ -417,7 +419,9 @@ namespace ThunderRoad
                 playerLightMapVolume.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
             }
             meshRenderers = GetComponentsInChildren<MeshRenderer>(true);
-
+            //used for static batching at run time, we take only the active ones because many of the disabled ones are part of prefabs that the art/level team disabled for a reason
+            activeMeshRenderers = GetComponentsInChildren<MeshRenderer>(false);
+            
             // Set collider to no culling
             if (rootNoCulling == null)
             {
@@ -578,8 +582,6 @@ namespace ThunderRoad
             //make sure any missing looped audio sources are added
             AddLoopedAudioSources();
             
-            //mark the asset as dirty
-            EditorUtility.SetDirty(this);
             AssetDatabase.SaveAssets();
             modifiedInImport = true;
         }
@@ -628,6 +630,7 @@ namespace ThunderRoad
             creatureSpawners = null;
             reflectionProbes = null;
             meshRenderers = null;
+            activeMeshRenderers = null;
             rootNoCulling = null;
             meshColliderRefList = null;
             colliderList = null;

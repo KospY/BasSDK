@@ -172,6 +172,7 @@ GameObject:
   - component: {fileID: 8855772681648229522}
   - component: {fileID: 1926835219015693588}
   - component: {fileID: 4158686542478860256}
+  - component: {fileID: 6785187529024548969}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -196,7 +197,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.8}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -2}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1926835219015693588
@@ -229,8 +230,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Market
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8917a362182edac42b4513b4263afa3e, type: 2}
-  m_sharedMaterial: {fileID: 1097489544449028181, guid: 8917a362182edac42b4513b4263afa3e,
+  m_fontAsset: {fileID: 11400000, guid: ec0328fbe27e455478664cc6d2ea966e, type: 2}
+  m_sharedMaterial: {fileID: -8138513166946992755, guid: ec0328fbe27e455478664cc6d2ea966e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -255,7 +256,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 7.3
+  m_fontSize: 7
   m_fontSizeBase: 160
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -277,7 +278,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -299,6 +300,24 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6785187529024548969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3166213022710660044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a717f91f3117f384d9c5031cd1aba9c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textGroupId: 
+  setFromScript: 1
+  text: 
+  forceUpperCase: 0
+  ForceEnglishForNonLatin: 0
+  ForceLatinFontForNonLatin: 1
 --- !u!1 &3379482208797631214
 GameObject:
   m_ObjectHideFlags: 0

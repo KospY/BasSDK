@@ -134,34 +134,34 @@ namespace ThunderRoad
                     if (weaponHandling == WeaponHandling.OneHanded)
                     {
                         stanceInfosByOffhand = new List<StanceInfo>()
-                    {
-                        new StanceInfo()
                         {
-                            offhand = StanceInfo.Offhand.Empty,
-                            stanceDataID = "HumanMelee1hStance"
-                        },
-                        new StanceInfo()
-                        {
-                            offhand = StanceInfo.Offhand.AnyShield,
-                            stanceDataID = "HumanMeleeShieldStance"
-                        },
-                        new StanceInfo()
-                        {
-                            offhand = StanceInfo.Offhand.AnyMelee,
-                            stanceDataID = "HumanMeleeDualWieldStance"
-                        }
-                    };
+                            new StanceInfo()
+                            {
+                                offhand = StanceInfo.Offhand.Empty,
+                                stanceDataID = "HumanMelee1hStance"
+                            },
+                            new StanceInfo()
+                            {
+                                offhand = StanceInfo.Offhand.AnyShield,
+                                stanceDataID = "HumanMeleeShieldStance"
+                            },
+                            new StanceInfo()
+                            {
+                                offhand = StanceInfo.Offhand.AnyMelee,
+                                stanceDataID = "HumanMeleeDualWieldStance"
+                            }
+                        };
                     }
                     else
                     {
                         stanceInfosByOffhand = new List<StanceInfo>()
-                    {
-                        new StanceInfo()
                         {
-                            offhand = StanceInfo.Offhand.SameItem,
-                            stanceDataID = ""
-                        }
-                    };
+                            new StanceInfo()
+                            {
+                                offhand = StanceInfo.Offhand.SameItem,
+                                stanceDataID = ""
+                            }
+                        };
                     }
                 }
             }

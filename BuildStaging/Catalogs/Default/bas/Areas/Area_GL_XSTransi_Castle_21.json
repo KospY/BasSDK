@@ -72,6 +72,12 @@
       "fakeViewAddress": "Bas.Area.GL_XSTransi_Castle_21.FakeView.1"
     }
   ],
-  "areaGlobalParameters": [],
+  "areaGlobalParameters": [
+    {
+      "$type": "ThunderRoad.AreaSunGlobalParameter, ThunderRoad",
+      "isZeroIntensity": true,
+      "visibleFromGate": true
+    }
+  ],
   "groupPath": "Outpost/XSTransi"
 }

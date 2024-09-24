@@ -58,12 +58,18 @@ namespace ThunderRoad
             public string GameVersion;
             public string Thumbnail;
 
+            /// <summary>
+            /// The name of the folder containing the manifest.
+            /// </summary>
 #if ODIN_INSPECTOR
             [ShowInInspector]
 #endif
             [NonSerialized]
             public string folderName;
 
+            /// <summary>
+            /// Full path to the folder containing the manifest.
+            /// </summary>
 #if ODIN_INSPECTOR
             [ShowInInspector]
 #endif

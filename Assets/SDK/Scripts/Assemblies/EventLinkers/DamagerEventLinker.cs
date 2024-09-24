@@ -24,13 +24,13 @@ namespace ThunderRoad
         public class DamagerUnityEvent
         {
             public DamagerEvent damagerEvent;
-            public UnityEvent onActivate;
+            public UnityEvent<Damager> onActivate;
         }
 
         public Damager damager;
         public List<DamagerUnityEvent> damagerEvents = new List<DamagerUnityEvent>();
         public CollisionHandler collisionHandler { get; protected set; }
-        protected Dictionary<DamagerEvent, List<UnityEvent>> eventsDictionary;
+        protected Dictionary<DamagerEvent, List<UnityEvent<Damager>>> eventsDictionary;
 
         private void OnValidate()
         {

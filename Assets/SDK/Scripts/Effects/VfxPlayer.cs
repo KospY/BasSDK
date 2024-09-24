@@ -52,6 +52,25 @@ namespace ThunderRoad
         }
 
         [Button]
+        public void ToggleActivePlatform()
+        {
+            if (mobileParticleSystem.gameObject.activeInHierarchy)
+            {
+                if (defaultParticleSystem) defaultParticleSystem.gameObject.SetActive(true);
+                if (defaultVisualEffect) defaultVisualEffect.gameObject.SetActive(true);
+                if (mobileParticleSystem) mobileParticleSystem.gameObject.SetActive(false);
+                if (mobileVisualEffect) mobileVisualEffect.gameObject.SetActive(false);
+            }
+            else if (defaultParticleSystem.gameObject.activeInHierarchy)
+            {
+                if (defaultParticleSystem) defaultParticleSystem.gameObject.SetActive(false);
+                if (defaultVisualEffect) defaultVisualEffect.gameObject.SetActive(false);
+                if (mobileParticleSystem) mobileParticleSystem.gameObject.SetActive(true);
+                if (mobileVisualEffect) mobileVisualEffect.gameObject.SetActive(true);
+            }
+        }
+
+        [Button]
         public void Play()
         {
             if (Common.GetQualityLevel() == QualityLevel.Windows)

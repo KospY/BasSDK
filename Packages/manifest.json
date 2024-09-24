@@ -14,13 +14,24 @@
         "com.needle.compilation-visualizer",
         "com.unity.editoriterationprofiler"
       ]
+    },
+    {
+      "name": "oculus npm",
+      "url": "https://npm.developer.oculus.com",
+      "scopes": [
+        "com.meta.xr.sdk.core",
+        "com.meta.xr.sdk.platform"
+      ]
     }
   ],
   "dependencies": {
+    "com.meta.xr.sdk.core": "68.0.2",
+    "com.meta.xr.sdk.platform": "68.0.0",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.addressables": "1.21.20",
     "com.unity.animation.rigging": "1.1.1",
     "com.unity.assetbundlebrowser": "1.7.0",
+    "com.unity.build-report-inspector": "0.3.0-preview",
     "com.unity.cinemachine": "2.10.0",
     "com.unity.collections": "1.2.4",
     "com.unity.ext.nunit": "1.0.6",
@@ -43,7 +54,6 @@
     "com.unity.render-pipelines.universal": "12.1.15",
     "com.unity.splines": "2.1.0",
     "com.unity.test-framework": "2.0.1-pre.18",
-    "com.unity.textmeshpro": "3.2.0-pre.9",
     "com.unity.timeline": "1.6.5",
     "com.unity.ugui": "1.0.0",
     "com.unity.visualeffectgraph": "12.1.15",

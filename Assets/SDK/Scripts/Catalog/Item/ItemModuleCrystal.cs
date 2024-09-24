@@ -85,13 +85,19 @@ namespace ThunderRoad
         [NonSerialized]
         public EffectData hoverEffectData;
         
-
 #if ODIN_INSPECTOR
         [ValueDropdown(nameof(GetAllEffectId))]
 #endif
         public string mergeEffectId = "CrystalMerge";
         [NonSerialized]
         public EffectData mergeEffectData;
+
+#if ODIN_INSPECTOR
+        [ValueDropdown(nameof(GetAllEffectId))]
+#endif
+        public string mergeCrystalEffectAndroidId = "CrystalMergeGlow";
+        [NonSerialized]
+        public EffectData mergeCrystalEffectAndroidData;
 
 #if ODIN_INSPECTOR
         [ValueDropdown(nameof(GetAllEffectId))]

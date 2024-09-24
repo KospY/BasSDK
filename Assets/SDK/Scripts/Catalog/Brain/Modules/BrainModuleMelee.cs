@@ -20,7 +20,7 @@ namespace ThunderRoad
         public static float parryMinVelocity = 2f;
         public bool meleeEnabled = true;
         public float attackMaxAngle = 45;
-        public float tooCloseForAttack = 0.6f;
+        //public float tooCloseForAttack = 0.6f;
         public float attackTurnSpeedMultiplier = 1;
         public float maxRangeDelta = 0.25f;
 
@@ -64,15 +64,22 @@ namespace ThunderRoad
 
         [Header("Animation")]
         public float animationSpeedMultiplier = 1;
+        [Range(0f, 1f)]
+        public float minimumWeaponMassMultiplier = 0.7f;
 
         public enum HitType { None, Object, Weapon, Shield, Body }
 
         [Header("Instance")]
 #if ODIN_INSPECTOR
+        [ShowInInspector, ReadOnly]
+#endif
+        [NonSerialized]
+        public float lastAttackStartTime;
+#if ODIN_INSPECTOR
         [ShowInInspector, ReadOnly] 
 #endif
         [NonSerialized]
-        public float lastAttackTime;
+        public float lastAttackEndTime;
 #if ODIN_INSPECTOR
         [ShowInInspector, ReadOnly] 
 #endif

@@ -31,6 +31,9 @@ namespace ThunderRoad
         [NonSerialized]
         public ModOptionData<T> optionData;
         [NonSerialized]
+#if ODIN_INSPECTOR
+        [ShowInInspector, ReadOnly]
+#endif
         public T lastValue = default(T);
 
         public void Start()
@@ -46,14 +49,20 @@ namespace ThunderRoad
         private void LinkedValueChange(object obj)
         {
             if (!listening) return;
+            ValueUpdate(obj, true);
+        }
+
+        private void ValueUpdate(object obj, bool fireUpdates)
+        {
             if (obj is T input)
             {
+                lastValue = input;
+                if (!fireUpdates) return;
                 if (ignoreFirstUpdate)
                 {
                     ignoreFirstUpdate = false;
                     return;
                 }
-                lastValue = input;
                 ExecuteInOrder(onValueUpdateEvents, lastValue, null);
             }
             else

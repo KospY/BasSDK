@@ -144,16 +144,177 @@ namespace IngameDebugConsole
 				"UnityScript.",
 				"ICSharpCode.",
 				"ExCSS.Unity",
+                "AddDefines",
+                "AndroidPlayerBuildProgram.Data",
+                "AssetSorceryCore",
+                "AssetSorceryRuntime",
+                "AssetSorceryTester",
+                "Autodesk.Fbx",
+                "Bee.BeeDriver",
+                "BeeBuildProgramCommon.Data",
+                "BetterStreamingAssets",
+                "Bhaptics.SDK2",
+                "CW.Common",
+                "CW.SpaceBackgrounds",
+                "Caustics",
+                "Cinemachine",
+                "CopySceneView",
+                "DynamicAddPass",
+                "FbxBuildTestAssets",
+                "Foliage",
+                "Histogram",
+                "Ionic.Zip.Unity",
+                "JetBrains.Rider.PathLocator",
+                "LIV",
+                "LocalBuildSetup",
+                "MaterialEnumDrawerExtended",
+                "Meta.XR.BuildingBlocks",
+                "Meta.XR.BuildingBlocks.DepthAPI",
+                "Meta.XR.EnvironmentDepth",
+                "Meta.XR.ImmersiveDebugger",
+                "Meta.XR.ImmersiveDebugger.Interface",
+                "Meta.XR.MultiplayerBlocks.Shared",
+                "Metamesh.Runtime",
+                "MirrorsAndReflections",
+                "MonKey",
+                "NavMeshComponents",
+                "Needle.CompilationVisualizer",
+                "Needle.ShaderGraphMarkdown",
+                "Needle.ShaderGraphMarkdown.Internal",
+                "Newtonsoft.Json",
+                "Newtonsoft.Json.UnityConverters",
+                "Newtonsoft.Json.UnityConverters.Addressables",
+                "Newtonsoft.Json.UnityConverters.Mathematics",
+                "NiceIO",
+                "Nobi.UiRoundedCorners",
+                "Oculus.Platform",
+                "Oculus.VR",
+                "PICO.Platform",
+                "PICO.TobSupport",
+                "PPv2URPConverters",
+                "PerfectCulling",
+                "PlayMode",
+                "PlayerBuildProgramLibrary.Data",
+                "RainyReignGames.Collections",
+                "RainyReignGames.Dismemberment",
+                "RainyReignGames.Expresssions",
+                "RainyReignGames.MeshUtilities",
+                "RaycastTexture",
+                "RemoteInspectorRuntime",
+                "RootMotion",
+                "ScreenSpaceDistanceField",
+                "ScriptCompilationBuildProgram.Data",
+                "Shadowood",
+                "ShadowoodSDK",
+                "Shorelines",
+                "Sirenix.OdinInspector.Attributes",
+                "Sirenix.OdinInspector.Modules.Unity.Addressables",
+                "Sirenix.OdinInspector.Modules.UnityLocalization",
+                "Sirenix.OdinInspector.Modules.UnityMathematics",
+                "Sirenix.Serialization",
+                "Sirenix.Serialization.Config",
+                "Sirenix.Utilities",
+                "Splat",
+                "SteamVR",
+                "SteamVR_Actions",
+                "Steamworks.NET",
+                "TRVRKBSharedData",
+                "Timeline.Samples.Annotation",
+                "Timeline.Samples.Text",
+                "Timeline.Samples.TimeDilation",
+                "Timeline.Samples.Tween",
+                "Timeline.Samples.Utilities",
+                "Timeline.Samples.Video",
+                "Tonemapping",
+                "TriInspector",
+                "UMotionApplication",
+                "UMotionSourceApplication",
+                "VLB",
+                "VRKB",
+                "Valve.Newtonsoft.Json",
+                "Viveport",
+                "VolumetricAudio",
+                "fluxy",
+                "modio.UI",
+                "modio.UnityPlugin",
 #if UNITY_EDITOR
 				"Assembly-CSharp-Editor",
 				"Assembly-UnityScript-Editor",
 				"nunit.",
 				"SyntaxTree.",
 				"AssetStoreTools",
+                "AmplifyShaderEditor",
+                "AssetSorceryEditorTools",
+                "Autodesk.Fbx.Editor",
+                "BetterStreamingAssetsEditor",
+                "Bhaptics.SDK2.Editor",
+                "EditorTests",
+                "FluXYEditor",
+                "IngameDebugConsole.Editor",
+                "JetBrains.Rider.Unity.Editor.Plugin.Net46.Repacked",
+                "LIVEditor",
+                "Meta.XR.BuildingBlocks.DepthAPI.Editor",
+                "Meta.XR.BuildingBlocks.Editor",
+                "Meta.XR.Editor.Callbacks",
+                "Meta.XR.Editor.PlayCompanion",
+                "Meta.XR.Editor.StatusMenu",
+                "Meta.XR.Editor.Tags",
+                "Meta.XR.Editor.UserInterface",
+                "Meta.XR.EnvironmentDepth.Editor",
+                "Meta.XR.Guides.Editor",
+                "Meta.XR.ImmersiveDebugger.Editor",
+                "Meta.XR.MultiplayerBlocks.Fusion.Editor",
+                "Meta.XR.MultiplayerBlocks.NGO.Editor",
+                "Meta.XR.MultiplayerBlocks.Shared.Editor",
+                "Metamesh.Editor",
+                "NavMeshComponentsEditor",
+                "Newtonsoft.Json.UnityConverters.Editor",
+                "Nobi.UiRoundedCorners.Editor",
+                "Oculus.Platform.Editor",
+                "Oculus.VR.Editor",
+                "Oculus.VR.Scripts.Editor",
+                "PICO.Platform.Editor",
+                "RainyReignGames.Expressions.Editor",
+                "RainyReignGames.NormalSeamPostProcessor.Editor",
+                "RemoteInspectorEditor",
+                "RootMotionEditor",
+                "Sirenix.OdinInspector.Editor",
+                "Sirenix.OdinInspector.Modules.UnityLocalization.Editor",
+                "Sirenix.OdinValidator.Editor",
+                "Sirenix.Reflection.Editor",
+                "Sirenix.Utilities.Editor",
+                "SteamVR_Editor",
+                "SteamVR_Input_Editor",
+                "SteamVR_Windows_EditorHelper",
+                "SteamworksEditor",
+                "ThunderRoad.Editor",
+                "ThunderRoad.Manikin.Editor",
+                "ThunderRoad.MaterialInstance.Editor",
+                "ThunderRoad.Reveal.Editor",
+                "ThunderRoad.Utilities.Editor",
+                "ThunderRoadCustomMaterialEditor",
+                "ThunderSpline.Editor",
+                "Timeline.Samples.Annotation.Editor",
+                "Timeline.Samples.Text.Editor",
+                "Timeline.Samples.Tween.Editor",
+                "Timeline.Samples.Utilities.Editor",
+                "Timeline.Samples.Video.Editor",
+                "TriInspector.Editor",
+                "TriInspector.Editor.Extras",
+                "TriInspector.Editor.Integrations.Odin",
+                "TriInspector.Editor.Samples",
+                "UMotionEditor",
+                "UMotionSourceEditor",
+                "UpdateEditorEveryFrame",
+                "VRKB.Editor",
+                "com.unity.cinemachine.editor",
+                "robproductions.opengraphgui.editor",
+
 #endif
 			};
 #endif
-
+            StringBuilder sb = new StringBuilder();
+            StringBuilder sbE = new StringBuilder();
 #if UNITY_EDITOR || !NETFX_CORE
 			foreach( Assembly assembly in AppDomain.CurrentDomain.GetAssemblies() )
 #else
@@ -181,7 +342,8 @@ namespace IngameDebugConsole
 				if( ignoreAssembly )
 					continue;
 #endif
-
+                
+                bool found = false;
 				try
 				{
 					foreach( Type type in assembly.GetExportedTypes() )
@@ -191,9 +353,12 @@ namespace IngameDebugConsole
 							foreach( object attribute in method.GetCustomAttributes( typeof( ConsoleMethodAttribute ), false ) )
 							{
 								ConsoleMethodAttribute consoleMethod = attribute as ConsoleMethodAttribute;
-								if( consoleMethod != null )
-									AddCommand( consoleMethod.Command, consoleMethod.Description, method, null, consoleMethod.ParameterNames );
-							}
+                                if (consoleMethod != null)
+                                {
+                                    AddCommand(consoleMethod.Command, consoleMethod.Description, method, null, consoleMethod.ParameterNames);
+                                    found = true;
+                                }
+                            }
 						}
 					}
 				}
@@ -203,7 +368,22 @@ namespace IngameDebugConsole
 				{
 					Debug.LogError( "Couldn't search assembly for [ConsoleMethod] attributes: " + assemblyName + "\n" + e.ToString() );
 				}
+                if(!found)
+                {
+                    if(assemblyName.Contains("editor", StringComparison.OrdinalIgnoreCase))
+                    {
+                        sbE.AppendLine($"\"{assemblyName}\",");
+                    }
+                    else
+                    {
+                        sb.AppendLine($"\"{assemblyName}\",");
+                    }
+                }
 			}
+#if UNITY_EDITOR
+            Debug.Log(sb.ToString());
+            Debug.Log(sbE.ToString());
+#endif            
 		}
 
 		// Logs the list of available commands

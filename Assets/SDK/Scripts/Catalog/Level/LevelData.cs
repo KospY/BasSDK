@@ -103,7 +103,7 @@ namespace ThunderRoad
 		[NonSerialized]
 		public IResourceLocation mapLocationIconLocation;
 		[NonSerialized]
-		public Texture2D mapLocationIcon;
+		public Sprite mapLocationIcon;
 
 #if ODIN_INSPECTOR
 		[BoxGroup("Map location")]
@@ -112,7 +112,7 @@ namespace ThunderRoad
 		[NonSerialized]
 		public IResourceLocation mapLocationIconHoverLocation;
 		[NonSerialized]
-		public Texture2D mapLocationIconHover;
+		public Sprite mapLocationIconHover;
 
 #if ODIN_INSPECTOR
 		[BoxGroup("Map location")]
@@ -121,7 +121,7 @@ namespace ThunderRoad
 		[NonSerialized]
 		public IResourceLocation mapPreviewImageLocation;
 		[NonSerialized]
-		public Texture2D mapPreviewImage;
+		public Sprite mapPreviewImage;
 
 #if ODIN_INSPECTOR
 		[BoxGroup("Modes"), ShowInInspector]

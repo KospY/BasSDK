@@ -67,7 +67,7 @@ namespace ThunderRoad
         {
             public CreatureEvent creatureEvent;
             public LifeState aliveState;
-            public UnityEvent onActivate;
+            public UnityEvent<Creature> onActivate;
 
             public CreatureUnityEvent Copy()
             {
@@ -90,16 +90,33 @@ namespace ThunderRoad
         {
             creature ??= GetComponent<Creature>();
         }
+
+        public bool IsCopyable() => true;
+
+        public void CopyTo(UnityEngine.Object other) => ((IToolControllable)this).CopyControllableTo(other);
+
         public void CopyFrom(IToolControllable original)
         {
         }
+
+        public void ReparentAlign(Component other) => ((IToolControllable)this).ReparentAlignTransform(other);
 
         public void Remove()
         {
         }
 
+        public Transform GetTransform() => transform;
+
 
         public override void UnsubscribeNamedMethods()
+        {
+        }
+
+        public void ChangeLinked(Creature creature)
+        {
+        }
+
+        public void LinkToPlayer()
         {
         }
 

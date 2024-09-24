@@ -19,7 +19,7 @@ namespace ThunderRoad
 {
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Items/ItemSpawner.html")]
     [AddComponentMenu("ThunderRoad/Levels/Spawners/Item Spawner")]
-    public class ItemSpawner : MonoBehaviour, ICheckAsset
+    public class ItemSpawner : MonoBehaviour, ICheckAsset, IToolControllable
     {
 #if ODIN_INSPECTOR
         [ValueDropdown(nameof(GetAllItemOrLootTableID))]
@@ -157,6 +157,24 @@ namespace ThunderRoad
             }
         }
 #endif
+
+        public bool IsCopyable() => false;
+
+        public void CopyTo(UnityEngine.Object other)
+        {
+        }
+
+        public void CopyFrom(IToolControllable original)
+        {
+        }
+
+        public void ReparentAlign(Component other) => ((IToolControllable)this).ReparentAlignTransform(other);
+
+        public void Remove()
+        {
+        }
+
+        public Transform GetTransform() => transform;
 
 #if UNITY_EDITOR
         public void OnDrawGizmos()

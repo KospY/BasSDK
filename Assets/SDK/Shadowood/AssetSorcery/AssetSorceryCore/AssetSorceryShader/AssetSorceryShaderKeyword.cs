@@ -41,9 +41,15 @@ namespace ThunderRoad.AssetSorcery
         // [HideInInspector]
         [ReadOnly] public bool local = false;
 
-        [FormerlySerializedAs("enabled")] public bool enabledDesktop = true;
+        [FormerlySerializedAs("enabled")]
+        public bool enabledDesktop = true;
         public bool enabledMobile = true;
-
+        
+        [Space]
+        public bool hideDesktop = false;
+        public bool hideMobile = false;
+        
+        [Space]
         //public bool disableUIToggle = false;
         [Tooltip("If the keyword this pertains to is removed from the shader, the entry here remains but 'present' will be unticked.")]
         public bool present = false;

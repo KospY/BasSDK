@@ -74,6 +74,9 @@ namespace ThunderRoad
                 Debug.Log($"Adding missing AA group {aaGroup.name}");
                 AddressableAssetSettingsDefaultObject.Settings.groups.Add(aaGroup);
             }
+            //save the settings
+            AddressableAssetSettingsDefaultObject.Settings.SetDirty(AddressableAssetSettings.ModificationEvent.BatchModification, null, true, true);
+            AssetDatabase.SaveAssets();
         }
 
 

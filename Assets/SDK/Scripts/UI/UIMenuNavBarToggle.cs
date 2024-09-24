@@ -16,8 +16,8 @@ namespace ThunderRoad
         [SerializeField] private Sprite modernFrame;
         [SerializeField] private Sprite modernFrameSelected;
 
-        [SerializeField] private RawImage icon;
-        [SerializeField] private RawImage iconSelected;
+        [SerializeField] private Image icon;
+        [SerializeField] private Image iconSelected;
 
         [SerializeField] private Image warning;
 

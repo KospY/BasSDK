@@ -22,6 +22,18 @@ namespace ThunderRoad
 {
     public static class Utils
     {
+
+        public static Color UnHDR(this Color color)
+        {
+            float largest = color.r > color.g
+                ? color.r > color.g
+                    ? color.r
+                    : color.g
+                : color.b > color.g
+                    ? color.b : color.g;
+            if (largest <= 1) return color;
+            return new Color(color.r / largest, color.g / largest, color.b / largest, color.a);
+        }
         public static float Clamp(this float input, float low, float high) => Mathf.Clamp(input, low, high);
 
         public static float Remap(this float input, float inLow, float inHigh, float outLow, float outHigh)
@@ -1368,6 +1380,22 @@ namespace ThunderRoad
             handlers.Clear();
             RefreshInternal();
             return true;
+        }
+
+        public bool ClearByType<U>()
+        {
+            var keys = handlers.Keys.ToList();
+            var found = false;
+            for (var i = 0; i < keys.Count; i++)
+            {
+                if (keys[i] is not U) continue;
+                handlers.Remove(keys[i]);
+                found = true;
+            }
+
+            if (found)
+                RefreshInternal();
+            return found;
         }
 
         protected void RefreshInternal() {

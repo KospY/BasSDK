@@ -21,8 +21,8 @@ namespace ThunderRoad
         }
         public static bool bakeInProgress { get; private set; }
 
-        // Use ASTC_4x4 to avoid color compression artifacts
-        public static TextureImporterFormat defaultAndroidLightmapColorFormat = TextureImporterFormat.ASTC_4x4;
+        // Use ASTC_4x4 to avoid color compression artifacts. Use ASTC_4x4_HDR for better quality
+        public static TextureImporterFormat defaultAndroidLightmapColorFormat = TextureImporterFormat.ASTC_HDR_4x4;
 
         // Use RGB 16 Bit to avoid white artifacts when baking on GPU
         public static TextureImporterFormat defaultLightmapDirectionalFormat = TextureImporterFormat.DXT1;

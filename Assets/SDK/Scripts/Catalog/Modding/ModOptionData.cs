@@ -45,6 +45,14 @@ namespace ThunderRoad
 #endif
         public string tooltip = "";
 #if ODIN_INSPECTOR
+        [BoxGroup("Display")]
+#endif
+        public int defaultOptionIndex = -1;
+#if ODIN_INSPECTOR
+        [BoxGroup("Display")]
+#endif
+        public bool storeValueInSave = true;
+#if ODIN_INSPECTOR
         [BoxGroup("Category and sorting")]
 #endif
         public string category;

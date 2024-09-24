@@ -84,11 +84,14 @@
 		return color; // saturate(colorInput);
 	}
 	
+	static const float3 LuminanceWeights = float3(0.299,0.587,0.114);
+	
 	float3 ApplyTonemapAlways(float3 colorIn, float4 Tonemapping){
 	
 		float exposure = Tonemapping.x;
 		float contrast = Tonemapping.y;
-		//float saturation = Tonemapping.z;
+		float saturation = Tonemapping.z;
+		
 		float blend = Tonemapping.w * _TonemappingMasterBlend; // Needed to turn off tonemapping to capture reflection probes in HDR
 		
 		//colorIn = saturate(colorIn);
@@ -107,8 +110,8 @@
 		//float3 color = tonemapped;
 		
 		//float3 LuminanceWeights = float3(0.299,0.587,0.114);
-		//float luminance = dot(color,LuminanceWeights);
-		//color.rgb = lerp(luminance,color.rgb,saturation); // Saturation
+		float luminance = dot(color,LuminanceWeights);
+		color.rgb = lerp(luminance,color.rgb,saturation); // Saturation
 		
 		color = lerp( colorIn, color, blend  ); // Blend - // Needed to turn off tonemapping to capture reflection probes in HDR
 		
@@ -126,8 +129,21 @@
 		#if defined(GLOBALTONEMAPPING) //&& !defined(TONEMAPPINGELSEWHERE) // _TONEMAPPING_ON
 			float3 color = ApplyTonemapAlways(colorIn, Tonemapping);
 			return color;// * float3(0,1,0);
-		#else
+		#else			
 			return colorIn; 
+			/* // Removed Saturation as on desktop it will double apply to grabpass/water, do as post effect instead
+			float3 color = colorIn.rgb;
+			
+			float saturation = Tonemapping.z;
+			float blend = Tonemapping.w * _TonemappingMasterBlend; // Needed to turn off tonemapping to capture reflection probes in HDR
+			
+			float luminance = dot(color,LuminanceWeights);
+			color.rgb = lerp(luminance,color.rgb,saturation); // Saturation
+			
+			color = lerp( colorIn, color, blend  ); // Blend - // Needed to turn off tonemapping to capture reflection probes in HDR
+			
+			return colorIn; 
+			*/
 			//float exposure = Tonemapping.x; // Always apply exposure even if no tonemapping is used // Edit: breaks grabpass as it gets double exposed
 			//return colorIn * exposure;// * float3(1,0,0);;
 		#endif

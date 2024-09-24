@@ -137,7 +137,7 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "SwimmingMessage",
+          "id": "Swimming",
           "text": "To propel yourself through water, mimic a swimming motion with your arms.",
           "spriteAddress": null,
           "videoAddress": "Bas.Video.Swimming"
@@ -180,16 +180,44 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "Stash",
-          "text": "When you leave a level, any item you own will return to your Stash when left somewhere outside of your inventory. You can spawn or equip any item from your stash using the spawn book in your home.",
+          "text": "Your item book contains two tabs: The Stash tab displays all the items you purchased or stored. You can spawn them at any time. The Home tab displays all the items that are present somewhere in your home level. You may store them in the stash at any time.",
           "spriteAddress": null,
+          "videoAddress": "Bas.Video.Stash"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "OpenSpellWheel",
+          "text": "Check your spells by holding the spell wheel button on your controller.",
+          "spriteAddress": "Bas.Input.{Controller}.SpellMenu",
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "EquipSpell",
-          "text": "You can change the equipped Spell by holding the Spell button. You can then select the one you want on the radial menu.",
+          "id": "UseSpells",
+          "text": "Select a spell by releasing the spell wheel button while your hand is hovering over the spell you want. To unselect spells release the button while your hand is over an empty space",
           "spriteAddress": null,
-          "videoAddress": null
+          "videoAddress": "Bas.Video.SpellWheel"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Mirror",
+          "text": "You can equip clothes or armor piece when looking at a mirror. You will find one in the shop and in your house.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Mirror"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Armor",
+          "text": "To equip clothes or armor pieces, hold them over the correct body part while looking in the mirror. When the body part is highlighted, release the trigger to equip it. You can swap armor pieces and clothes this way too.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Armor"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Quiver",
+          "text": "Remove equipped quivers by pressing down the trigger button and then the grip button to grab it.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Quiver"
         }
       ]
     },
@@ -646,7 +674,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "46",
-          "text": "You can grab the mouth of a an enemy to muffle their noises, preventing them from alerting their friends.",
+          "text": "You can grab the mouth of an enemy to muffle their noises, preventing them from alerting their friends.",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -5132,6 +5160,13 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "CrystalHunt",
           "text": "Crystal Hunt",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "LODBias",
+          "text": "LOD Bias",
           "spriteAddress": null,
           "videoAddress": null
         }

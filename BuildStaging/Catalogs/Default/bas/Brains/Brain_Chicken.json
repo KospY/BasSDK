@@ -43,8 +43,7 @@
       "randomSpeakCombatChance": 0.0,
       "randomSpeakDelay": 1.0,
       "muffleSpeakDelay": 1.5,
-      "speakLoudness": 0.0,
-      "creature": null
+      "speakLoudness": 0.0
     },
     {
       "$type": "ThunderRoad.BrainModuleMove, ThunderRoad",
@@ -102,8 +101,7 @@
       "doorReachClip": "Bas.Animation.Interaction.ReachDoorHandleLeft",
       "turnOffsetDegrees": 0.0,
       "path": null,
-      "interactingDoors": [],
-      "creature": null
+      "interactingDoors": []
     },
     {
       "$type": "ThunderRoad.BrainModuleDetection, ThunderRoad",
@@ -206,8 +204,7 @@
       },
       "defenseColliderRadius": 0.6,
       "defenseColliderHeightMultiplier": 1.0,
-      "defenseColliderRotation": 0.0,
-      "creature": null
+      "defenseColliderRotation": 0.0
     },
     {
       "$type": "ThunderRoad.BrainModulePatrol, ThunderRoad",
@@ -216,8 +213,7 @@
       "viewAngle": 100.0,
       "targetMask": 67108864,
       "obstacleMask": 419720465,
-      "runSpeedRatio": 0.5,
-      "creature": null
+      "runSpeedRatio": 0.5
     },
     {
       "$type": "ThunderRoad.BrainModuleGrabbed, ThunderRoad",
@@ -225,8 +221,7 @@
       "freeOneHandDelay": 2.0,
       "freeBothHand": false,
       "freeBothHandDelay": 5.0,
-      "grabThrowMinVelocity": 2.0,
-      "creature": null
+      "grabThrowMinVelocity": 2.0
     },
     {
       "$type": "ThunderRoad.BrainModuleHitReaction, ThunderRoad",
@@ -412,8 +407,7 @@
           "duringAttackJump": "Destabilize"
         }
       ],
-      "resistDestabilizeFromMagic": false,
-      "creature": null
+      "resistDestabilizeFromMagic": false
     },
     {
       "$type": "ThunderRoad.BrainModuleElectrocute, ThunderRoad",
@@ -425,8 +419,7 @@
       "boltCount": 1,
       "boltMinTime": 0.2,
       "imbueHitCount": 1,
-      "imbueHitMinTime": 3.0,
-      "creature": null
+      "imbueHitMinTime": 3.0
     },
     {
       "$type": "ThunderRoad.BrainModuleSightable, ThunderRoad",
@@ -447,8 +440,7 @@
       "navSamplePositionMaxDistance": 50.0,
       "lastShootUpdateDelay": 1.0,
       "lastShootUpdatePositionMaxDistance": 0.5,
-      "debug": false,
-      "creature": null
+      "debug": false
     }
   ],
   "groupPath": null

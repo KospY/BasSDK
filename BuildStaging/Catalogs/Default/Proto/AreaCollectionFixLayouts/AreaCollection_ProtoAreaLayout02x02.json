@@ -1,0 +1,61 @@
+{
+  "$type": "ThunderRoad.AreaCollectionFixLayout, ThunderRoad",
+  "id": "ProtoAreaLayout02x02",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 0,
+  "allowedRotation": [
+    "Front",
+    "Back",
+    "Left",
+    "Right"
+  ],
+  "layout": [
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+AreaLayout, ThunderRoad",
+      "bpGeneratorId": {
+        "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+        "dataId": "ProtoArea02",
+        "category": "Area"
+      },
+      "rotation": "Front",
+      "creatureNumberWeight": 1.0,
+      "isShareNPCAlert": true
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+AreaLayout, ThunderRoad",
+      "bpGeneratorId": {
+        "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+        "dataId": "ProtoArea02",
+        "category": "Area"
+      },
+      "rotation": "Back",
+      "creatureNumberWeight": 1.0,
+      "isShareNPCAlert": true
+    }
+  ],
+  "internalLinks": [
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+InternalLink, ThunderRoad",
+      "indexArea1": 0,
+      "indexConnectionArea1": 0,
+      "indexArea2": 1,
+      "indexConnectionArea2": 0,
+      "crossAreaAlert": false
+    }
+  ],
+  "externalConnections": [
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+ExternalConnection, ThunderRoad",
+      "indexArea": 0,
+      "indexConnection": 1
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+ExternalConnection, ThunderRoad",
+      "indexArea": 1,
+      "indexConnection": 1
+    }
+  ],
+  "distanceBetweenConnectionMax": 0.01,
+  "groupPath": null
+}

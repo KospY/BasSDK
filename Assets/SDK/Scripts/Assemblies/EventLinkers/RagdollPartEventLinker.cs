@@ -55,7 +55,7 @@ namespace ThunderRoad
         {
             public PartEvent partEvent;
             public LifeState aliveState;
-            public UnityEvent onActivate;
+            public UnityEvent<RagdollPart> onActivate;
 
             public PartUnityEvent Copy()
             {
@@ -79,13 +79,21 @@ namespace ThunderRoad
             part ??= GetComponent<RagdollPart>();
         }
 
+        public bool IsCopyable() => true;
+
+        public void CopyTo(UnityEngine.Object other) => ((IToolControllable)this).CopyControllableTo(other);
+
         public void CopyFrom(IToolControllable original)
         {
         }
 
+        public void ReparentAlign(Component other) => ((IToolControllable)this).ReparentAlignTransform(other);
+
         public void Remove()
         {
         }
+
+        public Transform GetTransform() => transform;
 
 
         public override void UnsubscribeNamedMethods()

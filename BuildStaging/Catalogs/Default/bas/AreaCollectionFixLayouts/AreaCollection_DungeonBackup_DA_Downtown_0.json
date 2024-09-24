@@ -18,8 +18,30 @@
         "dataId": "DA_Start_DalgarianGate",
         "category": "Area"
       },
-      "rotation": "Right",
+      "rotation": "Back",
       "creatureNumberWeight": 2.0,
+      "isShareNPCAlert": true
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+AreaLayout, ThunderRoad",
+      "bpGeneratorId": {
+        "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+        "dataId": "DA_XSTransi_UrbanTunnel",
+        "category": "Area"
+      },
+      "rotation": "Right",
+      "creatureNumberWeight": 3.0,
+      "isShareNPCAlert": true
+    },
+    {
+      "$type": "ThunderRoad.AreaCollectionFixLayout+AreaLayout, ThunderRoad",
+      "bpGeneratorId": {
+        "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
+        "dataId": "DA_Std_CaveTerrace",
+        "category": "Area"
+      },
+      "rotation": "Left",
+      "creatureNumberWeight": 4.0,
       "isShareNPCAlert": true
     },
     {
@@ -29,29 +51,7 @@
         "dataId": "DA_Transi_BrokenDoor",
         "category": "Area"
       },
-      "rotation": "Back",
-      "creatureNumberWeight": 4.0,
-      "isShareNPCAlert": true
-    },
-    {
-      "$type": "ThunderRoad.AreaCollectionFixLayout+AreaLayout, ThunderRoad",
-      "bpGeneratorId": {
-        "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
-        "dataId": "DA_Std_UndergroundLake",
-        "category": "Area"
-      },
       "rotation": "Right",
-      "creatureNumberWeight": 4.0,
-      "isShareNPCAlert": true
-    },
-    {
-      "$type": "ThunderRoad.AreaCollectionFixLayout+AreaLayout, ThunderRoad",
-      "bpGeneratorId": {
-        "$type": "ThunderRoad.IAreaBlueprintGenerator+IAreaBlueprintGeneratorIdContainer, ThunderRoad",
-        "dataId": "DA_Parkour_CrackedRoom",
-        "category": "Area"
-      },
-      "rotation": "Front",
       "creatureNumberWeight": 4.0,
       "isShareNPCAlert": true
     },
@@ -62,7 +62,7 @@
         "dataId": "DA_End_GolemArena",
         "category": "Area"
       },
-      "rotation": "Left",
+      "rotation": "Right",
       "creatureNumberWeight": 2.0,
       "isShareNPCAlert": true
     }
@@ -73,7 +73,7 @@
       "indexArea1": 0,
       "indexConnectionArea1": 1,
       "indexArea2": 1,
-      "indexConnectionArea2": 3,
+      "indexConnectionArea2": 0,
       "crossAreaAlert": false
     },
     {
@@ -81,21 +81,21 @@
       "indexArea1": 1,
       "indexConnectionArea1": 1,
       "indexArea2": 2,
-      "indexConnectionArea2": 0,
+      "indexConnectionArea2": 1,
       "crossAreaAlert": false
     },
     {
       "$type": "ThunderRoad.AreaCollectionFixLayout+InternalLink, ThunderRoad",
       "indexArea1": 2,
-      "indexConnectionArea1": 1,
+      "indexConnectionArea1": 0,
       "indexArea2": 3,
-      "indexConnectionArea2": 0,
+      "indexConnectionArea2": 1,
       "crossAreaAlert": false
     },
     {
       "$type": "ThunderRoad.AreaCollectionFixLayout+InternalLink, ThunderRoad",
       "indexArea1": 3,
-      "indexConnectionArea1": 1,
+      "indexConnectionArea1": 2,
       "indexArea2": 4,
       "indexConnectionArea2": 0,
       "crossAreaAlert": false

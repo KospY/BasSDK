@@ -818,13 +818,25 @@ namespace Shadowood
             }*/
         }
         
+#if UNITY_EDITOR
+        [UnityEditor.Callbacks.DidReloadScripts]
+        private static void OnScriptsReloaded()
+        {
+            SetDefaults();
+        }
+#endif
+        
         /// <summary>
         /// Sets sensible defaults for shader globals with the effects turned off
         /// </summary>
         public static void SetDefaults()
         {
+#if UNITY_EDITOR
             Debug.Log("OceanFogContoller: SetDefaults (off / above water)");
+#endif
             Shader.SetGlobalFloat(GlobalOceanUnder, 0);
+            Shader.SetGlobalFloat(GlobalOceanHeight, -10000000);
+            Shader.SetGlobalFloat(GlobalOceanOffset, 0);
             AffectKeywords(true);
         }
 

@@ -30,12 +30,12 @@ namespace ThunderRoad
         public class HolderUnityEvent
         {
             public HolderEvent holderEvent;
-            public UnityEvent onActivate;
+            public UnityEvent<Holder> onActivate;
         }
 
         public Holder holder;
         public List<HolderUnityEvent> holderEvents = new List<HolderUnityEvent>();
-        protected Dictionary<HolderEvent, List<UnityEvent>> eventsDictionary;
+        protected Dictionary<HolderEvent, List<UnityEvent<Holder>>> eventsDictionary;
 
         private void OnValidate()
         {

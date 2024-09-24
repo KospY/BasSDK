@@ -117,7 +117,7 @@ namespace ThunderRoad
 #if ODIN_INSPECTOR
             [HorizontalGroup("Probability Weights"), HideLabel, ShowInInspector, OnValueChanged(nameof(EditorCalculateWeight)), PropertyOrder(0)]
 #endif
-            public int probabilityWeight;
+            public float probabilityWeight;
 
 #if ODIN_INSPECTOR
             [ShowInInspector, ReadOnly, ProgressBar(0, 100), PropertyOrder(1)] 

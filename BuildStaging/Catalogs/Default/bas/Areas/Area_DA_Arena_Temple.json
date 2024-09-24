@@ -124,6 +124,12 @@
       "fakeViewAddress": "Bas.Area.DA_Arena_Temple.FakeView.3"
     }
   ],
-  "areaGlobalParameters": [],
+  "areaGlobalParameters": [
+    {
+      "$type": "ThunderRoad.AreaSunGlobalParameter, ThunderRoad",
+      "isZeroIntensity": true,
+      "visibleFromGate": false
+    }
+  ],
   "groupPath": "Dalgarian/Arena"
 }

@@ -17,6 +17,7 @@ namespace ThunderRoad
     public class LightProbeVolume : MonoBehaviour
     {
         public static List<LightProbeVolume> list = new List<LightProbeVolume>();
+        public static Dictionary<Area, List<LightProbeVolume>> areaToVolume = new Dictionary<Area, List<LightProbeVolume>>();
 
         /// <summary>
         /// Is there at least one LightProbeVolume in the scene?
@@ -25,6 +26,20 @@ namespace ThunderRoad
         public static void Register(LightProbeVolume lightProbeVolume)
         {
             list.Add(lightProbeVolume);
+            //Get the area of the light probe volume
+            if (lightProbeVolume.area)
+            {
+                if (!areaToVolume.TryGetValue(lightProbeVolume.area, out List<LightProbeVolume> volumes))
+                {
+                    volumes = new List<LightProbeVolume>();
+                    areaToVolume.Add(lightProbeVolume.area, volumes);
+                }
+                volumes.Add(lightProbeVolume);
+            }
+            else
+            {
+                Debug.LogError($"Light Probe Volume: {lightProbeVolume.gameObject.GetPathFromRoot()} is not in an Area! LVRs will not work properly.");
+            }
             Exists = true;
         }
         public static void Unregister(LightProbeVolume lightProbeVolume)
@@ -33,6 +48,17 @@ namespace ThunderRoad
             if (list.Count == 0)
             {
                 Exists = false;
+            }
+            if (lightProbeVolume.area)
+            {
+                if (areaToVolume.TryGetValue(lightProbeVolume.area, out List<LightProbeVolume> volumes))
+                {
+                    volumes.Remove(lightProbeVolume);
+                    if (volumes.Count == 0)
+                    {
+                        areaToVolume.Remove(lightProbeVolume.area);
+                    }
+                }
             }
         }
 
@@ -83,24 +109,45 @@ namespace ThunderRoad
         private static readonly int UnitySHAb = Shader.PropertyToID("unity_SHAb");
         private static readonly int UnityProbesOcclusion = Shader.PropertyToID("unity_ProbesOcclusion");
 
+        private BoxCollider _boxCollider;
+        private Bounds _bounds;
+        private bool hasBoxCollider;
+        
+        public BoxCollider BoxCollider
+        {
+            get => _boxCollider;
+            set
+            {
+                if (value == null) return;
+                _boxCollider = value;
+                hasBoxCollider = true;
+                _bounds = _boxCollider.bounds;
+            }
+        }
+
+        /// <summary>
+        /// The area this LPV is in
+        /// </summary>
+        [NonSerialized]
+        [ShowInInspector]
+        public Area area;
+        
+        public bool IsPositionInVolume(Vector3 position)
+        {
+            if(!hasBoxCollider)
+            {
+                //try to get the box collider
+                BoxCollider = GetComponent<BoxCollider>();
+            } 
+            return _bounds.Contains(position);
+        }
         /// <summary>
         /// Used from the custom editor to change the gizmos.
         /// </summary>
         [NonSerialized]
         public bool editingSizeThroughEditor;
 
-        private Action _textureUpdatedEvent;
-
-        public event Action TextureUpdatedEvent
-        {
-            add
-            {
-                _textureUpdatedEvent -= value;
-                _textureUpdatedEvent += value;
-            }
-
-            remove { _textureUpdatedEvent -= value; }
-        }
+        private Dictionary<object, Material[]> _registeredMaterials;
 
         public void SetTexture(Texture3D SHAr,
             Texture3D SHAg,
@@ -112,12 +159,23 @@ namespace ThunderRoad
             this.SHAb = SHAb;
             this.occ = occ;
 
-            if (_textureUpdatedEvent != null)
+            if(!_registeredMaterials.IsNullOrEmpty())
             {
-                _textureUpdatedEvent.Invoke();
+                foreach (var item in _registeredMaterials)
+                {
+                    for (int i = 0; i < item.Value.Length; i++)
+                    {
+                        UpdateMaterialProperties(item.Value[i]);
+                    }
+                }
             }
         }
 
+        private void Awake()
+        {
+            area = GetComponentInParent<Area>();
+            BoxCollider = GetComponent<BoxCollider>();
+        }
         private void OnEnable()
         {
             Register(this);
@@ -134,18 +192,51 @@ namespace ThunderRoad
 #endif
         }
 
-        public void UpdateMaterialProperties(Renderer renderer)
+        private void OnDestroy()
         {
-            Material[] materials = null;
-            if (Application.isPlaying)
+            Unregister(this);
+            SetTexture(null, null, null, null);
+        }
+
+        public void RegisterMaterials(object receiver, Material[] materials)
+        {
+            if (receiver == null) return;
+            if (materials.IsNullOrEmpty()) return;
+            if (_registeredMaterials == null) _registeredMaterials = new Dictionary<object, Material[]>();
+
+            if(_registeredMaterials.TryGetValue(receiver, out Material[] previousMaterials))
             {
-                //renderer.GetMaterials(gc_Materials);
-                materials = renderer.MaterialInstances();
+                Material[] concatenate = new Material [previousMaterials.Length + materials.Length];
+                previousMaterials.CopyTo(concatenate, 0);
+                materials.CopyTo(concatenate, previousMaterials.Length);
+                _registeredMaterials[receiver] = concatenate;
+            }
+            else
+            {
+                _registeredMaterials.Add(receiver, materials);
             }
 
-            foreach (Material material in materials)
+            for (int i = 0; i < materials.Length; i++)
             {
-                UpdateMaterialProperties(material);
+                UpdateMaterialProperties(materials[i]);
+            }
+        }
+        public void UnregisterMaterials(object receiver)
+        {
+            if (_registeredMaterials.IsNullOrEmpty()) return;
+            if (receiver == null) return;
+
+            if(_registeredMaterials.Remove(receiver, out Material[] materials))
+            {
+                for (int i = 0; i < materials.Length; i++)
+                {
+                    Material mat = materials[i];
+                    // release texture
+                    mat.SetTexture(ProbeVolumeShR, null);
+                    mat.SetTexture(ProbeVolumeShG, null);
+                    mat.SetTexture(ProbeVolumeShB, null);
+                    mat.SetTexture(ProbeVolumeOcc, null);
+                }
             }
         }
 

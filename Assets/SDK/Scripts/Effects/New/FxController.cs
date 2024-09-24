@@ -40,5 +40,49 @@ namespace ThunderRoad
         [NonSerialized]
         public bool isPlaying;
 
+        private void OnValidate()
+        {
+            if (!gameObject.activeInHierarchy) return;
+            modules = new List<FxModule>(this.GetComponentsInChildren<FxModule>());
+            foreach (FxModule module in modules)
+            {
+                module.controller = this;
+            }
+            if (Application.isPlaying && initialized)
+            {
+                Refresh();
+            }
+        }
+
+
+        [Button]
+        public void Play()
+        {
+        }
+
+        /// <summary>
+        /// Intensity values between 0 and 1.
+        /// </summary>
+        public void SetIntensity(float intensity)
+        {
+        }
+
+        public void SetSpeed(float speed)
+        {
+        }
+
+        public void Refresh()
+        {
+        }
+
+        public void Stop()
+        {
+        }
+
+        [Button]
+        public void Stop(bool playStopEffect = true)
+        {
+        }
+
     }
 }

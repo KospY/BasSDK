@@ -115,20 +115,7 @@
   "areaGlobalParameters": [
     {
       "$type": "ThunderRoad.AreaSunGlobalParameter, ThunderRoad",
-      "dirLightColor": {
-        "r": 1.0,
-        "g": 0.941067338,
-        "b": 0.8392157,
-        "a": 1.0
-      },
-      "dirLightIntensity": 3.3,
-      "dirLightIndirectMultiplier": 3.0,
-      "directionalLightLocalRotation": {
-        "x": 0.0318395123,
-        "y": 0.7578591,
-        "z": -0.4205153,
-        "w": 0.497797936
-      },
+      "isZeroIntensity": false,
       "visibleFromGate": true
     }
   ],

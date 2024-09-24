@@ -37,7 +37,7 @@ namespace Shadowood
 
             [Range(-20, 20)] public float exposure;
             [Range(1, 1.5f)] public float contrast;
-            [HideInInspector] [Range(0, 2)] public float saturation;
+            [Range(0, 2)] public float saturation;
             [Range(0, 1)] public float blend;
 
             public TonemappingSettings(float exposure = 0, float contrast = 1, float saturation = 1, float blend = 1)
@@ -204,6 +204,12 @@ namespace Shadowood
         public static void SetExposureStatic(float exposure)
         {
             settingsGlobal.exposure = exposure;
+            Run(settingsGlobal);
+        }
+        
+        public static void SetSaturationStatic(float saturation)
+        {
+            settingsGlobal.saturation = saturation;
             Run(settingsGlobal);
         }
 

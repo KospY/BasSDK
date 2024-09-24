@@ -95,7 +95,7 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "SwimmingMessage",
+          "id": "Swimming",
           "text": "Per spostarti mentre sei in acqua, simula un movimento di nuoto con le braccia.",
           "spriteAddress": null,
           "videoAddress": "Bas.Video.Swimming"
@@ -151,13 +151,6 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Stash",
-          "text": "Quando abbandoni un livello, qualsiasi oggetto rimasto fuori dall'inventario verrà inviato alla tua scorta. Puoi evocare o equipaggiare qualsiasi oggetto nella scorta usando il libro di evocazione presente nella tua casa.",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "ClimbingOverLedge",
           "text": "Quando pendi da una sporgenza su cui vuoi arrampicarti, tieni premuto Salto e muoviti in avanti per darti una spinta verso l'alto. Puoi anche spingere le braccia verso il basso per avere maggiore slancio.",
           "spriteAddress": null,
@@ -179,17 +172,52 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "EquipSpell",
-          "text": "Puoi modificare l'incantesimo equipaggiato tenendo premuto il pulsante Incantesimo. Seleziona quindi l'incantesimo che desideri dal menu radiale.",
+          "id": "InventoryTake",
+          "text": "Puoi ottenere e conservare oggetti nel tuo inventario, un dispositivo Dalgariano con capacità di archiviazione infinita posizionato sul petto. Aprilo afferrandolo con la mano",
           "spriteAddress": null,
+          "videoAddress": "Bas.Video.InventoryRetrieving"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Stash",
+          "text": "Il libro degli oggetti contiene due schede: La scheda Stash mostra tutti gli oggetti acquistati o conservati. È possibile richiamarli in qualsiasi momento. La scheda Casa mostra tutti gli oggetti che sono presenti da qualche parte nel livello della casa. È possibile conservarli nella scorta in qualsiasi momento.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Stash"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "OpenSpellWheel",
+          "text": "Controllare gli incantesimi tenendo premuto il pulsante della ruota degli incantesimi sul controller.",
+          "spriteAddress": "Bas.Input.{Controller}.SpellMenu",
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "InventoryTake",
-          "text": "Puoi ottenere e conservare oggetti nel tuo inventario, un dispositivo Dalgarian con capacità di archiviazione infinita posizionato sul petto. Aprilo afferrandolo con la mano",
+          "id": "UseSpells",
+          "text": "Selezionare un incantesimo rilasciando il pulsante della ruota degli incantesimi mentre la mano si trova sopra l'incantesimo desiderato. Per deselezionare gli incantesimi, rilasciare il pulsante mentre la mano si trova sopra uno spazio vuoto.",
           "spriteAddress": null,
-          "videoAddress": "Bas.Video.InventoryRetrieving"
+          "videoAddress": "Bas.Video.SpellWheel"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Mirror",
+          "text": "È possibile equipaggiare abiti o armature guardando uno specchio. Ne troverete uno nel negozio e nella vostra casa.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Mirror"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Armor",
+          "text": "Per equipaggiare vestiti o armature, teneteli sulla parte del corpo corretta mentre vi guardate allo specchio. Quando la parte del corpo è evidenziata, rilasciare il grilletto per equipaggiarla. In questo modo si possono anche scambiare armature e vestiti.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Armor"
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Quiver",
+          "text": "Per rimuovere le faretre equipaggiate, premere il pulsante del grilletto e poi il pulsante di presa per afferrarle.",
+          "spriteAddress": null,
+          "videoAddress": "Bas.Video.Quiver"
         }
       ]
     },
@@ -464,7 +492,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "23",
-          "text": "I Dalgarian erano un'antica civiltà abile nella magia che ha lasciato dietro di sé una serie di rovine sconfinate e misteriose. Di recente, queste rovine hanno destato grande interesse tra le fazioni di tutta Eraden.",
+          "text": "I Dalgariani erano un'antica civiltà abile nella magia che ha lasciato dietro di sé una serie di rovine sconfinate e misteriose. Di recente, queste rovine hanno destato grande interesse tra le fazioni di tutta Eraden.",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -1610,7 +1638,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DungeonCrystalHuntDescription",
-          "text": "Dopo essere rimaste dormienti per migliaia di anni, le antiche rovine dei Dalgarian si sono risvegliate e le fazioni di tutta Eraden si danno battaglia per impossessarsi dei preziosi tesori al loro interno. La grande caccia ai cristalli è iniziata!\nLa Società di Conservazione Dalgariana ti ha reclutato per aprire un misterioso portale dalgariano che si ritiene conduca a un'antica torre arcana.\nOttieni nuovi poteri, acquista armi ed equipaggiamenti e perfeziona le tue abilità.\nRiuscirai a svelare il segreto dei Dalgarian?",
+          "text": "Dopo essere rimaste dormienti per migliaia di anni, le antiche rovine dei Dalgariani si sono risvegliate e le fazioni di tutta Eraden si danno battaglia per impossessarsi dei preziosi tesori al loro interno. La grande caccia ai cristalli è iniziata!\nLa Società di Conservazione Dalgariana ti ha reclutato per aprire un misterioso portale dalgariano che si ritiene conduca a un'antica torre arcana.\nOttieni nuovi poteri, acquista armi ed equipaggiamenti e perfeziona le tue abilità.\nRiuscirai a svelare il segreto dei Dalgariani?",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -5702,7 +5730,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "Dalgarian",
-          "text": "Dalgarian",
+          "text": "Dalgariano",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -9186,7 +9214,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianPreservationSocietyArcheologistletter",
-          "text": "Affelen,\n\tnon so come dirtelo in modo elegante, perciò andrò dritta al sodo: non torno a casa per la festa della Nascita della Purezza.\n\tSo che mamma ci tiene molto. Dille che avrei voluto tanto esserci, ma ho i miei buoni motivi.\n\tL'intera Società di Conservazione Dalgariana è in grande fermento in questi giorni, così come lo sono io. Abbiamo fatto delle scoperte incredibili grazie all'improvvisa attivazione di tutti i segnali magici dalgariani. Forse abbiamo trovato l'Aminira Nar Kayosvam, il tempio in cui i Dalgarian assistettero alla rinascita del loro profeta e salvatore, il Khemenet!!!\n\tSo che mi reputi un topo di biblioteca, ma avanti, sai bene quanto sia importante per me.",
+          "text": "Affelen,\n\tnon so come dirtelo in modo elegante, perciò andrò dritta al sodo: non torno a casa per la festa della Nascita della Purezza.\n\tSo che mamma ci tiene molto. Dille che avrei voluto tanto esserci, ma ho i miei buoni motivi.\n\tL'intera Società di Conservazione Dalgariana è in grande fermento in questi giorni, così come lo sono io. Abbiamo fatto delle scoperte incredibili grazie all'improvvisa attivazione di tutti i segnali magici dalgariana. Forse abbiamo trovato l'Aminira Nar Kayosvam, il tempio in cui i Dalgariani assistettero alla rinascita del loro profeta e salvatore, il Khemenet!!!\n\tSo che mi reputi un topo di biblioteca, ma avanti, sai bene quanto sia importante per me.",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -9221,14 +9249,14 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianPreservationSocietyLostArcheologist",
-          "text": "Affelen,\n\tsono appena arrivata alle rovine dalgariane a cui sono stata assegnata. Probabilmente non potrò scriverti per un po' di tempo.\n\tQuesto posto è davvero misterioso... e terrificante.\n\tCi sono tantissime cose che voglio comprendere, ma sembra tutto così inaccessibile!\n\tHo capito che la nostra conoscenza dei Dalgarian è alquanto limitata. Nonostante la Società di Conservazione esista già da circa 600 anni, i testi contenuti nelle nostre biblioteche riempirebbero appena un terzo degli scaffali presenti nella Biblioteca Reale. Sono così felice che i segnali magici dalgariani si siano improvvisamente attivati e ci abbiano indicato certi luoghi da esplorare.",
+          "text": "Affelen,\n\tsono appena arrivata alle rovine dalgariane a cui sono stata assegnata. Probabilmente non potrò scriverti per un po' di tempo.\n\tQuesto posto è davvero misterioso... e terrificante.\n\tCi sono tantissime cose che voglio comprendere, ma sembra tutto così inaccessibile!\n\tHo capito che la nostra conoscenza dei Dalgariani è alquanto limitata. Nonostante la Società di Conservazione esista già da circa 600 anni, i testi contenuti nelle nostre biblioteche riempirebbero appena un terzo degli scaffali presenti nella Biblioteca Reale. Sono così felice che i segnali magici dalgariani si siano improvvisamente attivati e ci abbiano indicato certi luoghi da esplorare.",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianPreservationSocietyLostArcheologist_1",
-          "text": "Ma perché proprio ora, mi chiedo? Perché quei luoghi in particolare? Sembra quasi che i Dalgarian avessero calcolato tutto quanto molto tempo fa...\n\tSpero che tu abbia ricevuto la mia ultima lettera. Ho detto all'archeologo con cui stavo lavorando di inviarla, ma è un po' smemorato...\n\tMi auguro che tu ti stia trovando bene nei Mari del Sud! Ci sentiamo presto.\nBryen",
+          "text": "Ma perché proprio ora, mi chiedo? Perché quei luoghi in particolare? Sembra quasi che i Dalgariani avessero calcolato tutto quanto molto tempo fa...\n\tSpero che tu abbia ricevuto la mia ultima lettera. Ho detto all'archeologo con cui stavo lavorando di inviarla, ma è un po' smemorato...\n\tMi auguro che tu ti stia trovando bene nei Mari del Sud! Ci sentiamo presto.\nBryen",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -9242,7 +9270,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianPreservationSocietyJournal1",
-          "text": "Bryen Taelnis / Diario di archeologia sul mondo dalgariano / Giorno 1\n\tHo deciso di scrivere un piccolo diario mentre esploro queste rovine. Penso proprio di averne bisogno, se non voglio impazzire per il silenzio inquietante che regna qui...\n\tSapevo che i Dalgarian praticassero la magia, ma non avevo mai compreso la sua importanza finora!\n\tQui dentro ogni cosa è alimentata dalla magia o ne fa uso in qualche forma. È affascinante, ma anche sconvolgente!\n\tMi sto addentrando in un mondo che comprendo a malapena, e la sensazione di pericolo che provo è indescrivibile.\n\tÈ alquanto strano che abbiano mandato solo me in questo posto. Sono nella Società da poco e si fidano già così tanto di me? Non che mi lamenti, eh.",
+          "text": "Bryen Taelnis / Diario di archeologia sul mondo dalgariano / Giorno 1\n\tHo deciso di scrivere un piccolo diario mentre esploro queste rovine. Penso proprio di averne bisogno, se non voglio impazzire per il silenzio inquietante che regna qui...\n\tSapevo che i Dalgariani praticassero la magia, ma non avevo mai compreso la sua importanza finora!\n\tQui dentro ogni cosa è alimentata dalla magia o ne fa uso in qualche forma. È affascinante, ma anche sconvolgente!\n\tMi sto addentrando in un mondo che comprendo a malapena, e la sensazione di pericolo che provo è indescrivibile.\n\tÈ alquanto strano che abbiano mandato solo me in questo posto. Sono nella Società da poco e si fidano già così tanto di me? Non che mi lamenti, eh.",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -9263,7 +9291,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianPreservationSocietyJournal2_1",
-          "text": "\tNon so, mi viene quasi voglia di credere all'antica profezia del Khemenet in voga tra i Dalgarian. La magia che aumenta sempre di più, la stella luminosa...\n\tLa profezia era vera? In ogni caso, terrò queste considerazioni per me. Non sono cose di cui parlare pubblicamente a Eraden, a meno che non voglia finire decapitata...\n\tIl silenzio in queste rovine è sempre più opprimente... inizia a farmi impazzire. L'altro giorno mi è addirittura sembrato di sentire un rumore di passi nel corridoio.\n\tO forse non sono davvero sola in questo posto...",
+          "text": "\tNon so, mi viene quasi voglia di credere all'antica profezia del Khemenet in voga tra i Dalgariani. La magia che aumenta sempre di più, la stella luminosa...\n\tLa profezia era vera? In ogni caso, terrò queste considerazioni per me. Non sono cose di cui parlare pubblicamente a Eraden, a meno che non voglia finire decapitata...\n\tIl silenzio in queste rovine è sempre più opprimente... inizia a farmi impazzire. L'altro giorno mi è addirittura sembrato di sentire un rumore di passi nel corridoio.\n\tO forse non sono davvero sola in questo posto...",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -9431,7 +9459,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "BryenGateIslandJournal3",
-          "text": "Bryen Taelnis / Diario di archeologia sull'isola del portale / Giorno 3\n\tIl mio dalgariano è arrugginito, ma credo di aver quasi terminato le traduzioni.\n\tMi chiedo, però, come faremo ad aprire il portale...\n\tSe sei un Dalgarian, mettiti l'anima in pace e attendi con pazienza il ritorno del Khemenet...",
+          "text": "Bryen Taelnis / Diario di archeologia sull'isola del portale / Giorno 3\n\tIl mio dalgariano è arrugginito, ma credo di aver quasi terminato le traduzioni.\n\tMi chiedo, però, come faremo ad aprire il portale...\n\tSe sei un Dalgariano, mettiti l'anima in pace e attendi con pazienza il ritorno del Khemenet...",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -9445,7 +9473,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "BryenGateIslandJournal3_1",
-          "text": "Bryen Taelnis / Diario di archeologia sull'isola del portale / Giorno 3\n\tScherzi a parte, probabilmente servirebbe il potere di tutti gli stregoni messi insieme per sperare di scalfire quella porta.\n\tHo letto tutti i libri sul Khemenet nella nostra biblioteca e non ho trovato alcun indizio su come aprire il portale. E, naturalmente, non essendo rimasto più alcun Dalgarian a svelarci i loro segreti, la nostra ricerca sarà decisamente frustrante...",
+          "text": "Bryen Taelnis / Diario di archeologia sull'isola del portale / Giorno 3\n\tScherzi a parte, probabilmente servirebbe il potere di tutti gli stregoni messi insieme per sperare di scalfire quella porta.\n\tHo letto tutti i libri sul Khemenet nella nostra biblioteca e non ho trovato alcun indizio su come aprire il portale. E, naturalmente, non essendo rimasto più alcun Dalgariano a svelarci i loro segreti, la nostra ricerca sarà decisamente frustrante...",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -9515,7 +9543,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "KhemenetMythology",
-          "text": "Società di Conservazione Dalgariana / Studio sulla mitologia del Khemenet\n\tI Dalgarian credevano che la realtà fosse composta da due campi energetici: il Layak Naa e il Mayak Naa.\n\tNon abbiamo molte testimonianze in merito, ma la nostra teoria è che il Layak Naa fosse un modo per rappresentare la nostra mente, la nostra forza di volontà. È la nostra capacità di prendere decisioni e, in un certo senso, di tenere sotto controllo la realtà.\n\tIl Mayak Naa, al contrario, è il potere allo stato puro. È la magia che può scorrere dentro di noi, l'energia che muove ogni cosa, compresi noi stessi.",
+          "text": "Società di Conservazione Dalgariana / Studio sulla mitologia del Khemenet\n\tI Dalgariani credevano che la realtà fosse composta da due campi energetici: il Layak Naa e il Mayak Naa.\n\tNon abbiamo molte testimonianze in merito, ma la nostra teoria è che il Layak Naa fosse un modo per rappresentare la nostra mente, la nostra forza di volontà. È la nostra capacità di prendere decisioni e, in un certo senso, di tenere sotto controllo la realtà.\n\tIl Mayak Naa, al contrario, è il potere allo stato puro. È la magia che può scorrere dentro di noi, l'energia che muove ogni cosa, compresi noi stessi.",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -9529,7 +9557,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "KhemenetMythology_1",
-          "text": "Secondo i Dalgarian, quando il Layak Naa incontra il Mayak Naa, appare il Khemenet: un'entità umana in grado di manipolare la magia senza alcuna fatica, e capace di controllare i Jikarazin.\n\tNon abbiamo ancora capito chi siano queste figure, ma sospettiamo che siano entità della magia.",
+          "text": "Secondo i Dalgariani, quando il Layak Naa incontra il Mayak Naa, appare il Khemenet: un'entità umana in grado di manipolare la magia senza alcuna fatica, e capace di controllare i Jikarazin.\n\tNon abbiamo ancora capito chi siano queste figure, ma sospettiamo che siano entità della magia.",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -9543,7 +9571,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianPreservartionInnerCircle",
-          "text": "Società di Conservazione Dalgariana / Formazione per il circolo interno\n\tSe stai leggendo questo messaggio, significa che Raein in persona ti ha ammesso al circolo interno della Società di Conservazione Dalgariana.\n\tIl tuo ingresso nel circolo sarà completato gradualmente, poiché le nozioni che apprenderai non saranno semplici da assimilare.\n\tLeggi i seguenti libri nell'ordine indicato. Li troverai nella sezione proibita della biblioteca.\n- Kayosva: un fenomeno astronomico oltre ogni considerazione religiosa\n- Il Khemenet: tra mito e realtà\n- NMP: tracce di tecnologie dalgariane\n- Esaurimento dell'energia e Araldi: cosa sapevano i Dalgarian\n\tNon parlare in pubblico dei tuoi studi e, in caso di domande, rivolgiti esclusivamente a Raein.\nLa discrezione è fondamentale.",
+          "text": "Società di Conservazione Dalgariana / Formazione per il circolo interno\n\tSe stai leggendo questo messaggio, significa che Raein in persona ti ha ammesso al circolo interno della Società di Conservazione Dalgariana.\n\tIl tuo ingresso nel circolo sarà completato gradualmente, poiché le nozioni che apprenderai non saranno semplici da assimilare.\n\tLeggi i seguenti libri nell'ordine indicato. Li troverai nella sezione proibita della biblioteca.\n- Kayosva: un fenomeno astronomico oltre ogni considerazione religiosa\n- Il Khemenet: tra mito e realtà\n- NMP: tracce di tecnologie dalgariane\n- Esaurimento dell'energia e Araldi: cosa sapevano i Dalgariani\n\tNon parlare in pubblico dei tuoi studi e, in caso di domande, rivolgiti esclusivamente a Raein.\nLa discrezione è fondamentale.",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -9599,7 +9627,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianPreservationSocietySecretAstronomicalReports4",
-          "text": "Efaryn,\n\tla regina è troppo ossessionata dalla purezza per comprendere la realtà della situazione. Anche l'astronomia più basilare, per come la intendiamo noi, sarebbe considerata un'eresia presso la corte reale.\n\tImmaginati di provare a spiegare alla regina cosa sia una stella di neutroni quando la sua concezione del mondo è che le persone sono pure se incontaminate dalla magia o, in caso contrario, sono corrotte... Grazie ai nostri studi sui Dalgarian, siamo avanti di migliaia di anni rispetto al resto di Eraden.\n\tNon rischierò di compromettere la nostra missione solo per ricevere aiuto dalla regina. Il nostro possibile Araldo sta facendo esattamente ciò che ci serve e, per quanto ne so, non sospetta di nulla.\nRaein",
+          "text": "Efaryn,\n\tla regina è troppo ossessionata dalla purezza per comprendere la realtà della situazione. Anche l'astronomia più basilare, per come la intendiamo noi, sarebbe considerata un'eresia presso la corte reale.\n\tImmaginati di provare a spiegare alla regina cosa sia una stella di neutroni quando la sua concezione del mondo è che le persone sono pure se incontaminate dalla magia o, in caso contrario, sono corrotte... Grazie ai nostri studi sui Dalgariani, siamo avanti di migliaia di anni rispetto al resto di Eraden.\n\tNon rischierò di compromettere la nostra missione solo per ricevere aiuto dalla regina. Il nostro possibile Araldo sta facendo esattamente ciò che ci serve e, per quanto ne so, non sospetta di nulla.\nRaein",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -9990,7 +10018,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "KhemenetEpic2_1",
-          "text": "Eppure il Khemenet era lì in mezzo a loro, ancora presente nelle loro vite, a impartire un'ultima lezione prima del suo nuovo riposo, a fare luce sul Layak Naa e sul Mayak Naa, a riportare l'equilibrio nell'universo.\n\tVedendo i suoi seguaci piangere e addolorarsi, il Khemenet impugnò la spada dei Naa e la sollevò sopra la sua testa. Mediante proiezioni mentali, pronunciò le seguenti parole: \"Non preoccupatevi, figli miei, poiché la spada dei Naa continuerà a esistere finché vivranno i Dalgarian. Io sparirò, ma riapparirò un'altra volta\".\n\tTale è il ciclo eterno dell'armonia.",
+          "text": "Eppure il Khemenet era lì in mezzo a loro, ancora presente nelle loro vite, a impartire un'ultima lezione prima del suo nuovo riposo, a fare luce sul Layak Naa e sul Mayak Naa, a riportare l'equilibrio nell'universo.\n\tVedendo i suoi seguaci piangere e addolorarsi, il Khemenet impugnò la spada dei Naa e la sollevò sopra la sua testa. Mediante proiezioni mentali, pronunciò le seguenti parole: \"Non preoccupatevi, figli miei, poiché la spada dei Naa continuerà a esistere finché vivranno i Dalgariani. Io sparirò, ma riapparirò un'altra volta\".\n\tTale è il ciclo eterno dell'armonia.",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -10488,21 +10516,21 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap1",
           "text": "Appendice 1 - Disegno tecnico del sistema centrale di convergenza di potenza 1/3",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_01",
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap2",
           "text": "Appendice 1 - Disegno tecnico del sistema centrale di convergenza di potenza 2/3",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_02",
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianConstructionCompanyModuleMap3",
           "text": "Appendice 1 - Disegno tecnico del sistema centrale di convergenza di potenza 3/3",
-          "spriteAddress": null,
+          "spriteAddress": "Bas.UI.DalgFuseBlueprint_03",
           "videoAddress": null
         },
         {
@@ -10515,7 +10543,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianTalshiNakamlaEditorial",
-          "text": "Non c'è niente di realistico nell'approccio dei cosiddetti \"realisti\".\n\tLa società dalgariana sta attraversando un'epoca buia. Dopo millenni di decisioni coordinate, organizzate e ragionate, che hanno contribuito non solo alla prosperità di tutti i Dalgarian, ma anche alla sopravvivenza dell'interno pianeta, è comparsa un'organizzazione che afferma di rappresentare il \"realismo\". Queste figure sostengono che il nostro approccio alla sopravvivenza generale – accuratamente studiato, finanziato e approvato dalla società – sia destinato a fallire.",
+          "text": "Non c'è niente di realistico nell'approccio dei cosiddetti \"realisti\".\n\tLa società dalgariana sta attraversando un'epoca buia. Dopo millenni di decisioni coordinate, organizzate e ragionate, che hanno contribuito non solo alla prosperità di tutti i Dalgariani, ma anche alla sopravvivenza dell'interno pianeta, è comparsa un'organizzazione che afferma di rappresentare il \"realismo\". Queste figure sostengono che il nostro approccio alla sopravvivenza generale – accuratamente studiato, finanziato e approvato dalla società – sia destinato a fallire.",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -10690,7 +10718,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianDisplayName",
-          "text": "Dalgarian",
+          "text": "Dalgariano",
           "spriteAddress": null,
           "videoAddress": null
         }
@@ -10752,7 +10780,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DalgarianRuinPrismaticCrystals",
-          "text": "Generale Geratan,\n\tla ricerca dell'archeologa che avete recuperato si rivelerà fondamentale per la sopravvivenza del nostro regno.\n\tDa quanto ho capito, le nostre macchine di negazione della magia utilizzano un'antica forma di cristallo risalente alla civiltà dei Dalgarian: i cristalli prismatici. Dobbiamo dedicare tutte le nostre energie al ritrovamento dei cristalli prismatici nelle rovine dalgariane.\n\tConsiderato l'aumento della corruzione osservato nei nostri stregoni, se non facciamo qualcosa temo che non riusciremo a contenerli ancora per molto.",
+          "text": "Generale Geratan,\n\tla ricerca dell'archeologa che avete recuperato si rivelerà fondamentale per la sopravvivenza del nostro regno.\n\tDa quanto ho capito, le nostre macchine di negazione della magia utilizzano un'antica forma di cristallo risalente alla civiltà dei Dalgariana: i cristalli prismatici. Dobbiamo dedicare tutte le nostre energie al ritrovamento dei cristalli prismatici nelle rovine dalgariane.\n\tConsiderato l'aumento della corruzione osservato nei nostri stregoni, se non facciamo qualcosa temo che non riusciremo a contenerli ancora per molto.",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -10962,7 +10990,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "StoryOfAldaric6",
-          "text": "Studio sulle nostre origini - Il primo cuore puro (6/6)\n\tTuttavia, Re Aldaric non si limitò a questo. La corruzione era ormai ovunque e doveva essere distrutta.\n\tFortunatamente, fu proprio in questo momento che vennero scoperti dei dispositivi di negazione della magia appartenenti ai Dalgarian. Grazie a questi, i cuori puri erano finalmente in grado di contrastare i maghi e presto la guerra contro la corruzione fu vinta. I maghi abbandonarono le nostre terre e coloro che vi rimasero furono tenuti sotto controllo grazie a questi dispositivi.\n\tRe Aldaric merita lo stato di Leggenda di Eraden. Per aver fondato e purificato questa terra, Re Aldaric merita di essere celebrato come un santo.\nRaein Valentir, maestro della Società di Conservazione Dalgariana",
+          "text": "Studio sulle nostre origini - Il primo cuore puro (6/6)\n\tTuttavia, Re Aldaric non si limitò a questo. La corruzione era ormai ovunque e doveva essere distrutta.\n\tFortunatamente, fu proprio in questo momento che vennero scoperti dei dispositivi di negazione della magia appartenenti ai Dalgariana. Grazie a questi, i cuori puri erano finalmente in grado di contrastare i maghi e presto la guerra contro la corruzione fu vinta. I maghi abbandonarono le nostre terre e coloro che vi rimasero furono tenuti sotto controllo grazie a questi dispositivi.\n\tRe Aldaric merita lo stato di Leggenda di Eraden. Per aver fondato e purificato questa terra, Re Aldaric merita di essere celebrato come un santo.\nRaein Valentir, maestro della Società di Conservazione Dalgariana",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -15739,13 +15767,13 @@
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
       "id": "ToolDalgarianPickaxe",
       "name": "Piccone antico",
-      "description": "Un piccone con migliaia di anni alle spalle, risalente ai Dalgarian. Il cristallo della gravità incastonato al suo interno ne semplifica l'utilizzo quando viene infuso con la gravità."
+      "description": "Un piccone con migliaia di anni alle spalle, risalente ai Dalgariani. Il cristallo della gravità incastonato al suo interno ne semplifica l'utilizzo quando viene infuso con la gravità."
     },
     {
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
       "id": "MaceDalgarianHammer",
       "name": "Maglio antico",
-      "description": "Un maglio con migliaia di anni alle spalle, risalente ai Dalgarian. Il cristallo della gravità incastonato al suo interno ne semplifica l'utilizzo quando viene infuso con la gravità."
+      "description": "Un maglio con migliaia di anni alle spalle, risalente ai Dalgariani. Il cristallo della gravità incastonato al suo interno ne semplifica l'utilizzo quando viene infuso con la gravità."
     },
     {
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
@@ -16273,7 +16301,7 @@
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
       "id": "ToolDalgarianShovel",
       "name": "Pala antica",
-      "description": "Una pala con migliaia di anni alle spalle, risalente ai Dalgarian. Il cristallo della gravità incastonato al suo interno ne semplifica l'utilizzo quando viene infuso con la gravità."
+      "description": "Una pala con migliaia di anni alle spalle, risalente ai Dalgariani. Il cristallo della gravità incastonato al suo interno ne semplifica l'utilizzo quando viene infuso con la gravità."
     },
     {
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",

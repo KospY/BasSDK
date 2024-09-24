@@ -182,8 +182,8 @@
   "modules": [
     {
       "$type": "ThunderRoad.ItemModuleAI, ThunderRoad",
-      "primaryClass": "Melee",
-      "secondaryClass": "None",
+      "primaryClass": "Throwable",
+      "secondaryClass": "Melee",
       "weaponHandling": "OneHanded",
       "secondaryHandling": "None",
       "weaponAttackTypes": "Swing, Thrust",
@@ -215,7 +215,33 @@
           "stanceDataID": "HumanMeleeDualWieldStance"
         }
       ],
-      "rangedWeaponData": null,
+      "rangedWeaponData": {
+        "$type": "ThunderRoad.ItemModuleAI+RangedWeaponData, ThunderRoad",
+        "ammoType": "",
+        "tooCloseDistance": 2.0,
+        "spread": {
+          "x": 1.0,
+          "y": 1.0
+        },
+        "projectileSpeed": 20.0,
+        "accountForGravity": true,
+        "weaponAimAngleOffset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "weaponHoldPositionOffset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "weaponHoldAngleOffset": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "customRangedAttackAnimationData": ""
+      },
       "armResistanceMultiplier": 2.0,
       "allowDynamicHeight": false,
       "defenseHasPriority": false
@@ -226,41 +252,49 @@
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 4,
+          "useStarIcons": true,
           "name": "FleshDamage"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 3,
+          "useStarIcons": true,
           "name": "LeatherDamage"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 0,
+          "useStarIcons": true,
           "name": "PlateDamage"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 4,
+          "useStarIcons": true,
           "name": "Penetration"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 1,
+          "useStarIcons": true,
           "name": "Dismemberment"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 0,
+          "useStarIcons": true,
           "name": "Stagger"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 2,
+          "useStarIcons": true,
           "name": "Imbue"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 5,
+          "useStarIcons": true,
           "name": "Handling"
         }
       ]

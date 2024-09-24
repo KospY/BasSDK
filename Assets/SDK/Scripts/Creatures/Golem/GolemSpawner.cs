@@ -52,7 +52,8 @@ namespace ThunderRoad
 
         public void SpawnGolem() => SpawnGolem(golemAddress, actionOnSpawn, transform.position, transform.rotation, transform, arenaCrystalRandomizer, this);
 
-        public static void SpawnGolem(string address, SpawnAction spawnAction, Vector3 position, Quaternion rotation, Transform parent, WeakPointRandomizer arenaCrystalRandomizer, GolemSpawner spawner)
+        public static void SpawnGolem(string address, SpawnAction spawnAction, Vector3 position, Quaternion rotation, Transform parent,
+            WeakPointRandomizer arenaCrystalRandomizer, GolemSpawner spawner)
         {
         }
 

@@ -212,7 +212,7 @@ namespace Shadowood.RaycastTexture
             River
         }
 
-
+        [NonSerialized]
         [Space]
         [GUIColor("@planarReflection ? Color.cyan : Color.white")] //
         [InlineButton("PlanarReflectionToggle", "@planarReflection ? \"Planar Reflection: Turn Off\" : \"Planar Reflection: Turn On\"")]
@@ -470,7 +470,9 @@ namespace Shadowood.RaycastTexture
         [InfoBox("@OceanBakeInvalidReason()", "OceanBakeQuadValid")]
 #endif
         [GUIColor("@OceanBakeQuadValid() ? Color.red : Color.white")] //
-        [InlineButton("FindOceanBakeQuad")]
+#if UNITY_EDITOR
+        [InlineButton(nameof(FindOceanBakeQuad))]
+#endif
         [ShowIf("@mode == eMode.Ocean")]
         public MeshRenderer oceanBakeQuad;
 
@@ -501,7 +503,9 @@ namespace Shadowood.RaycastTexture
 
         [PropertySpace]
         [GUIColor("@mainLight ? Color.white : Color.red")] //
-        [InlineButton("FindMainLight")]
+#if UNITY_EDITOR
+        [InlineButton(nameof(FindMainLight))]
+#endif
         public Light mainLight;
 
 #if UNITY_EDITOR
@@ -559,7 +563,7 @@ namespace Shadowood.RaycastTexture
 
 #if OCEANHEIGHTSAMPLER
         [GUIColor("@oceanHeightSampleManager ? Color.white : Color.red")] //
-        [InlineButton("FindOceanHeightSampleManager")] //
+        [InlineButton(nameof(FindOceanHeightSampleManager))] //
         [ShowIf("@mode == eMode.Ocean")]
         public OceanHeightSampleManager oceanHeightSampleManager;
 
@@ -581,7 +585,9 @@ namespace Shadowood.RaycastTexture
 #if MIRRORSANDREFLECTIONS
         [Tooltip("Link to PlanarReflection")]
         [GUIColor("@mirrorRenderer ? Color.white : Color.red")] //
-        [InlineButton("FindPlanarReflection")]
+#if UNITY_EDITOR        
+        [InlineButton(nameof(FindPlanarReflection))]
+#endif
 #if ODIN_INSPECTOR
         [InfoBox("Reflecting EVERYTHING", InfoMessageType.Warning, "PlanarWarning")]
 #endif
@@ -617,8 +623,9 @@ namespace Shadowood.RaycastTexture
 
                 //mirrorSurface.bounds = new Bounds(Vector3.zero, new Vector3(float.MaxValue,0.1f, float.MaxValue));
             }
-
+#if WATERPLATFORMSETTINGS
             UpdateWaterPlatformSettings();
+#endif
             SetupMirrorSurface();
         }
 #endif
@@ -626,7 +633,9 @@ namespace Shadowood.RaycastTexture
         [Space]
         [Tooltip("Mirror for planar reflections")]
         [GUIColor("@mirrorSurface ? Color.white : Color.red")] //
-        [InlineButton("FindMirrorSurface")]
+#if UNITY_EDITOR        
+        [InlineButton(nameof(FindMirrorSurface))]
+#endif
         public MirrorSurface mirrorSurface;
 
         void FindMirrorSurface()
@@ -634,7 +643,9 @@ namespace Shadowood.RaycastTexture
             if (mirrorSurface == null && mirrorRenderer) mirrorSurface = mirrorRenderer.transform.parent.GetComponentInChildren<MirrorSurface>();
             if (mirrorSurface == null) mirrorSurface = FindObjectOfType<MirrorSurface>(true);
             if (mirrorSurface == null) Debug.LogError("Cannot find MirrorSurface", this);
+#if WATERPLATFORMSETTINGS
             UpdateWaterPlatformSettings();
+#endif
             SetupMirrorSurface();
         }
 #endif
@@ -645,10 +656,10 @@ namespace Shadowood.RaycastTexture
 
 
         //
-
+#if WATERPLATFORMSETTINGS
         void UpdateWaterPlatformSettings()
         {
-#if WATERPLATFORMSETTINGS
+
             if (platformSettings == null)
             {
                 //wp = gameObject.AddComponent<WaterPlatformManager>();
@@ -658,14 +669,15 @@ namespace Shadowood.RaycastTexture
             {
                 platformSettings.Refresh();
             }
-#endif
         }
-
+#endif
         //
 
         [Tooltip("Only needed if you have any materials (like FogSpriteSkybox) using SpriteFoggedSkybox shader")]
         [GUIColor("@globalSkyCube ? Color.white : Color.red")] // Todo only go red if items need it
-        [InlineButton("FindGlobalSkyCube")]
+#if UNITY_EDITOR        
+        [InlineButton(nameof(FindGlobalSkyCube))]
+#endif        
         public GlobalSkyCube globalSkyCube;
 
 
@@ -688,7 +700,9 @@ namespace Shadowood.RaycastTexture
 
         //
         [GUIColor("@toneMapping ? Color.white : Color.red")] //
-        [InlineButton("FindToneMappinInlineButtong")]
+#if UNITY_EDITOR
+        [InlineButton(nameof(FindToneMappinInlineButtong))]
+#endif        
         public Tonemapping toneMapping;
 
 #if UNITY_EDITOR
@@ -699,6 +713,7 @@ namespace Shadowood.RaycastTexture
 
         void FindToneMapping(bool findOnly)
         {
+#if WATERPLATFORMSETTINGS
             toneMapping = FindObjectOfType<Tonemapping>();
             if (!toneMapping && !findOnly)
             {
@@ -715,7 +730,11 @@ namespace Shadowood.RaycastTexture
                 }
             }
 
-            if (toneMapping) UpdateWaterPlatformSettings();
+            if (toneMapping)
+            {
+                UpdateWaterPlatformSettings();
+            }
+#endif
         }
 #endif
         //
@@ -724,7 +743,9 @@ namespace Shadowood.RaycastTexture
         [Tooltip("Link to OceanRenderer")]
         [GUIColor("@oceanRenderer ? Color.white : Color.red")] //
         [ShowIf("@mode == eMode.Ocean")] //
-        [InlineButton("FindOceanRenderer")]
+#if UNITY_EDITOR        
+        [InlineButton(nameof(FindOceanRenderer))]
+#endif        
         //
         public OceanRenderer oceanRenderer;
 
@@ -750,13 +771,17 @@ namespace Shadowood.RaycastTexture
 
             ApplyTexture();
             oceanRenderer.RunWithChosenPlatform();
+#if WATERPLATFORMSETTINGS
             UpdateWaterPlatformSettings();
+#endif
         }
 #endif
         //
 
         [Tooltip("Link to OceanFogController")] //
-        [InlineButton("FindOceanFogController")] //
+#if UNITY_EDITOR        
+        [InlineButton(nameof(FindOceanFogController))] //
+#endif        
         [GUIColor("@oceanFogController ? Color.white : Color.red")]
         public OceanFogController oceanFogController;
 
@@ -801,7 +826,9 @@ namespace Shadowood.RaycastTexture
         [Tooltip("Mask spline to hide water surface")] //
         [GUIColor("@oceanSplineMask ? Color.white : Color.red")] //
         [ShowIf("@mode == eMode.Ocean")] //
-        [InlineButton("FindOceanSplineMask")]
+#if UNITY_EDITOR        
+        [InlineButton(nameof(FindOceanSplineMask))]
+#endif        
         public ThunderSplineWithin oceanSplineMask;
 
 #if UNITY_EDITOR
@@ -846,7 +873,9 @@ namespace Shadowood.RaycastTexture
         [Tooltip("Sets the XZ center for where ocean waves emanate")] //
         [GUIColor("@waveCenter ? Color.white : Color.red")] //
         [ShowIf("@mode == eMode.Ocean")] //
-        [InlineButton("FindWaveCenter")]
+#if UNITY_EDITOR        
+        [InlineButton(nameof(FindWaveCenter))]
+#endif        
         public Transform waveCenter;
 
 #if UNITY_EDITOR
@@ -876,7 +905,9 @@ namespace Shadowood.RaycastTexture
 
         [Tooltip("Water caustics")] //
         [GUIColor("@caustics ? Color.white : Color.red")] //
-        [InlineButton("FindCaustics")]
+#if UNITY_EDITOR        
+        [InlineButton(nameof(FindCaustics))]
+#endif        
         public Caustics caustics;
 
 #if UNITY_EDITOR
@@ -1084,7 +1115,9 @@ namespace Shadowood.RaycastTexture
         [Tooltip("Link to Fluxy container")] //
         [GUIColor("@fluxyContainer ? Color.white : Color.red")] //
         [ShowIf("@mode==eMode.River")] //
-        [InlineButton("FindFluxyContainer")]
+#if UNITY_EDITOR
+        [InlineButton(nameof(FindFluxyContainer))]
+#endif
         public FluxyContainer fluxyContainer;
 
         void FindFluxyContainer()
@@ -1099,7 +1132,9 @@ namespace Shadowood.RaycastTexture
         [Tooltip("Link to Fluxy Target ( for collision with depth mask/shore )")] //
         [GUIColor("@fluxyTarget ? Color.white : Color.red")] //
         [ShowIf("@mode==eMode.River")] //
-        [InlineButton("FindFluxyTarget")]
+#if UNITY_EDITOR        
+        [InlineButton(nameof(FindFluxyTarget))]
+#endif        
         public FluxyTarget fluxyTarget;
 
         void FindFluxyTarget()
@@ -1109,7 +1144,10 @@ namespace Shadowood.RaycastTexture
             if (fluxyTarget == null) fluxyTarget = FindObjectOfType<FluxyTarget>(true);
         }
 
-        [ShowIf("@fluxyTarget && fluxyContainer")] [InlineButton("UpdateFluid")]
+        [ShowIf("@fluxyTarget && fluxyContainer")]
+#if UNITY_EDITOR        
+        [InlineButton(nameof(UpdateFluid))]
+#endif
         public FluidSimSettings fluidSimSettings;
 #endif
 
@@ -1346,10 +1384,12 @@ namespace Shadowood.RaycastTexture
             if (!silent) Debug.Log("RaycastTexture: Setup");
 
 #if UNITY_EDITOR
-            if (mainLight == null) FindMainLight();
+            if (!Application.isPlaying)
+            {
+                if (mainLight == null) FindMainLight();
 
-            if (toneMapping == null) FindToneMapping(true);
-
+                if (toneMapping == null) FindToneMapping(true);
+            }
             switch (mode)
             {
                 case eMode.Ocean:
@@ -1680,11 +1720,13 @@ namespace Shadowood.RaycastTexture
                 o.gameObject.SetActive(true);
             }
 
-            oceanRenderer.enabled = false;
+            if(oceanRenderer)oceanRenderer.enabled = false;
+            if (riverMesh) riverMesh.enabled = false;
             targetMeshCollider.enabled = true;
             var tex = RaycastTools.CreateColorDepthMap(resolutionX, resolutionY, 0, true, targetMeshCollider, 1000, depthOffset, debug, ref meshCollidersDepthCopies, useLightmaps, useNewCapture, mipLevel, oceanSplineMask?.thunderSpline);
             targetMeshCollider.enabled = false;
-            oceanRenderer.enabled = true;
+            if(oceanRenderer)oceanRenderer.enabled = true;
+            if (riverMesh) riverMesh.enabled = true;
             //UnderwaterMeshes(false);
 
             return tex;

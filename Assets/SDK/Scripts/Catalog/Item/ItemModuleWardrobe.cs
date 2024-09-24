@@ -17,6 +17,8 @@ namespace ThunderRoad
 	    public static ManikinEditorLocationLabels manikinChannelLayers;
 	    private static bool loadingManikinChannelLayers;
 	    const string manikinChanneLayersAddress = "Bas.Manikin.ChannelLayers";
+
+        public float[] castSpeedPerHand;
 	    
 	    
         public enum CastShadows { None = 0, PlayerOnly = 1, PlayerAndNPC = 2 }

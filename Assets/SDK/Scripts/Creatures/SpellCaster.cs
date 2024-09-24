@@ -18,6 +18,7 @@ namespace ThunderRoad
         public Transform fire;
         public Transform magicSource;
         public Transform rayDir;
+        public FloatHandler chargeSpeedMult;
 
     }
 }

@@ -388,6 +388,7 @@ namespace ThunderRoad
         {
             if (Application.isPlaying)
             {
+            
                 ClearAll();
             }
         }

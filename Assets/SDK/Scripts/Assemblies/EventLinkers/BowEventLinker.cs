@@ -41,7 +41,7 @@ namespace ThunderRoad
             public float pullPercent = 0.5f;
             [Range(0f, 1.1f)]
             public float allowance = 1f;
-            public UnityEvent onActivate;
+            public UnityEvent<BowString> onActivate;
         }
 
         public BowString bowString;
