@@ -618,6 +618,8 @@ namespace ThunderRoad
                 return;
             LoadDefaultCatalogs();
 
+            if (includeMods)
+                ModManager.Load(true);
 
             if (requiresRefresh)
             {

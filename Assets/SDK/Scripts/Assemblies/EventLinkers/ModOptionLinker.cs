@@ -85,7 +85,7 @@ namespace ThunderRoad
 
         public void CheckOptionValue(int index)
         {
-            if (specificValueCheckEvents.CountCheck(count => index < count))
+            if (specificValueCheckEvents.CountCheck(count => index >= count))
             {
                 return;
             }
@@ -98,7 +98,7 @@ namespace ThunderRoad
 
         public void RunValueInvokeEvents(int index)
         {
-            if (valueInvokers.CountCheck(count => index < count))
+            if (valueInvokers.CountCheck(count => index >= count))
             {
                 return;
             }

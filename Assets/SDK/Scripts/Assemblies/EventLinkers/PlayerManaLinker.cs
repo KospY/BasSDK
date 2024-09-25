@@ -1,5 +1,6 @@
 ﻿#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
+using System;
 #endif
 using System.Collections.Generic;
 using UnityEngine;
@@ -62,11 +63,27 @@ namespace ThunderRoad
         {
         }
 
+        public void EnableTK(string side)
+        {
+        }
+
+        public void DisableTK(string side)
+        {
+        }
+
         public void ChangeFocusClamped(float amount)
         {
         }
 
         public void ChangeFocusUnclamped(float amount)
+        {
+        }
+
+        public void CastRight(bool press)
+        {
+        }
+
+        public void CastLeft(bool press)
         {
         }
 

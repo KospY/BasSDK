@@ -103,6 +103,18 @@ namespace ThunderRoad
         {
         }
 
+
+        public void SetPlayerOwner(Item item)
+        {
+        }
+
+        public void SetShopkeeperOwner(Item item)
+        {
+        }
+
+        public void ClearOwner(Item item)
+        {
+        }
         #endregion
 
         #region Selected item tools
@@ -153,6 +165,18 @@ namespace ThunderRoad
         {
             if (clearAfterAction) ClearSelections();
         }
+
+        public void SetSelectedPlayerOwned()
+        {
+        }
+
+        public void SetSelectedShopkeeperOwned()
+        {
+        }
+
+        public void ClearSelectedOwner()
+        {
+        }
         #endregion
 
         #region Event target item tools
@@ -193,6 +217,18 @@ namespace ThunderRoad
         }
 
         public void SwapEventTargetWith(string itemID)
+        {
+        }
+
+        public void SetEventTargetPlayerOwned()
+        {
+        }
+
+        public void SetEventTargetShopkeeperOwned()
+        {
+        }
+
+        public void ClearEventTargetOwner()
         {
         }
         #endregion

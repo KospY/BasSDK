@@ -55,6 +55,7 @@ namespace ThunderRoad
             public char oper = ' ';
             public string rhs = "";
             public string originalOperation = "";
+            public bool onlyIfMissing = false;
         }
         
         public void BoolOperation(string input)
@@ -112,6 +113,11 @@ namespace ThunderRoad
             {
                 Debug.LogError("Synax error in operation: Left or right side of operation is empty");
                 return false;
+            }
+            if (splitAtEquals[0].Contains("?"))
+            {
+                splitAtEquals[0] = splitAtEquals[0].Replace("?", "");
+                parsedOperation.onlyIfMissing = true;
             }
             bool correctType = false;
             switch (targetType)
