@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using Shadowood.RaycastTexture;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -13,6 +14,7 @@ namespace ThunderRoad
     [AddComponentMenu("ThunderRoad/Levels/Water")]
     public class Water : MonoBehaviour
     {
+        public RaycastTexture raycastTexture;
         
         public GameObject underWaterEffect;
 

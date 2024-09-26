@@ -97,7 +97,12 @@ namespace ThunderRoad
                 return;
         }
 
-
+        [Button]
+        public void SetActive(bool active)
+        {
+            this.active = active;
+        }
+        
         /// <summary>
         /// Toggle the armour edit mode.
         /// This is used in the Lever event for the bench.
