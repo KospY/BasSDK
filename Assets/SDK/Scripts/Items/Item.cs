@@ -35,9 +35,9 @@ namespace ThunderRoad
             return Catalog.GetDropdownAllID(Category.Item);
         }
 
-        [ValueDropdown(nameof(GetAllItemID))]
+        [ValueDropdown(nameof(GetAllItemID), AppendNextDrawer = true)]
 #endif
-        [Tooltip("The Item ID of the item specified in the Catelog")]
+        [Tooltip("The Item ID of the item specified in the Catalog")]
         public string itemId;
         [Tooltip("Specifies the Holder Point of the item. This specifies the position and rotation of the item when held in a holder, such as on player hips and back. The Z axis/blue arrow specifies towards the floor.")]
 #if ODIN_INSPECTOR        
