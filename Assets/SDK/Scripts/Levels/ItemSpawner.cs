@@ -22,7 +22,7 @@ namespace ThunderRoad
     public class ItemSpawner : MonoBehaviour, ICheckAsset, IToolControllable
     {
 #if ODIN_INSPECTOR
-        [ValueDropdown(nameof(GetAllItemOrLootTableID))]
+        [ValueDropdown(nameof(GetAllItemOrLootTableID), AppendNextDrawer = true)]
         [ShowIf("spawnerType", SpawnerType.UseReferenceId)]
 #endif
         [Tooltip("The ID of the item/table specified in the Catelog")]
