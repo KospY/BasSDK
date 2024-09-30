@@ -38,9 +38,6 @@ For more information on what Subsurface Scattering is, see [Subsurface Scatterin
 {: .warning}
 Transparent is quite expensive. If possible, try to avoid using transparency unless neccessary. This is more of the case on Android.
 
-{: .note}
-For Surface: 0 = Opaque, 1 = Transparent
-
 The transparency section of the LitMoss shader helps in letting your mesh have transparent materials. Similar to URP Lit, you are able to switch between Opaque and Transparent for its surface.
 
 Opaque is a non-transparent material, and will not permit any transparent properties except if Alpha Clip is enabled.
@@ -81,13 +78,13 @@ When enabled, it will force the Metallic map to be a MossMetal Mask instead. For
 ### MOES and MODS
 
 Mode allows you to swap between MOES and MODs:
-- Mode 0 - MODS (Metallic, AO, Detail, Smoothness)
-- Mode 1 - MOES (Metallic, AO, Emission, Smoothness)
+- MODS (Metallic, AO, Detail, Smoothness)
+- MOES (Metallic, AO, Emission, Smoothness)
 
 The order of MOES/MODS goes in order of RGBA for packed textures. You put your MOES/MODS map inside the `Metallic Map` field. Ensure that it is Mode 1 for weapons, so they accept weapon imbue. 
 
 {: .note}
-For imbue to be supported, `Use Emission` does not need to be supported.
+For imbue to be supported, `Use Emission` does not need to be enabled. This is done at runtime, and will be overwritten when imbue is set on the weapon.
 
 For a video guide on making a MOES texture in Substance Painter, see [this Tutorial](https://youtu.be/H4-o27IbeGM)
 

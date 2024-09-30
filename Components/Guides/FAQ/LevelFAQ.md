@@ -44,6 +44,11 @@ A video guide for making levels will be uploaded at a later date. In the meantim
 - Ensure that the zone is set to the "Zone" layer
 - Ensure that the zone has a collider, and that the collider is set to "trigger". 
 
+## I'm having shader issues with my map / I have pink shaders in my map.
+
+- Ensure that Fog is enabled under the Lighting settings, and ensure it is set to Linear
+- Check the `SDKShaderStripConfig` to ensure that the shader isn't stripped (e.g. URP/TerrainLit is stripped.)
+
 
 [Level]: {{ site.baseurl }}{% link Components/ThunderRoad/Levels/Level.md %}
 [PlayerSpawner]: {{ site.baseurl }}{% link Components/ThunderRoad/Levels/PlayerSpawner.md %}
