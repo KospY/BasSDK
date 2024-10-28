@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using ThunderRoad.Skill.SpellMerge;
 using UnityEngine;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -81,8 +80,15 @@ namespace ThunderRoad
         public float physicTogglePlayerRadius = 5;
         public float physicToggleRagdollRadius = 3;
         public float physicEnabledDuration = 2;
-        protected float lastPhysicToggleTime;
-
+        public float lastPhysicToggleTime;
+        
+        /// <summary>
+        /// Set by the PhysicToggleManager to indicate if this ragdoll should have physics enabled on next check
+        /// This just acts as a cached bool to avoid storing state in the physic toggle manager
+        /// </summary>
+        [NonSerialized]
+        public bool shouldEnablePhysic;
+        
         public static bool playerPhysicBody;
 
         [NonSerialized]

@@ -112,7 +112,7 @@ namespace ThunderRoad
         private BoxCollider _boxCollider;
         private Bounds _bounds;
         private bool hasBoxCollider;
-        
+
         public BoxCollider BoxCollider
         {
             get => _boxCollider;
@@ -131,14 +131,25 @@ namespace ThunderRoad
         [NonSerialized]
         [ShowInInspector]
         public Area area;
-        
-        public bool IsPositionInVolume(Vector3 position)
+
+        public bool IsInVolume(Bounds bounds, Vector3 position)
         {
-            if(!hasBoxCollider)
+            if (!hasBoxCollider)
             {
                 //try to get the box collider
                 BoxCollider = GetComponent<BoxCollider>();
-            } 
+            }
+            //check the position first as that may be more accurate, otherwise check the bounds
+            return _bounds.Contains(position) || _bounds.Intersects(bounds);
+        }
+        
+        public bool IsPositionInVolume(Vector3 position)
+        {
+            if (!hasBoxCollider)
+            {
+                //try to get the box collider
+                BoxCollider = GetComponent<BoxCollider>();
+            }
             return _bounds.Contains(position);
         }
         /// <summary>
@@ -147,7 +158,7 @@ namespace ThunderRoad
         [NonSerialized]
         public bool editingSizeThroughEditor;
 
-        private Dictionary<object, Material[]> _registeredMaterials;
+        private Dictionary<MonoBehaviour, List<WeakReference>> _registeredMaterials;
 
         public void SetTexture(Texture3D SHAr,
             Texture3D SHAg,
@@ -159,13 +170,25 @@ namespace ThunderRoad
             this.SHAb = SHAb;
             this.occ = occ;
 
-            if(!_registeredMaterials.IsNullOrEmpty())
+            if (!_registeredMaterials.IsNullOrEmpty())
             {
                 foreach (var item in _registeredMaterials)
                 {
-                    for (int i = 0; i < item.Value.Length; i++)
+                    int count = item.Value.Count;
+                    for (int i = count - 1; i >= 0; i--)
                     {
-                        UpdateMaterialProperties(item.Value[i]);
+                        WeakReference weakRef = item.Value[i];
+                        if (weakRef.IsAlive
+                            && weakRef.Target is Material mat
+                            && mat != null)
+                        {
+                            UpdateMaterialProperties(mat);
+                        }
+                        else
+                        {
+                            item.Value.RemoveAt(i);
+                            Debug.LogError("Material not alive or null in LightProbeVolume : " + gameObject.name + " for mono register type " + item.Key.GetType().Name + " in game object " + item.Key.gameObject.name);
+                        }
                     }
                 }
             }
@@ -198,22 +221,22 @@ namespace ThunderRoad
             SetTexture(null, null, null, null);
         }
 
-        public void RegisterMaterials(object receiver, Material[] materials)
+        public void RegisterMaterials(MonoBehaviour receiver, Material[] materials)
         {
             if (receiver == null) return;
             if (materials.IsNullOrEmpty()) return;
-            if (_registeredMaterials == null) _registeredMaterials = new Dictionary<object, Material[]>();
+            if (_registeredMaterials == null) _registeredMaterials = new Dictionary<MonoBehaviour, List<WeakReference>>();
 
-            if(_registeredMaterials.TryGetValue(receiver, out Material[] previousMaterials))
+            List<WeakReference> previousMaterials;
+            if (!_registeredMaterials.TryGetValue(receiver, out previousMaterials))
             {
-                Material[] concatenate = new Material [previousMaterials.Length + materials.Length];
-                previousMaterials.CopyTo(concatenate, 0);
-                materials.CopyTo(concatenate, previousMaterials.Length);
-                _registeredMaterials[receiver] = concatenate;
+                previousMaterials = new List<WeakReference>();
+                _registeredMaterials.Add(receiver, previousMaterials);
             }
-            else
+
+            for (int i = 0; i < materials.Length; i++)
             {
-                _registeredMaterials.Add(receiver, materials);
+                previousMaterials.Add(new WeakReference(materials[i]));
             }
 
             for (int i = 0; i < materials.Length; i++)
@@ -221,21 +244,31 @@ namespace ThunderRoad
                 UpdateMaterialProperties(materials[i]);
             }
         }
-        public void UnregisterMaterials(object receiver)
+        public void UnregisterMaterials(MonoBehaviour receiver)
         {
             if (_registeredMaterials.IsNullOrEmpty()) return;
             if (receiver == null) return;
 
-            if(_registeredMaterials.Remove(receiver, out Material[] materials))
+            if (_registeredMaterials.Remove(receiver, out List<WeakReference> materials))
             {
-                for (int i = 0; i < materials.Length; i++)
+                int count = materials.Count;
+                for (int i = count - 1; i >= 0 ; i--)
                 {
-                    Material mat = materials[i];
-                    // release texture
-                    mat.SetTexture(ProbeVolumeShR, null);
-                    mat.SetTexture(ProbeVolumeShG, null);
-                    mat.SetTexture(ProbeVolumeShB, null);
-                    mat.SetTexture(ProbeVolumeOcc, null);
+                    if(materials[i].IsAlive 
+                        && materials[i].Target is Material mat
+                        && mat != null)
+                    {
+                        // release texture
+                        mat.SetTexture(ProbeVolumeShR, null);
+                        mat.SetTexture(ProbeVolumeShG, null);
+                        mat.SetTexture(ProbeVolumeShB, null);
+                        mat.SetTexture(ProbeVolumeOcc, null);
+                    }
+                    else
+                    {
+                        materials.RemoveAt(i);
+                        Debug.LogError("Material not alive or null in LightProbeVolume : " + gameObject.name + " for mono register type " + receiver.GetType().Name + " in game object " + receiver.gameObject.name);
+                    }
                 }
             }
         }
@@ -437,7 +470,7 @@ namespace ThunderRoad
             {
                 if (SHAr && string.IsNullOrEmpty(UnityEditor.AssetDatabase.GetAssetPath(SHAr)))
                 {
-                    string assetPath = Path.Combine(targetFolderPath, name + "_SHAr.asset");    
+                    string assetPath = Path.Combine(targetFolderPath, name + "_SHAr.asset");
                     Texture3D existingSHAr = UnityEditor.AssetDatabase.LoadAssetAtPath<Texture3D>(assetPath);
                     if (existingSHAr != null)
                     {

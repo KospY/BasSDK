@@ -22,12 +22,13 @@ namespace ThunderRoad
 	    
 	    
         public enum CastShadows { None = 0, PlayerOnly = 1, PlayerAndNPC = 2 }
-
         public Equipment.WardRobeCategory category = Equipment.WardRobeCategory.Apparel;
         public CastShadows castShadows = CastShadows.None;
         public List<CreatureWardrobe> wardrobes = new List<CreatureWardrobe>();
         public bool isMetal;
-        
+        public int armorSoundEffectPriority;
+        public string armorSoundEffectID;
+
         [Serializable]
         public class CreatureWardrobe
         {

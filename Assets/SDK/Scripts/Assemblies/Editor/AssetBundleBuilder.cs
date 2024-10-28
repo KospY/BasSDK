@@ -329,7 +329,6 @@ namespace ThunderRoad
                             // Workaround to fix an issue when room is not correctly imported after a change
                             if (!groupEntry.labels.Contains("Area")) continue;
                             reimportPaths.Add(groupEntry.AssetPath);
-                            AssetDatabase.ImportAsset(groupEntry.AssetPath);
                         }
                     }
                 }
@@ -342,17 +341,29 @@ namespace ThunderRoad
                 settings.ShaderBundleCustomNaming = assetBundleGroup.folderName;
                 settings.BuildRemoteCatalog = true;
 
-                // Reimport all assets that are in the addressable groups
-                if (reimportPaths.Count > 0)
+                try
                 {
-                    stopwatch.Reset();
-                    stopwatch.Start();
-                    foreach (string path in reimportPaths)
+                    AssetDatabase.StartAssetEditing();
+                    // Reimport all assets that are in the addressable groups
+                    if (reimportPaths.Count > 0)
                     {
-                        AssetDatabase.ImportAsset(path);
+                        stopwatch.Reset();
+                        stopwatch.Start();
+                        foreach (string path in reimportPaths)
+                        {
+                            AssetDatabase.ImportAsset(path);
+                        }
+                        stopwatch.Stop();
+                        Debug.Log($"Reimported {reimportPaths.Count} vfx and area assets in: {stopwatch.ElapsedMilliseconds}ms");
                     }
-                    stopwatch.Stop();
-                    Debug.Log($"Reimported {reimportPaths.Count} vfx and area assets in: {stopwatch.ElapsedMilliseconds}ms");
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogError($"Error during scripted asset import: {e.Message}");
+                }
+                finally
+                {
+                    AssetDatabase.StopAssetEditing();
                 }
             }
 

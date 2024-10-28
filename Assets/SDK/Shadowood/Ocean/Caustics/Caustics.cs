@@ -16,7 +16,7 @@ namespace Shadowood
     {
         internal const string FOLDER_PATH = "Assets/SDK/Shadowood";
 
-        public bool debug;
+        public bool debugCaustics;
 
         [GUIColor("@PathValid() ? Color.white : Color.red")] [Space]
         public string texturesPath = FOLDER_PATH + @"/Ocean/Caustics/C.Sequence/";
@@ -130,7 +130,7 @@ namespace Shadowood
         [Space] public bool copyDirLightColor = false;
         public Color causticColor = Color.white;
         public float causticIntensityBase = 2.5f;
-        public float causticIntensityExtra = 2.0f;
+        public float causticIntensityExtra = 1.0f;
 
         [Tooltip("Pan caustics in direction, tranRotation follows the 'panDirFromTransform' rotation, tranWaveCenter points in the direction from this transform to 'panDirFromTransform' typically you would set the transform to the WaveCenter game object")]
         public enum eDirMethod
@@ -182,6 +182,7 @@ namespace Shadowood
 #if UNITY_EDITOR
         public void Reset()
         {
+            panDirFromTransform = transform;
             name = "Caustics";
             FindTextures();
             FindSun();
@@ -228,7 +229,7 @@ namespace Shadowood
             if (Time.realtimeSinceStartup - lastRan > 1.0f / fps)
             {
                 TextureUpdate();
-                if (debug)
+                if (debugCaustics)
                 {
                     Debug.DrawLine(transform.position, transform.position + 3 * causticDirection, Color.white, 1.1f / fps);
                     Debug.DrawLine(transform.position, transform.position + 3 * new Vector3(panDirection.normalized.x, 0, panDirection.normalized.y), Color.red, 1.1f / fps);
@@ -319,7 +320,7 @@ namespace Shadowood
         public void PropertyUpdate()
         {
 #if UNITY_EDITOR
-            if (debug && Application.isEditor) Debug.Log("Caustic: PropertyUpdate");
+            if (debugCaustics && Application.isEditor) Debug.Log("Caustic: PropertyUpdate");
 #endif
 
             if (dirlight)

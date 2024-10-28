@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace ThunderRoad
+﻿namespace ThunderRoad
 {
     public class StatusDataSpeed : StatusData
     {

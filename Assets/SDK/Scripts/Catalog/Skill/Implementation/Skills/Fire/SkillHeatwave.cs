@@ -61,6 +61,10 @@ namespace ThunderRoad.Skill.Spell
         [BoxGroup("Detection")]
 #endif
         public float punchStopWindow = 0.1f;
+#if ODIN_INSPECTOR
+        [BoxGroup("Detection")]
+#endif
+        public float punchDelay = 0.3f;
         
         [NonSerialized]
         public EffectData effectData;
@@ -80,6 +84,7 @@ namespace ThunderRoad.Skill.Spell
 
         public float lastPunchingTime;
         public Vector3 lastVelocity;
+        private float lastPunch;
 
     }
 }

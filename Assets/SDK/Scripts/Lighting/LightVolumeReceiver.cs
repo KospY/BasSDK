@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System;
 using ThunderRoad.Manikin;
 using UnityEditor;
-using UnityEngine.Rendering;
-using System.Collections;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else

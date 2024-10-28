@@ -1,10 +1,7 @@
 ﻿#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #endif
-using System.Collections;
-using ThunderRoad.Skill.SpellPower;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace ThunderRoad.Skill.Spell
 {

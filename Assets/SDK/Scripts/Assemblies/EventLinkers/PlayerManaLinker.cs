@@ -25,6 +25,8 @@ namespace ThunderRoad
             OnPowerUseEnd = 8,
             OnPowerUnuseStart = 9,
             OnPowerUnuseEnd = 10,
+            OnMergeLoaded = 11,
+            OnMergeUnloaded = 12,
         }
 
         [System.Serializable]
@@ -37,7 +39,7 @@ namespace ThunderRoad
 #endif
             public Vector2 focusPercentRange = new Vector2(0f, 1f);
             public string spellID;
-            public SideSelection casterSide = SideSelection.Right;
+            public SideSelection casterSide = SideSelection.Either;
             public UnityEvent onActivate;
         }
 

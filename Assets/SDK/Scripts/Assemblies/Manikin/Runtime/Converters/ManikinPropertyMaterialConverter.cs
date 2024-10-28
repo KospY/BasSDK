@@ -10,7 +10,7 @@ namespace ThunderRoad.Manikin
     public class ManikinPropertyMaterialConverter : ManikinPropertyConverterBase
     {
         private static readonly int OcclusionBitmaskPropertyID = Shader.PropertyToID("_Bitmask");
-        private static readonly int UseVertexOcclusionPropertyID = Shader.PropertyToID("_UseVertexOcclusion");
+        //private static readonly int UseVertexOcclusionPropertyID = Shader.PropertyToID("_UseVertexOcclusion"); //vertex occlusion is always enabled now as of 1.0.5 (nomad release)
         private static readonly int UseProbeVolumePropertyID = Shader.PropertyToID("_UseProbeVolume");
         private static readonly int ProbeVolumeOccPropertyID = Shader.PropertyToID("_ProbeVolumeOcc");
         private static readonly int ProbeVolumeShBPropertyID = Shader.PropertyToID("_ProbeVolumeShB");
@@ -31,7 +31,7 @@ namespace ThunderRoad.Manikin
             // To prevents overriding dynamic values:
             // We cache them, change material, then reapply. Used for occlusion and probes
             var occlusionBitmask = currentMaterial.GetFloat(OcclusionBitmaskPropertyID);
-            var useVertexOcclusion = currentMaterial.GetFloat(UseVertexOcclusionPropertyID);
+            //var useVertexOcclusion = currentMaterial.GetFloat(UseVertexOcclusionPropertyID);
 
             var useProbeVolume = currentMaterial.GetFloat(UseProbeVolumePropertyID);
             bool isProbeVolumeKeyWord = currentMaterial.IsKeywordEnabled("_PROBEVOLUME_ON");
@@ -49,7 +49,7 @@ namespace ThunderRoad.Manikin
 
             // reapply previous values for occlusion and probes.
             currentMaterial.SetFloat(OcclusionBitmaskPropertyID, occlusionBitmask);
-            currentMaterial.SetFloat(UseVertexOcclusionPropertyID, useVertexOcclusion);
+            //currentMaterial.SetFloat(UseVertexOcclusionPropertyID, useVertexOcclusion);
 
             currentMaterial.SetFloat(UseProbeVolumePropertyID, useProbeVolume);
             if (isProbeVolumeKeyWord) currentMaterial.EnableKeyword("_PROBEVOLUME_ON");

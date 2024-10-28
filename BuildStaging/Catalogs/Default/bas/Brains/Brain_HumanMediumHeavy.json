@@ -118,7 +118,6 @@
       "$type": "ThunderRoad.BrainModuleMelee, ThunderRoad",
       "meleeEnabled": true,
       "attackMaxAngle": 45.0,
-      "tooCloseForAttack": 0.6,
       "attackTurnSpeedMultiplier": 1.0,
       "maxRangeDelta": 0.2,
       "damageToCancelIsPercentValue": true,
@@ -154,6 +153,7 @@
       "maxPushItemMass": 2.99,
       "shieldPushMassMult": 1.5,
       "animationSpeedMultiplier": 1.0,
+      "minimumWeaponMassMultiplier": 0.7,
       "minMaxTimeBetweenAttack": {
         "x": 0.5,
         "y": 1.0

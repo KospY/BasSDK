@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections;
-using UnityEngine.Events;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -58,6 +57,11 @@ namespace ThunderRoad
             return this.transform.position + ((reverted ? this.transform.forward : -this.transform.forward) * penetrationDepth);
         }
 
+        public Vector3 GetMaxDepthPosition(float structDepth, bool reverted = false)
+        {
+            return this.transform.position + ((reverted ? this.transform.forward : -this.transform.forward) * structDepth);
+        }
+
         [ContextMenu("Set colliderOnly from this")]
         public void GetColliderOnlyFromThis()
         {
@@ -65,6 +69,9 @@ namespace ThunderRoad
             isColliderOnly = colliderOnly;
         }
 #if UNITY_EDITOR
+        protected float activePierceDepth = 0f;
+        protected Vector3 localPierceDir = Vector3.zero;
+
         protected void OnDrawGizmosSelected()
         {
             /*
@@ -98,6 +105,9 @@ namespace ThunderRoad
                     Gizmos.DrawRay(this.transform.position, this.transform.up * -(penetrationLength * 0.5f));
                 }
             }
+            Gizmos.color = Color.magenta;
+            Vector3 pierceDepth = transform.position + (transform.TransformDirection(localPierceDir) * activePierceDepth);
+            Gizmos.DrawLine(transform.position, pierceDepth);
         }
 #endif        
 

@@ -1,6 +1,4 @@
-﻿using ThunderRoad;
-using ThunderRoad.Skill.SpellPower;
-using UnityEngine;
+﻿using ThunderRoad.Skill.SpellPower;
 
 namespace ThunderRoad.Skill
 {

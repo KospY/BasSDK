@@ -4,8 +4,6 @@ using System.Collections;
 using System;
 using UnityEditor;
 using UnityEngine.Events;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;

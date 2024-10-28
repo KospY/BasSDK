@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using static ThunderRoad.PhysicBody;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;

@@ -16,6 +16,7 @@ namespace ThunderRoad
     public class UIWorldMapBoard : ThunderBehaviour
     {
         public Canvas worldMapSelectorCanvas;
+        public CanvasCuller worldMapCanvasCuller;
         public Transform worldMapAnchor;
         public Transform worldMapCustomInfosAnchor;
         public Canvas levelDetails;
@@ -34,7 +35,7 @@ namespace ThunderRoad
 
         [Space]
         // small description
-        public TextMeshProUGUI levelOptionDescriptionText = null;
+        public UIText levelOptionDescriptionText = null;
 
 
         [Space]

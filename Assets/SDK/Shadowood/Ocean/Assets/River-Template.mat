@@ -24,19 +24,18 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: cdb6b8b9cb7e18a4da22d21affb2675a,
     type: 3}
   m_ValidKeywords:
+  - _USEFLUIDFORFOAM_ON
+  m_InvalidKeywords:
   - _CAUSTICSENABLE_ON
   - _FLOW_TEXTURENEGATIVE
-  - _USECAUSTICEXTRASAMPLER_ON
-  - _USECAUSTICRAINBOW_ON
-  - _USEFLUIDFORFOAM_ON
-  - _USEGRADIENTFOG_ON
-  m_InvalidKeywords:
   - _LIGHTSOURCE_NONE
-  - _PROBEVOLUME_ON
   - _PlanarReflection
   - _REFRACTION_ON
   - _TONEMAPPING_ON
+  - _USECAUSTICEXTRASAMPLER_ON
+  - _USECAUSTICRAINBOW_ON
   - _USEDEPTHFADE_ON
+  - _USEGRADIENTFOG_ON
   - _USEMAINTEX_ON
   - _ZWRITETOGGLE_ON
   - _ZWRITE_ON
@@ -133,6 +132,22 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ProbeVolumeOcc:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ProbeVolumeShB:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ProbeVolumeShG:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ProbeVolumeShR:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -175,10 +190,15 @@ Material:
     - HeaderDepthColoring: 0
     - HeaderFlow: 0
     - HeaderFoam: 0
+    - HeaderFoam1: 0
+    - HeaderFoam2: 0
+    - HeaderFoam3: 0
+    - HeaderFoam4: 0
     - HeaderFresnel: 0
     - HeaderGeneral: 0
     - HeaderMisc: 0
     - HeaderOceanFog: 0
+    - HeaderRefraction: 0
     - PlanarReflection: 0
     - Vector1_38852E0F: 1
     - Vector1_76184959: 0.5
@@ -189,10 +209,14 @@ Material:
     - _AlphaCutoff: 0.5
     - _Blend: 0
     - _BumpScale: 1
+    - _CausticFlowSpeed: 0.5
+    - _CausticFlowStrength: 1
+    - _CausticRotate: 0
     - _CausticsEnable: 1
     - _ClipThreshold: 0.5
     - _ColorBlur: 0
     - _ColorMix: 1
+    - _ColorMixBack: 1
     - _CubemapRotation: 180
     - _CubemapStrength: 0.635
     - _Cull: 2
@@ -241,18 +265,22 @@ Material:
     - _NormalSize: 22.6
     - _NormalStrength: 0.4
     - _OcclusionStrength: 1
+    - _PRVOL: 0
     - _PlanarNormalStrengthm: 0.319
     - _PlanarReflection: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _ReflectionShadowed: 0.429
+    - _ReflectionShadowedEnd: 1
+    - _ReflectionShadowedStart: 0
     - _Refracrion: 0
     - _Refraction: 1
     - _RefractionFake: 0.033
     - _RefractionFake_Refraction: 0.722
     - _RefractionIndex: 0.78
     - _RefractionIndexUnder: 5
+    - _RefractionIndexUnderMobile: 5
     - _RefractionMul: 0.089
     - _RemapWaterDistance: 2
     - _RemapWaterDistance1: 2
@@ -275,6 +303,7 @@ Material:
     - _UseFluidForFoam: 1
     - _UseGradientFog: 1
     - _UseMainTex: 1
+    - _UseProbeVolume: 0
     - _WaterDepthPow: 6
     - _WaterDepthPow1: 6
     - _WaterSaturation: 0.9
@@ -295,8 +324,11 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FoamColor: {r: 0.3764706, g: 0.3764706, b: 0.3764706, a: 1}
     - _FoamColor2: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
+    - _ProbeVolumeMin: {r: 0, g: 0, b: 0, a: 0}
+    - _ProbeVolumeSizeInv: {r: 0, g: 0, b: 0, a: 0}
     - _RefFresnel: {r: 0, g: 1, b: 5, a: 0}
     - _RefractionColor: {r: 0.5754717, g: 0.541004, b: 0.4696066, a: 1}
+    - _RefractionColorMobile: {r: 1, g: 1, b: 1, a: 0}
     - _Remap: {r: 0.22, g: 0.34, b: 0, a: 1}
     - _RemapDepth: {r: 0, g: 1, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}

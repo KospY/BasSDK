@@ -1,8 +1,7 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Newtonsoft.Json;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else

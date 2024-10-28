@@ -573,6 +573,45 @@ yield break;
             if(mod.Incompatible) return;
             //if they are not, we mark the mod as incompatible
 
+            // the below ModSupportedPlatformsAttribute doesnt work, as il2cpp bridge isnt able to get assembly, or class attributes for some reason
+            
+// #if ProjectCore
+//             try
+//             {
+//                 ModSupportedPlatformsAttribute attribute = null;
+//
+//                 foreach (Assembly assembly in mod.assemblies)
+//                 {
+//                     //get all class types in the assembly
+//                     Type[] types = assembly.GetTypes();
+//                     //look for ModSupportedPlatformsAttribute on any of the types
+//                     foreach (Type type in types)
+//                     {
+//                         object[] customAttributes = type.GetCustomAttributes(typeof(ModSupportedPlatformsAttribute), true);
+//                         if (customAttributes.Length <= 0) continue;
+//                         if (customAttributes[0] is not ModSupportedPlatformsAttribute supportedPlatformsAttribute) continue;
+//                         attribute = supportedPlatformsAttribute;
+//                         break;
+//                     }
+//                 }
+//
+//                 if (!ModSupportedPlatformsAttribute.IsSupported(attribute))
+//                 {
+//                     SupportedPlatforms supports = attribute?.Platforms ?? SupportedPlatforms.None;
+//                     Debug.LogWarning($"{debugLine}[{ModLoadEventType.Assembly}][{mod.folderName}] Not supported on {Application.platform}. Mod supports {supports}");
+//                     mod.errors.Add(new ModData.Error(ModData.ErrorType.Assembly, $"Not supported on {Application.platform}", $"Mod supports {supports}", string.Empty));
+//                     //add it to the loaded mods, even though we never really loaded it, this is to show it has been processed, but there is an error with it
+//                     mod.Incompatible = true;
+//                     loadedMods.Add(mod);
+//                 }
+//             }
+//             catch (Exception e)
+//             {
+//                 Debug.LogError($"{debugLine}[{ModLoadEventType.Assembly}][{mod.folderName}] Error checking supported platforms: {e}");
+//                 mod.errors.Add(new ModData.Error(ModData.ErrorType.Assembly, "Error checking supported platforms", e.Message, string.Empty));
+//                 // not marking this as incompatible, as we dont know if its actually incompatible
+//             }
+// #endif
         }
 
         /// <summary>

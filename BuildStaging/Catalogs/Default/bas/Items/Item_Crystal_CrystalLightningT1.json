@@ -153,11 +153,6 @@
   "modules": [
     {
       "$type": "ThunderRoad.ItemModuleCrystal, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
-      "overridePrefabForceValues": false,
       "treeName": "Lightning",
       "overrideCrystalColors": false,
       "baseColor": {
@@ -184,17 +179,29 @@
         "b": 0.0,
         "a": 0.0
       },
+      "linkVfxColor": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "mergeVfxColor": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
       "higherTierCrystalId": "CrystalLightningT2",
       "shardId": "Crystal_Small_01_Shard",
       "mergeBeginEffectId": "CrystalMergeBegin",
       "sparkleEffectId": "CrystalSparkle",
       "hoverEffectId": "CrystalCoreHover",
       "mergeEffectId": "CrystalMerge",
+      "mergeCrystalEffectAndroidId": "CrystalMergeGlow",
       "mergeStartEffectId": "CrystalMergeStart",
       "mergeCompleteEffectId": "CrystalMergeNewTier",
       "endMergeTime": 1.0,
-      "activateEffectId": "CrystalActivate",
-      "groupPath": null
+      "activateEffectId": "CrystalActivate"
     }
   ],
   "colliderGroups": [

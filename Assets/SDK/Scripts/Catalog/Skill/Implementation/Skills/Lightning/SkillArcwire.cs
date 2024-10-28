@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 #endif //ODIN_INSPECTOR
 using UnityEngine;
-using Object = UnityEngine.Object;
 using Plane = UnityEngine.Plane;
 
 namespace ThunderRoad.Skill.Spell

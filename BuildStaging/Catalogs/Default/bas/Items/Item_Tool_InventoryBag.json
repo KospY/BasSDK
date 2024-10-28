@@ -4,7 +4,7 @@
   "sensitiveContent": "None",
   "sensitiveFilterBehaviour": "Discard",
   "version": 4,
-  "localizationId": "InventoryBag",
+  "localizationId": "-",
   "displayName": "InventoryBag",
   "description": "Grab the item\nThe inventory opens\nLet go of the item\nThe inventory closes",
   "author": "Foltz",
@@ -153,23 +153,13 @@
   "modules": [
     {
       "$type": "ThunderRoad.ItemModuleOpenContainer, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
       "toggleOpen": false,
       "openInventoryType": "Backpack",
-      "howToOpen": "Grab",
-      "groupPath": null
+      "howToOpen": "Grab"
     },
     {
       "$type": "ThunderRoad.ItemModuleStats, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
-      "stats": [],
-      "groupPath": null
+      "stats": []
     }
   ],
   "colliderGroups": [],

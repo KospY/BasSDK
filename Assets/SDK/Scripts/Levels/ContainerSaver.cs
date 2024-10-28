@@ -48,6 +48,8 @@ namespace ThunderRoad
             public SaveBehavior saveBehavior = SaveBehavior.RetrieveToContainer;
             [Tooltip("Filter the types of items that are affected by the container saver.")]
             public List<ItemData.Type> retrieveFilterTypes;
+            [Tooltip("Specific excluded item types from container saver")]
+            public List<ItemData.Type> excludedTypes;
             [Tooltip("When enabled, items grabbed by player will automatically become owned by the player.")]
             public bool transferToPlayerOnGrab;
             [Tooltip("When true, only allowed items will be stored to the container.")]

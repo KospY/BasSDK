@@ -3,7 +3,6 @@ using Sirenix.OdinInspector;
 #endif
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ThunderRoad.Skill.Spell
 {

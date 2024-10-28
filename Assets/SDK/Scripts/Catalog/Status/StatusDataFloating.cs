@@ -2,11 +2,9 @@
 using Sirenix.OdinInspector;
 #endif
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using ThunderRoad.Skill.Spell;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ThunderRoad
 {

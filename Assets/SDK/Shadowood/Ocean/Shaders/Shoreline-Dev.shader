@@ -8,11 +8,13 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 		[HideInInspector] _AlphaCutoff("Alpha Cutoff ", Range(0, 1)) = 0.5
 		[HideInInspector]_CameraForward("_CameraForward", Vector) = (0,0,0,0)
 		_HeaderBakedLighting("# Baked Lighting", Float) = 0
-		_bakeLightmapST("bakeLightmapST", Vector) = (1,1,0,0)
-		[NoScaleOffset][SingleLineTexture]_bakeLightmap("bakeLightmap", 2D) = "white" {}
-		[NoScaleOffset][SingleLineTexture]_bakeLightmapSM("bakeLightmapSM", 2D) = "white" {}
+		[HideInInspector]_bakeLightmapST("LightmapST", Vector) = (1,1,0,0)
+		[NoScaleOffset][SingleLineTexture]_bakeLightmap("Lightmap &", 2D) = "white" {}
+		[NoScaleOffset][SingleLineTexture]_bakeLightmapSM("Lightmap Shadow Mask &", 2D) = "white" {}
 		_BakedLightingFeather("Baked Lighting Feather", Range( 0 , 1)) = 0.05
-		[HDR]_BakeLightMapAmbient("BakeLightMapAmbient", Color) = (1,1,1,0)
+		[HDR]_BakeLightMapAmbient("Baked Lighting Ambient (desktop)", Color) = (1,1,1,0)
+		[HDR]_BakeLightMapMobile("Baked Lighting Ambient (mobile)", Color) = (1,1,1,0)
+		[HideInInspector][Toggle(_TRANSPARENTGRABPASS_ON)] _TransparentGrabPass("_TRANSPARENTGRABPASS", Float) = 0
 		[Feature(_DEBUGVISUALS)]_HeaderDebug("# Debug", Float) = 0
 		[Toggle(_DEBUGVISUALS_ON)] _DebugVisuals("Debug Visuals", Float) = 0
 		[MaterialEnumDrawerExtended(ColorCache_RGB,0,ColorCache_A_Depth,1,DepthCache_RG_Dir,2,DepthCache_B_Dist,3,DepthCache_A_Depth,4,Waves_Raw,5,Waves_FoamMaskResult,6,RawReflection,7,DepthTint,8,ShoreMaskDepthAlpha,9,ShoreMaskVert,10,ShoreMaskSpec,11,VertAdded,12,Lightmap,13,ShadowMask,14)][Feature(_DEBUGVISUALS)]_DebugVisual("Debug Visual [_DebugVisuals]", Int) = 0
@@ -26,25 +28,18 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 		[HideInInspector]_ForceEye("ForceEye", Float) = 0
 		[NoScaleOffset]_ColorCache("ColorCache &", 2D) = "white" {}
 		[NoScaleOffset]_DepthCache("DepthCache &", 2D) = "white" {}
-		[Toggle(_HORIZONMAPPED_ON)] _HorizonMapped("HorizonMapped", Float) = 0
 		[KeywordEnum(WorldSpace,UVSpace)] _Space("Space", Float) = 0
 		_HeaderNormals("# Normals", Float) = 0
 		_RefDistortion("Reflection Bump Distortion", Range( 0 , 0.1)) = 0.02
 		_NormalDarken("Normal Darken", Range( 0 , 1)) = 0.25
-		_NormalDarken1("Normal Darken Range", Float) = 1000
 		_Normals("Normals", 2D) = "bump" {}
 		_NormalPow("Normal Pow", Range( 0 , 1)) = 0.1869633
-		[Toggle(_USEEXTRANORMALS_ON)] _UseExtraNormals("Use Extra Normals", Float) = 1
-		_Normals2("Normals Extra [_UseExtraNormals]", 2D) = "bump" {}
-		_NormalPow2("Normal Pow 2 [_UseExtraNormals]", Range( 0 , 1)) = 1
+		_Normals2("Normals Extra", 2D) = "bump" {}
+		_NormalPow2("Normal Pow 2", Range( 0 , 1)) = 1
 		HeaderCaustics("# Caustics", Float) = 0
-		[Toggle(_CAUSTICSENABLE_ON)] _CausticsEnable("CausticsEnable", Float) = 1
-		[Toggle(_USECAUSTICEXTRASAMPLER_ON)] _UseCausticExtraSampler("Use Extra Sampler [_CausticsEnable]", Float) = 1
-		[Toggle(_USECAUSTICRAINBOW_ON)] _UseCausticRainbow("Use Rainbow [_CausticsEnable]", Float) = 1
-		[HDR]_CausticsTint("Caustics Tint [_CausticsEnable]", Color) = (1,1,1,1)
+		[HDR]_CausticsTint("Caustics Tint", Color) = (1,1,1,1)
 		[Feature(_CAUSTICSENABLE)]HeaderOceanFog("# Ocean Fog Caustics", Float) = 0
 		[Toggle(_USEUNITYFOG_ON)] _UseUnityFog("Use Unity Fog", Float) = 0
-		[Toggle(_USEGRADIENTFOG_ON)] _UseGradientFog("UseGradientFog", Float) = 1
 		_HeaderOther("# Other", Float) = 0
 		_HeaderFoam("# Foam", Float) = 0
 		[Toggle(_USEFOAM_ON)] _UseFoam("Use Foam", Float) = 1
@@ -55,21 +50,19 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 		[HDR]_FoamColor("Foam Color [_UseFoam]", Color) = (1,1,1,0)
 		[Toggle(_USEFOAMEXTRASAMPLER_ON)] _UseFoamExtraSampler("Use Foam Extra Sampler [_UseFoam]", Float) = 1
 		_FoamPow("FoamPow [_UseFoam]", Range( 1 , 5)) = 3
-		[HDR]_FoamLUT("Foam LUT", 2D) = "white" {}
-		_DRAWERGradient_FoamLUT("!DRAWER Gradient _FoamLUT", Float) = 0
+		[HDR]_FoamLUT("Foam LUT [_UseFoam]", 2D) = "white" {}
+		_DRAWERGradient_FoamLUT("!DRAWER Gradient _FoamLUT [_UseFoam]", Float) = 0
 		_HeaderWaves("# Waves", Float) = 0
 		_WaveSpeed("Wave Speed", Range( -1 , 1)) = 1
 		_WaveScale("Wave Scale", Float) = 1
 		_Motion2("Motion 2", Vector) = (0,0,0,0)
 		_Motion("Motion", Vector) = (0,0,0,0)
-		[Toggle(_USEWAVENOISEDISPLACE_ON)] _UseWaveNoiseDisplace("Use Wave Noise Displace", Float) = 1
 		_FoamNoiseScale("-Noise Scale [_UseWaveNoiseDisplace]", Range( 0 , 5)) = 1
 		_FoamNoiseScale2("-Noise Scale 2 [_UseWaveNoiseDisplace]", Range( 0 , 5)) = 1
 		_FoamNoiseSpeed("-Noise Speed [_UseWaveNoiseDisplace]", Range( 0 , 5)) = 1
 		_FoamNoiseCon("-Noise Con [_UseWaveNoiseDisplace]", Range( 0 , 3)) = 1
 		_FoamNoiseCon2("-Noise Con 2 [_UseWaveNoiseDisplace]", Range( 0 , 3)) = 1
 		_WaveNoiseDisplace("-Wave Noise Displace & [_UseWaveNoiseDisplace]", 2D) = "white" {}
-		[Toggle(_USEWAVEDIRECTION_ON)] _UseWaveDirection("Use Wave Direction", Float) = 1
 		_WaveDirectionSettings("-Wave Direction Settings [_UseWaveDirection]", Vector) = (0,0,1,1)
 		_HeaderTesselation("# Tesselation", Float) = 0
 		[Toggle(_USEVERTDISPLACEMENT_ON)] _UseVertDisplacement("Use Vert Displacement", Float) = 0
@@ -82,14 +75,20 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 		_HeaderWaterDepth("# Water Depth", Float) = 0
 		_WaterSaturation("Water Saturation", Range( 0 , 1)) = 0.9
 		_WaterAlbedo("Water Albedo", Color) = (0.0627451,0.07843138,0.07843138,0)
+		_NormalAlbedoStrength("Normal Albedo Strength", Range( 0 , 20)) = 1
 		_WaterTint("Water Tint", Color) = (1,1,1,0)
 		[HDR]_DepthColorLUT("DepthColor  LUT", 2D) = "white" {}
 		_WaterDepthPow1("-Water Depth Pow Mobile", Range( 0 , 10)) = 6
+		_WaterAlbedoFake("-Water Albedo Fake", Range( 0 , 1)) = 0
 		_WaterDepthPow("-Water Depth Pow", Range( 0 , 10)) = 0
 		_DRAWERGradient_DepthColorLUT("!DRAWER Gradient _DepthColorLUT", Float) = 0
 		_RemapWaterDistance("-Remap Water Distance", Range( 0 , 20)) = 2
 		_RemapWaterDistance1("-Remap Water Distance Mobile", Range( 0 , 20)) = 2
+		[Toggle(_MOBILEMODE_ON)] _MobileMode("MobileMode", Float) = 0
 		_HeaderReflections("# Reflections", Float) = 0
+		_ReflectionShadowed("Reflection Shadowed", Range( 0 , 1)) = 0.8
+		_ReflectionShadowedEnd("Reflection Shadowed End", Range( 0 , 1)) = 1
+		_ReflectionShadowedStart("Reflection Shadowed Start", Range( 0 , 1)) = 0
 		_RefFresnel("Reflection Fresnel", Vector) = (0,1,5,0)
 		_Cubemap("Cubemap (HDR) &", CUBE) = "black" {}
 		_CubemapExposure("-Exposure", Range( 0 , 10)) = 1
@@ -104,11 +103,9 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 		_HeaderTransparency("# Transparency", Float) = 0
 		_RefractionWarp("Refraction Warp", Range( 0 , 1)) = 0.35
 		_WaveRefractionStrength("Wave Refraction Strength", Range( 0 , 1)) = 0.5
-		[Toggle(_USEDITHERING_ON)] _UseDithering("Use Dithering", Float) = 1
 		_ClipThreshold("ClipThreshold [!_USEDITHERING_ON]", Range( 0 , 1)) = 0.1
+		_WaterRefractonMobile("Water Refracton Mobile", Range( 0 , 5)) = 0.2
 		[Toggle(_TRANSPARENTGRABPASS_ON)] _TransparentGrabPass("Use Transparent GrabPass", Float) = 1
-		_WaterRefractonMobile("Water Refracton Mobile", Range( 0 , 1)) = 0.2
-		[Toggle(_RAINBOWGRABPASS_ON)] _RainbowGrabPass("-Use Rainbow GrabPass [_TransparentGrabPass]", Float) = 1
 		_HeaderBakedLughting("# Baked Lighting", Float) = 0
 		_HeaderMisc("# Misc", Float) = 0
 		[Toggle]_ZWriteToggle("ZWriteToggle", Range( 0 , 1)) = 1
@@ -332,15 +329,17 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			#pragma multi_compile_fog
 			#define ASE_FOG 1
 			#define _NORMAL_DROPOFF_TS 1
+			#define _SPECULAR_SETUP 1
+			#pragma shader_feature_local_fragment _SPECULAR_SETUP
 			#define ASE_BAKEDGI 1
 			#define ASE_SHADOWMASK 1
 			#define ASE_FOGCOLOR 1
 			#define _ASE_ALPHATEST 1
+			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 120115
 			#define REQUIRE_DEPTH_TEXTURE 1
 			#define REQUIRE_OPAQUE_TEXTURE 1
 			#define ASE_NEEDS_FRAG_SCREEN_POSITION
-			#define TONEMAPPINGELSEWHERE
 			#define UNDERWATERELSEWHERE
 			#define ASE_USING_SAMPLING_MACROS 1
 
@@ -470,7 +469,7 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			
 			half3 GlobalIlluminationCustom(BRDFData brdfData, BRDFData brdfDataClearCoat, float clearCoatMask,
 				half3 bakedGI, half occlusion, float3 positionWS,
-				half3 normalWS, half3 viewDirectionWS, half fresnelControl, half3 anisoReflectionNormal)
+				half3 normalWS, half3 viewDirectionWS, half fresnelControl, half3 anisoReflectionNormal, half environmentReflections)
 			{
 
 				#if defined(_ASE_ANIS) && defined(_USE_ANIS_ON)
@@ -490,11 +489,10 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#endif
 
 				
-				
 				half3 indirectDiffuse = bakedGI;
 				
 				float3 reflectVectorNew = reflectVector;
-				/* // Rotate reflection, instead pass the float2x2 matrix from CPU side via shader global
+				/* // TODO: Rotate reflection, instead pass the float2x2 matrix from CPU side via shader global
 				float degrees = 9;
 				float alpha = degrees * 3.142 / 180.0;
 				float sina, cosa;
@@ -502,17 +500,24 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float2x2 m = float2x2(cosa, -sina, sina, cosa);
 				float3 reflectVectorNew = float3(mul(m, reflectVector.xz), reflectVector.y).xzy;
 				*/
-				half3 indirectSpecular = GlossyEnvironmentReflection(reflectVectorNew, positionWS, brdfData.perceptualRoughness, 1.0h);
-
+				half3 indirectSpecular = half3(0,0,0);
+				//[branch]
+				if(environmentReflections > 0.5){ // Added so you can disable the env reflection without need for keyword '_ENVIRONMENTREFLECTIONS_OFF'
+					indirectSpecular = GlossyEnvironmentReflection(reflectVectorNew, positionWS, brdfData.perceptualRoughness, 1.0h);
+				}
+				
 				half3 color = EnvironmentBRDF(brdfData, indirectDiffuse, indirectSpecular, fresnelTerm);
 			
 				if (IsOnlyAOLightingFeatureEnabled())
 				{
 					color = half3(1,1,1); // "Base white" for AO debug lighting mode
 				}
-			
+				
+			/* // Don't need the clearcoat code
 			#if defined(_CLEARCOAT) || defined(_CLEARCOATMAP)
-				half3 coatIndirectSpecular = GlossyEnvironmentReflection(reflectVector, positionWS, brdfDataClearCoat.perceptualRoughness, 1.0h);
+				//half3 coatIndirectSpecular = GlossyEnvironmentReflection(reflectVector, positionWS, brdfDataClearCoat.perceptualRoughness, 1.0h);
+				half3 coatIndirectSpecular = GlossyEnvironmentReflectionCustom(reflectVector, positionWS, brdfDataClearCoat.perceptualRoughness, 1.0h);
+				
 				// TODO: "grazing term" causes problems on full roughness
 				half3 coatColor = EnvironmentBRDFClearCoat(brdfDataClearCoat, clearCoatMask, coatIndirectSpecular, fresnelTerm);
 			
@@ -521,10 +526,12 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				// NOTE: fresnelTerm (above) is pow4 instead of pow5, but should be ok as blend weight.
 				half coatFresnel = kDielectricSpec.x + kDielectricSpec.a * fresnelTerm;
 				return (color * (1.0 - coatFresnel * clearCoatMask) + coatColor) * occlusion;
-			#else
+			#else*/
 				return color * occlusion;
-			#endif
+			//#endif
 			}
+			
+
 
 			// Modified version of 'CalculateLightingColor' from 'Lighting.hlsl'
 			// Added: subsurfaceContribution
@@ -710,7 +717,7 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			// Modified version of 'UniversalFragmentPBR' from 'Lighting.hlsl'
 			// Added SSS enabled by _USE_SSS_ON and _ASE_SSSCONTROL
 			// Added custom fresnel enabled by _ASE_FRESNELCONTROL
-			half4 UniversalFragmentPBRCustom(InputData inputData, SurfaceData surfaceData, half fresnelControl, half4 sssColor, half4 sssControl, float3 worldNormal, float3 worldTangent, float4 AnisotropicControl)
+			half4 UniversalFragmentPBRCustom(InputData inputData, SurfaceData surfaceData, half fresnelControl, half4 sssColor, half4 sssControl, float3 worldNormal, float3 worldTangent, float4 AnisotropicControl, half environmentReflections)
 			{
 				#if defined(_USE_SSS_ON) && defined(_ASE_SSSCONTROL)
 					half4 subsurfaceContribution2 = half4(0,0,0,0);
@@ -803,11 +810,11 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#endif
 
 				// Environment lighting / skybox lighting
-				#if defined(_ASE_FRESNELCONTROL) || (defined(_ASE_ANIS) && defined(_USE_ANIS_ON))
-					lightingData.giColor = GlobalIlluminationCustom(brdfData, brdfDataClearCoat, surfaceData.clearCoatMask, inputData.bakedGI, aoFactor.indirectAmbientOcclusion, inputData.positionWS,	inputData.normalWS, inputData.viewDirectionWS, fresnelControl, addData.anisoReflectionNormal);
-				#else
-					lightingData.giColor = GlobalIllumination(brdfData, brdfDataClearCoat, surfaceData.clearCoatMask, inputData.bakedGI, aoFactor.indirectAmbientOcclusion, inputData.positionWS, inputData.normalWS, inputData.viewDirectionWS);
-				#endif
+				//#if defined(_ASE_FRESNELCONTROL) || (defined(_ASE_ANIS) && defined(_USE_ANIS_ON))
+					lightingData.giColor = GlobalIlluminationCustom(brdfData, brdfDataClearCoat, surfaceData.clearCoatMask, inputData.bakedGI, aoFactor.indirectAmbientOcclusion, inputData.positionWS,	inputData.normalWS, inputData.viewDirectionWS, fresnelControl, addData.anisoReflectionNormal, environmentReflections);
+				//#else
+				//	lightingData.giColor = GlobalIllumination(brdfData, brdfDataClearCoat, surfaceData.clearCoatMask, inputData.bakedGI, aoFactor.indirectAmbientOcclusion, inputData.positionWS, inputData.normalWS, inputData.viewDirectionWS);
+				//#endif
 
 				#if defined(_USE_SSS_ON) && defined(_ASE_SSSCONTROL)
 					brdfData.diffuse = albedoOg * (1-_SubsurfaceDimAlbedo);
@@ -887,27 +894,18 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			#define ASE_NEEDS_FRAG_WORLD_TANGENT
 			#define ASE_NEEDS_FRAG_WORLD_BITANGENT
 			#pragma shader_feature_local ASE_TESSELLATION_ON
-			#pragma shader_feature GLOBALTONEMAPPING
-			#pragma shader_feature_local LIGHTMAP_ON
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local LIGHTMAP_ON
+			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma shader_feature_local _USEINFINITYEDGE_ON
 			#pragma shader_feature_local _USEVERTDISPLACEMENT_ON
-			#pragma shader_feature_local _USEWAVENOISEDISPLACE_ON
-			#pragma shader_feature_local _SPACE_WORLDSPACE _SPACE_UVSPACE
-			#pragma shader_feature_local _HORIZONMAPPED_ON
-			#pragma shader_feature_local _USEWAVEDIRECTION_ON
-			#pragma shader_feature_local _USEINFINITYFEATHER_ON
 			#pragma shader_feature_local _USEFOAM_ON
-			#pragma shader_feature_local _USEFOAMEXTRASAMPLER_ON
+			#pragma shader_feature_local _SPACE_WORLDSPACE _SPACE_UVSPACE
+			#pragma shader_feature_local _USEINFINITYFEATHER_ON
+			#pragma shader_feature_local _MOBILEMODE_ON
 			#pragma shader_feature_local _TRANSPARENTGRABPASS_ON
-			#pragma shader_feature_local _USEEXTRANORMALS_ON
 			#pragma multi_compile __ GlobalPlanarReflection
-			#pragma shader_feature_local _USEGRADIENTFOG_ON
-			#pragma shader_feature_local _RAINBOWGRABPASS_ON
-			#pragma shader_feature_local _CAUSTICSENABLE_ON
-			#pragma shader_feature_local _USECAUSTICEXTRASAMPLER_ON
-			#pragma shader_feature_local _USECAUSTICRAINBOW_ON
-			#pragma shader_feature_local _USEDITHERING_ON
+			#pragma shader_feature_local _USEFOAMEXTRASAMPLER_ON
 			#pragma shader_feature_local _USEUNITYFOG_ON
 
 
@@ -961,65 +959,69 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _FoamColor;
+			float4 _WaveDirectionSettings;
+			float4 _RemapFoam;
+			float4 _WaterTint;
+			float4 _CausticsTint;
+			float4 _RemapAlpha;
+			float4 _Normals2_ST;
 			float4 _Motion;
 			float4 _Normals_ST;
-			float4 _WaterTint;
+			float4 _Motion2;
 			float4 _RemapVertShore;
 			float4 _WaterAlbedo;
-			float4 _WaveDirectionSettings;
-			float4 _Normals2_ST;
-			float4 _Motion2;
 			float4 _RefFresnel;
-			float4 _CausticsTint;
-			float4x4 _DepthMatrix;
-			float4 _RemapAlpha;
-			float4 _BakeLightMapAmbient;
-			float4x4 _BakeMatrix;
+			float4 _BakeLightMapMobile;
+			float4 _FoamColor;
 			float4 _bakeLightmapST;
-			float4 _RemapFoam;
+			float4 _BakeLightMapAmbient;
+			float4x4 _DepthMatrix;
+			float3 _CameraForward;
+			float3 _DepthPosition;
 			float3 _WorldDir;
 			float3 _WorldPos;
-			float3 _DepthPosition;
-			float3 _CameraForward;
-			float _WaveRefractionStrength;
-			float _RefractionWarp;
-			float _RemapWaterDistance;
-			float _RemapWaterDistance1;
-			float _Smoothness;
-			float _WaterDepthPow;
-			float _WaterSaturation;
 			float _CubemapExposure;
-			float _NormalDarken1;
-			float _NormalDarken;
-			float _ForceEye;
+			float _NormalAlbedoStrength;
+			float _WaterAlbedoFake;
 			float _ClipThreshold;
+			float _ForceEye;
+			float _RemapWaterDistance1;
+			float _RemapWaterDistance;
 			float _WaterDepthPow1;
-			int _ZTestMode;
-			float _NormalPow2;
-			float _FoamMaxDistance;
-			float _ZWriteToggle;
+			float _BakedLightingFeather;
+			float _WaterDepthPow;
+			float _ReflectionShadowed;
+			float _ReflectionShadowedStart;
+			float _WaterSaturation;
+			float _Smoothness;
+			float _ReflectionShadowedEnd;
+			float _NormalDarken;
 			float _TessNum;
+			float _WaveRefractionStrength;
+			float _FoamMaxDistance;
 			float _TesMin;
 			float _TesMax;
+			int _ZTestMode;
+			float _ZWriteToggle;
 			float _WaveScale;
+			float _Tolerance;
+			float _Feather;
 			float _FoamNoiseSpeed;
 			float _FoamNoiseScale;
 			float _FoamNoiseCon;
+			float _FoamPow;
 			float _FoamNoiseScale2;
-			float _FoamNoiseCon2;
 			float _DistanceFadeA;
 			float _WaveSpeed;
 			float _DistanceFadeB;
 			float _VertDispMult;
-			float _Tolerance;
-			float _Feather;
-			float _FoamScale_UseFoam;
 			float _NormalPow;
-			float _BakedLightingFeather;
+			float _NormalPow2;
 			float _RefDistortion;
 			float _WaterRefractonMobile;
-			float _FoamPow;
+			float _RefractionWarp;
+			float _FoamScale_UseFoam;
+			float _FoamNoiseCon2;
 			int _DebugVisual;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
@@ -1041,6 +1043,7 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float _TessMaxDisp;
 			#endif
 			float _DebugCounter; // Shadowood
+			half _EnvironmentReflections; // Shadowood
 			CBUFFER_END
 
 			// Property used by ScenePickingPass
@@ -1054,8 +1057,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				int _PassValue;
 			#endif
 
-			float4 _skyGradientColor1;
-			float4 _skyGradientColor2;
 			float3 _CausticsDir;
 			half _CausticsScale;
 			half2 _CausticsPanSpeed;
@@ -1064,30 +1065,33 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			SAMPLER(sampler_Caustics);
 			TEXTURE2D(_Caustics2);
 			SAMPLER(sampler_Caustics2);
+			float4 _skyGradientColor1;
+			float4 _skyGradientColor2;
 			TEXTURE2D(_FoamLUT);
 			TEXTURE2D(_DepthCache);
 			SAMPLER(sampler_Linear_Clamp);
 			TEXTURE2D(_WaveNoiseDisplace);
 			SAMPLER(sampler_WaveNoiseDisplace);
-			TEXTURE2D(_FoamTexture);
-			SAMPLER(sampler_FoamTexture);
 			TEXTURE2D(_ColorCache);
 			TEXTURE2D(_Normals);
 			SAMPLER(sampler_Normals);
 			TEXTURE2D(_Normals2);
 			SAMPLER(sampler_Normals2);
+			TEXTURE2D(_FoamTexture);
+			SAMPLER(sampler_FoamTexture);
 			TEXTURE2D(_DepthColorLUT);
 			TEXTURECUBE(_Cubemap);
 			float GlobalSkyRotation;
 			SAMPLER(sampler_Cubemap);
+			TEXTURE2D(_bakeLightmap);
+			float4x4 _BakeMatrix;
+			SAMPLER(sampler_bakeLightmap);
+			TEXTURE2D(_bakeLightmapSM);
 			TEXTURE2D(_TexLeft);
 			SAMPLER(sampler_Linear_Mirror);
 			TEXTURE2D(_TexRight);
 			float4x4 _CausticMatrix;
 			float4 _CausticsSettings;
-			TEXTURE2D(_bakeLightmap);
-			SAMPLER(sampler_bakeLightmap);
-			TEXTURE2D(_bakeLightmapSM);
 
 
 			//#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/Varyings.hlsl"
@@ -1102,43 +1106,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 					//beer-lambert law, Fog =1/e^(distance * density)
 					float e = 2.7182818284590452353602874713527f;
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
-			}
-			
-			float4 Billboard2078( float3 worldPosIN, float2 screenPos, float3 QuadNormal, float3 QuadPosition )
-			{
-				float3 worldPos = worldPosIN;
-				float3 viewDir = worldPos - _WorldSpaceCameraPos;
-				float3 reflectDir = -viewDir;
-				float3 nReflDirection = normalize(reflectDir);
-				float4 result = float4(0,0,0,0);
-				// Ray-quad intersection
-				half planeIntersectDistance = dot( worldPos - QuadPosition,  QuadNormal.xyz ) / dot( nReflDirection, QuadNormal.xyz );
-				half3 intersectPosition = worldPos - nReflDirection * planeIntersectDistance;
-				//half4 localPlaneIntersectPosition = mul( QuadInverseMatrix, float4( intersectPosition, 1.0 ));
-				half4 localPlaneIntersectPosition = float4( intersectPosition, 1.0 );
-				half2 billboardUV = half2( localPlaneIntersectPosition.x, localPlaneIntersectPosition.z );
-				//billboardUV*=1;
-				//float4 billboardCol = BillboardTex.Sample( BillboardSampler , billboardUV );
-				float4 billboardCol = float4( billboardUV.x, billboardUV.y, 0, 1);
-				float3 quadNorm = QuadNormal.xyz;
-				half reflectDot = dot( nReflDirection, quadNorm );
-				float w = 1;
-				// Cull when beyond the quad bounds
-				//w = billboardUV.x > 1.0 ? 0.0 : w;
-				//w = billboardUV.y > 1.0 ? 0.0 : w;
-				//w = billboardUV.x < 0.0 ? 0.0 : w;
-				//w = billboardUV.y < 0.0 ? 0.0 : w;
-				// Cull if distance is behind the surface
-				//w = planeIntersectDistance < 0 ? 0 : w;
-				// Cull if quad facing backwards
-				w = reflectDot <= 0.0 ? 0.0 : w; 
-				// Cull if quad facing backwards and culling is ticked on the quad ( passed in via the arrays W )
-				//w = QuadNormal.w == 1.0 ? (reflectDot <= 0.0 ? 0.0 : w) : w;
-				billboardCol = billboardCol * billboardCol.w * w;
-				billboardCol.a = w;
-				result*=1-w;
-				result+= billboardCol;
-				return result;
 			}
 			
 			float3 RotateAroundAxis( float3 center, float3 original, float3 u, float angle )
@@ -1160,7 +1127,23 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				return mul( finalMatrix, original ) + center;
 			}
 			
-			int IsStereoEyeLeft11_g3216( float3 WorldCamPos, float3 WorldCamRight, float force )
+			float3 MatrixMulThatWorks( float4 Pos, float4x4 Mat )
+			{
+				float3 result = mul(Mat,Pos.xyz);
+				return result + float3(Mat[0][3],Mat[1][3],Mat[2][3]);
+			}
+			
+			float4 URPDecodeInstruction19_g3820(  )
+			{
+				return float4(LIGHTMAP_HDR_MULTIPLIER, LIGHTMAP_HDR_EXPONENT, 0, 0);
+			}
+			
+			float4 URPDecodeInstruction19_g3821(  )
+			{
+				return float4(LIGHTMAP_HDR_MULTIPLIER, LIGHTMAP_HDR_EXPONENT, 0, 0);
+			}
+			
+			int IsStereoEyeLeft11_g3521( float3 WorldCamPos, float3 WorldCamRight, float force )
 			{
 				int Out = 0;	
 				if(force >= 0){
@@ -1191,24 +1174,18 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				return ApplyTonemap( color, settings );;
 			}
 			
-			float3 MatrixMulThatWorks( float4 Pos, float4x4 Mat )
-			{
-				float3 result = mul(Mat,Pos.xyz);
-				return result + float3(Mat[0][3],Mat[1][3],Mat[2][3]);
-			}
-			
-			float CameraDepthTexture55_g3383( float2 uv )
+			float CameraDepthTexture55_g3534( float2 uv )
 			{
 				float4 color = SAMPLE_TEXTURE2D_X(_CameraDepthTexture, sampler_CameraDepthTexture, uv);
 				return color.r;
 			}
 			
-			float MyCustomExpression44_g3383( float rawDepth )
+			float MyCustomExpression44_g3534( float rawDepth )
 			{
 				return LinearEyeDepth(rawDepth, _ZBufferParams);
 			}
 			
-			float3 MyCustomExpression16_g3383( float3 view, float sceneZ )
+			float3 MyCustomExpression16_g3534( float3 view, float sceneZ )
 			{
 				return  _WorldSpaceCameraPos - view * sceneZ / dot(UNITY_MATRIX_I_V._13_23_33, view);
 			}
@@ -1240,26 +1217,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				return transpose( cofactors ) / determinant( input );
 			}
 			
-			inline float Dither8x8Bayer( int x, int y )
-			{
-				const float dither[ 64 ] = {
-			 1, 49, 13, 61,  4, 52, 16, 64,
-			33, 17, 45, 29, 36, 20, 48, 32,
-			 9, 57,  5, 53, 12, 60,  8, 56,
-			41, 25, 37, 21, 44, 28, 40, 24,
-			 3, 51, 15, 63,  2, 50, 14, 62,
-			35, 19, 47, 31, 34, 18, 46, 30,
-			11, 59,  7, 55, 10, 58,  6, 54,
-			43, 27, 39, 23, 42, 26, 38, 22};
-				int r = y * 8 + x;
-				return dither[r] / 64; // same # of instructions as pre-dividing due to compiler magic
-			}
-			
-			float4 URPDecodeInstruction19_g3432(  )
-			{
-				return float4(LIGHTMAP_HDR_MULTIPLIER, LIGHTMAP_HDR_EXPONENT, 0, 0);
-			}
-			
 			
 			float4 SampleGradient( Gradient gradient, float time )
 			{
@@ -1283,17 +1240,12 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				return float4(color, alpha);
 			}
 			
-			float4 URPDecodeInstruction19_g3433(  )
-			{
-				return float4(LIGHTMAP_HDR_MULTIPLIER, LIGHTMAP_HDR_EXPONENT, 0, 0);
-			}
-			
-			float MyCustomExpression191_g3347( float In )
+			float MyCustomExpression191_g3830( float In )
 			{
 				return ComputeFogFactor(In);
 			}
 			
-			inline float4 GetUnderWaterFogs240_g3357( float3 viewDir, float3 camWorldPos, float3 posWS, float4 oceanFogDensities, float oceanHeight, float4 oceanFogTop_RGB_Exponent, float4 oceanFogBottom_RGB_Intensity )
+			inline float4 GetUnderWaterFogs240_g3846( float3 viewDir, float3 camWorldPos, float3 posWS, float4 oceanFogDensities, float oceanHeight, float4 oceanFogTop_RGB_Exponent, float4 oceanFogBottom_RGB_Intensity )
 			{
 				return GetUnderWaterFog( viewDir, camWorldPos, posWS, oceanFogDensities, oceanHeight, oceanFogTop_RGB_Exponent, oceanFogBottom_RGB_Intensity );;
 			}
@@ -1307,14 +1259,13 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
 				float2 texCoord2052 = v.texcoord.xy * float2( 1,1 ) + float2( 0,0 );
-				float temp_output_2054_0 = distance( texCoord2052 , float2( 0.5,0.5 ) );
 				float ifLocalVar2053 = 0;
-				if( temp_output_2054_0 <= 1.0 )
+				if( distance( texCoord2052 , float2( 0.5,0.5 ) ) <= 1.0 )
 				ifLocalVar2053 = 1.0;
 				else
 				ifLocalVar2053 = 5000.0;
 				#ifdef _USEINFINITYEDGE_ON
-				float4 staticSwitch1498 = ( v.vertex * ifLocalVar2053 );
+				float4 staticSwitch1498 = ( ifLocalVar2053 * v.vertex );
 				#else
 				float4 staticSwitch1498 = v.vertex;
 				#endif
@@ -1332,91 +1283,93 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#endif
 				float2 CacheUV1109 = staticSwitch1346;
 				float4 tex2DNode13 = SAMPLE_TEXTURE2D_LOD( _DepthCache, sampler_Linear_Clamp, CacheUV1109, 0.0 );
-				float temp_output_17_0_g3203 = 0.001;
-				float2 temp_cast_2 = (temp_output_17_0_g3203).xx;
-				float2 temp_cast_3 = (( 1.0 - temp_output_17_0_g3203 )).xx;
-				float2 break5_g3203 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_2) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_3 - temp_cast_2)) );
-				float temp_output_1_0_g3205 = break5_g3203.x;
-				float temp_output_8_0_g3203 = ( 0.001 + -1.0 );
-				float temp_output_1_0_g3204 = break5_g3203.y;
-				float temp_output_2766_0 = saturate( saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3205 - floor( ( temp_output_1_0_g3205 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3204 - floor( ( temp_output_1_0_g3204 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) ) ) );
+				float temp_output_17_0_g3046 = 0.001;
+				float2 temp_cast_2 = (temp_output_17_0_g3046).xx;
+				float2 temp_cast_3 = (( 1.0 - temp_output_17_0_g3046 )).xx;
+				float2 break5_g3046 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_2) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_3 - temp_cast_2)) );
+				float temp_output_1_0_g3048 = break5_g3046.x;
+				float temp_output_9_0_g3046 = ( ( abs( ( ( temp_output_1_0_g3048 - floor( ( temp_output_1_0_g3048 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3046 = ( 0.001 + -1.0 );
+				float temp_output_17_0_g3040 = 0.01;
+				float2 temp_cast_4 = (temp_output_17_0_g3040).xx;
+				float2 temp_cast_5 = (( 1.0 - temp_output_17_0_g3040 )).xx;
+				float2 break5_g3040 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_4) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_5 - temp_cast_4)) );
+				float temp_output_1_0_g3042 = break5_g3040.x;
+				float temp_output_9_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3042 - floor( ( temp_output_1_0_g3042 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_1_0_g3041 = break5_g3040.y;
+				float temp_output_6_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3041 - floor( ( temp_output_1_0_g3041 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float2 appendResult24_g3040 = (float2(temp_output_9_0_g3040 , temp_output_6_0_g3040));
+				float2 CacheUVPreFeather3438 = appendResult24_g3040;
+				float2 break40_g3046 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3046 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3046 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) * saturate( (0.0 + (break40_g3046.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) ) );
+				float temp_output_2766_0 = saturate( temp_output_15_0_g3046 );
 				float lerpResult3090 = lerp( 1000.0 , ( tex2DNode13.b * 100.0 ) , temp_output_2766_0);
 				float CaptureB_Distancex100200 = lerpResult3090;
 				float temp_output_307_0 = ( 1.0 - saturate( abs( CaptureB_Distancex100200 ) ) );
-				float Foamness294 = ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale );
-				float2 temp_cast_4 = (_FoamNoiseSpeed).xx;
+				float temp_output_8_0_g3040 = ( 0.1 + -1.0 );
+				float temp_output_15_0_g3040 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) * saturate( (0.0 + (temp_output_6_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) ) );
+				float temp_output_2763_0 = saturate( ( temp_output_15_0_g3040 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
+				float temp_output_17_0_g3049 = _Tolerance;
+				float2 temp_cast_6 = (temp_output_17_0_g3049).xx;
+				float2 temp_cast_7 = (( 1.0 - temp_output_17_0_g3049 )).xx;
+				float2 break5_g3049 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_6) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_7 - temp_cast_6)) );
+				float temp_output_1_0_g3051 = break5_g3049.x;
+				float temp_output_9_0_g3049 = ( ( abs( ( ( temp_output_1_0_g3051 - floor( ( temp_output_1_0_g3051 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3049 = ( _Feather + -1.0 );
+				float2 break40_g3049 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3049 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3049 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) * saturate( (0.0 + (break40_g3049.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) ) );
+				#ifdef _USEINFINITYFEATHER_ON
+				float staticSwitch1654 = temp_output_15_0_g3049;
+				#else
+				float staticSwitch1654 = 1.0;
+				#endif
+				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
+				float Foamness294 = ( ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale ) * InfinityFeather1410 );
+				float2 temp_cast_8 = (_FoamNoiseSpeed).xx;
 				float3 break35 = ase_worldPos;
 				float2 appendResult36 = (float2(break35.x , break35.z));
-				float3 worldPosIN2078 = ase_worldPos;
-				float4 ase_clipPos = TransformObjectToHClip((v.vertex).xyz);
-				float4 screenPos = ComputeScreenPos(ase_clipPos);
-				float4 ase_screenPosNorm = screenPos / screenPos.w;
-				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 screenPos2078 = ase_screenPosNorm.xy;
-				float3 QuadNormal2078 = float3( 0,1,0 );
-				float3 QuadPosition2078 = float3(0,-4,0);
-				float4 localBillboard2078 = Billboard2078( worldPosIN2078 , screenPos2078 , QuadNormal2078 , QuadPosition2078 );
-				float temp_output_2080_0 = (localBillboard2078).w;
-				float2 temp_output_2096_0 = ( (localBillboard2078).xy * temp_output_2080_0 );
-				#ifdef _HORIZONMAPPED_ON
-				float2 staticSwitch2082 = temp_output_2096_0;
-				#else
-				float2 staticSwitch2082 = appendResult36;
-				#endif
-				float2 WorldXZ1087 = staticSwitch2082;
-				float2 panner138 = ( 1.0 * _Time.y * temp_cast_4 + ( WorldXZ1087 * _FoamNoiseScale ));
+				float2 WorldXZ1087 = appendResult36;
+				float2 panner138 = ( 1.0 * _Time.y * temp_cast_8 + ( WorldXZ1087 * _FoamNoiseScale ));
 				float lerpResult133 = lerp( 1.0 , SAMPLE_TEXTURE2D_LOD( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( 0.04 * panner138 ), 0.0 ).r , _FoamNoiseCon);
-				float2 temp_cast_6 = (_FoamNoiseSpeed).xx;
-				float2 panner168 = ( 1.0 * _Time.y * temp_cast_6 + ( WorldXZ1087 * _FoamNoiseScale2 ));
+				float2 temp_cast_9 = (_FoamNoiseSpeed).xx;
+				float2 panner168 = ( 1.0 * _Time.y * temp_cast_9 + ( WorldXZ1087 * _FoamNoiseScale2 ));
 				float lerpResult161 = lerp( 1.0 , SAMPLE_TEXTURE2D_LOD( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( panner168 * 0.04 ), 0.0 ).r , _FoamNoiseCon2);
 				float UnderOffset1634 = GlobalOceanOffset;
 				float3 appendResult2127 = (float3(break1605.x , ( break1605.y + UnderOffset1634 ) , break1605.z));
-				float3 VertResOffset2125 = appendResult2127;
+				float3 vertexToFrag3421 = appendResult2127;
+				float3 VertResOffset2125 = vertexToFrag3421;
 				float3 customSurfaceDepth1169 = VertResOffset2125;
 				float customEye1169 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1169)).z;
 				float cameraDepthFade1169 = (( customEye1169 -_ProjectionParams.y - 0.0 ) / _DistanceFadeA);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2110 = 0.0;
-				#else
-				float staticSwitch2110 = saturate( cameraDepthFade1169 );
-				#endif
-				float DistanceFadeA1294 = staticSwitch2110;
-				#ifdef _USEWAVENOISEDISPLACE_ON
-				float staticSwitch680 = ( Foamness294 + ( ( lerpResult133 + lerpResult161 ) * ( ( 1.0 - DistanceFadeA1294 ) * 0.4 ) ) );
-				#else
-				float staticSwitch680 = Foamness294;
-				#endif
-				float DepthCacheRemap109 = staticSwitch680;
+				float DistanceFadeA1294 = saturate( cameraDepthFade1169 );
+				float temp_output_318_0 = ( Foamness294 + ( ( lerpResult133 + lerpResult161 ) * ( ( 1.0 - DistanceFadeA1294 ) * 0.4 ) ) );
+				float DepthCacheRemap109 = temp_output_318_0;
 				float temp_output_5_0_g3212 = ( 1.0 - DepthCacheRemap109 );
 				float mulTime209 = _TimeParameters.x * ( _WaveSpeed * 0.1 );
 				float2 appendResult868 = (float2(_WaveDirectionSettings.x , _WaveDirectionSettings.y));
 				float WaveCenterDistance1051 = distance( WorldXZ1087 , appendResult868 );
-				#ifdef _USEWAVEDIRECTION_ON
-				float staticSwitch762 = ( mulTime209 + ( ( WaveCenterDistance1051 * -0.01 ) / _WaveDirectionSettings.z ) );
-				#else
-				float staticSwitch762 = ( 0.0 - mulTime209 );
-				#endif
-				float temp_output_17_0_g3212 = staticSwitch762;
+				float temp_output_839_0 = ( mulTime209 + ( ( WaveCenterDistance1051 * -0.01 ) / _WaveDirectionSettings.z ) );
+				float temp_output_17_0_g3212 = temp_output_839_0;
 				float temp_output_30_0_g3212 = ( 1.0 - saturate( 0.7 ) );
 				float temp_output_35_0_g3212 = ( temp_output_30_0_g3212 * 0.5 );
 				float temp_output_32_0_g3212 = ( (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) - temp_output_35_0_g3212 );
 				float temp_output_31_0_g3212 = ( temp_output_35_0_g3212 + (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) );
 				float DepthCacheWave184 = ( 1.0 - frac( (0.0 + (temp_output_5_0_g3212 - temp_output_32_0_g3212) * (1.0 - 0.0) / (temp_output_31_0_g3212 - temp_output_32_0_g3212)) ) );
 				float clampResult124 = clamp( DepthCacheWave184 , 0.01 , 0.99 );
-				float2 temp_cast_7 = (clampResult124).xx;
-				float4 tex2DNode76 = SAMPLE_TEXTURE2D_LOD( _FoamLUT, sampler_Linear_Clamp, temp_cast_7, 0.0 );
+				float2 temp_cast_10 = (clampResult124).xx;
+				float4 tex2DNode76 = SAMPLE_TEXTURE2D_LOD( _FoamLUT, sampler_Linear_Clamp, temp_cast_10, 0.0 );
 				float smoothstepResult279 = smoothstep( 0.0 , 1.0 , tex2DNode76.a);
 				float3 customSurfaceDepth1325 = VertResOffset2125;
 				float customEye1325 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1325)).z;
 				float cameraDepthFade1325 = (( customEye1325 -_ProjectionParams.y - 0.0 ) / _DistanceFadeB);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2111 = 0.0;
-				#else
-				float staticSwitch2111 = saturate( cameraDepthFade1325 );
-				#endif
-				float DistanceFadeB1326 = staticSwitch2111;
+				float DistanceFadeB1326 = saturate( cameraDepthFade1325 );
 				float lerpResult1311 = lerp( smoothstepResult279 , 0.0 , DistanceFadeB1326);
-				float FoamVertDisp261 = saturate( lerpResult1311 );
+				#ifdef _USEFOAM_ON
+				float staticSwitch3358 = saturate( lerpResult1311 );
+				#else
+				float staticSwitch3358 = 0.0;
+				#endif
+				float FoamVertDisp261 = staticSwitch3358;
 				float temp_output_240_0 = ( FoamVertDisp261 * _VertDispMult * 0.1 );
 				float ShoreMaskVert586 = saturate( (0.0 + (( CaptureB_Distancex100200 * 100.0 ) - _RemapVertShore.x) * (1.0 - 0.0) / (_RemapVertShore.y - _RemapVertShore.x)) );
 				float VertDispDistMask22014 = ( 1.0 - saturate( (0.0 + (distance( WorldXZ1087 , (_WorldSpaceCameraPos).xz ) - 5.0) * (1.0 - 0.0) / (7.9 - 5.0)) ) );
@@ -1424,28 +1377,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float customEye1484 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1484)).z;
 				float cameraDepthFade1484 = (( customEye1484 -_ProjectionParams.y - 0.0 ) / 1.0);
 				float CamDepthFade1495 = cameraDepthFade1484;
-				float temp_output_17_0_g3206 = 0.01;
-				float2 temp_cast_8 = (temp_output_17_0_g3206).xx;
-				float2 temp_cast_9 = (( 1.0 - temp_output_17_0_g3206 )).xx;
-				float2 break5_g3206 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_8) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_9 - temp_cast_8)) );
-				float temp_output_1_0_g3208 = break5_g3206.x;
-				float temp_output_8_0_g3206 = ( 0.1 + -1.0 );
-				float temp_output_1_0_g3207 = break5_g3206.y;
-				float temp_output_2768_0 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3208 - floor( ( temp_output_1_0_g3208 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3207 - floor( ( temp_output_1_0_g3207 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) ) );
-				float temp_output_2763_0 = saturate( ( temp_output_2768_0 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
-				float temp_output_17_0_g3209 = _Tolerance;
-				float2 temp_cast_10 = (temp_output_17_0_g3209).xx;
-				float2 temp_cast_11 = (( 1.0 - temp_output_17_0_g3209 )).xx;
-				float2 break5_g3209 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_10) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_11 - temp_cast_10)) );
-				float temp_output_1_0_g3211 = break5_g3209.x;
-				float temp_output_8_0_g3209 = ( _Feather + -1.0 );
-				float temp_output_1_0_g3210 = break5_g3209.y;
-				#ifdef _USEINFINITYFEATHER_ON
-				float staticSwitch1654 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3211 - floor( ( temp_output_1_0_g3211 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3210 - floor( ( temp_output_1_0_g3210 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) ) );
-				#else
-				float staticSwitch1654 = 1.0;
-				#endif
-				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
 				float VertDispMaskRes1691 = ( ShoreMaskVert586 * saturate( VertDispDistMask22014 ) * saturate( (0.0 + (CamDepthFade1495 - 0.2) * (1.0 - 0.0) / (1.5 - 0.2)) ) * InfinityFeather1410 );
 				float temp_output_238_0 = ( temp_output_240_0 * VertDispMaskRes1691 );
 				#ifdef _USEVERTDISPLACEMENT_ON
@@ -1453,7 +1384,8 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#else
 				float staticSwitch1688 = 0.0;
 				#endif
-				float VertAdded1524 = staticSwitch1688;
+				float vertexToFrag3514 = staticSwitch1688;
+				float VertAdded1524 = vertexToFrag3514;
 				float3 appendResult1606 = (float3(break1605.x , ( break1605.y + VertAdded1524 + UnderOffset1634 ) , break1605.z));
 				float3 VertResDisplaced328 = appendResult1606;
 				
@@ -1462,49 +1394,43 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float4 screenPos1850 = ComputeScreenPos(ase_clipPos1850);
 				o.ase_texcoord9 = screenPos1850;
 				o.ase_texcoord8.z = customEye1169;
-				
 				o.ase_texcoord8.w = customEye1325;
-				float3 customSurfaceDepth2817 = VertResOffset2125;
-				float customEye2817 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth2817)).z;
-				o.ase_texcoord10.x = customEye2817;
-				o.ase_texcoord10.y = customEye1484;
+				o.ase_texcoord10.x = vertexToFrag3514;
 				float3 customSurfaceDepth2418 = VertResDisplaced328;
 				float customEye2418 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth2418)).z;
-				o.ase_texcoord10.z = customEye2418;
-				float3 customSurfaceDepth2812 = VertResOffset2125;
-				float customEye2812 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth2812)).z;
-				o.ase_texcoord10.w = customEye2812;
+				o.ase_texcoord10.y = customEye2418;
+				
+				o.ase_texcoord10.z = customEye1484;
+				float4 Pos6_g3816 = float4( ase_worldPos , 0.0 );
+				float4x4 Mat6_g3816 = _BakeMatrix;
+				float3 localMatrixMulThatWorks6_g3816 = MatrixMulThatWorks( Pos6_g3816 , Mat6_g3816 );
+				float3 break4_g3815 = localMatrixMulThatWorks6_g3816;
+				float2 appendResult3_g3815 = (float2(break4_g3815.x , break4_g3815.z));
+				float2 vertexToFrag7_g3815 = ( float2( 0.5,0.5 ) + appendResult3_g3815 );
+				float2 LightingUV11_g3815 = vertexToFrag7_g3815;
+				float4 temp_output_21_0_g3820 = _bakeLightmapST;
+				float2 vertexToFrag10_g3820 = ( ( LightingUV11_g3815 * (temp_output_21_0_g3820).xy ) + (temp_output_21_0_g3820).zw );
+				o.ase_texcoord11.xy = vertexToFrag10_g3820;
+				float4 temp_output_21_0_g3821 = _bakeLightmapST;
+				float2 vertexToFrag10_g3821 = ( ( LightingUV11_g3815 * (temp_output_21_0_g3821).xy ) + (temp_output_21_0_g3821).zw );
+				o.ase_texcoord11.zw = vertexToFrag10_g3821;
 				float3 _Vector3 = float3(0,0,-1);
-				float4 Pos6_g3381 = float4( _Vector3 , 0.0 );
-				float4x4 Mat6_g3381 = _CausticMatrix;
-				float3 localMatrixMulThatWorks6_g3381 = MatrixMulThatWorks( Pos6_g3381 , Mat6_g3381 );
-				float3 normalizeResult147_g3379 = normalize( localMatrixMulThatWorks6_g3381 );
-				float3 vertexToFrag144_g3379 = normalizeResult147_g3379;
-				o.ase_texcoord11.xyz = vertexToFrag144_g3379;
-				float3 objToWorld3_g3383 = mul( GetObjectToWorldMatrix(), float4( v.vertex.xyz, 1 ) ).xyz;
-				float3 vertexToFrag7_g3383 = objToWorld3_g3383;
-				o.ase_texcoord12.xyz = vertexToFrag7_g3383;
-				
-				float4 Pos6_g3428 = float4( ase_worldPos , 0.0 );
-				float4x4 Mat6_g3428 = _BakeMatrix;
-				float3 localMatrixMulThatWorks6_g3428 = MatrixMulThatWorks( Pos6_g3428 , Mat6_g3428 );
-				float3 break4_g3427 = localMatrixMulThatWorks6_g3428;
-				float2 appendResult3_g3427 = (float2(break4_g3427.x , break4_g3427.z));
-				float2 vertexToFrag7_g3427 = ( float2( 0.5,0.5 ) + appendResult3_g3427 );
-				float2 LightingUV11_g3427 = vertexToFrag7_g3427;
-				float4 temp_output_21_0_g3432 = _bakeLightmapST;
-				float2 vertexToFrag10_g3432 = ( ( LightingUV11_g3427 * (temp_output_21_0_g3432).xy ) + (temp_output_21_0_g3432).zw );
-				o.ase_texcoord13.xy = vertexToFrag10_g3432;
-				
-				float4 temp_output_21_0_g3433 = _bakeLightmapST;
-				float2 vertexToFrag10_g3433 = ( ( LightingUV11_g3427 * (temp_output_21_0_g3433).xy ) + (temp_output_21_0_g3433).zw );
-				o.ase_texcoord13.zw = vertexToFrag10_g3433;
+				float4 Pos6_g3813 = float4( _Vector3 , 0.0 );
+				float4x4 Mat6_g3813 = _CausticMatrix;
+				float3 localMatrixMulThatWorks6_g3813 = MatrixMulThatWorks( Pos6_g3813 , Mat6_g3813 );
+				float3 normalizeResult147_g3811 = normalize( localMatrixMulThatWorks6_g3813 );
+				float3 vertexToFrag144_g3811 = normalizeResult147_g3811;
+				o.ase_texcoord12.xyz = vertexToFrag144_g3811;
+				float3 objToWorld3_g3534 = mul( GetObjectToWorldMatrix(), float4( v.vertex.xyz, 1 ) ).xyz;
+				float3 vertexToFrag7_g3534 = objToWorld3_g3534;
+				o.ase_texcoord13.xyz = vertexToFrag7_g3534;
 				
 				o.ase_texcoord8.xy = v.texcoord.xy;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
-				o.ase_texcoord11.w = 0;
+				o.ase_texcoord10.w = 0;
 				o.ase_texcoord12.w = 0;
+				o.ase_texcoord13.w = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
@@ -1746,77 +1672,71 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float2 staticSwitch1346 = ( float2( 0.5,0.5 ) + appendResult16 );
 				#endif
 				float2 CacheUV1109 = staticSwitch1346;
-				float temp_output_17_0_g3206 = 0.01;
-				float2 temp_cast_2 = (temp_output_17_0_g3206).xx;
-				float2 temp_cast_3 = (( 1.0 - temp_output_17_0_g3206 )).xx;
-				float2 break5_g3206 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_2) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_3 - temp_cast_2)) );
-				float temp_output_1_0_g3208 = break5_g3206.x;
-				float temp_output_8_0_g3206 = ( 0.1 + -1.0 );
-				float temp_output_1_0_g3207 = break5_g3206.y;
-				float temp_output_2768_0 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3208 - floor( ( temp_output_1_0_g3208 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3207 - floor( ( temp_output_1_0_g3207 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) ) );
+				float temp_output_17_0_g3040 = 0.01;
+				float2 temp_cast_2 = (temp_output_17_0_g3040).xx;
+				float2 temp_cast_3 = (( 1.0 - temp_output_17_0_g3040 )).xx;
+				float2 break5_g3040 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_2) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_3 - temp_cast_2)) );
+				float temp_output_1_0_g3042 = break5_g3040.x;
+				float temp_output_9_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3042 - floor( ( temp_output_1_0_g3042 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3040 = ( 0.1 + -1.0 );
+				float temp_output_1_0_g3041 = break5_g3040.y;
+				float temp_output_6_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3041 - floor( ( temp_output_1_0_g3041 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_15_0_g3040 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) * saturate( (0.0 + (temp_output_6_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) ) );
 				float4 tex2DNode13 = SAMPLE_TEXTURE2D( _DepthCache, sampler_Linear_Clamp, CacheUV1109 );
-				float temp_output_17_0_g3203 = 0.001;
-				float2 temp_cast_4 = (temp_output_17_0_g3203).xx;
-				float2 temp_cast_5 = (( 1.0 - temp_output_17_0_g3203 )).xx;
-				float2 break5_g3203 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_4) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_5 - temp_cast_4)) );
-				float temp_output_1_0_g3205 = break5_g3203.x;
-				float temp_output_8_0_g3203 = ( 0.001 + -1.0 );
-				float temp_output_1_0_g3204 = break5_g3203.y;
-				float temp_output_2766_0 = saturate( saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3205 - floor( ( temp_output_1_0_g3205 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3204 - floor( ( temp_output_1_0_g3204 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) ) ) );
+				float temp_output_17_0_g3046 = 0.001;
+				float2 temp_cast_4 = (temp_output_17_0_g3046).xx;
+				float2 temp_cast_5 = (( 1.0 - temp_output_17_0_g3046 )).xx;
+				float2 break5_g3046 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_4) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_5 - temp_cast_4)) );
+				float temp_output_1_0_g3048 = break5_g3046.x;
+				float temp_output_9_0_g3046 = ( ( abs( ( ( temp_output_1_0_g3048 - floor( ( temp_output_1_0_g3048 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3046 = ( 0.001 + -1.0 );
+				float2 appendResult24_g3040 = (float2(temp_output_9_0_g3040 , temp_output_6_0_g3040));
+				float2 CacheUVPreFeather3438 = appendResult24_g3040;
+				float2 break40_g3046 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3046 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3046 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) * saturate( (0.0 + (break40_g3046.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) ) );
+				float temp_output_2766_0 = saturate( temp_output_15_0_g3046 );
 				float lerpResult3090 = lerp( 1000.0 , ( tex2DNode13.b * 100.0 ) , temp_output_2766_0);
 				float CaptureB_Distancex100200 = lerpResult3090;
-				float temp_output_2763_0 = saturate( ( temp_output_2768_0 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
-				float temp_output_17_0_g3209 = _Tolerance;
-				float2 temp_cast_6 = (temp_output_17_0_g3209).xx;
-				float2 temp_cast_7 = (( 1.0 - temp_output_17_0_g3209 )).xx;
-				float2 break5_g3209 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_6) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_7 - temp_cast_6)) );
-				float temp_output_1_0_g3211 = break5_g3209.x;
-				float temp_output_8_0_g3209 = ( _Feather + -1.0 );
-				float temp_output_1_0_g3210 = break5_g3209.y;
+				float temp_output_2763_0 = saturate( ( temp_output_15_0_g3040 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
+				float temp_output_17_0_g3049 = _Tolerance;
+				float2 temp_cast_6 = (temp_output_17_0_g3049).xx;
+				float2 temp_cast_7 = (( 1.0 - temp_output_17_0_g3049 )).xx;
+				float2 break5_g3049 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_6) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_7 - temp_cast_6)) );
+				float temp_output_1_0_g3051 = break5_g3049.x;
+				float temp_output_9_0_g3049 = ( ( abs( ( ( temp_output_1_0_g3051 - floor( ( temp_output_1_0_g3051 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3049 = ( _Feather + -1.0 );
+				float2 break40_g3049 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3049 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3049 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) * saturate( (0.0 + (break40_g3049.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) ) );
 				#ifdef _USEINFINITYFEATHER_ON
-				float staticSwitch1654 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3211 - floor( ( temp_output_1_0_g3211 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3210 - floor( ( temp_output_1_0_g3210 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) ) );
+				float staticSwitch1654 = temp_output_15_0_g3049;
 				#else
 				float staticSwitch1654 = 1.0;
 				#endif
 				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
-				float CamNear1615 = saturate( (0.0 + (distance( _WorldSpaceCameraPos , WorldPosition ) - 0.1) * (1.0 - 0.0) / (0.6 - 0.1)) );
+				float temp_output_2951_0 = distance( (WorldPosition).xz , (_WorldSpaceCameraPos).xz );
+				float CamDistance3490 = temp_output_2951_0;
+				#ifdef _TRANSPARENTGRABPASS_ON
+				float staticSwitch2444 = saturate( (0.0 + (CamDistance3490 - 0.1) * (1.0 - 0.0) / (0.6 - 0.1)) );
+				#else
+				float staticSwitch2444 = 1.0;
+				#endif
+				float CamNear1615 = staticSwitch2444;
 				float4 screenPos1850 = IN.ase_texcoord9;
 				float4 ase_screenPosNorm1850 = screenPos1850 / screenPos1850.w;
 				ase_screenPosNorm1850.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm1850.z : ase_screenPosNorm1850.z * 0.5 + 0.5;
 				float screenDepth1850 = LinearEyeDepth(SHADERGRAPH_SAMPLE_SCENE_DEPTH( ase_screenPosNorm1850.xy ),_ZBufferParams);
 				float distanceDepth1850 = saturate( abs( ( screenDepth1850 - LinearEyeDepth( ase_screenPosNorm1850.z,_ZBufferParams ) ) / ( 0.2 ) ) );
-				float DepthFader1847 = distanceDepth1850;
-				float2 appendResult87 = (float2(_Motion.x , _Motion.y));
-				float2 MotionXY1084 = appendResult87;
-				float3 break35 = WorldPosition;
-				float2 appendResult36 = (float2(break35.x , break35.z));
-				float3 worldPosIN2078 = WorldPosition;
-				float4 ase_screenPosNorm = ScreenPos / ScreenPos.w;
-				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 screenPos2078 = ase_screenPosNorm.xy;
-				float3 QuadNormal2078 = float3( 0,1,0 );
-				float3 QuadPosition2078 = float3(0,-4,0);
-				float4 localBillboard2078 = Billboard2078( worldPosIN2078 , screenPos2078 , QuadNormal2078 , QuadPosition2078 );
-				float temp_output_2080_0 = (localBillboard2078).w;
-				float2 temp_output_2096_0 = ( (localBillboard2078).xy * temp_output_2080_0 );
-				#ifdef _HORIZONMAPPED_ON
-				float2 staticSwitch2082 = temp_output_2096_0;
+				#ifdef _TRANSPARENTGRABPASS_ON
+				float staticSwitch3374 = distanceDepth1850;
 				#else
-				float2 staticSwitch2082 = appendResult36;
+				float staticSwitch3374 = 1.0;
 				#endif
-				float2 WorldXZ1087 = staticSwitch2082;
-				float2 panner527 = ( -0.03 * _Time.y * MotionXY1084 + WorldXZ1087);
-				float4 tex2DNode91 = SAMPLE_TEXTURE2D( _FoamTexture, sampler_FoamTexture, (panner527*( _FoamScale_UseFoam * 0.2 ) + 0.0) );
-				float2 panner74 = ( 0.05 * _Time.y * MotionXY1084 + WorldXZ1087);
-				#ifdef _USEFOAMEXTRASAMPLER_ON
-				float staticSwitch1679 = ( SAMPLE_TEXTURE2D( _FoamTexture, sampler_FoamTexture, (panner74*_FoamScale_UseFoam + 0.0) ).r + tex2DNode91.r );
-				#else
-				float staticSwitch1679 = ( tex2DNode91.r * 1.8 );
-				#endif
-				float4 break984 = _RemapFoam;
-				float temp_output_172_0 = saturate( (0.0 + (( 100.0 * CaptureB_Distancex100200 ) - break984.x) * (1.0 - 0.0) / (break984.y - break984.x)) );
+				float DepthFader1847 = staticSwitch3374;
 				float2 appendResult892 = (float2(_Motion2.x , _Motion2.y));
 				float2 Motion2XY1096 = appendResult892;
+				float3 break35 = WorldPosition;
+				float2 appendResult36 = (float2(break35.x , break35.z));
+				float2 WorldXZ1087 = appendResult36;
 				float2 panner890 = ( 0.05 * _Time.y * Motion2XY1096 + WorldXZ1087);
 				#ifdef GlobalPlanarReflection
 				float staticSwitch1591 = _NormalPow;
@@ -1839,179 +1759,162 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				unpack1718.z = lerp( 1, unpack1718.z, saturate(switchResult1432) );
 				float3 temp_output_1719_0 = BlendNormal( unpack84 , unpack1718 );
 				float3 temp_output_83_0 = BlendNormal( tex2DNode11 , temp_output_1719_0 );
-				#ifdef _USEEXTRANORMALS_ON
-				float3 staticSwitch1683 = temp_output_83_0;
-				#else
-				float3 staticSwitch1683 = temp_output_83_0;
-				#endif
-				float2 appendResult1049 = (float2(staticSwitch1683.xy));
+				float2 appendResult1049 = (float2(temp_output_83_0.xy));
 				float2 RefNorm886 = appendResult1049;
 				float RefBumpSlider1337 = _RefDistortion;
-				float3 normalizeResult2273 = normalize( ( staticSwitch1683 + float3( ( RefNorm886 * RefBumpSlider1337 ) ,  0.0 ) ) );
+				float3 normalizeResult2273 = normalize( ( float3( ( RefNorm886 * RefBumpSlider1337 ) ,  0.0 ) + temp_output_83_0 ) );
 				float2 appendResult2519 = (float2(normalizeResult2273.xy));
 				float temp_output_307_0 = ( 1.0 - saturate( abs( CaptureB_Distancex100200 ) ) );
-				float Foamness294 = ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale );
-				float2 lerpResult2274 = lerp( float2( 0,0 ) , appendResult2519 , ( _WaterRefractonMobile * 0.5 * saturate( Foamness294 ) ));
+				float Foamness294 = ( ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale ) * InfinityFeather1410 );
+				float2 lerpResult2274 = lerp( float2( 0,0 ) , appendResult2519 , ( _WaterRefractonMobile * 0.5 * ( 1.0 - saturate( Foamness294 ) ) ));
 				float customEye1169 = IN.ase_texcoord8.z;
 				float cameraDepthFade1169 = (( customEye1169 -_ProjectionParams.y - 0.0 ) / _DistanceFadeA);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2110 = 0.0;
-				#else
-				float staticSwitch2110 = saturate( cameraDepthFade1169 );
-				#endif
-				float DistanceFadeA1294 = staticSwitch2110;
+				float DistanceFadeA1294 = saturate( cameraDepthFade1169 );
 				float temp_output_1414_0 = ( ( 1.0 - InfinityFeather1410 ) * saturate( DistanceFadeA1294 ) );
 				float2 lerpResult2275 = lerp( lerpResult2274 , float2( 0,0 ) , temp_output_1414_0);
-				#ifdef _TRANSPARENTGRABPASS_ON
-				float2 staticSwitch2542 = float2( 0,0 );
-				#else
-				float2 staticSwitch2542 = lerpResult2275;
-				#endif
-				float2 RefHackeryForColorCache2269 = staticSwitch2542;
-				float2 temp_output_2198_0 = ( RefHackeryForColorCache2269 + CacheUV1109 );
-				float4 tex2DNode657 = SAMPLE_TEXTURE2D( _ColorCache, sampler_Linear_Clamp, temp_output_2198_0 );
+				float2 RefHackeryForColorCache2269 = lerpResult2275;
+				float4 tex2DNode657 = SAMPLE_TEXTURE2D( _ColorCache, sampler_Linear_Clamp, ( RefHackeryForColorCache2269 + CacheUV1109 ) );
 				float ColorCacheA2171 = tex2DNode657.a;
 				float temp_output_12_0_g3214 = InfinityFeather1410;
 				float CaptureDepthAOffsetShore1177 = ( ( ColorCacheA2171 * temp_output_12_0_g3214 ) + ( 1.0 - temp_output_12_0_g3214 ) );
 				float4 break993 = _RemapAlpha;
-				float switchResult2294 = (((ase_vface>0)?(saturate( (0.0 + (CaptureDepthAOffsetShore1177 - break993.x) * (1.0 - 0.0) / (break993.y - break993.x)) )):(1.0)));
+				float temp_output_1000_0 = saturate( (0.0 + (CaptureDepthAOffsetShore1177 - break993.x) * (1.0 - 0.0) / (break993.y - break993.x)) );
+				float switchResult2294 = (((ase_vface>0)?(temp_output_1000_0):(1.0)));
 				float ShoreMaskDepthAlpha141 = switchResult2294;
-				float temp_output_199_0 = saturate( (0.0 + (( 5.0 * CaptureB_Distancex100200 ) - break984.z) * (1.0 - 0.0) / (( break984.w * _FoamMaxDistance ) - break984.z)) );
-				float temp_output_981_0 = ( 1.0 - temp_output_199_0 );
-				float temp_output_982_0 = ( temp_output_172_0 * ShoreMaskDepthAlpha141 * temp_output_981_0 );
-				float FoamFeather2372 = temp_output_982_0;
-				float2 temp_cast_12 = (_FoamNoiseSpeed).xx;
-				float2 panner138 = ( 1.0 * _Time.y * temp_cast_12 + ( WorldXZ1087 * _FoamNoiseScale ));
-				float lerpResult133 = lerp( 1.0 , SAMPLE_TEXTURE2D( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( 0.04 * panner138 ) ).r , _FoamNoiseCon);
+				float4 ase_screenPosNorm = ScreenPos / ScreenPos.w;
+				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
+				float2 appendResult2445 = (float2(ase_screenPosNorm.xy));
+				float2 appendResult2856 = (float2(temp_output_1719_0.xy));
+				float SeaAlpha2FoamAndNormal205 = InfinityFeather1410;
 				float2 temp_cast_13 = (_FoamNoiseSpeed).xx;
-				float2 panner168 = ( 1.0 * _Time.y * temp_cast_13 + ( WorldXZ1087 * _FoamNoiseScale2 ));
+				float2 panner138 = ( 1.0 * _Time.y * temp_cast_13 + ( WorldXZ1087 * _FoamNoiseScale ));
+				float lerpResult133 = lerp( 1.0 , SAMPLE_TEXTURE2D( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( 0.04 * panner138 ) ).r , _FoamNoiseCon);
+				float2 temp_cast_14 = (_FoamNoiseSpeed).xx;
+				float2 panner168 = ( 1.0 * _Time.y * temp_cast_14 + ( WorldXZ1087 * _FoamNoiseScale2 ));
 				float lerpResult161 = lerp( 1.0 , SAMPLE_TEXTURE2D( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( panner168 * 0.04 ) ).r , _FoamNoiseCon2);
-				#ifdef _USEWAVENOISEDISPLACE_ON
-				float staticSwitch680 = ( Foamness294 + ( ( lerpResult133 + lerpResult161 ) * ( ( 1.0 - DistanceFadeA1294 ) * 0.4 ) ) );
-				#else
-				float staticSwitch680 = Foamness294;
-				#endif
-				float DepthCacheRemap109 = staticSwitch680;
+				float temp_output_318_0 = ( Foamness294 + ( ( lerpResult133 + lerpResult161 ) * ( ( 1.0 - DistanceFadeA1294 ) * 0.4 ) ) );
+				float DepthCacheRemap109 = temp_output_318_0;
 				float temp_output_5_0_g3212 = ( 1.0 - DepthCacheRemap109 );
 				float mulTime209 = _TimeParameters.x * ( _WaveSpeed * 0.1 );
 				float2 appendResult868 = (float2(_WaveDirectionSettings.x , _WaveDirectionSettings.y));
 				float WaveCenterDistance1051 = distance( WorldXZ1087 , appendResult868 );
-				#ifdef _USEWAVEDIRECTION_ON
-				float staticSwitch762 = ( mulTime209 + ( ( WaveCenterDistance1051 * -0.01 ) / _WaveDirectionSettings.z ) );
-				#else
-				float staticSwitch762 = ( 0.0 - mulTime209 );
-				#endif
-				float temp_output_17_0_g3212 = staticSwitch762;
+				float temp_output_839_0 = ( mulTime209 + ( ( WaveCenterDistance1051 * -0.01 ) / _WaveDirectionSettings.z ) );
+				float temp_output_17_0_g3212 = temp_output_839_0;
 				float temp_output_30_0_g3212 = ( 1.0 - saturate( 0.7 ) );
 				float temp_output_35_0_g3212 = ( temp_output_30_0_g3212 * 0.5 );
 				float temp_output_32_0_g3212 = ( (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) - temp_output_35_0_g3212 );
 				float temp_output_31_0_g3212 = ( temp_output_35_0_g3212 + (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) );
 				float DepthCacheWave184 = ( 1.0 - frac( (0.0 + (temp_output_5_0_g3212 - temp_output_32_0_g3212) * (1.0 - 0.0) / (temp_output_31_0_g3212 - temp_output_32_0_g3212)) ) );
 				float clampResult124 = clamp( DepthCacheWave184 , 0.01 , 0.99 );
-				float2 temp_cast_14 = (clampResult124).xx;
-				float4 tex2DNode76 = SAMPLE_TEXTURE2D_LOD( _FoamLUT, sampler_Linear_Clamp, temp_cast_14, 0.0 );
-				float FoamMaskResult122 = frac( ( FoamFeather2372 * tex2DNode76.r ) );
-				float temp_output_142_0 = saturate( FoamMaskResult122 );
-				float temp_output_39_0 = ( staticSwitch1679 * temp_output_142_0 );
-				float3 temp_output_1099_0 = ( ( ( pow( temp_output_39_0 , _FoamPow ) * 0.5 ) + saturate( ( pow( temp_output_39_0 , 3.0 ) + ( ( saturate( pow( temp_output_142_0 , 4.0 ) ) - 0.5 ) * 0.3 ) ) ) ) * (_FoamColor).rgb * InfinityFeather1410 * 0.4 );
-				#ifdef _USEFOAM_ON
-				float3 staticSwitch1687 = temp_output_1099_0;
-				#else
-				float3 staticSwitch1687 = float3( 0,0,0 );
-				#endif
-				float3 AlbedoRes465 = staticSwitch1687;
-				float3 temp_output_11_0_g3347 = AlbedoRes465;
-				float temp_output_23_0_g3347 = GlobalOceanUnder;
-				float3 ifLocalVar4_g3347 = 0;
-				UNITY_BRANCH 
-				if( temp_output_23_0_g3347 >= 1.0 )
-				ifLocalVar4_g3347 = temp_output_11_0_g3347;
-				else
-				ifLocalVar4_g3347 = temp_output_11_0_g3347;
-				#ifdef _USEGRADIENTFOG_ON
-				float3 staticSwitch6_g3347 = ifLocalVar4_g3347;
-				#else
-				float3 staticSwitch6_g3347 = temp_output_11_0_g3347;
-				#endif
-				#ifdef _USEUNDERWATER
-				float3 staticSwitch214_g3347 = staticSwitch6_g3347;
-				#else
-				float3 staticSwitch214_g3347 = temp_output_11_0_g3347;
-				#endif
-				float3 temp_output_3047_0 = staticSwitch214_g3347;
-				float temp_output_2951_0 = distance( (WorldPosition).xz , (_WorldSpaceCameraPos).xz );
-				float temp_output_2955_0 = saturate( (1.0 + (temp_output_2951_0 - 100.0) * (0.0 - 1.0) / (8000.0 - 100.0)) );
-				float temp_output_2949_0 = pow( temp_output_2955_0 , 8.0 );
-				float4 temp_output_2892_0 = saturate( ( float4( ( InfinityFeather1410 * CamNear1615 * DepthFader1847 * temp_output_3047_0 * ShoreMaskDepthAlpha141 ) , 0.0 ) + ( _WaterAlbedo * temp_output_2949_0 * CamNear1615 * DepthFader1847 * ShoreMaskDepthAlpha141 ) ) );
-				float4 AlbedoRes22337 = temp_output_2892_0;
-				
-				float3 appendResult1062 = (float3(tex2DNode657.rgb));
-				float3 ColorCacheRGB1061 = ( InfinityFeather1410 * appendResult1062 );
-				float temp_output_2998_0 = saturate( ( ( -0.2 * min( -CaptureDepthAOffsetShore1177 , 0.0 ) ) / _RemapWaterDistance1 ) );
-				float2 appendResult2445 = (float2(ase_screenPosNorm.xy));
-				float2 appendResult2856 = (float2(temp_output_1719_0.xy));
-				float SeaAlpha2FoamAndNormal205 = InfinityFeather1410;
+				float2 temp_cast_15 = (clampResult124).xx;
+				float4 tex2DNode76 = SAMPLE_TEXTURE2D_LOD( _FoamLUT, sampler_Linear_Clamp, temp_cast_15, 0.0 );
 				float smoothstepResult279 = smoothstep( 0.0 , 1.0 , tex2DNode76.a);
 				float customEye1325 = IN.ase_texcoord8.w;
 				float cameraDepthFade1325 = (( customEye1325 -_ProjectionParams.y - 0.0 ) / _DistanceFadeB);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2111 = 0.0;
-				#else
-				float staticSwitch2111 = saturate( cameraDepthFade1325 );
-				#endif
-				float DistanceFadeB1326 = staticSwitch2111;
+				float DistanceFadeB1326 = saturate( cameraDepthFade1325 );
 				float lerpResult1311 = lerp( smoothstepResult279 , 0.0 , DistanceFadeB1326);
-				float FoamVertDisp261 = saturate( lerpResult1311 );
+				#ifdef _USEFOAM_ON
+				float staticSwitch3358 = saturate( lerpResult1311 );
+				#else
+				float staticSwitch3358 = 0.0;
+				#endif
+				float FoamVertDisp261 = staticSwitch3358;
 				float temp_output_1332_0 = ( RefBumpSlider1337 * SeaAlpha2FoamAndNormal205 * (1.0 + (FoamVertDisp261 - 0.0) * (5.0 - 1.0) / (1.0 - 0.0)) * 22.0 );
 				float3 normalizeResult2866 = normalize( ( temp_output_1719_0 + float3( ( appendResult2856 * temp_output_1332_0 ) ,  0.0 ) ) );
 				float3 lerpResult2865 = lerp( normalizeResult2866 , float3( 0,0,1 ) , float3( 0.5,0.5,0.5 ));
 				float switchResult1438 = (((ase_vface>0)?(FoamVertDisp261):(( FoamVertDisp261 * 0.8 ))));
-				float customEye2817 = IN.ase_texcoord10.x;
-				float cameraDepthFade2817 = (( customEye2817 -_ProjectionParams.y - 0.0 ) / 300.0);
-				float3 appendResult2798 = (float3(0.0 , ( saturate( switchResult1438 ) * 0.1 * _WaveRefractionStrength * ( 1.0 - saturate( cameraDepthFade2817 ) ) ) , 0.0));
+				float CamDistMaskHorizonMask3273 = pow( saturate( (1.0 + (temp_output_2951_0 - 100.0) * (0.0 - 1.0) / (8000.0 - 100.0)) ) , 8.0 );
+				float3 appendResult2798 = (float3(0.0 , ( saturate( switchResult1438 ) * 0.1 * pow( CamDistMaskHorizonMask3273 , 16.0 ) * _WaveRefractionStrength ) , 0.0));
 				float3 lerpResult2861 = lerp( ( lerpResult2865 + appendResult2798 ) , float3( 0,0,1 ) , temp_output_1414_0);
 				float UnderOffset1634 = GlobalOceanOffset;
 				float GlobalOceanHeight1552 = ( GlobalOceanHeight + UnderOffset1634 );
-				float temp_output_240_0 = ( FoamVertDisp261 * _VertDispMult * 0.1 );
-				float ShoreMaskVert586 = saturate( (0.0 + (( CaptureB_Distancex100200 * 100.0 ) - _RemapVertShore.x) * (1.0 - 0.0) / (_RemapVertShore.y - _RemapVertShore.x)) );
-				float VertDispDistMask22014 = ( 1.0 - saturate( (0.0 + (distance( WorldXZ1087 , (_WorldSpaceCameraPos).xz ) - 5.0) * (1.0 - 0.0) / (7.9 - 5.0)) ) );
-				float customEye1484 = IN.ase_texcoord10.y;
-				float cameraDepthFade1484 = (( customEye1484 -_ProjectionParams.y - 0.0 ) / 1.0);
-				float CamDepthFade1495 = cameraDepthFade1484;
-				float VertDispMaskRes1691 = ( ShoreMaskVert586 * saturate( VertDispDistMask22014 ) * saturate( (0.0 + (CamDepthFade1495 - 0.2) * (1.0 - 0.0) / (1.5 - 0.2)) ) * InfinityFeather1410 );
-				float temp_output_238_0 = ( temp_output_240_0 * VertDispMaskRes1691 );
-				#ifdef _USEVERTDISPLACEMENT_ON
-				float staticSwitch1688 = temp_output_238_0;
-				#else
-				float staticSwitch1688 = 0.0;
-				#endif
-				float VertAdded1524 = staticSwitch1688;
-				float temp_output_1537_0 = ( ( GlobalOceanHeight1552 + (VertAdded1524).x ) - ( _WorldSpaceCameraPos.y - 0.2 ) );
+				float vertexToFrag3514 = IN.ase_texcoord10.x;
+				float VertAdded1524 = vertexToFrag3514;
+				float temp_output_1537_0 = ( ( GlobalOceanHeight1552 + VertAdded1524 ) - ( _WorldSpaceCameraPos.y - 0.2 ) );
 				float temp_output_1571_0 = saturate( ( temp_output_1537_0 * 5.0 ) );
 				float RefractHack1578 = temp_output_1571_0;
 				float temp_output_1582_0 = (1.0 + (RefractHack1578 - 0.0) * (11.0 - 1.0) / (1.0 - 0.0));
 				float3 lerpResult2862 = lerp( float3( 0,0,1 ) , lerpResult2861 , temp_output_1582_0);
-				float3 switchResult2863 = (((ase_vface>0)?(lerpResult2862):(lerpResult2861)));
-				float3 NormalResRefracted2803 = switchResult2863;
-				float3 NormalResBelow1480 = staticSwitch1683;
-				float3 switchResult1755 = (((ase_vface>0)?(NormalResRefracted2803):(NormalResBelow1480)));
+				float3 NormalRefractedFront2803 = lerpResult2862;
+				float3 NormalRefractedBack1480 = temp_output_83_0;
+				float3 switchResult1755 = (((ase_vface>0)?(NormalRefractedFront2803):(NormalRefractedBack1480)));
 				float2 appendResult3029 = (float2(switchResult1755.xy));
-				float customEye2418 = IN.ase_texcoord10.z;
+				float customEye2418 = IN.ase_texcoord10.y;
 				float cameraDepthFade2418 = (( customEye2418 -_ProjectionParams.y - 0.0 ) / 40.0);
 				float temp_output_2417_0 = ( 1.0 - saturate( cameraDepthFade2418 ) );
 				float2 temp_output_2389_0 = ( appendResult2445 + ( appendResult3029 * DepthFader1847 * CamNear1615 * ShoreMaskDepthAlpha141 * temp_output_2417_0 ) );
 				float eyeDepth2780 = LinearEyeDepth(SHADERGRAPH_SAMPLE_SCENE_DEPTH( float4( temp_output_2389_0, 0.0 , 0.0 ).xy ),_ZBufferParams);
 				float2 lerpResult2452 = lerp( appendResult2445 , temp_output_2389_0 , ( _RefractionWarp * step( ( ScreenPos.w - eyeDepth2780 ) , 0.0 ) ));
 				float2 ScreenSpaceRefractUV2387 = lerpResult2452;
-				float eyeDepth6_g3371 = LinearEyeDepth(SHADERGRAPH_SAMPLE_SCENE_DEPTH( float4( ScreenSpaceRefractUV2387, 0.0 , 0.0 ).xy ),_ZBufferParams);
-				float3 worldToView21_g3371 = mul( UNITY_MATRIX_V, float4( WorldPosition, 1 ) ).xyz;
+				float eyeDepth6_g3822 = LinearEyeDepth(SHADERGRAPH_SAMPLE_SCENE_DEPTH( float4( ScreenSpaceRefractUV2387, 0.0 , 0.0 ).xy ),_ZBufferParams);
+				float3 worldToView21_g3822 = mul( UNITY_MATRIX_V, float4( WorldPosition, 1 ) ).xyz;
+				float temp_output_12_0_g3822 = 1.0;
+				float temp_output_3_0_g3822 = ( abs( ( eyeDepth6_g3822 - -worldToView21_g3822.z ) ) / temp_output_12_0_g3822 );
+				#ifdef _TRANSPARENTGRABPASS_ON
+				float staticSwitch3373 = ( ShoreMaskDepthAlpha141 * ( 1.0 - saturate( pow( ( 1.0 - saturate( temp_output_3_0_g3822 ) ) , 6.0 ) ) ) );
+				#else
+				float staticSwitch3373 = ShoreMaskDepthAlpha141;
+				#endif
+				float ShallowMask2838 = staticSwitch3373;
+				float2 appendResult87 = (float2(_Motion.x , _Motion.y));
+				float2 MotionXY1084 = appendResult87;
+				float2 panner527 = ( -0.03 * _Time.y * MotionXY1084 + WorldXZ1087);
+				float4 tex2DNode91 = SAMPLE_TEXTURE2D( _FoamTexture, sampler_FoamTexture, (panner527*( _FoamScale_UseFoam * 0.2 ) + 0.0) );
+				float2 panner74 = ( 0.05 * _Time.y * MotionXY1084 + WorldXZ1087);
+				#ifdef _USEFOAMEXTRASAMPLER_ON
+				float staticSwitch1679 = ( SAMPLE_TEXTURE2D( _FoamTexture, sampler_FoamTexture, (panner74*_FoamScale_UseFoam + 0.0) ).r + tex2DNode91.r );
+				#else
+				float staticSwitch1679 = ( tex2DNode91.r * 1.8 );
+				#endif
+				float4 break984 = _RemapFoam;
+				float FoamFeather2372 = ( saturate( (0.0 + (( 100.0 * CaptureB_Distancex100200 ) - break984.x) * (1.0 - 0.0) / (break984.y - break984.x)) ) * ( 1.0 - saturate( (0.0 + (( 5.0 * CaptureB_Distancex100200 ) - break984.z) * (1.0 - 0.0) / (( break984.w * _FoamMaxDistance ) - break984.z)) ) ) * ShoreMaskDepthAlpha141 );
+				float FoamMaskResult122 = frac( ( FoamFeather2372 * tex2DNode76.r ) );
+				float temp_output_142_0 = saturate( FoamMaskResult122 );
+				float temp_output_39_0 = ( staticSwitch1679 * temp_output_142_0 );
+				#ifdef _USEFOAM_ON
+				float3 staticSwitch1687 = ( ( ( pow( temp_output_39_0 , _FoamPow ) * 0.5 ) + saturate( ( pow( temp_output_39_0 , 3.0 ) + ( ( saturate( pow( temp_output_142_0 , 4.0 ) ) - 0.5 ) * 0.3 ) ) ) ) * (_FoamColor).rgb * InfinityFeather1410 * 0.4 );
+				#else
+				float3 staticSwitch1687 = float3( 0,0,0 );
+				#endif
+				float3 AlbedoRes465 = staticSwitch1687;
+				float3 AlbedoIn285_g3830 = AlbedoRes465;
+				#ifdef _USEUNDERWATER
+				float3 staticSwitch214_g3830 = AlbedoIn285_g3830;
+				#else
+				float3 staticSwitch214_g3830 = AlbedoIn285_g3830;
+				#endif
+				float3 normalizeResult257 = normalize( ( temp_output_83_0 + float3( ( temp_output_1332_0 * RefNorm886 ) ,  0.0 ) ) );
+				float3 lerpResult1261 = lerp( normalizeResult257 , float3( 0,0,1 ) , float3( 0.5,0.5,0.5 ));
+				float3 lerpResult1264 = lerp( ( appendResult2798 + lerpResult1261 ) , float3( 0,0,1 ) , temp_output_1414_0);
+				float3 lerpResult1581 = lerp( float3( 0,0,1 ) , lerpResult1264 , temp_output_1582_0);
+				float3 switchResult2804 = (((ase_vface>0)?(lerpResult1581):(lerpResult1264)));
+				float3 NormalRes466 = switchResult2804;
+				float3 lerpResult3318 = lerp( float3( 0,0,1 ) , NormalRes466 , _NormalAlbedoStrength);
+				float dotResult3312 = dot( float3(0,3,0.8) , lerpResult3318 );
+				float clampResult3317 = clamp( (1.0 + (dotResult3312 - 0.0) * (2.0 - 1.0) / (1.0 - 0.0)) , 0.0 , 10.0 );
+				#ifdef _MOBILEMODE_ON
+				float4 staticSwitch3385 = saturate( ( float4( ( InfinityFeather1410 * CamNear1615 * DepthFader1847 * ShallowMask2838 * staticSwitch214_g3830 ) , 0.0 ) + ( _WaterAlbedo * CamNear1615 * DepthFader1847 * ShallowMask2838 * CamDistMaskHorizonMask3273 ) ) );
+				#else
+				float4 staticSwitch3385 = ( saturate( ( float4( ( InfinityFeather1410 * CamNear1615 * DepthFader1847 * ShallowMask2838 * staticSwitch214_g3830 ) , 0.0 ) + ( _WaterAlbedo * CamNear1615 * DepthFader1847 * ShallowMask2838 * CamDistMaskHorizonMask3273 ) ) ) * clampResult3317 );
+				#endif
+				float4 AlbedoRes22337 = staticSwitch3385;
+				float ClipMask3534 = temp_output_1000_0;
+				float AlphaRes469 = ClipMask3534;
+				clip( AlphaRes469 - _ClipThreshold);
+				
+				float3 appendResult1062 = (float3(tex2DNode657.rgb));
+				float3 ColorCacheRGB1061 = ( InfinityFeather1410 * appendResult1062 );
+				float3 appendResult2828 = (float3(_WaterTint.rgb));
+				float temp_output_2998_0 = saturate( ( ( -0.2 * min( -CaptureDepthAOffsetShore1177 , 0.0 ) ) / _RemapWaterDistance1 ) );
+				float eyeDepth6_g3861 = LinearEyeDepth(SHADERGRAPH_SAMPLE_SCENE_DEPTH( float4( ScreenSpaceRefractUV2387, 0.0 , 0.0 ).xy ),_ZBufferParams);
+				float3 worldToView21_g3861 = mul( UNITY_MATRIX_V, float4( WorldPosition, 1 ) ).xyz;
 				float fresnelNdotV2830 = dot( WorldNormal, WorldViewDirection );
 				float fresnelNode2830 = ( 0.0 + 1.0 * pow( 1.0 - fresnelNdotV2830, 5.0 ) );
 				float lerpResult2832 = lerp( 9.0 , 30.0 , saturate( fresnelNode2830 ));
-				float DepthFadeDistthing2939 = lerpResult2832;
-				float temp_output_12_0_g3371 = ( DepthFadeDistthing2939 * _RemapWaterDistance );
-				float temp_output_3_0_g3371 = ( abs( ( eyeDepth6_g3371 - -worldToView21_g3371.z ) ) / temp_output_12_0_g3371 );
-				float temp_output_2907_0 = saturate( temp_output_3_0_g3371 );
+				float DepthFadeDistThing2939 = lerpResult2832;
+				float temp_output_12_0_g3861 = ( DepthFadeDistThing2939 * _RemapWaterDistance );
+				float temp_output_3_0_g3861 = ( abs( ( eyeDepth6_g3861 - -worldToView21_g3861.z ) ) / temp_output_12_0_g3861 );
+				float temp_output_2907_0 = saturate( temp_output_3_0_g3861 );
 				#ifdef _TRANSPARENTGRABPASS_ON
 				float staticSwitch3001 = temp_output_2907_0;
 				#else
@@ -2022,41 +1925,38 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#else
 				float staticSwitch2993 = _WaterDepthPow1;
 				#endif
+				float temp_output_3000_0 = ( 1.0 - pow( ( 1.0 - temp_output_2998_0 ) , 6.0 ) );
 				float temp_output_2909_0 = ( 1.0 - pow( ( 1.0 - temp_output_2907_0 ) , 6.0 ) );
 				#ifdef _TRANSPARENTGRABPASS_ON
 				float staticSwitch2990 = temp_output_2909_0;
 				#else
-				float staticSwitch2990 = ( 1.0 - pow( ( 1.0 - temp_output_2998_0 ) , 6.0 ) );
+				float staticSwitch2990 = temp_output_3000_0;
 				#endif
 				float2 appendResult2183 = (float2(staticSwitch2990 , 0.0));
 				float3 appendResult2142 = (float3(SAMPLE_TEXTURE2D_LOD( _DepthColorLUT, sampler_Linear_Clamp, appendResult2183, 0.0 ).rgb));
-				float3 appendResult2828 = (float3(_WaterTint.rgb));
-				float3 temp_output_1964_0 = ( ( saturate( pow( ( 1.0 - staticSwitch3001 ) , staticSwitch2993 ) ) * appendResult2142 ) * appendResult2828 * InfinityFeather1410 );
-				float3 desaturateInitialColor2848 = temp_output_1964_0;
+				float temp_output_2850_0 = ( 1.0 - _WaterSaturation );
+				float3 desaturateInitialColor2848 = ( appendResult2828 * ( saturate( pow( ( 1.0 - staticSwitch3001 ) , staticSwitch2993 ) ) * appendResult2142 ) * InfinityFeather1410 );
 				float desaturateDot2848 = dot( desaturateInitialColor2848, float3( 0.299, 0.587, 0.114 ));
-				float3 desaturateVar2848 = lerp( desaturateInitialColor2848, desaturateDot2848.xxx, ( 1.0 - _WaterSaturation ) );
+				float3 desaturateVar2848 = lerp( desaturateInitialColor2848, desaturateDot2848.xxx, temp_output_2850_0 );
 				float3 switchResult2135 = (((ase_vface>0)?(desaturateVar2848):(float3( 0,0,0 ))));
 				float3 WaterDepthTint342 = switchResult2135;
 				float switchResult2482 = (((ase_vface>0)?(saturate( (0.0 + (CaptureDepthAOffsetShore1177 - break993.z) * (1.0 - 0.0) / (break993.w - break993.z)) )):(1.0)));
 				float ShoreMaskSpec2479 = switchResult2482;
 				float3 lerpResult3187 = lerp( float3( 1,1,1 ) , WaterDepthTint342 , ShoreMaskSpec2479);
+				float3 temp_output_3012_0 = ( ColorCacheRGB1061 * lerpResult3187 );
 				float switchResult1429 = (((ase_vface>0)?(radians( GlobalSkyRotation )):(radians( ( 0.0 + 180.0 ) ))));
 				float3 switchResult1425 = (((ase_vface>0)?(-WorldViewDirection):(WorldViewDirection)));
-				float3 normalizeResult257 = normalize( ( staticSwitch1683 + float3( ( RefNorm886 * temp_output_1332_0 ) ,  0.0 ) ) );
-				float3 lerpResult1261 = lerp( normalizeResult257 , float3( 0,0,1 ) , float3( 0.5,0.5,0.5 ));
-				float3 lerpResult1264 = lerp( ( lerpResult1261 + appendResult2798 ) , float3( 0,0,1 ) , temp_output_1414_0);
-				float3 lerpResult1581 = lerp( float3( 0,0,1 ) , lerpResult1264 , temp_output_1582_0);
-				float3 switchResult2804 = (((ase_vface>0)?(lerpResult1581):(lerpResult1264)));
-				float3 NormalRes466 = switchResult2804;
-				float HorizonMask2300 = saturate( (1.0 + (distance( WorldPosition , _WorldSpaceCameraPos ) - 200.0) * (0.0 - 1.0) / (3000.0 - 200.0)) );
+				float customEye1484 = IN.ase_texcoord10.z;
+				float cameraDepthFade1484 = (( customEye1484 -_ProjectionParams.y - 0.0 ) / 1.0);
+				float CamDepthFade1495 = cameraDepthFade1484;
+				float HorizonMask2300 = CamDistMaskHorizonMask3273;
 				float3 lerpResult1488 = lerp( float3( 0,0,1 ) , NormalRes466 , saturate( ( CamNear1615 * CamDepthFade1495 * HorizonMask2300 ) ));
 				float3 tanToWorld0 = float3( WorldTangent.x, WorldBiTangent.x, WorldNormal.x );
 				float3 tanToWorld1 = float3( WorldTangent.y, WorldBiTangent.y, WorldNormal.y );
 				float3 tanToWorld2 = float3( WorldTangent.z, WorldBiTangent.z, WorldNormal.z );
 				float3 tanNormal1153 = lerpResult1488;
 				float3 worldNormal1153 = float3(dot(tanToWorld0,tanNormal1153), dot(tanToWorld1,tanNormal1153), dot(tanToWorld2,tanNormal1153));
-				float3 temp_output_1151_0 = reflect( switchResult1425 , worldNormal1153 );
-				float3 rotatedValue1157 = RotateAroundAxis( float3( 0,0,0 ), temp_output_1151_0, float3( 0,1,0 ), switchResult1429 );
+				float3 rotatedValue1157 = RotateAroundAxis( float3( 0,0,0 ), reflect( switchResult1425 , worldNormal1153 ), float3( 0,1,0 ), switchResult1429 );
 				float SmoothnessRes468 = _Smoothness;
 				float lerpResult2215 = lerp( 1.0 , SmoothnessRes468 , HorizonMask2300);
 				float temp_output_1147_0 = ( ( 1.0 - lerpResult2215 ) * 8.0 );
@@ -2068,51 +1968,85 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#endif
 				float switchResult1466 = (((ase_vface>0)?(temp_output_1147_0):(staticSwitch3051)));
 				float3 temp_output_1550_0 = (SAMPLE_TEXTURECUBE_LOD( _Cubemap, sampler_Cubemap, rotatedValue1157, switchResult1466 )).rgb;
-				float3 normalizeResult1285 = normalize( ( tex2DNode11 * float3( 55,55,1 ) ) );
-				float3 tanNormal1237 = normalizeResult1285;
+				float3 tanNormal1237 = ( tex2DNode11 * float3( 25,25,1 ) );
 				float3 worldNormal1237 = float3(dot(tanToWorld0,tanNormal1237), dot(tanToWorld1,tanNormal1237), dot(tanToWorld2,tanNormal1237));
 				float dotResult1229 = dot( worldNormal1237 , WorldViewDirection );
-				float customEye2812 = IN.ase_texcoord10.w;
-				float cameraDepthFade2812 = (( customEye2812 -_ProjectionParams.y - 0.0 ) / _NormalDarken1);
-				float lerpResult1280 = lerp( 1.0 , ( 1.0 - saturate( dotResult1229 ) ) , ( ( 1.0 - saturate( cameraDepthFade2812 ) ) * _NormalDarken ));
-				float NormDarken1230 = lerpResult1280;
+				float lerpResult1280 = lerp( 1.0 , ( 1.0 - saturate( dotResult1229 ) ) , ( CamDistMaskHorizonMask3273 * _NormalDarken ));
+				#ifdef _MOBILEMODE_ON
+				float staticSwitch3413 = lerpResult1280;
+				#else
+				float staticSwitch3413 = 1.0;
+				#endif
+				float NormDarken1230 = staticSwitch3413;
 				float3 tanNormal901 = NormalRes466;
 				float3 worldNormal901 = float3(dot(tanToWorld0,tanNormal901), dot(tanToWorld1,tanNormal901), dot(tanToWorld2,tanNormal901));
-				#ifdef _HORIZONMAPPED_ON
-				float3 staticSwitch2104 = float3(0,1,0);
-				#else
-				float3 staticSwitch2104 = worldNormal901;
-				#endif
-				float fresnelNdotV899 = dot( staticSwitch2104, WorldViewDirection );
+				float fresnelNdotV899 = dot( worldNormal901, WorldViewDirection );
 				float fresnelNode899 = ( _RefFresnel.x + _RefFresnel.y * pow( 1.0 - fresnelNdotV899, _RefFresnel.z ) );
-				float temp_output_904_0 = saturate( fresnelNode899 );
-				float3 temp_output_1162_0 = ( temp_output_1550_0 * _CubemapExposure * (0.4 + (NormDarken1230 - 0.0) * (1.0 - 0.4) / (1.0 - 0.0)) * temp_output_904_0 * ShoreMaskSpec2479 );
-				float3 WorldCamPos11_g3216 = _WorldPos;
-				float3 WorldCamRight11_g3216 = _WorldDir;
-				float force11_g3216 = _ForceEye;
-				int localIsStereoEyeLeft11_g3216 = IsStereoEyeLeft11_g3216( WorldCamPos11_g3216 , WorldCamRight11_g3216 , force11_g3216 );
-				float2 appendResult4_g3216 = (float2(ase_screenPosNorm.xy));
+				float FresnelReflection3475 = saturate( fresnelNode899 );
+				#ifdef _TRANSPARENTGRABPASS_ON
+				float4 staticSwitch34_g3815 = _BakeLightMapAmbient;
+				#else
+				float4 staticSwitch34_g3815 = _BakeLightMapMobile;
+				#endif
+				float3 appendResult18_g3815 = (float3(staticSwitch34_g3815.rgb));
+				float2 vertexToFrag10_g3820 = IN.ase_texcoord11.xy;
+				float4 tex2DNode7_g3820 = SAMPLE_TEXTURE2D_BIAS( _bakeLightmap, sampler_bakeLightmap, vertexToFrag10_g3820, 0.0 );
+				float4 localURPDecodeInstruction19_g3820 = URPDecodeInstruction19_g3820();
+				float3 decodeLightMap6_g3820 = DecodeLightmap(tex2DNode7_g3820,localURPDecodeInstruction19_g3820);
+				float temp_output_17_0_g3817 = -0.001;
+				float2 temp_cast_29 = (temp_output_17_0_g3817).xx;
+				float2 temp_cast_30 = (( 1.0 - temp_output_17_0_g3817 )).xx;
+				float2 break5_g3817 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_29) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_30 - temp_cast_29)) );
+				float temp_output_1_0_g3819 = break5_g3817.x;
+				float temp_output_9_0_g3817 = ( ( abs( ( ( temp_output_1_0_g3819 - floor( ( temp_output_1_0_g3819 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3817 = ( _BakedLightingFeather + -1.0 );
+				float temp_output_1_0_g3818 = break5_g3817.y;
+				float temp_output_6_0_g3817 = ( ( abs( ( ( temp_output_1_0_g3818 - floor( ( temp_output_1_0_g3818 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_15_0_g3817 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3817 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3817 - -1.0)) ) * saturate( (0.0 + (temp_output_6_0_g3817 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3817 - -1.0)) ) ) );
+				float temp_output_17_0_g3815 = temp_output_15_0_g3817;
+				float3 lerpResult12_g3815 = lerp( appendResult18_g3815 , decodeLightMap6_g3820 , temp_output_17_0_g3815);
+				float3 LightmapRes26_g3815 = lerpResult12_g3815;
+				float3 temp_output_3453_0 = LightmapRes26_g3815;
+				float3 LightmapRes2657 = temp_output_3453_0;
+				float2 vertexToFrag10_g3821 = IN.ase_texcoord11.zw;
+				float4 tex2DNode7_g3821 = SAMPLE_TEXTURE2D_BIAS( _bakeLightmapSM, sampler_bakeLightmap, vertexToFrag10_g3821, 0.0 );
+				float4 localURPDecodeInstruction19_g3821 = URPDecodeInstruction19_g3821();
+				float3 decodeLightMap6_g3821 = DecodeLightmap(tex2DNode7_g3821,localURPDecodeInstruction19_g3821);
+				float3 lerpResult13_g3815 = lerp( float3(1,0,0) , saturate( decodeLightMap6_g3821 ) , temp_output_17_0_g3815);
+				float3 LightmapSWRes25_g3815 = lerpResult13_g3815;
+				float3 temp_output_3453_27 = LightmapSWRes25_g3815;
+				float3 LightmapSWRes2658 = temp_output_3453_27;
+				float3 temp_output_3296_0 = ( LightmapRes2657 * (LightmapSWRes2658).x );
+				float grayscale3419 = (temp_output_3296_0.r + temp_output_3296_0.g + temp_output_3296_0.b) / 3;
+				float temp_output_12_0_g3525 = _ReflectionShadowed;
+				float temp_output_12_0_g3526 = CamDistMaskHorizonMask3273;
+				float OcclusionRes3215 = ( ( ( ( ( saturate( (0.0 + (grayscale3419 - ( 1.0 - _ReflectionShadowedEnd )) * (1.0 - 0.0) / (( 1.0 - _ReflectionShadowedStart ) - ( 1.0 - _ReflectionShadowedEnd ))) ) * temp_output_12_0_g3525 ) + ( 1.0 - temp_output_12_0_g3525 ) ) * temp_output_12_0_g3526 ) + ( 1.0 - temp_output_12_0_g3526 ) ) * ShallowMask2838 );
+				float3 WorldCamPos11_g3521 = _WorldPos;
+				float3 WorldCamRight11_g3521 = _WorldDir;
+				float force11_g3521 = _ForceEye;
+				int localIsStereoEyeLeft11_g3521 = IsStereoEyeLeft11_g3521( WorldCamPos11_g3521 , WorldCamRight11_g3521 , force11_g3521 );
+				float2 appendResult4_g3521 = (float2(ase_screenPosNorm.xy));
+				float clampResult1520 = clamp( VertAdded1524 , 0.0 , 0.3 );
 				float2 appendResult1245 = (float2(NormalRes466.xy));
-				float clampResult1520 = clamp( (VertAdded1524).x , 0.0 , 0.3 );
-				float2 temp_output_1_0_g3216 = ( appendResult4_g3216 + ( appendResult1245 * (0.0 + (clampResult1520 - 0.1) * (2.0 - 0.0) / (0.3 - 0.1)) * CamNear1615 * 0.5 ) );
-				float4 tex2DNode3_g3216 = SAMPLE_TEXTURE2D( _TexLeft, sampler_Linear_Mirror, temp_output_1_0_g3216 );
-				float4 tex2DNode2_g3216 = SAMPLE_TEXTURE2D( _TexRight, sampler_Linear_Mirror, temp_output_1_0_g3216 );
-				float4 ifLocalVar10_g3216 = 0;
-				if( localIsStereoEyeLeft11_g3216 <= 0.0 )
-				ifLocalVar10_g3216 = tex2DNode2_g3216;
+				float2 temp_output_1_0_g3521 = ( appendResult4_g3521 + ( (0.0 + (clampResult1520 - 0.1) * (2.0 - 0.0) / (0.3 - 0.1)) * appendResult1245 * CamNear1615 * 0.5 ) );
+				float4 tex2DNode3_g3521 = SAMPLE_TEXTURE2D( _TexLeft, sampler_Linear_Mirror, temp_output_1_0_g3521 );
+				float4 tex2DNode2_g3521 = SAMPLE_TEXTURE2D( _TexRight, sampler_Linear_Mirror, temp_output_1_0_g3521 );
+				float4 ifLocalVar10_g3521 = 0;
+				if( localIsStereoEyeLeft11_g3521 <= 0.0 )
+				ifLocalVar10_g3521 = tex2DNode2_g3521;
 				else
-				ifLocalVar10_g3216 = tex2DNode3_g3216;
-				float3 temp_output_1549_0 = (ifLocalVar10_g3216).rgb;
-				float3 UnderReflection1610 = ( temp_output_1549_0 * temp_output_904_0 );
-				float3 switchResult1453 = (((ase_vface>0)?(( UnderReflection1610 * (0.4 + (NormDarken1230 - 0.0) * (1.0 - 0.4) / (1.0 - 0.0)) )):(temp_output_1162_0)));
+				ifLocalVar10_g3521 = tex2DNode3_g3521;
+				float3 temp_output_1549_0 = (ifLocalVar10_g3521).rgb;
+				float3 UnderReflection1610 = ( temp_output_1549_0 * FresnelReflection3475 );
+				float3 switchResult1453 = (((ase_vface>0)?(( UnderReflection1610 * (0.4 + (NormDarken1230 - 0.0) * (1.0 - 0.4) / (1.0 - 0.0)) )):(( temp_output_1550_0 * _CubemapExposure * (0.4 + (NormDarken1230 - 0.0) * (1.0 - 0.4) / (1.0 - 0.0)) * FresnelReflection3475 * ShoreMaskSpec2479 * OcclusionRes3215 ))));
 				#ifdef GlobalPlanarReflection
 				float3 staticSwitch945 = switchResult1453;
 				#else
-				float3 staticSwitch945 = temp_output_1162_0;
+				float3 staticSwitch945 = ( temp_output_1550_0 * _CubemapExposure * (0.4 + (NormDarken1230 - 0.0) * (1.0 - 0.4) / (1.0 - 0.0)) * FresnelReflection3475 * ShoreMaskSpec2479 * OcclusionRes3215 );
 				#endif
-				float4 appendResult11_g3229 = (float4(_TonemappingSettings.x , _TonemappingSettings.y , _TonemappingSettings.z , _TonemappingSettings.w));
-				float4 temp_output_2533_0 = appendResult11_g3229;
-				float4 settings2527 = temp_output_2533_0;
+				float4 appendResult11_g3856 = (float4(_TonemappingSettings.x , _TonemappingSettings.y , _TonemappingSettings.z , _TonemappingSettings.w));
+				float4 TonemapSettings3469 = appendResult11_g3856;
+				float4 settings2527 = TonemapSettings3469;
 				float3 color2527 = staticSwitch945;
 				float3 localApplyTonemapper2527 = ApplyTonemapper( settings2527 , color2527 );
 				#ifdef _TRANSPARENTGRABPASS_ON
@@ -2120,156 +2054,102 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#else
 				float3 staticSwitch2528 = staticSwitch945;
 				#endif
+				float2 appendResult3231 = (float2(temp_output_3000_0 , 0.0));
+				float3 appendResult3228 = (float3(SAMPLE_TEXTURE2D_LOD( _DepthColorLUT, sampler_Linear_Clamp, appendResult3231, 0.0 ).rgb));
+				float3 desaturateInitialColor3242 = ( ( saturate( pow( ( 1.0 - temp_output_2998_0 ) , _WaterDepthPow1 ) ) * appendResult3228 ) * InfinityFeather1410 * appendResult2828 );
+				float desaturateDot3242 = dot( desaturateInitialColor3242, float3( 0.299, 0.587, 0.114 ));
+				float3 desaturateVar3242 = lerp( desaturateInitialColor3242, desaturateDot3242.xxx, temp_output_2850_0 );
+				float3 switchResult3241 = (((ase_vface>0)?(desaturateVar3242):(float3( 0,0,0 ))));
+				float3 lerpResult3249 = lerp( float3( 1,1,1 ) , switchResult3241 , ShoreMaskSpec2479);
+				float3 lerpResult3236 = lerp( float3( 0,0,0 ) , ( DepthFader1847 * ColorCacheRGB1061 * lerpResult3249 * saturate( (0.0 + (temp_output_2909_0 - 0.05) * (1.0 - 0.0) / (0.2 - 0.05)) ) ) , _WaterAlbedoFake);
+				#ifdef _TRANSPARENTGRABPASS_ON
+				float3 staticSwitch3230 = lerpResult3236;
+				#else
+				float3 staticSwitch3230 = float3( 0,0,0 );
+				#endif
+				float3 FakeEmission3252 = staticSwitch3230;
 				float4 fetchOpaqueVal1753 = float4( SHADERGRAPH_SAMPLE_SCENE_COLOR( ScreenSpaceRefractUV2387 ), 1.0 );
 				float3 appendResult1754 = (float3(fetchOpaqueVal1753.rgb));
-				#ifdef _RAINBOWGRABPASS_ON
-				float3 staticSwitch2395 = appendResult1754;
-				#else
-				float3 staticSwitch2395 = appendResult1754;
-				#endif
-				float3 temp_output_18_0_g3379 = float3( 0,0,0 );
-				float3 temp_output_30_0_g3379 = float3( 0,0,1 );
-				float3 tanNormal12_g3379 = temp_output_30_0_g3379;
-				float3 worldNormal12_g3379 = float3(dot(tanToWorld0,tanNormal12_g3379), dot(tanToWorld1,tanNormal12_g3379), dot(tanToWorld2,tanNormal12_g3379));
-				float3 vertexToFrag144_g3379 = IN.ase_texcoord11.xyz;
-				float dotResult1_g3379 = dot( worldNormal12_g3379 , vertexToFrag144_g3379 );
-				float3 vertexToFrag7_g3383 = IN.ase_texcoord12.xyz;
-				float3 positionWS_fogFactor24_g3383 = vertexToFrag7_g3383;
-				float3 normalizeResult21_g3383 = normalize( ( _WorldSpaceCameraPos - positionWS_fogFactor24_g3383 ) );
-				float3 view23_g3383 = normalizeResult21_g3383;
-				float3 view16_g3383 = view23_g3383;
-				float3 appendResult49_g3383 = (float3(ScreenSpaceRefractUV2387 , ase_screenPosNorm.w));
-				float3 screenPosXYW29_g3383 = (appendResult49_g3383).xyz;
-				float2 uvDepth38_g3383 = ( (screenPosXYW29_g3383).xy / (screenPosXYW29_g3383).z );
-				float2 uv55_g3383 = uvDepth38_g3383;
-				float localCameraDepthTexture55_g3383 = CameraDepthTexture55_g3383( uv55_g3383 );
-				float rawDepth40_g3383 = localCameraDepthTexture55_g3383;
-				float rawDepth44_g3383 = rawDepth40_g3383;
-				float localMyCustomExpression44_g3383 = MyCustomExpression44_g3383( rawDepth44_g3383 );
-				float sceneZ41_g3383 = localMyCustomExpression44_g3383;
-				float sceneZ16_g3383 = sceneZ41_g3383;
-				float3 localMyCustomExpression16_g3383 = MyCustomExpression16_g3383( view16_g3383 , sceneZ16_g3383 );
-				float3 scenePos11_g3383 = localMyCustomExpression16_g3383;
-				float3 WorldPosition2704 = scenePos11_g3383;
-				float3 temp_output_105_0_g3379 = WorldPosition2704;
-				float2 PanSpeed131_g3379 = (_CausticsSettings).xy;
-				float mulTime28_g3379 = _TimeParameters.x * -1.0;
-				float2 break101_g3379 = ( PanSpeed131_g3379 * mulTime28_g3379 );
-				float3 appendResult100_g3379 = (float3(break101_g3379.x , 0.0 , break101_g3379.y));
-				float4 Pos6_g3382 = float4( ( temp_output_105_0_g3379 + appendResult100_g3379 ) , 0.0 );
-				float4x4 invertVal146_g3379 = Inverse4x4( _CausticMatrix );
-				float4x4 Mat6_g3382 = invertVal146_g3379;
-				float3 localMatrixMulThatWorks6_g3382 = MatrixMulThatWorks( Pos6_g3382 , Mat6_g3382 );
-				float2 temp_output_87_0_g3379 = ( (localMatrixMulThatWorks6_g3382).xy + ( 0.0045 * 2.0 ) );
-				float temp_output_117_0_g3379 = (temp_output_105_0_g3379).y;
-				float temp_output_63_0_g3379 = GlobalOceanHeight1552;
-				float2 DistanceFade134_g3379 = (_CausticsSettings).zw;
-				float2 break136_g3379 = DistanceFade134_g3379;
-				float temp_output_67_0_g3379 = ( saturate( (0.0 + (max( -( temp_output_117_0_g3379 - temp_output_63_0_g3379 ) , 0.0 ) - 0.2) * (1.0 - 0.0) / (1.0 - 0.2)) ) * saturate( (1.0 + (distance( temp_output_63_0_g3379 , temp_output_117_0_g3379 ) - break136_g3379.x) * (0.0 - 1.0) / (break136_g3379.y - break136_g3379.x)) ) );
-				float CausticMipLevel118_g3379 = ( ( 1.0 - temp_output_67_0_g3379 ) * 4.0 );
-				float2 temp_output_75_0_g3379 = ( (localMatrixMulThatWorks6_g3382).xy + 0.0045 );
-				#ifdef _USECAUSTICRAINBOW_ON
-				float3 staticSwitch73_g3379 = ( ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Caustics, temp_output_87_0_g3379, CausticMipLevel118_g3379 ).r * float3(0,0,1) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Caustics, temp_output_75_0_g3379, CausticMipLevel118_g3379 ).r * float3(0,1,0) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Caustics, (localMatrixMulThatWorks6_g3382).xy, CausticMipLevel118_g3379 ).r * float3(1,0,0) ) );
-				#else
-				float3 staticSwitch73_g3379 = float3( 0,0,0 );
-				#endif
-				#ifdef _USECAUSTICEXTRASAMPLER_ON
-				float3 staticSwitch57_g3379 = staticSwitch73_g3379;
-				#else
-				float3 staticSwitch57_g3379 = float3( 0,0,0 );
-				#endif
-				float3 appendResult62_g3379 = (float3(_CausticsColor.rgb));
-				#ifdef _CAUSTICSENABLE_ON
-				float3 staticSwitch16_g3379 = ( temp_output_18_0_g3379 + ( max( dotResult1_g3379 , 0.0 ) * staticSwitch57_g3379 * appendResult62_g3379 * temp_output_67_0_g3379 ) );
-				#else
-				float3 staticSwitch16_g3379 = temp_output_18_0_g3379;
-				#endif
+				float3 temp_output_18_0_g3811 = float3( 0,0,0 );
+				float3 temp_output_30_0_g3811 = float3( 0,0,1 );
+				float3 tanNormal12_g3811 = temp_output_30_0_g3811;
+				float3 worldNormal12_g3811 = float3(dot(tanToWorld0,tanNormal12_g3811), dot(tanToWorld1,tanNormal12_g3811), dot(tanToWorld2,tanNormal12_g3811));
+				float3 vertexToFrag144_g3811 = IN.ase_texcoord12.xyz;
+				float dotResult1_g3811 = dot( worldNormal12_g3811 , vertexToFrag144_g3811 );
+				float3 vertexToFrag7_g3534 = IN.ase_texcoord13.xyz;
+				float3 positionWS_fogFactor24_g3534 = vertexToFrag7_g3534;
+				float3 normalizeResult21_g3534 = normalize( ( _WorldSpaceCameraPos - positionWS_fogFactor24_g3534 ) );
+				float3 view23_g3534 = normalizeResult21_g3534;
+				float3 view16_g3534 = view23_g3534;
+				float3 appendResult49_g3534 = (float3(ScreenSpaceRefractUV2387 , ase_screenPosNorm.w));
+				float3 screenPosXYW29_g3534 = (appendResult49_g3534).xyz;
+				float2 uvDepth38_g3534 = ( (screenPosXYW29_g3534).xy / (screenPosXYW29_g3534).z );
+				float2 uv55_g3534 = uvDepth38_g3534;
+				float localCameraDepthTexture55_g3534 = CameraDepthTexture55_g3534( uv55_g3534 );
+				float rawDepth40_g3534 = localCameraDepthTexture55_g3534;
+				float rawDepth44_g3534 = rawDepth40_g3534;
+				float localMyCustomExpression44_g3534 = MyCustomExpression44_g3534( rawDepth44_g3534 );
+				float sceneZ41_g3534 = localMyCustomExpression44_g3534;
+				float sceneZ16_g3534 = sceneZ41_g3534;
+				float3 localMyCustomExpression16_g3534 = MyCustomExpression16_g3534( view16_g3534 , sceneZ16_g3534 );
+				float3 scenePos11_g3534 = localMyCustomExpression16_g3534;
+				float3 WorldPosition2704 = scenePos11_g3534;
+				float3 temp_output_105_0_g3811 = WorldPosition2704;
+				float2 PanSpeed131_g3811 = (_CausticsSettings).xy;
+				float mulTime28_g3811 = _TimeParameters.x * -1.0;
+				float2 break101_g3811 = ( PanSpeed131_g3811 * mulTime28_g3811 );
+				float3 appendResult100_g3811 = (float3(break101_g3811.x , 0.0 , break101_g3811.y));
+				float4 Pos6_g3814 = float4( ( temp_output_105_0_g3811 + appendResult100_g3811 ) , 0.0 );
+				float4x4 invertVal146_g3811 = Inverse4x4( _CausticMatrix );
+				float4x4 Mat6_g3814 = invertVal146_g3811;
+				float3 localMatrixMulThatWorks6_g3814 = MatrixMulThatWorks( Pos6_g3814 , Mat6_g3814 );
+				float2 temp_output_87_0_g3811 = ( (localMatrixMulThatWorks6_g3814).xy + ( 0.0045 * 2.0 ) );
+				float temp_output_117_0_g3811 = (temp_output_105_0_g3811).y;
+				float temp_output_63_0_g3811 = GlobalOceanHeight1552;
+				float2 DistanceFade134_g3811 = (_CausticsSettings).zw;
+				float2 break136_g3811 = DistanceFade134_g3811;
+				float temp_output_67_0_g3811 = ( saturate( (0.0 + (max( -( temp_output_117_0_g3811 - temp_output_63_0_g3811 ) , 0.0 ) - 0.2) * (1.0 - 0.0) / (1.0 - 0.2)) ) * saturate( (1.0 + (distance( temp_output_63_0_g3811 , temp_output_117_0_g3811 ) - break136_g3811.x) * (0.0 - 1.0) / (break136_g3811.y - break136_g3811.x)) ) );
+				float CausticMipLevel118_g3811 = ( ( 1.0 - temp_output_67_0_g3811 ) * 4.0 );
+				float2 temp_output_75_0_g3811 = ( (localMatrixMulThatWorks6_g3814).xy + 0.0045 );
+				float3 temp_output_83_0_g3811 = ( ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Caustics, temp_output_87_0_g3811, CausticMipLevel118_g3811 ).r * float3(0,0,1) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Caustics, temp_output_75_0_g3811, CausticMipLevel118_g3811 ).r * float3(0,1,0) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Caustics, (localMatrixMulThatWorks6_g3814).xy, CausticMipLevel118_g3811 ).r * float3(1,0,0) ) );
+				float3 appendResult62_g3811 = (float3(_CausticsColor.rgb));
+				float3 temp_output_20_0_g3811 = ( temp_output_18_0_g3811 + ( max( dotResult1_g3811 , 0.0 ) * temp_output_83_0_g3811 * appendResult62_g3811 * temp_output_67_0_g3811 ) );
 				float3 appendResult3040 = (float3(_CausticsTint.rgb));
-				float3 temp_output_3042_0 = ( staticSwitch16_g3379 * appendResult3040 * 8.0 );
+				float3 temp_output_3042_0 = ( temp_output_20_0_g3811 * appendResult3040 * 8.0 );
 				float3 switchResult3046 = (((ase_vface>0)?(temp_output_3042_0):(float3( 0,0,0 ))));
 				float3 Caustics2711 = switchResult3046;
-				float3 GrabPassOG1994 = ( staticSwitch2395 + ( staticSwitch2395 * Caustics2711 ) );
-				float3 temp_cast_33 = (1.0).xxx;
-				float eyeDepth6_g3373 = LinearEyeDepth(SHADERGRAPH_SAMPLE_SCENE_DEPTH( float4( ScreenSpaceRefractUV2387, 0.0 , 0.0 ).xy ),_ZBufferParams);
-				float3 worldToView21_g3373 = mul( UNITY_MATRIX_V, float4( WorldPosition, 1 ) ).xyz;
-				float temp_output_12_0_g3373 = 1.0;
-				float temp_output_3_0_g3373 = ( abs( ( eyeDepth6_g3373 - -worldToView21_g3373.z ) ) / temp_output_12_0_g3373 );
-				float temp_output_1843_0 = saturate( pow( ( 1.0 - saturate( temp_output_3_0_g3373 ) ) , 6.0 ) );
-				float ShallowMask2838 = ( ( 1.0 - temp_output_1843_0 ) * ShoreMaskDepthAlpha141 );
-				float3 lerpResult2839 = lerp( temp_cast_33 , WaterDepthTint342 , ShallowMask2838);
+				float3 GrabPassOG1994 = ( appendResult1754 + ( appendResult1754 * Caustics2711 ) );
+				float3 temp_cast_39 = (1.0).xxx;
+				float3 lerpResult2839 = lerp( temp_cast_39 , WaterDepthTint342 , ShallowMask2838);
 				float3 switchResult3072 = (((ase_vface>0)?(lerpResult2839):(float3( 1,1,1 ))));
 				float switchResult1513 = (((ase_vface>0)?(1.0):(CamNear1615)));
 				float3 lerpResult1900 = lerp( GrabPassOG1994 , ( switchResult3072 * GrabPassOG1994 ) , switchResult1513);
 				float3 GrabPassTinted1768 = lerpResult1900;
 				float switchResult1945 = (((ase_vface>0)?(1.0):(CamNear1615)));
-				float3 lerpResult1746 = lerp( GrabPassTinted1768 , ( staticSwitch2528 + GrabPassTinted1768 ) , ( ShoreMaskDepthAlpha141 * DepthFader1847 * switchResult1945 ));
+				float3 lerpResult1746 = lerp( GrabPassTinted1768 , ( GrabPassTinted1768 + staticSwitch2528 ) , ( ShoreMaskDepthAlpha141 * DepthFader1847 * switchResult1945 ));
 				float3 NormalResBelow23057 = temp_output_1719_0;
 				float3 tanNormal1468 = NormalResBelow23057;
 				float3 worldNormal1468 = float3(dot(tanToWorld0,tanNormal1468), dot(tanToWorld1,tanNormal1468), dot(tanToWorld2,tanNormal1468));
-				#ifdef _HORIZONMAPPED_ON
-				float3 staticSwitch2108 = float3(0,1,0);
-				#else
-				float3 staticSwitch2108 = worldNormal1468;
-				#endif
-				float clampResult3065 = clamp( (-4.0 + (distance( _WorldSpaceCameraPos , WorldPosition ) - 0.1) * (-0.5 - -4.0) / (10.0 - 0.1)) , -4.0 , -0.5 );
-				float fresnelNdotV1454 = dot( normalize( staticSwitch2108 ), -WorldViewDirection );
+				float clampResult3065 = clamp( (-4.0 + (CamDistance3490 - 0.1) * (-0.5 - -4.0) / (10.0 - 0.1)) , -4.0 , -0.5 );
+				float fresnelNdotV1454 = dot( normalize( worldNormal1468 ), -WorldViewDirection );
 				float fresnelNode1454 = ( clampResult3065 + 4.0 * pow( max( 1.0 - fresnelNdotV1454 , 0.0001 ), 1.0 ) );
-				float temp_output_1460_0 = saturate( fresnelNode1454 );
-				float3 lerpResult1923 = lerp( lerpResult1746 , staticSwitch2528 , ( temp_output_1460_0 * CamNear1615 ));
-				float3 switchResult1925 = (((ase_vface>0)?(lerpResult1746):(lerpResult1923)));
+				float3 lerpResult1923 = lerp( lerpResult1746 , staticSwitch2528 , ( CamNear1615 * saturate( fresnelNode1454 ) ));
+				float3 switchResult1925 = (((ase_vface>0)?(( FakeEmission3252 + lerpResult1746 )):(lerpResult1923)));
 				#ifdef _TRANSPARENTGRABPASS_ON
 				float3 staticSwitch1588 = switchResult1925;
 				#else
-				float3 staticSwitch1588 = ( ( ColorCacheRGB1061 * lerpResult3187 ) + ( saturate( (0.0 + (ShoreMaskSpec2479 - 0.3) * (1.0 - 0.0) / (1.0 - 0.3)) ) * staticSwitch2528 ) );
+				float3 staticSwitch1588 = ( temp_output_3012_0 + ( saturate( (0.0 + (ShoreMaskSpec2479 - 0.3) * (1.0 - 0.0) / (1.0 - 0.3)) ) * staticSwitch2528 ) );
 				#endif
 				float3 appendResult2329 = (float3(staticSwitch1588));
 				float3 EmissionRes467 = appendResult2329;
 				float3 EmissionRes22320 = EmissionRes467;
 				
-				float2 clipScreen639 = ase_screenPosNorm.xy * _ScreenParams.xy;
-				float dither639 = Dither8x8Bayer( fmod(clipScreen639.x, 8), fmod(clipScreen639.y, 8) );
-				dither639 = step( dither639, ShoreMaskDepthAlpha141 );
-				#ifdef _USEDITHERING_ON
-				float staticSwitch1685 = dither639;
-				#else
-				float staticSwitch1685 = ShoreMaskDepthAlpha141;
-				#endif
-				#ifdef _TRANSPARENTGRABPASS_ON
-				float staticSwitch1748 = 1.0;
-				#else
-				float staticSwitch1748 = staticSwitch1685;
-				#endif
-				float HorizonAlpha2083 = temp_output_2080_0;
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2085 = HorizonAlpha2083;
-				#else
-				float staticSwitch2085 = staticSwitch1748;
-				#endif
-				float AlphaRes469 = staticSwitch2085;
-				
-				float3 appendResult18_g3427 = (float3(_BakeLightMapAmbient.rgb));
-				float2 vertexToFrag10_g3432 = IN.ase_texcoord13.xy;
-				float4 tex2DNode7_g3432 = SAMPLE_TEXTURE2D_BIAS( _bakeLightmap, sampler_bakeLightmap, vertexToFrag10_g3432, 0.0 );
-				float4 localURPDecodeInstruction19_g3432 = URPDecodeInstruction19_g3432();
-				float3 decodeLightMap6_g3432 = DecodeLightmap(tex2DNode7_g3432,localURPDecodeInstruction19_g3432);
-				float temp_output_17_0_g3429 = -0.001;
-				float2 temp_cast_37 = (temp_output_17_0_g3429).xx;
-				float2 temp_cast_38 = (( 1.0 - temp_output_17_0_g3429 )).xx;
-				float2 break5_g3429 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_37) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_38 - temp_cast_37)) );
-				float temp_output_1_0_g3431 = break5_g3429.x;
-				float temp_output_8_0_g3429 = ( _BakedLightingFeather + -1.0 );
-				float temp_output_1_0_g3430 = break5_g3429.y;
-				float temp_output_17_0_g3427 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3431 - floor( ( temp_output_1_0_g3431 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3429 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3430 - floor( ( temp_output_1_0_g3430 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3429 - -1.0)) ) ) );
-				float3 lerpResult12_g3427 = lerp( appendResult18_g3427 , decodeLightMap6_g3432 , temp_output_17_0_g3427);
-				float3 LightmapRes26_g3427 = lerpResult12_g3427;
-				float3 LightmapRes2657 = LightmapRes26_g3427;
-				
-				float4 settings2751 = temp_output_2533_0;
+				float4 settings3523 = TonemapSettings3469;
 				float4 ifLocalVars112 = 0;
 				float3 ColorCacheRGBDebug2443 = appendResult1062;
 				if(_DebugVisual==0){ifLocalVars112 = float4( ColorCacheRGBDebug2443 , 0.0 ); };
-				float4 temp_cast_40 = (CaptureDepthAOffsetShore1177).xxxx;
-				if(_DebugVisual==1){ifLocalVars112 = temp_cast_40; };
+				float4 temp_cast_41 = (CaptureDepthAOffsetShore1177).xxxx;
+				if(_DebugVisual==1){ifLocalVars112 = temp_cast_41; };
 				float2 appendResult955 = (float2(tex2DNode13.r , tex2DNode13.g));
 				float2 CaptureRG_Direction956 = ( temp_output_2766_0 * abs( appendResult955 ) );
 				if(_DebugVisual==2){ifLocalVars112 = float4( CaptureRG_Direction956, 0.0 , 0.0 ); };
@@ -2277,124 +2157,116 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float temp_output_2369_0 = ( CaptureB_Distancex100200 * 10.0 );
 				if(_DebugVisual==3){ifLocalVars112 = SampleGradient( gradient2366, temp_output_2369_0 ); };
 				float CaptureA_Depth320 = ( temp_output_2766_0 * tex2DNode13.a );
-				float4 temp_cast_43 = (CaptureA_Depth320).xxxx;
-				if(_DebugVisual==4){ifLocalVars112 = temp_cast_43; };
-				float4 temp_cast_44 = (DepthCacheWave184).xxxx;
-				if(_DebugVisual==5){ifLocalVars112 = temp_cast_44; };
-				float4 temp_cast_45 = (FoamMaskResult122).xxxx;
-				if(_DebugVisual==6){ifLocalVars112 = temp_cast_45; };
+				float4 temp_cast_44 = (CaptureA_Depth320).xxxx;
+				if(_DebugVisual==4){ifLocalVars112 = temp_cast_44; };
+				float4 temp_cast_45 = (DepthCacheWave184).xxxx;
+				if(_DebugVisual==5){ifLocalVars112 = temp_cast_45; };
+				float4 temp_cast_46 = (FoamMaskResult122).xxxx;
+				if(_DebugVisual==6){ifLocalVars112 = temp_cast_46; };
+				float3 CubemapRaw2213 = temp_output_1550_0;
 				#ifdef GlobalPlanarReflection
 				float3 staticSwitch2350 = temp_output_1549_0;
 				#else
-				float3 staticSwitch2350 = temp_output_1550_0;
+				float3 staticSwitch2350 = CubemapRaw2213;
 				#endif
 				float3 RawReflection1737 = staticSwitch2350;
 				if(_DebugVisual==7){ifLocalVars112 = float4( RawReflection1737 , 0.0 ); };
 				if(_DebugVisual==8){ifLocalVars112 = float4( WaterDepthTint342 , 0.0 ); };
 				if(_DebugVisual==9){ifLocalVars112 = float4( LightmapRes2657 , 0.0 ); };
-				float2 vertexToFrag10_g3433 = IN.ase_texcoord13.zw;
-				float4 tex2DNode7_g3433 = SAMPLE_TEXTURE2D_BIAS( _bakeLightmapSM, sampler_bakeLightmap, vertexToFrag10_g3433, 0.0 );
-				float4 localURPDecodeInstruction19_g3433 = URPDecodeInstruction19_g3433();
-				float3 decodeLightMap6_g3433 = DecodeLightmap(tex2DNode7_g3433,localURPDecodeInstruction19_g3433);
-				float3 lerpResult13_g3427 = lerp( float3(1,0,0) , saturate( decodeLightMap6_g3433 ) , temp_output_17_0_g3427);
-				float3 LightmapSWRes25_g3427 = lerpResult13_g3427;
-				float3 temp_output_3209_27 = LightmapSWRes25_g3427;
-				float3 LightmapSWRes2658 = temp_output_3209_27;
 				if(_DebugVisual==10){ifLocalVars112 = float4( LightmapSWRes2658 , 0.0 ); };
 				float4 temp_cast_51 = (ShoreMaskSpec2479).xxxx;
 				if(_DebugVisual==11){ifLocalVars112 = temp_cast_51; };
-				float VVVV2491 = temp_output_240_0;
-				float4 temp_cast_52 = (VVVV2491).xxxx;
+				float temp_output_240_0 = ( FoamVertDisp261 * _VertDispMult * 0.1 );
+				float VertDispY995 = temp_output_240_0;
+				float4 temp_cast_52 = (VertDispY995).xxxx;
 				if(_DebugVisual==12){ifLocalVars112 = temp_cast_52; };
-				float4 DebugRes608 = ifLocalVars112;
-				float3 color2751 = DebugRes608.xyz;
-				float3 localApplyTonemapper2751 = ApplyTonemapper( settings2751 , color2751 );
+				float3 color3523 = ifLocalVars112.xyz;
+				float3 localApplyTonemapper3523 = ApplyTonemapper( settings3523 , color3523 );
+				float3 DebugRes608 = localApplyTonemapper3523;
 				
 				float4 _Vector3 = float4(1,1,1,0);
-				float3 appendResult50_g3347 = (float3(unity_FogColor.rgb));
-				float3 WorldPosition256_g3347 = WorldPosition;
-				float3 worldToClip188_g3347 = TransformWorldToHClip(WorldPosition256_g3347).xyz;
-				float In191_g3347 = worldToClip188_g3347.z;
-				float localMyCustomExpression191_g3347 = MyCustomExpression191_g3347( In191_g3347 );
-				float4 appendResult239_g3347 = (float4(appendResult50_g3347 , ( 1.0 - localMyCustomExpression191_g3347 )));
+				float3 appendResult50_g3830 = (float3(unity_FogColor.rgb));
+				float3 WorldPosition256_g3830 = WorldPosition;
+				float3 worldToClip188_g3830 = TransformWorldToHClip(WorldPosition256_g3830).xyz;
+				float In191_g3830 = worldToClip188_g3830.z;
+				float localMyCustomExpression191_g3830 = MyCustomExpression191_g3830( In191_g3830 );
+				float4 appendResult239_g3830 = (float4(appendResult50_g3830 , ( 1.0 - localMyCustomExpression191_g3830 )));
 				#ifdef FOG_LINEAR
-				float4 staticSwitch252_g3347 = appendResult239_g3347;
+				float4 staticSwitch252_g3830 = appendResult239_g3830;
 				#else
-				float4 staticSwitch252_g3347 = float4( 0,0,0,0 );
+				float4 staticSwitch252_g3830 = float4( 0,0,0,0 );
 				#endif
-				float4 FogLinear53_g3347 = staticSwitch252_g3347;
+				float4 FogLinear53_g3830 = staticSwitch252_g3830;
 				#ifdef _USEUNITYFOG_ON
-				float4 staticSwitch267_g3347 = FogLinear53_g3347;
+				float4 staticSwitch267_g3830 = FogLinear53_g3830;
 				#else
-				float4 staticSwitch267_g3347 = _Vector3;
+				float4 staticSwitch267_g3830 = _Vector3;
 				#endif
-				float4 appendResult47_g3347 = (float4(staticSwitch267_g3347));
-				float3 ViewDir264_g3347 = WorldViewDirection;
-				float3 viewDir240_g3357 = ViewDir264_g3347;
-				float3 camWorldPos240_g3357 = _WorldSpaceCameraPos;
-				float3 WorldPos252_g3357 = WorldPosition256_g3347;
-				float3 posWS240_g3357 = WorldPos252_g3357;
-				float4 oceanFogDensities240_g3357 = OceanFogDensities;
-				float temp_output_67_0_g3347 = GlobalOceanHeight1552;
-				float temp_output_108_0_g3357 = temp_output_67_0_g3347;
-				float oceanHeight240_g3357 = temp_output_108_0_g3357;
-				float4 oceanFogTop_RGB_Exponent240_g3357 = OceanFogTop_RGB_Exponent;
-				float4 oceanFogBottom_RGB_Intensity240_g3357 = OceanFogBottom_RGB_Intensity;
-				float4 localGetUnderWaterFogs240_g3357 = GetUnderWaterFogs240_g3357( viewDir240_g3357 , camWorldPos240_g3357 , posWS240_g3357 , oceanFogDensities240_g3357 , oceanHeight240_g3357 , oceanFogTop_RGB_Exponent240_g3357 , oceanFogBottom_RGB_Intensity240_g3357 );
-				float4 FogRes185_g3357 = localGetUnderWaterFogs240_g3357;
-				float3 appendResult94_g3357 = (float3(FogRes185_g3357.xyz));
-				float3 temp_output_261_103_g3347 = appendResult94_g3357;
-				float temp_output_61_0_g3357 = ( 1.0 - (FogRes185_g3357).w );
-				float4 appendResult44_g3347 = (float4(temp_output_261_103_g3347 , ( 1.0 - temp_output_61_0_g3357 )));
-				float4 ifLocalVar49_g3347 = 0;
+				float4 appendResult47_g3830 = (float4(staticSwitch267_g3830));
+				float OceanUnder289_g3830 = GlobalOceanUnder;
+				float3 ViewDir264_g3830 = WorldViewDirection;
+				float3 viewDir240_g3846 = ViewDir264_g3830;
+				float3 camWorldPos240_g3846 = _WorldSpaceCameraPos;
+				float3 WorldPos252_g3846 = WorldPosition256_g3830;
+				float3 posWS240_g3846 = WorldPos252_g3846;
+				float4 oceanFogDensities240_g3846 = OceanFogDensities;
+				float temp_output_67_0_g3830 = GlobalOceanHeight1552;
+				float OceanHeight274_g3830 = temp_output_67_0_g3830;
+				float temp_output_108_0_g3846 = OceanHeight274_g3830;
+				float oceanHeight240_g3846 = temp_output_108_0_g3846;
+				float4 oceanFogTop_RGB_Exponent240_g3846 = OceanFogTop_RGB_Exponent;
+				float4 oceanFogBottom_RGB_Intensity240_g3846 = OceanFogBottom_RGB_Intensity;
+				float4 localGetUnderWaterFogs240_g3846 = GetUnderWaterFogs240_g3846( viewDir240_g3846 , camWorldPos240_g3846 , posWS240_g3846 , oceanFogDensities240_g3846 , oceanHeight240_g3846 , oceanFogTop_RGB_Exponent240_g3846 , oceanFogBottom_RGB_Intensity240_g3846 );
+				float4 FogRes185_g3846 = localGetUnderWaterFogs240_g3846;
+				float3 appendResult94_g3846 = (float3(FogRes185_g3846.xyz));
+				float3 temp_output_261_103_g3830 = appendResult94_g3846;
+				float temp_output_61_0_g3846 = ( 1.0 - (FogRes185_g3846).w );
+				float temp_output_58_0_g3830 = ( 1.0 - temp_output_61_0_g3846 );
+				float4 appendResult44_g3830 = (float4(temp_output_261_103_g3830 , temp_output_58_0_g3830));
+				float4 ifLocalVar49_g3830 = 0;
 				UNITY_BRANCH 
-				if( temp_output_23_0_g3347 >= 1.0 )
-				ifLocalVar49_g3347 = appendResult44_g3347;
+				if( OceanUnder289_g3830 >= 1.0 )
+				ifLocalVar49_g3830 = appendResult44_g3830;
 				else
-				ifLocalVar49_g3347 = appendResult47_g3347;
-				#ifdef _USEGRADIENTFOG_ON
-				float4 staticSwitch43_g3347 = ifLocalVar49_g3347;
-				#else
-				float4 staticSwitch43_g3347 = appendResult47_g3347;
-				#endif
+				ifLocalVar49_g3830 = appendResult47_g3830;
 				#ifdef _USEUNDERWATER
-				float4 staticSwitch215_g3347 = max( staticSwitch43_g3347 , float4( 0,0,0,0 ) );
+				float4 staticSwitch215_g3830 = max( ifLocalVar49_g3830 , float4( 0,0,0,0 ) );
 				#else
-				float4 staticSwitch215_g3347 = appendResult47_g3347;
+				float4 staticSwitch215_g3830 = appendResult47_g3830;
 				#endif
-				float4 temp_output_3047_25 = staticSwitch215_g3347;
-				float3 appendResult2432 = (float3(temp_output_3047_25.xyz));
+				float4 temp_output_3383_25 = staticSwitch215_g3830;
+				float3 appendResult2432 = (float3(temp_output_3383_25.xyz));
 				float4 appendResult2433 = (float4(appendResult2432 , 0.0));
-				float4 lerpResult1917 = lerp( appendResult2433 , temp_output_3047_25 , CamNear1615);
+				float4 lerpResult1917 = lerp( appendResult2433 , temp_output_3383_25 , CamNear1615);
 				float4 FogColorRes2321 = lerpResult1917;
 				
 				float3 temp_cast_58 = (1.0).xxx;
-				float3 appendResult100_g3357 = (float3(OceanWaterTint_RGB.xyz));
+				float3 appendResult100_g3846 = (float3(OceanWaterTint_RGB.xyz));
 				float3 temp_cast_60 = (1.0).xxx;
-				float3 ifLocalVar170_g3347 = 0;
+				float3 ifLocalVar170_g3830 = 0;
 				UNITY_BRANCH 
-				if( temp_output_23_0_g3347 >= 1.0 )
-				ifLocalVar170_g3347 = appendResult100_g3357;
+				if( OceanUnder289_g3830 >= 1.0 )
+				ifLocalVar170_g3830 = appendResult100_g3846;
 				else
-				ifLocalVar170_g3347 = temp_cast_60;
+				ifLocalVar170_g3830 = temp_cast_60;
 				#ifdef _USEUNDERWATER
-				float3 staticSwitch212_g3347 = ifLocalVar170_g3347;
+				float3 staticSwitch212_g3830 = ifLocalVar170_g3830;
 				#else
-				float3 staticSwitch212_g3347 = temp_cast_58;
+				float3 staticSwitch212_g3830 = temp_cast_58;
 				#endif
 				float switchResult2429 = (((ase_vface>0)?(1.0):(1.3)));
-				float3 lerpResult2314 = lerp( float3( 1,1,1 ) , ( staticSwitch212_g3347 * switchResult2429 ) , ( CamNear1615 * 0.9 ));
+				float3 lerpResult2314 = lerp( float3( 1,1,1 ) , ( staticSwitch212_g3830 * switchResult2429 ) , ( CamNear1615 * 0.9 ));
 				float3 TintRes2322 = lerpResult2314;
 				
 
 				float3 BaseColor = AlbedoRes22337.rgb;
-				float3 Normal = float3(0, 0, 1);
+				float3 Normal = NormalRes466;
 				float3 Emission = EmissionRes22320;
 				float3 Specular = 0.5;
 				float Metallic = 0;
-				float Smoothness = ( ShoreMaskDepthAlpha141 * SmoothnessRes468 * DepthFader1847 );
+				float Smoothness = SmoothnessRes468;
 				float Occlusion = 1;
-				float Alpha = AlphaRes469;
+				float Alpha = 1;
 				float AlphaClipThreshold = _ClipThreshold;
 				float AlphaClipThresholdShadow = 0.5;
 				float3 BakedGI = LightmapRes2657;
@@ -2404,13 +2276,13 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float3 Translucency = 1;
 				
 				//Shadowood: new properties below:
-				float3 DebugVisuals = localApplyTonemapper2751;
+				float3 DebugVisuals = DebugRes608;
 				float4 ShadowMask = float4( LightmapSWRes2658 , 0.0 );
 				float4 FogColor = FogColorRes2321;
 				half FresnelControl = 0;
 				half4 SSSControl = 0;
 				half4 SSSColor = 0;
-				float4 Tonemapping = temp_output_2533_0;
+				float4 Tonemapping = TonemapSettings3469;
 				float3 Tint = TintRes2322;
 				float4 AnisotropicControl = 1;
 				
@@ -2552,11 +2424,11 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#endif
 
 				//Shadowood: add custom PBR
-				#if ((defined(_ASE_ANIS) && defined(_USE_ANIS_ON)) || defined(_ASE_SSSCONTROL) && defined(_USE_SSS_ON)) || defined(_ASE_FRESNELCONTROL)
-					half4 color = UniversalFragmentPBRCustom( inputData, surfaceData, FresnelControl, SSSColor, SSSControl, WorldNormal, WorldTangent, AnisotropicControl );
-				#else
-					half4 color = UniversalFragmentPBR( inputData, surfaceData); // Original
-				#endif
+				//#if ((defined(_ASE_ANIS) && defined(_USE_ANIS_ON)) || defined(_ASE_SSSCONTROL) && defined(_USE_SSS_ON)) || defined(_ASE_FRESNELCONTROL)
+					half4 color = UniversalFragmentPBRCustom( inputData, surfaceData, FresnelControl, SSSColor, SSSControl, WorldNormal, WorldTangent, AnisotropicControl, _EnvironmentReflections );
+				//#else
+				//	half4 color = UniversalFragmentPBR( inputData, surfaceData); // Original
+				//#endif
 
 				//Shadowood: set alpha
 				color.a = surfaceData.alpha;
@@ -2730,13 +2602,14 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			#define _ASE_DEBUGVISUALS 1
 			#define ASE_FOG 1
 			#define _NORMAL_DROPOFF_TS 1
+			#define _SPECULAR_SETUP 1
 			#define ASE_BAKEDGI 1
 			#define ASE_SHADOWMASK 1
 			#define ASE_FOGCOLOR 1
 			#define _ASE_ALPHATEST 1
+			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 120115
 			#define ASE_NEEDS_FRAG_SCREEN_POSITION
-			#define TONEMAPPINGELSEWHERE
 			#define UNDERWATERELSEWHERE
 			#define ASE_USING_SAMPLING_MACROS 1
 
@@ -2773,24 +2646,16 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 			
 			#define ASE_NEEDS_VERT_POSITION
-			#define ASE_NEEDS_FRAG_WORLD_POSITION
-			#define ASE_NEEDS_FRAG_SCREEN_POSITION
-			#pragma shader_feature_local ASE_TESSELLATION_ON
-			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma shader_feature_local _DEBUGVISUALS_ON
-			#pragma shader_feature_local LIGHTMAP_ON
+			#pragma shader_feature_local ASE_TESSELLATION_ON
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local LIGHTMAP_ON
+			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma shader_feature_local _USEINFINITYEDGE_ON
 			#pragma shader_feature_local _USEVERTDISPLACEMENT_ON
-			#pragma shader_feature_local _USEWAVENOISEDISPLACE_ON
+			#pragma shader_feature_local _USEFOAM_ON
 			#pragma shader_feature_local _SPACE_WORLDSPACE _SPACE_UVSPACE
-			#pragma shader_feature_local _HORIZONMAPPED_ON
-			#pragma shader_feature_local _USEWAVEDIRECTION_ON
 			#pragma shader_feature_local _USEINFINITYFEATHER_ON
-			#pragma shader_feature_local _TRANSPARENTGRABPASS_ON
-			#pragma shader_feature_local _USEDITHERING_ON
-			#pragma shader_feature_local _USEEXTRANORMALS_ON
-			#pragma multi_compile __ GlobalPlanarReflection
 
 
 			#if defined(ASE_EARLY_Z_DEPTH_OPTIMIZE) && (SHADER_TARGET >= 45)
@@ -2819,71 +2684,75 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
 					float4 shadowCoord : TEXCOORD2;
 				#endif				
-				float4 ase_texcoord3 : TEXCOORD3;
+				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _FoamColor;
+			float4 _WaveDirectionSettings;
+			float4 _RemapFoam;
+			float4 _WaterTint;
+			float4 _CausticsTint;
+			float4 _RemapAlpha;
+			float4 _Normals2_ST;
 			float4 _Motion;
 			float4 _Normals_ST;
-			float4 _WaterTint;
+			float4 _Motion2;
 			float4 _RemapVertShore;
 			float4 _WaterAlbedo;
-			float4 _WaveDirectionSettings;
-			float4 _Normals2_ST;
-			float4 _Motion2;
 			float4 _RefFresnel;
-			float4 _CausticsTint;
-			float4x4 _DepthMatrix;
-			float4 _RemapAlpha;
-			float4 _BakeLightMapAmbient;
-			float4x4 _BakeMatrix;
+			float4 _BakeLightMapMobile;
+			float4 _FoamColor;
 			float4 _bakeLightmapST;
-			float4 _RemapFoam;
+			float4 _BakeLightMapAmbient;
+			float4x4 _DepthMatrix;
+			float3 _CameraForward;
+			float3 _DepthPosition;
 			float3 _WorldDir;
 			float3 _WorldPos;
-			float3 _DepthPosition;
-			float3 _CameraForward;
-			float _WaveRefractionStrength;
-			float _RefractionWarp;
-			float _RemapWaterDistance;
-			float _RemapWaterDistance1;
-			float _Smoothness;
-			float _WaterDepthPow;
-			float _WaterSaturation;
 			float _CubemapExposure;
-			float _NormalDarken1;
-			float _NormalDarken;
-			float _ForceEye;
+			float _NormalAlbedoStrength;
+			float _WaterAlbedoFake;
 			float _ClipThreshold;
+			float _ForceEye;
+			float _RemapWaterDistance1;
+			float _RemapWaterDistance;
 			float _WaterDepthPow1;
-			int _ZTestMode;
-			float _NormalPow2;
-			float _FoamMaxDistance;
-			float _ZWriteToggle;
+			float _BakedLightingFeather;
+			float _WaterDepthPow;
+			float _ReflectionShadowed;
+			float _ReflectionShadowedStart;
+			float _WaterSaturation;
+			float _Smoothness;
+			float _ReflectionShadowedEnd;
+			float _NormalDarken;
 			float _TessNum;
+			float _WaveRefractionStrength;
+			float _FoamMaxDistance;
 			float _TesMin;
 			float _TesMax;
+			int _ZTestMode;
+			float _ZWriteToggle;
 			float _WaveScale;
+			float _Tolerance;
+			float _Feather;
 			float _FoamNoiseSpeed;
 			float _FoamNoiseScale;
 			float _FoamNoiseCon;
+			float _FoamPow;
 			float _FoamNoiseScale2;
-			float _FoamNoiseCon2;
 			float _DistanceFadeA;
 			float _WaveSpeed;
 			float _DistanceFadeB;
 			float _VertDispMult;
-			float _Tolerance;
-			float _Feather;
-			float _FoamScale_UseFoam;
 			float _NormalPow;
-			float _BakedLightingFeather;
+			float _NormalPow2;
 			float _RefDistortion;
 			float _WaterRefractonMobile;
-			float _FoamPow;
+			float _RefractionWarp;
+			float _FoamScale_UseFoam;
+			float _FoamNoiseCon2;
 			int _DebugVisual;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
@@ -2905,6 +2774,7 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float _TessMaxDisp;
 			#endif
 			float _DebugCounter; //Shadowood
+			half _EnvironmentReflections; // Shadowood
 			CBUFFER_END
 
 			// Property used by ScenePickingPass
@@ -2918,8 +2788,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				int _PassValue;
 			#endif
 
-			float4 _skyGradientColor1;
-			float4 _skyGradientColor2;
 			float3 _CausticsDir;
 			half _CausticsScale;
 			half2 _CausticsPanSpeed;
@@ -2928,16 +2796,13 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			SAMPLER(sampler_Caustics);
 			TEXTURE2D(_Caustics2);
 			SAMPLER(sampler_Caustics2);
+			float4 _skyGradientColor1;
+			float4 _skyGradientColor2;
 			TEXTURE2D(_FoamLUT);
 			TEXTURE2D(_DepthCache);
 			SAMPLER(sampler_Linear_Clamp);
 			TEXTURE2D(_WaveNoiseDisplace);
 			SAMPLER(sampler_WaveNoiseDisplace);
-			TEXTURE2D(_ColorCache);
-			TEXTURE2D(_Normals);
-			SAMPLER(sampler_Normals);
-			TEXTURE2D(_Normals2);
-			SAMPLER(sampler_Normals2);
 
 
 			//#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/Varyings.hlsl"
@@ -2954,58 +2819,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
 			}
 			
-			float4 Billboard2078( float3 worldPosIN, float2 screenPos, float3 QuadNormal, float3 QuadPosition )
-			{
-				float3 worldPos = worldPosIN;
-				float3 viewDir = worldPos - _WorldSpaceCameraPos;
-				float3 reflectDir = -viewDir;
-				float3 nReflDirection = normalize(reflectDir);
-				float4 result = float4(0,0,0,0);
-				// Ray-quad intersection
-				half planeIntersectDistance = dot( worldPos - QuadPosition,  QuadNormal.xyz ) / dot( nReflDirection, QuadNormal.xyz );
-				half3 intersectPosition = worldPos - nReflDirection * planeIntersectDistance;
-				//half4 localPlaneIntersectPosition = mul( QuadInverseMatrix, float4( intersectPosition, 1.0 ));
-				half4 localPlaneIntersectPosition = float4( intersectPosition, 1.0 );
-				half2 billboardUV = half2( localPlaneIntersectPosition.x, localPlaneIntersectPosition.z );
-				//billboardUV*=1;
-				//float4 billboardCol = BillboardTex.Sample( BillboardSampler , billboardUV );
-				float4 billboardCol = float4( billboardUV.x, billboardUV.y, 0, 1);
-				float3 quadNorm = QuadNormal.xyz;
-				half reflectDot = dot( nReflDirection, quadNorm );
-				float w = 1;
-				// Cull when beyond the quad bounds
-				//w = billboardUV.x > 1.0 ? 0.0 : w;
-				//w = billboardUV.y > 1.0 ? 0.0 : w;
-				//w = billboardUV.x < 0.0 ? 0.0 : w;
-				//w = billboardUV.y < 0.0 ? 0.0 : w;
-				// Cull if distance is behind the surface
-				//w = planeIntersectDistance < 0 ? 0 : w;
-				// Cull if quad facing backwards
-				w = reflectDot <= 0.0 ? 0.0 : w; 
-				// Cull if quad facing backwards and culling is ticked on the quad ( passed in via the arrays W )
-				//w = QuadNormal.w == 1.0 ? (reflectDot <= 0.0 ? 0.0 : w) : w;
-				billboardCol = billboardCol * billboardCol.w * w;
-				billboardCol.a = w;
-				result*=1-w;
-				result+= billboardCol;
-				return result;
-			}
-			
-			inline float Dither8x8Bayer( int x, int y )
-			{
-				const float dither[ 64 ] = {
-			 1, 49, 13, 61,  4, 52, 16, 64,
-			33, 17, 45, 29, 36, 20, 48, 32,
-			 9, 57,  5, 53, 12, 60,  8, 56,
-			41, 25, 37, 21, 44, 28, 40, 24,
-			 3, 51, 15, 63,  2, 50, 14, 62,
-			35, 19, 47, 31, 34, 18, 46, 30,
-			11, 59,  7, 55, 10, 58,  6, 54,
-			43, 27, 39, 23, 42, 26, 38, 22};
-				int r = y * 8 + x;
-				return dither[r] / 64; // same # of instructions as pre-dividing due to compiler magic
-			}
-			
 
 			float3 _LightDirection;
 			float3 _LightPosition;
@@ -3018,14 +2831,13 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO( o );
 
 				float2 texCoord2052 = v.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
-				float temp_output_2054_0 = distance( texCoord2052 , float2( 0.5,0.5 ) );
 				float ifLocalVar2053 = 0;
-				if( temp_output_2054_0 <= 1.0 )
+				if( distance( texCoord2052 , float2( 0.5,0.5 ) ) <= 1.0 )
 				ifLocalVar2053 = 1.0;
 				else
 				ifLocalVar2053 = 5000.0;
 				#ifdef _USEINFINITYEDGE_ON
-				float4 staticSwitch1498 = ( v.vertex * ifLocalVar2053 );
+				float4 staticSwitch1498 = ( ifLocalVar2053 * v.vertex );
 				#else
 				float4 staticSwitch1498 = v.vertex;
 				#endif
@@ -3043,91 +2855,93 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#endif
 				float2 CacheUV1109 = staticSwitch1346;
 				float4 tex2DNode13 = SAMPLE_TEXTURE2D_LOD( _DepthCache, sampler_Linear_Clamp, CacheUV1109, 0.0 );
-				float temp_output_17_0_g3203 = 0.001;
-				float2 temp_cast_2 = (temp_output_17_0_g3203).xx;
-				float2 temp_cast_3 = (( 1.0 - temp_output_17_0_g3203 )).xx;
-				float2 break5_g3203 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_2) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_3 - temp_cast_2)) );
-				float temp_output_1_0_g3205 = break5_g3203.x;
-				float temp_output_8_0_g3203 = ( 0.001 + -1.0 );
-				float temp_output_1_0_g3204 = break5_g3203.y;
-				float temp_output_2766_0 = saturate( saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3205 - floor( ( temp_output_1_0_g3205 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3204 - floor( ( temp_output_1_0_g3204 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) ) ) );
+				float temp_output_17_0_g3046 = 0.001;
+				float2 temp_cast_2 = (temp_output_17_0_g3046).xx;
+				float2 temp_cast_3 = (( 1.0 - temp_output_17_0_g3046 )).xx;
+				float2 break5_g3046 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_2) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_3 - temp_cast_2)) );
+				float temp_output_1_0_g3048 = break5_g3046.x;
+				float temp_output_9_0_g3046 = ( ( abs( ( ( temp_output_1_0_g3048 - floor( ( temp_output_1_0_g3048 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3046 = ( 0.001 + -1.0 );
+				float temp_output_17_0_g3040 = 0.01;
+				float2 temp_cast_4 = (temp_output_17_0_g3040).xx;
+				float2 temp_cast_5 = (( 1.0 - temp_output_17_0_g3040 )).xx;
+				float2 break5_g3040 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_4) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_5 - temp_cast_4)) );
+				float temp_output_1_0_g3042 = break5_g3040.x;
+				float temp_output_9_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3042 - floor( ( temp_output_1_0_g3042 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_1_0_g3041 = break5_g3040.y;
+				float temp_output_6_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3041 - floor( ( temp_output_1_0_g3041 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float2 appendResult24_g3040 = (float2(temp_output_9_0_g3040 , temp_output_6_0_g3040));
+				float2 CacheUVPreFeather3438 = appendResult24_g3040;
+				float2 break40_g3046 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3046 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3046 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) * saturate( (0.0 + (break40_g3046.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) ) );
+				float temp_output_2766_0 = saturate( temp_output_15_0_g3046 );
 				float lerpResult3090 = lerp( 1000.0 , ( tex2DNode13.b * 100.0 ) , temp_output_2766_0);
 				float CaptureB_Distancex100200 = lerpResult3090;
 				float temp_output_307_0 = ( 1.0 - saturate( abs( CaptureB_Distancex100200 ) ) );
-				float Foamness294 = ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale );
-				float2 temp_cast_4 = (_FoamNoiseSpeed).xx;
+				float temp_output_8_0_g3040 = ( 0.1 + -1.0 );
+				float temp_output_15_0_g3040 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) * saturate( (0.0 + (temp_output_6_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) ) );
+				float temp_output_2763_0 = saturate( ( temp_output_15_0_g3040 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
+				float temp_output_17_0_g3049 = _Tolerance;
+				float2 temp_cast_6 = (temp_output_17_0_g3049).xx;
+				float2 temp_cast_7 = (( 1.0 - temp_output_17_0_g3049 )).xx;
+				float2 break5_g3049 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_6) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_7 - temp_cast_6)) );
+				float temp_output_1_0_g3051 = break5_g3049.x;
+				float temp_output_9_0_g3049 = ( ( abs( ( ( temp_output_1_0_g3051 - floor( ( temp_output_1_0_g3051 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3049 = ( _Feather + -1.0 );
+				float2 break40_g3049 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3049 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3049 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) * saturate( (0.0 + (break40_g3049.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) ) );
+				#ifdef _USEINFINITYFEATHER_ON
+				float staticSwitch1654 = temp_output_15_0_g3049;
+				#else
+				float staticSwitch1654 = 1.0;
+				#endif
+				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
+				float Foamness294 = ( ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale ) * InfinityFeather1410 );
+				float2 temp_cast_8 = (_FoamNoiseSpeed).xx;
 				float3 break35 = ase_worldPos;
 				float2 appendResult36 = (float2(break35.x , break35.z));
-				float3 worldPosIN2078 = ase_worldPos;
-				float4 ase_clipPos = TransformObjectToHClip((v.vertex).xyz);
-				float4 screenPos = ComputeScreenPos(ase_clipPos);
-				float4 ase_screenPosNorm = screenPos / screenPos.w;
-				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 screenPos2078 = ase_screenPosNorm.xy;
-				float3 QuadNormal2078 = float3( 0,1,0 );
-				float3 QuadPosition2078 = float3(0,-4,0);
-				float4 localBillboard2078 = Billboard2078( worldPosIN2078 , screenPos2078 , QuadNormal2078 , QuadPosition2078 );
-				float temp_output_2080_0 = (localBillboard2078).w;
-				float2 temp_output_2096_0 = ( (localBillboard2078).xy * temp_output_2080_0 );
-				#ifdef _HORIZONMAPPED_ON
-				float2 staticSwitch2082 = temp_output_2096_0;
-				#else
-				float2 staticSwitch2082 = appendResult36;
-				#endif
-				float2 WorldXZ1087 = staticSwitch2082;
-				float2 panner138 = ( 1.0 * _Time.y * temp_cast_4 + ( WorldXZ1087 * _FoamNoiseScale ));
+				float2 WorldXZ1087 = appendResult36;
+				float2 panner138 = ( 1.0 * _Time.y * temp_cast_8 + ( WorldXZ1087 * _FoamNoiseScale ));
 				float lerpResult133 = lerp( 1.0 , SAMPLE_TEXTURE2D_LOD( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( 0.04 * panner138 ), 0.0 ).r , _FoamNoiseCon);
-				float2 temp_cast_6 = (_FoamNoiseSpeed).xx;
-				float2 panner168 = ( 1.0 * _Time.y * temp_cast_6 + ( WorldXZ1087 * _FoamNoiseScale2 ));
+				float2 temp_cast_9 = (_FoamNoiseSpeed).xx;
+				float2 panner168 = ( 1.0 * _Time.y * temp_cast_9 + ( WorldXZ1087 * _FoamNoiseScale2 ));
 				float lerpResult161 = lerp( 1.0 , SAMPLE_TEXTURE2D_LOD( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( panner168 * 0.04 ), 0.0 ).r , _FoamNoiseCon2);
 				float UnderOffset1634 = GlobalOceanOffset;
 				float3 appendResult2127 = (float3(break1605.x , ( break1605.y + UnderOffset1634 ) , break1605.z));
-				float3 VertResOffset2125 = appendResult2127;
+				float3 vertexToFrag3421 = appendResult2127;
+				float3 VertResOffset2125 = vertexToFrag3421;
 				float3 customSurfaceDepth1169 = VertResOffset2125;
 				float customEye1169 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1169)).z;
 				float cameraDepthFade1169 = (( customEye1169 -_ProjectionParams.y - 0.0 ) / _DistanceFadeA);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2110 = 0.0;
-				#else
-				float staticSwitch2110 = saturate( cameraDepthFade1169 );
-				#endif
-				float DistanceFadeA1294 = staticSwitch2110;
-				#ifdef _USEWAVENOISEDISPLACE_ON
-				float staticSwitch680 = ( Foamness294 + ( ( lerpResult133 + lerpResult161 ) * ( ( 1.0 - DistanceFadeA1294 ) * 0.4 ) ) );
-				#else
-				float staticSwitch680 = Foamness294;
-				#endif
-				float DepthCacheRemap109 = staticSwitch680;
+				float DistanceFadeA1294 = saturate( cameraDepthFade1169 );
+				float temp_output_318_0 = ( Foamness294 + ( ( lerpResult133 + lerpResult161 ) * ( ( 1.0 - DistanceFadeA1294 ) * 0.4 ) ) );
+				float DepthCacheRemap109 = temp_output_318_0;
 				float temp_output_5_0_g3212 = ( 1.0 - DepthCacheRemap109 );
 				float mulTime209 = _TimeParameters.x * ( _WaveSpeed * 0.1 );
 				float2 appendResult868 = (float2(_WaveDirectionSettings.x , _WaveDirectionSettings.y));
 				float WaveCenterDistance1051 = distance( WorldXZ1087 , appendResult868 );
-				#ifdef _USEWAVEDIRECTION_ON
-				float staticSwitch762 = ( mulTime209 + ( ( WaveCenterDistance1051 * -0.01 ) / _WaveDirectionSettings.z ) );
-				#else
-				float staticSwitch762 = ( 0.0 - mulTime209 );
-				#endif
-				float temp_output_17_0_g3212 = staticSwitch762;
+				float temp_output_839_0 = ( mulTime209 + ( ( WaveCenterDistance1051 * -0.01 ) / _WaveDirectionSettings.z ) );
+				float temp_output_17_0_g3212 = temp_output_839_0;
 				float temp_output_30_0_g3212 = ( 1.0 - saturate( 0.7 ) );
 				float temp_output_35_0_g3212 = ( temp_output_30_0_g3212 * 0.5 );
 				float temp_output_32_0_g3212 = ( (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) - temp_output_35_0_g3212 );
 				float temp_output_31_0_g3212 = ( temp_output_35_0_g3212 + (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) );
 				float DepthCacheWave184 = ( 1.0 - frac( (0.0 + (temp_output_5_0_g3212 - temp_output_32_0_g3212) * (1.0 - 0.0) / (temp_output_31_0_g3212 - temp_output_32_0_g3212)) ) );
 				float clampResult124 = clamp( DepthCacheWave184 , 0.01 , 0.99 );
-				float2 temp_cast_7 = (clampResult124).xx;
-				float4 tex2DNode76 = SAMPLE_TEXTURE2D_LOD( _FoamLUT, sampler_Linear_Clamp, temp_cast_7, 0.0 );
+				float2 temp_cast_10 = (clampResult124).xx;
+				float4 tex2DNode76 = SAMPLE_TEXTURE2D_LOD( _FoamLUT, sampler_Linear_Clamp, temp_cast_10, 0.0 );
 				float smoothstepResult279 = smoothstep( 0.0 , 1.0 , tex2DNode76.a);
 				float3 customSurfaceDepth1325 = VertResOffset2125;
 				float customEye1325 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1325)).z;
 				float cameraDepthFade1325 = (( customEye1325 -_ProjectionParams.y - 0.0 ) / _DistanceFadeB);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2111 = 0.0;
-				#else
-				float staticSwitch2111 = saturate( cameraDepthFade1325 );
-				#endif
-				float DistanceFadeB1326 = staticSwitch2111;
+				float DistanceFadeB1326 = saturate( cameraDepthFade1325 );
 				float lerpResult1311 = lerp( smoothstepResult279 , 0.0 , DistanceFadeB1326);
-				float FoamVertDisp261 = saturate( lerpResult1311 );
+				#ifdef _USEFOAM_ON
+				float staticSwitch3358 = saturate( lerpResult1311 );
+				#else
+				float staticSwitch3358 = 0.0;
+				#endif
+				float FoamVertDisp261 = staticSwitch3358;
 				float temp_output_240_0 = ( FoamVertDisp261 * _VertDispMult * 0.1 );
 				float ShoreMaskVert586 = saturate( (0.0 + (( CaptureB_Distancex100200 * 100.0 ) - _RemapVertShore.x) * (1.0 - 0.0) / (_RemapVertShore.y - _RemapVertShore.x)) );
 				float VertDispDistMask22014 = ( 1.0 - saturate( (0.0 + (distance( WorldXZ1087 , (_WorldSpaceCameraPos).xz ) - 5.0) * (1.0 - 0.0) / (7.9 - 5.0)) ) );
@@ -3135,28 +2949,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float customEye1484 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1484)).z;
 				float cameraDepthFade1484 = (( customEye1484 -_ProjectionParams.y - 0.0 ) / 1.0);
 				float CamDepthFade1495 = cameraDepthFade1484;
-				float temp_output_17_0_g3206 = 0.01;
-				float2 temp_cast_8 = (temp_output_17_0_g3206).xx;
-				float2 temp_cast_9 = (( 1.0 - temp_output_17_0_g3206 )).xx;
-				float2 break5_g3206 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_8) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_9 - temp_cast_8)) );
-				float temp_output_1_0_g3208 = break5_g3206.x;
-				float temp_output_8_0_g3206 = ( 0.1 + -1.0 );
-				float temp_output_1_0_g3207 = break5_g3206.y;
-				float temp_output_2768_0 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3208 - floor( ( temp_output_1_0_g3208 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3207 - floor( ( temp_output_1_0_g3207 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) ) );
-				float temp_output_2763_0 = saturate( ( temp_output_2768_0 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
-				float temp_output_17_0_g3209 = _Tolerance;
-				float2 temp_cast_10 = (temp_output_17_0_g3209).xx;
-				float2 temp_cast_11 = (( 1.0 - temp_output_17_0_g3209 )).xx;
-				float2 break5_g3209 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_10) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_11 - temp_cast_10)) );
-				float temp_output_1_0_g3211 = break5_g3209.x;
-				float temp_output_8_0_g3209 = ( _Feather + -1.0 );
-				float temp_output_1_0_g3210 = break5_g3209.y;
-				#ifdef _USEINFINITYFEATHER_ON
-				float staticSwitch1654 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3211 - floor( ( temp_output_1_0_g3211 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3210 - floor( ( temp_output_1_0_g3210 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) ) );
-				#else
-				float staticSwitch1654 = 1.0;
-				#endif
-				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
 				float VertDispMaskRes1691 = ( ShoreMaskVert586 * saturate( VertDispDistMask22014 ) * saturate( (0.0 + (CamDepthFade1495 - 0.2) * (1.0 - 0.0) / (1.5 - 0.2)) ) * InfinityFeather1410 );
 				float temp_output_238_0 = ( temp_output_240_0 * VertDispMaskRes1691 );
 				#ifdef _USEVERTDISPLACEMENT_ON
@@ -3164,16 +2956,11 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#else
 				float staticSwitch1688 = 0.0;
 				#endif
-				float VertAdded1524 = staticSwitch1688;
+				float vertexToFrag3514 = staticSwitch1688;
+				float VertAdded1524 = vertexToFrag3514;
 				float3 appendResult1606 = (float3(break1605.x , ( break1605.y + VertAdded1524 + UnderOffset1634 ) , break1605.z));
 				float3 VertResDisplaced328 = appendResult1606;
 				
-				o.ase_texcoord3.z = customEye1169;
-				
-				o.ase_texcoord3.xy = v.ase_texcoord.xy;
-				
-				//setting value to unused interpolator channels and avoid initialization warnings
-				o.ase_texcoord3.w = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
@@ -3308,7 +3095,7 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 						#ifdef ASE_DEPTH_WRITE_ON
 						,out float outputDepth : ASE_SV_DEPTH
 						#endif
-						, bool ase_vface : SV_IsFrontFace ) : SV_TARGET
+						 ) : SV_TARGET
 			{
 				UNITY_SETUP_INSTANCE_ID( IN );
 				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX( IN );
@@ -3329,151 +3116,9 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 					#endif
 				#endif
 
-				float2 appendResult892 = (float2(_Motion2.x , _Motion2.y));
-				float2 Motion2XY1096 = appendResult892;
-				float3 break35 = WorldPosition;
-				float2 appendResult36 = (float2(break35.x , break35.z));
-				float3 worldPosIN2078 = WorldPosition;
-				float4 ase_screenPosNorm = ScreenPos / ScreenPos.w;
-				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 screenPos2078 = ase_screenPosNorm.xy;
-				float3 QuadNormal2078 = float3( 0,1,0 );
-				float3 QuadPosition2078 = float3(0,-4,0);
-				float4 localBillboard2078 = Billboard2078( worldPosIN2078 , screenPos2078 , QuadNormal2078 , QuadPosition2078 );
-				float temp_output_2080_0 = (localBillboard2078).w;
-				float2 temp_output_2096_0 = ( (localBillboard2078).xy * temp_output_2080_0 );
-				#ifdef _HORIZONMAPPED_ON
-				float2 staticSwitch2082 = temp_output_2096_0;
-				#else
-				float2 staticSwitch2082 = appendResult36;
-				#endif
-				float2 WorldXZ1087 = staticSwitch2082;
-				float2 panner890 = ( 0.05 * _Time.y * Motion2XY1096 + WorldXZ1087);
-				#ifdef GlobalPlanarReflection
-				float staticSwitch1591 = _NormalPow;
-				#else
-				float staticSwitch1591 = ( _NormalPow * 0.7 );
-				#endif
-				float temp_output_1436_0 = ( _NormalPow * 6.0 );
-				float switchResult1435 = (((ase_vface>0)?(staticSwitch1591):(temp_output_1436_0)));
-				float3 unpack11 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Normals, sampler_Normals, (panner890*_Normals_ST.xy + _Normals_ST.zw) ), switchResult1435 );
-				unpack11.z = lerp( 1, unpack11.z, saturate(switchResult1435) );
-				float3 tex2DNode11 = unpack11;
-				float2 appendResult88 = (float2(_Motion.z , _Motion.w));
-				float2 MotionZW1085 = appendResult88;
-				float2 panner85 = ( 0.1 * _Time.y * MotionZW1085 + WorldXZ1087);
-				float switchResult1432 = (((ase_vface>0)?(( _NormalPow2 * 2.0 )):(( _NormalPow2 * 12.0 ))));
-				float3 unpack84 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Normals2, sampler_Normals2, (panner85*_Normals2_ST.xy + _Normals2_ST.zw) ), switchResult1432 );
-				unpack84.z = lerp( 1, unpack84.z, saturate(switchResult1432) );
-				float2 panner1722 = ( -0.05 * _Time.y * MotionZW1085 + WorldXZ1087);
-				float3 unpack1718 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Normals2, sampler_Normals2, (panner1722*( _Normals2_ST.xy * float2( 0.5,0.5 ) ) + _Normals2_ST.zw) ), switchResult1432 );
-				unpack1718.z = lerp( 1, unpack1718.z, saturate(switchResult1432) );
-				float3 temp_output_1719_0 = BlendNormal( unpack84 , unpack1718 );
-				float3 temp_output_83_0 = BlendNormal( tex2DNode11 , temp_output_1719_0 );
-				#ifdef _USEEXTRANORMALS_ON
-				float3 staticSwitch1683 = temp_output_83_0;
-				#else
-				float3 staticSwitch1683 = temp_output_83_0;
-				#endif
-				float2 appendResult1049 = (float2(staticSwitch1683.xy));
-				float2 RefNorm886 = appendResult1049;
-				float RefBumpSlider1337 = _RefDistortion;
-				float3 normalizeResult2273 = normalize( ( staticSwitch1683 + float3( ( RefNorm886 * RefBumpSlider1337 ) ,  0.0 ) ) );
-				float2 appendResult2519 = (float2(normalizeResult2273.xy));
-				float3 break19 = mul( _DepthMatrix, float4( ( WorldPosition - _DepthPosition ) , 0.0 ) ).xyz;
-				float2 appendResult16 = (float2(break19.x , break19.z));
-				float2 texCoord1345 = IN.ase_texcoord3.xy * float2( 1,1 ) + float2( 0,0 );
-				#if defined(_SPACE_WORLDSPACE)
-				float2 staticSwitch1346 = ( float2( 0.5,0.5 ) + appendResult16 );
-				#elif defined(_SPACE_UVSPACE)
-				float2 staticSwitch1346 = texCoord1345;
-				#else
-				float2 staticSwitch1346 = ( float2( 0.5,0.5 ) + appendResult16 );
-				#endif
-				float2 CacheUV1109 = staticSwitch1346;
-				float4 tex2DNode13 = SAMPLE_TEXTURE2D( _DepthCache, sampler_Linear_Clamp, CacheUV1109 );
-				float temp_output_17_0_g3203 = 0.001;
-				float2 temp_cast_6 = (temp_output_17_0_g3203).xx;
-				float2 temp_cast_7 = (( 1.0 - temp_output_17_0_g3203 )).xx;
-				float2 break5_g3203 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_6) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_7 - temp_cast_6)) );
-				float temp_output_1_0_g3205 = break5_g3203.x;
-				float temp_output_8_0_g3203 = ( 0.001 + -1.0 );
-				float temp_output_1_0_g3204 = break5_g3203.y;
-				float temp_output_2766_0 = saturate( saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3205 - floor( ( temp_output_1_0_g3205 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3204 - floor( ( temp_output_1_0_g3204 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) ) ) );
-				float lerpResult3090 = lerp( 1000.0 , ( tex2DNode13.b * 100.0 ) , temp_output_2766_0);
-				float CaptureB_Distancex100200 = lerpResult3090;
-				float temp_output_307_0 = ( 1.0 - saturate( abs( CaptureB_Distancex100200 ) ) );
-				float Foamness294 = ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale );
-				float2 lerpResult2274 = lerp( float2( 0,0 ) , appendResult2519 , ( _WaterRefractonMobile * 0.5 * saturate( Foamness294 ) ));
-				float temp_output_17_0_g3206 = 0.01;
-				float2 temp_cast_8 = (temp_output_17_0_g3206).xx;
-				float2 temp_cast_9 = (( 1.0 - temp_output_17_0_g3206 )).xx;
-				float2 break5_g3206 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_8) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_9 - temp_cast_8)) );
-				float temp_output_1_0_g3208 = break5_g3206.x;
-				float temp_output_8_0_g3206 = ( 0.1 + -1.0 );
-				float temp_output_1_0_g3207 = break5_g3206.y;
-				float temp_output_2768_0 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3208 - floor( ( temp_output_1_0_g3208 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3207 - floor( ( temp_output_1_0_g3207 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) ) );
-				float temp_output_2763_0 = saturate( ( temp_output_2768_0 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
-				float temp_output_17_0_g3209 = _Tolerance;
-				float2 temp_cast_10 = (temp_output_17_0_g3209).xx;
-				float2 temp_cast_11 = (( 1.0 - temp_output_17_0_g3209 )).xx;
-				float2 break5_g3209 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_10) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_11 - temp_cast_10)) );
-				float temp_output_1_0_g3211 = break5_g3209.x;
-				float temp_output_8_0_g3209 = ( _Feather + -1.0 );
-				float temp_output_1_0_g3210 = break5_g3209.y;
-				#ifdef _USEINFINITYFEATHER_ON
-				float staticSwitch1654 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3211 - floor( ( temp_output_1_0_g3211 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3210 - floor( ( temp_output_1_0_g3210 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) ) );
-				#else
-				float staticSwitch1654 = 1.0;
-				#endif
-				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
-				float customEye1169 = IN.ase_texcoord3.z;
-				float cameraDepthFade1169 = (( customEye1169 -_ProjectionParams.y - 0.0 ) / _DistanceFadeA);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2110 = 0.0;
-				#else
-				float staticSwitch2110 = saturate( cameraDepthFade1169 );
-				#endif
-				float DistanceFadeA1294 = staticSwitch2110;
-				float temp_output_1414_0 = ( ( 1.0 - InfinityFeather1410 ) * saturate( DistanceFadeA1294 ) );
-				float2 lerpResult2275 = lerp( lerpResult2274 , float2( 0,0 ) , temp_output_1414_0);
-				#ifdef _TRANSPARENTGRABPASS_ON
-				float2 staticSwitch2542 = float2( 0,0 );
-				#else
-				float2 staticSwitch2542 = lerpResult2275;
-				#endif
-				float2 RefHackeryForColorCache2269 = staticSwitch2542;
-				float2 temp_output_2198_0 = ( RefHackeryForColorCache2269 + CacheUV1109 );
-				float4 tex2DNode657 = SAMPLE_TEXTURE2D( _ColorCache, sampler_Linear_Clamp, temp_output_2198_0 );
-				float ColorCacheA2171 = tex2DNode657.a;
-				float temp_output_12_0_g3214 = InfinityFeather1410;
-				float CaptureDepthAOffsetShore1177 = ( ( ColorCacheA2171 * temp_output_12_0_g3214 ) + ( 1.0 - temp_output_12_0_g3214 ) );
-				float4 break993 = _RemapAlpha;
-				float switchResult2294 = (((ase_vface>0)?(saturate( (0.0 + (CaptureDepthAOffsetShore1177 - break993.x) * (1.0 - 0.0) / (break993.y - break993.x)) )):(1.0)));
-				float ShoreMaskDepthAlpha141 = switchResult2294;
-				float2 clipScreen639 = ase_screenPosNorm.xy * _ScreenParams.xy;
-				float dither639 = Dither8x8Bayer( fmod(clipScreen639.x, 8), fmod(clipScreen639.y, 8) );
-				dither639 = step( dither639, ShoreMaskDepthAlpha141 );
-				#ifdef _USEDITHERING_ON
-				float staticSwitch1685 = dither639;
-				#else
-				float staticSwitch1685 = ShoreMaskDepthAlpha141;
-				#endif
-				#ifdef _TRANSPARENTGRABPASS_ON
-				float staticSwitch1748 = 1.0;
-				#else
-				float staticSwitch1748 = staticSwitch1685;
-				#endif
-				float HorizonAlpha2083 = temp_output_2080_0;
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2085 = HorizonAlpha2083;
-				#else
-				float staticSwitch2085 = staticSwitch1748;
-				#endif
-				float AlphaRes469 = staticSwitch2085;
 				
 
-				float Alpha = AlphaRes469;
+				float Alpha = 1;
 				float AlphaClipThreshold = _ClipThreshold;
 				float AlphaClipThresholdShadow = 0.5;
 
@@ -3527,13 +3172,14 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			#define _ASE_DEBUGVISUALS 1
 			#define ASE_FOG 1
 			#define _NORMAL_DROPOFF_TS 1
+			#define _SPECULAR_SETUP 1
 			#define ASE_BAKEDGI 1
 			#define ASE_SHADOWMASK 1
 			#define ASE_FOGCOLOR 1
 			#define _ASE_ALPHATEST 1
+			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 120115
 			#define ASE_NEEDS_FRAG_SCREEN_POSITION
-			#define TONEMAPPINGELSEWHERE
 			#define UNDERWATERELSEWHERE
 			#define ASE_USING_SAMPLING_MACROS 1
 
@@ -3570,24 +3216,16 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
 			#define ASE_NEEDS_VERT_POSITION
-			#define ASE_NEEDS_FRAG_WORLD_POSITION
-			#define ASE_NEEDS_FRAG_SCREEN_POSITION
-			#pragma shader_feature_local ASE_TESSELLATION_ON
-			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma shader_feature_local _DEBUGVISUALS_ON
-			#pragma shader_feature_local LIGHTMAP_ON
+			#pragma shader_feature_local ASE_TESSELLATION_ON
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local LIGHTMAP_ON
+			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma shader_feature_local _USEINFINITYEDGE_ON
 			#pragma shader_feature_local _USEVERTDISPLACEMENT_ON
-			#pragma shader_feature_local _USEWAVENOISEDISPLACE_ON
+			#pragma shader_feature_local _USEFOAM_ON
 			#pragma shader_feature_local _SPACE_WORLDSPACE _SPACE_UVSPACE
-			#pragma shader_feature_local _HORIZONMAPPED_ON
-			#pragma shader_feature_local _USEWAVEDIRECTION_ON
 			#pragma shader_feature_local _USEINFINITYFEATHER_ON
-			#pragma shader_feature_local _TRANSPARENTGRABPASS_ON
-			#pragma shader_feature_local _USEDITHERING_ON
-			#pragma shader_feature_local _USEEXTRANORMALS_ON
-			#pragma multi_compile __ GlobalPlanarReflection
 
 
 			#if defined(ASE_EARLY_Z_DEPTH_OPTIMIZE) && (SHADER_TARGET >= 45)
@@ -3616,71 +3254,75 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
 				float4 shadowCoord : TEXCOORD2;
 				#endif
-				float4 ase_texcoord3 : TEXCOORD3;
+				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _FoamColor;
+			float4 _WaveDirectionSettings;
+			float4 _RemapFoam;
+			float4 _WaterTint;
+			float4 _CausticsTint;
+			float4 _RemapAlpha;
+			float4 _Normals2_ST;
 			float4 _Motion;
 			float4 _Normals_ST;
-			float4 _WaterTint;
+			float4 _Motion2;
 			float4 _RemapVertShore;
 			float4 _WaterAlbedo;
-			float4 _WaveDirectionSettings;
-			float4 _Normals2_ST;
-			float4 _Motion2;
 			float4 _RefFresnel;
-			float4 _CausticsTint;
-			float4x4 _DepthMatrix;
-			float4 _RemapAlpha;
-			float4 _BakeLightMapAmbient;
-			float4x4 _BakeMatrix;
+			float4 _BakeLightMapMobile;
+			float4 _FoamColor;
 			float4 _bakeLightmapST;
-			float4 _RemapFoam;
+			float4 _BakeLightMapAmbient;
+			float4x4 _DepthMatrix;
+			float3 _CameraForward;
+			float3 _DepthPosition;
 			float3 _WorldDir;
 			float3 _WorldPos;
-			float3 _DepthPosition;
-			float3 _CameraForward;
-			float _WaveRefractionStrength;
-			float _RefractionWarp;
-			float _RemapWaterDistance;
-			float _RemapWaterDistance1;
-			float _Smoothness;
-			float _WaterDepthPow;
-			float _WaterSaturation;
 			float _CubemapExposure;
-			float _NormalDarken1;
-			float _NormalDarken;
-			float _ForceEye;
+			float _NormalAlbedoStrength;
+			float _WaterAlbedoFake;
 			float _ClipThreshold;
+			float _ForceEye;
+			float _RemapWaterDistance1;
+			float _RemapWaterDistance;
 			float _WaterDepthPow1;
-			int _ZTestMode;
-			float _NormalPow2;
-			float _FoamMaxDistance;
-			float _ZWriteToggle;
+			float _BakedLightingFeather;
+			float _WaterDepthPow;
+			float _ReflectionShadowed;
+			float _ReflectionShadowedStart;
+			float _WaterSaturation;
+			float _Smoothness;
+			float _ReflectionShadowedEnd;
+			float _NormalDarken;
 			float _TessNum;
+			float _WaveRefractionStrength;
+			float _FoamMaxDistance;
 			float _TesMin;
 			float _TesMax;
+			int _ZTestMode;
+			float _ZWriteToggle;
 			float _WaveScale;
+			float _Tolerance;
+			float _Feather;
 			float _FoamNoiseSpeed;
 			float _FoamNoiseScale;
 			float _FoamNoiseCon;
+			float _FoamPow;
 			float _FoamNoiseScale2;
-			float _FoamNoiseCon2;
 			float _DistanceFadeA;
 			float _WaveSpeed;
 			float _DistanceFadeB;
 			float _VertDispMult;
-			float _Tolerance;
-			float _Feather;
-			float _FoamScale_UseFoam;
 			float _NormalPow;
-			float _BakedLightingFeather;
+			float _NormalPow2;
 			float _RefDistortion;
 			float _WaterRefractonMobile;
-			float _FoamPow;
+			float _RefractionWarp;
+			float _FoamScale_UseFoam;
+			float _FoamNoiseCon2;
 			int _DebugVisual;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
@@ -3702,6 +3344,7 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float _TessMaxDisp;
 			#endif
 			float _DebugCounter; //Shadowood
+			half _EnvironmentReflections; // Shadowood
 			CBUFFER_END
 
 			// Property used by ScenePickingPass
@@ -3715,8 +3358,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				int _PassValue;
 			#endif
 
-			float4 _skyGradientColor1;
-			float4 _skyGradientColor2;
 			float3 _CausticsDir;
 			half _CausticsScale;
 			half2 _CausticsPanSpeed;
@@ -3725,16 +3366,13 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			SAMPLER(sampler_Caustics);
 			TEXTURE2D(_Caustics2);
 			SAMPLER(sampler_Caustics2);
+			float4 _skyGradientColor1;
+			float4 _skyGradientColor2;
 			TEXTURE2D(_FoamLUT);
 			TEXTURE2D(_DepthCache);
 			SAMPLER(sampler_Linear_Clamp);
 			TEXTURE2D(_WaveNoiseDisplace);
 			SAMPLER(sampler_WaveNoiseDisplace);
-			TEXTURE2D(_ColorCache);
-			TEXTURE2D(_Normals);
-			SAMPLER(sampler_Normals);
-			TEXTURE2D(_Normals2);
-			SAMPLER(sampler_Normals2);
 
 
 			//#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/Varyings.hlsl"
@@ -3751,58 +3389,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
 			}
 			
-			float4 Billboard2078( float3 worldPosIN, float2 screenPos, float3 QuadNormal, float3 QuadPosition )
-			{
-				float3 worldPos = worldPosIN;
-				float3 viewDir = worldPos - _WorldSpaceCameraPos;
-				float3 reflectDir = -viewDir;
-				float3 nReflDirection = normalize(reflectDir);
-				float4 result = float4(0,0,0,0);
-				// Ray-quad intersection
-				half planeIntersectDistance = dot( worldPos - QuadPosition,  QuadNormal.xyz ) / dot( nReflDirection, QuadNormal.xyz );
-				half3 intersectPosition = worldPos - nReflDirection * planeIntersectDistance;
-				//half4 localPlaneIntersectPosition = mul( QuadInverseMatrix, float4( intersectPosition, 1.0 ));
-				half4 localPlaneIntersectPosition = float4( intersectPosition, 1.0 );
-				half2 billboardUV = half2( localPlaneIntersectPosition.x, localPlaneIntersectPosition.z );
-				//billboardUV*=1;
-				//float4 billboardCol = BillboardTex.Sample( BillboardSampler , billboardUV );
-				float4 billboardCol = float4( billboardUV.x, billboardUV.y, 0, 1);
-				float3 quadNorm = QuadNormal.xyz;
-				half reflectDot = dot( nReflDirection, quadNorm );
-				float w = 1;
-				// Cull when beyond the quad bounds
-				//w = billboardUV.x > 1.0 ? 0.0 : w;
-				//w = billboardUV.y > 1.0 ? 0.0 : w;
-				//w = billboardUV.x < 0.0 ? 0.0 : w;
-				//w = billboardUV.y < 0.0 ? 0.0 : w;
-				// Cull if distance is behind the surface
-				//w = planeIntersectDistance < 0 ? 0 : w;
-				// Cull if quad facing backwards
-				w = reflectDot <= 0.0 ? 0.0 : w; 
-				// Cull if quad facing backwards and culling is ticked on the quad ( passed in via the arrays W )
-				//w = QuadNormal.w == 1.0 ? (reflectDot <= 0.0 ? 0.0 : w) : w;
-				billboardCol = billboardCol * billboardCol.w * w;
-				billboardCol.a = w;
-				result*=1-w;
-				result+= billboardCol;
-				return result;
-			}
-			
-			inline float Dither8x8Bayer( int x, int y )
-			{
-				const float dither[ 64 ] = {
-			 1, 49, 13, 61,  4, 52, 16, 64,
-			33, 17, 45, 29, 36, 20, 48, 32,
-			 9, 57,  5, 53, 12, 60,  8, 56,
-			41, 25, 37, 21, 44, 28, 40, 24,
-			 3, 51, 15, 63,  2, 50, 14, 62,
-			35, 19, 47, 31, 34, 18, 46, 30,
-			11, 59,  7, 55, 10, 58,  6, 54,
-			43, 27, 39, 23, 42, 26, 38, 22};
-				int r = y * 8 + x;
-				return dither[r] / 64; // same # of instructions as pre-dividing due to compiler magic
-			}
-			
 
 			VertexOutput VertexFunction( VertexInput v  )
 			{
@@ -3812,14 +3398,13 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
 				float2 texCoord2052 = v.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
-				float temp_output_2054_0 = distance( texCoord2052 , float2( 0.5,0.5 ) );
 				float ifLocalVar2053 = 0;
-				if( temp_output_2054_0 <= 1.0 )
+				if( distance( texCoord2052 , float2( 0.5,0.5 ) ) <= 1.0 )
 				ifLocalVar2053 = 1.0;
 				else
 				ifLocalVar2053 = 5000.0;
 				#ifdef _USEINFINITYEDGE_ON
-				float4 staticSwitch1498 = ( v.vertex * ifLocalVar2053 );
+				float4 staticSwitch1498 = ( ifLocalVar2053 * v.vertex );
 				#else
 				float4 staticSwitch1498 = v.vertex;
 				#endif
@@ -3837,91 +3422,93 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#endif
 				float2 CacheUV1109 = staticSwitch1346;
 				float4 tex2DNode13 = SAMPLE_TEXTURE2D_LOD( _DepthCache, sampler_Linear_Clamp, CacheUV1109, 0.0 );
-				float temp_output_17_0_g3203 = 0.001;
-				float2 temp_cast_2 = (temp_output_17_0_g3203).xx;
-				float2 temp_cast_3 = (( 1.0 - temp_output_17_0_g3203 )).xx;
-				float2 break5_g3203 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_2) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_3 - temp_cast_2)) );
-				float temp_output_1_0_g3205 = break5_g3203.x;
-				float temp_output_8_0_g3203 = ( 0.001 + -1.0 );
-				float temp_output_1_0_g3204 = break5_g3203.y;
-				float temp_output_2766_0 = saturate( saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3205 - floor( ( temp_output_1_0_g3205 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3204 - floor( ( temp_output_1_0_g3204 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) ) ) );
+				float temp_output_17_0_g3046 = 0.001;
+				float2 temp_cast_2 = (temp_output_17_0_g3046).xx;
+				float2 temp_cast_3 = (( 1.0 - temp_output_17_0_g3046 )).xx;
+				float2 break5_g3046 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_2) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_3 - temp_cast_2)) );
+				float temp_output_1_0_g3048 = break5_g3046.x;
+				float temp_output_9_0_g3046 = ( ( abs( ( ( temp_output_1_0_g3048 - floor( ( temp_output_1_0_g3048 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3046 = ( 0.001 + -1.0 );
+				float temp_output_17_0_g3040 = 0.01;
+				float2 temp_cast_4 = (temp_output_17_0_g3040).xx;
+				float2 temp_cast_5 = (( 1.0 - temp_output_17_0_g3040 )).xx;
+				float2 break5_g3040 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_4) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_5 - temp_cast_4)) );
+				float temp_output_1_0_g3042 = break5_g3040.x;
+				float temp_output_9_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3042 - floor( ( temp_output_1_0_g3042 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_1_0_g3041 = break5_g3040.y;
+				float temp_output_6_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3041 - floor( ( temp_output_1_0_g3041 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float2 appendResult24_g3040 = (float2(temp_output_9_0_g3040 , temp_output_6_0_g3040));
+				float2 CacheUVPreFeather3438 = appendResult24_g3040;
+				float2 break40_g3046 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3046 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3046 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) * saturate( (0.0 + (break40_g3046.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) ) );
+				float temp_output_2766_0 = saturate( temp_output_15_0_g3046 );
 				float lerpResult3090 = lerp( 1000.0 , ( tex2DNode13.b * 100.0 ) , temp_output_2766_0);
 				float CaptureB_Distancex100200 = lerpResult3090;
 				float temp_output_307_0 = ( 1.0 - saturate( abs( CaptureB_Distancex100200 ) ) );
-				float Foamness294 = ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale );
-				float2 temp_cast_4 = (_FoamNoiseSpeed).xx;
+				float temp_output_8_0_g3040 = ( 0.1 + -1.0 );
+				float temp_output_15_0_g3040 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) * saturate( (0.0 + (temp_output_6_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) ) );
+				float temp_output_2763_0 = saturate( ( temp_output_15_0_g3040 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
+				float temp_output_17_0_g3049 = _Tolerance;
+				float2 temp_cast_6 = (temp_output_17_0_g3049).xx;
+				float2 temp_cast_7 = (( 1.0 - temp_output_17_0_g3049 )).xx;
+				float2 break5_g3049 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_6) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_7 - temp_cast_6)) );
+				float temp_output_1_0_g3051 = break5_g3049.x;
+				float temp_output_9_0_g3049 = ( ( abs( ( ( temp_output_1_0_g3051 - floor( ( temp_output_1_0_g3051 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3049 = ( _Feather + -1.0 );
+				float2 break40_g3049 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3049 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3049 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) * saturate( (0.0 + (break40_g3049.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) ) );
+				#ifdef _USEINFINITYFEATHER_ON
+				float staticSwitch1654 = temp_output_15_0_g3049;
+				#else
+				float staticSwitch1654 = 1.0;
+				#endif
+				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
+				float Foamness294 = ( ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale ) * InfinityFeather1410 );
+				float2 temp_cast_8 = (_FoamNoiseSpeed).xx;
 				float3 break35 = ase_worldPos;
 				float2 appendResult36 = (float2(break35.x , break35.z));
-				float3 worldPosIN2078 = ase_worldPos;
-				float4 ase_clipPos = TransformObjectToHClip((v.vertex).xyz);
-				float4 screenPos = ComputeScreenPos(ase_clipPos);
-				float4 ase_screenPosNorm = screenPos / screenPos.w;
-				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 screenPos2078 = ase_screenPosNorm.xy;
-				float3 QuadNormal2078 = float3( 0,1,0 );
-				float3 QuadPosition2078 = float3(0,-4,0);
-				float4 localBillboard2078 = Billboard2078( worldPosIN2078 , screenPos2078 , QuadNormal2078 , QuadPosition2078 );
-				float temp_output_2080_0 = (localBillboard2078).w;
-				float2 temp_output_2096_0 = ( (localBillboard2078).xy * temp_output_2080_0 );
-				#ifdef _HORIZONMAPPED_ON
-				float2 staticSwitch2082 = temp_output_2096_0;
-				#else
-				float2 staticSwitch2082 = appendResult36;
-				#endif
-				float2 WorldXZ1087 = staticSwitch2082;
-				float2 panner138 = ( 1.0 * _Time.y * temp_cast_4 + ( WorldXZ1087 * _FoamNoiseScale ));
+				float2 WorldXZ1087 = appendResult36;
+				float2 panner138 = ( 1.0 * _Time.y * temp_cast_8 + ( WorldXZ1087 * _FoamNoiseScale ));
 				float lerpResult133 = lerp( 1.0 , SAMPLE_TEXTURE2D_LOD( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( 0.04 * panner138 ), 0.0 ).r , _FoamNoiseCon);
-				float2 temp_cast_6 = (_FoamNoiseSpeed).xx;
-				float2 panner168 = ( 1.0 * _Time.y * temp_cast_6 + ( WorldXZ1087 * _FoamNoiseScale2 ));
+				float2 temp_cast_9 = (_FoamNoiseSpeed).xx;
+				float2 panner168 = ( 1.0 * _Time.y * temp_cast_9 + ( WorldXZ1087 * _FoamNoiseScale2 ));
 				float lerpResult161 = lerp( 1.0 , SAMPLE_TEXTURE2D_LOD( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( panner168 * 0.04 ), 0.0 ).r , _FoamNoiseCon2);
 				float UnderOffset1634 = GlobalOceanOffset;
 				float3 appendResult2127 = (float3(break1605.x , ( break1605.y + UnderOffset1634 ) , break1605.z));
-				float3 VertResOffset2125 = appendResult2127;
+				float3 vertexToFrag3421 = appendResult2127;
+				float3 VertResOffset2125 = vertexToFrag3421;
 				float3 customSurfaceDepth1169 = VertResOffset2125;
 				float customEye1169 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1169)).z;
 				float cameraDepthFade1169 = (( customEye1169 -_ProjectionParams.y - 0.0 ) / _DistanceFadeA);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2110 = 0.0;
-				#else
-				float staticSwitch2110 = saturate( cameraDepthFade1169 );
-				#endif
-				float DistanceFadeA1294 = staticSwitch2110;
-				#ifdef _USEWAVENOISEDISPLACE_ON
-				float staticSwitch680 = ( Foamness294 + ( ( lerpResult133 + lerpResult161 ) * ( ( 1.0 - DistanceFadeA1294 ) * 0.4 ) ) );
-				#else
-				float staticSwitch680 = Foamness294;
-				#endif
-				float DepthCacheRemap109 = staticSwitch680;
+				float DistanceFadeA1294 = saturate( cameraDepthFade1169 );
+				float temp_output_318_0 = ( Foamness294 + ( ( lerpResult133 + lerpResult161 ) * ( ( 1.0 - DistanceFadeA1294 ) * 0.4 ) ) );
+				float DepthCacheRemap109 = temp_output_318_0;
 				float temp_output_5_0_g3212 = ( 1.0 - DepthCacheRemap109 );
 				float mulTime209 = _TimeParameters.x * ( _WaveSpeed * 0.1 );
 				float2 appendResult868 = (float2(_WaveDirectionSettings.x , _WaveDirectionSettings.y));
 				float WaveCenterDistance1051 = distance( WorldXZ1087 , appendResult868 );
-				#ifdef _USEWAVEDIRECTION_ON
-				float staticSwitch762 = ( mulTime209 + ( ( WaveCenterDistance1051 * -0.01 ) / _WaveDirectionSettings.z ) );
-				#else
-				float staticSwitch762 = ( 0.0 - mulTime209 );
-				#endif
-				float temp_output_17_0_g3212 = staticSwitch762;
+				float temp_output_839_0 = ( mulTime209 + ( ( WaveCenterDistance1051 * -0.01 ) / _WaveDirectionSettings.z ) );
+				float temp_output_17_0_g3212 = temp_output_839_0;
 				float temp_output_30_0_g3212 = ( 1.0 - saturate( 0.7 ) );
 				float temp_output_35_0_g3212 = ( temp_output_30_0_g3212 * 0.5 );
 				float temp_output_32_0_g3212 = ( (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) - temp_output_35_0_g3212 );
 				float temp_output_31_0_g3212 = ( temp_output_35_0_g3212 + (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) );
 				float DepthCacheWave184 = ( 1.0 - frac( (0.0 + (temp_output_5_0_g3212 - temp_output_32_0_g3212) * (1.0 - 0.0) / (temp_output_31_0_g3212 - temp_output_32_0_g3212)) ) );
 				float clampResult124 = clamp( DepthCacheWave184 , 0.01 , 0.99 );
-				float2 temp_cast_7 = (clampResult124).xx;
-				float4 tex2DNode76 = SAMPLE_TEXTURE2D_LOD( _FoamLUT, sampler_Linear_Clamp, temp_cast_7, 0.0 );
+				float2 temp_cast_10 = (clampResult124).xx;
+				float4 tex2DNode76 = SAMPLE_TEXTURE2D_LOD( _FoamLUT, sampler_Linear_Clamp, temp_cast_10, 0.0 );
 				float smoothstepResult279 = smoothstep( 0.0 , 1.0 , tex2DNode76.a);
 				float3 customSurfaceDepth1325 = VertResOffset2125;
 				float customEye1325 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1325)).z;
 				float cameraDepthFade1325 = (( customEye1325 -_ProjectionParams.y - 0.0 ) / _DistanceFadeB);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2111 = 0.0;
-				#else
-				float staticSwitch2111 = saturate( cameraDepthFade1325 );
-				#endif
-				float DistanceFadeB1326 = staticSwitch2111;
+				float DistanceFadeB1326 = saturate( cameraDepthFade1325 );
 				float lerpResult1311 = lerp( smoothstepResult279 , 0.0 , DistanceFadeB1326);
-				float FoamVertDisp261 = saturate( lerpResult1311 );
+				#ifdef _USEFOAM_ON
+				float staticSwitch3358 = saturate( lerpResult1311 );
+				#else
+				float staticSwitch3358 = 0.0;
+				#endif
+				float FoamVertDisp261 = staticSwitch3358;
 				float temp_output_240_0 = ( FoamVertDisp261 * _VertDispMult * 0.1 );
 				float ShoreMaskVert586 = saturate( (0.0 + (( CaptureB_Distancex100200 * 100.0 ) - _RemapVertShore.x) * (1.0 - 0.0) / (_RemapVertShore.y - _RemapVertShore.x)) );
 				float VertDispDistMask22014 = ( 1.0 - saturate( (0.0 + (distance( WorldXZ1087 , (_WorldSpaceCameraPos).xz ) - 5.0) * (1.0 - 0.0) / (7.9 - 5.0)) ) );
@@ -3929,28 +3516,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float customEye1484 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1484)).z;
 				float cameraDepthFade1484 = (( customEye1484 -_ProjectionParams.y - 0.0 ) / 1.0);
 				float CamDepthFade1495 = cameraDepthFade1484;
-				float temp_output_17_0_g3206 = 0.01;
-				float2 temp_cast_8 = (temp_output_17_0_g3206).xx;
-				float2 temp_cast_9 = (( 1.0 - temp_output_17_0_g3206 )).xx;
-				float2 break5_g3206 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_8) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_9 - temp_cast_8)) );
-				float temp_output_1_0_g3208 = break5_g3206.x;
-				float temp_output_8_0_g3206 = ( 0.1 + -1.0 );
-				float temp_output_1_0_g3207 = break5_g3206.y;
-				float temp_output_2768_0 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3208 - floor( ( temp_output_1_0_g3208 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3207 - floor( ( temp_output_1_0_g3207 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) ) );
-				float temp_output_2763_0 = saturate( ( temp_output_2768_0 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
-				float temp_output_17_0_g3209 = _Tolerance;
-				float2 temp_cast_10 = (temp_output_17_0_g3209).xx;
-				float2 temp_cast_11 = (( 1.0 - temp_output_17_0_g3209 )).xx;
-				float2 break5_g3209 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_10) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_11 - temp_cast_10)) );
-				float temp_output_1_0_g3211 = break5_g3209.x;
-				float temp_output_8_0_g3209 = ( _Feather + -1.0 );
-				float temp_output_1_0_g3210 = break5_g3209.y;
-				#ifdef _USEINFINITYFEATHER_ON
-				float staticSwitch1654 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3211 - floor( ( temp_output_1_0_g3211 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3210 - floor( ( temp_output_1_0_g3210 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) ) );
-				#else
-				float staticSwitch1654 = 1.0;
-				#endif
-				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
 				float VertDispMaskRes1691 = ( ShoreMaskVert586 * saturate( VertDispDistMask22014 ) * saturate( (0.0 + (CamDepthFade1495 - 0.2) * (1.0 - 0.0) / (1.5 - 0.2)) ) * InfinityFeather1410 );
 				float temp_output_238_0 = ( temp_output_240_0 * VertDispMaskRes1691 );
 				#ifdef _USEVERTDISPLACEMENT_ON
@@ -3958,16 +3523,11 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#else
 				float staticSwitch1688 = 0.0;
 				#endif
-				float VertAdded1524 = staticSwitch1688;
+				float vertexToFrag3514 = staticSwitch1688;
+				float VertAdded1524 = vertexToFrag3514;
 				float3 appendResult1606 = (float3(break1605.x , ( break1605.y + VertAdded1524 + UnderOffset1634 ) , break1605.z));
 				float3 VertResDisplaced328 = appendResult1606;
 				
-				o.ase_texcoord3.z = customEye1169;
-				
-				o.ase_texcoord3.xy = v.ase_texcoord.xy;
-				
-				//setting value to unused interpolator channels and avoid initialization warnings
-				o.ase_texcoord3.w = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
@@ -4087,7 +3647,7 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 						#ifdef ASE_DEPTH_WRITE_ON
 						,out float outputDepth : ASE_SV_DEPTH
 						#endif
-						, bool ase_vface : SV_IsFrontFace ) : SV_TARGET
+						 ) : SV_TARGET
 			{
 				UNITY_SETUP_INSTANCE_ID(IN);
 				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX( IN );
@@ -4108,151 +3668,9 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 					#endif
 				#endif
 
-				float2 appendResult892 = (float2(_Motion2.x , _Motion2.y));
-				float2 Motion2XY1096 = appendResult892;
-				float3 break35 = WorldPosition;
-				float2 appendResult36 = (float2(break35.x , break35.z));
-				float3 worldPosIN2078 = WorldPosition;
-				float4 ase_screenPosNorm = ScreenPos / ScreenPos.w;
-				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 screenPos2078 = ase_screenPosNorm.xy;
-				float3 QuadNormal2078 = float3( 0,1,0 );
-				float3 QuadPosition2078 = float3(0,-4,0);
-				float4 localBillboard2078 = Billboard2078( worldPosIN2078 , screenPos2078 , QuadNormal2078 , QuadPosition2078 );
-				float temp_output_2080_0 = (localBillboard2078).w;
-				float2 temp_output_2096_0 = ( (localBillboard2078).xy * temp_output_2080_0 );
-				#ifdef _HORIZONMAPPED_ON
-				float2 staticSwitch2082 = temp_output_2096_0;
-				#else
-				float2 staticSwitch2082 = appendResult36;
-				#endif
-				float2 WorldXZ1087 = staticSwitch2082;
-				float2 panner890 = ( 0.05 * _Time.y * Motion2XY1096 + WorldXZ1087);
-				#ifdef GlobalPlanarReflection
-				float staticSwitch1591 = _NormalPow;
-				#else
-				float staticSwitch1591 = ( _NormalPow * 0.7 );
-				#endif
-				float temp_output_1436_0 = ( _NormalPow * 6.0 );
-				float switchResult1435 = (((ase_vface>0)?(staticSwitch1591):(temp_output_1436_0)));
-				float3 unpack11 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Normals, sampler_Normals, (panner890*_Normals_ST.xy + _Normals_ST.zw) ), switchResult1435 );
-				unpack11.z = lerp( 1, unpack11.z, saturate(switchResult1435) );
-				float3 tex2DNode11 = unpack11;
-				float2 appendResult88 = (float2(_Motion.z , _Motion.w));
-				float2 MotionZW1085 = appendResult88;
-				float2 panner85 = ( 0.1 * _Time.y * MotionZW1085 + WorldXZ1087);
-				float switchResult1432 = (((ase_vface>0)?(( _NormalPow2 * 2.0 )):(( _NormalPow2 * 12.0 ))));
-				float3 unpack84 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Normals2, sampler_Normals2, (panner85*_Normals2_ST.xy + _Normals2_ST.zw) ), switchResult1432 );
-				unpack84.z = lerp( 1, unpack84.z, saturate(switchResult1432) );
-				float2 panner1722 = ( -0.05 * _Time.y * MotionZW1085 + WorldXZ1087);
-				float3 unpack1718 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Normals2, sampler_Normals2, (panner1722*( _Normals2_ST.xy * float2( 0.5,0.5 ) ) + _Normals2_ST.zw) ), switchResult1432 );
-				unpack1718.z = lerp( 1, unpack1718.z, saturate(switchResult1432) );
-				float3 temp_output_1719_0 = BlendNormal( unpack84 , unpack1718 );
-				float3 temp_output_83_0 = BlendNormal( tex2DNode11 , temp_output_1719_0 );
-				#ifdef _USEEXTRANORMALS_ON
-				float3 staticSwitch1683 = temp_output_83_0;
-				#else
-				float3 staticSwitch1683 = temp_output_83_0;
-				#endif
-				float2 appendResult1049 = (float2(staticSwitch1683.xy));
-				float2 RefNorm886 = appendResult1049;
-				float RefBumpSlider1337 = _RefDistortion;
-				float3 normalizeResult2273 = normalize( ( staticSwitch1683 + float3( ( RefNorm886 * RefBumpSlider1337 ) ,  0.0 ) ) );
-				float2 appendResult2519 = (float2(normalizeResult2273.xy));
-				float3 break19 = mul( _DepthMatrix, float4( ( WorldPosition - _DepthPosition ) , 0.0 ) ).xyz;
-				float2 appendResult16 = (float2(break19.x , break19.z));
-				float2 texCoord1345 = IN.ase_texcoord3.xy * float2( 1,1 ) + float2( 0,0 );
-				#if defined(_SPACE_WORLDSPACE)
-				float2 staticSwitch1346 = ( float2( 0.5,0.5 ) + appendResult16 );
-				#elif defined(_SPACE_UVSPACE)
-				float2 staticSwitch1346 = texCoord1345;
-				#else
-				float2 staticSwitch1346 = ( float2( 0.5,0.5 ) + appendResult16 );
-				#endif
-				float2 CacheUV1109 = staticSwitch1346;
-				float4 tex2DNode13 = SAMPLE_TEXTURE2D( _DepthCache, sampler_Linear_Clamp, CacheUV1109 );
-				float temp_output_17_0_g3203 = 0.001;
-				float2 temp_cast_6 = (temp_output_17_0_g3203).xx;
-				float2 temp_cast_7 = (( 1.0 - temp_output_17_0_g3203 )).xx;
-				float2 break5_g3203 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_6) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_7 - temp_cast_6)) );
-				float temp_output_1_0_g3205 = break5_g3203.x;
-				float temp_output_8_0_g3203 = ( 0.001 + -1.0 );
-				float temp_output_1_0_g3204 = break5_g3203.y;
-				float temp_output_2766_0 = saturate( saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3205 - floor( ( temp_output_1_0_g3205 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3204 - floor( ( temp_output_1_0_g3204 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) ) ) );
-				float lerpResult3090 = lerp( 1000.0 , ( tex2DNode13.b * 100.0 ) , temp_output_2766_0);
-				float CaptureB_Distancex100200 = lerpResult3090;
-				float temp_output_307_0 = ( 1.0 - saturate( abs( CaptureB_Distancex100200 ) ) );
-				float Foamness294 = ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale );
-				float2 lerpResult2274 = lerp( float2( 0,0 ) , appendResult2519 , ( _WaterRefractonMobile * 0.5 * saturate( Foamness294 ) ));
-				float temp_output_17_0_g3206 = 0.01;
-				float2 temp_cast_8 = (temp_output_17_0_g3206).xx;
-				float2 temp_cast_9 = (( 1.0 - temp_output_17_0_g3206 )).xx;
-				float2 break5_g3206 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_8) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_9 - temp_cast_8)) );
-				float temp_output_1_0_g3208 = break5_g3206.x;
-				float temp_output_8_0_g3206 = ( 0.1 + -1.0 );
-				float temp_output_1_0_g3207 = break5_g3206.y;
-				float temp_output_2768_0 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3208 - floor( ( temp_output_1_0_g3208 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3207 - floor( ( temp_output_1_0_g3207 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) ) );
-				float temp_output_2763_0 = saturate( ( temp_output_2768_0 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
-				float temp_output_17_0_g3209 = _Tolerance;
-				float2 temp_cast_10 = (temp_output_17_0_g3209).xx;
-				float2 temp_cast_11 = (( 1.0 - temp_output_17_0_g3209 )).xx;
-				float2 break5_g3209 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_10) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_11 - temp_cast_10)) );
-				float temp_output_1_0_g3211 = break5_g3209.x;
-				float temp_output_8_0_g3209 = ( _Feather + -1.0 );
-				float temp_output_1_0_g3210 = break5_g3209.y;
-				#ifdef _USEINFINITYFEATHER_ON
-				float staticSwitch1654 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3211 - floor( ( temp_output_1_0_g3211 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3210 - floor( ( temp_output_1_0_g3210 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) ) );
-				#else
-				float staticSwitch1654 = 1.0;
-				#endif
-				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
-				float customEye1169 = IN.ase_texcoord3.z;
-				float cameraDepthFade1169 = (( customEye1169 -_ProjectionParams.y - 0.0 ) / _DistanceFadeA);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2110 = 0.0;
-				#else
-				float staticSwitch2110 = saturate( cameraDepthFade1169 );
-				#endif
-				float DistanceFadeA1294 = staticSwitch2110;
-				float temp_output_1414_0 = ( ( 1.0 - InfinityFeather1410 ) * saturate( DistanceFadeA1294 ) );
-				float2 lerpResult2275 = lerp( lerpResult2274 , float2( 0,0 ) , temp_output_1414_0);
-				#ifdef _TRANSPARENTGRABPASS_ON
-				float2 staticSwitch2542 = float2( 0,0 );
-				#else
-				float2 staticSwitch2542 = lerpResult2275;
-				#endif
-				float2 RefHackeryForColorCache2269 = staticSwitch2542;
-				float2 temp_output_2198_0 = ( RefHackeryForColorCache2269 + CacheUV1109 );
-				float4 tex2DNode657 = SAMPLE_TEXTURE2D( _ColorCache, sampler_Linear_Clamp, temp_output_2198_0 );
-				float ColorCacheA2171 = tex2DNode657.a;
-				float temp_output_12_0_g3214 = InfinityFeather1410;
-				float CaptureDepthAOffsetShore1177 = ( ( ColorCacheA2171 * temp_output_12_0_g3214 ) + ( 1.0 - temp_output_12_0_g3214 ) );
-				float4 break993 = _RemapAlpha;
-				float switchResult2294 = (((ase_vface>0)?(saturate( (0.0 + (CaptureDepthAOffsetShore1177 - break993.x) * (1.0 - 0.0) / (break993.y - break993.x)) )):(1.0)));
-				float ShoreMaskDepthAlpha141 = switchResult2294;
-				float2 clipScreen639 = ase_screenPosNorm.xy * _ScreenParams.xy;
-				float dither639 = Dither8x8Bayer( fmod(clipScreen639.x, 8), fmod(clipScreen639.y, 8) );
-				dither639 = step( dither639, ShoreMaskDepthAlpha141 );
-				#ifdef _USEDITHERING_ON
-				float staticSwitch1685 = dither639;
-				#else
-				float staticSwitch1685 = ShoreMaskDepthAlpha141;
-				#endif
-				#ifdef _TRANSPARENTGRABPASS_ON
-				float staticSwitch1748 = 1.0;
-				#else
-				float staticSwitch1748 = staticSwitch1685;
-				#endif
-				float HorizonAlpha2083 = temp_output_2080_0;
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2085 = HorizonAlpha2083;
-				#else
-				float staticSwitch2085 = staticSwitch1748;
-				#endif
-				float AlphaRes469 = staticSwitch2085;
 				
 
-				float Alpha = AlphaRes469;
+				float Alpha = 1;
 				float AlphaClipThreshold = _ClipThreshold;
 				#ifdef ASE_DEPTH_WRITE_ON
 					float DepthValue = IN.clipPos.z;
@@ -4297,15 +3715,17 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			#define _ASE_DEBUGVISUALS 1
 			#define ASE_FOG 1
 			#define _NORMAL_DROPOFF_TS 1
+			#define _SPECULAR_SETUP 1
+			#pragma shader_feature_local_fragment _SPECULAR_SETUP
 			#define ASE_BAKEDGI 1
 			#define ASE_SHADOWMASK 1
 			#define ASE_FOGCOLOR 1
 			#define _ASE_ALPHATEST 1
+			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 120115
 			#define REQUIRE_DEPTH_TEXTURE 1
 			#define REQUIRE_OPAQUE_TEXTURE 1
 			#define ASE_NEEDS_FRAG_SCREEN_POSITION
-			#define TONEMAPPINGELSEWHERE
 			#define UNDERWATERELSEWHERE
 			#define ASE_USING_SAMPLING_MACROS 1
 
@@ -4345,29 +3765,20 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			#define ASE_NEEDS_VERT_POSITION
 			#define ASE_NEEDS_FRAG_WORLD_POSITION
 			#define ASE_NEEDS_VERT_NORMAL
-			#pragma shader_feature_local ASE_TESSELLATION_ON
-			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma shader_feature_local _DEBUGVISUALS_ON
-			#pragma shader_feature_local LIGHTMAP_ON
+			#pragma shader_feature_local ASE_TESSELLATION_ON
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local LIGHTMAP_ON
+			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma shader_feature_local _USEINFINITYEDGE_ON
 			#pragma shader_feature_local _USEVERTDISPLACEMENT_ON
-			#pragma shader_feature_local _USEWAVENOISEDISPLACE_ON
-			#pragma shader_feature_local _SPACE_WORLDSPACE _SPACE_UVSPACE
-			#pragma shader_feature_local _HORIZONMAPPED_ON
-			#pragma shader_feature_local _USEWAVEDIRECTION_ON
-			#pragma shader_feature_local _USEINFINITYFEATHER_ON
 			#pragma shader_feature_local _USEFOAM_ON
-			#pragma shader_feature_local _USEFOAMEXTRASAMPLER_ON
+			#pragma shader_feature_local _SPACE_WORLDSPACE _SPACE_UVSPACE
+			#pragma shader_feature_local _USEINFINITYFEATHER_ON
+			#pragma shader_feature_local _MOBILEMODE_ON
 			#pragma shader_feature_local _TRANSPARENTGRABPASS_ON
-			#pragma shader_feature_local _USEEXTRANORMALS_ON
 			#pragma multi_compile __ GlobalPlanarReflection
-			#pragma shader_feature_local _USEGRADIENTFOG_ON
-			#pragma shader_feature_local _RAINBOWGRABPASS_ON
-			#pragma shader_feature_local _CAUSTICSENABLE_ON
-			#pragma shader_feature_local _USECAUSTICEXTRASAMPLER_ON
-			#pragma shader_feature_local _USECAUSTICRAINBOW_ON
-			#pragma shader_feature_local _USEDITHERING_ON
+			#pragma shader_feature_local _USEFOAMEXTRASAMPLER_ON
 
 
 			struct VertexInput
@@ -4403,70 +3814,75 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float4 ase_texcoord10 : TEXCOORD10;
 				float4 ase_texcoord11 : TEXCOORD11;
 				float4 ase_texcoord12 : TEXCOORD12;
+				float4 ase_texcoord13 : TEXCOORD13;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _FoamColor;
+			float4 _WaveDirectionSettings;
+			float4 _RemapFoam;
+			float4 _WaterTint;
+			float4 _CausticsTint;
+			float4 _RemapAlpha;
+			float4 _Normals2_ST;
 			float4 _Motion;
 			float4 _Normals_ST;
-			float4 _WaterTint;
+			float4 _Motion2;
 			float4 _RemapVertShore;
 			float4 _WaterAlbedo;
-			float4 _WaveDirectionSettings;
-			float4 _Normals2_ST;
-			float4 _Motion2;
 			float4 _RefFresnel;
-			float4 _CausticsTint;
-			float4x4 _DepthMatrix;
-			float4 _RemapAlpha;
-			float4 _BakeLightMapAmbient;
-			float4x4 _BakeMatrix;
+			float4 _BakeLightMapMobile;
+			float4 _FoamColor;
 			float4 _bakeLightmapST;
-			float4 _RemapFoam;
+			float4 _BakeLightMapAmbient;
+			float4x4 _DepthMatrix;
+			float3 _CameraForward;
+			float3 _DepthPosition;
 			float3 _WorldDir;
 			float3 _WorldPos;
-			float3 _DepthPosition;
-			float3 _CameraForward;
-			float _WaveRefractionStrength;
-			float _RefractionWarp;
-			float _RemapWaterDistance;
-			float _RemapWaterDistance1;
-			float _Smoothness;
-			float _WaterDepthPow;
-			float _WaterSaturation;
 			float _CubemapExposure;
-			float _NormalDarken1;
-			float _NormalDarken;
-			float _ForceEye;
+			float _NormalAlbedoStrength;
+			float _WaterAlbedoFake;
 			float _ClipThreshold;
+			float _ForceEye;
+			float _RemapWaterDistance1;
+			float _RemapWaterDistance;
 			float _WaterDepthPow1;
-			int _ZTestMode;
-			float _NormalPow2;
-			float _FoamMaxDistance;
-			float _ZWriteToggle;
+			float _BakedLightingFeather;
+			float _WaterDepthPow;
+			float _ReflectionShadowed;
+			float _ReflectionShadowedStart;
+			float _WaterSaturation;
+			float _Smoothness;
+			float _ReflectionShadowedEnd;
+			float _NormalDarken;
 			float _TessNum;
+			float _WaveRefractionStrength;
+			float _FoamMaxDistance;
 			float _TesMin;
 			float _TesMax;
+			int _ZTestMode;
+			float _ZWriteToggle;
 			float _WaveScale;
+			float _Tolerance;
+			float _Feather;
 			float _FoamNoiseSpeed;
 			float _FoamNoiseScale;
 			float _FoamNoiseCon;
+			float _FoamPow;
 			float _FoamNoiseScale2;
-			float _FoamNoiseCon2;
 			float _DistanceFadeA;
 			float _WaveSpeed;
 			float _DistanceFadeB;
 			float _VertDispMult;
-			float _Tolerance;
-			float _Feather;
-			float _FoamScale_UseFoam;
 			float _NormalPow;
-			float _BakedLightingFeather;
+			float _NormalPow2;
 			float _RefDistortion;
 			float _WaterRefractonMobile;
-			float _FoamPow;
+			float _RefractionWarp;
+			float _FoamScale_UseFoam;
+			float _FoamNoiseCon2;
 			int _DebugVisual;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
@@ -4488,6 +3904,7 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float _TessMaxDisp;
 			#endif
 			float _DebugCounter; //Shadowood
+			half _EnvironmentReflections; // Shadowood
 			CBUFFER_END
 
 			// Property used by ScenePickingPass
@@ -4501,8 +3918,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				int _PassValue;
 			#endif
 
-			float4 _skyGradientColor1;
-			float4 _skyGradientColor2;
 			float3 _CausticsDir;
 			half _CausticsScale;
 			half2 _CausticsPanSpeed;
@@ -4511,22 +3926,28 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			SAMPLER(sampler_Caustics);
 			TEXTURE2D(_Caustics2);
 			SAMPLER(sampler_Caustics2);
+			float4 _skyGradientColor1;
+			float4 _skyGradientColor2;
 			TEXTURE2D(_FoamLUT);
 			TEXTURE2D(_DepthCache);
 			SAMPLER(sampler_Linear_Clamp);
 			TEXTURE2D(_WaveNoiseDisplace);
 			SAMPLER(sampler_WaveNoiseDisplace);
-			TEXTURE2D(_FoamTexture);
-			SAMPLER(sampler_FoamTexture);
 			TEXTURE2D(_ColorCache);
 			TEXTURE2D(_Normals);
 			SAMPLER(sampler_Normals);
 			TEXTURE2D(_Normals2);
 			SAMPLER(sampler_Normals2);
+			TEXTURE2D(_FoamTexture);
+			SAMPLER(sampler_FoamTexture);
 			TEXTURE2D(_DepthColorLUT);
 			TEXTURECUBE(_Cubemap);
 			float GlobalSkyRotation;
 			SAMPLER(sampler_Cubemap);
+			TEXTURE2D(_bakeLightmap);
+			float4x4 _BakeMatrix;
+			SAMPLER(sampler_bakeLightmap);
+			TEXTURE2D(_bakeLightmapSM);
 			TEXTURE2D(_TexLeft);
 			SAMPLER(sampler_Linear_Mirror);
 			TEXTURE2D(_TexRight);
@@ -4548,43 +3969,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
 			}
 			
-			float4 Billboard2078( float3 worldPosIN, float2 screenPos, float3 QuadNormal, float3 QuadPosition )
-			{
-				float3 worldPos = worldPosIN;
-				float3 viewDir = worldPos - _WorldSpaceCameraPos;
-				float3 reflectDir = -viewDir;
-				float3 nReflDirection = normalize(reflectDir);
-				float4 result = float4(0,0,0,0);
-				// Ray-quad intersection
-				half planeIntersectDistance = dot( worldPos - QuadPosition,  QuadNormal.xyz ) / dot( nReflDirection, QuadNormal.xyz );
-				half3 intersectPosition = worldPos - nReflDirection * planeIntersectDistance;
-				//half4 localPlaneIntersectPosition = mul( QuadInverseMatrix, float4( intersectPosition, 1.0 ));
-				half4 localPlaneIntersectPosition = float4( intersectPosition, 1.0 );
-				half2 billboardUV = half2( localPlaneIntersectPosition.x, localPlaneIntersectPosition.z );
-				//billboardUV*=1;
-				//float4 billboardCol = BillboardTex.Sample( BillboardSampler , billboardUV );
-				float4 billboardCol = float4( billboardUV.x, billboardUV.y, 0, 1);
-				float3 quadNorm = QuadNormal.xyz;
-				half reflectDot = dot( nReflDirection, quadNorm );
-				float w = 1;
-				// Cull when beyond the quad bounds
-				//w = billboardUV.x > 1.0 ? 0.0 : w;
-				//w = billboardUV.y > 1.0 ? 0.0 : w;
-				//w = billboardUV.x < 0.0 ? 0.0 : w;
-				//w = billboardUV.y < 0.0 ? 0.0 : w;
-				// Cull if distance is behind the surface
-				//w = planeIntersectDistance < 0 ? 0 : w;
-				// Cull if quad facing backwards
-				w = reflectDot <= 0.0 ? 0.0 : w; 
-				// Cull if quad facing backwards and culling is ticked on the quad ( passed in via the arrays W )
-				//w = QuadNormal.w == 1.0 ? (reflectDot <= 0.0 ? 0.0 : w) : w;
-				billboardCol = billboardCol * billboardCol.w * w;
-				billboardCol.a = w;
-				result*=1-w;
-				result+= billboardCol;
-				return result;
-			}
-			
 			float3 RotateAroundAxis( float3 center, float3 original, float3 u, float angle )
 			{
 				original -= center;
@@ -4604,7 +3988,23 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				return mul( finalMatrix, original ) + center;
 			}
 			
-			int IsStereoEyeLeft11_g3216( float3 WorldCamPos, float3 WorldCamRight, float force )
+			float3 MatrixMulThatWorks( float4 Pos, float4x4 Mat )
+			{
+				float3 result = mul(Mat,Pos.xyz);
+				return result + float3(Mat[0][3],Mat[1][3],Mat[2][3]);
+			}
+			
+			float4 URPDecodeInstruction19_g3820(  )
+			{
+				return float4(LIGHTMAP_HDR_MULTIPLIER, LIGHTMAP_HDR_EXPONENT, 0, 0);
+			}
+			
+			float4 URPDecodeInstruction19_g3821(  )
+			{
+				return float4(LIGHTMAP_HDR_MULTIPLIER, LIGHTMAP_HDR_EXPONENT, 0, 0);
+			}
+			
+			int IsStereoEyeLeft11_g3521( float3 WorldCamPos, float3 WorldCamRight, float force )
 			{
 				int Out = 0;	
 				if(force >= 0){
@@ -4635,24 +4035,18 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				return ApplyTonemap( color, settings );;
 			}
 			
-			float3 MatrixMulThatWorks( float4 Pos, float4x4 Mat )
-			{
-				float3 result = mul(Mat,Pos.xyz);
-				return result + float3(Mat[0][3],Mat[1][3],Mat[2][3]);
-			}
-			
-			float CameraDepthTexture55_g3383( float2 uv )
+			float CameraDepthTexture55_g3534( float2 uv )
 			{
 				float4 color = SAMPLE_TEXTURE2D_X(_CameraDepthTexture, sampler_CameraDepthTexture, uv);
 				return color.r;
 			}
 			
-			float MyCustomExpression44_g3383( float rawDepth )
+			float MyCustomExpression44_g3534( float rawDepth )
 			{
 				return LinearEyeDepth(rawDepth, _ZBufferParams);
 			}
 			
-			float3 MyCustomExpression16_g3383( float3 view, float sceneZ )
+			float3 MyCustomExpression16_g3534( float3 view, float sceneZ )
 			{
 				return  _WorldSpaceCameraPos - view * sceneZ / dot(UNITY_MATRIX_I_V._13_23_33, view);
 			}
@@ -4684,21 +4078,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				return transpose( cofactors ) / determinant( input );
 			}
 			
-			inline float Dither8x8Bayer( int x, int y )
-			{
-				const float dither[ 64 ] = {
-			 1, 49, 13, 61,  4, 52, 16, 64,
-			33, 17, 45, 29, 36, 20, 48, 32,
-			 9, 57,  5, 53, 12, 60,  8, 56,
-			41, 25, 37, 21, 44, 28, 40, 24,
-			 3, 51, 15, 63,  2, 50, 14, 62,
-			35, 19, 47, 31, 34, 18, 46, 30,
-			11, 59,  7, 55, 10, 58,  6, 54,
-			43, 27, 39, 23, 42, 26, 38, 22};
-				int r = y * 8 + x;
-				return dither[r] / 64; // same # of instructions as pre-dividing due to compiler magic
-			}
-			
 
 			VertexOutput VertexFunction( VertexInput v  )
 			{
@@ -4708,14 +4087,13 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
 				float2 texCoord2052 = v.texcoord0.xy * float2( 1,1 ) + float2( 0,0 );
-				float temp_output_2054_0 = distance( texCoord2052 , float2( 0.5,0.5 ) );
 				float ifLocalVar2053 = 0;
-				if( temp_output_2054_0 <= 1.0 )
+				if( distance( texCoord2052 , float2( 0.5,0.5 ) ) <= 1.0 )
 				ifLocalVar2053 = 1.0;
 				else
 				ifLocalVar2053 = 5000.0;
 				#ifdef _USEINFINITYEDGE_ON
-				float4 staticSwitch1498 = ( v.vertex * ifLocalVar2053 );
+				float4 staticSwitch1498 = ( ifLocalVar2053 * v.vertex );
 				#else
 				float4 staticSwitch1498 = v.vertex;
 				#endif
@@ -4733,91 +4111,93 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#endif
 				float2 CacheUV1109 = staticSwitch1346;
 				float4 tex2DNode13 = SAMPLE_TEXTURE2D_LOD( _DepthCache, sampler_Linear_Clamp, CacheUV1109, 0.0 );
-				float temp_output_17_0_g3203 = 0.001;
-				float2 temp_cast_2 = (temp_output_17_0_g3203).xx;
-				float2 temp_cast_3 = (( 1.0 - temp_output_17_0_g3203 )).xx;
-				float2 break5_g3203 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_2) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_3 - temp_cast_2)) );
-				float temp_output_1_0_g3205 = break5_g3203.x;
-				float temp_output_8_0_g3203 = ( 0.001 + -1.0 );
-				float temp_output_1_0_g3204 = break5_g3203.y;
-				float temp_output_2766_0 = saturate( saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3205 - floor( ( temp_output_1_0_g3205 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3204 - floor( ( temp_output_1_0_g3204 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) ) ) );
+				float temp_output_17_0_g3046 = 0.001;
+				float2 temp_cast_2 = (temp_output_17_0_g3046).xx;
+				float2 temp_cast_3 = (( 1.0 - temp_output_17_0_g3046 )).xx;
+				float2 break5_g3046 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_2) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_3 - temp_cast_2)) );
+				float temp_output_1_0_g3048 = break5_g3046.x;
+				float temp_output_9_0_g3046 = ( ( abs( ( ( temp_output_1_0_g3048 - floor( ( temp_output_1_0_g3048 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3046 = ( 0.001 + -1.0 );
+				float temp_output_17_0_g3040 = 0.01;
+				float2 temp_cast_4 = (temp_output_17_0_g3040).xx;
+				float2 temp_cast_5 = (( 1.0 - temp_output_17_0_g3040 )).xx;
+				float2 break5_g3040 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_4) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_5 - temp_cast_4)) );
+				float temp_output_1_0_g3042 = break5_g3040.x;
+				float temp_output_9_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3042 - floor( ( temp_output_1_0_g3042 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_1_0_g3041 = break5_g3040.y;
+				float temp_output_6_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3041 - floor( ( temp_output_1_0_g3041 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float2 appendResult24_g3040 = (float2(temp_output_9_0_g3040 , temp_output_6_0_g3040));
+				float2 CacheUVPreFeather3438 = appendResult24_g3040;
+				float2 break40_g3046 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3046 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3046 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) * saturate( (0.0 + (break40_g3046.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) ) );
+				float temp_output_2766_0 = saturate( temp_output_15_0_g3046 );
 				float lerpResult3090 = lerp( 1000.0 , ( tex2DNode13.b * 100.0 ) , temp_output_2766_0);
 				float CaptureB_Distancex100200 = lerpResult3090;
 				float temp_output_307_0 = ( 1.0 - saturate( abs( CaptureB_Distancex100200 ) ) );
-				float Foamness294 = ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale );
-				float2 temp_cast_4 = (_FoamNoiseSpeed).xx;
+				float temp_output_8_0_g3040 = ( 0.1 + -1.0 );
+				float temp_output_15_0_g3040 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) * saturate( (0.0 + (temp_output_6_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) ) );
+				float temp_output_2763_0 = saturate( ( temp_output_15_0_g3040 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
+				float temp_output_17_0_g3049 = _Tolerance;
+				float2 temp_cast_6 = (temp_output_17_0_g3049).xx;
+				float2 temp_cast_7 = (( 1.0 - temp_output_17_0_g3049 )).xx;
+				float2 break5_g3049 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_6) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_7 - temp_cast_6)) );
+				float temp_output_1_0_g3051 = break5_g3049.x;
+				float temp_output_9_0_g3049 = ( ( abs( ( ( temp_output_1_0_g3051 - floor( ( temp_output_1_0_g3051 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3049 = ( _Feather + -1.0 );
+				float2 break40_g3049 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3049 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3049 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) * saturate( (0.0 + (break40_g3049.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) ) );
+				#ifdef _USEINFINITYFEATHER_ON
+				float staticSwitch1654 = temp_output_15_0_g3049;
+				#else
+				float staticSwitch1654 = 1.0;
+				#endif
+				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
+				float Foamness294 = ( ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale ) * InfinityFeather1410 );
+				float2 temp_cast_8 = (_FoamNoiseSpeed).xx;
 				float3 break35 = ase_worldPos;
 				float2 appendResult36 = (float2(break35.x , break35.z));
-				float3 worldPosIN2078 = ase_worldPos;
-				float4 ase_clipPos = TransformObjectToHClip((v.vertex).xyz);
-				float4 screenPos = ComputeScreenPos(ase_clipPos);
-				float4 ase_screenPosNorm = screenPos / screenPos.w;
-				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 screenPos2078 = ase_screenPosNorm.xy;
-				float3 QuadNormal2078 = float3( 0,1,0 );
-				float3 QuadPosition2078 = float3(0,-4,0);
-				float4 localBillboard2078 = Billboard2078( worldPosIN2078 , screenPos2078 , QuadNormal2078 , QuadPosition2078 );
-				float temp_output_2080_0 = (localBillboard2078).w;
-				float2 temp_output_2096_0 = ( (localBillboard2078).xy * temp_output_2080_0 );
-				#ifdef _HORIZONMAPPED_ON
-				float2 staticSwitch2082 = temp_output_2096_0;
-				#else
-				float2 staticSwitch2082 = appendResult36;
-				#endif
-				float2 WorldXZ1087 = staticSwitch2082;
-				float2 panner138 = ( 1.0 * _Time.y * temp_cast_4 + ( WorldXZ1087 * _FoamNoiseScale ));
+				float2 WorldXZ1087 = appendResult36;
+				float2 panner138 = ( 1.0 * _Time.y * temp_cast_8 + ( WorldXZ1087 * _FoamNoiseScale ));
 				float lerpResult133 = lerp( 1.0 , SAMPLE_TEXTURE2D_LOD( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( 0.04 * panner138 ), 0.0 ).r , _FoamNoiseCon);
-				float2 temp_cast_6 = (_FoamNoiseSpeed).xx;
-				float2 panner168 = ( 1.0 * _Time.y * temp_cast_6 + ( WorldXZ1087 * _FoamNoiseScale2 ));
+				float2 temp_cast_9 = (_FoamNoiseSpeed).xx;
+				float2 panner168 = ( 1.0 * _Time.y * temp_cast_9 + ( WorldXZ1087 * _FoamNoiseScale2 ));
 				float lerpResult161 = lerp( 1.0 , SAMPLE_TEXTURE2D_LOD( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( panner168 * 0.04 ), 0.0 ).r , _FoamNoiseCon2);
 				float UnderOffset1634 = GlobalOceanOffset;
 				float3 appendResult2127 = (float3(break1605.x , ( break1605.y + UnderOffset1634 ) , break1605.z));
-				float3 VertResOffset2125 = appendResult2127;
+				float3 vertexToFrag3421 = appendResult2127;
+				float3 VertResOffset2125 = vertexToFrag3421;
 				float3 customSurfaceDepth1169 = VertResOffset2125;
 				float customEye1169 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1169)).z;
 				float cameraDepthFade1169 = (( customEye1169 -_ProjectionParams.y - 0.0 ) / _DistanceFadeA);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2110 = 0.0;
-				#else
-				float staticSwitch2110 = saturate( cameraDepthFade1169 );
-				#endif
-				float DistanceFadeA1294 = staticSwitch2110;
-				#ifdef _USEWAVENOISEDISPLACE_ON
-				float staticSwitch680 = ( Foamness294 + ( ( lerpResult133 + lerpResult161 ) * ( ( 1.0 - DistanceFadeA1294 ) * 0.4 ) ) );
-				#else
-				float staticSwitch680 = Foamness294;
-				#endif
-				float DepthCacheRemap109 = staticSwitch680;
+				float DistanceFadeA1294 = saturate( cameraDepthFade1169 );
+				float temp_output_318_0 = ( Foamness294 + ( ( lerpResult133 + lerpResult161 ) * ( ( 1.0 - DistanceFadeA1294 ) * 0.4 ) ) );
+				float DepthCacheRemap109 = temp_output_318_0;
 				float temp_output_5_0_g3212 = ( 1.0 - DepthCacheRemap109 );
 				float mulTime209 = _TimeParameters.x * ( _WaveSpeed * 0.1 );
 				float2 appendResult868 = (float2(_WaveDirectionSettings.x , _WaveDirectionSettings.y));
 				float WaveCenterDistance1051 = distance( WorldXZ1087 , appendResult868 );
-				#ifdef _USEWAVEDIRECTION_ON
-				float staticSwitch762 = ( mulTime209 + ( ( WaveCenterDistance1051 * -0.01 ) / _WaveDirectionSettings.z ) );
-				#else
-				float staticSwitch762 = ( 0.0 - mulTime209 );
-				#endif
-				float temp_output_17_0_g3212 = staticSwitch762;
+				float temp_output_839_0 = ( mulTime209 + ( ( WaveCenterDistance1051 * -0.01 ) / _WaveDirectionSettings.z ) );
+				float temp_output_17_0_g3212 = temp_output_839_0;
 				float temp_output_30_0_g3212 = ( 1.0 - saturate( 0.7 ) );
 				float temp_output_35_0_g3212 = ( temp_output_30_0_g3212 * 0.5 );
 				float temp_output_32_0_g3212 = ( (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) - temp_output_35_0_g3212 );
 				float temp_output_31_0_g3212 = ( temp_output_35_0_g3212 + (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) );
 				float DepthCacheWave184 = ( 1.0 - frac( (0.0 + (temp_output_5_0_g3212 - temp_output_32_0_g3212) * (1.0 - 0.0) / (temp_output_31_0_g3212 - temp_output_32_0_g3212)) ) );
 				float clampResult124 = clamp( DepthCacheWave184 , 0.01 , 0.99 );
-				float2 temp_cast_7 = (clampResult124).xx;
-				float4 tex2DNode76 = SAMPLE_TEXTURE2D_LOD( _FoamLUT, sampler_Linear_Clamp, temp_cast_7, 0.0 );
+				float2 temp_cast_10 = (clampResult124).xx;
+				float4 tex2DNode76 = SAMPLE_TEXTURE2D_LOD( _FoamLUT, sampler_Linear_Clamp, temp_cast_10, 0.0 );
 				float smoothstepResult279 = smoothstep( 0.0 , 1.0 , tex2DNode76.a);
 				float3 customSurfaceDepth1325 = VertResOffset2125;
 				float customEye1325 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1325)).z;
 				float cameraDepthFade1325 = (( customEye1325 -_ProjectionParams.y - 0.0 ) / _DistanceFadeB);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2111 = 0.0;
-				#else
-				float staticSwitch2111 = saturate( cameraDepthFade1325 );
-				#endif
-				float DistanceFadeB1326 = staticSwitch2111;
+				float DistanceFadeB1326 = saturate( cameraDepthFade1325 );
 				float lerpResult1311 = lerp( smoothstepResult279 , 0.0 , DistanceFadeB1326);
-				float FoamVertDisp261 = saturate( lerpResult1311 );
+				#ifdef _USEFOAM_ON
+				float staticSwitch3358 = saturate( lerpResult1311 );
+				#else
+				float staticSwitch3358 = 0.0;
+				#endif
+				float FoamVertDisp261 = staticSwitch3358;
 				float temp_output_240_0 = ( FoamVertDisp261 * _VertDispMult * 0.1 );
 				float ShoreMaskVert586 = saturate( (0.0 + (( CaptureB_Distancex100200 * 100.0 ) - _RemapVertShore.x) * (1.0 - 0.0) / (_RemapVertShore.y - _RemapVertShore.x)) );
 				float VertDispDistMask22014 = ( 1.0 - saturate( (0.0 + (distance( WorldXZ1087 , (_WorldSpaceCameraPos).xz ) - 5.0) * (1.0 - 0.0) / (7.9 - 5.0)) ) );
@@ -4825,28 +4205,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float customEye1484 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1484)).z;
 				float cameraDepthFade1484 = (( customEye1484 -_ProjectionParams.y - 0.0 ) / 1.0);
 				float CamDepthFade1495 = cameraDepthFade1484;
-				float temp_output_17_0_g3206 = 0.01;
-				float2 temp_cast_8 = (temp_output_17_0_g3206).xx;
-				float2 temp_cast_9 = (( 1.0 - temp_output_17_0_g3206 )).xx;
-				float2 break5_g3206 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_8) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_9 - temp_cast_8)) );
-				float temp_output_1_0_g3208 = break5_g3206.x;
-				float temp_output_8_0_g3206 = ( 0.1 + -1.0 );
-				float temp_output_1_0_g3207 = break5_g3206.y;
-				float temp_output_2768_0 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3208 - floor( ( temp_output_1_0_g3208 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3207 - floor( ( temp_output_1_0_g3207 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) ) );
-				float temp_output_2763_0 = saturate( ( temp_output_2768_0 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
-				float temp_output_17_0_g3209 = _Tolerance;
-				float2 temp_cast_10 = (temp_output_17_0_g3209).xx;
-				float2 temp_cast_11 = (( 1.0 - temp_output_17_0_g3209 )).xx;
-				float2 break5_g3209 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_10) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_11 - temp_cast_10)) );
-				float temp_output_1_0_g3211 = break5_g3209.x;
-				float temp_output_8_0_g3209 = ( _Feather + -1.0 );
-				float temp_output_1_0_g3210 = break5_g3209.y;
-				#ifdef _USEINFINITYFEATHER_ON
-				float staticSwitch1654 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3211 - floor( ( temp_output_1_0_g3211 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3210 - floor( ( temp_output_1_0_g3210 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) ) );
-				#else
-				float staticSwitch1654 = 1.0;
-				#endif
-				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
 				float VertDispMaskRes1691 = ( ShoreMaskVert586 * saturate( VertDispDistMask22014 ) * saturate( (0.0 + (CamDepthFade1495 - 0.2) * (1.0 - 0.0) / (1.5 - 0.2)) ) * InfinityFeather1410 );
 				float temp_output_238_0 = ( temp_output_240_0 * VertDispMaskRes1691 );
 				#ifdef _USEVERTDISPLACEMENT_ON
@@ -4854,7 +4212,8 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#else
 				float staticSwitch1688 = 0.0;
 				#endif
-				float VertAdded1524 = staticSwitch1688;
+				float vertexToFrag3514 = staticSwitch1688;
+				float VertAdded1524 = vertexToFrag3514;
 				float3 appendResult1606 = (float3(break1605.x , ( break1605.y + VertAdded1524 + UnderOffset1634 ) , break1605.z));
 				float3 VertResDisplaced328 = appendResult1606;
 				
@@ -4862,46 +4221,57 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float4 ase_clipPos1850 = TransformObjectToHClip((vertexPos1850).xyz);
 				float4 screenPos1850 = ComputeScreenPos(ase_clipPos1850);
 				o.ase_texcoord5 = screenPos1850;
-				o.ase_texcoord6 = screenPos;
 				o.ase_texcoord4.z = customEye1169;
-				
+				float4 ase_clipPos = TransformObjectToHClip((v.vertex).xyz);
+				float4 screenPos = ComputeScreenPos(ase_clipPos);
+				o.ase_texcoord6 = screenPos;
 				o.ase_texcoord4.w = customEye1325;
-				float3 customSurfaceDepth2817 = VertResOffset2125;
-				float customEye2817 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth2817)).z;
-				o.ase_texcoord7.x = customEye2817;
-				o.ase_texcoord7.y = customEye1484;
+				o.ase_texcoord7.x = vertexToFrag3514;
 				float3 customSurfaceDepth2418 = VertResDisplaced328;
 				float customEye2418 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth2418)).z;
-				o.ase_texcoord7.z = customEye2418;
+				o.ase_texcoord7.y = customEye2418;
+				
 				float3 ase_worldNormal = TransformObjectToWorldNormal(v.ase_normal);
 				o.ase_texcoord8.xyz = ase_worldNormal;
+				o.ase_texcoord7.z = customEye1484;
 				float3 ase_worldTangent = TransformObjectToWorldDir(v.ase_tangent.xyz);
 				o.ase_texcoord9.xyz = ase_worldTangent;
 				float ase_vertexTangentSign = v.ase_tangent.w * ( unity_WorldTransformParams.w >= 0.0 ? 1.0 : -1.0 );
 				float3 ase_worldBitangent = cross( ase_worldNormal, ase_worldTangent ) * ase_vertexTangentSign;
 				o.ase_texcoord10.xyz = ase_worldBitangent;
-				float3 customSurfaceDepth2812 = VertResOffset2125;
-				float customEye2812 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth2812)).z;
-				o.ase_texcoord7.w = customEye2812;
+				float4 Pos6_g3816 = float4( ase_worldPos , 0.0 );
+				float4x4 Mat6_g3816 = _BakeMatrix;
+				float3 localMatrixMulThatWorks6_g3816 = MatrixMulThatWorks( Pos6_g3816 , Mat6_g3816 );
+				float3 break4_g3815 = localMatrixMulThatWorks6_g3816;
+				float2 appendResult3_g3815 = (float2(break4_g3815.x , break4_g3815.z));
+				float2 vertexToFrag7_g3815 = ( float2( 0.5,0.5 ) + appendResult3_g3815 );
+				float2 LightingUV11_g3815 = vertexToFrag7_g3815;
+				float4 temp_output_21_0_g3820 = _bakeLightmapST;
+				float2 vertexToFrag10_g3820 = ( ( LightingUV11_g3815 * (temp_output_21_0_g3820).xy ) + (temp_output_21_0_g3820).zw );
+				o.ase_texcoord11.xy = vertexToFrag10_g3820;
+				float4 temp_output_21_0_g3821 = _bakeLightmapST;
+				float2 vertexToFrag10_g3821 = ( ( LightingUV11_g3815 * (temp_output_21_0_g3821).xy ) + (temp_output_21_0_g3821).zw );
+				o.ase_texcoord11.zw = vertexToFrag10_g3821;
 				float3 _Vector3 = float3(0,0,-1);
-				float4 Pos6_g3381 = float4( _Vector3 , 0.0 );
-				float4x4 Mat6_g3381 = _CausticMatrix;
-				float3 localMatrixMulThatWorks6_g3381 = MatrixMulThatWorks( Pos6_g3381 , Mat6_g3381 );
-				float3 normalizeResult147_g3379 = normalize( localMatrixMulThatWorks6_g3381 );
-				float3 vertexToFrag144_g3379 = normalizeResult147_g3379;
-				o.ase_texcoord11.xyz = vertexToFrag144_g3379;
-				float3 objToWorld3_g3383 = mul( GetObjectToWorldMatrix(), float4( v.vertex.xyz, 1 ) ).xyz;
-				float3 vertexToFrag7_g3383 = objToWorld3_g3383;
-				o.ase_texcoord12.xyz = vertexToFrag7_g3383;
+				float4 Pos6_g3813 = float4( _Vector3 , 0.0 );
+				float4x4 Mat6_g3813 = _CausticMatrix;
+				float3 localMatrixMulThatWorks6_g3813 = MatrixMulThatWorks( Pos6_g3813 , Mat6_g3813 );
+				float3 normalizeResult147_g3811 = normalize( localMatrixMulThatWorks6_g3813 );
+				float3 vertexToFrag144_g3811 = normalizeResult147_g3811;
+				o.ase_texcoord12.xyz = vertexToFrag144_g3811;
+				float3 objToWorld3_g3534 = mul( GetObjectToWorldMatrix(), float4( v.vertex.xyz, 1 ) ).xyz;
+				float3 vertexToFrag7_g3534 = objToWorld3_g3534;
+				o.ase_texcoord13.xyz = vertexToFrag7_g3534;
 				
 				o.ase_texcoord4.xy = v.texcoord0.xy;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
+				o.ase_texcoord7.w = 0;
 				o.ase_texcoord8.w = 0;
 				o.ase_texcoord9.w = 0;
 				o.ase_texcoord10.w = 0;
-				o.ase_texcoord11.w = 0;
 				o.ase_texcoord12.w = 0;
+				o.ase_texcoord13.w = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
@@ -5064,78 +4434,71 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float2 staticSwitch1346 = ( float2( 0.5,0.5 ) + appendResult16 );
 				#endif
 				float2 CacheUV1109 = staticSwitch1346;
-				float temp_output_17_0_g3206 = 0.01;
-				float2 temp_cast_2 = (temp_output_17_0_g3206).xx;
-				float2 temp_cast_3 = (( 1.0 - temp_output_17_0_g3206 )).xx;
-				float2 break5_g3206 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_2) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_3 - temp_cast_2)) );
-				float temp_output_1_0_g3208 = break5_g3206.x;
-				float temp_output_8_0_g3206 = ( 0.1 + -1.0 );
-				float temp_output_1_0_g3207 = break5_g3206.y;
-				float temp_output_2768_0 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3208 - floor( ( temp_output_1_0_g3208 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3207 - floor( ( temp_output_1_0_g3207 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) ) );
+				float temp_output_17_0_g3040 = 0.01;
+				float2 temp_cast_2 = (temp_output_17_0_g3040).xx;
+				float2 temp_cast_3 = (( 1.0 - temp_output_17_0_g3040 )).xx;
+				float2 break5_g3040 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_2) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_3 - temp_cast_2)) );
+				float temp_output_1_0_g3042 = break5_g3040.x;
+				float temp_output_9_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3042 - floor( ( temp_output_1_0_g3042 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3040 = ( 0.1 + -1.0 );
+				float temp_output_1_0_g3041 = break5_g3040.y;
+				float temp_output_6_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3041 - floor( ( temp_output_1_0_g3041 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_15_0_g3040 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) * saturate( (0.0 + (temp_output_6_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) ) );
 				float4 tex2DNode13 = SAMPLE_TEXTURE2D( _DepthCache, sampler_Linear_Clamp, CacheUV1109 );
-				float temp_output_17_0_g3203 = 0.001;
-				float2 temp_cast_4 = (temp_output_17_0_g3203).xx;
-				float2 temp_cast_5 = (( 1.0 - temp_output_17_0_g3203 )).xx;
-				float2 break5_g3203 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_4) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_5 - temp_cast_4)) );
-				float temp_output_1_0_g3205 = break5_g3203.x;
-				float temp_output_8_0_g3203 = ( 0.001 + -1.0 );
-				float temp_output_1_0_g3204 = break5_g3203.y;
-				float temp_output_2766_0 = saturate( saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3205 - floor( ( temp_output_1_0_g3205 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3204 - floor( ( temp_output_1_0_g3204 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) ) ) );
+				float temp_output_17_0_g3046 = 0.001;
+				float2 temp_cast_4 = (temp_output_17_0_g3046).xx;
+				float2 temp_cast_5 = (( 1.0 - temp_output_17_0_g3046 )).xx;
+				float2 break5_g3046 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_4) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_5 - temp_cast_4)) );
+				float temp_output_1_0_g3048 = break5_g3046.x;
+				float temp_output_9_0_g3046 = ( ( abs( ( ( temp_output_1_0_g3048 - floor( ( temp_output_1_0_g3048 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3046 = ( 0.001 + -1.0 );
+				float2 appendResult24_g3040 = (float2(temp_output_9_0_g3040 , temp_output_6_0_g3040));
+				float2 CacheUVPreFeather3438 = appendResult24_g3040;
+				float2 break40_g3046 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3046 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3046 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) * saturate( (0.0 + (break40_g3046.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) ) );
+				float temp_output_2766_0 = saturate( temp_output_15_0_g3046 );
 				float lerpResult3090 = lerp( 1000.0 , ( tex2DNode13.b * 100.0 ) , temp_output_2766_0);
 				float CaptureB_Distancex100200 = lerpResult3090;
-				float temp_output_2763_0 = saturate( ( temp_output_2768_0 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
-				float temp_output_17_0_g3209 = _Tolerance;
-				float2 temp_cast_6 = (temp_output_17_0_g3209).xx;
-				float2 temp_cast_7 = (( 1.0 - temp_output_17_0_g3209 )).xx;
-				float2 break5_g3209 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_6) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_7 - temp_cast_6)) );
-				float temp_output_1_0_g3211 = break5_g3209.x;
-				float temp_output_8_0_g3209 = ( _Feather + -1.0 );
-				float temp_output_1_0_g3210 = break5_g3209.y;
+				float temp_output_2763_0 = saturate( ( temp_output_15_0_g3040 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
+				float temp_output_17_0_g3049 = _Tolerance;
+				float2 temp_cast_6 = (temp_output_17_0_g3049).xx;
+				float2 temp_cast_7 = (( 1.0 - temp_output_17_0_g3049 )).xx;
+				float2 break5_g3049 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_6) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_7 - temp_cast_6)) );
+				float temp_output_1_0_g3051 = break5_g3049.x;
+				float temp_output_9_0_g3049 = ( ( abs( ( ( temp_output_1_0_g3051 - floor( ( temp_output_1_0_g3051 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3049 = ( _Feather + -1.0 );
+				float2 break40_g3049 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3049 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3049 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) * saturate( (0.0 + (break40_g3049.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) ) );
 				#ifdef _USEINFINITYFEATHER_ON
-				float staticSwitch1654 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3211 - floor( ( temp_output_1_0_g3211 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3210 - floor( ( temp_output_1_0_g3210 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) ) );
+				float staticSwitch1654 = temp_output_15_0_g3049;
 				#else
 				float staticSwitch1654 = 1.0;
 				#endif
 				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
-				float CamNear1615 = saturate( (0.0 + (distance( _WorldSpaceCameraPos , WorldPosition ) - 0.1) * (1.0 - 0.0) / (0.6 - 0.1)) );
+				float temp_output_2951_0 = distance( (WorldPosition).xz , (_WorldSpaceCameraPos).xz );
+				float CamDistance3490 = temp_output_2951_0;
+				#ifdef _TRANSPARENTGRABPASS_ON
+				float staticSwitch2444 = saturate( (0.0 + (CamDistance3490 - 0.1) * (1.0 - 0.0) / (0.6 - 0.1)) );
+				#else
+				float staticSwitch2444 = 1.0;
+				#endif
+				float CamNear1615 = staticSwitch2444;
 				float4 screenPos1850 = IN.ase_texcoord5;
 				float4 ase_screenPosNorm1850 = screenPos1850 / screenPos1850.w;
 				ase_screenPosNorm1850.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm1850.z : ase_screenPosNorm1850.z * 0.5 + 0.5;
 				float screenDepth1850 = LinearEyeDepth(SHADERGRAPH_SAMPLE_SCENE_DEPTH( ase_screenPosNorm1850.xy ),_ZBufferParams);
 				float distanceDepth1850 = saturate( abs( ( screenDepth1850 - LinearEyeDepth( ase_screenPosNorm1850.z,_ZBufferParams ) ) / ( 0.2 ) ) );
-				float DepthFader1847 = distanceDepth1850;
-				float2 appendResult87 = (float2(_Motion.x , _Motion.y));
-				float2 MotionXY1084 = appendResult87;
-				float3 break35 = WorldPosition;
-				float2 appendResult36 = (float2(break35.x , break35.z));
-				float3 worldPosIN2078 = WorldPosition;
-				float4 screenPos = IN.ase_texcoord6;
-				float4 ase_screenPosNorm = screenPos / screenPos.w;
-				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 screenPos2078 = ase_screenPosNorm.xy;
-				float3 QuadNormal2078 = float3( 0,1,0 );
-				float3 QuadPosition2078 = float3(0,-4,0);
-				float4 localBillboard2078 = Billboard2078( worldPosIN2078 , screenPos2078 , QuadNormal2078 , QuadPosition2078 );
-				float temp_output_2080_0 = (localBillboard2078).w;
-				float2 temp_output_2096_0 = ( (localBillboard2078).xy * temp_output_2080_0 );
-				#ifdef _HORIZONMAPPED_ON
-				float2 staticSwitch2082 = temp_output_2096_0;
+				#ifdef _TRANSPARENTGRABPASS_ON
+				float staticSwitch3374 = distanceDepth1850;
 				#else
-				float2 staticSwitch2082 = appendResult36;
+				float staticSwitch3374 = 1.0;
 				#endif
-				float2 WorldXZ1087 = staticSwitch2082;
-				float2 panner527 = ( -0.03 * _Time.y * MotionXY1084 + WorldXZ1087);
-				float4 tex2DNode91 = SAMPLE_TEXTURE2D( _FoamTexture, sampler_FoamTexture, (panner527*( _FoamScale_UseFoam * 0.2 ) + 0.0) );
-				float2 panner74 = ( 0.05 * _Time.y * MotionXY1084 + WorldXZ1087);
-				#ifdef _USEFOAMEXTRASAMPLER_ON
-				float staticSwitch1679 = ( SAMPLE_TEXTURE2D( _FoamTexture, sampler_FoamTexture, (panner74*_FoamScale_UseFoam + 0.0) ).r + tex2DNode91.r );
-				#else
-				float staticSwitch1679 = ( tex2DNode91.r * 1.8 );
-				#endif
-				float4 break984 = _RemapFoam;
-				float temp_output_172_0 = saturate( (0.0 + (( 100.0 * CaptureB_Distancex100200 ) - break984.x) * (1.0 - 0.0) / (break984.y - break984.x)) );
+				float DepthFader1847 = staticSwitch3374;
 				float2 appendResult892 = (float2(_Motion2.x , _Motion2.y));
 				float2 Motion2XY1096 = appendResult892;
+				float3 break35 = WorldPosition;
+				float2 appendResult36 = (float2(break35.x , break35.z));
+				float2 WorldXZ1087 = appendResult36;
 				float2 panner890 = ( 0.05 * _Time.y * Motion2XY1096 + WorldXZ1087);
 				#ifdef GlobalPlanarReflection
 				float staticSwitch1591 = _NormalPow;
@@ -5158,182 +4521,166 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				unpack1718.z = lerp( 1, unpack1718.z, saturate(switchResult1432) );
 				float3 temp_output_1719_0 = BlendNormal( unpack84 , unpack1718 );
 				float3 temp_output_83_0 = BlendNormal( tex2DNode11 , temp_output_1719_0 );
-				#ifdef _USEEXTRANORMALS_ON
-				float3 staticSwitch1683 = temp_output_83_0;
-				#else
-				float3 staticSwitch1683 = temp_output_83_0;
-				#endif
-				float2 appendResult1049 = (float2(staticSwitch1683.xy));
+				float2 appendResult1049 = (float2(temp_output_83_0.xy));
 				float2 RefNorm886 = appendResult1049;
 				float RefBumpSlider1337 = _RefDistortion;
-				float3 normalizeResult2273 = normalize( ( staticSwitch1683 + float3( ( RefNorm886 * RefBumpSlider1337 ) ,  0.0 ) ) );
+				float3 normalizeResult2273 = normalize( ( float3( ( RefNorm886 * RefBumpSlider1337 ) ,  0.0 ) + temp_output_83_0 ) );
 				float2 appendResult2519 = (float2(normalizeResult2273.xy));
 				float temp_output_307_0 = ( 1.0 - saturate( abs( CaptureB_Distancex100200 ) ) );
-				float Foamness294 = ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale );
-				float2 lerpResult2274 = lerp( float2( 0,0 ) , appendResult2519 , ( _WaterRefractonMobile * 0.5 * saturate( Foamness294 ) ));
+				float Foamness294 = ( ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale ) * InfinityFeather1410 );
+				float2 lerpResult2274 = lerp( float2( 0,0 ) , appendResult2519 , ( _WaterRefractonMobile * 0.5 * ( 1.0 - saturate( Foamness294 ) ) ));
 				float customEye1169 = IN.ase_texcoord4.z;
 				float cameraDepthFade1169 = (( customEye1169 -_ProjectionParams.y - 0.0 ) / _DistanceFadeA);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2110 = 0.0;
-				#else
-				float staticSwitch2110 = saturate( cameraDepthFade1169 );
-				#endif
-				float DistanceFadeA1294 = staticSwitch2110;
+				float DistanceFadeA1294 = saturate( cameraDepthFade1169 );
 				float temp_output_1414_0 = ( ( 1.0 - InfinityFeather1410 ) * saturate( DistanceFadeA1294 ) );
 				float2 lerpResult2275 = lerp( lerpResult2274 , float2( 0,0 ) , temp_output_1414_0);
-				#ifdef _TRANSPARENTGRABPASS_ON
-				float2 staticSwitch2542 = float2( 0,0 );
-				#else
-				float2 staticSwitch2542 = lerpResult2275;
-				#endif
-				float2 RefHackeryForColorCache2269 = staticSwitch2542;
-				float2 temp_output_2198_0 = ( RefHackeryForColorCache2269 + CacheUV1109 );
-				float4 tex2DNode657 = SAMPLE_TEXTURE2D( _ColorCache, sampler_Linear_Clamp, temp_output_2198_0 );
+				float2 RefHackeryForColorCache2269 = lerpResult2275;
+				float4 tex2DNode657 = SAMPLE_TEXTURE2D( _ColorCache, sampler_Linear_Clamp, ( RefHackeryForColorCache2269 + CacheUV1109 ) );
 				float ColorCacheA2171 = tex2DNode657.a;
 				float temp_output_12_0_g3214 = InfinityFeather1410;
 				float CaptureDepthAOffsetShore1177 = ( ( ColorCacheA2171 * temp_output_12_0_g3214 ) + ( 1.0 - temp_output_12_0_g3214 ) );
 				float4 break993 = _RemapAlpha;
-				float switchResult2294 = (((ase_vface>0)?(saturate( (0.0 + (CaptureDepthAOffsetShore1177 - break993.x) * (1.0 - 0.0) / (break993.y - break993.x)) )):(1.0)));
+				float temp_output_1000_0 = saturate( (0.0 + (CaptureDepthAOffsetShore1177 - break993.x) * (1.0 - 0.0) / (break993.y - break993.x)) );
+				float switchResult2294 = (((ase_vface>0)?(temp_output_1000_0):(1.0)));
 				float ShoreMaskDepthAlpha141 = switchResult2294;
-				float temp_output_199_0 = saturate( (0.0 + (( 5.0 * CaptureB_Distancex100200 ) - break984.z) * (1.0 - 0.0) / (( break984.w * _FoamMaxDistance ) - break984.z)) );
-				float temp_output_981_0 = ( 1.0 - temp_output_199_0 );
-				float temp_output_982_0 = ( temp_output_172_0 * ShoreMaskDepthAlpha141 * temp_output_981_0 );
-				float FoamFeather2372 = temp_output_982_0;
-				float2 temp_cast_12 = (_FoamNoiseSpeed).xx;
-				float2 panner138 = ( 1.0 * _Time.y * temp_cast_12 + ( WorldXZ1087 * _FoamNoiseScale ));
-				float lerpResult133 = lerp( 1.0 , SAMPLE_TEXTURE2D( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( 0.04 * panner138 ) ).r , _FoamNoiseCon);
+				float4 screenPos = IN.ase_texcoord6;
+				float4 ase_screenPosNorm = screenPos / screenPos.w;
+				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
+				float2 appendResult2445 = (float2(ase_screenPosNorm.xy));
+				float2 appendResult2856 = (float2(temp_output_1719_0.xy));
+				float SeaAlpha2FoamAndNormal205 = InfinityFeather1410;
 				float2 temp_cast_13 = (_FoamNoiseSpeed).xx;
-				float2 panner168 = ( 1.0 * _Time.y * temp_cast_13 + ( WorldXZ1087 * _FoamNoiseScale2 ));
+				float2 panner138 = ( 1.0 * _Time.y * temp_cast_13 + ( WorldXZ1087 * _FoamNoiseScale ));
+				float lerpResult133 = lerp( 1.0 , SAMPLE_TEXTURE2D( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( 0.04 * panner138 ) ).r , _FoamNoiseCon);
+				float2 temp_cast_14 = (_FoamNoiseSpeed).xx;
+				float2 panner168 = ( 1.0 * _Time.y * temp_cast_14 + ( WorldXZ1087 * _FoamNoiseScale2 ));
 				float lerpResult161 = lerp( 1.0 , SAMPLE_TEXTURE2D( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( panner168 * 0.04 ) ).r , _FoamNoiseCon2);
-				#ifdef _USEWAVENOISEDISPLACE_ON
-				float staticSwitch680 = ( Foamness294 + ( ( lerpResult133 + lerpResult161 ) * ( ( 1.0 - DistanceFadeA1294 ) * 0.4 ) ) );
-				#else
-				float staticSwitch680 = Foamness294;
-				#endif
-				float DepthCacheRemap109 = staticSwitch680;
+				float temp_output_318_0 = ( Foamness294 + ( ( lerpResult133 + lerpResult161 ) * ( ( 1.0 - DistanceFadeA1294 ) * 0.4 ) ) );
+				float DepthCacheRemap109 = temp_output_318_0;
 				float temp_output_5_0_g3212 = ( 1.0 - DepthCacheRemap109 );
 				float mulTime209 = _TimeParameters.x * ( _WaveSpeed * 0.1 );
 				float2 appendResult868 = (float2(_WaveDirectionSettings.x , _WaveDirectionSettings.y));
 				float WaveCenterDistance1051 = distance( WorldXZ1087 , appendResult868 );
-				#ifdef _USEWAVEDIRECTION_ON
-				float staticSwitch762 = ( mulTime209 + ( ( WaveCenterDistance1051 * -0.01 ) / _WaveDirectionSettings.z ) );
-				#else
-				float staticSwitch762 = ( 0.0 - mulTime209 );
-				#endif
-				float temp_output_17_0_g3212 = staticSwitch762;
+				float temp_output_839_0 = ( mulTime209 + ( ( WaveCenterDistance1051 * -0.01 ) / _WaveDirectionSettings.z ) );
+				float temp_output_17_0_g3212 = temp_output_839_0;
 				float temp_output_30_0_g3212 = ( 1.0 - saturate( 0.7 ) );
 				float temp_output_35_0_g3212 = ( temp_output_30_0_g3212 * 0.5 );
 				float temp_output_32_0_g3212 = ( (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) - temp_output_35_0_g3212 );
 				float temp_output_31_0_g3212 = ( temp_output_35_0_g3212 + (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) );
 				float DepthCacheWave184 = ( 1.0 - frac( (0.0 + (temp_output_5_0_g3212 - temp_output_32_0_g3212) * (1.0 - 0.0) / (temp_output_31_0_g3212 - temp_output_32_0_g3212)) ) );
 				float clampResult124 = clamp( DepthCacheWave184 , 0.01 , 0.99 );
-				float2 temp_cast_14 = (clampResult124).xx;
-				float4 tex2DNode76 = SAMPLE_TEXTURE2D_LOD( _FoamLUT, sampler_Linear_Clamp, temp_cast_14, 0.0 );
-				float FoamMaskResult122 = frac( ( FoamFeather2372 * tex2DNode76.r ) );
-				float temp_output_142_0 = saturate( FoamMaskResult122 );
-				float temp_output_39_0 = ( staticSwitch1679 * temp_output_142_0 );
-				float3 temp_output_1099_0 = ( ( ( pow( temp_output_39_0 , _FoamPow ) * 0.5 ) + saturate( ( pow( temp_output_39_0 , 3.0 ) + ( ( saturate( pow( temp_output_142_0 , 4.0 ) ) - 0.5 ) * 0.3 ) ) ) ) * (_FoamColor).rgb * InfinityFeather1410 * 0.4 );
-				#ifdef _USEFOAM_ON
-				float3 staticSwitch1687 = temp_output_1099_0;
-				#else
-				float3 staticSwitch1687 = float3( 0,0,0 );
-				#endif
-				float3 AlbedoRes465 = staticSwitch1687;
-				float3 temp_output_11_0_g3347 = AlbedoRes465;
-				float temp_output_23_0_g3347 = GlobalOceanUnder;
-				float3 ifLocalVar4_g3347 = 0;
-				UNITY_BRANCH 
-				if( temp_output_23_0_g3347 >= 1.0 )
-				ifLocalVar4_g3347 = temp_output_11_0_g3347;
-				else
-				ifLocalVar4_g3347 = temp_output_11_0_g3347;
-				#ifdef _USEGRADIENTFOG_ON
-				float3 staticSwitch6_g3347 = ifLocalVar4_g3347;
-				#else
-				float3 staticSwitch6_g3347 = temp_output_11_0_g3347;
-				#endif
-				#ifdef _USEUNDERWATER
-				float3 staticSwitch214_g3347 = staticSwitch6_g3347;
-				#else
-				float3 staticSwitch214_g3347 = temp_output_11_0_g3347;
-				#endif
-				float3 temp_output_3047_0 = staticSwitch214_g3347;
-				float temp_output_2951_0 = distance( (WorldPosition).xz , (_WorldSpaceCameraPos).xz );
-				float temp_output_2955_0 = saturate( (1.0 + (temp_output_2951_0 - 100.0) * (0.0 - 1.0) / (8000.0 - 100.0)) );
-				float temp_output_2949_0 = pow( temp_output_2955_0 , 8.0 );
-				float4 temp_output_2892_0 = saturate( ( float4( ( InfinityFeather1410 * CamNear1615 * DepthFader1847 * temp_output_3047_0 * ShoreMaskDepthAlpha141 ) , 0.0 ) + ( _WaterAlbedo * temp_output_2949_0 * CamNear1615 * DepthFader1847 * ShoreMaskDepthAlpha141 ) ) );
-				float4 AlbedoRes22337 = temp_output_2892_0;
-				
-				float3 appendResult1062 = (float3(tex2DNode657.rgb));
-				float3 ColorCacheRGB1061 = ( InfinityFeather1410 * appendResult1062 );
-				float temp_output_2998_0 = saturate( ( ( -0.2 * min( -CaptureDepthAOffsetShore1177 , 0.0 ) ) / _RemapWaterDistance1 ) );
-				float2 appendResult2445 = (float2(ase_screenPosNorm.xy));
-				float2 appendResult2856 = (float2(temp_output_1719_0.xy));
-				float SeaAlpha2FoamAndNormal205 = InfinityFeather1410;
+				float2 temp_cast_15 = (clampResult124).xx;
+				float4 tex2DNode76 = SAMPLE_TEXTURE2D_LOD( _FoamLUT, sampler_Linear_Clamp, temp_cast_15, 0.0 );
 				float smoothstepResult279 = smoothstep( 0.0 , 1.0 , tex2DNode76.a);
 				float customEye1325 = IN.ase_texcoord4.w;
 				float cameraDepthFade1325 = (( customEye1325 -_ProjectionParams.y - 0.0 ) / _DistanceFadeB);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2111 = 0.0;
-				#else
-				float staticSwitch2111 = saturate( cameraDepthFade1325 );
-				#endif
-				float DistanceFadeB1326 = staticSwitch2111;
+				float DistanceFadeB1326 = saturate( cameraDepthFade1325 );
 				float lerpResult1311 = lerp( smoothstepResult279 , 0.0 , DistanceFadeB1326);
-				float FoamVertDisp261 = saturate( lerpResult1311 );
+				#ifdef _USEFOAM_ON
+				float staticSwitch3358 = saturate( lerpResult1311 );
+				#else
+				float staticSwitch3358 = 0.0;
+				#endif
+				float FoamVertDisp261 = staticSwitch3358;
 				float temp_output_1332_0 = ( RefBumpSlider1337 * SeaAlpha2FoamAndNormal205 * (1.0 + (FoamVertDisp261 - 0.0) * (5.0 - 1.0) / (1.0 - 0.0)) * 22.0 );
 				float3 normalizeResult2866 = normalize( ( temp_output_1719_0 + float3( ( appendResult2856 * temp_output_1332_0 ) ,  0.0 ) ) );
 				float3 lerpResult2865 = lerp( normalizeResult2866 , float3( 0,0,1 ) , float3( 0.5,0.5,0.5 ));
 				float switchResult1438 = (((ase_vface>0)?(FoamVertDisp261):(( FoamVertDisp261 * 0.8 ))));
-				float customEye2817 = IN.ase_texcoord7.x;
-				float cameraDepthFade2817 = (( customEye2817 -_ProjectionParams.y - 0.0 ) / 300.0);
-				float3 appendResult2798 = (float3(0.0 , ( saturate( switchResult1438 ) * 0.1 * _WaveRefractionStrength * ( 1.0 - saturate( cameraDepthFade2817 ) ) ) , 0.0));
+				float CamDistMaskHorizonMask3273 = pow( saturate( (1.0 + (temp_output_2951_0 - 100.0) * (0.0 - 1.0) / (8000.0 - 100.0)) ) , 8.0 );
+				float3 appendResult2798 = (float3(0.0 , ( saturate( switchResult1438 ) * 0.1 * pow( CamDistMaskHorizonMask3273 , 16.0 ) * _WaveRefractionStrength ) , 0.0));
 				float3 lerpResult2861 = lerp( ( lerpResult2865 + appendResult2798 ) , float3( 0,0,1 ) , temp_output_1414_0);
 				float UnderOffset1634 = GlobalOceanOffset;
 				float GlobalOceanHeight1552 = ( GlobalOceanHeight + UnderOffset1634 );
-				float temp_output_240_0 = ( FoamVertDisp261 * _VertDispMult * 0.1 );
-				float ShoreMaskVert586 = saturate( (0.0 + (( CaptureB_Distancex100200 * 100.0 ) - _RemapVertShore.x) * (1.0 - 0.0) / (_RemapVertShore.y - _RemapVertShore.x)) );
-				float VertDispDistMask22014 = ( 1.0 - saturate( (0.0 + (distance( WorldXZ1087 , (_WorldSpaceCameraPos).xz ) - 5.0) * (1.0 - 0.0) / (7.9 - 5.0)) ) );
-				float customEye1484 = IN.ase_texcoord7.y;
-				float cameraDepthFade1484 = (( customEye1484 -_ProjectionParams.y - 0.0 ) / 1.0);
-				float CamDepthFade1495 = cameraDepthFade1484;
-				float VertDispMaskRes1691 = ( ShoreMaskVert586 * saturate( VertDispDistMask22014 ) * saturate( (0.0 + (CamDepthFade1495 - 0.2) * (1.0 - 0.0) / (1.5 - 0.2)) ) * InfinityFeather1410 );
-				float temp_output_238_0 = ( temp_output_240_0 * VertDispMaskRes1691 );
-				#ifdef _USEVERTDISPLACEMENT_ON
-				float staticSwitch1688 = temp_output_238_0;
-				#else
-				float staticSwitch1688 = 0.0;
-				#endif
-				float VertAdded1524 = staticSwitch1688;
-				float temp_output_1537_0 = ( ( GlobalOceanHeight1552 + (VertAdded1524).x ) - ( _WorldSpaceCameraPos.y - 0.2 ) );
+				float vertexToFrag3514 = IN.ase_texcoord7.x;
+				float VertAdded1524 = vertexToFrag3514;
+				float temp_output_1537_0 = ( ( GlobalOceanHeight1552 + VertAdded1524 ) - ( _WorldSpaceCameraPos.y - 0.2 ) );
 				float temp_output_1571_0 = saturate( ( temp_output_1537_0 * 5.0 ) );
 				float RefractHack1578 = temp_output_1571_0;
 				float temp_output_1582_0 = (1.0 + (RefractHack1578 - 0.0) * (11.0 - 1.0) / (1.0 - 0.0));
 				float3 lerpResult2862 = lerp( float3( 0,0,1 ) , lerpResult2861 , temp_output_1582_0);
-				float3 switchResult2863 = (((ase_vface>0)?(lerpResult2862):(lerpResult2861)));
-				float3 NormalResRefracted2803 = switchResult2863;
-				float3 NormalResBelow1480 = staticSwitch1683;
-				float3 switchResult1755 = (((ase_vface>0)?(NormalResRefracted2803):(NormalResBelow1480)));
+				float3 NormalRefractedFront2803 = lerpResult2862;
+				float3 NormalRefractedBack1480 = temp_output_83_0;
+				float3 switchResult1755 = (((ase_vface>0)?(NormalRefractedFront2803):(NormalRefractedBack1480)));
 				float2 appendResult3029 = (float2(switchResult1755.xy));
-				float customEye2418 = IN.ase_texcoord7.z;
+				float customEye2418 = IN.ase_texcoord7.y;
 				float cameraDepthFade2418 = (( customEye2418 -_ProjectionParams.y - 0.0 ) / 40.0);
 				float temp_output_2417_0 = ( 1.0 - saturate( cameraDepthFade2418 ) );
 				float2 temp_output_2389_0 = ( appendResult2445 + ( appendResult3029 * DepthFader1847 * CamNear1615 * ShoreMaskDepthAlpha141 * temp_output_2417_0 ) );
 				float eyeDepth2780 = LinearEyeDepth(SHADERGRAPH_SAMPLE_SCENE_DEPTH( float4( temp_output_2389_0, 0.0 , 0.0 ).xy ),_ZBufferParams);
 				float2 lerpResult2452 = lerp( appendResult2445 , temp_output_2389_0 , ( _RefractionWarp * step( ( screenPos.w - eyeDepth2780 ) , 0.0 ) ));
 				float2 ScreenSpaceRefractUV2387 = lerpResult2452;
-				float eyeDepth6_g3371 = LinearEyeDepth(SHADERGRAPH_SAMPLE_SCENE_DEPTH( float4( ScreenSpaceRefractUV2387, 0.0 , 0.0 ).xy ),_ZBufferParams);
-				float3 worldToView21_g3371 = mul( UNITY_MATRIX_V, float4( WorldPosition, 1 ) ).xyz;
+				float eyeDepth6_g3822 = LinearEyeDepth(SHADERGRAPH_SAMPLE_SCENE_DEPTH( float4( ScreenSpaceRefractUV2387, 0.0 , 0.0 ).xy ),_ZBufferParams);
+				float3 worldToView21_g3822 = mul( UNITY_MATRIX_V, float4( WorldPosition, 1 ) ).xyz;
+				float temp_output_12_0_g3822 = 1.0;
+				float temp_output_3_0_g3822 = ( abs( ( eyeDepth6_g3822 - -worldToView21_g3822.z ) ) / temp_output_12_0_g3822 );
+				#ifdef _TRANSPARENTGRABPASS_ON
+				float staticSwitch3373 = ( ShoreMaskDepthAlpha141 * ( 1.0 - saturate( pow( ( 1.0 - saturate( temp_output_3_0_g3822 ) ) , 6.0 ) ) ) );
+				#else
+				float staticSwitch3373 = ShoreMaskDepthAlpha141;
+				#endif
+				float ShallowMask2838 = staticSwitch3373;
+				float2 appendResult87 = (float2(_Motion.x , _Motion.y));
+				float2 MotionXY1084 = appendResult87;
+				float2 panner527 = ( -0.03 * _Time.y * MotionXY1084 + WorldXZ1087);
+				float4 tex2DNode91 = SAMPLE_TEXTURE2D( _FoamTexture, sampler_FoamTexture, (panner527*( _FoamScale_UseFoam * 0.2 ) + 0.0) );
+				float2 panner74 = ( 0.05 * _Time.y * MotionXY1084 + WorldXZ1087);
+				#ifdef _USEFOAMEXTRASAMPLER_ON
+				float staticSwitch1679 = ( SAMPLE_TEXTURE2D( _FoamTexture, sampler_FoamTexture, (panner74*_FoamScale_UseFoam + 0.0) ).r + tex2DNode91.r );
+				#else
+				float staticSwitch1679 = ( tex2DNode91.r * 1.8 );
+				#endif
+				float4 break984 = _RemapFoam;
+				float FoamFeather2372 = ( saturate( (0.0 + (( 100.0 * CaptureB_Distancex100200 ) - break984.x) * (1.0 - 0.0) / (break984.y - break984.x)) ) * ( 1.0 - saturate( (0.0 + (( 5.0 * CaptureB_Distancex100200 ) - break984.z) * (1.0 - 0.0) / (( break984.w * _FoamMaxDistance ) - break984.z)) ) ) * ShoreMaskDepthAlpha141 );
+				float FoamMaskResult122 = frac( ( FoamFeather2372 * tex2DNode76.r ) );
+				float temp_output_142_0 = saturate( FoamMaskResult122 );
+				float temp_output_39_0 = ( staticSwitch1679 * temp_output_142_0 );
+				#ifdef _USEFOAM_ON
+				float3 staticSwitch1687 = ( ( ( pow( temp_output_39_0 , _FoamPow ) * 0.5 ) + saturate( ( pow( temp_output_39_0 , 3.0 ) + ( ( saturate( pow( temp_output_142_0 , 4.0 ) ) - 0.5 ) * 0.3 ) ) ) ) * (_FoamColor).rgb * InfinityFeather1410 * 0.4 );
+				#else
+				float3 staticSwitch1687 = float3( 0,0,0 );
+				#endif
+				float3 AlbedoRes465 = staticSwitch1687;
+				float3 AlbedoIn285_g3830 = AlbedoRes465;
+				#ifdef _USEUNDERWATER
+				float3 staticSwitch214_g3830 = AlbedoIn285_g3830;
+				#else
+				float3 staticSwitch214_g3830 = AlbedoIn285_g3830;
+				#endif
+				float3 normalizeResult257 = normalize( ( temp_output_83_0 + float3( ( temp_output_1332_0 * RefNorm886 ) ,  0.0 ) ) );
+				float3 lerpResult1261 = lerp( normalizeResult257 , float3( 0,0,1 ) , float3( 0.5,0.5,0.5 ));
+				float3 lerpResult1264 = lerp( ( appendResult2798 + lerpResult1261 ) , float3( 0,0,1 ) , temp_output_1414_0);
+				float3 lerpResult1581 = lerp( float3( 0,0,1 ) , lerpResult1264 , temp_output_1582_0);
+				float3 switchResult2804 = (((ase_vface>0)?(lerpResult1581):(lerpResult1264)));
+				float3 NormalRes466 = switchResult2804;
+				float3 lerpResult3318 = lerp( float3( 0,0,1 ) , NormalRes466 , _NormalAlbedoStrength);
+				float dotResult3312 = dot( float3(0,3,0.8) , lerpResult3318 );
+				float clampResult3317 = clamp( (1.0 + (dotResult3312 - 0.0) * (2.0 - 1.0) / (1.0 - 0.0)) , 0.0 , 10.0 );
+				#ifdef _MOBILEMODE_ON
+				float4 staticSwitch3385 = saturate( ( float4( ( InfinityFeather1410 * CamNear1615 * DepthFader1847 * ShallowMask2838 * staticSwitch214_g3830 ) , 0.0 ) + ( _WaterAlbedo * CamNear1615 * DepthFader1847 * ShallowMask2838 * CamDistMaskHorizonMask3273 ) ) );
+				#else
+				float4 staticSwitch3385 = ( saturate( ( float4( ( InfinityFeather1410 * CamNear1615 * DepthFader1847 * ShallowMask2838 * staticSwitch214_g3830 ) , 0.0 ) + ( _WaterAlbedo * CamNear1615 * DepthFader1847 * ShallowMask2838 * CamDistMaskHorizonMask3273 ) ) ) * clampResult3317 );
+				#endif
+				float4 AlbedoRes22337 = staticSwitch3385;
+				float ClipMask3534 = temp_output_1000_0;
+				float AlphaRes469 = ClipMask3534;
+				clip( AlphaRes469 - _ClipThreshold);
+				
+				float3 appendResult1062 = (float3(tex2DNode657.rgb));
+				float3 ColorCacheRGB1061 = ( InfinityFeather1410 * appendResult1062 );
+				float3 appendResult2828 = (float3(_WaterTint.rgb));
+				float temp_output_2998_0 = saturate( ( ( -0.2 * min( -CaptureDepthAOffsetShore1177 , 0.0 ) ) / _RemapWaterDistance1 ) );
+				float eyeDepth6_g3861 = LinearEyeDepth(SHADERGRAPH_SAMPLE_SCENE_DEPTH( float4( ScreenSpaceRefractUV2387, 0.0 , 0.0 ).xy ),_ZBufferParams);
+				float3 worldToView21_g3861 = mul( UNITY_MATRIX_V, float4( WorldPosition, 1 ) ).xyz;
 				float3 ase_worldViewDir = ( _WorldSpaceCameraPos.xyz - WorldPosition );
 				ase_worldViewDir = normalize(ase_worldViewDir);
 				float3 ase_worldNormal = IN.ase_texcoord8.xyz;
 				float fresnelNdotV2830 = dot( ase_worldNormal, ase_worldViewDir );
 				float fresnelNode2830 = ( 0.0 + 1.0 * pow( 1.0 - fresnelNdotV2830, 5.0 ) );
 				float lerpResult2832 = lerp( 9.0 , 30.0 , saturate( fresnelNode2830 ));
-				float DepthFadeDistthing2939 = lerpResult2832;
-				float temp_output_12_0_g3371 = ( DepthFadeDistthing2939 * _RemapWaterDistance );
-				float temp_output_3_0_g3371 = ( abs( ( eyeDepth6_g3371 - -worldToView21_g3371.z ) ) / temp_output_12_0_g3371 );
-				float temp_output_2907_0 = saturate( temp_output_3_0_g3371 );
+				float DepthFadeDistThing2939 = lerpResult2832;
+				float temp_output_12_0_g3861 = ( DepthFadeDistThing2939 * _RemapWaterDistance );
+				float temp_output_3_0_g3861 = ( abs( ( eyeDepth6_g3861 - -worldToView21_g3861.z ) ) / temp_output_12_0_g3861 );
+				float temp_output_2907_0 = saturate( temp_output_3_0_g3861 );
 				#ifdef _TRANSPARENTGRABPASS_ON
 				float staticSwitch3001 = temp_output_2907_0;
 				#else
@@ -5344,33 +4691,31 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#else
 				float staticSwitch2993 = _WaterDepthPow1;
 				#endif
+				float temp_output_3000_0 = ( 1.0 - pow( ( 1.0 - temp_output_2998_0 ) , 6.0 ) );
 				float temp_output_2909_0 = ( 1.0 - pow( ( 1.0 - temp_output_2907_0 ) , 6.0 ) );
 				#ifdef _TRANSPARENTGRABPASS_ON
 				float staticSwitch2990 = temp_output_2909_0;
 				#else
-				float staticSwitch2990 = ( 1.0 - pow( ( 1.0 - temp_output_2998_0 ) , 6.0 ) );
+				float staticSwitch2990 = temp_output_3000_0;
 				#endif
 				float2 appendResult2183 = (float2(staticSwitch2990 , 0.0));
 				float3 appendResult2142 = (float3(SAMPLE_TEXTURE2D_LOD( _DepthColorLUT, sampler_Linear_Clamp, appendResult2183, 0.0 ).rgb));
-				float3 appendResult2828 = (float3(_WaterTint.rgb));
-				float3 temp_output_1964_0 = ( ( saturate( pow( ( 1.0 - staticSwitch3001 ) , staticSwitch2993 ) ) * appendResult2142 ) * appendResult2828 * InfinityFeather1410 );
-				float3 desaturateInitialColor2848 = temp_output_1964_0;
+				float temp_output_2850_0 = ( 1.0 - _WaterSaturation );
+				float3 desaturateInitialColor2848 = ( appendResult2828 * ( saturate( pow( ( 1.0 - staticSwitch3001 ) , staticSwitch2993 ) ) * appendResult2142 ) * InfinityFeather1410 );
 				float desaturateDot2848 = dot( desaturateInitialColor2848, float3( 0.299, 0.587, 0.114 ));
-				float3 desaturateVar2848 = lerp( desaturateInitialColor2848, desaturateDot2848.xxx, ( 1.0 - _WaterSaturation ) );
+				float3 desaturateVar2848 = lerp( desaturateInitialColor2848, desaturateDot2848.xxx, temp_output_2850_0 );
 				float3 switchResult2135 = (((ase_vface>0)?(desaturateVar2848):(float3( 0,0,0 ))));
 				float3 WaterDepthTint342 = switchResult2135;
 				float switchResult2482 = (((ase_vface>0)?(saturate( (0.0 + (CaptureDepthAOffsetShore1177 - break993.z) * (1.0 - 0.0) / (break993.w - break993.z)) )):(1.0)));
 				float ShoreMaskSpec2479 = switchResult2482;
 				float3 lerpResult3187 = lerp( float3( 1,1,1 ) , WaterDepthTint342 , ShoreMaskSpec2479);
+				float3 temp_output_3012_0 = ( ColorCacheRGB1061 * lerpResult3187 );
 				float switchResult1429 = (((ase_vface>0)?(radians( GlobalSkyRotation )):(radians( ( 0.0 + 180.0 ) ))));
 				float3 switchResult1425 = (((ase_vface>0)?(-ase_worldViewDir):(ase_worldViewDir)));
-				float3 normalizeResult257 = normalize( ( staticSwitch1683 + float3( ( RefNorm886 * temp_output_1332_0 ) ,  0.0 ) ) );
-				float3 lerpResult1261 = lerp( normalizeResult257 , float3( 0,0,1 ) , float3( 0.5,0.5,0.5 ));
-				float3 lerpResult1264 = lerp( ( lerpResult1261 + appendResult2798 ) , float3( 0,0,1 ) , temp_output_1414_0);
-				float3 lerpResult1581 = lerp( float3( 0,0,1 ) , lerpResult1264 , temp_output_1582_0);
-				float3 switchResult2804 = (((ase_vface>0)?(lerpResult1581):(lerpResult1264)));
-				float3 NormalRes466 = switchResult2804;
-				float HorizonMask2300 = saturate( (1.0 + (distance( WorldPosition , _WorldSpaceCameraPos ) - 200.0) * (0.0 - 1.0) / (3000.0 - 200.0)) );
+				float customEye1484 = IN.ase_texcoord7.z;
+				float cameraDepthFade1484 = (( customEye1484 -_ProjectionParams.y - 0.0 ) / 1.0);
+				float CamDepthFade1495 = cameraDepthFade1484;
+				float HorizonMask2300 = CamDistMaskHorizonMask3273;
 				float3 lerpResult1488 = lerp( float3( 0,0,1 ) , NormalRes466 , saturate( ( CamNear1615 * CamDepthFade1495 * HorizonMask2300 ) ));
 				float3 ase_worldTangent = IN.ase_texcoord9.xyz;
 				float3 ase_worldBitangent = IN.ase_texcoord10.xyz;
@@ -5379,8 +4724,7 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float3 tanToWorld2 = float3( ase_worldTangent.z, ase_worldBitangent.z, ase_worldNormal.z );
 				float3 tanNormal1153 = lerpResult1488;
 				float3 worldNormal1153 = float3(dot(tanToWorld0,tanNormal1153), dot(tanToWorld1,tanNormal1153), dot(tanToWorld2,tanNormal1153));
-				float3 temp_output_1151_0 = reflect( switchResult1425 , worldNormal1153 );
-				float3 rotatedValue1157 = RotateAroundAxis( float3( 0,0,0 ), temp_output_1151_0, float3( 0,1,0 ), switchResult1429 );
+				float3 rotatedValue1157 = RotateAroundAxis( float3( 0,0,0 ), reflect( switchResult1425 , worldNormal1153 ), float3( 0,1,0 ), switchResult1429 );
 				float SmoothnessRes468 = _Smoothness;
 				float lerpResult2215 = lerp( 1.0 , SmoothnessRes468 , HorizonMask2300);
 				float temp_output_1147_0 = ( ( 1.0 - lerpResult2215 ) * 8.0 );
@@ -5392,51 +4736,85 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#endif
 				float switchResult1466 = (((ase_vface>0)?(temp_output_1147_0):(staticSwitch3051)));
 				float3 temp_output_1550_0 = (SAMPLE_TEXTURECUBE_LOD( _Cubemap, sampler_Cubemap, rotatedValue1157, switchResult1466 )).rgb;
-				float3 normalizeResult1285 = normalize( ( tex2DNode11 * float3( 55,55,1 ) ) );
-				float3 tanNormal1237 = normalizeResult1285;
+				float3 tanNormal1237 = ( tex2DNode11 * float3( 25,25,1 ) );
 				float3 worldNormal1237 = float3(dot(tanToWorld0,tanNormal1237), dot(tanToWorld1,tanNormal1237), dot(tanToWorld2,tanNormal1237));
 				float dotResult1229 = dot( worldNormal1237 , ase_worldViewDir );
-				float customEye2812 = IN.ase_texcoord7.w;
-				float cameraDepthFade2812 = (( customEye2812 -_ProjectionParams.y - 0.0 ) / _NormalDarken1);
-				float lerpResult1280 = lerp( 1.0 , ( 1.0 - saturate( dotResult1229 ) ) , ( ( 1.0 - saturate( cameraDepthFade2812 ) ) * _NormalDarken ));
-				float NormDarken1230 = lerpResult1280;
+				float lerpResult1280 = lerp( 1.0 , ( 1.0 - saturate( dotResult1229 ) ) , ( CamDistMaskHorizonMask3273 * _NormalDarken ));
+				#ifdef _MOBILEMODE_ON
+				float staticSwitch3413 = lerpResult1280;
+				#else
+				float staticSwitch3413 = 1.0;
+				#endif
+				float NormDarken1230 = staticSwitch3413;
 				float3 tanNormal901 = NormalRes466;
 				float3 worldNormal901 = float3(dot(tanToWorld0,tanNormal901), dot(tanToWorld1,tanNormal901), dot(tanToWorld2,tanNormal901));
-				#ifdef _HORIZONMAPPED_ON
-				float3 staticSwitch2104 = float3(0,1,0);
-				#else
-				float3 staticSwitch2104 = worldNormal901;
-				#endif
-				float fresnelNdotV899 = dot( staticSwitch2104, ase_worldViewDir );
+				float fresnelNdotV899 = dot( worldNormal901, ase_worldViewDir );
 				float fresnelNode899 = ( _RefFresnel.x + _RefFresnel.y * pow( 1.0 - fresnelNdotV899, _RefFresnel.z ) );
-				float temp_output_904_0 = saturate( fresnelNode899 );
-				float3 temp_output_1162_0 = ( temp_output_1550_0 * _CubemapExposure * (0.4 + (NormDarken1230 - 0.0) * (1.0 - 0.4) / (1.0 - 0.0)) * temp_output_904_0 * ShoreMaskSpec2479 );
-				float3 WorldCamPos11_g3216 = _WorldPos;
-				float3 WorldCamRight11_g3216 = _WorldDir;
-				float force11_g3216 = _ForceEye;
-				int localIsStereoEyeLeft11_g3216 = IsStereoEyeLeft11_g3216( WorldCamPos11_g3216 , WorldCamRight11_g3216 , force11_g3216 );
-				float2 appendResult4_g3216 = (float2(ase_screenPosNorm.xy));
+				float FresnelReflection3475 = saturate( fresnelNode899 );
+				#ifdef _TRANSPARENTGRABPASS_ON
+				float4 staticSwitch34_g3815 = _BakeLightMapAmbient;
+				#else
+				float4 staticSwitch34_g3815 = _BakeLightMapMobile;
+				#endif
+				float3 appendResult18_g3815 = (float3(staticSwitch34_g3815.rgb));
+				float2 vertexToFrag10_g3820 = IN.ase_texcoord11.xy;
+				float4 tex2DNode7_g3820 = SAMPLE_TEXTURE2D_BIAS( _bakeLightmap, sampler_bakeLightmap, vertexToFrag10_g3820, 0.0 );
+				float4 localURPDecodeInstruction19_g3820 = URPDecodeInstruction19_g3820();
+				float3 decodeLightMap6_g3820 = DecodeLightmap(tex2DNode7_g3820,localURPDecodeInstruction19_g3820);
+				float temp_output_17_0_g3817 = -0.001;
+				float2 temp_cast_29 = (temp_output_17_0_g3817).xx;
+				float2 temp_cast_30 = (( 1.0 - temp_output_17_0_g3817 )).xx;
+				float2 break5_g3817 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_29) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_30 - temp_cast_29)) );
+				float temp_output_1_0_g3819 = break5_g3817.x;
+				float temp_output_9_0_g3817 = ( ( abs( ( ( temp_output_1_0_g3819 - floor( ( temp_output_1_0_g3819 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3817 = ( _BakedLightingFeather + -1.0 );
+				float temp_output_1_0_g3818 = break5_g3817.y;
+				float temp_output_6_0_g3817 = ( ( abs( ( ( temp_output_1_0_g3818 - floor( ( temp_output_1_0_g3818 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_15_0_g3817 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3817 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3817 - -1.0)) ) * saturate( (0.0 + (temp_output_6_0_g3817 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3817 - -1.0)) ) ) );
+				float temp_output_17_0_g3815 = temp_output_15_0_g3817;
+				float3 lerpResult12_g3815 = lerp( appendResult18_g3815 , decodeLightMap6_g3820 , temp_output_17_0_g3815);
+				float3 LightmapRes26_g3815 = lerpResult12_g3815;
+				float3 temp_output_3453_0 = LightmapRes26_g3815;
+				float3 LightmapRes2657 = temp_output_3453_0;
+				float2 vertexToFrag10_g3821 = IN.ase_texcoord11.zw;
+				float4 tex2DNode7_g3821 = SAMPLE_TEXTURE2D_BIAS( _bakeLightmapSM, sampler_bakeLightmap, vertexToFrag10_g3821, 0.0 );
+				float4 localURPDecodeInstruction19_g3821 = URPDecodeInstruction19_g3821();
+				float3 decodeLightMap6_g3821 = DecodeLightmap(tex2DNode7_g3821,localURPDecodeInstruction19_g3821);
+				float3 lerpResult13_g3815 = lerp( float3(1,0,0) , saturate( decodeLightMap6_g3821 ) , temp_output_17_0_g3815);
+				float3 LightmapSWRes25_g3815 = lerpResult13_g3815;
+				float3 temp_output_3453_27 = LightmapSWRes25_g3815;
+				float3 LightmapSWRes2658 = temp_output_3453_27;
+				float3 temp_output_3296_0 = ( LightmapRes2657 * (LightmapSWRes2658).x );
+				float grayscale3419 = (temp_output_3296_0.r + temp_output_3296_0.g + temp_output_3296_0.b) / 3;
+				float temp_output_12_0_g3525 = _ReflectionShadowed;
+				float temp_output_12_0_g3526 = CamDistMaskHorizonMask3273;
+				float OcclusionRes3215 = ( ( ( ( ( saturate( (0.0 + (grayscale3419 - ( 1.0 - _ReflectionShadowedEnd )) * (1.0 - 0.0) / (( 1.0 - _ReflectionShadowedStart ) - ( 1.0 - _ReflectionShadowedEnd ))) ) * temp_output_12_0_g3525 ) + ( 1.0 - temp_output_12_0_g3525 ) ) * temp_output_12_0_g3526 ) + ( 1.0 - temp_output_12_0_g3526 ) ) * ShallowMask2838 );
+				float3 WorldCamPos11_g3521 = _WorldPos;
+				float3 WorldCamRight11_g3521 = _WorldDir;
+				float force11_g3521 = _ForceEye;
+				int localIsStereoEyeLeft11_g3521 = IsStereoEyeLeft11_g3521( WorldCamPos11_g3521 , WorldCamRight11_g3521 , force11_g3521 );
+				float2 appendResult4_g3521 = (float2(ase_screenPosNorm.xy));
+				float clampResult1520 = clamp( VertAdded1524 , 0.0 , 0.3 );
 				float2 appendResult1245 = (float2(NormalRes466.xy));
-				float clampResult1520 = clamp( (VertAdded1524).x , 0.0 , 0.3 );
-				float2 temp_output_1_0_g3216 = ( appendResult4_g3216 + ( appendResult1245 * (0.0 + (clampResult1520 - 0.1) * (2.0 - 0.0) / (0.3 - 0.1)) * CamNear1615 * 0.5 ) );
-				float4 tex2DNode3_g3216 = SAMPLE_TEXTURE2D( _TexLeft, sampler_Linear_Mirror, temp_output_1_0_g3216 );
-				float4 tex2DNode2_g3216 = SAMPLE_TEXTURE2D( _TexRight, sampler_Linear_Mirror, temp_output_1_0_g3216 );
-				float4 ifLocalVar10_g3216 = 0;
-				if( localIsStereoEyeLeft11_g3216 <= 0.0 )
-				ifLocalVar10_g3216 = tex2DNode2_g3216;
+				float2 temp_output_1_0_g3521 = ( appendResult4_g3521 + ( (0.0 + (clampResult1520 - 0.1) * (2.0 - 0.0) / (0.3 - 0.1)) * appendResult1245 * CamNear1615 * 0.5 ) );
+				float4 tex2DNode3_g3521 = SAMPLE_TEXTURE2D( _TexLeft, sampler_Linear_Mirror, temp_output_1_0_g3521 );
+				float4 tex2DNode2_g3521 = SAMPLE_TEXTURE2D( _TexRight, sampler_Linear_Mirror, temp_output_1_0_g3521 );
+				float4 ifLocalVar10_g3521 = 0;
+				if( localIsStereoEyeLeft11_g3521 <= 0.0 )
+				ifLocalVar10_g3521 = tex2DNode2_g3521;
 				else
-				ifLocalVar10_g3216 = tex2DNode3_g3216;
-				float3 temp_output_1549_0 = (ifLocalVar10_g3216).rgb;
-				float3 UnderReflection1610 = ( temp_output_1549_0 * temp_output_904_0 );
-				float3 switchResult1453 = (((ase_vface>0)?(( UnderReflection1610 * (0.4 + (NormDarken1230 - 0.0) * (1.0 - 0.4) / (1.0 - 0.0)) )):(temp_output_1162_0)));
+				ifLocalVar10_g3521 = tex2DNode3_g3521;
+				float3 temp_output_1549_0 = (ifLocalVar10_g3521).rgb;
+				float3 UnderReflection1610 = ( temp_output_1549_0 * FresnelReflection3475 );
+				float3 switchResult1453 = (((ase_vface>0)?(( UnderReflection1610 * (0.4 + (NormDarken1230 - 0.0) * (1.0 - 0.4) / (1.0 - 0.0)) )):(( temp_output_1550_0 * _CubemapExposure * (0.4 + (NormDarken1230 - 0.0) * (1.0 - 0.4) / (1.0 - 0.0)) * FresnelReflection3475 * ShoreMaskSpec2479 * OcclusionRes3215 ))));
 				#ifdef GlobalPlanarReflection
 				float3 staticSwitch945 = switchResult1453;
 				#else
-				float3 staticSwitch945 = temp_output_1162_0;
+				float3 staticSwitch945 = ( temp_output_1550_0 * _CubemapExposure * (0.4 + (NormDarken1230 - 0.0) * (1.0 - 0.4) / (1.0 - 0.0)) * FresnelReflection3475 * ShoreMaskSpec2479 * OcclusionRes3215 );
 				#endif
-				float4 appendResult11_g3229 = (float4(_TonemappingSettings.x , _TonemappingSettings.y , _TonemappingSettings.z , _TonemappingSettings.w));
-				float4 temp_output_2533_0 = appendResult11_g3229;
-				float4 settings2527 = temp_output_2533_0;
+				float4 appendResult11_g3856 = (float4(_TonemappingSettings.x , _TonemappingSettings.y , _TonemappingSettings.z , _TonemappingSettings.w));
+				float4 TonemapSettings3469 = appendResult11_g3856;
+				float4 settings2527 = TonemapSettings3469;
 				float3 color2527 = staticSwitch945;
 				float3 localApplyTonemapper2527 = ApplyTonemapper( settings2527 , color2527 );
 				#ifdef _TRANSPARENTGRABPASS_ON
@@ -5444,137 +4822,100 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#else
 				float3 staticSwitch2528 = staticSwitch945;
 				#endif
+				float2 appendResult3231 = (float2(temp_output_3000_0 , 0.0));
+				float3 appendResult3228 = (float3(SAMPLE_TEXTURE2D_LOD( _DepthColorLUT, sampler_Linear_Clamp, appendResult3231, 0.0 ).rgb));
+				float3 desaturateInitialColor3242 = ( ( saturate( pow( ( 1.0 - temp_output_2998_0 ) , _WaterDepthPow1 ) ) * appendResult3228 ) * InfinityFeather1410 * appendResult2828 );
+				float desaturateDot3242 = dot( desaturateInitialColor3242, float3( 0.299, 0.587, 0.114 ));
+				float3 desaturateVar3242 = lerp( desaturateInitialColor3242, desaturateDot3242.xxx, temp_output_2850_0 );
+				float3 switchResult3241 = (((ase_vface>0)?(desaturateVar3242):(float3( 0,0,0 ))));
+				float3 lerpResult3249 = lerp( float3( 1,1,1 ) , switchResult3241 , ShoreMaskSpec2479);
+				float3 lerpResult3236 = lerp( float3( 0,0,0 ) , ( DepthFader1847 * ColorCacheRGB1061 * lerpResult3249 * saturate( (0.0 + (temp_output_2909_0 - 0.05) * (1.0 - 0.0) / (0.2 - 0.05)) ) ) , _WaterAlbedoFake);
+				#ifdef _TRANSPARENTGRABPASS_ON
+				float3 staticSwitch3230 = lerpResult3236;
+				#else
+				float3 staticSwitch3230 = float3( 0,0,0 );
+				#endif
+				float3 FakeEmission3252 = staticSwitch3230;
 				float4 fetchOpaqueVal1753 = float4( SHADERGRAPH_SAMPLE_SCENE_COLOR( ScreenSpaceRefractUV2387 ), 1.0 );
 				float3 appendResult1754 = (float3(fetchOpaqueVal1753.rgb));
-				#ifdef _RAINBOWGRABPASS_ON
-				float3 staticSwitch2395 = appendResult1754;
-				#else
-				float3 staticSwitch2395 = appendResult1754;
-				#endif
-				float3 temp_output_18_0_g3379 = float3( 0,0,0 );
-				float3 temp_output_30_0_g3379 = float3( 0,0,1 );
-				float3 tanNormal12_g3379 = temp_output_30_0_g3379;
-				float3 worldNormal12_g3379 = float3(dot(tanToWorld0,tanNormal12_g3379), dot(tanToWorld1,tanNormal12_g3379), dot(tanToWorld2,tanNormal12_g3379));
-				float3 vertexToFrag144_g3379 = IN.ase_texcoord11.xyz;
-				float dotResult1_g3379 = dot( worldNormal12_g3379 , vertexToFrag144_g3379 );
-				float3 vertexToFrag7_g3383 = IN.ase_texcoord12.xyz;
-				float3 positionWS_fogFactor24_g3383 = vertexToFrag7_g3383;
-				float3 normalizeResult21_g3383 = normalize( ( _WorldSpaceCameraPos - positionWS_fogFactor24_g3383 ) );
-				float3 view23_g3383 = normalizeResult21_g3383;
-				float3 view16_g3383 = view23_g3383;
-				float3 appendResult49_g3383 = (float3(ScreenSpaceRefractUV2387 , ase_screenPosNorm.w));
-				float3 screenPosXYW29_g3383 = (appendResult49_g3383).xyz;
-				float2 uvDepth38_g3383 = ( (screenPosXYW29_g3383).xy / (screenPosXYW29_g3383).z );
-				float2 uv55_g3383 = uvDepth38_g3383;
-				float localCameraDepthTexture55_g3383 = CameraDepthTexture55_g3383( uv55_g3383 );
-				float rawDepth40_g3383 = localCameraDepthTexture55_g3383;
-				float rawDepth44_g3383 = rawDepth40_g3383;
-				float localMyCustomExpression44_g3383 = MyCustomExpression44_g3383( rawDepth44_g3383 );
-				float sceneZ41_g3383 = localMyCustomExpression44_g3383;
-				float sceneZ16_g3383 = sceneZ41_g3383;
-				float3 localMyCustomExpression16_g3383 = MyCustomExpression16_g3383( view16_g3383 , sceneZ16_g3383 );
-				float3 scenePos11_g3383 = localMyCustomExpression16_g3383;
-				float3 WorldPosition2704 = scenePos11_g3383;
-				float3 temp_output_105_0_g3379 = WorldPosition2704;
-				float2 PanSpeed131_g3379 = (_CausticsSettings).xy;
-				float mulTime28_g3379 = _TimeParameters.x * -1.0;
-				float2 break101_g3379 = ( PanSpeed131_g3379 * mulTime28_g3379 );
-				float3 appendResult100_g3379 = (float3(break101_g3379.x , 0.0 , break101_g3379.y));
-				float4 Pos6_g3382 = float4( ( temp_output_105_0_g3379 + appendResult100_g3379 ) , 0.0 );
-				float4x4 invertVal146_g3379 = Inverse4x4( _CausticMatrix );
-				float4x4 Mat6_g3382 = invertVal146_g3379;
-				float3 localMatrixMulThatWorks6_g3382 = MatrixMulThatWorks( Pos6_g3382 , Mat6_g3382 );
-				float2 temp_output_87_0_g3379 = ( (localMatrixMulThatWorks6_g3382).xy + ( 0.0045 * 2.0 ) );
-				float temp_output_117_0_g3379 = (temp_output_105_0_g3379).y;
-				float temp_output_63_0_g3379 = GlobalOceanHeight1552;
-				float2 DistanceFade134_g3379 = (_CausticsSettings).zw;
-				float2 break136_g3379 = DistanceFade134_g3379;
-				float temp_output_67_0_g3379 = ( saturate( (0.0 + (max( -( temp_output_117_0_g3379 - temp_output_63_0_g3379 ) , 0.0 ) - 0.2) * (1.0 - 0.0) / (1.0 - 0.2)) ) * saturate( (1.0 + (distance( temp_output_63_0_g3379 , temp_output_117_0_g3379 ) - break136_g3379.x) * (0.0 - 1.0) / (break136_g3379.y - break136_g3379.x)) ) );
-				float CausticMipLevel118_g3379 = ( ( 1.0 - temp_output_67_0_g3379 ) * 4.0 );
-				float2 temp_output_75_0_g3379 = ( (localMatrixMulThatWorks6_g3382).xy + 0.0045 );
-				#ifdef _USECAUSTICRAINBOW_ON
-				float3 staticSwitch73_g3379 = ( ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Caustics, temp_output_87_0_g3379, CausticMipLevel118_g3379 ).r * float3(0,0,1) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Caustics, temp_output_75_0_g3379, CausticMipLevel118_g3379 ).r * float3(0,1,0) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Caustics, (localMatrixMulThatWorks6_g3382).xy, CausticMipLevel118_g3379 ).r * float3(1,0,0) ) );
-				#else
-				float3 staticSwitch73_g3379 = float3( 0,0,0 );
-				#endif
-				#ifdef _USECAUSTICEXTRASAMPLER_ON
-				float3 staticSwitch57_g3379 = staticSwitch73_g3379;
-				#else
-				float3 staticSwitch57_g3379 = float3( 0,0,0 );
-				#endif
-				float3 appendResult62_g3379 = (float3(_CausticsColor.rgb));
-				#ifdef _CAUSTICSENABLE_ON
-				float3 staticSwitch16_g3379 = ( temp_output_18_0_g3379 + ( max( dotResult1_g3379 , 0.0 ) * staticSwitch57_g3379 * appendResult62_g3379 * temp_output_67_0_g3379 ) );
-				#else
-				float3 staticSwitch16_g3379 = temp_output_18_0_g3379;
-				#endif
+				float3 temp_output_18_0_g3811 = float3( 0,0,0 );
+				float3 temp_output_30_0_g3811 = float3( 0,0,1 );
+				float3 tanNormal12_g3811 = temp_output_30_0_g3811;
+				float3 worldNormal12_g3811 = float3(dot(tanToWorld0,tanNormal12_g3811), dot(tanToWorld1,tanNormal12_g3811), dot(tanToWorld2,tanNormal12_g3811));
+				float3 vertexToFrag144_g3811 = IN.ase_texcoord12.xyz;
+				float dotResult1_g3811 = dot( worldNormal12_g3811 , vertexToFrag144_g3811 );
+				float3 vertexToFrag7_g3534 = IN.ase_texcoord13.xyz;
+				float3 positionWS_fogFactor24_g3534 = vertexToFrag7_g3534;
+				float3 normalizeResult21_g3534 = normalize( ( _WorldSpaceCameraPos - positionWS_fogFactor24_g3534 ) );
+				float3 view23_g3534 = normalizeResult21_g3534;
+				float3 view16_g3534 = view23_g3534;
+				float3 appendResult49_g3534 = (float3(ScreenSpaceRefractUV2387 , ase_screenPosNorm.w));
+				float3 screenPosXYW29_g3534 = (appendResult49_g3534).xyz;
+				float2 uvDepth38_g3534 = ( (screenPosXYW29_g3534).xy / (screenPosXYW29_g3534).z );
+				float2 uv55_g3534 = uvDepth38_g3534;
+				float localCameraDepthTexture55_g3534 = CameraDepthTexture55_g3534( uv55_g3534 );
+				float rawDepth40_g3534 = localCameraDepthTexture55_g3534;
+				float rawDepth44_g3534 = rawDepth40_g3534;
+				float localMyCustomExpression44_g3534 = MyCustomExpression44_g3534( rawDepth44_g3534 );
+				float sceneZ41_g3534 = localMyCustomExpression44_g3534;
+				float sceneZ16_g3534 = sceneZ41_g3534;
+				float3 localMyCustomExpression16_g3534 = MyCustomExpression16_g3534( view16_g3534 , sceneZ16_g3534 );
+				float3 scenePos11_g3534 = localMyCustomExpression16_g3534;
+				float3 WorldPosition2704 = scenePos11_g3534;
+				float3 temp_output_105_0_g3811 = WorldPosition2704;
+				float2 PanSpeed131_g3811 = (_CausticsSettings).xy;
+				float mulTime28_g3811 = _TimeParameters.x * -1.0;
+				float2 break101_g3811 = ( PanSpeed131_g3811 * mulTime28_g3811 );
+				float3 appendResult100_g3811 = (float3(break101_g3811.x , 0.0 , break101_g3811.y));
+				float4 Pos6_g3814 = float4( ( temp_output_105_0_g3811 + appendResult100_g3811 ) , 0.0 );
+				float4x4 invertVal146_g3811 = Inverse4x4( _CausticMatrix );
+				float4x4 Mat6_g3814 = invertVal146_g3811;
+				float3 localMatrixMulThatWorks6_g3814 = MatrixMulThatWorks( Pos6_g3814 , Mat6_g3814 );
+				float2 temp_output_87_0_g3811 = ( (localMatrixMulThatWorks6_g3814).xy + ( 0.0045 * 2.0 ) );
+				float temp_output_117_0_g3811 = (temp_output_105_0_g3811).y;
+				float temp_output_63_0_g3811 = GlobalOceanHeight1552;
+				float2 DistanceFade134_g3811 = (_CausticsSettings).zw;
+				float2 break136_g3811 = DistanceFade134_g3811;
+				float temp_output_67_0_g3811 = ( saturate( (0.0 + (max( -( temp_output_117_0_g3811 - temp_output_63_0_g3811 ) , 0.0 ) - 0.2) * (1.0 - 0.0) / (1.0 - 0.2)) ) * saturate( (1.0 + (distance( temp_output_63_0_g3811 , temp_output_117_0_g3811 ) - break136_g3811.x) * (0.0 - 1.0) / (break136_g3811.y - break136_g3811.x)) ) );
+				float CausticMipLevel118_g3811 = ( ( 1.0 - temp_output_67_0_g3811 ) * 4.0 );
+				float2 temp_output_75_0_g3811 = ( (localMatrixMulThatWorks6_g3814).xy + 0.0045 );
+				float3 temp_output_83_0_g3811 = ( ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Caustics, temp_output_87_0_g3811, CausticMipLevel118_g3811 ).r * float3(0,0,1) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Caustics, temp_output_75_0_g3811, CausticMipLevel118_g3811 ).r * float3(0,1,0) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Caustics, (localMatrixMulThatWorks6_g3814).xy, CausticMipLevel118_g3811 ).r * float3(1,0,0) ) );
+				float3 appendResult62_g3811 = (float3(_CausticsColor.rgb));
+				float3 temp_output_20_0_g3811 = ( temp_output_18_0_g3811 + ( max( dotResult1_g3811 , 0.0 ) * temp_output_83_0_g3811 * appendResult62_g3811 * temp_output_67_0_g3811 ) );
 				float3 appendResult3040 = (float3(_CausticsTint.rgb));
-				float3 temp_output_3042_0 = ( staticSwitch16_g3379 * appendResult3040 * 8.0 );
+				float3 temp_output_3042_0 = ( temp_output_20_0_g3811 * appendResult3040 * 8.0 );
 				float3 switchResult3046 = (((ase_vface>0)?(temp_output_3042_0):(float3( 0,0,0 ))));
 				float3 Caustics2711 = switchResult3046;
-				float3 GrabPassOG1994 = ( staticSwitch2395 + ( staticSwitch2395 * Caustics2711 ) );
-				float3 temp_cast_33 = (1.0).xxx;
-				float eyeDepth6_g3373 = LinearEyeDepth(SHADERGRAPH_SAMPLE_SCENE_DEPTH( float4( ScreenSpaceRefractUV2387, 0.0 , 0.0 ).xy ),_ZBufferParams);
-				float3 worldToView21_g3373 = mul( UNITY_MATRIX_V, float4( WorldPosition, 1 ) ).xyz;
-				float temp_output_12_0_g3373 = 1.0;
-				float temp_output_3_0_g3373 = ( abs( ( eyeDepth6_g3373 - -worldToView21_g3373.z ) ) / temp_output_12_0_g3373 );
-				float temp_output_1843_0 = saturate( pow( ( 1.0 - saturate( temp_output_3_0_g3373 ) ) , 6.0 ) );
-				float ShallowMask2838 = ( ( 1.0 - temp_output_1843_0 ) * ShoreMaskDepthAlpha141 );
-				float3 lerpResult2839 = lerp( temp_cast_33 , WaterDepthTint342 , ShallowMask2838);
+				float3 GrabPassOG1994 = ( appendResult1754 + ( appendResult1754 * Caustics2711 ) );
+				float3 temp_cast_39 = (1.0).xxx;
+				float3 lerpResult2839 = lerp( temp_cast_39 , WaterDepthTint342 , ShallowMask2838);
 				float3 switchResult3072 = (((ase_vface>0)?(lerpResult2839):(float3( 1,1,1 ))));
 				float switchResult1513 = (((ase_vface>0)?(1.0):(CamNear1615)));
 				float3 lerpResult1900 = lerp( GrabPassOG1994 , ( switchResult3072 * GrabPassOG1994 ) , switchResult1513);
 				float3 GrabPassTinted1768 = lerpResult1900;
 				float switchResult1945 = (((ase_vface>0)?(1.0):(CamNear1615)));
-				float3 lerpResult1746 = lerp( GrabPassTinted1768 , ( staticSwitch2528 + GrabPassTinted1768 ) , ( ShoreMaskDepthAlpha141 * DepthFader1847 * switchResult1945 ));
+				float3 lerpResult1746 = lerp( GrabPassTinted1768 , ( GrabPassTinted1768 + staticSwitch2528 ) , ( ShoreMaskDepthAlpha141 * DepthFader1847 * switchResult1945 ));
 				float3 NormalResBelow23057 = temp_output_1719_0;
 				float3 tanNormal1468 = NormalResBelow23057;
 				float3 worldNormal1468 = float3(dot(tanToWorld0,tanNormal1468), dot(tanToWorld1,tanNormal1468), dot(tanToWorld2,tanNormal1468));
-				#ifdef _HORIZONMAPPED_ON
-				float3 staticSwitch2108 = float3(0,1,0);
-				#else
-				float3 staticSwitch2108 = worldNormal1468;
-				#endif
-				float clampResult3065 = clamp( (-4.0 + (distance( _WorldSpaceCameraPos , WorldPosition ) - 0.1) * (-0.5 - -4.0) / (10.0 - 0.1)) , -4.0 , -0.5 );
-				float fresnelNdotV1454 = dot( normalize( staticSwitch2108 ), -ase_worldViewDir );
+				float clampResult3065 = clamp( (-4.0 + (CamDistance3490 - 0.1) * (-0.5 - -4.0) / (10.0 - 0.1)) , -4.0 , -0.5 );
+				float fresnelNdotV1454 = dot( normalize( worldNormal1468 ), -ase_worldViewDir );
 				float fresnelNode1454 = ( clampResult3065 + 4.0 * pow( max( 1.0 - fresnelNdotV1454 , 0.0001 ), 1.0 ) );
-				float temp_output_1460_0 = saturate( fresnelNode1454 );
-				float3 lerpResult1923 = lerp( lerpResult1746 , staticSwitch2528 , ( temp_output_1460_0 * CamNear1615 ));
-				float3 switchResult1925 = (((ase_vface>0)?(lerpResult1746):(lerpResult1923)));
+				float3 lerpResult1923 = lerp( lerpResult1746 , staticSwitch2528 , ( CamNear1615 * saturate( fresnelNode1454 ) ));
+				float3 switchResult1925 = (((ase_vface>0)?(( FakeEmission3252 + lerpResult1746 )):(lerpResult1923)));
 				#ifdef _TRANSPARENTGRABPASS_ON
 				float3 staticSwitch1588 = switchResult1925;
 				#else
-				float3 staticSwitch1588 = ( ( ColorCacheRGB1061 * lerpResult3187 ) + ( saturate( (0.0 + (ShoreMaskSpec2479 - 0.3) * (1.0 - 0.0) / (1.0 - 0.3)) ) * staticSwitch2528 ) );
+				float3 staticSwitch1588 = ( temp_output_3012_0 + ( saturate( (0.0 + (ShoreMaskSpec2479 - 0.3) * (1.0 - 0.0) / (1.0 - 0.3)) ) * staticSwitch2528 ) );
 				#endif
 				float3 appendResult2329 = (float3(staticSwitch1588));
 				float3 EmissionRes467 = appendResult2329;
 				float3 EmissionRes22320 = EmissionRes467;
 				
-				float2 clipScreen639 = ase_screenPosNorm.xy * _ScreenParams.xy;
-				float dither639 = Dither8x8Bayer( fmod(clipScreen639.x, 8), fmod(clipScreen639.y, 8) );
-				dither639 = step( dither639, ShoreMaskDepthAlpha141 );
-				#ifdef _USEDITHERING_ON
-				float staticSwitch1685 = dither639;
-				#else
-				float staticSwitch1685 = ShoreMaskDepthAlpha141;
-				#endif
-				#ifdef _TRANSPARENTGRABPASS_ON
-				float staticSwitch1748 = 1.0;
-				#else
-				float staticSwitch1748 = staticSwitch1685;
-				#endif
-				float HorizonAlpha2083 = temp_output_2080_0;
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2085 = HorizonAlpha2083;
-				#else
-				float staticSwitch2085 = staticSwitch1748;
-				#endif
-				float AlphaRes469 = staticSwitch2085;
-				
 
 				float3 BaseColor = AlbedoRes22337.rgb;
 				float3 Emission = EmissionRes22320;
-				float Alpha = AlphaRes469;
+				float Alpha = 1;
 				float AlphaClipThreshold = _ClipThreshold;
 
 				#ifdef _ALPHATEST_ON
@@ -5621,13 +4962,14 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			#define _ASE_DEBUGVISUALS 1
 			#define ASE_FOG 1
 			#define _NORMAL_DROPOFF_TS 1
+			#define _SPECULAR_SETUP 1
 			#define ASE_BAKEDGI 1
 			#define ASE_SHADOWMASK 1
 			#define ASE_FOGCOLOR 1
 			#define _ASE_ALPHATEST 1
+			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 120115
 			#define ASE_NEEDS_FRAG_SCREEN_POSITION
-			#define TONEMAPPINGELSEWHERE
 			#define UNDERWATERELSEWHERE
 			#define ASE_USING_SAMPLING_MACROS 1
 
@@ -5663,22 +5005,16 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 
 			#define ASE_NEEDS_VERT_POSITION
 			#define ASE_NEEDS_FRAG_WORLD_POSITION
-			#define ASE_NEEDS_FRAG_SCREEN_POSITION
-			#pragma shader_feature_local ASE_TESSELLATION_ON
-			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma shader_feature_local _DEBUGVISUALS_ON
-			#pragma shader_feature_local LIGHTMAP_ON
+			#pragma shader_feature_local ASE_TESSELLATION_ON
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local LIGHTMAP_ON
+			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma shader_feature_local _USEINFINITYEDGE_ON
 			#pragma shader_feature_local _USEVERTDISPLACEMENT_ON
-			#pragma shader_feature_local _USEWAVENOISEDISPLACE_ON
+			#pragma shader_feature_local _USEFOAM_ON
 			#pragma shader_feature_local _SPACE_WORLDSPACE _SPACE_UVSPACE
-			#pragma shader_feature_local _HORIZONMAPPED_ON
-			#pragma shader_feature_local _USEWAVEDIRECTION_ON
 			#pragma shader_feature_local _USEINFINITYFEATHER_ON
-			#pragma shader_feature_local _TRANSPARENTGRABPASS_ON
-			#pragma shader_feature_local _USEDITHERING_ON
-			#pragma shader_feature_local _USEEXTRANORMALS_ON
 			#pragma multi_compile __ GlobalPlanarReflection
 
 
@@ -5712,70 +5048,75 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 					float4 shadowCoord : TEXCOORD4;
 				#endif
 				float4 ase_texcoord5 : TEXCOORD5;
+				float4 ase_texcoord6 : TEXCOORD6;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _FoamColor;
+			float4 _WaveDirectionSettings;
+			float4 _RemapFoam;
+			float4 _WaterTint;
+			float4 _CausticsTint;
+			float4 _RemapAlpha;
+			float4 _Normals2_ST;
 			float4 _Motion;
 			float4 _Normals_ST;
-			float4 _WaterTint;
+			float4 _Motion2;
 			float4 _RemapVertShore;
 			float4 _WaterAlbedo;
-			float4 _WaveDirectionSettings;
-			float4 _Normals2_ST;
-			float4 _Motion2;
 			float4 _RefFresnel;
-			float4 _CausticsTint;
-			float4x4 _DepthMatrix;
-			float4 _RemapAlpha;
-			float4 _BakeLightMapAmbient;
-			float4x4 _BakeMatrix;
+			float4 _BakeLightMapMobile;
+			float4 _FoamColor;
 			float4 _bakeLightmapST;
-			float4 _RemapFoam;
+			float4 _BakeLightMapAmbient;
+			float4x4 _DepthMatrix;
+			float3 _CameraForward;
+			float3 _DepthPosition;
 			float3 _WorldDir;
 			float3 _WorldPos;
-			float3 _DepthPosition;
-			float3 _CameraForward;
-			float _WaveRefractionStrength;
-			float _RefractionWarp;
-			float _RemapWaterDistance;
-			float _RemapWaterDistance1;
-			float _Smoothness;
-			float _WaterDepthPow;
-			float _WaterSaturation;
 			float _CubemapExposure;
-			float _NormalDarken1;
-			float _NormalDarken;
-			float _ForceEye;
+			float _NormalAlbedoStrength;
+			float _WaterAlbedoFake;
 			float _ClipThreshold;
+			float _ForceEye;
+			float _RemapWaterDistance1;
+			float _RemapWaterDistance;
 			float _WaterDepthPow1;
-			int _ZTestMode;
-			float _NormalPow2;
-			float _FoamMaxDistance;
-			float _ZWriteToggle;
+			float _BakedLightingFeather;
+			float _WaterDepthPow;
+			float _ReflectionShadowed;
+			float _ReflectionShadowedStart;
+			float _WaterSaturation;
+			float _Smoothness;
+			float _ReflectionShadowedEnd;
+			float _NormalDarken;
 			float _TessNum;
+			float _WaveRefractionStrength;
+			float _FoamMaxDistance;
 			float _TesMin;
 			float _TesMax;
+			int _ZTestMode;
+			float _ZWriteToggle;
 			float _WaveScale;
+			float _Tolerance;
+			float _Feather;
 			float _FoamNoiseSpeed;
 			float _FoamNoiseScale;
 			float _FoamNoiseCon;
+			float _FoamPow;
 			float _FoamNoiseScale2;
-			float _FoamNoiseCon2;
 			float _DistanceFadeA;
 			float _WaveSpeed;
 			float _DistanceFadeB;
 			float _VertDispMult;
-			float _Tolerance;
-			float _Feather;
-			float _FoamScale_UseFoam;
 			float _NormalPow;
-			float _BakedLightingFeather;
+			float _NormalPow2;
 			float _RefDistortion;
 			float _WaterRefractonMobile;
-			float _FoamPow;
+			float _RefractionWarp;
+			float _FoamScale_UseFoam;
+			float _FoamNoiseCon2;
 			int _DebugVisual;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
@@ -5797,6 +5138,7 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float _TessMaxDisp;
 			#endif
 			float _DebugCounter; //Shadowood
+			half _EnvironmentReflections; // Shadowood
 			CBUFFER_END
 
 			// Property used by ScenePickingPass
@@ -5810,8 +5152,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				int _PassValue;
 			#endif
 
-			float4 _skyGradientColor1;
-			float4 _skyGradientColor2;
 			float3 _CausticsDir;
 			half _CausticsScale;
 			half2 _CausticsPanSpeed;
@@ -5820,12 +5160,13 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			SAMPLER(sampler_Caustics);
 			TEXTURE2D(_Caustics2);
 			SAMPLER(sampler_Caustics2);
+			float4 _skyGradientColor1;
+			float4 _skyGradientColor2;
 			TEXTURE2D(_FoamLUT);
 			TEXTURE2D(_DepthCache);
 			SAMPLER(sampler_Linear_Clamp);
 			TEXTURE2D(_WaveNoiseDisplace);
 			SAMPLER(sampler_WaveNoiseDisplace);
-			TEXTURE2D(_ColorCache);
 			TEXTURE2D(_Normals);
 			SAMPLER(sampler_Normals);
 			TEXTURE2D(_Normals2);
@@ -5846,58 +5187,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
 			}
 			
-			float4 Billboard2078( float3 worldPosIN, float2 screenPos, float3 QuadNormal, float3 QuadPosition )
-			{
-				float3 worldPos = worldPosIN;
-				float3 viewDir = worldPos - _WorldSpaceCameraPos;
-				float3 reflectDir = -viewDir;
-				float3 nReflDirection = normalize(reflectDir);
-				float4 result = float4(0,0,0,0);
-				// Ray-quad intersection
-				half planeIntersectDistance = dot( worldPos - QuadPosition,  QuadNormal.xyz ) / dot( nReflDirection, QuadNormal.xyz );
-				half3 intersectPosition = worldPos - nReflDirection * planeIntersectDistance;
-				//half4 localPlaneIntersectPosition = mul( QuadInverseMatrix, float4( intersectPosition, 1.0 ));
-				half4 localPlaneIntersectPosition = float4( intersectPosition, 1.0 );
-				half2 billboardUV = half2( localPlaneIntersectPosition.x, localPlaneIntersectPosition.z );
-				//billboardUV*=1;
-				//float4 billboardCol = BillboardTex.Sample( BillboardSampler , billboardUV );
-				float4 billboardCol = float4( billboardUV.x, billboardUV.y, 0, 1);
-				float3 quadNorm = QuadNormal.xyz;
-				half reflectDot = dot( nReflDirection, quadNorm );
-				float w = 1;
-				// Cull when beyond the quad bounds
-				//w = billboardUV.x > 1.0 ? 0.0 : w;
-				//w = billboardUV.y > 1.0 ? 0.0 : w;
-				//w = billboardUV.x < 0.0 ? 0.0 : w;
-				//w = billboardUV.y < 0.0 ? 0.0 : w;
-				// Cull if distance is behind the surface
-				//w = planeIntersectDistance < 0 ? 0 : w;
-				// Cull if quad facing backwards
-				w = reflectDot <= 0.0 ? 0.0 : w; 
-				// Cull if quad facing backwards and culling is ticked on the quad ( passed in via the arrays W )
-				//w = QuadNormal.w == 1.0 ? (reflectDot <= 0.0 ? 0.0 : w) : w;
-				billboardCol = billboardCol * billboardCol.w * w;
-				billboardCol.a = w;
-				result*=1-w;
-				result+= billboardCol;
-				return result;
-			}
-			
-			inline float Dither8x8Bayer( int x, int y )
-			{
-				const float dither[ 64 ] = {
-			 1, 49, 13, 61,  4, 52, 16, 64,
-			33, 17, 45, 29, 36, 20, 48, 32,
-			 9, 57,  5, 53, 12, 60,  8, 56,
-			41, 25, 37, 21, 44, 28, 40, 24,
-			 3, 51, 15, 63,  2, 50, 14, 62,
-			35, 19, 47, 31, 34, 18, 46, 30,
-			11, 59,  7, 55, 10, 58,  6, 54,
-			43, 27, 39, 23, 42, 26, 38, 22};
-				int r = y * 8 + x;
-				return dither[r] / 64; // same # of instructions as pre-dividing due to compiler magic
-			}
-			
 
 			VertexOutput VertexFunction( VertexInput v  )
 			{
@@ -5907,14 +5196,13 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
 				float2 texCoord2052 = v.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
-				float temp_output_2054_0 = distance( texCoord2052 , float2( 0.5,0.5 ) );
 				float ifLocalVar2053 = 0;
-				if( temp_output_2054_0 <= 1.0 )
+				if( distance( texCoord2052 , float2( 0.5,0.5 ) ) <= 1.0 )
 				ifLocalVar2053 = 1.0;
 				else
 				ifLocalVar2053 = 5000.0;
 				#ifdef _USEINFINITYEDGE_ON
-				float4 staticSwitch1498 = ( v.vertex * ifLocalVar2053 );
+				float4 staticSwitch1498 = ( ifLocalVar2053 * v.vertex );
 				#else
 				float4 staticSwitch1498 = v.vertex;
 				#endif
@@ -5932,91 +5220,93 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#endif
 				float2 CacheUV1109 = staticSwitch1346;
 				float4 tex2DNode13 = SAMPLE_TEXTURE2D_LOD( _DepthCache, sampler_Linear_Clamp, CacheUV1109, 0.0 );
-				float temp_output_17_0_g3203 = 0.001;
-				float2 temp_cast_2 = (temp_output_17_0_g3203).xx;
-				float2 temp_cast_3 = (( 1.0 - temp_output_17_0_g3203 )).xx;
-				float2 break5_g3203 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_2) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_3 - temp_cast_2)) );
-				float temp_output_1_0_g3205 = break5_g3203.x;
-				float temp_output_8_0_g3203 = ( 0.001 + -1.0 );
-				float temp_output_1_0_g3204 = break5_g3203.y;
-				float temp_output_2766_0 = saturate( saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3205 - floor( ( temp_output_1_0_g3205 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3204 - floor( ( temp_output_1_0_g3204 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) ) ) );
+				float temp_output_17_0_g3046 = 0.001;
+				float2 temp_cast_2 = (temp_output_17_0_g3046).xx;
+				float2 temp_cast_3 = (( 1.0 - temp_output_17_0_g3046 )).xx;
+				float2 break5_g3046 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_2) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_3 - temp_cast_2)) );
+				float temp_output_1_0_g3048 = break5_g3046.x;
+				float temp_output_9_0_g3046 = ( ( abs( ( ( temp_output_1_0_g3048 - floor( ( temp_output_1_0_g3048 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3046 = ( 0.001 + -1.0 );
+				float temp_output_17_0_g3040 = 0.01;
+				float2 temp_cast_4 = (temp_output_17_0_g3040).xx;
+				float2 temp_cast_5 = (( 1.0 - temp_output_17_0_g3040 )).xx;
+				float2 break5_g3040 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_4) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_5 - temp_cast_4)) );
+				float temp_output_1_0_g3042 = break5_g3040.x;
+				float temp_output_9_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3042 - floor( ( temp_output_1_0_g3042 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_1_0_g3041 = break5_g3040.y;
+				float temp_output_6_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3041 - floor( ( temp_output_1_0_g3041 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float2 appendResult24_g3040 = (float2(temp_output_9_0_g3040 , temp_output_6_0_g3040));
+				float2 CacheUVPreFeather3438 = appendResult24_g3040;
+				float2 break40_g3046 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3046 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3046 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) * saturate( (0.0 + (break40_g3046.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) ) );
+				float temp_output_2766_0 = saturate( temp_output_15_0_g3046 );
 				float lerpResult3090 = lerp( 1000.0 , ( tex2DNode13.b * 100.0 ) , temp_output_2766_0);
 				float CaptureB_Distancex100200 = lerpResult3090;
 				float temp_output_307_0 = ( 1.0 - saturate( abs( CaptureB_Distancex100200 ) ) );
-				float Foamness294 = ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale );
-				float2 temp_cast_4 = (_FoamNoiseSpeed).xx;
+				float temp_output_8_0_g3040 = ( 0.1 + -1.0 );
+				float temp_output_15_0_g3040 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) * saturate( (0.0 + (temp_output_6_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) ) );
+				float temp_output_2763_0 = saturate( ( temp_output_15_0_g3040 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
+				float temp_output_17_0_g3049 = _Tolerance;
+				float2 temp_cast_6 = (temp_output_17_0_g3049).xx;
+				float2 temp_cast_7 = (( 1.0 - temp_output_17_0_g3049 )).xx;
+				float2 break5_g3049 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_6) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_7 - temp_cast_6)) );
+				float temp_output_1_0_g3051 = break5_g3049.x;
+				float temp_output_9_0_g3049 = ( ( abs( ( ( temp_output_1_0_g3051 - floor( ( temp_output_1_0_g3051 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3049 = ( _Feather + -1.0 );
+				float2 break40_g3049 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3049 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3049 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) * saturate( (0.0 + (break40_g3049.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) ) );
+				#ifdef _USEINFINITYFEATHER_ON
+				float staticSwitch1654 = temp_output_15_0_g3049;
+				#else
+				float staticSwitch1654 = 1.0;
+				#endif
+				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
+				float Foamness294 = ( ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale ) * InfinityFeather1410 );
+				float2 temp_cast_8 = (_FoamNoiseSpeed).xx;
 				float3 break35 = ase_worldPos;
 				float2 appendResult36 = (float2(break35.x , break35.z));
-				float3 worldPosIN2078 = ase_worldPos;
-				float4 ase_clipPos = TransformObjectToHClip((v.vertex).xyz);
-				float4 screenPos = ComputeScreenPos(ase_clipPos);
-				float4 ase_screenPosNorm = screenPos / screenPos.w;
-				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 screenPos2078 = ase_screenPosNorm.xy;
-				float3 QuadNormal2078 = float3( 0,1,0 );
-				float3 QuadPosition2078 = float3(0,-4,0);
-				float4 localBillboard2078 = Billboard2078( worldPosIN2078 , screenPos2078 , QuadNormal2078 , QuadPosition2078 );
-				float temp_output_2080_0 = (localBillboard2078).w;
-				float2 temp_output_2096_0 = ( (localBillboard2078).xy * temp_output_2080_0 );
-				#ifdef _HORIZONMAPPED_ON
-				float2 staticSwitch2082 = temp_output_2096_0;
-				#else
-				float2 staticSwitch2082 = appendResult36;
-				#endif
-				float2 WorldXZ1087 = staticSwitch2082;
-				float2 panner138 = ( 1.0 * _Time.y * temp_cast_4 + ( WorldXZ1087 * _FoamNoiseScale ));
+				float2 WorldXZ1087 = appendResult36;
+				float2 panner138 = ( 1.0 * _Time.y * temp_cast_8 + ( WorldXZ1087 * _FoamNoiseScale ));
 				float lerpResult133 = lerp( 1.0 , SAMPLE_TEXTURE2D_LOD( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( 0.04 * panner138 ), 0.0 ).r , _FoamNoiseCon);
-				float2 temp_cast_6 = (_FoamNoiseSpeed).xx;
-				float2 panner168 = ( 1.0 * _Time.y * temp_cast_6 + ( WorldXZ1087 * _FoamNoiseScale2 ));
+				float2 temp_cast_9 = (_FoamNoiseSpeed).xx;
+				float2 panner168 = ( 1.0 * _Time.y * temp_cast_9 + ( WorldXZ1087 * _FoamNoiseScale2 ));
 				float lerpResult161 = lerp( 1.0 , SAMPLE_TEXTURE2D_LOD( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( panner168 * 0.04 ), 0.0 ).r , _FoamNoiseCon2);
 				float UnderOffset1634 = GlobalOceanOffset;
 				float3 appendResult2127 = (float3(break1605.x , ( break1605.y + UnderOffset1634 ) , break1605.z));
-				float3 VertResOffset2125 = appendResult2127;
+				float3 vertexToFrag3421 = appendResult2127;
+				float3 VertResOffset2125 = vertexToFrag3421;
 				float3 customSurfaceDepth1169 = VertResOffset2125;
 				float customEye1169 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1169)).z;
 				float cameraDepthFade1169 = (( customEye1169 -_ProjectionParams.y - 0.0 ) / _DistanceFadeA);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2110 = 0.0;
-				#else
-				float staticSwitch2110 = saturate( cameraDepthFade1169 );
-				#endif
-				float DistanceFadeA1294 = staticSwitch2110;
-				#ifdef _USEWAVENOISEDISPLACE_ON
-				float staticSwitch680 = ( Foamness294 + ( ( lerpResult133 + lerpResult161 ) * ( ( 1.0 - DistanceFadeA1294 ) * 0.4 ) ) );
-				#else
-				float staticSwitch680 = Foamness294;
-				#endif
-				float DepthCacheRemap109 = staticSwitch680;
+				float DistanceFadeA1294 = saturate( cameraDepthFade1169 );
+				float temp_output_318_0 = ( Foamness294 + ( ( lerpResult133 + lerpResult161 ) * ( ( 1.0 - DistanceFadeA1294 ) * 0.4 ) ) );
+				float DepthCacheRemap109 = temp_output_318_0;
 				float temp_output_5_0_g3212 = ( 1.0 - DepthCacheRemap109 );
 				float mulTime209 = _TimeParameters.x * ( _WaveSpeed * 0.1 );
 				float2 appendResult868 = (float2(_WaveDirectionSettings.x , _WaveDirectionSettings.y));
 				float WaveCenterDistance1051 = distance( WorldXZ1087 , appendResult868 );
-				#ifdef _USEWAVEDIRECTION_ON
-				float staticSwitch762 = ( mulTime209 + ( ( WaveCenterDistance1051 * -0.01 ) / _WaveDirectionSettings.z ) );
-				#else
-				float staticSwitch762 = ( 0.0 - mulTime209 );
-				#endif
-				float temp_output_17_0_g3212 = staticSwitch762;
+				float temp_output_839_0 = ( mulTime209 + ( ( WaveCenterDistance1051 * -0.01 ) / _WaveDirectionSettings.z ) );
+				float temp_output_17_0_g3212 = temp_output_839_0;
 				float temp_output_30_0_g3212 = ( 1.0 - saturate( 0.7 ) );
 				float temp_output_35_0_g3212 = ( temp_output_30_0_g3212 * 0.5 );
 				float temp_output_32_0_g3212 = ( (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) - temp_output_35_0_g3212 );
 				float temp_output_31_0_g3212 = ( temp_output_35_0_g3212 + (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) );
 				float DepthCacheWave184 = ( 1.0 - frac( (0.0 + (temp_output_5_0_g3212 - temp_output_32_0_g3212) * (1.0 - 0.0) / (temp_output_31_0_g3212 - temp_output_32_0_g3212)) ) );
 				float clampResult124 = clamp( DepthCacheWave184 , 0.01 , 0.99 );
-				float2 temp_cast_7 = (clampResult124).xx;
-				float4 tex2DNode76 = SAMPLE_TEXTURE2D_LOD( _FoamLUT, sampler_Linear_Clamp, temp_cast_7, 0.0 );
+				float2 temp_cast_10 = (clampResult124).xx;
+				float4 tex2DNode76 = SAMPLE_TEXTURE2D_LOD( _FoamLUT, sampler_Linear_Clamp, temp_cast_10, 0.0 );
 				float smoothstepResult279 = smoothstep( 0.0 , 1.0 , tex2DNode76.a);
 				float3 customSurfaceDepth1325 = VertResOffset2125;
 				float customEye1325 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1325)).z;
 				float cameraDepthFade1325 = (( customEye1325 -_ProjectionParams.y - 0.0 ) / _DistanceFadeB);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2111 = 0.0;
-				#else
-				float staticSwitch2111 = saturate( cameraDepthFade1325 );
-				#endif
-				float DistanceFadeB1326 = staticSwitch2111;
+				float DistanceFadeB1326 = saturate( cameraDepthFade1325 );
 				float lerpResult1311 = lerp( smoothstepResult279 , 0.0 , DistanceFadeB1326);
-				float FoamVertDisp261 = saturate( lerpResult1311 );
+				#ifdef _USEFOAM_ON
+				float staticSwitch3358 = saturate( lerpResult1311 );
+				#else
+				float staticSwitch3358 = 0.0;
+				#endif
+				float FoamVertDisp261 = staticSwitch3358;
 				float temp_output_240_0 = ( FoamVertDisp261 * _VertDispMult * 0.1 );
 				float ShoreMaskVert586 = saturate( (0.0 + (( CaptureB_Distancex100200 * 100.0 ) - _RemapVertShore.x) * (1.0 - 0.0) / (_RemapVertShore.y - _RemapVertShore.x)) );
 				float VertDispDistMask22014 = ( 1.0 - saturate( (0.0 + (distance( WorldXZ1087 , (_WorldSpaceCameraPos).xz ) - 5.0) * (1.0 - 0.0) / (7.9 - 5.0)) ) );
@@ -6024,28 +5314,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float customEye1484 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1484)).z;
 				float cameraDepthFade1484 = (( customEye1484 -_ProjectionParams.y - 0.0 ) / 1.0);
 				float CamDepthFade1495 = cameraDepthFade1484;
-				float temp_output_17_0_g3206 = 0.01;
-				float2 temp_cast_8 = (temp_output_17_0_g3206).xx;
-				float2 temp_cast_9 = (( 1.0 - temp_output_17_0_g3206 )).xx;
-				float2 break5_g3206 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_8) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_9 - temp_cast_8)) );
-				float temp_output_1_0_g3208 = break5_g3206.x;
-				float temp_output_8_0_g3206 = ( 0.1 + -1.0 );
-				float temp_output_1_0_g3207 = break5_g3206.y;
-				float temp_output_2768_0 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3208 - floor( ( temp_output_1_0_g3208 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3207 - floor( ( temp_output_1_0_g3207 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) ) );
-				float temp_output_2763_0 = saturate( ( temp_output_2768_0 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
-				float temp_output_17_0_g3209 = _Tolerance;
-				float2 temp_cast_10 = (temp_output_17_0_g3209).xx;
-				float2 temp_cast_11 = (( 1.0 - temp_output_17_0_g3209 )).xx;
-				float2 break5_g3209 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_10) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_11 - temp_cast_10)) );
-				float temp_output_1_0_g3211 = break5_g3209.x;
-				float temp_output_8_0_g3209 = ( _Feather + -1.0 );
-				float temp_output_1_0_g3210 = break5_g3209.y;
-				#ifdef _USEINFINITYFEATHER_ON
-				float staticSwitch1654 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3211 - floor( ( temp_output_1_0_g3211 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3210 - floor( ( temp_output_1_0_g3210 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) ) );
-				#else
-				float staticSwitch1654 = 1.0;
-				#endif
-				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
 				float VertDispMaskRes1691 = ( ShoreMaskVert586 * saturate( VertDispDistMask22014 ) * saturate( (0.0 + (CamDepthFade1495 - 0.2) * (1.0 - 0.0) / (1.5 - 0.2)) ) * InfinityFeather1410 );
 				float temp_output_238_0 = ( temp_output_240_0 * VertDispMaskRes1691 );
 				#ifdef _USEVERTDISPLACEMENT_ON
@@ -6053,16 +5321,19 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#else
 				float staticSwitch1688 = 0.0;
 				#endif
-				float VertAdded1524 = staticSwitch1688;
+				float vertexToFrag3514 = staticSwitch1688;
+				float VertAdded1524 = vertexToFrag3514;
 				float3 appendResult1606 = (float3(break1605.x , ( break1605.y + VertAdded1524 + UnderOffset1634 ) , break1605.z));
 				float3 VertResDisplaced328 = appendResult1606;
 				
 				o.ase_texcoord5.z = customEye1169;
+				o.ase_texcoord5.w = customEye1325;
+				o.ase_texcoord6.x = vertexToFrag3514;
 				
 				o.ase_texcoord5.xy = v.ase_texcoord.xy;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
-				o.ase_texcoord5.w = 0;
+				o.ase_texcoord6.yzw = 0;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
 				#else
@@ -6213,25 +5484,105 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 					#endif
 				#endif
 
-				float2 appendResult892 = (float2(_Motion2.x , _Motion2.y));
-				float2 Motion2XY1096 = appendResult892;
+				float3 break19 = mul( _DepthMatrix, float4( ( WorldPosition - _DepthPosition ) , 0.0 ) ).xyz;
+				float2 appendResult16 = (float2(break19.x , break19.z));
+				float2 texCoord1345 = IN.ase_texcoord5.xy * float2( 1,1 ) + float2( 0,0 );
+				#if defined(_SPACE_WORLDSPACE)
+				float2 staticSwitch1346 = ( float2( 0.5,0.5 ) + appendResult16 );
+				#elif defined(_SPACE_UVSPACE)
+				float2 staticSwitch1346 = texCoord1345;
+				#else
+				float2 staticSwitch1346 = ( float2( 0.5,0.5 ) + appendResult16 );
+				#endif
+				float2 CacheUV1109 = staticSwitch1346;
+				float4 tex2DNode13 = SAMPLE_TEXTURE2D( _DepthCache, sampler_Linear_Clamp, CacheUV1109 );
+				float temp_output_17_0_g3046 = 0.001;
+				float2 temp_cast_2 = (temp_output_17_0_g3046).xx;
+				float2 temp_cast_3 = (( 1.0 - temp_output_17_0_g3046 )).xx;
+				float2 break5_g3046 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_2) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_3 - temp_cast_2)) );
+				float temp_output_1_0_g3048 = break5_g3046.x;
+				float temp_output_9_0_g3046 = ( ( abs( ( ( temp_output_1_0_g3048 - floor( ( temp_output_1_0_g3048 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3046 = ( 0.001 + -1.0 );
+				float temp_output_17_0_g3040 = 0.01;
+				float2 temp_cast_4 = (temp_output_17_0_g3040).xx;
+				float2 temp_cast_5 = (( 1.0 - temp_output_17_0_g3040 )).xx;
+				float2 break5_g3040 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_4) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_5 - temp_cast_4)) );
+				float temp_output_1_0_g3042 = break5_g3040.x;
+				float temp_output_9_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3042 - floor( ( temp_output_1_0_g3042 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_1_0_g3041 = break5_g3040.y;
+				float temp_output_6_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3041 - floor( ( temp_output_1_0_g3041 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float2 appendResult24_g3040 = (float2(temp_output_9_0_g3040 , temp_output_6_0_g3040));
+				float2 CacheUVPreFeather3438 = appendResult24_g3040;
+				float2 break40_g3046 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3046 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3046 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) * saturate( (0.0 + (break40_g3046.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) ) );
+				float temp_output_2766_0 = saturate( temp_output_15_0_g3046 );
+				float lerpResult3090 = lerp( 1000.0 , ( tex2DNode13.b * 100.0 ) , temp_output_2766_0);
+				float CaptureB_Distancex100200 = lerpResult3090;
+				float temp_output_307_0 = ( 1.0 - saturate( abs( CaptureB_Distancex100200 ) ) );
+				float temp_output_8_0_g3040 = ( 0.1 + -1.0 );
+				float temp_output_15_0_g3040 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) * saturate( (0.0 + (temp_output_6_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) ) );
+				float temp_output_2763_0 = saturate( ( temp_output_15_0_g3040 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
+				float temp_output_17_0_g3049 = _Tolerance;
+				float2 temp_cast_6 = (temp_output_17_0_g3049).xx;
+				float2 temp_cast_7 = (( 1.0 - temp_output_17_0_g3049 )).xx;
+				float2 break5_g3049 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_6) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_7 - temp_cast_6)) );
+				float temp_output_1_0_g3051 = break5_g3049.x;
+				float temp_output_9_0_g3049 = ( ( abs( ( ( temp_output_1_0_g3051 - floor( ( temp_output_1_0_g3051 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3049 = ( _Feather + -1.0 );
+				float2 break40_g3049 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3049 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3049 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) * saturate( (0.0 + (break40_g3049.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) ) );
+				#ifdef _USEINFINITYFEATHER_ON
+				float staticSwitch1654 = temp_output_15_0_g3049;
+				#else
+				float staticSwitch1654 = 1.0;
+				#endif
+				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
+				float Foamness294 = ( ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale ) * InfinityFeather1410 );
+				float2 temp_cast_8 = (_FoamNoiseSpeed).xx;
 				float3 break35 = WorldPosition;
 				float2 appendResult36 = (float2(break35.x , break35.z));
-				float3 worldPosIN2078 = WorldPosition;
-				float4 ase_screenPosNorm = ScreenPos / ScreenPos.w;
-				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 screenPos2078 = ase_screenPosNorm.xy;
-				float3 QuadNormal2078 = float3( 0,1,0 );
-				float3 QuadPosition2078 = float3(0,-4,0);
-				float4 localBillboard2078 = Billboard2078( worldPosIN2078 , screenPos2078 , QuadNormal2078 , QuadPosition2078 );
-				float temp_output_2080_0 = (localBillboard2078).w;
-				float2 temp_output_2096_0 = ( (localBillboard2078).xy * temp_output_2080_0 );
-				#ifdef _HORIZONMAPPED_ON
-				float2 staticSwitch2082 = temp_output_2096_0;
+				float2 WorldXZ1087 = appendResult36;
+				float2 panner138 = ( 1.0 * _Time.y * temp_cast_8 + ( WorldXZ1087 * _FoamNoiseScale ));
+				float lerpResult133 = lerp( 1.0 , SAMPLE_TEXTURE2D( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( 0.04 * panner138 ) ).r , _FoamNoiseCon);
+				float2 temp_cast_9 = (_FoamNoiseSpeed).xx;
+				float2 panner168 = ( 1.0 * _Time.y * temp_cast_9 + ( WorldXZ1087 * _FoamNoiseScale2 ));
+				float lerpResult161 = lerp( 1.0 , SAMPLE_TEXTURE2D( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( panner168 * 0.04 ) ).r , _FoamNoiseCon2);
+				float customEye1169 = IN.ase_texcoord5.z;
+				float cameraDepthFade1169 = (( customEye1169 -_ProjectionParams.y - 0.0 ) / _DistanceFadeA);
+				float DistanceFadeA1294 = saturate( cameraDepthFade1169 );
+				float temp_output_318_0 = ( Foamness294 + ( ( lerpResult133 + lerpResult161 ) * ( ( 1.0 - DistanceFadeA1294 ) * 0.4 ) ) );
+				float DepthCacheRemap109 = temp_output_318_0;
+				float temp_output_5_0_g3212 = ( 1.0 - DepthCacheRemap109 );
+				float mulTime209 = _TimeParameters.x * ( _WaveSpeed * 0.1 );
+				float2 appendResult868 = (float2(_WaveDirectionSettings.x , _WaveDirectionSettings.y));
+				float WaveCenterDistance1051 = distance( WorldXZ1087 , appendResult868 );
+				float temp_output_839_0 = ( mulTime209 + ( ( WaveCenterDistance1051 * -0.01 ) / _WaveDirectionSettings.z ) );
+				float temp_output_17_0_g3212 = temp_output_839_0;
+				float temp_output_30_0_g3212 = ( 1.0 - saturate( 0.7 ) );
+				float temp_output_35_0_g3212 = ( temp_output_30_0_g3212 * 0.5 );
+				float temp_output_32_0_g3212 = ( (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) - temp_output_35_0_g3212 );
+				float temp_output_31_0_g3212 = ( temp_output_35_0_g3212 + (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) );
+				float DepthCacheWave184 = ( 1.0 - frac( (0.0 + (temp_output_5_0_g3212 - temp_output_32_0_g3212) * (1.0 - 0.0) / (temp_output_31_0_g3212 - temp_output_32_0_g3212)) ) );
+				float clampResult124 = clamp( DepthCacheWave184 , 0.01 , 0.99 );
+				float2 temp_cast_10 = (clampResult124).xx;
+				float4 tex2DNode76 = SAMPLE_TEXTURE2D_LOD( _FoamLUT, sampler_Linear_Clamp, temp_cast_10, 0.0 );
+				float smoothstepResult279 = smoothstep( 0.0 , 1.0 , tex2DNode76.a);
+				float customEye1325 = IN.ase_texcoord5.w;
+				float cameraDepthFade1325 = (( customEye1325 -_ProjectionParams.y - 0.0 ) / _DistanceFadeB);
+				float DistanceFadeB1326 = saturate( cameraDepthFade1325 );
+				float lerpResult1311 = lerp( smoothstepResult279 , 0.0 , DistanceFadeB1326);
+				#ifdef _USEFOAM_ON
+				float staticSwitch3358 = saturate( lerpResult1311 );
 				#else
-				float2 staticSwitch2082 = appendResult36;
+				float staticSwitch3358 = 0.0;
 				#endif
-				float2 WorldXZ1087 = staticSwitch2082;
+				float FoamVertDisp261 = staticSwitch3358;
+				float switchResult1438 = (((ase_vface>0)?(FoamVertDisp261):(( FoamVertDisp261 * 0.8 ))));
+				float temp_output_2951_0 = distance( (WorldPosition).xz , (_WorldSpaceCameraPos).xz );
+				float CamDistMaskHorizonMask3273 = pow( saturate( (1.0 + (temp_output_2951_0 - 100.0) * (0.0 - 1.0) / (8000.0 - 100.0)) ) , 8.0 );
+				float3 appendResult2798 = (float3(0.0 , ( saturate( switchResult1438 ) * 0.1 * pow( CamDistMaskHorizonMask3273 , 16.0 ) * _WaveRefractionStrength ) , 0.0));
+				float2 appendResult892 = (float2(_Motion2.x , _Motion2.y));
+				float2 Motion2XY1096 = appendResult892;
 				float2 panner890 = ( 0.05 * _Time.y * Motion2XY1096 + WorldXZ1087);
 				#ifdef GlobalPlanarReflection
 				float staticSwitch1591 = _NormalPow;
@@ -6254,111 +5605,30 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				unpack1718.z = lerp( 1, unpack1718.z, saturate(switchResult1432) );
 				float3 temp_output_1719_0 = BlendNormal( unpack84 , unpack1718 );
 				float3 temp_output_83_0 = BlendNormal( tex2DNode11 , temp_output_1719_0 );
-				#ifdef _USEEXTRANORMALS_ON
-				float3 staticSwitch1683 = temp_output_83_0;
-				#else
-				float3 staticSwitch1683 = temp_output_83_0;
-				#endif
-				float2 appendResult1049 = (float2(staticSwitch1683.xy));
-				float2 RefNorm886 = appendResult1049;
 				float RefBumpSlider1337 = _RefDistortion;
-				float3 normalizeResult2273 = normalize( ( staticSwitch1683 + float3( ( RefNorm886 * RefBumpSlider1337 ) ,  0.0 ) ) );
-				float2 appendResult2519 = (float2(normalizeResult2273.xy));
-				float3 break19 = mul( _DepthMatrix, float4( ( WorldPosition - _DepthPosition ) , 0.0 ) ).xyz;
-				float2 appendResult16 = (float2(break19.x , break19.z));
-				float2 texCoord1345 = IN.ase_texcoord5.xy * float2( 1,1 ) + float2( 0,0 );
-				#if defined(_SPACE_WORLDSPACE)
-				float2 staticSwitch1346 = ( float2( 0.5,0.5 ) + appendResult16 );
-				#elif defined(_SPACE_UVSPACE)
-				float2 staticSwitch1346 = texCoord1345;
-				#else
-				float2 staticSwitch1346 = ( float2( 0.5,0.5 ) + appendResult16 );
-				#endif
-				float2 CacheUV1109 = staticSwitch1346;
-				float4 tex2DNode13 = SAMPLE_TEXTURE2D( _DepthCache, sampler_Linear_Clamp, CacheUV1109 );
-				float temp_output_17_0_g3203 = 0.001;
-				float2 temp_cast_6 = (temp_output_17_0_g3203).xx;
-				float2 temp_cast_7 = (( 1.0 - temp_output_17_0_g3203 )).xx;
-				float2 break5_g3203 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_6) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_7 - temp_cast_6)) );
-				float temp_output_1_0_g3205 = break5_g3203.x;
-				float temp_output_8_0_g3203 = ( 0.001 + -1.0 );
-				float temp_output_1_0_g3204 = break5_g3203.y;
-				float temp_output_2766_0 = saturate( saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3205 - floor( ( temp_output_1_0_g3205 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3204 - floor( ( temp_output_1_0_g3204 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) ) ) );
-				float lerpResult3090 = lerp( 1000.0 , ( tex2DNode13.b * 100.0 ) , temp_output_2766_0);
-				float CaptureB_Distancex100200 = lerpResult3090;
-				float temp_output_307_0 = ( 1.0 - saturate( abs( CaptureB_Distancex100200 ) ) );
-				float Foamness294 = ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale );
-				float2 lerpResult2274 = lerp( float2( 0,0 ) , appendResult2519 , ( _WaterRefractonMobile * 0.5 * saturate( Foamness294 ) ));
-				float temp_output_17_0_g3206 = 0.01;
-				float2 temp_cast_8 = (temp_output_17_0_g3206).xx;
-				float2 temp_cast_9 = (( 1.0 - temp_output_17_0_g3206 )).xx;
-				float2 break5_g3206 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_8) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_9 - temp_cast_8)) );
-				float temp_output_1_0_g3208 = break5_g3206.x;
-				float temp_output_8_0_g3206 = ( 0.1 + -1.0 );
-				float temp_output_1_0_g3207 = break5_g3206.y;
-				float temp_output_2768_0 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3208 - floor( ( temp_output_1_0_g3208 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3207 - floor( ( temp_output_1_0_g3207 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) ) );
-				float temp_output_2763_0 = saturate( ( temp_output_2768_0 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
-				float temp_output_17_0_g3209 = _Tolerance;
-				float2 temp_cast_10 = (temp_output_17_0_g3209).xx;
-				float2 temp_cast_11 = (( 1.0 - temp_output_17_0_g3209 )).xx;
-				float2 break5_g3209 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_10) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_11 - temp_cast_10)) );
-				float temp_output_1_0_g3211 = break5_g3209.x;
-				float temp_output_8_0_g3209 = ( _Feather + -1.0 );
-				float temp_output_1_0_g3210 = break5_g3209.y;
-				#ifdef _USEINFINITYFEATHER_ON
-				float staticSwitch1654 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3211 - floor( ( temp_output_1_0_g3211 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3210 - floor( ( temp_output_1_0_g3210 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) ) );
-				#else
-				float staticSwitch1654 = 1.0;
-				#endif
-				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
-				float customEye1169 = IN.ase_texcoord5.z;
-				float cameraDepthFade1169 = (( customEye1169 -_ProjectionParams.y - 0.0 ) / _DistanceFadeA);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2110 = 0.0;
-				#else
-				float staticSwitch2110 = saturate( cameraDepthFade1169 );
-				#endif
-				float DistanceFadeA1294 = staticSwitch2110;
+				float SeaAlpha2FoamAndNormal205 = InfinityFeather1410;
+				float temp_output_1332_0 = ( RefBumpSlider1337 * SeaAlpha2FoamAndNormal205 * (1.0 + (FoamVertDisp261 - 0.0) * (5.0 - 1.0) / (1.0 - 0.0)) * 22.0 );
+				float2 appendResult1049 = (float2(temp_output_83_0.xy));
+				float2 RefNorm886 = appendResult1049;
+				float3 normalizeResult257 = normalize( ( temp_output_83_0 + float3( ( temp_output_1332_0 * RefNorm886 ) ,  0.0 ) ) );
+				float3 lerpResult1261 = lerp( normalizeResult257 , float3( 0,0,1 ) , float3( 0.5,0.5,0.5 ));
 				float temp_output_1414_0 = ( ( 1.0 - InfinityFeather1410 ) * saturate( DistanceFadeA1294 ) );
-				float2 lerpResult2275 = lerp( lerpResult2274 , float2( 0,0 ) , temp_output_1414_0);
-				#ifdef _TRANSPARENTGRABPASS_ON
-				float2 staticSwitch2542 = float2( 0,0 );
-				#else
-				float2 staticSwitch2542 = lerpResult2275;
-				#endif
-				float2 RefHackeryForColorCache2269 = staticSwitch2542;
-				float2 temp_output_2198_0 = ( RefHackeryForColorCache2269 + CacheUV1109 );
-				float4 tex2DNode657 = SAMPLE_TEXTURE2D( _ColorCache, sampler_Linear_Clamp, temp_output_2198_0 );
-				float ColorCacheA2171 = tex2DNode657.a;
-				float temp_output_12_0_g3214 = InfinityFeather1410;
-				float CaptureDepthAOffsetShore1177 = ( ( ColorCacheA2171 * temp_output_12_0_g3214 ) + ( 1.0 - temp_output_12_0_g3214 ) );
-				float4 break993 = _RemapAlpha;
-				float switchResult2294 = (((ase_vface>0)?(saturate( (0.0 + (CaptureDepthAOffsetShore1177 - break993.x) * (1.0 - 0.0) / (break993.y - break993.x)) )):(1.0)));
-				float ShoreMaskDepthAlpha141 = switchResult2294;
-				float2 clipScreen639 = ase_screenPosNorm.xy * _ScreenParams.xy;
-				float dither639 = Dither8x8Bayer( fmod(clipScreen639.x, 8), fmod(clipScreen639.y, 8) );
-				dither639 = step( dither639, ShoreMaskDepthAlpha141 );
-				#ifdef _USEDITHERING_ON
-				float staticSwitch1685 = dither639;
-				#else
-				float staticSwitch1685 = ShoreMaskDepthAlpha141;
-				#endif
-				#ifdef _TRANSPARENTGRABPASS_ON
-				float staticSwitch1748 = 1.0;
-				#else
-				float staticSwitch1748 = staticSwitch1685;
-				#endif
-				float HorizonAlpha2083 = temp_output_2080_0;
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2085 = HorizonAlpha2083;
-				#else
-				float staticSwitch2085 = staticSwitch1748;
-				#endif
-				float AlphaRes469 = staticSwitch2085;
+				float3 lerpResult1264 = lerp( ( appendResult2798 + lerpResult1261 ) , float3( 0,0,1 ) , temp_output_1414_0);
+				float UnderOffset1634 = GlobalOceanOffset;
+				float GlobalOceanHeight1552 = ( GlobalOceanHeight + UnderOffset1634 );
+				float vertexToFrag3514 = IN.ase_texcoord6.x;
+				float VertAdded1524 = vertexToFrag3514;
+				float temp_output_1537_0 = ( ( GlobalOceanHeight1552 + VertAdded1524 ) - ( _WorldSpaceCameraPos.y - 0.2 ) );
+				float temp_output_1571_0 = saturate( ( temp_output_1537_0 * 5.0 ) );
+				float RefractHack1578 = temp_output_1571_0;
+				float temp_output_1582_0 = (1.0 + (RefractHack1578 - 0.0) * (11.0 - 1.0) / (1.0 - 0.0));
+				float3 lerpResult1581 = lerp( float3( 0,0,1 ) , lerpResult1264 , temp_output_1582_0);
+				float3 switchResult2804 = (((ase_vface>0)?(lerpResult1581):(lerpResult1264)));
+				float3 NormalRes466 = switchResult2804;
 				
 
-				float3 Normal = float3(0, 0, 1);
-				float Alpha = AlphaRes469;
+				float3 Normal = NormalRes466;
+				float Alpha = 1;
 				float AlphaClipThreshold = _ClipThreshold;
 				#ifdef ASE_DEPTH_WRITE_ON
 					float DepthValue = IN.clipPos.z;
@@ -6431,15 +5701,17 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			#pragma multi_compile_fog
 			#define ASE_FOG 1
 			#define _NORMAL_DROPOFF_TS 1
+			#define _SPECULAR_SETUP 1
+			#pragma shader_feature_local_fragment _SPECULAR_SETUP
 			#define ASE_BAKEDGI 1
 			#define ASE_SHADOWMASK 1
 			#define ASE_FOGCOLOR 1
 			#define _ASE_ALPHATEST 1
+			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 120115
 			#define REQUIRE_DEPTH_TEXTURE 1
 			#define REQUIRE_OPAQUE_TEXTURE 1
 			#define ASE_NEEDS_FRAG_SCREEN_POSITION
-			#define TONEMAPPINGELSEWHERE
 			#define UNDERWATERELSEWHERE
 			#define ASE_USING_SAMPLING_MACROS 1
 
@@ -6505,29 +5777,20 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			#define ASE_NEEDS_FRAG_WORLD_NORMAL
 			#define ASE_NEEDS_FRAG_WORLD_TANGENT
 			#define ASE_NEEDS_FRAG_WORLD_BITANGENT
-			#pragma shader_feature_local ASE_TESSELLATION_ON
-			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma shader_feature_local _DEBUGVISUALS_ON
-			#pragma shader_feature_local LIGHTMAP_ON
+			#pragma shader_feature_local ASE_TESSELLATION_ON
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local LIGHTMAP_ON
+			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma shader_feature_local _USEINFINITYEDGE_ON
 			#pragma shader_feature_local _USEVERTDISPLACEMENT_ON
-			#pragma shader_feature_local _USEWAVENOISEDISPLACE_ON
-			#pragma shader_feature_local _SPACE_WORLDSPACE _SPACE_UVSPACE
-			#pragma shader_feature_local _HORIZONMAPPED_ON
-			#pragma shader_feature_local _USEWAVEDIRECTION_ON
-			#pragma shader_feature_local _USEINFINITYFEATHER_ON
 			#pragma shader_feature_local _USEFOAM_ON
-			#pragma shader_feature_local _USEFOAMEXTRASAMPLER_ON
+			#pragma shader_feature_local _SPACE_WORLDSPACE _SPACE_UVSPACE
+			#pragma shader_feature_local _USEINFINITYFEATHER_ON
+			#pragma shader_feature_local _MOBILEMODE_ON
 			#pragma shader_feature_local _TRANSPARENTGRABPASS_ON
-			#pragma shader_feature_local _USEEXTRANORMALS_ON
 			#pragma multi_compile __ GlobalPlanarReflection
-			#pragma shader_feature_local _USEGRADIENTFOG_ON
-			#pragma shader_feature_local _RAINBOWGRABPASS_ON
-			#pragma shader_feature_local _CAUSTICSENABLE_ON
-			#pragma shader_feature_local _USECAUSTICEXTRASAMPLER_ON
-			#pragma shader_feature_local _USECAUSTICRAINBOW_ON
-			#pragma shader_feature_local _USEDITHERING_ON
+			#pragma shader_feature_local _USEFOAMEXTRASAMPLER_ON
 
 
 			#if defined(ASE_EARLY_Z_DEPTH_OPTIMIZE) && (SHADER_TARGET >= 45)
@@ -6576,65 +5839,69 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _FoamColor;
+			float4 _WaveDirectionSettings;
+			float4 _RemapFoam;
+			float4 _WaterTint;
+			float4 _CausticsTint;
+			float4 _RemapAlpha;
+			float4 _Normals2_ST;
 			float4 _Motion;
 			float4 _Normals_ST;
-			float4 _WaterTint;
+			float4 _Motion2;
 			float4 _RemapVertShore;
 			float4 _WaterAlbedo;
-			float4 _WaveDirectionSettings;
-			float4 _Normals2_ST;
-			float4 _Motion2;
 			float4 _RefFresnel;
-			float4 _CausticsTint;
-			float4x4 _DepthMatrix;
-			float4 _RemapAlpha;
-			float4 _BakeLightMapAmbient;
-			float4x4 _BakeMatrix;
+			float4 _BakeLightMapMobile;
+			float4 _FoamColor;
 			float4 _bakeLightmapST;
-			float4 _RemapFoam;
+			float4 _BakeLightMapAmbient;
+			float4x4 _DepthMatrix;
+			float3 _CameraForward;
+			float3 _DepthPosition;
 			float3 _WorldDir;
 			float3 _WorldPos;
-			float3 _DepthPosition;
-			float3 _CameraForward;
-			float _WaveRefractionStrength;
-			float _RefractionWarp;
-			float _RemapWaterDistance;
-			float _RemapWaterDistance1;
-			float _Smoothness;
-			float _WaterDepthPow;
-			float _WaterSaturation;
 			float _CubemapExposure;
-			float _NormalDarken1;
-			float _NormalDarken;
-			float _ForceEye;
+			float _NormalAlbedoStrength;
+			float _WaterAlbedoFake;
 			float _ClipThreshold;
+			float _ForceEye;
+			float _RemapWaterDistance1;
+			float _RemapWaterDistance;
 			float _WaterDepthPow1;
-			int _ZTestMode;
-			float _NormalPow2;
-			float _FoamMaxDistance;
-			float _ZWriteToggle;
+			float _BakedLightingFeather;
+			float _WaterDepthPow;
+			float _ReflectionShadowed;
+			float _ReflectionShadowedStart;
+			float _WaterSaturation;
+			float _Smoothness;
+			float _ReflectionShadowedEnd;
+			float _NormalDarken;
 			float _TessNum;
+			float _WaveRefractionStrength;
+			float _FoamMaxDistance;
 			float _TesMin;
 			float _TesMax;
+			int _ZTestMode;
+			float _ZWriteToggle;
 			float _WaveScale;
+			float _Tolerance;
+			float _Feather;
 			float _FoamNoiseSpeed;
 			float _FoamNoiseScale;
 			float _FoamNoiseCon;
+			float _FoamPow;
 			float _FoamNoiseScale2;
-			float _FoamNoiseCon2;
 			float _DistanceFadeA;
 			float _WaveSpeed;
 			float _DistanceFadeB;
 			float _VertDispMult;
-			float _Tolerance;
-			float _Feather;
-			float _FoamScale_UseFoam;
 			float _NormalPow;
-			float _BakedLightingFeather;
+			float _NormalPow2;
 			float _RefDistortion;
 			float _WaterRefractonMobile;
-			float _FoamPow;
+			float _RefractionWarp;
+			float _FoamScale_UseFoam;
+			float _FoamNoiseCon2;
 			int _DebugVisual;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
@@ -6656,6 +5923,7 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float _TessMaxDisp;
 			#endif
 			float _DebugCounter; //Shadowood
+			half _EnvironmentReflections; // Shadowood
 			CBUFFER_END
 
 			// Property used by ScenePickingPass
@@ -6669,8 +5937,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				int _PassValue;
 			#endif
 
-			float4 _skyGradientColor1;
-			float4 _skyGradientColor2;
 			float3 _CausticsDir;
 			half _CausticsScale;
 			half2 _CausticsPanSpeed;
@@ -6679,29 +5945,33 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			SAMPLER(sampler_Caustics);
 			TEXTURE2D(_Caustics2);
 			SAMPLER(sampler_Caustics2);
+			float4 _skyGradientColor1;
+			float4 _skyGradientColor2;
 			TEXTURE2D(_FoamLUT);
 			TEXTURE2D(_DepthCache);
 			SAMPLER(sampler_Linear_Clamp);
 			TEXTURE2D(_WaveNoiseDisplace);
 			SAMPLER(sampler_WaveNoiseDisplace);
-			TEXTURE2D(_FoamTexture);
-			SAMPLER(sampler_FoamTexture);
 			TEXTURE2D(_ColorCache);
 			TEXTURE2D(_Normals);
 			SAMPLER(sampler_Normals);
 			TEXTURE2D(_Normals2);
 			SAMPLER(sampler_Normals2);
+			TEXTURE2D(_FoamTexture);
+			SAMPLER(sampler_FoamTexture);
 			TEXTURE2D(_DepthColorLUT);
 			TEXTURECUBE(_Cubemap);
 			float GlobalSkyRotation;
 			SAMPLER(sampler_Cubemap);
+			TEXTURE2D(_bakeLightmap);
+			float4x4 _BakeMatrix;
+			SAMPLER(sampler_bakeLightmap);
+			TEXTURE2D(_bakeLightmapSM);
 			TEXTURE2D(_TexLeft);
 			SAMPLER(sampler_Linear_Mirror);
 			TEXTURE2D(_TexRight);
 			float4x4 _CausticMatrix;
 			float4 _CausticsSettings;
-			TEXTURE2D(_bakeLightmap);
-			SAMPLER(sampler_bakeLightmap);
 
 
 			//#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/Varyings.hlsl"
@@ -6713,43 +5983,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 					//beer-lambert law, Fog =1/e^(distance * density)
 					float e = 2.7182818284590452353602874713527f;
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
-			}
-			
-			float4 Billboard2078( float3 worldPosIN, float2 screenPos, float3 QuadNormal, float3 QuadPosition )
-			{
-				float3 worldPos = worldPosIN;
-				float3 viewDir = worldPos - _WorldSpaceCameraPos;
-				float3 reflectDir = -viewDir;
-				float3 nReflDirection = normalize(reflectDir);
-				float4 result = float4(0,0,0,0);
-				// Ray-quad intersection
-				half planeIntersectDistance = dot( worldPos - QuadPosition,  QuadNormal.xyz ) / dot( nReflDirection, QuadNormal.xyz );
-				half3 intersectPosition = worldPos - nReflDirection * planeIntersectDistance;
-				//half4 localPlaneIntersectPosition = mul( QuadInverseMatrix, float4( intersectPosition, 1.0 ));
-				half4 localPlaneIntersectPosition = float4( intersectPosition, 1.0 );
-				half2 billboardUV = half2( localPlaneIntersectPosition.x, localPlaneIntersectPosition.z );
-				//billboardUV*=1;
-				//float4 billboardCol = BillboardTex.Sample( BillboardSampler , billboardUV );
-				float4 billboardCol = float4( billboardUV.x, billboardUV.y, 0, 1);
-				float3 quadNorm = QuadNormal.xyz;
-				half reflectDot = dot( nReflDirection, quadNorm );
-				float w = 1;
-				// Cull when beyond the quad bounds
-				//w = billboardUV.x > 1.0 ? 0.0 : w;
-				//w = billboardUV.y > 1.0 ? 0.0 : w;
-				//w = billboardUV.x < 0.0 ? 0.0 : w;
-				//w = billboardUV.y < 0.0 ? 0.0 : w;
-				// Cull if distance is behind the surface
-				//w = planeIntersectDistance < 0 ? 0 : w;
-				// Cull if quad facing backwards
-				w = reflectDot <= 0.0 ? 0.0 : w; 
-				// Cull if quad facing backwards and culling is ticked on the quad ( passed in via the arrays W )
-				//w = QuadNormal.w == 1.0 ? (reflectDot <= 0.0 ? 0.0 : w) : w;
-				billboardCol = billboardCol * billboardCol.w * w;
-				billboardCol.a = w;
-				result*=1-w;
-				result+= billboardCol;
-				return result;
 			}
 			
 			float3 RotateAroundAxis( float3 center, float3 original, float3 u, float angle )
@@ -6771,7 +6004,23 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				return mul( finalMatrix, original ) + center;
 			}
 			
-			int IsStereoEyeLeft11_g3216( float3 WorldCamPos, float3 WorldCamRight, float force )
+			float3 MatrixMulThatWorks( float4 Pos, float4x4 Mat )
+			{
+				float3 result = mul(Mat,Pos.xyz);
+				return result + float3(Mat[0][3],Mat[1][3],Mat[2][3]);
+			}
+			
+			float4 URPDecodeInstruction19_g3820(  )
+			{
+				return float4(LIGHTMAP_HDR_MULTIPLIER, LIGHTMAP_HDR_EXPONENT, 0, 0);
+			}
+			
+			float4 URPDecodeInstruction19_g3821(  )
+			{
+				return float4(LIGHTMAP_HDR_MULTIPLIER, LIGHTMAP_HDR_EXPONENT, 0, 0);
+			}
+			
+			int IsStereoEyeLeft11_g3521( float3 WorldCamPos, float3 WorldCamRight, float force )
 			{
 				int Out = 0;	
 				if(force >= 0){
@@ -6802,24 +6051,18 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				return ApplyTonemap( color, settings );;
 			}
 			
-			float3 MatrixMulThatWorks( float4 Pos, float4x4 Mat )
-			{
-				float3 result = mul(Mat,Pos.xyz);
-				return result + float3(Mat[0][3],Mat[1][3],Mat[2][3]);
-			}
-			
-			float CameraDepthTexture55_g3383( float2 uv )
+			float CameraDepthTexture55_g3534( float2 uv )
 			{
 				float4 color = SAMPLE_TEXTURE2D_X(_CameraDepthTexture, sampler_CameraDepthTexture, uv);
 				return color.r;
 			}
 			
-			float MyCustomExpression44_g3383( float rawDepth )
+			float MyCustomExpression44_g3534( float rawDepth )
 			{
 				return LinearEyeDepth(rawDepth, _ZBufferParams);
 			}
 			
-			float3 MyCustomExpression16_g3383( float3 view, float sceneZ )
+			float3 MyCustomExpression16_g3534( float3 view, float sceneZ )
 			{
 				return  _WorldSpaceCameraPos - view * sceneZ / dot(UNITY_MATRIX_I_V._13_23_33, view);
 			}
@@ -6851,26 +6094,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				return transpose( cofactors ) / determinant( input );
 			}
 			
-			inline float Dither8x8Bayer( int x, int y )
-			{
-				const float dither[ 64 ] = {
-			 1, 49, 13, 61,  4, 52, 16, 64,
-			33, 17, 45, 29, 36, 20, 48, 32,
-			 9, 57,  5, 53, 12, 60,  8, 56,
-			41, 25, 37, 21, 44, 28, 40, 24,
-			 3, 51, 15, 63,  2, 50, 14, 62,
-			35, 19, 47, 31, 34, 18, 46, 30,
-			11, 59,  7, 55, 10, 58,  6, 54,
-			43, 27, 39, 23, 42, 26, 38, 22};
-				int r = y * 8 + x;
-				return dither[r] / 64; // same # of instructions as pre-dividing due to compiler magic
-			}
-			
-			float4 URPDecodeInstruction19_g3432(  )
-			{
-				return float4(LIGHTMAP_HDR_MULTIPLIER, LIGHTMAP_HDR_EXPONENT, 0, 0);
-			}
-			
 
 			VertexOutput VertexFunction( VertexInput v  )
 			{
@@ -6880,14 +6103,13 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
 				float2 texCoord2052 = v.texcoord.xy * float2( 1,1 ) + float2( 0,0 );
-				float temp_output_2054_0 = distance( texCoord2052 , float2( 0.5,0.5 ) );
 				float ifLocalVar2053 = 0;
-				if( temp_output_2054_0 <= 1.0 )
+				if( distance( texCoord2052 , float2( 0.5,0.5 ) ) <= 1.0 )
 				ifLocalVar2053 = 1.0;
 				else
 				ifLocalVar2053 = 5000.0;
 				#ifdef _USEINFINITYEDGE_ON
-				float4 staticSwitch1498 = ( v.vertex * ifLocalVar2053 );
+				float4 staticSwitch1498 = ( ifLocalVar2053 * v.vertex );
 				#else
 				float4 staticSwitch1498 = v.vertex;
 				#endif
@@ -6905,91 +6127,93 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#endif
 				float2 CacheUV1109 = staticSwitch1346;
 				float4 tex2DNode13 = SAMPLE_TEXTURE2D_LOD( _DepthCache, sampler_Linear_Clamp, CacheUV1109, 0.0 );
-				float temp_output_17_0_g3203 = 0.001;
-				float2 temp_cast_2 = (temp_output_17_0_g3203).xx;
-				float2 temp_cast_3 = (( 1.0 - temp_output_17_0_g3203 )).xx;
-				float2 break5_g3203 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_2) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_3 - temp_cast_2)) );
-				float temp_output_1_0_g3205 = break5_g3203.x;
-				float temp_output_8_0_g3203 = ( 0.001 + -1.0 );
-				float temp_output_1_0_g3204 = break5_g3203.y;
-				float temp_output_2766_0 = saturate( saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3205 - floor( ( temp_output_1_0_g3205 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3204 - floor( ( temp_output_1_0_g3204 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) ) ) );
+				float temp_output_17_0_g3046 = 0.001;
+				float2 temp_cast_2 = (temp_output_17_0_g3046).xx;
+				float2 temp_cast_3 = (( 1.0 - temp_output_17_0_g3046 )).xx;
+				float2 break5_g3046 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_2) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_3 - temp_cast_2)) );
+				float temp_output_1_0_g3048 = break5_g3046.x;
+				float temp_output_9_0_g3046 = ( ( abs( ( ( temp_output_1_0_g3048 - floor( ( temp_output_1_0_g3048 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3046 = ( 0.001 + -1.0 );
+				float temp_output_17_0_g3040 = 0.01;
+				float2 temp_cast_4 = (temp_output_17_0_g3040).xx;
+				float2 temp_cast_5 = (( 1.0 - temp_output_17_0_g3040 )).xx;
+				float2 break5_g3040 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_4) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_5 - temp_cast_4)) );
+				float temp_output_1_0_g3042 = break5_g3040.x;
+				float temp_output_9_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3042 - floor( ( temp_output_1_0_g3042 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_1_0_g3041 = break5_g3040.y;
+				float temp_output_6_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3041 - floor( ( temp_output_1_0_g3041 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float2 appendResult24_g3040 = (float2(temp_output_9_0_g3040 , temp_output_6_0_g3040));
+				float2 CacheUVPreFeather3438 = appendResult24_g3040;
+				float2 break40_g3046 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3046 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3046 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) * saturate( (0.0 + (break40_g3046.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) ) );
+				float temp_output_2766_0 = saturate( temp_output_15_0_g3046 );
 				float lerpResult3090 = lerp( 1000.0 , ( tex2DNode13.b * 100.0 ) , temp_output_2766_0);
 				float CaptureB_Distancex100200 = lerpResult3090;
 				float temp_output_307_0 = ( 1.0 - saturate( abs( CaptureB_Distancex100200 ) ) );
-				float Foamness294 = ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale );
-				float2 temp_cast_4 = (_FoamNoiseSpeed).xx;
+				float temp_output_8_0_g3040 = ( 0.1 + -1.0 );
+				float temp_output_15_0_g3040 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) * saturate( (0.0 + (temp_output_6_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) ) );
+				float temp_output_2763_0 = saturate( ( temp_output_15_0_g3040 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
+				float temp_output_17_0_g3049 = _Tolerance;
+				float2 temp_cast_6 = (temp_output_17_0_g3049).xx;
+				float2 temp_cast_7 = (( 1.0 - temp_output_17_0_g3049 )).xx;
+				float2 break5_g3049 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_6) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_7 - temp_cast_6)) );
+				float temp_output_1_0_g3051 = break5_g3049.x;
+				float temp_output_9_0_g3049 = ( ( abs( ( ( temp_output_1_0_g3051 - floor( ( temp_output_1_0_g3051 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3049 = ( _Feather + -1.0 );
+				float2 break40_g3049 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3049 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3049 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) * saturate( (0.0 + (break40_g3049.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) ) );
+				#ifdef _USEINFINITYFEATHER_ON
+				float staticSwitch1654 = temp_output_15_0_g3049;
+				#else
+				float staticSwitch1654 = 1.0;
+				#endif
+				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
+				float Foamness294 = ( ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale ) * InfinityFeather1410 );
+				float2 temp_cast_8 = (_FoamNoiseSpeed).xx;
 				float3 break35 = ase_worldPos;
 				float2 appendResult36 = (float2(break35.x , break35.z));
-				float3 worldPosIN2078 = ase_worldPos;
-				float4 ase_clipPos = TransformObjectToHClip((v.vertex).xyz);
-				float4 screenPos = ComputeScreenPos(ase_clipPos);
-				float4 ase_screenPosNorm = screenPos / screenPos.w;
-				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 screenPos2078 = ase_screenPosNorm.xy;
-				float3 QuadNormal2078 = float3( 0,1,0 );
-				float3 QuadPosition2078 = float3(0,-4,0);
-				float4 localBillboard2078 = Billboard2078( worldPosIN2078 , screenPos2078 , QuadNormal2078 , QuadPosition2078 );
-				float temp_output_2080_0 = (localBillboard2078).w;
-				float2 temp_output_2096_0 = ( (localBillboard2078).xy * temp_output_2080_0 );
-				#ifdef _HORIZONMAPPED_ON
-				float2 staticSwitch2082 = temp_output_2096_0;
-				#else
-				float2 staticSwitch2082 = appendResult36;
-				#endif
-				float2 WorldXZ1087 = staticSwitch2082;
-				float2 panner138 = ( 1.0 * _Time.y * temp_cast_4 + ( WorldXZ1087 * _FoamNoiseScale ));
+				float2 WorldXZ1087 = appendResult36;
+				float2 panner138 = ( 1.0 * _Time.y * temp_cast_8 + ( WorldXZ1087 * _FoamNoiseScale ));
 				float lerpResult133 = lerp( 1.0 , SAMPLE_TEXTURE2D_LOD( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( 0.04 * panner138 ), 0.0 ).r , _FoamNoiseCon);
-				float2 temp_cast_6 = (_FoamNoiseSpeed).xx;
-				float2 panner168 = ( 1.0 * _Time.y * temp_cast_6 + ( WorldXZ1087 * _FoamNoiseScale2 ));
+				float2 temp_cast_9 = (_FoamNoiseSpeed).xx;
+				float2 panner168 = ( 1.0 * _Time.y * temp_cast_9 + ( WorldXZ1087 * _FoamNoiseScale2 ));
 				float lerpResult161 = lerp( 1.0 , SAMPLE_TEXTURE2D_LOD( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( panner168 * 0.04 ), 0.0 ).r , _FoamNoiseCon2);
 				float UnderOffset1634 = GlobalOceanOffset;
 				float3 appendResult2127 = (float3(break1605.x , ( break1605.y + UnderOffset1634 ) , break1605.z));
-				float3 VertResOffset2125 = appendResult2127;
+				float3 vertexToFrag3421 = appendResult2127;
+				float3 VertResOffset2125 = vertexToFrag3421;
 				float3 customSurfaceDepth1169 = VertResOffset2125;
 				float customEye1169 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1169)).z;
 				float cameraDepthFade1169 = (( customEye1169 -_ProjectionParams.y - 0.0 ) / _DistanceFadeA);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2110 = 0.0;
-				#else
-				float staticSwitch2110 = saturate( cameraDepthFade1169 );
-				#endif
-				float DistanceFadeA1294 = staticSwitch2110;
-				#ifdef _USEWAVENOISEDISPLACE_ON
-				float staticSwitch680 = ( Foamness294 + ( ( lerpResult133 + lerpResult161 ) * ( ( 1.0 - DistanceFadeA1294 ) * 0.4 ) ) );
-				#else
-				float staticSwitch680 = Foamness294;
-				#endif
-				float DepthCacheRemap109 = staticSwitch680;
+				float DistanceFadeA1294 = saturate( cameraDepthFade1169 );
+				float temp_output_318_0 = ( Foamness294 + ( ( lerpResult133 + lerpResult161 ) * ( ( 1.0 - DistanceFadeA1294 ) * 0.4 ) ) );
+				float DepthCacheRemap109 = temp_output_318_0;
 				float temp_output_5_0_g3212 = ( 1.0 - DepthCacheRemap109 );
 				float mulTime209 = _TimeParameters.x * ( _WaveSpeed * 0.1 );
 				float2 appendResult868 = (float2(_WaveDirectionSettings.x , _WaveDirectionSettings.y));
 				float WaveCenterDistance1051 = distance( WorldXZ1087 , appendResult868 );
-				#ifdef _USEWAVEDIRECTION_ON
-				float staticSwitch762 = ( mulTime209 + ( ( WaveCenterDistance1051 * -0.01 ) / _WaveDirectionSettings.z ) );
-				#else
-				float staticSwitch762 = ( 0.0 - mulTime209 );
-				#endif
-				float temp_output_17_0_g3212 = staticSwitch762;
+				float temp_output_839_0 = ( mulTime209 + ( ( WaveCenterDistance1051 * -0.01 ) / _WaveDirectionSettings.z ) );
+				float temp_output_17_0_g3212 = temp_output_839_0;
 				float temp_output_30_0_g3212 = ( 1.0 - saturate( 0.7 ) );
 				float temp_output_35_0_g3212 = ( temp_output_30_0_g3212 * 0.5 );
 				float temp_output_32_0_g3212 = ( (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) - temp_output_35_0_g3212 );
 				float temp_output_31_0_g3212 = ( temp_output_35_0_g3212 + (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) );
 				float DepthCacheWave184 = ( 1.0 - frac( (0.0 + (temp_output_5_0_g3212 - temp_output_32_0_g3212) * (1.0 - 0.0) / (temp_output_31_0_g3212 - temp_output_32_0_g3212)) ) );
 				float clampResult124 = clamp( DepthCacheWave184 , 0.01 , 0.99 );
-				float2 temp_cast_7 = (clampResult124).xx;
-				float4 tex2DNode76 = SAMPLE_TEXTURE2D_LOD( _FoamLUT, sampler_Linear_Clamp, temp_cast_7, 0.0 );
+				float2 temp_cast_10 = (clampResult124).xx;
+				float4 tex2DNode76 = SAMPLE_TEXTURE2D_LOD( _FoamLUT, sampler_Linear_Clamp, temp_cast_10, 0.0 );
 				float smoothstepResult279 = smoothstep( 0.0 , 1.0 , tex2DNode76.a);
 				float3 customSurfaceDepth1325 = VertResOffset2125;
 				float customEye1325 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1325)).z;
 				float cameraDepthFade1325 = (( customEye1325 -_ProjectionParams.y - 0.0 ) / _DistanceFadeB);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2111 = 0.0;
-				#else
-				float staticSwitch2111 = saturate( cameraDepthFade1325 );
-				#endif
-				float DistanceFadeB1326 = staticSwitch2111;
+				float DistanceFadeB1326 = saturate( cameraDepthFade1325 );
 				float lerpResult1311 = lerp( smoothstepResult279 , 0.0 , DistanceFadeB1326);
-				float FoamVertDisp261 = saturate( lerpResult1311 );
+				#ifdef _USEFOAM_ON
+				float staticSwitch3358 = saturate( lerpResult1311 );
+				#else
+				float staticSwitch3358 = 0.0;
+				#endif
+				float FoamVertDisp261 = staticSwitch3358;
 				float temp_output_240_0 = ( FoamVertDisp261 * _VertDispMult * 0.1 );
 				float ShoreMaskVert586 = saturate( (0.0 + (( CaptureB_Distancex100200 * 100.0 ) - _RemapVertShore.x) * (1.0 - 0.0) / (_RemapVertShore.y - _RemapVertShore.x)) );
 				float VertDispDistMask22014 = ( 1.0 - saturate( (0.0 + (distance( WorldXZ1087 , (_WorldSpaceCameraPos).xz ) - 5.0) * (1.0 - 0.0) / (7.9 - 5.0)) ) );
@@ -6997,28 +6221,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float customEye1484 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1484)).z;
 				float cameraDepthFade1484 = (( customEye1484 -_ProjectionParams.y - 0.0 ) / 1.0);
 				float CamDepthFade1495 = cameraDepthFade1484;
-				float temp_output_17_0_g3206 = 0.01;
-				float2 temp_cast_8 = (temp_output_17_0_g3206).xx;
-				float2 temp_cast_9 = (( 1.0 - temp_output_17_0_g3206 )).xx;
-				float2 break5_g3206 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_8) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_9 - temp_cast_8)) );
-				float temp_output_1_0_g3208 = break5_g3206.x;
-				float temp_output_8_0_g3206 = ( 0.1 + -1.0 );
-				float temp_output_1_0_g3207 = break5_g3206.y;
-				float temp_output_2768_0 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3208 - floor( ( temp_output_1_0_g3208 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3207 - floor( ( temp_output_1_0_g3207 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) ) );
-				float temp_output_2763_0 = saturate( ( temp_output_2768_0 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
-				float temp_output_17_0_g3209 = _Tolerance;
-				float2 temp_cast_10 = (temp_output_17_0_g3209).xx;
-				float2 temp_cast_11 = (( 1.0 - temp_output_17_0_g3209 )).xx;
-				float2 break5_g3209 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_10) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_11 - temp_cast_10)) );
-				float temp_output_1_0_g3211 = break5_g3209.x;
-				float temp_output_8_0_g3209 = ( _Feather + -1.0 );
-				float temp_output_1_0_g3210 = break5_g3209.y;
-				#ifdef _USEINFINITYFEATHER_ON
-				float staticSwitch1654 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3211 - floor( ( temp_output_1_0_g3211 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3210 - floor( ( temp_output_1_0_g3210 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) ) );
-				#else
-				float staticSwitch1654 = 1.0;
-				#endif
-				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
 				float VertDispMaskRes1691 = ( ShoreMaskVert586 * saturate( VertDispDistMask22014 ) * saturate( (0.0 + (CamDepthFade1495 - 0.2) * (1.0 - 0.0) / (1.5 - 0.2)) ) * InfinityFeather1410 );
 				float temp_output_238_0 = ( temp_output_240_0 * VertDispMaskRes1691 );
 				#ifdef _USEVERTDISPLACEMENT_ON
@@ -7026,7 +6228,8 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#else
 				float staticSwitch1688 = 0.0;
 				#endif
-				float VertAdded1524 = staticSwitch1688;
+				float vertexToFrag3514 = staticSwitch1688;
+				float VertAdded1524 = vertexToFrag3514;
 				float3 appendResult1606 = (float3(break1605.x , ( break1605.y + VertAdded1524 + UnderOffset1634 ) , break1605.z));
 				float3 VertResDisplaced328 = appendResult1606;
 				
@@ -7035,46 +6238,43 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float4 screenPos1850 = ComputeScreenPos(ase_clipPos1850);
 				o.ase_texcoord9 = screenPos1850;
 				o.ase_texcoord8.z = customEye1169;
-				
 				o.ase_texcoord8.w = customEye1325;
-				float3 customSurfaceDepth2817 = VertResOffset2125;
-				float customEye2817 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth2817)).z;
-				o.ase_texcoord10.x = customEye2817;
-				o.ase_texcoord10.y = customEye1484;
+				o.ase_texcoord10.x = vertexToFrag3514;
 				float3 customSurfaceDepth2418 = VertResDisplaced328;
 				float customEye2418 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth2418)).z;
-				o.ase_texcoord10.z = customEye2418;
-				float3 customSurfaceDepth2812 = VertResOffset2125;
-				float customEye2812 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth2812)).z;
-				o.ase_texcoord10.w = customEye2812;
-				float3 _Vector3 = float3(0,0,-1);
-				float4 Pos6_g3381 = float4( _Vector3 , 0.0 );
-				float4x4 Mat6_g3381 = _CausticMatrix;
-				float3 localMatrixMulThatWorks6_g3381 = MatrixMulThatWorks( Pos6_g3381 , Mat6_g3381 );
-				float3 normalizeResult147_g3379 = normalize( localMatrixMulThatWorks6_g3381 );
-				float3 vertexToFrag144_g3379 = normalizeResult147_g3379;
-				o.ase_texcoord11.xyz = vertexToFrag144_g3379;
-				float3 objToWorld3_g3383 = mul( GetObjectToWorldMatrix(), float4( v.vertex.xyz, 1 ) ).xyz;
-				float3 vertexToFrag7_g3383 = objToWorld3_g3383;
-				o.ase_texcoord12.xyz = vertexToFrag7_g3383;
+				o.ase_texcoord10.y = customEye2418;
 				
-				float4 Pos6_g3428 = float4( ase_worldPos , 0.0 );
-				float4x4 Mat6_g3428 = _BakeMatrix;
-				float3 localMatrixMulThatWorks6_g3428 = MatrixMulThatWorks( Pos6_g3428 , Mat6_g3428 );
-				float3 break4_g3427 = localMatrixMulThatWorks6_g3428;
-				float2 appendResult3_g3427 = (float2(break4_g3427.x , break4_g3427.z));
-				float2 vertexToFrag7_g3427 = ( float2( 0.5,0.5 ) + appendResult3_g3427 );
-				float2 LightingUV11_g3427 = vertexToFrag7_g3427;
-				float4 temp_output_21_0_g3432 = _bakeLightmapST;
-				float2 vertexToFrag10_g3432 = ( ( LightingUV11_g3427 * (temp_output_21_0_g3432).xy ) + (temp_output_21_0_g3432).zw );
-				o.ase_texcoord13.xy = vertexToFrag10_g3432;
+				o.ase_texcoord10.z = customEye1484;
+				float4 Pos6_g3816 = float4( ase_worldPos , 0.0 );
+				float4x4 Mat6_g3816 = _BakeMatrix;
+				float3 localMatrixMulThatWorks6_g3816 = MatrixMulThatWorks( Pos6_g3816 , Mat6_g3816 );
+				float3 break4_g3815 = localMatrixMulThatWorks6_g3816;
+				float2 appendResult3_g3815 = (float2(break4_g3815.x , break4_g3815.z));
+				float2 vertexToFrag7_g3815 = ( float2( 0.5,0.5 ) + appendResult3_g3815 );
+				float2 LightingUV11_g3815 = vertexToFrag7_g3815;
+				float4 temp_output_21_0_g3820 = _bakeLightmapST;
+				float2 vertexToFrag10_g3820 = ( ( LightingUV11_g3815 * (temp_output_21_0_g3820).xy ) + (temp_output_21_0_g3820).zw );
+				o.ase_texcoord11.xy = vertexToFrag10_g3820;
+				float4 temp_output_21_0_g3821 = _bakeLightmapST;
+				float2 vertexToFrag10_g3821 = ( ( LightingUV11_g3815 * (temp_output_21_0_g3821).xy ) + (temp_output_21_0_g3821).zw );
+				o.ase_texcoord11.zw = vertexToFrag10_g3821;
+				float3 _Vector3 = float3(0,0,-1);
+				float4 Pos6_g3813 = float4( _Vector3 , 0.0 );
+				float4x4 Mat6_g3813 = _CausticMatrix;
+				float3 localMatrixMulThatWorks6_g3813 = MatrixMulThatWorks( Pos6_g3813 , Mat6_g3813 );
+				float3 normalizeResult147_g3811 = normalize( localMatrixMulThatWorks6_g3813 );
+				float3 vertexToFrag144_g3811 = normalizeResult147_g3811;
+				o.ase_texcoord12.xyz = vertexToFrag144_g3811;
+				float3 objToWorld3_g3534 = mul( GetObjectToWorldMatrix(), float4( v.vertex.xyz, 1 ) ).xyz;
+				float3 vertexToFrag7_g3534 = objToWorld3_g3534;
+				o.ase_texcoord13.xyz = vertexToFrag7_g3534;
 				
 				o.ase_texcoord8.xy = v.texcoord.xy;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
-				o.ase_texcoord11.w = 0;
+				o.ase_texcoord10.w = 0;
 				o.ase_texcoord12.w = 0;
-				o.ase_texcoord13.zw = 0;
+				o.ase_texcoord13.w = 0;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
 				#else
@@ -7279,77 +6479,71 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float2 staticSwitch1346 = ( float2( 0.5,0.5 ) + appendResult16 );
 				#endif
 				float2 CacheUV1109 = staticSwitch1346;
-				float temp_output_17_0_g3206 = 0.01;
-				float2 temp_cast_2 = (temp_output_17_0_g3206).xx;
-				float2 temp_cast_3 = (( 1.0 - temp_output_17_0_g3206 )).xx;
-				float2 break5_g3206 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_2) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_3 - temp_cast_2)) );
-				float temp_output_1_0_g3208 = break5_g3206.x;
-				float temp_output_8_0_g3206 = ( 0.1 + -1.0 );
-				float temp_output_1_0_g3207 = break5_g3206.y;
-				float temp_output_2768_0 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3208 - floor( ( temp_output_1_0_g3208 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3207 - floor( ( temp_output_1_0_g3207 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) ) );
+				float temp_output_17_0_g3040 = 0.01;
+				float2 temp_cast_2 = (temp_output_17_0_g3040).xx;
+				float2 temp_cast_3 = (( 1.0 - temp_output_17_0_g3040 )).xx;
+				float2 break5_g3040 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_2) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_3 - temp_cast_2)) );
+				float temp_output_1_0_g3042 = break5_g3040.x;
+				float temp_output_9_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3042 - floor( ( temp_output_1_0_g3042 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3040 = ( 0.1 + -1.0 );
+				float temp_output_1_0_g3041 = break5_g3040.y;
+				float temp_output_6_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3041 - floor( ( temp_output_1_0_g3041 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_15_0_g3040 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) * saturate( (0.0 + (temp_output_6_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) ) );
 				float4 tex2DNode13 = SAMPLE_TEXTURE2D( _DepthCache, sampler_Linear_Clamp, CacheUV1109 );
-				float temp_output_17_0_g3203 = 0.001;
-				float2 temp_cast_4 = (temp_output_17_0_g3203).xx;
-				float2 temp_cast_5 = (( 1.0 - temp_output_17_0_g3203 )).xx;
-				float2 break5_g3203 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_4) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_5 - temp_cast_4)) );
-				float temp_output_1_0_g3205 = break5_g3203.x;
-				float temp_output_8_0_g3203 = ( 0.001 + -1.0 );
-				float temp_output_1_0_g3204 = break5_g3203.y;
-				float temp_output_2766_0 = saturate( saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3205 - floor( ( temp_output_1_0_g3205 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3204 - floor( ( temp_output_1_0_g3204 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) ) ) );
+				float temp_output_17_0_g3046 = 0.001;
+				float2 temp_cast_4 = (temp_output_17_0_g3046).xx;
+				float2 temp_cast_5 = (( 1.0 - temp_output_17_0_g3046 )).xx;
+				float2 break5_g3046 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_4) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_5 - temp_cast_4)) );
+				float temp_output_1_0_g3048 = break5_g3046.x;
+				float temp_output_9_0_g3046 = ( ( abs( ( ( temp_output_1_0_g3048 - floor( ( temp_output_1_0_g3048 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3046 = ( 0.001 + -1.0 );
+				float2 appendResult24_g3040 = (float2(temp_output_9_0_g3040 , temp_output_6_0_g3040));
+				float2 CacheUVPreFeather3438 = appendResult24_g3040;
+				float2 break40_g3046 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3046 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3046 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) * saturate( (0.0 + (break40_g3046.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) ) );
+				float temp_output_2766_0 = saturate( temp_output_15_0_g3046 );
 				float lerpResult3090 = lerp( 1000.0 , ( tex2DNode13.b * 100.0 ) , temp_output_2766_0);
 				float CaptureB_Distancex100200 = lerpResult3090;
-				float temp_output_2763_0 = saturate( ( temp_output_2768_0 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
-				float temp_output_17_0_g3209 = _Tolerance;
-				float2 temp_cast_6 = (temp_output_17_0_g3209).xx;
-				float2 temp_cast_7 = (( 1.0 - temp_output_17_0_g3209 )).xx;
-				float2 break5_g3209 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_6) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_7 - temp_cast_6)) );
-				float temp_output_1_0_g3211 = break5_g3209.x;
-				float temp_output_8_0_g3209 = ( _Feather + -1.0 );
-				float temp_output_1_0_g3210 = break5_g3209.y;
+				float temp_output_2763_0 = saturate( ( temp_output_15_0_g3040 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
+				float temp_output_17_0_g3049 = _Tolerance;
+				float2 temp_cast_6 = (temp_output_17_0_g3049).xx;
+				float2 temp_cast_7 = (( 1.0 - temp_output_17_0_g3049 )).xx;
+				float2 break5_g3049 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_6) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_7 - temp_cast_6)) );
+				float temp_output_1_0_g3051 = break5_g3049.x;
+				float temp_output_9_0_g3049 = ( ( abs( ( ( temp_output_1_0_g3051 - floor( ( temp_output_1_0_g3051 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3049 = ( _Feather + -1.0 );
+				float2 break40_g3049 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3049 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3049 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) * saturate( (0.0 + (break40_g3049.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) ) );
 				#ifdef _USEINFINITYFEATHER_ON
-				float staticSwitch1654 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3211 - floor( ( temp_output_1_0_g3211 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3210 - floor( ( temp_output_1_0_g3210 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) ) );
+				float staticSwitch1654 = temp_output_15_0_g3049;
 				#else
 				float staticSwitch1654 = 1.0;
 				#endif
 				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
-				float CamNear1615 = saturate( (0.0 + (distance( _WorldSpaceCameraPos , WorldPosition ) - 0.1) * (1.0 - 0.0) / (0.6 - 0.1)) );
+				float temp_output_2951_0 = distance( (WorldPosition).xz , (_WorldSpaceCameraPos).xz );
+				float CamDistance3490 = temp_output_2951_0;
+				#ifdef _TRANSPARENTGRABPASS_ON
+				float staticSwitch2444 = saturate( (0.0 + (CamDistance3490 - 0.1) * (1.0 - 0.0) / (0.6 - 0.1)) );
+				#else
+				float staticSwitch2444 = 1.0;
+				#endif
+				float CamNear1615 = staticSwitch2444;
 				float4 screenPos1850 = IN.ase_texcoord9;
 				float4 ase_screenPosNorm1850 = screenPos1850 / screenPos1850.w;
 				ase_screenPosNorm1850.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm1850.z : ase_screenPosNorm1850.z * 0.5 + 0.5;
 				float screenDepth1850 = LinearEyeDepth(SHADERGRAPH_SAMPLE_SCENE_DEPTH( ase_screenPosNorm1850.xy ),_ZBufferParams);
 				float distanceDepth1850 = saturate( abs( ( screenDepth1850 - LinearEyeDepth( ase_screenPosNorm1850.z,_ZBufferParams ) ) / ( 0.2 ) ) );
-				float DepthFader1847 = distanceDepth1850;
-				float2 appendResult87 = (float2(_Motion.x , _Motion.y));
-				float2 MotionXY1084 = appendResult87;
-				float3 break35 = WorldPosition;
-				float2 appendResult36 = (float2(break35.x , break35.z));
-				float3 worldPosIN2078 = WorldPosition;
-				float4 ase_screenPosNorm = ScreenPos / ScreenPos.w;
-				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 screenPos2078 = ase_screenPosNorm.xy;
-				float3 QuadNormal2078 = float3( 0,1,0 );
-				float3 QuadPosition2078 = float3(0,-4,0);
-				float4 localBillboard2078 = Billboard2078( worldPosIN2078 , screenPos2078 , QuadNormal2078 , QuadPosition2078 );
-				float temp_output_2080_0 = (localBillboard2078).w;
-				float2 temp_output_2096_0 = ( (localBillboard2078).xy * temp_output_2080_0 );
-				#ifdef _HORIZONMAPPED_ON
-				float2 staticSwitch2082 = temp_output_2096_0;
+				#ifdef _TRANSPARENTGRABPASS_ON
+				float staticSwitch3374 = distanceDepth1850;
 				#else
-				float2 staticSwitch2082 = appendResult36;
+				float staticSwitch3374 = 1.0;
 				#endif
-				float2 WorldXZ1087 = staticSwitch2082;
-				float2 panner527 = ( -0.03 * _Time.y * MotionXY1084 + WorldXZ1087);
-				float4 tex2DNode91 = SAMPLE_TEXTURE2D( _FoamTexture, sampler_FoamTexture, (panner527*( _FoamScale_UseFoam * 0.2 ) + 0.0) );
-				float2 panner74 = ( 0.05 * _Time.y * MotionXY1084 + WorldXZ1087);
-				#ifdef _USEFOAMEXTRASAMPLER_ON
-				float staticSwitch1679 = ( SAMPLE_TEXTURE2D( _FoamTexture, sampler_FoamTexture, (panner74*_FoamScale_UseFoam + 0.0) ).r + tex2DNode91.r );
-				#else
-				float staticSwitch1679 = ( tex2DNode91.r * 1.8 );
-				#endif
-				float4 break984 = _RemapFoam;
-				float temp_output_172_0 = saturate( (0.0 + (( 100.0 * CaptureB_Distancex100200 ) - break984.x) * (1.0 - 0.0) / (break984.y - break984.x)) );
+				float DepthFader1847 = staticSwitch3374;
 				float2 appendResult892 = (float2(_Motion2.x , _Motion2.y));
 				float2 Motion2XY1096 = appendResult892;
+				float3 break35 = WorldPosition;
+				float2 appendResult36 = (float2(break35.x , break35.z));
+				float2 WorldXZ1087 = appendResult36;
 				float2 panner890 = ( 0.05 * _Time.y * Motion2XY1096 + WorldXZ1087);
 				#ifdef GlobalPlanarReflection
 				float staticSwitch1591 = _NormalPow;
@@ -7372,179 +6566,162 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				unpack1718.z = lerp( 1, unpack1718.z, saturate(switchResult1432) );
 				float3 temp_output_1719_0 = BlendNormal( unpack84 , unpack1718 );
 				float3 temp_output_83_0 = BlendNormal( tex2DNode11 , temp_output_1719_0 );
-				#ifdef _USEEXTRANORMALS_ON
-				float3 staticSwitch1683 = temp_output_83_0;
-				#else
-				float3 staticSwitch1683 = temp_output_83_0;
-				#endif
-				float2 appendResult1049 = (float2(staticSwitch1683.xy));
+				float2 appendResult1049 = (float2(temp_output_83_0.xy));
 				float2 RefNorm886 = appendResult1049;
 				float RefBumpSlider1337 = _RefDistortion;
-				float3 normalizeResult2273 = normalize( ( staticSwitch1683 + float3( ( RefNorm886 * RefBumpSlider1337 ) ,  0.0 ) ) );
+				float3 normalizeResult2273 = normalize( ( float3( ( RefNorm886 * RefBumpSlider1337 ) ,  0.0 ) + temp_output_83_0 ) );
 				float2 appendResult2519 = (float2(normalizeResult2273.xy));
 				float temp_output_307_0 = ( 1.0 - saturate( abs( CaptureB_Distancex100200 ) ) );
-				float Foamness294 = ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale );
-				float2 lerpResult2274 = lerp( float2( 0,0 ) , appendResult2519 , ( _WaterRefractonMobile * 0.5 * saturate( Foamness294 ) ));
+				float Foamness294 = ( ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale ) * InfinityFeather1410 );
+				float2 lerpResult2274 = lerp( float2( 0,0 ) , appendResult2519 , ( _WaterRefractonMobile * 0.5 * ( 1.0 - saturate( Foamness294 ) ) ));
 				float customEye1169 = IN.ase_texcoord8.z;
 				float cameraDepthFade1169 = (( customEye1169 -_ProjectionParams.y - 0.0 ) / _DistanceFadeA);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2110 = 0.0;
-				#else
-				float staticSwitch2110 = saturate( cameraDepthFade1169 );
-				#endif
-				float DistanceFadeA1294 = staticSwitch2110;
+				float DistanceFadeA1294 = saturate( cameraDepthFade1169 );
 				float temp_output_1414_0 = ( ( 1.0 - InfinityFeather1410 ) * saturate( DistanceFadeA1294 ) );
 				float2 lerpResult2275 = lerp( lerpResult2274 , float2( 0,0 ) , temp_output_1414_0);
-				#ifdef _TRANSPARENTGRABPASS_ON
-				float2 staticSwitch2542 = float2( 0,0 );
-				#else
-				float2 staticSwitch2542 = lerpResult2275;
-				#endif
-				float2 RefHackeryForColorCache2269 = staticSwitch2542;
-				float2 temp_output_2198_0 = ( RefHackeryForColorCache2269 + CacheUV1109 );
-				float4 tex2DNode657 = SAMPLE_TEXTURE2D( _ColorCache, sampler_Linear_Clamp, temp_output_2198_0 );
+				float2 RefHackeryForColorCache2269 = lerpResult2275;
+				float4 tex2DNode657 = SAMPLE_TEXTURE2D( _ColorCache, sampler_Linear_Clamp, ( RefHackeryForColorCache2269 + CacheUV1109 ) );
 				float ColorCacheA2171 = tex2DNode657.a;
 				float temp_output_12_0_g3214 = InfinityFeather1410;
 				float CaptureDepthAOffsetShore1177 = ( ( ColorCacheA2171 * temp_output_12_0_g3214 ) + ( 1.0 - temp_output_12_0_g3214 ) );
 				float4 break993 = _RemapAlpha;
-				float switchResult2294 = (((ase_vface>0)?(saturate( (0.0 + (CaptureDepthAOffsetShore1177 - break993.x) * (1.0 - 0.0) / (break993.y - break993.x)) )):(1.0)));
+				float temp_output_1000_0 = saturate( (0.0 + (CaptureDepthAOffsetShore1177 - break993.x) * (1.0 - 0.0) / (break993.y - break993.x)) );
+				float switchResult2294 = (((ase_vface>0)?(temp_output_1000_0):(1.0)));
 				float ShoreMaskDepthAlpha141 = switchResult2294;
-				float temp_output_199_0 = saturate( (0.0 + (( 5.0 * CaptureB_Distancex100200 ) - break984.z) * (1.0 - 0.0) / (( break984.w * _FoamMaxDistance ) - break984.z)) );
-				float temp_output_981_0 = ( 1.0 - temp_output_199_0 );
-				float temp_output_982_0 = ( temp_output_172_0 * ShoreMaskDepthAlpha141 * temp_output_981_0 );
-				float FoamFeather2372 = temp_output_982_0;
-				float2 temp_cast_12 = (_FoamNoiseSpeed).xx;
-				float2 panner138 = ( 1.0 * _Time.y * temp_cast_12 + ( WorldXZ1087 * _FoamNoiseScale ));
-				float lerpResult133 = lerp( 1.0 , SAMPLE_TEXTURE2D( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( 0.04 * panner138 ) ).r , _FoamNoiseCon);
+				float4 ase_screenPosNorm = ScreenPos / ScreenPos.w;
+				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
+				float2 appendResult2445 = (float2(ase_screenPosNorm.xy));
+				float2 appendResult2856 = (float2(temp_output_1719_0.xy));
+				float SeaAlpha2FoamAndNormal205 = InfinityFeather1410;
 				float2 temp_cast_13 = (_FoamNoiseSpeed).xx;
-				float2 panner168 = ( 1.0 * _Time.y * temp_cast_13 + ( WorldXZ1087 * _FoamNoiseScale2 ));
+				float2 panner138 = ( 1.0 * _Time.y * temp_cast_13 + ( WorldXZ1087 * _FoamNoiseScale ));
+				float lerpResult133 = lerp( 1.0 , SAMPLE_TEXTURE2D( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( 0.04 * panner138 ) ).r , _FoamNoiseCon);
+				float2 temp_cast_14 = (_FoamNoiseSpeed).xx;
+				float2 panner168 = ( 1.0 * _Time.y * temp_cast_14 + ( WorldXZ1087 * _FoamNoiseScale2 ));
 				float lerpResult161 = lerp( 1.0 , SAMPLE_TEXTURE2D( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( panner168 * 0.04 ) ).r , _FoamNoiseCon2);
-				#ifdef _USEWAVENOISEDISPLACE_ON
-				float staticSwitch680 = ( Foamness294 + ( ( lerpResult133 + lerpResult161 ) * ( ( 1.0 - DistanceFadeA1294 ) * 0.4 ) ) );
-				#else
-				float staticSwitch680 = Foamness294;
-				#endif
-				float DepthCacheRemap109 = staticSwitch680;
+				float temp_output_318_0 = ( Foamness294 + ( ( lerpResult133 + lerpResult161 ) * ( ( 1.0 - DistanceFadeA1294 ) * 0.4 ) ) );
+				float DepthCacheRemap109 = temp_output_318_0;
 				float temp_output_5_0_g3212 = ( 1.0 - DepthCacheRemap109 );
 				float mulTime209 = _TimeParameters.x * ( _WaveSpeed * 0.1 );
 				float2 appendResult868 = (float2(_WaveDirectionSettings.x , _WaveDirectionSettings.y));
 				float WaveCenterDistance1051 = distance( WorldXZ1087 , appendResult868 );
-				#ifdef _USEWAVEDIRECTION_ON
-				float staticSwitch762 = ( mulTime209 + ( ( WaveCenterDistance1051 * -0.01 ) / _WaveDirectionSettings.z ) );
-				#else
-				float staticSwitch762 = ( 0.0 - mulTime209 );
-				#endif
-				float temp_output_17_0_g3212 = staticSwitch762;
+				float temp_output_839_0 = ( mulTime209 + ( ( WaveCenterDistance1051 * -0.01 ) / _WaveDirectionSettings.z ) );
+				float temp_output_17_0_g3212 = temp_output_839_0;
 				float temp_output_30_0_g3212 = ( 1.0 - saturate( 0.7 ) );
 				float temp_output_35_0_g3212 = ( temp_output_30_0_g3212 * 0.5 );
 				float temp_output_32_0_g3212 = ( (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) - temp_output_35_0_g3212 );
 				float temp_output_31_0_g3212 = ( temp_output_35_0_g3212 + (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) );
 				float DepthCacheWave184 = ( 1.0 - frac( (0.0 + (temp_output_5_0_g3212 - temp_output_32_0_g3212) * (1.0 - 0.0) / (temp_output_31_0_g3212 - temp_output_32_0_g3212)) ) );
 				float clampResult124 = clamp( DepthCacheWave184 , 0.01 , 0.99 );
-				float2 temp_cast_14 = (clampResult124).xx;
-				float4 tex2DNode76 = SAMPLE_TEXTURE2D_LOD( _FoamLUT, sampler_Linear_Clamp, temp_cast_14, 0.0 );
-				float FoamMaskResult122 = frac( ( FoamFeather2372 * tex2DNode76.r ) );
-				float temp_output_142_0 = saturate( FoamMaskResult122 );
-				float temp_output_39_0 = ( staticSwitch1679 * temp_output_142_0 );
-				float3 temp_output_1099_0 = ( ( ( pow( temp_output_39_0 , _FoamPow ) * 0.5 ) + saturate( ( pow( temp_output_39_0 , 3.0 ) + ( ( saturate( pow( temp_output_142_0 , 4.0 ) ) - 0.5 ) * 0.3 ) ) ) ) * (_FoamColor).rgb * InfinityFeather1410 * 0.4 );
-				#ifdef _USEFOAM_ON
-				float3 staticSwitch1687 = temp_output_1099_0;
-				#else
-				float3 staticSwitch1687 = float3( 0,0,0 );
-				#endif
-				float3 AlbedoRes465 = staticSwitch1687;
-				float3 temp_output_11_0_g3347 = AlbedoRes465;
-				float temp_output_23_0_g3347 = GlobalOceanUnder;
-				float3 ifLocalVar4_g3347 = 0;
-				UNITY_BRANCH 
-				if( temp_output_23_0_g3347 >= 1.0 )
-				ifLocalVar4_g3347 = temp_output_11_0_g3347;
-				else
-				ifLocalVar4_g3347 = temp_output_11_0_g3347;
-				#ifdef _USEGRADIENTFOG_ON
-				float3 staticSwitch6_g3347 = ifLocalVar4_g3347;
-				#else
-				float3 staticSwitch6_g3347 = temp_output_11_0_g3347;
-				#endif
-				#ifdef _USEUNDERWATER
-				float3 staticSwitch214_g3347 = staticSwitch6_g3347;
-				#else
-				float3 staticSwitch214_g3347 = temp_output_11_0_g3347;
-				#endif
-				float3 temp_output_3047_0 = staticSwitch214_g3347;
-				float temp_output_2951_0 = distance( (WorldPosition).xz , (_WorldSpaceCameraPos).xz );
-				float temp_output_2955_0 = saturate( (1.0 + (temp_output_2951_0 - 100.0) * (0.0 - 1.0) / (8000.0 - 100.0)) );
-				float temp_output_2949_0 = pow( temp_output_2955_0 , 8.0 );
-				float4 temp_output_2892_0 = saturate( ( float4( ( InfinityFeather1410 * CamNear1615 * DepthFader1847 * temp_output_3047_0 * ShoreMaskDepthAlpha141 ) , 0.0 ) + ( _WaterAlbedo * temp_output_2949_0 * CamNear1615 * DepthFader1847 * ShoreMaskDepthAlpha141 ) ) );
-				float4 AlbedoRes22337 = temp_output_2892_0;
-				
-				float3 appendResult1062 = (float3(tex2DNode657.rgb));
-				float3 ColorCacheRGB1061 = ( InfinityFeather1410 * appendResult1062 );
-				float temp_output_2998_0 = saturate( ( ( -0.2 * min( -CaptureDepthAOffsetShore1177 , 0.0 ) ) / _RemapWaterDistance1 ) );
-				float2 appendResult2445 = (float2(ase_screenPosNorm.xy));
-				float2 appendResult2856 = (float2(temp_output_1719_0.xy));
-				float SeaAlpha2FoamAndNormal205 = InfinityFeather1410;
+				float2 temp_cast_15 = (clampResult124).xx;
+				float4 tex2DNode76 = SAMPLE_TEXTURE2D_LOD( _FoamLUT, sampler_Linear_Clamp, temp_cast_15, 0.0 );
 				float smoothstepResult279 = smoothstep( 0.0 , 1.0 , tex2DNode76.a);
 				float customEye1325 = IN.ase_texcoord8.w;
 				float cameraDepthFade1325 = (( customEye1325 -_ProjectionParams.y - 0.0 ) / _DistanceFadeB);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2111 = 0.0;
-				#else
-				float staticSwitch2111 = saturate( cameraDepthFade1325 );
-				#endif
-				float DistanceFadeB1326 = staticSwitch2111;
+				float DistanceFadeB1326 = saturate( cameraDepthFade1325 );
 				float lerpResult1311 = lerp( smoothstepResult279 , 0.0 , DistanceFadeB1326);
-				float FoamVertDisp261 = saturate( lerpResult1311 );
+				#ifdef _USEFOAM_ON
+				float staticSwitch3358 = saturate( lerpResult1311 );
+				#else
+				float staticSwitch3358 = 0.0;
+				#endif
+				float FoamVertDisp261 = staticSwitch3358;
 				float temp_output_1332_0 = ( RefBumpSlider1337 * SeaAlpha2FoamAndNormal205 * (1.0 + (FoamVertDisp261 - 0.0) * (5.0 - 1.0) / (1.0 - 0.0)) * 22.0 );
 				float3 normalizeResult2866 = normalize( ( temp_output_1719_0 + float3( ( appendResult2856 * temp_output_1332_0 ) ,  0.0 ) ) );
 				float3 lerpResult2865 = lerp( normalizeResult2866 , float3( 0,0,1 ) , float3( 0.5,0.5,0.5 ));
 				float switchResult1438 = (((ase_vface>0)?(FoamVertDisp261):(( FoamVertDisp261 * 0.8 ))));
-				float customEye2817 = IN.ase_texcoord10.x;
-				float cameraDepthFade2817 = (( customEye2817 -_ProjectionParams.y - 0.0 ) / 300.0);
-				float3 appendResult2798 = (float3(0.0 , ( saturate( switchResult1438 ) * 0.1 * _WaveRefractionStrength * ( 1.0 - saturate( cameraDepthFade2817 ) ) ) , 0.0));
+				float CamDistMaskHorizonMask3273 = pow( saturate( (1.0 + (temp_output_2951_0 - 100.0) * (0.0 - 1.0) / (8000.0 - 100.0)) ) , 8.0 );
+				float3 appendResult2798 = (float3(0.0 , ( saturate( switchResult1438 ) * 0.1 * pow( CamDistMaskHorizonMask3273 , 16.0 ) * _WaveRefractionStrength ) , 0.0));
 				float3 lerpResult2861 = lerp( ( lerpResult2865 + appendResult2798 ) , float3( 0,0,1 ) , temp_output_1414_0);
 				float UnderOffset1634 = GlobalOceanOffset;
 				float GlobalOceanHeight1552 = ( GlobalOceanHeight + UnderOffset1634 );
-				float temp_output_240_0 = ( FoamVertDisp261 * _VertDispMult * 0.1 );
-				float ShoreMaskVert586 = saturate( (0.0 + (( CaptureB_Distancex100200 * 100.0 ) - _RemapVertShore.x) * (1.0 - 0.0) / (_RemapVertShore.y - _RemapVertShore.x)) );
-				float VertDispDistMask22014 = ( 1.0 - saturate( (0.0 + (distance( WorldXZ1087 , (_WorldSpaceCameraPos).xz ) - 5.0) * (1.0 - 0.0) / (7.9 - 5.0)) ) );
-				float customEye1484 = IN.ase_texcoord10.y;
-				float cameraDepthFade1484 = (( customEye1484 -_ProjectionParams.y - 0.0 ) / 1.0);
-				float CamDepthFade1495 = cameraDepthFade1484;
-				float VertDispMaskRes1691 = ( ShoreMaskVert586 * saturate( VertDispDistMask22014 ) * saturate( (0.0 + (CamDepthFade1495 - 0.2) * (1.0 - 0.0) / (1.5 - 0.2)) ) * InfinityFeather1410 );
-				float temp_output_238_0 = ( temp_output_240_0 * VertDispMaskRes1691 );
-				#ifdef _USEVERTDISPLACEMENT_ON
-				float staticSwitch1688 = temp_output_238_0;
-				#else
-				float staticSwitch1688 = 0.0;
-				#endif
-				float VertAdded1524 = staticSwitch1688;
-				float temp_output_1537_0 = ( ( GlobalOceanHeight1552 + (VertAdded1524).x ) - ( _WorldSpaceCameraPos.y - 0.2 ) );
+				float vertexToFrag3514 = IN.ase_texcoord10.x;
+				float VertAdded1524 = vertexToFrag3514;
+				float temp_output_1537_0 = ( ( GlobalOceanHeight1552 + VertAdded1524 ) - ( _WorldSpaceCameraPos.y - 0.2 ) );
 				float temp_output_1571_0 = saturate( ( temp_output_1537_0 * 5.0 ) );
 				float RefractHack1578 = temp_output_1571_0;
 				float temp_output_1582_0 = (1.0 + (RefractHack1578 - 0.0) * (11.0 - 1.0) / (1.0 - 0.0));
 				float3 lerpResult2862 = lerp( float3( 0,0,1 ) , lerpResult2861 , temp_output_1582_0);
-				float3 switchResult2863 = (((ase_vface>0)?(lerpResult2862):(lerpResult2861)));
-				float3 NormalResRefracted2803 = switchResult2863;
-				float3 NormalResBelow1480 = staticSwitch1683;
-				float3 switchResult1755 = (((ase_vface>0)?(NormalResRefracted2803):(NormalResBelow1480)));
+				float3 NormalRefractedFront2803 = lerpResult2862;
+				float3 NormalRefractedBack1480 = temp_output_83_0;
+				float3 switchResult1755 = (((ase_vface>0)?(NormalRefractedFront2803):(NormalRefractedBack1480)));
 				float2 appendResult3029 = (float2(switchResult1755.xy));
-				float customEye2418 = IN.ase_texcoord10.z;
+				float customEye2418 = IN.ase_texcoord10.y;
 				float cameraDepthFade2418 = (( customEye2418 -_ProjectionParams.y - 0.0 ) / 40.0);
 				float temp_output_2417_0 = ( 1.0 - saturate( cameraDepthFade2418 ) );
 				float2 temp_output_2389_0 = ( appendResult2445 + ( appendResult3029 * DepthFader1847 * CamNear1615 * ShoreMaskDepthAlpha141 * temp_output_2417_0 ) );
 				float eyeDepth2780 = LinearEyeDepth(SHADERGRAPH_SAMPLE_SCENE_DEPTH( float4( temp_output_2389_0, 0.0 , 0.0 ).xy ),_ZBufferParams);
 				float2 lerpResult2452 = lerp( appendResult2445 , temp_output_2389_0 , ( _RefractionWarp * step( ( ScreenPos.w - eyeDepth2780 ) , 0.0 ) ));
 				float2 ScreenSpaceRefractUV2387 = lerpResult2452;
-				float eyeDepth6_g3371 = LinearEyeDepth(SHADERGRAPH_SAMPLE_SCENE_DEPTH( float4( ScreenSpaceRefractUV2387, 0.0 , 0.0 ).xy ),_ZBufferParams);
-				float3 worldToView21_g3371 = mul( UNITY_MATRIX_V, float4( WorldPosition, 1 ) ).xyz;
+				float eyeDepth6_g3822 = LinearEyeDepth(SHADERGRAPH_SAMPLE_SCENE_DEPTH( float4( ScreenSpaceRefractUV2387, 0.0 , 0.0 ).xy ),_ZBufferParams);
+				float3 worldToView21_g3822 = mul( UNITY_MATRIX_V, float4( WorldPosition, 1 ) ).xyz;
+				float temp_output_12_0_g3822 = 1.0;
+				float temp_output_3_0_g3822 = ( abs( ( eyeDepth6_g3822 - -worldToView21_g3822.z ) ) / temp_output_12_0_g3822 );
+				#ifdef _TRANSPARENTGRABPASS_ON
+				float staticSwitch3373 = ( ShoreMaskDepthAlpha141 * ( 1.0 - saturate( pow( ( 1.0 - saturate( temp_output_3_0_g3822 ) ) , 6.0 ) ) ) );
+				#else
+				float staticSwitch3373 = ShoreMaskDepthAlpha141;
+				#endif
+				float ShallowMask2838 = staticSwitch3373;
+				float2 appendResult87 = (float2(_Motion.x , _Motion.y));
+				float2 MotionXY1084 = appendResult87;
+				float2 panner527 = ( -0.03 * _Time.y * MotionXY1084 + WorldXZ1087);
+				float4 tex2DNode91 = SAMPLE_TEXTURE2D( _FoamTexture, sampler_FoamTexture, (panner527*( _FoamScale_UseFoam * 0.2 ) + 0.0) );
+				float2 panner74 = ( 0.05 * _Time.y * MotionXY1084 + WorldXZ1087);
+				#ifdef _USEFOAMEXTRASAMPLER_ON
+				float staticSwitch1679 = ( SAMPLE_TEXTURE2D( _FoamTexture, sampler_FoamTexture, (panner74*_FoamScale_UseFoam + 0.0) ).r + tex2DNode91.r );
+				#else
+				float staticSwitch1679 = ( tex2DNode91.r * 1.8 );
+				#endif
+				float4 break984 = _RemapFoam;
+				float FoamFeather2372 = ( saturate( (0.0 + (( 100.0 * CaptureB_Distancex100200 ) - break984.x) * (1.0 - 0.0) / (break984.y - break984.x)) ) * ( 1.0 - saturate( (0.0 + (( 5.0 * CaptureB_Distancex100200 ) - break984.z) * (1.0 - 0.0) / (( break984.w * _FoamMaxDistance ) - break984.z)) ) ) * ShoreMaskDepthAlpha141 );
+				float FoamMaskResult122 = frac( ( FoamFeather2372 * tex2DNode76.r ) );
+				float temp_output_142_0 = saturate( FoamMaskResult122 );
+				float temp_output_39_0 = ( staticSwitch1679 * temp_output_142_0 );
+				#ifdef _USEFOAM_ON
+				float3 staticSwitch1687 = ( ( ( pow( temp_output_39_0 , _FoamPow ) * 0.5 ) + saturate( ( pow( temp_output_39_0 , 3.0 ) + ( ( saturate( pow( temp_output_142_0 , 4.0 ) ) - 0.5 ) * 0.3 ) ) ) ) * (_FoamColor).rgb * InfinityFeather1410 * 0.4 );
+				#else
+				float3 staticSwitch1687 = float3( 0,0,0 );
+				#endif
+				float3 AlbedoRes465 = staticSwitch1687;
+				float3 AlbedoIn285_g3830 = AlbedoRes465;
+				#ifdef _USEUNDERWATER
+				float3 staticSwitch214_g3830 = AlbedoIn285_g3830;
+				#else
+				float3 staticSwitch214_g3830 = AlbedoIn285_g3830;
+				#endif
+				float3 normalizeResult257 = normalize( ( temp_output_83_0 + float3( ( temp_output_1332_0 * RefNorm886 ) ,  0.0 ) ) );
+				float3 lerpResult1261 = lerp( normalizeResult257 , float3( 0,0,1 ) , float3( 0.5,0.5,0.5 ));
+				float3 lerpResult1264 = lerp( ( appendResult2798 + lerpResult1261 ) , float3( 0,0,1 ) , temp_output_1414_0);
+				float3 lerpResult1581 = lerp( float3( 0,0,1 ) , lerpResult1264 , temp_output_1582_0);
+				float3 switchResult2804 = (((ase_vface>0)?(lerpResult1581):(lerpResult1264)));
+				float3 NormalRes466 = switchResult2804;
+				float3 lerpResult3318 = lerp( float3( 0,0,1 ) , NormalRes466 , _NormalAlbedoStrength);
+				float dotResult3312 = dot( float3(0,3,0.8) , lerpResult3318 );
+				float clampResult3317 = clamp( (1.0 + (dotResult3312 - 0.0) * (2.0 - 1.0) / (1.0 - 0.0)) , 0.0 , 10.0 );
+				#ifdef _MOBILEMODE_ON
+				float4 staticSwitch3385 = saturate( ( float4( ( InfinityFeather1410 * CamNear1615 * DepthFader1847 * ShallowMask2838 * staticSwitch214_g3830 ) , 0.0 ) + ( _WaterAlbedo * CamNear1615 * DepthFader1847 * ShallowMask2838 * CamDistMaskHorizonMask3273 ) ) );
+				#else
+				float4 staticSwitch3385 = ( saturate( ( float4( ( InfinityFeather1410 * CamNear1615 * DepthFader1847 * ShallowMask2838 * staticSwitch214_g3830 ) , 0.0 ) + ( _WaterAlbedo * CamNear1615 * DepthFader1847 * ShallowMask2838 * CamDistMaskHorizonMask3273 ) ) ) * clampResult3317 );
+				#endif
+				float4 AlbedoRes22337 = staticSwitch3385;
+				float ClipMask3534 = temp_output_1000_0;
+				float AlphaRes469 = ClipMask3534;
+				clip( AlphaRes469 - _ClipThreshold);
+				
+				float3 appendResult1062 = (float3(tex2DNode657.rgb));
+				float3 ColorCacheRGB1061 = ( InfinityFeather1410 * appendResult1062 );
+				float3 appendResult2828 = (float3(_WaterTint.rgb));
+				float temp_output_2998_0 = saturate( ( ( -0.2 * min( -CaptureDepthAOffsetShore1177 , 0.0 ) ) / _RemapWaterDistance1 ) );
+				float eyeDepth6_g3861 = LinearEyeDepth(SHADERGRAPH_SAMPLE_SCENE_DEPTH( float4( ScreenSpaceRefractUV2387, 0.0 , 0.0 ).xy ),_ZBufferParams);
+				float3 worldToView21_g3861 = mul( UNITY_MATRIX_V, float4( WorldPosition, 1 ) ).xyz;
 				float fresnelNdotV2830 = dot( WorldNormal, WorldViewDirection );
 				float fresnelNode2830 = ( 0.0 + 1.0 * pow( 1.0 - fresnelNdotV2830, 5.0 ) );
 				float lerpResult2832 = lerp( 9.0 , 30.0 , saturate( fresnelNode2830 ));
-				float DepthFadeDistthing2939 = lerpResult2832;
-				float temp_output_12_0_g3371 = ( DepthFadeDistthing2939 * _RemapWaterDistance );
-				float temp_output_3_0_g3371 = ( abs( ( eyeDepth6_g3371 - -worldToView21_g3371.z ) ) / temp_output_12_0_g3371 );
-				float temp_output_2907_0 = saturate( temp_output_3_0_g3371 );
+				float DepthFadeDistThing2939 = lerpResult2832;
+				float temp_output_12_0_g3861 = ( DepthFadeDistThing2939 * _RemapWaterDistance );
+				float temp_output_3_0_g3861 = ( abs( ( eyeDepth6_g3861 - -worldToView21_g3861.z ) ) / temp_output_12_0_g3861 );
+				float temp_output_2907_0 = saturate( temp_output_3_0_g3861 );
 				#ifdef _TRANSPARENTGRABPASS_ON
 				float staticSwitch3001 = temp_output_2907_0;
 				#else
@@ -7555,41 +6732,38 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#else
 				float staticSwitch2993 = _WaterDepthPow1;
 				#endif
+				float temp_output_3000_0 = ( 1.0 - pow( ( 1.0 - temp_output_2998_0 ) , 6.0 ) );
 				float temp_output_2909_0 = ( 1.0 - pow( ( 1.0 - temp_output_2907_0 ) , 6.0 ) );
 				#ifdef _TRANSPARENTGRABPASS_ON
 				float staticSwitch2990 = temp_output_2909_0;
 				#else
-				float staticSwitch2990 = ( 1.0 - pow( ( 1.0 - temp_output_2998_0 ) , 6.0 ) );
+				float staticSwitch2990 = temp_output_3000_0;
 				#endif
 				float2 appendResult2183 = (float2(staticSwitch2990 , 0.0));
 				float3 appendResult2142 = (float3(SAMPLE_TEXTURE2D_LOD( _DepthColorLUT, sampler_Linear_Clamp, appendResult2183, 0.0 ).rgb));
-				float3 appendResult2828 = (float3(_WaterTint.rgb));
-				float3 temp_output_1964_0 = ( ( saturate( pow( ( 1.0 - staticSwitch3001 ) , staticSwitch2993 ) ) * appendResult2142 ) * appendResult2828 * InfinityFeather1410 );
-				float3 desaturateInitialColor2848 = temp_output_1964_0;
+				float temp_output_2850_0 = ( 1.0 - _WaterSaturation );
+				float3 desaturateInitialColor2848 = ( appendResult2828 * ( saturate( pow( ( 1.0 - staticSwitch3001 ) , staticSwitch2993 ) ) * appendResult2142 ) * InfinityFeather1410 );
 				float desaturateDot2848 = dot( desaturateInitialColor2848, float3( 0.299, 0.587, 0.114 ));
-				float3 desaturateVar2848 = lerp( desaturateInitialColor2848, desaturateDot2848.xxx, ( 1.0 - _WaterSaturation ) );
+				float3 desaturateVar2848 = lerp( desaturateInitialColor2848, desaturateDot2848.xxx, temp_output_2850_0 );
 				float3 switchResult2135 = (((ase_vface>0)?(desaturateVar2848):(float3( 0,0,0 ))));
 				float3 WaterDepthTint342 = switchResult2135;
 				float switchResult2482 = (((ase_vface>0)?(saturate( (0.0 + (CaptureDepthAOffsetShore1177 - break993.z) * (1.0 - 0.0) / (break993.w - break993.z)) )):(1.0)));
 				float ShoreMaskSpec2479 = switchResult2482;
 				float3 lerpResult3187 = lerp( float3( 1,1,1 ) , WaterDepthTint342 , ShoreMaskSpec2479);
+				float3 temp_output_3012_0 = ( ColorCacheRGB1061 * lerpResult3187 );
 				float switchResult1429 = (((ase_vface>0)?(radians( GlobalSkyRotation )):(radians( ( 0.0 + 180.0 ) ))));
 				float3 switchResult1425 = (((ase_vface>0)?(-WorldViewDirection):(WorldViewDirection)));
-				float3 normalizeResult257 = normalize( ( staticSwitch1683 + float3( ( RefNorm886 * temp_output_1332_0 ) ,  0.0 ) ) );
-				float3 lerpResult1261 = lerp( normalizeResult257 , float3( 0,0,1 ) , float3( 0.5,0.5,0.5 ));
-				float3 lerpResult1264 = lerp( ( lerpResult1261 + appendResult2798 ) , float3( 0,0,1 ) , temp_output_1414_0);
-				float3 lerpResult1581 = lerp( float3( 0,0,1 ) , lerpResult1264 , temp_output_1582_0);
-				float3 switchResult2804 = (((ase_vface>0)?(lerpResult1581):(lerpResult1264)));
-				float3 NormalRes466 = switchResult2804;
-				float HorizonMask2300 = saturate( (1.0 + (distance( WorldPosition , _WorldSpaceCameraPos ) - 200.0) * (0.0 - 1.0) / (3000.0 - 200.0)) );
+				float customEye1484 = IN.ase_texcoord10.z;
+				float cameraDepthFade1484 = (( customEye1484 -_ProjectionParams.y - 0.0 ) / 1.0);
+				float CamDepthFade1495 = cameraDepthFade1484;
+				float HorizonMask2300 = CamDistMaskHorizonMask3273;
 				float3 lerpResult1488 = lerp( float3( 0,0,1 ) , NormalRes466 , saturate( ( CamNear1615 * CamDepthFade1495 * HorizonMask2300 ) ));
 				float3 tanToWorld0 = float3( WorldTangent.x, WorldBiTangent.x, WorldNormal.x );
 				float3 tanToWorld1 = float3( WorldTangent.y, WorldBiTangent.y, WorldNormal.y );
 				float3 tanToWorld2 = float3( WorldTangent.z, WorldBiTangent.z, WorldNormal.z );
 				float3 tanNormal1153 = lerpResult1488;
 				float3 worldNormal1153 = float3(dot(tanToWorld0,tanNormal1153), dot(tanToWorld1,tanNormal1153), dot(tanToWorld2,tanNormal1153));
-				float3 temp_output_1151_0 = reflect( switchResult1425 , worldNormal1153 );
-				float3 rotatedValue1157 = RotateAroundAxis( float3( 0,0,0 ), temp_output_1151_0, float3( 0,1,0 ), switchResult1429 );
+				float3 rotatedValue1157 = RotateAroundAxis( float3( 0,0,0 ), reflect( switchResult1425 , worldNormal1153 ), float3( 0,1,0 ), switchResult1429 );
 				float SmoothnessRes468 = _Smoothness;
 				float lerpResult2215 = lerp( 1.0 , SmoothnessRes468 , HorizonMask2300);
 				float temp_output_1147_0 = ( ( 1.0 - lerpResult2215 ) * 8.0 );
@@ -7601,51 +6775,85 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#endif
 				float switchResult1466 = (((ase_vface>0)?(temp_output_1147_0):(staticSwitch3051)));
 				float3 temp_output_1550_0 = (SAMPLE_TEXTURECUBE_LOD( _Cubemap, sampler_Cubemap, rotatedValue1157, switchResult1466 )).rgb;
-				float3 normalizeResult1285 = normalize( ( tex2DNode11 * float3( 55,55,1 ) ) );
-				float3 tanNormal1237 = normalizeResult1285;
+				float3 tanNormal1237 = ( tex2DNode11 * float3( 25,25,1 ) );
 				float3 worldNormal1237 = float3(dot(tanToWorld0,tanNormal1237), dot(tanToWorld1,tanNormal1237), dot(tanToWorld2,tanNormal1237));
 				float dotResult1229 = dot( worldNormal1237 , WorldViewDirection );
-				float customEye2812 = IN.ase_texcoord10.w;
-				float cameraDepthFade2812 = (( customEye2812 -_ProjectionParams.y - 0.0 ) / _NormalDarken1);
-				float lerpResult1280 = lerp( 1.0 , ( 1.0 - saturate( dotResult1229 ) ) , ( ( 1.0 - saturate( cameraDepthFade2812 ) ) * _NormalDarken ));
-				float NormDarken1230 = lerpResult1280;
+				float lerpResult1280 = lerp( 1.0 , ( 1.0 - saturate( dotResult1229 ) ) , ( CamDistMaskHorizonMask3273 * _NormalDarken ));
+				#ifdef _MOBILEMODE_ON
+				float staticSwitch3413 = lerpResult1280;
+				#else
+				float staticSwitch3413 = 1.0;
+				#endif
+				float NormDarken1230 = staticSwitch3413;
 				float3 tanNormal901 = NormalRes466;
 				float3 worldNormal901 = float3(dot(tanToWorld0,tanNormal901), dot(tanToWorld1,tanNormal901), dot(tanToWorld2,tanNormal901));
-				#ifdef _HORIZONMAPPED_ON
-				float3 staticSwitch2104 = float3(0,1,0);
-				#else
-				float3 staticSwitch2104 = worldNormal901;
-				#endif
-				float fresnelNdotV899 = dot( staticSwitch2104, WorldViewDirection );
+				float fresnelNdotV899 = dot( worldNormal901, WorldViewDirection );
 				float fresnelNode899 = ( _RefFresnel.x + _RefFresnel.y * pow( 1.0 - fresnelNdotV899, _RefFresnel.z ) );
-				float temp_output_904_0 = saturate( fresnelNode899 );
-				float3 temp_output_1162_0 = ( temp_output_1550_0 * _CubemapExposure * (0.4 + (NormDarken1230 - 0.0) * (1.0 - 0.4) / (1.0 - 0.0)) * temp_output_904_0 * ShoreMaskSpec2479 );
-				float3 WorldCamPos11_g3216 = _WorldPos;
-				float3 WorldCamRight11_g3216 = _WorldDir;
-				float force11_g3216 = _ForceEye;
-				int localIsStereoEyeLeft11_g3216 = IsStereoEyeLeft11_g3216( WorldCamPos11_g3216 , WorldCamRight11_g3216 , force11_g3216 );
-				float2 appendResult4_g3216 = (float2(ase_screenPosNorm.xy));
+				float FresnelReflection3475 = saturate( fresnelNode899 );
+				#ifdef _TRANSPARENTGRABPASS_ON
+				float4 staticSwitch34_g3815 = _BakeLightMapAmbient;
+				#else
+				float4 staticSwitch34_g3815 = _BakeLightMapMobile;
+				#endif
+				float3 appendResult18_g3815 = (float3(staticSwitch34_g3815.rgb));
+				float2 vertexToFrag10_g3820 = IN.ase_texcoord11.xy;
+				float4 tex2DNode7_g3820 = SAMPLE_TEXTURE2D_BIAS( _bakeLightmap, sampler_bakeLightmap, vertexToFrag10_g3820, 0.0 );
+				float4 localURPDecodeInstruction19_g3820 = URPDecodeInstruction19_g3820();
+				float3 decodeLightMap6_g3820 = DecodeLightmap(tex2DNode7_g3820,localURPDecodeInstruction19_g3820);
+				float temp_output_17_0_g3817 = -0.001;
+				float2 temp_cast_29 = (temp_output_17_0_g3817).xx;
+				float2 temp_cast_30 = (( 1.0 - temp_output_17_0_g3817 )).xx;
+				float2 break5_g3817 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_29) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_30 - temp_cast_29)) );
+				float temp_output_1_0_g3819 = break5_g3817.x;
+				float temp_output_9_0_g3817 = ( ( abs( ( ( temp_output_1_0_g3819 - floor( ( temp_output_1_0_g3819 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3817 = ( _BakedLightingFeather + -1.0 );
+				float temp_output_1_0_g3818 = break5_g3817.y;
+				float temp_output_6_0_g3817 = ( ( abs( ( ( temp_output_1_0_g3818 - floor( ( temp_output_1_0_g3818 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_15_0_g3817 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3817 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3817 - -1.0)) ) * saturate( (0.0 + (temp_output_6_0_g3817 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3817 - -1.0)) ) ) );
+				float temp_output_17_0_g3815 = temp_output_15_0_g3817;
+				float3 lerpResult12_g3815 = lerp( appendResult18_g3815 , decodeLightMap6_g3820 , temp_output_17_0_g3815);
+				float3 LightmapRes26_g3815 = lerpResult12_g3815;
+				float3 temp_output_3453_0 = LightmapRes26_g3815;
+				float3 LightmapRes2657 = temp_output_3453_0;
+				float2 vertexToFrag10_g3821 = IN.ase_texcoord11.zw;
+				float4 tex2DNode7_g3821 = SAMPLE_TEXTURE2D_BIAS( _bakeLightmapSM, sampler_bakeLightmap, vertexToFrag10_g3821, 0.0 );
+				float4 localURPDecodeInstruction19_g3821 = URPDecodeInstruction19_g3821();
+				float3 decodeLightMap6_g3821 = DecodeLightmap(tex2DNode7_g3821,localURPDecodeInstruction19_g3821);
+				float3 lerpResult13_g3815 = lerp( float3(1,0,0) , saturate( decodeLightMap6_g3821 ) , temp_output_17_0_g3815);
+				float3 LightmapSWRes25_g3815 = lerpResult13_g3815;
+				float3 temp_output_3453_27 = LightmapSWRes25_g3815;
+				float3 LightmapSWRes2658 = temp_output_3453_27;
+				float3 temp_output_3296_0 = ( LightmapRes2657 * (LightmapSWRes2658).x );
+				float grayscale3419 = (temp_output_3296_0.r + temp_output_3296_0.g + temp_output_3296_0.b) / 3;
+				float temp_output_12_0_g3525 = _ReflectionShadowed;
+				float temp_output_12_0_g3526 = CamDistMaskHorizonMask3273;
+				float OcclusionRes3215 = ( ( ( ( ( saturate( (0.0 + (grayscale3419 - ( 1.0 - _ReflectionShadowedEnd )) * (1.0 - 0.0) / (( 1.0 - _ReflectionShadowedStart ) - ( 1.0 - _ReflectionShadowedEnd ))) ) * temp_output_12_0_g3525 ) + ( 1.0 - temp_output_12_0_g3525 ) ) * temp_output_12_0_g3526 ) + ( 1.0 - temp_output_12_0_g3526 ) ) * ShallowMask2838 );
+				float3 WorldCamPos11_g3521 = _WorldPos;
+				float3 WorldCamRight11_g3521 = _WorldDir;
+				float force11_g3521 = _ForceEye;
+				int localIsStereoEyeLeft11_g3521 = IsStereoEyeLeft11_g3521( WorldCamPos11_g3521 , WorldCamRight11_g3521 , force11_g3521 );
+				float2 appendResult4_g3521 = (float2(ase_screenPosNorm.xy));
+				float clampResult1520 = clamp( VertAdded1524 , 0.0 , 0.3 );
 				float2 appendResult1245 = (float2(NormalRes466.xy));
-				float clampResult1520 = clamp( (VertAdded1524).x , 0.0 , 0.3 );
-				float2 temp_output_1_0_g3216 = ( appendResult4_g3216 + ( appendResult1245 * (0.0 + (clampResult1520 - 0.1) * (2.0 - 0.0) / (0.3 - 0.1)) * CamNear1615 * 0.5 ) );
-				float4 tex2DNode3_g3216 = SAMPLE_TEXTURE2D( _TexLeft, sampler_Linear_Mirror, temp_output_1_0_g3216 );
-				float4 tex2DNode2_g3216 = SAMPLE_TEXTURE2D( _TexRight, sampler_Linear_Mirror, temp_output_1_0_g3216 );
-				float4 ifLocalVar10_g3216 = 0;
-				if( localIsStereoEyeLeft11_g3216 <= 0.0 )
-				ifLocalVar10_g3216 = tex2DNode2_g3216;
+				float2 temp_output_1_0_g3521 = ( appendResult4_g3521 + ( (0.0 + (clampResult1520 - 0.1) * (2.0 - 0.0) / (0.3 - 0.1)) * appendResult1245 * CamNear1615 * 0.5 ) );
+				float4 tex2DNode3_g3521 = SAMPLE_TEXTURE2D( _TexLeft, sampler_Linear_Mirror, temp_output_1_0_g3521 );
+				float4 tex2DNode2_g3521 = SAMPLE_TEXTURE2D( _TexRight, sampler_Linear_Mirror, temp_output_1_0_g3521 );
+				float4 ifLocalVar10_g3521 = 0;
+				if( localIsStereoEyeLeft11_g3521 <= 0.0 )
+				ifLocalVar10_g3521 = tex2DNode2_g3521;
 				else
-				ifLocalVar10_g3216 = tex2DNode3_g3216;
-				float3 temp_output_1549_0 = (ifLocalVar10_g3216).rgb;
-				float3 UnderReflection1610 = ( temp_output_1549_0 * temp_output_904_0 );
-				float3 switchResult1453 = (((ase_vface>0)?(( UnderReflection1610 * (0.4 + (NormDarken1230 - 0.0) * (1.0 - 0.4) / (1.0 - 0.0)) )):(temp_output_1162_0)));
+				ifLocalVar10_g3521 = tex2DNode3_g3521;
+				float3 temp_output_1549_0 = (ifLocalVar10_g3521).rgb;
+				float3 UnderReflection1610 = ( temp_output_1549_0 * FresnelReflection3475 );
+				float3 switchResult1453 = (((ase_vface>0)?(( UnderReflection1610 * (0.4 + (NormDarken1230 - 0.0) * (1.0 - 0.4) / (1.0 - 0.0)) )):(( temp_output_1550_0 * _CubemapExposure * (0.4 + (NormDarken1230 - 0.0) * (1.0 - 0.4) / (1.0 - 0.0)) * FresnelReflection3475 * ShoreMaskSpec2479 * OcclusionRes3215 ))));
 				#ifdef GlobalPlanarReflection
 				float3 staticSwitch945 = switchResult1453;
 				#else
-				float3 staticSwitch945 = temp_output_1162_0;
+				float3 staticSwitch945 = ( temp_output_1550_0 * _CubemapExposure * (0.4 + (NormDarken1230 - 0.0) * (1.0 - 0.4) / (1.0 - 0.0)) * FresnelReflection3475 * ShoreMaskSpec2479 * OcclusionRes3215 );
 				#endif
-				float4 appendResult11_g3229 = (float4(_TonemappingSettings.x , _TonemappingSettings.y , _TonemappingSettings.z , _TonemappingSettings.w));
-				float4 temp_output_2533_0 = appendResult11_g3229;
-				float4 settings2527 = temp_output_2533_0;
+				float4 appendResult11_g3856 = (float4(_TonemappingSettings.x , _TonemappingSettings.y , _TonemappingSettings.z , _TonemappingSettings.w));
+				float4 TonemapSettings3469 = appendResult11_g3856;
+				float4 settings2527 = TonemapSettings3469;
 				float3 color2527 = staticSwitch945;
 				float3 localApplyTonemapper2527 = ApplyTonemapper( settings2527 , color2527 );
 				#ifdef _TRANSPARENTGRABPASS_ON
@@ -7653,159 +6861,105 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#else
 				float3 staticSwitch2528 = staticSwitch945;
 				#endif
+				float2 appendResult3231 = (float2(temp_output_3000_0 , 0.0));
+				float3 appendResult3228 = (float3(SAMPLE_TEXTURE2D_LOD( _DepthColorLUT, sampler_Linear_Clamp, appendResult3231, 0.0 ).rgb));
+				float3 desaturateInitialColor3242 = ( ( saturate( pow( ( 1.0 - temp_output_2998_0 ) , _WaterDepthPow1 ) ) * appendResult3228 ) * InfinityFeather1410 * appendResult2828 );
+				float desaturateDot3242 = dot( desaturateInitialColor3242, float3( 0.299, 0.587, 0.114 ));
+				float3 desaturateVar3242 = lerp( desaturateInitialColor3242, desaturateDot3242.xxx, temp_output_2850_0 );
+				float3 switchResult3241 = (((ase_vface>0)?(desaturateVar3242):(float3( 0,0,0 ))));
+				float3 lerpResult3249 = lerp( float3( 1,1,1 ) , switchResult3241 , ShoreMaskSpec2479);
+				float3 lerpResult3236 = lerp( float3( 0,0,0 ) , ( DepthFader1847 * ColorCacheRGB1061 * lerpResult3249 * saturate( (0.0 + (temp_output_2909_0 - 0.05) * (1.0 - 0.0) / (0.2 - 0.05)) ) ) , _WaterAlbedoFake);
+				#ifdef _TRANSPARENTGRABPASS_ON
+				float3 staticSwitch3230 = lerpResult3236;
+				#else
+				float3 staticSwitch3230 = float3( 0,0,0 );
+				#endif
+				float3 FakeEmission3252 = staticSwitch3230;
 				float4 fetchOpaqueVal1753 = float4( SHADERGRAPH_SAMPLE_SCENE_COLOR( ScreenSpaceRefractUV2387 ), 1.0 );
 				float3 appendResult1754 = (float3(fetchOpaqueVal1753.rgb));
-				#ifdef _RAINBOWGRABPASS_ON
-				float3 staticSwitch2395 = appendResult1754;
-				#else
-				float3 staticSwitch2395 = appendResult1754;
-				#endif
-				float3 temp_output_18_0_g3379 = float3( 0,0,0 );
-				float3 temp_output_30_0_g3379 = float3( 0,0,1 );
-				float3 tanNormal12_g3379 = temp_output_30_0_g3379;
-				float3 worldNormal12_g3379 = float3(dot(tanToWorld0,tanNormal12_g3379), dot(tanToWorld1,tanNormal12_g3379), dot(tanToWorld2,tanNormal12_g3379));
-				float3 vertexToFrag144_g3379 = IN.ase_texcoord11.xyz;
-				float dotResult1_g3379 = dot( worldNormal12_g3379 , vertexToFrag144_g3379 );
-				float3 vertexToFrag7_g3383 = IN.ase_texcoord12.xyz;
-				float3 positionWS_fogFactor24_g3383 = vertexToFrag7_g3383;
-				float3 normalizeResult21_g3383 = normalize( ( _WorldSpaceCameraPos - positionWS_fogFactor24_g3383 ) );
-				float3 view23_g3383 = normalizeResult21_g3383;
-				float3 view16_g3383 = view23_g3383;
-				float3 appendResult49_g3383 = (float3(ScreenSpaceRefractUV2387 , ase_screenPosNorm.w));
-				float3 screenPosXYW29_g3383 = (appendResult49_g3383).xyz;
-				float2 uvDepth38_g3383 = ( (screenPosXYW29_g3383).xy / (screenPosXYW29_g3383).z );
-				float2 uv55_g3383 = uvDepth38_g3383;
-				float localCameraDepthTexture55_g3383 = CameraDepthTexture55_g3383( uv55_g3383 );
-				float rawDepth40_g3383 = localCameraDepthTexture55_g3383;
-				float rawDepth44_g3383 = rawDepth40_g3383;
-				float localMyCustomExpression44_g3383 = MyCustomExpression44_g3383( rawDepth44_g3383 );
-				float sceneZ41_g3383 = localMyCustomExpression44_g3383;
-				float sceneZ16_g3383 = sceneZ41_g3383;
-				float3 localMyCustomExpression16_g3383 = MyCustomExpression16_g3383( view16_g3383 , sceneZ16_g3383 );
-				float3 scenePos11_g3383 = localMyCustomExpression16_g3383;
-				float3 WorldPosition2704 = scenePos11_g3383;
-				float3 temp_output_105_0_g3379 = WorldPosition2704;
-				float2 PanSpeed131_g3379 = (_CausticsSettings).xy;
-				float mulTime28_g3379 = _TimeParameters.x * -1.0;
-				float2 break101_g3379 = ( PanSpeed131_g3379 * mulTime28_g3379 );
-				float3 appendResult100_g3379 = (float3(break101_g3379.x , 0.0 , break101_g3379.y));
-				float4 Pos6_g3382 = float4( ( temp_output_105_0_g3379 + appendResult100_g3379 ) , 0.0 );
-				float4x4 invertVal146_g3379 = Inverse4x4( _CausticMatrix );
-				float4x4 Mat6_g3382 = invertVal146_g3379;
-				float3 localMatrixMulThatWorks6_g3382 = MatrixMulThatWorks( Pos6_g3382 , Mat6_g3382 );
-				float2 temp_output_87_0_g3379 = ( (localMatrixMulThatWorks6_g3382).xy + ( 0.0045 * 2.0 ) );
-				float temp_output_117_0_g3379 = (temp_output_105_0_g3379).y;
-				float temp_output_63_0_g3379 = GlobalOceanHeight1552;
-				float2 DistanceFade134_g3379 = (_CausticsSettings).zw;
-				float2 break136_g3379 = DistanceFade134_g3379;
-				float temp_output_67_0_g3379 = ( saturate( (0.0 + (max( -( temp_output_117_0_g3379 - temp_output_63_0_g3379 ) , 0.0 ) - 0.2) * (1.0 - 0.0) / (1.0 - 0.2)) ) * saturate( (1.0 + (distance( temp_output_63_0_g3379 , temp_output_117_0_g3379 ) - break136_g3379.x) * (0.0 - 1.0) / (break136_g3379.y - break136_g3379.x)) ) );
-				float CausticMipLevel118_g3379 = ( ( 1.0 - temp_output_67_0_g3379 ) * 4.0 );
-				float2 temp_output_75_0_g3379 = ( (localMatrixMulThatWorks6_g3382).xy + 0.0045 );
-				#ifdef _USECAUSTICRAINBOW_ON
-				float3 staticSwitch73_g3379 = ( ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Caustics, temp_output_87_0_g3379, CausticMipLevel118_g3379 ).r * float3(0,0,1) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Caustics, temp_output_75_0_g3379, CausticMipLevel118_g3379 ).r * float3(0,1,0) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Caustics, (localMatrixMulThatWorks6_g3382).xy, CausticMipLevel118_g3379 ).r * float3(1,0,0) ) );
-				#else
-				float3 staticSwitch73_g3379 = float3( 0,0,0 );
-				#endif
-				#ifdef _USECAUSTICEXTRASAMPLER_ON
-				float3 staticSwitch57_g3379 = staticSwitch73_g3379;
-				#else
-				float3 staticSwitch57_g3379 = float3( 0,0,0 );
-				#endif
-				float3 appendResult62_g3379 = (float3(_CausticsColor.rgb));
-				#ifdef _CAUSTICSENABLE_ON
-				float3 staticSwitch16_g3379 = ( temp_output_18_0_g3379 + ( max( dotResult1_g3379 , 0.0 ) * staticSwitch57_g3379 * appendResult62_g3379 * temp_output_67_0_g3379 ) );
-				#else
-				float3 staticSwitch16_g3379 = temp_output_18_0_g3379;
-				#endif
+				float3 temp_output_18_0_g3811 = float3( 0,0,0 );
+				float3 temp_output_30_0_g3811 = float3( 0,0,1 );
+				float3 tanNormal12_g3811 = temp_output_30_0_g3811;
+				float3 worldNormal12_g3811 = float3(dot(tanToWorld0,tanNormal12_g3811), dot(tanToWorld1,tanNormal12_g3811), dot(tanToWorld2,tanNormal12_g3811));
+				float3 vertexToFrag144_g3811 = IN.ase_texcoord12.xyz;
+				float dotResult1_g3811 = dot( worldNormal12_g3811 , vertexToFrag144_g3811 );
+				float3 vertexToFrag7_g3534 = IN.ase_texcoord13.xyz;
+				float3 positionWS_fogFactor24_g3534 = vertexToFrag7_g3534;
+				float3 normalizeResult21_g3534 = normalize( ( _WorldSpaceCameraPos - positionWS_fogFactor24_g3534 ) );
+				float3 view23_g3534 = normalizeResult21_g3534;
+				float3 view16_g3534 = view23_g3534;
+				float3 appendResult49_g3534 = (float3(ScreenSpaceRefractUV2387 , ase_screenPosNorm.w));
+				float3 screenPosXYW29_g3534 = (appendResult49_g3534).xyz;
+				float2 uvDepth38_g3534 = ( (screenPosXYW29_g3534).xy / (screenPosXYW29_g3534).z );
+				float2 uv55_g3534 = uvDepth38_g3534;
+				float localCameraDepthTexture55_g3534 = CameraDepthTexture55_g3534( uv55_g3534 );
+				float rawDepth40_g3534 = localCameraDepthTexture55_g3534;
+				float rawDepth44_g3534 = rawDepth40_g3534;
+				float localMyCustomExpression44_g3534 = MyCustomExpression44_g3534( rawDepth44_g3534 );
+				float sceneZ41_g3534 = localMyCustomExpression44_g3534;
+				float sceneZ16_g3534 = sceneZ41_g3534;
+				float3 localMyCustomExpression16_g3534 = MyCustomExpression16_g3534( view16_g3534 , sceneZ16_g3534 );
+				float3 scenePos11_g3534 = localMyCustomExpression16_g3534;
+				float3 WorldPosition2704 = scenePos11_g3534;
+				float3 temp_output_105_0_g3811 = WorldPosition2704;
+				float2 PanSpeed131_g3811 = (_CausticsSettings).xy;
+				float mulTime28_g3811 = _TimeParameters.x * -1.0;
+				float2 break101_g3811 = ( PanSpeed131_g3811 * mulTime28_g3811 );
+				float3 appendResult100_g3811 = (float3(break101_g3811.x , 0.0 , break101_g3811.y));
+				float4 Pos6_g3814 = float4( ( temp_output_105_0_g3811 + appendResult100_g3811 ) , 0.0 );
+				float4x4 invertVal146_g3811 = Inverse4x4( _CausticMatrix );
+				float4x4 Mat6_g3814 = invertVal146_g3811;
+				float3 localMatrixMulThatWorks6_g3814 = MatrixMulThatWorks( Pos6_g3814 , Mat6_g3814 );
+				float2 temp_output_87_0_g3811 = ( (localMatrixMulThatWorks6_g3814).xy + ( 0.0045 * 2.0 ) );
+				float temp_output_117_0_g3811 = (temp_output_105_0_g3811).y;
+				float temp_output_63_0_g3811 = GlobalOceanHeight1552;
+				float2 DistanceFade134_g3811 = (_CausticsSettings).zw;
+				float2 break136_g3811 = DistanceFade134_g3811;
+				float temp_output_67_0_g3811 = ( saturate( (0.0 + (max( -( temp_output_117_0_g3811 - temp_output_63_0_g3811 ) , 0.0 ) - 0.2) * (1.0 - 0.0) / (1.0 - 0.2)) ) * saturate( (1.0 + (distance( temp_output_63_0_g3811 , temp_output_117_0_g3811 ) - break136_g3811.x) * (0.0 - 1.0) / (break136_g3811.y - break136_g3811.x)) ) );
+				float CausticMipLevel118_g3811 = ( ( 1.0 - temp_output_67_0_g3811 ) * 4.0 );
+				float2 temp_output_75_0_g3811 = ( (localMatrixMulThatWorks6_g3814).xy + 0.0045 );
+				float3 temp_output_83_0_g3811 = ( ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Caustics, temp_output_87_0_g3811, CausticMipLevel118_g3811 ).r * float3(0,0,1) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Caustics, temp_output_75_0_g3811, CausticMipLevel118_g3811 ).r * float3(0,1,0) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Caustics, (localMatrixMulThatWorks6_g3814).xy, CausticMipLevel118_g3811 ).r * float3(1,0,0) ) );
+				float3 appendResult62_g3811 = (float3(_CausticsColor.rgb));
+				float3 temp_output_20_0_g3811 = ( temp_output_18_0_g3811 + ( max( dotResult1_g3811 , 0.0 ) * temp_output_83_0_g3811 * appendResult62_g3811 * temp_output_67_0_g3811 ) );
 				float3 appendResult3040 = (float3(_CausticsTint.rgb));
-				float3 temp_output_3042_0 = ( staticSwitch16_g3379 * appendResult3040 * 8.0 );
+				float3 temp_output_3042_0 = ( temp_output_20_0_g3811 * appendResult3040 * 8.0 );
 				float3 switchResult3046 = (((ase_vface>0)?(temp_output_3042_0):(float3( 0,0,0 ))));
 				float3 Caustics2711 = switchResult3046;
-				float3 GrabPassOG1994 = ( staticSwitch2395 + ( staticSwitch2395 * Caustics2711 ) );
-				float3 temp_cast_33 = (1.0).xxx;
-				float eyeDepth6_g3373 = LinearEyeDepth(SHADERGRAPH_SAMPLE_SCENE_DEPTH( float4( ScreenSpaceRefractUV2387, 0.0 , 0.0 ).xy ),_ZBufferParams);
-				float3 worldToView21_g3373 = mul( UNITY_MATRIX_V, float4( WorldPosition, 1 ) ).xyz;
-				float temp_output_12_0_g3373 = 1.0;
-				float temp_output_3_0_g3373 = ( abs( ( eyeDepth6_g3373 - -worldToView21_g3373.z ) ) / temp_output_12_0_g3373 );
-				float temp_output_1843_0 = saturate( pow( ( 1.0 - saturate( temp_output_3_0_g3373 ) ) , 6.0 ) );
-				float ShallowMask2838 = ( ( 1.0 - temp_output_1843_0 ) * ShoreMaskDepthAlpha141 );
-				float3 lerpResult2839 = lerp( temp_cast_33 , WaterDepthTint342 , ShallowMask2838);
+				float3 GrabPassOG1994 = ( appendResult1754 + ( appendResult1754 * Caustics2711 ) );
+				float3 temp_cast_39 = (1.0).xxx;
+				float3 lerpResult2839 = lerp( temp_cast_39 , WaterDepthTint342 , ShallowMask2838);
 				float3 switchResult3072 = (((ase_vface>0)?(lerpResult2839):(float3( 1,1,1 ))));
 				float switchResult1513 = (((ase_vface>0)?(1.0):(CamNear1615)));
 				float3 lerpResult1900 = lerp( GrabPassOG1994 , ( switchResult3072 * GrabPassOG1994 ) , switchResult1513);
 				float3 GrabPassTinted1768 = lerpResult1900;
 				float switchResult1945 = (((ase_vface>0)?(1.0):(CamNear1615)));
-				float3 lerpResult1746 = lerp( GrabPassTinted1768 , ( staticSwitch2528 + GrabPassTinted1768 ) , ( ShoreMaskDepthAlpha141 * DepthFader1847 * switchResult1945 ));
+				float3 lerpResult1746 = lerp( GrabPassTinted1768 , ( GrabPassTinted1768 + staticSwitch2528 ) , ( ShoreMaskDepthAlpha141 * DepthFader1847 * switchResult1945 ));
 				float3 NormalResBelow23057 = temp_output_1719_0;
 				float3 tanNormal1468 = NormalResBelow23057;
 				float3 worldNormal1468 = float3(dot(tanToWorld0,tanNormal1468), dot(tanToWorld1,tanNormal1468), dot(tanToWorld2,tanNormal1468));
-				#ifdef _HORIZONMAPPED_ON
-				float3 staticSwitch2108 = float3(0,1,0);
-				#else
-				float3 staticSwitch2108 = worldNormal1468;
-				#endif
-				float clampResult3065 = clamp( (-4.0 + (distance( _WorldSpaceCameraPos , WorldPosition ) - 0.1) * (-0.5 - -4.0) / (10.0 - 0.1)) , -4.0 , -0.5 );
-				float fresnelNdotV1454 = dot( normalize( staticSwitch2108 ), -WorldViewDirection );
+				float clampResult3065 = clamp( (-4.0 + (CamDistance3490 - 0.1) * (-0.5 - -4.0) / (10.0 - 0.1)) , -4.0 , -0.5 );
+				float fresnelNdotV1454 = dot( normalize( worldNormal1468 ), -WorldViewDirection );
 				float fresnelNode1454 = ( clampResult3065 + 4.0 * pow( max( 1.0 - fresnelNdotV1454 , 0.0001 ), 1.0 ) );
-				float temp_output_1460_0 = saturate( fresnelNode1454 );
-				float3 lerpResult1923 = lerp( lerpResult1746 , staticSwitch2528 , ( temp_output_1460_0 * CamNear1615 ));
-				float3 switchResult1925 = (((ase_vface>0)?(lerpResult1746):(lerpResult1923)));
+				float3 lerpResult1923 = lerp( lerpResult1746 , staticSwitch2528 , ( CamNear1615 * saturate( fresnelNode1454 ) ));
+				float3 switchResult1925 = (((ase_vface>0)?(( FakeEmission3252 + lerpResult1746 )):(lerpResult1923)));
 				#ifdef _TRANSPARENTGRABPASS_ON
 				float3 staticSwitch1588 = switchResult1925;
 				#else
-				float3 staticSwitch1588 = ( ( ColorCacheRGB1061 * lerpResult3187 ) + ( saturate( (0.0 + (ShoreMaskSpec2479 - 0.3) * (1.0 - 0.0) / (1.0 - 0.3)) ) * staticSwitch2528 ) );
+				float3 staticSwitch1588 = ( temp_output_3012_0 + ( saturate( (0.0 + (ShoreMaskSpec2479 - 0.3) * (1.0 - 0.0) / (1.0 - 0.3)) ) * staticSwitch2528 ) );
 				#endif
 				float3 appendResult2329 = (float3(staticSwitch1588));
 				float3 EmissionRes467 = appendResult2329;
 				float3 EmissionRes22320 = EmissionRes467;
 				
-				float2 clipScreen639 = ase_screenPosNorm.xy * _ScreenParams.xy;
-				float dither639 = Dither8x8Bayer( fmod(clipScreen639.x, 8), fmod(clipScreen639.y, 8) );
-				dither639 = step( dither639, ShoreMaskDepthAlpha141 );
-				#ifdef _USEDITHERING_ON
-				float staticSwitch1685 = dither639;
-				#else
-				float staticSwitch1685 = ShoreMaskDepthAlpha141;
-				#endif
-				#ifdef _TRANSPARENTGRABPASS_ON
-				float staticSwitch1748 = 1.0;
-				#else
-				float staticSwitch1748 = staticSwitch1685;
-				#endif
-				float HorizonAlpha2083 = temp_output_2080_0;
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2085 = HorizonAlpha2083;
-				#else
-				float staticSwitch2085 = staticSwitch1748;
-				#endif
-				float AlphaRes469 = staticSwitch2085;
-				
-				float3 appendResult18_g3427 = (float3(_BakeLightMapAmbient.rgb));
-				float2 vertexToFrag10_g3432 = IN.ase_texcoord13.xy;
-				float4 tex2DNode7_g3432 = SAMPLE_TEXTURE2D_BIAS( _bakeLightmap, sampler_bakeLightmap, vertexToFrag10_g3432, 0.0 );
-				float4 localURPDecodeInstruction19_g3432 = URPDecodeInstruction19_g3432();
-				float3 decodeLightMap6_g3432 = DecodeLightmap(tex2DNode7_g3432,localURPDecodeInstruction19_g3432);
-				float temp_output_17_0_g3429 = -0.001;
-				float2 temp_cast_37 = (temp_output_17_0_g3429).xx;
-				float2 temp_cast_38 = (( 1.0 - temp_output_17_0_g3429 )).xx;
-				float2 break5_g3429 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_37) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_38 - temp_cast_37)) );
-				float temp_output_1_0_g3431 = break5_g3429.x;
-				float temp_output_8_0_g3429 = ( _BakedLightingFeather + -1.0 );
-				float temp_output_1_0_g3430 = break5_g3429.y;
-				float temp_output_17_0_g3427 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3431 - floor( ( temp_output_1_0_g3431 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3429 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3430 - floor( ( temp_output_1_0_g3430 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3429 - -1.0)) ) ) );
-				float3 lerpResult12_g3427 = lerp( appendResult18_g3427 , decodeLightMap6_g3432 , temp_output_17_0_g3427);
-				float3 LightmapRes26_g3427 = lerpResult12_g3427;
-				float3 LightmapRes2657 = LightmapRes26_g3427;
-				
 
 				float3 BaseColor = AlbedoRes22337.rgb;
-				float3 Normal = float3(0, 0, 1);
+				float3 Normal = NormalRes466;
 				float3 Emission = EmissionRes22320;
 				float3 Specular = 0.5;
 				float Metallic = 0;
-				float Smoothness = ( ShoreMaskDepthAlpha141 * SmoothnessRes468 * DepthFader1847 );
+				float Smoothness = SmoothnessRes468;
 				float Occlusion = 1;
-				float Alpha = AlphaRes469;
+				float Alpha = 1;
 				float AlphaClipThreshold = _ClipThreshold;
 				float AlphaClipThresholdShadow = 0.5;
 				float3 BakedGI = LightmapRes2657;
@@ -7932,13 +7086,14 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			#define _ASE_DEBUGVISUALS 1
 			#define ASE_FOG 1
 			#define _NORMAL_DROPOFF_TS 1
+			#define _SPECULAR_SETUP 1
 			#define ASE_BAKEDGI 1
 			#define ASE_SHADOWMASK 1
 			#define ASE_FOGCOLOR 1
 			#define _ASE_ALPHATEST 1
+			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 120115
 			#define ASE_NEEDS_FRAG_SCREEN_POSITION
-			#define TONEMAPPINGELSEWHERE
 			#define UNDERWATERELSEWHERE
 			#define ASE_USING_SAMPLING_MACROS 1
 
@@ -7977,22 +7132,16 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
 			#define ASE_NEEDS_VERT_POSITION
-			#pragma shader_feature_local ASE_TESSELLATION_ON
-			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma shader_feature_local _DEBUGVISUALS_ON
-			#pragma shader_feature_local LIGHTMAP_ON
+			#pragma shader_feature_local ASE_TESSELLATION_ON
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local LIGHTMAP_ON
+			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma shader_feature_local _USEINFINITYEDGE_ON
 			#pragma shader_feature_local _USEVERTDISPLACEMENT_ON
-			#pragma shader_feature_local _USEWAVENOISEDISPLACE_ON
+			#pragma shader_feature_local _USEFOAM_ON
 			#pragma shader_feature_local _SPACE_WORLDSPACE _SPACE_UVSPACE
-			#pragma shader_feature_local _HORIZONMAPPED_ON
-			#pragma shader_feature_local _USEWAVEDIRECTION_ON
 			#pragma shader_feature_local _USEINFINITYFEATHER_ON
-			#pragma shader_feature_local _TRANSPARENTGRABPASS_ON
-			#pragma shader_feature_local _USEDITHERING_ON
-			#pragma shader_feature_local _USEEXTRANORMALS_ON
-			#pragma multi_compile __ GlobalPlanarReflection
 
 
 			struct VertexInput
@@ -8006,73 +7155,75 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			struct VertexOutput
 			{
 				float4 clipPos : SV_POSITION;
-				float4 ase_texcoord : TEXCOORD0;
-				float4 ase_texcoord1 : TEXCOORD1;
-				float4 ase_texcoord2 : TEXCOORD2;
+				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _FoamColor;
+			float4 _WaveDirectionSettings;
+			float4 _RemapFoam;
+			float4 _WaterTint;
+			float4 _CausticsTint;
+			float4 _RemapAlpha;
+			float4 _Normals2_ST;
 			float4 _Motion;
 			float4 _Normals_ST;
-			float4 _WaterTint;
+			float4 _Motion2;
 			float4 _RemapVertShore;
 			float4 _WaterAlbedo;
-			float4 _WaveDirectionSettings;
-			float4 _Normals2_ST;
-			float4 _Motion2;
 			float4 _RefFresnel;
-			float4 _CausticsTint;
-			float4x4 _DepthMatrix;
-			float4 _RemapAlpha;
-			float4 _BakeLightMapAmbient;
-			float4x4 _BakeMatrix;
+			float4 _BakeLightMapMobile;
+			float4 _FoamColor;
 			float4 _bakeLightmapST;
-			float4 _RemapFoam;
+			float4 _BakeLightMapAmbient;
+			float4x4 _DepthMatrix;
+			float3 _CameraForward;
+			float3 _DepthPosition;
 			float3 _WorldDir;
 			float3 _WorldPos;
-			float3 _DepthPosition;
-			float3 _CameraForward;
-			float _WaveRefractionStrength;
-			float _RefractionWarp;
-			float _RemapWaterDistance;
-			float _RemapWaterDistance1;
-			float _Smoothness;
-			float _WaterDepthPow;
-			float _WaterSaturation;
 			float _CubemapExposure;
-			float _NormalDarken1;
-			float _NormalDarken;
-			float _ForceEye;
+			float _NormalAlbedoStrength;
+			float _WaterAlbedoFake;
 			float _ClipThreshold;
+			float _ForceEye;
+			float _RemapWaterDistance1;
+			float _RemapWaterDistance;
 			float _WaterDepthPow1;
-			int _ZTestMode;
-			float _NormalPow2;
-			float _FoamMaxDistance;
-			float _ZWriteToggle;
+			float _BakedLightingFeather;
+			float _WaterDepthPow;
+			float _ReflectionShadowed;
+			float _ReflectionShadowedStart;
+			float _WaterSaturation;
+			float _Smoothness;
+			float _ReflectionShadowedEnd;
+			float _NormalDarken;
 			float _TessNum;
+			float _WaveRefractionStrength;
+			float _FoamMaxDistance;
 			float _TesMin;
 			float _TesMax;
+			int _ZTestMode;
+			float _ZWriteToggle;
 			float _WaveScale;
+			float _Tolerance;
+			float _Feather;
 			float _FoamNoiseSpeed;
 			float _FoamNoiseScale;
 			float _FoamNoiseCon;
+			float _FoamPow;
 			float _FoamNoiseScale2;
-			float _FoamNoiseCon2;
 			float _DistanceFadeA;
 			float _WaveSpeed;
 			float _DistanceFadeB;
 			float _VertDispMult;
-			float _Tolerance;
-			float _Feather;
-			float _FoamScale_UseFoam;
 			float _NormalPow;
-			float _BakedLightingFeather;
+			float _NormalPow2;
 			float _RefDistortion;
 			float _WaterRefractonMobile;
-			float _FoamPow;
+			float _RefractionWarp;
+			float _FoamScale_UseFoam;
+			float _FoamNoiseCon2;
 			int _DebugVisual;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
@@ -8094,6 +7245,7 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float _TessMaxDisp;
 			#endif
 			float _DebugCounter; //Shadowood
+			half _EnvironmentReflections; // Shadowood
 			CBUFFER_END
 
 			// Property used by ScenePickingPass
@@ -8107,8 +7259,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				int _PassValue;
 			#endif
 
-			float4 _skyGradientColor1;
-			float4 _skyGradientColor2;
 			float3 _CausticsDir;
 			half _CausticsScale;
 			half2 _CausticsPanSpeed;
@@ -8117,16 +7267,13 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			SAMPLER(sampler_Caustics);
 			TEXTURE2D(_Caustics2);
 			SAMPLER(sampler_Caustics2);
+			float4 _skyGradientColor1;
+			float4 _skyGradientColor2;
 			TEXTURE2D(_FoamLUT);
 			TEXTURE2D(_DepthCache);
 			SAMPLER(sampler_Linear_Clamp);
 			TEXTURE2D(_WaveNoiseDisplace);
 			SAMPLER(sampler_WaveNoiseDisplace);
-			TEXTURE2D(_ColorCache);
-			TEXTURE2D(_Normals);
-			SAMPLER(sampler_Normals);
-			TEXTURE2D(_Normals2);
-			SAMPLER(sampler_Normals2);
 
 
 			//#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/Varyings.hlsl"
@@ -8141,58 +7288,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 					//beer-lambert law, Fog =1/e^(distance * density)
 					float e = 2.7182818284590452353602874713527f;
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
-			}
-			
-			float4 Billboard2078( float3 worldPosIN, float2 screenPos, float3 QuadNormal, float3 QuadPosition )
-			{
-				float3 worldPos = worldPosIN;
-				float3 viewDir = worldPos - _WorldSpaceCameraPos;
-				float3 reflectDir = -viewDir;
-				float3 nReflDirection = normalize(reflectDir);
-				float4 result = float4(0,0,0,0);
-				// Ray-quad intersection
-				half planeIntersectDistance = dot( worldPos - QuadPosition,  QuadNormal.xyz ) / dot( nReflDirection, QuadNormal.xyz );
-				half3 intersectPosition = worldPos - nReflDirection * planeIntersectDistance;
-				//half4 localPlaneIntersectPosition = mul( QuadInverseMatrix, float4( intersectPosition, 1.0 ));
-				half4 localPlaneIntersectPosition = float4( intersectPosition, 1.0 );
-				half2 billboardUV = half2( localPlaneIntersectPosition.x, localPlaneIntersectPosition.z );
-				//billboardUV*=1;
-				//float4 billboardCol = BillboardTex.Sample( BillboardSampler , billboardUV );
-				float4 billboardCol = float4( billboardUV.x, billboardUV.y, 0, 1);
-				float3 quadNorm = QuadNormal.xyz;
-				half reflectDot = dot( nReflDirection, quadNorm );
-				float w = 1;
-				// Cull when beyond the quad bounds
-				//w = billboardUV.x > 1.0 ? 0.0 : w;
-				//w = billboardUV.y > 1.0 ? 0.0 : w;
-				//w = billboardUV.x < 0.0 ? 0.0 : w;
-				//w = billboardUV.y < 0.0 ? 0.0 : w;
-				// Cull if distance is behind the surface
-				//w = planeIntersectDistance < 0 ? 0 : w;
-				// Cull if quad facing backwards
-				w = reflectDot <= 0.0 ? 0.0 : w; 
-				// Cull if quad facing backwards and culling is ticked on the quad ( passed in via the arrays W )
-				//w = QuadNormal.w == 1.0 ? (reflectDot <= 0.0 ? 0.0 : w) : w;
-				billboardCol = billboardCol * billboardCol.w * w;
-				billboardCol.a = w;
-				result*=1-w;
-				result+= billboardCol;
-				return result;
-			}
-			
-			inline float Dither8x8Bayer( int x, int y )
-			{
-				const float dither[ 64 ] = {
-			 1, 49, 13, 61,  4, 52, 16, 64,
-			33, 17, 45, 29, 36, 20, 48, 32,
-			 9, 57,  5, 53, 12, 60,  8, 56,
-			41, 25, 37, 21, 44, 28, 40, 24,
-			 3, 51, 15, 63,  2, 50, 14, 62,
-			35, 19, 47, 31, 34, 18, 46, 30,
-			11, 59,  7, 55, 10, 58,  6, 54,
-			43, 27, 39, 23, 42, 26, 38, 22};
-				int r = y * 8 + x;
-				return dither[r] / 64; // same # of instructions as pre-dividing due to compiler magic
 			}
 			
 
@@ -8212,14 +7307,13 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
 				float2 texCoord2052 = v.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
-				float temp_output_2054_0 = distance( texCoord2052 , float2( 0.5,0.5 ) );
 				float ifLocalVar2053 = 0;
-				if( temp_output_2054_0 <= 1.0 )
+				if( distance( texCoord2052 , float2( 0.5,0.5 ) ) <= 1.0 )
 				ifLocalVar2053 = 1.0;
 				else
 				ifLocalVar2053 = 5000.0;
 				#ifdef _USEINFINITYEDGE_ON
-				float4 staticSwitch1498 = ( v.vertex * ifLocalVar2053 );
+				float4 staticSwitch1498 = ( ifLocalVar2053 * v.vertex );
 				#else
 				float4 staticSwitch1498 = v.vertex;
 				#endif
@@ -8237,91 +7331,93 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#endif
 				float2 CacheUV1109 = staticSwitch1346;
 				float4 tex2DNode13 = SAMPLE_TEXTURE2D_LOD( _DepthCache, sampler_Linear_Clamp, CacheUV1109, 0.0 );
-				float temp_output_17_0_g3203 = 0.001;
-				float2 temp_cast_2 = (temp_output_17_0_g3203).xx;
-				float2 temp_cast_3 = (( 1.0 - temp_output_17_0_g3203 )).xx;
-				float2 break5_g3203 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_2) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_3 - temp_cast_2)) );
-				float temp_output_1_0_g3205 = break5_g3203.x;
-				float temp_output_8_0_g3203 = ( 0.001 + -1.0 );
-				float temp_output_1_0_g3204 = break5_g3203.y;
-				float temp_output_2766_0 = saturate( saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3205 - floor( ( temp_output_1_0_g3205 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3204 - floor( ( temp_output_1_0_g3204 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) ) ) );
+				float temp_output_17_0_g3046 = 0.001;
+				float2 temp_cast_2 = (temp_output_17_0_g3046).xx;
+				float2 temp_cast_3 = (( 1.0 - temp_output_17_0_g3046 )).xx;
+				float2 break5_g3046 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_2) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_3 - temp_cast_2)) );
+				float temp_output_1_0_g3048 = break5_g3046.x;
+				float temp_output_9_0_g3046 = ( ( abs( ( ( temp_output_1_0_g3048 - floor( ( temp_output_1_0_g3048 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3046 = ( 0.001 + -1.0 );
+				float temp_output_17_0_g3040 = 0.01;
+				float2 temp_cast_4 = (temp_output_17_0_g3040).xx;
+				float2 temp_cast_5 = (( 1.0 - temp_output_17_0_g3040 )).xx;
+				float2 break5_g3040 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_4) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_5 - temp_cast_4)) );
+				float temp_output_1_0_g3042 = break5_g3040.x;
+				float temp_output_9_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3042 - floor( ( temp_output_1_0_g3042 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_1_0_g3041 = break5_g3040.y;
+				float temp_output_6_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3041 - floor( ( temp_output_1_0_g3041 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float2 appendResult24_g3040 = (float2(temp_output_9_0_g3040 , temp_output_6_0_g3040));
+				float2 CacheUVPreFeather3438 = appendResult24_g3040;
+				float2 break40_g3046 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3046 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3046 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) * saturate( (0.0 + (break40_g3046.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) ) );
+				float temp_output_2766_0 = saturate( temp_output_15_0_g3046 );
 				float lerpResult3090 = lerp( 1000.0 , ( tex2DNode13.b * 100.0 ) , temp_output_2766_0);
 				float CaptureB_Distancex100200 = lerpResult3090;
 				float temp_output_307_0 = ( 1.0 - saturate( abs( CaptureB_Distancex100200 ) ) );
-				float Foamness294 = ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale );
-				float2 temp_cast_4 = (_FoamNoiseSpeed).xx;
+				float temp_output_8_0_g3040 = ( 0.1 + -1.0 );
+				float temp_output_15_0_g3040 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) * saturate( (0.0 + (temp_output_6_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) ) );
+				float temp_output_2763_0 = saturate( ( temp_output_15_0_g3040 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
+				float temp_output_17_0_g3049 = _Tolerance;
+				float2 temp_cast_6 = (temp_output_17_0_g3049).xx;
+				float2 temp_cast_7 = (( 1.0 - temp_output_17_0_g3049 )).xx;
+				float2 break5_g3049 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_6) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_7 - temp_cast_6)) );
+				float temp_output_1_0_g3051 = break5_g3049.x;
+				float temp_output_9_0_g3049 = ( ( abs( ( ( temp_output_1_0_g3051 - floor( ( temp_output_1_0_g3051 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3049 = ( _Feather + -1.0 );
+				float2 break40_g3049 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3049 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3049 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) * saturate( (0.0 + (break40_g3049.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) ) );
+				#ifdef _USEINFINITYFEATHER_ON
+				float staticSwitch1654 = temp_output_15_0_g3049;
+				#else
+				float staticSwitch1654 = 1.0;
+				#endif
+				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
+				float Foamness294 = ( ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale ) * InfinityFeather1410 );
+				float2 temp_cast_8 = (_FoamNoiseSpeed).xx;
 				float3 break35 = ase_worldPos;
 				float2 appendResult36 = (float2(break35.x , break35.z));
-				float3 worldPosIN2078 = ase_worldPos;
-				float4 ase_clipPos = TransformObjectToHClip((v.vertex).xyz);
-				float4 screenPos = ComputeScreenPos(ase_clipPos);
-				float4 ase_screenPosNorm = screenPos / screenPos.w;
-				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 screenPos2078 = ase_screenPosNorm.xy;
-				float3 QuadNormal2078 = float3( 0,1,0 );
-				float3 QuadPosition2078 = float3(0,-4,0);
-				float4 localBillboard2078 = Billboard2078( worldPosIN2078 , screenPos2078 , QuadNormal2078 , QuadPosition2078 );
-				float temp_output_2080_0 = (localBillboard2078).w;
-				float2 temp_output_2096_0 = ( (localBillboard2078).xy * temp_output_2080_0 );
-				#ifdef _HORIZONMAPPED_ON
-				float2 staticSwitch2082 = temp_output_2096_0;
-				#else
-				float2 staticSwitch2082 = appendResult36;
-				#endif
-				float2 WorldXZ1087 = staticSwitch2082;
-				float2 panner138 = ( 1.0 * _Time.y * temp_cast_4 + ( WorldXZ1087 * _FoamNoiseScale ));
+				float2 WorldXZ1087 = appendResult36;
+				float2 panner138 = ( 1.0 * _Time.y * temp_cast_8 + ( WorldXZ1087 * _FoamNoiseScale ));
 				float lerpResult133 = lerp( 1.0 , SAMPLE_TEXTURE2D_LOD( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( 0.04 * panner138 ), 0.0 ).r , _FoamNoiseCon);
-				float2 temp_cast_6 = (_FoamNoiseSpeed).xx;
-				float2 panner168 = ( 1.0 * _Time.y * temp_cast_6 + ( WorldXZ1087 * _FoamNoiseScale2 ));
+				float2 temp_cast_9 = (_FoamNoiseSpeed).xx;
+				float2 panner168 = ( 1.0 * _Time.y * temp_cast_9 + ( WorldXZ1087 * _FoamNoiseScale2 ));
 				float lerpResult161 = lerp( 1.0 , SAMPLE_TEXTURE2D_LOD( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( panner168 * 0.04 ), 0.0 ).r , _FoamNoiseCon2);
 				float UnderOffset1634 = GlobalOceanOffset;
 				float3 appendResult2127 = (float3(break1605.x , ( break1605.y + UnderOffset1634 ) , break1605.z));
-				float3 VertResOffset2125 = appendResult2127;
+				float3 vertexToFrag3421 = appendResult2127;
+				float3 VertResOffset2125 = vertexToFrag3421;
 				float3 customSurfaceDepth1169 = VertResOffset2125;
 				float customEye1169 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1169)).z;
 				float cameraDepthFade1169 = (( customEye1169 -_ProjectionParams.y - 0.0 ) / _DistanceFadeA);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2110 = 0.0;
-				#else
-				float staticSwitch2110 = saturate( cameraDepthFade1169 );
-				#endif
-				float DistanceFadeA1294 = staticSwitch2110;
-				#ifdef _USEWAVENOISEDISPLACE_ON
-				float staticSwitch680 = ( Foamness294 + ( ( lerpResult133 + lerpResult161 ) * ( ( 1.0 - DistanceFadeA1294 ) * 0.4 ) ) );
-				#else
-				float staticSwitch680 = Foamness294;
-				#endif
-				float DepthCacheRemap109 = staticSwitch680;
+				float DistanceFadeA1294 = saturate( cameraDepthFade1169 );
+				float temp_output_318_0 = ( Foamness294 + ( ( lerpResult133 + lerpResult161 ) * ( ( 1.0 - DistanceFadeA1294 ) * 0.4 ) ) );
+				float DepthCacheRemap109 = temp_output_318_0;
 				float temp_output_5_0_g3212 = ( 1.0 - DepthCacheRemap109 );
 				float mulTime209 = _TimeParameters.x * ( _WaveSpeed * 0.1 );
 				float2 appendResult868 = (float2(_WaveDirectionSettings.x , _WaveDirectionSettings.y));
 				float WaveCenterDistance1051 = distance( WorldXZ1087 , appendResult868 );
-				#ifdef _USEWAVEDIRECTION_ON
-				float staticSwitch762 = ( mulTime209 + ( ( WaveCenterDistance1051 * -0.01 ) / _WaveDirectionSettings.z ) );
-				#else
-				float staticSwitch762 = ( 0.0 - mulTime209 );
-				#endif
-				float temp_output_17_0_g3212 = staticSwitch762;
+				float temp_output_839_0 = ( mulTime209 + ( ( WaveCenterDistance1051 * -0.01 ) / _WaveDirectionSettings.z ) );
+				float temp_output_17_0_g3212 = temp_output_839_0;
 				float temp_output_30_0_g3212 = ( 1.0 - saturate( 0.7 ) );
 				float temp_output_35_0_g3212 = ( temp_output_30_0_g3212 * 0.5 );
 				float temp_output_32_0_g3212 = ( (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) - temp_output_35_0_g3212 );
 				float temp_output_31_0_g3212 = ( temp_output_35_0_g3212 + (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) );
 				float DepthCacheWave184 = ( 1.0 - frac( (0.0 + (temp_output_5_0_g3212 - temp_output_32_0_g3212) * (1.0 - 0.0) / (temp_output_31_0_g3212 - temp_output_32_0_g3212)) ) );
 				float clampResult124 = clamp( DepthCacheWave184 , 0.01 , 0.99 );
-				float2 temp_cast_7 = (clampResult124).xx;
-				float4 tex2DNode76 = SAMPLE_TEXTURE2D_LOD( _FoamLUT, sampler_Linear_Clamp, temp_cast_7, 0.0 );
+				float2 temp_cast_10 = (clampResult124).xx;
+				float4 tex2DNode76 = SAMPLE_TEXTURE2D_LOD( _FoamLUT, sampler_Linear_Clamp, temp_cast_10, 0.0 );
 				float smoothstepResult279 = smoothstep( 0.0 , 1.0 , tex2DNode76.a);
 				float3 customSurfaceDepth1325 = VertResOffset2125;
 				float customEye1325 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1325)).z;
 				float cameraDepthFade1325 = (( customEye1325 -_ProjectionParams.y - 0.0 ) / _DistanceFadeB);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2111 = 0.0;
-				#else
-				float staticSwitch2111 = saturate( cameraDepthFade1325 );
-				#endif
-				float DistanceFadeB1326 = staticSwitch2111;
+				float DistanceFadeB1326 = saturate( cameraDepthFade1325 );
 				float lerpResult1311 = lerp( smoothstepResult279 , 0.0 , DistanceFadeB1326);
-				float FoamVertDisp261 = saturate( lerpResult1311 );
+				#ifdef _USEFOAM_ON
+				float staticSwitch3358 = saturate( lerpResult1311 );
+				#else
+				float staticSwitch3358 = 0.0;
+				#endif
+				float FoamVertDisp261 = staticSwitch3358;
 				float temp_output_240_0 = ( FoamVertDisp261 * _VertDispMult * 0.1 );
 				float ShoreMaskVert586 = saturate( (0.0 + (( CaptureB_Distancex100200 * 100.0 ) - _RemapVertShore.x) * (1.0 - 0.0) / (_RemapVertShore.y - _RemapVertShore.x)) );
 				float VertDispDistMask22014 = ( 1.0 - saturate( (0.0 + (distance( WorldXZ1087 , (_WorldSpaceCameraPos).xz ) - 5.0) * (1.0 - 0.0) / (7.9 - 5.0)) ) );
@@ -8329,28 +7425,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float customEye1484 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1484)).z;
 				float cameraDepthFade1484 = (( customEye1484 -_ProjectionParams.y - 0.0 ) / 1.0);
 				float CamDepthFade1495 = cameraDepthFade1484;
-				float temp_output_17_0_g3206 = 0.01;
-				float2 temp_cast_8 = (temp_output_17_0_g3206).xx;
-				float2 temp_cast_9 = (( 1.0 - temp_output_17_0_g3206 )).xx;
-				float2 break5_g3206 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_8) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_9 - temp_cast_8)) );
-				float temp_output_1_0_g3208 = break5_g3206.x;
-				float temp_output_8_0_g3206 = ( 0.1 + -1.0 );
-				float temp_output_1_0_g3207 = break5_g3206.y;
-				float temp_output_2768_0 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3208 - floor( ( temp_output_1_0_g3208 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3207 - floor( ( temp_output_1_0_g3207 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) ) );
-				float temp_output_2763_0 = saturate( ( temp_output_2768_0 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
-				float temp_output_17_0_g3209 = _Tolerance;
-				float2 temp_cast_10 = (temp_output_17_0_g3209).xx;
-				float2 temp_cast_11 = (( 1.0 - temp_output_17_0_g3209 )).xx;
-				float2 break5_g3209 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_10) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_11 - temp_cast_10)) );
-				float temp_output_1_0_g3211 = break5_g3209.x;
-				float temp_output_8_0_g3209 = ( _Feather + -1.0 );
-				float temp_output_1_0_g3210 = break5_g3209.y;
-				#ifdef _USEINFINITYFEATHER_ON
-				float staticSwitch1654 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3211 - floor( ( temp_output_1_0_g3211 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3210 - floor( ( temp_output_1_0_g3210 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) ) );
-				#else
-				float staticSwitch1654 = 1.0;
-				#endif
-				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
 				float VertDispMaskRes1691 = ( ShoreMaskVert586 * saturate( VertDispDistMask22014 ) * saturate( (0.0 + (CamDepthFade1495 - 0.2) * (1.0 - 0.0) / (1.5 - 0.2)) ) * InfinityFeather1410 );
 				float temp_output_238_0 = ( temp_output_240_0 * VertDispMaskRes1691 );
 				#ifdef _USEVERTDISPLACEMENT_ON
@@ -8358,18 +7432,11 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#else
 				float staticSwitch1688 = 0.0;
 				#endif
-				float VertAdded1524 = staticSwitch1688;
+				float vertexToFrag3514 = staticSwitch1688;
+				float VertAdded1524 = vertexToFrag3514;
 				float3 appendResult1606 = (float3(break1605.x , ( break1605.y + VertAdded1524 + UnderOffset1634 ) , break1605.z));
 				float3 VertResDisplaced328 = appendResult1606;
 				
-				o.ase_texcoord.xyz = ase_worldPos;
-				o.ase_texcoord1 = screenPos;
-				o.ase_texcoord.w = customEye1169;
-				
-				o.ase_texcoord2.xy = v.ase_texcoord.xy;
-				
-				//setting value to unused interpolator channels and avoid initialization warnings
-				o.ase_texcoord2.zw = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
@@ -8474,157 +7541,13 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			}
 			#endif
 
-			half4 frag(VertexOutput IN , bool ase_vface : SV_IsFrontFace) : SV_TARGET
+			half4 frag(VertexOutput IN ) : SV_TARGET
 			{
 				SurfaceDescription surfaceDescription = (SurfaceDescription)0;
 
-				float2 appendResult892 = (float2(_Motion2.x , _Motion2.y));
-				float2 Motion2XY1096 = appendResult892;
-				float3 ase_worldPos = IN.ase_texcoord.xyz;
-				float3 break35 = ase_worldPos;
-				float2 appendResult36 = (float2(break35.x , break35.z));
-				float3 worldPosIN2078 = ase_worldPos;
-				float4 screenPos = IN.ase_texcoord1;
-				float4 ase_screenPosNorm = screenPos / screenPos.w;
-				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 screenPos2078 = ase_screenPosNorm.xy;
-				float3 QuadNormal2078 = float3( 0,1,0 );
-				float3 QuadPosition2078 = float3(0,-4,0);
-				float4 localBillboard2078 = Billboard2078( worldPosIN2078 , screenPos2078 , QuadNormal2078 , QuadPosition2078 );
-				float temp_output_2080_0 = (localBillboard2078).w;
-				float2 temp_output_2096_0 = ( (localBillboard2078).xy * temp_output_2080_0 );
-				#ifdef _HORIZONMAPPED_ON
-				float2 staticSwitch2082 = temp_output_2096_0;
-				#else
-				float2 staticSwitch2082 = appendResult36;
-				#endif
-				float2 WorldXZ1087 = staticSwitch2082;
-				float2 panner890 = ( 0.05 * _Time.y * Motion2XY1096 + WorldXZ1087);
-				#ifdef GlobalPlanarReflection
-				float staticSwitch1591 = _NormalPow;
-				#else
-				float staticSwitch1591 = ( _NormalPow * 0.7 );
-				#endif
-				float temp_output_1436_0 = ( _NormalPow * 6.0 );
-				float switchResult1435 = (((ase_vface>0)?(staticSwitch1591):(temp_output_1436_0)));
-				float3 unpack11 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Normals, sampler_Normals, (panner890*_Normals_ST.xy + _Normals_ST.zw) ), switchResult1435 );
-				unpack11.z = lerp( 1, unpack11.z, saturate(switchResult1435) );
-				float3 tex2DNode11 = unpack11;
-				float2 appendResult88 = (float2(_Motion.z , _Motion.w));
-				float2 MotionZW1085 = appendResult88;
-				float2 panner85 = ( 0.1 * _Time.y * MotionZW1085 + WorldXZ1087);
-				float switchResult1432 = (((ase_vface>0)?(( _NormalPow2 * 2.0 )):(( _NormalPow2 * 12.0 ))));
-				float3 unpack84 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Normals2, sampler_Normals2, (panner85*_Normals2_ST.xy + _Normals2_ST.zw) ), switchResult1432 );
-				unpack84.z = lerp( 1, unpack84.z, saturate(switchResult1432) );
-				float2 panner1722 = ( -0.05 * _Time.y * MotionZW1085 + WorldXZ1087);
-				float3 unpack1718 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Normals2, sampler_Normals2, (panner1722*( _Normals2_ST.xy * float2( 0.5,0.5 ) ) + _Normals2_ST.zw) ), switchResult1432 );
-				unpack1718.z = lerp( 1, unpack1718.z, saturate(switchResult1432) );
-				float3 temp_output_1719_0 = BlendNormal( unpack84 , unpack1718 );
-				float3 temp_output_83_0 = BlendNormal( tex2DNode11 , temp_output_1719_0 );
-				#ifdef _USEEXTRANORMALS_ON
-				float3 staticSwitch1683 = temp_output_83_0;
-				#else
-				float3 staticSwitch1683 = temp_output_83_0;
-				#endif
-				float2 appendResult1049 = (float2(staticSwitch1683.xy));
-				float2 RefNorm886 = appendResult1049;
-				float RefBumpSlider1337 = _RefDistortion;
-				float3 normalizeResult2273 = normalize( ( staticSwitch1683 + float3( ( RefNorm886 * RefBumpSlider1337 ) ,  0.0 ) ) );
-				float2 appendResult2519 = (float2(normalizeResult2273.xy));
-				float3 break19 = mul( _DepthMatrix, float4( ( ase_worldPos - _DepthPosition ) , 0.0 ) ).xyz;
-				float2 appendResult16 = (float2(break19.x , break19.z));
-				float2 texCoord1345 = IN.ase_texcoord2.xy * float2( 1,1 ) + float2( 0,0 );
-				#if defined(_SPACE_WORLDSPACE)
-				float2 staticSwitch1346 = ( float2( 0.5,0.5 ) + appendResult16 );
-				#elif defined(_SPACE_UVSPACE)
-				float2 staticSwitch1346 = texCoord1345;
-				#else
-				float2 staticSwitch1346 = ( float2( 0.5,0.5 ) + appendResult16 );
-				#endif
-				float2 CacheUV1109 = staticSwitch1346;
-				float4 tex2DNode13 = SAMPLE_TEXTURE2D( _DepthCache, sampler_Linear_Clamp, CacheUV1109 );
-				float temp_output_17_0_g3203 = 0.001;
-				float2 temp_cast_6 = (temp_output_17_0_g3203).xx;
-				float2 temp_cast_7 = (( 1.0 - temp_output_17_0_g3203 )).xx;
-				float2 break5_g3203 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_6) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_7 - temp_cast_6)) );
-				float temp_output_1_0_g3205 = break5_g3203.x;
-				float temp_output_8_0_g3203 = ( 0.001 + -1.0 );
-				float temp_output_1_0_g3204 = break5_g3203.y;
-				float temp_output_2766_0 = saturate( saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3205 - floor( ( temp_output_1_0_g3205 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3204 - floor( ( temp_output_1_0_g3204 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) ) ) );
-				float lerpResult3090 = lerp( 1000.0 , ( tex2DNode13.b * 100.0 ) , temp_output_2766_0);
-				float CaptureB_Distancex100200 = lerpResult3090;
-				float temp_output_307_0 = ( 1.0 - saturate( abs( CaptureB_Distancex100200 ) ) );
-				float Foamness294 = ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale );
-				float2 lerpResult2274 = lerp( float2( 0,0 ) , appendResult2519 , ( _WaterRefractonMobile * 0.5 * saturate( Foamness294 ) ));
-				float temp_output_17_0_g3206 = 0.01;
-				float2 temp_cast_8 = (temp_output_17_0_g3206).xx;
-				float2 temp_cast_9 = (( 1.0 - temp_output_17_0_g3206 )).xx;
-				float2 break5_g3206 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_8) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_9 - temp_cast_8)) );
-				float temp_output_1_0_g3208 = break5_g3206.x;
-				float temp_output_8_0_g3206 = ( 0.1 + -1.0 );
-				float temp_output_1_0_g3207 = break5_g3206.y;
-				float temp_output_2768_0 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3208 - floor( ( temp_output_1_0_g3208 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3207 - floor( ( temp_output_1_0_g3207 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) ) );
-				float temp_output_2763_0 = saturate( ( temp_output_2768_0 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
-				float temp_output_17_0_g3209 = _Tolerance;
-				float2 temp_cast_10 = (temp_output_17_0_g3209).xx;
-				float2 temp_cast_11 = (( 1.0 - temp_output_17_0_g3209 )).xx;
-				float2 break5_g3209 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_10) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_11 - temp_cast_10)) );
-				float temp_output_1_0_g3211 = break5_g3209.x;
-				float temp_output_8_0_g3209 = ( _Feather + -1.0 );
-				float temp_output_1_0_g3210 = break5_g3209.y;
-				#ifdef _USEINFINITYFEATHER_ON
-				float staticSwitch1654 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3211 - floor( ( temp_output_1_0_g3211 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3210 - floor( ( temp_output_1_0_g3210 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) ) );
-				#else
-				float staticSwitch1654 = 1.0;
-				#endif
-				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
-				float customEye1169 = IN.ase_texcoord.w;
-				float cameraDepthFade1169 = (( customEye1169 -_ProjectionParams.y - 0.0 ) / _DistanceFadeA);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2110 = 0.0;
-				#else
-				float staticSwitch2110 = saturate( cameraDepthFade1169 );
-				#endif
-				float DistanceFadeA1294 = staticSwitch2110;
-				float temp_output_1414_0 = ( ( 1.0 - InfinityFeather1410 ) * saturate( DistanceFadeA1294 ) );
-				float2 lerpResult2275 = lerp( lerpResult2274 , float2( 0,0 ) , temp_output_1414_0);
-				#ifdef _TRANSPARENTGRABPASS_ON
-				float2 staticSwitch2542 = float2( 0,0 );
-				#else
-				float2 staticSwitch2542 = lerpResult2275;
-				#endif
-				float2 RefHackeryForColorCache2269 = staticSwitch2542;
-				float2 temp_output_2198_0 = ( RefHackeryForColorCache2269 + CacheUV1109 );
-				float4 tex2DNode657 = SAMPLE_TEXTURE2D( _ColorCache, sampler_Linear_Clamp, temp_output_2198_0 );
-				float ColorCacheA2171 = tex2DNode657.a;
-				float temp_output_12_0_g3214 = InfinityFeather1410;
-				float CaptureDepthAOffsetShore1177 = ( ( ColorCacheA2171 * temp_output_12_0_g3214 ) + ( 1.0 - temp_output_12_0_g3214 ) );
-				float4 break993 = _RemapAlpha;
-				float switchResult2294 = (((ase_vface>0)?(saturate( (0.0 + (CaptureDepthAOffsetShore1177 - break993.x) * (1.0 - 0.0) / (break993.y - break993.x)) )):(1.0)));
-				float ShoreMaskDepthAlpha141 = switchResult2294;
-				float2 clipScreen639 = ase_screenPosNorm.xy * _ScreenParams.xy;
-				float dither639 = Dither8x8Bayer( fmod(clipScreen639.x, 8), fmod(clipScreen639.y, 8) );
-				dither639 = step( dither639, ShoreMaskDepthAlpha141 );
-				#ifdef _USEDITHERING_ON
-				float staticSwitch1685 = dither639;
-				#else
-				float staticSwitch1685 = ShoreMaskDepthAlpha141;
-				#endif
-				#ifdef _TRANSPARENTGRABPASS_ON
-				float staticSwitch1748 = 1.0;
-				#else
-				float staticSwitch1748 = staticSwitch1685;
-				#endif
-				float HorizonAlpha2083 = temp_output_2080_0;
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2085 = HorizonAlpha2083;
-				#else
-				float staticSwitch2085 = staticSwitch1748;
-				#endif
-				float AlphaRes469 = staticSwitch2085;
 				
 
-				surfaceDescription.Alpha = AlphaRes469;
+				surfaceDescription.Alpha = 1;
 				surfaceDescription.AlphaClipThreshold = _ClipThreshold;
 
 				#if _ALPHATEST_ON
@@ -8671,13 +7594,14 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			#define _ASE_DEBUGVISUALS 1
 			#define ASE_FOG 1
 			#define _NORMAL_DROPOFF_TS 1
+			#define _SPECULAR_SETUP 1
 			#define ASE_BAKEDGI 1
 			#define ASE_SHADOWMASK 1
 			#define ASE_FOGCOLOR 1
 			#define _ASE_ALPHATEST 1
+			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 120115
 			#define ASE_NEEDS_FRAG_SCREEN_POSITION
-			#define TONEMAPPINGELSEWHERE
 			#define UNDERWATERELSEWHERE
 			#define ASE_USING_SAMPLING_MACROS 1
 
@@ -8716,22 +7640,16 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
 			#define ASE_NEEDS_VERT_POSITION
-			#pragma shader_feature_local ASE_TESSELLATION_ON
-			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma shader_feature_local _DEBUGVISUALS_ON
-			#pragma shader_feature_local LIGHTMAP_ON
+			#pragma shader_feature_local ASE_TESSELLATION_ON
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local LIGHTMAP_ON
+			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma shader_feature_local _USEINFINITYEDGE_ON
 			#pragma shader_feature_local _USEVERTDISPLACEMENT_ON
-			#pragma shader_feature_local _USEWAVENOISEDISPLACE_ON
+			#pragma shader_feature_local _USEFOAM_ON
 			#pragma shader_feature_local _SPACE_WORLDSPACE _SPACE_UVSPACE
-			#pragma shader_feature_local _HORIZONMAPPED_ON
-			#pragma shader_feature_local _USEWAVEDIRECTION_ON
 			#pragma shader_feature_local _USEINFINITYFEATHER_ON
-			#pragma shader_feature_local _TRANSPARENTGRABPASS_ON
-			#pragma shader_feature_local _USEDITHERING_ON
-			#pragma shader_feature_local _USEEXTRANORMALS_ON
-			#pragma multi_compile __ GlobalPlanarReflection
 
 
 			struct VertexInput
@@ -8745,73 +7663,75 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			struct VertexOutput
 			{
 				float4 clipPos : SV_POSITION;
-				float4 ase_texcoord : TEXCOORD0;
-				float4 ase_texcoord1 : TEXCOORD1;
-				float4 ase_texcoord2 : TEXCOORD2;
+				
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _FoamColor;
+			float4 _WaveDirectionSettings;
+			float4 _RemapFoam;
+			float4 _WaterTint;
+			float4 _CausticsTint;
+			float4 _RemapAlpha;
+			float4 _Normals2_ST;
 			float4 _Motion;
 			float4 _Normals_ST;
-			float4 _WaterTint;
+			float4 _Motion2;
 			float4 _RemapVertShore;
 			float4 _WaterAlbedo;
-			float4 _WaveDirectionSettings;
-			float4 _Normals2_ST;
-			float4 _Motion2;
 			float4 _RefFresnel;
-			float4 _CausticsTint;
-			float4x4 _DepthMatrix;
-			float4 _RemapAlpha;
-			float4 _BakeLightMapAmbient;
-			float4x4 _BakeMatrix;
+			float4 _BakeLightMapMobile;
+			float4 _FoamColor;
 			float4 _bakeLightmapST;
-			float4 _RemapFoam;
+			float4 _BakeLightMapAmbient;
+			float4x4 _DepthMatrix;
+			float3 _CameraForward;
+			float3 _DepthPosition;
 			float3 _WorldDir;
 			float3 _WorldPos;
-			float3 _DepthPosition;
-			float3 _CameraForward;
-			float _WaveRefractionStrength;
-			float _RefractionWarp;
-			float _RemapWaterDistance;
-			float _RemapWaterDistance1;
-			float _Smoothness;
-			float _WaterDepthPow;
-			float _WaterSaturation;
 			float _CubemapExposure;
-			float _NormalDarken1;
-			float _NormalDarken;
-			float _ForceEye;
+			float _NormalAlbedoStrength;
+			float _WaterAlbedoFake;
 			float _ClipThreshold;
+			float _ForceEye;
+			float _RemapWaterDistance1;
+			float _RemapWaterDistance;
 			float _WaterDepthPow1;
-			int _ZTestMode;
-			float _NormalPow2;
-			float _FoamMaxDistance;
-			float _ZWriteToggle;
+			float _BakedLightingFeather;
+			float _WaterDepthPow;
+			float _ReflectionShadowed;
+			float _ReflectionShadowedStart;
+			float _WaterSaturation;
+			float _Smoothness;
+			float _ReflectionShadowedEnd;
+			float _NormalDarken;
 			float _TessNum;
+			float _WaveRefractionStrength;
+			float _FoamMaxDistance;
 			float _TesMin;
 			float _TesMax;
+			int _ZTestMode;
+			float _ZWriteToggle;
 			float _WaveScale;
+			float _Tolerance;
+			float _Feather;
 			float _FoamNoiseSpeed;
 			float _FoamNoiseScale;
 			float _FoamNoiseCon;
+			float _FoamPow;
 			float _FoamNoiseScale2;
-			float _FoamNoiseCon2;
 			float _DistanceFadeA;
 			float _WaveSpeed;
 			float _DistanceFadeB;
 			float _VertDispMult;
-			float _Tolerance;
-			float _Feather;
-			float _FoamScale_UseFoam;
 			float _NormalPow;
-			float _BakedLightingFeather;
+			float _NormalPow2;
 			float _RefDistortion;
 			float _WaterRefractonMobile;
-			float _FoamPow;
+			float _RefractionWarp;
+			float _FoamScale_UseFoam;
+			float _FoamNoiseCon2;
 			int _DebugVisual;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
@@ -8833,6 +7753,7 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float _TessMaxDisp;
 			#endif
 			float _DebugCounter; //Shadowood
+			half _EnvironmentReflections; // Shadowood
 			CBUFFER_END
 
 			// Property used by ScenePickingPass
@@ -8846,8 +7767,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				int _PassValue;
 			#endif
 
-			float4 _skyGradientColor1;
-			float4 _skyGradientColor2;
 			float3 _CausticsDir;
 			half _CausticsScale;
 			half2 _CausticsPanSpeed;
@@ -8856,16 +7775,13 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			SAMPLER(sampler_Caustics);
 			TEXTURE2D(_Caustics2);
 			SAMPLER(sampler_Caustics2);
+			float4 _skyGradientColor1;
+			float4 _skyGradientColor2;
 			TEXTURE2D(_FoamLUT);
 			TEXTURE2D(_DepthCache);
 			SAMPLER(sampler_Linear_Clamp);
 			TEXTURE2D(_WaveNoiseDisplace);
 			SAMPLER(sampler_WaveNoiseDisplace);
-			TEXTURE2D(_ColorCache);
-			TEXTURE2D(_Normals);
-			SAMPLER(sampler_Normals);
-			TEXTURE2D(_Normals2);
-			SAMPLER(sampler_Normals2);
 
 
 			//#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/Varyings.hlsl"
@@ -8880,58 +7796,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 					//beer-lambert law, Fog =1/e^(distance * density)
 					float e = 2.7182818284590452353602874713527f;
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
-			}
-			
-			float4 Billboard2078( float3 worldPosIN, float2 screenPos, float3 QuadNormal, float3 QuadPosition )
-			{
-				float3 worldPos = worldPosIN;
-				float3 viewDir = worldPos - _WorldSpaceCameraPos;
-				float3 reflectDir = -viewDir;
-				float3 nReflDirection = normalize(reflectDir);
-				float4 result = float4(0,0,0,0);
-				// Ray-quad intersection
-				half planeIntersectDistance = dot( worldPos - QuadPosition,  QuadNormal.xyz ) / dot( nReflDirection, QuadNormal.xyz );
-				half3 intersectPosition = worldPos - nReflDirection * planeIntersectDistance;
-				//half4 localPlaneIntersectPosition = mul( QuadInverseMatrix, float4( intersectPosition, 1.0 ));
-				half4 localPlaneIntersectPosition = float4( intersectPosition, 1.0 );
-				half2 billboardUV = half2( localPlaneIntersectPosition.x, localPlaneIntersectPosition.z );
-				//billboardUV*=1;
-				//float4 billboardCol = BillboardTex.Sample( BillboardSampler , billboardUV );
-				float4 billboardCol = float4( billboardUV.x, billboardUV.y, 0, 1);
-				float3 quadNorm = QuadNormal.xyz;
-				half reflectDot = dot( nReflDirection, quadNorm );
-				float w = 1;
-				// Cull when beyond the quad bounds
-				//w = billboardUV.x > 1.0 ? 0.0 : w;
-				//w = billboardUV.y > 1.0 ? 0.0 : w;
-				//w = billboardUV.x < 0.0 ? 0.0 : w;
-				//w = billboardUV.y < 0.0 ? 0.0 : w;
-				// Cull if distance is behind the surface
-				//w = planeIntersectDistance < 0 ? 0 : w;
-				// Cull if quad facing backwards
-				w = reflectDot <= 0.0 ? 0.0 : w; 
-				// Cull if quad facing backwards and culling is ticked on the quad ( passed in via the arrays W )
-				//w = QuadNormal.w == 1.0 ? (reflectDot <= 0.0 ? 0.0 : w) : w;
-				billboardCol = billboardCol * billboardCol.w * w;
-				billboardCol.a = w;
-				result*=1-w;
-				result+= billboardCol;
-				return result;
-			}
-			
-			inline float Dither8x8Bayer( int x, int y )
-			{
-				const float dither[ 64 ] = {
-			 1, 49, 13, 61,  4, 52, 16, 64,
-			33, 17, 45, 29, 36, 20, 48, 32,
-			 9, 57,  5, 53, 12, 60,  8, 56,
-			41, 25, 37, 21, 44, 28, 40, 24,
-			 3, 51, 15, 63,  2, 50, 14, 62,
-			35, 19, 47, 31, 34, 18, 46, 30,
-			11, 59,  7, 55, 10, 58,  6, 54,
-			43, 27, 39, 23, 42, 26, 38, 22};
-				int r = y * 8 + x;
-				return dither[r] / 64; // same # of instructions as pre-dividing due to compiler magic
 			}
 			
 
@@ -8951,14 +7815,13 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
 				float2 texCoord2052 = v.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
-				float temp_output_2054_0 = distance( texCoord2052 , float2( 0.5,0.5 ) );
 				float ifLocalVar2053 = 0;
-				if( temp_output_2054_0 <= 1.0 )
+				if( distance( texCoord2052 , float2( 0.5,0.5 ) ) <= 1.0 )
 				ifLocalVar2053 = 1.0;
 				else
 				ifLocalVar2053 = 5000.0;
 				#ifdef _USEINFINITYEDGE_ON
-				float4 staticSwitch1498 = ( v.vertex * ifLocalVar2053 );
+				float4 staticSwitch1498 = ( ifLocalVar2053 * v.vertex );
 				#else
 				float4 staticSwitch1498 = v.vertex;
 				#endif
@@ -8976,91 +7839,93 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#endif
 				float2 CacheUV1109 = staticSwitch1346;
 				float4 tex2DNode13 = SAMPLE_TEXTURE2D_LOD( _DepthCache, sampler_Linear_Clamp, CacheUV1109, 0.0 );
-				float temp_output_17_0_g3203 = 0.001;
-				float2 temp_cast_2 = (temp_output_17_0_g3203).xx;
-				float2 temp_cast_3 = (( 1.0 - temp_output_17_0_g3203 )).xx;
-				float2 break5_g3203 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_2) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_3 - temp_cast_2)) );
-				float temp_output_1_0_g3205 = break5_g3203.x;
-				float temp_output_8_0_g3203 = ( 0.001 + -1.0 );
-				float temp_output_1_0_g3204 = break5_g3203.y;
-				float temp_output_2766_0 = saturate( saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3205 - floor( ( temp_output_1_0_g3205 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3204 - floor( ( temp_output_1_0_g3204 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) ) ) );
+				float temp_output_17_0_g3046 = 0.001;
+				float2 temp_cast_2 = (temp_output_17_0_g3046).xx;
+				float2 temp_cast_3 = (( 1.0 - temp_output_17_0_g3046 )).xx;
+				float2 break5_g3046 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_2) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_3 - temp_cast_2)) );
+				float temp_output_1_0_g3048 = break5_g3046.x;
+				float temp_output_9_0_g3046 = ( ( abs( ( ( temp_output_1_0_g3048 - floor( ( temp_output_1_0_g3048 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3046 = ( 0.001 + -1.0 );
+				float temp_output_17_0_g3040 = 0.01;
+				float2 temp_cast_4 = (temp_output_17_0_g3040).xx;
+				float2 temp_cast_5 = (( 1.0 - temp_output_17_0_g3040 )).xx;
+				float2 break5_g3040 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_4) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_5 - temp_cast_4)) );
+				float temp_output_1_0_g3042 = break5_g3040.x;
+				float temp_output_9_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3042 - floor( ( temp_output_1_0_g3042 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_1_0_g3041 = break5_g3040.y;
+				float temp_output_6_0_g3040 = ( ( abs( ( ( temp_output_1_0_g3041 - floor( ( temp_output_1_0_g3041 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float2 appendResult24_g3040 = (float2(temp_output_9_0_g3040 , temp_output_6_0_g3040));
+				float2 CacheUVPreFeather3438 = appendResult24_g3040;
+				float2 break40_g3046 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3046 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3046 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) * saturate( (0.0 + (break40_g3046.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3046 - -1.0)) ) ) );
+				float temp_output_2766_0 = saturate( temp_output_15_0_g3046 );
 				float lerpResult3090 = lerp( 1000.0 , ( tex2DNode13.b * 100.0 ) , temp_output_2766_0);
 				float CaptureB_Distancex100200 = lerpResult3090;
 				float temp_output_307_0 = ( 1.0 - saturate( abs( CaptureB_Distancex100200 ) ) );
-				float Foamness294 = ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale );
-				float2 temp_cast_4 = (_FoamNoiseSpeed).xx;
+				float temp_output_8_0_g3040 = ( 0.1 + -1.0 );
+				float temp_output_15_0_g3040 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) * saturate( (0.0 + (temp_output_6_0_g3040 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3040 - -1.0)) ) ) );
+				float temp_output_2763_0 = saturate( ( temp_output_15_0_g3040 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
+				float temp_output_17_0_g3049 = _Tolerance;
+				float2 temp_cast_6 = (temp_output_17_0_g3049).xx;
+				float2 temp_cast_7 = (( 1.0 - temp_output_17_0_g3049 )).xx;
+				float2 break5_g3049 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_6) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_7 - temp_cast_6)) );
+				float temp_output_1_0_g3051 = break5_g3049.x;
+				float temp_output_9_0_g3049 = ( ( abs( ( ( temp_output_1_0_g3051 - floor( ( temp_output_1_0_g3051 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 );
+				float temp_output_8_0_g3049 = ( _Feather + -1.0 );
+				float2 break40_g3049 = CacheUVPreFeather3438;
+				float temp_output_15_0_g3049 = saturate( ( saturate( (0.0 + (temp_output_9_0_g3049 - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) * saturate( (0.0 + (break40_g3049.y - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3049 - -1.0)) ) ) );
+				#ifdef _USEINFINITYFEATHER_ON
+				float staticSwitch1654 = temp_output_15_0_g3049;
+				#else
+				float staticSwitch1654 = 1.0;
+				#endif
+				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
+				float Foamness294 = ( ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale ) * InfinityFeather1410 );
+				float2 temp_cast_8 = (_FoamNoiseSpeed).xx;
 				float3 break35 = ase_worldPos;
 				float2 appendResult36 = (float2(break35.x , break35.z));
-				float3 worldPosIN2078 = ase_worldPos;
-				float4 ase_clipPos = TransformObjectToHClip((v.vertex).xyz);
-				float4 screenPos = ComputeScreenPos(ase_clipPos);
-				float4 ase_screenPosNorm = screenPos / screenPos.w;
-				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 screenPos2078 = ase_screenPosNorm.xy;
-				float3 QuadNormal2078 = float3( 0,1,0 );
-				float3 QuadPosition2078 = float3(0,-4,0);
-				float4 localBillboard2078 = Billboard2078( worldPosIN2078 , screenPos2078 , QuadNormal2078 , QuadPosition2078 );
-				float temp_output_2080_0 = (localBillboard2078).w;
-				float2 temp_output_2096_0 = ( (localBillboard2078).xy * temp_output_2080_0 );
-				#ifdef _HORIZONMAPPED_ON
-				float2 staticSwitch2082 = temp_output_2096_0;
-				#else
-				float2 staticSwitch2082 = appendResult36;
-				#endif
-				float2 WorldXZ1087 = staticSwitch2082;
-				float2 panner138 = ( 1.0 * _Time.y * temp_cast_4 + ( WorldXZ1087 * _FoamNoiseScale ));
+				float2 WorldXZ1087 = appendResult36;
+				float2 panner138 = ( 1.0 * _Time.y * temp_cast_8 + ( WorldXZ1087 * _FoamNoiseScale ));
 				float lerpResult133 = lerp( 1.0 , SAMPLE_TEXTURE2D_LOD( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( 0.04 * panner138 ), 0.0 ).r , _FoamNoiseCon);
-				float2 temp_cast_6 = (_FoamNoiseSpeed).xx;
-				float2 panner168 = ( 1.0 * _Time.y * temp_cast_6 + ( WorldXZ1087 * _FoamNoiseScale2 ));
+				float2 temp_cast_9 = (_FoamNoiseSpeed).xx;
+				float2 panner168 = ( 1.0 * _Time.y * temp_cast_9 + ( WorldXZ1087 * _FoamNoiseScale2 ));
 				float lerpResult161 = lerp( 1.0 , SAMPLE_TEXTURE2D_LOD( _WaveNoiseDisplace, sampler_WaveNoiseDisplace, ( panner168 * 0.04 ), 0.0 ).r , _FoamNoiseCon2);
 				float UnderOffset1634 = GlobalOceanOffset;
 				float3 appendResult2127 = (float3(break1605.x , ( break1605.y + UnderOffset1634 ) , break1605.z));
-				float3 VertResOffset2125 = appendResult2127;
+				float3 vertexToFrag3421 = appendResult2127;
+				float3 VertResOffset2125 = vertexToFrag3421;
 				float3 customSurfaceDepth1169 = VertResOffset2125;
 				float customEye1169 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1169)).z;
 				float cameraDepthFade1169 = (( customEye1169 -_ProjectionParams.y - 0.0 ) / _DistanceFadeA);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2110 = 0.0;
-				#else
-				float staticSwitch2110 = saturate( cameraDepthFade1169 );
-				#endif
-				float DistanceFadeA1294 = staticSwitch2110;
-				#ifdef _USEWAVENOISEDISPLACE_ON
-				float staticSwitch680 = ( Foamness294 + ( ( lerpResult133 + lerpResult161 ) * ( ( 1.0 - DistanceFadeA1294 ) * 0.4 ) ) );
-				#else
-				float staticSwitch680 = Foamness294;
-				#endif
-				float DepthCacheRemap109 = staticSwitch680;
+				float DistanceFadeA1294 = saturate( cameraDepthFade1169 );
+				float temp_output_318_0 = ( Foamness294 + ( ( lerpResult133 + lerpResult161 ) * ( ( 1.0 - DistanceFadeA1294 ) * 0.4 ) ) );
+				float DepthCacheRemap109 = temp_output_318_0;
 				float temp_output_5_0_g3212 = ( 1.0 - DepthCacheRemap109 );
 				float mulTime209 = _TimeParameters.x * ( _WaveSpeed * 0.1 );
 				float2 appendResult868 = (float2(_WaveDirectionSettings.x , _WaveDirectionSettings.y));
 				float WaveCenterDistance1051 = distance( WorldXZ1087 , appendResult868 );
-				#ifdef _USEWAVEDIRECTION_ON
-				float staticSwitch762 = ( mulTime209 + ( ( WaveCenterDistance1051 * -0.01 ) / _WaveDirectionSettings.z ) );
-				#else
-				float staticSwitch762 = ( 0.0 - mulTime209 );
-				#endif
-				float temp_output_17_0_g3212 = staticSwitch762;
+				float temp_output_839_0 = ( mulTime209 + ( ( WaveCenterDistance1051 * -0.01 ) / _WaveDirectionSettings.z ) );
+				float temp_output_17_0_g3212 = temp_output_839_0;
 				float temp_output_30_0_g3212 = ( 1.0 - saturate( 0.7 ) );
 				float temp_output_35_0_g3212 = ( temp_output_30_0_g3212 * 0.5 );
 				float temp_output_32_0_g3212 = ( (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) - temp_output_35_0_g3212 );
 				float temp_output_31_0_g3212 = ( temp_output_35_0_g3212 + (( 1.0 + temp_output_30_0_g3212 ) + (abs( temp_output_17_0_g3212 ) - 0.0) * (( 0.0 - temp_output_30_0_g3212 ) - ( 1.0 + temp_output_30_0_g3212 )) / (1.0 - 0.0)) );
 				float DepthCacheWave184 = ( 1.0 - frac( (0.0 + (temp_output_5_0_g3212 - temp_output_32_0_g3212) * (1.0 - 0.0) / (temp_output_31_0_g3212 - temp_output_32_0_g3212)) ) );
 				float clampResult124 = clamp( DepthCacheWave184 , 0.01 , 0.99 );
-				float2 temp_cast_7 = (clampResult124).xx;
-				float4 tex2DNode76 = SAMPLE_TEXTURE2D_LOD( _FoamLUT, sampler_Linear_Clamp, temp_cast_7, 0.0 );
+				float2 temp_cast_10 = (clampResult124).xx;
+				float4 tex2DNode76 = SAMPLE_TEXTURE2D_LOD( _FoamLUT, sampler_Linear_Clamp, temp_cast_10, 0.0 );
 				float smoothstepResult279 = smoothstep( 0.0 , 1.0 , tex2DNode76.a);
 				float3 customSurfaceDepth1325 = VertResOffset2125;
 				float customEye1325 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1325)).z;
 				float cameraDepthFade1325 = (( customEye1325 -_ProjectionParams.y - 0.0 ) / _DistanceFadeB);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2111 = 0.0;
-				#else
-				float staticSwitch2111 = saturate( cameraDepthFade1325 );
-				#endif
-				float DistanceFadeB1326 = staticSwitch2111;
+				float DistanceFadeB1326 = saturate( cameraDepthFade1325 );
 				float lerpResult1311 = lerp( smoothstepResult279 , 0.0 , DistanceFadeB1326);
-				float FoamVertDisp261 = saturate( lerpResult1311 );
+				#ifdef _USEFOAM_ON
+				float staticSwitch3358 = saturate( lerpResult1311 );
+				#else
+				float staticSwitch3358 = 0.0;
+				#endif
+				float FoamVertDisp261 = staticSwitch3358;
 				float temp_output_240_0 = ( FoamVertDisp261 * _VertDispMult * 0.1 );
 				float ShoreMaskVert586 = saturate( (0.0 + (( CaptureB_Distancex100200 * 100.0 ) - _RemapVertShore.x) * (1.0 - 0.0) / (_RemapVertShore.y - _RemapVertShore.x)) );
 				float VertDispDistMask22014 = ( 1.0 - saturate( (0.0 + (distance( WorldXZ1087 , (_WorldSpaceCameraPos).xz ) - 5.0) * (1.0 - 0.0) / (7.9 - 5.0)) ) );
@@ -9068,28 +7933,6 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				float customEye1484 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth1484)).z;
 				float cameraDepthFade1484 = (( customEye1484 -_ProjectionParams.y - 0.0 ) / 1.0);
 				float CamDepthFade1495 = cameraDepthFade1484;
-				float temp_output_17_0_g3206 = 0.01;
-				float2 temp_cast_8 = (temp_output_17_0_g3206).xx;
-				float2 temp_cast_9 = (( 1.0 - temp_output_17_0_g3206 )).xx;
-				float2 break5_g3206 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_8) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_9 - temp_cast_8)) );
-				float temp_output_1_0_g3208 = break5_g3206.x;
-				float temp_output_8_0_g3206 = ( 0.1 + -1.0 );
-				float temp_output_1_0_g3207 = break5_g3206.y;
-				float temp_output_2768_0 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3208 - floor( ( temp_output_1_0_g3208 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3207 - floor( ( temp_output_1_0_g3207 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) ) );
-				float temp_output_2763_0 = saturate( ( temp_output_2768_0 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
-				float temp_output_17_0_g3209 = _Tolerance;
-				float2 temp_cast_10 = (temp_output_17_0_g3209).xx;
-				float2 temp_cast_11 = (( 1.0 - temp_output_17_0_g3209 )).xx;
-				float2 break5_g3209 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_10) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_11 - temp_cast_10)) );
-				float temp_output_1_0_g3211 = break5_g3209.x;
-				float temp_output_8_0_g3209 = ( _Feather + -1.0 );
-				float temp_output_1_0_g3210 = break5_g3209.y;
-				#ifdef _USEINFINITYFEATHER_ON
-				float staticSwitch1654 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3211 - floor( ( temp_output_1_0_g3211 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3210 - floor( ( temp_output_1_0_g3210 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) ) );
-				#else
-				float staticSwitch1654 = 1.0;
-				#endif
-				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
 				float VertDispMaskRes1691 = ( ShoreMaskVert586 * saturate( VertDispDistMask22014 ) * saturate( (0.0 + (CamDepthFade1495 - 0.2) * (1.0 - 0.0) / (1.5 - 0.2)) ) * InfinityFeather1410 );
 				float temp_output_238_0 = ( temp_output_240_0 * VertDispMaskRes1691 );
 				#ifdef _USEVERTDISPLACEMENT_ON
@@ -9097,18 +7940,11 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 				#else
 				float staticSwitch1688 = 0.0;
 				#endif
-				float VertAdded1524 = staticSwitch1688;
+				float vertexToFrag3514 = staticSwitch1688;
+				float VertAdded1524 = vertexToFrag3514;
 				float3 appendResult1606 = (float3(break1605.x , ( break1605.y + VertAdded1524 + UnderOffset1634 ) , break1605.z));
 				float3 VertResDisplaced328 = appendResult1606;
 				
-				o.ase_texcoord.xyz = ase_worldPos;
-				o.ase_texcoord1 = screenPos;
-				o.ase_texcoord.w = customEye1169;
-				
-				o.ase_texcoord2.xy = v.ase_texcoord.xy;
-				
-				//setting value to unused interpolator channels and avoid initialization warnings
-				o.ase_texcoord2.zw = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
@@ -9212,157 +8048,13 @@ Shader "ThunderRoad/Dev/Shoreline-Dev"
 			}
 			#endif
 
-			half4 frag(VertexOutput IN , bool ase_vface : SV_IsFrontFace) : SV_TARGET
+			half4 frag(VertexOutput IN ) : SV_TARGET
 			{
 				SurfaceDescription surfaceDescription = (SurfaceDescription)0;
 
-				float2 appendResult892 = (float2(_Motion2.x , _Motion2.y));
-				float2 Motion2XY1096 = appendResult892;
-				float3 ase_worldPos = IN.ase_texcoord.xyz;
-				float3 break35 = ase_worldPos;
-				float2 appendResult36 = (float2(break35.x , break35.z));
-				float3 worldPosIN2078 = ase_worldPos;
-				float4 screenPos = IN.ase_texcoord1;
-				float4 ase_screenPosNorm = screenPos / screenPos.w;
-				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 screenPos2078 = ase_screenPosNorm.xy;
-				float3 QuadNormal2078 = float3( 0,1,0 );
-				float3 QuadPosition2078 = float3(0,-4,0);
-				float4 localBillboard2078 = Billboard2078( worldPosIN2078 , screenPos2078 , QuadNormal2078 , QuadPosition2078 );
-				float temp_output_2080_0 = (localBillboard2078).w;
-				float2 temp_output_2096_0 = ( (localBillboard2078).xy * temp_output_2080_0 );
-				#ifdef _HORIZONMAPPED_ON
-				float2 staticSwitch2082 = temp_output_2096_0;
-				#else
-				float2 staticSwitch2082 = appendResult36;
-				#endif
-				float2 WorldXZ1087 = staticSwitch2082;
-				float2 panner890 = ( 0.05 * _Time.y * Motion2XY1096 + WorldXZ1087);
-				#ifdef GlobalPlanarReflection
-				float staticSwitch1591 = _NormalPow;
-				#else
-				float staticSwitch1591 = ( _NormalPow * 0.7 );
-				#endif
-				float temp_output_1436_0 = ( _NormalPow * 6.0 );
-				float switchResult1435 = (((ase_vface>0)?(staticSwitch1591):(temp_output_1436_0)));
-				float3 unpack11 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Normals, sampler_Normals, (panner890*_Normals_ST.xy + _Normals_ST.zw) ), switchResult1435 );
-				unpack11.z = lerp( 1, unpack11.z, saturate(switchResult1435) );
-				float3 tex2DNode11 = unpack11;
-				float2 appendResult88 = (float2(_Motion.z , _Motion.w));
-				float2 MotionZW1085 = appendResult88;
-				float2 panner85 = ( 0.1 * _Time.y * MotionZW1085 + WorldXZ1087);
-				float switchResult1432 = (((ase_vface>0)?(( _NormalPow2 * 2.0 )):(( _NormalPow2 * 12.0 ))));
-				float3 unpack84 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Normals2, sampler_Normals2, (panner85*_Normals2_ST.xy + _Normals2_ST.zw) ), switchResult1432 );
-				unpack84.z = lerp( 1, unpack84.z, saturate(switchResult1432) );
-				float2 panner1722 = ( -0.05 * _Time.y * MotionZW1085 + WorldXZ1087);
-				float3 unpack1718 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Normals2, sampler_Normals2, (panner1722*( _Normals2_ST.xy * float2( 0.5,0.5 ) ) + _Normals2_ST.zw) ), switchResult1432 );
-				unpack1718.z = lerp( 1, unpack1718.z, saturate(switchResult1432) );
-				float3 temp_output_1719_0 = BlendNormal( unpack84 , unpack1718 );
-				float3 temp_output_83_0 = BlendNormal( tex2DNode11 , temp_output_1719_0 );
-				#ifdef _USEEXTRANORMALS_ON
-				float3 staticSwitch1683 = temp_output_83_0;
-				#else
-				float3 staticSwitch1683 = temp_output_83_0;
-				#endif
-				float2 appendResult1049 = (float2(staticSwitch1683.xy));
-				float2 RefNorm886 = appendResult1049;
-				float RefBumpSlider1337 = _RefDistortion;
-				float3 normalizeResult2273 = normalize( ( staticSwitch1683 + float3( ( RefNorm886 * RefBumpSlider1337 ) ,  0.0 ) ) );
-				float2 appendResult2519 = (float2(normalizeResult2273.xy));
-				float3 break19 = mul( _DepthMatrix, float4( ( ase_worldPos - _DepthPosition ) , 0.0 ) ).xyz;
-				float2 appendResult16 = (float2(break19.x , break19.z));
-				float2 texCoord1345 = IN.ase_texcoord2.xy * float2( 1,1 ) + float2( 0,0 );
-				#if defined(_SPACE_WORLDSPACE)
-				float2 staticSwitch1346 = ( float2( 0.5,0.5 ) + appendResult16 );
-				#elif defined(_SPACE_UVSPACE)
-				float2 staticSwitch1346 = texCoord1345;
-				#else
-				float2 staticSwitch1346 = ( float2( 0.5,0.5 ) + appendResult16 );
-				#endif
-				float2 CacheUV1109 = staticSwitch1346;
-				float4 tex2DNode13 = SAMPLE_TEXTURE2D( _DepthCache, sampler_Linear_Clamp, CacheUV1109 );
-				float temp_output_17_0_g3203 = 0.001;
-				float2 temp_cast_6 = (temp_output_17_0_g3203).xx;
-				float2 temp_cast_7 = (( 1.0 - temp_output_17_0_g3203 )).xx;
-				float2 break5_g3203 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_6) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_7 - temp_cast_6)) );
-				float temp_output_1_0_g3205 = break5_g3203.x;
-				float temp_output_8_0_g3203 = ( 0.001 + -1.0 );
-				float temp_output_1_0_g3204 = break5_g3203.y;
-				float temp_output_2766_0 = saturate( saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3205 - floor( ( temp_output_1_0_g3205 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3204 - floor( ( temp_output_1_0_g3204 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3203 - -1.0)) ) ) ) );
-				float lerpResult3090 = lerp( 1000.0 , ( tex2DNode13.b * 100.0 ) , temp_output_2766_0);
-				float CaptureB_Distancex100200 = lerpResult3090;
-				float temp_output_307_0 = ( 1.0 - saturate( abs( CaptureB_Distancex100200 ) ) );
-				float Foamness294 = ( saturate( ( ( temp_output_307_0 + pow( pow( pow( temp_output_307_0 , 5.0 ) , 5.0 ) , 5.0 ) + pow( temp_output_307_0 , 15.0 ) ) * 0.2 ) ) * _WaveScale );
-				float2 lerpResult2274 = lerp( float2( 0,0 ) , appendResult2519 , ( _WaterRefractonMobile * 0.5 * saturate( Foamness294 ) ));
-				float temp_output_17_0_g3206 = 0.01;
-				float2 temp_cast_8 = (temp_output_17_0_g3206).xx;
-				float2 temp_cast_9 = (( 1.0 - temp_output_17_0_g3206 )).xx;
-				float2 break5_g3206 = saturate( (float2( 0,0 ) + (saturate( CacheUV1109 ) - temp_cast_8) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_9 - temp_cast_8)) );
-				float temp_output_1_0_g3208 = break5_g3206.x;
-				float temp_output_8_0_g3206 = ( 0.1 + -1.0 );
-				float temp_output_1_0_g3207 = break5_g3206.y;
-				float temp_output_2768_0 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3208 - floor( ( temp_output_1_0_g3208 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3207 - floor( ( temp_output_1_0_g3207 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3206 - -1.0)) ) ) );
-				float temp_output_2763_0 = saturate( ( temp_output_2768_0 * (1.0 + (CaptureB_Distancex100200 - 0.0) * (0.0 - 1.0) / (0.5 - 0.0)) ) );
-				float temp_output_17_0_g3209 = _Tolerance;
-				float2 temp_cast_10 = (temp_output_17_0_g3209).xx;
-				float2 temp_cast_11 = (( 1.0 - temp_output_17_0_g3209 )).xx;
-				float2 break5_g3209 = saturate( (float2( 0,0 ) + (CacheUV1109 - temp_cast_10) * (float2( 1,1 ) - float2( 0,0 )) / (temp_cast_11 - temp_cast_10)) );
-				float temp_output_1_0_g3211 = break5_g3209.x;
-				float temp_output_8_0_g3209 = ( _Feather + -1.0 );
-				float temp_output_1_0_g3210 = break5_g3209.y;
-				#ifdef _USEINFINITYFEATHER_ON
-				float staticSwitch1654 = saturate( ( saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3211 - floor( ( temp_output_1_0_g3211 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) * saturate( (0.0 + (( ( abs( ( ( temp_output_1_0_g3210 - floor( ( temp_output_1_0_g3210 + 0.5 ) ) ) * 2 ) ) * 2 ) - 1.0 ) - -1.0) * (0.5 - 0.0) / (temp_output_8_0_g3209 - -1.0)) ) ) );
-				#else
-				float staticSwitch1654 = 1.0;
-				#endif
-				float InfinityFeather1410 = saturate( ( temp_output_2763_0 + staticSwitch1654 ) );
-				float customEye1169 = IN.ase_texcoord.w;
-				float cameraDepthFade1169 = (( customEye1169 -_ProjectionParams.y - 0.0 ) / _DistanceFadeA);
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2110 = 0.0;
-				#else
-				float staticSwitch2110 = saturate( cameraDepthFade1169 );
-				#endif
-				float DistanceFadeA1294 = staticSwitch2110;
-				float temp_output_1414_0 = ( ( 1.0 - InfinityFeather1410 ) * saturate( DistanceFadeA1294 ) );
-				float2 lerpResult2275 = lerp( lerpResult2274 , float2( 0,0 ) , temp_output_1414_0);
-				#ifdef _TRANSPARENTGRABPASS_ON
-				float2 staticSwitch2542 = float2( 0,0 );
-				#else
-				float2 staticSwitch2542 = lerpResult2275;
-				#endif
-				float2 RefHackeryForColorCache2269 = staticSwitch2542;
-				float2 temp_output_2198_0 = ( RefHackeryForColorCache2269 + CacheUV1109 );
-				float4 tex2DNode657 = SAMPLE_TEXTURE2D( _ColorCache, sampler_Linear_Clamp, temp_output_2198_0 );
-				float ColorCacheA2171 = tex2DNode657.a;
-				float temp_output_12_0_g3214 = InfinityFeather1410;
-				float CaptureDepthAOffsetShore1177 = ( ( ColorCacheA2171 * temp_output_12_0_g3214 ) + ( 1.0 - temp_output_12_0_g3214 ) );
-				float4 break993 = _RemapAlpha;
-				float switchResult2294 = (((ase_vface>0)?(saturate( (0.0 + (CaptureDepthAOffsetShore1177 - break993.x) * (1.0 - 0.0) / (break993.y - break993.x)) )):(1.0)));
-				float ShoreMaskDepthAlpha141 = switchResult2294;
-				float2 clipScreen639 = ase_screenPosNorm.xy * _ScreenParams.xy;
-				float dither639 = Dither8x8Bayer( fmod(clipScreen639.x, 8), fmod(clipScreen639.y, 8) );
-				dither639 = step( dither639, ShoreMaskDepthAlpha141 );
-				#ifdef _USEDITHERING_ON
-				float staticSwitch1685 = dither639;
-				#else
-				float staticSwitch1685 = ShoreMaskDepthAlpha141;
-				#endif
-				#ifdef _TRANSPARENTGRABPASS_ON
-				float staticSwitch1748 = 1.0;
-				#else
-				float staticSwitch1748 = staticSwitch1685;
-				#endif
-				float HorizonAlpha2083 = temp_output_2080_0;
-				#ifdef _HORIZONMAPPED_ON
-				float staticSwitch2085 = HorizonAlpha2083;
-				#else
-				float staticSwitch2085 = staticSwitch1748;
-				#endif
-				float AlphaRes469 = staticSwitch2085;
 				
 
-				surfaceDescription.Alpha = AlphaRes469;
+				surfaceDescription.Alpha = 1;
 				surfaceDescription.AlphaClipThreshold = _ClipThreshold;
 
 				#if _ALPHATEST_ON

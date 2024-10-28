@@ -1,5 +1,4 @@
 ﻿using ThunderRoad.Skill.SpellPower;
-using UnityEngine;
 
 namespace ThunderRoad.Skill.Spell
 {

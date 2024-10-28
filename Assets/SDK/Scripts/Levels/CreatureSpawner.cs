@@ -4,7 +4,6 @@ using System.Collections;
 using UnityEngine.AI;
 using UnityEngine.Events;
 using System;
-using ThunderRoad.Modules;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;

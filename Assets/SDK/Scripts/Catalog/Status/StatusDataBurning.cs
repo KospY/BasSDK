@@ -5,11 +5,7 @@ using Sirenix.OdinInspector;
 #else
 using TriInspector;
 #endif
-using ThunderRoad.Skill;
-using ThunderRoad.Skill.Spell;
 using UnityEngine;
-using UnityEngine.Rendering;
-using Random = UnityEngine.Random;
 
 namespace ThunderRoad
 {

@@ -34,9 +34,16 @@ namespace ThunderRoad
         public UnityEvent onRestore;
         public UnityEvent<float> onDamage;
         public UnityEvent onBreak;
+        public bool forceReleaseOnBreak = true;
 
-        [NonSerialized, ShowInInspector]
+        [NonSerialized]
+#if ODIN_INSPECTOR
+        [ShowInInspector, ReadOnly]
+#endif
         public float health;
+#if ODIN_INSPECTOR
+        [ShowInInspector, ReadOnly]
+#endif
         private bool isBroken;
         private float lastCollision;
 

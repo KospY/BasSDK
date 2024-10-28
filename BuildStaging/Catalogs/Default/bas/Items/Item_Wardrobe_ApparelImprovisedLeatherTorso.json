@@ -4,7 +4,7 @@
   "sensitiveContent": "None",
   "sensitiveFilterBehaviour": "Discard",
   "version": 4,
-  "localizationId": "ApparelImprovisedLeatherTorso",
+  "localizationId": "-",
   "displayName": "Leather Chest Armor",
   "description": null,
   "author": "Foltz & Drags",
@@ -24,7 +24,7 @@
   "pooledCount": 0,
   "androidPooledCount": 0,
   "type": "Wardrobe",
-  "allowedStorage": "Inventory, Container, SandboxAllItems",
+  "allowedStorage": 0,
   "despawnOnStoredInInventory": false,
   "isStackable": false,
   "consumableId": null,
@@ -153,10 +153,7 @@
   "modules": [
     {
       "$type": "ThunderRoad.ItemModuleWardrobe, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
+      "castSpeedPerHand": null,
       "category": "Apparel",
       "castShadows": "None",
       "wardrobes": [
@@ -172,37 +169,37 @@
         }
       ],
       "isMetal": false,
-      "groupPath": null
+      "armorSoundEffectPriority": 1,
+      "armorSoundEffectID": "ArmorSFX(Leather)"
     },
     {
       "$type": "ThunderRoad.ItemModuleStats, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
       "stats": [
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 0,
+          "useStarIcons": true,
           "name": "Defense"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 0,
+          "useStarIcons": true,
           "name": "Mobility"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 0,
+          "useStarIcons": true,
           "name": "SpellCasting"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 0,
+          "useStarIcons": true,
           "name": "FocusRegen"
         }
-      ],
-      "groupPath": null
+      ]
     }
   ],
   "colliderGroups": [],

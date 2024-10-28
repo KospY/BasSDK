@@ -165,6 +165,7 @@ namespace ThunderRoad
         public MeshRenderer[] meshRenderers;
         [HideInInspector]
         public MeshRenderer[] activeMeshRenderers;
+        public List<MeshBatcher.MeshInfo> meshInfos;
         [HideInInspector]
         public List<MeshColliderRef> meshColliderRefList = new List<MeshColliderRef>();
         [HideInInspector]
@@ -251,7 +252,7 @@ namespace ThunderRoad
         #endregion Event
 
         #region Methods
-
+        
         /// <summary>
         /// The layers which will be rendered by the reflection probes
         /// </summary>
@@ -315,6 +316,31 @@ namespace ThunderRoad
 
         #region Editor
 #if UNITY_EDITOR
+        private void OnValidate()
+        {
+            SetReflectionProbeStaticFlag();
+        }
+
+        public void SetReflectionProbeStaticFlag()
+        {
+#if UNITY_EDITOR
+            if (!modifiedInImport && isActiveAndEnabled)
+            {
+                //get the ReflectionSorcery components and set the reflectionprobe static flag so portals block light from outside the room when baking reflection probes
+                //This doesnt work in OnImport because it doesnt save the static  flags properly
+                var reflectionSorcery = GetComponentsInChildren<ReflectionSorcery>();
+                foreach (var portal in reflectionSorcery)
+                {
+                    var portalRenderers = portal.GetComponentsInChildren<MeshRenderer>();
+                    foreach (var meshRenderer in portalRenderers)
+                    {
+                        GameObjectUtility.SetStaticEditorFlags(meshRenderer.gameObject, StaticEditorFlags.ReflectionProbeStatic);
+                    }
+                }
+            }
+#endif
+        }
+
         public void OnImport(UnityEditor.AssetPostprocessor postProcess)
         {
             Debug.LogFormat(this, $"Importing area {name}");
@@ -421,7 +447,8 @@ namespace ThunderRoad
             meshRenderers = GetComponentsInChildren<MeshRenderer>(true);
             //used for static batching at run time, we take only the active ones because many of the disabled ones are part of prefabs that the art/level team disabled for a reason
             activeMeshRenderers = GetComponentsInChildren<MeshRenderer>(false);
-            
+            meshInfos = MeshBatcher.CreateStaticBatchGroup(activeMeshRenderers);
+
             // Set collider to no culling
             if (rootNoCulling == null)
             {
@@ -631,6 +658,7 @@ namespace ThunderRoad
             reflectionProbes = null;
             meshRenderers = null;
             activeMeshRenderers = null;
+            meshInfos = null;
             rootNoCulling = null;
             meshColliderRefList = null;
             colliderList = null;

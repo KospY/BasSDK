@@ -585,7 +585,7 @@ namespace Shadowood.RaycastTexture
 #if MIRRORSANDREFLECTIONS
         [Tooltip("Link to PlanarReflection")]
         [GUIColor("@mirrorRenderer ? Color.white : Color.red")] //
-#if UNITY_EDITOR        
+#if UNITY_EDITOR
         [InlineButton(nameof(FindPlanarReflection))]
 #endif
 #if ODIN_INSPECTOR
@@ -633,7 +633,7 @@ namespace Shadowood.RaycastTexture
         [Space]
         [Tooltip("Mirror for planar reflections")]
         [GUIColor("@mirrorSurface ? Color.white : Color.red")] //
-#if UNITY_EDITOR        
+#if UNITY_EDITOR
         [InlineButton(nameof(FindMirrorSurface))]
 #endif
         public MirrorSurface mirrorSurface;
@@ -675,9 +675,9 @@ namespace Shadowood.RaycastTexture
 
         [Tooltip("Only needed if you have any materials (like FogSpriteSkybox) using SpriteFoggedSkybox shader")]
         [GUIColor("@globalSkyCube ? Color.white : Color.red")] // Todo only go red if items need it
-#if UNITY_EDITOR        
+#if UNITY_EDITOR
         [InlineButton(nameof(FindGlobalSkyCube))]
-#endif        
+#endif
         public GlobalSkyCube globalSkyCube;
 
 
@@ -702,7 +702,7 @@ namespace Shadowood.RaycastTexture
         [GUIColor("@toneMapping ? Color.white : Color.red")] //
 #if UNITY_EDITOR
         [InlineButton(nameof(FindToneMappinInlineButtong))]
-#endif        
+#endif
         public Tonemapping toneMapping;
 
 #if UNITY_EDITOR
@@ -743,9 +743,9 @@ namespace Shadowood.RaycastTexture
         [Tooltip("Link to OceanRenderer")]
         [GUIColor("@oceanRenderer ? Color.white : Color.red")] //
         [ShowIf("@mode == eMode.Ocean")] //
-#if UNITY_EDITOR        
+#if UNITY_EDITOR
         [InlineButton(nameof(FindOceanRenderer))]
-#endif        
+#endif
         //
         public OceanRenderer oceanRenderer;
 
@@ -779,9 +779,9 @@ namespace Shadowood.RaycastTexture
         //
 
         [Tooltip("Link to OceanFogController")] //
-#if UNITY_EDITOR        
+#if UNITY_EDITOR
         [InlineButton(nameof(FindOceanFogController))] //
-#endif        
+#endif
         [GUIColor("@oceanFogController ? Color.white : Color.red")]
         public OceanFogController oceanFogController;
 
@@ -826,9 +826,9 @@ namespace Shadowood.RaycastTexture
         [Tooltip("Mask spline to hide water surface")] //
         [GUIColor("@oceanSplineMask ? Color.white : Color.red")] //
         [ShowIf("@mode == eMode.Ocean")] //
-#if UNITY_EDITOR        
+#if UNITY_EDITOR
         [InlineButton(nameof(FindOceanSplineMask))]
-#endif        
+#endif
         public ThunderSplineWithin oceanSplineMask;
 
 #if UNITY_EDITOR
@@ -873,9 +873,9 @@ namespace Shadowood.RaycastTexture
         [Tooltip("Sets the XZ center for where ocean waves emanate")] //
         [GUIColor("@waveCenter ? Color.white : Color.red")] //
         [ShowIf("@mode == eMode.Ocean")] //
-#if UNITY_EDITOR        
+#if UNITY_EDITOR
         [InlineButton(nameof(FindWaveCenter))]
-#endif        
+#endif
         public Transform waveCenter;
 
 #if UNITY_EDITOR
@@ -905,9 +905,9 @@ namespace Shadowood.RaycastTexture
 
         [Tooltip("Water caustics")] //
         [GUIColor("@caustics ? Color.white : Color.red")] //
-#if UNITY_EDITOR        
+#if UNITY_EDITOR
         [InlineButton(nameof(FindCaustics))]
-#endif        
+#endif
         public Caustics caustics;
 
 #if UNITY_EDITOR
@@ -1132,9 +1132,9 @@ namespace Shadowood.RaycastTexture
         [Tooltip("Link to Fluxy Target ( for collision with depth mask/shore )")] //
         [GUIColor("@fluxyTarget ? Color.white : Color.red")] //
         [ShowIf("@mode==eMode.River")] //
-#if UNITY_EDITOR        
+#if UNITY_EDITOR
         [InlineButton(nameof(FindFluxyTarget))]
-#endif        
+#endif
         public FluxyTarget fluxyTarget;
 
         void FindFluxyTarget()
@@ -1145,7 +1145,7 @@ namespace Shadowood.RaycastTexture
         }
 
         [ShowIf("@fluxyTarget && fluxyContainer")]
-#if UNITY_EDITOR        
+#if UNITY_EDITOR
         [InlineButton(nameof(UpdateFluid))]
 #endif
         public FluidSimSettings fluidSimSettings;
@@ -1255,20 +1255,29 @@ namespace Shadowood.RaycastTexture
         public Texture2D depthCacheTex;
 
         [FoldoutGroup("Advanced Settings")] //
+        public Texture2D depthCacheTexTemp;
+
+        [FoldoutGroup("Advanced Settings")] //
         public Texture2D colorCacheTex;
+
+        [FoldoutGroup("Advanced Settings")] //
+        public Texture2D colorCacheTexTemp;
 
         [Space] //
         [ShowIf("@mode == eMode.River")] //
         [FoldoutGroup("Advanced Settings")]
         public Texture2D fluidVelCacheTex;
+        //public Texture2D fluidVelCacheTexTemp;
 
         [ShowIf("@mode == eMode.River")] //
         [FoldoutGroup("Advanced Settings")]
         //
         public Texture2D fluidColCacheTex;
+        //public Texture2D fluidColCacheTexTemp;
+
 
         [Space] //
-        [ShowIf("@mode == eMode.River")] //
+        //[ShowIf("@mode == eMode.River")] //
         [FoldoutGroup("Advanced Settings")]
         public RenderTexture dilationResult;
 
@@ -1390,6 +1399,7 @@ namespace Shadowood.RaycastTexture
 
                 if (toneMapping == null) FindToneMapping(true);
             }
+
             switch (mode)
             {
                 case eMode.Ocean:
@@ -1573,6 +1583,53 @@ namespace Shadowood.RaycastTexture
             }
         }
 
+        private List<GameObject> tempDisable = new List<GameObject>();
+
+        public void ExcludeItems(bool visible)
+        {
+            //Debug.Log("ExcludeItems: " + visible +" : "+tempDisable.Count);
+            if (!visible)
+            {
+                if (tempDisable.Count > 0)
+                {
+                    ExcludeItems(true);
+                }
+                tempDisable.Clear();
+
+                GameObject item2 = null;
+                switch (mode)
+                {
+                    case eMode.Ocean:
+                        break;
+                    case eMode.River:
+                        //item2 = riverMesh.gameObject; // Dont disable the whole gameobject in case the target BoxCollider is also on this
+                        break;
+                }
+
+                if (item2 != null && item2.gameObject.activeSelf)
+                {
+                    tempDisable.Add(item2);
+                    item2.SetActive(visible);
+                }
+
+                foreach (var item in excludeList)
+                {
+                    if (item == null) continue;
+                    if (!item.gameObject.activeSelf) continue;
+                    tempDisable.Add(item);
+                    item.SetActive(visible);
+                }
+            }
+            else
+            {
+                foreach (var item in tempDisable)
+                {
+                    if (item == null) continue;
+                    item.SetActive(visible);
+                }
+            }
+        }
+
         //
 
         [HideInInspector] public bool hideCopies = true;
@@ -1585,33 +1642,34 @@ namespace Shadowood.RaycastTexture
         {
             if (debug) Debug.Log("PostProcess");
 
-            BlurSorcery(dilationResult); // blurs to dilationTex amd blurredDepthRT
 
+            BlurSorcery(dilationResult); // blurs to dilationTex amd blurredDepthRT
 
             if (blurDepthIteration > 0 && blurredDepthRT != null)
             {
-                depthCacheTex = blurredDepthRT.ToTexture2D();
+                depthCacheTexTemp = blurredDepthRT.ToTexture2D();
                 //oceanMaterial.SetTexture("_DepthCache", blurredDepthRT);
             }
             else
             {
-                if (dilationResult) depthCacheTex = dilationResult.ToTexture2D();
+                if (dilationResult) depthCacheTexTemp = dilationResult.ToTexture2D();
                 //oceanMaterial.SetTexture("_DepthCache", dilationResult);
             }
 
             if (captureFakeTransparency)
             {
-                BlurSorceryColor(dilationResult, colorDepthTexture); // blurs to blurredColorRT
+                Dilation(dilationResult, ref colorDepthTexture); // dilates colorDepthTexture
 
+                BlurSorceryColor(dilationResult, colorDepthTexture); // blurs to blurredColorRT
 
                 if (blurColorIteration > 0)
                 {
-                    colorCacheTex = blurredColorRT.ToTexture2D();
+                    colorCacheTexTemp = blurredColorRT.ToTexture2D();
                     //oceanMaterial.SetTexture("_ColorCache", blurredColorRT);
                 }
                 else
                 {
-                    colorCacheTex = colorDepthTexture.ToTexture2D();
+                    colorCacheTexTemp = colorDepthTexture.ToTexture2D();
                     //oceanMaterial.SetTexture("_ColorCache", depthTexture);
                 }
             }
@@ -1665,10 +1723,10 @@ namespace Shadowood.RaycastTexture
                 o.gameObject.SetActive(false);
             }
 
-
+            var cenab = targetMeshCollider.enabled;
             targetMeshCollider.enabled = true;
             var tex = RaycastTools.CreateIntersectionMap(resolutionX, resolutionY, 0, true, rayDistance, bias, rays, targetMeshCollider, debug, ref meshCollidersCopies, oceanSplineMask?.thunderSpline);
-            targetMeshCollider.enabled = false;
+            targetMeshCollider.enabled = cenab;
             return tex;
         }
 
@@ -1720,12 +1778,13 @@ namespace Shadowood.RaycastTexture
                 o.gameObject.SetActive(true);
             }
 
-            if(oceanRenderer)oceanRenderer.enabled = false;
+            if (oceanRenderer) oceanRenderer.enabled = false;
             if (riverMesh) riverMesh.enabled = false;
+            var cenab = targetMeshCollider.enabled;
             targetMeshCollider.enabled = true;
             var tex = RaycastTools.CreateColorDepthMap(resolutionX, resolutionY, 0, true, targetMeshCollider, 1000, depthOffset, debug, ref meshCollidersDepthCopies, useLightmaps, useNewCapture, mipLevel, oceanSplineMask?.thunderSpline);
-            targetMeshCollider.enabled = false;
-            if(oceanRenderer)oceanRenderer.enabled = true;
+            targetMeshCollider.enabled = cenab;
+            if (oceanRenderer) oceanRenderer.enabled = true;
             if (riverMesh) riverMesh.enabled = true;
             //UnderwaterMeshes(false);
 
@@ -1778,6 +1837,31 @@ namespace Shadowood.RaycastTexture
                 if (blurMixShader == null) blurMixShader = Shader.Find("Hidden/Blur Mix");
                 if (blurMixShader == null) Debug.LogError("Blur Mix Shader Missing");
                 matBlurMix = new Material(blurMixShader);
+            }
+        }
+
+        public bool dilation = true;
+        public Material matDilation;
+
+        private void Dilation(Texture depthTexIn, ref Texture texIn)
+        {
+            if (dilation)
+            {
+                if (debug) Debug.Log("Dilation");
+                matDilation = new Material(Shader.Find("Hidden/Dilation"));
+
+                var rt2 = RenderTexture.GetTemporary(texIn.width, texIn.height, 0, RenderTextureFormat.ARGBFloat, RenderTextureReadWrite.Linear);
+                rt2.filterMode = FilterMode.Point;
+                texIn.filterMode = FilterMode.Point;
+                //if (depthTexIn) matDilation.SetTexture("_BlendMask", depthTexIn); // depthTex
+
+                matDilation.SetTexture("_MainTex", texIn);
+                Graphics.Blit(texIn, rt2, matDilation); // Blit with the dilation material/shader
+
+                texIn = rt2.ToTexture2D();
+
+
+                RenderTexture.ReleaseTemporary(rt2);
             }
         }
 
@@ -1973,7 +2057,9 @@ namespace Shadowood.RaycastTexture
         //[ContextMenu("Find Renderers")][Button]
         public void FindRenderers()
         {
+            var cenab = targetMeshCollider.enabled;
             targetMeshCollider.enabled = true;
+            ExcludeItems(false);
             UnderwaterMeshes(true);
             UpdateBoundsFromColliders();
 
@@ -1987,9 +2073,10 @@ namespace Shadowood.RaycastTexture
 
             meshCollidersDepth = new List<GameObject>(meshColliders);
             UnderwaterMeshes(false);
+            ExcludeItems(true);
 
             findCollidersLastRan = Time.realtimeSinceStartup;
-            targetMeshCollider.enabled = false;
+            targetMeshCollider.enabled = cenab;
         }
 #endif
 
@@ -2054,9 +2141,11 @@ namespace Shadowood.RaycastTexture
             DestroyCopies();
             meshCollidersCopies = RaycastTools.Copies(ref meshColliders, hideCopies);
 
+            ExcludeItems(false);
             UnderwaterMeshes(true);
             meshCollidersDepthCopies = RaycastTools.Copies(ref meshCollidersDepth, hideCopies);
             UnderwaterMeshes(false);
+            ExcludeItems(true);
 
             findCollidersLastRanStore = findCollidersLastRan;
 
@@ -2143,6 +2232,7 @@ namespace Shadowood.RaycastTexture
         {
 #if UNITY_EDITOR
             Debug.Log("RaycastTexture: RenderNow");
+            
 
             if (!PathValid())
             {
@@ -2154,6 +2244,8 @@ namespace Shadowood.RaycastTexture
             QualitySettings.masterTextureLimit = 0;
 
             Setup();
+            //CreateBoxCollider();
+            
             //FindColliders();
             meshColliders.Clear();
             meshCollidersDepth.Clear();
@@ -2177,40 +2269,50 @@ namespace Shadowood.RaycastTexture
                 return;
             }
 
-            intersectionTexture = RenderIntersectionTexture();
-            if (intersectionTexture == null) return;
+            ExcludeItems(false);
 
-            if (captureFakeTransparency)
+            try
             {
-                colorDepthTexture = RenderColorDepthTexture();
-                if (colorDepthTexture == null) return;
+                intersectionTexture = RenderIntersectionTexture();
+                if (intersectionTexture == null) throw new NullReferenceException("intersectionTexture null");
+
+                if (captureFakeTransparency)
+                {
+                    colorDepthTexture = RenderColorDepthTexture();
+                    if (colorDepthTexture == null) throw new NullReferenceException("colorDepthTexture null");
+                }
+                else
+                {
+                    colorDepthTexture = null;
+                }
+                
+                lastRan = Time.timeSinceLevelLoad;
+                
+                DilationDistanceField(); // Take single color intersection texture and floodfill create a distance field, output to: dilationResult
+
+                //
+
+                PostProcess();
+
+                UpdateFluid();
+
+                StoreTextures();
+
+
+                //UnderwaterMeshes(false);
+                //if (disableLater) gameObject.SetActive(false);
+
+                ApplyTexture();
+
+                renderNowLastRanStore = renderNowLastRan;
             }
-            else
+            catch (Exception e)
             {
-                colorDepthTexture = null;
+                // Will land here if progress bar is cancelled
+                //Debug.Log("RaycastTexture: Error" + e.Message);
             }
 
-            lastRan = Time.timeSinceLevelLoad;
-
-            DilationDistanceField(); // Take single color intersection texture and floodfill create a distance field, output to: dilationResult
-
-            //
-
-            PostProcess();
-
-            UpdateFluid();
-
-            StoreTextures();
-
-
-            //UnderwaterMeshes(false);
-            //if (disableLater) gameObject.SetActive(false);
-
-            ApplyTexture();
-
-
-            renderNowLastRanStore = renderNowLastRan;
-
+            ExcludeItems(true);
             QualitySettings.masterTextureLimit = storeTextureLimit;
 #else
               ApplyTexture();
@@ -2235,6 +2337,8 @@ namespace Shadowood.RaycastTexture
             }
 
             StoreTexturesFluid();
+
+            ApplyTexture();
         }
 #else
         private void UpdateFluid()
@@ -2288,12 +2392,19 @@ namespace Shadowood.RaycastTexture
             };
 
 
-            if (depthCacheTex)
+            if (depthCacheTexTemp)
             {
                 var pathCombined = path + fileName + "-Depth" + suffix;
+
+                if (depthCacheTex != null)
+                {
+                    pathCombined = AssetDatabase.GetAssetPath(depthCacheTex);
+                    Debug.Log("depthCacheTex already exists: " + pathCombined);
+                }
+
                 Debug.Log("RaycastTexture: StoreTextures: Depth:" + path + " dp: " + dataPath + " combined: " + pathCombined);
-                var bytes = depthCacheTex.EncodeToEXR(Texture2D.EXRFlags.OutputAsFloat);
-                depthCacheTex = null;
+                var bytes = depthCacheTexTemp.EncodeToEXR(Texture2D.EXRFlags.OutputAsFloat);
+                depthCacheTexTemp = null;
                 File.WriteAllBytes(dataPath + pathCombined, bytes);
                 AssetDatabase.ImportAsset(pathCombined, ImportAssetOptions.ForceSynchronousImport);
                 //AssetDatabase.Refresh();
@@ -2311,20 +2422,27 @@ namespace Shadowood.RaycastTexture
                 //standaloneOverrides.maxTextureSize = 512;
                 //textureImporter2.SetPlatformTextureSettings(standaloneOverrides);
 
-                textureImporter2.npotScale = TextureImporterNPOTScale.None;
+                textureImporter2.npotScale = TextureImporterNPOTScale.ToLarger;
                 //textureImporter2.npotScale = TextureImporterNPOTScale.ToLarger;
-                textureImporter2.isReadable = true;
+                textureImporter2.isReadable = false;
                 textureImporter2.SaveAndReimport();
 
-                //depthCacheTex = AssetDatabase.LoadAssetAtPath<Texture2D>(pathCombined);
+                depthCacheTex = AssetDatabase.LoadAssetAtPath<Texture2D>(pathCombined);
             }
 
-            if (colorCacheTex && captureFakeTransparency)
+            if (colorCacheTexTemp && captureFakeTransparency)
             {
                 var pathCombined2 = path + fileName + "-Color" + suffix;
+
+                if (colorCacheTex != null)
+                {
+                    pathCombined2 = AssetDatabase.GetAssetPath(colorCacheTex);
+                    Debug.Log("colorCacheTex already exists: " + pathCombined2);
+                }
+
                 Debug.Log("RaycastTexture: StoreTextures: Color:" + path + " dp: " + dataPath + " combined: " + pathCombined2);
-                var bytes2 = colorCacheTex.EncodeToEXR(Texture2D.EXRFlags.OutputAsFloat);
-                colorCacheTex = null;
+                var bytes2 = colorCacheTexTemp.EncodeToEXR(Texture2D.EXRFlags.OutputAsFloat);
+                colorCacheTexTemp = null;
                 File.WriteAllBytes(dataPath + pathCombined2, bytes2);
                 AssetDatabase.ImportAsset(pathCombined2, ImportAssetOptions.ForceSynchronousImport);
                 //AssetDatabase.Refresh();
@@ -2342,11 +2460,11 @@ namespace Shadowood.RaycastTexture
                 //standaloneOverrides.maxTextureSize = 512;
                 //textureImporter2.SetPlatformTextureSettings(standaloneOverrides);
 
-                textureImporter2.npotScale = TextureImporterNPOTScale.None;
-                textureImporter2.isReadable = true;
+                textureImporter2.npotScale = TextureImporterNPOTScale.ToLarger;
+                textureImporter2.isReadable = false;
                 textureImporter2.SaveAndReimport();
 
-                //colorCacheTex = AssetDatabase.LoadAssetAtPath<Texture2D>(pathCombined2);
+                colorCacheTex = AssetDatabase.LoadAssetAtPath<Texture2D>(pathCombined2);
             }
 
             LoadTexColorDepth();
@@ -2363,6 +2481,8 @@ namespace Shadowood.RaycastTexture
 
         private void StoreTexturesFluid()
         {
+            Debug.Log("StoreTexturesFluid");
+
             if (surfaceMaterial)
             {
                 if (path == "") SetPathToMaterialFolder();
@@ -2385,6 +2505,13 @@ namespace Shadowood.RaycastTexture
                 if (fluxyContainer.solver.framebuffer.stateA)
                 {
                     var pathCombined2 = path + fileName + "-FluidCol" + suffix;
+
+                    if (fluidColCacheTex != null)
+                    {
+                        pathCombined2 = AssetDatabase.GetAssetPath(fluidColCacheTex);
+                        Debug.Log("fluidColCacheTex already exists: " + pathCombined2);
+                    }
+
                     var bytes2 = fluxyContainer.solver.framebuffer.stateA.ToTexture2D().EncodeToEXR(Texture2D.EXRFlags.OutputAsFloat);
                     File.WriteAllBytes(dataPath + pathCombined2, bytes2);
                     AssetDatabase.ImportAsset(pathCombined2, ImportAssetOptions.ForceSynchronousImport);
@@ -2404,15 +2531,22 @@ namespace Shadowood.RaycastTexture
                     //textureImporter2.SetPlatformTextureSettings(standaloneOverrides);
 
                     //textureImporter2.npotScale = TextureImporterNPOTScale.None;
-                    textureImporter2.isReadable = true;
+                    textureImporter2.isReadable = false;
                     textureImporter2.SaveAndReimport();
 
-                    //fluidColCacheTex = AssetDatabase.LoadAssetAtPath<Texture2D>(pathCombined2);
+                    fluidColCacheTex = AssetDatabase.LoadAssetAtPath<Texture2D>(pathCombined2);
                 }
 
                 if (fluxyContainer.solver.framebuffer.velocityA)
                 {
                     var pathCombined2 = path + fileName + "-FluidVel" + suffix;
+
+                    if (fluidVelCacheTex != null)
+                    {
+                        pathCombined2 = AssetDatabase.GetAssetPath(fluidVelCacheTex);
+                        Debug.Log("fluidVelCacheTex already exists: " + pathCombined2);
+                    }
+
                     var bytes2 = fluxyContainer.solver.framebuffer.velocityA.ToTexture2D().EncodeToEXR(Texture2D.EXRFlags.OutputAsFloat);
                     File.WriteAllBytes(dataPath + pathCombined2, bytes2);
                     AssetDatabase.ImportAsset(pathCombined2, ImportAssetOptions.ForceSynchronousImport);
@@ -2432,10 +2566,10 @@ namespace Shadowood.RaycastTexture
                     //textureImporter2.SetPlatformTextureSettings(standaloneOverrides);
 
                     //textureImporter2.npotScale = TextureImporterNPOTScale.None;
-                    textureImporter2.isReadable = true;
+                    textureImporter2.isReadable = false;
                     textureImporter2.SaveAndReimport();
 
-                    //fluidVelCacheTex = AssetDatabase.LoadAssetAtPath<Texture2D>(pathCombined2);
+                    fluidVelCacheTex = AssetDatabase.LoadAssetAtPath<Texture2D>(pathCombined2);
                 }
 
                 LoadTexFluid();
@@ -2464,19 +2598,26 @@ namespace Shadowood.RaycastTexture
 
         public void LoadTexColorDepth()
         {
-            var pathCombined = path + fileName + "-Depth" + suffix;
-            Debug.Log("LoadTexColorDepth: Depth:" + pathCombined);
-            var depthCacheTex2 = AssetDatabase.LoadAssetAtPath<Texture2D>(pathCombined);
-            if (depthCacheTex2 == null) Debug.LogError("Failed to load: " + pathCombined);
-            if (depthCacheTex2 != null) depthCacheTex = depthCacheTex2;
+            if (depthCacheTex == null)
+            {
+                var pathCombined = path + fileName + "-Depth" + suffix;
+                Debug.Log("LoadTexColorDepth: Depth:" + pathCombined);
+                var depthCacheTex2 = AssetDatabase.LoadAssetAtPath<Texture2D>(pathCombined);
+                if (depthCacheTex2 == null) Debug.LogError("Failed to load: " + pathCombined);
+                if (depthCacheTex2 != null) depthCacheTex = depthCacheTex2;
+            }
+
 
             if (captureFakeTransparency)
             {
-                var pathCombined2 = path + fileName + "-Color" + suffix;
-                Debug.Log("LoadTexColorDepth: Color:" + pathCombined2);
-                var colorCacheTex2 = AssetDatabase.LoadAssetAtPath<Texture2D>(pathCombined2);
-                if (colorCacheTex2 == null) Debug.LogError("Failed to load: " + pathCombined2);
-                if (colorCacheTex2 != null) colorCacheTex = colorCacheTex2;
+                if (colorCacheTex == null)
+                {
+                    var pathCombined2 = path + fileName + "-Color" + suffix;
+                    Debug.Log("LoadTexColorDepth: Color:" + pathCombined2);
+                    var colorCacheTex2 = AssetDatabase.LoadAssetAtPath<Texture2D>(pathCombined2);
+                    if (colorCacheTex2 == null) Debug.LogError("Failed to load: " + pathCombined2);
+                    if (colorCacheTex2 != null) colorCacheTex = colorCacheTex2;
+                }
             }
             else
             {
@@ -2486,17 +2627,23 @@ namespace Shadowood.RaycastTexture
 
         public void LoadTexFluid()
         {
-            var pathCombined3 = path + fileName + "-FluidCol" + suffix;
-            Debug.Log("LoadTexFluid: FluidCol:" + pathCombined3);
-            var fluidColCacheTex2 = AssetDatabase.LoadAssetAtPath<Texture2D>(pathCombined3);
-            if (fluidColCacheTex2 == null) Debug.LogError("Failed to load: " + pathCombined3);
-            if (fluidColCacheTex2 != null) fluidColCacheTex = fluidColCacheTex2;
+            if (fluidColCacheTex == null)
+            {
+                var pathCombined3 = path + fileName + "-FluidCol" + suffix;
+                Debug.Log("LoadTexFluid: FluidCol:" + pathCombined3);
+                var fluidColCacheTex2 = AssetDatabase.LoadAssetAtPath<Texture2D>(pathCombined3);
+                if (fluidColCacheTex2 == null) Debug.LogError("Failed to load: " + pathCombined3);
+                if (fluidColCacheTex2 != null) fluidColCacheTex = fluidColCacheTex2;
+            }
 
-            var pathCombined4 = path + fileName + "-FluidVel" + suffix;
-            Debug.Log("LoadTexFluid: FluidVel:" + pathCombined4);
-            var fluidVelCacheTex2 = AssetDatabase.LoadAssetAtPath<Texture2D>(pathCombined4);
-            if (fluidVelCacheTex2 == null) Debug.LogError("Failed to load: " + pathCombined4);
-            if (fluidVelCacheTex2 != null) fluidVelCacheTex = fluidVelCacheTex2;
+            if (fluidVelCacheTex == null)
+            {
+                var pathCombined4 = path + fileName + "-FluidVel" + suffix;
+                Debug.Log("LoadTexFluid: FluidVel:" + pathCombined4);
+                var fluidVelCacheTex2 = AssetDatabase.LoadAssetAtPath<Texture2D>(pathCombined4);
+                if (fluidVelCacheTex2 == null) Debug.LogError("Failed to load: " + pathCombined4);
+                if (fluidVelCacheTex2 != null) fluidVelCacheTex = fluidVelCacheTex2;
+            }
         }
 
 
@@ -2509,6 +2656,7 @@ namespace Shadowood.RaycastTexture
             PostProcess();
             ApplyTexture();
             UpdateFluid();
+            StoreTextures();
         }
 #endif
 
@@ -2803,10 +2951,12 @@ namespace Shadowood.RaycastTexture
 
             if (mode == eMode.Ocean)
             {
-#if UNITY_EDITOR
+
                 if (oceanBakeQuad)
                 {
                     var mr = oceanBakeQuad;
+#if UNITY_EDITOR
+                    
                     var lightmapSettings = LightmapSettings.lightmaps;
                     if (mr.lightmapIndex >= 0 && lightmapSettings != null && mr.lightmapIndex < lightmapSettings.Length)
                     {
@@ -2819,10 +2969,16 @@ namespace Shadowood.RaycastTexture
                         oceanbakeLMSM = null;
                     }
 
+                    if(Application.isPlaying)   mr.enabled = false;
+                    
                     oceanBakeST = mr.lightmapScaleOffset;
+#else
+                    mr.enabled = false;
+                    
+#endif
                     oceanBakeMatrix = mr.transform.worldToLocalMatrix;
                 }
-#endif
+
 
                 if (oceanbakeLM) matIn.SetTexture("_bakeLightmap", oceanbakeLM);
                 if (oceanbakeLMSM) matIn.SetTexture("_bakeLightmapSM", oceanbakeLMSM);
@@ -2888,10 +3044,12 @@ namespace Shadowood.RaycastTexture
 
             if (mode == eMode.Ocean)
             {
-#if UNITY_EDITOR
+
                 if (oceanBakeQuad)
                 {
                     var mr = oceanBakeQuad;
+#if UNITY_EDITOR
+                    
                     var lightmapSettings = LightmapSettings.lightmaps;
                     if (mr.lightmapIndex >= 0 && lightmapSettings != null && mr.lightmapIndex < lightmapSettings.Length)
                     {
@@ -2905,9 +3063,15 @@ namespace Shadowood.RaycastTexture
                     }
 
                     oceanBakeST = mr.lightmapScaleOffset;
+                    
+                    if(Application.isPlaying)   mr.enabled = false;
+#else
+                    mr.enabled = false;
+#endif
+                    
                     oceanBakeMatrix = mr.transform.worldToLocalMatrix;
                 }
-#endif
+
 
                 //
                 if (oceanbakeLM) matIn.SetTexture("_bakeLightmap", oceanbakeLM);

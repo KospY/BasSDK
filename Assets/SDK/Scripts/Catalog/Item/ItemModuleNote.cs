@@ -2,8 +2,6 @@
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #endif //ODIN_INSPECTOR
-using System.Collections;
-using UnityEngine;
 
 namespace ThunderRoad
 {

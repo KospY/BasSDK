@@ -7,7 +7,6 @@ using System.Globalization;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
-using Object = UnityEngine.Object;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AddressableAssets;
 using System;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace ThunderRoad

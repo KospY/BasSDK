@@ -1,13 +1,6 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Animations;
-using System.Linq;
-using System.Collections.Generic;
-using System.Net.Http.Headers;
 using UnityEngine.Events;
-using UnityEngine.Profiling;
-using UnityEngine.Serialization;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;

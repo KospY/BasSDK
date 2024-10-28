@@ -68,6 +68,9 @@ namespace ThunderRoad
         [Tooltip("References the class to tell in-game skills if the player is airborne.")]
         public AirHelper airHelper;
 
+        [Tooltip("References the class for armor SFX")]
+        public ArmorSFX armorSFX;
+
 
         [Header("Speak")]
         [Tooltip("Reference the jaw bone for creature speaking")]

@@ -14,7 +14,7 @@ using TriInspector;
 namespace ThunderRoad
 {
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/Levels/Mirror.html")]
-    public class Mirror : MonoBehaviour
+    public class Mirror : ThunderBehaviour
     {
         // A simple hook for armour edit events if required.
         public delegate void OnArmourEditModeChanged(bool state);
@@ -100,9 +100,11 @@ namespace ThunderRoad
         [Button]
         public void SetActive(bool active)
         {
+
             this.active = active;
         }
-        
+
+
         /// <summary>
         /// Toggle the armour edit mode.
         /// This is used in the Lever event for the bench.

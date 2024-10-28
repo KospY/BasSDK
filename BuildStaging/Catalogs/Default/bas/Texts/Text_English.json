@@ -48,14 +48,14 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TelekinesisPull",
           "text": "Now press the trigger to pull the weapon towards you.",
-          "spriteAddress": "Bas.Input.{Controller}.TelekinesisPull",
+          "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "Fighting",
           "text": "Everything is driven by physical forces.\nDefeat your enemies in your prefered fighting style - with brutality or precision. Either will do.",
-          "spriteAddress": "Bas.Input.{Controller}.TelekinesisPull",
+          "spriteAddress": null,
           "videoAddress": null
         },
         {
@@ -747,13 +747,6 @@
           "text": "Picking up enemies with Marionette is far easier if you stagger them first!",
           "spriteAddress": null,
           "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "41",
-          "text": null,
-          "spriteAddress": null,
-          "videoAddress": null
         }
       ]
     },
@@ -862,20 +855,6 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "Blade & Sorcery",
           "text": "Blade & Sorcery",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "IntroTitle",
-          "text": "Thanks for your support!",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "IntroText",
-          "text": "Thank you for supporting us!\n\nWarpfrog is an indie studio that would not have gotten this far without the amazing support of our fans (like you!)\n\nOur full-physics simulator Blade & Sorcery is still in active development and there are some features and gameplay elements missing that will be added in future updates. We are now in the final stretch of development as we aim for full release in 2023 with the completion of Crystal Hunt mode.\n\nFor more information on the roadmap, please visit Reddit, Steam, or our Discord.\n\nKospY, Baron and the Warpfrog team",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -1919,6 +1898,41 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "Trackers",
           "text": "Trackers",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "MotionTrackers",
+          "text": "Motion trackers",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TrackerWarning",
+          "text": "WARNING\nA safe and large play area is recommended!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TrackerCalibrationHelp",
+          "text": "To calibrate, put your feet and waist in the corresponding markers and press the grip trigger\n\nBe sure your avatar height is correctly set!",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Calibrate",
+          "text": "Calibrate",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ClearCalibration",
+          "text": "Clear calibration",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -4948,6 +4962,13 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TrackersAssigned",
+          "text": "Trackers assigned",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "GoToGolemArena",
           "text": "Go to Golem arena",
           "spriteAddress": null,
@@ -5019,14 +5040,14 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "ContainerID",
-          "text": "ContainerID",
+          "text": "Container ID",
           "spriteAddress": null,
           "videoAddress": null
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "BrainID",
-          "text": "BrainID",
+          "text": "Brain ID",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -5074,20 +5095,6 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Neutros",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Jovian",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "FSR1",
           "text": "AMD FSR 1.0",
           "spriteAddress": null,
@@ -5103,7 +5110,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "DistrictDesc",
-          "text": "An area of the dungeon",
+          "text": "Area of the dungeon",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -5167,6 +5174,55 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "LODBias",
           "text": "LOD Bias",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "FilePath",
+          "text": "File path",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Kill",
+          "text": "Kill",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TravelDungeonEnd",
+          "text": "Travel to Dungeon end",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Teleport",
+          "text": "Teleport",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "UnlockLore",
+          "text": "Unlock Lore",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Unlock",
+          "text": "Unlock",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ItemID",
+          "text": "Item ID",
           "spriteAddress": null,
           "videoAddress": null
         }
@@ -5705,20 +5761,6 @@
           "text": "A fortification built upon a beach to defend and watch for invaders.",
           "spriteAddress": null,
           "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Ruins",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "RuinsDescription",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
         }
       ]
     },
@@ -5961,82 +6003,6 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "Comp 2024",
           "text": "Comp 2024",
-          "spriteAddress": null,
-          "videoAddress": null
-        }
-      ]
-    },
-    {
-      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
-      "id": "Credits",
-      "texts": [
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Quality Assurance",
-          "text": "Quality Assurance",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pr Manager",
-          "text": "Pr Manager",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Programmer",
-          "text": "Programmer",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Producer",
-          "text": "Producer",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Game Designer",
-          "text": "Game Designer",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Level Designer",
-          "text": "Level Designer",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Environment Artist",
-          "text": "Environment Artist",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Character Artist",
-          "text": "Character Artist",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Concept Artist",
-          "text": "Concept Artist",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Sound Designer",
-          "text": "Sound Designer",
           "spriteAddress": null,
           "videoAddress": null
         }
@@ -8698,7 +8664,7 @@
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "SkillTreeCostAmountLabel",
-          "text": "COST:",
+          "text": "COST",
           "spriteAddress": null,
           "videoAddress": null
         },
@@ -8802,8 +8768,29 @@
         },
         {
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "FireDescription",
-          "text": "",
+          "id": "CupswarmName",
+          "text": "Cupswarm",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CupswarmDescription",
+          "text": "The greatest secret of the Dalgarian race.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CupbendingName",
+          "text": "Cupbending",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "CupbendingDescriptionCast",
+          "text": "...What?",
           "spriteAddress": null,
           "videoAddress": null
         }
@@ -14099,306 +14086,6 @@
           "videoAddress": null
         }
       ]
-    },
-    {
-      "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
-      "id": "LoreTest",
-      "texts": [
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack1Name",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack1Data1",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack2Name",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack2Data1",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack2Data2",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack2Data3",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack3Name",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack3Data1",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack3Data2",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack3Data3",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack3Data4",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack4Name",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack4Data1",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack5Name",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack5Data1",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack6Name",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack6Data1",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack6Data2",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack7Name",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack7Data1",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack7Data2",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack7Data3",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack7Data4",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack8Name",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack8Data1",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack8Data2",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack8Data3",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack8Data4",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack9Name",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack9Data1",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack10Name",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack10Data1",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack11Name",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack11Data1",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack12Name",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack12Data1",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack13Name",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack13Data1",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack14Name",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack14Data1",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack15Name",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        },
-        {
-          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
-          "id": "Pack15Data1",
-          "text": "",
-          "spriteAddress": null,
-          "videoAddress": null
-        }
-      ]
     }
   ],
   "items": [
@@ -14428,12 +14115,6 @@
     },
     {
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "Jar",
-      "name": "Jar",
-      "description": ""
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
       "id": "Jug",
       "name": "Jug",
       "description": ""
@@ -14442,12 +14123,6 @@
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
       "id": "Mug",
       "name": "Mug",
-      "description": ""
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "Pillow",
-      "name": "Pillow",
       "description": ""
     },
     {
@@ -14497,30 +14172,6 @@
       "id": "Quiver",
       "name": "Arrow Quiver",
       "description": "A well made, general purpose arrows. Very effective at ranged attacks against soft targets, but is versatile enough to penetrate some armor."
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "BucklerMetal",
-      "name": "Armored Buckler",
-      "description": "A full metal buckler used for primarily for single combat. Being small and maneuverable in tight spaces, it can also double as an effective melee weapon."
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "BucklerRound",
-      "name": "Wooden Buckler",
-      "description": "A simple wooden shield, easy to carry and useful in a fight. Due to its small size, it’s better suited to active maneuvering rather than passive defense."
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "ShieldKite",
-      "name": "Kite Shield",
-      "description": "A large and heavy shield that offers a high degree of protection against arrows. Not very wieldy, but can also be used to push enemies back and create some distance."
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "ShieldRound",
-      "name": "Round Shield",
-      "description": "A front line shield good for blocking arrows and weapon attacks with ease. A much cheaper alternative to buying armor."
     },
     {
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
@@ -14851,18 +14502,6 @@
       "id": "SwordShortSeax",
       "name": "Ancient Seax",
       "description": "An unearthed ancient tribal weapon. No longer useful, but artifacts like this can be found somewhat commonly under the ground."
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "SwordTrustNeedle",
-      "name": "Misericorde",
-      "description": "A long needle style dagger. Not typically used in combat, but is excellent for exploiting weak points in armor and finishing downed enemies."
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "SwordTrustPoker",
-      "name": "Fire Iron",
-      "description": "A tool for handling fire and kindling at a safe distance. Unwieldy to use as a weapon, but if you have to improvise, it works well enough."
     },
     {
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
@@ -15274,12 +14913,6 @@
     },
     {
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "SwordGreatGreat",
-      "name": "Greatsword",
-      "description": "Too heavy to be wielded one-handed, the greatsword can be leveraged at the handle for an easier swing."
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
       "id": "SwordOldieFalchion",
       "name": "Falchion",
       "description": "An old falchion of Khar-Tib origin, often used in naval combat for defending against Sentari pirates."
@@ -15388,24 +15021,6 @@
     },
     {
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "CrystalFire",
-      "name": "Fire Crystal Core",
-      "description": "A Crystal Core infused with Fire"
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "CrystalGravity",
-      "name": "Gravity Crystal Core",
-      "description": "A Crystal Core infused with Gravity"
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "CrystalLightning",
-      "name": "Lightning Crystal Core",
-      "description": "A Crystal Core infused with Lightning"
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
       "id": "Apple",
       "name": "Apple",
       "description": "Worm free and ready to eat."
@@ -15496,20 +15111,8 @@
     },
     {
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "BrokenBench",
-      "name": "Broken Bench",
-      "description": ""
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
       "id": "Board",
       "name": "Board",
-      "description": ""
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "BrokenBoard",
-      "name": "Broken Board",
       "description": ""
     },
     {
@@ -15598,18 +15201,6 @@
     },
     {
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "Brick",
-      "name": "Brick",
-      "description": ""
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "Chicken",
-      "name": "Chicken",
-      "description": "A domestic fowl"
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
       "id": "ChickenEgg",
       "name": "Chicken Egg",
       "description": "A delicious, freshly laid, unfertilized chicken egg."
@@ -15652,12 +15243,6 @@
     },
     {
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "ToolHayfork",
-      "name": "Hayfork",
-      "description": "If you find yourself in an unfortunate enough situation to use this as a weapon, aim for the eyes."
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
       "id": "ToolHoe",
       "name": "Hoe",
       "description": "A farming tool for working the soil. In skilled hands, it may also be of use in shaping the battlefield."
@@ -15673,18 +15258,6 @@
       "id": "Urn",
       "name": "Urn",
       "description": ""
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "DaggerAntic",
-      "name": "Antic Knife",
-      "description": "An old, restored dagger from the First Empire. Very reliable for its time to still see use today."
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "SwordShortAntic",
-      "name": "Antique Sword",
-      "description": "Used optimally in conjunction with a shield, the short length and thin tip of this weapon make it ideal for thrusting."
     },
     {
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
@@ -15797,20 +15370,20 @@
     {
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
       "id": "FoodBirdEggEaten",
-      "name": "",
-      "description": ""
+      "name": "Bird Egg",
+      "description": "A small bird egg. It wont provide much nutrition but the contents are quite delicious."
     },
     {
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
       "id": "ChickenEggEaten",
-      "name": "",
-      "description": ""
+      "name": "Chicken Egg",
+      "description": "A delicious, freshly laid, unfertilized chicken egg."
     },
     {
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
       "id": "SeagullEggEaten",
-      "name": "",
-      "description": ""
+      "name": "Seagull Egg",
+      "description": "A rather fishy tasting egg laid by a gull. A delicacy for sure."
     },
     {
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
@@ -15828,12 +15401,6 @@
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
       "id": "Broken Brace 2",
       "name": "Broken Brace",
-      "description": ""
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "CharmChain",
-      "name": "CharmChain",
       "description": ""
     },
     {
@@ -15916,12 +15483,6 @@
     },
     {
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "GolemWeakPointCrystal",
-      "name": "GolemWeakPointCrystal",
-      "description": ""
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
       "id": "Poo",
       "name": "Poo",
       "description": "A pile of feces, high in fiber, does not taste too great."
@@ -15967,12 +15528,6 @@
       "id": "SpellLightning",
       "name": "Lightning",
       "description": ""
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "InventoryBag",
-      "name": "InventoryBag",
-      "description": "Grab the item\nThe inventory opens\nLet go of the item\nThe inventory closes"
     },
     {
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
@@ -16030,12 +15585,6 @@
     },
     {
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "DruidShirt",
-      "name": "Druidic Tunic",
-      "description": "A meager but practical undershirt made by the Druids."
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
       "id": "DruidTorso",
       "name": "Druidic Cloak",
       "description": "Sorcerer garb made by the Northern tribes of Eraden. Their use of sorcery is believed to be entwined with their ancient naturalistic beliefs."
@@ -16069,12 +15618,6 @@
       "id": "OfficerHelmet",
       "name": "Blackened Armet",
       "description": "A plate helmet with a visor, made to leave no gaps for arrows or spear points to enter."
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "OfficerHelmetOpen",
-      "name": "Blackened Armet (Open)",
-      "description": "A plate helmet with a lifted visor, made to leave no gaps for arrows or spear points to enter."
     },
     {
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
@@ -16264,18 +15807,6 @@
     },
     {
       "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "MercenaryHelmet",
-      "name": "Raider Helmet",
-      "description": "A simple plate helmet offering excellent face and head protection, as well as an intimidation factor."
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
-      "id": "ThrallBracelet",
-      "name": "Thrall Bracelet",
-      "description": "A bracelet that limits the wearer's sorcery. Worn by sorcerers indentured to the Eraden Kingdom to keep them under control."
-    },
-    {
-      "$type": "ThunderRoad.TextData+Item, ThunderRoad",
       "id": "MapPiece",
       "name": "Partial Map",
       "description": "A map with partial information locating a Dalgarian Ruin."
@@ -16395,12 +15926,6 @@
       "id": "SpecialWeaponSword",
       "title": "Swordsman Brawl",
       "description": "A fight with enemies only wielding swords."
-    },
-    {
-      "$type": "ThunderRoad.TextData+Wave, ThunderRoad",
-      "id": "SpecialWeaponDagger",
-      "title": "Dagger Brawl",
-      "description": "A fight with enemies only wielding daggers."
     },
     {
       "$type": "ThunderRoad.TextData+Wave, ThunderRoad",

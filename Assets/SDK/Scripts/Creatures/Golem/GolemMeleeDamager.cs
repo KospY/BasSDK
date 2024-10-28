@@ -16,6 +16,11 @@ namespace ThunderRoad
         public float hitForce = 10;
         public float hitForceUpward = 3;
 
+        public bool shieldBlocksDamage = true;
+        public bool shieldBlocksForce = false;
+        public float shieldBlockRadius = 0.75f;
+        public AudioSource blockAudio;
+
         public UnityEvent onHit;
 
     }

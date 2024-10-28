@@ -12,8 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58f2147e4fa6dc344959179e71b74af7, type: 3}
   m_Name: BladeAndSorcery
   m_EditorClassIdentifier: 
+  versionMajor: 1
+  versionMinor: 0
+  versionRevision: 5
+  versionBuild: 1
   minModVersion: 1.0.0.0
   productName: BladeAndSorcery
   appIdentifier: com.Warpfrog.BladeAndSorcery
+  exeDescription: Blade & Sorcery
+  androidModReadme: 'Mod folders can be dropped here
+
+    Find mods on https://www.nexusmods.com/bladeandsorcerynomad'
+  icon: {fileID: 2800000, guid: 43f1d940d1f3ff144b31518157d3d5a6, type: 3}
+  mainMenuLevelId: MainMenu
+  defaultGameModeId: Sandbox
+  pointerAddress: Bas.Ui.Pointer
+  highlighterAddress: Bas.Ui.Highlighter
+  optionsMenuAddress: Bas.Ui.OptionsMenu
+  loadingBarAddress: Bas.Ui.LoadingBar
+  playerPrefab: {fileID: 4653, guid: 47ea77fba289fe34f849b68461cf7fee, type: 3}
+  spectatorPrefab: {fileID: 5775064787841104214, guid: c961723420e04264ba99cc7278955f66,
+    type: 3}
+  codecksReportToken: 
+  buildLoadDefaultFolders:
+  - bas
   editorLoadDefaultFolders:
   - bas
+  - baswip

@@ -20,8 +20,12 @@ namespace ThunderRoad
 
         [Tooltip("Should the item spawn on start, or only when prompted?")]
         public bool spawnOnStart = true;
-        [Tooltip("If the weapon hits this collider, it should stop piercing at this point and go no deeper!")]
-        public UnityEvent<Item> onSpawnEvent = new();
+        [Tooltip("If the pierced spawner doesn't manage to pierce anything, should the pierce weapon despawn?")]
+        public bool despawnIfNoPierce = true;
+        public UnityEvent<Item> onPierceEvent = new();
+        public UnityEvent onFailPierceEvent = new();
+        [Tooltip("If set to false, the pierce will not spawn any effects.")]
+        public bool spawnEffects = true;
 #if ODIN_INSPECTOR
         public List<ValueDropdownItem<string>> GetAllWeapons()
         {
@@ -53,6 +57,9 @@ namespace ThunderRoad
 #endif
         [Tooltip("Pick which damager should do the piercing. This lines up with the pierce transform's name.")]
         public string pierceDamagerName;
+        [Tooltip("Sets what the 'impact velocity' of the collision should be, if this hits a ragdoll. Any value greater than 0 makes the pierce deal damage to ragdolls it pierces.")]
+        public float ragdollDamageSpeed = 0f;
+
         [Header("Pierce end")]
         [Tooltip("If the weapon hits this collider, it should stop piercing at this point and go no deeper!")]
         public Collider endPierceCollider;
@@ -62,7 +69,7 @@ namespace ThunderRoad
 #endif
         public Collider hitCollider;
         [Header("Raycasting")]
-        public LayerMask raycastLayerMask = (LayerMask)(-1996342175);
+        public LayerMask raycastLayerMask = (LayerMask)(218250337);
         public float raycastDistance;
         [Header("Depth")]
         [Range(0f, 10f)]

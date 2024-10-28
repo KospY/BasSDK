@@ -153,47 +153,27 @@
   "modules": [
     {
       "$type": "ThunderRoad.ItemModuleValueModifier, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
       "useModeMainCurrency": false,
       "spawnPriceTag": false,
-      "priceTagAddress": "Bas.Misc.ShopPriceTag",
-      "groupPath": null
+      "priceTagAddress": "Bas.Misc.ShopPriceTag"
     },
     {
       "$type": "ThunderRoad.ItemModuleTint, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
       "tintColour": {
         "r": 0.0,
         "g": 0.3137255,
         "b": 1.0,
         "a": 1.0
       },
-      "shaderProperty": "_BaseColor",
-      "groupPath": null
+      "shaderProperty": "_BaseColor"
     },
     {
       "$type": "ThunderRoad.ItemModuleStats, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
-      "stats": [],
-      "groupPath": null
+      "stats": []
     },
     {
       "$type": "ThunderRoad.ItemModuleConvertToCurrency, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
-      "CollectSoundEffectId": "CollectCurrency",
-      "groupPath": null
+      "CollectSoundEffectId": "CollectCurrency"
     }
   ],
   "colliderGroups": [

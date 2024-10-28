@@ -157,7 +157,7 @@ namespace ThunderRoad
             {
                 if (meshRenderer == null)
                 {
-                    Debug.LogWarningFormat(this, "BakeLODGroup - Can't apply lightmap because meshRenderer is null");
+                    Debug.LogWarningFormat(this, $"BakeLODGroup - Can't apply lightmap because meshRenderer is null on {this.gameObject.GetPathFromRoot()}");
                     return;
                 }
 
@@ -165,7 +165,7 @@ namespace ThunderRoad
                 {
                     if (targetMeshRenderer == null)
                     {
-                        Debug.LogWarningFormat(this, $"BakeLODGroup - Can't apply lightmap to a targetMeshRenderer because it's null");
+                        Debug.LogWarningFormat(this, $"BakeLODGroup - Can't apply lightmap to a targetMeshRenderer because it's null on {this.gameObject.GetPathFromRoot()}");
                         continue;
                     }
                     targetMeshRenderer.lightmapIndex = meshRenderer.lightmapIndex;

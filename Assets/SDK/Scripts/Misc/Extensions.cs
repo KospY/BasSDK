@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -202,6 +201,17 @@ namespace ThunderRoad
         static IEnumerator DelayedActionCoroutine(float delay, Action delayedAction)
         {
             yield return new WaitForSeconds(delay);
+            delayedAction.Invoke();
+        }
+
+        public static Coroutine WaitConditionAction(this MonoBehaviour monoBehaviour, Func<bool> condition, Action delayedAction)
+        {
+            return monoBehaviour.StartCoroutine(WaitConditionActionCoroutine(condition, delayedAction));
+        }
+
+        static IEnumerator WaitConditionActionCoroutine(Func<bool> condition, Action delayedAction)
+        {
+            while (!condition.Invoke()) yield return null;
             delayedAction.Invoke();
         }
 
@@ -821,18 +831,6 @@ namespace ThunderRoad
             return (BuildSettings.ContentFlag)(1 << (int)flag);
         }
 
-        public static (Side side, ItemModuleAI.AttackType motion) SplitSideAndMotion(this AnimationData.Clip.MotionType clipMotion)
-        {
-            switch (clipMotion)
-            {
-                case AnimationData.Clip.MotionType.RightSwing: return (Side.Right, ItemModuleAI.AttackType.Swing);
-                case AnimationData.Clip.MotionType.RightThrust: return (Side.Right, ItemModuleAI.AttackType.Thrust);
-                case AnimationData.Clip.MotionType.LeftSwing: return (Side.Left, ItemModuleAI.AttackType.Swing);
-                case AnimationData.Clip.MotionType.LeftThrust: return (Side.Left, ItemModuleAI.AttackType.Thrust);
-            }
-            return (Side.Right, ItemModuleAI.AttackType.None);
-        }
-
         public static Collider Clone(this Collider collider, GameObject gameObject)
         {
             if (collider is SphereCollider) Clone(collider as SphereCollider, gameObject);
@@ -934,41 +932,6 @@ namespace ThunderRoad
             }
             radius = capsule.radius * radiusScale;
             height = capsule.height * axisScale;
-        }
-
-        public static bool DistanceTouchCheck(this Collider colliderA, Collider colliderB)
-        {
-            ColliderClosenessInfo(colliderA, colliderB.transform.position, out var lineA, out var aIsLine, out var aDist);
-            ColliderClosenessInfo(colliderB, colliderA.transform.position, out var lineB, out var bIsLine, out var bDist);
-            var pointA = lineA.a;
-            var pointB = lineB.a;
-            if (aIsLine && bIsLine) Utils.ClosestPointsOnTwoLines(lineA.a, lineA.b, lineB.a, lineB.b, out pointA, out pointB);
-            if (aIsLine && !bIsLine) pointA = Utils.ClosestPointOnLine(lineA.a, lineA.b, pointB);
-            if (!aIsLine && bIsLine) pointB = Utils.ClosestPointOnLine(lineB.a, lineB.b, pointA);
-            return pointA.PointInRadius(pointB, aDist + bDist);
-        }
-
-        private static void ColliderClosenessInfo(Collider col, Vector3 otherCenter, out (Vector3 a, Vector3 b) line, out bool needLine, out float distance)
-        {
-            line = (Vector3.zero, Vector3.zero);
-            distance = 0f;
-            needLine = false;
-            if (col is CapsuleCollider capsule)
-            {
-                capsule.ScaledWorldInfo(out line.a, out line.b, out _, out distance);
-                needLine = true;
-            }
-            else if (col is SphereCollider sphere)
-            {
-                line.a = line.b = sphere.transform.TransformPoint(sphere.center);
-                distance = sphere.GetScaledRadius();
-            }
-            else if (col is BoxCollider box)
-            {
-                line.a = line.b = box.transform.TransformPoint(box.center);
-                // if we really wanted to I'm sure we could get the true distance, but a rough distance is fine. this method should be best suited for round colliders
-                distance = Vector3.Distance(box.transform.position, box.ClosestPoint(otherCenter));
-            }
         }
 
         public static float GetFirstValue(this AnimationCurve animationCurve)

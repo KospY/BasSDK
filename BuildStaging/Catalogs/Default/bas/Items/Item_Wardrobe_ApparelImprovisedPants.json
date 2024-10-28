@@ -4,7 +4,7 @@
   "sensitiveContent": "None",
   "sensitiveFilterBehaviour": "Discard",
   "version": 4,
-  "localizationId": "ApparelImprovisedPants",
+  "localizationId": "-",
   "displayName": "ImprovisedPants",
   "description": null,
   "author": "Houdi",
@@ -153,10 +153,7 @@
   "modules": [
     {
       "$type": "ThunderRoad.ItemModuleWardrobe, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
+      "castSpeedPerHand": null,
       "category": "Apparel",
       "castShadows": "None",
       "wardrobes": [
@@ -167,37 +164,37 @@
         }
       ],
       "isMetal": false,
-      "groupPath": null
+      "armorSoundEffectPriority": 0,
+      "armorSoundEffectID": ""
     },
     {
       "$type": "ThunderRoad.ItemModuleStats, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
       "stats": [
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 0,
+          "useStarIcons": true,
           "name": "Defense"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 0,
+          "useStarIcons": true,
           "name": "Mobility"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 0,
+          "useStarIcons": true,
           "name": "SpellCasting"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 0,
+          "useStarIcons": true,
           "name": "FocusRegen"
         }
-      ],
-      "groupPath": null
+      ]
     }
   ],
   "colliderGroups": [],

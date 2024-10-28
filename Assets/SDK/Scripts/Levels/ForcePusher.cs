@@ -3,7 +3,6 @@ using System.Collections.Generic;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #endif
-using ThunderRoad;
 using UnityEngine;
 
 namespace ThunderRoad

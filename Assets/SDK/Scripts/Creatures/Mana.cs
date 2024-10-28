@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Linq;
 using ThunderRoad.Skill.SpellPower;
-using UnityEngine.Serialization;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;

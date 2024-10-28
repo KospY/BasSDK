@@ -196,6 +196,10 @@ namespace ThunderRoad
         public int crystalsBrokenToWake = 1;
         private int crystalsBrokenDuringStun = 0;
 #if ODIN_INSPECTOR
+        [TabGroup("GroupTabs", "AI")]
+#endif
+        public float shieldDisableDelay = 0f;
+#if ODIN_INSPECTOR
         [TabGroup("GroupTabs", "AI"), ColorUsage(true, true)]
 #endif
         public Color defeatedEmissionColor;

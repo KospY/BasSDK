@@ -345,15 +345,15 @@ namespace Needle
                 if (path.EndsWith(AssetSorceryShader.ASSETSORCERY_FILE_EXTENSION)){
                     headerGroups.Add(new HeaderGroup("Platform") {properties = null, customDrawer = Platform});
                 }
+#endif
                 
-                if(targetMat.HasProperty("_UseReveal"))
+                //if(targetMat.HasProperty("_UseReveal"))
                 //if (ShaderGUI.FindProperty("_UseReveal", properties) != null) // This started erroring on shaders that didnt have the property
                 {
-                    headerGroups.Add(new HeaderGroup("Reveal") {properties = null, customDrawer = Reveal});
+                    //headerGroups.Add(new HeaderGroup("Reveal Layers") {properties = null, customDrawer = Reveal});
                 }
-#endif
-            
-            headerGroups.Add(new HeaderGroup("Variant Validation") {properties = null, customDrawer = DrawVariantWarning});
+
+                headerGroups.Add(new HeaderGroup("Variant Validation") {properties = null, customDrawer = DrawVariantWarning});
 
                 headerGroups.Add(new HeaderGroup("Default"));
 
@@ -486,7 +486,7 @@ namespace Needle
                 GenerateHeaderGroupsMarker.End();
             }
             
-#if ASSET_SORCERY
+/*
             void Reveal()
             {
                 //Reveal
@@ -499,7 +499,7 @@ namespace Needle
                 MaterialProperty bumpMap = ShaderGUI.FindProperty("_BumpMap", properties);
                 
                 EditorGUILayout.BeginVertical("HelpBox");
-                if (useReveal.floatValue > 0.5)
+                //if (useReveal.floatValue > 0.5)
                 {
                     if (GUILayout.Button("[Weapon] Auto-fill layer materials"))
                     {
@@ -532,6 +532,8 @@ namespace Needle
                 }
                 EditorGUILayout.EndVertical();
             }
+    */        
+#if ASSET_SORCERY
             void Platform()
             {
                 var path = AssetDatabase.GetAssetPath(targetMat.shader);
@@ -1201,6 +1203,11 @@ namespace Needle
 
                             if (prop.flags.HasFlag(MaterialProperty.PropFlags.PerRendererData))
                                 break;
+                            
+                            //if (prop.name == "_UseReveal")
+                            //{
+                            //    Reveal();
+                            //}
 
                             // check if drawer shorthand + parameters
                             var indexOfShorthand = display.IndexOf("&&", StringComparison.Ordinal);

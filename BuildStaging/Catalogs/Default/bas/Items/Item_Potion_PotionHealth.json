@@ -153,10 +153,6 @@
   "modules": [
     {
       "$type": "ThunderRoad.ItemModulePotion, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
       "contents": [
         {
           "$type": "ThunderRoad.LiquidData+Content, ThunderRoad",
@@ -250,23 +246,18 @@
       "flowMaxAngle": 100.0,
       "effectFlowId": "PotionFlow",
       "healthEffectId": "WristHealth",
-      "levelEffectId": "WristMana",
-      "groupPath": null
+      "levelEffectId": "WristMana"
     },
     {
       "$type": "ThunderRoad.ItemModuleStats, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
       "stats": [
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 5,
+          "useStarIcons": true,
           "name": "Healing"
         }
-      ],
-      "groupPath": null
+      ]
     }
   ],
   "colliderGroups": [],

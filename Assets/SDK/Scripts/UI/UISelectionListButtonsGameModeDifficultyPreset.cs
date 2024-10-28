@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -18,7 +16,7 @@ namespace ThunderRoad
         public TextMeshProUGUI presetDescriptionText;
         public UISelectionListButtonsLevelModeOption LevelOptionPrefab = null;
         public Transform optionsPanel = null;
-        public TextMeshProUGUI optionDescriptionText;
+        public UIText optionDescriptionText;
 
         [Header("Custom text")]
 #if ODIN_INSPECTOR

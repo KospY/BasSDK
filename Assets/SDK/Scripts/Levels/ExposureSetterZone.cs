@@ -17,6 +17,17 @@ namespace ThunderRoad
     [RequireComponent(typeof(BoxCollider))]
     public class ExposureSetterZone : ThunderBehaviour
     {
+        /// <summary>
+        /// Is a zone currently active?
+        /// </summary>
+        public static bool isBusy;
+
+        /// <summary>
+        /// The current or last active zone the player was in.
+        /// </summary>
+        public static ExposureSetterZone activeZone;
+
+
         public static readonly int TonemappingSettings = Shader.PropertyToID("_TonemappingSettings");
         public enum ExposureAdjustMode
         {

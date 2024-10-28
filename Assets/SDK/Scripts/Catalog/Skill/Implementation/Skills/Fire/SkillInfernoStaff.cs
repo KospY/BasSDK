@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Object = UnityEngine.Object;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #endif

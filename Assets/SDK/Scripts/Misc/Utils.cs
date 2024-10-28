@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Rendering.Universal;
@@ -1128,7 +1129,40 @@ namespace ThunderRoad
             if (percentage <= 0) return -80;
             return 20 * Mathf.Log10(percentage / 100f);
         }
+        /// <summary>
+        /// Clone a directory asynchronously.
+        /// </summary>
+        public static async Task<bool> CopyDirectoryAsync(string sourceDir, string destinationDir, bool recursive)
+        {
+            var dir = new DirectoryInfo(sourceDir);
 
+            if (!dir.Exists) return false;
+
+            DirectoryInfo[] dirs = dir.GetDirectories();
+            Directory.CreateDirectory(destinationDir);
+
+            foreach (FileInfo file in dir.GetFiles())
+            {
+                string targetFilePath = Path.Combine(destinationDir, file.Name);
+                await using (FileStream sourceStream = file.OpenRead())
+                await using (FileStream destinationStream = File.Create(targetFilePath))
+                {
+                    await sourceStream.CopyToAsync(destinationStream);
+                }
+            }
+
+            if (recursive)
+            {
+                foreach (DirectoryInfo subDir in dirs)
+                {
+                    string newDestinationDir = Path.Combine(destinationDir, subDir.Name);
+                    await CopyDirectoryAsync(subDir.FullName, newDestinationDir, true);
+                }
+            }
+
+            return true;
+        }
+        
         /// <summary>
         /// Clone a directory.
         /// </summary>

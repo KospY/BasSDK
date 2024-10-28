@@ -1,6 +1,4 @@
-﻿using ThunderRoad.Skill.SpellPower;
-
-namespace ThunderRoad.Skill.Spell
+﻿namespace ThunderRoad.Skill.Spell
 {
     public class SkillTemporalThunder : SpellSkillData
     {

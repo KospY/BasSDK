@@ -182,10 +182,6 @@
   "modules": [
     {
       "$type": "ThunderRoad.ItemModuleAI, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
       "primaryClass": "Melee",
       "secondaryClass": "None",
       "weaponHandling": "OneHanded",
@@ -222,58 +218,60 @@
       "rangedWeaponData": null,
       "armResistanceMultiplier": 2.0,
       "allowDynamicHeight": false,
-      "defenseHasPriority": false,
-      "groupPath": null
+      "defenseHasPriority": false
     },
     {
       "$type": "ThunderRoad.ItemModuleStats, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
       "stats": [
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 5,
+          "useStarIcons": true,
           "name": "FleshDamage"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 4,
+          "useStarIcons": true,
           "name": "LeatherDamage"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 0,
+          "useStarIcons": true,
           "name": "PlateDamage"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 5,
+          "useStarIcons": true,
           "name": "Penetration"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 2,
+          "useStarIcons": true,
           "name": "Dismemberment"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 0,
+          "useStarIcons": true,
           "name": "Stagger"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 4,
+          "useStarIcons": true,
           "name": "Imbue"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 5,
+          "useStarIcons": true,
           "name": "Handling"
         }
-      ],
-      "groupPath": null
+      ]
     }
   ],
   "colliderGroups": [

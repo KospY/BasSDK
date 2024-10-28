@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #endif
-using ThunderRoad.Skill.Spell;
 using UnityEngine;
 
 namespace ThunderRoad.Skill.SpellMerge

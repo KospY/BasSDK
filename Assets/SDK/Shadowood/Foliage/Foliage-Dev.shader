@@ -6,8 +6,7 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 	{
 		[HideInInspector] _EmissionColor("Emission Color", Color) = (1,1,1,1)
 		[HideInInspector] _AlphaCutoff("Alpha Cutoff ", Range(0, 1)) = 0.5
-		HeaderOceanFog("# Ocean Fog Caustics", Float) = 0
-		[Toggle(_USEGRADIENTFOG_ON)] _UseGradientFog("UseGradientFog", Float) = 1
+		[Feature(_CAUSTICSENABLE)]HeaderOceanFog("# Ocean Fog Caustics", Float) = 0
 		_TransparencyHeader("# Transparency", Int) = 0
 		[Toggle(_ALPHATEST_ON)]_AlphaClip("Alpha Clipping", Range( 0 , 1)) = 1
 		_AlphaClipThreshold("-AlphaClip Threshold [!_AlphaToCoverage&&_AlphaClip]", Range( 0 , 1.01)) = 0.5
@@ -22,7 +21,7 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 		_HueShift("HueShift", Range( -1 , 1)) = 0
 		_Metallic("Metallic", Range( 0 , 1)) = 0
 		Vector1_5DA372D6("Smoothness", Range( 0 , 1)) = 0.2
-		_Occlusion("Occlusion [_UseRForAmbientOcclusion]", Range( 0 , 1)) = 0
+		_Occlusion("Occlusion", Range( 0 , 1)) = 0
 		[NoScaleOffset]Texture2D_363A5C4F("Normal Map &&", 2D) = "bump" {}
 		Vector1_b5167c4675424009928f6f8474af501f("Normal Strength", Range( -2 , 2)) = 1
 		[Feature(_PROBEVOLUME)]_PRVOL("# Probe Volumes", Float) = 0
@@ -37,12 +36,12 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 		[NoScaleOffset]Texture2D_3899621E("Wind Normal &", 2D) = "bump" {}
 		Vector1_534F54C8("Wind Intensity", Float) = 0.1
 		Vector1_A0C32172("Wind Scale Primary", Float) = 55
-		[Toggle(BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF_ON)] BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF("Use Wind Secondary", Float) = 1
-		Vector1_F7C5A4BA("Wind Scale Secondary [BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF]", Float) = 20
+		[Toggle]BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF("Use Wind Secondary", Float) = 1
+		Vector1_F7C5A4BA("-Wind Scale Secondary [BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF]", Float) = 20
 		Vector1_736F1270("Time Scale", Float) = 0.03
 		HeaderBackLighting("# Back Lighting", Int) = 0
-		[Toggle(_USERFORAMBIENTOCCLUSION_ON)] _UseRForAmbientOcclusion("Use R For Ambient Occlusion", Float) = 0
-		_OcclusionBackLit("-Occlusion Back Lit [_UseRForAmbientOcclusion]", Range( 0 , 1)) = 0
+		[Toggle]_UseRForAmbientOcclusion("Use R For Ambient Occlusion", Float) = 0
+		_OcclusionBackLit("Occlusion Back Lit", Range( 0 , 1)) = 0
 		[Toggle(_USE_TRANSMISSION)] _USE_TRANSMISSION("Use Transmission", Float) = 0
 		[HDR]_TransmissionColor("-Color [_USE_TRANSMISSION]", Color) = (0.9943649,1,0.5801887,0)
 		_TransmissionShadow("-Shadow [_USE_TRANSMISSION]", Range( 0 , 1)) = 0.5
@@ -56,11 +55,11 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 		_TranslucencyNormalDistortion("-Normal Distortion [_TRANSLUCENCY]", Range( 0 , 1)) = 0.5
 		_TranslucencyAmbient("-Ambient [_TRANSLUCENCY]", Range( 0 , 1)) = 0.1
 		[FeatureCommentOut(_UseColorMask)]HeaderColorMask("# ColorMask", Int) = 0
-		[Toggle(_USECOLORMASK_ON)] _UseColorMask("Use Color Mask", Float) = 0
-		[HDR]_ColorMask("ColorMask [_UseColorMask]", Color) = (1,0.3563676,0,1)
-		_Strength("Strength", Range( 0 , 1)) = 1
+		[Toggle]_UseColorMask("Use Color Mask", Float) = 0
+		[HDR]_ColorMask("Color Mask [_UseColorMask]", Color) = (1,0.3563676,0,1)
+		_Strength("Strength [_UseColorMask]", Range( 0 , 1)) = 1
 		_ColorMaskRemap("ColorMask Remap [_UseColorMask]", Vector) = (0,1,0,1)
-		DRAWER_ColorMaskRemap("!DRAWER MinMax _ColorMaskRemap Remap [_USECOLORMASK_ON] ", Float) = 0
+		DRAWER_ColorMaskRemap("!DRAWER MinMax _ColorMaskRemap Remap [_UseColorMask] ", Float) = 0
 		[FeatureCommentOut(_DebugVisuals)]_Debug("# Debug", Int) = 0
 		[Toggle(_DEBUGVISUALS_ON)] _DebugVisuals("DebugVisuals", Float) = 0
 		[MaterialEnumDrawerExtended(VertexR,0,VertexG,1,VertexB,2,VertexA,3)]_DebugVisual("DebugVisual [_DebugVisuals]", Int) = 0
@@ -826,20 +825,17 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 			#endif
 
 			#define ASE_NEEDS_FRAG_WORLD_NORMAL
+			#define ASE_NEEDS_VERT_NORMAL
 			#define ASE_NEEDS_VERT_POSITION
 			#define ASE_NEEDS_FRAG_COLOR
 			#define ASE_NEEDS_FRAG_WORLD_VIEW_DIR
 			#define ASE_NEEDS_FRAG_WORLD_POSITION
-			#pragma shader_feature _SKYFOG_ON
 			#pragma shader_feature _TRANSLUCENCY
 			#pragma shader_feature _USE_TRANSMISSION
 			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature _SKYFOG_ON
 			#pragma multi_compile_local __ _PROBEVOLUME_ON
-			#pragma shader_feature_local_vertex _USERFORAMBIENTOCCLUSION_ON
-			#pragma shader_feature_local_vertex BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF_ON
-			#pragma shader_feature_local _USECOLORMASK_ON
-			#pragma shader_feature_local _USEGRADIENTFOG_ON
 			#pragma shader_feature_local _FadeWithHeight
 
 
@@ -885,46 +881,50 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 				float4 ase_texcoord8 : TEXCOORD8;
 				float4 ase_texcoord9 : TEXCOORD9;
 				float4 ase_texcoord10 : TEXCOORD10;
-				float4 ase_color : COLOR;
 				float4 ase_texcoord11 : TEXCOORD11;
+				float4 ase_color : COLOR;
+				float4 ase_texcoord12 : TEXCOORD12;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _ColorMask;
-			float4 Color_C776E9F7;
 			float4 _RemapAlpha;
-			float4 _TranslucencyColor;
-			float4x4 _ProbeWorldToTexture;
 			float4 _ColorMaskRemap;
+			float4 Color_C776E9F7;
+			float4 _ColorMask;
+			float4x4 _ProbeWorldToTexture;
+			float4 _TranslucencyColor;
 			float4 _TransmissionColor;
 			float3 _ProbeVolumeSizeInv;
 			float3 _ProbeVolumeMin;
 			float _ShadowThreshold;
 			float _AlphaClip;
-			float _OcclusionBackLit;
+			float _AlphaClipThreshold;
 			float _Occlusion;
 			float Vector1_5DA372D6;
 			float _Metallic;
 			float Vector1_b5167c4675424009928f6f8474af501f;
 			float _Strength;
-			float _AlphaClipThreshold;
+			float _OcclusionBackLit;
 			int _Cullmode;
-			float _HueShift;
-			float Vector1_534F54C8;
-			float Vector1_F7C5A4BA;
-			float Vector1_736F1270;
-			float Vector1_A0C32172;
-			float _TranslucencyShadow;
-			float _TranslucencyAmbient;
-			float _TranslucencyDirect;
-			float _TranslucencyScattering;
-			float _TranslucencyNormalDistortion;
-			float _TranslucencyStrength;
-			float _TranslucencyNormalBias;
-			float _Cutoff;
 			float Vector1_2F70D75B;
+			float _UseColorMask;
+			float _Cutoff;
+			float _TranslucencyNormalBias;
+			float _TranslucencyNormalDistortion;
+			float _TranslucencyDirect;
+			float _TranslucencyAmbient;
+			float _TranslucencyShadow;
+			float _HueShift;
+			float _TranslucencyScattering;
+			float _UseRForAmbientOcclusion;
+			float BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF;
+			float Vector1_A0C32172;
+			float Vector1_736F1270;
+			float Vector1_F7C5A4BA;
+			float Vector1_534F54C8;
+			float _TranslucencyStrength;
 			int _DebugVisual;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
@@ -1019,19 +1019,24 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 				return SampleLightmap( lightmapUV, 0, normalWS );
 			}
 			
-			float3 MyCustomExpression6_g2820( float3 vertexPos, float4x4 ProbeWorldToTexture, float3 ProbeVolumeMin, float3 ProbeVolumeSizeInv )
+			float3x3 CastToFloat3x354_g2827( float3x3 Input )
+			{
+				return Input;
+			}
+			
+			float3 MyCustomExpression6_g2827( float3 vertexPos, float4x4 ProbeWorldToTexture, float3 ProbeVolumeMin, float3 ProbeVolumeSizeInv )
 			{
 				float3 position = mul(ProbeWorldToTexture, float4(TransformObjectToWorld(vertexPos.xyz), 1.0f)).xyz;
 				float3 texCoord = (position - ProbeVolumeMin.xyz) * ProbeVolumeSizeInv;
 				return texCoord;
- 			}
+			}
 			
-			float3 SHEvalLinearL0L114_g2820( float3 worldNormal, float4 ProbeVolumeShR, float4 ProbeVolumeShG, float4 ProbeVolumeShB )
+			float3 SHEvalLinearL0L114_g2827( float3 worldNormal, float4 ProbeVolumeShR, float4 ProbeVolumeShG, float4 ProbeVolumeShB )
 			{
 				return SHEvalLinearL0L1(worldNormal, ProbeVolumeShR, ProbeVolumeShG,  ProbeVolumeShB);
 			}
 			
-			half4 CalculateShadowMask1_g2822( half2 LightmapUV )
+			half4 CalculateShadowMask1_g2829( half2 LightmapUV )
 			{
 				#if defined(SHADOWS_SHADOWMASK) && defined(LIGHTMAP_ON)
 				return SAMPLE_SHADOWMASK( LightmapUV.xy );
@@ -1057,12 +1062,12 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 
 				float4 temp_output_390_0 = saturate( v.ase_color );
 				float4 break391 = temp_output_390_0;
-				#ifdef _USERFORAMBIENTOCCLUSION_ON
-				float staticSwitch370 = break391.r;
-				#else
-				float staticSwitch370 = 1.0;
-				#endif
-				float4 appendResult393 = (float4(break391.r , saturate( staticSwitch370 ) , break391.b , 0.0));
+				float ifLocalVar432 = 0;
+				if( _UseRForAmbientOcclusion <= 0.5 )
+				ifLocalVar432 = 1.0;
+				else
+				ifLocalVar432 = break391.r;
+				float4 appendResult393 = (float4(break391.r , saturate( ifLocalVar432 ) , break391.b , 0.0));
 				float4 vertexToFrag395 = appendResult393;
 				float4 break394 = vertexToFrag395;
 				float VCWindMaskR238 = break394.x;
@@ -1071,34 +1076,42 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 				float temp_output_33_0 = ( Vector1_736F1270 * _TimeParameters.x );
 				float2 appendResult37 = (float2(UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_A0C32172 )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).x , UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_A0C32172 )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).y));
 				float2 appendResult38 = (float2(UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_F7C5A4BA )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).x , UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_F7C5A4BA )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).y));
-				#ifdef BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF_ON
-				float2 staticSwitch42 = ( appendResult37 + ( appendResult38 * 0.5 ) );
-				#else
-				float2 staticSwitch42 = float2( 0,0 );
-				#endif
-				float2 break49 = ( VCWindMaskR238 * staticSwitch42 * Vector1_534F54C8 );
+				float2 temp_output_41_0 = ( appendResult37 + ( appendResult38 * 0.5 ) );
+				float2 ifLocalVar439 = 0;
+				if( BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF <= 0.0 )
+				ifLocalVar439 = appendResult37;
+				else
+				ifLocalVar439 = temp_output_41_0;
+				float2 break49 = ( VCWindMaskR238 * ifLocalVar439 * Vector1_534F54C8 );
 				float3 appendResult48 = (float3(break49.x , 0.0 , break49.y));
 				float3 VertexPos46 = appendResult48;
 				float3 vertexToFrag392 = VertexPos46;
 				
 				o.ase_texcoord9 = vertexToFrag395;
 				
-				float3 vertexPos6_g2820 = v.vertex.xyz;
-				float4x4 ProbeWorldToTexture6_g2820 = _ProbeWorldToTexture;
-				float3 ProbeVolumeMin6_g2820 = _ProbeVolumeMin;
-				float3 ProbeVolumeSizeInv6_g2820 = _ProbeVolumeSizeInv;
-				float3 localMyCustomExpression6_g2820 = MyCustomExpression6_g2820( vertexPos6_g2820 , ProbeWorldToTexture6_g2820 , ProbeVolumeMin6_g2820 , ProbeVolumeSizeInv6_g2820 );
-				float3 vertexToFrag7_g2820 = localMyCustomExpression6_g2820;
-				o.ase_texcoord10.xyz = vertexToFrag7_g2820;
+				float3 ase_worldNormal = TransformObjectToWorldNormal(v.ase_normal);
+				float4x4 temp_output_28_0_g2827 = _ProbeWorldToTexture;
+				float3x3 Input54_g2827 = 0;
+				float3x3 localCastToFloat3x354_g2827 = CastToFloat3x354_g2827( Input54_g2827 );
+				float3 vertexToFrag56_g2827 = mul( ase_worldNormal, localCastToFloat3x354_g2827 );
+				o.ase_texcoord10.xyz = vertexToFrag56_g2827;
+				float3 vertexPos6_g2827 = v.vertex.xyz;
+				float4x4 ProbeWorldToTexture6_g2827 = temp_output_28_0_g2827;
+				float3 ProbeVolumeMin6_g2827 = _ProbeVolumeMin;
+				float3 ProbeVolumeSizeInv6_g2827 = _ProbeVolumeSizeInv;
+				float3 localMyCustomExpression6_g2827 = MyCustomExpression6_g2827( vertexPos6_g2827 , ProbeWorldToTexture6_g2827 , ProbeVolumeMin6_g2827 , ProbeVolumeSizeInv6_g2827 );
+				float3 vertexToFrag7_g2827 = localMyCustomExpression6_g2827;
+				o.ase_texcoord11.xyz = vertexToFrag7_g2827;
 				
 				o.ase_texcoord8.xyz = v.texcoord.xyz;
 				o.ase_color = v.ase_color;
-				o.ase_texcoord11.xy = v.texcoord1.xy;
+				o.ase_texcoord12.xy = v.texcoord1.xy;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
 				o.ase_texcoord8.w = 0;
 				o.ase_texcoord10.w = 0;
-				o.ase_texcoord11.zw = 0;
+				o.ase_texcoord11.w = 0;
+				o.ase_texcoord12.zw = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
@@ -1338,28 +1351,28 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 				float temp_output_354_0 = ( hsvTorgb300.y * Vector1_2F70D75B );
 				float3 appendResult405 = (float3(temp_output_302_0 , temp_output_354_0 , hsvTorgb300.z));
 				float3 hsvTorgb357 = RGBToHSV( _ColorMask.rgb );
-				float3 appendResult407 = (float3(( hsvTorgb357.x + _HueShift ) , hsvTorgb357.y , hsvTorgb357.z));
+				float3 appendResult407 = (float3(hsvTorgb357.x , hsvTorgb357.y , ( hsvTorgb357.x + _HueShift )));
 				float4 vertexToFrag395 = IN.ase_texcoord9;
 				float4 break394 = vertexToFrag395;
 				float VCColorMaskB240 = break394.z;
-				float temp_output_8_0_g1424 = saturate( VCColorMaskB240 );
-				float4 break5_g1424 = _ColorMaskRemap;
-				float temp_output_32_0_g1424 = (break5_g1424.z + (temp_output_8_0_g1424 - break5_g1424.x) * (break5_g1424.w - break5_g1424.z) / (break5_g1424.y - break5_g1424.x));
-				float temp_output_270_0 = temp_output_32_0_g1424;
+				float temp_output_8_0_g2834 = saturate( VCColorMaskB240 );
+				float4 break5_g2834 = _ColorMaskRemap;
+				float temp_output_32_0_g2834 = (break5_g2834.z + (temp_output_8_0_g2834 - break5_g2834.x) * (break5_g2834.w - break5_g2834.z) / (break5_g2834.y - break5_g2834.x));
+				float temp_output_270_0 = temp_output_32_0_g2834;
 				float3 appendResult365 = (float3(temp_output_270_0 , temp_output_270_0 , temp_output_270_0));
 				float3 lerpResult356 = lerp( appendResult405 , appendResult407 , saturate( ( appendResult365 * _Strength ) ));
 				float3 break360 = lerpResult356;
-				#ifdef _USECOLORMASK_ON
-				float staticSwitch244 = break360.x;
-				#else
-				float staticSwitch244 = temp_output_302_0;
-				#endif
-				#ifdef _USECOLORMASK_ON
-				float staticSwitch358 = break360.y;
-				#else
-				float staticSwitch358 = temp_output_354_0;
-				#endif
-				float3 hsvTorgb301 = HSVToRGB( float3(staticSwitch244,staticSwitch358,hsvTorgb300.z) );
+				float ifLocalVar435 = 0;
+				if( _UseColorMask <= 0.5 )
+				ifLocalVar435 = temp_output_302_0;
+				else
+				ifLocalVar435 = break360.x;
+				float ifLocalVar437 = 0;
+				if( _UseColorMask <= 0.5 )
+				ifLocalVar437 = temp_output_354_0;
+				else
+				ifLocalVar437 = break360.y;
+				float3 hsvTorgb301 = HSVToRGB( float3(ifLocalVar435,ifLocalVar437,hsvTorgb300.z) );
 				float4 appendResult312 = (float4(( appendResult316 * hsvTorgb301 ) , tex2DNode8.a));
 				float4 Albedo74 = appendResult312;
 				
@@ -1371,16 +1384,16 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 				float3 NormalRes233 = switchResult103;
 				
 				int BackLit142 = 0;
-				float3 temp_cast_4 = BackLit142;
+				float3 temp_cast_5 = BackLit142;
 				
 				float Smoothness88 = Vector1_5DA372D6;
 				
 				float VCAmbientOcclusionG239 = break394.y;
-				float3 temp_cast_5 = (VCAmbientOcclusionG239).xxx;
+				float3 temp_cast_6 = (VCAmbientOcclusionG239).xxx;
 				float temp_output_2_0_g1416 = _Occlusion;
 				float temp_output_3_0_g1416 = ( 1.0 - temp_output_2_0_g1416 );
 				float3 appendResult7_g1416 = (float3(temp_output_3_0_g1416 , temp_output_3_0_g1416 , temp_output_3_0_g1416));
-				float3 OcclusionRes252 = ( ( temp_cast_5 * temp_output_2_0_g1416 ) + appendResult7_g1416 );
+				float3 OcclusionRes252 = ( ( temp_cast_6 * temp_output_2_0_g1416 ) + appendResult7_g1416 );
 				
 				float Alpha157 = (0.0 + (tex2DNode8.a - _RemapAlpha.x) * (1.0 - 0.0) / (_RemapAlpha.y - _RemapAlpha.x));
 				
@@ -1409,48 +1422,49 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 				#else
 				float3 staticSwitch379 = localSampleSHPixel381;
 				#endif
-				float3 worldNormal14_g2820 = WorldNormal;
-				float3 vertexToFrag7_g2820 = IN.ase_texcoord10.xyz;
-				float4 ProbeVolumeShR14_g2820 = SAMPLE_TEXTURE3D( _ProbeVolumeShR, sampler_Linear_Clamp, vertexToFrag7_g2820 );
-				float4 ProbeVolumeShG14_g2820 = SAMPLE_TEXTURE3D( _ProbeVolumeShG, sampler_Linear_Clamp, vertexToFrag7_g2820 );
-				float4 ProbeVolumeShB14_g2820 = SAMPLE_TEXTURE3D( _ProbeVolumeShB, sampler_Linear_Clamp, vertexToFrag7_g2820 );
-				float3 localSHEvalLinearL0L114_g2820 = SHEvalLinearL0L114_g2820( worldNormal14_g2820 , ProbeVolumeShR14_g2820 , ProbeVolumeShG14_g2820 , ProbeVolumeShB14_g2820 );
+				float3 vertexToFrag56_g2827 = IN.ase_texcoord10.xyz;
+				float3 worldNormal14_g2827 = vertexToFrag56_g2827;
+				float3 vertexToFrag7_g2827 = IN.ase_texcoord11.xyz;
+				float4 ProbeVolumeShR14_g2827 = SAMPLE_TEXTURE3D( _ProbeVolumeShR, sampler_Linear_Clamp, ( vertexToFrag7_g2827 + float3( float2( 0,0 ) ,  0.0 ) ) );
+				float4 ProbeVolumeShG14_g2827 = SAMPLE_TEXTURE3D( _ProbeVolumeShG, sampler_Linear_Clamp, ( vertexToFrag7_g2827 + float3( float2( 0,0 ) ,  0.0 ) ) );
+				float4 ProbeVolumeShB14_g2827 = SAMPLE_TEXTURE3D( _ProbeVolumeShB, sampler_Linear_Clamp, ( vertexToFrag7_g2827 + float3( float2( 0,0 ) ,  0.0 ) ) );
+				float3 localSHEvalLinearL0L114_g2827 = SHEvalLinearL0L114_g2827( worldNormal14_g2827 , ProbeVolumeShR14_g2827 , ProbeVolumeShG14_g2827 , ProbeVolumeShB14_g2827 );
 				#ifdef _PROBEVOLUME_ON
-				float3 staticSwitch20_g2820 = localSHEvalLinearL0L114_g2820;
+				float3 staticSwitch20_g2827 = localSHEvalLinearL0L114_g2827;
 				#else
-				float3 staticSwitch20_g2820 = staticSwitch379;
+				float3 staticSwitch20_g2827 = staticSwitch379;
 				#endif
-				float3 BakedGI217 = staticSwitch20_g2820;
+				float3 BakedGI217 = staticSwitch20_g2827;
 				
-				float3 temp_cast_12 = (VCAmbientOcclusionG239).xxx;
+				float3 temp_cast_16 = (VCAmbientOcclusionG239).xxx;
 				float temp_output_2_0_g1420 = _OcclusionBackLit;
 				float temp_output_3_0_g1420 = ( 1.0 - temp_output_2_0_g1420 );
 				float3 appendResult7_g1420 = (float3(temp_output_3_0_g1420 , temp_output_3_0_g1420 , temp_output_3_0_g1420));
-				float3 temp_output_266_0 = ( ( temp_cast_12 * temp_output_2_0_g1420 ) + appendResult7_g1420 );
+				float3 temp_output_266_0 = ( ( temp_cast_16 * temp_output_2_0_g1420 ) + appendResult7_g1420 );
 				float4 TransmissionRes338 = ( float4( temp_output_266_0 , 0.0 ) * _TransmissionColor * Albedo74 );
 				
 				float4 TranslucencyRes342 = ( float4( temp_output_266_0 , 0.0 ) * _TranslucencyColor );
 				
 				float4 ifLocalVars223 = 0;
-				float4 temp_cast_18 = (IN.ase_color.r).xxxx;
-				if(_DebugVisual==0){ifLocalVars223 = temp_cast_18; };
-				float4 temp_cast_19 = (IN.ase_color.g).xxxx;
-				if(_DebugVisual==1){ifLocalVars223 = temp_cast_19; };
-				float4 temp_cast_20 = (IN.ase_color.b).xxxx;
-				if(_DebugVisual==2){ifLocalVars223 = temp_cast_20; };
-				float4 temp_cast_21 = (IN.ase_color.a).xxxx;
-				if(_DebugVisual==3){ifLocalVars223 = temp_cast_21; };
+				float4 temp_cast_22 = (IN.ase_color.r).xxxx;
+				if(_DebugVisual==0){ifLocalVars223 = temp_cast_22; };
+				float4 temp_cast_23 = (IN.ase_color.g).xxxx;
+				if(_DebugVisual==1){ifLocalVars223 = temp_cast_23; };
+				float4 temp_cast_24 = (IN.ase_color.b).xxxx;
+				if(_DebugVisual==2){ifLocalVars223 = temp_cast_24; };
+				float4 temp_cast_25 = (IN.ase_color.a).xxxx;
+				if(_DebugVisual==3){ifLocalVars223 = temp_cast_25; };
 				float4 DebugVisuals225 = ifLocalVars223;
 				
-				half2 LightmapUV1_g2822 = (IN.ase_texcoord11.xy*(unity_LightmapST).xy + (unity_LightmapST).zw);
-				half4 localCalculateShadowMask1_g2822 = CalculateShadowMask1_g2822( LightmapUV1_g2822 );
-				float4 tex3DNode16_g2820 = SAMPLE_TEXTURE3D( _ProbeVolumeOcc, sampler_Linear_Clamp, vertexToFrag7_g2820 );
+				half2 LightmapUV1_g2829 = (IN.ase_texcoord12.xy*(unity_LightmapST).xy + (unity_LightmapST).zw);
+				half4 localCalculateShadowMask1_g2829 = CalculateShadowMask1_g2829( LightmapUV1_g2829 );
+				float4 tex3DNode16_g2827 = SAMPLE_TEXTURE3D( _ProbeVolumeOcc, sampler_Linear_Clamp, ( vertexToFrag7_g2827 + float3( float2( 0,0 ) ,  0.0 ) ) );
 				#ifdef _PROBEVOLUME_ON
-				float4 staticSwitch25_g2820 = tex3DNode16_g2820;
+				float4 staticSwitch25_g2827 = tex3DNode16_g2827;
 				#else
-				float4 staticSwitch25_g2820 = localCalculateShadowMask1_g2822;
+				float4 staticSwitch25_g2827 = float4( localCalculateShadowMask1_g2829.xyz , 0.0 );
 				#endif
-				float4 ShadowMask218 = staticSwitch25_g2820;
+				float4 ShadowMask218 = staticSwitch25_g2827;
 				
 				float3 appendResult50_g2753 = (float3(unity_FogColor.rgb));
 				float4 appendResult52_g2753 = (float4(appendResult50_g2753 , ( 1.0 - IN.fogFactorAndVertexLight.x )));
@@ -1498,40 +1512,35 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 				ifLocalVar49_g2753 = lerpResult227_g2753;
 				else
 				ifLocalVar49_g2753 = appendResult47_g2753;
-				#ifdef _USEGRADIENTFOG_ON
-				float4 staticSwitch43_g2753 = ifLocalVar49_g2753;
-				#else
-				float4 staticSwitch43_g2753 = appendResult47_g2753;
-				#endif
 				#ifdef _USEUNDERWATER
-				float4 staticSwitch215_g2753 = max( staticSwitch43_g2753 , float4( 0,0,0,0 ) );
+				float4 staticSwitch215_g2753 = max( ifLocalVar49_g2753 , float4( 0,0,0,0 ) );
 				#else
 				float4 staticSwitch215_g2753 = appendResult47_g2753;
 				#endif
 				
 				float4 appendResult11_g2752 = (float4(_TonemappingSettings.x , _TonemappingSettings.y , _TonemappingSettings.z , _TonemappingSettings.w));
 				
-				float3 temp_cast_27 = (1.0).xxx;
-				float3 temp_cast_28 = (1.0).xxx;
+				float3 temp_cast_34 = (1.0).xxx;
+				float3 temp_cast_35 = (1.0).xxx;
 				float3 appendResult100_g2806 = (float3(OceanWaterTint_RGB.xyz));
-				float3 temp_cast_30 = (1.0).xxx;
+				float3 temp_cast_37 = (1.0).xxx;
 				float3 ifLocalVar170_g2753 = 0;
 				UNITY_BRANCH 
 				if( temp_output_23_0_g2753 >= 1.0 )
 				ifLocalVar170_g2753 = appendResult100_g2806;
 				else
-				ifLocalVar170_g2753 = temp_cast_30;
-				float3 lerpResult226_g2753 = lerp( temp_cast_28 , ifLocalVar170_g2753 , staticSwitch238_g2753);
+				ifLocalVar170_g2753 = temp_cast_37;
+				float3 lerpResult226_g2753 = lerp( temp_cast_35 , ifLocalVar170_g2753 , staticSwitch238_g2753);
 				#ifdef _USEUNDERWATER
 				float3 staticSwitch212_g2753 = lerpResult226_g2753;
 				#else
-				float3 staticSwitch212_g2753 = temp_cast_27;
+				float3 staticSwitch212_g2753 = temp_cast_34;
 				#endif
 				
 
 				float3 BaseColor = Albedo74.xyz;
 				float3 Normal = NormalRes233;
-				float3 Emission = temp_cast_4;
+				float3 Emission = temp_cast_5;
 				float3 Specular = 0.5;
 				float Metallic = _Metallic;
 				float Smoothness = Smoothness88;
@@ -1913,14 +1922,12 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 			
 			#pragma shader_feature_local _DEBUGVISUALS_ON
-			#pragma shader_feature _SKYFOG_ON
 			#pragma shader_feature _TRANSLUCENCY
 			#pragma shader_feature _USE_TRANSMISSION
 			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature _SKYFOG_ON
 			#pragma multi_compile_local __ _PROBEVOLUME_ON
-			#pragma shader_feature_local_vertex _USERFORAMBIENTOCCLUSION_ON
-			#pragma shader_feature_local_vertex BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF_ON
 
 
 			#if defined(ASE_EARLY_Z_DEPTH_OPTIMIZE) && (SHADER_TARGET >= 45)
@@ -1956,39 +1963,42 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _ColorMask;
-			float4 Color_C776E9F7;
 			float4 _RemapAlpha;
-			float4 _TranslucencyColor;
-			float4x4 _ProbeWorldToTexture;
 			float4 _ColorMaskRemap;
+			float4 Color_C776E9F7;
+			float4 _ColorMask;
+			float4x4 _ProbeWorldToTexture;
+			float4 _TranslucencyColor;
 			float4 _TransmissionColor;
 			float3 _ProbeVolumeSizeInv;
 			float3 _ProbeVolumeMin;
 			float _ShadowThreshold;
 			float _AlphaClip;
-			float _OcclusionBackLit;
+			float _AlphaClipThreshold;
 			float _Occlusion;
 			float Vector1_5DA372D6;
 			float _Metallic;
 			float Vector1_b5167c4675424009928f6f8474af501f;
 			float _Strength;
-			float _AlphaClipThreshold;
+			float _OcclusionBackLit;
 			int _Cullmode;
-			float _HueShift;
-			float Vector1_534F54C8;
-			float Vector1_F7C5A4BA;
-			float Vector1_736F1270;
-			float Vector1_A0C32172;
-			float _TranslucencyShadow;
-			float _TranslucencyAmbient;
-			float _TranslucencyDirect;
-			float _TranslucencyScattering;
-			float _TranslucencyNormalDistortion;
-			float _TranslucencyStrength;
-			float _TranslucencyNormalBias;
-			float _Cutoff;
 			float Vector1_2F70D75B;
+			float _UseColorMask;
+			float _Cutoff;
+			float _TranslucencyNormalBias;
+			float _TranslucencyNormalDistortion;
+			float _TranslucencyDirect;
+			float _TranslucencyAmbient;
+			float _TranslucencyShadow;
+			float _HueShift;
+			float _TranslucencyScattering;
+			float _UseRForAmbientOcclusion;
+			float BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF;
+			float Vector1_A0C32172;
+			float Vector1_736F1270;
+			float Vector1_F7C5A4BA;
+			float Vector1_534F54C8;
+			float _TranslucencyStrength;
 			int _DebugVisual;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
@@ -2064,12 +2074,12 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 
 				float4 temp_output_390_0 = saturate( v.ase_color );
 				float4 break391 = temp_output_390_0;
-				#ifdef _USERFORAMBIENTOCCLUSION_ON
-				float staticSwitch370 = break391.r;
-				#else
-				float staticSwitch370 = 1.0;
-				#endif
-				float4 appendResult393 = (float4(break391.r , saturate( staticSwitch370 ) , break391.b , 0.0));
+				float ifLocalVar432 = 0;
+				if( _UseRForAmbientOcclusion <= 0.5 )
+				ifLocalVar432 = 1.0;
+				else
+				ifLocalVar432 = break391.r;
+				float4 appendResult393 = (float4(break391.r , saturate( ifLocalVar432 ) , break391.b , 0.0));
 				float4 vertexToFrag395 = appendResult393;
 				float4 break394 = vertexToFrag395;
 				float VCWindMaskR238 = break394.x;
@@ -2078,12 +2088,13 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 				float temp_output_33_0 = ( Vector1_736F1270 * _TimeParameters.x );
 				float2 appendResult37 = (float2(UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_A0C32172 )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).x , UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_A0C32172 )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).y));
 				float2 appendResult38 = (float2(UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_F7C5A4BA )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).x , UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_F7C5A4BA )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).y));
-				#ifdef BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF_ON
-				float2 staticSwitch42 = ( appendResult37 + ( appendResult38 * 0.5 ) );
-				#else
-				float2 staticSwitch42 = float2( 0,0 );
-				#endif
-				float2 break49 = ( VCWindMaskR238 * staticSwitch42 * Vector1_534F54C8 );
+				float2 temp_output_41_0 = ( appendResult37 + ( appendResult38 * 0.5 ) );
+				float2 ifLocalVar439 = 0;
+				if( BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF <= 0.0 )
+				ifLocalVar439 = appendResult37;
+				else
+				ifLocalVar439 = temp_output_41_0;
+				float2 break49 = ( VCWindMaskR238 * ifLocalVar439 * Vector1_534F54C8 );
 				float3 appendResult48 = (float3(break49.x , 0.0 , break49.y));
 				float3 VertexPos46 = appendResult48;
 				float3 vertexToFrag392 = VertexPos46;
@@ -2364,14 +2375,12 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
 			#pragma shader_feature_local _DEBUGVISUALS_ON
-			#pragma shader_feature _SKYFOG_ON
 			#pragma shader_feature _TRANSLUCENCY
 			#pragma shader_feature _USE_TRANSMISSION
 			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature _SKYFOG_ON
 			#pragma multi_compile_local __ _PROBEVOLUME_ON
-			#pragma shader_feature_local_vertex _USERFORAMBIENTOCCLUSION_ON
-			#pragma shader_feature_local_vertex BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF_ON
 
 
 			#if defined(ASE_EARLY_Z_DEPTH_OPTIMIZE) && (SHADER_TARGET >= 45)
@@ -2407,39 +2416,42 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _ColorMask;
-			float4 Color_C776E9F7;
 			float4 _RemapAlpha;
-			float4 _TranslucencyColor;
-			float4x4 _ProbeWorldToTexture;
 			float4 _ColorMaskRemap;
+			float4 Color_C776E9F7;
+			float4 _ColorMask;
+			float4x4 _ProbeWorldToTexture;
+			float4 _TranslucencyColor;
 			float4 _TransmissionColor;
 			float3 _ProbeVolumeSizeInv;
 			float3 _ProbeVolumeMin;
 			float _ShadowThreshold;
 			float _AlphaClip;
-			float _OcclusionBackLit;
+			float _AlphaClipThreshold;
 			float _Occlusion;
 			float Vector1_5DA372D6;
 			float _Metallic;
 			float Vector1_b5167c4675424009928f6f8474af501f;
 			float _Strength;
-			float _AlphaClipThreshold;
+			float _OcclusionBackLit;
 			int _Cullmode;
-			float _HueShift;
-			float Vector1_534F54C8;
-			float Vector1_F7C5A4BA;
-			float Vector1_736F1270;
-			float Vector1_A0C32172;
-			float _TranslucencyShadow;
-			float _TranslucencyAmbient;
-			float _TranslucencyDirect;
-			float _TranslucencyScattering;
-			float _TranslucencyNormalDistortion;
-			float _TranslucencyStrength;
-			float _TranslucencyNormalBias;
-			float _Cutoff;
 			float Vector1_2F70D75B;
+			float _UseColorMask;
+			float _Cutoff;
+			float _TranslucencyNormalBias;
+			float _TranslucencyNormalDistortion;
+			float _TranslucencyDirect;
+			float _TranslucencyAmbient;
+			float _TranslucencyShadow;
+			float _HueShift;
+			float _TranslucencyScattering;
+			float _UseRForAmbientOcclusion;
+			float BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF;
+			float Vector1_A0C32172;
+			float Vector1_736F1270;
+			float Vector1_F7C5A4BA;
+			float Vector1_534F54C8;
+			float _TranslucencyStrength;
 			int _DebugVisual;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
@@ -2512,12 +2524,12 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 
 				float4 temp_output_390_0 = saturate( v.ase_color );
 				float4 break391 = temp_output_390_0;
-				#ifdef _USERFORAMBIENTOCCLUSION_ON
-				float staticSwitch370 = break391.r;
-				#else
-				float staticSwitch370 = 1.0;
-				#endif
-				float4 appendResult393 = (float4(break391.r , saturate( staticSwitch370 ) , break391.b , 0.0));
+				float ifLocalVar432 = 0;
+				if( _UseRForAmbientOcclusion <= 0.5 )
+				ifLocalVar432 = 1.0;
+				else
+				ifLocalVar432 = break391.r;
+				float4 appendResult393 = (float4(break391.r , saturate( ifLocalVar432 ) , break391.b , 0.0));
 				float4 vertexToFrag395 = appendResult393;
 				float4 break394 = vertexToFrag395;
 				float VCWindMaskR238 = break394.x;
@@ -2526,12 +2538,13 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 				float temp_output_33_0 = ( Vector1_736F1270 * _TimeParameters.x );
 				float2 appendResult37 = (float2(UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_A0C32172 )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).x , UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_A0C32172 )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).y));
 				float2 appendResult38 = (float2(UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_F7C5A4BA )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).x , UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_F7C5A4BA )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).y));
-				#ifdef BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF_ON
-				float2 staticSwitch42 = ( appendResult37 + ( appendResult38 * 0.5 ) );
-				#else
-				float2 staticSwitch42 = float2( 0,0 );
-				#endif
-				float2 break49 = ( VCWindMaskR238 * staticSwitch42 * Vector1_534F54C8 );
+				float2 temp_output_41_0 = ( appendResult37 + ( appendResult38 * 0.5 ) );
+				float2 ifLocalVar439 = 0;
+				if( BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF <= 0.0 )
+				ifLocalVar439 = appendResult37;
+				else
+				ifLocalVar439 = temp_output_41_0;
+				float2 break49 = ( VCWindMaskR238 * ifLocalVar439 * Vector1_534F54C8 );
 				float3 appendResult48 = (float3(break49.x , 0.0 , break49.y));
 				float3 VertexPos46 = appendResult48;
 				float3 vertexToFrag392 = VertexPos46;
@@ -2786,15 +2799,12 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
 			#pragma shader_feature_local _DEBUGVISUALS_ON
-			#pragma shader_feature _SKYFOG_ON
 			#pragma shader_feature _TRANSLUCENCY
 			#pragma shader_feature _USE_TRANSMISSION
 			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature _SKYFOG_ON
 			#pragma multi_compile_local __ _PROBEVOLUME_ON
-			#pragma shader_feature_local_vertex _USERFORAMBIENTOCCLUSION_ON
-			#pragma shader_feature_local_vertex BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF_ON
-			#pragma shader_feature_local _USECOLORMASK_ON
 
 
 			struct VertexInput
@@ -2828,39 +2838,42 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _ColorMask;
-			float4 Color_C776E9F7;
 			float4 _RemapAlpha;
-			float4 _TranslucencyColor;
-			float4x4 _ProbeWorldToTexture;
 			float4 _ColorMaskRemap;
+			float4 Color_C776E9F7;
+			float4 _ColorMask;
+			float4x4 _ProbeWorldToTexture;
+			float4 _TranslucencyColor;
 			float4 _TransmissionColor;
 			float3 _ProbeVolumeSizeInv;
 			float3 _ProbeVolumeMin;
 			float _ShadowThreshold;
 			float _AlphaClip;
-			float _OcclusionBackLit;
+			float _AlphaClipThreshold;
 			float _Occlusion;
 			float Vector1_5DA372D6;
 			float _Metallic;
 			float Vector1_b5167c4675424009928f6f8474af501f;
 			float _Strength;
-			float _AlphaClipThreshold;
+			float _OcclusionBackLit;
 			int _Cullmode;
-			float _HueShift;
-			float Vector1_534F54C8;
-			float Vector1_F7C5A4BA;
-			float Vector1_736F1270;
-			float Vector1_A0C32172;
-			float _TranslucencyShadow;
-			float _TranslucencyAmbient;
-			float _TranslucencyDirect;
-			float _TranslucencyScattering;
-			float _TranslucencyNormalDistortion;
-			float _TranslucencyStrength;
-			float _TranslucencyNormalBias;
-			float _Cutoff;
 			float Vector1_2F70D75B;
+			float _UseColorMask;
+			float _Cutoff;
+			float _TranslucencyNormalBias;
+			float _TranslucencyNormalDistortion;
+			float _TranslucencyDirect;
+			float _TranslucencyAmbient;
+			float _TranslucencyShadow;
+			float _HueShift;
+			float _TranslucencyScattering;
+			float _UseRForAmbientOcclusion;
+			float BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF;
+			float Vector1_A0C32172;
+			float Vector1_736F1270;
+			float Vector1_F7C5A4BA;
+			float Vector1_534F54C8;
+			float _TranslucencyStrength;
 			int _DebugVisual;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
@@ -2949,12 +2962,12 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 
 				float4 temp_output_390_0 = saturate( v.ase_color );
 				float4 break391 = temp_output_390_0;
-				#ifdef _USERFORAMBIENTOCCLUSION_ON
-				float staticSwitch370 = break391.r;
-				#else
-				float staticSwitch370 = 1.0;
-				#endif
-				float4 appendResult393 = (float4(break391.r , saturate( staticSwitch370 ) , break391.b , 0.0));
+				float ifLocalVar432 = 0;
+				if( _UseRForAmbientOcclusion <= 0.5 )
+				ifLocalVar432 = 1.0;
+				else
+				ifLocalVar432 = break391.r;
+				float4 appendResult393 = (float4(break391.r , saturate( ifLocalVar432 ) , break391.b , 0.0));
 				float4 vertexToFrag395 = appendResult393;
 				float4 break394 = vertexToFrag395;
 				float VCWindMaskR238 = break394.x;
@@ -2963,12 +2976,13 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 				float temp_output_33_0 = ( Vector1_736F1270 * _TimeParameters.x );
 				float2 appendResult37 = (float2(UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_A0C32172 )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).x , UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_A0C32172 )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).y));
 				float2 appendResult38 = (float2(UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_F7C5A4BA )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).x , UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_F7C5A4BA )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).y));
-				#ifdef BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF_ON
-				float2 staticSwitch42 = ( appendResult37 + ( appendResult38 * 0.5 ) );
-				#else
-				float2 staticSwitch42 = float2( 0,0 );
-				#endif
-				float2 break49 = ( VCWindMaskR238 * staticSwitch42 * Vector1_534F54C8 );
+				float2 temp_output_41_0 = ( appendResult37 + ( appendResult38 * 0.5 ) );
+				float2 ifLocalVar439 = 0;
+				if( BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF <= 0.0 )
+				ifLocalVar439 = appendResult37;
+				else
+				ifLocalVar439 = temp_output_41_0;
+				float2 break49 = ( VCWindMaskR238 * ifLocalVar439 * Vector1_534F54C8 );
 				float3 appendResult48 = (float3(break49.x , 0.0 , break49.y));
 				float3 VertexPos46 = appendResult48;
 				float3 vertexToFrag392 = VertexPos46;
@@ -3138,33 +3152,33 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 				float temp_output_354_0 = ( hsvTorgb300.y * Vector1_2F70D75B );
 				float3 appendResult405 = (float3(temp_output_302_0 , temp_output_354_0 , hsvTorgb300.z));
 				float3 hsvTorgb357 = RGBToHSV( _ColorMask.rgb );
-				float3 appendResult407 = (float3(( hsvTorgb357.x + _HueShift ) , hsvTorgb357.y , hsvTorgb357.z));
+				float3 appendResult407 = (float3(hsvTorgb357.x , hsvTorgb357.y , ( hsvTorgb357.x + _HueShift )));
 				float4 vertexToFrag395 = IN.ase_texcoord5;
 				float4 break394 = vertexToFrag395;
 				float VCColorMaskB240 = break394.z;
-				float temp_output_8_0_g1424 = saturate( VCColorMaskB240 );
-				float4 break5_g1424 = _ColorMaskRemap;
-				float temp_output_32_0_g1424 = (break5_g1424.z + (temp_output_8_0_g1424 - break5_g1424.x) * (break5_g1424.w - break5_g1424.z) / (break5_g1424.y - break5_g1424.x));
-				float temp_output_270_0 = temp_output_32_0_g1424;
+				float temp_output_8_0_g2834 = saturate( VCColorMaskB240 );
+				float4 break5_g2834 = _ColorMaskRemap;
+				float temp_output_32_0_g2834 = (break5_g2834.z + (temp_output_8_0_g2834 - break5_g2834.x) * (break5_g2834.w - break5_g2834.z) / (break5_g2834.y - break5_g2834.x));
+				float temp_output_270_0 = temp_output_32_0_g2834;
 				float3 appendResult365 = (float3(temp_output_270_0 , temp_output_270_0 , temp_output_270_0));
 				float3 lerpResult356 = lerp( appendResult405 , appendResult407 , saturate( ( appendResult365 * _Strength ) ));
 				float3 break360 = lerpResult356;
-				#ifdef _USECOLORMASK_ON
-				float staticSwitch244 = break360.x;
-				#else
-				float staticSwitch244 = temp_output_302_0;
-				#endif
-				#ifdef _USECOLORMASK_ON
-				float staticSwitch358 = break360.y;
-				#else
-				float staticSwitch358 = temp_output_354_0;
-				#endif
-				float3 hsvTorgb301 = HSVToRGB( float3(staticSwitch244,staticSwitch358,hsvTorgb300.z) );
+				float ifLocalVar435 = 0;
+				if( _UseColorMask <= 0.5 )
+				ifLocalVar435 = temp_output_302_0;
+				else
+				ifLocalVar435 = break360.x;
+				float ifLocalVar437 = 0;
+				if( _UseColorMask <= 0.5 )
+				ifLocalVar437 = temp_output_354_0;
+				else
+				ifLocalVar437 = break360.y;
+				float3 hsvTorgb301 = HSVToRGB( float3(ifLocalVar435,ifLocalVar437,hsvTorgb300.z) );
 				float4 appendResult312 = (float4(( appendResult316 * hsvTorgb301 ) , tex2DNode8.a));
 				float4 Albedo74 = appendResult312;
 				
 				int BackLit142 = 0;
-				float3 temp_cast_4 = BackLit142;
+				float3 temp_cast_5 = BackLit142;
 				
 				float Alpha157 = (0.0 + (tex2DNode8.a - _RemapAlpha.x) * (1.0 - 0.0) / (_RemapAlpha.y - _RemapAlpha.x));
 				
@@ -3182,7 +3196,7 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 				
 
 				float3 BaseColor = Albedo74.xyz;
-				float3 Emission = temp_cast_4;
+				float3 Emission = temp_cast_5;
 				float Alpha = Alpha157;
 				float AlphaClipThreshold = ClipCalc397;
 
@@ -3269,14 +3283,12 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
 			#pragma shader_feature_local _DEBUGVISUALS_ON
-			#pragma shader_feature _SKYFOG_ON
 			#pragma shader_feature _TRANSLUCENCY
 			#pragma shader_feature _USE_TRANSMISSION
 			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature _SKYFOG_ON
 			#pragma multi_compile_local __ _PROBEVOLUME_ON
-			#pragma shader_feature_local_vertex _USERFORAMBIENTOCCLUSION_ON
-			#pragma shader_feature_local_vertex BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF_ON
 
 
 			#if defined(ASE_EARLY_Z_DEPTH_OPTIMIZE) && (SHADER_TARGET >= 45)
@@ -3315,39 +3327,42 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _ColorMask;
-			float4 Color_C776E9F7;
 			float4 _RemapAlpha;
-			float4 _TranslucencyColor;
-			float4x4 _ProbeWorldToTexture;
 			float4 _ColorMaskRemap;
+			float4 Color_C776E9F7;
+			float4 _ColorMask;
+			float4x4 _ProbeWorldToTexture;
+			float4 _TranslucencyColor;
 			float4 _TransmissionColor;
 			float3 _ProbeVolumeSizeInv;
 			float3 _ProbeVolumeMin;
 			float _ShadowThreshold;
 			float _AlphaClip;
-			float _OcclusionBackLit;
+			float _AlphaClipThreshold;
 			float _Occlusion;
 			float Vector1_5DA372D6;
 			float _Metallic;
 			float Vector1_b5167c4675424009928f6f8474af501f;
 			float _Strength;
-			float _AlphaClipThreshold;
+			float _OcclusionBackLit;
 			int _Cullmode;
-			float _HueShift;
-			float Vector1_534F54C8;
-			float Vector1_F7C5A4BA;
-			float Vector1_736F1270;
-			float Vector1_A0C32172;
-			float _TranslucencyShadow;
-			float _TranslucencyAmbient;
-			float _TranslucencyDirect;
-			float _TranslucencyScattering;
-			float _TranslucencyNormalDistortion;
-			float _TranslucencyStrength;
-			float _TranslucencyNormalBias;
-			float _Cutoff;
 			float Vector1_2F70D75B;
+			float _UseColorMask;
+			float _Cutoff;
+			float _TranslucencyNormalBias;
+			float _TranslucencyNormalDistortion;
+			float _TranslucencyDirect;
+			float _TranslucencyAmbient;
+			float _TranslucencyShadow;
+			float _HueShift;
+			float _TranslucencyScattering;
+			float _UseRForAmbientOcclusion;
+			float BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF;
+			float Vector1_A0C32172;
+			float Vector1_736F1270;
+			float Vector1_F7C5A4BA;
+			float Vector1_534F54C8;
+			float _TranslucencyStrength;
 			int _DebugVisual;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
@@ -3421,12 +3436,12 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 
 				float4 temp_output_390_0 = saturate( v.ase_color );
 				float4 break391 = temp_output_390_0;
-				#ifdef _USERFORAMBIENTOCCLUSION_ON
-				float staticSwitch370 = break391.r;
-				#else
-				float staticSwitch370 = 1.0;
-				#endif
-				float4 appendResult393 = (float4(break391.r , saturate( staticSwitch370 ) , break391.b , 0.0));
+				float ifLocalVar432 = 0;
+				if( _UseRForAmbientOcclusion <= 0.5 )
+				ifLocalVar432 = 1.0;
+				else
+				ifLocalVar432 = break391.r;
+				float4 appendResult393 = (float4(break391.r , saturate( ifLocalVar432 ) , break391.b , 0.0));
 				float4 vertexToFrag395 = appendResult393;
 				float4 break394 = vertexToFrag395;
 				float VCWindMaskR238 = break394.x;
@@ -3435,12 +3450,13 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 				float temp_output_33_0 = ( Vector1_736F1270 * _TimeParameters.x );
 				float2 appendResult37 = (float2(UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_A0C32172 )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).x , UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_A0C32172 )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).y));
 				float2 appendResult38 = (float2(UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_F7C5A4BA )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).x , UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_F7C5A4BA )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).y));
-				#ifdef BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF_ON
-				float2 staticSwitch42 = ( appendResult37 + ( appendResult38 * 0.5 ) );
-				#else
-				float2 staticSwitch42 = float2( 0,0 );
-				#endif
-				float2 break49 = ( VCWindMaskR238 * staticSwitch42 * Vector1_534F54C8 );
+				float2 temp_output_41_0 = ( appendResult37 + ( appendResult38 * 0.5 ) );
+				float2 ifLocalVar439 = 0;
+				if( BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF <= 0.0 )
+				ifLocalVar439 = appendResult37;
+				else
+				ifLocalVar439 = temp_output_41_0;
+				float2 break49 = ( VCWindMaskR238 * ifLocalVar439 * Vector1_534F54C8 );
 				float3 appendResult48 = (float3(break49.x , 0.0 , break49.y));
 				float3 VertexPos46 = appendResult48;
 				float3 vertexToFrag392 = VertexPos46;
@@ -3764,17 +3780,15 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 			#endif
 
 			#define ASE_NEEDS_FRAG_WORLD_NORMAL
+			#define ASE_NEEDS_VERT_NORMAL
 			#define ASE_NEEDS_VERT_POSITION
 			#pragma shader_feature_local _DEBUGVISUALS_ON
-			#pragma shader_feature _SKYFOG_ON
 			#pragma shader_feature _TRANSLUCENCY
 			#pragma shader_feature _USE_TRANSMISSION
 			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature _SKYFOG_ON
 			#pragma multi_compile_local __ _PROBEVOLUME_ON
-			#pragma shader_feature_local_vertex _USERFORAMBIENTOCCLUSION_ON
-			#pragma shader_feature_local_vertex BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF_ON
-			#pragma shader_feature_local _USECOLORMASK_ON
 
 
 			#if defined(ASE_EARLY_Z_DEPTH_OPTIMIZE) && (SHADER_TARGET >= 45)
@@ -3815,44 +3829,48 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 				float4 ase_texcoord8 : TEXCOORD8;
 				float4 ase_texcoord9 : TEXCOORD9;
 				float4 ase_texcoord10 : TEXCOORD10;
+				float4 ase_texcoord11 : TEXCOORD11;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _ColorMask;
-			float4 Color_C776E9F7;
 			float4 _RemapAlpha;
-			float4 _TranslucencyColor;
-			float4x4 _ProbeWorldToTexture;
 			float4 _ColorMaskRemap;
+			float4 Color_C776E9F7;
+			float4 _ColorMask;
+			float4x4 _ProbeWorldToTexture;
+			float4 _TranslucencyColor;
 			float4 _TransmissionColor;
 			float3 _ProbeVolumeSizeInv;
 			float3 _ProbeVolumeMin;
 			float _ShadowThreshold;
 			float _AlphaClip;
-			float _OcclusionBackLit;
+			float _AlphaClipThreshold;
 			float _Occlusion;
 			float Vector1_5DA372D6;
 			float _Metallic;
 			float Vector1_b5167c4675424009928f6f8474af501f;
 			float _Strength;
-			float _AlphaClipThreshold;
+			float _OcclusionBackLit;
 			int _Cullmode;
-			float _HueShift;
-			float Vector1_534F54C8;
-			float Vector1_F7C5A4BA;
-			float Vector1_736F1270;
-			float Vector1_A0C32172;
-			float _TranslucencyShadow;
-			float _TranslucencyAmbient;
-			float _TranslucencyDirect;
-			float _TranslucencyScattering;
-			float _TranslucencyNormalDistortion;
-			float _TranslucencyStrength;
-			float _TranslucencyNormalBias;
-			float _Cutoff;
 			float Vector1_2F70D75B;
+			float _UseColorMask;
+			float _Cutoff;
+			float _TranslucencyNormalBias;
+			float _TranslucencyNormalDistortion;
+			float _TranslucencyDirect;
+			float _TranslucencyAmbient;
+			float _TranslucencyShadow;
+			float _HueShift;
+			float _TranslucencyScattering;
+			float _UseRForAmbientOcclusion;
+			float BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF;
+			float Vector1_A0C32172;
+			float Vector1_736F1270;
+			float Vector1_F7C5A4BA;
+			float Vector1_534F54C8;
+			float _TranslucencyStrength;
 			int _DebugVisual;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
@@ -3943,14 +3961,19 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 				return SampleLightmap( lightmapUV, 0, normalWS );
 			}
 			
-			float3 MyCustomExpression6_g2820( float3 vertexPos, float4x4 ProbeWorldToTexture, float3 ProbeVolumeMin, float3 ProbeVolumeSizeInv )
+			float3x3 CastToFloat3x354_g2827( float3x3 Input )
+			{
+				return Input;
+			}
+			
+			float3 MyCustomExpression6_g2827( float3 vertexPos, float4x4 ProbeWorldToTexture, float3 ProbeVolumeMin, float3 ProbeVolumeSizeInv )
 			{
 				float3 position = mul(ProbeWorldToTexture, float4(TransformObjectToWorld(vertexPos.xyz), 1.0f)).xyz;
 				float3 texCoord = (position - ProbeVolumeMin.xyz) * ProbeVolumeSizeInv;
 				return texCoord;
 			}
 			
-			float3 SHEvalLinearL0L114_g2820( float3 worldNormal, float4 ProbeVolumeShR, float4 ProbeVolumeShG, float4 ProbeVolumeShB )
+			float3 SHEvalLinearL0L114_g2827( float3 worldNormal, float4 ProbeVolumeShR, float4 ProbeVolumeShG, float4 ProbeVolumeShB )
 			{
 				return SHEvalLinearL0L1(worldNormal, ProbeVolumeShR, ProbeVolumeShG,  ProbeVolumeShB);
 			}
@@ -3965,12 +3988,12 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 
 				float4 temp_output_390_0 = saturate( v.ase_color );
 				float4 break391 = temp_output_390_0;
-				#ifdef _USERFORAMBIENTOCCLUSION_ON
-				float staticSwitch370 = break391.r;
-				#else
-				float staticSwitch370 = 1.0;
-				#endif
-				float4 appendResult393 = (float4(break391.r , saturate( staticSwitch370 ) , break391.b , 0.0));
+				float ifLocalVar432 = 0;
+				if( _UseRForAmbientOcclusion <= 0.5 )
+				ifLocalVar432 = 1.0;
+				else
+				ifLocalVar432 = break391.r;
+				float4 appendResult393 = (float4(break391.r , saturate( ifLocalVar432 ) , break391.b , 0.0));
 				float4 vertexToFrag395 = appendResult393;
 				float4 break394 = vertexToFrag395;
 				float VCWindMaskR238 = break394.x;
@@ -3979,31 +4002,39 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 				float temp_output_33_0 = ( Vector1_736F1270 * _TimeParameters.x );
 				float2 appendResult37 = (float2(UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_A0C32172 )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).x , UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_A0C32172 )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).y));
 				float2 appendResult38 = (float2(UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_F7C5A4BA )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).x , UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_F7C5A4BA )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).y));
-				#ifdef BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF_ON
-				float2 staticSwitch42 = ( appendResult37 + ( appendResult38 * 0.5 ) );
-				#else
-				float2 staticSwitch42 = float2( 0,0 );
-				#endif
-				float2 break49 = ( VCWindMaskR238 * staticSwitch42 * Vector1_534F54C8 );
+				float2 temp_output_41_0 = ( appendResult37 + ( appendResult38 * 0.5 ) );
+				float2 ifLocalVar439 = 0;
+				if( BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF <= 0.0 )
+				ifLocalVar439 = appendResult37;
+				else
+				ifLocalVar439 = temp_output_41_0;
+				float2 break49 = ( VCWindMaskR238 * ifLocalVar439 * Vector1_534F54C8 );
 				float3 appendResult48 = (float3(break49.x , 0.0 , break49.y));
 				float3 VertexPos46 = appendResult48;
 				float3 vertexToFrag392 = VertexPos46;
 				
 				o.ase_texcoord9 = vertexToFrag395;
 				
-				float3 vertexPos6_g2820 = v.vertex.xyz;
-				float4x4 ProbeWorldToTexture6_g2820 = _ProbeWorldToTexture;
-				float3 ProbeVolumeMin6_g2820 = _ProbeVolumeMin;
-				float3 ProbeVolumeSizeInv6_g2820 = _ProbeVolumeSizeInv;
-				float3 localMyCustomExpression6_g2820 = MyCustomExpression6_g2820( vertexPos6_g2820 , ProbeWorldToTexture6_g2820 , ProbeVolumeMin6_g2820 , ProbeVolumeSizeInv6_g2820 );
-				float3 vertexToFrag7_g2820 = localMyCustomExpression6_g2820;
-				o.ase_texcoord10.xyz = vertexToFrag7_g2820;
+				float3 ase_worldNormal = TransformObjectToWorldNormal(v.ase_normal);
+				float4x4 temp_output_28_0_g2827 = _ProbeWorldToTexture;
+				float3x3 Input54_g2827 = 0;
+				float3x3 localCastToFloat3x354_g2827 = CastToFloat3x354_g2827( Input54_g2827 );
+				float3 vertexToFrag56_g2827 = mul( ase_worldNormal, localCastToFloat3x354_g2827 );
+				o.ase_texcoord10.xyz = vertexToFrag56_g2827;
+				float3 vertexPos6_g2827 = v.vertex.xyz;
+				float4x4 ProbeWorldToTexture6_g2827 = temp_output_28_0_g2827;
+				float3 ProbeVolumeMin6_g2827 = _ProbeVolumeMin;
+				float3 ProbeVolumeSizeInv6_g2827 = _ProbeVolumeSizeInv;
+				float3 localMyCustomExpression6_g2827 = MyCustomExpression6_g2827( vertexPos6_g2827 , ProbeWorldToTexture6_g2827 , ProbeVolumeMin6_g2827 , ProbeVolumeSizeInv6_g2827 );
+				float3 vertexToFrag7_g2827 = localMyCustomExpression6_g2827;
+				o.ase_texcoord11.xyz = vertexToFrag7_g2827;
 				
 				o.ase_texcoord8.xyz = v.texcoord.xyz;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
 				o.ase_texcoord8.w = 0;
 				o.ase_texcoord10.w = 0;
+				o.ase_texcoord11.w = 0;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
 				#else
@@ -4206,28 +4237,28 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 				float temp_output_354_0 = ( hsvTorgb300.y * Vector1_2F70D75B );
 				float3 appendResult405 = (float3(temp_output_302_0 , temp_output_354_0 , hsvTorgb300.z));
 				float3 hsvTorgb357 = RGBToHSV( _ColorMask.rgb );
-				float3 appendResult407 = (float3(( hsvTorgb357.x + _HueShift ) , hsvTorgb357.y , hsvTorgb357.z));
+				float3 appendResult407 = (float3(hsvTorgb357.x , hsvTorgb357.y , ( hsvTorgb357.x + _HueShift )));
 				float4 vertexToFrag395 = IN.ase_texcoord9;
 				float4 break394 = vertexToFrag395;
 				float VCColorMaskB240 = break394.z;
-				float temp_output_8_0_g1424 = saturate( VCColorMaskB240 );
-				float4 break5_g1424 = _ColorMaskRemap;
-				float temp_output_32_0_g1424 = (break5_g1424.z + (temp_output_8_0_g1424 - break5_g1424.x) * (break5_g1424.w - break5_g1424.z) / (break5_g1424.y - break5_g1424.x));
-				float temp_output_270_0 = temp_output_32_0_g1424;
+				float temp_output_8_0_g2834 = saturate( VCColorMaskB240 );
+				float4 break5_g2834 = _ColorMaskRemap;
+				float temp_output_32_0_g2834 = (break5_g2834.z + (temp_output_8_0_g2834 - break5_g2834.x) * (break5_g2834.w - break5_g2834.z) / (break5_g2834.y - break5_g2834.x));
+				float temp_output_270_0 = temp_output_32_0_g2834;
 				float3 appendResult365 = (float3(temp_output_270_0 , temp_output_270_0 , temp_output_270_0));
 				float3 lerpResult356 = lerp( appendResult405 , appendResult407 , saturate( ( appendResult365 * _Strength ) ));
 				float3 break360 = lerpResult356;
-				#ifdef _USECOLORMASK_ON
-				float staticSwitch244 = break360.x;
-				#else
-				float staticSwitch244 = temp_output_302_0;
-				#endif
-				#ifdef _USECOLORMASK_ON
-				float staticSwitch358 = break360.y;
-				#else
-				float staticSwitch358 = temp_output_354_0;
-				#endif
-				float3 hsvTorgb301 = HSVToRGB( float3(staticSwitch244,staticSwitch358,hsvTorgb300.z) );
+				float ifLocalVar435 = 0;
+				if( _UseColorMask <= 0.5 )
+				ifLocalVar435 = temp_output_302_0;
+				else
+				ifLocalVar435 = break360.x;
+				float ifLocalVar437 = 0;
+				if( _UseColorMask <= 0.5 )
+				ifLocalVar437 = temp_output_354_0;
+				else
+				ifLocalVar437 = break360.y;
+				float3 hsvTorgb301 = HSVToRGB( float3(ifLocalVar435,ifLocalVar437,hsvTorgb300.z) );
 				float4 appendResult312 = (float4(( appendResult316 * hsvTorgb301 ) , tex2DNode8.a));
 				float4 Albedo74 = appendResult312;
 				
@@ -4239,16 +4270,16 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 				float3 NormalRes233 = switchResult103;
 				
 				int BackLit142 = 0;
-				float3 temp_cast_4 = BackLit142;
+				float3 temp_cast_5 = BackLit142;
 				
 				float Smoothness88 = Vector1_5DA372D6;
 				
 				float VCAmbientOcclusionG239 = break394.y;
-				float3 temp_cast_5 = (VCAmbientOcclusionG239).xxx;
+				float3 temp_cast_6 = (VCAmbientOcclusionG239).xxx;
 				float temp_output_2_0_g1416 = _Occlusion;
 				float temp_output_3_0_g1416 = ( 1.0 - temp_output_2_0_g1416 );
 				float3 appendResult7_g1416 = (float3(temp_output_3_0_g1416 , temp_output_3_0_g1416 , temp_output_3_0_g1416));
-				float3 OcclusionRes252 = ( ( temp_cast_5 * temp_output_2_0_g1416 ) + appendResult7_g1416 );
+				float3 OcclusionRes252 = ( ( temp_cast_6 * temp_output_2_0_g1416 ) + appendResult7_g1416 );
 				
 				float Alpha157 = (0.0 + (tex2DNode8.a - _RemapAlpha.x) * (1.0 - 0.0) / (_RemapAlpha.y - _RemapAlpha.x));
 				
@@ -4277,24 +4308,25 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 				#else
 				float3 staticSwitch379 = localSampleSHPixel381;
 				#endif
-				float3 worldNormal14_g2820 = WorldNormal;
-				float3 vertexToFrag7_g2820 = IN.ase_texcoord10.xyz;
-				float4 ProbeVolumeShR14_g2820 = SAMPLE_TEXTURE3D( _ProbeVolumeShR, sampler_Linear_Clamp, vertexToFrag7_g2820 );
-				float4 ProbeVolumeShG14_g2820 = SAMPLE_TEXTURE3D( _ProbeVolumeShG, sampler_Linear_Clamp, vertexToFrag7_g2820 );
-				float4 ProbeVolumeShB14_g2820 = SAMPLE_TEXTURE3D( _ProbeVolumeShB, sampler_Linear_Clamp, vertexToFrag7_g2820 );
-				float3 localSHEvalLinearL0L114_g2820 = SHEvalLinearL0L114_g2820( worldNormal14_g2820 , ProbeVolumeShR14_g2820 , ProbeVolumeShG14_g2820 , ProbeVolumeShB14_g2820 );
+				float3 vertexToFrag56_g2827 = IN.ase_texcoord10.xyz;
+				float3 worldNormal14_g2827 = vertexToFrag56_g2827;
+				float3 vertexToFrag7_g2827 = IN.ase_texcoord11.xyz;
+				float4 ProbeVolumeShR14_g2827 = SAMPLE_TEXTURE3D( _ProbeVolumeShR, sampler_Linear_Clamp, ( vertexToFrag7_g2827 + float3( float2( 0,0 ) ,  0.0 ) ) );
+				float4 ProbeVolumeShG14_g2827 = SAMPLE_TEXTURE3D( _ProbeVolumeShG, sampler_Linear_Clamp, ( vertexToFrag7_g2827 + float3( float2( 0,0 ) ,  0.0 ) ) );
+				float4 ProbeVolumeShB14_g2827 = SAMPLE_TEXTURE3D( _ProbeVolumeShB, sampler_Linear_Clamp, ( vertexToFrag7_g2827 + float3( float2( 0,0 ) ,  0.0 ) ) );
+				float3 localSHEvalLinearL0L114_g2827 = SHEvalLinearL0L114_g2827( worldNormal14_g2827 , ProbeVolumeShR14_g2827 , ProbeVolumeShG14_g2827 , ProbeVolumeShB14_g2827 );
 				#ifdef _PROBEVOLUME_ON
-				float3 staticSwitch20_g2820 = localSHEvalLinearL0L114_g2820;
+				float3 staticSwitch20_g2827 = localSHEvalLinearL0L114_g2827;
 				#else
-				float3 staticSwitch20_g2820 = staticSwitch379;
+				float3 staticSwitch20_g2827 = staticSwitch379;
 				#endif
-				float3 BakedGI217 = staticSwitch20_g2820;
+				float3 BakedGI217 = staticSwitch20_g2827;
 				
-				float3 temp_cast_12 = (VCAmbientOcclusionG239).xxx;
+				float3 temp_cast_16 = (VCAmbientOcclusionG239).xxx;
 				float temp_output_2_0_g1420 = _OcclusionBackLit;
 				float temp_output_3_0_g1420 = ( 1.0 - temp_output_2_0_g1420 );
 				float3 appendResult7_g1420 = (float3(temp_output_3_0_g1420 , temp_output_3_0_g1420 , temp_output_3_0_g1420));
-				float3 temp_output_266_0 = ( ( temp_cast_12 * temp_output_2_0_g1420 ) + appendResult7_g1420 );
+				float3 temp_output_266_0 = ( ( temp_cast_16 * temp_output_2_0_g1420 ) + appendResult7_g1420 );
 				float4 TransmissionRes338 = ( float4( temp_output_266_0 , 0.0 ) * _TransmissionColor * Albedo74 );
 				
 				float4 TranslucencyRes342 = ( float4( temp_output_266_0 , 0.0 ) * _TranslucencyColor );
@@ -4302,7 +4334,7 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 
 				float3 BaseColor = Albedo74.xyz;
 				float3 Normal = NormalRes233;
-				float3 Emission = temp_cast_4;
+				float3 Emission = temp_cast_5;
 				float3 Specular = 0.5;
 				float Metallic = _Metallic;
 				float Smoothness = Smoothness88;
@@ -4476,14 +4508,12 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
 			#pragma shader_feature_local _DEBUGVISUALS_ON
-			#pragma shader_feature _SKYFOG_ON
 			#pragma shader_feature _TRANSLUCENCY
 			#pragma shader_feature _USE_TRANSMISSION
 			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature _SKYFOG_ON
 			#pragma multi_compile_local __ _PROBEVOLUME_ON
-			#pragma shader_feature_local_vertex _USERFORAMBIENTOCCLUSION_ON
-			#pragma shader_feature_local_vertex BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF_ON
 
 
 			struct VertexInput
@@ -4504,39 +4534,42 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _ColorMask;
-			float4 Color_C776E9F7;
 			float4 _RemapAlpha;
-			float4 _TranslucencyColor;
-			float4x4 _ProbeWorldToTexture;
 			float4 _ColorMaskRemap;
+			float4 Color_C776E9F7;
+			float4 _ColorMask;
+			float4x4 _ProbeWorldToTexture;
+			float4 _TranslucencyColor;
 			float4 _TransmissionColor;
 			float3 _ProbeVolumeSizeInv;
 			float3 _ProbeVolumeMin;
 			float _ShadowThreshold;
 			float _AlphaClip;
-			float _OcclusionBackLit;
+			float _AlphaClipThreshold;
 			float _Occlusion;
 			float Vector1_5DA372D6;
 			float _Metallic;
 			float Vector1_b5167c4675424009928f6f8474af501f;
 			float _Strength;
-			float _AlphaClipThreshold;
+			float _OcclusionBackLit;
 			int _Cullmode;
-			float _HueShift;
-			float Vector1_534F54C8;
-			float Vector1_F7C5A4BA;
-			float Vector1_736F1270;
-			float Vector1_A0C32172;
-			float _TranslucencyShadow;
-			float _TranslucencyAmbient;
-			float _TranslucencyDirect;
-			float _TranslucencyScattering;
-			float _TranslucencyNormalDistortion;
-			float _TranslucencyStrength;
-			float _TranslucencyNormalBias;
-			float _Cutoff;
 			float Vector1_2F70D75B;
+			float _UseColorMask;
+			float _Cutoff;
+			float _TranslucencyNormalBias;
+			float _TranslucencyNormalDistortion;
+			float _TranslucencyDirect;
+			float _TranslucencyAmbient;
+			float _TranslucencyShadow;
+			float _HueShift;
+			float _TranslucencyScattering;
+			float _UseRForAmbientOcclusion;
+			float BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF;
+			float Vector1_A0C32172;
+			float Vector1_736F1270;
+			float Vector1_F7C5A4BA;
+			float Vector1_534F54C8;
+			float _TranslucencyStrength;
 			int _DebugVisual;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
@@ -4617,12 +4650,12 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 
 				float4 temp_output_390_0 = saturate( v.ase_color );
 				float4 break391 = temp_output_390_0;
-				#ifdef _USERFORAMBIENTOCCLUSION_ON
-				float staticSwitch370 = break391.r;
-				#else
-				float staticSwitch370 = 1.0;
-				#endif
-				float4 appendResult393 = (float4(break391.r , saturate( staticSwitch370 ) , break391.b , 0.0));
+				float ifLocalVar432 = 0;
+				if( _UseRForAmbientOcclusion <= 0.5 )
+				ifLocalVar432 = 1.0;
+				else
+				ifLocalVar432 = break391.r;
+				float4 appendResult393 = (float4(break391.r , saturate( ifLocalVar432 ) , break391.b , 0.0));
 				float4 vertexToFrag395 = appendResult393;
 				float4 break394 = vertexToFrag395;
 				float VCWindMaskR238 = break394.x;
@@ -4631,12 +4664,13 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 				float temp_output_33_0 = ( Vector1_736F1270 * _TimeParameters.x );
 				float2 appendResult37 = (float2(UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_A0C32172 )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).x , UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_A0C32172 )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).y));
 				float2 appendResult38 = (float2(UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_F7C5A4BA )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).x , UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_F7C5A4BA )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).y));
-				#ifdef BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF_ON
-				float2 staticSwitch42 = ( appendResult37 + ( appendResult38 * 0.5 ) );
-				#else
-				float2 staticSwitch42 = float2( 0,0 );
-				#endif
-				float2 break49 = ( VCWindMaskR238 * staticSwitch42 * Vector1_534F54C8 );
+				float2 temp_output_41_0 = ( appendResult37 + ( appendResult38 * 0.5 ) );
+				float2 ifLocalVar439 = 0;
+				if( BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF <= 0.0 )
+				ifLocalVar439 = appendResult37;
+				else
+				ifLocalVar439 = temp_output_41_0;
+				float2 break49 = ( VCWindMaskR238 * ifLocalVar439 * Vector1_534F54C8 );
 				float3 appendResult48 = (float3(break49.x , 0.0 , break49.y));
 				float3 VertexPos46 = appendResult48;
 				float3 vertexToFrag392 = VertexPos46;
@@ -4862,14 +4896,12 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
 			#pragma shader_feature_local _DEBUGVISUALS_ON
-			#pragma shader_feature _SKYFOG_ON
 			#pragma shader_feature _TRANSLUCENCY
 			#pragma shader_feature _USE_TRANSMISSION
 			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature _SKYFOG_ON
 			#pragma multi_compile_local __ _PROBEVOLUME_ON
-			#pragma shader_feature_local_vertex _USERFORAMBIENTOCCLUSION_ON
-			#pragma shader_feature_local_vertex BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF_ON
 
 
 			struct VertexInput
@@ -4890,39 +4922,42 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _ColorMask;
-			float4 Color_C776E9F7;
 			float4 _RemapAlpha;
-			float4 _TranslucencyColor;
-			float4x4 _ProbeWorldToTexture;
 			float4 _ColorMaskRemap;
+			float4 Color_C776E9F7;
+			float4 _ColorMask;
+			float4x4 _ProbeWorldToTexture;
+			float4 _TranslucencyColor;
 			float4 _TransmissionColor;
 			float3 _ProbeVolumeSizeInv;
 			float3 _ProbeVolumeMin;
 			float _ShadowThreshold;
 			float _AlphaClip;
-			float _OcclusionBackLit;
+			float _AlphaClipThreshold;
 			float _Occlusion;
 			float Vector1_5DA372D6;
 			float _Metallic;
 			float Vector1_b5167c4675424009928f6f8474af501f;
 			float _Strength;
-			float _AlphaClipThreshold;
+			float _OcclusionBackLit;
 			int _Cullmode;
-			float _HueShift;
-			float Vector1_534F54C8;
-			float Vector1_F7C5A4BA;
-			float Vector1_736F1270;
-			float Vector1_A0C32172;
-			float _TranslucencyShadow;
-			float _TranslucencyAmbient;
-			float _TranslucencyDirect;
-			float _TranslucencyScattering;
-			float _TranslucencyNormalDistortion;
-			float _TranslucencyStrength;
-			float _TranslucencyNormalBias;
-			float _Cutoff;
 			float Vector1_2F70D75B;
+			float _UseColorMask;
+			float _Cutoff;
+			float _TranslucencyNormalBias;
+			float _TranslucencyNormalDistortion;
+			float _TranslucencyDirect;
+			float _TranslucencyAmbient;
+			float _TranslucencyShadow;
+			float _HueShift;
+			float _TranslucencyScattering;
+			float _UseRForAmbientOcclusion;
+			float BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF;
+			float Vector1_A0C32172;
+			float Vector1_736F1270;
+			float Vector1_F7C5A4BA;
+			float Vector1_534F54C8;
+			float _TranslucencyStrength;
 			int _DebugVisual;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
@@ -5003,12 +5038,12 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 
 				float4 temp_output_390_0 = saturate( v.ase_color );
 				float4 break391 = temp_output_390_0;
-				#ifdef _USERFORAMBIENTOCCLUSION_ON
-				float staticSwitch370 = break391.r;
-				#else
-				float staticSwitch370 = 1.0;
-				#endif
-				float4 appendResult393 = (float4(break391.r , saturate( staticSwitch370 ) , break391.b , 0.0));
+				float ifLocalVar432 = 0;
+				if( _UseRForAmbientOcclusion <= 0.5 )
+				ifLocalVar432 = 1.0;
+				else
+				ifLocalVar432 = break391.r;
+				float4 appendResult393 = (float4(break391.r , saturate( ifLocalVar432 ) , break391.b , 0.0));
 				float4 vertexToFrag395 = appendResult393;
 				float4 break394 = vertexToFrag395;
 				float VCWindMaskR238 = break394.x;
@@ -5017,12 +5052,13 @@ Shader "ThunderRoad/Dev/Foliage - Dev"
 				float temp_output_33_0 = ( Vector1_736F1270 * _TimeParameters.x );
 				float2 appendResult37 = (float2(UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_A0C32172 )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).x , UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_A0C32172 )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).y));
 				float2 appendResult38 = (float2(UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_F7C5A4BA )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).x , UnpackNormalScale( SAMPLE_TEXTURE2D_LOD( Texture2D_3899621E, sampler_Linear_Repeat_Aniso8, (( appendResult27 / Vector1_F7C5A4BA )*1.0 + temp_output_33_0), 0.0 ), 1.0 ).y));
-				#ifdef BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF_ON
-				float2 staticSwitch42 = ( appendResult37 + ( appendResult38 * 0.5 ) );
-				#else
-				float2 staticSwitch42 = float2( 0,0 );
-				#endif
-				float2 break49 = ( VCWindMaskR238 * staticSwitch42 * Vector1_534F54C8 );
+				float2 temp_output_41_0 = ( appendResult37 + ( appendResult38 * 0.5 ) );
+				float2 ifLocalVar439 = 0;
+				if( BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF <= 0.0 )
+				ifLocalVar439 = appendResult37;
+				else
+				ifLocalVar439 = temp_output_41_0;
+				float2 break49 = ( VCWindMaskR238 * ifLocalVar439 * Vector1_534F54C8 );
 				float3 appendResult48 = (float3(break49.x , 0.0 , break49.y));
 				float3 VertexPos46 = appendResult48;
 				float3 vertexToFrag392 = VertexPos46;

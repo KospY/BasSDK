@@ -4,7 +4,6 @@ using Sirenix.OdinInspector;
 #endif
 using ThunderRoad.Skill.SpellPower;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ThunderRoad.Skill
 {

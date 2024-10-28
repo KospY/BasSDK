@@ -153,32 +153,23 @@
   "modules": [
     {
       "$type": "ThunderRoad.ItemModuleEdible, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
       "nextStageItemID": "FoodAppleCore",
       "onConsumeAudioContainerAddress": "Bas.Audio.Food.AppleEat",
       "healthGain": 18.0,
       "focusGain": 18.0,
       "consumeTime": 0.0,
-      "transferCustomData": true,
-      "groupPath": null
+      "transferCustomData": true
     },
     {
       "$type": "ThunderRoad.ItemModuleStats, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
       "stats": [
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 2,
+          "useStarIcons": true,
           "name": "Healing"
         }
-      ],
-      "groupPath": null
+      ]
     }
   ],
   "colliderGroups": [

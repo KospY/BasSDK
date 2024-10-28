@@ -153,32 +153,23 @@
   "modules": [
     {
       "$type": "ThunderRoad.ItemModuleEdible, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
       "nextStageItemID": "FoodChickenEggEaten",
       "onConsumeAudioContainerAddress": "",
       "healthGain": 20.0,
       "focusGain": 20.0,
       "consumeTime": 0.0,
-      "transferCustomData": false,
-      "groupPath": null
+      "transferCustomData": false
     },
     {
       "$type": "ThunderRoad.ItemModuleStats, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
       "stats": [
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 2,
+          "useStarIcons": true,
           "name": "Healing"
         }
-      ],
-      "groupPath": null
+      ]
     }
   ],
   "colliderGroups": [

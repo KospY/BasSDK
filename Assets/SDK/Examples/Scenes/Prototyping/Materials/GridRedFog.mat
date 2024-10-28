@@ -12,12 +12,11 @@ Material:
     type: 3}
   m_ValidKeywords:
   - _ALPHATEST_ON
-  - _CAUSTICSENABLE_ON
-  - _USENORMALMAP_ON
   m_InvalidKeywords:
   - LAYER_MAX3
   - MODED_MOSS
   - TEXTURE_MAX8
+  - _CAUSTICSENABLE_ON
   - _EMISSION
   - _SIMPLESTOCHASTIC
   - _SURFACE_TYPE_TRANSPARENT
@@ -28,6 +27,7 @@ Material:
   - _USEEMISSION_ON
   - _USEGRADIENTFOG_ON
   - _USEMOSSDIRECTION_ON
+  - _USENORMALMAP_ON
   - _USEOCCLUSION_ON
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -312,7 +312,6 @@ Material:
     - _QueueOffset: 0
     - _REFLECTIONBILLBOARDSTOCHASTIC: 0
     - _ReceiveShadows: 1
-    - _ReflectionBillboard: 0
     - _ReflectionBillboardsHeader: 0
     - _Remappers: 1
     - _RevealLayers: 0

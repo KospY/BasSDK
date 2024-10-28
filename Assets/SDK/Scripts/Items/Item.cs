@@ -28,6 +28,7 @@ namespace ThunderRoad
         public static HashSet<Item> allMoving = new HashSet<Item>();
         public static List<Item> allTk = new List<Item>();
         public static List<Item> allWorldAttached = new List<Item>();
+        public static List<Item> potentialLostItems = new List<Item>(); //items that were destoyed but were not despawned to be returned to player stash if needed
 
 #if ODIN_INSPECTOR
         public List<ValueDropdownItem<string>> GetAllItemID()
@@ -188,7 +189,7 @@ namespace ThunderRoad
             UnityEditor.EditorUtility.SetDirty(this);
 #endif
         }
-        
+
 
         [Button]
         public void AddNonStorableModifierInvokable(UnityEngine.Object handler)

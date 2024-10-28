@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using ThunderRoad.Skill;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;

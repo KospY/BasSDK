@@ -4,7 +4,7 @@
         "m_EditorHideFlags": 0,
         "m_Name": "",
         "m_EditorClassIdentifier": "",
-        "realtimeUpdate": true,
+        "realtimeUpdate": false,
         "replaceShaders": [
             {
                 "fileID": -6465566751694194690,
@@ -171,7 +171,7 @@
                     "mali": ""
                 },
                 {
-                    "displayName": "ON - ON -  USECOLORMASK ON : shader feature",
+                    "displayName": " -- ON - ON -  USECOLORMASK ON : shader feature",
                     "line": "#pragma shader_feature_local _USECOLORMASK_ON",
                     "replace": "",
                     "replaceDesktop": "",
@@ -187,13 +187,13 @@
                     "enabledMobile": true,
                     "hideDesktop": false,
                     "hideMobile": false,
-                    "present": true,
+                    "present": false,
                     "comment": "",
                     "instructions": 0.0,
                     "mali": ""
                 },
                 {
-                    "displayName": "OFF - OFF -  ENVIRONMENTREFLECTIONS OFF : shader feature :  fragment",
+                    "displayName": "REP - REP -  ENVIRONMENTREFLECTIONS OFF : shader feature :  fragment",
                     "line": "#pragma shader_feature_local_fragment _ENVIRONMENTREFLECTIONS_OFF",
                     "replace": "",
                     "replaceDesktop": "#define _ENVIRONMENTREFLECTIONS_OFF",
@@ -205,8 +205,8 @@
                     "keywordTypeReplace": 0,
                     "keywordDomain": 2,
                     "local": true,
-                    "enabledDesktop": false,
-                    "enabledMobile": false,
+                    "enabledDesktop": true,
+                    "enabledMobile": true,
                     "hideDesktop": false,
                     "hideMobile": false,
                     "present": true,
@@ -347,7 +347,7 @@
                     "mali": ""
                 },
                 {
-                    "displayName": "ON - OFF - LIGHTMAP SHADOW MIXING : multi compile",
+                    "displayName": "ON - ON - LIGHTMAP SHADOW MIXING : multi compile",
                     "line": "#pragma multi_compile _ LIGHTMAP_SHADOW_MIXING",
                     "replace": "",
                     "replaceDesktop": "",
@@ -545,7 +545,7 @@
                     "mali": ""
                 },
                 {
-                    "displayName": "ON - ON - BOOLEAN CFF036ECFE8941F8B02A5D46ABC1B3CF ON : shader feature :  vertex",
+                    "displayName": " -- ON - ON - BOOLEAN CFF036ECFE8941F8B02A5D46ABC1B3CF ON : shader feature :  vertex",
                     "line": "#pragma shader_feature_local_vertex BOOLEAN_CFF036ECFE8941F8B02A5D46ABC1B3CF_ON",
                     "replace": "",
                     "replaceDesktop": "",
@@ -561,7 +561,7 @@
                     "enabledMobile": true,
                     "hideDesktop": false,
                     "hideMobile": false,
-                    "present": true,
+                    "present": false,
                     "comment": "",
                     "instructions": 0.0,
                     "mali": ""
@@ -963,7 +963,7 @@
                     "mali": ""
                 },
                 {
-                    "displayName": "ON - ON -  USE TRANSMISSION : shader feature",
+                    "displayName": "OFF - ON -  USE TRANSMISSION : shader feature",
                     "line": "#pragma shader_feature _USE_TRANSMISSION",
                     "replace": "",
                     "replaceDesktop": "",
@@ -975,8 +975,8 @@
                     "keywordTypeReplace": 0,
                     "keywordDomain": 0,
                     "local": false,
-                    "enabledDesktop": true,
-                    "enabledMobile": true,
+                    "enabledDesktop": false,
+                    "enabledMobile": false,
                     "hideDesktop": false,
                     "hideMobile": false,
                     "present": true,
@@ -985,7 +985,7 @@
                     "mali": ""
                 },
                 {
-                    "displayName": "ON - ON -  USERFORAMBIENTOCCLUSION ON : shader feature :  vertex",
+                    "displayName": " -- ON - ON -  USERFORAMBIENTOCCLUSION ON : shader feature :  vertex",
                     "line": "#pragma shader_feature_local_vertex _USERFORAMBIENTOCCLUSION_ON",
                     "replace": "",
                     "replaceDesktop": "",
@@ -1001,7 +1001,7 @@
                     "enabledMobile": true,
                     "hideDesktop": false,
                     "hideMobile": false,
-                    "present": true,
+                    "present": false,
                     "comment": "",
                     "instructions": 0.0,
                     "mali": ""
@@ -1029,10 +1029,10 @@
                     "mali": ""
                 },
                 {
-                    "displayName": "ON - ON -  TRANSLUCENCY : shader feature",
+                    "displayName": "REP - OFF -  TRANSLUCENCY : shader feature",
                     "line": "#pragma shader_feature _TRANSLUCENCY",
                     "replace": "",
-                    "replaceDesktop": "",
+                    "replaceDesktop": "#define _TRANSLUCENCY",
                     "replaceMobile": "",
                     "replaceEditor": "",
                     "keywordName": "_TRANSLUCENCY",
@@ -1042,7 +1042,7 @@
                     "keywordDomain": 0,
                     "local": false,
                     "enabledDesktop": true,
-                    "enabledMobile": true,
+                    "enabledMobile": false,
                     "hideDesktop": false,
                     "hideMobile": false,
                     "present": true,
@@ -1056,7 +1056,7 @@
                     "replace": "",
                     "replaceDesktop": "",
                     "replaceMobile": "",
-                    "replaceEditor": "",
+                    "replaceEditor": "#define GLOBALTONEMAPPING",
                     "keywordName": "GLOBALTONEMAPPING",
                     "keywordLast": "GLOBALTONEMAPPING",
                     "keywordType": 1,
@@ -1117,7 +1117,7 @@
                     "mali": ""
                 },
                 {
-                    "displayName": "REP - ON -  USEGRADIENTFOG ON : shader feature",
+                    "displayName": " -- REP - ON -  USEGRADIENTFOG ON : shader feature",
                     "line": "#pragma shader_feature_local _USEGRADIENTFOG_ON",
                     "replace": "",
                     "replaceDesktop": "#define _USEGRADIENTFOG_ON",
@@ -1133,7 +1133,7 @@
                     "enabledMobile": true,
                     "hideDesktop": false,
                     "hideMobile": false,
-                    "present": true,
+                    "present": false,
                     "comment": "",
                     "instructions": 0.0,
                     "mali": ""

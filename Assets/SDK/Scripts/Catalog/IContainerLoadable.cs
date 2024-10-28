@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace ThunderRoad
+﻿namespace ThunderRoad
 {
     public interface IContainerLoadable<T> where T : CatalogData
     {

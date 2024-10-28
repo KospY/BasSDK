@@ -217,8 +217,7 @@ namespace IngameDebugConsole
 		[SerializeField]
 		private InputField commandInputField;
 
-		[SerializeField]
-		private Button hideButton;
+		public Button hideButton;
 
 		[SerializeField]
 		private Button clearButton;

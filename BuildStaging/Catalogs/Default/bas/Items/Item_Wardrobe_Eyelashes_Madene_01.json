@@ -153,10 +153,7 @@
   "modules": [
     {
       "$type": "ThunderRoad.ItemModuleWardrobe, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
+      "castSpeedPerHand": null,
       "category": "Body",
       "castShadows": "None",
       "wardrobes": [
@@ -172,7 +169,8 @@
         }
       ],
       "isMetal": false,
-      "groupPath": null
+      "armorSoundEffectPriority": 0,
+      "armorSoundEffectID": ""
     }
   ],
   "colliderGroups": [],

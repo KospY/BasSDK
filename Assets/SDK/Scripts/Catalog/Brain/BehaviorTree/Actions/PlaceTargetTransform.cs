@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;

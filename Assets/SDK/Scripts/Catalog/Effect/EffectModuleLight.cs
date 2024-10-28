@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.ResourceManagement.ResourceLocations;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;

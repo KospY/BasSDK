@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Newtonsoft.Json;
-using UnityEngine.Analytics;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;

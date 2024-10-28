@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Shadowood.RaycastTexture;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -663,3 +664,28 @@ namespace Shadowood.RaycastTexture
         }*/
     }
 }
+
+#if UNITY_EDITOR
+
+namespace UnityEditor
+{
+    [CustomEditor(typeof(OceanRenderer)), CanEditMultipleObjects]
+    public class OceanRendererEditor : Editor
+    {
+        private MaterialEditor materialEditor;
+
+        public override void OnInspectorGUI()
+        {
+            var targ = target as OceanRenderer;
+            DrawDefaultInspector();
+
+            if (targ.mat) ExtensionsMisc.DrawMaterialEditor(targ.mat, serializedObject, ref materialEditor);
+        }
+
+        protected void OnDisable()
+        {
+            if (materialEditor != null) DestroyImmediate(materialEditor); // Free the memory used by default MaterialEditor.
+        }
+    }
+}
+#endif

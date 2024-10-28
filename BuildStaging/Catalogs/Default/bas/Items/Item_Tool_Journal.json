@@ -153,19 +153,10 @@
   "modules": [
     {
       "$type": "ThunderRoad.ItemModuleStats, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
-      "stats": [],
-      "groupPath": null
+      "stats": []
     },
     {
       "$type": "ThunderRoad.ItemModuleReturnInInventory, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
       "returnsToLastHolder": false,
       "returnsOnItemRelease": false,
       "returnsWhenNotLookingAtIt": true,
@@ -173,8 +164,7 @@
       "maxDistanceBeforeReturning": 15.0,
       "timeAfterWhichItemReturn": 2.0,
       "useReturningAnimation": false,
-      "returningVelocityValue": 0.0,
-      "groupPath": null
+      "returningVelocityValue": 0.0
     }
   ],
   "colliderGroups": [],

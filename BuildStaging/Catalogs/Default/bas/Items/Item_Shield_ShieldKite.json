@@ -265,7 +265,12 @@
   "damagers": [
     {
       "$type": "ThunderRoad.ItemData+Damager, ThunderRoad",
-      "transformName": "Blunt",
+      "transformName": "BluntWood",
+      "damagerID": "ShieldStrong"
+    },
+    {
+      "$type": "ThunderRoad.ItemData+Damager, ThunderRoad",
+      "transformName": "BluntMetal",
       "damagerID": "ShieldStrong"
     }
   ],

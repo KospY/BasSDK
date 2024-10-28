@@ -2,8 +2,9 @@
 using UnityEngine.Audio;
 using System;
 using System.IO;
+#if !UNITY_EDITOR    
 using UnityEngine.AddressableAssets;
-
+#endif
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else

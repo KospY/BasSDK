@@ -9,7 +9,7 @@ using TriInspector;
 namespace ThunderRoad
 {
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/RagdollFoot")]
-	[AddComponentMenu("ThunderRoad/Creatures/Ragdoll foot")]
+    [AddComponentMenu("ThunderRoad/Creatures/Ragdoll foot")]
     public class RagdollFoot : RagdollPart
     {
         public Side side = Side.Right;

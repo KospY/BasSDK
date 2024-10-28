@@ -4,7 +4,7 @@
   "sensitiveContent": "None",
   "sensitiveFilterBehaviour": "Discard",
   "version": 4,
-  "localizationId": null,
+  "localizationId": "Book",
   "displayName": "Note",
   "description": "A note used for lore.",
   "author": "Unknown",
@@ -153,15 +153,10 @@
   "modules": [
     {
       "$type": "ThunderRoad.ItemModuleNote, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
       "isCustomNote": false,
       "contentPrefabAddress": "",
       "groupTextId": null,
-      "textId": null,
-      "groupPath": null
+      "textId": null
     }
   ],
   "colliderGroups": [],

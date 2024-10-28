@@ -153,6 +153,7 @@
   "modules": [
     {
       "$type": "ThunderRoad.ItemModuleWardrobe, ThunderRoad",
+      "castSpeedPerHand": null,
       "category": "Apparel",
       "castShadows": "PlayerAndNPC",
       "wardrobes": [
@@ -167,7 +168,9 @@
           "wardrobeDataAddress": "Bas.Creature.Wardrobe.HumanFemale.Mercenary.Hand.R02"
         }
       ],
-      "isMetal": true
+      "isMetal": true,
+      "armorSoundEffectPriority": 1,
+      "armorSoundEffectID": "ArmorSFX(Leather)"
     },
     {
       "$type": "ThunderRoad.ItemModuleStats, ThunderRoad",
@@ -175,21 +178,25 @@
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 2,
+          "useStarIcons": true,
           "name": "Defense"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 4,
+          "useStarIcons": true,
           "name": "Mobility"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 2,
+          "useStarIcons": true,
           "name": "SpellCasting"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 5,
+          "useStarIcons": true,
           "name": "FocusRegen"
         }
       ]

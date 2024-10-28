@@ -5,7 +5,7 @@
   "sensitiveFilterBehaviour": "Discard",
   "version": 0,
   "groupId": "Footstep",
-  "volumeDb": 0.0,
+  "volumeDb": 10.0,
   "modules": [
     {
       "$type": "ThunderRoad.EffectModuleAudio, ThunderRoad",
@@ -21,8 +21,8 @@
       "intensitySmoothingSampleCount": 0,
       "speedSmoothingSampleCount": 0,
       "cullMinVolume": 0.05,
-      "volumeDb": 0.0,
-      "useVolumeIntensity": true,
+      "volumeDb": 10.0,
+      "useVolumeIntensity": false,
       "volumeIntensityCurve": {
         "$type": "UnityEngine.AnimationCurve, UnityEngine.CoreModule",
         "keys": [

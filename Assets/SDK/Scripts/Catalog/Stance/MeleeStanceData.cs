@@ -19,11 +19,6 @@ namespace ThunderRoad
 {
     public class MeleeStanceData : StanceIdlesData<MeleeIdle>
     {
-        /*[Range(0f, 10f)]
-#if ODIN_INSPECTOR
-        [FoldoutGroup("Attacking")]
-#endif
-        public float debugTargetRange;*/
 #if ODIN_INSPECTOR
         [BoxGroup("Attacking")]
 #endif

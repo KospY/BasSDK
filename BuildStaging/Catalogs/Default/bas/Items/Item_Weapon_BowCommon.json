@@ -168,10 +168,6 @@
   "modules": [
     {
       "$type": "ThunderRoad.ItemModuleAI, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
       "primaryClass": "Bow",
       "secondaryClass": "None",
       "weaponHandling": "TwoHanded",
@@ -210,15 +206,10 @@
       },
       "armResistanceMultiplier": 2.0,
       "allowDynamicHeight": false,
-      "defenseHasPriority": true,
-      "groupPath": null
+      "defenseHasPriority": true
     },
     {
       "$type": "ThunderRoad.ItemModuleBow, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
       "velocityMultiplier": 2.5,
       "stringSpring": 500.0,
       "autoSpawnArrow": false,
@@ -229,23 +220,18 @@
       "audioGroupDrawAddress": "Bas.AudioGroup.Item.BowDraw",
       "audioGroupShootAddress": "Bas.AudioGroup.Item.BowShoot",
       "maxPullRatioAI": 0.75,
-      "groupPath": null,
       "spawnArrow": false
     },
     {
       "$type": "ThunderRoad.ItemModuleStats, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
       "stats": [
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 3,
+          "useStarIcons": true,
           "name": "DrawPower"
         }
-      ],
-      "groupPath": null
+      ]
     }
   ],
   "colliderGroups": [],

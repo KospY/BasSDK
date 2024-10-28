@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
-using System.Collections;
-using System;
+﻿using UnityEngine;
+
 #if ODIN_INSPECTOR
 #else
 using TriInspector;

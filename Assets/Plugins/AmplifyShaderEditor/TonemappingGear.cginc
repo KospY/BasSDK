@@ -88,7 +88,7 @@
 	
 	float3 ApplyTonemapAlways(float3 colorIn, float4 Tonemapping){
 	
-		float exposure = Tonemapping.x;
+		float exposure = Tonemapping.x + 0.0001; // Addition of tiny value prevents weirdness, went solid black on device in some places without?!
 		float contrast = Tonemapping.y;
 		float saturation = Tonemapping.z;
 		
@@ -113,7 +113,9 @@
 		float luminance = dot(color,LuminanceWeights);
 		color.rgb = lerp(luminance,color.rgb,saturation); // Saturation
 		
-		color = lerp( colorIn, color, blend  ); // Blend - // Needed to turn off tonemapping to capture reflection probes in HDR
+		//#if !SHADER_API_MOBILE
+			color = lerp( colorIn, color, blend  ); // Blend - // Needed to turn off tonemapping to capture reflection probes in HDR
+		//#endif
 		
 		//color = saturate(color); // Prevent bloom blowouts, shouldn't need as you should not have bloom/post on as well as tone mapping in shader
 		

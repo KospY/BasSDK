@@ -402,6 +402,7 @@ public class ReflectionSorcery : MonoBehaviour
 
     public bool DebugState()
     {
+        if(renderMaterial == null) return false;
         return renderMaterial.IsKeywordEnabled(DEBUG_KEYWORD);
     }
 
@@ -651,6 +652,7 @@ namespace UnityEditor
 
             var obj = target as ReflectionSorcery;
 
+            if(obj == null) return;
             if (GUILayout.Button("Capture"))
             {
                 obj.Capture(false);

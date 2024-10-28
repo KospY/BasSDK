@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections;
 using UnityEngine.Events;
 using ThunderRoad.Splines;
 

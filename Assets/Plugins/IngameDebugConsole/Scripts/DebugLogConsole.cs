@@ -121,6 +121,8 @@ namespace IngameDebugConsole
 		// CompareInfo used for case-insensitive command name comparison
 		private static readonly CompareInfo caseInsensitiveComparer = new CultureInfo( "en-US" ).CompareInfo;
 
+		private static string lastCommand;
+
 		static DebugLogConsole()
 		{
 			AddCommand( "help", "Prints all commands", LogAllCommands );
@@ -788,13 +790,19 @@ namespace IngameDebugConsole
 			return result;
 		}
 
+		public static void SetLastCommand(string command) => lastCommand = command;
+
+		public static void RerunLastCommand() => ExecuteCommand(lastCommand);
+
 		// Parse the command and try to execute it
 		public static void ExecuteCommand( string command )
 		{
 			if( command == null )
 				return;
 
-			command = command.Trim();
+            lastCommand = command;
+
+            command = command.Trim();
 
 			if( command.Length == 0 )
 				return;

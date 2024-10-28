@@ -153,10 +153,7 @@
   "modules": [
     {
       "$type": "ThunderRoad.ItemModuleWardrobe, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
+      "castSpeedPerHand": null,
       "category": "Apparel",
       "castShadows": "PlayerAndNPC",
       "wardrobes": [
@@ -172,37 +169,37 @@
         }
       ],
       "isMetal": true,
-      "groupPath": null
+      "armorSoundEffectPriority": 2,
+      "armorSoundEffectID": "ArmorSFX(Plate)"
     },
     {
       "$type": "ThunderRoad.ItemModuleStats, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
       "stats": [
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 4,
+          "useStarIcons": true,
           "name": "Defense"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 1,
+          "useStarIcons": true,
           "name": "Mobility"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 1,
+          "useStarIcons": true,
           "name": "SpellCasting"
         },
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 2,
+          "useStarIcons": true,
           "name": "FocusRegen"
         }
-      ],
-      "groupPath": null
+      ]
     }
   ],
   "colliderGroups": [],

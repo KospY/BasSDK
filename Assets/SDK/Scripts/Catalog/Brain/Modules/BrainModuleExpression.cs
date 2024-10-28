@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using System;
-using UnityEngine.AI;
-using ThunderRoad.AI;
 using System.Collections.Generic;
 using System.Collections;
 

@@ -153,32 +153,17 @@
   "modules": [
     {
       "$type": "ThunderRoad.ItemModuleValueModifier, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
       "useModeMainCurrency": false,
       "spawnPriceTag": true,
-      "priceTagAddress": "Bas.Misc.ShopPriceTag",
-      "groupPath": null
+      "priceTagAddress": "Bas.Misc.ShopPriceTag"
     },
     {
       "$type": "ThunderRoad.ItemModuleStats, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
-      "stats": [],
-      "groupPath": null
+      "stats": []
     },
     {
       "$type": "ThunderRoad.ItemModuleConvertToCurrency, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
-      "CollectSoundEffectId": "CollectCurrency",
-      "groupPath": null
+      "CollectSoundEffectId": "CollectCurrency"
     }
   ],
   "colliderGroups": [

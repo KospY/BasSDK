@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ThunderRoad
+﻿namespace ThunderRoad
 {
     public class Speed : Status
     {

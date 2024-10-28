@@ -376,55 +376,6 @@
                         "evaluateAllNodesOnCycle": false,
                         "childs": [
                           {
-                            "$type": "ThunderRoad.AI.Action.CanDrawItem, ThunderRoad",
-                            "targetTransformVariableName": "",
-                            "drawRightWeapon": true,
-                            "rightInfo": {
-                              "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
-                              "weaponClass": "Wand",
-                              "weaponHandling": "TwoHanded",
-                              "checkAmmo": false,
-                              "checkInHolder": false
-                            },
-                            "drawLeftWeapon": false,
-                            "leftInfo": {
-                              "$type": "ThunderRoad.Equipment+WeaponDrawInfo, ThunderRoad",
-                              "weaponClass": "Wand",
-                              "weaponHandling": "TwoHanded",
-                              "checkAmmo": false,
-                              "checkInHolder": false
-                            },
-                            "blackboard": null,
-                            "creature": null,
-                            "brainData": null
-                          },
-                          {
-                            "$type": "ThunderRoad.AI.Decorator.AlwaysSuccess, ThunderRoad",
-                            "child": {
-                              "$type": "ThunderRoad.AI.Decorator.IfCondition, ThunderRoad",
-                              "operation": "AND",
-                              "ifConditions": [
-                                {
-                                  "$type": "ThunderRoad.AI.Condition.IsGrabbing, ThunderRoad",
-                                  "weaponOnly": false,
-                                  "hand": "Right",
-                                  "weaponClass": "Arrow",
-                                  "weaponClassFilter": "NotEqual"
-                                }
-                              ],
-                              "ifNotConditions": null,
-                              "child": {
-                                "$type": "ThunderRoad.AI.Action.HolsterItem, ThunderRoad",
-                                "holsterRight": true,
-                                "holsterLeft": false,
-                                "waitForFinished": false,
-                                "blackboard": null,
-                                "creature": null,
-                                "brainData": null
-                              }
-                            }
-                          },
-                          {
                             "$type": "ThunderRoad.AI.Action.DrawItem, ThunderRoad",
                             "holsterRightItem": false,
                             "holsterLeftItem": false,
@@ -501,6 +452,7 @@
                         "targetMinRadius": 1.0,
                         "targetMaxRadius": 5.0,
                         "keepWeaponDistance": 0.6,
+                        "advanceToMelee": true,
                         "blackboardMinName": null,
                         "blackboardMaxName": null,
                         "angleMode": "Randomize",

@@ -5474,10 +5474,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlockPrototype04x04x04 (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: ab33e6080ae416b4d899f39fa8951b98, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ab33e6080ae416b4d899f39fa8951b98, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -30545,7 +30541,7 @@ PrefabInstance:
     - target: {fileID: 8770897429647703065, guid: 8f4d0eaa42a94134cb4159f4fbfa589a,
         type: 3}
       propertyPath: path
-      value: Assets/SDK/Examples/Scenes/Ocean
+      value: Assets/SDK/Shadowood/Ocean/Assets/
       objectReference: {fileID: 0}
     - target: {fileID: 8770897429647703065, guid: 8f4d0eaa42a94134cb4159f4fbfa589a,
         type: 3}
@@ -30555,7 +30551,7 @@ PrefabInstance:
     - target: {fileID: 8770897429647703065, guid: 8f4d0eaa42a94134cb4159f4fbfa589a,
         type: 3}
       propertyPath: lastRan
-      value: 39.097164
+      value: 150.44095
       objectReference: {fileID: 0}
     - target: {fileID: 8770897429647703065, guid: 8f4d0eaa42a94134cb4159f4fbfa589a,
         type: 3}
@@ -30580,13 +30576,13 @@ PrefabInstance:
     - target: {fileID: 8770897429647703065, guid: 8f4d0eaa42a94134cb4159f4fbfa589a,
         type: 3}
       propertyPath: lastRanStore
-      value: 39.097164
+      value: 150.44095
       objectReference: {fileID: 0}
     - target: {fileID: 8770897429647703065, guid: 8f4d0eaa42a94134cb4159f4fbfa589a,
         type: 3}
       propertyPath: depthCacheTex
       value: 
-      objectReference: {fileID: 2800000, guid: f64363c6e97eb8d43850e9a180ad9eae, type: 3}
+      objectReference: {fileID: 2800000, guid: 4bf41f594f8370a44967a16a394b0e69, type: 3}
     - target: {fileID: 8770897429647703065, guid: 8f4d0eaa42a94134cb4159f4fbfa589a,
         type: 3}
       propertyPath: oceanBakeQuad
@@ -30626,7 +30622,7 @@ PrefabInstance:
         type: 3}
       propertyPath: reflectionCubemap
       value: 
-      objectReference: {fileID: 8900000, guid: eab1ea2020ddafb48b050df42fdced27, type: 3}
+      objectReference: {fileID: 8900000, guid: fda839d52f10eb9419f0f88cdb0d902a, type: 3}
     - target: {fileID: 8770897429647703065, guid: 8f4d0eaa42a94134cb4159f4fbfa589a,
         type: 3}
       propertyPath: debugCollidersDepth
@@ -30677,8 +30673,7 @@ PrefabInstance:
       propertyPath: m_ReflectionProbeUsage
       value: 3
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 55306854034582824, guid: 8f4d0eaa42a94134cb4159f4fbfa589a, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f4d0eaa42a94134cb4159f4fbfa589a, type: 3}
 --- !u!23 &2099988967 stripped
 MeshRenderer:
@@ -32080,7 +32075,7 @@ PrefabInstance:
     - target: {fileID: 4631947361472002419, guid: bee712845017c364c94ee99e4fcb9308,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.534
+      value: 1.657
       objectReference: {fileID: 0}
     - target: {fileID: 4631947361472002419, guid: bee712845017c364c94ee99e4fcb9308,
         type: 3}

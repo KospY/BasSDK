@@ -51,5 +51,7 @@ namespace ThunderRoad.Skill.Spell
         [NonSerialized]
         public StatusDataBurning burning;
 
+        protected SkillRemoteDetonation skillRemoteDetonate;
+
     }
 }

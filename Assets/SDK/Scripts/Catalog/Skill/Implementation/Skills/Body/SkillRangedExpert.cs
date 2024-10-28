@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -13,7 +14,7 @@ namespace ThunderRoad.Skill
 #if ODIN_INSPECTOR
         [BoxGroup("Piercing")]
 #endif
-        public float penetrationVelocity = 1.5f;
+        public float penetrationVelocity = 0.3f;
 #if ODIN_INSPECTOR
         [BoxGroup("Piercing")]
 #endif
@@ -26,7 +27,7 @@ namespace ThunderRoad.Skill
 #if ODIN_INSPECTOR
         [BoxGroup("Effect"), ValueDropdown("GetAllEffectID")]
 #endif
-        public string pierceEffectId = "RangedExpertPierce";
+        public string pierceEffectId = "RangedExpertisePierce";
         protected EffectData pierceEffectData;
         
 #if ODIN_INSPECTOR
@@ -48,12 +49,12 @@ namespace ThunderRoad.Skill
 #if ODIN_INSPECTOR
         [BoxGroup("Aim Assist")]
 #endif
-        public float maxAngle = 40;
+        public float maxAngle = 30;
 
 #if ODIN_INSPECTOR
         [BoxGroup("Aim Assist")]
 #endif
-        public float maxDistance = 10;
+        public float maxDistance = 12;
 
 #if ODIN_INSPECTOR
         [BoxGroup("Aim Assist")]
@@ -71,5 +72,4 @@ namespace ThunderRoad.Skill
         public float aimAssistMaxAngle = 20;
 
     }
-
 }

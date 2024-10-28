@@ -153,18 +153,14 @@
   "modules": [
     {
       "$type": "ThunderRoad.ItemModuleStats, ThunderRoad",
-      "id": null,
-      "sensitiveContent": "None",
-      "sensitiveFilterBehaviour": "Discard",
-      "version": 0,
       "stats": [
         {
           "$type": "ThunderRoad.ItemStatInt, ThunderRoad",
           "value": 0,
+          "useStarIcons": true,
           "name": "Healing"
         }
-      ],
-      "groupPath": null
+      ]
     }
   ],
   "colliderGroups": [],

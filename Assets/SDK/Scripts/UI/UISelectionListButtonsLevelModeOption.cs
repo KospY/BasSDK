@@ -2,9 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
-using System;
-using UnityEngine.Video;
-using System.Collections;
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;

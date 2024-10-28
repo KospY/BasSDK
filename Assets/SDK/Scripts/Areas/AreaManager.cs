@@ -25,18 +25,23 @@ namespace ThunderRoad
 #if ODIN_INSPECTOR
         [ShowInInspector]
 #endif
+        // Contains the count of all area with depth under or equal the index (_currentTreeDepth[2] will return the number of how many areas has a depth of 0 or 1)
+        // Because _currentTree is sorted by depth you can use the value to iterate all area under the index as depth
         private List<int> _currentTreeDepthIndex = null;
 #if ODIN_INSPECTOR
         [ShowInInspector]
 #endif
+        // all area that has a lower or equal depth need to set memory lite state to false (so it would start load if not already loaded)
         private int _areaFullMemoryDepth = 100;
 #if ODIN_INSPECTOR
         [ShowInInspector]
 #endif
+        // all area that has a higher depth need to set memory lite to true (so it would unload)
         private int _areaLiteMemoryDepth = 100;
 #if ODIN_INSPECTOR
         [ShowInInspector]
 #endif
+        // all area that have higher or equal depth than _areaCullDepth ned to be culled
         private int _areaCullDepth = 2;
 
 #if ODIN_INSPECTOR
