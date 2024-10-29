@@ -563,11 +563,11 @@ namespace ThunderRoad
             process.StartInfo.FileName = GetAdbPath();
             if (string.IsNullOrEmpty(modFolderName))
             {
-                process.StartInfo.Arguments = $"push {sourcePath}/. /sdcard/Android/obb/{ThunderRoadSettings.current.game.appIdentifier}";
+                process.StartInfo.Arguments = $"push \"{sourcePath}\"/. /sdcard/Android/obb/{ThunderRoadSettings.current.game.appIdentifier}";
             }
             else
             {
-                process.StartInfo.Arguments = $"push {sourcePath}/. /sdcard/Android/data/{ThunderRoadSettings.current.game.appIdentifier}/files/Mods/" + modFolderName;
+                process.StartInfo.Arguments = $"push \"{sourcePath}\"/. /sdcard/Android/data/{ThunderRoadSettings.current.game.appIdentifier}/files/Mods/" + modFolderName;
             }
             Debug.Log(process.StartInfo.Arguments);
             process.StartInfo.UseShellExecute = false;
