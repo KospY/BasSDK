@@ -250,6 +250,21 @@ namespace ThunderRoad
             if (clearAfterAction) ClearSelections();
         }
 
+        public void EquipSelectedWithApparel(string apparelID)
+        {
+            if (clearAfterAction) ClearSelections();
+        }
+
+        public void UnequipSelectedApparels(string apparelID)
+        {
+            if (clearAfterAction) ClearSelections();
+        }
+
+        public void UnequipSelectedAllApparels()
+        {
+            if (clearAfterAction) ClearSelections();
+        }
+
         public void ReleaseRightHandsSelection() => ReleaseHandsSelection(false, true);
 
         public void ReleaseLeftHandsSelection() => ReleaseHandsSelection(true, false);
@@ -383,6 +398,18 @@ namespace ThunderRoad
         }
 
         public void EventTargetLeftHandGrab(Handle handle)
+        {
+        }
+
+        public void EquipEventTargetWithApparel(string apparelID)
+        {
+        }
+
+        public void UnequipEventTargetApparel(string apparelID)
+        {
+        }
+
+        public void UnequipEventTargetAllApparels()
         {
         }
 

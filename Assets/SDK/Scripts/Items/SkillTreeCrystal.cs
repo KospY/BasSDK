@@ -99,7 +99,7 @@ namespace ThunderRoad
 
         [Header("Skill tree")]
 #if ODIN_INSPECTOR
-        [ValueDropdown(nameof(GetAllSkillTreeID))]
+        [ValueDropdown(nameof(GetAllSkillTreeID), AppendNextDrawer = true)]
 #endif
         public string treeName;
 

@@ -66,6 +66,9 @@ namespace ThunderRoad
 
         protected virtual void OnValidate()
         {
+#if UNITY_EDITOR
+            if (UnityEditor.BuildPipeline.isBuildingPlayer) return;
+#endif
             if (!gameObject.activeInHierarchy) return;
             if (slots.Count == 0) slots.Add(this.transform);
         }

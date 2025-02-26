@@ -49,5 +49,24 @@ namespace ThunderRoad
             Discard = 0, // Remove the content only if their sensitive content flags matches
             Keep = 1 // Use the content only if their sensitive content flags matches. Acts as a replacement
         }
+        
+        /// <summary>
+        ///   <para>Scripting implementation (backend).</para>
+        /// </summary>
+        public enum ScriptingImplementation
+        {
+            /// <summary>
+            ///   <para>The standard Mono 2.6 runtime.</para>
+            /// </summary>
+            Mono2x,
+            /// <summary>
+            ///   <para>Unity's .NET runtime.</para>
+            /// </summary>
+            IL2CPP,
+            /// <summary>
+            ///   <para>Microsoft's .NET runtime.</para>
+            /// </summary>
+            WinRTDotNET,
+        }
     }
 }

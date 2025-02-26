@@ -68,6 +68,9 @@ namespace ThunderRoad
 
         private void OnValidate()
         {
+#if UNITY_EDITOR
+            if (UnityEditor.BuildPipeline.isBuildingPlayer) return;
+#endif
             if (!gameObject.activeInHierarchy) return;
             vfx = this.GetComponent<VisualEffect>();
             SetTarget(targetTransform);

@@ -215,7 +215,9 @@ namespace ThunderRoad
                 Debug.LogError($"{logTag} Error: Exception reading .jsondb file: {localPathFile}");
                 if (modData != null)
                 {
-                    modData.errors.Add(new ModManager.ModData.Error(ModManager.ModData.ErrorType.Json, "Exception reading .jsondb file", ex.Message, localPathFile));
+                    modData.errors.Add(new ModManager.ModData.Error(ModManager.ModData.ErrorType.JSON,
+                        "Exception reading .jsondb file", "ModErrorExceptionReadingJSONDB", string.Empty,
+                        ex.Message, localPathFile));
                     //add it to the loaded mods, even though we never really loaded it, this is to show it has been processed, but there is an error with it
                     ModManager.loadedMods.Add(modData);
                 }
@@ -227,7 +229,9 @@ namespace ThunderRoad
                 Debug.LogError($"{logTag} Error: Can't read .jsondb file: {localPathFile}");
                 if (modData != null)
                 {
-                    modData.errors.Add(new ModManager.ModData.Error(ModManager.ModData.ErrorType.Json, "Can't read .jsondb file", "", localPathFile));
+                    modData.errors.Add(new ModManager.ModData.Error(ModManager.ModData.ErrorType.JSON, 
+                        "Can't read .jsondb file", "ModErrorCantReadJSONDB", string.Empty,
+                        "", localPathFile));
                     //add it to the loaded mods, even though we never really loaded it, this is to show it has been processed, but there is an error with it
                     ModManager.loadedMods.Add(modData);
                 }
@@ -323,7 +327,9 @@ namespace ThunderRoad
                     Debug.LogWarning($"{logTag} Version mismatch (file {catalogData.version}, current {catalogData.GetCurrentVersion()}) ignoring file: {jsonPath}");
                     if (modData != null)
                     {
-                        modData.errors.Add(new ModManager.ModData.Error(ModManager.ModData.ErrorType.Json, "Catalog version incompatible", $"[{folder}] Version mismatch (file {catalogData.version}, current {catalogData.GetCurrentVersion()}) ignoring file: {jsonPath}", jsonPath));
+                            modData.errors.Add(new ModManager.ModData.Error(ModManager.ModData.ErrorType.JSON,
+                                "Catalog version incompatible", "ModErrorIncompatibleCatalogVersion", string.Empty,
+                                $"[{folder}] Version mismatch (file {catalogData.version}, current {catalogData.GetCurrentVersion()}) ignoring file: {jsonPath}", jsonPath));
                         //add it to the loaded mods, even though we never really loaded it, this is to show it has been processed, but there is an error with it
                         ModManager.loadedMods.Add(modData);
                     }
@@ -504,7 +510,9 @@ namespace ThunderRoad
                     {
                         lock (lockObj)
                         {
-                            modData.errors.Add(new ModManager.ModData.Error(ModManager.ModData.ErrorType.Json, $"Cannot read json file: {ex.Message}", ex.InnerException?.Message, jsonPaths[index]));
+                            modData.errors.Add(new ModManager.ModData.Error(ModManager.ModData.ErrorType.JSON,
+                                $"Cannot read json file: {ex.Message}", "ModErrorCantReadJSON", ex.Message,
+                                ex.InnerException?.Message, jsonPaths[index]));
                             //add it to the loaded mods, even though we never really loaded it, this is to show it has been processed, but there is an error with it
                             ModManager.loadedMods.Add(modData);
                         }

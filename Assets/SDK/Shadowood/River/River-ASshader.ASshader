@@ -4,7 +4,7 @@
         "m_EditorHideFlags": 0,
         "m_Name": "",
         "m_EditorClassIdentifier": "",
-        "realtimeUpdate": true,
+        "realtimeUpdate": false,
         "replaceShaders": [],
         "targetShader": {
             "fileID": 4800000,
@@ -16,8 +16,19 @@
             "customShaderName": "ThunderRoad/River - ASshader",
             "outputShaderFName": "River",
             "PlatformAS": 1,
+            "debugShader": false,
             "tessellationDesktop": false,
             "tessellationMobile": false,
+            "forceOpaqueDesktop": false,
+            "forceOpaqueMobile": false,
+            "offsetQueueDesktop": 0,
+            "offsetQueueMobile": 1,
+            "desktopShader": {
+                "instanceID": 0
+            },
+            "mobileShader": {
+                "instanceID": 0
+            },
             "passItems": [
                 {
                     "displayName": "ON - ON - Forward",
@@ -98,6 +109,14 @@
                     "indexSubShader": 0,
                     "enabledDesktop": true,
                     "enabledMobile": true
+                },
+                {
+                    "displayName": "ON - ON - MotionVectors",
+                    "passName": "MotionVectors",
+                    "present": true,
+                    "indexSubShader": 0,
+                    "enabledDesktop": false,
+                    "enabledMobile": false
                 }
             ],
             "shaderKeywords": [
@@ -872,7 +891,7 @@
                     "mali": ""
                 },
                 {
-                    "displayName": "OFF - ON - GLOBALTONEMAPPING : shader feature",
+                    "displayName": "OFF - REP - GLOBALTONEMAPPING : shader feature",
                     "line": "#pragma shader_feature GLOBALTONEMAPPING",
                     "replace": "",
                     "replaceDesktop": "",
@@ -1026,7 +1045,7 @@
                     "mali": ""
                 },
                 {
-                    "displayName": "ON - ON -  CAUSTICSENABLE ON : shader feature",
+                    "displayName": " -- ON - ON -  CAUSTICSENABLE ON : shader feature",
                     "line": "#pragma shader_feature_local _CAUSTICSENABLE_ON",
                     "replace": "",
                     "replaceDesktop": "",
@@ -1042,7 +1061,7 @@
                     "enabledMobile": true,
                     "hideDesktop": false,
                     "hideMobile": false,
-                    "present": true,
+                    "present": false,
                     "comment": "",
                     "instructions": 0.0,
                     "mali": ""
@@ -1101,6 +1120,50 @@
                     "keywordName": "__ _PROBEVOLUME_ON",
                     "keywordLast": "_PROBEVOLUME",
                     "keywordType": 2,
+                    "keywordTypeReplace": 0,
+                    "keywordDomain": 0,
+                    "local": true,
+                    "enabledDesktop": true,
+                    "enabledMobile": true,
+                    "hideDesktop": false,
+                    "hideMobile": false,
+                    "present": true,
+                    "comment": "",
+                    "instructions": 0.0,
+                    "mali": ""
+                },
+                {
+                    "displayName": "OFF - REP -  ProbeVolPerVertex : shader feature",
+                    "line": "#pragma shader_feature_local _ProbeVolPerVertex",
+                    "replace": "",
+                    "replaceDesktop": "",
+                    "replaceMobile": "#define _ProbeVolPerVertex",
+                    "replaceEditor": "",
+                    "keywordName": "_ProbeVolPerVertex",
+                    "keywordLast": "_ProbeVolPerVertex",
+                    "keywordType": 1,
+                    "keywordTypeReplace": 0,
+                    "keywordDomain": 0,
+                    "local": true,
+                    "enabledDesktop": false,
+                    "enabledMobile": true,
+                    "hideDesktop": false,
+                    "hideMobile": false,
+                    "present": true,
+                    "comment": "",
+                    "instructions": 0.0,
+                    "mali": ""
+                },
+                {
+                    "displayName": "ON - ON -  FadeWithHeight : shader feature",
+                    "line": "#pragma shader_feature_local _FadeWithHeight",
+                    "replace": "",
+                    "replaceDesktop": "",
+                    "replaceMobile": "",
+                    "replaceEditor": "",
+                    "keywordName": "_FadeWithHeight",
+                    "keywordLast": "_FadeWithHeight",
+                    "keywordType": 1,
                     "keywordTypeReplace": 0,
                     "keywordDomain": 0,
                     "local": true,

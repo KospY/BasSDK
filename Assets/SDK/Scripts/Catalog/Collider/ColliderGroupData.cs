@@ -48,6 +48,10 @@ namespace ThunderRoad
         [ShowIf("customSpellEffects")]
 #endif
         public Dictionary<int, EffectData> customSpellEffectData;
+#if ODIN_INSPECTOR
+        [ShowIf("customSpellEffects")]
+#endif
+        public bool blockPoolSteal = false;
 
         public enum ImbueType
         {

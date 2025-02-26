@@ -37,7 +37,7 @@ namespace ThunderRoad
         public List<ValueDropdownItem<string>> GetAllColliderGroupID()
             => Catalog.GetDropdownAllID(Category.ColliderGroup);
 
-        [ValueDropdown(nameof(GetAllColliderGroupID))]
+        [ValueDropdown(nameof(GetAllColliderGroupID), AppendNextDrawer = true)]
 #endif
         public string colliderGroupId;
 

@@ -7,8 +7,27 @@ namespace ThunderRoad
     {
         public float weight = 0;
         public Volume volume;
+        public MeshRenderer sphereMesh;
 
         protected float currentWeight;
+        protected MaterialPropertyBlock propertyBlock;
+
+        private void OnValidate()
+        {
+            if (sphereMesh)
+            {
+                propertyBlock = new MaterialPropertyBlock();
+            }
+            Update();
+        }
+
+        private void Awake()
+        {
+            if (sphereMesh)
+            {
+                propertyBlock = new MaterialPropertyBlock();
+            }
+        }
 
         void Update()
         {
@@ -18,6 +37,11 @@ namespace ThunderRoad
                 if (Common.IsAndroid)
                 {
                     Shadowood.Tonemapping.SetExposureStatic(-10 * weight);
+                    if (sphereMesh)
+                    {
+                        propertyBlock.SetColor("_BaseColor", new Color(0, 0, 0, weight));
+                        sphereMesh.SetPropertyBlock(propertyBlock);
+                    }
                 }
                 else
                 {
@@ -42,6 +66,11 @@ namespace ThunderRoad
             if (Common.IsAndroid)
             {
                 Shadowood.Tonemapping.SetExposureStatic(-10 * 0);
+                if (sphereMesh)
+                {
+                    propertyBlock.SetColor("_Color", new Color(0, 0, 0, 0));
+                    sphereMesh.SetPropertyBlock(propertyBlock);
+                }
             }
             else
             {

@@ -44,7 +44,7 @@ namespace ThunderRoad
         }
         
 #if ODIN_INSPECTOR
-        [ValueDropdown(nameof(GetAllCreatureTableID))]
+        [ValueDropdown(nameof(GetAllCreatureTableID), AppendNextDrawer = true)]
         [ShowIf("referenceType", Value = ReferenceType.None)]
 #endif
         public string creatureTableID;

@@ -27,7 +27,7 @@ namespace ThunderRoad
 
 #if ODIN_INSPECTOR
         public List<ValueDropdownItem<string>> GetAllEffectID() => Catalog.GetDropdownAllID(Category.Effect);
-        [ValueDropdown(nameof(GetAllEffectID))]
+        [ValueDropdown(nameof(GetAllEffectID), AppendNextDrawer = true)]
 #endif
         public string effectId = "Shockwave";
  // ProjectCore

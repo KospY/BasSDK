@@ -454,6 +454,12 @@ public class ReflectionSorcery : MonoBehaviour
         textureImporter.ReadTextureSettings(settings);
         settings.cubemapConvolution = TextureImporterCubemapConvolution.None;
         textureImporter.SetTextureSettings(settings);
+        //get platform settings for android
+        TextureImporterPlatformSettings platformSettings = textureImporter.GetPlatformTextureSettings("Android");
+        platformSettings.overridden = true;
+        platformSettings.format = TextureImporterFormat.ASTC_HDR_12x12;
+        platformSettings.maxTextureSize = resolution;
+        textureImporter.SetPlatformTextureSettings(platformSettings);
         AssetDatabase.ImportAsset(path);
     }
 

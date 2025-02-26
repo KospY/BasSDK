@@ -73,7 +73,7 @@ namespace ThunderRoad
                 //dont static batch books/uis
                 if(meshRenderer.gameObject.CompareTag("PointerActive")) continue;
                 //static batch if its marked static, baked, or has the tag
-                if (GameObjectUtility.AreStaticEditorFlagsSet(go, StaticEditorFlags.BatchingStatic) || go.CompareTag("RoomStaticBatch") || meshRenderer.lightmapIndex >= 0)
+                if (GameObjectUtility.AreStaticEditorFlagsSet(go, StaticEditorFlags.BatchingStatic) || go.CompareTag("RoomStaticBatch"))
                 {
                     if (!go.TryGetComponent(out MeshFilter meshFilter)) continue;
                     if (meshFilter.sharedMesh == null) continue;
@@ -87,10 +87,68 @@ namespace ThunderRoad
 #endif               
             return meshInfos;
         }
-
-        public static List<MeshInfo> SortMeshInfo(List<MeshInfo> meshInfos, Bounds worldBounds)
+        public class StaticBatchGroup
         {
-            float scaleFactor = CalculateScaleFactor(worldBounds);
+            public int vertexCount;
+            public List<MeshInfo> meshInfos = new List<MeshInfo>();
+            private List<GameObject> gameObjects = new List<GameObject>();
+            public bool AddMeshInfo(MeshInfo meshInfo)
+            {
+                if (vertexCount + meshInfo.VertexCount > 64000) return false;
+                meshInfos.Add(meshInfo);
+                gameObjects.Add(meshInfo.Renderer.gameObject);
+                vertexCount += meshInfo.VertexCount;
+                return true;
+            }
+            public void StaticBatch()
+            {
+#if UNITY_EDITOR
+//                Debug.Log($"[ThunderBatcher] Static batching [Obj:{gameObjects.Count}][Vert:{vertexCount}]");
+#endif
+                GameObject[] gameObjectsArray = gameObjects.ToArray();
+                StaticBatchingUtility.Combine(gameObjectsArray, gameObjectsArray[0]);
+            }
+
+            public void RemoveStaticBatchFlag()
+            {
+#if UNITY_EDITOR
+                foreach (GameObject go in gameObjects)
+                {
+                    GameObjectUtility.SetStaticEditorFlags(go, GameObjectUtility.GetStaticEditorFlags(go) & ~StaticEditorFlags.BatchingStatic);
+                }
+#endif
+            }
+        }
+        public static Dictionary<int, List<StaticBatchGroup>> CreateStaticBatchGroups(List<MeshInfo> meshInfos)
+        {
+            //group the meshinfos together by hashcode, up to a max of 64k vertices
+            Dictionary<int, List<StaticBatchGroup>> meshGroups = new();
+            int meshInfoCount = meshInfos.Count;
+            for (int i = 0; i < meshInfoCount; i++)
+            {
+                var meshInfo = meshInfos[i];
+                //get the hashcode for the meshinfo
+                int hashCode = meshInfo.GetHashCode();
+                if (!meshGroups.TryGetValue(hashCode, out List<StaticBatchGroup> groups))
+                {
+                    groups = new List<StaticBatchGroup>();
+                    meshGroups.Add(hashCode, groups);
+                }
+                //get the last group otherwise create a new one
+                StaticBatchGroup group = groups.Count > 0 ? groups[^1] : null;
+                //if we cant add the meshinfo to the group, create a new one and add it
+                if (group == null || !group.AddMeshInfo(meshInfo))
+                {
+                    group = new StaticBatchGroup();
+                    group.AddMeshInfo(meshInfo);
+                    groups.Add(group);
+                }
+            }
+            return meshGroups;
+        }
+        public static List<MeshInfo> SortMeshInfo(List<MeshInfo> meshInfos, Bounds worldBounds, float scale = 10f)
+        {
+            float scaleFactor = CalculateScaleFactor(worldBounds, scale);
             for (int i = 0; i < meshInfos.Count; i++)
             {
                 //we need to update the lightmapindex. since in dungeons its set at runtime
@@ -120,9 +178,27 @@ namespace ThunderRoad
                 Renderer = renderer;
                 MeshFilter = meshFilter;
                 NumberOfMaterials = renderer.sharedMaterials.Length;
-                ShaderHash = renderer.sharedMaterial.shader.GetHashCode();
-                ShaderKeywordsHash = renderer.sharedMaterial.shaderKeywords.Aggregate(0, (acc, kw) => acc ^ kw.GetHashCode());
-                MaterialHash = renderer.sharedMaterial.GetHashCode();
+                // store hashsets of all the shaders, materials and keywords
+                HashSet<Shader> shaders = new HashSet<Shader>();
+                HashSet<string> keywords = new HashSet<string>();
+                HashSet<Material> materials = new HashSet<Material>();
+                for (int i = 0; i < NumberOfMaterials; i++)
+                {
+                    Material material = renderer.sharedMaterials[i];
+                    if (material == null) continue;
+                    shaders.Add(material.shader);
+                    materials.Add(material);
+                    string[] materialKeywords = material.shaderKeywords;
+                    for (int j = 0; j < materialKeywords.Length; j++)
+                    {
+                        keywords.Add(materialKeywords[j]);
+                    }
+                }
+                // calculate the hashcodes for the shaders, materials and keywords
+                if(shaders.Count != 0) ShaderHash = shaders.Select(s => s.GetHashCode()).Aggregate((a, b) => a ^ b);
+                if(materials.Count != 0) MaterialHash = materials.Select(m => m.GetHashCode()).Aggregate((a, b) => a ^ b);
+                if(keywords.Count != 0) ShaderKeywordsHash = keywords.Select(k => k.GetHashCode()).Aggregate((a, b) => a ^ b);
+                
                 LightmapIndex = renderer.lightmapIndex;
                 ZOrderCurveIndex = 0;
                 VertexCount = meshFilter.sharedMesh.vertexCount;
@@ -138,6 +214,11 @@ namespace ThunderRoad
                 if (VertexCount != other.VertexCount) return VertexCount > other.VertexCount ? 1 : -1;
                 if (ZOrderCurveIndex != other.ZOrderCurveIndex) return ZOrderCurveIndex > other.ZOrderCurveIndex ? 1 : -1;
                 return 0;
+            }
+            
+            public override int GetHashCode()
+            {
+                return NumberOfMaterials ^ ShaderHash ^ ShaderKeywordsHash ^ MaterialHash;
             }
         }
     }

@@ -199,6 +199,14 @@ namespace ThunderRoad
 #if ODIN_INSPECTOR
         [TabGroup("GroupTabs", "General")]
 #endif
+        public Vector2 stunCheckCapsuleHeights = new Vector2(1f, 2f);
+#if ODIN_INSPECTOR
+        [TabGroup("GroupTabs", "General")]
+#endif
+        public Vector3 radiusMinMaxCapsuleCast = new Vector3(1.5f, 3.5f, 6f);
+#if ODIN_INSPECTOR
+        [TabGroup("GroupTabs", "General")]
+#endif
         public AudioSource killAudioSource;
 #if ODIN_INSPECTOR
         [TabGroup("GroupTabs", "General")]
@@ -260,7 +268,7 @@ namespace ThunderRoad
 #endif
         public Vector2 swingVelocity = new(2, 5);
 #if ODIN_INSPECTOR
-        [TabGroup("GroupTabs", "Abilities"), ValueDropdown(nameof(GetAllEffectID))]
+        [TabGroup("GroupTabs", "Abilities"), ValueDropdown(nameof(GetAllEffectID), AppendNextDrawer = true)]
 #endif
         public string swingEffectId = "GolemSwingArm";
         protected EffectData swingEffectData;
@@ -470,7 +478,7 @@ namespace ThunderRoad
             set => headRenderer.material.SetColor(EmissionColor, value);
         }
 
-        public static int awakeHash, wakeMotionHash, moveSpeedMultiplierHash, isBusyHash, moveHash, inMovementHash, locomotionMultHash, staggerHash, staggerLateralHash, staggerAxialHash, resistPushHash, attackHash, attackMotionHash, deployHash, deployStartedHash, isDeployedHash, stunHash, stunStartedHash, isStunnedHash, inAttackMotionHash;
+        public static int awakeHash, wakeMotionHash, moveSpeedMultiplierHash, isBusyHash, moveHash, inMovementHash, locomotionMultHash, staggerHash, staggerLateralHash, staggerAxialHash, resistPushHash, attackHash, attackMotionHash, deployHash, deployStartedHash, isDeployedHash, stunHash, stunDirectionHash, stunStartedHash, isStunnedHash, inAttackMotionHash;
 
         public delegate void GolemStateChange(State newState);
         public event GolemStateChange OnGolemStateChange;

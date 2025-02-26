@@ -38,7 +38,7 @@ namespace ThunderRoad
             }
             else
             {
-                Debug.LogError($"Light Probe Volume: {lightProbeVolume.gameObject.GetPathFromRoot()} is not in an Area! LVRs will not work properly.");
+                Debug.LogError($"Light Probe Volume: {lightProbeVolume.gameObject.GetPathFromRoot()} is not in an Area! LVRs will not work properly.");               
             }
             Exists = true;
         }
@@ -71,22 +71,17 @@ namespace ThunderRoad
         [Tooltip("Enables Light Probe occlusion (used for light occlusion e.g. directional light in an interior space.)")]
         public bool useOcclusion = true;
 
-        public Vector3 ProbeVolumeMin
-        {
-            get { return probeVolumeMin; }
-        }
+        public Vector3 ProbeVolumeMin => probeVolumeMin;
 
         [SerializeField, HideInInspector]
         private Vector3 probeVolumeMin;
 
-        public Vector3 ProbeVolumeSizeInverse
-        {
-            get { return probeVolumeSizeInverse; }
-        }
+        public Vector3 ProbeVolumeSizeInverse => probeVolumeSizeInverse;
 
-        [SerializeField, HideInInspector]
-        private Vector3 probeVolumeSizeInverse;
+        [SerializeField, HideInInspector] public Vector3 probeVolumeSizeInverse;
 
+        [Tooltip("Ambient 3D Texture of the Light Probe Volume")]
+        public Texture3D Ambient;
         [Tooltip("The Red Channel 3D Texture of the Light Probe Volume")]
         public Texture3D SHAr;
         [Tooltip("The Green Channel 3D Texture of the Light Probe Volume")]
@@ -100,6 +95,7 @@ namespace ThunderRoad
         private static readonly int ProbeWorldToTexture = Shader.PropertyToID("_ProbeWorldToTexture");
         private static readonly int VolumeMin = Shader.PropertyToID("_ProbeVolumeMin");
         private static readonly int ProbeVolumeSizeInv = Shader.PropertyToID("_ProbeVolumeSizeInv");
+        private static readonly int ProbeVolumeAmbient = Shader.PropertyToID("_ProbeVolumeAmbient");
         private static readonly int ProbeVolumeShR = Shader.PropertyToID("_ProbeVolumeShR");
         private static readonly int ProbeVolumeShG = Shader.PropertyToID("_ProbeVolumeShG");
         private static readonly int ProbeVolumeShB = Shader.PropertyToID("_ProbeVolumeShB");
@@ -108,6 +104,34 @@ namespace ThunderRoad
         private static readonly int UnitySHAg = Shader.PropertyToID("unity_SHAg");
         private static readonly int UnitySHAb = Shader.PropertyToID("unity_SHAb");
         private static readonly int UnityProbesOcclusion = Shader.PropertyToID("unity_ProbesOcclusion");
+        
+#if UNITY_EDITOR
+        [ContextMenu("ProcessTextures")]
+        public void ProcessTextures()
+        {
+            var format = SHAr.graphicsFormat;
+            var tex = new Texture3D(SHAr.width,SHAr.height,SHAr.depth, format, UnityEngine.Experimental.Rendering.TextureCreationFlags.None);
+
+            var r = SHAr.GetPixels();
+            var g = SHAg.GetPixels();
+            var b = SHAb.GetPixels();
+            Color[] col = new Color[r.Length];
+
+            for (int i = 0; i < r.Length; i++)
+            {
+                col[i] = new Color(Vector4.Dot(r[i],new Vector4(0,1,0,1)),Vector4.Dot(g[i],new Vector4(0,1,0,1)),Vector4.Dot(b[i],new Vector4(0,1,0,1)),1);
+            }
+            tex.SetPixels(col);
+            tex.Apply();
+
+            var path = UnityEditor.AssetDatabase.GetAssetPath(SHAr).Replace("SHAr", "Ambient");
+            UnityEditor.AssetDatabase.CreateAsset(tex, path);
+            UnityEditor.AssetDatabase.ImportAsset(path);
+
+            Ambient = UnityEditor.AssetDatabase.LoadAssetAtPath<Texture3D>(path);
+
+        }
+#endif
 
         private BoxCollider _boxCollider;
         private Bounds _bounds;
@@ -158,7 +182,7 @@ namespace ThunderRoad
         [NonSerialized]
         public bool editingSizeThroughEditor;
 
-        private Dictionary<MonoBehaviour, List<WeakReference>> _registeredMaterials;
+        private Dictionary<MonoBehaviour, List<Material>> _registeredMaterials;
 
         public void SetTexture(Texture3D SHAr,
             Texture3D SHAg,
@@ -170,25 +194,21 @@ namespace ThunderRoad
             this.SHAb = SHAb;
             this.occ = occ;
 
-            if (!_registeredMaterials.IsNullOrEmpty())
+            if (_registeredMaterials.IsNullOrEmpty()) return;
+            foreach (KeyValuePair<MonoBehaviour, List<Material>> item in _registeredMaterials)
             {
-                foreach (var item in _registeredMaterials)
+                int count = item.Value.Count;
+                for (int i = count - 1; i >= 0; i--)
                 {
-                    int count = item.Value.Count;
-                    for (int i = count - 1; i >= 0; i--)
+                    Material mat = item.Value[i];
+                    if (mat != null)
                     {
-                        WeakReference weakRef = item.Value[i];
-                        if (weakRef.IsAlive
-                            && weakRef.Target is Material mat
-                            && mat != null)
-                        {
-                            UpdateMaterialProperties(mat);
-                        }
-                        else
-                        {
-                            item.Value.RemoveAt(i);
-                            Debug.LogError("Material not alive or null in LightProbeVolume : " + gameObject.name + " for mono register type " + item.Key.GetType().Name + " in game object " + item.Key.gameObject.name);
-                        }
+                        UpdateMaterialProperties(mat);
+                    }
+                    else
+                    {
+                        item.Value.RemoveAt(i);
+                        Debug.LogError("Material not alive or null in LightProbeVolume : " + gameObject.name + " for mono register type " + item.Key.GetType().Name + " in game object " + item.Key.gameObject.name);
                     }
                 }
             }
@@ -219,24 +239,53 @@ namespace ThunderRoad
         {
             Unregister(this);
             SetTexture(null, null, null, null);
+            ClearAllRegisteredMaterials();
         }
+        
+        private void ClearAllRegisteredMaterials()
+        {
+            if (_registeredMaterials.IsNullOrEmpty()) return;
+            //loop through all the registered materials, set the textures to null and remove the weak references
+            foreach (var item in _registeredMaterials)
+            {
+                int count = item.Value.Count;
+                for (int i = count - 1; i >= 0; i--)
+                {
+                    Material mat = item.Value[i];
+                    if (mat != null)
+                    {
+                        mat.SetFloat(UseProbeVolume, 0); // This is to see checkbox ticked in the inspector
+                        mat.SetFloat(UseProbeVolumeLux, 0); // Lux URP  uses this instead of the keyword it seems
+                        mat.DisableKeyword("_PROBEVOLUME_ON");
+                        mat.SetTexture(ProbeVolumeShR, null);
+                        mat.SetTexture(ProbeVolumeShG, null);
+                        mat.SetTexture(ProbeVolumeShB, null);
+                        mat.SetTexture(ProbeVolumeOcc, null);
+                    }
+                    item.Value.RemoveAt(i);
+                }
+            }
+            _registeredMaterials.Clear();
+            
+        }
+
 
         public void RegisterMaterials(MonoBehaviour receiver, Material[] materials)
         {
             if (receiver == null) return;
             if (materials.IsNullOrEmpty()) return;
-            if (_registeredMaterials == null) _registeredMaterials = new Dictionary<MonoBehaviour, List<WeakReference>>();
+            if (_registeredMaterials == null) _registeredMaterials = new Dictionary<MonoBehaviour, List<Material>>();
 
-            List<WeakReference> previousMaterials;
+            List<Material> previousMaterials;
             if (!_registeredMaterials.TryGetValue(receiver, out previousMaterials))
             {
-                previousMaterials = new List<WeakReference>();
+                previousMaterials = new List<Material>();
                 _registeredMaterials.Add(receiver, previousMaterials);
             }
 
             for (int i = 0; i < materials.Length; i++)
             {
-                previousMaterials.Add(new WeakReference(materials[i]));
+                previousMaterials.Add(materials[i]);
             }
 
             for (int i = 0; i < materials.Length; i++)
@@ -249,16 +298,16 @@ namespace ThunderRoad
             if (_registeredMaterials.IsNullOrEmpty()) return;
             if (receiver == null) return;
 
-            if (_registeredMaterials.Remove(receiver, out List<WeakReference> materials))
+            if (_registeredMaterials.Remove(receiver, out List<Material> materials))
             {
                 int count = materials.Count;
                 for (int i = count - 1; i >= 0 ; i--)
                 {
-                    if(materials[i].IsAlive 
-                        && materials[i].Target is Material mat
-                        && mat != null)
+                    Material mat = materials[i];
+                    if(mat != null)
                     {
                         // release texture
+                        mat.SetTexture(ProbeVolumeAmbient, null);
                         mat.SetTexture(ProbeVolumeShR, null);
                         mat.SetTexture(ProbeVolumeShG, null);
                         mat.SetTexture(ProbeVolumeShB, null);
@@ -285,6 +334,7 @@ namespace ThunderRoad
                 material.SetVector(VolumeMin, probeVolumeMin);
                 material.SetVector(ProbeVolumeSizeInv, probeVolumeSizeInverse);
 
+                material.SetTexture(ProbeVolumeAmbient, Ambient);
                 material.SetTexture(ProbeVolumeShR, SHAr);
                 material.SetTexture(ProbeVolumeShG, SHAg);
                 material.SetTexture(ProbeVolumeShB, SHAb);

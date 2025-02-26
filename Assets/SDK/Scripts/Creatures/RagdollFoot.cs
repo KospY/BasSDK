@@ -29,6 +29,9 @@ namespace ThunderRoad
 
         protected override void OnValidate()
         {
+#if UNITY_EDITOR
+            if (UnityEditor.BuildPipeline.isBuildingPlayer) return;
+#endif
             base.OnValidate();
             if (!this.gameObject.activeInHierarchy) return;
             grip = this.transform.Find("Grip");

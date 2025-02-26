@@ -81,8 +81,9 @@ namespace ThunderRoad.Modules
         public List<string> outpostLootConfigs;
         public int outpostMapLocationRandomNearest = 5;
 
-        [Header("Shop")]
+        [Header("Shop & Persistent levels")]
         public string shopID;
+        public List<LevelInfo> persistentLevels;
 
  // ProjectCore
         
@@ -96,7 +97,16 @@ namespace ThunderRoad.Modules
 #if ODIN_INSPECTOR
             [ValueDropdown(nameof(GetAllLevelMode))]
 #endif
-            public string modId;
+            public string modeId;
+
+            [Newtonsoft.Json.JsonProperty("modId")]
+            private string modeIdSetter
+            {
+                set
+                {
+                    modeId = value;
+                }
+            }
 
  // ProjectCore
 #if ODIN_INSPECTOR

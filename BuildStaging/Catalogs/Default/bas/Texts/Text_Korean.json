@@ -4,6 +4,7 @@
   "sensitiveContent": "None",
   "sensitiveFilterBehaviour": "Discard",
   "version": 1,
+  "languageCode": "ko",
   "textGroups": [
     {
       "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
@@ -842,6 +843,13 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipSlowmotionScale",
           "text": "경고: 0.5 이하로 설정하면 물리 효과에 문제가 발생할 수 있습니다.",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TooltipSeatedMode",
+          "text": "아바타에 맞추기 위해 키를 조정하려면 이 옵션을 활성화하세요",
           "spriteAddress": null,
           "videoAddress": null
         }
@@ -5223,6 +5231,181 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "ItemID",
           "text": "아이템 ID",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Catalog",
+          "text": "카탈로그",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Assembly",
+          "text": "어셈블리",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Manifest",
+          "text": "매니페스트",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Option",
+          "text": "옵션",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorExceptionReadingJSONDB",
+          "text": ".jsondb 파일 읽기 중 예외 발생",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCantReadJSONDB",
+          "text": ".jsondb 파일을 읽을 수 없음:",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorIncompatibleCatalogVersion",
+          "text": "카탈로그 버전이 호환되지 않음",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCantReadJSON",
+          "text": "JSON 파일을 읽을 수 없음:",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCouldNotLoadCatalog",
+          "text": "콘텐츠 카탈로그를 로드할 수 없음",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCouldNotLoadMod",
+          "text": "모드를 로드할 수 없음:",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCouldNotGetTypesInAssembly",
+          "text": "어셈블리에서 유형을 가져올 수 없음",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCouldNotProcessThunderscriptsInAssembly",
+          "text": "어셈블리에서 ThunderScripts 처리 오류 발생",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCouldNotLoadAssembly",
+          "text": "어셈블리를 로드할 수 없음",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorUnableToInstantiateThunderScript",
+          "text": "ThunderScript의 인스턴스를 생성할 수 없음:",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorExceptionThunderScriptLoad",
+          "text": "ThunderScript에서 스크립트 로드 중 예외 발생:",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorExceptionThunderScriptEnable",
+          "text": "ThunderScript 활성화 중 예외 발생",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorExceptionGetAttributes",
+          "text": "모드 속성 가져오기 중 예외 발생",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorExceptionAddModOption",
+          "text": "모드 옵션 추가 중 예외 발생",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorIncompatibleWithGameVersion",
+          "text": "게임 버전과 호환되지 않음",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorOptionApply",
+          "text": "옵션 적용 중 예외 발생:",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ToggleIL2CPPBridge",
+          "text": "스크립트 모드",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "IL2CPPBridgeWarning",
+          "text": "스크립트 모드가 발견되었습니다! 이는 실험적 기능이며 불안정성을 초래할 수 있습니다! 로드하시겠습니까?",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Report",
+          "text": "신고",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReportMessage",
+          "text": "이 모드를 신고하시겠습니까?",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SeatedMode",
+          "text": "키 오프셋",
           "spriteAddress": null,
           "videoAddress": null
         }

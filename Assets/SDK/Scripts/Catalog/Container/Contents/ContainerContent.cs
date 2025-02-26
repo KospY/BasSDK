@@ -21,7 +21,7 @@ namespace ThunderRoad
 #endif
         [JsonMergeKey]
 #if ODIN_INSPECTOR
-        [ValueDropdown(nameof(DropdownOptions)), HorizontalGroup("Fields", Width = 300), BoxGroup("Fields/Reference ID"), HideLabel, PropertyOrder(1)]
+        [ValueDropdown(nameof(DropdownOptions)), HorizontalGroup("Fields", DisableAutomaticLabelWidth = false), BoxGroup("Fields/Reference ID"), HideLabel, PropertyOrder(1)]
 #endif
         public string referenceID;
 

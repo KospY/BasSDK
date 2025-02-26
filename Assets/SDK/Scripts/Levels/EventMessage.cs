@@ -34,6 +34,7 @@ namespace ThunderRoad
         public bool dismissAutomatically;
         public float dismissTime = 2f;
 
+        public UnityEvent messageSkipEvent;
         [HideInInspector] public bool startFromZoneTrigger;
         [HideInInspector] public bool stopFromZoneTrigger;
         [HideInInspector] public bool isTutorialMessage;

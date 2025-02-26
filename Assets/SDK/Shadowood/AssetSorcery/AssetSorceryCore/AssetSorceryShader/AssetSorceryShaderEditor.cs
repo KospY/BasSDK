@@ -68,7 +68,7 @@ namespace ThunderRoad.AssetSorcery
 
             //
 
-            var sourceResult = AssetSorceryShader.ProcessShaderSource(shaderSource, package, shader.name);
+            var sourceResult = AssetSorceryShader.ProcessShaderSource(true,shaderSource, package, shader.name);
 
             //
 
@@ -215,7 +215,7 @@ namespace ThunderRoad.AssetSorcery
 
                 package.shaderSettings.customShaderName = keywordName;
 
-                var sourceResult = AssetSorceryShader.ProcessShaderSource(shaderSource, package, shader.name);
+                var sourceResult = AssetSorceryShader.ProcessShaderSource(true,shaderSource, package, shader.name);
 
                 sourceResult = sourceResult.Replace("shader_feature_local", "multi_compile");
                 sourceResult = sourceResult.Replace("shader_feature", "multi_compile");
@@ -305,7 +305,7 @@ namespace ThunderRoad.AssetSorcery
             var regex = new Regex(@"\#ifdef FRAGMENT\s+(.*?)(}+\s*\#endif)", RegexOptions.Singleline);
             var matchitems = regex.Matches(source);
 
-            Debug.Log("Split found: " + matchitems.Count);
+            Debug.Log("ShaderToMali: Split found: " + matchitems.Count);
 
             log = "";
 
@@ -328,9 +328,10 @@ namespace ThunderRoad.AssetSorcery
 
                 //
 
-
-                string fullPath = @"C:\Program Files\Arm\Mali Developer Tools\Mali Offline Compiler v6.4.0\malisc.exe";
-                fullPath = @"C:\Program Files\Arm\Arm Mobile Studio 2022.4\mali_offline_compiler\malioc.exe";
+                //https://developer.arm.com/Tools%20and%20Software/Arm%20Performance%20Studio#Downloads
+                //string fullPath = @"C:\Program Files\Arm\Mali Developer Tools\Mali Offline Compiler v6.4.0\malisc.exe";
+                //string fullPath = @"C:\Program Files\Arm\Arm Mobile Studio 2022.4\mali_offline_compiler\malioc.exe";
+                string fullPath = @"C:\Program Files\Arm\Arm Performance Studio 2024.5\mali_offline_compiler\malioc.exe";
 
 
                 var maliResult = RunProcess(fullPath, false, writePath);
@@ -366,7 +367,7 @@ namespace ThunderRoad.AssetSorcery
                 //break; // Just use the first found fragment, 
             }
 
-            Debug.Log("Total instructionsEmitted: " + instructionsEmitted);
+            Debug.Log("ShaderToMali: Total instructionsEmitted: " + instructionsEmitted);
 
             return instructionsEmitted;
         }
@@ -421,8 +422,15 @@ namespace ThunderRoad.AssetSorcery
             return "";
         }
 
-
-        public void CompileShader(Shader shaderIn)
+        public enum eCompilePlatform
+        {
+            current,
+            d3d,
+            gles3x,
+            vulkan
+        }
+        
+        public void CompileShader(Shader shaderIn, eCompilePlatform platform)
         {
             const bool INCLUDE_ALL_VARIANTS = false;
             System.Type t = typeof(ShaderUtil);
@@ -462,6 +470,22 @@ namespace ThunderRoad.AssetSorcery
             //platformsMask = 8192; // Vulkan
             var currentMode = 3; // Custom
 
+            switch (platform)
+            {
+                case eCompilePlatform.current:
+                    platformsMask = defaultMask;
+                    break;
+                case eCompilePlatform.d3d:
+                    platformsMask = 16;
+                    break;
+                case eCompilePlatform.gles3x:
+                    platformsMask = 512;
+                    break;
+                case eCompilePlatform.vulkan:
+                    platformsMask = 8192;
+                    break;
+            }
+
             //platformsMask = EditorPrefs.GetInt("ShaderInspectorPlatformMask", defaultMask);
             //currentMode = EditorPrefs.GetInt("ShaderInspectorPlatformMode", 1);
 
@@ -469,7 +493,7 @@ namespace ThunderRoad.AssetSorcery
             var preprocessOnly = false;
             var stripLineDirectives = false;
 
-            Debug.Log("platformsMask: " + defaultMask + " currentMode: " + currentMode);
+            //Debug.Log("CompileShader: platformsMask: " + defaultMask + " currentMode: " + currentMode);
 
             dynMethod.Invoke(null, new object[] {shaderIn, currentMode, platformsMask, includeAllVariants, preprocessOnly, stripLineDirectives});
 
@@ -573,14 +597,28 @@ namespace ThunderRoad.AssetSorcery
 
             //var itemData = extraDataSerializedObject.targetObject as AssetSorceryShaderAsset;
 
-            if (GUILayout.Button("CompileShader"))
+            if (GUILayout.Button(new GUIContent("CompileShader - GLES", "Not a valid shader used for debugging purposes")))
             {
                 var item = target as AssetSorceryShader;
                 var shader = AssetDatabase.LoadAssetAtPath<Shader>(item.assetPath);
-                CompileShader(shader);
+                CompileShader(shader, eCompilePlatform.gles3x);
+            }
+            
+            if (GUILayout.Button(new GUIContent("CompileShader - D3D", "Not a valid shader used for debugging purposes")))
+            {
+                var item = target as AssetSorceryShader;
+                var shader = AssetDatabase.LoadAssetAtPath<Shader>(item.assetPath);
+                CompileShader(shader, eCompilePlatform.d3d);
+            }
+            
+            if (GUILayout.Button(new GUIContent("CompileShader - Vulkan", "Not a valid shader used for debugging purposes")))
+            {
+                var item = target as AssetSorceryShader;
+                var shader = AssetDatabase.LoadAssetAtPath<Shader>(item.assetPath);
+                CompileShader(shader, eCompilePlatform.vulkan);
             }
 
-            if (GUILayout.Button("OpenSourceGen"))
+            if (GUILayout.Button(new GUIContent("OpenSourceGen", "Open a temp shader containing the resulting generated shader source after AssetSorceryShader has commented out or altered keywords")))
             {
                 //var item = target as AssetSorceryShader;
                 //var shader = AssetDatabase.LoadAssetAtPath<Shader>(item.assetPath);
@@ -598,10 +636,10 @@ namespace ThunderRoad.AssetSorcery
                 GetStatsCurrent(false);
             }
 
-            if (GUILayout.Button("GetPasses"))
-            {
-                GetPasses();
-            }
+            //if (GUILayout.Button("GetPasses"))
+            //{
+            //    GetPasses();
+            //}
 
 
             if (GUILayout.Button("GetStatsAll"))

@@ -4,6 +4,7 @@
   "sensitiveContent": "None",
   "sensitiveFilterBehaviour": "Discard",
   "version": 1,
+  "languageCode": "ja",
   "textGroups": [
     {
       "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
@@ -842,6 +843,13 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipSlowmotionScale",
           "text": "警告： 0.5未満にすると物理的な問題が発生します。",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TooltipSeatedMode",
+          "text": "アバターに合わせて身長を調整するために、このオプションを有効にしてください",
           "spriteAddress": null,
           "videoAddress": null
         }
@@ -5223,6 +5231,181 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "ItemID",
           "text": "アイテムID",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Catalog",
+          "text": "カタログ",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Assembly",
+          "text": "アセンブリ",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Manifest",
+          "text": "マニフェスト",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Option",
+          "text": "オプション",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorExceptionReadingJSONDB",
+          "text": ".jsondbファイル読み込み時にエラー",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCantReadJSONDB",
+          "text": ".jsondbファイルを読み取れません：",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorIncompatibleCatalogVersion",
+          "text": "カタログバージョンが互換性がありません",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCantReadJSON",
+          "text": "JSON ファイルを読み取れませんでした：",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCouldNotLoadCatalog",
+          "text": "コンテンツカタログを読み込めませんでした",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCouldNotLoadMod",
+          "text": "Modを読み込めませんでした：",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCouldNotGetTypesInAssembly",
+          "text": "アセンブリ内で型を取得できませんでした",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCouldNotProcessThunderscriptsInAssembly",
+          "text": "アセンブリでThunderScriptsを処理中にエラー",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCouldNotLoadAssembly",
+          "text": "アセンブリを読み込めませんでした",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorUnableToInstantiateThunderScript",
+          "text": "ThunderScript のインスタンスを作成できませんでした：",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorExceptionThunderScriptLoad",
+          "text": "ThunderScript の ScriptLoaded 中に例外が発生しました：",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorExceptionThunderScriptEnable",
+          "text": "ThunderScript 有効化時に例外が発生しました",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorExceptionGetAttributes",
+          "text": "Mod の属性取得時に例外が発生しました",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorExceptionAddModOption",
+          "text": "Modオプションの追加時に例外が発生しました",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorIncompatibleWithGameVersion",
+          "text": "ゲームのバージョンと互換性がありません",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorOptionApply",
+          "text": "オプション適用時に例外が発生しました：",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ToggleIL2CPPBridge",
+          "text": "スクリプト化されたモッド",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "IL2CPPBridgeWarning",
+          "text": "スクリプト化されたモッドが見つかりました！これは実験的な機能で、不安定になる可能性があります！読み込みますか？",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Report",
+          "text": "通報",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReportMessage",
+          "text": "このモッドを通報してもよろしいですか？",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SeatedMode",
+          "text": "高さオフセット",
           "spriteAddress": null,
           "videoAddress": null
         }

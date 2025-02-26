@@ -97,13 +97,25 @@ namespace Shadowood
 
         public const float minNearClip = 0.02f;
 
+        private float _oceanHeight;
+        private bool cachedOceanHeight;
         public float OceanHeight
         {
-            get => transform.position.y;
+            get
+            {
+                if (!cachedOceanHeight)
+                {
+                    _oceanHeight = oceanSurface.position.y;
+                    cachedOceanHeight = true;
+                }
+                return _oceanHeight;
+            }
             set
             {
-                float diff = value - transform.position.y;
+                float diff = value - OceanHeight;
                 this.transform.position += Vector3.up * diff;
+                _oceanHeight = value;
+                cachedOceanHeight = true;
             }
         }
 
@@ -463,7 +475,7 @@ namespace Shadowood
 
         public bool TryGetWaterHeight(Vector3 point, out float waterHeight)
         {
-            if (!enabled || (boundLimit && !boundLimit.IsInside(point)))
+            if (!enabled || (boundLimit != null && !boundLimit.IsInside(point)))
             {
                 waterHeight = 0;
                 return false;

@@ -4,6 +4,7 @@
   "sensitiveContent": "None",
   "sensitiveFilterBehaviour": "Discard",
   "version": 1,
+  "languageCode": "th",
   "textGroups": [
     {
       "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
@@ -842,6 +843,13 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipSlowmotionScale",
           "text": "คำเตือน: หากลดลงต่ำกว่า 0.5 จะทำให้เกิดปัญหาทางฟิสิกส์",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TooltipSeatedMode",
+          "text": "เปิดใช้งานตัวเลือกนี้เพื่อปรับความสูงของคุณให้ตรงกับอวาตาร์",
           "spriteAddress": null,
           "videoAddress": null
         }
@@ -5223,6 +5231,181 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "ItemID",
           "text": "รหัส Item",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Catalog",
+          "text": "แคตตาล็อก",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Assembly",
+          "text": "แอสเซมบลี",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Manifest",
+          "text": "ไฟล์แมนิเฟสต์",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Option",
+          "text": "ตัวเลือก",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorExceptionReadingJSONDB",
+          "text": "ข้อยกเว้นในการอ่านไฟล์ .jsondb",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCantReadJSONDB",
+          "text": "ไม่สามารถอ่านไฟล์ .jsondb:",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorIncompatibleCatalogVersion",
+          "text": "เวอร์ชันแคตตาล็อกไม่เข้ากัน",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCantReadJSON",
+          "text": "ไม่สามารถอ่านไฟล์ json ได้:",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCouldNotLoadCatalog",
+          "text": "ไม่สามารถโหลดแคตตาล็อกเนื้อหาได้",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCouldNotLoadMod",
+          "text": "ไม่สามารถโหลดม็อดได้:",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCouldNotGetTypesInAssembly",
+          "text": "ไม่สามารถรับประเภทในแอสเซมบลีได้",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCouldNotProcessThunderscriptsInAssembly",
+          "text": "เกิดข้อผิดพลาดในการประมวลผล ThunderScripts ในแอสเซมบลี",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCouldNotLoadAssembly",
+          "text": "ไม่สามารถโหลดแอสเซมบลีได้",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorUnableToInstantiateThunderScript",
+          "text": "ไม่สามารถสร้างอินสแตนซ์ของ ThunderScript ได้:",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorExceptionThunderScriptLoad",
+          "text": "ข้อยกเว้นระหว่างการโหลดสคริปต์บน ThunderScript:",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorExceptionThunderScriptEnable",
+          "text": "ข้อยกเว้นระหว่างการเปิดใช้งาน ThunderScript",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorExceptionGetAttributes",
+          "text": "ข้อยกเว้นเมื่อได้รับแอตทริบิวต์ของม็อด",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorExceptionAddModOption",
+          "text": "ข้อยกเว้นเมื่อเพิ่มตัวเลือกของม็อด",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorIncompatibleWithGameVersion",
+          "text": "ไม่เข้ากันกับเวอร์ชันของเกม",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorOptionApply",
+          "text": "ข้อยกเว้นเมื่อใช้ตัวเลือก:",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ToggleIL2CPPBridge",
+          "text": "ม็อดที่เขียนสคริปต์",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "IL2CPPBridgeWarning",
+          "text": "พบม็อดที่เขียนสคริปต์! พวกมันเป็นฟีเจอร์ทดลองและอาจทำให้ระบบไม่เสถียร! คุณต้องการโหลดพวกมันหรือไม่?",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Report",
+          "text": "รายงาน",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReportMessage",
+          "text": "คุณแน่ใจหรือว่าต้องการรายงานม็อดนี้?",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SeatedMode",
+          "text": "การปรับระยะสูง",
           "spriteAddress": null,
           "videoAddress": null
         }

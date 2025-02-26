@@ -17,6 +17,9 @@ namespace ThunderRoad
 #if UNITY_EDITOR
         private void OnValidate()
         {
+#if UNITY_EDITOR
+            if (UnityEditor.BuildPipeline.isBuildingPlayer) return;
+#endif
             if (!gameObject.activeInHierarchy) return;
             // Get the rigidbody.
             Rigidbody rb = GetComponent<Rigidbody>() ?? gameObject.AddComponent<Rigidbody>();

@@ -14,7 +14,7 @@ namespace ThunderRoad
     public class Interactable : ThunderBehaviour
     {
 #if ODIN_INSPECTOR
-        [ValueDropdown(nameof(GetAllInteractableID))]
+        [ValueDropdown(nameof(GetAllInteractableID), AppendNextDrawer = true)]
 #endif
         [Tooltip("(Only needed for non-json handles)\nInsert Interactable ID here.")]
         public string interactableId;

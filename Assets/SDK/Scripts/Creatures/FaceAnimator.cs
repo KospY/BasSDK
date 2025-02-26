@@ -325,7 +325,8 @@ namespace ThunderRoad
         private void OnValidate()
         {
 #if UNITY_EDITOR
-            foreach (SerializeableBinding sb in allBindables) sb.SetGameObject(gameObject);
+            if (bindings == null) return;
+            foreach (SerializeableBinding sb in bindings.allBindables) sb.SetGameObject(gameObject);
 #endif
         }
 
@@ -344,6 +345,11 @@ namespace ThunderRoad
             public List<ValueDropdownItem<string>> GetTargetProperties()
             {
                 List<ValueDropdownItem<string>> options = new List<ValueDropdownItem<string>>();
+                if (gameObject == null)
+                {
+                    options.Add(new ValueDropdownItem<string>("ASSIGN TO FACE ANIMATOR", "ASSIGN TO FACE ANIMATOR"));
+                    return options;
+                }
                 foreach (EditorCurveBinding binding in AnimationUtility.GetAnimatableBindings(gameObject, gameObject))
                 {
                     if (!binding.propertyName.ToLower().Contains("blendshape")) continue;
@@ -369,21 +375,23 @@ namespace ThunderRoad
         [Button]
         public void GetAllBindables()
         {
-            allBindables = new List<SerializeableBinding>();
+            if (bindings == null) return;
+            bindings.allBindables = new List<SerializeableBinding>();
             foreach (EditorCurveBinding binding in AnimationUtility.GetAnimatableBindings(gameObject, gameObject))
             {
                 if (!binding.propertyName.ToLower().Contains("m_blendshapes")) continue;
-                allBindables.Add(new SerializeableBinding(binding.propertyName, gameObject));
+                bindings.allBindables.Add(new SerializeableBinding(binding.propertyName, gameObject));
             }
         }
 
         [Button]
         public void BindableRename(string replace)
         {
+            if (bindings == null) return;
             string[] split = replace.Split(':');
             string from = split[0];
             string to = split[1];
-            foreach (SerializeableBinding binding in allBindables)
+            foreach (SerializeableBinding binding in bindings.allBindables)
             {
                 binding.coorespondingProperty = binding.coorespondingProperty.Replace(from, to);
             }
@@ -426,16 +434,17 @@ namespace ThunderRoad
         }
 
 #if ODIN_INSPECTOR
-        [TableList]
+        [InlineEditor]
 #endif
-        public List<SerializeableBinding> allBindables;
+        public FacePropertyBindings bindings;
         public Dictionary<string, string> blendshapePairings;
 
         [Button]
         public void ConvertMotionCaptureToRawBlendAnimation()
         {
+            if (bindings == null) return;
             blendshapePairings = new Dictionary<string, string>();
-            foreach (SerializeableBinding serializeableBinding in allBindables)
+            foreach (SerializeableBinding serializeableBinding in bindings.allBindables)
             {
                 blendshapePairings.Add(serializeableBinding.propertyName, serializeableBinding.coorespondingProperty);
             }

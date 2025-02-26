@@ -795,12 +795,15 @@ namespace IngameDebugConsole
 		public static void RerunLastCommand() => ExecuteCommand(lastCommand);
 
 		// Parse the command and try to execute it
-		public static void ExecuteCommand( string command )
+		public static void ExecuteCommand(string command) => ExecuteCommand(command, true);
+
+        // Parse the command and try to execute it
+        public static void ExecuteCommand( string command, bool saveAsLast)
 		{
 			if( command == null )
 				return;
 
-            lastCommand = command;
+            if (saveAsLast) lastCommand = command;
 
             command = command.Trim();
 

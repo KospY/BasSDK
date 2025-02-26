@@ -293,7 +293,15 @@ namespace ThunderRoad
         /// </summary>
         public void OnReleasePreset()
         {
-            skyBoxMaterialProp?.ReleaseInstancedMaterial();
+            if (skyBoxMaterialProp != null)
+            {
+                skyBoxMaterialProp.ReleaseInstancedMaterial();
+            }
+            else
+            {
+                Debug.LogError($"[LightingPreset][{this.name}] Cannot release skyboxMaterial. skyBoxMaterialProp is null");
+            }
+            
         }
 
         public void UpdateFrom(LightingPreset source, out bool needRebake)

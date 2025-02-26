@@ -8,7 +8,6 @@
   "fullscreen": false,
   "screenWidth": 1920,
   "screenHeight": 1080,
-  "dungeonStaticBatching": true,
   "defaultPlayerMaleCreatureID": "PlayerDefaultMale",
   "defaultPlayerFemaleCreatureID": "PlayerDefaultFemale",
   "skipIntro": false,
@@ -290,6 +289,7 @@
   "playerRespawnDelay": 10.0,
   "pc": {
     "$type": "ThunderRoad.GameData+PlatformParameters, ThunderRoad",
+    "dungeonStaticBatching": true,
     "maxHomeItem": 30,
     "maxWaveAlive": 50,
     "maxRoomNpc": 10,
@@ -316,6 +316,7 @@
   },
   "android": {
     "$type": "ThunderRoad.GameData+PlatformParameters, ThunderRoad",
+    "dungeonStaticBatching": false,
     "maxHomeItem": 30,
     "maxWaveAlive": 3,
     "maxRoomNpc": 2,

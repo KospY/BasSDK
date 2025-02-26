@@ -27,8 +27,11 @@
             "customShaderName": "ThunderRoad/Foliage - AShader",
             "outputShaderFName": "Foliage",
             "PlatformAS": 1,
+            "debugShader": false,
             "tessellationDesktop": false,
             "tessellationMobile": false,
+            "forceOpaqueDesktop": false,
+            "forceOpaqueMobile": false,
             "passItems": [
                 {
                     "displayName": "ON - ON - Forward",
@@ -95,9 +98,17 @@
                     "enabledMobile": true
                 },
                 {
-                    "displayName": "OFF - OFF - GBuffer",
+                    "displayName": " -- OFF - OFF - GBuffer",
                     "passName": "GBuffer",
-                    "present": true,
+                    "present": false,
+                    "indexSubShader": 0,
+                    "enabledDesktop": false,
+                    "enabledMobile": false
+                },
+                {
+                    "displayName": " -- OFF - OFF - MotionVectors",
+                    "passName": "MotionVectors",
+                    "present": false,
                     "indexSubShader": 0,
                     "enabledDesktop": false,
                     "enabledMobile": false
@@ -259,7 +270,7 @@
                     "mali": ""
                 },
                 {
-                    "displayName": "REP - OFF -  MAIN LIGHT SHADOWS  MAIN LIGHT SHADOWS CASCADE  MAIN LIGHT SHADOWS SCREEN : multi compile",
+                    "displayName": "REP - ON -  MAIN LIGHT SHADOWS  MAIN LIGHT SHADOWS CASCADE  MAIN LIGHT SHADOWS SCREEN : multi compile",
                     "line": "#pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN",
                     "replace": "",
                     "replaceDesktop": "#pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN",
@@ -272,7 +283,7 @@
                     "keywordDomain": 0,
                     "local": false,
                     "enabledDesktop": true,
-                    "enabledMobile": false,
+                    "enabledMobile": true,
                     "hideDesktop": false,
                     "hideMobile": false,
                     "present": true,
@@ -611,7 +622,7 @@
                     "mali": ""
                 },
                 {
-                    "displayName": "OFF - OFF -  GBUFFER NORMALS OCT : multi compile :  fragment",
+                    "displayName": " -- OFF - OFF -  GBUFFER NORMALS OCT : multi compile :  fragment",
                     "line": "#pragma multi_compile_fragment _ _GBUFFER_NORMALS_OCT",
                     "replace": "",
                     "replaceDesktop": "",
@@ -627,7 +638,7 @@
                     "enabledMobile": false,
                     "hideDesktop": false,
                     "hideMobile": false,
-                    "present": true,
+                    "present": false,
                     "comment": "",
                     "instructions": 0.0,
                     "mali": ""
@@ -853,7 +864,7 @@
                     "mali": ""
                 },
                 {
-                    "displayName": "OFF - OFF - DEBUG DISPLAY : multi compile :  fragment",
+                    "displayName": "ON - ON - DEBUG DISPLAY : multi compile :  fragment",
                     "line": "#pragma multi_compile_fragment _ DEBUG_DISPLAY",
                     "replace": "",
                     "replaceDesktop": "",
@@ -865,8 +876,8 @@
                     "keywordTypeReplace": 0,
                     "keywordDomain": 2,
                     "local": false,
-                    "enabledDesktop": false,
-                    "enabledMobile": false,
+                    "enabledDesktop": true,
+                    "enabledMobile": true,
                     "hideDesktop": false,
                     "hideMobile": false,
                     "present": true,
@@ -919,7 +930,7 @@
                     "mali": ""
                 },
                 {
-                    "displayName": "OFF - OFF -  RENDER PASS ENABLED : multi compile :  fragment",
+                    "displayName": " -- OFF - OFF -  RENDER PASS ENABLED : multi compile :  fragment",
                     "line": "#pragma multi_compile_fragment _ _RENDER_PASS_ENABLED",
                     "replace": "",
                     "replaceDesktop": "",
@@ -935,7 +946,7 @@
                     "enabledMobile": false,
                     "hideDesktop": false,
                     "hideMobile": false,
-                    "present": true,
+                    "present": false,
                     "comment": "",
                     "instructions": 0.0,
                     "mali": ""
@@ -963,8 +974,8 @@
                     "mali": ""
                 },
                 {
-                    "displayName": "OFF - ON -  USE TRANSMISSION : shader feature",
-                    "line": "#pragma shader_feature _USE_TRANSMISSION",
+                    "displayName": "OFF - OFF -  USE TRANSMISSION : shader feature",
+                    "line": "#pragma shader_feature_local _USE_TRANSMISSION",
                     "replace": "",
                     "replaceDesktop": "",
                     "replaceMobile": "",
@@ -974,7 +985,7 @@
                     "keywordType": 1,
                     "keywordTypeReplace": 0,
                     "keywordDomain": 0,
-                    "local": false,
+                    "local": true,
                     "enabledDesktop": false,
                     "enabledMobile": false,
                     "hideDesktop": false,
@@ -1029,10 +1040,10 @@
                     "mali": ""
                 },
                 {
-                    "displayName": "REP - OFF -  TRANSLUCENCY : shader feature",
-                    "line": "#pragma shader_feature _TRANSLUCENCY",
+                    "displayName": "OFF - OFF -  TRANSLUCENCY : shader feature",
+                    "line": "#pragma shader_feature_local _TRANSLUCENCY",
                     "replace": "",
-                    "replaceDesktop": "#define _TRANSLUCENCY",
+                    "replaceDesktop": "",
                     "replaceMobile": "",
                     "replaceEditor": "",
                     "keywordName": "_TRANSLUCENCY",
@@ -1040,7 +1051,7 @@
                     "keywordType": 1,
                     "keywordTypeReplace": 0,
                     "keywordDomain": 0,
-                    "local": false,
+                    "local": true,
                     "enabledDesktop": true,
                     "enabledMobile": false,
                     "hideDesktop": false,
@@ -1222,6 +1233,50 @@
                     "hideDesktop": false,
                     "hideMobile": false,
                     "present": true,
+                    "comment": "",
+                    "instructions": 0.0,
+                    "mali": ""
+                },
+                {
+                    "displayName": "OFF - REP -  ProbeVolPerVertex : shader feature",
+                    "line": "#pragma shader_feature_local _ProbeVolPerVertex",
+                    "replace": "",
+                    "replaceDesktop": "",
+                    "replaceMobile": "#define _ProbeVolPerVertex",
+                    "replaceEditor": "",
+                    "keywordName": "_ProbeVolPerVertex",
+                    "keywordLast": "_ProbeVolPerVertex",
+                    "keywordType": 1,
+                    "keywordTypeReplace": 0,
+                    "keywordDomain": 0,
+                    "local": true,
+                    "enabledDesktop": false,
+                    "enabledMobile": true,
+                    "hideDesktop": false,
+                    "hideMobile": false,
+                    "present": true,
+                    "comment": "",
+                    "instructions": 0.0,
+                    "mali": ""
+                },
+                {
+                    "displayName": " -- REP - OFF -  TRANSLUCENCYKEY : shader feature",
+                    "line": "#pragma shader_feature_local _TRANSLUCENCYKEY",
+                    "replace": "",
+                    "replaceDesktop": "#define _TRANSLUCENCYKEY",
+                    "replaceMobile": "",
+                    "replaceEditor": "",
+                    "keywordName": "_TRANSLUCENCYKEY",
+                    "keywordLast": "_TRANSLUCENCYKEY",
+                    "keywordType": 1,
+                    "keywordTypeReplace": 0,
+                    "keywordDomain": 0,
+                    "local": true,
+                    "enabledDesktop": true,
+                    "enabledMobile": false,
+                    "hideDesktop": false,
+                    "hideMobile": false,
+                    "present": false,
                     "comment": "",
                     "instructions": 0.0,
                     "mali": ""

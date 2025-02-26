@@ -99,13 +99,17 @@ namespace ThunderRoad
             {
                 public ErrorType type;
                 public string description;
+                public string descriptionLocalizationId;
+                public string descriptionExtraInfo; // use this add extra info (ex: option name) to the end of the localized description
                 public string innerMessage;
                 public string filePath;
 
-                public Error(ErrorType type, string description, string innerMessage, string filePath)
+                public Error(ErrorType type, string description, string descriptionLocalizationId, string descriptionExtraInfo, string innerMessage, string filePath)
                 {
                     this.type = type;
                     this.description = description;
+                    this.descriptionLocalizationId = descriptionLocalizationId;
+                    this.descriptionExtraInfo = descriptionExtraInfo;
                     this.innerMessage = innerMessage;
                     this.filePath = filePath;
                 }
@@ -147,7 +151,7 @@ namespace ThunderRoad
 
             public enum ErrorType
             {
-                Json,
+                JSON,
                 Catalog,
                 Assembly,
                 Manifest,
@@ -336,7 +340,7 @@ yield break;
             {
                 Debug.Log($"{debugLine} - Reloading mod json: {mod.Name}");
                 //remove json errors
-                mod.errors.RemoveWhere(e => e.type == ModData.ErrorType.Json);
+                mod.errors.RemoveWhere(e => e.type == ModData.ErrorType.JSON);
 
                 Catalog.LoadModCatalog(mod);
 
@@ -344,7 +348,7 @@ yield break;
             }
         }
 
-        static List<ModData> GetOrderedMods()
+        internal static List<ModData> GetOrderedMods()
         {
             bool AddValidMod(string topLevelModFolder, List<ModData> modDatas)
             {
@@ -425,8 +429,10 @@ yield break;
                 {
                     // Version don't match
                     Debug.LogWarning($"{debugLine} - Mod {modData.Name} for ({modData.GameVersion}) is not compatible with current minimum mod version {minModVersion}");
-                    modData.errors.Add(new ModData.Error(ModData.ErrorType.Manifest, "Incompatible with game version", $"Mod {modData.Name} for ({modData.GameVersion}) is not compatible with current minimum mod version {minModVersion}", $"{modData.fullPath}/manifest.json"));
-
+                    modData.errors.Add(new ModData.Error(ModData.ErrorType.Manifest, 
+                        "Incompatible with game version", "ModErrorIncompatibleWithGameVersion", string.Empty,
+                        $"Mod {modData.Name} for ({modData.GameVersion}) is not compatible with current minimum mod version {minModVersion}", $"{modData.fullPath}/manifest.json"));
+                    
                     //add it to the loaded mods, even though we never really loaded it, this is to show it has been processed, but there is an error with it
                     loadedMods.Add(modData);
                     return false;
@@ -528,7 +534,7 @@ yield break;
         /// <param name="mod"></param>
         /// <param name="paths"></param>
         /// <returns></returns>
-        static bool TryGetModAssemblyPaths(ModData mod, out string[] paths)
+        internal static bool TryGetModAssemblyPaths(ModData mod, out string[] paths)
         {
             paths = FileManager.GetFullFilePaths(FileManager.Type.JSONCatalog, FileManager.Source.Mods, mod.folderName, "*.dll");
             return paths.Length > 0;
@@ -642,7 +648,9 @@ yield break;
                 foreach (Exception inner in ex.LoaderExceptions)
                 {
                     Debug.LogError($"{debugLine} - Error loading assembly: {dllLocalPath} | {inner.Message}");
-                    mod.errors.Add(new ModData.Error(ModData.ErrorType.Assembly, "Could not load assembly", inner.Message, FileManager.GetFullPath(FileManager.Type.JSONCatalog, FileManager.Source.Mods, dllLocalPath)));
+                    mod.errors.Add(new ModData.Error(ModData.ErrorType.Assembly, 
+                        "Could not load assembly", "ModErrorCouldNotLoadAssembly", string.Empty,
+                        inner.Message, FileManager.GetFullPath(FileManager.Type.JSONCatalog, FileManager.Source.Mods, dllLocalPath)));
                     //add it to the loaded mods, even though we never really loaded it, this is to show it has been processed, but there is an error with it
                     mod.Incompatible = true;
                     loadedMods.Add(mod);
@@ -652,7 +660,9 @@ yield break;
             catch (Exception ex)
             {
                 Debug.LogError($"{debugLine} - Error loading assembly: {dllLocalPath} | {ex}");
-                mod.errors.Add(new ModData.Error(ModData.ErrorType.Assembly, "Could not load assembly", ex.Message, FileManager.GetFullPath(FileManager.Type.JSONCatalog, FileManager.Source.Mods, dllLocalPath)));
+                mod.errors.Add(new ModData.Error(ModData.ErrorType.Assembly,
+                    "Could not load assembly", "ModErrorCouldNotLoadAssembly", string.Empty,
+                    ex.Message, FileManager.GetFullPath(FileManager.Type.JSONCatalog, FileManager.Source.Mods, dllLocalPath)));
                 //add it to the loaded mods, even though we never really loaded it, this is to show it has been processed, but there is an error with it
                 mod.Incompatible = true;
                 loadedMods.Add(mod);

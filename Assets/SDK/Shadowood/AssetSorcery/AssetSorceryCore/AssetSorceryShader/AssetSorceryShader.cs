@@ -121,7 +121,7 @@ namespace ThunderRoad.AssetSorcery
                 var outNameShader = package.shaderSettings.customShaderName + " - " + platform.ToString();
 
                 //var sourceResult = AssetSorceryShader.ProcessShaderSource(platform, shaderSource, package, package.targetShader.name, outNameShader, customEditor);
-                var sourceResult = AssetSorceryShader.ProcessShaderSource(platform, shaderSource, package, package.targetShader.name, outNameShader);
+                var sourceResult = AssetSorceryShader.ProcessShaderSource(false, platform, shaderSource, package, package.targetShader.name, outNameShader);
 
                 var writePath = outputPath + "/" + outName;
                 if (!writePath.EndsWith(".shader")) writePath += ".shader";
@@ -134,13 +134,13 @@ namespace ThunderRoad.AssetSorcery
             }
         }
 
-        public static string ProcessShaderSource(string source, AssetSorceryShaderAsset package, string oldName, string newNameIn = "", string customEditor = "")
+        public static string ProcessShaderSource(bool debugShader, string source, AssetSorceryShaderAsset package, string oldName, string newNameIn = "", string customEditor = "")
         {
             var platform = AssetSorceryPlatform.AssetSorceryGetPlatformCalculated();
-            return ProcessShaderSource(platform, source, package, oldName, newNameIn, customEditor);
+            return ProcessShaderSource(debugShader, platform, source, package, oldName, newNameIn, customEditor);
         }
 
-        public static string ProcessShaderSource(AssetSorceryPlatformRuntime.ePlatformAS platform, string source, AssetSorceryShaderAsset package, string oldName, string newNameIn = "", string customEditor = "")
+        public static string ProcessShaderSource(bool debugShader, AssetSorceryPlatformRuntime.ePlatformAS platform, string source, AssetSorceryShaderAsset package, string oldName, string newNameIn = "", string customEditor = "")
         {
             if (string.IsNullOrEmpty(source)) source = SOURCE_MISSING_SHADER;
 
@@ -193,8 +193,16 @@ namespace ThunderRoad.AssetSorcery
                 source = source.Replace("CustomEditor \"Needle.MarkdownShaderGUI\"", "CustomEditor \"" + customEditor + "\"");
             }
 
+            //if (debugShader)
+         
+            if(package.shaderSettings.debugShader & !AssetSorceryPlatform.GetEditorMode())
+            {
+                var offset = source.IndexOf("HLSLINCLUDE", StringComparison.Ordinal);
+                source = source.Insert(offset + "HLSLINCLUDE".Length, "\n" + "#pragma debug" + "\n" + "#pragma enable_d3d11_debug_symbols");
+            }
 
-            /*
+
+            
            bool forceOpaque = false;
            switch (platform)
            {
@@ -211,13 +219,14 @@ namespace ThunderRoad.AssetSorcery
            // https://docs.unity3d.com/Manual/SL-SubShaderTags.html
            if (forceOpaque)
            {
-               source = source.Replace("\"Queue\"=\"Transparent\"","\"Queue\"=\"Geometry\"");
+               source = source.Replace("\"Queue\"=\"Transparent","\"Queue\"=\"Geometry");
+               source = source.Replace("\"RenderType\"=\"Transparent\"","\"RenderType\"=\"Geometry\"");
            }
            //else
            //{
            //    source = source.Replace("\"\"Queue\"=\"Opaque\"\"","\"\"Queue\"=\"Transparent\"\"");
            //}
-           */
+           
 
             var lines = source.Split(
                 new string[] {"\r\n", "\r", "\n"},
@@ -483,7 +492,7 @@ namespace ThunderRoad.AssetSorcery
         //  public override Object ProcessSourceToObject(AssetImportContext ctx, AssetSorceryShaderAsset package, AssetSorceryAssetCommon<Shader>.EntryCommon entry, string source, Shader entryItem)
         public override Object ProcessSourceToObject(AssetImportContext ctx, AssetSorceryShaderAsset package, AFilterCommon<Shader> entry, string source, Shader entryItem)
         {
-            source = ProcessShaderSource(source, package, entryItem.name);
+            source = ProcessShaderSource(false,source, package, entryItem.name);
             return ShaderUtil.CreateShaderAsset(ctx, source, false);
         }
 

@@ -42,6 +42,7 @@ namespace ThunderRoad
             get
             {
 #if UNITY_EDITOR
+                if (BuildPipeline.isBuildingPlayer) return null;
                 if (!EditorApplication.isPlaying) return base.gameObject;
 #endif                
                 if (_gameObject is null && _gameObject == null)

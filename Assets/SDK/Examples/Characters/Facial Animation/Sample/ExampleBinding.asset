@@ -1,0 +1,119 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3758cae5edbb1ae49a20c71a68c470a2, type: 3}
+  m_Name: ExampleBinding
+  m_EditorClassIdentifier: 
+  allBindables:
+  - propertyName: m_BlendShapes.BrowDownLeft
+    coorespondingProperty: blendShape.browDown_Left
+  - propertyName: m_BlendShapes.BrowDownRight
+    coorespondingProperty: blendShape.browDown_Right
+  - propertyName: m_BlendShapes.BrowInnerUp
+    coorespondingProperty: blendShape.browInnerUp
+  - propertyName: m_BlendShapes.BrowOuterUpLeft
+    coorespondingProperty: blendShape.browOuterUp_L
+  - propertyName: m_BlendShapes.BrowOuterUpRight
+    coorespondingProperty: blendShape.browOuterUp_R
+  - propertyName: m_BlendShapes.CheekPuff
+    coorespondingProperty: blendShape.cheekPuff
+  - propertyName: m_BlendShapes.CheekSquintLeft
+    coorespondingProperty: blendShape.cheekSquint_L
+  - propertyName: m_BlendShapes.CheekSquintRight
+    coorespondingProperty: blendShape.cheekSquint_R
+  - propertyName: m_BlendShapes.EyeBlinkLeft
+    coorespondingProperty: blendShape.eyeBlinking_Left
+  - propertyName: m_BlendShapes.EyeBlinkRight
+    coorespondingProperty: blendShape.eyeBlinking_Right
+  - propertyName: m_BlendShapes.EyeLookDownLeft
+    coorespondingProperty: blendShape.eyeLookDown_L
+  - propertyName: m_BlendShapes.EyeLookDownRight
+    coorespondingProperty: blendShape.eyeLookDown_R
+  - propertyName: m_BlendShapes.EyeLookInLeft
+    coorespondingProperty: blendShape.eyeLookIn_L
+  - propertyName: m_BlendShapes.EyeLookInRight
+    coorespondingProperty: blendShape.eyeLookIn_R
+  - propertyName: m_BlendShapes.EyeLookOutLeft
+    coorespondingProperty: blendShape.eyeLookOut_L
+  - propertyName: m_BlendShapes.EyeLookOutRight
+    coorespondingProperty: blendShape.eyeLookOut_R
+  - propertyName: m_BlendShapes.EyeLookUpLeft
+    coorespondingProperty: blendShape.eyeLookUp_L
+  - propertyName: m_BlendShapes.EyeLookUpRight
+    coorespondingProperty: blendShape.eyeLookUp_R
+  - propertyName: m_BlendShapes.EyeSquintLeft
+    coorespondingProperty: blendShape.eyeSquint_L
+  - propertyName: m_BlendShapes.EyeSquintRight
+    coorespondingProperty: blendShape.eyeSquint_R
+  - propertyName: m_BlendShapes.EyeWideLeft
+    coorespondingProperty: blendShape.eyeWide_Left
+  - propertyName: m_BlendShapes.EyeWideRight
+    coorespondingProperty: blendShape.eyeWide_Right
+  - propertyName: m_BlendShapes.JawForward
+    coorespondingProperty: blendShape.jawForward
+  - propertyName: m_BlendShapes.JawLeft
+    coorespondingProperty: blendShape.jawLeft
+  - propertyName: m_BlendShapes.JawOpen
+    coorespondingProperty: blendShape.jawOpen
+  - propertyName: m_BlendShapes.JawRight
+    coorespondingProperty: blendShape.jawRight
+  - propertyName: m_BlendShapes.MouthClose
+    coorespondingProperty: blendShape.mouthClosed
+  - propertyName: m_BlendShapes.MouthDimpleLeft
+    coorespondingProperty: blendShape.mouthDimple_L
+  - propertyName: m_BlendShapes.MouthDimpleRight
+    coorespondingProperty: blendShape.mouthDimple_R
+  - propertyName: m_BlendShapes.MouthFrownLeft
+    coorespondingProperty: blendShape.mouthFrown_L
+  - propertyName: m_BlendShapes.MouthFrownRight
+    coorespondingProperty: blendShape.mouthFrown_R
+  - propertyName: m_BlendShapes.MouthFunnel
+    coorespondingProperty: blendShape.mouthFunnel
+  - propertyName: m_BlendShapes.MouthLeft
+    coorespondingProperty: blendShape.mouthLeft
+  - propertyName: m_BlendShapes.MouthLowerDownLeft
+    coorespondingProperty: blendShape.mouthLowerDown_L
+  - propertyName: m_BlendShapes.MouthLowerDownRight
+    coorespondingProperty: blendShape.mouthLowerDown_R
+  - propertyName: m_BlendShapes.MouthPressLeft
+    coorespondingProperty: blendShape.mouthPress_L
+  - propertyName: m_BlendShapes.MouthPressRight
+    coorespondingProperty: blendShape.mouthPress_R
+  - propertyName: m_BlendShapes.MouthPucker
+    coorespondingProperty: blendShape.mouthPucker
+  - propertyName: m_BlendShapes.MouthRight
+    coorespondingProperty: blendShape.mouthRight
+  - propertyName: m_BlendShapes.MouthRollLower
+    coorespondingProperty: blendShape.mouthRollLower
+  - propertyName: m_BlendShapes.MouthRollUpper
+    coorespondingProperty: blendShape.mouthRollUpper
+  - propertyName: m_BlendShapes.MouthShrugLower
+    coorespondingProperty: blendShape.mouthShrugLower
+  - propertyName: m_BlendShapes.MouthShrugUpper
+    coorespondingProperty: blendShape.mouthShrugUpper
+  - propertyName: m_BlendShapes.MouthSmileLeft
+    coorespondingProperty: blendShape.mouthSmile_L
+  - propertyName: m_BlendShapes.MouthSmileRight
+    coorespondingProperty: blendShape.mouthSmile_R
+  - propertyName: m_BlendShapes.MouthStretchLeft
+    coorespondingProperty: blendShape.mouthStretch_L
+  - propertyName: m_BlendShapes.MouthStretchRight
+    coorespondingProperty: blendShape.mouthStretch_R
+  - propertyName: m_BlendShapes.MouthUpperUpLeft
+    coorespondingProperty: blendShape.mouthUpperUp_L
+  - propertyName: m_BlendShapes.MouthUpperUpRight
+    coorespondingProperty: blendShape.mouthUpperUp_R
+  - propertyName: m_BlendShapes.NoseSneerLeft
+    coorespondingProperty: blendShape.noseSneer_L
+  - propertyName: m_BlendShapes.NoseSneerRight
+    coorespondingProperty: blendShape.noseSneer_R
+  - propertyName: m_BlendShapes.TongueOut
+    coorespondingProperty: blendShape.tongue_tongueOut

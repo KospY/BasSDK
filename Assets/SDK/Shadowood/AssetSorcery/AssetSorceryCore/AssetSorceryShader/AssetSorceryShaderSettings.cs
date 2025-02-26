@@ -19,12 +19,17 @@ namespace ThunderRoad.AssetSorcery
         //public string outputShaderFilename;
 
         public AssetSorceryPlatformRuntime.ePlatformAS PlatformAS = AssetSorceryPlatformRuntime.ePlatformAS.Desktop;
-
-        public bool tessellationDesktop; // Toggles the define for SW_TESSELLATION
-        public bool tessellationMobile; // Toggles the define for SW_TESSELLATION
         
-        //public bool forceOpaqueDesktop; // Toggles the depth queue between OPAQUE and TRANSPARENT
-        //public bool forceOpaqueMobile; // Toggles the depth queue between OPAQUE and TRANSPARENT
+        [Tooltip("Toggles #pragma debug")]
+        public bool debugShader;
+
+        [Tooltip("Toggles the define for SW_TESSELLATION")]
+        public bool tessellationDesktop;
+        [Tooltip("Toggles the define for SW_TESSELLATION")]
+        public bool tessellationMobile;
+        
+        public bool forceOpaqueDesktop; // Toggles the depth queue between OPAQUE and TRANSPARENT
+        public bool forceOpaqueMobile; // Toggles the depth queue between OPAQUE and TRANSPARENT
 
         
         #if ODIN_INSPECTOR
@@ -36,6 +41,8 @@ namespace ThunderRoad.AssetSorcery
         [ListDrawerSettings(ShowIndexLabels = true, ListElementLabelName = "displayName")]
 #endif
         public List<AssetSorceryShaderKeyword> shaderKeywords = new List<AssetSorceryShaderKeyword>();
+
+     
     }
 
   

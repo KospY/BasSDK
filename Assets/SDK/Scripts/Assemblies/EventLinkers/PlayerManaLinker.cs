@@ -27,6 +27,20 @@ namespace ThunderRoad
             OnPowerUnuseEnd = 10,
             OnMergeLoaded = 11,
             OnMergeUnloaded = 12,
+            OnStartCast = 13,
+            OnChargeStart = 14,
+            OnChargeMax = 15,
+            OnChargeSprayable = 16,
+            OnChargeThrowable = 17,
+            OnSprayStart = 18,
+            OnSprayEnd = 19,
+            OnChargeStop = 20,
+            OnStopCast = 21,
+            OnMergeStart = 22,
+            OnMergeCharged = 23,
+            OnMergeFireStart = 24,
+            OnMergeFireEnd = 25,
+            OnMergeStop = 26,
         }
 
         [System.Serializable]

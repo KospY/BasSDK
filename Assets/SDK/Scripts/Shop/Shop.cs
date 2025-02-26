@@ -23,7 +23,7 @@ namespace ThunderRoad
             return Catalog.GetDropdownAllID(Category.Shop);
         }
 
-        [ValueDropdown(nameof(GetAllShopID))]
+        [ValueDropdown(nameof(GetAllShopID), AppendNextDrawer = true)]
 #endif
         public string shopDataID;
         [NonSerialized]

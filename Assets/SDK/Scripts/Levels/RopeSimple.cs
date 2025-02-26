@@ -38,7 +38,7 @@ namespace ThunderRoad
 
         [Header("Audio")]
 #if ODIN_INSPECTOR
-        [ValueDropdown(nameof(GetAllEffectID))]
+        [ValueDropdown(nameof(GetAllEffectID), AppendNextDrawer = true)]
 #endif
         [Tooltip("Depicts the Effect ID from JSON to make sounds when the rope moves")]
         public string effectId;

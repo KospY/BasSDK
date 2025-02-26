@@ -133,6 +133,7 @@ namespace ThunderRoad
         }
     }
 
+    [System.Serializable]
     public abstract class ContentCustomData
     {
     }
@@ -140,6 +141,7 @@ namespace ThunderRoad
     /// <summary>
     /// Used to store liquid contents and maximum level
     /// </summary>
+    [System.Serializable]
     public class ContentCustomDataLiquidContainer : ContentCustomData
     {
         public List<LiquidData.Content> LiquidContents;
@@ -149,6 +151,7 @@ namespace ThunderRoad
     /// <summary>
     /// Used to save animator parameter state
     /// </summary>
+    [System.Serializable]
     public class ContentCustomDataAnimatorParams : ContentCustomData
     {
         [System.Serializable]
@@ -184,6 +187,7 @@ namespace ThunderRoad
 
     }
 
+    [System.Serializable]
     public class ContentCustomDataValueOverride : ContentCustomData
     {
         public string valueType = null;
@@ -194,12 +198,14 @@ namespace ThunderRoad
     /// <summary>
     /// Allows you to store an order value for the content, useful for sorting
     /// </summary>
+    [System.Serializable]
     public class ContentCustomOrder : ContentCustomData
     {
         public int order = 0;
 
     }
 
+    [System.Serializable]
     public abstract class ContentState
     {
         /// <summary>
@@ -213,6 +219,7 @@ namespace ThunderRoad
         }
     }
 
+    [System.Serializable]
     public class ContentStateWorn : ContentState
     {
         public override ContentState Clone()
@@ -221,6 +228,7 @@ namespace ThunderRoad
         }
     }
 
+    [System.Serializable]
     public class ContentStateHolder : ContentState
     {
         public string holderName;
@@ -237,10 +245,12 @@ namespace ThunderRoad
         }
     }
 
+    [System.Serializable]
     public class ContentStatePlaced : ContentState
     {
         public Vector3 position;
         public Quaternion rotation;
+        public bool kinematic;
         public string levelId;
         public float lastSpawnTime;
 
@@ -253,6 +263,7 @@ namespace ThunderRoad
             {
                 position = position,
                 rotation = rotation,
+                kinematic = kinematic,
                 levelId = levelId,
                 lastSpawnTime = lastSpawnTime
             };
@@ -262,6 +273,7 @@ namespace ThunderRoad
     /// <summary>
     /// A class to set the state on an item so it wont appear in the inventory UI
     /// </summary>
+    [System.Serializable]
     public class ContentStateIgnoredByInventory : ContentState
     {
         public override ContentState Clone()

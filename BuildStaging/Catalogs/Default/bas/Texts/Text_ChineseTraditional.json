@@ -4,6 +4,7 @@
   "sensitiveContent": "None",
   "sensitiveFilterBehaviour": "Discard",
   "version": 1,
+  "languageCode": "zh-TW",
   "textGroups": [
     {
       "$type": "ThunderRoad.TextData+TextGroup, ThunderRoad",
@@ -842,6 +843,13 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "TooltipSlowmotionScale",
           "text": "警告：低於 0.5 可能會造成一些物理問題。",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "TooltipSeatedMode",
+          "text": "啟用此選項以調整您的高度以匹配頭像",
           "spriteAddress": null,
           "videoAddress": null
         }
@@ -5223,6 +5231,181 @@
           "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
           "id": "ItemID",
           "text": "物品ID",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Catalog",
+          "text": "目錄",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Assembly",
+          "text": "程序集",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Manifest",
+          "text": "清單",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Option",
+          "text": "選項",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorExceptionReadingJSONDB",
+          "text": "讀取 .jsondb 文件時發生異常",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCantReadJSONDB",
+          "text": "無法讀取 .jsondb 文件：",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorIncompatibleCatalogVersion",
+          "text": "目錄版本不相容",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCantReadJSON",
+          "text": "無法讀取 json 文件：",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCouldNotLoadCatalog",
+          "text": "無法加載內容目錄",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCouldNotLoadMod",
+          "text": "無法加載模組：",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCouldNotGetTypesInAssembly",
+          "text": "無法在程序集獲取類型",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCouldNotProcessThunderscriptsInAssembly",
+          "text": "在程序集處理 ThunderScripts 時出錯",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorCouldNotLoadAssembly",
+          "text": "無法加載程序集",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorUnableToInstantiateThunderScript",
+          "text": "無法創建 ThunderScript 的實例：",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorExceptionThunderScriptLoad",
+          "text": "ThunderScript 加載腳本時發生異常：",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorExceptionThunderScriptEnable",
+          "text": "ThunderScript 啟用時發生異常",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorExceptionGetAttributes",
+          "text": "獲取模組屬性時發生異常",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorExceptionAddModOption",
+          "text": "添加模组选项时发生异常",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorIncompatibleWithGameVersion",
+          "text": "与游戏版本不兼容",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ModErrorOptionApply",
+          "text": "應用選項時發生異常：",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ToggleIL2CPPBridge",
+          "text": "腳本模組",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "IL2CPPBridgeWarning",
+          "text": "找到腳本模組！它們是實驗性功能，可能會導致不穩定！您想要加載它們嗎？",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "Report",
+          "text": "舉報",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "ReportMessage",
+          "text": "您確定要舉報此模組嗎？",
+          "spriteAddress": null,
+          "videoAddress": null
+        },
+        {
+          "$type": "ThunderRoad.TextData+TextID, ThunderRoad",
+          "id": "SeatedMode",
+          "text": "高度偏移",
           "spriteAddress": null,
           "videoAddress": null
         }

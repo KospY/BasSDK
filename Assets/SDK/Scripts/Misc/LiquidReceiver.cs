@@ -14,7 +14,7 @@ namespace ThunderRoad
     public class LiquidReceiver : MonoBehaviour
     {
 #if ODIN_INSPECTOR
-        [ValueDropdown(nameof(GetAllEffectID))]
+        [ValueDropdown(nameof(GetAllEffectID), AppendNextDrawer = true)]
 #endif
         public string drinkEffectId;
 

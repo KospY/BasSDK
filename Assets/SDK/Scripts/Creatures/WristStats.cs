@@ -25,7 +25,7 @@ namespace ThunderRoad
 #endif
         public string manaEffectId;
 #if ODIN_INSPECTOR
-        [ValueDropdown(nameof(GetAllEffectID))]
+        [ValueDropdown(nameof(GetAllEffectID), AppendNextDrawer = true)]
 #endif
         public string focusEffectId;
 

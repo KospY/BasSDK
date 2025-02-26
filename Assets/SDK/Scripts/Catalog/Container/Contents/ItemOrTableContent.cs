@@ -12,7 +12,7 @@ namespace ThunderRoad
     public abstract class ItemOrTableContent<J, K> : ContainerContent<J, K> where J : CatalogData, IContainerLoadable<J> where K : ItemOrTableContent<J, K>
     {
 #if ODIN_INSPECTOR
-        [HorizontalGroup("Fields", Width = 75), BoxGroup("Fields/Quantity"), HideLabel, PropertyOrder(10)]
+        [HorizontalGroup("Fields", Width = 70), BoxGroup("Fields/Quantity"), HideLabel, PropertyOrder(10)]
 #endif
         public int quantity = 1;
 

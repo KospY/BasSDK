@@ -16,6 +16,10 @@ namespace ThunderRoad
     {
         public const string DEFAULT_TEXT_GROUP = "Default";
 
+        // Used for mod.io (we could get the language code dynamically using a call to the CultureInfo with the ISO 639 but the chinese languages code is different on the mod.io API,
+        // so we set the code here, instead of adding specific code to check which language is and manually change the code for some of them).
+        public string languageCode;
+
 #if ODIN_INSPECTOR
         [TabGroup("Group", "Texts")] 
 #endif

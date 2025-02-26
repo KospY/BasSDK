@@ -35,10 +35,14 @@ namespace ThunderRoad
             get
             {
                 string buildtarget = "Windows";
-                if (Common.GetQualityLevel() == QualityLevel.Android)
+                if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android)
+                {
                     buildtarget = "Android";
-                if (Common.GetQualityLevel() == QualityLevel.PS5)
+                }
+                else if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.PS5)
+                {
                     buildtarget = "PS5";
+                }
                 return (Path.Combine(ThunderRoadSettings.current.addressableEditorPath, buildtarget, exportFolderName));
             }
         }

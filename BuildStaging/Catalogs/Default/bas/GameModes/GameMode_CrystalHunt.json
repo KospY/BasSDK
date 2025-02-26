@@ -147,27 +147,27 @@
         {
           "$type": "ThunderRoad.Modules.CrystalHuntLevelInstancesModule+LevelInfo, ThunderRoad",
           "levelId": "Arena",
-          "modId": "WaveAssault"
+          "modeId": "WaveAssault"
         },
         {
           "$type": "ThunderRoad.Modules.CrystalHuntLevelInstancesModule+LevelInfo, ThunderRoad",
           "levelId": "Sanctuary",
-          "modId": "WaveAssault"
+          "modeId": "WaveAssault"
         },
         {
           "$type": "ThunderRoad.Modules.CrystalHuntLevelInstancesModule+LevelInfo, ThunderRoad",
           "levelId": "Canyon",
-          "modId": "WaveAssault"
+          "modeId": "WaveAssault"
         },
         {
           "$type": "ThunderRoad.Modules.CrystalHuntLevelInstancesModule+LevelInfo, ThunderRoad",
           "levelId": "Citadel",
-          "modId": "WaveAssault"
+          "modeId": "WaveAssault"
         },
         {
           "$type": "ThunderRoad.Modules.CrystalHuntLevelInstancesModule+LevelInfo, ThunderRoad",
           "levelId": "Market",
-          "modId": "WaveAssault"
+          "modeId": "WaveAssault"
         }
       ],
       "minNumberOfArenasAllowedPerDay": 1,
@@ -175,7 +175,7 @@
       "dalgarianDungeonLevelInfo": {
         "$type": "ThunderRoad.Modules.CrystalHuntLevelInstancesModule+LevelInfo, ThunderRoad",
         "levelId": "DungeonDalgarian",
-        "modId": "CrystalHunt"
+        "modeId": "CrystalHunt"
       },
       "dalgarianEnemyConfigs": [
         "DalgarianEnemyConfigT1",
@@ -193,14 +193,14 @@
       "tutorialDungeonLevelInfo": {
         "$type": "ThunderRoad.Modules.CrystalHuntLevelInstancesModule+LevelInfo, ThunderRoad",
         "levelId": "DungeonTutorial",
-        "modId": "CrystalHunt"
+        "modeId": "CrystalHunt"
       },
       "tutorialEnemyConfig": "OutpostEnemyConfigT0",
       "tutorialLootConfig": "OutpostLootConfigT0",
       "outpostDungeonLevelInfo": {
         "$type": "ThunderRoad.Modules.CrystalHuntLevelInstancesModule+LevelInfo, ThunderRoad",
         "levelId": "DungeonOutpost",
-        "modId": "CrystalHunt"
+        "modeId": "CrystalHunt"
       },
       "outpostEnemyConfigs": [
         "OutpostEnemyConfigT0",
@@ -216,6 +216,7 @@
       ],
       "outpostMapLocationRandomNearest": 5,
       "shopID": "Shop",
+      "persistentLevels": null,
       "endRewardBalanceAddress": "Bas.Config.CrystalHunt.DungeonEndReward",
       "dungeonLengthBalanceAddress": "Bas.Config.CrystalHunt.DungeonLength",
       "dungeonLootMultiplierBalanceAddress": "Bas.Config.CrystalHunt.DungeonLootMultiplier",

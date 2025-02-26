@@ -68,5 +68,15 @@ namespace ThunderRoad
             SaveCurrentPosition,
         }
 
+        [Button]
+        public void TransferCurrentGrabbedOrHolsteredNpcItemToPlayer()
+        {
+        }
+
+        [Button]
+        public void Save()
+        {
+        }
+
     }
 }

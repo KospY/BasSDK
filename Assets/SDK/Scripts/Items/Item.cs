@@ -28,7 +28,7 @@ namespace ThunderRoad
         public static HashSet<Item> allMoving = new HashSet<Item>();
         public static List<Item> allTk = new List<Item>();
         public static List<Item> allWorldAttached = new List<Item>();
-        public static List<Item> potentialLostItems = new List<Item>(); //items that were destoyed but were not despawned to be returned to player stash if needed
+        public static List<ItemContent> potentialLostItems = new List<ItemContent>(); //items that were destoyed but were not despawned to be returned to player stash if needed
 
 #if ODIN_INSPECTOR
         public List<ValueDropdownItem<string>> GetAllItemID()
@@ -36,9 +36,9 @@ namespace ThunderRoad
             return Catalog.GetDropdownAllID(Category.Item);
         }
 
-        [ValueDropdown(nameof(GetAllItemID))]
+        [ValueDropdown(nameof(GetAllItemID), AppendNextDrawer = true)]
 #endif
-        [Tooltip("The Item ID of the item specified in the Catelog")]
+        [Tooltip("The Item ID of the item specified in the Catalog")]
         public string itemId;
         [Tooltip("Specifies the Holder Point of the item. This specifies the position and rotation of the item when held in a holder, such as on player hips and back. The Z axis/blue arrow specifies towards the floor.")]
 #if ODIN_INSPECTOR        

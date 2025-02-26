@@ -89,8 +89,8 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 		_ProbeVolumeShG("ProbeVolumeShG & [_PROBEVOLUME_ON]", 3D) = "black" {}
 		[HideInInspector]_ProbeVolumeMin("ProbeVolumeMin", Vector) = (0,0,0,0)
 		_ProbeVolumeShB("ProbeVolumeShB & [_PROBEVOLUME_ON]", 3D) = "black" {}
-		[HideInInspector]_ProbeVolumeSizeInv("ProbeVolumeSizeInv", Vector) = (0,0,0,0)
 		_ProbeVolumeOcc("ProbeVolumeOcc & [_PROBEVOLUME_ON]", 3D) = "black" {}
+		[HideInInspector]_ProbeVolumeSizeInv("ProbeVolumeSizeInv", Vector) = (0,0,0,0)
 		HeaderMetallic("# Metallic (MOES/MODS/Moss ANSN)", Int) = 0
 		[Toggle(_MOSSMETALMODE_ON)] _MossMetalMode("Moss Metal Mode", Float) = 0
 		[MaterialEnumDrawerExtended(Metal MOES MODS,0,Moss ANSN,1)]_MossMode("MossMode [_MossMetalMode]", Int) = 0
@@ -131,6 +131,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 		[Feature(_REMAPPERS)]_DRAWERPacked_MetallicGlossMapSmoothness_Remap_MetalAA_SmoothnessRemap_MOSSMETALMODE_ON_MossMode("!DRAWER Packed _MetallicGlossMap Smoothness_Remap_Metal_(A) A  _SmoothnessRemap [!_MOSSMETALMODE_ON && _MetallicSpecGlossMap && _Remappers]", Float) = 0
 		[Feature(_DETAIL)]HeaderDetailMaps("# Detail Maps", Int) = 0
 		[Feature(_DETAIL)]HeaderDetailMapsSpace("###  [!_Moss&&_DETAIL]", Int) = 0
+		[HideInInspector]_DETAIL("_DETAIL", Int) = 0
 		[Toggle(_DETAIL_ON)] _DETAIL("Use Details", Float) = 0
 		_DetailsOverMoss("-Details Over Moss [_MOSS && _DETAIL_ON && _DetailMapPacked]", Range( -2 , 2)) = -1
 		[NoScaleOffset]_DetailMapPacked("Detail Map Packed (ANSN) & [_DETAIL_ON]", 2D) = "black" {}
@@ -140,7 +141,6 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 		[Feature(_REMAPPERS)]Drawer_EmissionRemap3("!DRAWER Packed _MossMetalMap DetailMask_Remap_Moss_(B) B  _DetailMaskRemap [_MOSSMETALMODE_ON&&!_MossMode&&!_MODE&&_UseDetailMask&&_DETAIL&&_DetailMapPacked&&_UseMossMetalMap && _Remappers]", Float) = 0
 		[Feature(_REMAPPERS)]Drawer_EmissionRemap1("!DRAWER Packed _MetallicGlossMap DetailMask_Remap_Metal_(B) B  _DetailMaskRemap [!_MossMetalMode && !_MODE && _UseDetailMask && _DETAIL && _DetailMapPacked && _Remappers]", Float) = 0
 		_DetailMapScale("Detail Map Scale [_DETAIL_ON && _DetailMapPacked]", Vector) = (1,1,0,0)
-		[HideInInspector]_DETAIL("_DETAIL", Int) = 0
 		_DetailAlbedoMapScale("-Detail Albedo Scale [_DETAIL_ON && _DetailMapPacked]", Range( 0 , 2)) = 0
 		_DetailNormalMapScale("Detail Normal Scale [_DETAIL_ON&&_DetailMapPacked]", Range( -5 , 5)) = -2.190476
 		[Feature(_REMAPPERS)]_DRAWER_PackedDM2("!DRAWER Packed _DetailMapPacked Detail_Smoothness_Remap_(B) B Mode_Negative _DetailSmoothnessRemap [_DETAIL_ON && _Remappers]", Float) = 0
@@ -266,7 +266,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 		HLSLINCLUDE
 		#pragma target 5.0
 		#pragma prefer_hlslcc gles
-		#pragma exclude_renderers xboxone xboxseries playstation ps4 switch // ensure rendering platforms toggle list is visible
+		// ensure rendering platforms toggle list is visible
 
 		//#define SHADOWOOD_WATER_SHADER_VARIABLES_INCLUDED
 
@@ -841,7 +841,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			
 				// Clear-coat calculation...
 				BRDFData brdfDataClearCoat = CreateClearCoatBRDFData(surfaceData, brdfData);
-				half4 shadowMask = CalculateShadowMask(inputData);
+				half4 shadowMask = CalculateShadowMask(inputData); // Packages\com.unity.render-pipelines.universal@12.1.15\ShaderLibrary\RealtimeLights.hlsl
 				AmbientOcclusionFactor aoFactor = CreateAmbientOcclusionFactor(inputData, surfaceData);
 				
 				#if defined(_USE_SSS_ON) && defined(_ASE_SSSCONTROL)
@@ -988,32 +988,31 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			#define ASE_NEEDS_FRAG_WORLD_BITANGENT
 			#define ASE_NEEDS_FRAG_WORLD_VIEW_DIR
 			#define ASE_NEEDS_FRAG_SCREEN_POSITION
-			#define ASE_NEEDS_VERT_NORMAL
 			#pragma shader_feature_local _USEMOSSNOISE_ON
 			#pragma shader_feature_local MODED_MOSS MODED_MOES MODED_MODS MODED_OFF
 			#pragma shader_feature_local _MOSS
 			#pragma shader_feature_local _AUTONORMAL
 			#pragma shader_feature_local LAYER_UNLIMITED LAYER_MAX2 LAYER_MAX3
 			#pragma shader_feature_local TEXTURE_MAX4 TEXTURE_MAX8 TEXTURE_MAX12 TEXTURE_MAX16
-			#pragma shader_feature _SKYFOG_ON
 			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma shader_feature_local _MOSSMETALMODE_ON
-			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#pragma shader_feature_local _ALPHAMODE
 			#pragma shader_feature_local _SIMPLESTOCHASTIC
 			#pragma shader_feature_local _USESPLAT_ON
-			#pragma shader_feature_local _USE_SSS_ON
+			#pragma shader_feature _SKYFOG_ON
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local _USE_SSS_ON
+			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#pragma shader_feature_local _REVEALLAYERS
 			#pragma shader_feature_local _DETAIL_ON
 			#pragma shader_feature _COLORMASK_ON
 			#pragma shader_feature_local _REMAPPERS_ON
 			#pragma shader_feature_local _USESTOCHASTICMOSS_ON
+			#pragma shader_feature_local _USEMOSSFRESNEL_ON
 			#pragma shader_feature_local _USECAUSTICSFROMABOVE_ON
 			#pragma shader_feature_local _USECAUSTICEXTRASAMPLER_ON
 			#pragma shader_feature_local _USECAUSTICRAINBOW_ON
 			#pragma shader_feature_local _FadeWithHeight
-			#pragma shader_feature_local _USEMOSSFRESNEL_ON
 			#pragma shader_feature_local _USEMOSSSLOPEDISTORT_ON
 			#define _UseMossPacked
 			#define _DetailMapPacking
@@ -1039,7 +1038,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float4 texcoord : TEXCOORD0;
 				float4 texcoord1 : TEXCOORD1;
 				float4 texcoord2 : TEXCOORD2;
-				float4 ase_color : COLOR;
+				half4 ase_color : COLOR;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -1065,117 +1064,116 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float4 ase_texcoord12 : TEXCOORD12;
 				float4 ase_texcoord13 : TEXCOORD13;
 				float4 ase_texcoord14 : TEXCOORD14;
-				float4 ase_texcoord15 : TEXCOORD15;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _Tint3;
-			float4 _DetailMapScale;
-			float4 _SmoothnessRemap;
-			float4 _DetailMaskRemap;
-			float4 _MossAlbedoRemap;
-			float4 _EmissionRemap;
-			float4 _MossAlphaMaskMM;
-			float4 _OcclusionRemap;
-			float4 _DetailSmoothnessRemap;
-			float4x4 _ProbeWorldToTexture;
-			float4 _MetallicRemap;
-			float4 _MossColor;
-			float4 _EmissionColor;
+			half4 _Tint3;
+			half4 _DetailMapScale;
+			half4 _SmoothnessRemap;
+			half4 _DetailMaskRemap;
+			half4 _MossAlbedoRemap;
+			half4 _EmissionRemap;
+			half4 _MossAlphaMaskMM;
+			half4 _OcclusionRemap;
+			half4 _DetailSmoothnessRemap;
+			half4x4 _ProbeWorldToTexture;
+			half4 _MetallicRemap;
+			half4 _MossColor;
+			half4 _EmissionColor;
 			float4 _RevealMask_TexelSize;
-			float4 _MossSmoothnessRemap;
-			float4 _Tint1;
-			float4 _MossFresnel;
-			float4 _MossFresnelColor;
-			float4 _Layer3EmissionColor;
-			float4 _Layer1_ST;
-			float4 _LayerSurfaceExp;
-			float4 _Layer0_ST;
-			float4 _Tint2;
-			float4 _MossSlopeNormal_ST;
-			float4 _BaseMap_ST;
-			float4 _BaseColor;
-			float4 _MossSlopeMM;
-			float4 _Tint0;
-			float4 _SSSColor;
-			float3 _ProbeVolumeMin;
-			float3 _MossDirection;
-			float3 _ProbeVolumeSizeInv;
-			float _MossDetailNormalMapScale;
-			float _UseEmission;
-			float _Occlusion;
-			float _UseOcclusion;
-			float _Metallic;
-			float _UseMossFresnel;
-			float _Smoothness;
-			float _MossMetallic;
-			float _Layer1Smoothness;
-			float _Layer1Metallic;
-			float _SSSDimAlbedo;
-			float _NormalStrength_USE_SSS;
-			float _SSScattering;
-			float _SSSRadius;
-			float _MossNormalStrength2;
-			float _MossSlopeDistort;
-			float _MossSlopeNormRotate;
-			float _DebugScale;
+			half4 _MossSmoothnessRemap;
+			half4 _Tint1;
+			half4 _MossFresnel;
+			half4 _MossFresnelColor;
+			half4 _Layer3EmissionColor;
+			half4 _Layer1_ST;
+			half4 _LayerSurfaceExp;
+			half4 _Layer0_ST;
+			half4 _Tint2;
+			half4 _MossSlopeNormal_ST;
+			half4 _BaseMap_ST;
+			half4 _BaseColor;
+			half4 _MossSlopeMM;
+			half4 _Tint0;
+			half4 _SSSColor;
+			half3 _ProbeVolumeMin;
+			half3 _MossDirection;
+			half3 _ProbeVolumeSizeInv;
+			half _MossDetailNormalMapScale;
+			half _UseEmission;
+			half _Occlusion;
+			half _UseOcclusion;
+			half _Metallic;
+			half _UseMossFresnel;
+			half _Smoothness;
+			half _MossMetallic;
+			half _Layer1Smoothness;
+			half _Layer1Metallic;
+			half _SSSDimAlbedo;
+			half _NormalStrength_USE_SSS;
+			half _SSScattering;
+			half _SSSRadius;
+			half _MossNormalStrength2;
+			half _MossSlopeDistort;
+			half _MossSlopeNormRotate;
+			half _DebugScale;
 			int _DebugVisual;
-			float _ShadowThreshold;
-			float _AlphaClip;
-			float _AlphaClipThreshold;
-			float _Surface;
-			float _Dither;
-			float _OcclusionMossMask;
-			float _Layer0Smoothness;
-			float _MossSmoothness;
-			float _Layer0Metallic;
-			float _Layer2Height;
+			half _ShadowThreshold;
+			half _AlphaClip;
+			half _AlphaClipThreshold;
+			half _Surface;
+			half _Dither;
+			half _OcclusionMossMask;
+			half _Layer0Smoothness;
+			half _MossSmoothness;
+			half _Layer0Metallic;
+			half _Layer2Height;
 			int _DETAIL;
-			float _Layer0NormalStrength;
+			half _Layer0NormalStrength;
 			int _MetalUV;
 			int _Moss;
-			float _UseMossMetalMap;
+			half _UseMossMetalMap;
 			int _MossMode;
-			float _MossStochasticContrast;
-			float _MossStochasticScale;
+			half _MossStochasticContrast;
+			half _MossStochasticScale;
 			float _MossScale;
 			int _MossUV;
-			float _MossMultAlbedo;
+			half _MossMultAlbedo;
 			int _UseColorMask;
 			int _Bitmask;
 			int _ZWrite;
 			int _Cullmode;
-			float _Blend;
-			float _SrcBlend;
-			float _DstBlend;
-			float _Cutoff;
+			half _Blend;
+			half _SrcBlend;
+			half _DstBlend;
+			half _Cutoff;
 			int _Int0;
 			int _BlendMode_UseColorMask;
-			float _Layer1NormalStrength;
-			float _MossBase;
-			float _MetallicSpecGlossMap;
-			float _DetailNormalMapScale;
-			float _MossNormalStrength;
-			float _UseNormalMap;
-			float _DetailsOverMoss;
-			float _MapContrast;
-			float _MapContrastOffset;
-			float _MossNormalAffectStrength;
-			float _MossNormalSubtract;
-			float _DetailAlbedoMapScale;
-			float _MossNormalContrast;
-			float _UseMossVertexMask;
-			float _UseMossMaskWithAlpha;
-			float _UseMossDirection;
-			float _MossDirContrast;
-			float _MossLevel;
-			float _DetailNormalMapScale1;
-			float _UseDetailMask;
+			half _Layer1NormalStrength;
+			half _MossBase;
+			half _MetallicSpecGlossMap;
+			half _DetailNormalMapScale;
+			half _MossNormalStrength;
+			half _UseNormalMap;
+			half _DetailsOverMoss;
+			half _MapContrast;
+			half _MapContrastOffset;
+			half _MossNormalAffectStrength;
+			half _MossNormalSubtract;
+			half _DetailAlbedoMapScale;
+			half _MossNormalContrast;
+			half _UseMossVertexMask;
+			half _UseMossMaskWithAlpha;
+			half _UseMossDirection;
+			half _MossDirContrast;
+			half _MossLevel;
+			half _DetailNormalMapScale1;
+			half _UseDetailMask;
 			int _MODE;
-			float _NormalStrength;
-			float _SSShadcowMix;
+			half _NormalStrength;
+			half _SSShadcowMix;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -1210,15 +1208,12 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				int _PassValue;
 			#endif
 
-			float4 _skyGradientColor1;
-			float4 _skyGradientColor2;
 			TEXTURE2D_ARRAY(_ExtraArray);
 			SAMPLER(sampler_ExtraArray);
 			TEXTURE2D_ARRAY(_DiffuseArray);
 			SAMPLER(sampler_DiffuseArray);
 			TEXTURE2D_ARRAY(_NormalArray);
 			SAMPLER(sampler_NormalArray);
-			float3 _CausticsDir;
 			half _CausticsScale;
 			half2 _CausticsPanSpeed;
 			half4 _CausticsColor;
@@ -1234,20 +1229,14 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			TEXTURE2D(_MetallicGlossMap);
 			TEXTURE2D(_BumpMap);
 			TEXTURE2D(_Layer0);
-			SAMPLER(sampler_Layer0);
 			TEXTURE2D(_RevealMask);
-			SAMPLER(sampler_RevealMask);
 			TEXTURE2D(_LayerMask);
-			SAMPLER(sampler_LayerMask);
 			TEXTURE2D(_Layer1);
-			SAMPLER(sampler_Layer1);
 			TEXTURE2D(_Layer0NormalMap);
-			SAMPLER(sampler_Layer0NormalMap);
 			TEXTURE2D(_Layer1NormalMap);
-			SAMPLER(sampler_Layer1NormalMap);
-			float4x4 _CausticMatrix;
+			half4x4 _CausticMatrix;
 			SAMPLER(sampler_Linear_Repeat);
-			float4 _CausticsSettings;
+			half4 _CausticsSettings;
 			int AlphaToCoverage;
 			TEXTURE3D(_ProbeVolumeShR);
 			SAMPLER(sampler_Linear_Clamp);
@@ -1271,7 +1260,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
 			}
 			
-			float3 VertVanisher3872( float3 vertex, float2 vtexcoord1, int bitMask )
+			half3 VertVanisher3872( half3 vertex, half2 vtexcoord1, int bitMask )
 			{
 				 if(bitMask & (int)vtexcoord1.x){
 					vertex *= (0.0 / 0.0);
@@ -1279,12 +1268,12 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				return vertex;
 			}
 			
-			float MyCustomExpression3902( float detailAlbedo, float scale )
+			half MyCustomExpression3902( half detailAlbedo, half scale )
 			{
 				return half(2.0) * detailAlbedo * scale - scale + half(1.0);
 			}
 			
-			float3 RevealMaskNormalCrossFilter83_g3888( float2 uv, float height, float2 texelSize )
+			half3 RevealMaskNormalCrossFilter83_g4236( half2 uv, half height, half2 texelSize, SamplerState sampler_RevealMask )
 			{
 						//float2 texelSize = float2(1.0 / texWidth, 1.0 / texHeight);
 						float4 h;
@@ -1299,16 +1288,35 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 						return normalize(n);
 			}
 			
-			float3 MatrixMulThatWorks( float4 Pos, float4x4 Mat )
+			inline half3 SampleSHPixel3558( half3 SH, half3 normalWS )
 			{
-				float3 result = mul(Mat,Pos.xyz);
+				return SampleSHPixel( SH, normalWS );
+			}
+			
+			inline half3 SampleLightmap3567( half2 lightmapUV, half3 normalWS )
+			{
+				return SampleLightmap( lightmapUV, 0, normalWS );
+			}
+			
+			half3 MatrixMulThatWorks( half4 Pos, half4x4 Mat )
+			{
+				float3 result = mul( Mat, float4(Pos.xyz,1.0) ).xyz;
 				return result + float3(Mat[0][3],Mat[1][3],Mat[2][3]);
 			}
 			
-			float4x4 Inverse4x4(float4x4 input)
+			half ShaderAPIMobile151_g4260( half desktop, half mobile )
 			{
-				#define minor(a,b,c) determinant(float3x3(input.a, input.b, input.c))
-				float4x4 cofactors = float4x4(
+				#if SHADER_API_MOBILE
+					return desktop;
+				#else
+					return mobile;
+				#endif
+			}
+			
+			half4x4 Inverse4x4(half4x4 input)
+			{
+				#define minor(a,b,c) determinant(half3x3(input.a, input.b, input.c))
+				half4x4 cofactors = half4x4(
 				minor( _22_23_24, _32_33_34, _42_43_44 ),
 				-minor( _21_23_24, _31_33_34, _41_43_44 ),
 				minor( _21_22_24, _31_32_34, _41_42_44 ),
@@ -1332,19 +1340,18 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				return transpose( cofactors ) / determinant( input );
 			}
 			
-			inline float4 GetUnderWaterFogs240_g3878( float3 viewDir, float3 camWorldPos, float3 posWS, float4 oceanFogDensities, float oceanHeight, float4 oceanFogTop_RGB_Exponent, float4 oceanFogBottom_RGB_Intensity )
+			half ShaderAPIMobile153_g4260( half desktop, half mobile )
+			{
+				#if SHADER_API_MOBILE
+					return desktop;
+				#else
+					return mobile;
+				#endif
+			}
+			
+			inline half4 GetUnderWaterFogs240_g4251( half3 viewDir, float3 camWorldPos, half3 posWS, half4 oceanFogDensities, half oceanHeight, half4 oceanFogTop_RGB_Exponent, half4 oceanFogBottom_RGB_Intensity )
 			{
 				return GetUnderWaterFog( viewDir, camWorldPos, posWS, oceanFogDensities, oceanHeight, oceanFogTop_RGB_Exponent, oceanFogBottom_RGB_Intensity );;
-			}
-			
-			inline float3 SampleSHPixel3558( float3 SH, float3 normalWS )
-			{
-				return SampleSHPixel( SH, normalWS );
-			}
-			
-			inline float3 SampleLightmap3567( float2 lightmapUV, float3 normalWS )
-			{
-				return SampleLightmap( lightmapUV, 0, normalWS );
 			}
 			
 			inline float Dither4x4Bayer( int x, int y )
@@ -1358,20 +1365,27 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				return dither[r] / 16; // same # of instructions as pre-dividing due to compiler magic
 			}
 			
-			float3x3 CastToFloat3x354_g3799( float3x3 Input )
+			half4x4 RotationOnly90_g4351( half4x4 Input )
 			{
-				return Input;
+				float4x4 Output = float4x4(
+				        float4(Input[0].xyz, 0.0),
+				        float4(Input[1].xyz, 0.0),
+				        float4(Input[2].xyz, 0.0),
+				        float4(0.0,0.0,0.0, 1.0)
+				    );
+				return Output;
 			}
 			
-			float3 MyCustomExpression6_g3799( float3 vertexPos, float4x4 ProbeWorldToTexture, float3 ProbeVolumeMin, float3 ProbeVolumeSizeInv )
+			half3 MyCustomExpression6_g4351( half3 vertexPos, half4x4 ProbeWorldToTexture, half3 ProbeVolumeMin, half3 ProbeVolumeSizeInv )
 			{
 				float3 position = mul(ProbeWorldToTexture, float4(TransformObjectToWorld(vertexPos.xyz), 1.0f)).xyz;
 				float3 texCoord = (position - ProbeVolumeMin.xyz) * ProbeVolumeSizeInv;
 				return texCoord;
 			}
 			
-			float3 SHEvalLinearL0L114_g3799( float3 worldNormal, float4 ProbeVolumeShR, float4 ProbeVolumeShG, float4 ProbeVolumeShB )
+			half3 SHEvalLinearL0L114_g4351( half3 worldNormal, half4 ProbeVolumeShR, half4 ProbeVolumeShG, half4 ProbeVolumeShB )
 			{
+				// See: Library\PackageCache\com.unity.render-pipelines.core12.1.15\ShaderLibrary\EntityLighting.hlsl
 				return SHEvalLinearL0L1(worldNormal, ProbeVolumeShR, ProbeVolumeShG,  ProbeVolumeShB);
 			}
 			
@@ -1398,7 +1412,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				return float4(color, alpha);
 			}
 			
-			half4 CalculateShadowMask1_g3801( half2 LightmapUV )
+			half4 CalculateShadowMask1_g4353( half2 LightmapUV )
 			{
 				#if defined(SHADOWS_SHADOWMASK) && defined(LIGHTMAP_ON)
 				return SAMPLE_SHADOWMASK( LightmapUV.xy );
@@ -1417,106 +1431,103 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
-				float3 vertex3872 = v.vertex.xyz;
-				float2 vtexcoord13872 = v.texcoord1.xy;
+				half3 vertex3872 = v.vertex.xyz;
+				half2 vtexcoord13872 = v.texcoord1.xy;
 				int bitMask3872 = _Bitmask;
-				float3 localVertVanisher3872 = VertVanisher3872( vertex3872 , vtexcoord13872 , bitMask3872 );
-				float3 VertexOcclusionPosition3873 = localVertVanisher3872;
+				half3 localVertVanisher3872 = VertVanisher3872( vertex3872 , vtexcoord13872 , bitMask3872 );
+				half3 VertexOcclusionPosition3873 = localVertVanisher3872;
 				
-				float4 ifLocalVars3708 = 0;
-				float2 texCoord117 = v.texcoord.xy * float2( 1,1 ) + float2( 0,0 );
-				if(_MossUV==0){ifLocalVars3708 = float4( texCoord117, 0.0 , 0.0 ); };
-				float2 texCoord3710 = v.texcoord1.xy * float2( 1,1 ) + float2( 0,0 );
-				if(_MossUV==1){ifLocalVars3708 = float4( texCoord3710, 0.0 , 0.0 ); };
-				float2 texCoord3712 = v.texcoord2.xy * float2( 1,1 ) + float2( 0,0 );
-				if(_MossUV==2){ifLocalVars3708 = float4( texCoord3712, 0.0 , 0.0 ); };
-				float2 appendResult3711 = (float2(ifLocalVars3708.xy));
-				float2 temp_output_119_0 = ( appendResult3711 * ( 1.0 / _MossScale ) );
-				float2 MossUVScaled1663 = temp_output_119_0;
-				float2 vertexToFrag3722 = MossUVScaled1663;
-				o.ase_texcoord9.xy = vertexToFrag3722;
+				half4 ifLocalVars3708 = 0;
+				half2 texCoord117 = v.texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				if(_MossUV==0){ifLocalVars3708 = half4( texCoord117, 0.0 , 0.0 ); };
+				half2 texCoord3710 = v.texcoord1.xy * float2( 1,1 ) + float2( 0,0 );
+				if(_MossUV==1){ifLocalVars3708 = half4( texCoord3710, 0.0 , 0.0 ); };
+				half2 texCoord3712 = v.texcoord2.xy * float2( 1,1 ) + float2( 0,0 );
+				if(_MossUV==2){ifLocalVars3708 = half4( texCoord3712, 0.0 , 0.0 ); };
+				half2 appendResult3711 = (half2(ifLocalVars3708.xy));
+				half2 vertexToFrag3370 = ( appendResult3711 * ( 1.0 / _MossScale ) );
+				o.ase_texcoord9.xy = vertexToFrag3370;
 				int MossInt2938 = _Moss;
 				int MossModeInt3200 = _MossMode;
 				#ifdef _MOSSMETALMODE_ON
-				float staticSwitch3230 = (float)( MossInt2938 * MossModeInt3200 );
+				half staticSwitch3230 = (float)( MossInt2938 * MossModeInt3200 );
 				#else
-				float staticSwitch3230 = (float)MossInt2938;
+				half staticSwitch3230 = (float)MossInt2938;
 				#endif
-				float4 ifLocalVars3717 = 0;
-				float2 uv_BaseMap = v.texcoord.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
-				if(_MetalUV==0){ifLocalVars3717 = float4( uv_BaseMap, 0.0 , 0.0 ); };
-				float2 uv2_BaseMap = v.texcoord1.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
-				if(_MetalUV==1){ifLocalVars3717 = float4( uv2_BaseMap, 0.0 , 0.0 ); };
-				float2 uv3_BaseMap = v.texcoord2.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
-				if(_MetalUV==2){ifLocalVars3717 = float4( uv3_BaseMap, 0.0 , 0.0 ); };
-				float2 appendResult3718 = (float2(ifLocalVars3717.xy));
-				float2 vertexToFrag3723 = appendResult3718;
-				float2 UVBasemapPicked3719 = vertexToFrag3723;
-				float2 ifLocalVar2916 = 0;
+				half2 MossUVScaled1663 = vertexToFrag3370;
+				half4 ifLocalVars3717 = 0;
+				half2 uv_BaseMap = v.texcoord.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
+				if(_MetalUV==0){ifLocalVars3717 = half4( uv_BaseMap, 0.0 , 0.0 ); };
+				half2 uv2_BaseMap = v.texcoord1.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
+				if(_MetalUV==1){ifLocalVars3717 = half4( uv2_BaseMap, 0.0 , 0.0 ); };
+				half2 uv3_BaseMap = v.texcoord2.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
+				if(_MetalUV==2){ifLocalVars3717 = half4( uv3_BaseMap, 0.0 , 0.0 ); };
+				half2 appendResult3718 = (half2(ifLocalVars3717.xy));
+				half2 vertexToFrag3723 = appendResult3718;
+				half2 UVBasemapPicked3719 = vertexToFrag3723;
+				half2 ifLocalVar2916 = 0;
 				if( staticSwitch3230 <= 0.0 )
 				ifLocalVar2916 = UVBasemapPicked3719;
 				else
 				ifLocalVar2916 = MossUVScaled1663;
-				float2 vertexToFrag3371 = ifLocalVar2916;
+				half2 vertexToFrag3371 = ifLocalVar2916;
 				o.ase_texcoord9.zw = vertexToFrag3371;
 				float3 ase_worldPos = TransformObjectToWorld( (v.vertex).xyz );
-				float4 _DetailDistanceHardcoded = float4(25,30,0,0);
-				float temp_output_3155_0 = saturate( (1.0 + (distance( _WorldSpaceCameraPos , ase_worldPos ) - _DetailDistanceHardcoded.x) * (0.0 - 1.0) / (_DetailDistanceHardcoded.y - _DetailDistanceHardcoded.x)) );
-				float vertexToFrag3157 = temp_output_3155_0;
+				half4 _DetailDistanceHardcoded = half4(25,30,0,0);
+				half temp_output_3155_0 = saturate( (1.0 + (distance( _WorldSpaceCameraPos , ase_worldPos ) - _DetailDistanceHardcoded.x) * (0.0 - 1.0) / (_DetailDistanceHardcoded.y - _DetailDistanceHardcoded.x)) );
+				half vertexToFrag3157 = temp_output_3155_0;
 				o.ase_texcoord8.w = vertexToFrag3157;
-				o.ase_texcoord10.xy = vertexToFrag3723;
-				float temp_output_225_0 = ( ( v.ase_color.r - 0.5 ) * 2.0 );
-				float ifLocalVar4428 = 0;
+				half2 texCoord1007 = v.texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				half2 appendResult2490 = (half2(_DetailMapScale.x , _DetailMapScale.y));
+				half2 appendResult2491 = (half2(_DetailMapScale.z , _DetailMapScale.w));
+				half2 vertexToFrag3400 = (texCoord1007*appendResult2490 + appendResult2491);
+				o.ase_texcoord10.xy = vertexToFrag3400;
+				o.ase_texcoord10.zw = vertexToFrag3723;
+				half temp_output_225_0 = ( ( v.ase_color.r - 0.5 ) * 2.0 );
+				half ifLocalVar4428 = 0;
 				if( _UseMossVertexMask > 0.0 )
 				ifLocalVar4428 = temp_output_225_0;
-				float vertexToFrag3925 = ifLocalVar4428;
-				o.ase_texcoord10.z = vertexToFrag3925;
-				float3 _Vector3 = float3(0,0,-1);
-				float4 Pos6_g3877 = float4( _Vector3 , 0.0 );
-				float4x4 Mat6_g3877 = _CausticMatrix;
-				float3 localMatrixMulThatWorks6_g3877 = MatrixMulThatWorks( Pos6_g3877 , Mat6_g3877 );
-				float3 normalizeResult147_g3875 = normalize( localMatrixMulThatWorks6_g3877 );
-				float3 vertexToFrag144_g3875 = normalizeResult147_g3875;
-				o.ase_texcoord11.xyz = vertexToFrag144_g3875;
-				float3 WorldPosition256_g3862 = ase_worldPos;
-				float3 temp_output_105_0_g3875 = WorldPosition256_g3862;
-				float4 Pos6_g3876 = float4( temp_output_105_0_g3875 , 0.0 );
-				float4x4 invertVal146_g3875 = Inverse4x4( _CausticMatrix );
-				float4x4 Mat6_g3876 = invertVal146_g3875;
-				float3 localMatrixMulThatWorks6_g3876 = MatrixMulThatWorks( Pos6_g3876 , Mat6_g3876 );
-				float2 vertexToFrag52_g3875 = (localMatrixMulThatWorks6_g3876).xy;
-				o.ase_texcoord12.xy = vertexToFrag52_g3875;
+				half vertexToFrag3925 = ifLocalVar4428;
+				o.ase_texcoord11.x = vertexToFrag3925;
 				
-				float3 ase_worldNormal = TransformObjectToWorldNormal(v.ase_normal);
-				float4x4 temp_output_28_0_g3799 = _ProbeWorldToTexture;
-				float3x3 Input54_g3799 = 0;
-				float3x3 localCastToFloat3x354_g3799 = CastToFloat3x354_g3799( Input54_g3799 );
-				float3 vertexToFrag56_g3799 = mul( ase_worldNormal, localCastToFloat3x354_g3799 );
-				o.ase_texcoord13.xyz = vertexToFrag56_g3799;
-				float3 vertexPos6_g3799 = v.vertex.xyz;
-				float4x4 ProbeWorldToTexture6_g3799 = temp_output_28_0_g3799;
-				float3 ProbeVolumeMin6_g3799 = _ProbeVolumeMin;
-				float3 ProbeVolumeSizeInv6_g3799 = _ProbeVolumeSizeInv;
-				float3 localMyCustomExpression6_g3799 = MyCustomExpression6_g3799( vertexPos6_g3799 , ProbeWorldToTexture6_g3799 , ProbeVolumeMin6_g3799 , ProbeVolumeSizeInv6_g3799 );
-				float3 vertexToFrag7_g3799 = localMyCustomExpression6_g3799;
-				o.ase_texcoord14.xyz = vertexToFrag7_g3799;
+				half3 _Vector3 = half3(0,0,-1);
+				half4 Pos6_g4262 = half4( _Vector3 , 0.0 );
+				half4x4 Mat6_g4262 = _CausticMatrix;
+				half3 localMatrixMulThatWorks6_g4262 = MatrixMulThatWorks( Pos6_g4262 , Mat6_g4262 );
+				half3 normalizeResult147_g4260 = normalize( localMatrixMulThatWorks6_g4262 );
+				half3 vertexToFrag144_g4260 = normalizeResult147_g4260;
+				o.ase_texcoord11.yzw = vertexToFrag144_g4260;
+				half3 WorldPosition256_g4237 = ase_worldPos;
+				half3 temp_output_105_0_g4260 = WorldPosition256_g4237;
+				half4 Pos6_g4261 = half4( temp_output_105_0_g4260 , 0.0 );
+				half4x4 invertVal146_g4260 = Inverse4x4( _CausticMatrix );
+				half4x4 Mat6_g4261 = invertVal146_g4260;
+				half3 localMatrixMulThatWorks6_g4261 = MatrixMulThatWorks( Pos6_g4261 , Mat6_g4261 );
+				half2 vertexToFrag52_g4260 = (localMatrixMulThatWorks6_g4261).xy;
+				o.ase_texcoord12.xy = vertexToFrag52_g4260;
 				
-				float2 texCoord861 = v.texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				half3 vertexPos6_g4351 = v.vertex.xyz;
+				half4x4 temp_output_28_0_g4351 = _ProbeWorldToTexture;
+				half4x4 ProbeWorldToTexture6_g4351 = temp_output_28_0_g4351;
+				half3 ProbeVolumeMin6_g4351 = _ProbeVolumeMin;
+				half3 ProbeVolumeSizeInv6_g4351 = _ProbeVolumeSizeInv;
+				half3 localMyCustomExpression6_g4351 = MyCustomExpression6_g4351( vertexPos6_g4351 , ProbeWorldToTexture6_g4351 , ProbeVolumeMin6_g4351 , ProbeVolumeSizeInv6_g4351 );
+				half3 vertexToFrag7_g4351 = localMyCustomExpression6_g4351;
+				o.ase_texcoord13.xyz = vertexToFrag7_g4351;
+				
+				half2 texCoord861 = v.texcoord.xy * float2( 1,1 ) + float2( 0,0 );
 				float cos916 = cos( radians( _MossSlopeNormRotate ) );
 				float sin916 = sin( radians( _MossSlopeNormRotate ) );
-				float2 rotator916 = mul( texCoord861 - float2( 0.5,0.51 ) , float2x2( cos916 , -sin916 , sin916 , cos916 )) + float2( 0.5,0.51 );
-				float2 vertexToFrag1159 = (rotator916*_MossSlopeNormal_ST.xy + _MossSlopeNormal_ST.zw);
+				half2 rotator916 = mul( texCoord861 - float2( 0.5,0.51 ) , float2x2( cos916 , -sin916 , sin916 , cos916 )) + float2( 0.5,0.51 );
+				half2 vertexToFrag1159 = (rotator916*_MossSlopeNormal_ST.xy + _MossSlopeNormal_ST.zw);
 				o.ase_texcoord12.zw = vertexToFrag1159;
 				
 				o.ase_texcoord8.xyz = v.texcoord.xyz;
-				o.ase_texcoord15.xy = v.texcoord1.xy;
+				o.ase_texcoord14.xy = v.texcoord1.xy;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
-				o.ase_texcoord10.w = 0;
-				o.ase_texcoord11.w = 0;
 				o.ase_texcoord13.w = 0;
-				o.ase_texcoord14.w = 0;
-				o.ase_texcoord15.zw = 0;
+				o.ase_texcoord14.zw = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
@@ -1624,7 +1635,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float4 texcoord : TEXCOORD0;
 				float4 texcoord1 : TEXCOORD1;
 				float4 texcoord2 : TEXCOORD2;
-				float4 ase_color : COLOR;
+				half4 ase_color : COLOR;
 
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
@@ -1748,811 +1759,828 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 
 				WorldViewDirection = SafeNormalize( WorldViewDirection );
 
-				float2 uv_BaseMap = IN.ase_texcoord8.xyz.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
-				float2 UVBasemap02088 = uv_BaseMap;
-				float4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
-				float3 temp_output_82_0 = ( (tex2DNode80).rgb * (_BaseColor).rgb );
-				float3 temp_output_17_0_g2518 = temp_output_82_0;
-				float4 ifLocalVars72_g2518 = 0;
+				half2 uv_BaseMap = IN.ase_texcoord8.xyz.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
+				half2 UVBasemap02088 = uv_BaseMap;
+				half4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
+				half3 temp_output_82_0 = ( (tex2DNode80).rgb * (_BaseColor).rgb );
+				half3 temp_output_17_0_g2518 = temp_output_82_0;
+				half4 ifLocalVars72_g2518 = 0;
 				int clampResult74_g2518 = clamp( _BlendMode_UseColorMask , 0 , 1 );
-				float4 tex2DNode1_g2518 = SAMPLE_TEXTURE2D( _ColorMask, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
-				float temp_output_2_0_g2518 = ( 1.0 - tex2DNode1_g2518.a );
-				float3 blendOpSrc26_g2518 = temp_output_17_0_g2518;
-				float3 blendOpDest26_g2518 = ( ( (_Tint0).rgb * tex2DNode1_g2518.r * 1.0 ) + ( (_Tint1).rgb * tex2DNode1_g2518.g * 1.0 ) + ( (_Tint2).rgb * tex2DNode1_g2518.b * 1.0 ) + ( (_Tint3).rgb * temp_output_2_0_g2518 * 1.0 ) );
-				float3 temp_output_26_0_g2518 = ( saturate( ( blendOpSrc26_g2518 * blendOpDest26_g2518 ) ));
-				if(clampResult74_g2518==0){ifLocalVars72_g2518 = float4( temp_output_26_0_g2518 , 0.0 ); };
-				float4 ifLocalVars29_g2518 = 0;
-				if(_BlendMode_UseColorMask==0){ifLocalVars29_g2518 = float4( float3(0,0,0) , 0.0 ); };
-				if(_BlendMode_UseColorMask==1){ifLocalVars29_g2518 = float4( temp_output_26_0_g2518 , 0.0 ); };
-				float3 blendOpSrc27_g2518 = temp_output_17_0_g2518;
-				float3 blendOpDest27_g2518 = ( ( (_Tint0).rgb * tex2DNode1_g2518.r * 1.0 ) + ( (_Tint1).rgb * tex2DNode1_g2518.g * 1.0 ) + ( (_Tint2).rgb * tex2DNode1_g2518.b * 1.0 ) + ( (_Tint3).rgb * temp_output_2_0_g2518 * 1.0 ) );
-				if(_BlendMode_UseColorMask==2){ifLocalVars29_g2518 = float4( ( saturate( ( 1.0 - ( 1.0 - blendOpSrc27_g2518 ) * ( 1.0 - blendOpDest27_g2518 ) ) )) , 0.0 ); };
-				float3 blendOpSrc28_g2518 = temp_output_17_0_g2518;
-				float3 blendOpDest28_g2518 = ( ( (_Tint0).rgb * tex2DNode1_g2518.r * 1.0 ) + ( (_Tint1).rgb * tex2DNode1_g2518.g * 1.0 ) + ( (_Tint2).rgb * tex2DNode1_g2518.b * 1.0 ) + ( (_Tint3).rgb * temp_output_2_0_g2518 * 1.0 ) );
-				if(_BlendMode_UseColorMask==3){ifLocalVars29_g2518 = float4( ( saturate( (( blendOpDest28_g2518 > 0.5 ) ? ( 1.0 - 2.0 * ( 1.0 - blendOpDest28_g2518 ) * ( 1.0 - blendOpSrc28_g2518 ) ) : ( 2.0 * blendOpDest28_g2518 * blendOpSrc28_g2518 ) ) )) , 0.0 ); };
-				if(clampResult74_g2518==1){ifLocalVars72_g2518 = float4( (ifLocalVars29_g2518).xyz , 0.0 ); };
-				float3 lerpResult64_g2518 = lerp( temp_output_17_0_g2518 , (ifLocalVars72_g2518).xyz , ( saturate( ( ( 1.0 * tex2DNode1_g2518.r ) + ( 1.0 * tex2DNode1_g2518.g ) + ( 1.0 * tex2DNode1_g2518.b ) + ( 1.0 * temp_output_2_0_g2518 ) ) ) * _UseColorMask ));
+				half4 tex2DNode1_g2518 = SAMPLE_TEXTURE2D( _ColorMask, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
+				half temp_output_2_0_g2518 = ( 1.0 - tex2DNode1_g2518.a );
+				half3 blendOpSrc26_g2518 = temp_output_17_0_g2518;
+				half3 blendOpDest26_g2518 = ( ( (_Tint0).rgb * tex2DNode1_g2518.r * 1.0 ) + ( (_Tint1).rgb * tex2DNode1_g2518.g * 1.0 ) + ( (_Tint2).rgb * tex2DNode1_g2518.b * 1.0 ) + ( (_Tint3).rgb * temp_output_2_0_g2518 * 1.0 ) );
+				half3 temp_output_26_0_g2518 = ( saturate( ( blendOpSrc26_g2518 * blendOpDest26_g2518 ) ));
+				if(clampResult74_g2518==0){ifLocalVars72_g2518 = half4( temp_output_26_0_g2518 , 0.0 ); };
+				half4 ifLocalVars29_g2518 = 0;
+				if(_BlendMode_UseColorMask==0){ifLocalVars29_g2518 = half4( half3(0,0,0) , 0.0 ); };
+				if(_BlendMode_UseColorMask==1){ifLocalVars29_g2518 = half4( temp_output_26_0_g2518 , 0.0 ); };
+				half3 blendOpSrc27_g2518 = temp_output_17_0_g2518;
+				half3 blendOpDest27_g2518 = ( ( (_Tint0).rgb * tex2DNode1_g2518.r * 1.0 ) + ( (_Tint1).rgb * tex2DNode1_g2518.g * 1.0 ) + ( (_Tint2).rgb * tex2DNode1_g2518.b * 1.0 ) + ( (_Tint3).rgb * temp_output_2_0_g2518 * 1.0 ) );
+				if(_BlendMode_UseColorMask==2){ifLocalVars29_g2518 = half4( ( saturate( ( 1.0 - ( 1.0 - blendOpSrc27_g2518 ) * ( 1.0 - blendOpDest27_g2518 ) ) )) , 0.0 ); };
+				half3 blendOpSrc28_g2518 = temp_output_17_0_g2518;
+				half3 blendOpDest28_g2518 = ( ( (_Tint0).rgb * tex2DNode1_g2518.r * 1.0 ) + ( (_Tint1).rgb * tex2DNode1_g2518.g * 1.0 ) + ( (_Tint2).rgb * tex2DNode1_g2518.b * 1.0 ) + ( (_Tint3).rgb * temp_output_2_0_g2518 * 1.0 ) );
+				if(_BlendMode_UseColorMask==3){ifLocalVars29_g2518 = half4( ( saturate( (( blendOpDest28_g2518 > 0.5 ) ? ( 1.0 - 2.0 * ( 1.0 - blendOpDest28_g2518 ) * ( 1.0 - blendOpSrc28_g2518 ) ) : ( 2.0 * blendOpDest28_g2518 * blendOpSrc28_g2518 ) ) )) , 0.0 ); };
+				if(clampResult74_g2518==1){ifLocalVars72_g2518 = half4( (ifLocalVars29_g2518).xyz , 0.0 ); };
+				half3 lerpResult64_g2518 = lerp( temp_output_17_0_g2518 , (ifLocalVars72_g2518).xyz , ( saturate( ( ( 1.0 * tex2DNode1_g2518.r ) + ( 1.0 * tex2DNode1_g2518.g ) + ( 1.0 * tex2DNode1_g2518.b ) + ( 1.0 * temp_output_2_0_g2518 ) ) ) * _UseColorMask ));
 				#ifdef _COLORMASK_ON
-				float3 staticSwitch15_g2518 = lerpResult64_g2518;
+				half3 staticSwitch15_g2518 = lerpResult64_g2518;
 				#else
-				float3 staticSwitch15_g2518 = temp_output_17_0_g2518;
+				half3 staticSwitch15_g2518 = temp_output_17_0_g2518;
 				#endif
-				float3 AlbedoColorMask2007 = staticSwitch15_g2518;
-				float3 AlbedoBaseColor92 = AlbedoColorMask2007;
-				float3 appendResult3785 = (float3(_MossColor.rgb));
-				float2 vertexToFrag3722 = IN.ase_texcoord9.xy;
-				float StochasticScale1447 = ( 1.0 / _MossStochasticScale );
-				float StochasticContrast1448 = _MossStochasticContrast;
+				half3 AlbedoColorMask2007 = staticSwitch15_g2518;
+				half3 AlbedoBaseColor92 = AlbedoColorMask2007;
+				half3 appendResult3785 = (half3(_MossColor.rgb));
+				half2 vertexToFrag3370 = IN.ase_texcoord9.xy;
+				half2 MossUVScaled1663 = vertexToFrag3370;
+				half StochasticScale1447 = ( 1.0 / _MossStochasticScale );
+				half StochasticContrast1448 = _MossStochasticContrast;
 				half3 cw4270 = 0;
 				float2 uv14270 = 0;
 				float2 uv24270 = 0;
 				float2 uv34270 = 0;
 				float2 dx4270 = 0;
 				float2 dy4270 = 0;
-				half4 stochasticSample4270 = StochasticSample2DWeightsR(_MossPacked,sampler_MossPacked,vertexToFrag3722,cw4270,uv14270,uv24270,uv34270,dx4270,dy4270,StochasticScale1447,StochasticContrast1448);
+				half4 stochasticSample4270 = StochasticSample2DWeightsR(_MossPacked,sampler_MossPacked,MossUVScaled1663,cw4270,uv14270,uv24270,uv34270,dx4270,dy4270,StochasticScale1447,StochasticContrast1448);
 				#ifdef _USESTOCHASTICMOSS_ON
-				float4 staticSwitch121 = stochasticSample4270;
+				half4 staticSwitch121 = stochasticSample4270;
 				#else
-				float4 staticSwitch121 = SAMPLE_TEXTURE2D( _MossPacked, sampler_Linear_Repeat_Aniso2, vertexToFrag3722 );
+				half4 staticSwitch121 = SAMPLE_TEXTURE2D( _MossPacked, sampler_Linear_Repeat_Aniso2, MossUVScaled1663 );
 				#endif
 				int MossModeInt3200 = _MossMode;
-				float2 vertexToFrag3371 = IN.ase_texcoord9.zw;
-				float4 _Vector17 = float4(1,0,1,0);
-				float4 ifLocalVar3181 = 0;
+				half2 vertexToFrag3371 = IN.ase_texcoord9.zw;
+				half4 _Vector17 = half4(1,0,1,0);
+				half4 ifLocalVar3181 = 0;
 				if( _UseMossMetalMap <= 0.0 )
 				ifLocalVar3181 = _Vector17;
 				else
 				ifLocalVar3181 = SAMPLE_TEXTURE2D( _MossMetalMap, sampler_Linear_Repeat_Aniso2, vertexToFrag3371 );
-				float4 ifLocalVar3232 = 0;
+				half4 ifLocalVar3232 = 0;
 				if( MossModeInt3200 <= 0.0 )
 				ifLocalVar3232 = _Vector17;
 				else
 				ifLocalVar3232 = ifLocalVar3181;
-				float4 MossMetalMap2943 = ifLocalVar3232;
+				half4 MossMetalMap2943 = ifLocalVar3232;
 				#ifdef _MOSSMETALMODE_ON
-				float4 staticSwitch3303 = MossMetalMap2943;
+				half4 staticSwitch3303 = MossMetalMap2943;
 				#else
-				float4 staticSwitch3303 = staticSwitch121;
+				half4 staticSwitch3303 = staticSwitch121;
 				#endif
-				float4 MossMetalRes3077 = staticSwitch3303;
-				float temp_output_3043_0 = (MossMetalRes3077).r;
-				float temp_output_8_0_g2546 = temp_output_3043_0;
-				float4 break5_g2546 = _MossAlbedoRemap;
-				float temp_output_3_0_g2546 = (0.0 + (temp_output_8_0_g2546 - break5_g2546.x) * (1.0 - 0.0) / (break5_g2546.y - break5_g2546.x));
-				float clampResult2_g2546 = clamp( temp_output_3_0_g2546 , break5_g2546.z , break5_g2546.w );
-				float temp_output_27_0_g2546 = saturate( clampResult2_g2546 );
+				half4 MossMetalRes3077 = staticSwitch3303;
+				half temp_output_3043_0 = (MossMetalRes3077).r;
+				half temp_output_8_0_g2546 = temp_output_3043_0;
+				half4 break5_g2546 = _MossAlbedoRemap;
+				half temp_output_3_0_g2546 = (0.0 + (temp_output_8_0_g2546 - break5_g2546.x) * (1.0 - 0.0) / (break5_g2546.y - break5_g2546.x));
+				half clampResult2_g2546 = clamp( temp_output_3_0_g2546 , break5_g2546.z , break5_g2546.w );
+				half temp_output_27_0_g2546 = saturate( clampResult2_g2546 );
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3747 = temp_output_27_0_g2546;
+				half staticSwitch3747 = temp_output_27_0_g2546;
 				#else
-				float staticSwitch3747 = temp_output_3043_0;
+				half staticSwitch3747 = temp_output_3043_0;
 				#endif
-				float3 MossPackedAlbedo1643 = ( appendResult3785 * staticSwitch3747 );
-				float3 lerpResult2137 = lerp( MossPackedAlbedo1643 , ( MossPackedAlbedo1643 * AlbedoBaseColor92 ) , _MossMultAlbedo);
-				float3 MossAlbedoTinted101 = lerpResult2137;
-				float2 _Vector5 = float2(0,0);
-				float2 NormalMossSigned50 = _Vector5;
-				float3 appendResult3794 = (float3(NormalMossSigned50 , 1.0));
-				float4 appendResult3336 = (float4(1.0 , 0.0 , 0.0 , 0.0));
-				float vertexToFrag3157 = IN.ase_texcoord8.w;
-				float DDistanceMaskVert3160 = step( 0.01 , vertexToFrag3157 );
-				float2 texCoord1007 = IN.ase_texcoord8.xyz.xy * float2( 1,1 ) + float2( 0,0 );
-				float2 appendResult2490 = (float2(_DetailMapScale.x , _DetailMapScale.y));
-				float2 appendResult2491 = (float2(_DetailMapScale.z , _DetailMapScale.w));
-				float2 temp_output_2488_0 = (texCoord1007*appendResult2490 + appendResult2491);
-				float4 tex2DNode980 = SAMPLE_TEXTURE2D( _DetailMapPacked, sampler_Linear_Repeat_Aniso2, temp_output_2488_0 );
-				float4 DetailMapPacked3088 = tex2DNode980;
-				float temp_output_3090_0 = (DetailMapPacked3088).r;
-				float detailAlbedo3902 = temp_output_3090_0;
-				float scale3902 = _DetailAlbedoMapScale;
-				float localMyCustomExpression3902 = MyCustomExpression3902( detailAlbedo3902 , scale3902 );
-				float2 vertexToFrag3723 = IN.ase_texcoord10.xy;
-				float2 UVBasemapPicked3719 = vertexToFrag3723;
-				float4 _Vector16 = float4(0,1,1,1);
-				float4 ifLocalVar3177 = 0;
+				half3 MossPackedAlbedo1643 = ( appendResult3785 * staticSwitch3747 );
+				half3 lerpResult2137 = lerp( MossPackedAlbedo1643 , ( MossPackedAlbedo1643 * AlbedoBaseColor92 ) , _MossMultAlbedo);
+				half3 MossAlbedoTinted101 = lerpResult2137;
+				half2 _Vector5 = half2(0,0);
+				half2 NormalMossSigned50 = _Vector5;
+				half3 appendResult3794 = (half3(NormalMossSigned50 , 1.0));
+				half4 appendResult3336 = (half4(1.0 , 0.0 , 0.0 , 0.0));
+				half vertexToFrag3157 = IN.ase_texcoord8.w;
+				half DDistanceMaskVert3160 = step( 0.01 , vertexToFrag3157 );
+				half2 vertexToFrag3400 = IN.ase_texcoord10.xy;
+				half4 tex2DNode980 = SAMPLE_TEXTURE2D( _DetailMapPacked, sampler_Linear_Repeat_Aniso2, vertexToFrag3400 );
+				half4 DetailMapPacked3088 = tex2DNode980;
+				half temp_output_3090_0 = (DetailMapPacked3088).r;
+				half detailAlbedo3902 = temp_output_3090_0;
+				half scale3902 = _DetailAlbedoMapScale;
+				half localMyCustomExpression3902 = MyCustomExpression3902( detailAlbedo3902 , scale3902 );
+				half2 vertexToFrag3723 = IN.ase_texcoord10.zw;
+				half2 UVBasemapPicked3719 = vertexToFrag3723;
+				half4 _Vector16 = half4(0,1,1,1);
+				half4 ifLocalVar3177 = 0;
 				if( _MetallicSpecGlossMap <= 0.0 )
 				ifLocalVar3177 = _Vector16;
 				else
 				ifLocalVar3177 = SAMPLE_TEXTURE2D( _MetallicGlossMap, sampler_Linear_Repeat_Aniso2, UVBasemapPicked3719 );
-				float4 ifLocalVar3189 = 0;
+				half4 ifLocalVar3189 = 0;
 				if( MossModeInt3200 <= 0.0 )
 				ifLocalVar3189 = ifLocalVar3181;
 				else
-				ifLocalVar3189 = float4(1,1,1,1);
-				float4 MossMetal2928 = ifLocalVar3189;
+				ifLocalVar3189 = half4(1,1,1,1);
+				half4 MossMetal2928 = ifLocalVar3189;
 				#ifdef _MOSSMETALMODE_ON
-				float4 staticSwitch2913 = MossMetal2928;
+				half4 staticSwitch2913 = MossMetal2928;
 				#else
-				float4 staticSwitch2913 = ifLocalVar3177;
+				half4 staticSwitch2913 = ifLocalVar3177;
 				#endif
-				float4 MossMetalORMetallicMap2911 = staticSwitch2913;
-				float temp_output_3050_0 = (MossMetalORMetallicMap2911).b;
-				float temp_output_8_0_g2548 = temp_output_3050_0;
-				float4 ifLocalVars3100 = 0;
+				half4 MossMetalORMetallicMap2911 = staticSwitch2913;
+				half temp_output_3050_0 = (MossMetalORMetallicMap2911).b;
+				half temp_output_8_0_g2548 = temp_output_3050_0;
+				half4 ifLocalVars3100 = 0;
 				int Mode3840 = _MODE;
 				if(Mode3840==0){ifLocalVars3100 = _DetailMaskRemap; };
 				if(Mode3840==1){ifLocalVars3100 = _EmissionRemap; };
-				float4 break5_g2548 = ifLocalVars3100;
-				float temp_output_3_0_g2548 = (0.0 + (temp_output_8_0_g2548 - break5_g2548.x) * (1.0 - 0.0) / (break5_g2548.y - break5_g2548.x));
-				float clampResult2_g2548 = clamp( temp_output_3_0_g2548 , break5_g2548.z , break5_g2548.w );
-				float temp_output_27_0_g2548 = saturate( clampResult2_g2548 );
+				half4 break5_g2548 = ifLocalVars3100;
+				half temp_output_3_0_g2548 = (0.0 + (temp_output_8_0_g2548 - break5_g2548.x) * (1.0 - 0.0) / (break5_g2548.y - break5_g2548.x));
+				half clampResult2_g2548 = clamp( temp_output_3_0_g2548 , break5_g2548.z , break5_g2548.w );
+				half temp_output_27_0_g2548 = saturate( clampResult2_g2548 );
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3738 = temp_output_27_0_g2548;
+				half staticSwitch3738 = temp_output_27_0_g2548;
 				#else
-				float staticSwitch3738 = temp_output_3050_0;
+				half staticSwitch3738 = temp_output_3050_0;
 				#endif
 				int temp_output_3109_0 = ( 1.0 - Mode3840 );
-				float temp_output_12_0_g2513 = ( temp_output_3109_0 * _UseDetailMask );
-				float DetalMaskDoodad3103 = ( ( staticSwitch3738 * temp_output_12_0_g2513 ) + ( 1.0 - temp_output_12_0_g2513 ) );
-				float temp_output_12_0_g2557 = DetalMaskDoodad3103;
-				float temp_output_3327_0 = (DetailMapPacked3088).b;
-				float temp_output_8_0_g2534 = temp_output_3327_0;
-				float4 break5_g2534 = _DetailSmoothnessRemap;
-				float temp_output_32_0_g2534 = (break5_g2534.z + (temp_output_8_0_g2534 - break5_g2534.x) * (break5_g2534.w - break5_g2534.z) / (break5_g2534.y - break5_g2534.x));
+				half temp_output_12_0_g2513 = ( temp_output_3109_0 * _UseDetailMask );
+				half DetalMaskDoodad3103 = ( ( staticSwitch3738 * temp_output_12_0_g2513 ) + ( 1.0 - temp_output_12_0_g2513 ) );
+				half temp_output_12_0_g2557 = DetalMaskDoodad3103;
+				half temp_output_3327_0 = (DetailMapPacked3088).b;
+				half temp_output_8_0_g2534 = temp_output_3327_0;
+				half4 break5_g2534 = _DetailSmoothnessRemap;
+				half temp_output_32_0_g2534 = (break5_g2534.z + (temp_output_8_0_g2534 - break5_g2534.x) * (break5_g2534.w - break5_g2534.z) / (break5_g2534.y - break5_g2534.x));
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3743 = temp_output_32_0_g2534;
+				half staticSwitch3743 = temp_output_32_0_g2534;
 				#else
-				float staticSwitch3743 = (-1.0 + (temp_output_3327_0 - 0.0) * (1.0 - -1.0) / (1.0 - 0.0));
+				half staticSwitch3743 = (-1.0 + (temp_output_3327_0 - 0.0) * (1.0 - -1.0) / (1.0 - 0.0));
 				#endif
-				float4 appendResult3337 = (float4(( ( localMyCustomExpression3902 * temp_output_12_0_g2557 ) + ( 1.0 - temp_output_12_0_g2557 ) ) , ( ( (DetailMapPacked3088).ag * float2( 2,2 ) ) - float2( 1,1 ) ) , staticSwitch3743));
-				float4 _DetailDistanceHardcoded = float4(25,30,0,0);
-				float temp_output_3155_0 = saturate( (1.0 + (distance( _WorldSpaceCameraPos , WorldPosition ) - _DetailDistanceHardcoded.x) * (0.0 - 1.0) / (_DetailDistanceHardcoded.y - _DetailDistanceHardcoded.x)) );
-				float DDistanceMaskPixel3159 = temp_output_3155_0;
-				float4 lerpResult3339 = lerp( appendResult3336 , appendResult3337 , DDistanceMaskPixel3159);
-				float4 ifLocalVar3338 = 0;
+				half4 appendResult3337 = (half4(( ( localMyCustomExpression3902 * temp_output_12_0_g2557 ) + ( 1.0 - temp_output_12_0_g2557 ) ) , ( ( (DetailMapPacked3088).ag * float2( 2,2 ) ) - float2( 1,1 ) ) , staticSwitch3743));
+				half4 _DetailDistanceHardcoded = half4(25,30,0,0);
+				half temp_output_3155_0 = saturate( (1.0 + (distance( _WorldSpaceCameraPos , WorldPosition ) - _DetailDistanceHardcoded.x) * (0.0 - 1.0) / (_DetailDistanceHardcoded.y - _DetailDistanceHardcoded.x)) );
+				half DDistanceMaskPixel3159 = temp_output_3155_0;
+				half4 lerpResult3339 = lerp( appendResult3336 , appendResult3337 , DDistanceMaskPixel3159);
+				half4 ifLocalVar3338 = 0;
 				UNITY_BRANCH 
 				if( DDistanceMaskVert3160 <= 0.0 )
 				ifLocalVar3338 = appendResult3336;
 				else
 				ifLocalVar3338 = lerpResult3339;
 				#ifdef _DETAIL_ON
-				float4 staticSwitch4130 = ifLocalVar3338;
+				half4 staticSwitch4130 = ifLocalVar3338;
 				#else
-				float4 staticSwitch4130 = appendResult3336;
+				half4 staticSwitch4130 = appendResult3336;
 				#endif
-				float2 DetailNormalSigned3509 = ( (staticSwitch4130).yz * _DetailNormalMapScale1 );
-				float3 appendResult3801 = (float3(( NormalMossSigned50 + DetailNormalSigned3509 ) , 1.0));
-				float3 normalizeResult3795 = normalize( appendResult3801 );
+				half2 DetailNormalSigned3509 = ( (staticSwitch4130).yz * _DetailNormalMapScale1 );
+				half3 appendResult3801 = (half3(( NormalMossSigned50 + DetailNormalSigned3509 ) , 1.0));
+				half3 normalizeResult3795 = normalize( appendResult3801 );
 				#ifdef _DETAIL_ON
-				float3 staticSwitch4129 = normalizeResult3795;
+				half3 staticSwitch4129 = normalizeResult3795;
 				#else
-				float3 staticSwitch4129 = appendResult3794;
+				half3 staticSwitch4129 = appendResult3794;
 				#endif
-				float3 tanToWorld0 = float3( WorldTangent.x, WorldBiTangent.x, WorldNormal.x );
-				float3 tanToWorld1 = float3( WorldTangent.y, WorldBiTangent.y, WorldNormal.y );
-				float3 tanToWorld2 = float3( WorldTangent.z, WorldBiTangent.z, WorldNormal.z );
+				half3 tanToWorld0 = float3( WorldTangent.x, WorldBiTangent.x, WorldNormal.x );
+				half3 tanToWorld1 = float3( WorldTangent.y, WorldBiTangent.y, WorldNormal.y );
+				half3 tanToWorld2 = float3( WorldTangent.z, WorldBiTangent.z, WorldNormal.z );
 				float3 tanNormal16 = staticSwitch4129;
-				float3 worldNormal16 = float3(dot(tanToWorld0,tanNormal16), dot(tanToWorld1,tanNormal16), dot(tanToWorld2,tanNormal16));
-				float dotResult15 = dot( worldNormal16 , _MossDirection );
-				float temp_output_13_0_g2463 = dotResult15;
-				float temp_output_82_0_g2463 = ( temp_output_13_0_g2463 * 0.5 );
-				float temp_output_5_0_g2467 = ( temp_output_82_0_g2463 - -0.5 );
-				float temp_output_48_0_g2467 = saturate( temp_output_5_0_g2467 );
-				float temp_output_14_0_g2463 = _MossLevel;
-				float temp_output_17_0_g2467 = temp_output_14_0_g2463;
-				float temp_output_16_0_g2463 = ( 1.0 - _MossDirContrast );
-				float temp_output_30_0_g2467 = ( 1.0 - saturate( ( 1.0 - temp_output_16_0_g2463 ) ) );
-				float temp_output_35_0_g2467 = ( temp_output_30_0_g2467 * 0.5 );
-				float temp_output_32_0_g2467 = ( (( 1.0 + temp_output_30_0_g2467 ) + (abs( temp_output_17_0_g2467 ) - 0.0) * (( 0.0 - temp_output_30_0_g2467 ) - ( 1.0 + temp_output_30_0_g2467 )) / (1.0 - 0.0)) - temp_output_35_0_g2467 );
-				float temp_output_31_0_g2467 = ( temp_output_35_0_g2467 + (( 1.0 + temp_output_30_0_g2467 ) + (abs( temp_output_17_0_g2467 ) - 0.0) * (( 0.0 - temp_output_30_0_g2467 ) - ( 1.0 + temp_output_30_0_g2467 )) / (1.0 - 0.0)) );
-				float temp_output_51_0_g2467 = saturate( (0.0 + (temp_output_48_0_g2467 - temp_output_32_0_g2467) * (1.0 - 0.0) / (temp_output_31_0_g2467 - temp_output_32_0_g2467)) );
-				float temp_output_3796_0 = temp_output_51_0_g2467;
-				float lerpResult4109 = lerp( _MossBase , temp_output_3796_0 , _UseMossDirection);
-				float MossMaskDirection1179 = lerpResult4109;
-				float temp_output_1811_0 = saturate( MossMaskDirection1179 );
-				float temp_output_3952_0 = ( tex2DNode80.a * _BaseColor.a );
+				half3 worldNormal16 = float3(dot(tanToWorld0,tanNormal16), dot(tanToWorld1,tanNormal16), dot(tanToWorld2,tanNormal16));
+				half dotResult15 = dot( worldNormal16 , _MossDirection );
+				half temp_output_13_0_g2463 = dotResult15;
+				half temp_output_82_0_g2463 = ( temp_output_13_0_g2463 * 0.5 );
+				half temp_output_5_0_g2467 = ( temp_output_82_0_g2463 - -0.5 );
+				half temp_output_48_0_g2467 = saturate( temp_output_5_0_g2467 );
+				half temp_output_14_0_g2463 = _MossLevel;
+				half temp_output_17_0_g2467 = temp_output_14_0_g2463;
+				half temp_output_16_0_g2463 = ( 1.0 - _MossDirContrast );
+				half temp_output_30_0_g2467 = ( 1.0 - saturate( ( 1.0 - temp_output_16_0_g2463 ) ) );
+				half temp_output_35_0_g2467 = ( temp_output_30_0_g2467 * 0.5 );
+				half temp_output_32_0_g2467 = ( (( 1.0 + temp_output_30_0_g2467 ) + (abs( temp_output_17_0_g2467 ) - 0.0) * (( 0.0 - temp_output_30_0_g2467 ) - ( 1.0 + temp_output_30_0_g2467 )) / (1.0 - 0.0)) - temp_output_35_0_g2467 );
+				half temp_output_31_0_g2467 = ( temp_output_35_0_g2467 + (( 1.0 + temp_output_30_0_g2467 ) + (abs( temp_output_17_0_g2467 ) - 0.0) * (( 0.0 - temp_output_30_0_g2467 ) - ( 1.0 + temp_output_30_0_g2467 )) / (1.0 - 0.0)) );
+				half temp_output_51_0_g2467 = saturate( (0.0 + (temp_output_48_0_g2467 - temp_output_32_0_g2467) * (1.0 - 0.0) / (temp_output_31_0_g2467 - temp_output_32_0_g2467)) );
+				half temp_output_3796_0 = temp_output_51_0_g2467;
+				half lerpResult4109 = lerp( _MossBase , temp_output_3796_0 , _UseMossDirection);
+				half MossMaskDirection1179 = lerpResult4109;
+				half temp_output_1811_0 = saturate( MossMaskDirection1179 );
+				half temp_output_3952_0 = ( tex2DNode80.a * _BaseColor.a );
 				#ifdef _ALPHATEST_ON
-				float staticSwitch3756 = 1.0;
+				half staticSwitch3756 = 1.0;
 				#else
-				float staticSwitch3756 = temp_output_3952_0;
+				half staticSwitch3756 = temp_output_3952_0;
 				#endif
-				float AlbedoAlphaMoss1953 = staticSwitch3756;
-				float temp_output_8_0_g2874 = AlbedoAlphaMoss1953;
-				float4 break5_g2874 = _MossAlphaMaskMM;
-				float temp_output_32_0_g2874 = (break5_g2874.z + (temp_output_8_0_g2874 - break5_g2874.x) * (break5_g2874.w - break5_g2874.z) / (break5_g2874.y - break5_g2874.x));
-				float clampResult31_g2874 = clamp( temp_output_32_0_g2874 , break5_g2874.z , break5_g2874.w );
-				float temp_output_3896_0 = clampResult31_g2874;
+				half AlbedoAlphaMoss1953 = staticSwitch3756;
+				half temp_output_8_0_g4229 = AlbedoAlphaMoss1953;
+				half4 break5_g4229 = _MossAlphaMaskMM;
+				half temp_output_32_0_g4229 = (break5_g4229.z + (temp_output_8_0_g4229 - break5_g4229.x) * (break5_g4229.w - break5_g4229.z) / (break5_g4229.y - break5_g4229.x));
+				half clampResult31_g4229 = clamp( temp_output_32_0_g4229 , break5_g4229.z , break5_g4229.w );
+				half temp_output_3896_0 = clampResult31_g4229;
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3745 = temp_output_3896_0;
+				half staticSwitch3745 = temp_output_3896_0;
 				#else
-				float staticSwitch3745 = temp_output_3896_0;
+				half staticSwitch3745 = temp_output_3896_0;
 				#endif
-				float MossMaskAlpha1182 = ( staticSwitch3745 * _UseMossMaskWithAlpha );
+				half MossMaskAlpha1182 = ( staticSwitch3745 * _UseMossMaskWithAlpha );
 				#ifdef _ALPHATEST_ON
-				float staticSwitch3938 = temp_output_1811_0;
+				half staticSwitch3938 = temp_output_1811_0;
 				#else
-				float staticSwitch3938 = saturate( ( temp_output_1811_0 + MossMaskAlpha1182 ) );
+				half staticSwitch3938 = saturate( ( temp_output_1811_0 + MossMaskAlpha1182 ) );
 				#endif
-				float vertexToFrag3925 = IN.ase_texcoord10.z;
-				float MossMaskVertex1181 = vertexToFrag3925;
-				float4 tex2DNode32 = SAMPLE_TEXTURE2D( _BumpMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
-				float3 unpack2617 = UnpackNormalScale( tex2DNode32, _NormalStrength );
+				half vertexToFrag3925 = IN.ase_texcoord11.x;
+				half MossMaskVertex1181 = vertexToFrag3925;
+				half4 tex2DNode32 = SAMPLE_TEXTURE2D( _BumpMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
+				half3 unpack2617 = UnpackNormalScale( tex2DNode32, _NormalStrength );
 				unpack2617.z = lerp( 1, unpack2617.z, saturate(_NormalStrength) );
-				float2 break3507 = DetailNormalSigned3509;
-				float dotResult3505 = dot( break3507.x , break3507.y );
+				half2 break3507 = DetailNormalSigned3509;
+				half dotResult3505 = dot( break3507.x , break3507.y );
 				#ifdef _DETAIL_ON
-				float staticSwitch3500 = ( unpack2617.z + abs( dotResult3505 ) );
+				half staticSwitch3500 = ( unpack2617.z + abs( dotResult3505 ) );
 				#else
-				float staticSwitch3500 = unpack2617.z;
+				half staticSwitch3500 = unpack2617.z;
 				#endif
-				float NormalHeightSigned1759 = staticSwitch3500;
-				float temp_output_5_0_g2451 = NormalHeightSigned1759;
-				float temp_output_48_0_g2451 = saturate( temp_output_5_0_g2451 );
-				float temp_output_17_0_g2451 = saturate( ( staticSwitch3938 + MossMaskVertex1181 ) );
-				float temp_output_30_0_g2451 = ( 1.0 - saturate( _MossNormalContrast ) );
-				float temp_output_35_0_g2451 = ( temp_output_30_0_g2451 * 0.5 );
-				float temp_output_32_0_g2451 = ( (( 1.0 + temp_output_30_0_g2451 ) + (abs( temp_output_17_0_g2451 ) - 0.0) * (( 0.0 - temp_output_30_0_g2451 ) - ( 1.0 + temp_output_30_0_g2451 )) / (1.0 - 0.0)) - temp_output_35_0_g2451 );
-				float temp_output_31_0_g2451 = ( temp_output_35_0_g2451 + (( 1.0 + temp_output_30_0_g2451 ) + (abs( temp_output_17_0_g2451 ) - 0.0) * (( 0.0 - temp_output_30_0_g2451 ) - ( 1.0 + temp_output_30_0_g2451 )) / (1.0 - 0.0)) );
-				float temp_output_51_0_g2451 = saturate( (0.0 + (temp_output_48_0_g2451 - temp_output_32_0_g2451) * (1.0 - 0.0) / (temp_output_31_0_g2451 - temp_output_32_0_g2451)) );
-				float temp_output_137_0_g2451 = ( 1.0 - temp_output_48_0_g2451 );
-				float temp_output_128_0_g2451 = ( 1.0 - saturate( _MossNormalContrast ) );
-				float temp_output_121_0_g2451 = ( temp_output_128_0_g2451 * 0.5 );
-				float temp_output_118_0_g2451 = (0.0 + (temp_output_137_0_g2451 - ( (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) - temp_output_121_0_g2451 )) * (1.0 - 0.0) / (( temp_output_121_0_g2451 + (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) ) - ( (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) - temp_output_121_0_g2451 )));
-				float lerpResult2905 = lerp( saturate( ( staticSwitch3938 + MossMaskVertex1181 ) ) , ( temp_output_51_0_g2451 - saturate( temp_output_118_0_g2451 ) ) , _MossNormalAffectStrength);
-				float temp_output_5_0_g2498 = lerpResult2905;
-				float temp_output_48_0_g2498 = saturate( temp_output_5_0_g2498 );
-				float temp_output_17_0_g2498 = _MapContrastOffset;
-				float temp_output_30_0_g2498 = ( 1.0 - saturate( _MapContrast ) );
-				float temp_output_35_0_g2498 = ( temp_output_30_0_g2498 * 0.5 );
-				float temp_output_32_0_g2498 = ( (( 1.0 + temp_output_30_0_g2498 ) + (abs( temp_output_17_0_g2498 ) - 0.0) * (( 0.0 - temp_output_30_0_g2498 ) - ( 1.0 + temp_output_30_0_g2498 )) / (1.0 - 0.0)) - temp_output_35_0_g2498 );
-				float temp_output_31_0_g2498 = ( temp_output_35_0_g2498 + (( 1.0 + temp_output_30_0_g2498 ) + (abs( temp_output_17_0_g2498 ) - 0.0) * (( 0.0 - temp_output_30_0_g2498 ) - ( 1.0 + temp_output_30_0_g2498 )) / (1.0 - 0.0)) );
-				float temp_output_51_0_g2498 = saturate( (0.0 + (temp_output_48_0_g2498 - temp_output_32_0_g2498) * (1.0 - 0.0) / (temp_output_31_0_g2498 - temp_output_32_0_g2498)) );
+				half NormalHeightSigned1759 = staticSwitch3500;
+				half temp_output_5_0_g2451 = NormalHeightSigned1759;
+				half temp_output_48_0_g2451 = saturate( temp_output_5_0_g2451 );
+				half temp_output_17_0_g2451 = saturate( ( staticSwitch3938 + MossMaskVertex1181 ) );
+				half temp_output_30_0_g2451 = ( 1.0 - saturate( _MossNormalContrast ) );
+				half temp_output_35_0_g2451 = ( temp_output_30_0_g2451 * 0.5 );
+				half temp_output_32_0_g2451 = ( (( 1.0 + temp_output_30_0_g2451 ) + (abs( temp_output_17_0_g2451 ) - 0.0) * (( 0.0 - temp_output_30_0_g2451 ) - ( 1.0 + temp_output_30_0_g2451 )) / (1.0 - 0.0)) - temp_output_35_0_g2451 );
+				half temp_output_31_0_g2451 = ( temp_output_35_0_g2451 + (( 1.0 + temp_output_30_0_g2451 ) + (abs( temp_output_17_0_g2451 ) - 0.0) * (( 0.0 - temp_output_30_0_g2451 ) - ( 1.0 + temp_output_30_0_g2451 )) / (1.0 - 0.0)) );
+				half temp_output_51_0_g2451 = saturate( (0.0 + (temp_output_48_0_g2451 - temp_output_32_0_g2451) * (1.0 - 0.0) / (temp_output_31_0_g2451 - temp_output_32_0_g2451)) );
+				half temp_output_137_0_g2451 = ( 1.0 - temp_output_48_0_g2451 );
+				half temp_output_128_0_g2451 = ( 1.0 - saturate( _MossNormalContrast ) );
+				half temp_output_121_0_g2451 = ( temp_output_128_0_g2451 * 0.5 );
+				half temp_output_118_0_g2451 = (0.0 + (temp_output_137_0_g2451 - ( (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) - temp_output_121_0_g2451 )) * (1.0 - 0.0) / (( temp_output_121_0_g2451 + (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) ) - ( (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) - temp_output_121_0_g2451 )));
+				half lerpResult2905 = lerp( saturate( ( staticSwitch3938 + MossMaskVertex1181 ) ) , ( temp_output_51_0_g2451 - saturate( temp_output_118_0_g2451 ) ) , _MossNormalAffectStrength);
+				half temp_output_5_0_g2498 = lerpResult2905;
+				half temp_output_48_0_g2498 = saturate( temp_output_5_0_g2498 );
+				half temp_output_17_0_g2498 = _MapContrastOffset;
+				half temp_output_30_0_g2498 = ( 1.0 - saturate( _MapContrast ) );
+				half temp_output_35_0_g2498 = ( temp_output_30_0_g2498 * 0.5 );
+				half temp_output_32_0_g2498 = ( (( 1.0 + temp_output_30_0_g2498 ) + (abs( temp_output_17_0_g2498 ) - 0.0) * (( 0.0 - temp_output_30_0_g2498 ) - ( 1.0 + temp_output_30_0_g2498 )) / (1.0 - 0.0)) - temp_output_35_0_g2498 );
+				half temp_output_31_0_g2498 = ( temp_output_35_0_g2498 + (( 1.0 + temp_output_30_0_g2498 ) + (abs( temp_output_17_0_g2498 ) - 0.0) * (( 0.0 - temp_output_30_0_g2498 ) - ( 1.0 + temp_output_30_0_g2498 )) / (1.0 - 0.0)) );
+				half temp_output_51_0_g2498 = saturate( (0.0 + (temp_output_48_0_g2498 - temp_output_32_0_g2498) * (1.0 - 0.0) / (temp_output_31_0_g2498 - temp_output_32_0_g2498)) );
 				#ifdef _MOSS
-				float staticSwitch14 = temp_output_51_0_g2498;
+				half staticSwitch14 = temp_output_51_0_g2498;
 				#else
-				float staticSwitch14 = 0.0;
+				half staticSwitch14 = 0.0;
 				#endif
-				float MossMask45 = staticSwitch14;
-				float3 lerpResult103 = lerp( AlbedoBaseColor92 , MossAlbedoTinted101 , MossMask45);
+				half MossMask45 = staticSwitch14;
+				half3 lerpResult103 = lerp( AlbedoBaseColor92 , MossAlbedoTinted101 , MossMask45);
 				#ifdef _MOSS
-				float3 staticSwitch1236 = lerpResult103;
+				half3 staticSwitch1236 = lerpResult103;
 				#else
-				float3 staticSwitch1236 = AlbedoBaseColor92;
+				half3 staticSwitch1236 = AlbedoBaseColor92;
 				#endif
-				float temp_output_10_0_g2209 = _DetailsOverMoss;
-				float temp_output_17_0_g2209 = saturate( MossMask45 );
-				float4 lerpResult7_g2209 = lerp( appendResult3336 , ifLocalVar3338 , saturate( ( saturate( ( abs( temp_output_10_0_g2209 ) - 1.0 ) ) + ( ( ( 1.0 - temp_output_17_0_g2209 ) * abs( min( temp_output_10_0_g2209 , 0.0 ) ) ) + ( temp_output_17_0_g2209 * max( temp_output_10_0_g2209 , 0.0 ) ) ) ) ));
+				half temp_output_10_0_g2209 = _DetailsOverMoss;
+				half temp_output_17_0_g2209 = saturate( MossMask45 );
+				half4 lerpResult7_g2209 = lerp( appendResult3336 , ifLocalVar3338 , saturate( ( saturate( ( abs( temp_output_10_0_g2209 ) - 1.0 ) ) + ( ( ( 1.0 - temp_output_17_0_g2209 ) * abs( min( temp_output_10_0_g2209 , 0.0 ) ) ) + ( temp_output_17_0_g2209 * max( temp_output_10_0_g2209 , 0.0 ) ) ) ) ));
 				#ifdef _MOSS
-				float4 staticSwitch4126 = lerpResult7_g2209;
+				half4 staticSwitch4126 = lerpResult7_g2209;
 				#else
-				float4 staticSwitch4126 = ifLocalVar3338;
+				half4 staticSwitch4126 = ifLocalVar3338;
 				#endif
-				float4 lerpResult4232 = lerp( appendResult3336 , staticSwitch4126 , (float)_DETAIL);
+				half4 lerpResult4232 = lerp( appendResult3336 , staticSwitch4126 , (float)_DETAIL);
 				#ifdef _DETAIL_ON
-				float4 staticSwitch4132 = lerpResult4232;
+				half4 staticSwitch4132 = lerpResult4232;
 				#else
-				float4 staticSwitch4132 = appendResult3336;
+				half4 staticSwitch4132 = appendResult3336;
 				#endif
-				float DetailMapAlbedo987 = (staticSwitch4132).x;
+				half DetailMapAlbedo987 = (staticSwitch4132).x;
 				#ifdef _DETAIL_ON
-				float3 staticSwitch1045 = saturate( ( staticSwitch1236 * DetailMapAlbedo987 ) );
+				half3 staticSwitch1045 = saturate( ( staticSwitch1236 * DetailMapAlbedo987 ) );
 				#else
-				float3 staticSwitch1045 = staticSwitch1236;
+				half3 staticSwitch1045 = staticSwitch1236;
 				#endif
-				float3 AlbedoRes106 = staticSwitch1045;
-				float3 temp_output_35_0_g3888 = AlbedoRes106;
-				float2 uv_Layer0 = IN.ase_texcoord8.xyz.xy * _Layer0_ST.xy + _Layer0_ST.zw;
-				float2 uvLayer0112_g3888 = uv_Layer0;
-				float3 appendResult37_g3888 = (float3(SAMPLE_TEXTURE2D( _Layer0, sampler_Layer0, uvLayer0112_g3888 ).rgb));
-				float2 texCoord24_g3888 = IN.ase_texcoord8.xyz.xy * float2( 1,1 ) + float2( 0,0 );
-				float2 baseuv25_g3888 = texCoord24_g3888;
-				float4 tex2DNode3_g3888 = SAMPLE_TEXTURE2D( _RevealMask, sampler_RevealMask, baseuv25_g3888 );
-				float4 tex2DNode4_g3888 = SAMPLE_TEXTURE2D( _LayerMask, sampler_LayerMask, baseuv25_g3888 );
-				float rt31_g3888 = saturate( ( tex2DNode3_g3888.r * tex2DNode4_g3888.r ) );
-				float LSAlbedo100_g3888 = _LayerSurfaceExp.x;
-				float3 lerpResult34_g3888 = lerp( temp_output_35_0_g3888 , appendResult37_g3888 , pow( rt31_g3888 , LSAlbedo100_g3888 ));
-				float2 uv_Layer1 = IN.ase_texcoord8.xyz.xy * _Layer1_ST.xy + _Layer1_ST.zw;
-				float2 uvLayer1114_g3888 = uv_Layer1;
-				float3 appendResult73_g3888 = (float3(SAMPLE_TEXTURE2D( _Layer1, sampler_Layer1, uvLayer1114_g3888 ).rgb));
-				float gt57_g3888 = saturate( ( tex2DNode3_g3888.g * tex2DNode4_g3888.g ) );
-				float3 lerpResult61_g3888 = lerp( lerpResult34_g3888 , appendResult73_g3888 , pow( gt57_g3888 , LSAlbedo100_g3888 ));
+				half3 AlbedoRes106 = staticSwitch1045;
+				half3 temp_output_35_0_g4236 = AlbedoRes106;
+				half2 uv_Layer0 = IN.ase_texcoord8.xyz.xy * _Layer0_ST.xy + _Layer0_ST.zw;
+				half2 uvLayer0112_g4236 = uv_Layer0;
+				half3 appendResult37_g4236 = (half3(SAMPLE_TEXTURE2D( _Layer0, sampler_Linear_Repeat_Aniso2, uvLayer0112_g4236 ).rgb));
+				half2 texCoord24_g4236 = IN.ase_texcoord8.xyz.xy * float2( 1,1 ) + float2( 0,0 );
+				half2 baseuv25_g4236 = texCoord24_g4236;
+				half4 tex2DNode3_g4236 = SAMPLE_TEXTURE2D( _RevealMask, sampler_Linear_Repeat_Aniso2, baseuv25_g4236 );
+				half4 tex2DNode4_g4236 = SAMPLE_TEXTURE2D( _LayerMask, sampler_Linear_Repeat_Aniso2, baseuv25_g4236 );
+				half rt31_g4236 = saturate( ( tex2DNode3_g4236.r * tex2DNode4_g4236.r ) );
+				half LSAlbedo100_g4236 = _LayerSurfaceExp.x;
+				half3 lerpResult34_g4236 = lerp( temp_output_35_0_g4236 , appendResult37_g4236 , pow( rt31_g4236 , LSAlbedo100_g4236 ));
+				half2 uv_Layer1 = IN.ase_texcoord8.xyz.xy * _Layer1_ST.xy + _Layer1_ST.zw;
+				half2 uvLayer1114_g4236 = uv_Layer1;
+				half3 appendResult73_g4236 = (half3(SAMPLE_TEXTURE2D( _Layer1, sampler_Linear_Repeat_Aniso2, uvLayer1114_g4236 ).rgb));
+				half gt57_g4236 = saturate( ( tex2DNode3_g4236.g * tex2DNode4_g4236.g ) );
+				half3 lerpResult61_g4236 = lerp( lerpResult34_g4236 , appendResult73_g4236 , pow( gt57_g4236 , LSAlbedo100_g4236 ));
 				#ifdef _REVEALLAYERS
-				float3 staticSwitch1_g3888 = lerpResult61_g3888;
+				half3 staticSwitch1_g4236 = lerpResult61_g4236;
 				#else
-				float3 staticSwitch1_g3888 = temp_output_35_0_g3888;
+				half3 staticSwitch1_g4236 = temp_output_35_0_g4236;
 				#endif
-				float3 temp_output_4414_36 = staticSwitch1_g3888;
-				float OceanUnder289_g3862 = GlobalOceanUnder;
-				float3 EmissionIn281_g3862 = float3( 0,0,0 );
-				float3 appendResult2618 = (float3(unpack2617));
-				float3 _Vector14 = float3(0,0,1);
-				float3 ifLocalVar3262 = 0;
+				half3 temp_output_4603_36 = staticSwitch1_g4236;
+				
+				half3 appendResult2618 = (half3(unpack2617));
+				half3 _Vector14 = half3(0,0,1);
+				half3 ifLocalVar3262 = 0;
 				if( _UseNormalMap <= 0.5 )
 				ifLocalVar3262 = _Vector14;
 				else
 				ifLocalVar3262 = appendResult2618;
-				float3 SimpleNormalXYSigned30 = ifLocalVar3262;
+				half3 SimpleNormalXYSigned30 = ifLocalVar3262;
 				int MossInt2938 = _Moss;
-				float2 _Vector0 = float2(0,0);
-				float2 temp_output_3045_0 = (MossMetalRes3077).ag;
-				float2 MossPackedNormal1656 = temp_output_3045_0;
-				float4 temp_output_5_0_g2453 = float4( MossPackedNormal1656, 0.0 , 0.0 );
-				float2 appendResult12_g2453 = (float2(temp_output_5_0_g2453.xy));
-				float temp_output_6_0_g2453 = _MossNormalStrength;
-				float2 lerpResult2_g2453 = lerp( float2( 0,0 ) , ( appendResult12_g2453 - float2( 0.5,0.5 ) ) , ( temp_output_6_0_g2453 * 2.0 ));
-				float2 lerpResult2976 = lerp( _Vector0 , lerpResult2_g2453 , MossMask45);
-				float2 MossNormalSigned100 = lerpResult2976;
-				float2 temp_output_3610_0 = ( MossInt2938 * MossNormalSigned100 );
-				float3 appendResult4006 = (float3(temp_output_3610_0 , 1.0));
-				float3 lerpResult4431 = lerp( SimpleNormalXYSigned30 , float3( 0,0,0 ) , MossMask45);
-				float2 appendResult1363 = (float2(lerpResult4431.xy));
+				half2 _Vector0 = half2(0,0);
+				half2 temp_output_3045_0 = (MossMetalRes3077).ag;
+				half2 MossPackedNormal1656 = temp_output_3045_0;
+				half4 temp_output_5_0_g2453 = half4( MossPackedNormal1656, 0.0 , 0.0 );
+				half2 appendResult12_g2453 = (half2(temp_output_5_0_g2453.xy));
+				half temp_output_6_0_g2453 = _MossNormalStrength;
+				half2 lerpResult2_g2453 = lerp( float2( 0,0 ) , ( appendResult12_g2453 - float2( 0.5,0.5 ) ) , ( temp_output_6_0_g2453 * 2.0 ));
+				half2 lerpResult2976 = lerp( _Vector0 , lerpResult2_g2453 , MossMask45);
+				half2 MossNormalSigned100 = lerpResult2976;
+				half2 temp_output_3610_0 = ( MossInt2938 * MossNormalSigned100 );
+				half3 appendResult4006 = (half3(temp_output_3610_0 , 1.0));
+				half3 lerpResult4431 = lerp( SimpleNormalXYSigned30 , float3( 0,0,1 ) , MossMask45);
+				half2 appendResult1363 = (half2(lerpResult4431.xy));
 				#ifdef _MOSS
-				float3 staticSwitch4131 = ( appendResult4006 + float3( appendResult1363 ,  0.0 ) );
+				half3 staticSwitch4131 = ( appendResult4006 + half3( appendResult1363 ,  0.0 ) );
 				#else
-				float3 staticSwitch4131 = SimpleNormalXYSigned30;
+				half3 staticSwitch4131 = SimpleNormalXYSigned30;
 				#endif
-				float2 DetailNormaMossMaskedSigned988 = ( _DetailNormalMapScale * (staticSwitch4132).yz );
-				float3 appendResult4007 = (float3(DetailNormaMossMaskedSigned988 , 0.0));
-				float3 temp_output_4016_0 = ( staticSwitch4131 + appendResult4007 );
+				half2 DetailNormaMossMaskedSigned988 = ( _DetailNormalMapScale * (staticSwitch4132).yz );
+				half3 appendResult4397 = (half3(DetailNormaMossMaskedSigned988 , 1.0));
 				#ifdef _DETAIL_ON
-				float3 staticSwitch1105 = temp_output_4016_0;
+				half3 staticSwitch1105 = BlendNormal( staticSwitch4131 , appendResult4397 );
 				#else
-				float3 staticSwitch1105 = staticSwitch4131;
+				half3 staticSwitch1105 = staticSwitch4131;
 				#endif
-				float3 NormalPre2265 = staticSwitch1105;
-				float3 normalizeResult4009 = normalize( NormalPre2265 );
-				float3 NormalRes109 = normalizeResult4009;
-				float3 temp_output_42_0_g3888 = NormalRes109;
-				float3 unpack9_g3888 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer0NormalMap, sampler_Layer0NormalMap, uvLayer0112_g3888 ), _Layer0NormalStrength );
-				unpack9_g3888.z = lerp( 1, unpack9_g3888.z, saturate(_Layer0NormalStrength) );
-				float LSNormal101_g3888 = _LayerSurfaceExp.y;
-				float3 lerpResult41_g3888 = lerp( temp_output_42_0_g3888 , unpack9_g3888 , pow( rt31_g3888 , LSNormal101_g3888 ));
-				float3 unpack18_g3888 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer1NormalMap, sampler_Layer1NormalMap, uvLayer1114_g3888 ), _Layer1NormalStrength );
-				unpack18_g3888.z = lerp( 1, unpack18_g3888.z, saturate(_Layer1NormalStrength) );
-				float3 lerpResult64_g3888 = lerp( lerpResult41_g3888 , unpack18_g3888 , pow( gt57_g3888 , LSNormal101_g3888 ));
-				float2 uv83_g3888 = baseuv25_g3888;
-				float bt76_g3888 = saturate( ( tex2DNode3_g3888.b * tex2DNode4_g3888.b ) );
-				float height83_g3888 = ( _Layer2Height * bt76_g3888 );
-				float2 texelSize83_g3888 = (_RevealMask_TexelSize).xy;
-				float3 localRevealMaskNormalCrossFilter83_g3888 = RevealMaskNormalCrossFilter83_g3888( uv83_g3888 , height83_g3888 , texelSize83_g3888 );
-				float3 heightNormal89_g3888 = localRevealMaskNormalCrossFilter83_g3888;
+				half3 NormalPre2265 = staticSwitch1105;
+				half3 normalizeResult4009 = normalize( NormalPre2265 );
+				half3 NormalRes109 = normalizeResult4009;
+				half3 temp_output_42_0_g4236 = NormalRes109;
+				half3 unpack9_g4236 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer0NormalMap, sampler_Linear_Repeat_Aniso2, uvLayer0112_g4236 ), _Layer0NormalStrength );
+				unpack9_g4236.z = lerp( 1, unpack9_g4236.z, saturate(_Layer0NormalStrength) );
+				half LSNormal101_g4236 = _LayerSurfaceExp.y;
+				half3 lerpResult41_g4236 = lerp( temp_output_42_0_g4236 , unpack9_g4236 , pow( rt31_g4236 , LSNormal101_g4236 ));
+				half3 unpack18_g4236 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer1NormalMap, sampler_Linear_Repeat_Aniso2, uvLayer1114_g4236 ), _Layer1NormalStrength );
+				unpack18_g4236.z = lerp( 1, unpack18_g4236.z, saturate(_Layer1NormalStrength) );
+				half3 lerpResult64_g4236 = lerp( lerpResult41_g4236 , unpack18_g4236 , pow( gt57_g4236 , LSNormal101_g4236 ));
+				half2 uv83_g4236 = baseuv25_g4236;
+				half bt76_g4236 = saturate( ( tex2DNode3_g4236.b * tex2DNode4_g4236.b ) );
+				half height83_g4236 = ( _Layer2Height * bt76_g4236 );
+				half2 texelSize83_g4236 = (_RevealMask_TexelSize).xy;
+				SamplerState sampler_RevealMask83_g4236 = sampler_Linear_Repeat_Aniso2;
+				half3 localRevealMaskNormalCrossFilter83_g4236 = RevealMaskNormalCrossFilter83_g4236( uv83_g4236 , height83_g4236 , texelSize83_g4236 , sampler_RevealMask83_g4236 );
+				half3 heightNormal89_g4236 = localRevealMaskNormalCrossFilter83_g4236;
 				#ifdef _REVEALLAYERS
-				float3 staticSwitch58_g3888 = BlendNormal( lerpResult64_g3888 , heightNormal89_g3888 );
+				half3 staticSwitch58_g4236 = BlendNormal( lerpResult64_g4236 , heightNormal89_g4236 );
 				#else
-				float3 staticSwitch58_g3888 = temp_output_42_0_g3888;
+				half3 staticSwitch58_g4236 = temp_output_42_0_g4236;
 				#endif
-				float3 temp_output_4414_43 = staticSwitch58_g3888;
-				float3 temp_output_9_0_g3862 = temp_output_4414_43;
-				float3 temp_output_30_0_g3875 = temp_output_9_0_g3862;
-				float3 tanNormal12_g3875 = temp_output_30_0_g3875;
-				float3 worldNormal12_g3875 = float3(dot(tanToWorld0,tanNormal12_g3875), dot(tanToWorld1,tanNormal12_g3875), dot(tanToWorld2,tanNormal12_g3875));
-				float3 vertexToFrag144_g3875 = IN.ase_texcoord11.xyz;
-				float dotResult1_g3875 = dot( worldNormal12_g3875 , vertexToFrag144_g3875 );
-				float2 vertexToFrag52_g3875 = IN.ase_texcoord12.xy;
-				float4 tex2DNode120_g3875 = SAMPLE_TEXTURE2D( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g3875 );
-				float3 appendResult121_g3875 = (float3(tex2DNode120_g3875.r , tex2DNode120_g3875.r , tex2DNode120_g3875.r));
-				float3 WorldPosition256_g3862 = WorldPosition;
-				float3 temp_output_105_0_g3875 = WorldPosition256_g3862;
-				float temp_output_117_0_g3875 = (temp_output_105_0_g3875).y;
-				float temp_output_67_0_g3862 = ( GlobalOceanOffset + GlobalOceanHeight );
-				float OceanHeight274_g3862 = temp_output_67_0_g3862;
-				float temp_output_63_0_g3875 = OceanHeight274_g3862;
-				float2 DistanceFade134_g3875 = (_CausticsSettings).zw;
-				float2 break136_g3875 = DistanceFade134_g3875;
-				float temp_output_67_0_g3875 = ( saturate( (0.0 + (max( -( temp_output_117_0_g3875 - temp_output_63_0_g3875 ) , 0.0 ) - 0.2) * (1.0 - 0.0) / (1.0 - 0.2)) ) * saturate( (1.0 + (distance( temp_output_63_0_g3875 , temp_output_117_0_g3875 ) - break136_g3875.x) * (0.0 - 1.0) / (break136_g3875.y - break136_g3875.x)) ) );
-				float CausticMipLevel118_g3875 = ( ( 1.0 - temp_output_67_0_g3875 ) * 4.0 );
-				#ifdef _USECAUSTICRAINBOW_ON
-				float3 staticSwitch73_g3875 = ( ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g3875 + ( 0.0045 * 2.0 ) ), CausticMipLevel118_g3875 ).r * float3(0,0,1) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g3875 + 0.0045 ), CausticMipLevel118_g3875 ).r * float3(0,1,0) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g3875, CausticMipLevel118_g3875 ).r * float3(1,0,0) ) );
-				#else
-				float3 staticSwitch73_g3875 = appendResult121_g3875;
-				#endif
-				#ifdef _USECAUSTICEXTRASAMPLER_ON
-				float3 staticSwitch57_g3875 = staticSwitch73_g3875;
-				#else
-				float3 staticSwitch57_g3875 = staticSwitch73_g3875;
-				#endif
-				float3 appendResult62_g3875 = (float3(_CausticsColor.rgb));
-				float3 lerpResult205_g3862 = lerp( ( EmissionIn281_g3862 + ( max( dotResult1_g3875 , 0.0 ) * staticSwitch57_g3875 * appendResult62_g3875 * temp_output_67_0_g3875 ) ) , ( ( EmissionIn281_g3862 + ( max( dotResult1_g3875 , 0.0 ) * staticSwitch57_g3875 * appendResult62_g3875 * temp_output_67_0_g3875 ) ) * 30.0 ) , OceanUnder289_g3862);
-				float3 appendResult100_g3878 = (float3(OceanWaterTint_RGB.xyz));
-				float3 ViewDir264_g3862 = WorldViewDirection;
-				float3 viewDir240_g3878 = ViewDir264_g3862;
-				float3 camWorldPos240_g3878 = _WorldSpaceCameraPos;
-				float3 WorldPos252_g3878 = WorldPosition256_g3862;
-				float3 posWS240_g3878 = WorldPos252_g3878;
-				float4 oceanFogDensities240_g3878 = OceanFogDensities;
-				float temp_output_108_0_g3878 = OceanHeight274_g3862;
-				float oceanHeight240_g3878 = temp_output_108_0_g3878;
-				float4 oceanFogTop_RGB_Exponent240_g3878 = OceanFogTop_RGB_Exponent;
-				float4 oceanFogBottom_RGB_Intensity240_g3878 = OceanFogBottom_RGB_Intensity;
-				float4 localGetUnderWaterFogs240_g3878 = GetUnderWaterFogs240_g3878( viewDir240_g3878 , camWorldPos240_g3878 , posWS240_g3878 , oceanFogDensities240_g3878 , oceanHeight240_g3878 , oceanFogTop_RGB_Exponent240_g3878 , oceanFogBottom_RGB_Intensity240_g3878 );
-				float4 FogRes185_g3878 = localGetUnderWaterFogs240_g3878;
-				float3 appendResult94_g3878 = (float3(FogRes185_g3878.xyz));
-				float3 lerpResult36_g3878 = lerp( ( lerpResult205_g3862 * appendResult100_g3878 ) , appendResult94_g3878 , (FogRes185_g3878).w);
-				float3 ifLocalVar5_g3862 = 0;
-				UNITY_BRANCH 
-				if( OceanUnder289_g3862 >= 1.0 )
-				ifLocalVar5_g3862 = lerpResult36_g3878;
-				else
-				ifLocalVar5_g3862 = EmissionIn281_g3862;
-				float temp_output_254_0_g3862 = (WorldPosition256_g3862).y;
-				float temp_output_137_0_g3862 = ( temp_output_254_0_g3862 - OceanHeight274_g3862 );
-				float temp_output_24_0_g3884 = temp_output_137_0_g3862;
-				float temp_output_44_0_g3884 = 0.1;
-				float temp_output_45_0_g3884 = 0.31;
-				float temp_output_46_0_g3884 = saturate( (0.0 + (( temp_output_24_0_g3884 - temp_output_44_0_g3884 ) - 0.0) * (1.0 - 0.0) / (temp_output_45_0_g3884 - 0.0)) );
-				#ifdef _FadeWithHeight
-				float staticSwitch238_g3862 = ( 1.0 - temp_output_46_0_g3884 );
-				#else
-				float staticSwitch238_g3862 = 1.0;
-				#endif
-				float FadeFromY295_g3862 = staticSwitch238_g3862;
-				float3 lerpResult174_g3862 = lerp( ( ifLocalVar5_g3862 + lerpResult205_g3862 ) , ifLocalVar5_g3862 , ( OceanUnder289_g3862 * FadeFromY295_g3862 ));
-				float3 lerpResult242_g3862 = lerp( EmissionIn281_g3862 , lerpResult174_g3862 , FadeFromY295_g3862);
-				#ifdef _USECAUSTICSFROMABOVE_ON
-				float3 staticSwitch172_g3862 = lerpResult242_g3862;
-				#else
-				float3 staticSwitch172_g3862 = ifLocalVar5_g3862;
-				#endif
-				#ifdef _USEUNDERWATER
-				float3 staticSwitch211_g3862 = staticSwitch172_g3862;
-				#else
-				float3 staticSwitch211_g3862 = float3( 0,0,0 );
-				#endif
-				float3 temp_output_4446_8 = staticSwitch211_g3862;
+				half3 temp_output_4603_43 = staticSwitch58_g4236;
+				half3 NormalRes24487 = temp_output_4603_43;
 				
-				float fresnelNdotV135 = dot( WorldNormal, WorldViewDirection );
-				float fresnelNode135 = ( _MossFresnel.x + _MossFresnel.y * pow( 1.0 - fresnelNdotV135, ( _MossFresnel.z * 10.0 ) ) );
-				float3 SH3558 = IN.lightmapUVOrVertexSH.xyz;
-				float3 normalWS3558 = WorldNormal;
-				float3 localSampleSHPixel3558 = SampleSHPixel3558( SH3558 , normalWS3558 );
-				float2 lightmapUV3567 = IN.lightmapUVOrVertexSH.xy;
-				float3 normalWS3567 = WorldNormal;
-				float3 localSampleLightmap3567 = SampleLightmap3567( lightmapUV3567 , normalWS3567 );
+				half fresnelNdotV135 = dot( WorldNormal, WorldViewDirection );
+				half fresnelNode135 = ( _MossFresnel.x + _MossFresnel.y * pow( 1.0 - fresnelNdotV135, ( _MossFresnel.z * 10.0 ) ) );
+				half3 SH3558 = IN.lightmapUVOrVertexSH.xyz;
+				half3 normalWS3558 = WorldNormal;
+				half3 localSampleSHPixel3558 = SampleSHPixel3558( SH3558 , normalWS3558 );
+				half2 lightmapUV3567 = IN.lightmapUVOrVertexSH.xy;
+				half3 normalWS3567 = WorldNormal;
+				half3 localSampleLightmap3567 = SampleLightmap3567( lightmapUV3567 , normalWS3567 );
 				#ifdef LIGHTMAP_ON
-				float3 staticSwitch3554 = localSampleLightmap3567;
+				half3 staticSwitch3554 = localSampleLightmap3567;
 				#else
-				float3 staticSwitch3554 = localSampleSHPixel3558;
+				half3 staticSwitch3554 = localSampleSHPixel3558;
 				#endif
-				float3 LightmapOrSH2480 = staticSwitch3554;
-				float3 desaturateInitialColor1849 = LightmapOrSH2480;
-				float desaturateDot1849 = dot( desaturateInitialColor1849, float3( 0.299, 0.587, 0.114 ));
-				float3 desaturateVar1849 = lerp( desaturateInitialColor1849, desaturateDot1849.xxx, 1.0 );
-				float3 AlbedoResPre2289 = staticSwitch1045;
-				float4 temp_output_2664_0 = ( ( ( min( _MossFresnel.w , saturate( fresnelNode135 ) ) * _MossFresnelColor * desaturateVar1849.x ) * float4( AlbedoResPre2289 , 0.0 ) * saturate( ( MossMask45 - 0.3 ) ) ) * _UseMossFresnel );
+				half3 LightmapOrSH2480 = staticSwitch3554;
+				half grayscale4604 = (LightmapOrSH2480.r + LightmapOrSH2480.g + LightmapOrSH2480.b) / 3;
+				half3 AlbedoResPre2289 = staticSwitch1045;
+				half4 temp_output_2664_0 = ( ( ( min( _MossFresnel.w , saturate( fresnelNode135 ) ) * _MossFresnelColor * grayscale4604 ) * half4( AlbedoResPre2289 , 0.0 ) * saturate( ( MossMask45 - 0.3 ) ) ) * _UseMossFresnel );
 				#ifdef _USEMOSSFRESNEL_ON
-				float4 staticSwitch1195 = temp_output_2664_0;
+				half4 staticSwitch1195 = temp_output_2664_0;
 				#else
-				float4 staticSwitch1195 = float4( 0,0,0,0 );
+				half4 staticSwitch1195 = float4( 0,0,0,0 );
 				#endif
 				#ifdef _MOSS
-				float4 staticSwitch1237 = staticSwitch1195;
+				half4 staticSwitch1237 = staticSwitch1195;
 				#else
-				float4 staticSwitch1237 = float4( 0,0,0,0 );
+				half4 staticSwitch1237 = float4( 0,0,0,0 );
 				#endif
-				float4 MossFresnel203 = staticSwitch1237;
-				float3 appendResult3069 = (float3(_EmissionColor.rgb));
-				float _MetallicSpecGlossMap3184 = _MetallicSpecGlossMap;
-				float temp_output_2918_0 = (MossMetalORMetallicMap2911).r;
-				float temp_output_8_0_g2532 = temp_output_2918_0;
-				float4 break5_g2532 = _MetallicRemap;
-				float temp_output_3_0_g2532 = (0.0 + (temp_output_8_0_g2532 - break5_g2532.x) * (1.0 - 0.0) / (break5_g2532.y - break5_g2532.x));
-				float clampResult2_g2532 = clamp( temp_output_3_0_g2532 , break5_g2532.z , break5_g2532.w );
-				float temp_output_27_0_g2532 = saturate( clampResult2_g2532 );
+				half4 MossFresnel203 = staticSwitch1237;
+				half3 appendResult3069 = (half3(_EmissionColor.rgb));
+				half _MetallicSpecGlossMap3184 = _MetallicSpecGlossMap;
+				half temp_output_2918_0 = (MossMetalORMetallicMap2911).r;
+				half temp_output_8_0_g2532 = temp_output_2918_0;
+				half4 break5_g2532 = _MetallicRemap;
+				half temp_output_3_0_g2532 = (0.0 + (temp_output_8_0_g2532 - break5_g2532.x) * (1.0 - 0.0) / (break5_g2532.y - break5_g2532.x));
+				half clampResult2_g2532 = clamp( temp_output_3_0_g2532 , break5_g2532.z , break5_g2532.w );
+				half temp_output_27_0_g2532 = saturate( clampResult2_g2532 );
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3732 = temp_output_27_0_g2532;
+				half staticSwitch3732 = temp_output_27_0_g2532;
 				#else
-				float staticSwitch3732 = temp_output_2918_0;
+				half staticSwitch3732 = temp_output_2918_0;
 				#endif
-				float temp_output_3002_0 = (MossMetalORMetallicMap2911).g;
-				float temp_output_8_0_g2550 = temp_output_3002_0;
-				float4 break5_g2550 = _OcclusionRemap;
-				float temp_output_3_0_g2550 = (0.0 + (temp_output_8_0_g2550 - break5_g2550.x) * (1.0 - 0.0) / (break5_g2550.y - break5_g2550.x));
-				float clampResult2_g2550 = clamp( temp_output_3_0_g2550 , break5_g2550.z , break5_g2550.w );
-				float temp_output_27_0_g2550 = saturate( clampResult2_g2550 );
+				half temp_output_3002_0 = (MossMetalORMetallicMap2911).g;
+				half temp_output_8_0_g2550 = temp_output_3002_0;
+				half4 break5_g2550 = _OcclusionRemap;
+				half temp_output_3_0_g2550 = (0.0 + (temp_output_8_0_g2550 - break5_g2550.x) * (1.0 - 0.0) / (break5_g2550.y - break5_g2550.x));
+				half clampResult2_g2550 = clamp( temp_output_3_0_g2550 , break5_g2550.z , break5_g2550.w );
+				half temp_output_27_0_g2550 = saturate( clampResult2_g2550 );
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3735 = temp_output_27_0_g2550;
+				half staticSwitch3735 = temp_output_27_0_g2550;
 				#else
-				float staticSwitch3735 = temp_output_3002_0;
+				half staticSwitch3735 = temp_output_3002_0;
 				#endif
-				float temp_output_12_0_g2502 = ( _UseOcclusion * _MetallicSpecGlossMap3184 * _Occlusion );
-				float temp_output_12_0_g2514 = (float)Mode3840;
-				float temp_output_392_0 = (MossMetalORMetallicMap2911).a;
-				float temp_output_8_0_g2540 = temp_output_392_0;
-				float4 break5_g2540 = _SmoothnessRemap;
-				float temp_output_3_0_g2540 = (0.0 + (temp_output_8_0_g2540 - break5_g2540.x) * (1.0 - 0.0) / (break5_g2540.y - break5_g2540.x));
-				float clampResult2_g2540 = clamp( temp_output_3_0_g2540 , break5_g2540.z , break5_g2540.w );
-				float temp_output_27_0_g2540 = saturate( clampResult2_g2540 );
-				float temp_output_3894_0 = temp_output_27_0_g2540;
+				half temp_output_12_0_g2502 = ( _UseOcclusion * _MetallicSpecGlossMap3184 * _Occlusion );
+				half temp_output_12_0_g2514 = (float)Mode3840;
+				half temp_output_392_0 = (MossMetalORMetallicMap2911).a;
+				half temp_output_8_0_g2540 = temp_output_392_0;
+				half4 break5_g2540 = _SmoothnessRemap;
+				half temp_output_3_0_g2540 = (0.0 + (temp_output_8_0_g2540 - break5_g2540.x) * (1.0 - 0.0) / (break5_g2540.y - break5_g2540.x));
+				half clampResult2_g2540 = clamp( temp_output_3_0_g2540 , break5_g2540.z , break5_g2540.w );
+				half temp_output_27_0_g2540 = saturate( clampResult2_g2540 );
+				half temp_output_3894_0 = temp_output_27_0_g2540;
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3739 = temp_output_3894_0;
+				half staticSwitch3739 = temp_output_3894_0;
 				#else
-				float staticSwitch3739 = temp_output_392_0;
+				half staticSwitch3739 = temp_output_392_0;
 				#endif
-				float4 appendResult3479 = (float4(( staticSwitch3732 * _Metallic ) , ( ( staticSwitch3735 * temp_output_12_0_g2502 ) + ( 1.0 - temp_output_12_0_g2502 ) ) , ( ( ( staticSwitch3738 * temp_output_12_0_g2514 ) + ( 1.0 - temp_output_12_0_g2514 ) ) * _UseEmission ) , ( staticSwitch3739 * _Smoothness )));
-				float4 appendResult3481 = (float4(_Metallic , 1.0 , _UseEmission , _Smoothness));
-				float4 ifLocalVar3480 = 0;
+				half4 appendResult3479 = (half4(( staticSwitch3732 * _Metallic ) , ( ( staticSwitch3735 * temp_output_12_0_g2502 ) + ( 1.0 - temp_output_12_0_g2502 ) ) , ( ( ( staticSwitch3738 * temp_output_12_0_g2514 ) + ( 1.0 - temp_output_12_0_g2514 ) ) * _UseEmission ) , ( staticSwitch3739 * _Smoothness )));
+				half4 appendResult3481 = (half4(_Metallic , 1.0 , _UseEmission , _Smoothness));
+				half4 ifLocalVar3480 = 0;
 				if( _MetallicSpecGlossMap3184 <= 0.0 )
 				ifLocalVar3480 = appendResult3481;
 				else
 				ifLocalVar3480 = appendResult3479;
-				float UseMossMetalMapInt3239 = _UseMossMetalMap;
-				float4 appendResult3487 = (float4(_Metallic , 1.0 , _UseEmission , _Smoothness));
-				float4 appendResult3485 = (float4(( staticSwitch3732 * _Metallic ) , ( ( staticSwitch3735 * temp_output_12_0_g2502 ) + ( 1.0 - temp_output_12_0_g2502 ) ) , ( ( ( staticSwitch3738 * temp_output_12_0_g2514 ) + ( 1.0 - temp_output_12_0_g2514 ) ) * _UseEmission ) , ( staticSwitch3739 * _Smoothness )));
-				float4 ifLocalVar3486 = 0;
+				half UseMossMetalMapInt3239 = _UseMossMetalMap;
+				half4 appendResult3487 = (half4(_Metallic , 1.0 , _UseEmission , _Smoothness));
+				half4 appendResult3485 = (half4(( staticSwitch3732 * _Metallic ) , ( ( staticSwitch3735 * temp_output_12_0_g2502 ) + ( 1.0 - temp_output_12_0_g2502 ) ) , ( ( ( staticSwitch3738 * temp_output_12_0_g2514 ) + ( 1.0 - temp_output_12_0_g2514 ) ) * _UseEmission ) , ( staticSwitch3739 * _Smoothness )));
+				half4 ifLocalVar3486 = 0;
 				if( ( MossModeInt3200 + ( 1.0 - UseMossMetalMapInt3239 ) ) <= 0.0 )
 				ifLocalVar3486 = appendResult3485;
 				else
 				ifLocalVar3486 = appendResult3487;
 				#ifdef _MOSSMETALMODE_ON
-				float4 staticSwitch3494 = ifLocalVar3486;
+				half4 staticSwitch3494 = ifLocalVar3486;
 				#else
-				float4 staticSwitch3494 = ifLocalVar3480;
+				half4 staticSwitch3494 = ifLocalVar3480;
 				#endif
-				float4 break3482 = staticSwitch3494;
-				float EmissionMasked3065 = break3482.z;
-				float3 temp_output_3496_0 = ( appendResult3069 * EmissionMasked3065 );
-				float4 EmissionRes806 = ( MossFresnel203 + float4( temp_output_3496_0 , 0.0 ) );
-				float3 temp_output_91_0_g3888 = EmissionRes806.rgb;
-				float at79_g3888 = saturate( ( tex2DNode3_g3888.a * tex2DNode4_g3888.a ) );
-				float3 appendResult99_g3888 = (float3(_Layer3EmissionColor.rgb));
+				half4 break3482 = staticSwitch3494;
+				half EmissionMasked3065 = break3482.z;
+				half3 temp_output_3496_0 = ( appendResult3069 * EmissionMasked3065 );
+				half4 EmissionRes806 = ( MossFresnel203 + half4( temp_output_3496_0 , 0.0 ) );
+				half3 temp_output_91_0_g4236 = EmissionRes806.rgb;
+				half at79_g4236 = saturate( ( tex2DNode3_g4236.a * tex2DNode4_g4236.a ) );
+				half3 appendResult99_g4236 = (half3(_Layer3EmissionColor.rgb));
 				#ifdef _REVEALLAYERS
-				float3 staticSwitch93_g3888 = ( ( temp_output_91_0_g3888 * ( 1.0 - at79_g3888 ) ) + ( appendResult99_g3888 * at79_g3888 ) );
+				half3 staticSwitch93_g4236 = ( ( temp_output_91_0_g4236 * ( 1.0 - at79_g4236 ) ) + ( appendResult99_g4236 * at79_g4236 ) );
 				#else
-				float3 staticSwitch93_g3888 = temp_output_91_0_g3888;
+				half3 staticSwitch93_g4236 = temp_output_91_0_g4236;
 				#endif
+				half OceanUnder289_g4237 = GlobalOceanUnder;
+				half3 EmissionIn281_g4237 = float3( 0,0,0 );
+				half3 WorldPosition256_g4237 = WorldPosition;
+				half3 temp_output_105_0_g4260 = WorldPosition256_g4237;
+				half temp_output_117_0_g4260 = (temp_output_105_0_g4260).y;
+				half temp_output_67_0_g4237 = ( GlobalOceanOffset + GlobalOceanHeight );
+				half OceanHeight274_g4237 = temp_output_67_0_g4237;
+				half temp_output_63_0_g4260 = OceanHeight274_g4237;
+				half3 temp_output_9_0_g4237 = temp_output_4603_43;
+				half3 temp_output_30_0_g4260 = temp_output_9_0_g4237;
+				float3 tanNormal12_g4260 = temp_output_30_0_g4260;
+				half3 worldNormal12_g4260 = float3(dot(tanToWorld0,tanNormal12_g4260), dot(tanToWorld1,tanNormal12_g4260), dot(tanToWorld2,tanNormal12_g4260));
+				half3 vertexToFrag144_g4260 = IN.ase_texcoord11.yzw;
+				half dotResult1_g4260 = dot( worldNormal12_g4260 , vertexToFrag144_g4260 );
+				half desktop151_g4260 = max( dotResult1_g4260 , 0.0 );
+				half mobile151_g4260 = 1.0;
+				half localShaderAPIMobile151_g4260 = ShaderAPIMobile151_g4260( desktop151_g4260 , mobile151_g4260 );
+				half2 vertexToFrag52_g4260 = IN.ase_texcoord12.xy;
+				half4 tex2DNode120_g4260 = SAMPLE_TEXTURE2D( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g4260 );
+				half3 appendResult121_g4260 = (half3(tex2DNode120_g4260.r , tex2DNode120_g4260.r , tex2DNode120_g4260.r));
+				half2 DistanceFade134_g4260 = (_CausticsSettings).zw;
+				half2 break136_g4260 = DistanceFade134_g4260;
+				half temp_output_67_0_g4260 = ( saturate( (1.0 + (distance( temp_output_63_0_g4260 , temp_output_117_0_g4260 ) - break136_g4260.x) * (0.0 - 1.0) / (break136_g4260.y - break136_g4260.x)) ) * saturate( (0.0 + (max( -( temp_output_117_0_g4260 - temp_output_63_0_g4260 ) , 0.0 ) - 0.2) * (1.0 - 0.0) / (1.0 - 0.2)) ) );
+				half desktop153_g4260 = temp_output_67_0_g4260;
+				half mobile153_g4260 = 1.0;
+				half localShaderAPIMobile153_g4260 = ShaderAPIMobile153_g4260( desktop153_g4260 , mobile153_g4260 );
+				half CausticMipLevel118_g4260 = ( ( 1.0 - localShaderAPIMobile153_g4260 ) * 4.0 );
+				#ifdef _USECAUSTICRAINBOW_ON
+				half3 staticSwitch73_g4260 = ( ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g4260 + ( 0.0045 * 2.0 ) ), CausticMipLevel118_g4260 ).r * half3(0,0,1) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g4260 + 0.0045 ), CausticMipLevel118_g4260 ).r * half3(0,1,0) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g4260, CausticMipLevel118_g4260 ).r * half3(1,0,0) ) );
+				#else
+				half3 staticSwitch73_g4260 = appendResult121_g4260;
+				#endif
+				#ifdef _USECAUSTICEXTRASAMPLER_ON
+				half3 staticSwitch57_g4260 = staticSwitch73_g4260;
+				#else
+				half3 staticSwitch57_g4260 = staticSwitch73_g4260;
+				#endif
+				half3 appendResult62_g4260 = (half3(_CausticsColor.rgb));
+				half3 ifLocalVar155_g4260 = 0;
+				UNITY_BRANCH 
+				if( temp_output_117_0_g4260 < ( temp_output_63_0_g4260 + 0.2 ) )
+				ifLocalVar155_g4260 = ( localShaderAPIMobile151_g4260 * staticSwitch57_g4260 * appendResult62_g4260 * localShaderAPIMobile153_g4260 );
+				half3 lerpResult205_g4237 = lerp( ( EmissionIn281_g4237 + ifLocalVar155_g4260 ) , ( ( EmissionIn281_g4237 + ifLocalVar155_g4260 ) * 30.0 ) , OceanUnder289_g4237);
+				half3 appendResult100_g4251 = (half3(OceanWaterTint_RGB.xyz));
+				half3 WorldPos252_g4251 = WorldPosition256_g4237;
+				half temp_output_108_0_g4251 = OceanHeight274_g4237;
+				half3 ViewDir264_g4237 = WorldViewDirection;
+				half3 viewDir240_g4251 = ViewDir264_g4237;
+				half3 camWorldPos240_g4251 = _WorldSpaceCameraPos;
+				half3 posWS240_g4251 = WorldPos252_g4251;
+				half4 oceanFogDensities240_g4251 = OceanFogDensities;
+				half oceanHeight240_g4251 = temp_output_108_0_g4251;
+				half4 oceanFogTop_RGB_Exponent240_g4251 = OceanFogTop_RGB_Exponent;
+				half4 oceanFogBottom_RGB_Intensity240_g4251 = OceanFogBottom_RGB_Intensity;
+				half4 localGetUnderWaterFogs240_g4251 = GetUnderWaterFogs240_g4251( viewDir240_g4251 , camWorldPos240_g4251 , posWS240_g4251 , oceanFogDensities240_g4251 , oceanHeight240_g4251 , oceanFogTop_RGB_Exponent240_g4251 , oceanFogBottom_RGB_Intensity240_g4251 );
+				half4 ifLocalVar257_g4251 = 0;
+				UNITY_BRANCH 
+				if( (WorldPos252_g4251).y < ( temp_output_108_0_g4251 + 0.2 ) )
+				ifLocalVar257_g4251 = localGetUnderWaterFogs240_g4251;
+				half4 FogRes185_g4251 = ifLocalVar257_g4251;
+				half3 appendResult94_g4251 = (half3(FogRes185_g4251.xyz));
+				half3 lerpResult36_g4251 = lerp( ( lerpResult205_g4237 * appendResult100_g4251 ) , appendResult94_g4251 , (FogRes185_g4251).w);
+				half3 ifLocalVar5_g4237 = 0;
+				UNITY_BRANCH 
+				if( OceanUnder289_g4237 >= 1.0 )
+				ifLocalVar5_g4237 = lerpResult36_g4251;
+				else
+				ifLocalVar5_g4237 = EmissionIn281_g4237;
+				half temp_output_254_0_g4237 = (WorldPosition256_g4237).y;
+				half temp_output_137_0_g4237 = ( temp_output_254_0_g4237 - OceanHeight274_g4237 );
+				half temp_output_24_0_g4247 = temp_output_137_0_g4237;
+				half temp_output_44_0_g4247 = 0.1;
+				half temp_output_45_0_g4247 = 0.31;
+				half temp_output_46_0_g4247 = saturate( (0.0 + (( temp_output_24_0_g4247 - temp_output_44_0_g4247 ) - 0.0) * (1.0 - 0.0) / (temp_output_45_0_g4247 - 0.0)) );
+				#ifdef _FadeWithHeight
+				half staticSwitch238_g4237 = ( 1.0 - temp_output_46_0_g4247 );
+				#else
+				half staticSwitch238_g4237 = 1.0;
+				#endif
+				half FadeFromY295_g4237 = staticSwitch238_g4237;
+				half3 lerpResult174_g4237 = lerp( ( ifLocalVar5_g4237 + lerpResult205_g4237 ) , ifLocalVar5_g4237 , ( OceanUnder289_g4237 * FadeFromY295_g4237 ));
+				half3 lerpResult242_g4237 = lerp( EmissionIn281_g4237 , lerpResult174_g4237 , FadeFromY295_g4237);
+				#ifdef _USECAUSTICSFROMABOVE_ON
+				half3 staticSwitch172_g4237 = lerpResult242_g4237;
+				#else
+				half3 staticSwitch172_g4237 = ifLocalVar5_g4237;
+				#endif
+				#ifdef _USEUNDERWATER
+				half3 staticSwitch211_g4237 = staticSwitch172_g4237;
+				#else
+				half3 staticSwitch211_g4237 = float3( 0,0,0 );
+				#endif
+				half3 temp_output_4575_8 = staticSwitch211_g4237;
 				
-				float Metallic399 = break3482.x;
-				float MetallicSimpler398 = Metallic399;
-				float lerpResult653 = lerp( MetallicSimpler398 , _MossMetallic , MossMask45);
+				half Metallic399 = break3482.x;
+				half MetallicSimpler398 = Metallic399;
+				half lerpResult653 = lerp( MetallicSimpler398 , _MossMetallic , MossMask45);
 				#ifdef _MOSS
-				float staticSwitch1238 = lerpResult653;
+				half staticSwitch1238 = lerpResult653;
 				#else
-				float staticSwitch1238 = MetallicSimpler398;
+				half staticSwitch1238 = MetallicSimpler398;
 				#endif
-				float MetallicResult1087 = staticSwitch1238;
-				float temp_output_47_0_g3888 = MetallicResult1087;
-				float LSMetallic102_g3888 = _LayerSurfaceExp.z;
-				float lerpResult46_g3888 = lerp( temp_output_47_0_g3888 , _Layer0Metallic , pow( rt31_g3888 , LSMetallic102_g3888 ));
-				float lerpResult67_g3888 = lerp( lerpResult46_g3888 , _Layer1Metallic , pow( gt57_g3888 , LSMetallic102_g3888 ));
+				half MetallicResult1087 = staticSwitch1238;
+				half temp_output_47_0_g4236 = MetallicResult1087;
+				half LSMetallic102_g4236 = _LayerSurfaceExp.z;
+				half lerpResult46_g4236 = lerp( temp_output_47_0_g4236 , _Layer0Metallic , pow( rt31_g4236 , LSMetallic102_g4236 ));
+				half lerpResult67_g4236 = lerp( lerpResult46_g4236 , _Layer1Metallic , pow( gt57_g4236 , LSMetallic102_g4236 ));
 				#ifdef _REVEALLAYERS
-				float staticSwitch59_g3888 = lerpResult67_g3888;
+				half staticSwitch59_g4236 = lerpResult67_g4236;
 				#else
-				float staticSwitch59_g3888 = temp_output_47_0_g3888;
+				half staticSwitch59_g4236 = temp_output_47_0_g4236;
 				#endif
 				
-				float Smoothness400 = break3482.w;
-				float temp_output_3044_0 = (MossMetalRes3077).b;
-				float temp_output_8_0_g2536 = temp_output_3044_0;
-				float4 break5_g2536 = _MossSmoothnessRemap;
-				float temp_output_3_0_g2536 = (0.0 + (temp_output_8_0_g2536 - break5_g2536.x) * (1.0 - 0.0) / (break5_g2536.y - break5_g2536.x));
-				float clampResult2_g2536 = clamp( temp_output_3_0_g2536 , break5_g2536.z , break5_g2536.w );
-				float temp_output_27_0_g2536 = saturate( clampResult2_g2536 );
+				half Smoothness400 = break3482.w;
+				half temp_output_3044_0 = (MossMetalRes3077).b;
+				half temp_output_8_0_g2536 = temp_output_3044_0;
+				half4 break5_g2536 = _MossSmoothnessRemap;
+				half temp_output_3_0_g2536 = (0.0 + (temp_output_8_0_g2536 - break5_g2536.x) * (1.0 - 0.0) / (break5_g2536.y - break5_g2536.x));
+				half clampResult2_g2536 = clamp( temp_output_3_0_g2536 , break5_g2536.z , break5_g2536.w );
+				half temp_output_27_0_g2536 = saturate( clampResult2_g2536 );
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3746 = temp_output_27_0_g2536;
+				half staticSwitch3746 = temp_output_27_0_g2536;
 				#else
-				float staticSwitch3746 = temp_output_3044_0;
+				half staticSwitch3746 = temp_output_3044_0;
 				#endif
-				float MossPackedSmoothness1660 = staticSwitch3746;
-				float lerpResult650 = lerp( Smoothness400 , ( _MossSmoothness * MossPackedSmoothness1660 ) , MossMask45);
+				half MossPackedSmoothness1660 = staticSwitch3746;
+				half lerpResult650 = lerp( Smoothness400 , ( _MossSmoothness * MossPackedSmoothness1660 ) , MossMask45);
 				#ifdef _MOSS
-				float staticSwitch4121 = lerpResult650;
+				half staticSwitch4121 = lerpResult650;
 				#else
-				float staticSwitch4121 = Smoothness400;
+				half staticSwitch4121 = Smoothness400;
 				#endif
-				float DetailMapSmoothness1078 = (staticSwitch4132).w;
+				half DetailMapSmoothness1078 = (staticSwitch4132).w;
 				#ifdef _DETAIL_ON
-				float staticSwitch1093 = saturate( ( staticSwitch4121 + DetailMapSmoothness1078 ) );
+				half staticSwitch1093 = saturate( ( staticSwitch4121 + DetailMapSmoothness1078 ) );
 				#else
-				float staticSwitch1093 = staticSwitch4121;
+				half staticSwitch1093 = staticSwitch4121;
 				#endif
-				float SmoothnessResult1085 = staticSwitch1093;
-				float temp_output_54_0_g3888 = SmoothnessResult1085;
-				float LSSmoothness103_g3888 = _LayerSurfaceExp.w;
-				float lerpResult51_g3888 = lerp( temp_output_54_0_g3888 , _Layer0Smoothness , pow( rt31_g3888 , LSSmoothness103_g3888 ));
-				float lerpResult70_g3888 = lerp( lerpResult51_g3888 , _Layer1Smoothness , pow( gt57_g3888 , LSSmoothness103_g3888 ));
+				half SmoothnessResult1085 = staticSwitch1093;
+				half temp_output_54_0_g4236 = SmoothnessResult1085;
+				half LSSmoothness103_g4236 = _LayerSurfaceExp.w;
+				half lerpResult51_g4236 = lerp( temp_output_54_0_g4236 , _Layer0Smoothness , pow( rt31_g4236 , LSSmoothness103_g4236 ));
+				half lerpResult70_g4236 = lerp( lerpResult51_g4236 , _Layer1Smoothness , pow( gt57_g4236 , LSSmoothness103_g4236 ));
 				#ifdef _REVEALLAYERS
-				float staticSwitch60_g3888 = lerpResult70_g3888;
+				half staticSwitch60_g4236 = lerpResult70_g4236;
 				#else
-				float staticSwitch60_g3888 = temp_output_54_0_g3888;
+				half staticSwitch60_g4236 = temp_output_54_0_g4236;
 				#endif
 				
-				float OcclusionDoodad3006 = break3482.y;
-				float temp_output_10_0_g2275 = _OcclusionMossMask;
-				float temp_output_17_0_g2275 = saturate( MossMask45 );
-				float lerpResult7_g2275 = lerp( (float)1 , OcclusionDoodad3006 , saturate( ( saturate( ( abs( temp_output_10_0_g2275 ) - 1.0 ) ) + ( ( ( 1.0 - temp_output_17_0_g2275 ) * abs( min( temp_output_10_0_g2275 , 0.0 ) ) ) + ( temp_output_17_0_g2275 * max( temp_output_10_0_g2275 , 0.0 ) ) ) ) ));
+				half OcclusionDoodad3006 = break3482.y;
+				half temp_output_10_0_g2275 = _OcclusionMossMask;
+				half temp_output_17_0_g2275 = saturate( MossMask45 );
+				half lerpResult7_g2275 = lerp( (float)1 , OcclusionDoodad3006 , saturate( ( saturate( ( abs( temp_output_10_0_g2275 ) - 1.0 ) ) + ( ( ( 1.0 - temp_output_17_0_g2275 ) * abs( min( temp_output_10_0_g2275 , 0.0 ) ) ) + ( temp_output_17_0_g2275 * max( temp_output_10_0_g2275 , 0.0 ) ) ) ) ));
 				#ifdef _MOSS
-				float staticSwitch3730 = lerpResult7_g2275;
+				half staticSwitch3730 = lerpResult7_g2275;
 				#else
-				float staticSwitch3730 = OcclusionDoodad3006;
+				half staticSwitch3730 = OcclusionDoodad3006;
 				#endif
 				#ifdef _MOSSMETALMODE_ON
-				float staticSwitch3019 = OcclusionDoodad3006;
+				half staticSwitch3019 = OcclusionDoodad3006;
 				#else
-				float staticSwitch3019 = staticSwitch3730;
+				half staticSwitch3019 = staticSwitch3730;
 				#endif
-				float OcclusionResMStrength369 = staticSwitch3019;
+				half OcclusionResMStrength369 = staticSwitch3019;
 				
-				float4 ase_screenPosNorm = ScreenPos / ScreenPos.w;
+				half4 ase_screenPosNorm = ScreenPos / ScreenPos.w;
 				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 clipScreen3958 = ase_screenPosNorm.xy * _ScreenParams.xy;
-				float dither3958 = Dither4x4Bayer( fmod(clipScreen3958.x, 4), fmod(clipScreen3958.y, 4) );
+				half2 clipScreen3958 = ase_screenPosNorm.xy * _ScreenParams.xy;
+				half dither3958 = Dither4x4Bayer( fmod(clipScreen3958.x, 4), fmod(clipScreen3958.y, 4) );
 				dither3958 = step( dither3958, temp_output_3952_0 );
-				float lerpResult3962 = lerp( (float)AlphaToCoverage , 1.0 , _Surface);
-				float Dither3961 = ( _Dither * ( 1.0 - lerpResult3962 ) );
-				float lerpResult3959 = lerp( temp_output_3952_0 , dither3958 , Dither3961);
+				half lerpResult3962 = lerp( (float)AlphaToCoverage , 1.0 , _Surface);
+				half Dither3961 = ( _Dither * ( 1.0 - lerpResult3962 ) );
+				half lerpResult3959 = lerp( temp_output_3952_0 , dither3958 , Dither3961);
 				#ifdef _ALPHATEST_ON
-				float staticSwitch3334 = lerpResult3959;
+				half staticSwitch3334 = lerpResult3959;
 				#else
-				float staticSwitch3334 = 1.0;
+				half staticSwitch3334 = 1.0;
 				#endif
-				float AlbedoAlpha84 = staticSwitch3334;
+				half AlbedoAlpha84 = staticSwitch3334;
 				
-				float lerpResult3950 = lerp( 0.0 , _AlphaClipThreshold , _AlphaClip);
-				float lerpResult3291 = lerp( lerpResult3950 , 0.0 , (float)AlphaToCoverage);
-				float ClipCalc3294 = lerpResult3291;
+				half lerpResult3950 = lerp( 0.0 , _AlphaClipThreshold , _AlphaClip);
+				half lerpResult3291 = lerp( lerpResult3950 , 0.0 , (float)AlphaToCoverage);
+				half ClipCalc3294 = lerpResult3291;
 				
-				float ShadowThreshold2627 = _ShadowThreshold;
+				half ShadowThreshold2627 = _ShadowThreshold;
 				
-				float3 vertexToFrag56_g3799 = IN.ase_texcoord13.xyz;
-				float3 worldNormal14_g3799 = vertexToFrag56_g3799;
-				float3 vertexToFrag7_g3799 = IN.ase_texcoord14.xyz;
-				float4 ProbeVolumeShR14_g3799 = SAMPLE_TEXTURE3D( _ProbeVolumeShR, sampler_Linear_Clamp, ( vertexToFrag7_g3799 + float3( float2( 0,0 ) ,  0.0 ) ) );
-				float4 ProbeVolumeShG14_g3799 = SAMPLE_TEXTURE3D( _ProbeVolumeShG, sampler_Linear_Clamp, ( vertexToFrag7_g3799 + float3( float2( 0,0 ) ,  0.0 ) ) );
-				float4 ProbeVolumeShB14_g3799 = SAMPLE_TEXTURE3D( _ProbeVolumeShB, sampler_Linear_Clamp, ( vertexToFrag7_g3799 + float3( float2( 0,0 ) ,  0.0 ) ) );
-				float3 localSHEvalLinearL0L114_g3799 = SHEvalLinearL0L114_g3799( worldNormal14_g3799 , ProbeVolumeShR14_g3799 , ProbeVolumeShG14_g3799 , ProbeVolumeShB14_g3799 );
+				half4x4 temp_output_28_0_g4351 = _ProbeWorldToTexture;
+				half4x4 Input90_g4351 = temp_output_28_0_g4351;
+				half4x4 localRotationOnly90_g4351 = RotationOnly90_g4351( Input90_g4351 );
+				float3 tanNormal4461 = NormalRes24487;
+				half3 worldNormal4461 = float3(dot(tanToWorld0,tanNormal4461), dot(tanToWorld1,tanNormal4461), dot(tanToWorld2,tanNormal4461));
+				half3 worldNormal14_g4351 = mul( localRotationOnly90_g4351, half4( worldNormal4461 , 0.0 ) ).xyz;
+				half3 vertexToFrag7_g4351 = IN.ase_texcoord13.xyz;
+				half4 ProbeVolumeShR14_g4351 = SAMPLE_TEXTURE3D_LOD( _ProbeVolumeShR, sampler_Linear_Clamp, ( vertexToFrag7_g4351 + half3( float2( 0,0 ) ,  0.0 ) ), 0.0 );
+				half4 ProbeVolumeShG14_g4351 = SAMPLE_TEXTURE3D_LOD( _ProbeVolumeShG, sampler_Linear_Clamp, ( vertexToFrag7_g4351 + half3( float2( 0,0 ) ,  0.0 ) ), 0.0 );
+				half4 ProbeVolumeShB14_g4351 = SAMPLE_TEXTURE3D_LOD( _ProbeVolumeShB, sampler_Linear_Clamp, ( vertexToFrag7_g4351 + half3( float2( 0,0 ) ,  0.0 ) ), 0.0 );
+				half3 localSHEvalLinearL0L114_g4351 = SHEvalLinearL0L114_g4351( worldNormal14_g4351 , ProbeVolumeShR14_g4351 , ProbeVolumeShG14_g4351 , ProbeVolumeShB14_g4351 );
 				#ifdef _PROBEVOLUME_ON
-				float3 staticSwitch20_g3799 = localSHEvalLinearL0L114_g3799;
+				half3 staticSwitch20_g4351 = localSHEvalLinearL0L114_g4351;
 				#else
-				float3 staticSwitch20_g3799 = LightmapOrSH2480;
+				half3 staticSwitch20_g4351 = LightmapOrSH2480;
 				#endif
-				float3 BakedGI1212 = staticSwitch20_g3799;
+				half3 temp_output_4622_0 = staticSwitch20_g4351;
+				half3 BakedGI1212 = temp_output_4622_0;
 				
-				float4 ifLocalVars221 = 0;
+				half4 ifLocalVars221 = 0;
 				Gradient gradient1_g3048 = NewGradient( 0, 3, 2, float4( 0, 0, 0, 0 ), float4( 0, 0.1608469, 1, 0.4974899 ), float4( 1, 0, 0.1051435, 1 ), 0, 0, 0, 0, 0, float2( 1, 0 ), float2( 1, 1 ), 0, 0, 0, 0, 0, 0 );
 				if(_DebugVisual==0){ifLocalVars221 = SampleGradient( gradient1_g3048, ( _DebugCounter / _DebugScale ) ); };
-				if(_DebugVisual==1){ifLocalVars221 = float4( WorldNormal , 0.0 ); };
-				float4 temp_cast_49 = (MossMask45).xxxx;
-				if(_DebugVisual==2){ifLocalVars221 = temp_cast_49; };
+				if(_DebugVisual==1){ifLocalVars221 = half4( WorldNormal , 0.0 ); };
+				half4 temp_cast_51 = (MossMask45).xxxx;
+				if(_DebugVisual==2){ifLocalVars221 = temp_cast_51; };
 				if(_DebugVisual==3){ifLocalVars221 = MossFresnel203; };
-				float4 temp_cast_51 = (MossMaskDirection1179).xxxx;
-				if(_DebugVisual==4){ifLocalVars221 = temp_cast_51; };
+				half4 temp_cast_53 = (MossMaskDirection1179).xxxx;
+				if(_DebugVisual==4){ifLocalVars221 = temp_cast_53; };
 				if(_DebugVisual==5){ifLocalVars221 = float4( 0,0,0,0 ); };
-				float4 temp_output_16_0_g2574 = float4( 1,0,0,0 );
-				float temp_output_14_0_g2574 = MossMaskVertex1181;
-				float temp_output_6_0_g2574 = saturate( temp_output_14_0_g2574 );
-				float4 temp_output_15_0_g2574 = float4( 0,0,1,0 );
-				float temp_output_12_0_g2574 = (0.0 + (temp_output_14_0_g2574 - -1.0) * (1.0 - 0.0) / (0.0 - -1.0));
-				float temp_output_13_0_g2574 = step( temp_output_12_0_g2574 , 1.0 );
-				float temp_output_11_0_g2574 = ( 1.0 - saturate( ( temp_output_12_0_g2574 * temp_output_13_0_g2574 ) ) );
-				float4 temp_output_2_0_g2574 = ( ( temp_output_16_0_g2574 * temp_output_6_0_g2574 ) + ( temp_output_15_0_g2574 * temp_output_11_0_g2574 * temp_output_13_0_g2574 ) );
+				half4 temp_output_16_0_g2574 = float4( 1,0,0,0 );
+				half temp_output_14_0_g2574 = MossMaskVertex1181;
+				half temp_output_6_0_g2574 = saturate( temp_output_14_0_g2574 );
+				half4 temp_output_15_0_g2574 = float4( 0,0,1,0 );
+				half temp_output_12_0_g2574 = (0.0 + (temp_output_14_0_g2574 - -1.0) * (1.0 - 0.0) / (0.0 - -1.0));
+				half temp_output_13_0_g2574 = step( temp_output_12_0_g2574 , 1.0 );
+				half temp_output_11_0_g2574 = ( 1.0 - saturate( ( temp_output_12_0_g2574 * temp_output_13_0_g2574 ) ) );
+				half4 temp_output_2_0_g2574 = ( ( temp_output_16_0_g2574 * temp_output_6_0_g2574 ) + ( temp_output_15_0_g2574 * temp_output_11_0_g2574 * temp_output_13_0_g2574 ) );
 				if(_DebugVisual==6){ifLocalVars221 = temp_output_2_0_g2574; };
 				if(_DebugVisual==7){ifLocalVars221 = 0.0; };
-				float4 temp_cast_53 = (DetailMapAlbedo987).xxxx;
-				if(_DebugVisual==8){ifLocalVars221 = temp_cast_53; };
-				if(_DebugVisual==9){ifLocalVars221 = float4( DetailNormaMossMaskedSigned988, 0.0 , 0.0 ); };
-				float4 temp_output_16_0_g723 = float4( 1,0,0,0 );
-				float temp_output_14_0_g723 = DetailMapSmoothness1078;
-				float temp_output_6_0_g723 = saturate( temp_output_14_0_g723 );
-				float4 temp_output_15_0_g723 = float4( 0,0,1,0 );
-				float temp_output_12_0_g723 = (0.0 + (temp_output_14_0_g723 - -1.0) * (1.0 - 0.0) / (0.0 - -1.0));
-				float temp_output_13_0_g723 = step( temp_output_12_0_g723 , 1.0 );
-				float temp_output_11_0_g723 = ( 1.0 - saturate( ( temp_output_12_0_g723 * temp_output_13_0_g723 ) ) );
-				float4 temp_output_2_0_g723 = ( ( temp_output_16_0_g723 * temp_output_6_0_g723 ) + ( temp_output_15_0_g723 * temp_output_11_0_g723 * temp_output_13_0_g723 ) );
+				half4 temp_cast_55 = (DetailMapAlbedo987).xxxx;
+				if(_DebugVisual==8){ifLocalVars221 = temp_cast_55; };
+				if(_DebugVisual==9){ifLocalVars221 = half4( DetailNormaMossMaskedSigned988, 0.0 , 0.0 ); };
+				half4 temp_output_16_0_g723 = float4( 1,0,0,0 );
+				half temp_output_14_0_g723 = DetailMapSmoothness1078;
+				half temp_output_6_0_g723 = saturate( temp_output_14_0_g723 );
+				half4 temp_output_15_0_g723 = float4( 0,0,1,0 );
+				half temp_output_12_0_g723 = (0.0 + (temp_output_14_0_g723 - -1.0) * (1.0 - 0.0) / (0.0 - -1.0));
+				half temp_output_13_0_g723 = step( temp_output_12_0_g723 , 1.0 );
+				half temp_output_11_0_g723 = ( 1.0 - saturate( ( temp_output_12_0_g723 * temp_output_13_0_g723 ) ) );
+				half4 temp_output_2_0_g723 = ( ( temp_output_16_0_g723 * temp_output_6_0_g723 ) + ( temp_output_15_0_g723 * temp_output_11_0_g723 * temp_output_13_0_g723 ) );
 				if(_DebugVisual==10){ifLocalVars221 = temp_output_2_0_g723; };
-				float4 temp_cast_56 = (SmoothnessResult1085).xxxx;
-				if(_DebugVisual==11){ifLocalVars221 = temp_cast_56; };
-				if(_DebugVisual==12){ifLocalVars221 = float4( NormalRes109 , 0.0 ); };
-				float dotResult833 = dot( float3(0,1,0) , WorldNormal );
-				float MossSlopeMask1202 = saturate( (0.0 + (dotResult833 - _MossSlopeMM.x) * (1.0 - 0.0) / (_MossSlopeMM.y - _MossSlopeMM.x)) );
-				float4 temp_cast_58 = (MossSlopeMask1202).xxxx;
-				if(_DebugVisual==13){ifLocalVars221 = temp_cast_58; };
-				float2 vertexToFrag1159 = IN.ase_texcoord12.zw;
-				float dotResult856 = dot( float3( 1,0,0 ) , WorldNormal );
-				float dotResult853 = dot( float3( 0,1,0 ) , WorldNormal );
-				float2 appendResult865 = (float2(dotResult856 , dotResult853));
-				float2 lerpResult871 = lerp( float2( 1,1 ) , appendResult865 , _MossSlopeDistort);
+				half4 temp_cast_58 = (SmoothnessResult1085).xxxx;
+				if(_DebugVisual==11){ifLocalVars221 = temp_cast_58; };
+				if(_DebugVisual==12){ifLocalVars221 = half4( NormalRes109 , 0.0 ); };
+				half dotResult833 = dot( half3(0,1,0) , WorldNormal );
+				half MossSlopeMask1202 = saturate( (0.0 + (dotResult833 - _MossSlopeMM.x) * (1.0 - 0.0) / (_MossSlopeMM.y - _MossSlopeMM.x)) );
+				half4 temp_cast_60 = (MossSlopeMask1202).xxxx;
+				if(_DebugVisual==13){ifLocalVars221 = temp_cast_60; };
+				half2 vertexToFrag1159 = IN.ase_texcoord12.zw;
+				half dotResult856 = dot( float3( 1,0,0 ) , WorldNormal );
+				half dotResult853 = dot( float3( 0,1,0 ) , WorldNormal );
+				half2 appendResult865 = (half2(dotResult856 , dotResult853));
+				half2 lerpResult871 = lerp( float2( 1,1 ) , appendResult865 , _MossSlopeDistort);
 				#ifdef _USEMOSSSLOPEDISTORT_ON
-				float2 staticSwitch887 = ( vertexToFrag1159 * lerpResult871 );
+				half2 staticSwitch887 = ( vertexToFrag1159 * lerpResult871 );
 				#else
-				float2 staticSwitch887 = vertexToFrag1159;
+				half2 staticSwitch887 = vertexToFrag1159;
 				#endif
-				float4 temp_output_5_0_g2280 = SAMPLE_TEXTURE2D( _MossSlopeNormal, sampler_Linear_Repeat_Aniso2, staticSwitch887 );
-				float2 appendResult12_g2280 = (float2(temp_output_5_0_g2280.xy));
-				float temp_output_6_0_g2280 = _MossNormalStrength2;
-				float2 lerpResult2_g2280 = lerp( float2( 0,0 ) , ( appendResult12_g2280 - float2( 0.5,0.5 ) ) , ( temp_output_6_0_g2280 * 2.0 ));
-				float4 temp_output_5_0_g2279 = float4( 0,0,1,0 );
-				float2 appendResult12_g2279 = (float2(temp_output_5_0_g2279.xy));
-				float temp_output_6_0_g2279 = _MossNormalStrength2;
-				float2 lerpResult2_g2279 = lerp( float2( 0,0 ) , ( appendResult12_g2279 - float2( 0.5,0.5 ) ) , ( temp_output_6_0_g2279 * 2.0 ));
+				half4 temp_output_5_0_g2280 = SAMPLE_TEXTURE2D( _MossSlopeNormal, sampler_Linear_Repeat_Aniso2, staticSwitch887 );
+				half2 appendResult12_g2280 = (half2(temp_output_5_0_g2280.xy));
+				half temp_output_6_0_g2280 = _MossNormalStrength2;
+				half2 lerpResult2_g2280 = lerp( float2( 0,0 ) , ( appendResult12_g2280 - float2( 0.5,0.5 ) ) , ( temp_output_6_0_g2280 * 2.0 ));
+				half4 temp_output_5_0_g2279 = float4( 0,0,1,0 );
+				half2 appendResult12_g2279 = (half2(temp_output_5_0_g2279.xy));
+				half temp_output_6_0_g2279 = _MossNormalStrength2;
+				half2 lerpResult2_g2279 = lerp( float2( 0,0 ) , ( appendResult12_g2279 - float2( 0.5,0.5 ) ) , ( temp_output_6_0_g2279 * 2.0 ));
 				#ifdef _USESTOCHASTICMOSS_ON
-				float2 staticSwitch894 = lerpResult2_g2279;
+				half2 staticSwitch894 = lerpResult2_g2279;
 				#else
-				float2 staticSwitch894 = lerpResult2_g2280;
+				half2 staticSwitch894 = lerpResult2_g2280;
 				#endif
-				float2 MossSlopeNormal1200 = staticSwitch894;
-				if(_DebugVisual==14){ifLocalVars221 = float4( MossSlopeNormal1200, 0.0 , 0.0 ); };
-				float4 temp_output_16_0_g937 = float4( 1,0,0,0 );
-				float MaskDebug1801 = 0.0;
-				float temp_output_14_0_g937 = MaskDebug1801;
-				float temp_output_6_0_g937 = saturate( temp_output_14_0_g937 );
-				float4 temp_output_15_0_g937 = float4( 0,0,1,0 );
-				float temp_output_12_0_g937 = (0.0 + (temp_output_14_0_g937 - -1.0) * (1.0 - 0.0) / (0.0 - -1.0));
-				float temp_output_13_0_g937 = step( temp_output_12_0_g937 , 1.0 );
-				float temp_output_11_0_g937 = ( 1.0 - saturate( ( temp_output_12_0_g937 * temp_output_13_0_g937 ) ) );
-				float4 temp_output_2_0_g937 = ( ( temp_output_16_0_g937 * temp_output_6_0_g937 ) + ( temp_output_15_0_g937 * temp_output_11_0_g937 * temp_output_13_0_g937 ) );
+				half2 MossSlopeNormal1200 = staticSwitch894;
+				if(_DebugVisual==14){ifLocalVars221 = half4( MossSlopeNormal1200, 0.0 , 0.0 ); };
+				half4 temp_output_16_0_g937 = float4( 1,0,0,0 );
+				half MaskDebug1801 = 0.0;
+				half temp_output_14_0_g937 = MaskDebug1801;
+				half temp_output_6_0_g937 = saturate( temp_output_14_0_g937 );
+				half4 temp_output_15_0_g937 = float4( 0,0,1,0 );
+				half temp_output_12_0_g937 = (0.0 + (temp_output_14_0_g937 - -1.0) * (1.0 - 0.0) / (0.0 - -1.0));
+				half temp_output_13_0_g937 = step( temp_output_12_0_g937 , 1.0 );
+				half temp_output_11_0_g937 = ( 1.0 - saturate( ( temp_output_12_0_g937 * temp_output_13_0_g937 ) ) );
+				half4 temp_output_2_0_g937 = ( ( temp_output_16_0_g937 * temp_output_6_0_g937 ) + ( temp_output_15_0_g937 * temp_output_11_0_g937 * temp_output_13_0_g937 ) );
 				if(_DebugVisual==15){ifLocalVars221 = temp_output_2_0_g937; };
-				float4 DebugVisuals210 = ifLocalVars221;
+				half4 DebugVisuals210 = ifLocalVars221;
 				
-				half2 LightmapUV1_g3801 = (IN.ase_texcoord15.xy*(unity_LightmapST).xy + (unity_LightmapST).zw);
-				half4 localCalculateShadowMask1_g3801 = CalculateShadowMask1_g3801( LightmapUV1_g3801 );
-				float4 tex3DNode16_g3799 = SAMPLE_TEXTURE3D( _ProbeVolumeOcc, sampler_Linear_Clamp, ( vertexToFrag7_g3799 + float3( float2( 0,0 ) ,  0.0 ) ) );
+				half2 LightmapUV1_g4353 = (IN.ase_texcoord14.xy*(unity_LightmapST).xy + (unity_LightmapST).zw);
+				half4 localCalculateShadowMask1_g4353 = CalculateShadowMask1_g4353( LightmapUV1_g4353 );
 				#ifdef _PROBEVOLUME_ON
-				float4 staticSwitch25_g3799 = tex3DNode16_g3799;
+				half4 staticSwitch25_g4351 = SAMPLE_TEXTURE3D_LOD( _ProbeVolumeOcc, sampler_Linear_Clamp, ( vertexToFrag7_g4351 + half3( float2( 0,0 ) ,  0.0 ) ), 0.0 );
 				#else
-				float4 staticSwitch25_g3799 = float4( localCalculateShadowMask1_g3801.xyz , 0.0 );
+				half4 staticSwitch25_g4351 = localCalculateShadowMask1_g4353;
 				#endif
-				float4 ShadowMask1213 = staticSwitch25_g3799;
+				half4 temp_output_4622_19 = staticSwitch25_g4351;
+				half4 ShadowMask1213 = temp_output_4622_19;
 				
-				float3 appendResult50_g3862 = (float3(unity_FogColor.rgb));
-				float4 appendResult52_g3862 = (float4(appendResult50_g3862 , ( 1.0 - IN.fogFactorAndVertexLight.x )));
+				half3 appendResult50_g4237 = (half3(unity_FogColor.rgb));
+				half4 appendResult52_g4237 = (half4(appendResult50_g4237 , ( 1.0 - IN.fogFactorAndVertexLight.x )));
 				#ifdef FOG_LINEAR
-				float4 staticSwitch252_g3862 = appendResult52_g3862;
+				half4 staticSwitch252_g4237 = appendResult52_g4237;
 				#else
-				float4 staticSwitch252_g3862 = float4( 0,0,0,0 );
+				half4 staticSwitch252_g4237 = float4( 0,0,0,0 );
 				#endif
-				float4 FogLinear53_g3862 = staticSwitch252_g3862;
-				float4 appendResult47_g3862 = (float4(FogLinear53_g3862));
-				float3 appendResult379_g3862 = (float3(FogLinear53_g3862.xyz));
-				float3 temp_output_261_103_g3862 = appendResult94_g3878;
-				float temp_output_24_0_g3886 = temp_output_137_0_g3862;
-				float temp_output_44_0_g3886 = 0.35;
-				float temp_output_45_0_g3886 = 0.31;
-				float temp_output_46_0_g3886 = saturate( (0.0 + (( temp_output_24_0_g3886 - temp_output_44_0_g3886 ) - 0.0) * (1.0 - 0.0) / (temp_output_45_0_g3886 - 0.0)) );
+				half4 FogLinear53_g4237 = staticSwitch252_g4237;
+				half4 appendResult47_g4237 = (half4(FogLinear53_g4237));
+				half3 appendResult379_g4237 = (half3(FogLinear53_g4237.xyz));
+				half3 temp_output_394_103_g4237 = appendResult94_g4251;
+				half temp_output_24_0_g4249 = temp_output_137_0_g4237;
+				half temp_output_44_0_g4249 = 0.35;
+				half temp_output_45_0_g4249 = 0.31;
+				half temp_output_46_0_g4249 = saturate( (0.0 + (( temp_output_24_0_g4249 - temp_output_44_0_g4249 ) - 0.0) * (1.0 - 0.0) / (temp_output_45_0_g4249 - 0.0)) );
 				#ifdef _FadeWithHeight
-				float staticSwitch371_g3862 = ( 1.0 - temp_output_46_0_g3886 );
+				half staticSwitch371_g4237 = ( 1.0 - temp_output_46_0_g4249 );
 				#else
-				float staticSwitch371_g3862 = 1.0;
+				half staticSwitch371_g4237 = 1.0;
 				#endif
-				float FadeFromY2375_g3862 = staticSwitch371_g3862;
-				float smoothstepResult366_g3862 = smoothstep( 0.0 , 1.0 , FadeFromY2375_g3862);
-				float3 lerpResult378_g3862 = lerp( appendResult379_g3862 , temp_output_261_103_g3862 , smoothstepResult366_g3862);
-				float temp_output_61_0_g3878 = ( 1.0 - (FogRes185_g3878).w );
-				float temp_output_58_0_g3862 = ( 1.0 - temp_output_61_0_g3878 );
-				float smoothstepResult374_g3862 = smoothstep( 0.0 , 1.0 , FadeFromY295_g3862);
-				float lerpResult381_g3862 = lerp( (FogLinear53_g3862).w , temp_output_58_0_g3862 , smoothstepResult374_g3862);
-				float4 appendResult377_g3862 = (float4(lerpResult378_g3862 , lerpResult381_g3862));
-				float4 ifLocalVar49_g3862 = 0;
+				half FadeFromY2375_g4237 = staticSwitch371_g4237;
+				half smoothstepResult366_g4237 = smoothstep( 0.0 , 1.0 , FadeFromY2375_g4237);
+				half3 lerpResult378_g4237 = lerp( appendResult379_g4237 , temp_output_394_103_g4237 , smoothstepResult366_g4237);
+				half temp_output_61_0_g4251 = ( 1.0 - (FogRes185_g4251).w );
+				half temp_output_58_0_g4237 = ( 1.0 - temp_output_61_0_g4251 );
+				half smoothstepResult374_g4237 = smoothstep( 0.0 , 1.0 , FadeFromY295_g4237);
+				half lerpResult381_g4237 = lerp( (FogLinear53_g4237).w , temp_output_58_0_g4237 , smoothstepResult374_g4237);
+				half4 appendResult377_g4237 = (half4(lerpResult378_g4237 , lerpResult381_g4237));
+				half4 ifLocalVar49_g4237 = 0;
 				UNITY_BRANCH 
-				if( OceanUnder289_g3862 >= 1.0 )
-				ifLocalVar49_g3862 = appendResult377_g3862;
+				if( OceanUnder289_g4237 >= 1.0 )
+				ifLocalVar49_g4237 = appendResult377_g4237;
 				else
-				ifLocalVar49_g3862 = appendResult47_g3862;
+				ifLocalVar49_g4237 = appendResult47_g4237;
 				#ifdef _USEUNDERWATER
-				float4 staticSwitch215_g3862 = max( ifLocalVar49_g3862 , float4( 0,0,0,0 ) );
+				half4 staticSwitch215_g4237 = max( ifLocalVar49_g4237 , float4( 0,0,0,0 ) );
 				#else
-				float4 staticSwitch215_g3862 = appendResult47_g3862;
+				half4 staticSwitch215_g4237 = appendResult47_g4237;
 				#endif
 				
-				float lerpResult16_g3832 = lerp( 0.0 , _SSSDimAlbedo , _SSScattering);
-				float4 appendResult3_g3832 = (float4(_SSSRadius , _SSScattering , _NormalStrength_USE_SSS , lerpResult16_g3832));
+				half lerpResult16_g4270 = lerp( 0.0 , _SSSDimAlbedo , _SSScattering);
+				half4 appendResult3_g4270 = (half4(_SSSRadius , _SSScattering , _NormalStrength_USE_SSS , lerpResult16_g4270));
 				
-				float3 appendResult8_g3832 = (float3(_SSSColor.rgb));
-				float4 appendResult18_g3832 = (float4(appendResult8_g3832 , _SSShadcowMix));
+				half3 appendResult8_g4270 = (half3(_SSSColor.rgb));
+				half4 appendResult18_g4270 = (half4(appendResult8_g4270 , _SSShadcowMix));
 				
-				float4 appendResult11_g2776 = (float4(_TonemappingSettings.x , _TonemappingSettings.y , _TonemappingSettings.z , _TonemappingSettings.w));
+				half4 appendResult11_g4269 = (half4(_TonemappingSettings.x , _TonemappingSettings.y , _TonemappingSettings.z , _TonemappingSettings.w));
 				
-				float3 temp_cast_72 = (1.0).xxx;
-				float3 temp_cast_73 = (1.0).xxx;
-				float3 temp_cast_74 = (1.0).xxx;
-				float3 ifLocalVar170_g3862 = 0;
+				half3 temp_cast_72 = (1.0).xxx;
+				half3 temp_cast_73 = (1.0).xxx;
+				half3 temp_cast_74 = (1.0).xxx;
+				half3 ifLocalVar170_g4237 = 0;
 				UNITY_BRANCH 
-				if( OceanUnder289_g3862 >= 1.0 )
-				ifLocalVar170_g3862 = appendResult100_g3878;
+				if( OceanUnder289_g4237 >= 1.0 )
+				ifLocalVar170_g4237 = appendResult100_g4251;
 				else
-				ifLocalVar170_g3862 = temp_cast_74;
-				float3 lerpResult226_g3862 = lerp( temp_cast_73 , ifLocalVar170_g3862 , FadeFromY295_g3862);
+				ifLocalVar170_g4237 = temp_cast_74;
+				half3 lerpResult226_g4237 = lerp( temp_cast_73 , ifLocalVar170_g4237 , FadeFromY295_g4237);
 				#ifdef _USEUNDERWATER
-				float3 staticSwitch212_g3862 = lerpResult226_g3862;
+				half3 staticSwitch212_g4237 = lerpResult226_g4237;
 				#else
-				float3 staticSwitch212_g3862 = temp_cast_72;
+				half3 staticSwitch212_g4237 = temp_cast_72;
 				#endif
 				
 
-				float3 BaseColor = ( temp_output_4414_36 + temp_output_4446_8 );
-				float3 Normal = temp_output_4414_43;
-				float3 Emission = staticSwitch93_g3888;
+				float3 BaseColor = temp_output_4603_36;
+				float3 Normal = NormalRes24487;
+				float3 Emission = ( staticSwitch93_g4236 + ( temp_output_4603_36 * temp_output_4575_8 ) );
 				float3 Specular = 0.5;
-				float Metallic = staticSwitch59_g3888;
-				float Smoothness = staticSwitch60_g3888;
+				float Metallic = staticSwitch59_g4236;
+				float Smoothness = staticSwitch60_g4236;
 				float Occlusion = OcclusionResMStrength369;
 				float Alpha = AlbedoAlpha84;
 				float AlphaClipThreshold = ClipCalc3294;
@@ -2566,12 +2594,12 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				//Shadowood: new properties below:
 				float3 DebugVisuals = DebugVisuals210.xyz;
 				float4 ShadowMask = ShadowMask1213;
-				float4 FogColor = staticSwitch215_g3862;
+				float4 FogColor = staticSwitch215_g4237;
 				half FresnelControl = 0;
-				half4 SSSControl = appendResult3_g3832;
-				half4 SSSColor = appendResult18_g3832;
-				float4 Tonemapping = appendResult11_g2776;
-				float3 Tint = staticSwitch212_g3862;
+				half4 SSSControl = appendResult3_g4270;
+				half4 SSSColor = appendResult18_g4270;
+				float4 Tonemapping = appendResult11_g4269;
+				float3 Tint = staticSwitch212_g4237;
 				float4 AnisotropicControl = 1;
 				
 				//float4 PostTonemapping = 0;
@@ -2939,16 +2967,16 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			#pragma shader_feature_local _AUTONORMAL
 			#pragma shader_feature_local LAYER_UNLIMITED LAYER_MAX2 LAYER_MAX3
 			#pragma shader_feature_local TEXTURE_MAX4 TEXTURE_MAX8 TEXTURE_MAX12 TEXTURE_MAX16
-			#pragma shader_feature _SKYFOG_ON
 			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma shader_feature_local _MOSSMETALMODE_ON
-			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#pragma shader_feature_local _ALPHAMODE
 			#pragma shader_feature_local _SIMPLESTOCHASTIC
 			#pragma shader_feature_local _USESPLAT_ON
 			#pragma shader_feature_local _DEBUGVISUALS_ON
-			#pragma shader_feature_local _USE_SSS_ON
+			#pragma shader_feature _SKYFOG_ON
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local _USE_SSS_ON
+			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#define _UseMossPacked
 			#define _DetailMapPacking
 
@@ -2986,111 +3014,111 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _Tint3;
-			float4 _DetailMapScale;
-			float4 _SmoothnessRemap;
-			float4 _DetailMaskRemap;
-			float4 _MossAlbedoRemap;
-			float4 _EmissionRemap;
-			float4 _MossAlphaMaskMM;
-			float4 _OcclusionRemap;
-			float4 _DetailSmoothnessRemap;
-			float4x4 _ProbeWorldToTexture;
-			float4 _MetallicRemap;
-			float4 _MossColor;
-			float4 _EmissionColor;
+			half4 _Tint3;
+			half4 _DetailMapScale;
+			half4 _SmoothnessRemap;
+			half4 _DetailMaskRemap;
+			half4 _MossAlbedoRemap;
+			half4 _EmissionRemap;
+			half4 _MossAlphaMaskMM;
+			half4 _OcclusionRemap;
+			half4 _DetailSmoothnessRemap;
+			half4x4 _ProbeWorldToTexture;
+			half4 _MetallicRemap;
+			half4 _MossColor;
+			half4 _EmissionColor;
 			float4 _RevealMask_TexelSize;
-			float4 _MossSmoothnessRemap;
-			float4 _Tint1;
-			float4 _MossFresnel;
-			float4 _MossFresnelColor;
-			float4 _Layer3EmissionColor;
-			float4 _Layer1_ST;
-			float4 _LayerSurfaceExp;
-			float4 _Layer0_ST;
-			float4 _Tint2;
-			float4 _MossSlopeNormal_ST;
-			float4 _BaseMap_ST;
-			float4 _BaseColor;
-			float4 _MossSlopeMM;
-			float4 _Tint0;
-			float4 _SSSColor;
-			float3 _ProbeVolumeMin;
-			float3 _MossDirection;
-			float3 _ProbeVolumeSizeInv;
-			float _MossDetailNormalMapScale;
-			float _UseEmission;
-			float _Occlusion;
-			float _UseOcclusion;
-			float _Metallic;
-			float _UseMossFresnel;
-			float _Smoothness;
-			float _MossMetallic;
-			float _Layer1Smoothness;
-			float _Layer1Metallic;
-			float _SSSDimAlbedo;
-			float _NormalStrength_USE_SSS;
-			float _SSScattering;
-			float _SSSRadius;
-			float _MossNormalStrength2;
-			float _MossSlopeDistort;
-			float _MossSlopeNormRotate;
-			float _DebugScale;
+			half4 _MossSmoothnessRemap;
+			half4 _Tint1;
+			half4 _MossFresnel;
+			half4 _MossFresnelColor;
+			half4 _Layer3EmissionColor;
+			half4 _Layer1_ST;
+			half4 _LayerSurfaceExp;
+			half4 _Layer0_ST;
+			half4 _Tint2;
+			half4 _MossSlopeNormal_ST;
+			half4 _BaseMap_ST;
+			half4 _BaseColor;
+			half4 _MossSlopeMM;
+			half4 _Tint0;
+			half4 _SSSColor;
+			half3 _ProbeVolumeMin;
+			half3 _MossDirection;
+			half3 _ProbeVolumeSizeInv;
+			half _MossDetailNormalMapScale;
+			half _UseEmission;
+			half _Occlusion;
+			half _UseOcclusion;
+			half _Metallic;
+			half _UseMossFresnel;
+			half _Smoothness;
+			half _MossMetallic;
+			half _Layer1Smoothness;
+			half _Layer1Metallic;
+			half _SSSDimAlbedo;
+			half _NormalStrength_USE_SSS;
+			half _SSScattering;
+			half _SSSRadius;
+			half _MossNormalStrength2;
+			half _MossSlopeDistort;
+			half _MossSlopeNormRotate;
+			half _DebugScale;
 			int _DebugVisual;
-			float _ShadowThreshold;
-			float _AlphaClip;
-			float _AlphaClipThreshold;
-			float _Surface;
-			float _Dither;
-			float _OcclusionMossMask;
-			float _Layer0Smoothness;
-			float _MossSmoothness;
-			float _Layer0Metallic;
-			float _Layer2Height;
+			half _ShadowThreshold;
+			half _AlphaClip;
+			half _AlphaClipThreshold;
+			half _Surface;
+			half _Dither;
+			half _OcclusionMossMask;
+			half _Layer0Smoothness;
+			half _MossSmoothness;
+			half _Layer0Metallic;
+			half _Layer2Height;
 			int _DETAIL;
-			float _Layer0NormalStrength;
+			half _Layer0NormalStrength;
 			int _MetalUV;
 			int _Moss;
-			float _UseMossMetalMap;
+			half _UseMossMetalMap;
 			int _MossMode;
-			float _MossStochasticContrast;
-			float _MossStochasticScale;
+			half _MossStochasticContrast;
+			half _MossStochasticScale;
 			float _MossScale;
 			int _MossUV;
-			float _MossMultAlbedo;
+			half _MossMultAlbedo;
 			int _UseColorMask;
 			int _Bitmask;
 			int _ZWrite;
 			int _Cullmode;
-			float _Blend;
-			float _SrcBlend;
-			float _DstBlend;
-			float _Cutoff;
+			half _Blend;
+			half _SrcBlend;
+			half _DstBlend;
+			half _Cutoff;
 			int _Int0;
 			int _BlendMode_UseColorMask;
-			float _Layer1NormalStrength;
-			float _MossBase;
-			float _MetallicSpecGlossMap;
-			float _DetailNormalMapScale;
-			float _MossNormalStrength;
-			float _UseNormalMap;
-			float _DetailsOverMoss;
-			float _MapContrast;
-			float _MapContrastOffset;
-			float _MossNormalAffectStrength;
-			float _MossNormalSubtract;
-			float _DetailAlbedoMapScale;
-			float _MossNormalContrast;
-			float _UseMossVertexMask;
-			float _UseMossMaskWithAlpha;
-			float _UseMossDirection;
-			float _MossDirContrast;
-			float _MossLevel;
-			float _DetailNormalMapScale1;
-			float _UseDetailMask;
+			half _Layer1NormalStrength;
+			half _MossBase;
+			half _MetallicSpecGlossMap;
+			half _DetailNormalMapScale;
+			half _MossNormalStrength;
+			half _UseNormalMap;
+			half _DetailsOverMoss;
+			half _MapContrast;
+			half _MapContrastOffset;
+			half _MossNormalAffectStrength;
+			half _MossNormalSubtract;
+			half _DetailAlbedoMapScale;
+			half _MossNormalContrast;
+			half _UseMossVertexMask;
+			half _UseMossMaskWithAlpha;
+			half _UseMossDirection;
+			half _MossDirContrast;
+			half _MossLevel;
+			half _DetailNormalMapScale1;
+			half _UseDetailMask;
 			int _MODE;
-			float _NormalStrength;
-			float _SSShadcowMix;
+			half _NormalStrength;
+			half _SSShadcowMix;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -3125,15 +3153,12 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				int _PassValue;
 			#endif
 
-			float4 _skyGradientColor1;
-			float4 _skyGradientColor2;
 			TEXTURE2D_ARRAY(_ExtraArray);
 			SAMPLER(sampler_ExtraArray);
 			TEXTURE2D_ARRAY(_DiffuseArray);
 			SAMPLER(sampler_DiffuseArray);
 			TEXTURE2D_ARRAY(_NormalArray);
 			SAMPLER(sampler_NormalArray);
-			float3 _CausticsDir;
 			half _CausticsScale;
 			half2 _CausticsPanSpeed;
 			half4 _CausticsColor;
@@ -3158,7 +3183,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
 			}
 			
-			float3 VertVanisher3872( float3 vertex, float2 vtexcoord1, int bitMask )
+			half3 VertVanisher3872( half3 vertex, half2 vtexcoord1, int bitMask )
 			{
 				 if(bitMask & (int)vtexcoord1.x){
 					vertex *= (0.0 / 0.0);
@@ -3188,11 +3213,11 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO( o );
 
-				float3 vertex3872 = v.vertex.xyz;
-				float2 vtexcoord13872 = v.ase_texcoord1.xy;
+				half3 vertex3872 = v.vertex.xyz;
+				half2 vtexcoord13872 = v.ase_texcoord1.xy;
 				int bitMask3872 = _Bitmask;
-				float3 localVertVanisher3872 = VertVanisher3872( vertex3872 , vtexcoord13872 , bitMask3872 );
-				float3 VertexOcclusionPosition3873 = localVertVanisher3872;
+				half3 localVertVanisher3872 = VertVanisher3872( vertex3872 , vtexcoord13872 , bitMask3872 );
+				half3 VertexOcclusionPosition3873 = localVertVanisher3872;
 				
 				o.ase_texcoord3.xy = v.ase_texcoord.xy;
 				
@@ -3356,30 +3381,30 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 					#endif
 				#endif
 
-				float2 uv_BaseMap = IN.ase_texcoord3.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
-				float2 UVBasemap02088 = uv_BaseMap;
-				float4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
-				float temp_output_3952_0 = ( tex2DNode80.a * _BaseColor.a );
-				float4 ase_screenPosNorm = ScreenPos / ScreenPos.w;
+				half2 uv_BaseMap = IN.ase_texcoord3.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
+				half2 UVBasemap02088 = uv_BaseMap;
+				half4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
+				half temp_output_3952_0 = ( tex2DNode80.a * _BaseColor.a );
+				half4 ase_screenPosNorm = ScreenPos / ScreenPos.w;
 				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 clipScreen3958 = ase_screenPosNorm.xy * _ScreenParams.xy;
-				float dither3958 = Dither4x4Bayer( fmod(clipScreen3958.x, 4), fmod(clipScreen3958.y, 4) );
+				half2 clipScreen3958 = ase_screenPosNorm.xy * _ScreenParams.xy;
+				half dither3958 = Dither4x4Bayer( fmod(clipScreen3958.x, 4), fmod(clipScreen3958.y, 4) );
 				dither3958 = step( dither3958, temp_output_3952_0 );
-				float lerpResult3962 = lerp( (float)AlphaToCoverage , 1.0 , _Surface);
-				float Dither3961 = ( _Dither * ( 1.0 - lerpResult3962 ) );
-				float lerpResult3959 = lerp( temp_output_3952_0 , dither3958 , Dither3961);
+				half lerpResult3962 = lerp( (float)AlphaToCoverage , 1.0 , _Surface);
+				half Dither3961 = ( _Dither * ( 1.0 - lerpResult3962 ) );
+				half lerpResult3959 = lerp( temp_output_3952_0 , dither3958 , Dither3961);
 				#ifdef _ALPHATEST_ON
-				float staticSwitch3334 = lerpResult3959;
+				half staticSwitch3334 = lerpResult3959;
 				#else
-				float staticSwitch3334 = 1.0;
+				half staticSwitch3334 = 1.0;
 				#endif
-				float AlbedoAlpha84 = staticSwitch3334;
+				half AlbedoAlpha84 = staticSwitch3334;
 				
-				float lerpResult3950 = lerp( 0.0 , _AlphaClipThreshold , _AlphaClip);
-				float lerpResult3291 = lerp( lerpResult3950 , 0.0 , (float)AlphaToCoverage);
-				float ClipCalc3294 = lerpResult3291;
+				half lerpResult3950 = lerp( 0.0 , _AlphaClipThreshold , _AlphaClip);
+				half lerpResult3291 = lerp( lerpResult3950 , 0.0 , (float)AlphaToCoverage);
+				half ClipCalc3294 = lerpResult3291;
 				
-				float ShadowThreshold2627 = _ShadowThreshold;
+				half ShadowThreshold2627 = _ShadowThreshold;
 				
 
 				float Alpha = AlbedoAlpha84;
@@ -3485,16 +3510,16 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			#pragma shader_feature_local _AUTONORMAL
 			#pragma shader_feature_local LAYER_UNLIMITED LAYER_MAX2 LAYER_MAX3
 			#pragma shader_feature_local TEXTURE_MAX4 TEXTURE_MAX8 TEXTURE_MAX12 TEXTURE_MAX16
-			#pragma shader_feature _SKYFOG_ON
 			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma shader_feature_local _MOSSMETALMODE_ON
-			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#pragma shader_feature_local _ALPHAMODE
 			#pragma shader_feature_local _SIMPLESTOCHASTIC
 			#pragma shader_feature_local _USESPLAT_ON
 			#pragma shader_feature_local _DEBUGVISUALS_ON
-			#pragma shader_feature_local _USE_SSS_ON
+			#pragma shader_feature _SKYFOG_ON
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local _USE_SSS_ON
+			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#define _UseMossPacked
 			#define _DetailMapPacking
 
@@ -3532,111 +3557,111 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _Tint3;
-			float4 _DetailMapScale;
-			float4 _SmoothnessRemap;
-			float4 _DetailMaskRemap;
-			float4 _MossAlbedoRemap;
-			float4 _EmissionRemap;
-			float4 _MossAlphaMaskMM;
-			float4 _OcclusionRemap;
-			float4 _DetailSmoothnessRemap;
-			float4x4 _ProbeWorldToTexture;
-			float4 _MetallicRemap;
-			float4 _MossColor;
-			float4 _EmissionColor;
+			half4 _Tint3;
+			half4 _DetailMapScale;
+			half4 _SmoothnessRemap;
+			half4 _DetailMaskRemap;
+			half4 _MossAlbedoRemap;
+			half4 _EmissionRemap;
+			half4 _MossAlphaMaskMM;
+			half4 _OcclusionRemap;
+			half4 _DetailSmoothnessRemap;
+			half4x4 _ProbeWorldToTexture;
+			half4 _MetallicRemap;
+			half4 _MossColor;
+			half4 _EmissionColor;
 			float4 _RevealMask_TexelSize;
-			float4 _MossSmoothnessRemap;
-			float4 _Tint1;
-			float4 _MossFresnel;
-			float4 _MossFresnelColor;
-			float4 _Layer3EmissionColor;
-			float4 _Layer1_ST;
-			float4 _LayerSurfaceExp;
-			float4 _Layer0_ST;
-			float4 _Tint2;
-			float4 _MossSlopeNormal_ST;
-			float4 _BaseMap_ST;
-			float4 _BaseColor;
-			float4 _MossSlopeMM;
-			float4 _Tint0;
-			float4 _SSSColor;
-			float3 _ProbeVolumeMin;
-			float3 _MossDirection;
-			float3 _ProbeVolumeSizeInv;
-			float _MossDetailNormalMapScale;
-			float _UseEmission;
-			float _Occlusion;
-			float _UseOcclusion;
-			float _Metallic;
-			float _UseMossFresnel;
-			float _Smoothness;
-			float _MossMetallic;
-			float _Layer1Smoothness;
-			float _Layer1Metallic;
-			float _SSSDimAlbedo;
-			float _NormalStrength_USE_SSS;
-			float _SSScattering;
-			float _SSSRadius;
-			float _MossNormalStrength2;
-			float _MossSlopeDistort;
-			float _MossSlopeNormRotate;
-			float _DebugScale;
+			half4 _MossSmoothnessRemap;
+			half4 _Tint1;
+			half4 _MossFresnel;
+			half4 _MossFresnelColor;
+			half4 _Layer3EmissionColor;
+			half4 _Layer1_ST;
+			half4 _LayerSurfaceExp;
+			half4 _Layer0_ST;
+			half4 _Tint2;
+			half4 _MossSlopeNormal_ST;
+			half4 _BaseMap_ST;
+			half4 _BaseColor;
+			half4 _MossSlopeMM;
+			half4 _Tint0;
+			half4 _SSSColor;
+			half3 _ProbeVolumeMin;
+			half3 _MossDirection;
+			half3 _ProbeVolumeSizeInv;
+			half _MossDetailNormalMapScale;
+			half _UseEmission;
+			half _Occlusion;
+			half _UseOcclusion;
+			half _Metallic;
+			half _UseMossFresnel;
+			half _Smoothness;
+			half _MossMetallic;
+			half _Layer1Smoothness;
+			half _Layer1Metallic;
+			half _SSSDimAlbedo;
+			half _NormalStrength_USE_SSS;
+			half _SSScattering;
+			half _SSSRadius;
+			half _MossNormalStrength2;
+			half _MossSlopeDistort;
+			half _MossSlopeNormRotate;
+			half _DebugScale;
 			int _DebugVisual;
-			float _ShadowThreshold;
-			float _AlphaClip;
-			float _AlphaClipThreshold;
-			float _Surface;
-			float _Dither;
-			float _OcclusionMossMask;
-			float _Layer0Smoothness;
-			float _MossSmoothness;
-			float _Layer0Metallic;
-			float _Layer2Height;
+			half _ShadowThreshold;
+			half _AlphaClip;
+			half _AlphaClipThreshold;
+			half _Surface;
+			half _Dither;
+			half _OcclusionMossMask;
+			half _Layer0Smoothness;
+			half _MossSmoothness;
+			half _Layer0Metallic;
+			half _Layer2Height;
 			int _DETAIL;
-			float _Layer0NormalStrength;
+			half _Layer0NormalStrength;
 			int _MetalUV;
 			int _Moss;
-			float _UseMossMetalMap;
+			half _UseMossMetalMap;
 			int _MossMode;
-			float _MossStochasticContrast;
-			float _MossStochasticScale;
+			half _MossStochasticContrast;
+			half _MossStochasticScale;
 			float _MossScale;
 			int _MossUV;
-			float _MossMultAlbedo;
+			half _MossMultAlbedo;
 			int _UseColorMask;
 			int _Bitmask;
 			int _ZWrite;
 			int _Cullmode;
-			float _Blend;
-			float _SrcBlend;
-			float _DstBlend;
-			float _Cutoff;
+			half _Blend;
+			half _SrcBlend;
+			half _DstBlend;
+			half _Cutoff;
 			int _Int0;
 			int _BlendMode_UseColorMask;
-			float _Layer1NormalStrength;
-			float _MossBase;
-			float _MetallicSpecGlossMap;
-			float _DetailNormalMapScale;
-			float _MossNormalStrength;
-			float _UseNormalMap;
-			float _DetailsOverMoss;
-			float _MapContrast;
-			float _MapContrastOffset;
-			float _MossNormalAffectStrength;
-			float _MossNormalSubtract;
-			float _DetailAlbedoMapScale;
-			float _MossNormalContrast;
-			float _UseMossVertexMask;
-			float _UseMossMaskWithAlpha;
-			float _UseMossDirection;
-			float _MossDirContrast;
-			float _MossLevel;
-			float _DetailNormalMapScale1;
-			float _UseDetailMask;
+			half _Layer1NormalStrength;
+			half _MossBase;
+			half _MetallicSpecGlossMap;
+			half _DetailNormalMapScale;
+			half _MossNormalStrength;
+			half _UseNormalMap;
+			half _DetailsOverMoss;
+			half _MapContrast;
+			half _MapContrastOffset;
+			half _MossNormalAffectStrength;
+			half _MossNormalSubtract;
+			half _DetailAlbedoMapScale;
+			half _MossNormalContrast;
+			half _UseMossVertexMask;
+			half _UseMossMaskWithAlpha;
+			half _UseMossDirection;
+			half _MossDirContrast;
+			half _MossLevel;
+			half _DetailNormalMapScale1;
+			half _UseDetailMask;
 			int _MODE;
-			float _NormalStrength;
-			float _SSShadcowMix;
+			half _NormalStrength;
+			half _SSShadcowMix;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -3671,15 +3696,12 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				int _PassValue;
 			#endif
 
-			float4 _skyGradientColor1;
-			float4 _skyGradientColor2;
 			TEXTURE2D_ARRAY(_ExtraArray);
 			SAMPLER(sampler_ExtraArray);
 			TEXTURE2D_ARRAY(_DiffuseArray);
 			SAMPLER(sampler_DiffuseArray);
 			TEXTURE2D_ARRAY(_NormalArray);
 			SAMPLER(sampler_NormalArray);
-			float3 _CausticsDir;
 			half _CausticsScale;
 			half2 _CausticsPanSpeed;
 			half4 _CausticsColor;
@@ -3704,7 +3726,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
 			}
 			
-			float3 VertVanisher3872( float3 vertex, float2 vtexcoord1, int bitMask )
+			half3 VertVanisher3872( half3 vertex, half2 vtexcoord1, int bitMask )
 			{
 				 if(bitMask & (int)vtexcoord1.x){
 					vertex *= (0.0 / 0.0);
@@ -3731,11 +3753,11 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
-				float3 vertex3872 = v.vertex.xyz;
-				float2 vtexcoord13872 = v.ase_texcoord1.xy;
+				half3 vertex3872 = v.vertex.xyz;
+				half2 vtexcoord13872 = v.ase_texcoord1.xy;
 				int bitMask3872 = _Bitmask;
-				float3 localVertVanisher3872 = VertVanisher3872( vertex3872 , vtexcoord13872 , bitMask3872 );
-				float3 VertexOcclusionPosition3873 = localVertVanisher3872;
+				half3 localVertVanisher3872 = VertVanisher3872( vertex3872 , vtexcoord13872 , bitMask3872 );
+				half3 VertexOcclusionPosition3873 = localVertVanisher3872;
 				
 				o.ase_texcoord3.xy = v.ase_texcoord.xy;
 				
@@ -3884,28 +3906,28 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 					#endif
 				#endif
 
-				float2 uv_BaseMap = IN.ase_texcoord3.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
-				float2 UVBasemap02088 = uv_BaseMap;
-				float4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
-				float temp_output_3952_0 = ( tex2DNode80.a * _BaseColor.a );
-				float4 ase_screenPosNorm = ScreenPos / ScreenPos.w;
+				half2 uv_BaseMap = IN.ase_texcoord3.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
+				half2 UVBasemap02088 = uv_BaseMap;
+				half4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
+				half temp_output_3952_0 = ( tex2DNode80.a * _BaseColor.a );
+				half4 ase_screenPosNorm = ScreenPos / ScreenPos.w;
 				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 clipScreen3958 = ase_screenPosNorm.xy * _ScreenParams.xy;
-				float dither3958 = Dither4x4Bayer( fmod(clipScreen3958.x, 4), fmod(clipScreen3958.y, 4) );
+				half2 clipScreen3958 = ase_screenPosNorm.xy * _ScreenParams.xy;
+				half dither3958 = Dither4x4Bayer( fmod(clipScreen3958.x, 4), fmod(clipScreen3958.y, 4) );
 				dither3958 = step( dither3958, temp_output_3952_0 );
-				float lerpResult3962 = lerp( (float)AlphaToCoverage , 1.0 , _Surface);
-				float Dither3961 = ( _Dither * ( 1.0 - lerpResult3962 ) );
-				float lerpResult3959 = lerp( temp_output_3952_0 , dither3958 , Dither3961);
+				half lerpResult3962 = lerp( (float)AlphaToCoverage , 1.0 , _Surface);
+				half Dither3961 = ( _Dither * ( 1.0 - lerpResult3962 ) );
+				half lerpResult3959 = lerp( temp_output_3952_0 , dither3958 , Dither3961);
 				#ifdef _ALPHATEST_ON
-				float staticSwitch3334 = lerpResult3959;
+				half staticSwitch3334 = lerpResult3959;
 				#else
-				float staticSwitch3334 = 1.0;
+				half staticSwitch3334 = 1.0;
 				#endif
-				float AlbedoAlpha84 = staticSwitch3334;
+				half AlbedoAlpha84 = staticSwitch3334;
 				
-				float lerpResult3950 = lerp( 0.0 , _AlphaClipThreshold , _AlphaClip);
-				float lerpResult3291 = lerp( lerpResult3950 , 0.0 , (float)AlphaToCoverage);
-				float ClipCalc3294 = lerpResult3291;
+				half lerpResult3950 = lerp( 0.0 , _AlphaClipThreshold , _AlphaClip);
+				half lerpResult3291 = lerp( lerpResult3950 , 0.0 , (float)AlphaToCoverage);
+				half ClipCalc3294 = lerpResult3291;
 				
 
 				float Alpha = AlbedoAlpha84;
@@ -4004,26 +4026,26 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			#pragma shader_feature_local _AUTONORMAL
 			#pragma shader_feature_local LAYER_UNLIMITED LAYER_MAX2 LAYER_MAX3
 			#pragma shader_feature_local TEXTURE_MAX4 TEXTURE_MAX8 TEXTURE_MAX12 TEXTURE_MAX16
-			#pragma shader_feature _SKYFOG_ON
 			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma shader_feature_local _MOSSMETALMODE_ON
-			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#pragma shader_feature_local _ALPHAMODE
 			#pragma shader_feature_local _SIMPLESTOCHASTIC
 			#pragma shader_feature_local _USESPLAT_ON
 			#pragma shader_feature_local _DEBUGVISUALS_ON
-			#pragma shader_feature_local _USE_SSS_ON
+			#pragma shader_feature _SKYFOG_ON
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local _USE_SSS_ON
+			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#pragma shader_feature_local _REVEALLAYERS
 			#pragma shader_feature_local _DETAIL_ON
 			#pragma shader_feature _COLORMASK_ON
 			#pragma shader_feature_local _REMAPPERS_ON
 			#pragma shader_feature_local _USESTOCHASTICMOSS_ON
+			#pragma shader_feature_local _USEMOSSFRESNEL_ON
 			#pragma shader_feature_local _USECAUSTICSFROMABOVE_ON
 			#pragma shader_feature_local _USECAUSTICEXTRASAMPLER_ON
 			#pragma shader_feature_local _USECAUSTICRAINBOW_ON
 			#pragma shader_feature_local _FadeWithHeight
-			#pragma shader_feature_local _USEMOSSFRESNEL_ON
 			#define _UseMossPacked
 			#define _DetailMapPacking
 
@@ -4035,8 +4057,8 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float4 texcoord0 : TEXCOORD0;
 				float4 texcoord1 : TEXCOORD1;
 				float4 texcoord2 : TEXCOORD2;
-				float4 ase_tangent : TANGENT;
-				float4 ase_color : COLOR;
+				half4 ase_tangent : TANGENT;
+				half4 ase_color : COLOR;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -4061,116 +4083,117 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float4 ase_texcoord9 : TEXCOORD9;
 				float4 ase_texcoord10 : TEXCOORD10;
 				float4 ase_texcoord11 : TEXCOORD11;
+				float4 ase_texcoord12 : TEXCOORD12;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _Tint3;
-			float4 _DetailMapScale;
-			float4 _SmoothnessRemap;
-			float4 _DetailMaskRemap;
-			float4 _MossAlbedoRemap;
-			float4 _EmissionRemap;
-			float4 _MossAlphaMaskMM;
-			float4 _OcclusionRemap;
-			float4 _DetailSmoothnessRemap;
-			float4x4 _ProbeWorldToTexture;
-			float4 _MetallicRemap;
-			float4 _MossColor;
-			float4 _EmissionColor;
+			half4 _Tint3;
+			half4 _DetailMapScale;
+			half4 _SmoothnessRemap;
+			half4 _DetailMaskRemap;
+			half4 _MossAlbedoRemap;
+			half4 _EmissionRemap;
+			half4 _MossAlphaMaskMM;
+			half4 _OcclusionRemap;
+			half4 _DetailSmoothnessRemap;
+			half4x4 _ProbeWorldToTexture;
+			half4 _MetallicRemap;
+			half4 _MossColor;
+			half4 _EmissionColor;
 			float4 _RevealMask_TexelSize;
-			float4 _MossSmoothnessRemap;
-			float4 _Tint1;
-			float4 _MossFresnel;
-			float4 _MossFresnelColor;
-			float4 _Layer3EmissionColor;
-			float4 _Layer1_ST;
-			float4 _LayerSurfaceExp;
-			float4 _Layer0_ST;
-			float4 _Tint2;
-			float4 _MossSlopeNormal_ST;
-			float4 _BaseMap_ST;
-			float4 _BaseColor;
-			float4 _MossSlopeMM;
-			float4 _Tint0;
-			float4 _SSSColor;
-			float3 _ProbeVolumeMin;
-			float3 _MossDirection;
-			float3 _ProbeVolumeSizeInv;
-			float _MossDetailNormalMapScale;
-			float _UseEmission;
-			float _Occlusion;
-			float _UseOcclusion;
-			float _Metallic;
-			float _UseMossFresnel;
-			float _Smoothness;
-			float _MossMetallic;
-			float _Layer1Smoothness;
-			float _Layer1Metallic;
-			float _SSSDimAlbedo;
-			float _NormalStrength_USE_SSS;
-			float _SSScattering;
-			float _SSSRadius;
-			float _MossNormalStrength2;
-			float _MossSlopeDistort;
-			float _MossSlopeNormRotate;
-			float _DebugScale;
+			half4 _MossSmoothnessRemap;
+			half4 _Tint1;
+			half4 _MossFresnel;
+			half4 _MossFresnelColor;
+			half4 _Layer3EmissionColor;
+			half4 _Layer1_ST;
+			half4 _LayerSurfaceExp;
+			half4 _Layer0_ST;
+			half4 _Tint2;
+			half4 _MossSlopeNormal_ST;
+			half4 _BaseMap_ST;
+			half4 _BaseColor;
+			half4 _MossSlopeMM;
+			half4 _Tint0;
+			half4 _SSSColor;
+			half3 _ProbeVolumeMin;
+			half3 _MossDirection;
+			half3 _ProbeVolumeSizeInv;
+			half _MossDetailNormalMapScale;
+			half _UseEmission;
+			half _Occlusion;
+			half _UseOcclusion;
+			half _Metallic;
+			half _UseMossFresnel;
+			half _Smoothness;
+			half _MossMetallic;
+			half _Layer1Smoothness;
+			half _Layer1Metallic;
+			half _SSSDimAlbedo;
+			half _NormalStrength_USE_SSS;
+			half _SSScattering;
+			half _SSSRadius;
+			half _MossNormalStrength2;
+			half _MossSlopeDistort;
+			half _MossSlopeNormRotate;
+			half _DebugScale;
 			int _DebugVisual;
-			float _ShadowThreshold;
-			float _AlphaClip;
-			float _AlphaClipThreshold;
-			float _Surface;
-			float _Dither;
-			float _OcclusionMossMask;
-			float _Layer0Smoothness;
-			float _MossSmoothness;
-			float _Layer0Metallic;
-			float _Layer2Height;
+			half _ShadowThreshold;
+			half _AlphaClip;
+			half _AlphaClipThreshold;
+			half _Surface;
+			half _Dither;
+			half _OcclusionMossMask;
+			half _Layer0Smoothness;
+			half _MossSmoothness;
+			half _Layer0Metallic;
+			half _Layer2Height;
 			int _DETAIL;
-			float _Layer0NormalStrength;
+			half _Layer0NormalStrength;
 			int _MetalUV;
 			int _Moss;
-			float _UseMossMetalMap;
+			half _UseMossMetalMap;
 			int _MossMode;
-			float _MossStochasticContrast;
-			float _MossStochasticScale;
+			half _MossStochasticContrast;
+			half _MossStochasticScale;
 			float _MossScale;
 			int _MossUV;
-			float _MossMultAlbedo;
+			half _MossMultAlbedo;
 			int _UseColorMask;
 			int _Bitmask;
 			int _ZWrite;
 			int _Cullmode;
-			float _Blend;
-			float _SrcBlend;
-			float _DstBlend;
-			float _Cutoff;
+			half _Blend;
+			half _SrcBlend;
+			half _DstBlend;
+			half _Cutoff;
 			int _Int0;
 			int _BlendMode_UseColorMask;
-			float _Layer1NormalStrength;
-			float _MossBase;
-			float _MetallicSpecGlossMap;
-			float _DetailNormalMapScale;
-			float _MossNormalStrength;
-			float _UseNormalMap;
-			float _DetailsOverMoss;
-			float _MapContrast;
-			float _MapContrastOffset;
-			float _MossNormalAffectStrength;
-			float _MossNormalSubtract;
-			float _DetailAlbedoMapScale;
-			float _MossNormalContrast;
-			float _UseMossVertexMask;
-			float _UseMossMaskWithAlpha;
-			float _UseMossDirection;
-			float _MossDirContrast;
-			float _MossLevel;
-			float _DetailNormalMapScale1;
-			float _UseDetailMask;
+			half _Layer1NormalStrength;
+			half _MossBase;
+			half _MetallicSpecGlossMap;
+			half _DetailNormalMapScale;
+			half _MossNormalStrength;
+			half _UseNormalMap;
+			half _DetailsOverMoss;
+			half _MapContrast;
+			half _MapContrastOffset;
+			half _MossNormalAffectStrength;
+			half _MossNormalSubtract;
+			half _DetailAlbedoMapScale;
+			half _MossNormalContrast;
+			half _UseMossVertexMask;
+			half _UseMossMaskWithAlpha;
+			half _UseMossDirection;
+			half _MossDirContrast;
+			half _MossLevel;
+			half _DetailNormalMapScale1;
+			half _UseDetailMask;
 			int _MODE;
-			float _NormalStrength;
-			float _SSShadcowMix;
+			half _NormalStrength;
+			half _SSShadcowMix;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -4205,15 +4228,12 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				int _PassValue;
 			#endif
 
-			float4 _skyGradientColor1;
-			float4 _skyGradientColor2;
 			TEXTURE2D_ARRAY(_ExtraArray);
 			SAMPLER(sampler_ExtraArray);
 			TEXTURE2D_ARRAY(_DiffuseArray);
 			SAMPLER(sampler_DiffuseArray);
 			TEXTURE2D_ARRAY(_NormalArray);
 			SAMPLER(sampler_NormalArray);
-			float3 _CausticsDir;
 			half _CausticsScale;
 			half2 _CausticsPanSpeed;
 			half4 _CausticsColor;
@@ -4229,20 +4249,14 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			TEXTURE2D(_MetallicGlossMap);
 			TEXTURE2D(_BumpMap);
 			TEXTURE2D(_Layer0);
-			SAMPLER(sampler_Layer0);
 			TEXTURE2D(_RevealMask);
-			SAMPLER(sampler_RevealMask);
 			TEXTURE2D(_LayerMask);
-			SAMPLER(sampler_LayerMask);
 			TEXTURE2D(_Layer1);
-			SAMPLER(sampler_Layer1);
 			TEXTURE2D(_Layer0NormalMap);
-			SAMPLER(sampler_Layer0NormalMap);
 			TEXTURE2D(_Layer1NormalMap);
-			SAMPLER(sampler_Layer1NormalMap);
-			float4x4 _CausticMatrix;
+			half4x4 _CausticMatrix;
 			SAMPLER(sampler_Linear_Repeat);
-			float4 _CausticsSettings;
+			half4 _CausticsSettings;
 			int AlphaToCoverage;
 
 
@@ -4260,7 +4274,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
 			}
 			
-			float3 VertVanisher3872( float3 vertex, float2 vtexcoord1, int bitMask )
+			half3 VertVanisher3872( half3 vertex, half2 vtexcoord1, int bitMask )
 			{
 				 if(bitMask & (int)vtexcoord1.x){
 					vertex *= (0.0 / 0.0);
@@ -4268,12 +4282,22 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				return vertex;
 			}
 			
-			float MyCustomExpression3902( float detailAlbedo, float scale )
+			half MyCustomExpression3902( half detailAlbedo, half scale )
 			{
 				return half(2.0) * detailAlbedo * scale - scale + half(1.0);
 			}
 			
-			float3 RevealMaskNormalCrossFilter83_g3888( float2 uv, float height, float2 texelSize )
+			inline half3 SampleSHPixel3558( half3 SH, half3 normalWS )
+			{
+				return SampleSHPixel( SH, normalWS );
+			}
+			
+			inline half3 SampleLightmap3567( half2 lightmapUV, half3 normalWS )
+			{
+				return SampleLightmap( lightmapUV, 0, normalWS );
+			}
+			
+			half3 RevealMaskNormalCrossFilter83_g4236( half2 uv, half height, half2 texelSize, SamplerState sampler_RevealMask )
 			{
 						//float2 texelSize = float2(1.0 / texWidth, 1.0 / texHeight);
 						float4 h;
@@ -4288,16 +4312,25 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 						return normalize(n);
 			}
 			
-			float3 MatrixMulThatWorks( float4 Pos, float4x4 Mat )
+			half3 MatrixMulThatWorks( half4 Pos, half4x4 Mat )
 			{
-				float3 result = mul(Mat,Pos.xyz);
+				float3 result = mul( Mat, float4(Pos.xyz,1.0) ).xyz;
 				return result + float3(Mat[0][3],Mat[1][3],Mat[2][3]);
 			}
 			
-			float4x4 Inverse4x4(float4x4 input)
+			half ShaderAPIMobile151_g4260( half desktop, half mobile )
 			{
-				#define minor(a,b,c) determinant(float3x3(input.a, input.b, input.c))
-				float4x4 cofactors = float4x4(
+				#if SHADER_API_MOBILE
+					return desktop;
+				#else
+					return mobile;
+				#endif
+			}
+			
+			half4x4 Inverse4x4(half4x4 input)
+			{
+				#define minor(a,b,c) determinant(half3x3(input.a, input.b, input.c))
+				half4x4 cofactors = half4x4(
 				minor( _22_23_24, _32_33_34, _42_43_44 ),
 				-minor( _21_23_24, _31_33_34, _41_43_44 ),
 				minor( _21_22_24, _31_32_34, _41_42_44 ),
@@ -4321,19 +4354,18 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				return transpose( cofactors ) / determinant( input );
 			}
 			
-			inline float4 GetUnderWaterFogs240_g3878( float3 viewDir, float3 camWorldPos, float3 posWS, float4 oceanFogDensities, float oceanHeight, float4 oceanFogTop_RGB_Exponent, float4 oceanFogBottom_RGB_Intensity )
+			half ShaderAPIMobile153_g4260( half desktop, half mobile )
+			{
+				#if SHADER_API_MOBILE
+					return desktop;
+				#else
+					return mobile;
+				#endif
+			}
+			
+			inline half4 GetUnderWaterFogs240_g4251( half3 viewDir, float3 camWorldPos, half3 posWS, half4 oceanFogDensities, half oceanHeight, half4 oceanFogTop_RGB_Exponent, half4 oceanFogBottom_RGB_Intensity )
 			{
 				return GetUnderWaterFog( viewDir, camWorldPos, posWS, oceanFogDensities, oceanHeight, oceanFogTop_RGB_Exponent, oceanFogBottom_RGB_Intensity );;
-			}
-			
-			inline float3 SampleSHPixel3558( float3 SH, float3 normalWS )
-			{
-				return SampleSHPixel( SH, normalWS );
-			}
-			
-			inline float3 SampleLightmap3567( float2 lightmapUV, float3 normalWS )
-			{
-				return SampleLightmap( lightmapUV, 0, normalWS );
 			}
 			
 			inline float Dither4x4Bayer( int x, int y )
@@ -4355,86 +4387,91 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
-				float3 vertex3872 = v.vertex.xyz;
-				float2 vtexcoord13872 = v.texcoord1.xy;
+				half3 vertex3872 = v.vertex.xyz;
+				half2 vtexcoord13872 = v.texcoord1.xy;
 				int bitMask3872 = _Bitmask;
-				float3 localVertVanisher3872 = VertVanisher3872( vertex3872 , vtexcoord13872 , bitMask3872 );
-				float3 VertexOcclusionPosition3873 = localVertVanisher3872;
+				half3 localVertVanisher3872 = VertVanisher3872( vertex3872 , vtexcoord13872 , bitMask3872 );
+				half3 VertexOcclusionPosition3873 = localVertVanisher3872;
 				
-				float4 ifLocalVars3708 = 0;
-				float2 texCoord117 = v.texcoord0.xy * float2( 1,1 ) + float2( 0,0 );
-				if(_MossUV==0){ifLocalVars3708 = float4( texCoord117, 0.0 , 0.0 ); };
-				float2 texCoord3710 = v.texcoord1.xy * float2( 1,1 ) + float2( 0,0 );
-				if(_MossUV==1){ifLocalVars3708 = float4( texCoord3710, 0.0 , 0.0 ); };
-				float2 texCoord3712 = v.texcoord2.xy * float2( 1,1 ) + float2( 0,0 );
-				if(_MossUV==2){ifLocalVars3708 = float4( texCoord3712, 0.0 , 0.0 ); };
-				float2 appendResult3711 = (float2(ifLocalVars3708.xy));
-				float2 temp_output_119_0 = ( appendResult3711 * ( 1.0 / _MossScale ) );
-				float2 MossUVScaled1663 = temp_output_119_0;
-				float2 vertexToFrag3722 = MossUVScaled1663;
-				o.ase_texcoord4.zw = vertexToFrag3722;
+				half4 ifLocalVars3708 = 0;
+				half2 texCoord117 = v.texcoord0.xy * float2( 1,1 ) + float2( 0,0 );
+				if(_MossUV==0){ifLocalVars3708 = half4( texCoord117, 0.0 , 0.0 ); };
+				half2 texCoord3710 = v.texcoord1.xy * float2( 1,1 ) + float2( 0,0 );
+				if(_MossUV==1){ifLocalVars3708 = half4( texCoord3710, 0.0 , 0.0 ); };
+				half2 texCoord3712 = v.texcoord2.xy * float2( 1,1 ) + float2( 0,0 );
+				if(_MossUV==2){ifLocalVars3708 = half4( texCoord3712, 0.0 , 0.0 ); };
+				half2 appendResult3711 = (half2(ifLocalVars3708.xy));
+				half2 vertexToFrag3370 = ( appendResult3711 * ( 1.0 / _MossScale ) );
+				o.ase_texcoord4.zw = vertexToFrag3370;
 				int MossInt2938 = _Moss;
 				int MossModeInt3200 = _MossMode;
 				#ifdef _MOSSMETALMODE_ON
-				float staticSwitch3230 = (float)( MossInt2938 * MossModeInt3200 );
+				half staticSwitch3230 = (float)( MossInt2938 * MossModeInt3200 );
 				#else
-				float staticSwitch3230 = (float)MossInt2938;
+				half staticSwitch3230 = (float)MossInt2938;
 				#endif
-				float4 ifLocalVars3717 = 0;
-				float2 uv_BaseMap = v.texcoord0.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
-				if(_MetalUV==0){ifLocalVars3717 = float4( uv_BaseMap, 0.0 , 0.0 ); };
-				float2 uv2_BaseMap = v.texcoord1.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
-				if(_MetalUV==1){ifLocalVars3717 = float4( uv2_BaseMap, 0.0 , 0.0 ); };
-				float2 uv3_BaseMap = v.texcoord2.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
-				if(_MetalUV==2){ifLocalVars3717 = float4( uv3_BaseMap, 0.0 , 0.0 ); };
-				float2 appendResult3718 = (float2(ifLocalVars3717.xy));
-				float2 vertexToFrag3723 = appendResult3718;
-				float2 UVBasemapPicked3719 = vertexToFrag3723;
-				float2 ifLocalVar2916 = 0;
+				half2 MossUVScaled1663 = vertexToFrag3370;
+				half4 ifLocalVars3717 = 0;
+				half2 uv_BaseMap = v.texcoord0.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
+				if(_MetalUV==0){ifLocalVars3717 = half4( uv_BaseMap, 0.0 , 0.0 ); };
+				half2 uv2_BaseMap = v.texcoord1.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
+				if(_MetalUV==1){ifLocalVars3717 = half4( uv2_BaseMap, 0.0 , 0.0 ); };
+				half2 uv3_BaseMap = v.texcoord2.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
+				if(_MetalUV==2){ifLocalVars3717 = half4( uv3_BaseMap, 0.0 , 0.0 ); };
+				half2 appendResult3718 = (half2(ifLocalVars3717.xy));
+				half2 vertexToFrag3723 = appendResult3718;
+				half2 UVBasemapPicked3719 = vertexToFrag3723;
+				half2 ifLocalVar2916 = 0;
 				if( staticSwitch3230 <= 0.0 )
 				ifLocalVar2916 = UVBasemapPicked3719;
 				else
 				ifLocalVar2916 = MossUVScaled1663;
-				float2 vertexToFrag3371 = ifLocalVar2916;
+				half2 vertexToFrag3371 = ifLocalVar2916;
 				o.ase_texcoord5.xy = vertexToFrag3371;
 				float3 ase_worldPos = TransformObjectToWorld( (v.vertex).xyz );
-				float4 _DetailDistanceHardcoded = float4(25,30,0,0);
-				float temp_output_3155_0 = saturate( (1.0 + (distance( _WorldSpaceCameraPos , ase_worldPos ) - _DetailDistanceHardcoded.x) * (0.0 - 1.0) / (_DetailDistanceHardcoded.y - _DetailDistanceHardcoded.x)) );
-				float vertexToFrag3157 = temp_output_3155_0;
+				half4 _DetailDistanceHardcoded = half4(25,30,0,0);
+				half temp_output_3155_0 = saturate( (1.0 + (distance( _WorldSpaceCameraPos , ase_worldPos ) - _DetailDistanceHardcoded.x) * (0.0 - 1.0) / (_DetailDistanceHardcoded.y - _DetailDistanceHardcoded.x)) );
+				half vertexToFrag3157 = temp_output_3155_0;
 				o.ase_texcoord5.z = vertexToFrag3157;
-				o.ase_texcoord6.xy = vertexToFrag3723;
-				float3 ase_worldTangent = TransformObjectToWorldDir(v.ase_tangent.xyz);
+				half2 texCoord1007 = v.texcoord0.xy * float2( 1,1 ) + float2( 0,0 );
+				half2 appendResult2490 = (half2(_DetailMapScale.x , _DetailMapScale.y));
+				half2 appendResult2491 = (half2(_DetailMapScale.z , _DetailMapScale.w));
+				half2 vertexToFrag3400 = (texCoord1007*appendResult2490 + appendResult2491);
+				o.ase_texcoord6.xy = vertexToFrag3400;
+				o.ase_texcoord6.zw = vertexToFrag3723;
+				half3 ase_worldTangent = TransformObjectToWorldDir(v.ase_tangent.xyz);
 				o.ase_texcoord7.xyz = ase_worldTangent;
-				float3 ase_worldNormal = TransformObjectToWorldNormal(v.ase_normal);
+				half3 ase_worldNormal = TransformObjectToWorldNormal(v.ase_normal);
 				o.ase_texcoord8.xyz = ase_worldNormal;
-				float ase_vertexTangentSign = v.ase_tangent.w * ( unity_WorldTransformParams.w >= 0.0 ? 1.0 : -1.0 );
+				half ase_vertexTangentSign = v.ase_tangent.w * ( unity_WorldTransformParams.w >= 0.0 ? 1.0 : -1.0 );
 				float3 ase_worldBitangent = cross( ase_worldNormal, ase_worldTangent ) * ase_vertexTangentSign;
 				o.ase_texcoord9.xyz = ase_worldBitangent;
-				float temp_output_225_0 = ( ( v.ase_color.r - 0.5 ) * 2.0 );
-				float ifLocalVar4428 = 0;
+				half temp_output_225_0 = ( ( v.ase_color.r - 0.5 ) * 2.0 );
+				half ifLocalVar4428 = 0;
 				if( _UseMossVertexMask > 0.0 )
 				ifLocalVar4428 = temp_output_225_0;
-				float vertexToFrag3925 = ifLocalVar4428;
+				half vertexToFrag3925 = ifLocalVar4428;
 				o.ase_texcoord5.w = vertexToFrag3925;
-				float3 _Vector3 = float3(0,0,-1);
-				float4 Pos6_g3877 = float4( _Vector3 , 0.0 );
-				float4x4 Mat6_g3877 = _CausticMatrix;
-				float3 localMatrixMulThatWorks6_g3877 = MatrixMulThatWorks( Pos6_g3877 , Mat6_g3877 );
-				float3 normalizeResult147_g3875 = normalize( localMatrixMulThatWorks6_g3877 );
-				float3 vertexToFrag144_g3875 = normalizeResult147_g3875;
-				o.ase_texcoord10.xyz = vertexToFrag144_g3875;
-				float3 WorldPosition256_g3862 = ase_worldPos;
-				float3 temp_output_105_0_g3875 = WorldPosition256_g3862;
-				float4 Pos6_g3876 = float4( temp_output_105_0_g3875 , 0.0 );
-				float4x4 invertVal146_g3875 = Inverse4x4( _CausticMatrix );
-				float4x4 Mat6_g3876 = invertVal146_g3875;
-				float3 localMatrixMulThatWorks6_g3876 = MatrixMulThatWorks( Pos6_g3876 , Mat6_g3876 );
-				float2 vertexToFrag52_g3875 = (localMatrixMulThatWorks6_g3876).xy;
-				o.ase_texcoord6.zw = vertexToFrag52_g3875;
+				
+				half3 _Vector3 = half3(0,0,-1);
+				half4 Pos6_g4262 = half4( _Vector3 , 0.0 );
+				half4x4 Mat6_g4262 = _CausticMatrix;
+				half3 localMatrixMulThatWorks6_g4262 = MatrixMulThatWorks( Pos6_g4262 , Mat6_g4262 );
+				half3 normalizeResult147_g4260 = normalize( localMatrixMulThatWorks6_g4262 );
+				half3 vertexToFrag144_g4260 = normalizeResult147_g4260;
+				o.ase_texcoord10.xyz = vertexToFrag144_g4260;
+				half3 WorldPosition256_g4237 = ase_worldPos;
+				half3 temp_output_105_0_g4260 = WorldPosition256_g4237;
+				half4 Pos6_g4261 = half4( temp_output_105_0_g4260 , 0.0 );
+				half4x4 invertVal146_g4260 = Inverse4x4( _CausticMatrix );
+				half4x4 Mat6_g4261 = invertVal146_g4260;
+				half3 localMatrixMulThatWorks6_g4261 = MatrixMulThatWorks( Pos6_g4261 , Mat6_g4261 );
+				half2 vertexToFrag52_g4260 = (localMatrixMulThatWorks6_g4261).xy;
+				o.ase_texcoord11.xy = vertexToFrag52_g4260;
 				
 				float4 ase_clipPos = TransformObjectToHClip((v.vertex).xyz);
 				float4 screenPos = ComputeScreenPos(ase_clipPos);
-				o.ase_texcoord11 = screenPos;
+				o.ase_texcoord12 = screenPos;
 				
 				o.ase_texcoord4.xy = v.texcoord0.xy;
 				
@@ -4443,6 +4480,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				o.ase_texcoord8.w = 0;
 				o.ase_texcoord9.w = 0;
 				o.ase_texcoord10.w = 0;
+				o.ase_texcoord11.zw = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
@@ -4494,8 +4532,8 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float4 texcoord0 : TEXCOORD0;
 				float4 texcoord1 : TEXCOORD1;
 				float4 texcoord2 : TEXCOORD2;
-				float4 ase_tangent : TANGENT;
-				float4 ase_color : COLOR;
+				half4 ase_tangent : TANGENT;
+				half4 ase_color : COLOR;
 
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
@@ -4597,576 +4635,586 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 					#endif
 				#endif
 
-				float2 uv_BaseMap = IN.ase_texcoord4.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
-				float2 UVBasemap02088 = uv_BaseMap;
-				float4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
-				float3 temp_output_82_0 = ( (tex2DNode80).rgb * (_BaseColor).rgb );
-				float3 temp_output_17_0_g2518 = temp_output_82_0;
-				float4 ifLocalVars72_g2518 = 0;
+				half2 uv_BaseMap = IN.ase_texcoord4.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
+				half2 UVBasemap02088 = uv_BaseMap;
+				half4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
+				half3 temp_output_82_0 = ( (tex2DNode80).rgb * (_BaseColor).rgb );
+				half3 temp_output_17_0_g2518 = temp_output_82_0;
+				half4 ifLocalVars72_g2518 = 0;
 				int clampResult74_g2518 = clamp( _BlendMode_UseColorMask , 0 , 1 );
-				float4 tex2DNode1_g2518 = SAMPLE_TEXTURE2D( _ColorMask, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
-				float temp_output_2_0_g2518 = ( 1.0 - tex2DNode1_g2518.a );
-				float3 blendOpSrc26_g2518 = temp_output_17_0_g2518;
-				float3 blendOpDest26_g2518 = ( ( (_Tint0).rgb * tex2DNode1_g2518.r * 1.0 ) + ( (_Tint1).rgb * tex2DNode1_g2518.g * 1.0 ) + ( (_Tint2).rgb * tex2DNode1_g2518.b * 1.0 ) + ( (_Tint3).rgb * temp_output_2_0_g2518 * 1.0 ) );
-				float3 temp_output_26_0_g2518 = ( saturate( ( blendOpSrc26_g2518 * blendOpDest26_g2518 ) ));
-				if(clampResult74_g2518==0){ifLocalVars72_g2518 = float4( temp_output_26_0_g2518 , 0.0 ); };
-				float4 ifLocalVars29_g2518 = 0;
-				if(_BlendMode_UseColorMask==0){ifLocalVars29_g2518 = float4( float3(0,0,0) , 0.0 ); };
-				if(_BlendMode_UseColorMask==1){ifLocalVars29_g2518 = float4( temp_output_26_0_g2518 , 0.0 ); };
-				float3 blendOpSrc27_g2518 = temp_output_17_0_g2518;
-				float3 blendOpDest27_g2518 = ( ( (_Tint0).rgb * tex2DNode1_g2518.r * 1.0 ) + ( (_Tint1).rgb * tex2DNode1_g2518.g * 1.0 ) + ( (_Tint2).rgb * tex2DNode1_g2518.b * 1.0 ) + ( (_Tint3).rgb * temp_output_2_0_g2518 * 1.0 ) );
-				if(_BlendMode_UseColorMask==2){ifLocalVars29_g2518 = float4( ( saturate( ( 1.0 - ( 1.0 - blendOpSrc27_g2518 ) * ( 1.0 - blendOpDest27_g2518 ) ) )) , 0.0 ); };
-				float3 blendOpSrc28_g2518 = temp_output_17_0_g2518;
-				float3 blendOpDest28_g2518 = ( ( (_Tint0).rgb * tex2DNode1_g2518.r * 1.0 ) + ( (_Tint1).rgb * tex2DNode1_g2518.g * 1.0 ) + ( (_Tint2).rgb * tex2DNode1_g2518.b * 1.0 ) + ( (_Tint3).rgb * temp_output_2_0_g2518 * 1.0 ) );
-				if(_BlendMode_UseColorMask==3){ifLocalVars29_g2518 = float4( ( saturate( (( blendOpDest28_g2518 > 0.5 ) ? ( 1.0 - 2.0 * ( 1.0 - blendOpDest28_g2518 ) * ( 1.0 - blendOpSrc28_g2518 ) ) : ( 2.0 * blendOpDest28_g2518 * blendOpSrc28_g2518 ) ) )) , 0.0 ); };
-				if(clampResult74_g2518==1){ifLocalVars72_g2518 = float4( (ifLocalVars29_g2518).xyz , 0.0 ); };
-				float3 lerpResult64_g2518 = lerp( temp_output_17_0_g2518 , (ifLocalVars72_g2518).xyz , ( saturate( ( ( 1.0 * tex2DNode1_g2518.r ) + ( 1.0 * tex2DNode1_g2518.g ) + ( 1.0 * tex2DNode1_g2518.b ) + ( 1.0 * temp_output_2_0_g2518 ) ) ) * _UseColorMask ));
+				half4 tex2DNode1_g2518 = SAMPLE_TEXTURE2D( _ColorMask, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
+				half temp_output_2_0_g2518 = ( 1.0 - tex2DNode1_g2518.a );
+				half3 blendOpSrc26_g2518 = temp_output_17_0_g2518;
+				half3 blendOpDest26_g2518 = ( ( (_Tint0).rgb * tex2DNode1_g2518.r * 1.0 ) + ( (_Tint1).rgb * tex2DNode1_g2518.g * 1.0 ) + ( (_Tint2).rgb * tex2DNode1_g2518.b * 1.0 ) + ( (_Tint3).rgb * temp_output_2_0_g2518 * 1.0 ) );
+				half3 temp_output_26_0_g2518 = ( saturate( ( blendOpSrc26_g2518 * blendOpDest26_g2518 ) ));
+				if(clampResult74_g2518==0){ifLocalVars72_g2518 = half4( temp_output_26_0_g2518 , 0.0 ); };
+				half4 ifLocalVars29_g2518 = 0;
+				if(_BlendMode_UseColorMask==0){ifLocalVars29_g2518 = half4( half3(0,0,0) , 0.0 ); };
+				if(_BlendMode_UseColorMask==1){ifLocalVars29_g2518 = half4( temp_output_26_0_g2518 , 0.0 ); };
+				half3 blendOpSrc27_g2518 = temp_output_17_0_g2518;
+				half3 blendOpDest27_g2518 = ( ( (_Tint0).rgb * tex2DNode1_g2518.r * 1.0 ) + ( (_Tint1).rgb * tex2DNode1_g2518.g * 1.0 ) + ( (_Tint2).rgb * tex2DNode1_g2518.b * 1.0 ) + ( (_Tint3).rgb * temp_output_2_0_g2518 * 1.0 ) );
+				if(_BlendMode_UseColorMask==2){ifLocalVars29_g2518 = half4( ( saturate( ( 1.0 - ( 1.0 - blendOpSrc27_g2518 ) * ( 1.0 - blendOpDest27_g2518 ) ) )) , 0.0 ); };
+				half3 blendOpSrc28_g2518 = temp_output_17_0_g2518;
+				half3 blendOpDest28_g2518 = ( ( (_Tint0).rgb * tex2DNode1_g2518.r * 1.0 ) + ( (_Tint1).rgb * tex2DNode1_g2518.g * 1.0 ) + ( (_Tint2).rgb * tex2DNode1_g2518.b * 1.0 ) + ( (_Tint3).rgb * temp_output_2_0_g2518 * 1.0 ) );
+				if(_BlendMode_UseColorMask==3){ifLocalVars29_g2518 = half4( ( saturate( (( blendOpDest28_g2518 > 0.5 ) ? ( 1.0 - 2.0 * ( 1.0 - blendOpDest28_g2518 ) * ( 1.0 - blendOpSrc28_g2518 ) ) : ( 2.0 * blendOpDest28_g2518 * blendOpSrc28_g2518 ) ) )) , 0.0 ); };
+				if(clampResult74_g2518==1){ifLocalVars72_g2518 = half4( (ifLocalVars29_g2518).xyz , 0.0 ); };
+				half3 lerpResult64_g2518 = lerp( temp_output_17_0_g2518 , (ifLocalVars72_g2518).xyz , ( saturate( ( ( 1.0 * tex2DNode1_g2518.r ) + ( 1.0 * tex2DNode1_g2518.g ) + ( 1.0 * tex2DNode1_g2518.b ) + ( 1.0 * temp_output_2_0_g2518 ) ) ) * _UseColorMask ));
 				#ifdef _COLORMASK_ON
-				float3 staticSwitch15_g2518 = lerpResult64_g2518;
+				half3 staticSwitch15_g2518 = lerpResult64_g2518;
 				#else
-				float3 staticSwitch15_g2518 = temp_output_17_0_g2518;
+				half3 staticSwitch15_g2518 = temp_output_17_0_g2518;
 				#endif
-				float3 AlbedoColorMask2007 = staticSwitch15_g2518;
-				float3 AlbedoBaseColor92 = AlbedoColorMask2007;
-				float3 appendResult3785 = (float3(_MossColor.rgb));
-				float2 vertexToFrag3722 = IN.ase_texcoord4.zw;
-				float StochasticScale1447 = ( 1.0 / _MossStochasticScale );
-				float StochasticContrast1448 = _MossStochasticContrast;
+				half3 AlbedoColorMask2007 = staticSwitch15_g2518;
+				half3 AlbedoBaseColor92 = AlbedoColorMask2007;
+				half3 appendResult3785 = (half3(_MossColor.rgb));
+				half2 vertexToFrag3370 = IN.ase_texcoord4.zw;
+				half2 MossUVScaled1663 = vertexToFrag3370;
+				half StochasticScale1447 = ( 1.0 / _MossStochasticScale );
+				half StochasticContrast1448 = _MossStochasticContrast;
 				half3 cw4270 = 0;
 				float2 uv14270 = 0;
 				float2 uv24270 = 0;
 				float2 uv34270 = 0;
 				float2 dx4270 = 0;
 				float2 dy4270 = 0;
-				half4 stochasticSample4270 = StochasticSample2DWeightsR(_MossPacked,sampler_MossPacked,vertexToFrag3722,cw4270,uv14270,uv24270,uv34270,dx4270,dy4270,StochasticScale1447,StochasticContrast1448);
+				half4 stochasticSample4270 = StochasticSample2DWeightsR(_MossPacked,sampler_MossPacked,MossUVScaled1663,cw4270,uv14270,uv24270,uv34270,dx4270,dy4270,StochasticScale1447,StochasticContrast1448);
 				#ifdef _USESTOCHASTICMOSS_ON
-				float4 staticSwitch121 = stochasticSample4270;
+				half4 staticSwitch121 = stochasticSample4270;
 				#else
-				float4 staticSwitch121 = SAMPLE_TEXTURE2D( _MossPacked, sampler_Linear_Repeat_Aniso2, vertexToFrag3722 );
+				half4 staticSwitch121 = SAMPLE_TEXTURE2D( _MossPacked, sampler_Linear_Repeat_Aniso2, MossUVScaled1663 );
 				#endif
 				int MossModeInt3200 = _MossMode;
-				float2 vertexToFrag3371 = IN.ase_texcoord5.xy;
-				float4 _Vector17 = float4(1,0,1,0);
-				float4 ifLocalVar3181 = 0;
+				half2 vertexToFrag3371 = IN.ase_texcoord5.xy;
+				half4 _Vector17 = half4(1,0,1,0);
+				half4 ifLocalVar3181 = 0;
 				if( _UseMossMetalMap <= 0.0 )
 				ifLocalVar3181 = _Vector17;
 				else
 				ifLocalVar3181 = SAMPLE_TEXTURE2D( _MossMetalMap, sampler_Linear_Repeat_Aniso2, vertexToFrag3371 );
-				float4 ifLocalVar3232 = 0;
+				half4 ifLocalVar3232 = 0;
 				if( MossModeInt3200 <= 0.0 )
 				ifLocalVar3232 = _Vector17;
 				else
 				ifLocalVar3232 = ifLocalVar3181;
-				float4 MossMetalMap2943 = ifLocalVar3232;
+				half4 MossMetalMap2943 = ifLocalVar3232;
 				#ifdef _MOSSMETALMODE_ON
-				float4 staticSwitch3303 = MossMetalMap2943;
+				half4 staticSwitch3303 = MossMetalMap2943;
 				#else
-				float4 staticSwitch3303 = staticSwitch121;
+				half4 staticSwitch3303 = staticSwitch121;
 				#endif
-				float4 MossMetalRes3077 = staticSwitch3303;
-				float temp_output_3043_0 = (MossMetalRes3077).r;
-				float temp_output_8_0_g2546 = temp_output_3043_0;
-				float4 break5_g2546 = _MossAlbedoRemap;
-				float temp_output_3_0_g2546 = (0.0 + (temp_output_8_0_g2546 - break5_g2546.x) * (1.0 - 0.0) / (break5_g2546.y - break5_g2546.x));
-				float clampResult2_g2546 = clamp( temp_output_3_0_g2546 , break5_g2546.z , break5_g2546.w );
-				float temp_output_27_0_g2546 = saturate( clampResult2_g2546 );
+				half4 MossMetalRes3077 = staticSwitch3303;
+				half temp_output_3043_0 = (MossMetalRes3077).r;
+				half temp_output_8_0_g2546 = temp_output_3043_0;
+				half4 break5_g2546 = _MossAlbedoRemap;
+				half temp_output_3_0_g2546 = (0.0 + (temp_output_8_0_g2546 - break5_g2546.x) * (1.0 - 0.0) / (break5_g2546.y - break5_g2546.x));
+				half clampResult2_g2546 = clamp( temp_output_3_0_g2546 , break5_g2546.z , break5_g2546.w );
+				half temp_output_27_0_g2546 = saturate( clampResult2_g2546 );
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3747 = temp_output_27_0_g2546;
+				half staticSwitch3747 = temp_output_27_0_g2546;
 				#else
-				float staticSwitch3747 = temp_output_3043_0;
+				half staticSwitch3747 = temp_output_3043_0;
 				#endif
-				float3 MossPackedAlbedo1643 = ( appendResult3785 * staticSwitch3747 );
-				float3 lerpResult2137 = lerp( MossPackedAlbedo1643 , ( MossPackedAlbedo1643 * AlbedoBaseColor92 ) , _MossMultAlbedo);
-				float3 MossAlbedoTinted101 = lerpResult2137;
-				float2 _Vector5 = float2(0,0);
-				float2 NormalMossSigned50 = _Vector5;
-				float3 appendResult3794 = (float3(NormalMossSigned50 , 1.0));
-				float4 appendResult3336 = (float4(1.0 , 0.0 , 0.0 , 0.0));
-				float vertexToFrag3157 = IN.ase_texcoord5.z;
-				float DDistanceMaskVert3160 = step( 0.01 , vertexToFrag3157 );
-				float2 texCoord1007 = IN.ase_texcoord4.xy * float2( 1,1 ) + float2( 0,0 );
-				float2 appendResult2490 = (float2(_DetailMapScale.x , _DetailMapScale.y));
-				float2 appendResult2491 = (float2(_DetailMapScale.z , _DetailMapScale.w));
-				float2 temp_output_2488_0 = (texCoord1007*appendResult2490 + appendResult2491);
-				float4 tex2DNode980 = SAMPLE_TEXTURE2D( _DetailMapPacked, sampler_Linear_Repeat_Aniso2, temp_output_2488_0 );
-				float4 DetailMapPacked3088 = tex2DNode980;
-				float temp_output_3090_0 = (DetailMapPacked3088).r;
-				float detailAlbedo3902 = temp_output_3090_0;
-				float scale3902 = _DetailAlbedoMapScale;
-				float localMyCustomExpression3902 = MyCustomExpression3902( detailAlbedo3902 , scale3902 );
-				float2 vertexToFrag3723 = IN.ase_texcoord6.xy;
-				float2 UVBasemapPicked3719 = vertexToFrag3723;
-				float4 _Vector16 = float4(0,1,1,1);
-				float4 ifLocalVar3177 = 0;
+				half3 MossPackedAlbedo1643 = ( appendResult3785 * staticSwitch3747 );
+				half3 lerpResult2137 = lerp( MossPackedAlbedo1643 , ( MossPackedAlbedo1643 * AlbedoBaseColor92 ) , _MossMultAlbedo);
+				half3 MossAlbedoTinted101 = lerpResult2137;
+				half2 _Vector5 = half2(0,0);
+				half2 NormalMossSigned50 = _Vector5;
+				half3 appendResult3794 = (half3(NormalMossSigned50 , 1.0));
+				half4 appendResult3336 = (half4(1.0 , 0.0 , 0.0 , 0.0));
+				half vertexToFrag3157 = IN.ase_texcoord5.z;
+				half DDistanceMaskVert3160 = step( 0.01 , vertexToFrag3157 );
+				half2 vertexToFrag3400 = IN.ase_texcoord6.xy;
+				half4 tex2DNode980 = SAMPLE_TEXTURE2D( _DetailMapPacked, sampler_Linear_Repeat_Aniso2, vertexToFrag3400 );
+				half4 DetailMapPacked3088 = tex2DNode980;
+				half temp_output_3090_0 = (DetailMapPacked3088).r;
+				half detailAlbedo3902 = temp_output_3090_0;
+				half scale3902 = _DetailAlbedoMapScale;
+				half localMyCustomExpression3902 = MyCustomExpression3902( detailAlbedo3902 , scale3902 );
+				half2 vertexToFrag3723 = IN.ase_texcoord6.zw;
+				half2 UVBasemapPicked3719 = vertexToFrag3723;
+				half4 _Vector16 = half4(0,1,1,1);
+				half4 ifLocalVar3177 = 0;
 				if( _MetallicSpecGlossMap <= 0.0 )
 				ifLocalVar3177 = _Vector16;
 				else
 				ifLocalVar3177 = SAMPLE_TEXTURE2D( _MetallicGlossMap, sampler_Linear_Repeat_Aniso2, UVBasemapPicked3719 );
-				float4 ifLocalVar3189 = 0;
+				half4 ifLocalVar3189 = 0;
 				if( MossModeInt3200 <= 0.0 )
 				ifLocalVar3189 = ifLocalVar3181;
 				else
-				ifLocalVar3189 = float4(1,1,1,1);
-				float4 MossMetal2928 = ifLocalVar3189;
+				ifLocalVar3189 = half4(1,1,1,1);
+				half4 MossMetal2928 = ifLocalVar3189;
 				#ifdef _MOSSMETALMODE_ON
-				float4 staticSwitch2913 = MossMetal2928;
+				half4 staticSwitch2913 = MossMetal2928;
 				#else
-				float4 staticSwitch2913 = ifLocalVar3177;
+				half4 staticSwitch2913 = ifLocalVar3177;
 				#endif
-				float4 MossMetalORMetallicMap2911 = staticSwitch2913;
-				float temp_output_3050_0 = (MossMetalORMetallicMap2911).b;
-				float temp_output_8_0_g2548 = temp_output_3050_0;
-				float4 ifLocalVars3100 = 0;
+				half4 MossMetalORMetallicMap2911 = staticSwitch2913;
+				half temp_output_3050_0 = (MossMetalORMetallicMap2911).b;
+				half temp_output_8_0_g2548 = temp_output_3050_0;
+				half4 ifLocalVars3100 = 0;
 				int Mode3840 = _MODE;
 				if(Mode3840==0){ifLocalVars3100 = _DetailMaskRemap; };
 				if(Mode3840==1){ifLocalVars3100 = _EmissionRemap; };
-				float4 break5_g2548 = ifLocalVars3100;
-				float temp_output_3_0_g2548 = (0.0 + (temp_output_8_0_g2548 - break5_g2548.x) * (1.0 - 0.0) / (break5_g2548.y - break5_g2548.x));
-				float clampResult2_g2548 = clamp( temp_output_3_0_g2548 , break5_g2548.z , break5_g2548.w );
-				float temp_output_27_0_g2548 = saturate( clampResult2_g2548 );
+				half4 break5_g2548 = ifLocalVars3100;
+				half temp_output_3_0_g2548 = (0.0 + (temp_output_8_0_g2548 - break5_g2548.x) * (1.0 - 0.0) / (break5_g2548.y - break5_g2548.x));
+				half clampResult2_g2548 = clamp( temp_output_3_0_g2548 , break5_g2548.z , break5_g2548.w );
+				half temp_output_27_0_g2548 = saturate( clampResult2_g2548 );
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3738 = temp_output_27_0_g2548;
+				half staticSwitch3738 = temp_output_27_0_g2548;
 				#else
-				float staticSwitch3738 = temp_output_3050_0;
+				half staticSwitch3738 = temp_output_3050_0;
 				#endif
 				int temp_output_3109_0 = ( 1.0 - Mode3840 );
-				float temp_output_12_0_g2513 = ( temp_output_3109_0 * _UseDetailMask );
-				float DetalMaskDoodad3103 = ( ( staticSwitch3738 * temp_output_12_0_g2513 ) + ( 1.0 - temp_output_12_0_g2513 ) );
-				float temp_output_12_0_g2557 = DetalMaskDoodad3103;
-				float temp_output_3327_0 = (DetailMapPacked3088).b;
-				float temp_output_8_0_g2534 = temp_output_3327_0;
-				float4 break5_g2534 = _DetailSmoothnessRemap;
-				float temp_output_32_0_g2534 = (break5_g2534.z + (temp_output_8_0_g2534 - break5_g2534.x) * (break5_g2534.w - break5_g2534.z) / (break5_g2534.y - break5_g2534.x));
+				half temp_output_12_0_g2513 = ( temp_output_3109_0 * _UseDetailMask );
+				half DetalMaskDoodad3103 = ( ( staticSwitch3738 * temp_output_12_0_g2513 ) + ( 1.0 - temp_output_12_0_g2513 ) );
+				half temp_output_12_0_g2557 = DetalMaskDoodad3103;
+				half temp_output_3327_0 = (DetailMapPacked3088).b;
+				half temp_output_8_0_g2534 = temp_output_3327_0;
+				half4 break5_g2534 = _DetailSmoothnessRemap;
+				half temp_output_32_0_g2534 = (break5_g2534.z + (temp_output_8_0_g2534 - break5_g2534.x) * (break5_g2534.w - break5_g2534.z) / (break5_g2534.y - break5_g2534.x));
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3743 = temp_output_32_0_g2534;
+				half staticSwitch3743 = temp_output_32_0_g2534;
 				#else
-				float staticSwitch3743 = (-1.0 + (temp_output_3327_0 - 0.0) * (1.0 - -1.0) / (1.0 - 0.0));
+				half staticSwitch3743 = (-1.0 + (temp_output_3327_0 - 0.0) * (1.0 - -1.0) / (1.0 - 0.0));
 				#endif
-				float4 appendResult3337 = (float4(( ( localMyCustomExpression3902 * temp_output_12_0_g2557 ) + ( 1.0 - temp_output_12_0_g2557 ) ) , ( ( (DetailMapPacked3088).ag * float2( 2,2 ) ) - float2( 1,1 ) ) , staticSwitch3743));
-				float4 _DetailDistanceHardcoded = float4(25,30,0,0);
-				float temp_output_3155_0 = saturate( (1.0 + (distance( _WorldSpaceCameraPos , WorldPosition ) - _DetailDistanceHardcoded.x) * (0.0 - 1.0) / (_DetailDistanceHardcoded.y - _DetailDistanceHardcoded.x)) );
-				float DDistanceMaskPixel3159 = temp_output_3155_0;
-				float4 lerpResult3339 = lerp( appendResult3336 , appendResult3337 , DDistanceMaskPixel3159);
-				float4 ifLocalVar3338 = 0;
+				half4 appendResult3337 = (half4(( ( localMyCustomExpression3902 * temp_output_12_0_g2557 ) + ( 1.0 - temp_output_12_0_g2557 ) ) , ( ( (DetailMapPacked3088).ag * float2( 2,2 ) ) - float2( 1,1 ) ) , staticSwitch3743));
+				half4 _DetailDistanceHardcoded = half4(25,30,0,0);
+				half temp_output_3155_0 = saturate( (1.0 + (distance( _WorldSpaceCameraPos , WorldPosition ) - _DetailDistanceHardcoded.x) * (0.0 - 1.0) / (_DetailDistanceHardcoded.y - _DetailDistanceHardcoded.x)) );
+				half DDistanceMaskPixel3159 = temp_output_3155_0;
+				half4 lerpResult3339 = lerp( appendResult3336 , appendResult3337 , DDistanceMaskPixel3159);
+				half4 ifLocalVar3338 = 0;
 				UNITY_BRANCH 
 				if( DDistanceMaskVert3160 <= 0.0 )
 				ifLocalVar3338 = appendResult3336;
 				else
 				ifLocalVar3338 = lerpResult3339;
 				#ifdef _DETAIL_ON
-				float4 staticSwitch4130 = ifLocalVar3338;
+				half4 staticSwitch4130 = ifLocalVar3338;
 				#else
-				float4 staticSwitch4130 = appendResult3336;
+				half4 staticSwitch4130 = appendResult3336;
 				#endif
-				float2 DetailNormalSigned3509 = ( (staticSwitch4130).yz * _DetailNormalMapScale1 );
-				float3 appendResult3801 = (float3(( NormalMossSigned50 + DetailNormalSigned3509 ) , 1.0));
-				float3 normalizeResult3795 = normalize( appendResult3801 );
+				half2 DetailNormalSigned3509 = ( (staticSwitch4130).yz * _DetailNormalMapScale1 );
+				half3 appendResult3801 = (half3(( NormalMossSigned50 + DetailNormalSigned3509 ) , 1.0));
+				half3 normalizeResult3795 = normalize( appendResult3801 );
 				#ifdef _DETAIL_ON
-				float3 staticSwitch4129 = normalizeResult3795;
+				half3 staticSwitch4129 = normalizeResult3795;
 				#else
-				float3 staticSwitch4129 = appendResult3794;
+				half3 staticSwitch4129 = appendResult3794;
 				#endif
-				float3 ase_worldTangent = IN.ase_texcoord7.xyz;
-				float3 ase_worldNormal = IN.ase_texcoord8.xyz;
+				half3 ase_worldTangent = IN.ase_texcoord7.xyz;
+				half3 ase_worldNormal = IN.ase_texcoord8.xyz;
 				float3 ase_worldBitangent = IN.ase_texcoord9.xyz;
-				float3 tanToWorld0 = float3( ase_worldTangent.x, ase_worldBitangent.x, ase_worldNormal.x );
-				float3 tanToWorld1 = float3( ase_worldTangent.y, ase_worldBitangent.y, ase_worldNormal.y );
-				float3 tanToWorld2 = float3( ase_worldTangent.z, ase_worldBitangent.z, ase_worldNormal.z );
+				half3 tanToWorld0 = float3( ase_worldTangent.x, ase_worldBitangent.x, ase_worldNormal.x );
+				half3 tanToWorld1 = float3( ase_worldTangent.y, ase_worldBitangent.y, ase_worldNormal.y );
+				half3 tanToWorld2 = float3( ase_worldTangent.z, ase_worldBitangent.z, ase_worldNormal.z );
 				float3 tanNormal16 = staticSwitch4129;
-				float3 worldNormal16 = float3(dot(tanToWorld0,tanNormal16), dot(tanToWorld1,tanNormal16), dot(tanToWorld2,tanNormal16));
-				float dotResult15 = dot( worldNormal16 , _MossDirection );
-				float temp_output_13_0_g2463 = dotResult15;
-				float temp_output_82_0_g2463 = ( temp_output_13_0_g2463 * 0.5 );
-				float temp_output_5_0_g2467 = ( temp_output_82_0_g2463 - -0.5 );
-				float temp_output_48_0_g2467 = saturate( temp_output_5_0_g2467 );
-				float temp_output_14_0_g2463 = _MossLevel;
-				float temp_output_17_0_g2467 = temp_output_14_0_g2463;
-				float temp_output_16_0_g2463 = ( 1.0 - _MossDirContrast );
-				float temp_output_30_0_g2467 = ( 1.0 - saturate( ( 1.0 - temp_output_16_0_g2463 ) ) );
-				float temp_output_35_0_g2467 = ( temp_output_30_0_g2467 * 0.5 );
-				float temp_output_32_0_g2467 = ( (( 1.0 + temp_output_30_0_g2467 ) + (abs( temp_output_17_0_g2467 ) - 0.0) * (( 0.0 - temp_output_30_0_g2467 ) - ( 1.0 + temp_output_30_0_g2467 )) / (1.0 - 0.0)) - temp_output_35_0_g2467 );
-				float temp_output_31_0_g2467 = ( temp_output_35_0_g2467 + (( 1.0 + temp_output_30_0_g2467 ) + (abs( temp_output_17_0_g2467 ) - 0.0) * (( 0.0 - temp_output_30_0_g2467 ) - ( 1.0 + temp_output_30_0_g2467 )) / (1.0 - 0.0)) );
-				float temp_output_51_0_g2467 = saturate( (0.0 + (temp_output_48_0_g2467 - temp_output_32_0_g2467) * (1.0 - 0.0) / (temp_output_31_0_g2467 - temp_output_32_0_g2467)) );
-				float temp_output_3796_0 = temp_output_51_0_g2467;
-				float lerpResult4109 = lerp( _MossBase , temp_output_3796_0 , _UseMossDirection);
-				float MossMaskDirection1179 = lerpResult4109;
-				float temp_output_1811_0 = saturate( MossMaskDirection1179 );
-				float temp_output_3952_0 = ( tex2DNode80.a * _BaseColor.a );
+				half3 worldNormal16 = float3(dot(tanToWorld0,tanNormal16), dot(tanToWorld1,tanNormal16), dot(tanToWorld2,tanNormal16));
+				half dotResult15 = dot( worldNormal16 , _MossDirection );
+				half temp_output_13_0_g2463 = dotResult15;
+				half temp_output_82_0_g2463 = ( temp_output_13_0_g2463 * 0.5 );
+				half temp_output_5_0_g2467 = ( temp_output_82_0_g2463 - -0.5 );
+				half temp_output_48_0_g2467 = saturate( temp_output_5_0_g2467 );
+				half temp_output_14_0_g2463 = _MossLevel;
+				half temp_output_17_0_g2467 = temp_output_14_0_g2463;
+				half temp_output_16_0_g2463 = ( 1.0 - _MossDirContrast );
+				half temp_output_30_0_g2467 = ( 1.0 - saturate( ( 1.0 - temp_output_16_0_g2463 ) ) );
+				half temp_output_35_0_g2467 = ( temp_output_30_0_g2467 * 0.5 );
+				half temp_output_32_0_g2467 = ( (( 1.0 + temp_output_30_0_g2467 ) + (abs( temp_output_17_0_g2467 ) - 0.0) * (( 0.0 - temp_output_30_0_g2467 ) - ( 1.0 + temp_output_30_0_g2467 )) / (1.0 - 0.0)) - temp_output_35_0_g2467 );
+				half temp_output_31_0_g2467 = ( temp_output_35_0_g2467 + (( 1.0 + temp_output_30_0_g2467 ) + (abs( temp_output_17_0_g2467 ) - 0.0) * (( 0.0 - temp_output_30_0_g2467 ) - ( 1.0 + temp_output_30_0_g2467 )) / (1.0 - 0.0)) );
+				half temp_output_51_0_g2467 = saturate( (0.0 + (temp_output_48_0_g2467 - temp_output_32_0_g2467) * (1.0 - 0.0) / (temp_output_31_0_g2467 - temp_output_32_0_g2467)) );
+				half temp_output_3796_0 = temp_output_51_0_g2467;
+				half lerpResult4109 = lerp( _MossBase , temp_output_3796_0 , _UseMossDirection);
+				half MossMaskDirection1179 = lerpResult4109;
+				half temp_output_1811_0 = saturate( MossMaskDirection1179 );
+				half temp_output_3952_0 = ( tex2DNode80.a * _BaseColor.a );
 				#ifdef _ALPHATEST_ON
-				float staticSwitch3756 = 1.0;
+				half staticSwitch3756 = 1.0;
 				#else
-				float staticSwitch3756 = temp_output_3952_0;
+				half staticSwitch3756 = temp_output_3952_0;
 				#endif
-				float AlbedoAlphaMoss1953 = staticSwitch3756;
-				float temp_output_8_0_g2874 = AlbedoAlphaMoss1953;
-				float4 break5_g2874 = _MossAlphaMaskMM;
-				float temp_output_32_0_g2874 = (break5_g2874.z + (temp_output_8_0_g2874 - break5_g2874.x) * (break5_g2874.w - break5_g2874.z) / (break5_g2874.y - break5_g2874.x));
-				float clampResult31_g2874 = clamp( temp_output_32_0_g2874 , break5_g2874.z , break5_g2874.w );
-				float temp_output_3896_0 = clampResult31_g2874;
+				half AlbedoAlphaMoss1953 = staticSwitch3756;
+				half temp_output_8_0_g4229 = AlbedoAlphaMoss1953;
+				half4 break5_g4229 = _MossAlphaMaskMM;
+				half temp_output_32_0_g4229 = (break5_g4229.z + (temp_output_8_0_g4229 - break5_g4229.x) * (break5_g4229.w - break5_g4229.z) / (break5_g4229.y - break5_g4229.x));
+				half clampResult31_g4229 = clamp( temp_output_32_0_g4229 , break5_g4229.z , break5_g4229.w );
+				half temp_output_3896_0 = clampResult31_g4229;
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3745 = temp_output_3896_0;
+				half staticSwitch3745 = temp_output_3896_0;
 				#else
-				float staticSwitch3745 = temp_output_3896_0;
+				half staticSwitch3745 = temp_output_3896_0;
 				#endif
-				float MossMaskAlpha1182 = ( staticSwitch3745 * _UseMossMaskWithAlpha );
+				half MossMaskAlpha1182 = ( staticSwitch3745 * _UseMossMaskWithAlpha );
 				#ifdef _ALPHATEST_ON
-				float staticSwitch3938 = temp_output_1811_0;
+				half staticSwitch3938 = temp_output_1811_0;
 				#else
-				float staticSwitch3938 = saturate( ( temp_output_1811_0 + MossMaskAlpha1182 ) );
+				half staticSwitch3938 = saturate( ( temp_output_1811_0 + MossMaskAlpha1182 ) );
 				#endif
-				float vertexToFrag3925 = IN.ase_texcoord5.w;
-				float MossMaskVertex1181 = vertexToFrag3925;
-				float4 tex2DNode32 = SAMPLE_TEXTURE2D( _BumpMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
-				float3 unpack2617 = UnpackNormalScale( tex2DNode32, _NormalStrength );
+				half vertexToFrag3925 = IN.ase_texcoord5.w;
+				half MossMaskVertex1181 = vertexToFrag3925;
+				half4 tex2DNode32 = SAMPLE_TEXTURE2D( _BumpMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
+				half3 unpack2617 = UnpackNormalScale( tex2DNode32, _NormalStrength );
 				unpack2617.z = lerp( 1, unpack2617.z, saturate(_NormalStrength) );
-				float2 break3507 = DetailNormalSigned3509;
-				float dotResult3505 = dot( break3507.x , break3507.y );
+				half2 break3507 = DetailNormalSigned3509;
+				half dotResult3505 = dot( break3507.x , break3507.y );
 				#ifdef _DETAIL_ON
-				float staticSwitch3500 = ( unpack2617.z + abs( dotResult3505 ) );
+				half staticSwitch3500 = ( unpack2617.z + abs( dotResult3505 ) );
 				#else
-				float staticSwitch3500 = unpack2617.z;
+				half staticSwitch3500 = unpack2617.z;
 				#endif
-				float NormalHeightSigned1759 = staticSwitch3500;
-				float temp_output_5_0_g2451 = NormalHeightSigned1759;
-				float temp_output_48_0_g2451 = saturate( temp_output_5_0_g2451 );
-				float temp_output_17_0_g2451 = saturate( ( staticSwitch3938 + MossMaskVertex1181 ) );
-				float temp_output_30_0_g2451 = ( 1.0 - saturate( _MossNormalContrast ) );
-				float temp_output_35_0_g2451 = ( temp_output_30_0_g2451 * 0.5 );
-				float temp_output_32_0_g2451 = ( (( 1.0 + temp_output_30_0_g2451 ) + (abs( temp_output_17_0_g2451 ) - 0.0) * (( 0.0 - temp_output_30_0_g2451 ) - ( 1.0 + temp_output_30_0_g2451 )) / (1.0 - 0.0)) - temp_output_35_0_g2451 );
-				float temp_output_31_0_g2451 = ( temp_output_35_0_g2451 + (( 1.0 + temp_output_30_0_g2451 ) + (abs( temp_output_17_0_g2451 ) - 0.0) * (( 0.0 - temp_output_30_0_g2451 ) - ( 1.0 + temp_output_30_0_g2451 )) / (1.0 - 0.0)) );
-				float temp_output_51_0_g2451 = saturate( (0.0 + (temp_output_48_0_g2451 - temp_output_32_0_g2451) * (1.0 - 0.0) / (temp_output_31_0_g2451 - temp_output_32_0_g2451)) );
-				float temp_output_137_0_g2451 = ( 1.0 - temp_output_48_0_g2451 );
-				float temp_output_128_0_g2451 = ( 1.0 - saturate( _MossNormalContrast ) );
-				float temp_output_121_0_g2451 = ( temp_output_128_0_g2451 * 0.5 );
-				float temp_output_118_0_g2451 = (0.0 + (temp_output_137_0_g2451 - ( (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) - temp_output_121_0_g2451 )) * (1.0 - 0.0) / (( temp_output_121_0_g2451 + (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) ) - ( (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) - temp_output_121_0_g2451 )));
-				float lerpResult2905 = lerp( saturate( ( staticSwitch3938 + MossMaskVertex1181 ) ) , ( temp_output_51_0_g2451 - saturate( temp_output_118_0_g2451 ) ) , _MossNormalAffectStrength);
-				float temp_output_5_0_g2498 = lerpResult2905;
-				float temp_output_48_0_g2498 = saturate( temp_output_5_0_g2498 );
-				float temp_output_17_0_g2498 = _MapContrastOffset;
-				float temp_output_30_0_g2498 = ( 1.0 - saturate( _MapContrast ) );
-				float temp_output_35_0_g2498 = ( temp_output_30_0_g2498 * 0.5 );
-				float temp_output_32_0_g2498 = ( (( 1.0 + temp_output_30_0_g2498 ) + (abs( temp_output_17_0_g2498 ) - 0.0) * (( 0.0 - temp_output_30_0_g2498 ) - ( 1.0 + temp_output_30_0_g2498 )) / (1.0 - 0.0)) - temp_output_35_0_g2498 );
-				float temp_output_31_0_g2498 = ( temp_output_35_0_g2498 + (( 1.0 + temp_output_30_0_g2498 ) + (abs( temp_output_17_0_g2498 ) - 0.0) * (( 0.0 - temp_output_30_0_g2498 ) - ( 1.0 + temp_output_30_0_g2498 )) / (1.0 - 0.0)) );
-				float temp_output_51_0_g2498 = saturate( (0.0 + (temp_output_48_0_g2498 - temp_output_32_0_g2498) * (1.0 - 0.0) / (temp_output_31_0_g2498 - temp_output_32_0_g2498)) );
+				half NormalHeightSigned1759 = staticSwitch3500;
+				half temp_output_5_0_g2451 = NormalHeightSigned1759;
+				half temp_output_48_0_g2451 = saturate( temp_output_5_0_g2451 );
+				half temp_output_17_0_g2451 = saturate( ( staticSwitch3938 + MossMaskVertex1181 ) );
+				half temp_output_30_0_g2451 = ( 1.0 - saturate( _MossNormalContrast ) );
+				half temp_output_35_0_g2451 = ( temp_output_30_0_g2451 * 0.5 );
+				half temp_output_32_0_g2451 = ( (( 1.0 + temp_output_30_0_g2451 ) + (abs( temp_output_17_0_g2451 ) - 0.0) * (( 0.0 - temp_output_30_0_g2451 ) - ( 1.0 + temp_output_30_0_g2451 )) / (1.0 - 0.0)) - temp_output_35_0_g2451 );
+				half temp_output_31_0_g2451 = ( temp_output_35_0_g2451 + (( 1.0 + temp_output_30_0_g2451 ) + (abs( temp_output_17_0_g2451 ) - 0.0) * (( 0.0 - temp_output_30_0_g2451 ) - ( 1.0 + temp_output_30_0_g2451 )) / (1.0 - 0.0)) );
+				half temp_output_51_0_g2451 = saturate( (0.0 + (temp_output_48_0_g2451 - temp_output_32_0_g2451) * (1.0 - 0.0) / (temp_output_31_0_g2451 - temp_output_32_0_g2451)) );
+				half temp_output_137_0_g2451 = ( 1.0 - temp_output_48_0_g2451 );
+				half temp_output_128_0_g2451 = ( 1.0 - saturate( _MossNormalContrast ) );
+				half temp_output_121_0_g2451 = ( temp_output_128_0_g2451 * 0.5 );
+				half temp_output_118_0_g2451 = (0.0 + (temp_output_137_0_g2451 - ( (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) - temp_output_121_0_g2451 )) * (1.0 - 0.0) / (( temp_output_121_0_g2451 + (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) ) - ( (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) - temp_output_121_0_g2451 )));
+				half lerpResult2905 = lerp( saturate( ( staticSwitch3938 + MossMaskVertex1181 ) ) , ( temp_output_51_0_g2451 - saturate( temp_output_118_0_g2451 ) ) , _MossNormalAffectStrength);
+				half temp_output_5_0_g2498 = lerpResult2905;
+				half temp_output_48_0_g2498 = saturate( temp_output_5_0_g2498 );
+				half temp_output_17_0_g2498 = _MapContrastOffset;
+				half temp_output_30_0_g2498 = ( 1.0 - saturate( _MapContrast ) );
+				half temp_output_35_0_g2498 = ( temp_output_30_0_g2498 * 0.5 );
+				half temp_output_32_0_g2498 = ( (( 1.0 + temp_output_30_0_g2498 ) + (abs( temp_output_17_0_g2498 ) - 0.0) * (( 0.0 - temp_output_30_0_g2498 ) - ( 1.0 + temp_output_30_0_g2498 )) / (1.0 - 0.0)) - temp_output_35_0_g2498 );
+				half temp_output_31_0_g2498 = ( temp_output_35_0_g2498 + (( 1.0 + temp_output_30_0_g2498 ) + (abs( temp_output_17_0_g2498 ) - 0.0) * (( 0.0 - temp_output_30_0_g2498 ) - ( 1.0 + temp_output_30_0_g2498 )) / (1.0 - 0.0)) );
+				half temp_output_51_0_g2498 = saturate( (0.0 + (temp_output_48_0_g2498 - temp_output_32_0_g2498) * (1.0 - 0.0) / (temp_output_31_0_g2498 - temp_output_32_0_g2498)) );
 				#ifdef _MOSS
-				float staticSwitch14 = temp_output_51_0_g2498;
+				half staticSwitch14 = temp_output_51_0_g2498;
 				#else
-				float staticSwitch14 = 0.0;
+				half staticSwitch14 = 0.0;
 				#endif
-				float MossMask45 = staticSwitch14;
-				float3 lerpResult103 = lerp( AlbedoBaseColor92 , MossAlbedoTinted101 , MossMask45);
+				half MossMask45 = staticSwitch14;
+				half3 lerpResult103 = lerp( AlbedoBaseColor92 , MossAlbedoTinted101 , MossMask45);
 				#ifdef _MOSS
-				float3 staticSwitch1236 = lerpResult103;
+				half3 staticSwitch1236 = lerpResult103;
 				#else
-				float3 staticSwitch1236 = AlbedoBaseColor92;
+				half3 staticSwitch1236 = AlbedoBaseColor92;
 				#endif
-				float temp_output_10_0_g2209 = _DetailsOverMoss;
-				float temp_output_17_0_g2209 = saturate( MossMask45 );
-				float4 lerpResult7_g2209 = lerp( appendResult3336 , ifLocalVar3338 , saturate( ( saturate( ( abs( temp_output_10_0_g2209 ) - 1.0 ) ) + ( ( ( 1.0 - temp_output_17_0_g2209 ) * abs( min( temp_output_10_0_g2209 , 0.0 ) ) ) + ( temp_output_17_0_g2209 * max( temp_output_10_0_g2209 , 0.0 ) ) ) ) ));
+				half temp_output_10_0_g2209 = _DetailsOverMoss;
+				half temp_output_17_0_g2209 = saturate( MossMask45 );
+				half4 lerpResult7_g2209 = lerp( appendResult3336 , ifLocalVar3338 , saturate( ( saturate( ( abs( temp_output_10_0_g2209 ) - 1.0 ) ) + ( ( ( 1.0 - temp_output_17_0_g2209 ) * abs( min( temp_output_10_0_g2209 , 0.0 ) ) ) + ( temp_output_17_0_g2209 * max( temp_output_10_0_g2209 , 0.0 ) ) ) ) ));
 				#ifdef _MOSS
-				float4 staticSwitch4126 = lerpResult7_g2209;
+				half4 staticSwitch4126 = lerpResult7_g2209;
 				#else
-				float4 staticSwitch4126 = ifLocalVar3338;
+				half4 staticSwitch4126 = ifLocalVar3338;
 				#endif
-				float4 lerpResult4232 = lerp( appendResult3336 , staticSwitch4126 , (float)_DETAIL);
+				half4 lerpResult4232 = lerp( appendResult3336 , staticSwitch4126 , (float)_DETAIL);
 				#ifdef _DETAIL_ON
-				float4 staticSwitch4132 = lerpResult4232;
+				half4 staticSwitch4132 = lerpResult4232;
 				#else
-				float4 staticSwitch4132 = appendResult3336;
+				half4 staticSwitch4132 = appendResult3336;
 				#endif
-				float DetailMapAlbedo987 = (staticSwitch4132).x;
+				half DetailMapAlbedo987 = (staticSwitch4132).x;
 				#ifdef _DETAIL_ON
-				float3 staticSwitch1045 = saturate( ( staticSwitch1236 * DetailMapAlbedo987 ) );
+				half3 staticSwitch1045 = saturate( ( staticSwitch1236 * DetailMapAlbedo987 ) );
 				#else
-				float3 staticSwitch1045 = staticSwitch1236;
+				half3 staticSwitch1045 = staticSwitch1236;
 				#endif
-				float3 AlbedoRes106 = staticSwitch1045;
-				float3 temp_output_35_0_g3888 = AlbedoRes106;
-				float2 uv_Layer0 = IN.ase_texcoord4.xy * _Layer0_ST.xy + _Layer0_ST.zw;
-				float2 uvLayer0112_g3888 = uv_Layer0;
-				float3 appendResult37_g3888 = (float3(SAMPLE_TEXTURE2D( _Layer0, sampler_Layer0, uvLayer0112_g3888 ).rgb));
-				float2 texCoord24_g3888 = IN.ase_texcoord4.xy * float2( 1,1 ) + float2( 0,0 );
-				float2 baseuv25_g3888 = texCoord24_g3888;
-				float4 tex2DNode3_g3888 = SAMPLE_TEXTURE2D( _RevealMask, sampler_RevealMask, baseuv25_g3888 );
-				float4 tex2DNode4_g3888 = SAMPLE_TEXTURE2D( _LayerMask, sampler_LayerMask, baseuv25_g3888 );
-				float rt31_g3888 = saturate( ( tex2DNode3_g3888.r * tex2DNode4_g3888.r ) );
-				float LSAlbedo100_g3888 = _LayerSurfaceExp.x;
-				float3 lerpResult34_g3888 = lerp( temp_output_35_0_g3888 , appendResult37_g3888 , pow( rt31_g3888 , LSAlbedo100_g3888 ));
-				float2 uv_Layer1 = IN.ase_texcoord4.xy * _Layer1_ST.xy + _Layer1_ST.zw;
-				float2 uvLayer1114_g3888 = uv_Layer1;
-				float3 appendResult73_g3888 = (float3(SAMPLE_TEXTURE2D( _Layer1, sampler_Layer1, uvLayer1114_g3888 ).rgb));
-				float gt57_g3888 = saturate( ( tex2DNode3_g3888.g * tex2DNode4_g3888.g ) );
-				float3 lerpResult61_g3888 = lerp( lerpResult34_g3888 , appendResult73_g3888 , pow( gt57_g3888 , LSAlbedo100_g3888 ));
+				half3 AlbedoRes106 = staticSwitch1045;
+				half3 temp_output_35_0_g4236 = AlbedoRes106;
+				half2 uv_Layer0 = IN.ase_texcoord4.xy * _Layer0_ST.xy + _Layer0_ST.zw;
+				half2 uvLayer0112_g4236 = uv_Layer0;
+				half3 appendResult37_g4236 = (half3(SAMPLE_TEXTURE2D( _Layer0, sampler_Linear_Repeat_Aniso2, uvLayer0112_g4236 ).rgb));
+				half2 texCoord24_g4236 = IN.ase_texcoord4.xy * float2( 1,1 ) + float2( 0,0 );
+				half2 baseuv25_g4236 = texCoord24_g4236;
+				half4 tex2DNode3_g4236 = SAMPLE_TEXTURE2D( _RevealMask, sampler_Linear_Repeat_Aniso2, baseuv25_g4236 );
+				half4 tex2DNode4_g4236 = SAMPLE_TEXTURE2D( _LayerMask, sampler_Linear_Repeat_Aniso2, baseuv25_g4236 );
+				half rt31_g4236 = saturate( ( tex2DNode3_g4236.r * tex2DNode4_g4236.r ) );
+				half LSAlbedo100_g4236 = _LayerSurfaceExp.x;
+				half3 lerpResult34_g4236 = lerp( temp_output_35_0_g4236 , appendResult37_g4236 , pow( rt31_g4236 , LSAlbedo100_g4236 ));
+				half2 uv_Layer1 = IN.ase_texcoord4.xy * _Layer1_ST.xy + _Layer1_ST.zw;
+				half2 uvLayer1114_g4236 = uv_Layer1;
+				half3 appendResult73_g4236 = (half3(SAMPLE_TEXTURE2D( _Layer1, sampler_Linear_Repeat_Aniso2, uvLayer1114_g4236 ).rgb));
+				half gt57_g4236 = saturate( ( tex2DNode3_g4236.g * tex2DNode4_g4236.g ) );
+				half3 lerpResult61_g4236 = lerp( lerpResult34_g4236 , appendResult73_g4236 , pow( gt57_g4236 , LSAlbedo100_g4236 ));
 				#ifdef _REVEALLAYERS
-				float3 staticSwitch1_g3888 = lerpResult61_g3888;
+				half3 staticSwitch1_g4236 = lerpResult61_g4236;
 				#else
-				float3 staticSwitch1_g3888 = temp_output_35_0_g3888;
+				half3 staticSwitch1_g4236 = temp_output_35_0_g4236;
 				#endif
-				float3 temp_output_4414_36 = staticSwitch1_g3888;
-				float OceanUnder289_g3862 = GlobalOceanUnder;
-				float3 EmissionIn281_g3862 = float3( 0,0,0 );
-				float3 appendResult2618 = (float3(unpack2617));
-				float3 _Vector14 = float3(0,0,1);
-				float3 ifLocalVar3262 = 0;
-				if( _UseNormalMap <= 0.5 )
-				ifLocalVar3262 = _Vector14;
-				else
-				ifLocalVar3262 = appendResult2618;
-				float3 SimpleNormalXYSigned30 = ifLocalVar3262;
-				int MossInt2938 = _Moss;
-				float2 _Vector0 = float2(0,0);
-				float2 temp_output_3045_0 = (MossMetalRes3077).ag;
-				float2 MossPackedNormal1656 = temp_output_3045_0;
-				float4 temp_output_5_0_g2453 = float4( MossPackedNormal1656, 0.0 , 0.0 );
-				float2 appendResult12_g2453 = (float2(temp_output_5_0_g2453.xy));
-				float temp_output_6_0_g2453 = _MossNormalStrength;
-				float2 lerpResult2_g2453 = lerp( float2( 0,0 ) , ( appendResult12_g2453 - float2( 0.5,0.5 ) ) , ( temp_output_6_0_g2453 * 2.0 ));
-				float2 lerpResult2976 = lerp( _Vector0 , lerpResult2_g2453 , MossMask45);
-				float2 MossNormalSigned100 = lerpResult2976;
-				float2 temp_output_3610_0 = ( MossInt2938 * MossNormalSigned100 );
-				float3 appendResult4006 = (float3(temp_output_3610_0 , 1.0));
-				float3 lerpResult4431 = lerp( SimpleNormalXYSigned30 , float3( 0,0,0 ) , MossMask45);
-				float2 appendResult1363 = (float2(lerpResult4431.xy));
-				#ifdef _MOSS
-				float3 staticSwitch4131 = ( appendResult4006 + float3( appendResult1363 ,  0.0 ) );
-				#else
-				float3 staticSwitch4131 = SimpleNormalXYSigned30;
-				#endif
-				float2 DetailNormaMossMaskedSigned988 = ( _DetailNormalMapScale * (staticSwitch4132).yz );
-				float3 appendResult4007 = (float3(DetailNormaMossMaskedSigned988 , 0.0));
-				float3 temp_output_4016_0 = ( staticSwitch4131 + appendResult4007 );
-				#ifdef _DETAIL_ON
-				float3 staticSwitch1105 = temp_output_4016_0;
-				#else
-				float3 staticSwitch1105 = staticSwitch4131;
-				#endif
-				float3 NormalPre2265 = staticSwitch1105;
-				float3 normalizeResult4009 = normalize( NormalPre2265 );
-				float3 NormalRes109 = normalizeResult4009;
-				float3 temp_output_42_0_g3888 = NormalRes109;
-				float3 unpack9_g3888 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer0NormalMap, sampler_Layer0NormalMap, uvLayer0112_g3888 ), _Layer0NormalStrength );
-				unpack9_g3888.z = lerp( 1, unpack9_g3888.z, saturate(_Layer0NormalStrength) );
-				float LSNormal101_g3888 = _LayerSurfaceExp.y;
-				float3 lerpResult41_g3888 = lerp( temp_output_42_0_g3888 , unpack9_g3888 , pow( rt31_g3888 , LSNormal101_g3888 ));
-				float3 unpack18_g3888 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer1NormalMap, sampler_Layer1NormalMap, uvLayer1114_g3888 ), _Layer1NormalStrength );
-				unpack18_g3888.z = lerp( 1, unpack18_g3888.z, saturate(_Layer1NormalStrength) );
-				float3 lerpResult64_g3888 = lerp( lerpResult41_g3888 , unpack18_g3888 , pow( gt57_g3888 , LSNormal101_g3888 ));
-				float2 uv83_g3888 = baseuv25_g3888;
-				float bt76_g3888 = saturate( ( tex2DNode3_g3888.b * tex2DNode4_g3888.b ) );
-				float height83_g3888 = ( _Layer2Height * bt76_g3888 );
-				float2 texelSize83_g3888 = (_RevealMask_TexelSize).xy;
-				float3 localRevealMaskNormalCrossFilter83_g3888 = RevealMaskNormalCrossFilter83_g3888( uv83_g3888 , height83_g3888 , texelSize83_g3888 );
-				float3 heightNormal89_g3888 = localRevealMaskNormalCrossFilter83_g3888;
-				#ifdef _REVEALLAYERS
-				float3 staticSwitch58_g3888 = BlendNormal( lerpResult64_g3888 , heightNormal89_g3888 );
-				#else
-				float3 staticSwitch58_g3888 = temp_output_42_0_g3888;
-				#endif
-				float3 temp_output_4414_43 = staticSwitch58_g3888;
-				float3 temp_output_9_0_g3862 = temp_output_4414_43;
-				float3 temp_output_30_0_g3875 = temp_output_9_0_g3862;
-				float3 tanNormal12_g3875 = temp_output_30_0_g3875;
-				float3 worldNormal12_g3875 = float3(dot(tanToWorld0,tanNormal12_g3875), dot(tanToWorld1,tanNormal12_g3875), dot(tanToWorld2,tanNormal12_g3875));
-				float3 vertexToFrag144_g3875 = IN.ase_texcoord10.xyz;
-				float dotResult1_g3875 = dot( worldNormal12_g3875 , vertexToFrag144_g3875 );
-				float2 vertexToFrag52_g3875 = IN.ase_texcoord6.zw;
-				float4 tex2DNode120_g3875 = SAMPLE_TEXTURE2D( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g3875 );
-				float3 appendResult121_g3875 = (float3(tex2DNode120_g3875.r , tex2DNode120_g3875.r , tex2DNode120_g3875.r));
-				float3 WorldPosition256_g3862 = WorldPosition;
-				float3 temp_output_105_0_g3875 = WorldPosition256_g3862;
-				float temp_output_117_0_g3875 = (temp_output_105_0_g3875).y;
-				float temp_output_67_0_g3862 = ( GlobalOceanOffset + GlobalOceanHeight );
-				float OceanHeight274_g3862 = temp_output_67_0_g3862;
-				float temp_output_63_0_g3875 = OceanHeight274_g3862;
-				float2 DistanceFade134_g3875 = (_CausticsSettings).zw;
-				float2 break136_g3875 = DistanceFade134_g3875;
-				float temp_output_67_0_g3875 = ( saturate( (0.0 + (max( -( temp_output_117_0_g3875 - temp_output_63_0_g3875 ) , 0.0 ) - 0.2) * (1.0 - 0.0) / (1.0 - 0.2)) ) * saturate( (1.0 + (distance( temp_output_63_0_g3875 , temp_output_117_0_g3875 ) - break136_g3875.x) * (0.0 - 1.0) / (break136_g3875.y - break136_g3875.x)) ) );
-				float CausticMipLevel118_g3875 = ( ( 1.0 - temp_output_67_0_g3875 ) * 4.0 );
-				#ifdef _USECAUSTICRAINBOW_ON
-				float3 staticSwitch73_g3875 = ( ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g3875 + ( 0.0045 * 2.0 ) ), CausticMipLevel118_g3875 ).r * float3(0,0,1) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g3875 + 0.0045 ), CausticMipLevel118_g3875 ).r * float3(0,1,0) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g3875, CausticMipLevel118_g3875 ).r * float3(1,0,0) ) );
-				#else
-				float3 staticSwitch73_g3875 = appendResult121_g3875;
-				#endif
-				#ifdef _USECAUSTICEXTRASAMPLER_ON
-				float3 staticSwitch57_g3875 = staticSwitch73_g3875;
-				#else
-				float3 staticSwitch57_g3875 = staticSwitch73_g3875;
-				#endif
-				float3 appendResult62_g3875 = (float3(_CausticsColor.rgb));
-				float3 lerpResult205_g3862 = lerp( ( EmissionIn281_g3862 + ( max( dotResult1_g3875 , 0.0 ) * staticSwitch57_g3875 * appendResult62_g3875 * temp_output_67_0_g3875 ) ) , ( ( EmissionIn281_g3862 + ( max( dotResult1_g3875 , 0.0 ) * staticSwitch57_g3875 * appendResult62_g3875 * temp_output_67_0_g3875 ) ) * 30.0 ) , OceanUnder289_g3862);
-				float3 appendResult100_g3878 = (float3(OceanWaterTint_RGB.xyz));
+				half3 temp_output_4603_36 = staticSwitch1_g4236;
+				
 				float3 ase_worldViewDir = ( _WorldSpaceCameraPos.xyz - WorldPosition );
 				ase_worldViewDir = normalize(ase_worldViewDir);
-				float3 ViewDir264_g3862 = ase_worldViewDir;
-				float3 viewDir240_g3878 = ViewDir264_g3862;
-				float3 camWorldPos240_g3878 = _WorldSpaceCameraPos;
-				float3 WorldPos252_g3878 = WorldPosition256_g3862;
-				float3 posWS240_g3878 = WorldPos252_g3878;
-				float4 oceanFogDensities240_g3878 = OceanFogDensities;
-				float temp_output_108_0_g3878 = OceanHeight274_g3862;
-				float oceanHeight240_g3878 = temp_output_108_0_g3878;
-				float4 oceanFogTop_RGB_Exponent240_g3878 = OceanFogTop_RGB_Exponent;
-				float4 oceanFogBottom_RGB_Intensity240_g3878 = OceanFogBottom_RGB_Intensity;
-				float4 localGetUnderWaterFogs240_g3878 = GetUnderWaterFogs240_g3878( viewDir240_g3878 , camWorldPos240_g3878 , posWS240_g3878 , oceanFogDensities240_g3878 , oceanHeight240_g3878 , oceanFogTop_RGB_Exponent240_g3878 , oceanFogBottom_RGB_Intensity240_g3878 );
-				float4 FogRes185_g3878 = localGetUnderWaterFogs240_g3878;
-				float3 appendResult94_g3878 = (float3(FogRes185_g3878.xyz));
-				float3 lerpResult36_g3878 = lerp( ( lerpResult205_g3862 * appendResult100_g3878 ) , appendResult94_g3878 , (FogRes185_g3878).w);
-				float3 ifLocalVar5_g3862 = 0;
-				UNITY_BRANCH 
-				if( OceanUnder289_g3862 >= 1.0 )
-				ifLocalVar5_g3862 = lerpResult36_g3878;
-				else
-				ifLocalVar5_g3862 = EmissionIn281_g3862;
-				float temp_output_254_0_g3862 = (WorldPosition256_g3862).y;
-				float temp_output_137_0_g3862 = ( temp_output_254_0_g3862 - OceanHeight274_g3862 );
-				float temp_output_24_0_g3884 = temp_output_137_0_g3862;
-				float temp_output_44_0_g3884 = 0.1;
-				float temp_output_45_0_g3884 = 0.31;
-				float temp_output_46_0_g3884 = saturate( (0.0 + (( temp_output_24_0_g3884 - temp_output_44_0_g3884 ) - 0.0) * (1.0 - 0.0) / (temp_output_45_0_g3884 - 0.0)) );
-				#ifdef _FadeWithHeight
-				float staticSwitch238_g3862 = ( 1.0 - temp_output_46_0_g3884 );
-				#else
-				float staticSwitch238_g3862 = 1.0;
-				#endif
-				float FadeFromY295_g3862 = staticSwitch238_g3862;
-				float3 lerpResult174_g3862 = lerp( ( ifLocalVar5_g3862 + lerpResult205_g3862 ) , ifLocalVar5_g3862 , ( OceanUnder289_g3862 * FadeFromY295_g3862 ));
-				float3 lerpResult242_g3862 = lerp( EmissionIn281_g3862 , lerpResult174_g3862 , FadeFromY295_g3862);
-				#ifdef _USECAUSTICSFROMABOVE_ON
-				float3 staticSwitch172_g3862 = lerpResult242_g3862;
-				#else
-				float3 staticSwitch172_g3862 = ifLocalVar5_g3862;
-				#endif
-				#ifdef _USEUNDERWATER
-				float3 staticSwitch211_g3862 = staticSwitch172_g3862;
-				#else
-				float3 staticSwitch211_g3862 = float3( 0,0,0 );
-				#endif
-				float3 temp_output_4446_8 = staticSwitch211_g3862;
-				
-				float fresnelNdotV135 = dot( ase_worldNormal, ase_worldViewDir );
-				float fresnelNode135 = ( _MossFresnel.x + _MossFresnel.y * pow( 1.0 - fresnelNdotV135, ( _MossFresnel.z * 10.0 ) ) );
-				float3 SH3558 = half4(0,0,0,0).xyz;
-				float3 normalWS3558 = ase_worldNormal;
-				float3 localSampleSHPixel3558 = SampleSHPixel3558( SH3558 , normalWS3558 );
-				float2 lightmapUV3567 = half4(0,0,0,0).xy;
-				float3 normalWS3567 = ase_worldNormal;
-				float3 localSampleLightmap3567 = SampleLightmap3567( lightmapUV3567 , normalWS3567 );
+				half fresnelNdotV135 = dot( ase_worldNormal, ase_worldViewDir );
+				half fresnelNode135 = ( _MossFresnel.x + _MossFresnel.y * pow( 1.0 - fresnelNdotV135, ( _MossFresnel.z * 10.0 ) ) );
+				half3 SH3558 = half4(0,0,0,0).xyz;
+				half3 normalWS3558 = ase_worldNormal;
+				half3 localSampleSHPixel3558 = SampleSHPixel3558( SH3558 , normalWS3558 );
+				half2 lightmapUV3567 = half4(0,0,0,0).xy;
+				half3 normalWS3567 = ase_worldNormal;
+				half3 localSampleLightmap3567 = SampleLightmap3567( lightmapUV3567 , normalWS3567 );
 				#ifdef LIGHTMAP_ON
-				float3 staticSwitch3554 = localSampleLightmap3567;
+				half3 staticSwitch3554 = localSampleLightmap3567;
 				#else
-				float3 staticSwitch3554 = localSampleSHPixel3558;
+				half3 staticSwitch3554 = localSampleSHPixel3558;
 				#endif
-				float3 LightmapOrSH2480 = staticSwitch3554;
-				float3 desaturateInitialColor1849 = LightmapOrSH2480;
-				float desaturateDot1849 = dot( desaturateInitialColor1849, float3( 0.299, 0.587, 0.114 ));
-				float3 desaturateVar1849 = lerp( desaturateInitialColor1849, desaturateDot1849.xxx, 1.0 );
-				float3 AlbedoResPre2289 = staticSwitch1045;
-				float4 temp_output_2664_0 = ( ( ( min( _MossFresnel.w , saturate( fresnelNode135 ) ) * _MossFresnelColor * desaturateVar1849.x ) * float4( AlbedoResPre2289 , 0.0 ) * saturate( ( MossMask45 - 0.3 ) ) ) * _UseMossFresnel );
+				half3 LightmapOrSH2480 = staticSwitch3554;
+				half grayscale4604 = (LightmapOrSH2480.r + LightmapOrSH2480.g + LightmapOrSH2480.b) / 3;
+				half3 AlbedoResPre2289 = staticSwitch1045;
+				half4 temp_output_2664_0 = ( ( ( min( _MossFresnel.w , saturate( fresnelNode135 ) ) * _MossFresnelColor * grayscale4604 ) * half4( AlbedoResPre2289 , 0.0 ) * saturate( ( MossMask45 - 0.3 ) ) ) * _UseMossFresnel );
 				#ifdef _USEMOSSFRESNEL_ON
-				float4 staticSwitch1195 = temp_output_2664_0;
+				half4 staticSwitch1195 = temp_output_2664_0;
 				#else
-				float4 staticSwitch1195 = float4( 0,0,0,0 );
+				half4 staticSwitch1195 = float4( 0,0,0,0 );
 				#endif
 				#ifdef _MOSS
-				float4 staticSwitch1237 = staticSwitch1195;
+				half4 staticSwitch1237 = staticSwitch1195;
 				#else
-				float4 staticSwitch1237 = float4( 0,0,0,0 );
+				half4 staticSwitch1237 = float4( 0,0,0,0 );
 				#endif
-				float4 MossFresnel203 = staticSwitch1237;
-				float3 appendResult3069 = (float3(_EmissionColor.rgb));
-				float _MetallicSpecGlossMap3184 = _MetallicSpecGlossMap;
-				float temp_output_2918_0 = (MossMetalORMetallicMap2911).r;
-				float temp_output_8_0_g2532 = temp_output_2918_0;
-				float4 break5_g2532 = _MetallicRemap;
-				float temp_output_3_0_g2532 = (0.0 + (temp_output_8_0_g2532 - break5_g2532.x) * (1.0 - 0.0) / (break5_g2532.y - break5_g2532.x));
-				float clampResult2_g2532 = clamp( temp_output_3_0_g2532 , break5_g2532.z , break5_g2532.w );
-				float temp_output_27_0_g2532 = saturate( clampResult2_g2532 );
+				half4 MossFresnel203 = staticSwitch1237;
+				half3 appendResult3069 = (half3(_EmissionColor.rgb));
+				half _MetallicSpecGlossMap3184 = _MetallicSpecGlossMap;
+				half temp_output_2918_0 = (MossMetalORMetallicMap2911).r;
+				half temp_output_8_0_g2532 = temp_output_2918_0;
+				half4 break5_g2532 = _MetallicRemap;
+				half temp_output_3_0_g2532 = (0.0 + (temp_output_8_0_g2532 - break5_g2532.x) * (1.0 - 0.0) / (break5_g2532.y - break5_g2532.x));
+				half clampResult2_g2532 = clamp( temp_output_3_0_g2532 , break5_g2532.z , break5_g2532.w );
+				half temp_output_27_0_g2532 = saturate( clampResult2_g2532 );
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3732 = temp_output_27_0_g2532;
+				half staticSwitch3732 = temp_output_27_0_g2532;
 				#else
-				float staticSwitch3732 = temp_output_2918_0;
+				half staticSwitch3732 = temp_output_2918_0;
 				#endif
-				float temp_output_3002_0 = (MossMetalORMetallicMap2911).g;
-				float temp_output_8_0_g2550 = temp_output_3002_0;
-				float4 break5_g2550 = _OcclusionRemap;
-				float temp_output_3_0_g2550 = (0.0 + (temp_output_8_0_g2550 - break5_g2550.x) * (1.0 - 0.0) / (break5_g2550.y - break5_g2550.x));
-				float clampResult2_g2550 = clamp( temp_output_3_0_g2550 , break5_g2550.z , break5_g2550.w );
-				float temp_output_27_0_g2550 = saturate( clampResult2_g2550 );
+				half temp_output_3002_0 = (MossMetalORMetallicMap2911).g;
+				half temp_output_8_0_g2550 = temp_output_3002_0;
+				half4 break5_g2550 = _OcclusionRemap;
+				half temp_output_3_0_g2550 = (0.0 + (temp_output_8_0_g2550 - break5_g2550.x) * (1.0 - 0.0) / (break5_g2550.y - break5_g2550.x));
+				half clampResult2_g2550 = clamp( temp_output_3_0_g2550 , break5_g2550.z , break5_g2550.w );
+				half temp_output_27_0_g2550 = saturate( clampResult2_g2550 );
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3735 = temp_output_27_0_g2550;
+				half staticSwitch3735 = temp_output_27_0_g2550;
 				#else
-				float staticSwitch3735 = temp_output_3002_0;
+				half staticSwitch3735 = temp_output_3002_0;
 				#endif
-				float temp_output_12_0_g2502 = ( _UseOcclusion * _MetallicSpecGlossMap3184 * _Occlusion );
-				float temp_output_12_0_g2514 = (float)Mode3840;
-				float temp_output_392_0 = (MossMetalORMetallicMap2911).a;
-				float temp_output_8_0_g2540 = temp_output_392_0;
-				float4 break5_g2540 = _SmoothnessRemap;
-				float temp_output_3_0_g2540 = (0.0 + (temp_output_8_0_g2540 - break5_g2540.x) * (1.0 - 0.0) / (break5_g2540.y - break5_g2540.x));
-				float clampResult2_g2540 = clamp( temp_output_3_0_g2540 , break5_g2540.z , break5_g2540.w );
-				float temp_output_27_0_g2540 = saturate( clampResult2_g2540 );
-				float temp_output_3894_0 = temp_output_27_0_g2540;
+				half temp_output_12_0_g2502 = ( _UseOcclusion * _MetallicSpecGlossMap3184 * _Occlusion );
+				half temp_output_12_0_g2514 = (float)Mode3840;
+				half temp_output_392_0 = (MossMetalORMetallicMap2911).a;
+				half temp_output_8_0_g2540 = temp_output_392_0;
+				half4 break5_g2540 = _SmoothnessRemap;
+				half temp_output_3_0_g2540 = (0.0 + (temp_output_8_0_g2540 - break5_g2540.x) * (1.0 - 0.0) / (break5_g2540.y - break5_g2540.x));
+				half clampResult2_g2540 = clamp( temp_output_3_0_g2540 , break5_g2540.z , break5_g2540.w );
+				half temp_output_27_0_g2540 = saturate( clampResult2_g2540 );
+				half temp_output_3894_0 = temp_output_27_0_g2540;
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3739 = temp_output_3894_0;
+				half staticSwitch3739 = temp_output_3894_0;
 				#else
-				float staticSwitch3739 = temp_output_392_0;
+				half staticSwitch3739 = temp_output_392_0;
 				#endif
-				float4 appendResult3479 = (float4(( staticSwitch3732 * _Metallic ) , ( ( staticSwitch3735 * temp_output_12_0_g2502 ) + ( 1.0 - temp_output_12_0_g2502 ) ) , ( ( ( staticSwitch3738 * temp_output_12_0_g2514 ) + ( 1.0 - temp_output_12_0_g2514 ) ) * _UseEmission ) , ( staticSwitch3739 * _Smoothness )));
-				float4 appendResult3481 = (float4(_Metallic , 1.0 , _UseEmission , _Smoothness));
-				float4 ifLocalVar3480 = 0;
+				half4 appendResult3479 = (half4(( staticSwitch3732 * _Metallic ) , ( ( staticSwitch3735 * temp_output_12_0_g2502 ) + ( 1.0 - temp_output_12_0_g2502 ) ) , ( ( ( staticSwitch3738 * temp_output_12_0_g2514 ) + ( 1.0 - temp_output_12_0_g2514 ) ) * _UseEmission ) , ( staticSwitch3739 * _Smoothness )));
+				half4 appendResult3481 = (half4(_Metallic , 1.0 , _UseEmission , _Smoothness));
+				half4 ifLocalVar3480 = 0;
 				if( _MetallicSpecGlossMap3184 <= 0.0 )
 				ifLocalVar3480 = appendResult3481;
 				else
 				ifLocalVar3480 = appendResult3479;
-				float UseMossMetalMapInt3239 = _UseMossMetalMap;
-				float4 appendResult3487 = (float4(_Metallic , 1.0 , _UseEmission , _Smoothness));
-				float4 appendResult3485 = (float4(( staticSwitch3732 * _Metallic ) , ( ( staticSwitch3735 * temp_output_12_0_g2502 ) + ( 1.0 - temp_output_12_0_g2502 ) ) , ( ( ( staticSwitch3738 * temp_output_12_0_g2514 ) + ( 1.0 - temp_output_12_0_g2514 ) ) * _UseEmission ) , ( staticSwitch3739 * _Smoothness )));
-				float4 ifLocalVar3486 = 0;
+				half UseMossMetalMapInt3239 = _UseMossMetalMap;
+				half4 appendResult3487 = (half4(_Metallic , 1.0 , _UseEmission , _Smoothness));
+				half4 appendResult3485 = (half4(( staticSwitch3732 * _Metallic ) , ( ( staticSwitch3735 * temp_output_12_0_g2502 ) + ( 1.0 - temp_output_12_0_g2502 ) ) , ( ( ( staticSwitch3738 * temp_output_12_0_g2514 ) + ( 1.0 - temp_output_12_0_g2514 ) ) * _UseEmission ) , ( staticSwitch3739 * _Smoothness )));
+				half4 ifLocalVar3486 = 0;
 				if( ( MossModeInt3200 + ( 1.0 - UseMossMetalMapInt3239 ) ) <= 0.0 )
 				ifLocalVar3486 = appendResult3485;
 				else
 				ifLocalVar3486 = appendResult3487;
 				#ifdef _MOSSMETALMODE_ON
-				float4 staticSwitch3494 = ifLocalVar3486;
+				half4 staticSwitch3494 = ifLocalVar3486;
 				#else
-				float4 staticSwitch3494 = ifLocalVar3480;
+				half4 staticSwitch3494 = ifLocalVar3480;
 				#endif
-				float4 break3482 = staticSwitch3494;
-				float EmissionMasked3065 = break3482.z;
-				float3 temp_output_3496_0 = ( appendResult3069 * EmissionMasked3065 );
-				float4 EmissionRes806 = ( MossFresnel203 + float4( temp_output_3496_0 , 0.0 ) );
-				float3 temp_output_91_0_g3888 = EmissionRes806.rgb;
-				float at79_g3888 = saturate( ( tex2DNode3_g3888.a * tex2DNode4_g3888.a ) );
-				float3 appendResult99_g3888 = (float3(_Layer3EmissionColor.rgb));
+				half4 break3482 = staticSwitch3494;
+				half EmissionMasked3065 = break3482.z;
+				half3 temp_output_3496_0 = ( appendResult3069 * EmissionMasked3065 );
+				half4 EmissionRes806 = ( MossFresnel203 + half4( temp_output_3496_0 , 0.0 ) );
+				half3 temp_output_91_0_g4236 = EmissionRes806.rgb;
+				half at79_g4236 = saturate( ( tex2DNode3_g4236.a * tex2DNode4_g4236.a ) );
+				half3 appendResult99_g4236 = (half3(_Layer3EmissionColor.rgb));
 				#ifdef _REVEALLAYERS
-				float3 staticSwitch93_g3888 = ( ( temp_output_91_0_g3888 * ( 1.0 - at79_g3888 ) ) + ( appendResult99_g3888 * at79_g3888 ) );
+				half3 staticSwitch93_g4236 = ( ( temp_output_91_0_g4236 * ( 1.0 - at79_g4236 ) ) + ( appendResult99_g4236 * at79_g4236 ) );
 				#else
-				float3 staticSwitch93_g3888 = temp_output_91_0_g3888;
+				half3 staticSwitch93_g4236 = temp_output_91_0_g4236;
 				#endif
+				half OceanUnder289_g4237 = GlobalOceanUnder;
+				half3 EmissionIn281_g4237 = float3( 0,0,0 );
+				half3 WorldPosition256_g4237 = WorldPosition;
+				half3 temp_output_105_0_g4260 = WorldPosition256_g4237;
+				half temp_output_117_0_g4260 = (temp_output_105_0_g4260).y;
+				half temp_output_67_0_g4237 = ( GlobalOceanOffset + GlobalOceanHeight );
+				half OceanHeight274_g4237 = temp_output_67_0_g4237;
+				half temp_output_63_0_g4260 = OceanHeight274_g4237;
+				half3 appendResult2618 = (half3(unpack2617));
+				half3 _Vector14 = half3(0,0,1);
+				half3 ifLocalVar3262 = 0;
+				if( _UseNormalMap <= 0.5 )
+				ifLocalVar3262 = _Vector14;
+				else
+				ifLocalVar3262 = appendResult2618;
+				half3 SimpleNormalXYSigned30 = ifLocalVar3262;
+				int MossInt2938 = _Moss;
+				half2 _Vector0 = half2(0,0);
+				half2 temp_output_3045_0 = (MossMetalRes3077).ag;
+				half2 MossPackedNormal1656 = temp_output_3045_0;
+				half4 temp_output_5_0_g2453 = half4( MossPackedNormal1656, 0.0 , 0.0 );
+				half2 appendResult12_g2453 = (half2(temp_output_5_0_g2453.xy));
+				half temp_output_6_0_g2453 = _MossNormalStrength;
+				half2 lerpResult2_g2453 = lerp( float2( 0,0 ) , ( appendResult12_g2453 - float2( 0.5,0.5 ) ) , ( temp_output_6_0_g2453 * 2.0 ));
+				half2 lerpResult2976 = lerp( _Vector0 , lerpResult2_g2453 , MossMask45);
+				half2 MossNormalSigned100 = lerpResult2976;
+				half2 temp_output_3610_0 = ( MossInt2938 * MossNormalSigned100 );
+				half3 appendResult4006 = (half3(temp_output_3610_0 , 1.0));
+				half3 lerpResult4431 = lerp( SimpleNormalXYSigned30 , float3( 0,0,1 ) , MossMask45);
+				half2 appendResult1363 = (half2(lerpResult4431.xy));
+				#ifdef _MOSS
+				half3 staticSwitch4131 = ( appendResult4006 + half3( appendResult1363 ,  0.0 ) );
+				#else
+				half3 staticSwitch4131 = SimpleNormalXYSigned30;
+				#endif
+				half2 DetailNormaMossMaskedSigned988 = ( _DetailNormalMapScale * (staticSwitch4132).yz );
+				half3 appendResult4397 = (half3(DetailNormaMossMaskedSigned988 , 1.0));
+				#ifdef _DETAIL_ON
+				half3 staticSwitch1105 = BlendNormal( staticSwitch4131 , appendResult4397 );
+				#else
+				half3 staticSwitch1105 = staticSwitch4131;
+				#endif
+				half3 NormalPre2265 = staticSwitch1105;
+				half3 normalizeResult4009 = normalize( NormalPre2265 );
+				half3 NormalRes109 = normalizeResult4009;
+				half3 temp_output_42_0_g4236 = NormalRes109;
+				half3 unpack9_g4236 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer0NormalMap, sampler_Linear_Repeat_Aniso2, uvLayer0112_g4236 ), _Layer0NormalStrength );
+				unpack9_g4236.z = lerp( 1, unpack9_g4236.z, saturate(_Layer0NormalStrength) );
+				half LSNormal101_g4236 = _LayerSurfaceExp.y;
+				half3 lerpResult41_g4236 = lerp( temp_output_42_0_g4236 , unpack9_g4236 , pow( rt31_g4236 , LSNormal101_g4236 ));
+				half3 unpack18_g4236 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer1NormalMap, sampler_Linear_Repeat_Aniso2, uvLayer1114_g4236 ), _Layer1NormalStrength );
+				unpack18_g4236.z = lerp( 1, unpack18_g4236.z, saturate(_Layer1NormalStrength) );
+				half3 lerpResult64_g4236 = lerp( lerpResult41_g4236 , unpack18_g4236 , pow( gt57_g4236 , LSNormal101_g4236 ));
+				half2 uv83_g4236 = baseuv25_g4236;
+				half bt76_g4236 = saturate( ( tex2DNode3_g4236.b * tex2DNode4_g4236.b ) );
+				half height83_g4236 = ( _Layer2Height * bt76_g4236 );
+				half2 texelSize83_g4236 = (_RevealMask_TexelSize).xy;
+				SamplerState sampler_RevealMask83_g4236 = sampler_Linear_Repeat_Aniso2;
+				half3 localRevealMaskNormalCrossFilter83_g4236 = RevealMaskNormalCrossFilter83_g4236( uv83_g4236 , height83_g4236 , texelSize83_g4236 , sampler_RevealMask83_g4236 );
+				half3 heightNormal89_g4236 = localRevealMaskNormalCrossFilter83_g4236;
+				#ifdef _REVEALLAYERS
+				half3 staticSwitch58_g4236 = BlendNormal( lerpResult64_g4236 , heightNormal89_g4236 );
+				#else
+				half3 staticSwitch58_g4236 = temp_output_42_0_g4236;
+				#endif
+				half3 temp_output_4603_43 = staticSwitch58_g4236;
+				half3 temp_output_9_0_g4237 = temp_output_4603_43;
+				half3 temp_output_30_0_g4260 = temp_output_9_0_g4237;
+				float3 tanNormal12_g4260 = temp_output_30_0_g4260;
+				half3 worldNormal12_g4260 = float3(dot(tanToWorld0,tanNormal12_g4260), dot(tanToWorld1,tanNormal12_g4260), dot(tanToWorld2,tanNormal12_g4260));
+				half3 vertexToFrag144_g4260 = IN.ase_texcoord10.xyz;
+				half dotResult1_g4260 = dot( worldNormal12_g4260 , vertexToFrag144_g4260 );
+				half desktop151_g4260 = max( dotResult1_g4260 , 0.0 );
+				half mobile151_g4260 = 1.0;
+				half localShaderAPIMobile151_g4260 = ShaderAPIMobile151_g4260( desktop151_g4260 , mobile151_g4260 );
+				half2 vertexToFrag52_g4260 = IN.ase_texcoord11.xy;
+				half4 tex2DNode120_g4260 = SAMPLE_TEXTURE2D( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g4260 );
+				half3 appendResult121_g4260 = (half3(tex2DNode120_g4260.r , tex2DNode120_g4260.r , tex2DNode120_g4260.r));
+				half2 DistanceFade134_g4260 = (_CausticsSettings).zw;
+				half2 break136_g4260 = DistanceFade134_g4260;
+				half temp_output_67_0_g4260 = ( saturate( (1.0 + (distance( temp_output_63_0_g4260 , temp_output_117_0_g4260 ) - break136_g4260.x) * (0.0 - 1.0) / (break136_g4260.y - break136_g4260.x)) ) * saturate( (0.0 + (max( -( temp_output_117_0_g4260 - temp_output_63_0_g4260 ) , 0.0 ) - 0.2) * (1.0 - 0.0) / (1.0 - 0.2)) ) );
+				half desktop153_g4260 = temp_output_67_0_g4260;
+				half mobile153_g4260 = 1.0;
+				half localShaderAPIMobile153_g4260 = ShaderAPIMobile153_g4260( desktop153_g4260 , mobile153_g4260 );
+				half CausticMipLevel118_g4260 = ( ( 1.0 - localShaderAPIMobile153_g4260 ) * 4.0 );
+				#ifdef _USECAUSTICRAINBOW_ON
+				half3 staticSwitch73_g4260 = ( ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g4260 + ( 0.0045 * 2.0 ) ), CausticMipLevel118_g4260 ).r * half3(0,0,1) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g4260 + 0.0045 ), CausticMipLevel118_g4260 ).r * half3(0,1,0) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g4260, CausticMipLevel118_g4260 ).r * half3(1,0,0) ) );
+				#else
+				half3 staticSwitch73_g4260 = appendResult121_g4260;
+				#endif
+				#ifdef _USECAUSTICEXTRASAMPLER_ON
+				half3 staticSwitch57_g4260 = staticSwitch73_g4260;
+				#else
+				half3 staticSwitch57_g4260 = staticSwitch73_g4260;
+				#endif
+				half3 appendResult62_g4260 = (half3(_CausticsColor.rgb));
+				half3 ifLocalVar155_g4260 = 0;
+				UNITY_BRANCH 
+				if( temp_output_117_0_g4260 < ( temp_output_63_0_g4260 + 0.2 ) )
+				ifLocalVar155_g4260 = ( localShaderAPIMobile151_g4260 * staticSwitch57_g4260 * appendResult62_g4260 * localShaderAPIMobile153_g4260 );
+				half3 lerpResult205_g4237 = lerp( ( EmissionIn281_g4237 + ifLocalVar155_g4260 ) , ( ( EmissionIn281_g4237 + ifLocalVar155_g4260 ) * 30.0 ) , OceanUnder289_g4237);
+				half3 appendResult100_g4251 = (half3(OceanWaterTint_RGB.xyz));
+				half3 WorldPos252_g4251 = WorldPosition256_g4237;
+				half temp_output_108_0_g4251 = OceanHeight274_g4237;
+				half3 ViewDir264_g4237 = ase_worldViewDir;
+				half3 viewDir240_g4251 = ViewDir264_g4237;
+				half3 camWorldPos240_g4251 = _WorldSpaceCameraPos;
+				half3 posWS240_g4251 = WorldPos252_g4251;
+				half4 oceanFogDensities240_g4251 = OceanFogDensities;
+				half oceanHeight240_g4251 = temp_output_108_0_g4251;
+				half4 oceanFogTop_RGB_Exponent240_g4251 = OceanFogTop_RGB_Exponent;
+				half4 oceanFogBottom_RGB_Intensity240_g4251 = OceanFogBottom_RGB_Intensity;
+				half4 localGetUnderWaterFogs240_g4251 = GetUnderWaterFogs240_g4251( viewDir240_g4251 , camWorldPos240_g4251 , posWS240_g4251 , oceanFogDensities240_g4251 , oceanHeight240_g4251 , oceanFogTop_RGB_Exponent240_g4251 , oceanFogBottom_RGB_Intensity240_g4251 );
+				half4 ifLocalVar257_g4251 = 0;
+				UNITY_BRANCH 
+				if( (WorldPos252_g4251).y < ( temp_output_108_0_g4251 + 0.2 ) )
+				ifLocalVar257_g4251 = localGetUnderWaterFogs240_g4251;
+				half4 FogRes185_g4251 = ifLocalVar257_g4251;
+				half3 appendResult94_g4251 = (half3(FogRes185_g4251.xyz));
+				half3 lerpResult36_g4251 = lerp( ( lerpResult205_g4237 * appendResult100_g4251 ) , appendResult94_g4251 , (FogRes185_g4251).w);
+				half3 ifLocalVar5_g4237 = 0;
+				UNITY_BRANCH 
+				if( OceanUnder289_g4237 >= 1.0 )
+				ifLocalVar5_g4237 = lerpResult36_g4251;
+				else
+				ifLocalVar5_g4237 = EmissionIn281_g4237;
+				half temp_output_254_0_g4237 = (WorldPosition256_g4237).y;
+				half temp_output_137_0_g4237 = ( temp_output_254_0_g4237 - OceanHeight274_g4237 );
+				half temp_output_24_0_g4247 = temp_output_137_0_g4237;
+				half temp_output_44_0_g4247 = 0.1;
+				half temp_output_45_0_g4247 = 0.31;
+				half temp_output_46_0_g4247 = saturate( (0.0 + (( temp_output_24_0_g4247 - temp_output_44_0_g4247 ) - 0.0) * (1.0 - 0.0) / (temp_output_45_0_g4247 - 0.0)) );
+				#ifdef _FadeWithHeight
+				half staticSwitch238_g4237 = ( 1.0 - temp_output_46_0_g4247 );
+				#else
+				half staticSwitch238_g4237 = 1.0;
+				#endif
+				half FadeFromY295_g4237 = staticSwitch238_g4237;
+				half3 lerpResult174_g4237 = lerp( ( ifLocalVar5_g4237 + lerpResult205_g4237 ) , ifLocalVar5_g4237 , ( OceanUnder289_g4237 * FadeFromY295_g4237 ));
+				half3 lerpResult242_g4237 = lerp( EmissionIn281_g4237 , lerpResult174_g4237 , FadeFromY295_g4237);
+				#ifdef _USECAUSTICSFROMABOVE_ON
+				half3 staticSwitch172_g4237 = lerpResult242_g4237;
+				#else
+				half3 staticSwitch172_g4237 = ifLocalVar5_g4237;
+				#endif
+				#ifdef _USEUNDERWATER
+				half3 staticSwitch211_g4237 = staticSwitch172_g4237;
+				#else
+				half3 staticSwitch211_g4237 = float3( 0,0,0 );
+				#endif
+				half3 temp_output_4575_8 = staticSwitch211_g4237;
 				
-				float4 screenPos = IN.ase_texcoord11;
-				float4 ase_screenPosNorm = screenPos / screenPos.w;
+				float4 screenPos = IN.ase_texcoord12;
+				half4 ase_screenPosNorm = screenPos / screenPos.w;
 				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 clipScreen3958 = ase_screenPosNorm.xy * _ScreenParams.xy;
-				float dither3958 = Dither4x4Bayer( fmod(clipScreen3958.x, 4), fmod(clipScreen3958.y, 4) );
+				half2 clipScreen3958 = ase_screenPosNorm.xy * _ScreenParams.xy;
+				half dither3958 = Dither4x4Bayer( fmod(clipScreen3958.x, 4), fmod(clipScreen3958.y, 4) );
 				dither3958 = step( dither3958, temp_output_3952_0 );
-				float lerpResult3962 = lerp( (float)AlphaToCoverage , 1.0 , _Surface);
-				float Dither3961 = ( _Dither * ( 1.0 - lerpResult3962 ) );
-				float lerpResult3959 = lerp( temp_output_3952_0 , dither3958 , Dither3961);
+				half lerpResult3962 = lerp( (float)AlphaToCoverage , 1.0 , _Surface);
+				half Dither3961 = ( _Dither * ( 1.0 - lerpResult3962 ) );
+				half lerpResult3959 = lerp( temp_output_3952_0 , dither3958 , Dither3961);
 				#ifdef _ALPHATEST_ON
-				float staticSwitch3334 = lerpResult3959;
+				half staticSwitch3334 = lerpResult3959;
 				#else
-				float staticSwitch3334 = 1.0;
+				half staticSwitch3334 = 1.0;
 				#endif
-				float AlbedoAlpha84 = staticSwitch3334;
+				half AlbedoAlpha84 = staticSwitch3334;
 				
-				float lerpResult3950 = lerp( 0.0 , _AlphaClipThreshold , _AlphaClip);
-				float lerpResult3291 = lerp( lerpResult3950 , 0.0 , (float)AlphaToCoverage);
-				float ClipCalc3294 = lerpResult3291;
+				half lerpResult3950 = lerp( 0.0 , _AlphaClipThreshold , _AlphaClip);
+				half lerpResult3291 = lerp( lerpResult3950 , 0.0 , (float)AlphaToCoverage);
+				half ClipCalc3294 = lerpResult3291;
 				
 
-				float3 BaseColor = ( temp_output_4414_36 + temp_output_4446_8 );
-				float3 Emission = staticSwitch93_g3888;
+				float3 BaseColor = temp_output_4603_36;
+				float3 Emission = ( staticSwitch93_g4236 + ( temp_output_4603_36 * temp_output_4575_8 ) );
 				float Alpha = AlbedoAlpha84;
 				float AlphaClipThreshold = ClipCalc3294;
 
@@ -5267,16 +5315,16 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			#pragma shader_feature_local _AUTONORMAL
 			#pragma shader_feature_local LAYER_UNLIMITED LAYER_MAX2 LAYER_MAX3
 			#pragma shader_feature_local TEXTURE_MAX4 TEXTURE_MAX8 TEXTURE_MAX12 TEXTURE_MAX16
-			#pragma shader_feature _SKYFOG_ON
 			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma shader_feature_local _MOSSMETALMODE_ON
-			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#pragma shader_feature_local _ALPHAMODE
 			#pragma shader_feature_local _SIMPLESTOCHASTIC
 			#pragma shader_feature_local _USESPLAT_ON
 			#pragma shader_feature_local _DEBUGVISUALS_ON
-			#pragma shader_feature_local _USE_SSS_ON
+			#pragma shader_feature _SKYFOG_ON
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local _USE_SSS_ON
+			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#pragma shader_feature_local _REVEALLAYERS
 			#pragma shader_feature_local _DETAIL_ON
 			#pragma shader_feature_local _USESTOCHASTICMOSS_ON
@@ -5301,7 +5349,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float4 ase_texcoord1 : TEXCOORD1;
 				float4 ase_texcoord : TEXCOORD0;
 				float4 ase_texcoord2 : TEXCOORD2;
-				float4 ase_color : COLOR;
+				half4 ase_color : COLOR;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -5326,111 +5374,111 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _Tint3;
-			float4 _DetailMapScale;
-			float4 _SmoothnessRemap;
-			float4 _DetailMaskRemap;
-			float4 _MossAlbedoRemap;
-			float4 _EmissionRemap;
-			float4 _MossAlphaMaskMM;
-			float4 _OcclusionRemap;
-			float4 _DetailSmoothnessRemap;
-			float4x4 _ProbeWorldToTexture;
-			float4 _MetallicRemap;
-			float4 _MossColor;
-			float4 _EmissionColor;
+			half4 _Tint3;
+			half4 _DetailMapScale;
+			half4 _SmoothnessRemap;
+			half4 _DetailMaskRemap;
+			half4 _MossAlbedoRemap;
+			half4 _EmissionRemap;
+			half4 _MossAlphaMaskMM;
+			half4 _OcclusionRemap;
+			half4 _DetailSmoothnessRemap;
+			half4x4 _ProbeWorldToTexture;
+			half4 _MetallicRemap;
+			half4 _MossColor;
+			half4 _EmissionColor;
 			float4 _RevealMask_TexelSize;
-			float4 _MossSmoothnessRemap;
-			float4 _Tint1;
-			float4 _MossFresnel;
-			float4 _MossFresnelColor;
-			float4 _Layer3EmissionColor;
-			float4 _Layer1_ST;
-			float4 _LayerSurfaceExp;
-			float4 _Layer0_ST;
-			float4 _Tint2;
-			float4 _MossSlopeNormal_ST;
-			float4 _BaseMap_ST;
-			float4 _BaseColor;
-			float4 _MossSlopeMM;
-			float4 _Tint0;
-			float4 _SSSColor;
-			float3 _ProbeVolumeMin;
-			float3 _MossDirection;
-			float3 _ProbeVolumeSizeInv;
-			float _MossDetailNormalMapScale;
-			float _UseEmission;
-			float _Occlusion;
-			float _UseOcclusion;
-			float _Metallic;
-			float _UseMossFresnel;
-			float _Smoothness;
-			float _MossMetallic;
-			float _Layer1Smoothness;
-			float _Layer1Metallic;
-			float _SSSDimAlbedo;
-			float _NormalStrength_USE_SSS;
-			float _SSScattering;
-			float _SSSRadius;
-			float _MossNormalStrength2;
-			float _MossSlopeDistort;
-			float _MossSlopeNormRotate;
-			float _DebugScale;
+			half4 _MossSmoothnessRemap;
+			half4 _Tint1;
+			half4 _MossFresnel;
+			half4 _MossFresnelColor;
+			half4 _Layer3EmissionColor;
+			half4 _Layer1_ST;
+			half4 _LayerSurfaceExp;
+			half4 _Layer0_ST;
+			half4 _Tint2;
+			half4 _MossSlopeNormal_ST;
+			half4 _BaseMap_ST;
+			half4 _BaseColor;
+			half4 _MossSlopeMM;
+			half4 _Tint0;
+			half4 _SSSColor;
+			half3 _ProbeVolumeMin;
+			half3 _MossDirection;
+			half3 _ProbeVolumeSizeInv;
+			half _MossDetailNormalMapScale;
+			half _UseEmission;
+			half _Occlusion;
+			half _UseOcclusion;
+			half _Metallic;
+			half _UseMossFresnel;
+			half _Smoothness;
+			half _MossMetallic;
+			half _Layer1Smoothness;
+			half _Layer1Metallic;
+			half _SSSDimAlbedo;
+			half _NormalStrength_USE_SSS;
+			half _SSScattering;
+			half _SSSRadius;
+			half _MossNormalStrength2;
+			half _MossSlopeDistort;
+			half _MossSlopeNormRotate;
+			half _DebugScale;
 			int _DebugVisual;
-			float _ShadowThreshold;
-			float _AlphaClip;
-			float _AlphaClipThreshold;
-			float _Surface;
-			float _Dither;
-			float _OcclusionMossMask;
-			float _Layer0Smoothness;
-			float _MossSmoothness;
-			float _Layer0Metallic;
-			float _Layer2Height;
+			half _ShadowThreshold;
+			half _AlphaClip;
+			half _AlphaClipThreshold;
+			half _Surface;
+			half _Dither;
+			half _OcclusionMossMask;
+			half _Layer0Smoothness;
+			half _MossSmoothness;
+			half _Layer0Metallic;
+			half _Layer2Height;
 			int _DETAIL;
-			float _Layer0NormalStrength;
+			half _Layer0NormalStrength;
 			int _MetalUV;
 			int _Moss;
-			float _UseMossMetalMap;
+			half _UseMossMetalMap;
 			int _MossMode;
-			float _MossStochasticContrast;
-			float _MossStochasticScale;
+			half _MossStochasticContrast;
+			half _MossStochasticScale;
 			float _MossScale;
 			int _MossUV;
-			float _MossMultAlbedo;
+			half _MossMultAlbedo;
 			int _UseColorMask;
 			int _Bitmask;
 			int _ZWrite;
 			int _Cullmode;
-			float _Blend;
-			float _SrcBlend;
-			float _DstBlend;
-			float _Cutoff;
+			half _Blend;
+			half _SrcBlend;
+			half _DstBlend;
+			half _Cutoff;
 			int _Int0;
 			int _BlendMode_UseColorMask;
-			float _Layer1NormalStrength;
-			float _MossBase;
-			float _MetallicSpecGlossMap;
-			float _DetailNormalMapScale;
-			float _MossNormalStrength;
-			float _UseNormalMap;
-			float _DetailsOverMoss;
-			float _MapContrast;
-			float _MapContrastOffset;
-			float _MossNormalAffectStrength;
-			float _MossNormalSubtract;
-			float _DetailAlbedoMapScale;
-			float _MossNormalContrast;
-			float _UseMossVertexMask;
-			float _UseMossMaskWithAlpha;
-			float _UseMossDirection;
-			float _MossDirContrast;
-			float _MossLevel;
-			float _DetailNormalMapScale1;
-			float _UseDetailMask;
+			half _Layer1NormalStrength;
+			half _MossBase;
+			half _MetallicSpecGlossMap;
+			half _DetailNormalMapScale;
+			half _MossNormalStrength;
+			half _UseNormalMap;
+			half _DetailsOverMoss;
+			half _MapContrast;
+			half _MapContrastOffset;
+			half _MossNormalAffectStrength;
+			half _MossNormalSubtract;
+			half _DetailAlbedoMapScale;
+			half _MossNormalContrast;
+			half _UseMossVertexMask;
+			half _UseMossMaskWithAlpha;
+			half _UseMossDirection;
+			half _MossDirContrast;
+			half _MossLevel;
+			half _DetailNormalMapScale1;
+			half _UseDetailMask;
 			int _MODE;
-			float _NormalStrength;
-			float _SSShadcowMix;
+			half _NormalStrength;
+			half _SSShadcowMix;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -5465,15 +5513,12 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				int _PassValue;
 			#endif
 
-			float4 _skyGradientColor1;
-			float4 _skyGradientColor2;
 			TEXTURE2D_ARRAY(_ExtraArray);
 			SAMPLER(sampler_ExtraArray);
 			TEXTURE2D_ARRAY(_DiffuseArray);
 			SAMPLER(sampler_DiffuseArray);
 			TEXTURE2D_ARRAY(_NormalArray);
 			SAMPLER(sampler_NormalArray);
-			float3 _CausticsDir;
 			half _CausticsScale;
 			half2 _CausticsPanSpeed;
 			half4 _CausticsColor;
@@ -5489,14 +5534,10 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			TEXTURE2D(_MetallicGlossMap);
 			TEXTURE2D(_Layer0NormalMap);
 			TEXTURE2D(_Layer0);
-			SAMPLER(sampler_Layer0NormalMap);
 			TEXTURE2D(_RevealMask);
-			SAMPLER(sampler_RevealMask);
 			TEXTURE2D(_LayerMask);
-			SAMPLER(sampler_LayerMask);
 			TEXTURE2D(_Layer1NormalMap);
 			TEXTURE2D(_Layer1);
-			SAMPLER(sampler_Layer1NormalMap);
 			int AlphaToCoverage;
 
 
@@ -5514,7 +5555,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
 			}
 			
-			float3 VertVanisher3872( float3 vertex, float2 vtexcoord1, int bitMask )
+			half3 VertVanisher3872( half3 vertex, half2 vtexcoord1, int bitMask )
 			{
 				 if(bitMask & (int)vtexcoord1.x){
 					vertex *= (0.0 / 0.0);
@@ -5522,12 +5563,12 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				return vertex;
 			}
 			
-			float MyCustomExpression3902( float detailAlbedo, float scale )
+			half MyCustomExpression3902( half detailAlbedo, half scale )
 			{
 				return half(2.0) * detailAlbedo * scale - scale + half(1.0);
 			}
 			
-			float3 RevealMaskNormalCrossFilter83_g3888( float2 uv, float height, float2 texelSize )
+			half3 RevealMaskNormalCrossFilter83_g4236( half2 uv, half height, half2 texelSize, SamplerState sampler_RevealMask )
 			{
 						//float2 texelSize = float2(1.0 / texWidth, 1.0 / texHeight);
 						float4 h;
@@ -5561,70 +5602,73 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
-				float3 vertex3872 = v.vertex.xyz;
-				float2 vtexcoord13872 = v.ase_texcoord1.xy;
+				half3 vertex3872 = v.vertex.xyz;
+				half2 vtexcoord13872 = v.ase_texcoord1.xy;
 				int bitMask3872 = _Bitmask;
-				float3 localVertVanisher3872 = VertVanisher3872( vertex3872 , vtexcoord13872 , bitMask3872 );
-				float3 VertexOcclusionPosition3873 = localVertVanisher3872;
+				half3 localVertVanisher3872 = VertVanisher3872( vertex3872 , vtexcoord13872 , bitMask3872 );
+				half3 VertexOcclusionPosition3873 = localVertVanisher3872;
 				
-				float4 ifLocalVars3708 = 0;
-				float2 texCoord117 = v.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
-				if(_MossUV==0){ifLocalVars3708 = float4( texCoord117, 0.0 , 0.0 ); };
-				float2 texCoord3710 = v.ase_texcoord1.xy * float2( 1,1 ) + float2( 0,0 );
-				if(_MossUV==1){ifLocalVars3708 = float4( texCoord3710, 0.0 , 0.0 ); };
-				float2 texCoord3712 = v.ase_texcoord2.xy * float2( 1,1 ) + float2( 0,0 );
-				if(_MossUV==2){ifLocalVars3708 = float4( texCoord3712, 0.0 , 0.0 ); };
-				float2 appendResult3711 = (float2(ifLocalVars3708.xy));
-				float2 temp_output_119_0 = ( appendResult3711 * ( 1.0 / _MossScale ) );
-				float2 MossUVScaled1663 = temp_output_119_0;
-				float2 vertexToFrag3722 = MossUVScaled1663;
-				o.ase_texcoord5.zw = vertexToFrag3722;
+				half4 ifLocalVars3708 = 0;
+				half2 texCoord117 = v.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				if(_MossUV==0){ifLocalVars3708 = half4( texCoord117, 0.0 , 0.0 ); };
+				half2 texCoord3710 = v.ase_texcoord1.xy * float2( 1,1 ) + float2( 0,0 );
+				if(_MossUV==1){ifLocalVars3708 = half4( texCoord3710, 0.0 , 0.0 ); };
+				half2 texCoord3712 = v.ase_texcoord2.xy * float2( 1,1 ) + float2( 0,0 );
+				if(_MossUV==2){ifLocalVars3708 = half4( texCoord3712, 0.0 , 0.0 ); };
+				half2 appendResult3711 = (half2(ifLocalVars3708.xy));
+				half2 vertexToFrag3370 = ( appendResult3711 * ( 1.0 / _MossScale ) );
+				o.ase_texcoord5.zw = vertexToFrag3370;
 				int MossInt2938 = _Moss;
 				int MossModeInt3200 = _MossMode;
 				#ifdef _MOSSMETALMODE_ON
-				float staticSwitch3230 = (float)( MossInt2938 * MossModeInt3200 );
+				half staticSwitch3230 = (float)( MossInt2938 * MossModeInt3200 );
 				#else
-				float staticSwitch3230 = (float)MossInt2938;
+				half staticSwitch3230 = (float)MossInt2938;
 				#endif
-				float4 ifLocalVars3717 = 0;
-				float2 uv_BaseMap = v.ase_texcoord.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
-				if(_MetalUV==0){ifLocalVars3717 = float4( uv_BaseMap, 0.0 , 0.0 ); };
-				float2 uv2_BaseMap = v.ase_texcoord1.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
-				if(_MetalUV==1){ifLocalVars3717 = float4( uv2_BaseMap, 0.0 , 0.0 ); };
-				float2 uv3_BaseMap = v.ase_texcoord2.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
-				if(_MetalUV==2){ifLocalVars3717 = float4( uv3_BaseMap, 0.0 , 0.0 ); };
-				float2 appendResult3718 = (float2(ifLocalVars3717.xy));
-				float2 vertexToFrag3723 = appendResult3718;
-				float2 UVBasemapPicked3719 = vertexToFrag3723;
-				float2 ifLocalVar2916 = 0;
+				half2 MossUVScaled1663 = vertexToFrag3370;
+				half4 ifLocalVars3717 = 0;
+				half2 uv_BaseMap = v.ase_texcoord.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
+				if(_MetalUV==0){ifLocalVars3717 = half4( uv_BaseMap, 0.0 , 0.0 ); };
+				half2 uv2_BaseMap = v.ase_texcoord1.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
+				if(_MetalUV==1){ifLocalVars3717 = half4( uv2_BaseMap, 0.0 , 0.0 ); };
+				half2 uv3_BaseMap = v.ase_texcoord2.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
+				if(_MetalUV==2){ifLocalVars3717 = half4( uv3_BaseMap, 0.0 , 0.0 ); };
+				half2 appendResult3718 = (half2(ifLocalVars3717.xy));
+				half2 vertexToFrag3723 = appendResult3718;
+				half2 UVBasemapPicked3719 = vertexToFrag3723;
+				half2 ifLocalVar2916 = 0;
 				if( staticSwitch3230 <= 0.0 )
 				ifLocalVar2916 = UVBasemapPicked3719;
 				else
 				ifLocalVar2916 = MossUVScaled1663;
-				float2 vertexToFrag3371 = ifLocalVar2916;
+				half2 vertexToFrag3371 = ifLocalVar2916;
 				o.ase_texcoord6.xy = vertexToFrag3371;
 				float3 ase_worldPos = TransformObjectToWorld( (v.vertex).xyz );
-				float4 _DetailDistanceHardcoded = float4(25,30,0,0);
-				float temp_output_3155_0 = saturate( (1.0 + (distance( _WorldSpaceCameraPos , ase_worldPos ) - _DetailDistanceHardcoded.x) * (0.0 - 1.0) / (_DetailDistanceHardcoded.y - _DetailDistanceHardcoded.x)) );
-				float vertexToFrag3157 = temp_output_3155_0;
+				half4 _DetailDistanceHardcoded = half4(25,30,0,0);
+				half temp_output_3155_0 = saturate( (1.0 + (distance( _WorldSpaceCameraPos , ase_worldPos ) - _DetailDistanceHardcoded.x) * (0.0 - 1.0) / (_DetailDistanceHardcoded.y - _DetailDistanceHardcoded.x)) );
+				half vertexToFrag3157 = temp_output_3155_0;
 				o.ase_texcoord6.z = vertexToFrag3157;
-				o.ase_texcoord7.xy = vertexToFrag3723;
-				float3 ase_worldNormal = TransformObjectToWorldNormal(v.ase_normal);
-				float3 ase_worldTangent = TransformObjectToWorldDir(v.ase_tangent.xyz);
-				float ase_vertexTangentSign = v.ase_tangent.w * ( unity_WorldTransformParams.w >= 0.0 ? 1.0 : -1.0 );
+				half2 texCoord1007 = v.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				half2 appendResult2490 = (half2(_DetailMapScale.x , _DetailMapScale.y));
+				half2 appendResult2491 = (half2(_DetailMapScale.z , _DetailMapScale.w));
+				half2 vertexToFrag3400 = (texCoord1007*appendResult2490 + appendResult2491);
+				o.ase_texcoord7.xy = vertexToFrag3400;
+				o.ase_texcoord7.zw = vertexToFrag3723;
+				half3 ase_worldNormal = TransformObjectToWorldNormal(v.ase_normal);
+				half3 ase_worldTangent = TransformObjectToWorldDir(v.ase_tangent.xyz);
+				half ase_vertexTangentSign = v.ase_tangent.w * ( unity_WorldTransformParams.w >= 0.0 ? 1.0 : -1.0 );
 				float3 ase_worldBitangent = cross( ase_worldNormal, ase_worldTangent ) * ase_vertexTangentSign;
 				o.ase_texcoord8.xyz = ase_worldBitangent;
-				float temp_output_225_0 = ( ( v.ase_color.r - 0.5 ) * 2.0 );
-				float ifLocalVar4428 = 0;
+				half temp_output_225_0 = ( ( v.ase_color.r - 0.5 ) * 2.0 );
+				half ifLocalVar4428 = 0;
 				if( _UseMossVertexMask > 0.0 )
 				ifLocalVar4428 = temp_output_225_0;
-				float vertexToFrag3925 = ifLocalVar4428;
+				half vertexToFrag3925 = ifLocalVar4428;
 				o.ase_texcoord6.w = vertexToFrag3925;
 				
 				o.ase_texcoord5.xy = v.ase_texcoord.xy;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
-				o.ase_texcoord7.zw = 0;
 				o.ase_texcoord8.w = 0;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
@@ -5674,7 +5718,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float4 ase_texcoord1 : TEXCOORD1;
 				float4 ase_texcoord : TEXCOORD0;
 				float4 ase_texcoord2 : TEXCOORD2;
-				float4 ase_color : COLOR;
+				half4 ase_color : COLOR;
 
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
@@ -5785,322 +5829,321 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 					#endif
 				#endif
 
-				float2 uv_BaseMap = IN.ase_texcoord5.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
-				float2 UVBasemap02088 = uv_BaseMap;
-				float4 tex2DNode32 = SAMPLE_TEXTURE2D( _BumpMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
-				float3 unpack2617 = UnpackNormalScale( tex2DNode32, _NormalStrength );
+				half2 uv_BaseMap = IN.ase_texcoord5.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
+				half2 UVBasemap02088 = uv_BaseMap;
+				half4 tex2DNode32 = SAMPLE_TEXTURE2D( _BumpMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
+				half3 unpack2617 = UnpackNormalScale( tex2DNode32, _NormalStrength );
 				unpack2617.z = lerp( 1, unpack2617.z, saturate(_NormalStrength) );
-				float3 appendResult2618 = (float3(unpack2617));
-				float3 _Vector14 = float3(0,0,1);
-				float3 ifLocalVar3262 = 0;
+				half3 appendResult2618 = (half3(unpack2617));
+				half3 _Vector14 = half3(0,0,1);
+				half3 ifLocalVar3262 = 0;
 				if( _UseNormalMap <= 0.5 )
 				ifLocalVar3262 = _Vector14;
 				else
 				ifLocalVar3262 = appendResult2618;
-				float3 SimpleNormalXYSigned30 = ifLocalVar3262;
+				half3 SimpleNormalXYSigned30 = ifLocalVar3262;
 				int MossInt2938 = _Moss;
-				float2 _Vector0 = float2(0,0);
-				float2 vertexToFrag3722 = IN.ase_texcoord5.zw;
-				float StochasticScale1447 = ( 1.0 / _MossStochasticScale );
-				float StochasticContrast1448 = _MossStochasticContrast;
+				half2 _Vector0 = half2(0,0);
+				half2 vertexToFrag3370 = IN.ase_texcoord5.zw;
+				half2 MossUVScaled1663 = vertexToFrag3370;
+				half StochasticScale1447 = ( 1.0 / _MossStochasticScale );
+				half StochasticContrast1448 = _MossStochasticContrast;
 				half3 cw4270 = 0;
 				float2 uv14270 = 0;
 				float2 uv24270 = 0;
 				float2 uv34270 = 0;
 				float2 dx4270 = 0;
 				float2 dy4270 = 0;
-				half4 stochasticSample4270 = StochasticSample2DWeightsR(_MossPacked,sampler_MossPacked,vertexToFrag3722,cw4270,uv14270,uv24270,uv34270,dx4270,dy4270,StochasticScale1447,StochasticContrast1448);
+				half4 stochasticSample4270 = StochasticSample2DWeightsR(_MossPacked,sampler_MossPacked,MossUVScaled1663,cw4270,uv14270,uv24270,uv34270,dx4270,dy4270,StochasticScale1447,StochasticContrast1448);
 				#ifdef _USESTOCHASTICMOSS_ON
-				float4 staticSwitch121 = stochasticSample4270;
+				half4 staticSwitch121 = stochasticSample4270;
 				#else
-				float4 staticSwitch121 = SAMPLE_TEXTURE2D( _MossPacked, sampler_Linear_Repeat_Aniso2, vertexToFrag3722 );
+				half4 staticSwitch121 = SAMPLE_TEXTURE2D( _MossPacked, sampler_Linear_Repeat_Aniso2, MossUVScaled1663 );
 				#endif
 				int MossModeInt3200 = _MossMode;
-				float2 vertexToFrag3371 = IN.ase_texcoord6.xy;
-				float4 _Vector17 = float4(1,0,1,0);
-				float4 ifLocalVar3181 = 0;
+				half2 vertexToFrag3371 = IN.ase_texcoord6.xy;
+				half4 _Vector17 = half4(1,0,1,0);
+				half4 ifLocalVar3181 = 0;
 				if( _UseMossMetalMap <= 0.0 )
 				ifLocalVar3181 = _Vector17;
 				else
 				ifLocalVar3181 = SAMPLE_TEXTURE2D( _MossMetalMap, sampler_Linear_Repeat_Aniso2, vertexToFrag3371 );
-				float4 ifLocalVar3232 = 0;
+				half4 ifLocalVar3232 = 0;
 				if( MossModeInt3200 <= 0.0 )
 				ifLocalVar3232 = _Vector17;
 				else
 				ifLocalVar3232 = ifLocalVar3181;
-				float4 MossMetalMap2943 = ifLocalVar3232;
+				half4 MossMetalMap2943 = ifLocalVar3232;
 				#ifdef _MOSSMETALMODE_ON
-				float4 staticSwitch3303 = MossMetalMap2943;
+				half4 staticSwitch3303 = MossMetalMap2943;
 				#else
-				float4 staticSwitch3303 = staticSwitch121;
+				half4 staticSwitch3303 = staticSwitch121;
 				#endif
-				float4 MossMetalRes3077 = staticSwitch3303;
-				float2 temp_output_3045_0 = (MossMetalRes3077).ag;
-				float2 MossPackedNormal1656 = temp_output_3045_0;
-				float4 temp_output_5_0_g2453 = float4( MossPackedNormal1656, 0.0 , 0.0 );
-				float2 appendResult12_g2453 = (float2(temp_output_5_0_g2453.xy));
-				float temp_output_6_0_g2453 = _MossNormalStrength;
-				float2 lerpResult2_g2453 = lerp( float2( 0,0 ) , ( appendResult12_g2453 - float2( 0.5,0.5 ) ) , ( temp_output_6_0_g2453 * 2.0 ));
-				float2 _Vector5 = float2(0,0);
-				float2 NormalMossSigned50 = _Vector5;
-				float3 appendResult3794 = (float3(NormalMossSigned50 , 1.0));
-				float4 appendResult3336 = (float4(1.0 , 0.0 , 0.0 , 0.0));
-				float vertexToFrag3157 = IN.ase_texcoord6.z;
-				float DDistanceMaskVert3160 = step( 0.01 , vertexToFrag3157 );
-				float2 texCoord1007 = IN.ase_texcoord5.xy * float2( 1,1 ) + float2( 0,0 );
-				float2 appendResult2490 = (float2(_DetailMapScale.x , _DetailMapScale.y));
-				float2 appendResult2491 = (float2(_DetailMapScale.z , _DetailMapScale.w));
-				float2 temp_output_2488_0 = (texCoord1007*appendResult2490 + appendResult2491);
-				float4 tex2DNode980 = SAMPLE_TEXTURE2D( _DetailMapPacked, sampler_Linear_Repeat_Aniso2, temp_output_2488_0 );
-				float4 DetailMapPacked3088 = tex2DNode980;
-				float temp_output_3090_0 = (DetailMapPacked3088).r;
-				float detailAlbedo3902 = temp_output_3090_0;
-				float scale3902 = _DetailAlbedoMapScale;
-				float localMyCustomExpression3902 = MyCustomExpression3902( detailAlbedo3902 , scale3902 );
-				float2 vertexToFrag3723 = IN.ase_texcoord7.xy;
-				float2 UVBasemapPicked3719 = vertexToFrag3723;
-				float4 _Vector16 = float4(0,1,1,1);
-				float4 ifLocalVar3177 = 0;
+				half4 MossMetalRes3077 = staticSwitch3303;
+				half2 temp_output_3045_0 = (MossMetalRes3077).ag;
+				half2 MossPackedNormal1656 = temp_output_3045_0;
+				half4 temp_output_5_0_g2453 = half4( MossPackedNormal1656, 0.0 , 0.0 );
+				half2 appendResult12_g2453 = (half2(temp_output_5_0_g2453.xy));
+				half temp_output_6_0_g2453 = _MossNormalStrength;
+				half2 lerpResult2_g2453 = lerp( float2( 0,0 ) , ( appendResult12_g2453 - float2( 0.5,0.5 ) ) , ( temp_output_6_0_g2453 * 2.0 ));
+				half2 _Vector5 = half2(0,0);
+				half2 NormalMossSigned50 = _Vector5;
+				half3 appendResult3794 = (half3(NormalMossSigned50 , 1.0));
+				half4 appendResult3336 = (half4(1.0 , 0.0 , 0.0 , 0.0));
+				half vertexToFrag3157 = IN.ase_texcoord6.z;
+				half DDistanceMaskVert3160 = step( 0.01 , vertexToFrag3157 );
+				half2 vertexToFrag3400 = IN.ase_texcoord7.xy;
+				half4 tex2DNode980 = SAMPLE_TEXTURE2D( _DetailMapPacked, sampler_Linear_Repeat_Aniso2, vertexToFrag3400 );
+				half4 DetailMapPacked3088 = tex2DNode980;
+				half temp_output_3090_0 = (DetailMapPacked3088).r;
+				half detailAlbedo3902 = temp_output_3090_0;
+				half scale3902 = _DetailAlbedoMapScale;
+				half localMyCustomExpression3902 = MyCustomExpression3902( detailAlbedo3902 , scale3902 );
+				half2 vertexToFrag3723 = IN.ase_texcoord7.zw;
+				half2 UVBasemapPicked3719 = vertexToFrag3723;
+				half4 _Vector16 = half4(0,1,1,1);
+				half4 ifLocalVar3177 = 0;
 				if( _MetallicSpecGlossMap <= 0.0 )
 				ifLocalVar3177 = _Vector16;
 				else
 				ifLocalVar3177 = SAMPLE_TEXTURE2D( _MetallicGlossMap, sampler_Linear_Repeat_Aniso2, UVBasemapPicked3719 );
-				float4 ifLocalVar3189 = 0;
+				half4 ifLocalVar3189 = 0;
 				if( MossModeInt3200 <= 0.0 )
 				ifLocalVar3189 = ifLocalVar3181;
 				else
-				ifLocalVar3189 = float4(1,1,1,1);
-				float4 MossMetal2928 = ifLocalVar3189;
+				ifLocalVar3189 = half4(1,1,1,1);
+				half4 MossMetal2928 = ifLocalVar3189;
 				#ifdef _MOSSMETALMODE_ON
-				float4 staticSwitch2913 = MossMetal2928;
+				half4 staticSwitch2913 = MossMetal2928;
 				#else
-				float4 staticSwitch2913 = ifLocalVar3177;
+				half4 staticSwitch2913 = ifLocalVar3177;
 				#endif
-				float4 MossMetalORMetallicMap2911 = staticSwitch2913;
-				float temp_output_3050_0 = (MossMetalORMetallicMap2911).b;
-				float temp_output_8_0_g2548 = temp_output_3050_0;
-				float4 ifLocalVars3100 = 0;
+				half4 MossMetalORMetallicMap2911 = staticSwitch2913;
+				half temp_output_3050_0 = (MossMetalORMetallicMap2911).b;
+				half temp_output_8_0_g2548 = temp_output_3050_0;
+				half4 ifLocalVars3100 = 0;
 				int Mode3840 = _MODE;
 				if(Mode3840==0){ifLocalVars3100 = _DetailMaskRemap; };
 				if(Mode3840==1){ifLocalVars3100 = _EmissionRemap; };
-				float4 break5_g2548 = ifLocalVars3100;
-				float temp_output_3_0_g2548 = (0.0 + (temp_output_8_0_g2548 - break5_g2548.x) * (1.0 - 0.0) / (break5_g2548.y - break5_g2548.x));
-				float clampResult2_g2548 = clamp( temp_output_3_0_g2548 , break5_g2548.z , break5_g2548.w );
-				float temp_output_27_0_g2548 = saturate( clampResult2_g2548 );
+				half4 break5_g2548 = ifLocalVars3100;
+				half temp_output_3_0_g2548 = (0.0 + (temp_output_8_0_g2548 - break5_g2548.x) * (1.0 - 0.0) / (break5_g2548.y - break5_g2548.x));
+				half clampResult2_g2548 = clamp( temp_output_3_0_g2548 , break5_g2548.z , break5_g2548.w );
+				half temp_output_27_0_g2548 = saturate( clampResult2_g2548 );
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3738 = temp_output_27_0_g2548;
+				half staticSwitch3738 = temp_output_27_0_g2548;
 				#else
-				float staticSwitch3738 = temp_output_3050_0;
+				half staticSwitch3738 = temp_output_3050_0;
 				#endif
 				int temp_output_3109_0 = ( 1.0 - Mode3840 );
-				float temp_output_12_0_g2513 = ( temp_output_3109_0 * _UseDetailMask );
-				float DetalMaskDoodad3103 = ( ( staticSwitch3738 * temp_output_12_0_g2513 ) + ( 1.0 - temp_output_12_0_g2513 ) );
-				float temp_output_12_0_g2557 = DetalMaskDoodad3103;
-				float temp_output_3327_0 = (DetailMapPacked3088).b;
-				float temp_output_8_0_g2534 = temp_output_3327_0;
-				float4 break5_g2534 = _DetailSmoothnessRemap;
-				float temp_output_32_0_g2534 = (break5_g2534.z + (temp_output_8_0_g2534 - break5_g2534.x) * (break5_g2534.w - break5_g2534.z) / (break5_g2534.y - break5_g2534.x));
+				half temp_output_12_0_g2513 = ( temp_output_3109_0 * _UseDetailMask );
+				half DetalMaskDoodad3103 = ( ( staticSwitch3738 * temp_output_12_0_g2513 ) + ( 1.0 - temp_output_12_0_g2513 ) );
+				half temp_output_12_0_g2557 = DetalMaskDoodad3103;
+				half temp_output_3327_0 = (DetailMapPacked3088).b;
+				half temp_output_8_0_g2534 = temp_output_3327_0;
+				half4 break5_g2534 = _DetailSmoothnessRemap;
+				half temp_output_32_0_g2534 = (break5_g2534.z + (temp_output_8_0_g2534 - break5_g2534.x) * (break5_g2534.w - break5_g2534.z) / (break5_g2534.y - break5_g2534.x));
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3743 = temp_output_32_0_g2534;
+				half staticSwitch3743 = temp_output_32_0_g2534;
 				#else
-				float staticSwitch3743 = (-1.0 + (temp_output_3327_0 - 0.0) * (1.0 - -1.0) / (1.0 - 0.0));
+				half staticSwitch3743 = (-1.0 + (temp_output_3327_0 - 0.0) * (1.0 - -1.0) / (1.0 - 0.0));
 				#endif
-				float4 appendResult3337 = (float4(( ( localMyCustomExpression3902 * temp_output_12_0_g2557 ) + ( 1.0 - temp_output_12_0_g2557 ) ) , ( ( (DetailMapPacked3088).ag * float2( 2,2 ) ) - float2( 1,1 ) ) , staticSwitch3743));
-				float4 _DetailDistanceHardcoded = float4(25,30,0,0);
-				float temp_output_3155_0 = saturate( (1.0 + (distance( _WorldSpaceCameraPos , WorldPosition ) - _DetailDistanceHardcoded.x) * (0.0 - 1.0) / (_DetailDistanceHardcoded.y - _DetailDistanceHardcoded.x)) );
-				float DDistanceMaskPixel3159 = temp_output_3155_0;
-				float4 lerpResult3339 = lerp( appendResult3336 , appendResult3337 , DDistanceMaskPixel3159);
-				float4 ifLocalVar3338 = 0;
+				half4 appendResult3337 = (half4(( ( localMyCustomExpression3902 * temp_output_12_0_g2557 ) + ( 1.0 - temp_output_12_0_g2557 ) ) , ( ( (DetailMapPacked3088).ag * float2( 2,2 ) ) - float2( 1,1 ) ) , staticSwitch3743));
+				half4 _DetailDistanceHardcoded = half4(25,30,0,0);
+				half temp_output_3155_0 = saturate( (1.0 + (distance( _WorldSpaceCameraPos , WorldPosition ) - _DetailDistanceHardcoded.x) * (0.0 - 1.0) / (_DetailDistanceHardcoded.y - _DetailDistanceHardcoded.x)) );
+				half DDistanceMaskPixel3159 = temp_output_3155_0;
+				half4 lerpResult3339 = lerp( appendResult3336 , appendResult3337 , DDistanceMaskPixel3159);
+				half4 ifLocalVar3338 = 0;
 				UNITY_BRANCH 
 				if( DDistanceMaskVert3160 <= 0.0 )
 				ifLocalVar3338 = appendResult3336;
 				else
 				ifLocalVar3338 = lerpResult3339;
 				#ifdef _DETAIL_ON
-				float4 staticSwitch4130 = ifLocalVar3338;
+				half4 staticSwitch4130 = ifLocalVar3338;
 				#else
-				float4 staticSwitch4130 = appendResult3336;
+				half4 staticSwitch4130 = appendResult3336;
 				#endif
-				float2 DetailNormalSigned3509 = ( (staticSwitch4130).yz * _DetailNormalMapScale1 );
-				float3 appendResult3801 = (float3(( NormalMossSigned50 + DetailNormalSigned3509 ) , 1.0));
-				float3 normalizeResult3795 = normalize( appendResult3801 );
+				half2 DetailNormalSigned3509 = ( (staticSwitch4130).yz * _DetailNormalMapScale1 );
+				half3 appendResult3801 = (half3(( NormalMossSigned50 + DetailNormalSigned3509 ) , 1.0));
+				half3 normalizeResult3795 = normalize( appendResult3801 );
 				#ifdef _DETAIL_ON
-				float3 staticSwitch4129 = normalizeResult3795;
+				half3 staticSwitch4129 = normalizeResult3795;
 				#else
-				float3 staticSwitch4129 = appendResult3794;
+				half3 staticSwitch4129 = appendResult3794;
 				#endif
 				float3 ase_worldBitangent = IN.ase_texcoord8.xyz;
-				float3 tanToWorld0 = float3( WorldTangent.xyz.x, ase_worldBitangent.x, WorldNormal.x );
-				float3 tanToWorld1 = float3( WorldTangent.xyz.y, ase_worldBitangent.y, WorldNormal.y );
-				float3 tanToWorld2 = float3( WorldTangent.xyz.z, ase_worldBitangent.z, WorldNormal.z );
+				half3 tanToWorld0 = float3( WorldTangent.xyz.x, ase_worldBitangent.x, WorldNormal.x );
+				half3 tanToWorld1 = float3( WorldTangent.xyz.y, ase_worldBitangent.y, WorldNormal.y );
+				half3 tanToWorld2 = float3( WorldTangent.xyz.z, ase_worldBitangent.z, WorldNormal.z );
 				float3 tanNormal16 = staticSwitch4129;
-				float3 worldNormal16 = float3(dot(tanToWorld0,tanNormal16), dot(tanToWorld1,tanNormal16), dot(tanToWorld2,tanNormal16));
-				float dotResult15 = dot( worldNormal16 , _MossDirection );
-				float temp_output_13_0_g2463 = dotResult15;
-				float temp_output_82_0_g2463 = ( temp_output_13_0_g2463 * 0.5 );
-				float temp_output_5_0_g2467 = ( temp_output_82_0_g2463 - -0.5 );
-				float temp_output_48_0_g2467 = saturate( temp_output_5_0_g2467 );
-				float temp_output_14_0_g2463 = _MossLevel;
-				float temp_output_17_0_g2467 = temp_output_14_0_g2463;
-				float temp_output_16_0_g2463 = ( 1.0 - _MossDirContrast );
-				float temp_output_30_0_g2467 = ( 1.0 - saturate( ( 1.0 - temp_output_16_0_g2463 ) ) );
-				float temp_output_35_0_g2467 = ( temp_output_30_0_g2467 * 0.5 );
-				float temp_output_32_0_g2467 = ( (( 1.0 + temp_output_30_0_g2467 ) + (abs( temp_output_17_0_g2467 ) - 0.0) * (( 0.0 - temp_output_30_0_g2467 ) - ( 1.0 + temp_output_30_0_g2467 )) / (1.0 - 0.0)) - temp_output_35_0_g2467 );
-				float temp_output_31_0_g2467 = ( temp_output_35_0_g2467 + (( 1.0 + temp_output_30_0_g2467 ) + (abs( temp_output_17_0_g2467 ) - 0.0) * (( 0.0 - temp_output_30_0_g2467 ) - ( 1.0 + temp_output_30_0_g2467 )) / (1.0 - 0.0)) );
-				float temp_output_51_0_g2467 = saturate( (0.0 + (temp_output_48_0_g2467 - temp_output_32_0_g2467) * (1.0 - 0.0) / (temp_output_31_0_g2467 - temp_output_32_0_g2467)) );
-				float temp_output_3796_0 = temp_output_51_0_g2467;
-				float lerpResult4109 = lerp( _MossBase , temp_output_3796_0 , _UseMossDirection);
-				float MossMaskDirection1179 = lerpResult4109;
-				float temp_output_1811_0 = saturate( MossMaskDirection1179 );
-				float4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
-				float temp_output_3952_0 = ( tex2DNode80.a * _BaseColor.a );
+				half3 worldNormal16 = float3(dot(tanToWorld0,tanNormal16), dot(tanToWorld1,tanNormal16), dot(tanToWorld2,tanNormal16));
+				half dotResult15 = dot( worldNormal16 , _MossDirection );
+				half temp_output_13_0_g2463 = dotResult15;
+				half temp_output_82_0_g2463 = ( temp_output_13_0_g2463 * 0.5 );
+				half temp_output_5_0_g2467 = ( temp_output_82_0_g2463 - -0.5 );
+				half temp_output_48_0_g2467 = saturate( temp_output_5_0_g2467 );
+				half temp_output_14_0_g2463 = _MossLevel;
+				half temp_output_17_0_g2467 = temp_output_14_0_g2463;
+				half temp_output_16_0_g2463 = ( 1.0 - _MossDirContrast );
+				half temp_output_30_0_g2467 = ( 1.0 - saturate( ( 1.0 - temp_output_16_0_g2463 ) ) );
+				half temp_output_35_0_g2467 = ( temp_output_30_0_g2467 * 0.5 );
+				half temp_output_32_0_g2467 = ( (( 1.0 + temp_output_30_0_g2467 ) + (abs( temp_output_17_0_g2467 ) - 0.0) * (( 0.0 - temp_output_30_0_g2467 ) - ( 1.0 + temp_output_30_0_g2467 )) / (1.0 - 0.0)) - temp_output_35_0_g2467 );
+				half temp_output_31_0_g2467 = ( temp_output_35_0_g2467 + (( 1.0 + temp_output_30_0_g2467 ) + (abs( temp_output_17_0_g2467 ) - 0.0) * (( 0.0 - temp_output_30_0_g2467 ) - ( 1.0 + temp_output_30_0_g2467 )) / (1.0 - 0.0)) );
+				half temp_output_51_0_g2467 = saturate( (0.0 + (temp_output_48_0_g2467 - temp_output_32_0_g2467) * (1.0 - 0.0) / (temp_output_31_0_g2467 - temp_output_32_0_g2467)) );
+				half temp_output_3796_0 = temp_output_51_0_g2467;
+				half lerpResult4109 = lerp( _MossBase , temp_output_3796_0 , _UseMossDirection);
+				half MossMaskDirection1179 = lerpResult4109;
+				half temp_output_1811_0 = saturate( MossMaskDirection1179 );
+				half4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
+				half temp_output_3952_0 = ( tex2DNode80.a * _BaseColor.a );
 				#ifdef _ALPHATEST_ON
-				float staticSwitch3756 = 1.0;
+				half staticSwitch3756 = 1.0;
 				#else
-				float staticSwitch3756 = temp_output_3952_0;
+				half staticSwitch3756 = temp_output_3952_0;
 				#endif
-				float AlbedoAlphaMoss1953 = staticSwitch3756;
-				float temp_output_8_0_g2874 = AlbedoAlphaMoss1953;
-				float4 break5_g2874 = _MossAlphaMaskMM;
-				float temp_output_32_0_g2874 = (break5_g2874.z + (temp_output_8_0_g2874 - break5_g2874.x) * (break5_g2874.w - break5_g2874.z) / (break5_g2874.y - break5_g2874.x));
-				float clampResult31_g2874 = clamp( temp_output_32_0_g2874 , break5_g2874.z , break5_g2874.w );
-				float temp_output_3896_0 = clampResult31_g2874;
+				half AlbedoAlphaMoss1953 = staticSwitch3756;
+				half temp_output_8_0_g4229 = AlbedoAlphaMoss1953;
+				half4 break5_g4229 = _MossAlphaMaskMM;
+				half temp_output_32_0_g4229 = (break5_g4229.z + (temp_output_8_0_g4229 - break5_g4229.x) * (break5_g4229.w - break5_g4229.z) / (break5_g4229.y - break5_g4229.x));
+				half clampResult31_g4229 = clamp( temp_output_32_0_g4229 , break5_g4229.z , break5_g4229.w );
+				half temp_output_3896_0 = clampResult31_g4229;
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3745 = temp_output_3896_0;
+				half staticSwitch3745 = temp_output_3896_0;
 				#else
-				float staticSwitch3745 = temp_output_3896_0;
+				half staticSwitch3745 = temp_output_3896_0;
 				#endif
-				float MossMaskAlpha1182 = ( staticSwitch3745 * _UseMossMaskWithAlpha );
+				half MossMaskAlpha1182 = ( staticSwitch3745 * _UseMossMaskWithAlpha );
 				#ifdef _ALPHATEST_ON
-				float staticSwitch3938 = temp_output_1811_0;
+				half staticSwitch3938 = temp_output_1811_0;
 				#else
-				float staticSwitch3938 = saturate( ( temp_output_1811_0 + MossMaskAlpha1182 ) );
+				half staticSwitch3938 = saturate( ( temp_output_1811_0 + MossMaskAlpha1182 ) );
 				#endif
-				float vertexToFrag3925 = IN.ase_texcoord6.w;
-				float MossMaskVertex1181 = vertexToFrag3925;
-				float2 break3507 = DetailNormalSigned3509;
-				float dotResult3505 = dot( break3507.x , break3507.y );
+				half vertexToFrag3925 = IN.ase_texcoord6.w;
+				half MossMaskVertex1181 = vertexToFrag3925;
+				half2 break3507 = DetailNormalSigned3509;
+				half dotResult3505 = dot( break3507.x , break3507.y );
 				#ifdef _DETAIL_ON
-				float staticSwitch3500 = ( unpack2617.z + abs( dotResult3505 ) );
+				half staticSwitch3500 = ( unpack2617.z + abs( dotResult3505 ) );
 				#else
-				float staticSwitch3500 = unpack2617.z;
+				half staticSwitch3500 = unpack2617.z;
 				#endif
-				float NormalHeightSigned1759 = staticSwitch3500;
-				float temp_output_5_0_g2451 = NormalHeightSigned1759;
-				float temp_output_48_0_g2451 = saturate( temp_output_5_0_g2451 );
-				float temp_output_17_0_g2451 = saturate( ( staticSwitch3938 + MossMaskVertex1181 ) );
-				float temp_output_30_0_g2451 = ( 1.0 - saturate( _MossNormalContrast ) );
-				float temp_output_35_0_g2451 = ( temp_output_30_0_g2451 * 0.5 );
-				float temp_output_32_0_g2451 = ( (( 1.0 + temp_output_30_0_g2451 ) + (abs( temp_output_17_0_g2451 ) - 0.0) * (( 0.0 - temp_output_30_0_g2451 ) - ( 1.0 + temp_output_30_0_g2451 )) / (1.0 - 0.0)) - temp_output_35_0_g2451 );
-				float temp_output_31_0_g2451 = ( temp_output_35_0_g2451 + (( 1.0 + temp_output_30_0_g2451 ) + (abs( temp_output_17_0_g2451 ) - 0.0) * (( 0.0 - temp_output_30_0_g2451 ) - ( 1.0 + temp_output_30_0_g2451 )) / (1.0 - 0.0)) );
-				float temp_output_51_0_g2451 = saturate( (0.0 + (temp_output_48_0_g2451 - temp_output_32_0_g2451) * (1.0 - 0.0) / (temp_output_31_0_g2451 - temp_output_32_0_g2451)) );
-				float temp_output_137_0_g2451 = ( 1.0 - temp_output_48_0_g2451 );
-				float temp_output_128_0_g2451 = ( 1.0 - saturate( _MossNormalContrast ) );
-				float temp_output_121_0_g2451 = ( temp_output_128_0_g2451 * 0.5 );
-				float temp_output_118_0_g2451 = (0.0 + (temp_output_137_0_g2451 - ( (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) - temp_output_121_0_g2451 )) * (1.0 - 0.0) / (( temp_output_121_0_g2451 + (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) ) - ( (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) - temp_output_121_0_g2451 )));
-				float lerpResult2905 = lerp( saturate( ( staticSwitch3938 + MossMaskVertex1181 ) ) , ( temp_output_51_0_g2451 - saturate( temp_output_118_0_g2451 ) ) , _MossNormalAffectStrength);
-				float temp_output_5_0_g2498 = lerpResult2905;
-				float temp_output_48_0_g2498 = saturate( temp_output_5_0_g2498 );
-				float temp_output_17_0_g2498 = _MapContrastOffset;
-				float temp_output_30_0_g2498 = ( 1.0 - saturate( _MapContrast ) );
-				float temp_output_35_0_g2498 = ( temp_output_30_0_g2498 * 0.5 );
-				float temp_output_32_0_g2498 = ( (( 1.0 + temp_output_30_0_g2498 ) + (abs( temp_output_17_0_g2498 ) - 0.0) * (( 0.0 - temp_output_30_0_g2498 ) - ( 1.0 + temp_output_30_0_g2498 )) / (1.0 - 0.0)) - temp_output_35_0_g2498 );
-				float temp_output_31_0_g2498 = ( temp_output_35_0_g2498 + (( 1.0 + temp_output_30_0_g2498 ) + (abs( temp_output_17_0_g2498 ) - 0.0) * (( 0.0 - temp_output_30_0_g2498 ) - ( 1.0 + temp_output_30_0_g2498 )) / (1.0 - 0.0)) );
-				float temp_output_51_0_g2498 = saturate( (0.0 + (temp_output_48_0_g2498 - temp_output_32_0_g2498) * (1.0 - 0.0) / (temp_output_31_0_g2498 - temp_output_32_0_g2498)) );
+				half NormalHeightSigned1759 = staticSwitch3500;
+				half temp_output_5_0_g2451 = NormalHeightSigned1759;
+				half temp_output_48_0_g2451 = saturate( temp_output_5_0_g2451 );
+				half temp_output_17_0_g2451 = saturate( ( staticSwitch3938 + MossMaskVertex1181 ) );
+				half temp_output_30_0_g2451 = ( 1.0 - saturate( _MossNormalContrast ) );
+				half temp_output_35_0_g2451 = ( temp_output_30_0_g2451 * 0.5 );
+				half temp_output_32_0_g2451 = ( (( 1.0 + temp_output_30_0_g2451 ) + (abs( temp_output_17_0_g2451 ) - 0.0) * (( 0.0 - temp_output_30_0_g2451 ) - ( 1.0 + temp_output_30_0_g2451 )) / (1.0 - 0.0)) - temp_output_35_0_g2451 );
+				half temp_output_31_0_g2451 = ( temp_output_35_0_g2451 + (( 1.0 + temp_output_30_0_g2451 ) + (abs( temp_output_17_0_g2451 ) - 0.0) * (( 0.0 - temp_output_30_0_g2451 ) - ( 1.0 + temp_output_30_0_g2451 )) / (1.0 - 0.0)) );
+				half temp_output_51_0_g2451 = saturate( (0.0 + (temp_output_48_0_g2451 - temp_output_32_0_g2451) * (1.0 - 0.0) / (temp_output_31_0_g2451 - temp_output_32_0_g2451)) );
+				half temp_output_137_0_g2451 = ( 1.0 - temp_output_48_0_g2451 );
+				half temp_output_128_0_g2451 = ( 1.0 - saturate( _MossNormalContrast ) );
+				half temp_output_121_0_g2451 = ( temp_output_128_0_g2451 * 0.5 );
+				half temp_output_118_0_g2451 = (0.0 + (temp_output_137_0_g2451 - ( (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) - temp_output_121_0_g2451 )) * (1.0 - 0.0) / (( temp_output_121_0_g2451 + (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) ) - ( (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) - temp_output_121_0_g2451 )));
+				half lerpResult2905 = lerp( saturate( ( staticSwitch3938 + MossMaskVertex1181 ) ) , ( temp_output_51_0_g2451 - saturate( temp_output_118_0_g2451 ) ) , _MossNormalAffectStrength);
+				half temp_output_5_0_g2498 = lerpResult2905;
+				half temp_output_48_0_g2498 = saturate( temp_output_5_0_g2498 );
+				half temp_output_17_0_g2498 = _MapContrastOffset;
+				half temp_output_30_0_g2498 = ( 1.0 - saturate( _MapContrast ) );
+				half temp_output_35_0_g2498 = ( temp_output_30_0_g2498 * 0.5 );
+				half temp_output_32_0_g2498 = ( (( 1.0 + temp_output_30_0_g2498 ) + (abs( temp_output_17_0_g2498 ) - 0.0) * (( 0.0 - temp_output_30_0_g2498 ) - ( 1.0 + temp_output_30_0_g2498 )) / (1.0 - 0.0)) - temp_output_35_0_g2498 );
+				half temp_output_31_0_g2498 = ( temp_output_35_0_g2498 + (( 1.0 + temp_output_30_0_g2498 ) + (abs( temp_output_17_0_g2498 ) - 0.0) * (( 0.0 - temp_output_30_0_g2498 ) - ( 1.0 + temp_output_30_0_g2498 )) / (1.0 - 0.0)) );
+				half temp_output_51_0_g2498 = saturate( (0.0 + (temp_output_48_0_g2498 - temp_output_32_0_g2498) * (1.0 - 0.0) / (temp_output_31_0_g2498 - temp_output_32_0_g2498)) );
 				#ifdef _MOSS
-				float staticSwitch14 = temp_output_51_0_g2498;
+				half staticSwitch14 = temp_output_51_0_g2498;
 				#else
-				float staticSwitch14 = 0.0;
+				half staticSwitch14 = 0.0;
 				#endif
-				float MossMask45 = staticSwitch14;
-				float2 lerpResult2976 = lerp( _Vector0 , lerpResult2_g2453 , MossMask45);
-				float2 MossNormalSigned100 = lerpResult2976;
-				float2 temp_output_3610_0 = ( MossInt2938 * MossNormalSigned100 );
-				float3 appendResult4006 = (float3(temp_output_3610_0 , 1.0));
-				float3 lerpResult4431 = lerp( SimpleNormalXYSigned30 , float3( 0,0,0 ) , MossMask45);
-				float2 appendResult1363 = (float2(lerpResult4431.xy));
+				half MossMask45 = staticSwitch14;
+				half2 lerpResult2976 = lerp( _Vector0 , lerpResult2_g2453 , MossMask45);
+				half2 MossNormalSigned100 = lerpResult2976;
+				half2 temp_output_3610_0 = ( MossInt2938 * MossNormalSigned100 );
+				half3 appendResult4006 = (half3(temp_output_3610_0 , 1.0));
+				half3 lerpResult4431 = lerp( SimpleNormalXYSigned30 , float3( 0,0,1 ) , MossMask45);
+				half2 appendResult1363 = (half2(lerpResult4431.xy));
 				#ifdef _MOSS
-				float3 staticSwitch4131 = ( appendResult4006 + float3( appendResult1363 ,  0.0 ) );
+				half3 staticSwitch4131 = ( appendResult4006 + half3( appendResult1363 ,  0.0 ) );
 				#else
-				float3 staticSwitch4131 = SimpleNormalXYSigned30;
+				half3 staticSwitch4131 = SimpleNormalXYSigned30;
 				#endif
-				float temp_output_10_0_g2209 = _DetailsOverMoss;
-				float temp_output_17_0_g2209 = saturate( MossMask45 );
-				float4 lerpResult7_g2209 = lerp( appendResult3336 , ifLocalVar3338 , saturate( ( saturate( ( abs( temp_output_10_0_g2209 ) - 1.0 ) ) + ( ( ( 1.0 - temp_output_17_0_g2209 ) * abs( min( temp_output_10_0_g2209 , 0.0 ) ) ) + ( temp_output_17_0_g2209 * max( temp_output_10_0_g2209 , 0.0 ) ) ) ) ));
+				half temp_output_10_0_g2209 = _DetailsOverMoss;
+				half temp_output_17_0_g2209 = saturate( MossMask45 );
+				half4 lerpResult7_g2209 = lerp( appendResult3336 , ifLocalVar3338 , saturate( ( saturate( ( abs( temp_output_10_0_g2209 ) - 1.0 ) ) + ( ( ( 1.0 - temp_output_17_0_g2209 ) * abs( min( temp_output_10_0_g2209 , 0.0 ) ) ) + ( temp_output_17_0_g2209 * max( temp_output_10_0_g2209 , 0.0 ) ) ) ) ));
 				#ifdef _MOSS
-				float4 staticSwitch4126 = lerpResult7_g2209;
+				half4 staticSwitch4126 = lerpResult7_g2209;
 				#else
-				float4 staticSwitch4126 = ifLocalVar3338;
+				half4 staticSwitch4126 = ifLocalVar3338;
 				#endif
-				float4 lerpResult4232 = lerp( appendResult3336 , staticSwitch4126 , (float)_DETAIL);
+				half4 lerpResult4232 = lerp( appendResult3336 , staticSwitch4126 , (float)_DETAIL);
 				#ifdef _DETAIL_ON
-				float4 staticSwitch4132 = lerpResult4232;
+				half4 staticSwitch4132 = lerpResult4232;
 				#else
-				float4 staticSwitch4132 = appendResult3336;
+				half4 staticSwitch4132 = appendResult3336;
 				#endif
-				float2 DetailNormaMossMaskedSigned988 = ( _DetailNormalMapScale * (staticSwitch4132).yz );
-				float3 appendResult4007 = (float3(DetailNormaMossMaskedSigned988 , 0.0));
-				float3 temp_output_4016_0 = ( staticSwitch4131 + appendResult4007 );
+				half2 DetailNormaMossMaskedSigned988 = ( _DetailNormalMapScale * (staticSwitch4132).yz );
+				half3 appendResult4397 = (half3(DetailNormaMossMaskedSigned988 , 1.0));
 				#ifdef _DETAIL_ON
-				float3 staticSwitch1105 = temp_output_4016_0;
+				half3 staticSwitch1105 = BlendNormal( staticSwitch4131 , appendResult4397 );
 				#else
-				float3 staticSwitch1105 = staticSwitch4131;
+				half3 staticSwitch1105 = staticSwitch4131;
 				#endif
-				float3 NormalPre2265 = staticSwitch1105;
-				float3 normalizeResult4009 = normalize( NormalPre2265 );
-				float3 NormalRes109 = normalizeResult4009;
-				float3 temp_output_42_0_g3888 = NormalRes109;
-				float2 uv_Layer0 = IN.ase_texcoord5.xy * _Layer0_ST.xy + _Layer0_ST.zw;
-				float2 uvLayer0112_g3888 = uv_Layer0;
-				float3 unpack9_g3888 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer0NormalMap, sampler_Layer0NormalMap, uvLayer0112_g3888 ), _Layer0NormalStrength );
-				unpack9_g3888.z = lerp( 1, unpack9_g3888.z, saturate(_Layer0NormalStrength) );
-				float2 texCoord24_g3888 = IN.ase_texcoord5.xy * float2( 1,1 ) + float2( 0,0 );
-				float2 baseuv25_g3888 = texCoord24_g3888;
-				float4 tex2DNode3_g3888 = SAMPLE_TEXTURE2D( _RevealMask, sampler_RevealMask, baseuv25_g3888 );
-				float4 tex2DNode4_g3888 = SAMPLE_TEXTURE2D( _LayerMask, sampler_LayerMask, baseuv25_g3888 );
-				float rt31_g3888 = saturate( ( tex2DNode3_g3888.r * tex2DNode4_g3888.r ) );
-				float LSNormal101_g3888 = _LayerSurfaceExp.y;
-				float3 lerpResult41_g3888 = lerp( temp_output_42_0_g3888 , unpack9_g3888 , pow( rt31_g3888 , LSNormal101_g3888 ));
-				float2 uv_Layer1 = IN.ase_texcoord5.xy * _Layer1_ST.xy + _Layer1_ST.zw;
-				float2 uvLayer1114_g3888 = uv_Layer1;
-				float3 unpack18_g3888 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer1NormalMap, sampler_Layer1NormalMap, uvLayer1114_g3888 ), _Layer1NormalStrength );
-				unpack18_g3888.z = lerp( 1, unpack18_g3888.z, saturate(_Layer1NormalStrength) );
-				float gt57_g3888 = saturate( ( tex2DNode3_g3888.g * tex2DNode4_g3888.g ) );
-				float3 lerpResult64_g3888 = lerp( lerpResult41_g3888 , unpack18_g3888 , pow( gt57_g3888 , LSNormal101_g3888 ));
-				float2 uv83_g3888 = baseuv25_g3888;
-				float bt76_g3888 = saturate( ( tex2DNode3_g3888.b * tex2DNode4_g3888.b ) );
-				float height83_g3888 = ( _Layer2Height * bt76_g3888 );
-				float2 texelSize83_g3888 = (_RevealMask_TexelSize).xy;
-				float3 localRevealMaskNormalCrossFilter83_g3888 = RevealMaskNormalCrossFilter83_g3888( uv83_g3888 , height83_g3888 , texelSize83_g3888 );
-				float3 heightNormal89_g3888 = localRevealMaskNormalCrossFilter83_g3888;
+				half3 NormalPre2265 = staticSwitch1105;
+				half3 normalizeResult4009 = normalize( NormalPre2265 );
+				half3 NormalRes109 = normalizeResult4009;
+				half3 temp_output_42_0_g4236 = NormalRes109;
+				half2 uv_Layer0 = IN.ase_texcoord5.xy * _Layer0_ST.xy + _Layer0_ST.zw;
+				half2 uvLayer0112_g4236 = uv_Layer0;
+				half3 unpack9_g4236 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer0NormalMap, sampler_Linear_Repeat_Aniso2, uvLayer0112_g4236 ), _Layer0NormalStrength );
+				unpack9_g4236.z = lerp( 1, unpack9_g4236.z, saturate(_Layer0NormalStrength) );
+				half2 texCoord24_g4236 = IN.ase_texcoord5.xy * float2( 1,1 ) + float2( 0,0 );
+				half2 baseuv25_g4236 = texCoord24_g4236;
+				half4 tex2DNode3_g4236 = SAMPLE_TEXTURE2D( _RevealMask, sampler_Linear_Repeat_Aniso2, baseuv25_g4236 );
+				half4 tex2DNode4_g4236 = SAMPLE_TEXTURE2D( _LayerMask, sampler_Linear_Repeat_Aniso2, baseuv25_g4236 );
+				half rt31_g4236 = saturate( ( tex2DNode3_g4236.r * tex2DNode4_g4236.r ) );
+				half LSNormal101_g4236 = _LayerSurfaceExp.y;
+				half3 lerpResult41_g4236 = lerp( temp_output_42_0_g4236 , unpack9_g4236 , pow( rt31_g4236 , LSNormal101_g4236 ));
+				half2 uv_Layer1 = IN.ase_texcoord5.xy * _Layer1_ST.xy + _Layer1_ST.zw;
+				half2 uvLayer1114_g4236 = uv_Layer1;
+				half3 unpack18_g4236 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer1NormalMap, sampler_Linear_Repeat_Aniso2, uvLayer1114_g4236 ), _Layer1NormalStrength );
+				unpack18_g4236.z = lerp( 1, unpack18_g4236.z, saturate(_Layer1NormalStrength) );
+				half gt57_g4236 = saturate( ( tex2DNode3_g4236.g * tex2DNode4_g4236.g ) );
+				half3 lerpResult64_g4236 = lerp( lerpResult41_g4236 , unpack18_g4236 , pow( gt57_g4236 , LSNormal101_g4236 ));
+				half2 uv83_g4236 = baseuv25_g4236;
+				half bt76_g4236 = saturate( ( tex2DNode3_g4236.b * tex2DNode4_g4236.b ) );
+				half height83_g4236 = ( _Layer2Height * bt76_g4236 );
+				half2 texelSize83_g4236 = (_RevealMask_TexelSize).xy;
+				SamplerState sampler_RevealMask83_g4236 = sampler_Linear_Repeat_Aniso2;
+				half3 localRevealMaskNormalCrossFilter83_g4236 = RevealMaskNormalCrossFilter83_g4236( uv83_g4236 , height83_g4236 , texelSize83_g4236 , sampler_RevealMask83_g4236 );
+				half3 heightNormal89_g4236 = localRevealMaskNormalCrossFilter83_g4236;
 				#ifdef _REVEALLAYERS
-				float3 staticSwitch58_g3888 = BlendNormal( lerpResult64_g3888 , heightNormal89_g3888 );
+				half3 staticSwitch58_g4236 = BlendNormal( lerpResult64_g4236 , heightNormal89_g4236 );
 				#else
-				float3 staticSwitch58_g3888 = temp_output_42_0_g3888;
+				half3 staticSwitch58_g4236 = temp_output_42_0_g4236;
 				#endif
-				float3 temp_output_4414_43 = staticSwitch58_g3888;
+				half3 temp_output_4603_43 = staticSwitch58_g4236;
+				half3 NormalRes24487 = temp_output_4603_43;
 				
-				float4 ase_screenPosNorm = ScreenPos / ScreenPos.w;
+				half4 ase_screenPosNorm = ScreenPos / ScreenPos.w;
 				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 clipScreen3958 = ase_screenPosNorm.xy * _ScreenParams.xy;
-				float dither3958 = Dither4x4Bayer( fmod(clipScreen3958.x, 4), fmod(clipScreen3958.y, 4) );
+				half2 clipScreen3958 = ase_screenPosNorm.xy * _ScreenParams.xy;
+				half dither3958 = Dither4x4Bayer( fmod(clipScreen3958.x, 4), fmod(clipScreen3958.y, 4) );
 				dither3958 = step( dither3958, temp_output_3952_0 );
-				float lerpResult3962 = lerp( (float)AlphaToCoverage , 1.0 , _Surface);
-				float Dither3961 = ( _Dither * ( 1.0 - lerpResult3962 ) );
-				float lerpResult3959 = lerp( temp_output_3952_0 , dither3958 , Dither3961);
+				half lerpResult3962 = lerp( (float)AlphaToCoverage , 1.0 , _Surface);
+				half Dither3961 = ( _Dither * ( 1.0 - lerpResult3962 ) );
+				half lerpResult3959 = lerp( temp_output_3952_0 , dither3958 , Dither3961);
 				#ifdef _ALPHATEST_ON
-				float staticSwitch3334 = lerpResult3959;
+				half staticSwitch3334 = lerpResult3959;
 				#else
-				float staticSwitch3334 = 1.0;
+				half staticSwitch3334 = 1.0;
 				#endif
-				float AlbedoAlpha84 = staticSwitch3334;
+				half AlbedoAlpha84 = staticSwitch3334;
 				
-				float lerpResult3950 = lerp( 0.0 , _AlphaClipThreshold , _AlphaClip);
-				float lerpResult3291 = lerp( lerpResult3950 , 0.0 , (float)AlphaToCoverage);
-				float ClipCalc3294 = lerpResult3291;
+				half lerpResult3950 = lerp( 0.0 , _AlphaClipThreshold , _AlphaClip);
+				half lerpResult3291 = lerp( lerpResult3950 , 0.0 , (float)AlphaToCoverage);
+				half ClipCalc3294 = lerpResult3291;
 				
 
-				float3 Normal = temp_output_4414_43;
+				float3 Normal = NormalRes24487;
 				float Alpha = AlbedoAlpha84;
 				float AlphaClipThreshold = ClipCalc3294;
 				#ifdef ASE_DEPTH_WRITE_ON
@@ -6246,33 +6289,32 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			#define ASE_NEEDS_FRAG_WORLD_BITANGENT
 			#define ASE_NEEDS_FRAG_WORLD_VIEW_DIR
 			#define ASE_NEEDS_FRAG_SCREEN_POSITION
-			#define ASE_NEEDS_VERT_NORMAL
 			#pragma shader_feature_local _USEMOSSNOISE_ON
 			#pragma shader_feature_local MODED_MOSS MODED_MOES MODED_MODS MODED_OFF
 			#pragma shader_feature_local _MOSS
 			#pragma shader_feature_local _AUTONORMAL
 			#pragma shader_feature_local LAYER_UNLIMITED LAYER_MAX2 LAYER_MAX3
 			#pragma shader_feature_local TEXTURE_MAX4 TEXTURE_MAX8 TEXTURE_MAX12 TEXTURE_MAX16
-			#pragma shader_feature _SKYFOG_ON
 			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma shader_feature_local _MOSSMETALMODE_ON
-			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#pragma shader_feature_local _ALPHAMODE
 			#pragma shader_feature_local _SIMPLESTOCHASTIC
 			#pragma shader_feature_local _USESPLAT_ON
 			#pragma shader_feature_local _DEBUGVISUALS_ON
-			#pragma shader_feature_local _USE_SSS_ON
+			#pragma shader_feature _SKYFOG_ON
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local _USE_SSS_ON
+			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#pragma shader_feature_local _REVEALLAYERS
 			#pragma shader_feature_local _DETAIL_ON
 			#pragma shader_feature _COLORMASK_ON
 			#pragma shader_feature_local _REMAPPERS_ON
 			#pragma shader_feature_local _USESTOCHASTICMOSS_ON
+			#pragma shader_feature_local _USEMOSSFRESNEL_ON
 			#pragma shader_feature_local _USECAUSTICSFROMABOVE_ON
 			#pragma shader_feature_local _USECAUSTICEXTRASAMPLER_ON
 			#pragma shader_feature_local _USECAUSTICRAINBOW_ON
 			#pragma shader_feature_local _FadeWithHeight
-			#pragma shader_feature_local _USEMOSSFRESNEL_ON
 			#define _UseMossPacked
 			#define _DetailMapPacking
 
@@ -6293,7 +6335,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float4 texcoord : TEXCOORD0;
 				float4 texcoord1 : TEXCOORD1;
 				float4 texcoord2 : TEXCOORD2;
-				float4 ase_color : COLOR;
+				half4 ase_color : COLOR;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -6318,117 +6360,116 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float4 ase_texcoord11 : TEXCOORD11;
 				float4 ase_texcoord12 : TEXCOORD12;
 				float4 ase_texcoord13 : TEXCOORD13;
-				float4 ase_texcoord14 : TEXCOORD14;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _Tint3;
-			float4 _DetailMapScale;
-			float4 _SmoothnessRemap;
-			float4 _DetailMaskRemap;
-			float4 _MossAlbedoRemap;
-			float4 _EmissionRemap;
-			float4 _MossAlphaMaskMM;
-			float4 _OcclusionRemap;
-			float4 _DetailSmoothnessRemap;
-			float4x4 _ProbeWorldToTexture;
-			float4 _MetallicRemap;
-			float4 _MossColor;
-			float4 _EmissionColor;
+			half4 _Tint3;
+			half4 _DetailMapScale;
+			half4 _SmoothnessRemap;
+			half4 _DetailMaskRemap;
+			half4 _MossAlbedoRemap;
+			half4 _EmissionRemap;
+			half4 _MossAlphaMaskMM;
+			half4 _OcclusionRemap;
+			half4 _DetailSmoothnessRemap;
+			half4x4 _ProbeWorldToTexture;
+			half4 _MetallicRemap;
+			half4 _MossColor;
+			half4 _EmissionColor;
 			float4 _RevealMask_TexelSize;
-			float4 _MossSmoothnessRemap;
-			float4 _Tint1;
-			float4 _MossFresnel;
-			float4 _MossFresnelColor;
-			float4 _Layer3EmissionColor;
-			float4 _Layer1_ST;
-			float4 _LayerSurfaceExp;
-			float4 _Layer0_ST;
-			float4 _Tint2;
-			float4 _MossSlopeNormal_ST;
-			float4 _BaseMap_ST;
-			float4 _BaseColor;
-			float4 _MossSlopeMM;
-			float4 _Tint0;
-			float4 _SSSColor;
-			float3 _ProbeVolumeMin;
-			float3 _MossDirection;
-			float3 _ProbeVolumeSizeInv;
-			float _MossDetailNormalMapScale;
-			float _UseEmission;
-			float _Occlusion;
-			float _UseOcclusion;
-			float _Metallic;
-			float _UseMossFresnel;
-			float _Smoothness;
-			float _MossMetallic;
-			float _Layer1Smoothness;
-			float _Layer1Metallic;
-			float _SSSDimAlbedo;
-			float _NormalStrength_USE_SSS;
-			float _SSScattering;
-			float _SSSRadius;
-			float _MossNormalStrength2;
-			float _MossSlopeDistort;
-			float _MossSlopeNormRotate;
-			float _DebugScale;
+			half4 _MossSmoothnessRemap;
+			half4 _Tint1;
+			half4 _MossFresnel;
+			half4 _MossFresnelColor;
+			half4 _Layer3EmissionColor;
+			half4 _Layer1_ST;
+			half4 _LayerSurfaceExp;
+			half4 _Layer0_ST;
+			half4 _Tint2;
+			half4 _MossSlopeNormal_ST;
+			half4 _BaseMap_ST;
+			half4 _BaseColor;
+			half4 _MossSlopeMM;
+			half4 _Tint0;
+			half4 _SSSColor;
+			half3 _ProbeVolumeMin;
+			half3 _MossDirection;
+			half3 _ProbeVolumeSizeInv;
+			half _MossDetailNormalMapScale;
+			half _UseEmission;
+			half _Occlusion;
+			half _UseOcclusion;
+			half _Metallic;
+			half _UseMossFresnel;
+			half _Smoothness;
+			half _MossMetallic;
+			half _Layer1Smoothness;
+			half _Layer1Metallic;
+			half _SSSDimAlbedo;
+			half _NormalStrength_USE_SSS;
+			half _SSScattering;
+			half _SSSRadius;
+			half _MossNormalStrength2;
+			half _MossSlopeDistort;
+			half _MossSlopeNormRotate;
+			half _DebugScale;
 			int _DebugVisual;
-			float _ShadowThreshold;
-			float _AlphaClip;
-			float _AlphaClipThreshold;
-			float _Surface;
-			float _Dither;
-			float _OcclusionMossMask;
-			float _Layer0Smoothness;
-			float _MossSmoothness;
-			float _Layer0Metallic;
-			float _Layer2Height;
+			half _ShadowThreshold;
+			half _AlphaClip;
+			half _AlphaClipThreshold;
+			half _Surface;
+			half _Dither;
+			half _OcclusionMossMask;
+			half _Layer0Smoothness;
+			half _MossSmoothness;
+			half _Layer0Metallic;
+			half _Layer2Height;
 			int _DETAIL;
-			float _Layer0NormalStrength;
+			half _Layer0NormalStrength;
 			int _MetalUV;
 			int _Moss;
-			float _UseMossMetalMap;
+			half _UseMossMetalMap;
 			int _MossMode;
-			float _MossStochasticContrast;
-			float _MossStochasticScale;
+			half _MossStochasticContrast;
+			half _MossStochasticScale;
 			float _MossScale;
 			int _MossUV;
-			float _MossMultAlbedo;
+			half _MossMultAlbedo;
 			int _UseColorMask;
 			int _Bitmask;
 			int _ZWrite;
 			int _Cullmode;
-			float _Blend;
-			float _SrcBlend;
-			float _DstBlend;
-			float _Cutoff;
+			half _Blend;
+			half _SrcBlend;
+			half _DstBlend;
+			half _Cutoff;
 			int _Int0;
 			int _BlendMode_UseColorMask;
-			float _Layer1NormalStrength;
-			float _MossBase;
-			float _MetallicSpecGlossMap;
-			float _DetailNormalMapScale;
-			float _MossNormalStrength;
-			float _UseNormalMap;
-			float _DetailsOverMoss;
-			float _MapContrast;
-			float _MapContrastOffset;
-			float _MossNormalAffectStrength;
-			float _MossNormalSubtract;
-			float _DetailAlbedoMapScale;
-			float _MossNormalContrast;
-			float _UseMossVertexMask;
-			float _UseMossMaskWithAlpha;
-			float _UseMossDirection;
-			float _MossDirContrast;
-			float _MossLevel;
-			float _DetailNormalMapScale1;
-			float _UseDetailMask;
+			half _Layer1NormalStrength;
+			half _MossBase;
+			half _MetallicSpecGlossMap;
+			half _DetailNormalMapScale;
+			half _MossNormalStrength;
+			half _UseNormalMap;
+			half _DetailsOverMoss;
+			half _MapContrast;
+			half _MapContrastOffset;
+			half _MossNormalAffectStrength;
+			half _MossNormalSubtract;
+			half _DetailAlbedoMapScale;
+			half _MossNormalContrast;
+			half _UseMossVertexMask;
+			half _UseMossMaskWithAlpha;
+			half _UseMossDirection;
+			half _MossDirContrast;
+			half _MossLevel;
+			half _DetailNormalMapScale1;
+			half _UseDetailMask;
 			int _MODE;
-			float _NormalStrength;
-			float _SSShadcowMix;
+			half _NormalStrength;
+			half _SSShadcowMix;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -6463,15 +6504,12 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				int _PassValue;
 			#endif
 
-			float4 _skyGradientColor1;
-			float4 _skyGradientColor2;
 			TEXTURE2D_ARRAY(_ExtraArray);
 			SAMPLER(sampler_ExtraArray);
 			TEXTURE2D_ARRAY(_DiffuseArray);
 			SAMPLER(sampler_DiffuseArray);
 			TEXTURE2D_ARRAY(_NormalArray);
 			SAMPLER(sampler_NormalArray);
-			float3 _CausticsDir;
 			half _CausticsScale;
 			half2 _CausticsPanSpeed;
 			half4 _CausticsColor;
@@ -6487,20 +6525,14 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			TEXTURE2D(_MetallicGlossMap);
 			TEXTURE2D(_BumpMap);
 			TEXTURE2D(_Layer0);
-			SAMPLER(sampler_Layer0);
 			TEXTURE2D(_RevealMask);
-			SAMPLER(sampler_RevealMask);
 			TEXTURE2D(_LayerMask);
-			SAMPLER(sampler_LayerMask);
 			TEXTURE2D(_Layer1);
-			SAMPLER(sampler_Layer1);
 			TEXTURE2D(_Layer0NormalMap);
-			SAMPLER(sampler_Layer0NormalMap);
 			TEXTURE2D(_Layer1NormalMap);
-			SAMPLER(sampler_Layer1NormalMap);
-			float4x4 _CausticMatrix;
+			half4x4 _CausticMatrix;
 			SAMPLER(sampler_Linear_Repeat);
-			float4 _CausticsSettings;
+			half4 _CausticsSettings;
 			int AlphaToCoverage;
 			TEXTURE3D(_ProbeVolumeShR);
 			SAMPLER(sampler_Linear_Clamp);
@@ -6519,7 +6551,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
 			}
 			
-			float3 VertVanisher3872( float3 vertex, float2 vtexcoord1, int bitMask )
+			half3 VertVanisher3872( half3 vertex, half2 vtexcoord1, int bitMask )
 			{
 				 if(bitMask & (int)vtexcoord1.x){
 					vertex *= (0.0 / 0.0);
@@ -6527,12 +6559,12 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				return vertex;
 			}
 			
-			float MyCustomExpression3902( float detailAlbedo, float scale )
+			half MyCustomExpression3902( half detailAlbedo, half scale )
 			{
 				return half(2.0) * detailAlbedo * scale - scale + half(1.0);
 			}
 			
-			float3 RevealMaskNormalCrossFilter83_g3888( float2 uv, float height, float2 texelSize )
+			half3 RevealMaskNormalCrossFilter83_g4236( half2 uv, half height, half2 texelSize, SamplerState sampler_RevealMask )
 			{
 						//float2 texelSize = float2(1.0 / texWidth, 1.0 / texHeight);
 						float4 h;
@@ -6547,16 +6579,35 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 						return normalize(n);
 			}
 			
-			float3 MatrixMulThatWorks( float4 Pos, float4x4 Mat )
+			inline half3 SampleSHPixel3558( half3 SH, half3 normalWS )
 			{
-				float3 result = mul(Mat,Pos.xyz);
+				return SampleSHPixel( SH, normalWS );
+			}
+			
+			inline half3 SampleLightmap3567( half2 lightmapUV, half3 normalWS )
+			{
+				return SampleLightmap( lightmapUV, 0, normalWS );
+			}
+			
+			half3 MatrixMulThatWorks( half4 Pos, half4x4 Mat )
+			{
+				float3 result = mul( Mat, float4(Pos.xyz,1.0) ).xyz;
 				return result + float3(Mat[0][3],Mat[1][3],Mat[2][3]);
 			}
 			
-			float4x4 Inverse4x4(float4x4 input)
+			half ShaderAPIMobile151_g4260( half desktop, half mobile )
 			{
-				#define minor(a,b,c) determinant(float3x3(input.a, input.b, input.c))
-				float4x4 cofactors = float4x4(
+				#if SHADER_API_MOBILE
+					return desktop;
+				#else
+					return mobile;
+				#endif
+			}
+			
+			half4x4 Inverse4x4(half4x4 input)
+			{
+				#define minor(a,b,c) determinant(half3x3(input.a, input.b, input.c))
+				half4x4 cofactors = half4x4(
 				minor( _22_23_24, _32_33_34, _42_43_44 ),
 				-minor( _21_23_24, _31_33_34, _41_43_44 ),
 				minor( _21_22_24, _31_32_34, _41_42_44 ),
@@ -6580,19 +6631,18 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				return transpose( cofactors ) / determinant( input );
 			}
 			
-			inline float4 GetUnderWaterFogs240_g3878( float3 viewDir, float3 camWorldPos, float3 posWS, float4 oceanFogDensities, float oceanHeight, float4 oceanFogTop_RGB_Exponent, float4 oceanFogBottom_RGB_Intensity )
+			half ShaderAPIMobile153_g4260( half desktop, half mobile )
+			{
+				#if SHADER_API_MOBILE
+					return desktop;
+				#else
+					return mobile;
+				#endif
+			}
+			
+			inline half4 GetUnderWaterFogs240_g4251( half3 viewDir, float3 camWorldPos, half3 posWS, half4 oceanFogDensities, half oceanHeight, half4 oceanFogTop_RGB_Exponent, half4 oceanFogBottom_RGB_Intensity )
 			{
 				return GetUnderWaterFog( viewDir, camWorldPos, posWS, oceanFogDensities, oceanHeight, oceanFogTop_RGB_Exponent, oceanFogBottom_RGB_Intensity );;
-			}
-			
-			inline float3 SampleSHPixel3558( float3 SH, float3 normalWS )
-			{
-				return SampleSHPixel( SH, normalWS );
-			}
-			
-			inline float3 SampleLightmap3567( float2 lightmapUV, float3 normalWS )
-			{
-				return SampleLightmap( lightmapUV, 0, normalWS );
 			}
 			
 			inline float Dither4x4Bayer( int x, int y )
@@ -6606,20 +6656,27 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				return dither[r] / 16; // same # of instructions as pre-dividing due to compiler magic
 			}
 			
-			float3x3 CastToFloat3x354_g3799( float3x3 Input )
+			half4x4 RotationOnly90_g4351( half4x4 Input )
 			{
-				return Input;
+				float4x4 Output = float4x4(
+				        float4(Input[0].xyz, 0.0),
+				        float4(Input[1].xyz, 0.0),
+				        float4(Input[2].xyz, 0.0),
+				        float4(0.0,0.0,0.0, 1.0)
+				    );
+				return Output;
 			}
 			
-			float3 MyCustomExpression6_g3799( float3 vertexPos, float4x4 ProbeWorldToTexture, float3 ProbeVolumeMin, float3 ProbeVolumeSizeInv )
+			half3 MyCustomExpression6_g4351( half3 vertexPos, half4x4 ProbeWorldToTexture, half3 ProbeVolumeMin, half3 ProbeVolumeSizeInv )
 			{
 				float3 position = mul(ProbeWorldToTexture, float4(TransformObjectToWorld(vertexPos.xyz), 1.0f)).xyz;
 				float3 texCoord = (position - ProbeVolumeMin.xyz) * ProbeVolumeSizeInv;
 				return texCoord;
 			}
 			
-			float3 SHEvalLinearL0L114_g3799( float3 worldNormal, float4 ProbeVolumeShR, float4 ProbeVolumeShG, float4 ProbeVolumeShB )
+			half3 SHEvalLinearL0L114_g4351( half3 worldNormal, half4 ProbeVolumeShR, half4 ProbeVolumeShG, half4 ProbeVolumeShB )
 			{
+				// See: Library\PackageCache\com.unity.render-pipelines.core12.1.15\ShaderLibrary\EntityLighting.hlsl
 				return SHEvalLinearL0L1(worldNormal, ProbeVolumeShR, ProbeVolumeShG,  ProbeVolumeShB);
 			}
 			
@@ -6631,98 +6688,95 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
-				float3 vertex3872 = v.vertex.xyz;
-				float2 vtexcoord13872 = v.texcoord1.xy;
+				half3 vertex3872 = v.vertex.xyz;
+				half2 vtexcoord13872 = v.texcoord1.xy;
 				int bitMask3872 = _Bitmask;
-				float3 localVertVanisher3872 = VertVanisher3872( vertex3872 , vtexcoord13872 , bitMask3872 );
-				float3 VertexOcclusionPosition3873 = localVertVanisher3872;
+				half3 localVertVanisher3872 = VertVanisher3872( vertex3872 , vtexcoord13872 , bitMask3872 );
+				half3 VertexOcclusionPosition3873 = localVertVanisher3872;
 				
-				float4 ifLocalVars3708 = 0;
-				float2 texCoord117 = v.texcoord.xy * float2( 1,1 ) + float2( 0,0 );
-				if(_MossUV==0){ifLocalVars3708 = float4( texCoord117, 0.0 , 0.0 ); };
-				float2 texCoord3710 = v.texcoord1.xy * float2( 1,1 ) + float2( 0,0 );
-				if(_MossUV==1){ifLocalVars3708 = float4( texCoord3710, 0.0 , 0.0 ); };
-				float2 texCoord3712 = v.texcoord2.xy * float2( 1,1 ) + float2( 0,0 );
-				if(_MossUV==2){ifLocalVars3708 = float4( texCoord3712, 0.0 , 0.0 ); };
-				float2 appendResult3711 = (float2(ifLocalVars3708.xy));
-				float2 temp_output_119_0 = ( appendResult3711 * ( 1.0 / _MossScale ) );
-				float2 MossUVScaled1663 = temp_output_119_0;
-				float2 vertexToFrag3722 = MossUVScaled1663;
-				o.ase_texcoord9.xy = vertexToFrag3722;
+				half4 ifLocalVars3708 = 0;
+				half2 texCoord117 = v.texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				if(_MossUV==0){ifLocalVars3708 = half4( texCoord117, 0.0 , 0.0 ); };
+				half2 texCoord3710 = v.texcoord1.xy * float2( 1,1 ) + float2( 0,0 );
+				if(_MossUV==1){ifLocalVars3708 = half4( texCoord3710, 0.0 , 0.0 ); };
+				half2 texCoord3712 = v.texcoord2.xy * float2( 1,1 ) + float2( 0,0 );
+				if(_MossUV==2){ifLocalVars3708 = half4( texCoord3712, 0.0 , 0.0 ); };
+				half2 appendResult3711 = (half2(ifLocalVars3708.xy));
+				half2 vertexToFrag3370 = ( appendResult3711 * ( 1.0 / _MossScale ) );
+				o.ase_texcoord9.xy = vertexToFrag3370;
 				int MossInt2938 = _Moss;
 				int MossModeInt3200 = _MossMode;
 				#ifdef _MOSSMETALMODE_ON
-				float staticSwitch3230 = (float)( MossInt2938 * MossModeInt3200 );
+				half staticSwitch3230 = (float)( MossInt2938 * MossModeInt3200 );
 				#else
-				float staticSwitch3230 = (float)MossInt2938;
+				half staticSwitch3230 = (float)MossInt2938;
 				#endif
-				float4 ifLocalVars3717 = 0;
-				float2 uv_BaseMap = v.texcoord.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
-				if(_MetalUV==0){ifLocalVars3717 = float4( uv_BaseMap, 0.0 , 0.0 ); };
-				float2 uv2_BaseMap = v.texcoord1.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
-				if(_MetalUV==1){ifLocalVars3717 = float4( uv2_BaseMap, 0.0 , 0.0 ); };
-				float2 uv3_BaseMap = v.texcoord2.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
-				if(_MetalUV==2){ifLocalVars3717 = float4( uv3_BaseMap, 0.0 , 0.0 ); };
-				float2 appendResult3718 = (float2(ifLocalVars3717.xy));
-				float2 vertexToFrag3723 = appendResult3718;
-				float2 UVBasemapPicked3719 = vertexToFrag3723;
-				float2 ifLocalVar2916 = 0;
+				half2 MossUVScaled1663 = vertexToFrag3370;
+				half4 ifLocalVars3717 = 0;
+				half2 uv_BaseMap = v.texcoord.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
+				if(_MetalUV==0){ifLocalVars3717 = half4( uv_BaseMap, 0.0 , 0.0 ); };
+				half2 uv2_BaseMap = v.texcoord1.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
+				if(_MetalUV==1){ifLocalVars3717 = half4( uv2_BaseMap, 0.0 , 0.0 ); };
+				half2 uv3_BaseMap = v.texcoord2.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
+				if(_MetalUV==2){ifLocalVars3717 = half4( uv3_BaseMap, 0.0 , 0.0 ); };
+				half2 appendResult3718 = (half2(ifLocalVars3717.xy));
+				half2 vertexToFrag3723 = appendResult3718;
+				half2 UVBasemapPicked3719 = vertexToFrag3723;
+				half2 ifLocalVar2916 = 0;
 				if( staticSwitch3230 <= 0.0 )
 				ifLocalVar2916 = UVBasemapPicked3719;
 				else
 				ifLocalVar2916 = MossUVScaled1663;
-				float2 vertexToFrag3371 = ifLocalVar2916;
+				half2 vertexToFrag3371 = ifLocalVar2916;
 				o.ase_texcoord9.zw = vertexToFrag3371;
 				float3 ase_worldPos = TransformObjectToWorld( (v.vertex).xyz );
-				float4 _DetailDistanceHardcoded = float4(25,30,0,0);
-				float temp_output_3155_0 = saturate( (1.0 + (distance( _WorldSpaceCameraPos , ase_worldPos ) - _DetailDistanceHardcoded.x) * (0.0 - 1.0) / (_DetailDistanceHardcoded.y - _DetailDistanceHardcoded.x)) );
-				float vertexToFrag3157 = temp_output_3155_0;
+				half4 _DetailDistanceHardcoded = half4(25,30,0,0);
+				half temp_output_3155_0 = saturate( (1.0 + (distance( _WorldSpaceCameraPos , ase_worldPos ) - _DetailDistanceHardcoded.x) * (0.0 - 1.0) / (_DetailDistanceHardcoded.y - _DetailDistanceHardcoded.x)) );
+				half vertexToFrag3157 = temp_output_3155_0;
 				o.ase_texcoord8.w = vertexToFrag3157;
-				o.ase_texcoord10.xy = vertexToFrag3723;
-				float temp_output_225_0 = ( ( v.ase_color.r - 0.5 ) * 2.0 );
-				float ifLocalVar4428 = 0;
+				half2 texCoord1007 = v.texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				half2 appendResult2490 = (half2(_DetailMapScale.x , _DetailMapScale.y));
+				half2 appendResult2491 = (half2(_DetailMapScale.z , _DetailMapScale.w));
+				half2 vertexToFrag3400 = (texCoord1007*appendResult2490 + appendResult2491);
+				o.ase_texcoord10.xy = vertexToFrag3400;
+				o.ase_texcoord10.zw = vertexToFrag3723;
+				half temp_output_225_0 = ( ( v.ase_color.r - 0.5 ) * 2.0 );
+				half ifLocalVar4428 = 0;
 				if( _UseMossVertexMask > 0.0 )
 				ifLocalVar4428 = temp_output_225_0;
-				float vertexToFrag3925 = ifLocalVar4428;
-				o.ase_texcoord10.z = vertexToFrag3925;
-				float3 _Vector3 = float3(0,0,-1);
-				float4 Pos6_g3877 = float4( _Vector3 , 0.0 );
-				float4x4 Mat6_g3877 = _CausticMatrix;
-				float3 localMatrixMulThatWorks6_g3877 = MatrixMulThatWorks( Pos6_g3877 , Mat6_g3877 );
-				float3 normalizeResult147_g3875 = normalize( localMatrixMulThatWorks6_g3877 );
-				float3 vertexToFrag144_g3875 = normalizeResult147_g3875;
-				o.ase_texcoord11.xyz = vertexToFrag144_g3875;
-				float3 WorldPosition256_g3862 = ase_worldPos;
-				float3 temp_output_105_0_g3875 = WorldPosition256_g3862;
-				float4 Pos6_g3876 = float4( temp_output_105_0_g3875 , 0.0 );
-				float4x4 invertVal146_g3875 = Inverse4x4( _CausticMatrix );
-				float4x4 Mat6_g3876 = invertVal146_g3875;
-				float3 localMatrixMulThatWorks6_g3876 = MatrixMulThatWorks( Pos6_g3876 , Mat6_g3876 );
-				float2 vertexToFrag52_g3875 = (localMatrixMulThatWorks6_g3876).xy;
-				o.ase_texcoord12.xy = vertexToFrag52_g3875;
+				half vertexToFrag3925 = ifLocalVar4428;
+				o.ase_texcoord11.x = vertexToFrag3925;
 				
-				float3 ase_worldNormal = TransformObjectToWorldNormal(v.ase_normal);
-				float4x4 temp_output_28_0_g3799 = _ProbeWorldToTexture;
-				float3x3 Input54_g3799 = 0;
-				float3x3 localCastToFloat3x354_g3799 = CastToFloat3x354_g3799( Input54_g3799 );
-				float3 vertexToFrag56_g3799 = mul( ase_worldNormal, localCastToFloat3x354_g3799 );
-				o.ase_texcoord13.xyz = vertexToFrag56_g3799;
-				float3 vertexPos6_g3799 = v.vertex.xyz;
-				float4x4 ProbeWorldToTexture6_g3799 = temp_output_28_0_g3799;
-				float3 ProbeVolumeMin6_g3799 = _ProbeVolumeMin;
-				float3 ProbeVolumeSizeInv6_g3799 = _ProbeVolumeSizeInv;
-				float3 localMyCustomExpression6_g3799 = MyCustomExpression6_g3799( vertexPos6_g3799 , ProbeWorldToTexture6_g3799 , ProbeVolumeMin6_g3799 , ProbeVolumeSizeInv6_g3799 );
-				float3 vertexToFrag7_g3799 = localMyCustomExpression6_g3799;
-				o.ase_texcoord14.xyz = vertexToFrag7_g3799;
+				half3 _Vector3 = half3(0,0,-1);
+				half4 Pos6_g4262 = half4( _Vector3 , 0.0 );
+				half4x4 Mat6_g4262 = _CausticMatrix;
+				half3 localMatrixMulThatWorks6_g4262 = MatrixMulThatWorks( Pos6_g4262 , Mat6_g4262 );
+				half3 normalizeResult147_g4260 = normalize( localMatrixMulThatWorks6_g4262 );
+				half3 vertexToFrag144_g4260 = normalizeResult147_g4260;
+				o.ase_texcoord11.yzw = vertexToFrag144_g4260;
+				half3 WorldPosition256_g4237 = ase_worldPos;
+				half3 temp_output_105_0_g4260 = WorldPosition256_g4237;
+				half4 Pos6_g4261 = half4( temp_output_105_0_g4260 , 0.0 );
+				half4x4 invertVal146_g4260 = Inverse4x4( _CausticMatrix );
+				half4x4 Mat6_g4261 = invertVal146_g4260;
+				half3 localMatrixMulThatWorks6_g4261 = MatrixMulThatWorks( Pos6_g4261 , Mat6_g4261 );
+				half2 vertexToFrag52_g4260 = (localMatrixMulThatWorks6_g4261).xy;
+				o.ase_texcoord12.xy = vertexToFrag52_g4260;
+				
+				half3 vertexPos6_g4351 = v.vertex.xyz;
+				half4x4 temp_output_28_0_g4351 = _ProbeWorldToTexture;
+				half4x4 ProbeWorldToTexture6_g4351 = temp_output_28_0_g4351;
+				half3 ProbeVolumeMin6_g4351 = _ProbeVolumeMin;
+				half3 ProbeVolumeSizeInv6_g4351 = _ProbeVolumeSizeInv;
+				half3 localMyCustomExpression6_g4351 = MyCustomExpression6_g4351( vertexPos6_g4351 , ProbeWorldToTexture6_g4351 , ProbeVolumeMin6_g4351 , ProbeVolumeSizeInv6_g4351 );
+				half3 vertexToFrag7_g4351 = localMyCustomExpression6_g4351;
+				o.ase_texcoord13.xyz = vertexToFrag7_g4351;
 				
 				o.ase_texcoord8.xyz = v.texcoord.xyz;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
-				o.ase_texcoord10.w = 0;
-				o.ase_texcoord11.w = 0;
 				o.ase_texcoord12.zw = 0;
 				o.ase_texcoord13.w = 0;
-				o.ase_texcoord14.w = 0;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
 				#else
@@ -6791,7 +6845,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				float4 texcoord : TEXCOORD0;
 				float4 texcoord1 : TEXCOORD1;
 				float4 texcoord2 : TEXCOORD2;
-				float4 ase_color : COLOR;
+				half4 ase_color : COLOR;
 
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
@@ -6917,661 +6971,678 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 
 				WorldViewDirection = SafeNormalize( WorldViewDirection );
 
-				float2 uv_BaseMap = IN.ase_texcoord8.xyz.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
-				float2 UVBasemap02088 = uv_BaseMap;
-				float4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
-				float3 temp_output_82_0 = ( (tex2DNode80).rgb * (_BaseColor).rgb );
-				float3 temp_output_17_0_g2518 = temp_output_82_0;
-				float4 ifLocalVars72_g2518 = 0;
+				half2 uv_BaseMap = IN.ase_texcoord8.xyz.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
+				half2 UVBasemap02088 = uv_BaseMap;
+				half4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
+				half3 temp_output_82_0 = ( (tex2DNode80).rgb * (_BaseColor).rgb );
+				half3 temp_output_17_0_g2518 = temp_output_82_0;
+				half4 ifLocalVars72_g2518 = 0;
 				int clampResult74_g2518 = clamp( _BlendMode_UseColorMask , 0 , 1 );
-				float4 tex2DNode1_g2518 = SAMPLE_TEXTURE2D( _ColorMask, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
-				float temp_output_2_0_g2518 = ( 1.0 - tex2DNode1_g2518.a );
-				float3 blendOpSrc26_g2518 = temp_output_17_0_g2518;
-				float3 blendOpDest26_g2518 = ( ( (_Tint0).rgb * tex2DNode1_g2518.r * 1.0 ) + ( (_Tint1).rgb * tex2DNode1_g2518.g * 1.0 ) + ( (_Tint2).rgb * tex2DNode1_g2518.b * 1.0 ) + ( (_Tint3).rgb * temp_output_2_0_g2518 * 1.0 ) );
-				float3 temp_output_26_0_g2518 = ( saturate( ( blendOpSrc26_g2518 * blendOpDest26_g2518 ) ));
-				if(clampResult74_g2518==0){ifLocalVars72_g2518 = float4( temp_output_26_0_g2518 , 0.0 ); };
-				float4 ifLocalVars29_g2518 = 0;
-				if(_BlendMode_UseColorMask==0){ifLocalVars29_g2518 = float4( float3(0,0,0) , 0.0 ); };
-				if(_BlendMode_UseColorMask==1){ifLocalVars29_g2518 = float4( temp_output_26_0_g2518 , 0.0 ); };
-				float3 blendOpSrc27_g2518 = temp_output_17_0_g2518;
-				float3 blendOpDest27_g2518 = ( ( (_Tint0).rgb * tex2DNode1_g2518.r * 1.0 ) + ( (_Tint1).rgb * tex2DNode1_g2518.g * 1.0 ) + ( (_Tint2).rgb * tex2DNode1_g2518.b * 1.0 ) + ( (_Tint3).rgb * temp_output_2_0_g2518 * 1.0 ) );
-				if(_BlendMode_UseColorMask==2){ifLocalVars29_g2518 = float4( ( saturate( ( 1.0 - ( 1.0 - blendOpSrc27_g2518 ) * ( 1.0 - blendOpDest27_g2518 ) ) )) , 0.0 ); };
-				float3 blendOpSrc28_g2518 = temp_output_17_0_g2518;
-				float3 blendOpDest28_g2518 = ( ( (_Tint0).rgb * tex2DNode1_g2518.r * 1.0 ) + ( (_Tint1).rgb * tex2DNode1_g2518.g * 1.0 ) + ( (_Tint2).rgb * tex2DNode1_g2518.b * 1.0 ) + ( (_Tint3).rgb * temp_output_2_0_g2518 * 1.0 ) );
-				if(_BlendMode_UseColorMask==3){ifLocalVars29_g2518 = float4( ( saturate( (( blendOpDest28_g2518 > 0.5 ) ? ( 1.0 - 2.0 * ( 1.0 - blendOpDest28_g2518 ) * ( 1.0 - blendOpSrc28_g2518 ) ) : ( 2.0 * blendOpDest28_g2518 * blendOpSrc28_g2518 ) ) )) , 0.0 ); };
-				if(clampResult74_g2518==1){ifLocalVars72_g2518 = float4( (ifLocalVars29_g2518).xyz , 0.0 ); };
-				float3 lerpResult64_g2518 = lerp( temp_output_17_0_g2518 , (ifLocalVars72_g2518).xyz , ( saturate( ( ( 1.0 * tex2DNode1_g2518.r ) + ( 1.0 * tex2DNode1_g2518.g ) + ( 1.0 * tex2DNode1_g2518.b ) + ( 1.0 * temp_output_2_0_g2518 ) ) ) * _UseColorMask ));
+				half4 tex2DNode1_g2518 = SAMPLE_TEXTURE2D( _ColorMask, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
+				half temp_output_2_0_g2518 = ( 1.0 - tex2DNode1_g2518.a );
+				half3 blendOpSrc26_g2518 = temp_output_17_0_g2518;
+				half3 blendOpDest26_g2518 = ( ( (_Tint0).rgb * tex2DNode1_g2518.r * 1.0 ) + ( (_Tint1).rgb * tex2DNode1_g2518.g * 1.0 ) + ( (_Tint2).rgb * tex2DNode1_g2518.b * 1.0 ) + ( (_Tint3).rgb * temp_output_2_0_g2518 * 1.0 ) );
+				half3 temp_output_26_0_g2518 = ( saturate( ( blendOpSrc26_g2518 * blendOpDest26_g2518 ) ));
+				if(clampResult74_g2518==0){ifLocalVars72_g2518 = half4( temp_output_26_0_g2518 , 0.0 ); };
+				half4 ifLocalVars29_g2518 = 0;
+				if(_BlendMode_UseColorMask==0){ifLocalVars29_g2518 = half4( half3(0,0,0) , 0.0 ); };
+				if(_BlendMode_UseColorMask==1){ifLocalVars29_g2518 = half4( temp_output_26_0_g2518 , 0.0 ); };
+				half3 blendOpSrc27_g2518 = temp_output_17_0_g2518;
+				half3 blendOpDest27_g2518 = ( ( (_Tint0).rgb * tex2DNode1_g2518.r * 1.0 ) + ( (_Tint1).rgb * tex2DNode1_g2518.g * 1.0 ) + ( (_Tint2).rgb * tex2DNode1_g2518.b * 1.0 ) + ( (_Tint3).rgb * temp_output_2_0_g2518 * 1.0 ) );
+				if(_BlendMode_UseColorMask==2){ifLocalVars29_g2518 = half4( ( saturate( ( 1.0 - ( 1.0 - blendOpSrc27_g2518 ) * ( 1.0 - blendOpDest27_g2518 ) ) )) , 0.0 ); };
+				half3 blendOpSrc28_g2518 = temp_output_17_0_g2518;
+				half3 blendOpDest28_g2518 = ( ( (_Tint0).rgb * tex2DNode1_g2518.r * 1.0 ) + ( (_Tint1).rgb * tex2DNode1_g2518.g * 1.0 ) + ( (_Tint2).rgb * tex2DNode1_g2518.b * 1.0 ) + ( (_Tint3).rgb * temp_output_2_0_g2518 * 1.0 ) );
+				if(_BlendMode_UseColorMask==3){ifLocalVars29_g2518 = half4( ( saturate( (( blendOpDest28_g2518 > 0.5 ) ? ( 1.0 - 2.0 * ( 1.0 - blendOpDest28_g2518 ) * ( 1.0 - blendOpSrc28_g2518 ) ) : ( 2.0 * blendOpDest28_g2518 * blendOpSrc28_g2518 ) ) )) , 0.0 ); };
+				if(clampResult74_g2518==1){ifLocalVars72_g2518 = half4( (ifLocalVars29_g2518).xyz , 0.0 ); };
+				half3 lerpResult64_g2518 = lerp( temp_output_17_0_g2518 , (ifLocalVars72_g2518).xyz , ( saturate( ( ( 1.0 * tex2DNode1_g2518.r ) + ( 1.0 * tex2DNode1_g2518.g ) + ( 1.0 * tex2DNode1_g2518.b ) + ( 1.0 * temp_output_2_0_g2518 ) ) ) * _UseColorMask ));
 				#ifdef _COLORMASK_ON
-				float3 staticSwitch15_g2518 = lerpResult64_g2518;
+				half3 staticSwitch15_g2518 = lerpResult64_g2518;
 				#else
-				float3 staticSwitch15_g2518 = temp_output_17_0_g2518;
+				half3 staticSwitch15_g2518 = temp_output_17_0_g2518;
 				#endif
-				float3 AlbedoColorMask2007 = staticSwitch15_g2518;
-				float3 AlbedoBaseColor92 = AlbedoColorMask2007;
-				float3 appendResult3785 = (float3(_MossColor.rgb));
-				float2 vertexToFrag3722 = IN.ase_texcoord9.xy;
-				float StochasticScale1447 = ( 1.0 / _MossStochasticScale );
-				float StochasticContrast1448 = _MossStochasticContrast;
+				half3 AlbedoColorMask2007 = staticSwitch15_g2518;
+				half3 AlbedoBaseColor92 = AlbedoColorMask2007;
+				half3 appendResult3785 = (half3(_MossColor.rgb));
+				half2 vertexToFrag3370 = IN.ase_texcoord9.xy;
+				half2 MossUVScaled1663 = vertexToFrag3370;
+				half StochasticScale1447 = ( 1.0 / _MossStochasticScale );
+				half StochasticContrast1448 = _MossStochasticContrast;
 				half3 cw4270 = 0;
 				float2 uv14270 = 0;
 				float2 uv24270 = 0;
 				float2 uv34270 = 0;
 				float2 dx4270 = 0;
 				float2 dy4270 = 0;
-				half4 stochasticSample4270 = StochasticSample2DWeightsR(_MossPacked,sampler_MossPacked,vertexToFrag3722,cw4270,uv14270,uv24270,uv34270,dx4270,dy4270,StochasticScale1447,StochasticContrast1448);
+				half4 stochasticSample4270 = StochasticSample2DWeightsR(_MossPacked,sampler_MossPacked,MossUVScaled1663,cw4270,uv14270,uv24270,uv34270,dx4270,dy4270,StochasticScale1447,StochasticContrast1448);
 				#ifdef _USESTOCHASTICMOSS_ON
-				float4 staticSwitch121 = stochasticSample4270;
+				half4 staticSwitch121 = stochasticSample4270;
 				#else
-				float4 staticSwitch121 = SAMPLE_TEXTURE2D( _MossPacked, sampler_Linear_Repeat_Aniso2, vertexToFrag3722 );
+				half4 staticSwitch121 = SAMPLE_TEXTURE2D( _MossPacked, sampler_Linear_Repeat_Aniso2, MossUVScaled1663 );
 				#endif
 				int MossModeInt3200 = _MossMode;
-				float2 vertexToFrag3371 = IN.ase_texcoord9.zw;
-				float4 _Vector17 = float4(1,0,1,0);
-				float4 ifLocalVar3181 = 0;
+				half2 vertexToFrag3371 = IN.ase_texcoord9.zw;
+				half4 _Vector17 = half4(1,0,1,0);
+				half4 ifLocalVar3181 = 0;
 				if( _UseMossMetalMap <= 0.0 )
 				ifLocalVar3181 = _Vector17;
 				else
 				ifLocalVar3181 = SAMPLE_TEXTURE2D( _MossMetalMap, sampler_Linear_Repeat_Aniso2, vertexToFrag3371 );
-				float4 ifLocalVar3232 = 0;
+				half4 ifLocalVar3232 = 0;
 				if( MossModeInt3200 <= 0.0 )
 				ifLocalVar3232 = _Vector17;
 				else
 				ifLocalVar3232 = ifLocalVar3181;
-				float4 MossMetalMap2943 = ifLocalVar3232;
+				half4 MossMetalMap2943 = ifLocalVar3232;
 				#ifdef _MOSSMETALMODE_ON
-				float4 staticSwitch3303 = MossMetalMap2943;
+				half4 staticSwitch3303 = MossMetalMap2943;
 				#else
-				float4 staticSwitch3303 = staticSwitch121;
+				half4 staticSwitch3303 = staticSwitch121;
 				#endif
-				float4 MossMetalRes3077 = staticSwitch3303;
-				float temp_output_3043_0 = (MossMetalRes3077).r;
-				float temp_output_8_0_g2546 = temp_output_3043_0;
-				float4 break5_g2546 = _MossAlbedoRemap;
-				float temp_output_3_0_g2546 = (0.0 + (temp_output_8_0_g2546 - break5_g2546.x) * (1.0 - 0.0) / (break5_g2546.y - break5_g2546.x));
-				float clampResult2_g2546 = clamp( temp_output_3_0_g2546 , break5_g2546.z , break5_g2546.w );
-				float temp_output_27_0_g2546 = saturate( clampResult2_g2546 );
+				half4 MossMetalRes3077 = staticSwitch3303;
+				half temp_output_3043_0 = (MossMetalRes3077).r;
+				half temp_output_8_0_g2546 = temp_output_3043_0;
+				half4 break5_g2546 = _MossAlbedoRemap;
+				half temp_output_3_0_g2546 = (0.0 + (temp_output_8_0_g2546 - break5_g2546.x) * (1.0 - 0.0) / (break5_g2546.y - break5_g2546.x));
+				half clampResult2_g2546 = clamp( temp_output_3_0_g2546 , break5_g2546.z , break5_g2546.w );
+				half temp_output_27_0_g2546 = saturate( clampResult2_g2546 );
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3747 = temp_output_27_0_g2546;
+				half staticSwitch3747 = temp_output_27_0_g2546;
 				#else
-				float staticSwitch3747 = temp_output_3043_0;
+				half staticSwitch3747 = temp_output_3043_0;
 				#endif
-				float3 MossPackedAlbedo1643 = ( appendResult3785 * staticSwitch3747 );
-				float3 lerpResult2137 = lerp( MossPackedAlbedo1643 , ( MossPackedAlbedo1643 * AlbedoBaseColor92 ) , _MossMultAlbedo);
-				float3 MossAlbedoTinted101 = lerpResult2137;
-				float2 _Vector5 = float2(0,0);
-				float2 NormalMossSigned50 = _Vector5;
-				float3 appendResult3794 = (float3(NormalMossSigned50 , 1.0));
-				float4 appendResult3336 = (float4(1.0 , 0.0 , 0.0 , 0.0));
-				float vertexToFrag3157 = IN.ase_texcoord8.w;
-				float DDistanceMaskVert3160 = step( 0.01 , vertexToFrag3157 );
-				float2 texCoord1007 = IN.ase_texcoord8.xyz.xy * float2( 1,1 ) + float2( 0,0 );
-				float2 appendResult2490 = (float2(_DetailMapScale.x , _DetailMapScale.y));
-				float2 appendResult2491 = (float2(_DetailMapScale.z , _DetailMapScale.w));
-				float2 temp_output_2488_0 = (texCoord1007*appendResult2490 + appendResult2491);
-				float4 tex2DNode980 = SAMPLE_TEXTURE2D( _DetailMapPacked, sampler_Linear_Repeat_Aniso2, temp_output_2488_0 );
-				float4 DetailMapPacked3088 = tex2DNode980;
-				float temp_output_3090_0 = (DetailMapPacked3088).r;
-				float detailAlbedo3902 = temp_output_3090_0;
-				float scale3902 = _DetailAlbedoMapScale;
-				float localMyCustomExpression3902 = MyCustomExpression3902( detailAlbedo3902 , scale3902 );
-				float2 vertexToFrag3723 = IN.ase_texcoord10.xy;
-				float2 UVBasemapPicked3719 = vertexToFrag3723;
-				float4 _Vector16 = float4(0,1,1,1);
-				float4 ifLocalVar3177 = 0;
+				half3 MossPackedAlbedo1643 = ( appendResult3785 * staticSwitch3747 );
+				half3 lerpResult2137 = lerp( MossPackedAlbedo1643 , ( MossPackedAlbedo1643 * AlbedoBaseColor92 ) , _MossMultAlbedo);
+				half3 MossAlbedoTinted101 = lerpResult2137;
+				half2 _Vector5 = half2(0,0);
+				half2 NormalMossSigned50 = _Vector5;
+				half3 appendResult3794 = (half3(NormalMossSigned50 , 1.0));
+				half4 appendResult3336 = (half4(1.0 , 0.0 , 0.0 , 0.0));
+				half vertexToFrag3157 = IN.ase_texcoord8.w;
+				half DDistanceMaskVert3160 = step( 0.01 , vertexToFrag3157 );
+				half2 vertexToFrag3400 = IN.ase_texcoord10.xy;
+				half4 tex2DNode980 = SAMPLE_TEXTURE2D( _DetailMapPacked, sampler_Linear_Repeat_Aniso2, vertexToFrag3400 );
+				half4 DetailMapPacked3088 = tex2DNode980;
+				half temp_output_3090_0 = (DetailMapPacked3088).r;
+				half detailAlbedo3902 = temp_output_3090_0;
+				half scale3902 = _DetailAlbedoMapScale;
+				half localMyCustomExpression3902 = MyCustomExpression3902( detailAlbedo3902 , scale3902 );
+				half2 vertexToFrag3723 = IN.ase_texcoord10.zw;
+				half2 UVBasemapPicked3719 = vertexToFrag3723;
+				half4 _Vector16 = half4(0,1,1,1);
+				half4 ifLocalVar3177 = 0;
 				if( _MetallicSpecGlossMap <= 0.0 )
 				ifLocalVar3177 = _Vector16;
 				else
 				ifLocalVar3177 = SAMPLE_TEXTURE2D( _MetallicGlossMap, sampler_Linear_Repeat_Aniso2, UVBasemapPicked3719 );
-				float4 ifLocalVar3189 = 0;
+				half4 ifLocalVar3189 = 0;
 				if( MossModeInt3200 <= 0.0 )
 				ifLocalVar3189 = ifLocalVar3181;
 				else
-				ifLocalVar3189 = float4(1,1,1,1);
-				float4 MossMetal2928 = ifLocalVar3189;
+				ifLocalVar3189 = half4(1,1,1,1);
+				half4 MossMetal2928 = ifLocalVar3189;
 				#ifdef _MOSSMETALMODE_ON
-				float4 staticSwitch2913 = MossMetal2928;
+				half4 staticSwitch2913 = MossMetal2928;
 				#else
-				float4 staticSwitch2913 = ifLocalVar3177;
+				half4 staticSwitch2913 = ifLocalVar3177;
 				#endif
-				float4 MossMetalORMetallicMap2911 = staticSwitch2913;
-				float temp_output_3050_0 = (MossMetalORMetallicMap2911).b;
-				float temp_output_8_0_g2548 = temp_output_3050_0;
-				float4 ifLocalVars3100 = 0;
+				half4 MossMetalORMetallicMap2911 = staticSwitch2913;
+				half temp_output_3050_0 = (MossMetalORMetallicMap2911).b;
+				half temp_output_8_0_g2548 = temp_output_3050_0;
+				half4 ifLocalVars3100 = 0;
 				int Mode3840 = _MODE;
 				if(Mode3840==0){ifLocalVars3100 = _DetailMaskRemap; };
 				if(Mode3840==1){ifLocalVars3100 = _EmissionRemap; };
-				float4 break5_g2548 = ifLocalVars3100;
-				float temp_output_3_0_g2548 = (0.0 + (temp_output_8_0_g2548 - break5_g2548.x) * (1.0 - 0.0) / (break5_g2548.y - break5_g2548.x));
-				float clampResult2_g2548 = clamp( temp_output_3_0_g2548 , break5_g2548.z , break5_g2548.w );
-				float temp_output_27_0_g2548 = saturate( clampResult2_g2548 );
+				half4 break5_g2548 = ifLocalVars3100;
+				half temp_output_3_0_g2548 = (0.0 + (temp_output_8_0_g2548 - break5_g2548.x) * (1.0 - 0.0) / (break5_g2548.y - break5_g2548.x));
+				half clampResult2_g2548 = clamp( temp_output_3_0_g2548 , break5_g2548.z , break5_g2548.w );
+				half temp_output_27_0_g2548 = saturate( clampResult2_g2548 );
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3738 = temp_output_27_0_g2548;
+				half staticSwitch3738 = temp_output_27_0_g2548;
 				#else
-				float staticSwitch3738 = temp_output_3050_0;
+				half staticSwitch3738 = temp_output_3050_0;
 				#endif
 				int temp_output_3109_0 = ( 1.0 - Mode3840 );
-				float temp_output_12_0_g2513 = ( temp_output_3109_0 * _UseDetailMask );
-				float DetalMaskDoodad3103 = ( ( staticSwitch3738 * temp_output_12_0_g2513 ) + ( 1.0 - temp_output_12_0_g2513 ) );
-				float temp_output_12_0_g2557 = DetalMaskDoodad3103;
-				float temp_output_3327_0 = (DetailMapPacked3088).b;
-				float temp_output_8_0_g2534 = temp_output_3327_0;
-				float4 break5_g2534 = _DetailSmoothnessRemap;
-				float temp_output_32_0_g2534 = (break5_g2534.z + (temp_output_8_0_g2534 - break5_g2534.x) * (break5_g2534.w - break5_g2534.z) / (break5_g2534.y - break5_g2534.x));
+				half temp_output_12_0_g2513 = ( temp_output_3109_0 * _UseDetailMask );
+				half DetalMaskDoodad3103 = ( ( staticSwitch3738 * temp_output_12_0_g2513 ) + ( 1.0 - temp_output_12_0_g2513 ) );
+				half temp_output_12_0_g2557 = DetalMaskDoodad3103;
+				half temp_output_3327_0 = (DetailMapPacked3088).b;
+				half temp_output_8_0_g2534 = temp_output_3327_0;
+				half4 break5_g2534 = _DetailSmoothnessRemap;
+				half temp_output_32_0_g2534 = (break5_g2534.z + (temp_output_8_0_g2534 - break5_g2534.x) * (break5_g2534.w - break5_g2534.z) / (break5_g2534.y - break5_g2534.x));
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3743 = temp_output_32_0_g2534;
+				half staticSwitch3743 = temp_output_32_0_g2534;
 				#else
-				float staticSwitch3743 = (-1.0 + (temp_output_3327_0 - 0.0) * (1.0 - -1.0) / (1.0 - 0.0));
+				half staticSwitch3743 = (-1.0 + (temp_output_3327_0 - 0.0) * (1.0 - -1.0) / (1.0 - 0.0));
 				#endif
-				float4 appendResult3337 = (float4(( ( localMyCustomExpression3902 * temp_output_12_0_g2557 ) + ( 1.0 - temp_output_12_0_g2557 ) ) , ( ( (DetailMapPacked3088).ag * float2( 2,2 ) ) - float2( 1,1 ) ) , staticSwitch3743));
-				float4 _DetailDistanceHardcoded = float4(25,30,0,0);
-				float temp_output_3155_0 = saturate( (1.0 + (distance( _WorldSpaceCameraPos , WorldPosition ) - _DetailDistanceHardcoded.x) * (0.0 - 1.0) / (_DetailDistanceHardcoded.y - _DetailDistanceHardcoded.x)) );
-				float DDistanceMaskPixel3159 = temp_output_3155_0;
-				float4 lerpResult3339 = lerp( appendResult3336 , appendResult3337 , DDistanceMaskPixel3159);
-				float4 ifLocalVar3338 = 0;
+				half4 appendResult3337 = (half4(( ( localMyCustomExpression3902 * temp_output_12_0_g2557 ) + ( 1.0 - temp_output_12_0_g2557 ) ) , ( ( (DetailMapPacked3088).ag * float2( 2,2 ) ) - float2( 1,1 ) ) , staticSwitch3743));
+				half4 _DetailDistanceHardcoded = half4(25,30,0,0);
+				half temp_output_3155_0 = saturate( (1.0 + (distance( _WorldSpaceCameraPos , WorldPosition ) - _DetailDistanceHardcoded.x) * (0.0 - 1.0) / (_DetailDistanceHardcoded.y - _DetailDistanceHardcoded.x)) );
+				half DDistanceMaskPixel3159 = temp_output_3155_0;
+				half4 lerpResult3339 = lerp( appendResult3336 , appendResult3337 , DDistanceMaskPixel3159);
+				half4 ifLocalVar3338 = 0;
 				UNITY_BRANCH 
 				if( DDistanceMaskVert3160 <= 0.0 )
 				ifLocalVar3338 = appendResult3336;
 				else
 				ifLocalVar3338 = lerpResult3339;
 				#ifdef _DETAIL_ON
-				float4 staticSwitch4130 = ifLocalVar3338;
+				half4 staticSwitch4130 = ifLocalVar3338;
 				#else
-				float4 staticSwitch4130 = appendResult3336;
+				half4 staticSwitch4130 = appendResult3336;
 				#endif
-				float2 DetailNormalSigned3509 = ( (staticSwitch4130).yz * _DetailNormalMapScale1 );
-				float3 appendResult3801 = (float3(( NormalMossSigned50 + DetailNormalSigned3509 ) , 1.0));
-				float3 normalizeResult3795 = normalize( appendResult3801 );
+				half2 DetailNormalSigned3509 = ( (staticSwitch4130).yz * _DetailNormalMapScale1 );
+				half3 appendResult3801 = (half3(( NormalMossSigned50 + DetailNormalSigned3509 ) , 1.0));
+				half3 normalizeResult3795 = normalize( appendResult3801 );
 				#ifdef _DETAIL_ON
-				float3 staticSwitch4129 = normalizeResult3795;
+				half3 staticSwitch4129 = normalizeResult3795;
 				#else
-				float3 staticSwitch4129 = appendResult3794;
+				half3 staticSwitch4129 = appendResult3794;
 				#endif
-				float3 tanToWorld0 = float3( WorldTangent.x, WorldBiTangent.x, WorldNormal.x );
-				float3 tanToWorld1 = float3( WorldTangent.y, WorldBiTangent.y, WorldNormal.y );
-				float3 tanToWorld2 = float3( WorldTangent.z, WorldBiTangent.z, WorldNormal.z );
+				half3 tanToWorld0 = float3( WorldTangent.x, WorldBiTangent.x, WorldNormal.x );
+				half3 tanToWorld1 = float3( WorldTangent.y, WorldBiTangent.y, WorldNormal.y );
+				half3 tanToWorld2 = float3( WorldTangent.z, WorldBiTangent.z, WorldNormal.z );
 				float3 tanNormal16 = staticSwitch4129;
-				float3 worldNormal16 = float3(dot(tanToWorld0,tanNormal16), dot(tanToWorld1,tanNormal16), dot(tanToWorld2,tanNormal16));
-				float dotResult15 = dot( worldNormal16 , _MossDirection );
-				float temp_output_13_0_g2463 = dotResult15;
-				float temp_output_82_0_g2463 = ( temp_output_13_0_g2463 * 0.5 );
-				float temp_output_5_0_g2467 = ( temp_output_82_0_g2463 - -0.5 );
-				float temp_output_48_0_g2467 = saturate( temp_output_5_0_g2467 );
-				float temp_output_14_0_g2463 = _MossLevel;
-				float temp_output_17_0_g2467 = temp_output_14_0_g2463;
-				float temp_output_16_0_g2463 = ( 1.0 - _MossDirContrast );
-				float temp_output_30_0_g2467 = ( 1.0 - saturate( ( 1.0 - temp_output_16_0_g2463 ) ) );
-				float temp_output_35_0_g2467 = ( temp_output_30_0_g2467 * 0.5 );
-				float temp_output_32_0_g2467 = ( (( 1.0 + temp_output_30_0_g2467 ) + (abs( temp_output_17_0_g2467 ) - 0.0) * (( 0.0 - temp_output_30_0_g2467 ) - ( 1.0 + temp_output_30_0_g2467 )) / (1.0 - 0.0)) - temp_output_35_0_g2467 );
-				float temp_output_31_0_g2467 = ( temp_output_35_0_g2467 + (( 1.0 + temp_output_30_0_g2467 ) + (abs( temp_output_17_0_g2467 ) - 0.0) * (( 0.0 - temp_output_30_0_g2467 ) - ( 1.0 + temp_output_30_0_g2467 )) / (1.0 - 0.0)) );
-				float temp_output_51_0_g2467 = saturate( (0.0 + (temp_output_48_0_g2467 - temp_output_32_0_g2467) * (1.0 - 0.0) / (temp_output_31_0_g2467 - temp_output_32_0_g2467)) );
-				float temp_output_3796_0 = temp_output_51_0_g2467;
-				float lerpResult4109 = lerp( _MossBase , temp_output_3796_0 , _UseMossDirection);
-				float MossMaskDirection1179 = lerpResult4109;
-				float temp_output_1811_0 = saturate( MossMaskDirection1179 );
-				float temp_output_3952_0 = ( tex2DNode80.a * _BaseColor.a );
+				half3 worldNormal16 = float3(dot(tanToWorld0,tanNormal16), dot(tanToWorld1,tanNormal16), dot(tanToWorld2,tanNormal16));
+				half dotResult15 = dot( worldNormal16 , _MossDirection );
+				half temp_output_13_0_g2463 = dotResult15;
+				half temp_output_82_0_g2463 = ( temp_output_13_0_g2463 * 0.5 );
+				half temp_output_5_0_g2467 = ( temp_output_82_0_g2463 - -0.5 );
+				half temp_output_48_0_g2467 = saturate( temp_output_5_0_g2467 );
+				half temp_output_14_0_g2463 = _MossLevel;
+				half temp_output_17_0_g2467 = temp_output_14_0_g2463;
+				half temp_output_16_0_g2463 = ( 1.0 - _MossDirContrast );
+				half temp_output_30_0_g2467 = ( 1.0 - saturate( ( 1.0 - temp_output_16_0_g2463 ) ) );
+				half temp_output_35_0_g2467 = ( temp_output_30_0_g2467 * 0.5 );
+				half temp_output_32_0_g2467 = ( (( 1.0 + temp_output_30_0_g2467 ) + (abs( temp_output_17_0_g2467 ) - 0.0) * (( 0.0 - temp_output_30_0_g2467 ) - ( 1.0 + temp_output_30_0_g2467 )) / (1.0 - 0.0)) - temp_output_35_0_g2467 );
+				half temp_output_31_0_g2467 = ( temp_output_35_0_g2467 + (( 1.0 + temp_output_30_0_g2467 ) + (abs( temp_output_17_0_g2467 ) - 0.0) * (( 0.0 - temp_output_30_0_g2467 ) - ( 1.0 + temp_output_30_0_g2467 )) / (1.0 - 0.0)) );
+				half temp_output_51_0_g2467 = saturate( (0.0 + (temp_output_48_0_g2467 - temp_output_32_0_g2467) * (1.0 - 0.0) / (temp_output_31_0_g2467 - temp_output_32_0_g2467)) );
+				half temp_output_3796_0 = temp_output_51_0_g2467;
+				half lerpResult4109 = lerp( _MossBase , temp_output_3796_0 , _UseMossDirection);
+				half MossMaskDirection1179 = lerpResult4109;
+				half temp_output_1811_0 = saturate( MossMaskDirection1179 );
+				half temp_output_3952_0 = ( tex2DNode80.a * _BaseColor.a );
 				#ifdef _ALPHATEST_ON
-				float staticSwitch3756 = 1.0;
+				half staticSwitch3756 = 1.0;
 				#else
-				float staticSwitch3756 = temp_output_3952_0;
+				half staticSwitch3756 = temp_output_3952_0;
 				#endif
-				float AlbedoAlphaMoss1953 = staticSwitch3756;
-				float temp_output_8_0_g2874 = AlbedoAlphaMoss1953;
-				float4 break5_g2874 = _MossAlphaMaskMM;
-				float temp_output_32_0_g2874 = (break5_g2874.z + (temp_output_8_0_g2874 - break5_g2874.x) * (break5_g2874.w - break5_g2874.z) / (break5_g2874.y - break5_g2874.x));
-				float clampResult31_g2874 = clamp( temp_output_32_0_g2874 , break5_g2874.z , break5_g2874.w );
-				float temp_output_3896_0 = clampResult31_g2874;
+				half AlbedoAlphaMoss1953 = staticSwitch3756;
+				half temp_output_8_0_g4229 = AlbedoAlphaMoss1953;
+				half4 break5_g4229 = _MossAlphaMaskMM;
+				half temp_output_32_0_g4229 = (break5_g4229.z + (temp_output_8_0_g4229 - break5_g4229.x) * (break5_g4229.w - break5_g4229.z) / (break5_g4229.y - break5_g4229.x));
+				half clampResult31_g4229 = clamp( temp_output_32_0_g4229 , break5_g4229.z , break5_g4229.w );
+				half temp_output_3896_0 = clampResult31_g4229;
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3745 = temp_output_3896_0;
+				half staticSwitch3745 = temp_output_3896_0;
 				#else
-				float staticSwitch3745 = temp_output_3896_0;
+				half staticSwitch3745 = temp_output_3896_0;
 				#endif
-				float MossMaskAlpha1182 = ( staticSwitch3745 * _UseMossMaskWithAlpha );
+				half MossMaskAlpha1182 = ( staticSwitch3745 * _UseMossMaskWithAlpha );
 				#ifdef _ALPHATEST_ON
-				float staticSwitch3938 = temp_output_1811_0;
+				half staticSwitch3938 = temp_output_1811_0;
 				#else
-				float staticSwitch3938 = saturate( ( temp_output_1811_0 + MossMaskAlpha1182 ) );
+				half staticSwitch3938 = saturate( ( temp_output_1811_0 + MossMaskAlpha1182 ) );
 				#endif
-				float vertexToFrag3925 = IN.ase_texcoord10.z;
-				float MossMaskVertex1181 = vertexToFrag3925;
-				float4 tex2DNode32 = SAMPLE_TEXTURE2D( _BumpMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
-				float3 unpack2617 = UnpackNormalScale( tex2DNode32, _NormalStrength );
+				half vertexToFrag3925 = IN.ase_texcoord11.x;
+				half MossMaskVertex1181 = vertexToFrag3925;
+				half4 tex2DNode32 = SAMPLE_TEXTURE2D( _BumpMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
+				half3 unpack2617 = UnpackNormalScale( tex2DNode32, _NormalStrength );
 				unpack2617.z = lerp( 1, unpack2617.z, saturate(_NormalStrength) );
-				float2 break3507 = DetailNormalSigned3509;
-				float dotResult3505 = dot( break3507.x , break3507.y );
+				half2 break3507 = DetailNormalSigned3509;
+				half dotResult3505 = dot( break3507.x , break3507.y );
 				#ifdef _DETAIL_ON
-				float staticSwitch3500 = ( unpack2617.z + abs( dotResult3505 ) );
+				half staticSwitch3500 = ( unpack2617.z + abs( dotResult3505 ) );
 				#else
-				float staticSwitch3500 = unpack2617.z;
+				half staticSwitch3500 = unpack2617.z;
 				#endif
-				float NormalHeightSigned1759 = staticSwitch3500;
-				float temp_output_5_0_g2451 = NormalHeightSigned1759;
-				float temp_output_48_0_g2451 = saturate( temp_output_5_0_g2451 );
-				float temp_output_17_0_g2451 = saturate( ( staticSwitch3938 + MossMaskVertex1181 ) );
-				float temp_output_30_0_g2451 = ( 1.0 - saturate( _MossNormalContrast ) );
-				float temp_output_35_0_g2451 = ( temp_output_30_0_g2451 * 0.5 );
-				float temp_output_32_0_g2451 = ( (( 1.0 + temp_output_30_0_g2451 ) + (abs( temp_output_17_0_g2451 ) - 0.0) * (( 0.0 - temp_output_30_0_g2451 ) - ( 1.0 + temp_output_30_0_g2451 )) / (1.0 - 0.0)) - temp_output_35_0_g2451 );
-				float temp_output_31_0_g2451 = ( temp_output_35_0_g2451 + (( 1.0 + temp_output_30_0_g2451 ) + (abs( temp_output_17_0_g2451 ) - 0.0) * (( 0.0 - temp_output_30_0_g2451 ) - ( 1.0 + temp_output_30_0_g2451 )) / (1.0 - 0.0)) );
-				float temp_output_51_0_g2451 = saturate( (0.0 + (temp_output_48_0_g2451 - temp_output_32_0_g2451) * (1.0 - 0.0) / (temp_output_31_0_g2451 - temp_output_32_0_g2451)) );
-				float temp_output_137_0_g2451 = ( 1.0 - temp_output_48_0_g2451 );
-				float temp_output_128_0_g2451 = ( 1.0 - saturate( _MossNormalContrast ) );
-				float temp_output_121_0_g2451 = ( temp_output_128_0_g2451 * 0.5 );
-				float temp_output_118_0_g2451 = (0.0 + (temp_output_137_0_g2451 - ( (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) - temp_output_121_0_g2451 )) * (1.0 - 0.0) / (( temp_output_121_0_g2451 + (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) ) - ( (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) - temp_output_121_0_g2451 )));
-				float lerpResult2905 = lerp( saturate( ( staticSwitch3938 + MossMaskVertex1181 ) ) , ( temp_output_51_0_g2451 - saturate( temp_output_118_0_g2451 ) ) , _MossNormalAffectStrength);
-				float temp_output_5_0_g2498 = lerpResult2905;
-				float temp_output_48_0_g2498 = saturate( temp_output_5_0_g2498 );
-				float temp_output_17_0_g2498 = _MapContrastOffset;
-				float temp_output_30_0_g2498 = ( 1.0 - saturate( _MapContrast ) );
-				float temp_output_35_0_g2498 = ( temp_output_30_0_g2498 * 0.5 );
-				float temp_output_32_0_g2498 = ( (( 1.0 + temp_output_30_0_g2498 ) + (abs( temp_output_17_0_g2498 ) - 0.0) * (( 0.0 - temp_output_30_0_g2498 ) - ( 1.0 + temp_output_30_0_g2498 )) / (1.0 - 0.0)) - temp_output_35_0_g2498 );
-				float temp_output_31_0_g2498 = ( temp_output_35_0_g2498 + (( 1.0 + temp_output_30_0_g2498 ) + (abs( temp_output_17_0_g2498 ) - 0.0) * (( 0.0 - temp_output_30_0_g2498 ) - ( 1.0 + temp_output_30_0_g2498 )) / (1.0 - 0.0)) );
-				float temp_output_51_0_g2498 = saturate( (0.0 + (temp_output_48_0_g2498 - temp_output_32_0_g2498) * (1.0 - 0.0) / (temp_output_31_0_g2498 - temp_output_32_0_g2498)) );
+				half NormalHeightSigned1759 = staticSwitch3500;
+				half temp_output_5_0_g2451 = NormalHeightSigned1759;
+				half temp_output_48_0_g2451 = saturate( temp_output_5_0_g2451 );
+				half temp_output_17_0_g2451 = saturate( ( staticSwitch3938 + MossMaskVertex1181 ) );
+				half temp_output_30_0_g2451 = ( 1.0 - saturate( _MossNormalContrast ) );
+				half temp_output_35_0_g2451 = ( temp_output_30_0_g2451 * 0.5 );
+				half temp_output_32_0_g2451 = ( (( 1.0 + temp_output_30_0_g2451 ) + (abs( temp_output_17_0_g2451 ) - 0.0) * (( 0.0 - temp_output_30_0_g2451 ) - ( 1.0 + temp_output_30_0_g2451 )) / (1.0 - 0.0)) - temp_output_35_0_g2451 );
+				half temp_output_31_0_g2451 = ( temp_output_35_0_g2451 + (( 1.0 + temp_output_30_0_g2451 ) + (abs( temp_output_17_0_g2451 ) - 0.0) * (( 0.0 - temp_output_30_0_g2451 ) - ( 1.0 + temp_output_30_0_g2451 )) / (1.0 - 0.0)) );
+				half temp_output_51_0_g2451 = saturate( (0.0 + (temp_output_48_0_g2451 - temp_output_32_0_g2451) * (1.0 - 0.0) / (temp_output_31_0_g2451 - temp_output_32_0_g2451)) );
+				half temp_output_137_0_g2451 = ( 1.0 - temp_output_48_0_g2451 );
+				half temp_output_128_0_g2451 = ( 1.0 - saturate( _MossNormalContrast ) );
+				half temp_output_121_0_g2451 = ( temp_output_128_0_g2451 * 0.5 );
+				half temp_output_118_0_g2451 = (0.0 + (temp_output_137_0_g2451 - ( (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) - temp_output_121_0_g2451 )) * (1.0 - 0.0) / (( temp_output_121_0_g2451 + (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) ) - ( (( 1.0 + temp_output_128_0_g2451 ) + (abs( _MossNormalSubtract ) - 0.0) * (( 0.0 - temp_output_128_0_g2451 ) - ( 1.0 + temp_output_128_0_g2451 )) / (1.0 - 0.0)) - temp_output_121_0_g2451 )));
+				half lerpResult2905 = lerp( saturate( ( staticSwitch3938 + MossMaskVertex1181 ) ) , ( temp_output_51_0_g2451 - saturate( temp_output_118_0_g2451 ) ) , _MossNormalAffectStrength);
+				half temp_output_5_0_g2498 = lerpResult2905;
+				half temp_output_48_0_g2498 = saturate( temp_output_5_0_g2498 );
+				half temp_output_17_0_g2498 = _MapContrastOffset;
+				half temp_output_30_0_g2498 = ( 1.0 - saturate( _MapContrast ) );
+				half temp_output_35_0_g2498 = ( temp_output_30_0_g2498 * 0.5 );
+				half temp_output_32_0_g2498 = ( (( 1.0 + temp_output_30_0_g2498 ) + (abs( temp_output_17_0_g2498 ) - 0.0) * (( 0.0 - temp_output_30_0_g2498 ) - ( 1.0 + temp_output_30_0_g2498 )) / (1.0 - 0.0)) - temp_output_35_0_g2498 );
+				half temp_output_31_0_g2498 = ( temp_output_35_0_g2498 + (( 1.0 + temp_output_30_0_g2498 ) + (abs( temp_output_17_0_g2498 ) - 0.0) * (( 0.0 - temp_output_30_0_g2498 ) - ( 1.0 + temp_output_30_0_g2498 )) / (1.0 - 0.0)) );
+				half temp_output_51_0_g2498 = saturate( (0.0 + (temp_output_48_0_g2498 - temp_output_32_0_g2498) * (1.0 - 0.0) / (temp_output_31_0_g2498 - temp_output_32_0_g2498)) );
 				#ifdef _MOSS
-				float staticSwitch14 = temp_output_51_0_g2498;
+				half staticSwitch14 = temp_output_51_0_g2498;
 				#else
-				float staticSwitch14 = 0.0;
+				half staticSwitch14 = 0.0;
 				#endif
-				float MossMask45 = staticSwitch14;
-				float3 lerpResult103 = lerp( AlbedoBaseColor92 , MossAlbedoTinted101 , MossMask45);
+				half MossMask45 = staticSwitch14;
+				half3 lerpResult103 = lerp( AlbedoBaseColor92 , MossAlbedoTinted101 , MossMask45);
 				#ifdef _MOSS
-				float3 staticSwitch1236 = lerpResult103;
+				half3 staticSwitch1236 = lerpResult103;
 				#else
-				float3 staticSwitch1236 = AlbedoBaseColor92;
+				half3 staticSwitch1236 = AlbedoBaseColor92;
 				#endif
-				float temp_output_10_0_g2209 = _DetailsOverMoss;
-				float temp_output_17_0_g2209 = saturate( MossMask45 );
-				float4 lerpResult7_g2209 = lerp( appendResult3336 , ifLocalVar3338 , saturate( ( saturate( ( abs( temp_output_10_0_g2209 ) - 1.0 ) ) + ( ( ( 1.0 - temp_output_17_0_g2209 ) * abs( min( temp_output_10_0_g2209 , 0.0 ) ) ) + ( temp_output_17_0_g2209 * max( temp_output_10_0_g2209 , 0.0 ) ) ) ) ));
+				half temp_output_10_0_g2209 = _DetailsOverMoss;
+				half temp_output_17_0_g2209 = saturate( MossMask45 );
+				half4 lerpResult7_g2209 = lerp( appendResult3336 , ifLocalVar3338 , saturate( ( saturate( ( abs( temp_output_10_0_g2209 ) - 1.0 ) ) + ( ( ( 1.0 - temp_output_17_0_g2209 ) * abs( min( temp_output_10_0_g2209 , 0.0 ) ) ) + ( temp_output_17_0_g2209 * max( temp_output_10_0_g2209 , 0.0 ) ) ) ) ));
 				#ifdef _MOSS
-				float4 staticSwitch4126 = lerpResult7_g2209;
+				half4 staticSwitch4126 = lerpResult7_g2209;
 				#else
-				float4 staticSwitch4126 = ifLocalVar3338;
+				half4 staticSwitch4126 = ifLocalVar3338;
 				#endif
-				float4 lerpResult4232 = lerp( appendResult3336 , staticSwitch4126 , (float)_DETAIL);
+				half4 lerpResult4232 = lerp( appendResult3336 , staticSwitch4126 , (float)_DETAIL);
 				#ifdef _DETAIL_ON
-				float4 staticSwitch4132 = lerpResult4232;
+				half4 staticSwitch4132 = lerpResult4232;
 				#else
-				float4 staticSwitch4132 = appendResult3336;
+				half4 staticSwitch4132 = appendResult3336;
 				#endif
-				float DetailMapAlbedo987 = (staticSwitch4132).x;
+				half DetailMapAlbedo987 = (staticSwitch4132).x;
 				#ifdef _DETAIL_ON
-				float3 staticSwitch1045 = saturate( ( staticSwitch1236 * DetailMapAlbedo987 ) );
+				half3 staticSwitch1045 = saturate( ( staticSwitch1236 * DetailMapAlbedo987 ) );
 				#else
-				float3 staticSwitch1045 = staticSwitch1236;
+				half3 staticSwitch1045 = staticSwitch1236;
 				#endif
-				float3 AlbedoRes106 = staticSwitch1045;
-				float3 temp_output_35_0_g3888 = AlbedoRes106;
-				float2 uv_Layer0 = IN.ase_texcoord8.xyz.xy * _Layer0_ST.xy + _Layer0_ST.zw;
-				float2 uvLayer0112_g3888 = uv_Layer0;
-				float3 appendResult37_g3888 = (float3(SAMPLE_TEXTURE2D( _Layer0, sampler_Layer0, uvLayer0112_g3888 ).rgb));
-				float2 texCoord24_g3888 = IN.ase_texcoord8.xyz.xy * float2( 1,1 ) + float2( 0,0 );
-				float2 baseuv25_g3888 = texCoord24_g3888;
-				float4 tex2DNode3_g3888 = SAMPLE_TEXTURE2D( _RevealMask, sampler_RevealMask, baseuv25_g3888 );
-				float4 tex2DNode4_g3888 = SAMPLE_TEXTURE2D( _LayerMask, sampler_LayerMask, baseuv25_g3888 );
-				float rt31_g3888 = saturate( ( tex2DNode3_g3888.r * tex2DNode4_g3888.r ) );
-				float LSAlbedo100_g3888 = _LayerSurfaceExp.x;
-				float3 lerpResult34_g3888 = lerp( temp_output_35_0_g3888 , appendResult37_g3888 , pow( rt31_g3888 , LSAlbedo100_g3888 ));
-				float2 uv_Layer1 = IN.ase_texcoord8.xyz.xy * _Layer1_ST.xy + _Layer1_ST.zw;
-				float2 uvLayer1114_g3888 = uv_Layer1;
-				float3 appendResult73_g3888 = (float3(SAMPLE_TEXTURE2D( _Layer1, sampler_Layer1, uvLayer1114_g3888 ).rgb));
-				float gt57_g3888 = saturate( ( tex2DNode3_g3888.g * tex2DNode4_g3888.g ) );
-				float3 lerpResult61_g3888 = lerp( lerpResult34_g3888 , appendResult73_g3888 , pow( gt57_g3888 , LSAlbedo100_g3888 ));
+				half3 AlbedoRes106 = staticSwitch1045;
+				half3 temp_output_35_0_g4236 = AlbedoRes106;
+				half2 uv_Layer0 = IN.ase_texcoord8.xyz.xy * _Layer0_ST.xy + _Layer0_ST.zw;
+				half2 uvLayer0112_g4236 = uv_Layer0;
+				half3 appendResult37_g4236 = (half3(SAMPLE_TEXTURE2D( _Layer0, sampler_Linear_Repeat_Aniso2, uvLayer0112_g4236 ).rgb));
+				half2 texCoord24_g4236 = IN.ase_texcoord8.xyz.xy * float2( 1,1 ) + float2( 0,0 );
+				half2 baseuv25_g4236 = texCoord24_g4236;
+				half4 tex2DNode3_g4236 = SAMPLE_TEXTURE2D( _RevealMask, sampler_Linear_Repeat_Aniso2, baseuv25_g4236 );
+				half4 tex2DNode4_g4236 = SAMPLE_TEXTURE2D( _LayerMask, sampler_Linear_Repeat_Aniso2, baseuv25_g4236 );
+				half rt31_g4236 = saturate( ( tex2DNode3_g4236.r * tex2DNode4_g4236.r ) );
+				half LSAlbedo100_g4236 = _LayerSurfaceExp.x;
+				half3 lerpResult34_g4236 = lerp( temp_output_35_0_g4236 , appendResult37_g4236 , pow( rt31_g4236 , LSAlbedo100_g4236 ));
+				half2 uv_Layer1 = IN.ase_texcoord8.xyz.xy * _Layer1_ST.xy + _Layer1_ST.zw;
+				half2 uvLayer1114_g4236 = uv_Layer1;
+				half3 appendResult73_g4236 = (half3(SAMPLE_TEXTURE2D( _Layer1, sampler_Linear_Repeat_Aniso2, uvLayer1114_g4236 ).rgb));
+				half gt57_g4236 = saturate( ( tex2DNode3_g4236.g * tex2DNode4_g4236.g ) );
+				half3 lerpResult61_g4236 = lerp( lerpResult34_g4236 , appendResult73_g4236 , pow( gt57_g4236 , LSAlbedo100_g4236 ));
 				#ifdef _REVEALLAYERS
-				float3 staticSwitch1_g3888 = lerpResult61_g3888;
+				half3 staticSwitch1_g4236 = lerpResult61_g4236;
 				#else
-				float3 staticSwitch1_g3888 = temp_output_35_0_g3888;
+				half3 staticSwitch1_g4236 = temp_output_35_0_g4236;
 				#endif
-				float3 temp_output_4414_36 = staticSwitch1_g3888;
-				float OceanUnder289_g3862 = GlobalOceanUnder;
-				float3 EmissionIn281_g3862 = float3( 0,0,0 );
-				float3 appendResult2618 = (float3(unpack2617));
-				float3 _Vector14 = float3(0,0,1);
-				float3 ifLocalVar3262 = 0;
+				half3 temp_output_4603_36 = staticSwitch1_g4236;
+				
+				half3 appendResult2618 = (half3(unpack2617));
+				half3 _Vector14 = half3(0,0,1);
+				half3 ifLocalVar3262 = 0;
 				if( _UseNormalMap <= 0.5 )
 				ifLocalVar3262 = _Vector14;
 				else
 				ifLocalVar3262 = appendResult2618;
-				float3 SimpleNormalXYSigned30 = ifLocalVar3262;
+				half3 SimpleNormalXYSigned30 = ifLocalVar3262;
 				int MossInt2938 = _Moss;
-				float2 _Vector0 = float2(0,0);
-				float2 temp_output_3045_0 = (MossMetalRes3077).ag;
-				float2 MossPackedNormal1656 = temp_output_3045_0;
-				float4 temp_output_5_0_g2453 = float4( MossPackedNormal1656, 0.0 , 0.0 );
-				float2 appendResult12_g2453 = (float2(temp_output_5_0_g2453.xy));
-				float temp_output_6_0_g2453 = _MossNormalStrength;
-				float2 lerpResult2_g2453 = lerp( float2( 0,0 ) , ( appendResult12_g2453 - float2( 0.5,0.5 ) ) , ( temp_output_6_0_g2453 * 2.0 ));
-				float2 lerpResult2976 = lerp( _Vector0 , lerpResult2_g2453 , MossMask45);
-				float2 MossNormalSigned100 = lerpResult2976;
-				float2 temp_output_3610_0 = ( MossInt2938 * MossNormalSigned100 );
-				float3 appendResult4006 = (float3(temp_output_3610_0 , 1.0));
-				float3 lerpResult4431 = lerp( SimpleNormalXYSigned30 , float3( 0,0,0 ) , MossMask45);
-				float2 appendResult1363 = (float2(lerpResult4431.xy));
+				half2 _Vector0 = half2(0,0);
+				half2 temp_output_3045_0 = (MossMetalRes3077).ag;
+				half2 MossPackedNormal1656 = temp_output_3045_0;
+				half4 temp_output_5_0_g2453 = half4( MossPackedNormal1656, 0.0 , 0.0 );
+				half2 appendResult12_g2453 = (half2(temp_output_5_0_g2453.xy));
+				half temp_output_6_0_g2453 = _MossNormalStrength;
+				half2 lerpResult2_g2453 = lerp( float2( 0,0 ) , ( appendResult12_g2453 - float2( 0.5,0.5 ) ) , ( temp_output_6_0_g2453 * 2.0 ));
+				half2 lerpResult2976 = lerp( _Vector0 , lerpResult2_g2453 , MossMask45);
+				half2 MossNormalSigned100 = lerpResult2976;
+				half2 temp_output_3610_0 = ( MossInt2938 * MossNormalSigned100 );
+				half3 appendResult4006 = (half3(temp_output_3610_0 , 1.0));
+				half3 lerpResult4431 = lerp( SimpleNormalXYSigned30 , float3( 0,0,1 ) , MossMask45);
+				half2 appendResult1363 = (half2(lerpResult4431.xy));
 				#ifdef _MOSS
-				float3 staticSwitch4131 = ( appendResult4006 + float3( appendResult1363 ,  0.0 ) );
+				half3 staticSwitch4131 = ( appendResult4006 + half3( appendResult1363 ,  0.0 ) );
 				#else
-				float3 staticSwitch4131 = SimpleNormalXYSigned30;
+				half3 staticSwitch4131 = SimpleNormalXYSigned30;
 				#endif
-				float2 DetailNormaMossMaskedSigned988 = ( _DetailNormalMapScale * (staticSwitch4132).yz );
-				float3 appendResult4007 = (float3(DetailNormaMossMaskedSigned988 , 0.0));
-				float3 temp_output_4016_0 = ( staticSwitch4131 + appendResult4007 );
+				half2 DetailNormaMossMaskedSigned988 = ( _DetailNormalMapScale * (staticSwitch4132).yz );
+				half3 appendResult4397 = (half3(DetailNormaMossMaskedSigned988 , 1.0));
 				#ifdef _DETAIL_ON
-				float3 staticSwitch1105 = temp_output_4016_0;
+				half3 staticSwitch1105 = BlendNormal( staticSwitch4131 , appendResult4397 );
 				#else
-				float3 staticSwitch1105 = staticSwitch4131;
+				half3 staticSwitch1105 = staticSwitch4131;
 				#endif
-				float3 NormalPre2265 = staticSwitch1105;
-				float3 normalizeResult4009 = normalize( NormalPre2265 );
-				float3 NormalRes109 = normalizeResult4009;
-				float3 temp_output_42_0_g3888 = NormalRes109;
-				float3 unpack9_g3888 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer0NormalMap, sampler_Layer0NormalMap, uvLayer0112_g3888 ), _Layer0NormalStrength );
-				unpack9_g3888.z = lerp( 1, unpack9_g3888.z, saturate(_Layer0NormalStrength) );
-				float LSNormal101_g3888 = _LayerSurfaceExp.y;
-				float3 lerpResult41_g3888 = lerp( temp_output_42_0_g3888 , unpack9_g3888 , pow( rt31_g3888 , LSNormal101_g3888 ));
-				float3 unpack18_g3888 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer1NormalMap, sampler_Layer1NormalMap, uvLayer1114_g3888 ), _Layer1NormalStrength );
-				unpack18_g3888.z = lerp( 1, unpack18_g3888.z, saturate(_Layer1NormalStrength) );
-				float3 lerpResult64_g3888 = lerp( lerpResult41_g3888 , unpack18_g3888 , pow( gt57_g3888 , LSNormal101_g3888 ));
-				float2 uv83_g3888 = baseuv25_g3888;
-				float bt76_g3888 = saturate( ( tex2DNode3_g3888.b * tex2DNode4_g3888.b ) );
-				float height83_g3888 = ( _Layer2Height * bt76_g3888 );
-				float2 texelSize83_g3888 = (_RevealMask_TexelSize).xy;
-				float3 localRevealMaskNormalCrossFilter83_g3888 = RevealMaskNormalCrossFilter83_g3888( uv83_g3888 , height83_g3888 , texelSize83_g3888 );
-				float3 heightNormal89_g3888 = localRevealMaskNormalCrossFilter83_g3888;
+				half3 NormalPre2265 = staticSwitch1105;
+				half3 normalizeResult4009 = normalize( NormalPre2265 );
+				half3 NormalRes109 = normalizeResult4009;
+				half3 temp_output_42_0_g4236 = NormalRes109;
+				half3 unpack9_g4236 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer0NormalMap, sampler_Linear_Repeat_Aniso2, uvLayer0112_g4236 ), _Layer0NormalStrength );
+				unpack9_g4236.z = lerp( 1, unpack9_g4236.z, saturate(_Layer0NormalStrength) );
+				half LSNormal101_g4236 = _LayerSurfaceExp.y;
+				half3 lerpResult41_g4236 = lerp( temp_output_42_0_g4236 , unpack9_g4236 , pow( rt31_g4236 , LSNormal101_g4236 ));
+				half3 unpack18_g4236 = UnpackNormalScale( SAMPLE_TEXTURE2D( _Layer1NormalMap, sampler_Linear_Repeat_Aniso2, uvLayer1114_g4236 ), _Layer1NormalStrength );
+				unpack18_g4236.z = lerp( 1, unpack18_g4236.z, saturate(_Layer1NormalStrength) );
+				half3 lerpResult64_g4236 = lerp( lerpResult41_g4236 , unpack18_g4236 , pow( gt57_g4236 , LSNormal101_g4236 ));
+				half2 uv83_g4236 = baseuv25_g4236;
+				half bt76_g4236 = saturate( ( tex2DNode3_g4236.b * tex2DNode4_g4236.b ) );
+				half height83_g4236 = ( _Layer2Height * bt76_g4236 );
+				half2 texelSize83_g4236 = (_RevealMask_TexelSize).xy;
+				SamplerState sampler_RevealMask83_g4236 = sampler_Linear_Repeat_Aniso2;
+				half3 localRevealMaskNormalCrossFilter83_g4236 = RevealMaskNormalCrossFilter83_g4236( uv83_g4236 , height83_g4236 , texelSize83_g4236 , sampler_RevealMask83_g4236 );
+				half3 heightNormal89_g4236 = localRevealMaskNormalCrossFilter83_g4236;
 				#ifdef _REVEALLAYERS
-				float3 staticSwitch58_g3888 = BlendNormal( lerpResult64_g3888 , heightNormal89_g3888 );
+				half3 staticSwitch58_g4236 = BlendNormal( lerpResult64_g4236 , heightNormal89_g4236 );
 				#else
-				float3 staticSwitch58_g3888 = temp_output_42_0_g3888;
+				half3 staticSwitch58_g4236 = temp_output_42_0_g4236;
 				#endif
-				float3 temp_output_4414_43 = staticSwitch58_g3888;
-				float3 temp_output_9_0_g3862 = temp_output_4414_43;
-				float3 temp_output_30_0_g3875 = temp_output_9_0_g3862;
-				float3 tanNormal12_g3875 = temp_output_30_0_g3875;
-				float3 worldNormal12_g3875 = float3(dot(tanToWorld0,tanNormal12_g3875), dot(tanToWorld1,tanNormal12_g3875), dot(tanToWorld2,tanNormal12_g3875));
-				float3 vertexToFrag144_g3875 = IN.ase_texcoord11.xyz;
-				float dotResult1_g3875 = dot( worldNormal12_g3875 , vertexToFrag144_g3875 );
-				float2 vertexToFrag52_g3875 = IN.ase_texcoord12.xy;
-				float4 tex2DNode120_g3875 = SAMPLE_TEXTURE2D( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g3875 );
-				float3 appendResult121_g3875 = (float3(tex2DNode120_g3875.r , tex2DNode120_g3875.r , tex2DNode120_g3875.r));
-				float3 WorldPosition256_g3862 = WorldPosition;
-				float3 temp_output_105_0_g3875 = WorldPosition256_g3862;
-				float temp_output_117_0_g3875 = (temp_output_105_0_g3875).y;
-				float temp_output_67_0_g3862 = ( GlobalOceanOffset + GlobalOceanHeight );
-				float OceanHeight274_g3862 = temp_output_67_0_g3862;
-				float temp_output_63_0_g3875 = OceanHeight274_g3862;
-				float2 DistanceFade134_g3875 = (_CausticsSettings).zw;
-				float2 break136_g3875 = DistanceFade134_g3875;
-				float temp_output_67_0_g3875 = ( saturate( (0.0 + (max( -( temp_output_117_0_g3875 - temp_output_63_0_g3875 ) , 0.0 ) - 0.2) * (1.0 - 0.0) / (1.0 - 0.2)) ) * saturate( (1.0 + (distance( temp_output_63_0_g3875 , temp_output_117_0_g3875 ) - break136_g3875.x) * (0.0 - 1.0) / (break136_g3875.y - break136_g3875.x)) ) );
-				float CausticMipLevel118_g3875 = ( ( 1.0 - temp_output_67_0_g3875 ) * 4.0 );
-				#ifdef _USECAUSTICRAINBOW_ON
-				float3 staticSwitch73_g3875 = ( ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g3875 + ( 0.0045 * 2.0 ) ), CausticMipLevel118_g3875 ).r * float3(0,0,1) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g3875 + 0.0045 ), CausticMipLevel118_g3875 ).r * float3(0,1,0) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g3875, CausticMipLevel118_g3875 ).r * float3(1,0,0) ) );
-				#else
-				float3 staticSwitch73_g3875 = appendResult121_g3875;
-				#endif
-				#ifdef _USECAUSTICEXTRASAMPLER_ON
-				float3 staticSwitch57_g3875 = staticSwitch73_g3875;
-				#else
-				float3 staticSwitch57_g3875 = staticSwitch73_g3875;
-				#endif
-				float3 appendResult62_g3875 = (float3(_CausticsColor.rgb));
-				float3 lerpResult205_g3862 = lerp( ( EmissionIn281_g3862 + ( max( dotResult1_g3875 , 0.0 ) * staticSwitch57_g3875 * appendResult62_g3875 * temp_output_67_0_g3875 ) ) , ( ( EmissionIn281_g3862 + ( max( dotResult1_g3875 , 0.0 ) * staticSwitch57_g3875 * appendResult62_g3875 * temp_output_67_0_g3875 ) ) * 30.0 ) , OceanUnder289_g3862);
-				float3 appendResult100_g3878 = (float3(OceanWaterTint_RGB.xyz));
-				float3 ViewDir264_g3862 = WorldViewDirection;
-				float3 viewDir240_g3878 = ViewDir264_g3862;
-				float3 camWorldPos240_g3878 = _WorldSpaceCameraPos;
-				float3 WorldPos252_g3878 = WorldPosition256_g3862;
-				float3 posWS240_g3878 = WorldPos252_g3878;
-				float4 oceanFogDensities240_g3878 = OceanFogDensities;
-				float temp_output_108_0_g3878 = OceanHeight274_g3862;
-				float oceanHeight240_g3878 = temp_output_108_0_g3878;
-				float4 oceanFogTop_RGB_Exponent240_g3878 = OceanFogTop_RGB_Exponent;
-				float4 oceanFogBottom_RGB_Intensity240_g3878 = OceanFogBottom_RGB_Intensity;
-				float4 localGetUnderWaterFogs240_g3878 = GetUnderWaterFogs240_g3878( viewDir240_g3878 , camWorldPos240_g3878 , posWS240_g3878 , oceanFogDensities240_g3878 , oceanHeight240_g3878 , oceanFogTop_RGB_Exponent240_g3878 , oceanFogBottom_RGB_Intensity240_g3878 );
-				float4 FogRes185_g3878 = localGetUnderWaterFogs240_g3878;
-				float3 appendResult94_g3878 = (float3(FogRes185_g3878.xyz));
-				float3 lerpResult36_g3878 = lerp( ( lerpResult205_g3862 * appendResult100_g3878 ) , appendResult94_g3878 , (FogRes185_g3878).w);
-				float3 ifLocalVar5_g3862 = 0;
-				UNITY_BRANCH 
-				if( OceanUnder289_g3862 >= 1.0 )
-				ifLocalVar5_g3862 = lerpResult36_g3878;
-				else
-				ifLocalVar5_g3862 = EmissionIn281_g3862;
-				float temp_output_254_0_g3862 = (WorldPosition256_g3862).y;
-				float temp_output_137_0_g3862 = ( temp_output_254_0_g3862 - OceanHeight274_g3862 );
-				float temp_output_24_0_g3884 = temp_output_137_0_g3862;
-				float temp_output_44_0_g3884 = 0.1;
-				float temp_output_45_0_g3884 = 0.31;
-				float temp_output_46_0_g3884 = saturate( (0.0 + (( temp_output_24_0_g3884 - temp_output_44_0_g3884 ) - 0.0) * (1.0 - 0.0) / (temp_output_45_0_g3884 - 0.0)) );
-				#ifdef _FadeWithHeight
-				float staticSwitch238_g3862 = ( 1.0 - temp_output_46_0_g3884 );
-				#else
-				float staticSwitch238_g3862 = 1.0;
-				#endif
-				float FadeFromY295_g3862 = staticSwitch238_g3862;
-				float3 lerpResult174_g3862 = lerp( ( ifLocalVar5_g3862 + lerpResult205_g3862 ) , ifLocalVar5_g3862 , ( OceanUnder289_g3862 * FadeFromY295_g3862 ));
-				float3 lerpResult242_g3862 = lerp( EmissionIn281_g3862 , lerpResult174_g3862 , FadeFromY295_g3862);
-				#ifdef _USECAUSTICSFROMABOVE_ON
-				float3 staticSwitch172_g3862 = lerpResult242_g3862;
-				#else
-				float3 staticSwitch172_g3862 = ifLocalVar5_g3862;
-				#endif
-				#ifdef _USEUNDERWATER
-				float3 staticSwitch211_g3862 = staticSwitch172_g3862;
-				#else
-				float3 staticSwitch211_g3862 = float3( 0,0,0 );
-				#endif
-				float3 temp_output_4446_8 = staticSwitch211_g3862;
+				half3 temp_output_4603_43 = staticSwitch58_g4236;
+				half3 NormalRes24487 = temp_output_4603_43;
 				
-				float fresnelNdotV135 = dot( WorldNormal, WorldViewDirection );
-				float fresnelNode135 = ( _MossFresnel.x + _MossFresnel.y * pow( 1.0 - fresnelNdotV135, ( _MossFresnel.z * 10.0 ) ) );
-				float3 SH3558 = half4(0,0,0,0).xyz;
-				float3 normalWS3558 = WorldNormal;
-				float3 localSampleSHPixel3558 = SampleSHPixel3558( SH3558 , normalWS3558 );
-				float2 lightmapUV3567 = half4(0,0,0,0).xy;
-				float3 normalWS3567 = WorldNormal;
-				float3 localSampleLightmap3567 = SampleLightmap3567( lightmapUV3567 , normalWS3567 );
+				half fresnelNdotV135 = dot( WorldNormal, WorldViewDirection );
+				half fresnelNode135 = ( _MossFresnel.x + _MossFresnel.y * pow( 1.0 - fresnelNdotV135, ( _MossFresnel.z * 10.0 ) ) );
+				half3 SH3558 = half4(0,0,0,0).xyz;
+				half3 normalWS3558 = WorldNormal;
+				half3 localSampleSHPixel3558 = SampleSHPixel3558( SH3558 , normalWS3558 );
+				half2 lightmapUV3567 = half4(0,0,0,0).xy;
+				half3 normalWS3567 = WorldNormal;
+				half3 localSampleLightmap3567 = SampleLightmap3567( lightmapUV3567 , normalWS3567 );
 				#ifdef LIGHTMAP_ON
-				float3 staticSwitch3554 = localSampleLightmap3567;
+				half3 staticSwitch3554 = localSampleLightmap3567;
 				#else
-				float3 staticSwitch3554 = localSampleSHPixel3558;
+				half3 staticSwitch3554 = localSampleSHPixel3558;
 				#endif
-				float3 LightmapOrSH2480 = staticSwitch3554;
-				float3 desaturateInitialColor1849 = LightmapOrSH2480;
-				float desaturateDot1849 = dot( desaturateInitialColor1849, float3( 0.299, 0.587, 0.114 ));
-				float3 desaturateVar1849 = lerp( desaturateInitialColor1849, desaturateDot1849.xxx, 1.0 );
-				float3 AlbedoResPre2289 = staticSwitch1045;
-				float4 temp_output_2664_0 = ( ( ( min( _MossFresnel.w , saturate( fresnelNode135 ) ) * _MossFresnelColor * desaturateVar1849.x ) * float4( AlbedoResPre2289 , 0.0 ) * saturate( ( MossMask45 - 0.3 ) ) ) * _UseMossFresnel );
+				half3 LightmapOrSH2480 = staticSwitch3554;
+				half grayscale4604 = (LightmapOrSH2480.r + LightmapOrSH2480.g + LightmapOrSH2480.b) / 3;
+				half3 AlbedoResPre2289 = staticSwitch1045;
+				half4 temp_output_2664_0 = ( ( ( min( _MossFresnel.w , saturate( fresnelNode135 ) ) * _MossFresnelColor * grayscale4604 ) * half4( AlbedoResPre2289 , 0.0 ) * saturate( ( MossMask45 - 0.3 ) ) ) * _UseMossFresnel );
 				#ifdef _USEMOSSFRESNEL_ON
-				float4 staticSwitch1195 = temp_output_2664_0;
+				half4 staticSwitch1195 = temp_output_2664_0;
 				#else
-				float4 staticSwitch1195 = float4( 0,0,0,0 );
+				half4 staticSwitch1195 = float4( 0,0,0,0 );
 				#endif
 				#ifdef _MOSS
-				float4 staticSwitch1237 = staticSwitch1195;
+				half4 staticSwitch1237 = staticSwitch1195;
 				#else
-				float4 staticSwitch1237 = float4( 0,0,0,0 );
+				half4 staticSwitch1237 = float4( 0,0,0,0 );
 				#endif
-				float4 MossFresnel203 = staticSwitch1237;
-				float3 appendResult3069 = (float3(_EmissionColor.rgb));
-				float _MetallicSpecGlossMap3184 = _MetallicSpecGlossMap;
-				float temp_output_2918_0 = (MossMetalORMetallicMap2911).r;
-				float temp_output_8_0_g2532 = temp_output_2918_0;
-				float4 break5_g2532 = _MetallicRemap;
-				float temp_output_3_0_g2532 = (0.0 + (temp_output_8_0_g2532 - break5_g2532.x) * (1.0 - 0.0) / (break5_g2532.y - break5_g2532.x));
-				float clampResult2_g2532 = clamp( temp_output_3_0_g2532 , break5_g2532.z , break5_g2532.w );
-				float temp_output_27_0_g2532 = saturate( clampResult2_g2532 );
+				half4 MossFresnel203 = staticSwitch1237;
+				half3 appendResult3069 = (half3(_EmissionColor.rgb));
+				half _MetallicSpecGlossMap3184 = _MetallicSpecGlossMap;
+				half temp_output_2918_0 = (MossMetalORMetallicMap2911).r;
+				half temp_output_8_0_g2532 = temp_output_2918_0;
+				half4 break5_g2532 = _MetallicRemap;
+				half temp_output_3_0_g2532 = (0.0 + (temp_output_8_0_g2532 - break5_g2532.x) * (1.0 - 0.0) / (break5_g2532.y - break5_g2532.x));
+				half clampResult2_g2532 = clamp( temp_output_3_0_g2532 , break5_g2532.z , break5_g2532.w );
+				half temp_output_27_0_g2532 = saturate( clampResult2_g2532 );
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3732 = temp_output_27_0_g2532;
+				half staticSwitch3732 = temp_output_27_0_g2532;
 				#else
-				float staticSwitch3732 = temp_output_2918_0;
+				half staticSwitch3732 = temp_output_2918_0;
 				#endif
-				float temp_output_3002_0 = (MossMetalORMetallicMap2911).g;
-				float temp_output_8_0_g2550 = temp_output_3002_0;
-				float4 break5_g2550 = _OcclusionRemap;
-				float temp_output_3_0_g2550 = (0.0 + (temp_output_8_0_g2550 - break5_g2550.x) * (1.0 - 0.0) / (break5_g2550.y - break5_g2550.x));
-				float clampResult2_g2550 = clamp( temp_output_3_0_g2550 , break5_g2550.z , break5_g2550.w );
-				float temp_output_27_0_g2550 = saturate( clampResult2_g2550 );
+				half temp_output_3002_0 = (MossMetalORMetallicMap2911).g;
+				half temp_output_8_0_g2550 = temp_output_3002_0;
+				half4 break5_g2550 = _OcclusionRemap;
+				half temp_output_3_0_g2550 = (0.0 + (temp_output_8_0_g2550 - break5_g2550.x) * (1.0 - 0.0) / (break5_g2550.y - break5_g2550.x));
+				half clampResult2_g2550 = clamp( temp_output_3_0_g2550 , break5_g2550.z , break5_g2550.w );
+				half temp_output_27_0_g2550 = saturate( clampResult2_g2550 );
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3735 = temp_output_27_0_g2550;
+				half staticSwitch3735 = temp_output_27_0_g2550;
 				#else
-				float staticSwitch3735 = temp_output_3002_0;
+				half staticSwitch3735 = temp_output_3002_0;
 				#endif
-				float temp_output_12_0_g2502 = ( _UseOcclusion * _MetallicSpecGlossMap3184 * _Occlusion );
-				float temp_output_12_0_g2514 = (float)Mode3840;
-				float temp_output_392_0 = (MossMetalORMetallicMap2911).a;
-				float temp_output_8_0_g2540 = temp_output_392_0;
-				float4 break5_g2540 = _SmoothnessRemap;
-				float temp_output_3_0_g2540 = (0.0 + (temp_output_8_0_g2540 - break5_g2540.x) * (1.0 - 0.0) / (break5_g2540.y - break5_g2540.x));
-				float clampResult2_g2540 = clamp( temp_output_3_0_g2540 , break5_g2540.z , break5_g2540.w );
-				float temp_output_27_0_g2540 = saturate( clampResult2_g2540 );
-				float temp_output_3894_0 = temp_output_27_0_g2540;
+				half temp_output_12_0_g2502 = ( _UseOcclusion * _MetallicSpecGlossMap3184 * _Occlusion );
+				half temp_output_12_0_g2514 = (float)Mode3840;
+				half temp_output_392_0 = (MossMetalORMetallicMap2911).a;
+				half temp_output_8_0_g2540 = temp_output_392_0;
+				half4 break5_g2540 = _SmoothnessRemap;
+				half temp_output_3_0_g2540 = (0.0 + (temp_output_8_0_g2540 - break5_g2540.x) * (1.0 - 0.0) / (break5_g2540.y - break5_g2540.x));
+				half clampResult2_g2540 = clamp( temp_output_3_0_g2540 , break5_g2540.z , break5_g2540.w );
+				half temp_output_27_0_g2540 = saturate( clampResult2_g2540 );
+				half temp_output_3894_0 = temp_output_27_0_g2540;
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3739 = temp_output_3894_0;
+				half staticSwitch3739 = temp_output_3894_0;
 				#else
-				float staticSwitch3739 = temp_output_392_0;
+				half staticSwitch3739 = temp_output_392_0;
 				#endif
-				float4 appendResult3479 = (float4(( staticSwitch3732 * _Metallic ) , ( ( staticSwitch3735 * temp_output_12_0_g2502 ) + ( 1.0 - temp_output_12_0_g2502 ) ) , ( ( ( staticSwitch3738 * temp_output_12_0_g2514 ) + ( 1.0 - temp_output_12_0_g2514 ) ) * _UseEmission ) , ( staticSwitch3739 * _Smoothness )));
-				float4 appendResult3481 = (float4(_Metallic , 1.0 , _UseEmission , _Smoothness));
-				float4 ifLocalVar3480 = 0;
+				half4 appendResult3479 = (half4(( staticSwitch3732 * _Metallic ) , ( ( staticSwitch3735 * temp_output_12_0_g2502 ) + ( 1.0 - temp_output_12_0_g2502 ) ) , ( ( ( staticSwitch3738 * temp_output_12_0_g2514 ) + ( 1.0 - temp_output_12_0_g2514 ) ) * _UseEmission ) , ( staticSwitch3739 * _Smoothness )));
+				half4 appendResult3481 = (half4(_Metallic , 1.0 , _UseEmission , _Smoothness));
+				half4 ifLocalVar3480 = 0;
 				if( _MetallicSpecGlossMap3184 <= 0.0 )
 				ifLocalVar3480 = appendResult3481;
 				else
 				ifLocalVar3480 = appendResult3479;
-				float UseMossMetalMapInt3239 = _UseMossMetalMap;
-				float4 appendResult3487 = (float4(_Metallic , 1.0 , _UseEmission , _Smoothness));
-				float4 appendResult3485 = (float4(( staticSwitch3732 * _Metallic ) , ( ( staticSwitch3735 * temp_output_12_0_g2502 ) + ( 1.0 - temp_output_12_0_g2502 ) ) , ( ( ( staticSwitch3738 * temp_output_12_0_g2514 ) + ( 1.0 - temp_output_12_0_g2514 ) ) * _UseEmission ) , ( staticSwitch3739 * _Smoothness )));
-				float4 ifLocalVar3486 = 0;
+				half UseMossMetalMapInt3239 = _UseMossMetalMap;
+				half4 appendResult3487 = (half4(_Metallic , 1.0 , _UseEmission , _Smoothness));
+				half4 appendResult3485 = (half4(( staticSwitch3732 * _Metallic ) , ( ( staticSwitch3735 * temp_output_12_0_g2502 ) + ( 1.0 - temp_output_12_0_g2502 ) ) , ( ( ( staticSwitch3738 * temp_output_12_0_g2514 ) + ( 1.0 - temp_output_12_0_g2514 ) ) * _UseEmission ) , ( staticSwitch3739 * _Smoothness )));
+				half4 ifLocalVar3486 = 0;
 				if( ( MossModeInt3200 + ( 1.0 - UseMossMetalMapInt3239 ) ) <= 0.0 )
 				ifLocalVar3486 = appendResult3485;
 				else
 				ifLocalVar3486 = appendResult3487;
 				#ifdef _MOSSMETALMODE_ON
-				float4 staticSwitch3494 = ifLocalVar3486;
+				half4 staticSwitch3494 = ifLocalVar3486;
 				#else
-				float4 staticSwitch3494 = ifLocalVar3480;
+				half4 staticSwitch3494 = ifLocalVar3480;
 				#endif
-				float4 break3482 = staticSwitch3494;
-				float EmissionMasked3065 = break3482.z;
-				float3 temp_output_3496_0 = ( appendResult3069 * EmissionMasked3065 );
-				float4 EmissionRes806 = ( MossFresnel203 + float4( temp_output_3496_0 , 0.0 ) );
-				float3 temp_output_91_0_g3888 = EmissionRes806.rgb;
-				float at79_g3888 = saturate( ( tex2DNode3_g3888.a * tex2DNode4_g3888.a ) );
-				float3 appendResult99_g3888 = (float3(_Layer3EmissionColor.rgb));
+				half4 break3482 = staticSwitch3494;
+				half EmissionMasked3065 = break3482.z;
+				half3 temp_output_3496_0 = ( appendResult3069 * EmissionMasked3065 );
+				half4 EmissionRes806 = ( MossFresnel203 + half4( temp_output_3496_0 , 0.0 ) );
+				half3 temp_output_91_0_g4236 = EmissionRes806.rgb;
+				half at79_g4236 = saturate( ( tex2DNode3_g4236.a * tex2DNode4_g4236.a ) );
+				half3 appendResult99_g4236 = (half3(_Layer3EmissionColor.rgb));
 				#ifdef _REVEALLAYERS
-				float3 staticSwitch93_g3888 = ( ( temp_output_91_0_g3888 * ( 1.0 - at79_g3888 ) ) + ( appendResult99_g3888 * at79_g3888 ) );
+				half3 staticSwitch93_g4236 = ( ( temp_output_91_0_g4236 * ( 1.0 - at79_g4236 ) ) + ( appendResult99_g4236 * at79_g4236 ) );
 				#else
-				float3 staticSwitch93_g3888 = temp_output_91_0_g3888;
+				half3 staticSwitch93_g4236 = temp_output_91_0_g4236;
 				#endif
+				half OceanUnder289_g4237 = GlobalOceanUnder;
+				half3 EmissionIn281_g4237 = float3( 0,0,0 );
+				half3 WorldPosition256_g4237 = WorldPosition;
+				half3 temp_output_105_0_g4260 = WorldPosition256_g4237;
+				half temp_output_117_0_g4260 = (temp_output_105_0_g4260).y;
+				half temp_output_67_0_g4237 = ( GlobalOceanOffset + GlobalOceanHeight );
+				half OceanHeight274_g4237 = temp_output_67_0_g4237;
+				half temp_output_63_0_g4260 = OceanHeight274_g4237;
+				half3 temp_output_9_0_g4237 = temp_output_4603_43;
+				half3 temp_output_30_0_g4260 = temp_output_9_0_g4237;
+				float3 tanNormal12_g4260 = temp_output_30_0_g4260;
+				half3 worldNormal12_g4260 = float3(dot(tanToWorld0,tanNormal12_g4260), dot(tanToWorld1,tanNormal12_g4260), dot(tanToWorld2,tanNormal12_g4260));
+				half3 vertexToFrag144_g4260 = IN.ase_texcoord11.yzw;
+				half dotResult1_g4260 = dot( worldNormal12_g4260 , vertexToFrag144_g4260 );
+				half desktop151_g4260 = max( dotResult1_g4260 , 0.0 );
+				half mobile151_g4260 = 1.0;
+				half localShaderAPIMobile151_g4260 = ShaderAPIMobile151_g4260( desktop151_g4260 , mobile151_g4260 );
+				half2 vertexToFrag52_g4260 = IN.ase_texcoord12.xy;
+				half4 tex2DNode120_g4260 = SAMPLE_TEXTURE2D( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g4260 );
+				half3 appendResult121_g4260 = (half3(tex2DNode120_g4260.r , tex2DNode120_g4260.r , tex2DNode120_g4260.r));
+				half2 DistanceFade134_g4260 = (_CausticsSettings).zw;
+				half2 break136_g4260 = DistanceFade134_g4260;
+				half temp_output_67_0_g4260 = ( saturate( (1.0 + (distance( temp_output_63_0_g4260 , temp_output_117_0_g4260 ) - break136_g4260.x) * (0.0 - 1.0) / (break136_g4260.y - break136_g4260.x)) ) * saturate( (0.0 + (max( -( temp_output_117_0_g4260 - temp_output_63_0_g4260 ) , 0.0 ) - 0.2) * (1.0 - 0.0) / (1.0 - 0.2)) ) );
+				half desktop153_g4260 = temp_output_67_0_g4260;
+				half mobile153_g4260 = 1.0;
+				half localShaderAPIMobile153_g4260 = ShaderAPIMobile153_g4260( desktop153_g4260 , mobile153_g4260 );
+				half CausticMipLevel118_g4260 = ( ( 1.0 - localShaderAPIMobile153_g4260 ) * 4.0 );
+				#ifdef _USECAUSTICRAINBOW_ON
+				half3 staticSwitch73_g4260 = ( ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g4260 + ( 0.0045 * 2.0 ) ), CausticMipLevel118_g4260 ).r * half3(0,0,1) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, ( vertexToFrag52_g4260 + 0.0045 ), CausticMipLevel118_g4260 ).r * half3(0,1,0) ) + ( SAMPLE_TEXTURE2D_LOD( _Caustics, sampler_Linear_Repeat, vertexToFrag52_g4260, CausticMipLevel118_g4260 ).r * half3(1,0,0) ) );
+				#else
+				half3 staticSwitch73_g4260 = appendResult121_g4260;
+				#endif
+				#ifdef _USECAUSTICEXTRASAMPLER_ON
+				half3 staticSwitch57_g4260 = staticSwitch73_g4260;
+				#else
+				half3 staticSwitch57_g4260 = staticSwitch73_g4260;
+				#endif
+				half3 appendResult62_g4260 = (half3(_CausticsColor.rgb));
+				half3 ifLocalVar155_g4260 = 0;
+				UNITY_BRANCH 
+				if( temp_output_117_0_g4260 < ( temp_output_63_0_g4260 + 0.2 ) )
+				ifLocalVar155_g4260 = ( localShaderAPIMobile151_g4260 * staticSwitch57_g4260 * appendResult62_g4260 * localShaderAPIMobile153_g4260 );
+				half3 lerpResult205_g4237 = lerp( ( EmissionIn281_g4237 + ifLocalVar155_g4260 ) , ( ( EmissionIn281_g4237 + ifLocalVar155_g4260 ) * 30.0 ) , OceanUnder289_g4237);
+				half3 appendResult100_g4251 = (half3(OceanWaterTint_RGB.xyz));
+				half3 WorldPos252_g4251 = WorldPosition256_g4237;
+				half temp_output_108_0_g4251 = OceanHeight274_g4237;
+				half3 ViewDir264_g4237 = WorldViewDirection;
+				half3 viewDir240_g4251 = ViewDir264_g4237;
+				half3 camWorldPos240_g4251 = _WorldSpaceCameraPos;
+				half3 posWS240_g4251 = WorldPos252_g4251;
+				half4 oceanFogDensities240_g4251 = OceanFogDensities;
+				half oceanHeight240_g4251 = temp_output_108_0_g4251;
+				half4 oceanFogTop_RGB_Exponent240_g4251 = OceanFogTop_RGB_Exponent;
+				half4 oceanFogBottom_RGB_Intensity240_g4251 = OceanFogBottom_RGB_Intensity;
+				half4 localGetUnderWaterFogs240_g4251 = GetUnderWaterFogs240_g4251( viewDir240_g4251 , camWorldPos240_g4251 , posWS240_g4251 , oceanFogDensities240_g4251 , oceanHeight240_g4251 , oceanFogTop_RGB_Exponent240_g4251 , oceanFogBottom_RGB_Intensity240_g4251 );
+				half4 ifLocalVar257_g4251 = 0;
+				UNITY_BRANCH 
+				if( (WorldPos252_g4251).y < ( temp_output_108_0_g4251 + 0.2 ) )
+				ifLocalVar257_g4251 = localGetUnderWaterFogs240_g4251;
+				half4 FogRes185_g4251 = ifLocalVar257_g4251;
+				half3 appendResult94_g4251 = (half3(FogRes185_g4251.xyz));
+				half3 lerpResult36_g4251 = lerp( ( lerpResult205_g4237 * appendResult100_g4251 ) , appendResult94_g4251 , (FogRes185_g4251).w);
+				half3 ifLocalVar5_g4237 = 0;
+				UNITY_BRANCH 
+				if( OceanUnder289_g4237 >= 1.0 )
+				ifLocalVar5_g4237 = lerpResult36_g4251;
+				else
+				ifLocalVar5_g4237 = EmissionIn281_g4237;
+				half temp_output_254_0_g4237 = (WorldPosition256_g4237).y;
+				half temp_output_137_0_g4237 = ( temp_output_254_0_g4237 - OceanHeight274_g4237 );
+				half temp_output_24_0_g4247 = temp_output_137_0_g4237;
+				half temp_output_44_0_g4247 = 0.1;
+				half temp_output_45_0_g4247 = 0.31;
+				half temp_output_46_0_g4247 = saturate( (0.0 + (( temp_output_24_0_g4247 - temp_output_44_0_g4247 ) - 0.0) * (1.0 - 0.0) / (temp_output_45_0_g4247 - 0.0)) );
+				#ifdef _FadeWithHeight
+				half staticSwitch238_g4237 = ( 1.0 - temp_output_46_0_g4247 );
+				#else
+				half staticSwitch238_g4237 = 1.0;
+				#endif
+				half FadeFromY295_g4237 = staticSwitch238_g4237;
+				half3 lerpResult174_g4237 = lerp( ( ifLocalVar5_g4237 + lerpResult205_g4237 ) , ifLocalVar5_g4237 , ( OceanUnder289_g4237 * FadeFromY295_g4237 ));
+				half3 lerpResult242_g4237 = lerp( EmissionIn281_g4237 , lerpResult174_g4237 , FadeFromY295_g4237);
+				#ifdef _USECAUSTICSFROMABOVE_ON
+				half3 staticSwitch172_g4237 = lerpResult242_g4237;
+				#else
+				half3 staticSwitch172_g4237 = ifLocalVar5_g4237;
+				#endif
+				#ifdef _USEUNDERWATER
+				half3 staticSwitch211_g4237 = staticSwitch172_g4237;
+				#else
+				half3 staticSwitch211_g4237 = float3( 0,0,0 );
+				#endif
+				half3 temp_output_4575_8 = staticSwitch211_g4237;
 				
-				float Metallic399 = break3482.x;
-				float MetallicSimpler398 = Metallic399;
-				float lerpResult653 = lerp( MetallicSimpler398 , _MossMetallic , MossMask45);
+				half Metallic399 = break3482.x;
+				half MetallicSimpler398 = Metallic399;
+				half lerpResult653 = lerp( MetallicSimpler398 , _MossMetallic , MossMask45);
 				#ifdef _MOSS
-				float staticSwitch1238 = lerpResult653;
+				half staticSwitch1238 = lerpResult653;
 				#else
-				float staticSwitch1238 = MetallicSimpler398;
+				half staticSwitch1238 = MetallicSimpler398;
 				#endif
-				float MetallicResult1087 = staticSwitch1238;
-				float temp_output_47_0_g3888 = MetallicResult1087;
-				float LSMetallic102_g3888 = _LayerSurfaceExp.z;
-				float lerpResult46_g3888 = lerp( temp_output_47_0_g3888 , _Layer0Metallic , pow( rt31_g3888 , LSMetallic102_g3888 ));
-				float lerpResult67_g3888 = lerp( lerpResult46_g3888 , _Layer1Metallic , pow( gt57_g3888 , LSMetallic102_g3888 ));
+				half MetallicResult1087 = staticSwitch1238;
+				half temp_output_47_0_g4236 = MetallicResult1087;
+				half LSMetallic102_g4236 = _LayerSurfaceExp.z;
+				half lerpResult46_g4236 = lerp( temp_output_47_0_g4236 , _Layer0Metallic , pow( rt31_g4236 , LSMetallic102_g4236 ));
+				half lerpResult67_g4236 = lerp( lerpResult46_g4236 , _Layer1Metallic , pow( gt57_g4236 , LSMetallic102_g4236 ));
 				#ifdef _REVEALLAYERS
-				float staticSwitch59_g3888 = lerpResult67_g3888;
+				half staticSwitch59_g4236 = lerpResult67_g4236;
 				#else
-				float staticSwitch59_g3888 = temp_output_47_0_g3888;
+				half staticSwitch59_g4236 = temp_output_47_0_g4236;
 				#endif
 				
-				float Smoothness400 = break3482.w;
-				float temp_output_3044_0 = (MossMetalRes3077).b;
-				float temp_output_8_0_g2536 = temp_output_3044_0;
-				float4 break5_g2536 = _MossSmoothnessRemap;
-				float temp_output_3_0_g2536 = (0.0 + (temp_output_8_0_g2536 - break5_g2536.x) * (1.0 - 0.0) / (break5_g2536.y - break5_g2536.x));
-				float clampResult2_g2536 = clamp( temp_output_3_0_g2536 , break5_g2536.z , break5_g2536.w );
-				float temp_output_27_0_g2536 = saturate( clampResult2_g2536 );
+				half Smoothness400 = break3482.w;
+				half temp_output_3044_0 = (MossMetalRes3077).b;
+				half temp_output_8_0_g2536 = temp_output_3044_0;
+				half4 break5_g2536 = _MossSmoothnessRemap;
+				half temp_output_3_0_g2536 = (0.0 + (temp_output_8_0_g2536 - break5_g2536.x) * (1.0 - 0.0) / (break5_g2536.y - break5_g2536.x));
+				half clampResult2_g2536 = clamp( temp_output_3_0_g2536 , break5_g2536.z , break5_g2536.w );
+				half temp_output_27_0_g2536 = saturate( clampResult2_g2536 );
 				#ifdef _REMAPPERS_ON
-				float staticSwitch3746 = temp_output_27_0_g2536;
+				half staticSwitch3746 = temp_output_27_0_g2536;
 				#else
-				float staticSwitch3746 = temp_output_3044_0;
+				half staticSwitch3746 = temp_output_3044_0;
 				#endif
-				float MossPackedSmoothness1660 = staticSwitch3746;
-				float lerpResult650 = lerp( Smoothness400 , ( _MossSmoothness * MossPackedSmoothness1660 ) , MossMask45);
+				half MossPackedSmoothness1660 = staticSwitch3746;
+				half lerpResult650 = lerp( Smoothness400 , ( _MossSmoothness * MossPackedSmoothness1660 ) , MossMask45);
 				#ifdef _MOSS
-				float staticSwitch4121 = lerpResult650;
+				half staticSwitch4121 = lerpResult650;
 				#else
-				float staticSwitch4121 = Smoothness400;
+				half staticSwitch4121 = Smoothness400;
 				#endif
-				float DetailMapSmoothness1078 = (staticSwitch4132).w;
+				half DetailMapSmoothness1078 = (staticSwitch4132).w;
 				#ifdef _DETAIL_ON
-				float staticSwitch1093 = saturate( ( staticSwitch4121 + DetailMapSmoothness1078 ) );
+				half staticSwitch1093 = saturate( ( staticSwitch4121 + DetailMapSmoothness1078 ) );
 				#else
-				float staticSwitch1093 = staticSwitch4121;
+				half staticSwitch1093 = staticSwitch4121;
 				#endif
-				float SmoothnessResult1085 = staticSwitch1093;
-				float temp_output_54_0_g3888 = SmoothnessResult1085;
-				float LSSmoothness103_g3888 = _LayerSurfaceExp.w;
-				float lerpResult51_g3888 = lerp( temp_output_54_0_g3888 , _Layer0Smoothness , pow( rt31_g3888 , LSSmoothness103_g3888 ));
-				float lerpResult70_g3888 = lerp( lerpResult51_g3888 , _Layer1Smoothness , pow( gt57_g3888 , LSSmoothness103_g3888 ));
+				half SmoothnessResult1085 = staticSwitch1093;
+				half temp_output_54_0_g4236 = SmoothnessResult1085;
+				half LSSmoothness103_g4236 = _LayerSurfaceExp.w;
+				half lerpResult51_g4236 = lerp( temp_output_54_0_g4236 , _Layer0Smoothness , pow( rt31_g4236 , LSSmoothness103_g4236 ));
+				half lerpResult70_g4236 = lerp( lerpResult51_g4236 , _Layer1Smoothness , pow( gt57_g4236 , LSSmoothness103_g4236 ));
 				#ifdef _REVEALLAYERS
-				float staticSwitch60_g3888 = lerpResult70_g3888;
+				half staticSwitch60_g4236 = lerpResult70_g4236;
 				#else
-				float staticSwitch60_g3888 = temp_output_54_0_g3888;
+				half staticSwitch60_g4236 = temp_output_54_0_g4236;
 				#endif
 				
-				float OcclusionDoodad3006 = break3482.y;
-				float temp_output_10_0_g2275 = _OcclusionMossMask;
-				float temp_output_17_0_g2275 = saturate( MossMask45 );
-				float lerpResult7_g2275 = lerp( (float)1 , OcclusionDoodad3006 , saturate( ( saturate( ( abs( temp_output_10_0_g2275 ) - 1.0 ) ) + ( ( ( 1.0 - temp_output_17_0_g2275 ) * abs( min( temp_output_10_0_g2275 , 0.0 ) ) ) + ( temp_output_17_0_g2275 * max( temp_output_10_0_g2275 , 0.0 ) ) ) ) ));
+				half OcclusionDoodad3006 = break3482.y;
+				half temp_output_10_0_g2275 = _OcclusionMossMask;
+				half temp_output_17_0_g2275 = saturate( MossMask45 );
+				half lerpResult7_g2275 = lerp( (float)1 , OcclusionDoodad3006 , saturate( ( saturate( ( abs( temp_output_10_0_g2275 ) - 1.0 ) ) + ( ( ( 1.0 - temp_output_17_0_g2275 ) * abs( min( temp_output_10_0_g2275 , 0.0 ) ) ) + ( temp_output_17_0_g2275 * max( temp_output_10_0_g2275 , 0.0 ) ) ) ) ));
 				#ifdef _MOSS
-				float staticSwitch3730 = lerpResult7_g2275;
+				half staticSwitch3730 = lerpResult7_g2275;
 				#else
-				float staticSwitch3730 = OcclusionDoodad3006;
+				half staticSwitch3730 = OcclusionDoodad3006;
 				#endif
 				#ifdef _MOSSMETALMODE_ON
-				float staticSwitch3019 = OcclusionDoodad3006;
+				half staticSwitch3019 = OcclusionDoodad3006;
 				#else
-				float staticSwitch3019 = staticSwitch3730;
+				half staticSwitch3019 = staticSwitch3730;
 				#endif
-				float OcclusionResMStrength369 = staticSwitch3019;
+				half OcclusionResMStrength369 = staticSwitch3019;
 				
-				float4 ase_screenPosNorm = ScreenPos / ScreenPos.w;
+				half4 ase_screenPosNorm = ScreenPos / ScreenPos.w;
 				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 clipScreen3958 = ase_screenPosNorm.xy * _ScreenParams.xy;
-				float dither3958 = Dither4x4Bayer( fmod(clipScreen3958.x, 4), fmod(clipScreen3958.y, 4) );
+				half2 clipScreen3958 = ase_screenPosNorm.xy * _ScreenParams.xy;
+				half dither3958 = Dither4x4Bayer( fmod(clipScreen3958.x, 4), fmod(clipScreen3958.y, 4) );
 				dither3958 = step( dither3958, temp_output_3952_0 );
-				float lerpResult3962 = lerp( (float)AlphaToCoverage , 1.0 , _Surface);
-				float Dither3961 = ( _Dither * ( 1.0 - lerpResult3962 ) );
-				float lerpResult3959 = lerp( temp_output_3952_0 , dither3958 , Dither3961);
+				half lerpResult3962 = lerp( (float)AlphaToCoverage , 1.0 , _Surface);
+				half Dither3961 = ( _Dither * ( 1.0 - lerpResult3962 ) );
+				half lerpResult3959 = lerp( temp_output_3952_0 , dither3958 , Dither3961);
 				#ifdef _ALPHATEST_ON
-				float staticSwitch3334 = lerpResult3959;
+				half staticSwitch3334 = lerpResult3959;
 				#else
-				float staticSwitch3334 = 1.0;
+				half staticSwitch3334 = 1.0;
 				#endif
-				float AlbedoAlpha84 = staticSwitch3334;
+				half AlbedoAlpha84 = staticSwitch3334;
 				
-				float lerpResult3950 = lerp( 0.0 , _AlphaClipThreshold , _AlphaClip);
-				float lerpResult3291 = lerp( lerpResult3950 , 0.0 , (float)AlphaToCoverage);
-				float ClipCalc3294 = lerpResult3291;
+				half lerpResult3950 = lerp( 0.0 , _AlphaClipThreshold , _AlphaClip);
+				half lerpResult3291 = lerp( lerpResult3950 , 0.0 , (float)AlphaToCoverage);
+				half ClipCalc3294 = lerpResult3291;
 				
-				float ShadowThreshold2627 = _ShadowThreshold;
+				half ShadowThreshold2627 = _ShadowThreshold;
 				
-				float3 vertexToFrag56_g3799 = IN.ase_texcoord13.xyz;
-				float3 worldNormal14_g3799 = vertexToFrag56_g3799;
-				float3 vertexToFrag7_g3799 = IN.ase_texcoord14.xyz;
-				float4 ProbeVolumeShR14_g3799 = SAMPLE_TEXTURE3D( _ProbeVolumeShR, sampler_Linear_Clamp, ( vertexToFrag7_g3799 + float3( float2( 0,0 ) ,  0.0 ) ) );
-				float4 ProbeVolumeShG14_g3799 = SAMPLE_TEXTURE3D( _ProbeVolumeShG, sampler_Linear_Clamp, ( vertexToFrag7_g3799 + float3( float2( 0,0 ) ,  0.0 ) ) );
-				float4 ProbeVolumeShB14_g3799 = SAMPLE_TEXTURE3D( _ProbeVolumeShB, sampler_Linear_Clamp, ( vertexToFrag7_g3799 + float3( float2( 0,0 ) ,  0.0 ) ) );
-				float3 localSHEvalLinearL0L114_g3799 = SHEvalLinearL0L114_g3799( worldNormal14_g3799 , ProbeVolumeShR14_g3799 , ProbeVolumeShG14_g3799 , ProbeVolumeShB14_g3799 );
+				half4x4 temp_output_28_0_g4351 = _ProbeWorldToTexture;
+				half4x4 Input90_g4351 = temp_output_28_0_g4351;
+				half4x4 localRotationOnly90_g4351 = RotationOnly90_g4351( Input90_g4351 );
+				float3 tanNormal4461 = NormalRes24487;
+				half3 worldNormal4461 = float3(dot(tanToWorld0,tanNormal4461), dot(tanToWorld1,tanNormal4461), dot(tanToWorld2,tanNormal4461));
+				half3 worldNormal14_g4351 = mul( localRotationOnly90_g4351, half4( worldNormal4461 , 0.0 ) ).xyz;
+				half3 vertexToFrag7_g4351 = IN.ase_texcoord13.xyz;
+				half4 ProbeVolumeShR14_g4351 = SAMPLE_TEXTURE3D_LOD( _ProbeVolumeShR, sampler_Linear_Clamp, ( vertexToFrag7_g4351 + half3( float2( 0,0 ) ,  0.0 ) ), 0.0 );
+				half4 ProbeVolumeShG14_g4351 = SAMPLE_TEXTURE3D_LOD( _ProbeVolumeShG, sampler_Linear_Clamp, ( vertexToFrag7_g4351 + half3( float2( 0,0 ) ,  0.0 ) ), 0.0 );
+				half4 ProbeVolumeShB14_g4351 = SAMPLE_TEXTURE3D_LOD( _ProbeVolumeShB, sampler_Linear_Clamp, ( vertexToFrag7_g4351 + half3( float2( 0,0 ) ,  0.0 ) ), 0.0 );
+				half3 localSHEvalLinearL0L114_g4351 = SHEvalLinearL0L114_g4351( worldNormal14_g4351 , ProbeVolumeShR14_g4351 , ProbeVolumeShG14_g4351 , ProbeVolumeShB14_g4351 );
 				#ifdef _PROBEVOLUME_ON
-				float3 staticSwitch20_g3799 = localSHEvalLinearL0L114_g3799;
+				half3 staticSwitch20_g4351 = localSHEvalLinearL0L114_g4351;
 				#else
-				float3 staticSwitch20_g3799 = LightmapOrSH2480;
+				half3 staticSwitch20_g4351 = LightmapOrSH2480;
 				#endif
-				float3 BakedGI1212 = staticSwitch20_g3799;
+				half3 temp_output_4622_0 = staticSwitch20_g4351;
+				half3 BakedGI1212 = temp_output_4622_0;
 				
 
-				float3 BaseColor = ( temp_output_4414_36 + temp_output_4446_8 );
-				float3 Normal = temp_output_4414_43;
-				float3 Emission = staticSwitch93_g3888;
+				float3 BaseColor = temp_output_4603_36;
+				float3 Normal = NormalRes24487;
+				float3 Emission = ( staticSwitch93_g4236 + ( temp_output_4603_36 * temp_output_4575_8 ) );
 				float3 Specular = 0.5;
-				float Metallic = staticSwitch59_g3888;
-				float Smoothness = staticSwitch60_g3888;
+				float Metallic = staticSwitch59_g4236;
+				float Smoothness = staticSwitch60_g4236;
 				float Occlusion = OcclusionResMStrength369;
 				float Alpha = AlbedoAlpha84;
 				float AlphaClipThreshold = ClipCalc3294;
@@ -7675,7 +7746,26 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 
 			ENDHLSL
 		}
-
+		
+		// Shadowood: Application SpaceWarp: https://developers.meta.com/horizon/documentation/unity/unity-asw/
+		///*ase_pass*/
+        //Pass
+        //{
+        //	
+        //    Name "MotionVectors"
+        //    Tags{ "LightMode" = "MotionVectors" }
+        //    Tags { "RenderType" = "Opaque" }
+        //    ZWrite On
+        //    Cull Back
+        //    ZTest LEqual
+        //    HLSLPROGRAM
+        /*ase_pragma_before*/
+        //    #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/OculusMotionVectorCore.hlsl"
+        //    #pragma vertex vert
+        //    #pragma fragment frag
+        //    ENDHLSL
+        //}
+        
 		
 		Pass
 		{
@@ -7749,16 +7839,16 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			#pragma shader_feature_local _AUTONORMAL
 			#pragma shader_feature_local LAYER_UNLIMITED LAYER_MAX2 LAYER_MAX3
 			#pragma shader_feature_local TEXTURE_MAX4 TEXTURE_MAX8 TEXTURE_MAX12 TEXTURE_MAX16
-			#pragma shader_feature _SKYFOG_ON
 			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma shader_feature_local _MOSSMETALMODE_ON
-			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#pragma shader_feature_local _ALPHAMODE
 			#pragma shader_feature_local _SIMPLESTOCHASTIC
 			#pragma shader_feature_local _USESPLAT_ON
 			#pragma shader_feature_local _DEBUGVISUALS_ON
-			#pragma shader_feature_local _USE_SSS_ON
+			#pragma shader_feature _SKYFOG_ON
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local _USE_SSS_ON
+			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#define _UseMossPacked
 			#define _DetailMapPacking
 
@@ -7782,111 +7872,111 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _Tint3;
-			float4 _DetailMapScale;
-			float4 _SmoothnessRemap;
-			float4 _DetailMaskRemap;
-			float4 _MossAlbedoRemap;
-			float4 _EmissionRemap;
-			float4 _MossAlphaMaskMM;
-			float4 _OcclusionRemap;
-			float4 _DetailSmoothnessRemap;
-			float4x4 _ProbeWorldToTexture;
-			float4 _MetallicRemap;
-			float4 _MossColor;
-			float4 _EmissionColor;
+			half4 _Tint3;
+			half4 _DetailMapScale;
+			half4 _SmoothnessRemap;
+			half4 _DetailMaskRemap;
+			half4 _MossAlbedoRemap;
+			half4 _EmissionRemap;
+			half4 _MossAlphaMaskMM;
+			half4 _OcclusionRemap;
+			half4 _DetailSmoothnessRemap;
+			half4x4 _ProbeWorldToTexture;
+			half4 _MetallicRemap;
+			half4 _MossColor;
+			half4 _EmissionColor;
 			float4 _RevealMask_TexelSize;
-			float4 _MossSmoothnessRemap;
-			float4 _Tint1;
-			float4 _MossFresnel;
-			float4 _MossFresnelColor;
-			float4 _Layer3EmissionColor;
-			float4 _Layer1_ST;
-			float4 _LayerSurfaceExp;
-			float4 _Layer0_ST;
-			float4 _Tint2;
-			float4 _MossSlopeNormal_ST;
-			float4 _BaseMap_ST;
-			float4 _BaseColor;
-			float4 _MossSlopeMM;
-			float4 _Tint0;
-			float4 _SSSColor;
-			float3 _ProbeVolumeMin;
-			float3 _MossDirection;
-			float3 _ProbeVolumeSizeInv;
-			float _MossDetailNormalMapScale;
-			float _UseEmission;
-			float _Occlusion;
-			float _UseOcclusion;
-			float _Metallic;
-			float _UseMossFresnel;
-			float _Smoothness;
-			float _MossMetallic;
-			float _Layer1Smoothness;
-			float _Layer1Metallic;
-			float _SSSDimAlbedo;
-			float _NormalStrength_USE_SSS;
-			float _SSScattering;
-			float _SSSRadius;
-			float _MossNormalStrength2;
-			float _MossSlopeDistort;
-			float _MossSlopeNormRotate;
-			float _DebugScale;
+			half4 _MossSmoothnessRemap;
+			half4 _Tint1;
+			half4 _MossFresnel;
+			half4 _MossFresnelColor;
+			half4 _Layer3EmissionColor;
+			half4 _Layer1_ST;
+			half4 _LayerSurfaceExp;
+			half4 _Layer0_ST;
+			half4 _Tint2;
+			half4 _MossSlopeNormal_ST;
+			half4 _BaseMap_ST;
+			half4 _BaseColor;
+			half4 _MossSlopeMM;
+			half4 _Tint0;
+			half4 _SSSColor;
+			half3 _ProbeVolumeMin;
+			half3 _MossDirection;
+			half3 _ProbeVolumeSizeInv;
+			half _MossDetailNormalMapScale;
+			half _UseEmission;
+			half _Occlusion;
+			half _UseOcclusion;
+			half _Metallic;
+			half _UseMossFresnel;
+			half _Smoothness;
+			half _MossMetallic;
+			half _Layer1Smoothness;
+			half _Layer1Metallic;
+			half _SSSDimAlbedo;
+			half _NormalStrength_USE_SSS;
+			half _SSScattering;
+			half _SSSRadius;
+			half _MossNormalStrength2;
+			half _MossSlopeDistort;
+			half _MossSlopeNormRotate;
+			half _DebugScale;
 			int _DebugVisual;
-			float _ShadowThreshold;
-			float _AlphaClip;
-			float _AlphaClipThreshold;
-			float _Surface;
-			float _Dither;
-			float _OcclusionMossMask;
-			float _Layer0Smoothness;
-			float _MossSmoothness;
-			float _Layer0Metallic;
-			float _Layer2Height;
+			half _ShadowThreshold;
+			half _AlphaClip;
+			half _AlphaClipThreshold;
+			half _Surface;
+			half _Dither;
+			half _OcclusionMossMask;
+			half _Layer0Smoothness;
+			half _MossSmoothness;
+			half _Layer0Metallic;
+			half _Layer2Height;
 			int _DETAIL;
-			float _Layer0NormalStrength;
+			half _Layer0NormalStrength;
 			int _MetalUV;
 			int _Moss;
-			float _UseMossMetalMap;
+			half _UseMossMetalMap;
 			int _MossMode;
-			float _MossStochasticContrast;
-			float _MossStochasticScale;
+			half _MossStochasticContrast;
+			half _MossStochasticScale;
 			float _MossScale;
 			int _MossUV;
-			float _MossMultAlbedo;
+			half _MossMultAlbedo;
 			int _UseColorMask;
 			int _Bitmask;
 			int _ZWrite;
 			int _Cullmode;
-			float _Blend;
-			float _SrcBlend;
-			float _DstBlend;
-			float _Cutoff;
+			half _Blend;
+			half _SrcBlend;
+			half _DstBlend;
+			half _Cutoff;
 			int _Int0;
 			int _BlendMode_UseColorMask;
-			float _Layer1NormalStrength;
-			float _MossBase;
-			float _MetallicSpecGlossMap;
-			float _DetailNormalMapScale;
-			float _MossNormalStrength;
-			float _UseNormalMap;
-			float _DetailsOverMoss;
-			float _MapContrast;
-			float _MapContrastOffset;
-			float _MossNormalAffectStrength;
-			float _MossNormalSubtract;
-			float _DetailAlbedoMapScale;
-			float _MossNormalContrast;
-			float _UseMossVertexMask;
-			float _UseMossMaskWithAlpha;
-			float _UseMossDirection;
-			float _MossDirContrast;
-			float _MossLevel;
-			float _DetailNormalMapScale1;
-			float _UseDetailMask;
+			half _Layer1NormalStrength;
+			half _MossBase;
+			half _MetallicSpecGlossMap;
+			half _DetailNormalMapScale;
+			half _MossNormalStrength;
+			half _UseNormalMap;
+			half _DetailsOverMoss;
+			half _MapContrast;
+			half _MapContrastOffset;
+			half _MossNormalAffectStrength;
+			half _MossNormalSubtract;
+			half _DetailAlbedoMapScale;
+			half _MossNormalContrast;
+			half _UseMossVertexMask;
+			half _UseMossMaskWithAlpha;
+			half _UseMossDirection;
+			half _MossDirContrast;
+			half _MossLevel;
+			half _DetailNormalMapScale1;
+			half _UseDetailMask;
 			int _MODE;
-			float _NormalStrength;
-			float _SSShadcowMix;
+			half _NormalStrength;
+			half _SSShadcowMix;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -7921,15 +8011,12 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				int _PassValue;
 			#endif
 
-			float4 _skyGradientColor1;
-			float4 _skyGradientColor2;
 			TEXTURE2D_ARRAY(_ExtraArray);
 			SAMPLER(sampler_ExtraArray);
 			TEXTURE2D_ARRAY(_DiffuseArray);
 			SAMPLER(sampler_DiffuseArray);
 			TEXTURE2D_ARRAY(_NormalArray);
 			SAMPLER(sampler_NormalArray);
-			float3 _CausticsDir;
 			half _CausticsScale;
 			half2 _CausticsPanSpeed;
 			half4 _CausticsColor;
@@ -7954,7 +8041,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
 			}
 			
-			float3 VertVanisher3872( float3 vertex, float2 vtexcoord1, int bitMask )
+			half3 VertVanisher3872( half3 vertex, half2 vtexcoord1, int bitMask )
 			{
 				 if(bitMask & (int)vtexcoord1.x){
 					vertex *= (0.0 / 0.0);
@@ -7989,11 +8076,11 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
-				float3 vertex3872 = v.vertex.xyz;
-				float2 vtexcoord13872 = v.ase_texcoord1.xy;
+				half3 vertex3872 = v.vertex.xyz;
+				half2 vtexcoord13872 = v.ase_texcoord1.xy;
 				int bitMask3872 = _Bitmask;
-				float3 localVertVanisher3872 = VertVanisher3872( vertex3872 , vtexcoord13872 , bitMask3872 );
-				float3 VertexOcclusionPosition3873 = localVertVanisher3872;
+				half3 localVertVanisher3872 = VertVanisher3872( vertex3872 , vtexcoord13872 , bitMask3872 );
+				half3 VertexOcclusionPosition3873 = localVertVanisher3872;
 				
 				float4 ase_clipPos = TransformObjectToHClip((v.vertex).xyz);
 				float4 screenPos = ComputeScreenPos(ase_clipPos);
@@ -8114,29 +8201,29 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			{
 				SurfaceDescription surfaceDescription = (SurfaceDescription)0;
 
-				float2 uv_BaseMap = IN.ase_texcoord.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
-				float2 UVBasemap02088 = uv_BaseMap;
-				float4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
-				float temp_output_3952_0 = ( tex2DNode80.a * _BaseColor.a );
+				half2 uv_BaseMap = IN.ase_texcoord.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
+				half2 UVBasemap02088 = uv_BaseMap;
+				half4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
+				half temp_output_3952_0 = ( tex2DNode80.a * _BaseColor.a );
 				float4 screenPos = IN.ase_texcoord1;
-				float4 ase_screenPosNorm = screenPos / screenPos.w;
+				half4 ase_screenPosNorm = screenPos / screenPos.w;
 				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 clipScreen3958 = ase_screenPosNorm.xy * _ScreenParams.xy;
-				float dither3958 = Dither4x4Bayer( fmod(clipScreen3958.x, 4), fmod(clipScreen3958.y, 4) );
+				half2 clipScreen3958 = ase_screenPosNorm.xy * _ScreenParams.xy;
+				half dither3958 = Dither4x4Bayer( fmod(clipScreen3958.x, 4), fmod(clipScreen3958.y, 4) );
 				dither3958 = step( dither3958, temp_output_3952_0 );
-				float lerpResult3962 = lerp( (float)AlphaToCoverage , 1.0 , _Surface);
-				float Dither3961 = ( _Dither * ( 1.0 - lerpResult3962 ) );
-				float lerpResult3959 = lerp( temp_output_3952_0 , dither3958 , Dither3961);
+				half lerpResult3962 = lerp( (float)AlphaToCoverage , 1.0 , _Surface);
+				half Dither3961 = ( _Dither * ( 1.0 - lerpResult3962 ) );
+				half lerpResult3959 = lerp( temp_output_3952_0 , dither3958 , Dither3961);
 				#ifdef _ALPHATEST_ON
-				float staticSwitch3334 = lerpResult3959;
+				half staticSwitch3334 = lerpResult3959;
 				#else
-				float staticSwitch3334 = 1.0;
+				half staticSwitch3334 = 1.0;
 				#endif
-				float AlbedoAlpha84 = staticSwitch3334;
+				half AlbedoAlpha84 = staticSwitch3334;
 				
-				float lerpResult3950 = lerp( 0.0 , _AlphaClipThreshold , _AlphaClip);
-				float lerpResult3291 = lerp( lerpResult3950 , 0.0 , (float)AlphaToCoverage);
-				float ClipCalc3294 = lerpResult3291;
+				half lerpResult3950 = lerp( 0.0 , _AlphaClipThreshold , _AlphaClip);
+				half lerpResult3291 = lerp( lerpResult3950 , 0.0 , (float)AlphaToCoverage);
+				half ClipCalc3294 = lerpResult3291;
 				
 
 				surfaceDescription.Alpha = AlbedoAlpha84;
@@ -8235,16 +8322,16 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			#pragma shader_feature_local _AUTONORMAL
 			#pragma shader_feature_local LAYER_UNLIMITED LAYER_MAX2 LAYER_MAX3
 			#pragma shader_feature_local TEXTURE_MAX4 TEXTURE_MAX8 TEXTURE_MAX12 TEXTURE_MAX16
-			#pragma shader_feature _SKYFOG_ON
 			#pragma shader_feature GLOBALTONEMAPPING
 			#pragma shader_feature_local _MOSSMETALMODE_ON
-			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#pragma shader_feature_local _ALPHAMODE
 			#pragma shader_feature_local _SIMPLESTOCHASTIC
 			#pragma shader_feature_local _USESPLAT_ON
 			#pragma shader_feature_local _DEBUGVISUALS_ON
-			#pragma shader_feature_local _USE_SSS_ON
+			#pragma shader_feature _SKYFOG_ON
 			#pragma multi_compile __ _USEUNDERWATER
+			#pragma shader_feature_local _USE_SSS_ON
+			#pragma multi_compile_local __ _PROBEVOLUME_ON
 			#define _UseMossPacked
 			#define _DetailMapPacking
 
@@ -8268,111 +8355,111 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _Tint3;
-			float4 _DetailMapScale;
-			float4 _SmoothnessRemap;
-			float4 _DetailMaskRemap;
-			float4 _MossAlbedoRemap;
-			float4 _EmissionRemap;
-			float4 _MossAlphaMaskMM;
-			float4 _OcclusionRemap;
-			float4 _DetailSmoothnessRemap;
-			float4x4 _ProbeWorldToTexture;
-			float4 _MetallicRemap;
-			float4 _MossColor;
-			float4 _EmissionColor;
+			half4 _Tint3;
+			half4 _DetailMapScale;
+			half4 _SmoothnessRemap;
+			half4 _DetailMaskRemap;
+			half4 _MossAlbedoRemap;
+			half4 _EmissionRemap;
+			half4 _MossAlphaMaskMM;
+			half4 _OcclusionRemap;
+			half4 _DetailSmoothnessRemap;
+			half4x4 _ProbeWorldToTexture;
+			half4 _MetallicRemap;
+			half4 _MossColor;
+			half4 _EmissionColor;
 			float4 _RevealMask_TexelSize;
-			float4 _MossSmoothnessRemap;
-			float4 _Tint1;
-			float4 _MossFresnel;
-			float4 _MossFresnelColor;
-			float4 _Layer3EmissionColor;
-			float4 _Layer1_ST;
-			float4 _LayerSurfaceExp;
-			float4 _Layer0_ST;
-			float4 _Tint2;
-			float4 _MossSlopeNormal_ST;
-			float4 _BaseMap_ST;
-			float4 _BaseColor;
-			float4 _MossSlopeMM;
-			float4 _Tint0;
-			float4 _SSSColor;
-			float3 _ProbeVolumeMin;
-			float3 _MossDirection;
-			float3 _ProbeVolumeSizeInv;
-			float _MossDetailNormalMapScale;
-			float _UseEmission;
-			float _Occlusion;
-			float _UseOcclusion;
-			float _Metallic;
-			float _UseMossFresnel;
-			float _Smoothness;
-			float _MossMetallic;
-			float _Layer1Smoothness;
-			float _Layer1Metallic;
-			float _SSSDimAlbedo;
-			float _NormalStrength_USE_SSS;
-			float _SSScattering;
-			float _SSSRadius;
-			float _MossNormalStrength2;
-			float _MossSlopeDistort;
-			float _MossSlopeNormRotate;
-			float _DebugScale;
+			half4 _MossSmoothnessRemap;
+			half4 _Tint1;
+			half4 _MossFresnel;
+			half4 _MossFresnelColor;
+			half4 _Layer3EmissionColor;
+			half4 _Layer1_ST;
+			half4 _LayerSurfaceExp;
+			half4 _Layer0_ST;
+			half4 _Tint2;
+			half4 _MossSlopeNormal_ST;
+			half4 _BaseMap_ST;
+			half4 _BaseColor;
+			half4 _MossSlopeMM;
+			half4 _Tint0;
+			half4 _SSSColor;
+			half3 _ProbeVolumeMin;
+			half3 _MossDirection;
+			half3 _ProbeVolumeSizeInv;
+			half _MossDetailNormalMapScale;
+			half _UseEmission;
+			half _Occlusion;
+			half _UseOcclusion;
+			half _Metallic;
+			half _UseMossFresnel;
+			half _Smoothness;
+			half _MossMetallic;
+			half _Layer1Smoothness;
+			half _Layer1Metallic;
+			half _SSSDimAlbedo;
+			half _NormalStrength_USE_SSS;
+			half _SSScattering;
+			half _SSSRadius;
+			half _MossNormalStrength2;
+			half _MossSlopeDistort;
+			half _MossSlopeNormRotate;
+			half _DebugScale;
 			int _DebugVisual;
-			float _ShadowThreshold;
-			float _AlphaClip;
-			float _AlphaClipThreshold;
-			float _Surface;
-			float _Dither;
-			float _OcclusionMossMask;
-			float _Layer0Smoothness;
-			float _MossSmoothness;
-			float _Layer0Metallic;
-			float _Layer2Height;
+			half _ShadowThreshold;
+			half _AlphaClip;
+			half _AlphaClipThreshold;
+			half _Surface;
+			half _Dither;
+			half _OcclusionMossMask;
+			half _Layer0Smoothness;
+			half _MossSmoothness;
+			half _Layer0Metallic;
+			half _Layer2Height;
 			int _DETAIL;
-			float _Layer0NormalStrength;
+			half _Layer0NormalStrength;
 			int _MetalUV;
 			int _Moss;
-			float _UseMossMetalMap;
+			half _UseMossMetalMap;
 			int _MossMode;
-			float _MossStochasticContrast;
-			float _MossStochasticScale;
+			half _MossStochasticContrast;
+			half _MossStochasticScale;
 			float _MossScale;
 			int _MossUV;
-			float _MossMultAlbedo;
+			half _MossMultAlbedo;
 			int _UseColorMask;
 			int _Bitmask;
 			int _ZWrite;
 			int _Cullmode;
-			float _Blend;
-			float _SrcBlend;
-			float _DstBlend;
-			float _Cutoff;
+			half _Blend;
+			half _SrcBlend;
+			half _DstBlend;
+			half _Cutoff;
 			int _Int0;
 			int _BlendMode_UseColorMask;
-			float _Layer1NormalStrength;
-			float _MossBase;
-			float _MetallicSpecGlossMap;
-			float _DetailNormalMapScale;
-			float _MossNormalStrength;
-			float _UseNormalMap;
-			float _DetailsOverMoss;
-			float _MapContrast;
-			float _MapContrastOffset;
-			float _MossNormalAffectStrength;
-			float _MossNormalSubtract;
-			float _DetailAlbedoMapScale;
-			float _MossNormalContrast;
-			float _UseMossVertexMask;
-			float _UseMossMaskWithAlpha;
-			float _UseMossDirection;
-			float _MossDirContrast;
-			float _MossLevel;
-			float _DetailNormalMapScale1;
-			float _UseDetailMask;
+			half _Layer1NormalStrength;
+			half _MossBase;
+			half _MetallicSpecGlossMap;
+			half _DetailNormalMapScale;
+			half _MossNormalStrength;
+			half _UseNormalMap;
+			half _DetailsOverMoss;
+			half _MapContrast;
+			half _MapContrastOffset;
+			half _MossNormalAffectStrength;
+			half _MossNormalSubtract;
+			half _DetailAlbedoMapScale;
+			half _MossNormalContrast;
+			half _UseMossVertexMask;
+			half _UseMossMaskWithAlpha;
+			half _UseMossDirection;
+			half _MossDirContrast;
+			half _MossLevel;
+			half _DetailNormalMapScale1;
+			half _UseDetailMask;
 			int _MODE;
-			float _NormalStrength;
-			float _SSShadcowMix;
+			half _NormalStrength;
+			half _SSShadcowMix;
 			#ifdef ASE_TRANSMISSION
 				float _TransmissionShadow;
 			#endif
@@ -8407,15 +8494,12 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				int _PassValue;
 			#endif
 
-			float4 _skyGradientColor1;
-			float4 _skyGradientColor2;
 			TEXTURE2D_ARRAY(_ExtraArray);
 			SAMPLER(sampler_ExtraArray);
 			TEXTURE2D_ARRAY(_DiffuseArray);
 			SAMPLER(sampler_DiffuseArray);
 			TEXTURE2D_ARRAY(_NormalArray);
 			SAMPLER(sampler_NormalArray);
-			float3 _CausticsDir;
 			half _CausticsScale;
 			half2 _CausticsPanSpeed;
 			half4 _CausticsColor;
@@ -8440,7 +8524,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 					return 1.0 - saturate(1.0f / pow(e, (distance * gradientFogDensity)));
 			}
 			
-			float3 VertVanisher3872( float3 vertex, float2 vtexcoord1, int bitMask )
+			half3 VertVanisher3872( half3 vertex, half2 vtexcoord1, int bitMask )
 			{
 				 if(bitMask & (int)vtexcoord1.x){
 					vertex *= (0.0 / 0.0);
@@ -8475,11 +8559,11 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
-				float3 vertex3872 = v.vertex.xyz;
-				float2 vtexcoord13872 = v.ase_texcoord1.xy;
+				half3 vertex3872 = v.vertex.xyz;
+				half2 vtexcoord13872 = v.ase_texcoord1.xy;
 				int bitMask3872 = _Bitmask;
-				float3 localVertVanisher3872 = VertVanisher3872( vertex3872 , vtexcoord13872 , bitMask3872 );
-				float3 VertexOcclusionPosition3873 = localVertVanisher3872;
+				half3 localVertVanisher3872 = VertVanisher3872( vertex3872 , vtexcoord13872 , bitMask3872 );
+				half3 VertexOcclusionPosition3873 = localVertVanisher3872;
 				
 				float4 ase_clipPos = TransformObjectToHClip((v.vertex).xyz);
 				float4 screenPos = ComputeScreenPos(ase_clipPos);
@@ -8599,29 +8683,29 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 			{
 				SurfaceDescription surfaceDescription = (SurfaceDescription)0;
 
-				float2 uv_BaseMap = IN.ase_texcoord.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
-				float2 UVBasemap02088 = uv_BaseMap;
-				float4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
-				float temp_output_3952_0 = ( tex2DNode80.a * _BaseColor.a );
+				half2 uv_BaseMap = IN.ase_texcoord.xy * _BaseMap_ST.xy + _BaseMap_ST.zw;
+				half2 UVBasemap02088 = uv_BaseMap;
+				half4 tex2DNode80 = SAMPLE_TEXTURE2D( _BaseMap, sampler_Linear_Repeat_Aniso2, UVBasemap02088 );
+				half temp_output_3952_0 = ( tex2DNode80.a * _BaseColor.a );
 				float4 screenPos = IN.ase_texcoord1;
-				float4 ase_screenPosNorm = screenPos / screenPos.w;
+				half4 ase_screenPosNorm = screenPos / screenPos.w;
 				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
-				float2 clipScreen3958 = ase_screenPosNorm.xy * _ScreenParams.xy;
-				float dither3958 = Dither4x4Bayer( fmod(clipScreen3958.x, 4), fmod(clipScreen3958.y, 4) );
+				half2 clipScreen3958 = ase_screenPosNorm.xy * _ScreenParams.xy;
+				half dither3958 = Dither4x4Bayer( fmod(clipScreen3958.x, 4), fmod(clipScreen3958.y, 4) );
 				dither3958 = step( dither3958, temp_output_3952_0 );
-				float lerpResult3962 = lerp( (float)AlphaToCoverage , 1.0 , _Surface);
-				float Dither3961 = ( _Dither * ( 1.0 - lerpResult3962 ) );
-				float lerpResult3959 = lerp( temp_output_3952_0 , dither3958 , Dither3961);
+				half lerpResult3962 = lerp( (float)AlphaToCoverage , 1.0 , _Surface);
+				half Dither3961 = ( _Dither * ( 1.0 - lerpResult3962 ) );
+				half lerpResult3959 = lerp( temp_output_3952_0 , dither3958 , Dither3961);
 				#ifdef _ALPHATEST_ON
-				float staticSwitch3334 = lerpResult3959;
+				half staticSwitch3334 = lerpResult3959;
 				#else
-				float staticSwitch3334 = 1.0;
+				half staticSwitch3334 = 1.0;
 				#endif
-				float AlbedoAlpha84 = staticSwitch3334;
+				half AlbedoAlpha84 = staticSwitch3334;
 				
-				float lerpResult3950 = lerp( 0.0 , _AlphaClipThreshold , _AlphaClip);
-				float lerpResult3291 = lerp( lerpResult3950 , 0.0 , (float)AlphaToCoverage);
-				float ClipCalc3294 = lerpResult3291;
+				half lerpResult3950 = lerp( 0.0 , _AlphaClipThreshold , _AlphaClip);
+				half lerpResult3291 = lerp( lerpResult3950 , 0.0 , (float)AlphaToCoverage);
+				half ClipCalc3294 = lerpResult3291;
 				
 
 				surfaceDescription.Alpha = AlbedoAlpha84;
@@ -8652,7 +8736,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 	}
 	
 	CustomEditor "ShaderSorceryInspector" //Shadowood: was "UnityEditor.ShaderGraphLitGUI"
-	FallBack "Hidden/Shader Graph/FallbackError"
+	FallBack Off //"Hidden/Shader Graph/FallbackError"
 	
-	Fallback "Hidden/InternalErrorShader"
+	Fallback Off
 }

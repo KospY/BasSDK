@@ -28,7 +28,7 @@ namespace ThunderRoad
         [Tooltip("When enabled, the creature will play the listed animation when at the waypoint")]
         public bool playAnimation;
 #if ODIN_INSPECTOR
-        [ValueDropdown(nameof(GetAllAnimationID))]
+        [ValueDropdown(nameof(GetAllAnimationID), AppendNextDrawer = true)]
 #endif
         [Tooltip("ID of the animation you want the creature to play")]
         public string animationId;

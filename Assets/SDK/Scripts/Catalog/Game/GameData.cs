@@ -29,8 +29,7 @@ namespace ThunderRoad
         public bool fullscreen = false;
         public int screenWidth = 1920;
         public int screenHeight = 1080;
-        public bool dungeonStaticBatching = true;
-
+        
         [NonSerialized]
         public string sourceFolders;
 
@@ -123,6 +122,7 @@ namespace ThunderRoad
         [Serializable]
         public class PlatformParameters
         {
+            public bool dungeonStaticBatching = true;
             public int maxHomeItem = 30;
             public int maxWaveAlive = 20;
             public int maxRoomNpc = 10;

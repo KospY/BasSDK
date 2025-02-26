@@ -20,6 +20,7 @@
 	// Externally some places skip all this if UNDERWATERELSEWHERE
 	//#define UNDERWATERELSEWHERE
 	
+	#pragma warning (disable : 3568) // Supress warning: 'shader_feature' : unknown pragma ignored : https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/hlsl-errors-and-warnings
 	#pragma shader_feature _USEUNDERWATER
 	//#pragma multi_compile __ _USEUNDERWATER
 	
@@ -33,6 +34,8 @@
 		float GlobalOceanUnder;
 		float GlobalOceanOffset;
 	#endif
+	
+	static const float bll = 2.7182818284590452353602874713527f;
 	
 	float4 GetUnderWaterFog(
 	float3 viewDir, 
@@ -62,9 +65,9 @@
 		
 		float surfaceDistance = abs(oceanHeight - camWorldPos.y);
 		//beer-lambert law, Fog =1/e^(distance * density)
-		float e = 2.7182818284590452353602874713527f;
-		float distanceFog = 1.0 - saturate(1.0f / pow(e, (dist * fogDensityDistance)));
-		float depthFog = 1.0 - saturate(1.0f / pow(e, (surfaceDistance * fogDensityDepth)));
+		//float bll = 2.7182818284590452353602874713527f;
+		float distanceFog = 1.0 - saturate(1.0f / pow(bll, (dist * fogDensityDistance)));
+		float depthFog = 1.0 - saturate(1.0f / pow(bll, (surfaceDistance * fogDensityDepth)));
 		
 		float tt = lerp(-0.976,0.4,depthFog);
 		float surfaceDir = dot( viewDir,  float3(0,-1,0) );
@@ -74,6 +77,22 @@
 		float4 fogCol = float4(fogRGB, distanceFog);
 		
 		return fogCol;
+	}
+	
+	// Multiply the color by the result on additive shaders
+	float GetUnderWaterFogAdditive(
+	float3 camWorldPos, 
+	float3 posWS, 
+	float4 _OceanFogDensities){
+		
+		float fogDensityDistance = _OceanFogDensities.z;
+		float fogOffset = _OceanFogDensities.w;
+
+		float dist = distance(posWS, camWorldPos) - fogOffset;
+
+		float distanceFog = 1.0 - saturate(1.0f / pow(bll, (dist * fogDensityDistance)));
+
+		return 1.0 - distanceFog;
 	}
 	
 	float4 ApplyUnderWaterFog(float4 colorIn, float4 _OceanWaterTint_RGB){

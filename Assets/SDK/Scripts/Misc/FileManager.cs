@@ -109,17 +109,31 @@ namespace ThunderRoad
                 }
                 else if (source == Source.Mods)
                 {
-                    string pathFolder = Path.Combine(Application.streamingAssetsPath, ModManager.modFolderName);
-                    string path = Path.Combine(pathFolder, relativePath);
-                    if (!Directory.Exists(path)) Directory.CreateDirectory(pathFolder);
-                    return path;
+                    if (Application.platform == RuntimePlatform.PS5)
+                    {
+                        return Path.Combine(Application.persistentDataPath, ModManager.modFolderName, relativePath);
+                    }
+                    else
+                    {
+                        string pathFolder = Path.Combine(Application.streamingAssetsPath, ModManager.modFolderName);
+                        string path = Path.Combine(pathFolder, relativePath);
+                        if (!Directory.Exists(path)) Directory.CreateDirectory(pathFolder);
+                        return path;
+                    }
                 }
                 else if (source == Source.Logs)
                 {
-                    string pathFolder = Path.Combine(Application.streamingAssetsPath, logFolderName);
-                    string path = Path.Combine(pathFolder, relativePath);
-                    if (!Directory.Exists(path)) Directory.CreateDirectory(pathFolder);
-                    return path;
+                    if (Application.platform == RuntimePlatform.PS5)
+                    {
+                        return Path.Combine(Application.persistentDataPath, logFolderName, relativePath);
+                    }
+                    else
+                    {
+                        string pathFolder = Path.Combine(Application.streamingAssetsPath, logFolderName);
+                        string path = Path.Combine(pathFolder, relativePath);
+                        if (!Directory.Exists(path)) Directory.CreateDirectory(pathFolder);
+                        return path;
+                    }
                 }
             }
             return null;

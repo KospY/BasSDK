@@ -19,16 +19,16 @@
   "preferredItemCenter": "Mass",
   "drainImbueWhenIdle": true,
   "prefabAddress": "Bas.Item.Prop.CrateOpen2",
-  "iconAddress": "",
+  "iconAddress": "Bas.Item.Prop.CrateOpen2.Icon[Crate_wood_Small]",
   "closeUpIconAddress": null,
   "pooledCount": 0,
   "androidPooledCount": 0,
   "type": "Prop",
-  "allowedStorage": 0,
+  "allowedStorage": "Inventory, Container, SandboxAllItems",
   "despawnOnStoredInInventory": false,
   "isStackable": false,
   "consumableId": null,
-  "inventoryAudioContainerAddress": null,
+  "inventoryAudioContainerAddress": "Bas.AudioGroup.Inventory.Store.Wood",
   "inventoryAudioVolume_dB": 0.0,
   "slot": "",
   "snapAudioContainerAddress": null,
@@ -168,8 +168,13 @@
   "Interactables": [
     {
       "$type": "ThunderRoad.ItemData+Interactable, ThunderRoad",
-      "transformName": "Handle",
+      "transformName": "HandleNoTK",
       "interactableId": "ObjectHandlePropNoTK"
+    },
+    {
+      "$type": "ThunderRoad.ItemData+Interactable, ThunderRoad",
+      "transformName": "Handle",
+      "interactableId": "ObjectHandleProp"
     }
   ],
   "effectHinges": [],

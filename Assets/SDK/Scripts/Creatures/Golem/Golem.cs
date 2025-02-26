@@ -183,7 +183,7 @@ namespace ThunderRoad
 #if ODIN_INSPECTOR
         public List<ValueDropdownItem<string>> GetAllItemID() => Catalog.GetDropdownAllID(Category.Item);
 
-        [TabGroup("GroupTabs", "AI"), ValueDropdown(nameof(GetAllItemID))]
+        [TabGroup("GroupTabs", "AI"), ValueDropdown(nameof(GetAllItemID), AppendNextDrawer = true)]
 #endif
         public string shardItemId = "CrystalShard";
         protected ItemData shardItemData;

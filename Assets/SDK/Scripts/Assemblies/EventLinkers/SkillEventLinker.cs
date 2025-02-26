@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -37,10 +38,31 @@ namespace ThunderRoad
             }
         }
 
+        [System.Serializable]
+        public class PlayerSkillCounter
+        {
+            public bool exactMatch = false;
+            public string skillIDSearch = "";
+            public int minCount = 1;
+            public int maxCount = 1;
+            public UnityEvent onSuccess;
+            public UnityEvent onFailure;
+
+            public void Count()
+            {
+
+            }
+        }
+
         public List<SkillUnityEvent> skillEvents = new List<SkillUnityEvent>();
+        public List<PlayerSkillCounter> playerSkillCounters = new List<PlayerSkillCounter>();
 
 
         public override void UnsubscribeNamedMethods()
+        {
+        }
+
+        public void CheckCounter(int index)
         {
         }
 

@@ -246,6 +246,7 @@ namespace ThunderRoad
         [Serializable]
         public class EthnicGroup
         {
+            [JsonMergeKey]
             public string id;
             public string loreTextId;
 

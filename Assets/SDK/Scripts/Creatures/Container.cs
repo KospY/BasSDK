@@ -20,7 +20,7 @@ namespace ThunderRoad
         public string loadPlayerContainerID;
 
 #if ODIN_INSPECTOR
-        [ValueDropdown(nameof(GetAllContainerID))]
+        [ValueDropdown(nameof(GetAllContainerID), AppendNextDrawer = true)]
 #endif
         public string containerID;
         public bool loadOnStart = true;

@@ -14,6 +14,8 @@
 #ifndef TONEMAPPING_GEAR
 	#define TONEMAPPING_GEAR
 	
+	#pragma warning (disable : 3571) // Supress warning: pow(f, e) will not work for negative f, use abs(f) or conditionally handle negative values if you expect them : https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/hlsl-errors-and-warnings
+	
 	//#define TONEMAPPINGELSEWHERE
 	
 	#ifndef TONEMAPPING_VARIABLES_INCLUDED
@@ -26,6 +28,7 @@
 	//#pragma shader_feature GLOBALTONEMAPPING
 	
 	#if SHADER_API_MOBILE
+		#undef GLOBALTONEMAPPING
 		#define GLOBALTONEMAPPING
 	#else
 		#undef GLOBALTONEMAPPING
@@ -87,7 +90,7 @@
 	static const float3 LuminanceWeights = float3(0.299,0.587,0.114);
 	
 	float3 ApplyTonemapAlways(float3 colorIn, float4 Tonemapping){
-	
+		
 		float exposure = Tonemapping.x + 0.0001; // Addition of tiny value prevents weirdness, went solid black on device in some places without?!
 		float contrast = Tonemapping.y;
 		float saturation = Tonemapping.z;
@@ -111,7 +114,7 @@
 		
 		//float3 LuminanceWeights = float3(0.299,0.587,0.114);
 		float luminance = dot(color,LuminanceWeights);
-		color.rgb = lerp(luminance,color.rgb,saturation); // Saturation
+		color.rgb = lerp( float3(luminance,luminance,luminance), color.rgb, saturation); // Saturation // PS5 component conversion fix
 		
 		//#if !SHADER_API_MOBILE
 			color = lerp( colorIn, color, blend  ); // Blend - // Needed to turn off tonemapping to capture reflection probes in HDR
@@ -122,16 +125,35 @@
 		return color;
 	}
 	
+	float3 ApplySatExposureOnlyAlways(float3 colorIn, float4 Tonemapping){
+		
+		float exposure = Tonemapping.x + 0.0001; // Addition of tiny value prevents weirdness, went solid black on device in some places without?!
+		float contrast = Tonemapping.y;
+		float saturation = Tonemapping.z;
+		
+		float blend = Tonemapping.w * _TonemappingMasterBlend; // Needed to turn off tonemapping to capture reflection probes in HDR
+		
+		float3 color = colorIn * exposure * 0.66;
+		
+		float luminance = dot(color,LuminanceWeights);
+		color.rgb = lerp( float3(luminance,luminance,luminance), color.rgb, saturation); // Saturation // PS5 component conversion fix
+		
+		color = lerp( colorIn, color, blend  ); // Blend - // Needed to turn off tonemapping to capture reflection probes in HDR
+		
+		return color;
+	}
+	
 	float3 ApplyTonemap(float3 colorIn, float4 Tonemapping){
 		#if SHADER_API_MOBILE
 			#define GLOBALTONEMAPPING
 		#else
 			#undef GLOBALTONEMAPPING
 		#endif
+		
 		#if defined(GLOBALTONEMAPPING) //&& !defined(TONEMAPPINGELSEWHERE) // _TONEMAPPING_ON
 			float3 color = ApplyTonemapAlways(colorIn, Tonemapping);
 			return color;// * float3(0,1,0);
-		#else			
+		#else
 			return colorIn; 
 			/* // Removed Saturation as on desktop it will double apply to grabpass/water, do as post effect instead
 			float3 color = colorIn.rgb;
@@ -148,6 +170,22 @@
 			*/
 			//float exposure = Tonemapping.x; // Always apply exposure even if no tonemapping is used // Edit: breaks grabpass as it gets double exposed
 			//return colorIn * exposure;// * float3(1,0,0);;
+		#endif
+	}
+	
+	float3 ApplySatExposureOnly(float3 colorIn, float4 Tonemapping){
+		#if SHADER_API_MOBILE
+			#undef GLOBALTONEMAPPING
+			#define GLOBALTONEMAPPING
+		#else
+			#undef GLOBALTONEMAPPING
+		#endif
+		
+		#if defined(GLOBALTONEMAPPING) //&& !defined(TONEMAPPINGELSEWHERE) // _TONEMAPPING_ON
+			float3 color = ApplySatExposureOnlyAlways(colorIn, Tonemapping);
+			return color;
+		#else
+			return colorIn; 
 		#endif
 	}
 

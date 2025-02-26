@@ -22,8 +22,23 @@
             "customShaderName": "Skybox/SkySorcery - ASshader",
             "outputShaderFName": "SkySorcery",
             "PlatformAS": 2,
+            "debugShader": false,
             "tessellationDesktop": false,
             "tessellationMobile": false,
+            "forceOpaqueDesktop": false,
+            "forceOpaqueMobile": false,
+            "offsetQueueDesktop": 0,
+            "offsetQueueMobile": 0,
+            "desktopShader": {
+                "fileID": 4800000,
+                "guid": "b4ceca6d04a3ffd44bd70b2418cfcbbe",
+                "type": 3
+            },
+            "mobileShader": {
+                "fileID": 4800000,
+                "guid": "09327cac6e02d124eab13019ba2465b5",
+                "type": 3
+            },
             "passItems": [
                 {
                     "displayName": "ON - ON - Unlit",
@@ -32,6 +47,14 @@
                     "indexSubShader": 0,
                     "enabledDesktop": true,
                     "enabledMobile": true
+                },
+                {
+                    "displayName": "OFF - OFF - MotionVectors",
+                    "passName": "MotionVectors",
+                    "present": true,
+                    "indexSubShader": 0,
+                    "enabledDesktop": false,
+                    "enabledMobile": false
                 }
             ],
             "shaderKeywords": [
@@ -102,7 +125,7 @@
                     "mali": ""
                 },
                 {
-                    "displayName": "OFF - ON - GLOBALTONEMAPPING : shader feature",
+                    "displayName": "OFF - REP - GLOBALTONEMAPPING : shader feature",
                     "line": "#pragma shader_feature GLOBALTONEMAPPING",
                     "replace": "",
                     "replaceDesktop": "",
