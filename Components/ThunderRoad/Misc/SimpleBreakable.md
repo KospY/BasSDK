@@ -1,14 +1,11 @@
 ---
-parent: Items
+parent: Misc
 grand_parent: ThunderRoad
 ---
 
 # Simple Breakable
 
-{: .note}
-The Simple Breakable must be an [Item][Item].
-
-The "Simple Breakable" script is a component that is a more simpler version of [Breakable][Breakable]. This component still has the needed fields such as health and minimum hit velocity/mass, without having more advanced features such as breakpoints and Explosion forces.
+The "Simple Breakable" script is a component that is a simpler version of [Breakable][Breakable]. This component still has the needed fields such as health and minimum hit velocity/mass, without having more advanced features such as breakpoints and Explosion forces.
 
 ![SimpleBreakable][SimpleBreakable]
 
@@ -36,5 +33,4 @@ The "Simple Breakable" script is a component that is a more simpler version of [
 | On Break                          | Event plays when the breakable item is broken
 
 [SimpleBreakable]: {{ site.baseurl }}/assets/components/Breakables/SimpleBreakable.png
-[Item]: {{ site.baseurl }}{% link Components/ThunderRoad/Items/Item.md %}
 [Breakable]: {{ site.baseurl }}{% link Components/ThunderRoad/Items/Breakable.md %}
