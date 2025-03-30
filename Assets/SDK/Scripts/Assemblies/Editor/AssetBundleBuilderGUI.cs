@@ -304,6 +304,17 @@ namespace ThunderRoad
                                 return;
                             }
                         }
+                        //Check folder name is empty
+                        if (!assetBundleGroup.folderName.IsNullOrEmptyOrWhitespace())
+                        {
+                            //popup warning
+                            bool userResponse = EditorUtility.DisplayDialog("Warning", $"You are trying to build a bundle that doesn't have a folder name defined.\nIf this sounds incorrect please check 'Folder Name' on the Asset Bundle Group: {assetBundleGroup.name}\nDo you want to continue building?", "Yes", "No");
+                            if (!userResponse)
+                            {
+                                Debug.Log($"Aborting build, please check the 'Is Mod' on the Asset Bundle Group: {assetBundleGroup.name}");
+                                return;
+                            }
+                        }
                         //Check the bundles entries have the correct labels
                         if (!assetBundleGroup.CheckAddressableLabels(out string message))
                         {
