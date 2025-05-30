@@ -37,8 +37,8 @@ Each "Group" is an enemy that spawns. If you want a seamlessly looping wave, you
 | overrideBrainID               | ID of the Brain used if overriden |
 | overrideMaxMelee              | If true, this group will ignore the set maximum amount of enemies that can be fighting the player at a time. <details>For example, if set to 1, only one enemy can fight at a time, and the other enemies will circle the player. If set to 3, 3 enemies will try and attack you at the same time. </details> |
 | overrideMaxMeleeCount         | The amount of enemies that will fight the player at the same time, if overrideMaxMelee is true |
-| groupHealthMultiplier         | The miltiplier of the health enemies will have. "1.0" is their normal health amount. |
+| groupHealthMultiplier         | The multiplier of the health enemies will have. "1.0" is their normal health amount. |
 | minMaxCount                   | The minimum/maximum amount of enemies that can spawn from this group. |
-| spawnPointIndex               | *Unused/Obsolete*
-| prereqGroupIndex              | Determines a group that needs to be "completed" before this group can spawn. |
-| prereqMaxRemainingAlive       | Determines how many can be left alive from a previous group to be considered completed. |
+| spawnPointIndex               | *Unused/Obsolete*, determines spawn point of an NPC.
+| prereqGroupIndex              | Determines a group that needs to be "completed" before this group can spawn. <details> The first group is group -1, the second group is group 0, third group is group 1, it keeps going from there. |
+| prereqMaxRemainingAlive       | Determines how many can be left alive from a previous group to be considered completed. <details> For example, setting group 0 to a MaxRemainingAlive to 0 means it will wait for group -1 to have no more enemies alive.<br>-1 means no prerequisite amount.|
