@@ -308,6 +308,8 @@ namespace ThunderRoad
         private Texture2D SplitTexture(Texture2D texture, SourceChannel channel)
         {
             if (channel == SourceChannel.None) return null;
+            // make sure the texture is read/write enabled, otherwise GetPixels() will fail
+            EnsureReadWriteState(texture, true);
             Texture2D result = new Texture2D(texture.width, texture.height);
             var pixels = texture.GetPixels();
             for (int i = 0; i < pixels.Length; i++)
@@ -337,6 +339,21 @@ namespace ThunderRoad
                     break;
             }
             return result;
+        }
+
+        private void EnsureReadWriteState(Texture2D texture, bool state)
+        {
+            string path = AssetDatabase.GetAssetPath(texture);
+            if (path == null) return;
+            if (AssetImporter.GetAtPath(path) is TextureImporter textureImporter)
+            {
+                if (!textureImporter.isReadable != state) textureImporter.isReadable = state;
+                textureImporter.SaveAndReimport();
+            }
+            else
+            {
+                Debug.LogError($"The texture at path {path} can't be set to read/write enabled automatically! Make sure the texture is extracted from the asset, or set it to read/write enabled manually.");
+            }
         }
 
         private void CombineTextures()
@@ -421,6 +438,8 @@ namespace ThunderRoad
                 if (texture)
                 {
                     textureMOES = texture;
+                    // ensure that the output MOES texture isn't set to read/write enabled, since the game doesn't need it and it can save memory
+                    EnsureReadWriteState(textureMOES, false);
                 }
             }
 
