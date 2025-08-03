@@ -130,8 +130,7 @@ Shader "ThunderRoad/Dev/LitMoss - Dev"
 		[Feature(_REMAPPERS)]_DRAWERPacked_MetallicGlossMapSmoothness_Remap_MetalAA_SmoothnessRemap_MOSSMETALMODE_ON_MossMode1("!DRAWER Packed _MossMetalMap Smoothness_Remap_Moss_(A) A  _SmoothnessRemap [_MOSSMETALMODE_ON && !_MossMode && _UseMossMetalMap && _Remappers]", Float) = 0
 		[Feature(_REMAPPERS)]_DRAWERPacked_MetallicGlossMapSmoothness_Remap_MetalAA_SmoothnessRemap_MOSSMETALMODE_ON_MossMode("!DRAWER Packed _MetallicGlossMap Smoothness_Remap_Metal_(A) A  _SmoothnessRemap [!_MOSSMETALMODE_ON && _MetallicSpecGlossMap && _Remappers]", Float) = 0
 		[Feature(_DETAIL)]HeaderDetailMaps("# Detail Maps", Int) = 0
-		[Feature(_DETAIL)]HeaderDetailMapsSpace("###  [!_Moss&&_DETAIL]", Int) = 0
-		[HideInInspector]_DETAIL("_DETAIL", Int) = 0
+		[Feature(_DETAIL)]HeaderDetailMapsSpace("###  [!_Moss&&_DETAIL]", Int) = 0		
 		[Toggle(_DETAIL_ON)] _DETAIL("Use Details", Float) = 0
 		_DetailsOverMoss("-Details Over Moss [_MOSS && _DETAIL_ON && _DetailMapPacked]", Range( -2 , 2)) = -1
 		[NoScaleOffset]_DetailMapPacked("Detail Map Packed (ANSN) & [_DETAIL_ON]", 2D) = "black" {}
