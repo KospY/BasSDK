@@ -289,6 +289,7 @@ namespace ThunderRoad
             {
                 if (assetBundleGroup.selected)
                 {
+                    assetBundleGroup.OnValidate();
 //warnings for the SDK
                     //check if the group selected is a mod, as modders should be checking isMod
                     if (Application.isEditor && !Application.isBatchMode)
