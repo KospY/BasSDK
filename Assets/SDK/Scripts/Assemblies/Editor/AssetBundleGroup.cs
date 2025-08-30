@@ -43,6 +43,15 @@ namespace ThunderRoad
         [ShowIf("isMod")]
         public string modThumbnail;
         
+        public void OnValidate()
+        {
+            // Make sure folder name is valid
+            if (string.IsNullOrEmpty(folderName))
+            {
+                folderName = this.name;
+            }
+        }
+        
         [Button]
         [ShowIf("isMod")]
         public void CreateModCatalogFolder()
