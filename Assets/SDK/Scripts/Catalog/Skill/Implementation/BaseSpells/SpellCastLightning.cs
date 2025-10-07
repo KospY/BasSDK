@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
@@ -100,9 +101,10 @@ namespace ThunderRoad.Skill.Spell
         public float MinDuration => Mathf.Lerp(intervalMaxRange.x, intervalMaxRange.y, 0.5f) / drainPerBolt;
 
         public float MaxDuration => (1 + efficiencyPerSkill * 3) * (Mathf.Lerp(intervalMaxRange.x, intervalMaxRange.y, 0.5f) / drainPerBolt);
+        [JsonIgnore]
         public string DrainPerBoltLabel
             => $"Drain per Bolt (spray for ~{MinDuration:G02}s base, ~{MaxDuration:G02}s with unlocks)";
-
+        [JsonIgnore]
         public string StunDurationPerSkillLabel => $"Stun Duration per Skill ({boltElectrocuteDuration}s base, {boltElectrocuteDuration * (1 + durationPerSkill * 3)}s with unlocks)";
 
 #if ODIN_INSPECTOR

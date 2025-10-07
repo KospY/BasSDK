@@ -66,6 +66,13 @@ namespace ThunderRoad
         [TabGroup("Android VFX")]
 #endif
         public Transform linkVfxTargetAndroid;
+        
+        public delegate void LinkEvent(SkillTreeCrystal crystal, SkillTreeCrystal other, bool linked);
+        public static event LinkEvent OnLinkStateEvent;
+        public delegate void MergeStartEvent(SkillTreeCrystal crystalA, SkillTreeCrystal crystalB);
+        public static event MergeStartEvent OnMergeStart;
+        public delegate void MergeEndEvent(SkillTreeCrystal crystal);
+        public static event MergeEndEvent OnMergeComplete;
 
 #if UNITY_EDITOR
         [Button]
@@ -87,11 +94,15 @@ namespace ThunderRoad
             linkVfxAndroid.SetVector4("Color", Utils.UnHDR(linkVfxWindows.GetVector4("Source Color")));
         }
 #endif        
-        protected VisualEffect mergeVfx;
-        protected Transform mergeVfxTarget;
+        [NonSerialized]
+        public VisualEffect mergeVfx;
+        [NonSerialized]
+        public Transform mergeVfxTarget;
 
-        protected VisualEffect linkVfx;
-        protected Transform linkVfxTarget;
+        [NonSerialized]
+        public VisualEffect linkVfx;
+        [NonSerialized]
+        public Transform linkVfxTarget;
         
         public float linkMaxDistance = 2.0f;
 

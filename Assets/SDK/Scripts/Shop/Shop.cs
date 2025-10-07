@@ -2,9 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using IngameDebugConsole;
 using System.Collections;
-
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -109,6 +107,7 @@ namespace ThunderRoad
         public event Action<ShopZone, bool> onPlayerChangeZone;
         public event Action<Transaction, Item, bool> onZoneItemChanged;
         public event Action<Transaction, Item> onItemEnterZone;
+        public event Action<Transaction, Item> onItemExitZone;
         public event Action<Transaction> onTransactionStart;
         public event Action<Transaction, bool> onTransactionCompleted;
 

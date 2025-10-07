@@ -28,7 +28,7 @@ namespace ThunderRoad
         public void OnImbue(ColliderGroup colliderGroup)
         {
         }
-        
+
         [Button]
         public void ResetMechanism()
         {

@@ -50,6 +50,10 @@ namespace ThunderRoad
             public List<ItemData.Type> retrieveFilterTypes;
             [Tooltip("Specific excluded item types from container saver")]
             public List<ItemData.Type> excludedTypes;
+            [Tooltip("Define whether an item must be in one of the holders in the holder list (None except), or anywhere except in one of those holders (Any except)")]
+            public FilterLogic holderFilterMode = FilterLogic.AnyExcept;
+            [Tooltip("Holders used for the above filter")]
+            public List<Holder> holders;
             [Tooltip("When enabled, items grabbed by player will automatically become owned by the player.")]
             public bool transferToPlayerOnGrab;
             [Tooltip("When true, only allowed items will be stored to the container.")]

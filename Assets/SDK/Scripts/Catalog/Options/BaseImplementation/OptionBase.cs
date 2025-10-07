@@ -10,6 +10,7 @@ namespace ThunderRoad
 	[Serializable]
 	public abstract class OptionBase
 	{
+		[JsonMergeKey]
 		public string name; //id of the option
 
 #if ODIN_INSPECTOR

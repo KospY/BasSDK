@@ -2,12 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-#if ODIN_INSPECTOR
-using Sirenix.OdinInspector;
-#else
-using TriInspector;
-#endif
-
 namespace Shadowood
 {
     [ExecuteInEditMode]

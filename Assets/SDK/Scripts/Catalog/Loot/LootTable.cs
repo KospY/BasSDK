@@ -52,6 +52,29 @@ namespace ThunderRoad
             [NonSerialized]
             public float maxRewardValue;
 
+            private void AddEntryForEachInCategory()
+            {
+                foreach (ItemData itemData in Catalog.GetDataList<ItemData>())
+                {
+                    if (itemData.type == itemCategory)
+                    {
+                        drops.Add(new Drop()
+                        {
+                            reference = Drop.Reference.Item,
+                            referenceID = itemData.id,
+                            probabilityWeight = 1f
+                        });
+                    }
+                }
+            }
+
+            public DropLevel Clone()
+            {
+                DropLevel clone = new DropLevel();
+                clone.drops = clone.drops.Select(item => (Drop)item.Clone()).ToList();
+                return clone;
+            }
+
         }
 
         [Serializable]
@@ -126,6 +149,11 @@ namespace ThunderRoad
             {
                 Item,
                 Table,
+            }
+
+            public Drop Clone()
+            {
+                return MemberwiseClone() as Drop;
             }
 
         }

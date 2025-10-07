@@ -12,11 +12,11 @@ Material:
     type: 3}
   m_ValidKeywords:
   - _ALPHATEST_ON
+  - _CAUSTICSENABLE_ON
   m_InvalidKeywords:
   - LAYER_MAX3
   - MODED_MOSS
   - TEXTURE_MAX8
-  - _CAUSTICSENABLE_ON
   - _EMISSION
   - _SIMPLESTOCHASTIC
   - _SURFACE_TYPE_TRANSPARENT
@@ -257,18 +257,14 @@ Material:
     - _Int0: 0
     - _Layer0Metallic: 0
     - _Layer0NormalStrength: 1
-    - _Layer0Red: 0
     - _Layer0Red_UseReveal: 0
     - _Layer0Smoothness: 0.5
-    - _Layer1Green: 0
     - _Layer1Green_UseReveal: 0
     - _Layer1Metallic: 0
     - _Layer1NormalStrength: 1
     - _Layer1Smoothness: 0.5
-    - _Layer2Blue: 0
     - _Layer2Blue_UseReveal: 0
     - _Layer2Height: -1
-    - _Layer3Alpha: 0
     - _Layer3Alpha_UseReveal: 0
     - _Lightmapping: 1
     - _MODE: 1
@@ -297,8 +293,6 @@ Material:
     - _MossSlopeDistort: 1
     - _MossSlopeNormRotate: 0
     - _MossSmoothness: 0
-    - _MossStochasticContrast: 0.5
-    - _MossStochasticScale: 1
     - _MossUV: 0
     - _NormalMossMask_MOSS_UseNormalMap: -1
     - _NormalStrength: 1

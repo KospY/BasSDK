@@ -19,9 +19,13 @@
       "checkoutDialogCycleChance": 10.0,
       "maxCheckoutDelay": 60.0,
       "maxItemCommentDelay": 6.0,
+      "longDialogCooldown": 30.0,
       "itemMaxViewAngle": 80.0,
       "hurtSpeakDelay": 3.0,
+      "loreChance": 0.2,
       "welcomeVoiceDialogId": "Greeting",
+      "newUpdateWelcomeVoiceDialogId": "NewUpdateIntro",
+      "newUpdatesWelcomeVoiceDialogId": "",
       "welcomeAnimationId": "HumanGreeting",
       "buyVoiceDialogId": "Buying",
       "buyAnimationId": "HumanElbowRestGesture",
@@ -32,22 +36,129 @@
       "notEnoughMoneyVoiceDialogId": "NoMoney",
       "leavingDialogId": "Leaving",
       "checkoutDialogId": "Checkout",
-      "itemAppleDialogId": "ItemApple",
-      "itemAxeDialogId": "ItemAxe",
-      "itemBowArrowDialogId": "ItemBowArrows",
-      "itemDaggerDialogId": "ItemDagger",
-      "itemEggsDialogId": "ItemEggs",
-      "itemFalchionDialogId": "ItemFalchion",
+      "idExactMatchDialogs": {
+        "$type": "ThunderRoad.BrainModuleShopkeeper+DialogDictionary, ThunderRoad",
+        "FoodApple": {
+          "$type": "ThunderRoad.BrainModuleShopkeeper+DialogId, ThunderRoad",
+          "id": "ItemApple",
+          "buy": true,
+          "sell": false
+        },
+        "SwordOldieFalchion": {
+          "$type": "ThunderRoad.BrainModuleShopkeeper+DialogId, ThunderRoad",
+          "id": "ItemFalchion",
+          "buy": false,
+          "sell": true
+        },
+        "BaronHat": {
+          "$type": "ThunderRoad.BrainModuleShopkeeper+DialogId, ThunderRoad",
+          "id": "ItemHat",
+          "buy": false,
+          "sell": true
+        },
+        "StaffRaktaBoStaff": {
+          "$type": "ThunderRoad.BrainModuleShopkeeper+DialogId, ThunderRoad",
+          "id": "RaktaMagicWeapon",
+          "buy": true,
+          "sell": false
+        }
+      },
+      "idPartialMatchDialogs": {
+        "$type": "ThunderRoad.BrainModuleShopkeeper+DialogDictionary, ThunderRoad",
+        "Rakta": {
+          "$type": "ThunderRoad.BrainModuleShopkeeper+DialogId, ThunderRoad",
+          "id": "RaktaNormalWeapon",
+          "buy": true,
+          "sell": false
+        },
+        "Egg": {
+          "$type": "ThunderRoad.BrainModuleShopkeeper+DialogId, ThunderRoad",
+          "id": "ItemEggs",
+          "buy": true,
+          "sell": false
+        },
+        "ApparelRakta": {
+          "$type": "ThunderRoad.BrainModuleShopkeeper+DialogId, ThunderRoad",
+          "id": "RaktaArmor",
+          "buy": true,
+          "sell": false
+        }
+      },
+      "categoryDialogs": {
+        "$type": "ThunderRoad.BrainModuleShopkeeper+DialogDictionary, ThunderRoad",
+        "Axes": {
+          "$type": "ThunderRoad.BrainModuleShopkeeper+DialogId, ThunderRoad",
+          "id": "ItemAxe",
+          "buy": true,
+          "sell": false
+        },
+        "Bows": {
+          "$type": "ThunderRoad.BrainModuleShopkeeper+DialogId, ThunderRoad",
+          "id": "ItemBowArrows",
+          "buy": true,
+          "sell": false
+        },
+        "Daggers": {
+          "$type": "ThunderRoad.BrainModuleShopkeeper+DialogId, ThunderRoad",
+          "id": "ItemDagger",
+          "buy": true,
+          "sell": false
+        },
+        "Blunt": {
+          "$type": "ThunderRoad.BrainModuleShopkeeper+DialogId, ThunderRoad",
+          "id": "ItemMace",
+          "buy": true,
+          "sell": false
+        },
+        "Shields": {
+          "$type": "ThunderRoad.BrainModuleShopkeeper+DialogId, ThunderRoad",
+          "id": "ItemShield",
+          "buy": true,
+          "sell": false
+        },
+        "Spears": {
+          "$type": "ThunderRoad.BrainModuleShopkeeper+DialogId, ThunderRoad",
+          "id": "ItemSpear",
+          "buy": true,
+          "sell": false
+        },
+        "Staves": {
+          "$type": "ThunderRoad.BrainModuleShopkeeper+DialogId, ThunderRoad",
+          "id": "ItemStaff",
+          "buy": true,
+          "sell": false
+        },
+        "Swords": {
+          "$type": "ThunderRoad.BrainModuleShopkeeper+DialogId, ThunderRoad",
+          "id": "ItemSword",
+          "buy": true,
+          "sell": false
+        },
+        "Greatswords": {
+          "$type": "ThunderRoad.BrainModuleShopkeeper+DialogId, ThunderRoad",
+          "id": "ItemSword",
+          "buy": true,
+          "sell": false
+        }
+      },
       "itemGenericDialogId": "ItemGeneric",
-      "itemHatDialogId": "ItemHat",
-      "itemMaceDialogId": "ItemMace",
-      "itemShieldDialogId": "ItemShield",
-      "itemSpearDialogId": "ItemSpear",
-      "itemStaffDialogId": "ItemStaff",
-      "itemSwordDialogId": "ItemSword",
       "tutorial1DialogId": "ShopDialogueA",
       "tutorial2DialogId": "ShopDialogueB",
-      "tutorial3DialogId": "ShopDialogueC"
+      "tutorial3DialogId": "ShopDialogueC",
+      "updateLoreSets": [
+        {
+          "$type": "ThunderRoad.BrainModuleShopkeeper+UpdateLoreDialogSet, ThunderRoad",
+          "updateName": "Rakta",
+          "firstLore": "RaktaFirstPurchase",
+          "purchaseDialogs": [
+            "RaktaLoreA",
+            "RaktaLoreB",
+            "RaktaLoreC",
+            "RaktaLoreD",
+            "RaktaLoreE"
+          ]
+        }
+      ]
     },
     {
       "$type": "ThunderRoad.BrainModuleSpeak, ThunderRoad",
@@ -973,8 +1084,9 @@
       ],
       "defaultSpeakFaceIndex": 0,
       "neutralExpressionResetTime": 5.0,
+      "delayHideSubtitleDuration": 0.6,
       "painExpressionDuration": 0.3
     }
   ],
-  "groupPath": null
+  "groupPath": ""
 }

@@ -185,6 +185,11 @@ namespace ThunderRoad
             if (clearAfterAction) ClearSelections();
         }
 
+        public void RunAllRagdollPartActions()
+        {
+            if (clearAfterAction) ClearSelections();
+        }
+
         public void RunEventWithSelection()
         {
             if (clearAfterAction) ClearSelections();

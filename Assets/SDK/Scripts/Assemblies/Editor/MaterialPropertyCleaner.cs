@@ -19,7 +19,7 @@ public class MaterialPropertyCleaner : EditorWindow
     private Vector2 scrollPos;
     private GUIStyle warningStyle, errorStyle;
 
-    [MenuItem("Tools/Material Property Cleaner")]
+    [MenuItem("ThunderRoad (SDK)/Tools/Material Property Cleaner")]
     private static void Init()
     {
         GetWindow<MaterialPropertyCleaner>("Property Cleaner");

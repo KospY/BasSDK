@@ -21,6 +21,7 @@ namespace ThunderRoad
         public override IEnumerator OnLoadCoroutine()
         {
             yield return null;
+            
         }
     }
 }

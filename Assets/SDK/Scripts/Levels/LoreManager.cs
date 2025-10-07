@@ -3,16 +3,19 @@ using Sirenix.OdinInspector;
 #else
 using TriInspector;
 #endif //ODIN_INSPECTOR
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+
 namespace ThunderRoad
 {
     public class LoreManager : MonoBehaviour
     {
+        public static Action onLoreCollected;
+        
         public List<LoreArea> loreAreas = new List<LoreArea>();
         public List<LoreSpawner> activeLoreSpawners = new List<LoreSpawner>();
       
-
         private float delayTime = 2f;
         private System.Random rng;
         public static LoreManager instance = null;

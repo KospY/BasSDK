@@ -1,0 +1,26 @@
+{
+  "$type": "ThunderRoad.CreatureTable, ThunderRoad",
+  "id": "RaktaElite",
+  "sensitiveContent": "None",
+  "sensitiveFilterBehaviour": "Discard",
+  "version": 1,
+  "groupPath": "Factions/Sandbox",
+  "description": "",
+  "linkedToGenderRatio": false,
+  "drops": [
+    {
+      "$type": "ThunderRoad.CreatureTable+Drop, ThunderRoad",
+      "reference": "Table",
+      "referenceID": "Humans",
+      "overrideFaction": true,
+      "factionID": 3,
+      "overrideContainer": true,
+      "overrideContainerID": "Rakta Elite",
+      "overrideBrain": false,
+      "overrideBrainID": "HumanEasy",
+      "overrideEthnicity": true,
+      "overrideEthnicityID": "Raike",
+      "probabilityWeight": 1.0
+    }
+  ]
+}

@@ -6,7 +6,7 @@ namespace ThunderRoad
 {
     public class GolemMeleeDamager : MonoBehaviour
     {
-        public new Rigidbody rigidbody;
+        public Rigidbody rigidbody;
         public GolemController golemController;
         public GolemAnimatorEvent golemAnimatorEvent;
         public List<Collider> colliders;

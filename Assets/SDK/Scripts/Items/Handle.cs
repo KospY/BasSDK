@@ -48,8 +48,11 @@ namespace ThunderRoad
         public float reach = 0.5f;
 		[Tooltip("(Optional)Disables listed colliders once the handle is grabbed.")]
         public List<Collider> handOverlapColliders;
-		[Tooltip("(Optional) Allows you to add a custom rigidbody to the handle. (Do not reference item!)")]
+        [Tooltip("(Optional) Allows you to add a custom rigidbody to the handle. (Do not reference item!)")]
+        [Obsolete("Handle's customRigidBody should not be referenced directly! Instead, use customPhysicBody and associated PhysicBody methods.")]
         public Rigidbody customRigidBody;
+        [Tooltip("If set to true, requires that both handlers be grabbing onto the same physicbody to count as two handed grip")]
+        public bool twoHandedRequireSamePhysicbody = false;
 		[Tooltip("(Optional) When player hand reaches the top of the handle via slide, it will switch to listed handle once the top is reached.")]
         public Handle slideToUpHandle;
         [Tooltip("(Optional) When player hand reaches the bottom of the handle via slide, it will switch to listed handle once the bottom is reached.")]

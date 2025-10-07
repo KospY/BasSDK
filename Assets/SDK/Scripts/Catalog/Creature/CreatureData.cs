@@ -3,8 +3,11 @@ using System;
 using UnityEngine;
 using System.Collections;
 using System.Linq;
+using Newtonsoft.Json;
 using UnityEngine.ResourceManagement.ResourceLocations;
 using UnityEngine.SceneManagement;
+using ThunderRoad.Manikin;
+
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -39,6 +42,35 @@ namespace ThunderRoad
         [BoxGroup("General")]
 #endif
         public string prefabAddress;
+#if ODIN_INSPECTOR
+        [BoxGroup("General")]
+#endif
+        public string manikinChannelLayersAddress = "Bas.Manikin.ChannelLayers";
+        [JsonIgnore]
+        public ManikinEditorLocationLabels manikinChannelLayers
+        {
+            get
+            {
+                if (channelLayersByID == null)
+                {
+                    channelLayersByID = new Dictionary<string, ManikinEditorLocationLabels>();
+                }
+                if (channelLayersByID.TryGetValue(id, out var channelLayers)) return channelLayers;
+                return null;
+            }
+            set
+            {
+                if (channelLayersByID == null)
+                {
+                    channelLayersByID = new Dictionary<string, ManikinEditorLocationLabels>();
+                }
+                channelLayersByID[id] = value;
+            }
+        }
+        public static Dictionary<string, ManikinEditorLocationLabels> channelLayersByID;
+#if ODIN_INSPECTOR
+        [BoxGroup("General")]
+#endif
 #if ODIN_INSPECTOR
         [BoxGroup("General")]
 #endif
@@ -774,7 +806,7 @@ namespace ThunderRoad
                         if (creatureWardrobe != null
                             && creatureWardrobe.manikinWardrobeData != null
                             && creatureWardrobe.manikinWardrobeData.channels.Contains("Head")
-                            && creatureWardrobe.manikinWardrobeData.layers.Contains(ItemModuleWardrobe.GetLayer("Head", "Body")))
+                            && creatureWardrobe.manikinWardrobeData.layers.Contains(GetLayer("Head", "Body")))
                         {
                             heads.Add(new ValueDropdownItem<string>(itemModuleWardrobe.itemData.id,
                                 itemModuleWardrobe.itemData.id));
@@ -883,7 +915,14 @@ namespace ThunderRoad
                 partData.penetrationDeepEffectData = Catalog.GetData<EffectData>(partData.penetrationDeepEffectId);
             }
         }
-
+        public int GetLayer(string channel, string layer)
+        {
+                if (manikinChannelLayers != null)
+                {
+                        return manikinChannelLayers.GetLayer(channel, layer);
+                }
+                return -1;
+        }
     }
 
     [Flags]

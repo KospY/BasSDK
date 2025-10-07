@@ -64,9 +64,10 @@ namespace ThunderRoad
             AcquireMaterials();
             return instanceMaterials[0];
         }
-        public Material[] AcquireMaterials()
+        public Material[] AcquireMaterials(bool force = false)
         {
-            if (!isInstanced && CachedRenderer != null && CachedRenderer.sharedMaterials != null)
+            bool needsInstancing = force || (!isInstanced && CachedRenderer != null && CachedRenderer.sharedMaterials != null);
+            if (needsInstancing)
             {
                 CreateInstances();
             }

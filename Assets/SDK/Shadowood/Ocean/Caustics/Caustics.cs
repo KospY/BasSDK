@@ -1,9 +1,5 @@
 ﻿using System.Collections.Generic;
-#if ODIN_INSPECTOR
-using Sirenix.OdinInspector;
-#else
 using TriInspector;
-#endif
 using UnityEngine;
 
 namespace Shadowood
@@ -42,6 +38,7 @@ namespace Shadowood
             return System.IO.Directory.Exists(texturesPath);
         }
 
+        [Button]
         [ContextMenu("FindTextures")]
         public void FindTextures()
         {
@@ -105,7 +102,7 @@ namespace Shadowood
             Shader.SetGlobalColor(CausticsColorPropName, Color.black);
         }
 
-        [GUIColor("@causticTextures.Length > 0 ? Color.white : Color.red")] [InlineButton("FindTextures")]
+        [GUIColor("@causticTextures.Length > 0 ? Color.white : Color.red")]
         public Texture[] causticTextures = new Texture[0]; // TODO populate from folder path
 
         //[Tooltip("Set shader globals for in shader caustics")]
@@ -115,9 +112,15 @@ namespace Shadowood
         //public bool setCookieOnLight = false;
 
 
-        [Space] [GUIColor("@dirlight ? Color.white : Color.red")] [InlineButton("FindSun")]
+        [Space] [GUIColor("@dirlight ? Color.white : Color.red")] 
         public Light dirlight;
-
+#if UNITY_EDITOR
+        [Button("FindSun")]
+        public void FindSunButton()
+        {
+            FindSun();
+        }
+#endif
         private void FindSun()
         {
             dirlight = RenderSettings.sun;
@@ -142,9 +145,10 @@ namespace Shadowood
 
         [Space] public eDirMethod dirMethod = eDirMethod.tranRotation;
 
-        [GUIColor("@panDirFromTransform ? Color.white : Color.red")] [InlineButton("FindWaveCenter", "Find")] [Tooltip("If set copies the transforms forward to set the caustics panning direction")]
+        [GUIColor("@panDirFromTransform ? Color.white : Color.red")] [Tooltip("If set copies the transforms forward to set the caustics panning direction")]
         public Transform panDirFromTransform;
 
+        [Button]
         public void FindWaveCenter()
         {
             var found = GameObject.Find("WaveCenter");

@@ -38,6 +38,14 @@ namespace ThunderRoadVRKBSharedData
         };
         public StringLayerDictionary layers;
 
+
+        public bool TryGetLayerKey(string layer, string keyId, out KeyboardLayerConfiguration keyboardLayerConfiguration, out KeyConfiguration keyConfiguration)
+        {
+            keyboardLayerConfiguration = null;
+            keyConfiguration = null;
+            return false;
+        }
+
     }
 
     [Serializable]

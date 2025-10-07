@@ -9,6 +9,7 @@ namespace ThunderRoad
     public class FileManager
     {
         public static string defaultFolderName = "Default";
+        public static string modsFolderName = "Mods";
         public static string logFolderName = "Logs";
         public static bool useObb = false;
 

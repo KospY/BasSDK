@@ -93,6 +93,10 @@ namespace ThunderRoad
 #endif
         public string category;
 #if ODIN_INSPECTOR
+        [BoxGroup("Split/Left/General")]
+#endif
+        public string update = string.Empty;
+#if ODIN_INSPECTOR
         [BoxGroup("Split/Left/General"), ValueDropdown(nameof(GetAllEffectID))]
 #endif
         public string iconEffectId;

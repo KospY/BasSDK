@@ -17,6 +17,9 @@ namespace ThunderRoad
     [Serializable]
     public class CatalogData
     {
+#if ODIN_INSPECTOR
+        [HorizontalGroup("standaloneData")]
+#endif
         [NonSerialized]
         public bool standaloneData = false;
 #if ODIN_INSPECTOR

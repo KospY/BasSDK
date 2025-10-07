@@ -85,18 +85,16 @@ namespace ThunderRoad
             return false;
         }
 
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(dataId, ShowDataInInspector, Category, Data);
+        }
 #if ODIN_INSPECTOR
         public List<ValueDropdownItem<string>> GetAllCategoryTypeId()
         {
             return Catalog.GetDropdownAllID(Category);
         }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(dataId, ShowDataInInspector, Category, Data);
-        }
 #endif
-
         #endregion Methods
     }
 

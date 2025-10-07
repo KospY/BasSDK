@@ -38,7 +38,9 @@ namespace ThunderRoad
             }
             else
             {
-                Debug.LogError($"Light Probe Volume: {lightProbeVolume.gameObject.GetPathFromRoot()} is not in an Area! LVRs will not work properly.");               
+                #if !TESTINGLOCALLY
+                Debug.LogError($"Light Probe Volume: {lightProbeVolume.gameObject.GetPathFromRoot()} is not in an Area! LVRs will not work properly.");
+                #endif
             }
             Exists = true;
         }

@@ -211,6 +211,15 @@ namespace ThunderRoad
                 }
             }
 
+#if UNITY_EDITOR && ODIN_INSPECTOR
+            public void EditorCalculateWeight()
+            {
+                foreach (CreatureTable creatureTable in Catalog.GetDataList(Category.CreatureTable))
+                {
+                    creatureTable.EditorCalculateWeight();
+                }
+            }
+#endif
 
             public Drop Clone()
             {

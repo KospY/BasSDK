@@ -57,7 +57,7 @@ namespace ThunderRoad
             Alpha,
         }
 
-        [MenuItem("Asset/Invert Color")]
+        [MenuItem("Assets/Invert Color")]
         public static void InvertColor()
         {
             foreach (Object o in Selection.objects)

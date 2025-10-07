@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
@@ -28,7 +29,7 @@ namespace ThunderRoad
         public delegate void BuildEvent(EventTime eventTime);
         public static event BuildEvent OnBuildEvent;
 
-        public static string androidAssetFolderName = "assets";
+        public static string androidAssetFolderName = "obb";
 
         public static string assetsLocalPath
         {
@@ -38,10 +39,6 @@ namespace ThunderRoad
                 if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android)
                 {
                     buildtarget = "Android";
-                }
-                else if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.PS5)
-                {
-                    buildtarget = "PS5";
                 }
                 return (Path.Combine(ThunderRoadSettings.current.addressableEditorPath, buildtarget, exportFolderName));
             }
@@ -110,107 +107,7 @@ namespace ThunderRoad
             }
         }
 
-        public static void BatchBuild()
-        {
-            AssetBundleGroup assetBundleGroup = null;
-            bool purgeCache = false;
-            bool dryRun = false;
-            string[] args = Environment.GetCommandLineArgs();
-            for (int i = 0; i < args.Length; i++)
-            {
-                switch (args[i].ToLower())
-                {
-                    
-                    case "-assetbundlegroup":
-                        {
-                            Debug.Log($"AssetBundleGroup: {args[i + 1]}");
-                            foreach (AssetBundleGroup abg in EditorCommon.GetAllProjectAssets<AssetBundleGroup>())
-                            {
-                                if (abg.name == args[i + 1])
-                                {
-                                    assetBundleGroup = abg;
-                                    break;
-                                }
-                            }
-                            if (!assetBundleGroup)
-                            {
-                                Debug.LogError($"assetBundleGroup: {args[i + 1]} , cannot be found");
-                            }
-                            break;
-                        }
-                    case "-purgecache":
-                        {
-                            Debug.Log("Purge Cache");
-                            purgeCache = true;
-                            break;
-                        }
-                    case "-dryrun":
-                        {
-                            Debug.Log("dryrun mode");
-                            dryRun = true;
-                            break;
-                        }
-                }
-            }
-
-
-            if (dryRun)
-            {
-                return;
-            }
-
-            if (assetBundleGroup)
-            {
-                if (Build(assetBundleGroup, purgeCache))
-                {
-                    EditorApplication.Exit(0);
-                }
-                else
-                {
-                    EditorApplication.Exit(1);
-                }
-            }
-            else
-            {
-                Debug.LogError("-assetBundleGroup parameter is not set");
-            }
-        }
-
-        private static void VFXReimport()
-        {
-            // Get all loaded assemblies in the current AppDomain
-            Assembly[] loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-
-            // Find the assembly by name
-            Assembly loadedAssembly = loadedAssemblies.FirstOrDefault(a => a.GetName().Name == "Unity.VisualEffectGraph.Editor");
-            if (loadedAssembly == null)
-            {
-                Debug.LogError("Failed to find VisualEffectGraph.Editor assembly");
-                return;
-            }
-            // Get all non-public types in the assembly
-            Type[] allTypes = loadedAssembly.GetTypes();
-
-            // Find the specific non-public class by name
-            Type vfxAssetManagerType = allTypes.FirstOrDefault(t => t.Name == "VFXAssetManager");
-            if (vfxAssetManagerType != null)
-            {
-                System.Reflection.MethodInfo buildAndSaveMethod = vfxAssetManagerType.GetMethod("BuildAndSave", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
-                if (buildAndSaveMethod != null)
-                {
-                    buildAndSaveMethod.Invoke(null, null);
-                }
-                else
-                {
-                    Debug.LogError("Failed to find VFXAssetManager.BuildAndSave method");
-                }
-            }
-            else
-            {
-                Debug.LogError("Failed to find VFXAssetManager type");
-            }
-        }
-
+ //ProjectCore
         public static bool Build(AssetBundleGroup assetBundleGroup, bool purgeCache)
         {
             DateTime timeStart = DateTime.Now;
@@ -253,7 +150,7 @@ namespace ThunderRoad
                         }
                         else
                         {
-                            Debug.LogWarning($"Group {group.name} is missing BundledAssetGroupSchema, skipping, bundle will not be built");
+                            if(group.name != "Built In Data") Debug.LogError($"Group {group.name} is missing BundledAssetGroupSchema, skipping, bundle will not be built");
                             continue;
                         }
                     }
@@ -270,6 +167,12 @@ namespace ThunderRoad
 
                     bundledAssetGroupSchema.IncludeInBuild = false;
                     bundledAssetGroupSchema.BundleNaming = BundledAssetGroupSchema.BundleNamingStyle.NoHash;
+                    bundledAssetGroupSchema.Compression = BundledAssetGroupSchema.BundleCompressionMode.LZ4;
+                    bundledAssetGroupSchema.UseAssetBundleCrc = false;
+                    bundledAssetGroupSchema.UseAssetBundleCrcForCachedBundles = false;
+                    bundledAssetGroupSchema.IncludeAddressInCatalog = true;
+                    bundledAssetGroupSchema.IncludeGUIDInCatalog = true;
+                    bundledAssetGroupSchema.IncludeLabelsInCatalog = true;
                     
                     //check if the bundle group is a mod, so we can set the correct build and load paths
                     if(assetBundleGroup.isMod && isInBundleGroup)
@@ -386,7 +289,7 @@ namespace ThunderRoad
             {
                 File.Delete(filePath);
             }
-            
+
             OnBuildEvent?.Invoke(EventTime.OnStart);
 
             if (purgeCache)
@@ -491,30 +394,27 @@ namespace ThunderRoad
             private static bool enabled;
             private static List<Shader> stripShaders = new List<Shader>();
 
-            public int callbackOrder
-            {
-                get { return 0; }
-            }
+            public int callbackOrder => 0;
 
             public static void SetShadersToStripDuringBuild(List<Shader> shaders)
             {
+                StringBuilder sb = new();
                 if (shaders != null)
                 {
                     foreach (Shader shader in shaders)
                     {
-                        Debug.Log($"This shader will be stripped from build [{shader.name}]");
+                        sb.AppendLine($"This shader will be stripped from build [{shader.name}]");
                     }
+                    Debug.Log(sb.ToString());
                 }
                 stripShaders = shaders;
-                enabled = (stripShaders != null && stripShaders.Count > 0) ? true : false;
+                enabled = stripShaders is { Count: > 0 };
             }
 
             public void OnProcessShader(Shader shader, ShaderSnippetData snippet, IList<ShaderCompilerData> shaderCompilerData)
             {
                 if (enabled && stripShaders.Contains(shader))
                 {
-                    if (!Application.isBatchMode)
-                        Debug.Log($"Stripped shader variant of shader [{shader.name}]");
                     shaderCompilerData.Clear();
                 }
             }

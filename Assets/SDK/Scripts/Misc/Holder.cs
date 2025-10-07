@@ -96,6 +96,14 @@ namespace ThunderRoad
             itemHolderPoint.localRotation = holderStartLocal;
         }
 
+        public void SnapItemLoud(Item item)
+        {
+        }
+
+        public void SnapItemSilent(Item item)
+        {
+        }
+
         protected override void OnDrawGizmosSelected()
         {
             base.OnDrawGizmosSelected();
