@@ -915,7 +915,14 @@ namespace ThunderRoad
                 partData.penetrationDeepEffectData = Catalog.GetData<EffectData>(partData.penetrationDeepEffectId);
             }
         }
-
+        public int GetLayer(string channel, string layer)
+        {
+                if (manikinChannelLayers != null)
+                {
+                        return manikinChannelLayers.GetLayer(channel, layer);
+                }
+                return -1;
+        }
     }
 
     [Flags]
