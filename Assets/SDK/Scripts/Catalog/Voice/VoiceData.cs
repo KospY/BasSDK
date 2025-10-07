@@ -32,6 +32,7 @@ namespace ThunderRoad
         [Serializable]
         public class Dialog
         {
+            [JsonMergeKey]
             public string id;
             [NonSerialized]
             public int hashId;
@@ -40,26 +41,28 @@ namespace ThunderRoad
 
             public string audioGroupAddress;
 
-            [JsonIgnore]
-            public AudioContainer audioContainer => advancedAudioContainer != null ? advancedAudioContainer.audioContainer : basicAudioContainer;
+            [JsonIgnore] public AudioContainer audioContainer => advancedAudioContainer != null ? advancedAudioContainer.audioContainer : basicAudioContainer;
             [NonSerialized]
             public AudioContainer basicAudioContainer;
             [NonSerialized]
             public AdvancedAudioContainer advancedAudioContainer;
             [NonSerialized]
             public VoiceData rootData;
-            
+
             public virtual void ReleaseAddressableAssets()
             {
-                if (audioContainer) Catalog.ReleaseAsset(audioContainer);
-                this.basicAudioContainer = null;
-                this.advancedAudioContainer = null;
+                if (audioContainer)
+                {
+                    Catalog.ReleaseAsset(audioContainer);
+                }
+                basicAudioContainer = null;
+                advancedAudioContainer = null;
             }
             public virtual IEnumerator LoadAddressableAssetsCoroutine(VoiceData voiceData)
             {
 yield break;
             }
-            
+
             private void OnAudioGroupAssetLoaded(ScriptableObject scriptableObject)
             {
             }

@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Linq;
 using System;
 using System.Collections;
+using System.Text;
 using System.Text.RegularExpressions;
 
 #if ODIN_INSPECTOR
@@ -197,25 +198,6 @@ namespace ThunderRoad
             public List<string> modNames;
         }
 
-//#if ProjectCore
-        public static IEnumerator LoadAndRefreshCatalog(bool loadJsonOnly = false)
-        {
-                //Only load mods if we havent tried loading them yet
-                if (!gameModsLoaded)
-                {
-                    yield return LoadCoroutine(loadJsonOnly);
-                }
-                //Refresh the catalog if mods were loaded
-                if (gameModsLoaded && !isGameModsCatalogRefreshed)
-                {
-                    //refresh catalog and apply mod options
-
-                    yield return Catalog.RefreshCoroutine();
-
-                    isGameModsCatalogRefreshed = true;
-                }
-        }
-
         public static IEnumerator LoadCoroutine(bool loadJsonOnly = false)
         {
             List<ModData> orderedMods = GetOrderedMods();
@@ -243,44 +225,6 @@ namespace ThunderRoad
 
             yield break;
         }
-
-        public static IEnumerator LoadModAssemblies(List<ModData> modDatas)
-        {
-            if (modDatas.IsNullOrEmpty())
-                yield break;
-            int modCount = modDatas.Count;
-            Debug.Log($"{debugLine}[{ModLoadEventType.Assembly}] Loading Mod Assemblies");
-            for (int i = 0; i < modCount; i++)
-            {
-                ModData mod = modDatas[i];
-                if (mod.Incompatible)
-                    continue; //mod has an issue so we skip loading this one
-
-
-
-                if (Application.isPlaying)
-                {
-                    if (mod.assemblies.Count == 0)
-                    {
-                        LoadAssembly(mod);
-                    }
-                    else
-                    {
-                        Debug.LogError($"{debugLine}[{ModLoadEventType.Assembly}][{mod.folderName}] Assemblies already loaded for: {mod.Name}");
-                    }
-                }
-                loadedMods.Add(mod);
-
-            }
-            Debug.Log($"{debugLine}[{ModLoadEventType.Assembly}] Loaded Mod Assemblies");
-            yield break;
-        }
-
-        public static IEnumerator LoadModAddressables(List<ModData> modDatas)
-        {
-            yield break;
-        }
-
         public static IEnumerator LoadModCatalogs(List<ModData> modDatas)
         {
             if (modDatas.IsNullOrEmpty())
@@ -312,7 +256,7 @@ namespace ThunderRoad
         {
 yield break;
         }
-        
+
         public static IEnumerator LoadModOptions(List<ModData> modDatas)
         {
             yield break;
@@ -376,17 +320,17 @@ yield break;
                 bool isEnabledFolder = IsEnabledFolder(topLevelModFolder);
                 if (!isEnabledFolder)
                     continue;
-                
+
                 //check if the top level has a manifest
                 bool topLevelManifest = ContainsManifest(topLevelModFolder);
-                
+
                 //get all of the folders inside this path and check if any of them have manifests
                 string fullPathTopLevelModFolder = FileManager.GetFullPath(FileManager.Type.JSONCatalog, FileManager.Source.Mods, topLevelModFolder);
                 bool hasNestedManifest = Directory.GetDirectories(fullPathTopLevelModFolder).Select(Path.GetFileName).Any(p => {
                     string nestedModFolder = $"{topLevelModFolder}/{p}";
                     return IsEnabledFolder(p) && ContainsManifest(nestedModFolder);
                 });
-                
+
                 // we only support loading mods from top level folders.
                 // if there is a nested manifest, we need to log that its installed incorrectly.
 
@@ -403,9 +347,9 @@ yield break;
                     continue;
                 }
 
-                
+
                 //installed ok, so we try to load it
-                
+
                 // Single top level folder containing mod
                 if (!AddValidMod(topLevelModFolder, modList)) continue;
                 Debug.Log($"{debugLine} Loaded mod folder {topLevelModFolder}");
@@ -429,10 +373,10 @@ yield break;
                 {
                     // Version don't match
                     Debug.LogWarning($"{debugLine} - Mod {modData.Name} for ({modData.GameVersion}) is not compatible with current minimum mod version {minModVersion}");
-                    modData.errors.Add(new ModData.Error(ModData.ErrorType.Manifest, 
+                    modData.errors.Add(new ModData.Error(ModData.ErrorType.Manifest,
                         "Incompatible with game version", "ModErrorIncompatibleWithGameVersion", string.Empty,
                         $"Mod {modData.Name} for ({modData.GameVersion}) is not compatible with current minimum mod version {minModVersion}", $"{modData.fullPath}/manifest.json"));
-                    
+
                     //add it to the loaded mods, even though we never really loaded it, this is to show it has been processed, but there is an error with it
                     loadedMods.Add(modData);
                     return false;
@@ -528,148 +472,9 @@ yield break;
             }
             return null;
         }
-        /// <summary>
-        /// Checks if a mod has dll files in its folder, and if so returns the paths to them.
-        /// </summary>
-        /// <param name="mod"></param>
-        /// <param name="paths"></param>
-        /// <returns></returns>
-        internal static bool TryGetModAssemblyPaths(ModData mod, out string[] paths)
-        {
-            paths = FileManager.GetFullFilePaths(FileManager.Type.JSONCatalog, FileManager.Source.Mods, mod.folderName, "*.dll");
-            return paths.Length > 0;
-        }
 
-        static void LoadAssembly(ModData mod)
-        {
-            mod.assemblies.Clear();
-            if (mod.Incompatible)
-                return;
-            if (!TryGetModAssemblyPaths(mod, out string[] dllPaths))
-                return;
+        
 
-            for (int i = 0; i < dllPaths.Length; i++)
-            {
-                //Get the assembly path
-                string dllPath = dllPaths[i];
-                FileInfo dllFileInfo = new FileInfo(dllPath);
-                string dllLocalPath = $"{dllFileInfo.Directory.Name}/{dllFileInfo.Name}";
-                Debug.Log($"{debugLine}[{ModLoadEventType.Assembly}][{mod.folderName}] Loading Assembly: {dllLocalPath}");
-                byte[] dllBytes = File.ReadAllBytes(dllPath);
-
-                //check if a pdb file exists
-                string pdbPath = dllPath.Replace(".dll", ".pdb");
-                byte[] pdbBytes = null;
-                if (File.Exists(pdbPath))
-                {
-                    FileInfo pdbFileInfo = new FileInfo(pdbPath);
-                    string pdbLocalPath = $"{pdbFileInfo.Directory.Name}/{pdbFileInfo.Name}";
-                    Debug.Log($"{debugLine}[{ModLoadEventType.Assembly}][{mod.folderName}] Loading Assembly Debug Symbols: {pdbLocalPath}");
-                    pdbBytes = File.ReadAllBytes(pdbPath);
-                }
-                //Try to load the assembly
-                if (!TryLoadAssembly(mod, dllBytes, pdbBytes, dllLocalPath, out Assembly assembly))
-                    continue;
-
-                mod.assemblies.Add(assembly);
-
-                Debug.Log($"{debugLine}[{ModLoadEventType.Assembly}][{mod.folderName}] Loaded Assembly: {dllLocalPath}");
-            }
-            //after loading all the assemblies we need to check if they are actually supported. assuming the loaded correctly
-            if(mod.Incompatible) return;
-            //if they are not, we mark the mod as incompatible
-
-            // the below ModSupportedPlatformsAttribute doesnt work, as il2cpp bridge isnt able to get assembly, or class attributes for some reason
-            
-// #if ProjectCore
-//             try
-//             {
-//                 ModSupportedPlatformsAttribute attribute = null;
-//
-//                 foreach (Assembly assembly in mod.assemblies)
-//                 {
-//                     //get all class types in the assembly
-//                     Type[] types = assembly.GetTypes();
-//                     //look for ModSupportedPlatformsAttribute on any of the types
-//                     foreach (Type type in types)
-//                     {
-//                         object[] customAttributes = type.GetCustomAttributes(typeof(ModSupportedPlatformsAttribute), true);
-//                         if (customAttributes.Length <= 0) continue;
-//                         if (customAttributes[0] is not ModSupportedPlatformsAttribute supportedPlatformsAttribute) continue;
-//                         attribute = supportedPlatformsAttribute;
-//                         break;
-//                     }
-//                 }
-//
-//                 if (!ModSupportedPlatformsAttribute.IsSupported(attribute))
-//                 {
-//                     SupportedPlatforms supports = attribute?.Platforms ?? SupportedPlatforms.None;
-//                     Debug.LogWarning($"{debugLine}[{ModLoadEventType.Assembly}][{mod.folderName}] Not supported on {Application.platform}. Mod supports {supports}");
-//                     mod.errors.Add(new ModData.Error(ModData.ErrorType.Assembly, $"Not supported on {Application.platform}", $"Mod supports {supports}", string.Empty));
-//                     //add it to the loaded mods, even though we never really loaded it, this is to show it has been processed, but there is an error with it
-//                     mod.Incompatible = true;
-//                     loadedMods.Add(mod);
-//                 }
-//             }
-//             catch (Exception e)
-//             {
-//                 Debug.LogError($"{debugLine}[{ModLoadEventType.Assembly}][{mod.folderName}] Error checking supported platforms: {e}");
-//                 mod.errors.Add(new ModData.Error(ModData.ErrorType.Assembly, "Error checking supported platforms", e.Message, string.Empty));
-//                 // not marking this as incompatible, as we dont know if its actually incompatible
-//             }
-// #endif
-        }
-
-        /// <summary>
-        /// Tries to load an assembly from a byte array, returns false if it failed
-        /// </summary>
-        /// <param name="mod"></param>
-        /// <param name="dllBytes"></param>
-        /// <param name="pdbBytes"></param>
-        /// <param name="dllLocalPath"></param>
-        /// <param name="assembly"></param>
-        /// <returns></returns>
-        private static bool TryLoadAssembly(ModData mod, byte[] dllBytes, byte[] pdbBytes, string dllLocalPath, out Assembly assembly)
-        {
-            assembly = null;
-            try
-            {
-                if (pdbBytes.IsNullOrEmpty())
-                {
-                    assembly = Assembly.Load(dllBytes);
-                }
-                else
-                {
-                    assembly = Assembly.Load(dllBytes, pdbBytes);
-                }
-            }
-            catch (ReflectionTypeLoadException ex)
-            {
-                foreach (Exception inner in ex.LoaderExceptions)
-                {
-                    Debug.LogError($"{debugLine} - Error loading assembly: {dllLocalPath} | {inner.Message}");
-                    mod.errors.Add(new ModData.Error(ModData.ErrorType.Assembly, 
-                        "Could not load assembly", "ModErrorCouldNotLoadAssembly", string.Empty,
-                        inner.Message, FileManager.GetFullPath(FileManager.Type.JSONCatalog, FileManager.Source.Mods, dllLocalPath)));
-                    //add it to the loaded mods, even though we never really loaded it, this is to show it has been processed, but there is an error with it
-                    mod.Incompatible = true;
-                    loadedMods.Add(mod);
-                }
-                return false;
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError($"{debugLine} - Error loading assembly: {dllLocalPath} | {ex}");
-                mod.errors.Add(new ModData.Error(ModData.ErrorType.Assembly,
-                    "Could not load assembly", "ModErrorCouldNotLoadAssembly", string.Empty,
-                    ex.Message, FileManager.GetFullPath(FileManager.Type.JSONCatalog, FileManager.Source.Mods, dllLocalPath)));
-                //add it to the loaded mods, even though we never really loaded it, this is to show it has been processed, but there is an error with it
-                mod.Incompatible = true;
-                loadedMods.Add(mod);
-                return false;
-            }
-            return true;
-        }
 
         private static void LoadThunderScripts(Type type, ModData mod, Assembly assembly)
         {

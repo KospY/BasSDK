@@ -58,9 +58,7 @@ namespace ThunderRoad
             }
             set
             {
-
                 rigidBody.centerOfMass = value;
-
                 _centerOfMass = value;
                 onCenterOfMassChanged?.Invoke();
             }
@@ -92,12 +90,15 @@ namespace ThunderRoad
             set { rigidBody.angularVelocity = _angularVelocity = value; }
         }
 
+
         public Vector3 inertiaTensor
         {
-            get => rigidBody.inertiaTensor;
+            get
+            {
+                return rigidBody.inertiaTensor;
+            }
             set
             {
-
                 if (_isForcedFreeze)
                 {
                     _unfreezInertiaTensor = value;
@@ -113,10 +114,12 @@ namespace ThunderRoad
 
         public Quaternion inertiaTensorRotation
         {
-            get => rigidBody.inertiaTensorRotation;
+            get
+            {
+                return rigidBody.inertiaTensorRotation;
+            }
             set
             {
-
                 if (_isForcedFreeze)
                 {
                     _unfreezInertiaTensorRotation = value;

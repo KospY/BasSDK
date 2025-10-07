@@ -291,6 +291,13 @@ namespace ThunderRoad
             return (linearVelocity + velocity);
         }
 
+        public static Vector3 GetLinearVelocityAtPoint(PhysicBody physicBody, Vector3 position, Vector3 velocity, Vector3 angularVelocity)
+        {
+            Vector3 worldCenterOfMass = physicBody.transform.TransformPoint(physicBody.centerOfMass);
+            Vector3 linearVelocity = Vector3.Cross(angularVelocity, position - worldCenterOfMass);
+            return linearVelocity + velocity;
+        }
+
         public static Color ThreeColorLerp(Color min, Color mid, Color max, float t) => ThreePointLerp(min, mid, max, t);
 
         public static Vector4 ThreePointLerp(Vector4 min, Vector4 mid, Vector4 max, float t) => MultiPointLerp(t, min, mid, max);
@@ -1073,9 +1080,20 @@ namespace ThunderRoad
             return gradient;
         }
 
+        /// <summary>
+        /// Add a space before Uppercase letters or numbers
+        /// </summary>
+        /// <param name="input">Text to process</param>
+        /// <returns>Text updated and split with empty spaces</returns>
         public static string SplitCamelCase(string input)
         {
-            return Regex.Replace(input, "([A-Z])", " $1", RegexOptions.Compiled).Trim();
+            // Add space before uppercase letters that follow a lowercase letter or a digit
+            string result = Regex.Replace(input, "(?<=[a-z0-9])(?=[A-Z])", " ");
+
+            // Add space before numbers that follow a lowercase letter
+            result = Regex.Replace(result, "(?<=[a-z])(?=\\d+)", " ");
+
+            return result.Trim();
         }
 
         public static string UnicodeToInternationalCharacters(string str)

@@ -15,6 +15,7 @@ using Ionic.Crc;
 using Newtonsoft.Json.UnityConverters.Geometry;
 using Newtonsoft.Json.UnityConverters.Math;
 using Newtonsoft.Json.UnityConverters.Scripting;
+using UnityEditor;
 using UnityEngine.AddressableAssets.ResourceLocators;
 using UnityEngine.Profiling;
 using static ThunderRoad.AddressLocationCache;
@@ -1482,6 +1483,7 @@ namespace ThunderRoad
 
 #if UNITY_EDITOR
         public static List<AddressableAssetEntry> allEntries;
+        [MenuItem("ThunderRoad (SDK)/Tools/Refresh Addressable Entries", false)]
         public static void RefreshAddressableEntries()
         {
             //when we are in the editor, load all entries from the addressable asset settings and cache them on refresh

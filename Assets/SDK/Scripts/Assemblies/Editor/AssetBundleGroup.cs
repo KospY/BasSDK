@@ -3,12 +3,8 @@ using UnityEngine;
 using System.IO;
 using System.Text;
 using UnityEditor.AddressableAssets.Settings;
-
-#if ODIN_INSPECTOR
-using Sirenix.OdinInspector;
-#else
 using TriInspector;
-#endif
+using UnityEditor;
 
 namespace ThunderRoad
 {
@@ -26,14 +22,12 @@ namespace ThunderRoad
         public bool selected;
         [HideInInspector]
         public bool exportAfterBuild;
-
-        public bool isMod = false;
+        [HideInInspector]
+        public AssetBundleBuilderGUI.ExportMode exportMode = AssetBundleBuilderGUI.ExportMode.ToGame;
         
-        [ShowIf("isMod")]
-        [Header("Mod manifest")]
-        public bool exportModManifest;
-        [ShowIf("isMod")]
-        public string modName = "Unknown";
+        [HideInInspector]
+        public bool isMod => !isDefault;
+        
         [ShowIf("isMod")]
         public string modDescription = "Unknown";
         [ShowIf("isMod")]
@@ -42,7 +36,7 @@ namespace ThunderRoad
         public string modVersion = "1.0";
         [ShowIf("isMod")]
         public string modThumbnail;
-        
+
         public void OnValidate()
         {
             // Make sure folder name is valid
@@ -56,21 +50,36 @@ namespace ThunderRoad
         [ShowIf("isMod")]
         public void CreateModCatalogFolder()
         {
-            if (!exportModManifest)
-            {
-                Debug.LogWarning("Mod manifest export is disabled, enable it to create mod catalog folder.");
-                return;
-            }
-            
-            string path = Path.Combine(Application.dataPath, "../BuildStaging/Catalogs/Mods/" + folderName);
+            string path = Path.Combine(Application.dataPath, $"../BuildStaging/Catalogs/Mods/{folderName}");
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
             string manifestTempFolderPath = AssetBundleBuilderGUI.GenerateManifest(this);
             AssetBundleBuilder.CopyDirectory(manifestTempFolderPath, path);
-            Debug.Log("Mod manifest created at " + path);
+            Debug.Log($"Mod manifest created at {path}");
         }
+        [Button]
+        [ShowIf("isMod")]
+        public void OpenCatalogFolder()
+        {
+            string path = Path.Combine(Application.dataPath, $"../BuildStaging/Catalogs/Mods/{folderName}");
+            if (!Directory.Exists(path))
+            {
+                //display a dialog to ask if the user wants to create the folder
+                if (EditorUtility.DisplayDialog("Folder does not exist", "The folder does not exist. Do you want to create it?", "Yes", "No"))
+                {
+                    CreateModCatalogFolder();
+                }
+                else
+                {
+                    return;
+                }
+            }
+            //open the folder in explorer
+            EditorUtility.RevealInFinder(path);
+        }
+        
         [Button]
         public void CheckLabels()
         {

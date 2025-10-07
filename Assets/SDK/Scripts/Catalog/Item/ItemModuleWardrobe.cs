@@ -14,10 +14,6 @@ namespace ThunderRoad
 {
     public class ItemModuleWardrobe : ItemModule
     {
-	    public static ManikinEditorLocationLabels manikinChannelLayers;
-	    private static bool loadingManikinChannelLayers;
-	    const string manikinChanneLayersAddress = "Bas.Manikin.ChannelLayers";
-
         public float[] castSpeedPerHand;
 	    
 	    
@@ -66,22 +62,5 @@ namespace ThunderRoad
 #endif
         }
 
-        public static int GetLayer(string channel, string layer)
-        {
-	        if (manikinChannelLayers != null)
-	        {
-		        return manikinChannelLayers.GetLayer(channel, layer);
-	        }
-            return -1;
-        }
-        
-        public static string GetLayerName(string channel, int layer)
-		{
-			if (manikinChannelLayers != null)
-			{
-				return manikinChannelLayers.GetLayerName(channel, layer);
-			}
-			return string.Empty;
-		}
     }
 }

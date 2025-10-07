@@ -73,11 +73,6 @@ namespace ThunderRoad
         public bool hideInSkillMenu = false;
 
 #if ODIN_INSPECTOR
-        [BoxGroup("Skill Tree Display")]
-#endif
-        public bool IsCombinedSkill => !string.IsNullOrEmpty(primarySkillTreeId) && !string.IsNullOrEmpty(secondarySkillTreeId) && !primarySkillTreeId.Equals(secondarySkillTreeId);
-
-#if ODIN_INSPECTOR
         [BoxGroup("Skill Popup")]
 #endif
         public string skillTreeDisplayName;
@@ -228,7 +223,14 @@ namespace ThunderRoad
 
         [NonSerialized]
         public SkillTreeData secondarySkillTree;
-        
+
+#if ODIN_INSPECTOR
+        [ShowInInspector]
+        [ReadOnly]
+        [BoxGroup("Skill Tree Display")]
+#endif
+        public bool IsCombinedSkill => !string.IsNullOrEmpty(primarySkillTreeId) && !string.IsNullOrEmpty(secondarySkillTreeId) && !primarySkillTreeId.Equals(secondarySkillTreeId);
+
         // Only one should be blocker by Tier
 #if ODIN_INSPECTOR
         [BoxGroup("Skill Tree Display")]

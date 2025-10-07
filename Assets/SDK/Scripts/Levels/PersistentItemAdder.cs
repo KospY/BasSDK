@@ -5,7 +5,6 @@ using TriInspector;
 #endif
 using System;
 using System.Collections.Generic;
-
 using UnityEngine;
 
 namespace ThunderRoad

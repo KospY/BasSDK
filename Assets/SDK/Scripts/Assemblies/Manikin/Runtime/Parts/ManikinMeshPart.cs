@@ -4,22 +4,32 @@ using UnityEngine;
 
 namespace ThunderRoad.Manikin
 {
-    [RequireComponent(typeof(MeshRenderer)), DisallowMultipleComponent()]
+    [RequireComponent(typeof(MeshRenderer))]
+    [DisallowMultipleComponent()]
     public class ManikinMeshPart : ManikinPart
     {
         public bool useAttachment;
         public string boneAttachment;
 
-        [SerializeField, ShowOnlyInspector]
+        [SerializeField]
+        [ShowOnlyInspector]
         private MeshRenderer meshRenderer;
 
-        [SerializeField, HideInInspector]
-        private int boneHash;
+        private int boneHash
+        {
+            get
+            {
+                if (_boneHash == -1)
+                {
+                    _boneHash = Animator.StringToHash(boneAttachment);
+                }
+                return _boneHash;
+            }
+        }
+        private int _boneHash = -1;
 
         protected override void Awake()
         {
-            boneHash = Animator.StringToHash(boneAttachment);
-
             if (meshRenderer == null) { meshRenderer = GetComponent<MeshRenderer>(); }
         }
 
@@ -29,17 +39,12 @@ namespace ThunderRoad.Manikin
             if (meshRenderer == null) { meshRenderer = GetComponent<MeshRenderer>(); }
         }
 
-        /// <summary>
-        /// This is called when creating the part prefab in the editor.
-        /// </summary>
-        //public virtual void Initialize() { }
-
         public override Texture2D CreatePreview(string id, string path, int width, int height)
         {
             Renderer[] renderers = GetRenderers();
             if (renderers != null)
             {
-                Texture2D preview = ManikinPart.DrawPreview(renderers, rootRotation, width, height);
+                Texture2D preview = DrawPreview(renderers, rootRotation, width, height);
                 preview.name = id;
 
                 SavePreview(id, path, preview);
@@ -56,7 +61,9 @@ namespace ThunderRoad.Manikin
             if (useAttachment && rig != null)
             {
                 if (string.IsNullOrEmpty(boneAttachment))
+                {
                     return null;
+                }
 
                 if (rig.bones.TryGetValue(boneHash, out ManikinRig.BoneData boneData))
                 {
@@ -76,9 +83,6 @@ namespace ThunderRoad.Manikin
             return false;
         }
 
-        public override Renderer[] GetRenderers() 
-        {
-            return new Renderer[1] { meshRenderer };
-        }
+        public override Renderer[] GetRenderers() => new Renderer[1] { meshRenderer };
     }
 }

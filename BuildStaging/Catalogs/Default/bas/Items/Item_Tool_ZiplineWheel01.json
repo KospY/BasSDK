@@ -15,6 +15,7 @@
   "flags": "None",
   "levelRequired": 0,
   "category": "Utilities",
+  "update": "",
   "iconEffectId": null,
   "preferredItemCenter": "Mass",
   "drainImbueWhenIdle": true,
@@ -154,6 +155,17 @@
     {
       "$type": "ThunderRoad.ItemModuleStats, ThunderRoad",
       "stats": []
+    },
+    {
+      "$type": "ThunderRoad.ItemModuleReturnInInventory, ThunderRoad",
+      "returnsToLastHolder": false,
+      "returnsOnItemRelease": false,
+      "returnsWhenNotLookingAtIt": true,
+      "returnsAfterReachingMaxDistance": true,
+      "maxDistanceBeforeReturning": 20.0,
+      "timeAfterWhichItemReturn": 2.0,
+      "useReturningAnimation": false,
+      "returningVelocityValue": 0.0
     }
   ],
   "colliderGroups": [

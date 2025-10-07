@@ -81,5 +81,29 @@ namespace ThunderRoad
         public bool isLocked;
 
 
+
+        public void Lock()
+        {
+        }
+
+        public void Unlock()
+        {
+        }
+
+        public void ReleaseItem(Item item)
+        {
+        }
+
+        /// <summary>
+        /// Only work for one item
+        /// </summary>
+        /// <param name="target"></param>
+        public void ReleaseAndMove(Transform target)
+        {
+        }
+
+        public void ReleaseAllItems()
+        {
+        }
     }
 }

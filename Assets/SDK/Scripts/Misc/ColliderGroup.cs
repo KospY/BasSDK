@@ -29,6 +29,10 @@ namespace ThunderRoad
         public string imbueCustomSpellID;
         [Tooltip("List other collider groups here that you want this main collidergroup to share its imbue with.\n\nFor example, if a weapon is a double-sided axe, of which each blade is one different collider group, you can use this to make it so both colliders benefit from Imbue effects.")]
         public List<ColliderGroup> subImbueGroups;
+        
+        [Tooltip("(Optional) Add handles to this list to override what handles can be used to activate imbues on this collider group. If empty, all handles on the item activate imbues.")]
+        public List<Handle> imbueActivatorHandlesOverride;
+
         [Tooltip("Allow the spell to play its imbue effect when imbued")]
         public bool allowImbueEffect = true;
 

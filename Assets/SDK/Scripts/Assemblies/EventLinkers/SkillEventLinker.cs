@@ -50,7 +50,6 @@ namespace ThunderRoad
 
             public void Count()
             {
-
             }
         }
 

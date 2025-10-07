@@ -24,7 +24,7 @@
   "pooledCount": 0,
   "androidPooledCount": 0,
   "type": "Prop",
-  "allowedStorage": "Inventory, Container, SandboxAllItems",
+  "allowedStorage": "Inventory, Container",
   "despawnOnStoredInInventory": false,
   "isStackable": false,
   "consumableId": null,
@@ -201,7 +201,8 @@
       "mergeStartEffectId": "CrystalMergeStart",
       "mergeCompleteEffectId": "CrystalMergeNewTier",
       "endMergeTime": 1.0,
-      "activateEffectId": "CrystalActivate"
+      "activateEffectId": "CrystalActivate",
+      "allowMerge": true
     }
   ],
   "colliderGroups": [

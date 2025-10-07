@@ -53,6 +53,8 @@ namespace ThunderRoad
             OnNonGrabbedAlternateUsePress = 34,
             OnNonGrabbedAlternateUseRelease = 35,
             OnLinkerStart = 36,
+            OnEnterWater = 37,
+            OnExitWater = 38
         }
 
         public enum LifeState
@@ -93,7 +95,7 @@ namespace ThunderRoad
 
         public bool IsCopyable() => true;
 
-        public void CopyTo(UnityEngine.Object other) => ((IToolControllable)this).CopyControllableTo(other);
+        public void CopyTo(Object other) => ((IToolControllable)this).CopyControllableTo(other);
 
         public void CopyFrom(IToolControllable original)
         {

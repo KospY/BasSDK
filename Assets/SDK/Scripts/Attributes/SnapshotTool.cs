@@ -19,9 +19,11 @@ namespace ThunderRoad
         }
         public static void DoSnapshotTransition(AudioMixerSnapshot snapshot, float timeTransition)
         {
+#if !TESTINGLOCALLY
             snapshot.TransitionTo(timeTransition);
             currentSnapshot = snapshot;
             transitionEndTime = Time.unscaledTime + timeTransition;
+#endif
         }
     }
 }

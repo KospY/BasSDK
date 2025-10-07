@@ -8,7 +8,7 @@ using TriInspector;
 
 namespace ThunderRoad
 {
-    class PhysicBodyForceApplier : ThunderBehaviour, IToolControllable
+    public class PhysicBodyForceApplier : ThunderBehaviour, IToolControllable
     {
         public enum ForceApplyMode
         {
@@ -28,6 +28,7 @@ namespace ThunderRoad
         protected float linearForceRemainingDuration = -1;
 
         public ForceApplyMode linearForceApplyMode;
+        public Transform offsetTransform = null;
         public ForceMode linearForceType;
         public Vector3 linearForce;
 
@@ -62,42 +63,48 @@ namespace ThunderRoad
         }
 
         [Button]
-        public void StartAngularForce()
-        {
-            angularForceRemainingDuration = angularForceDuration;
-        }
+        public void StartAngularForce() => angularForceRemainingDuration = angularForceDuration;
 
         [Button]
-        public void StartLinearForce()
-        {
-            linearForceRemainingDuration = linearForceDuration;
-        }
+        public void StartLinearForce() => linearForceRemainingDuration = linearForceDuration;
 
         public bool IsCopyable() => true;
 
-        public void CopyTo(UnityEngine.Object other) => ((IToolControllable)this).CopyControllableTo(other);
+        public void CopyTo(UnityEngine.Object other)
+        {
+            ((IToolControllable)this).CopyControllableTo(other);
+        }
 
         public void CopyFrom(IToolControllable original)
         {
-            var originalApplier = original as PhysicBodyForceApplier;
-            linearForceActive = originalApplier.linearForceActive;
-            linearForceDuration = originalApplier.linearForceDuration;
-            linearForceApplyMode = originalApplier.linearForceApplyMode;
-            linearForceType = originalApplier.linearForceType;
-            linearForce = originalApplier.linearForce;
-            angularForceActive = originalApplier.angularForceActive;
-            angularForceDuration = originalApplier.angularForceDuration;
-            localAngularForce = originalApplier.localAngularForce;
-            angularForceType = originalApplier.angularForceType;
-            angularForce = originalApplier.angularForce;
+            if (original is PhysicBodyForceApplier orgForceApplier)
+            {
+                linearForceActive = orgForceApplier.linearForceActive;
+                linearForceDuration = orgForceApplier.linearForceDuration;
+                linearForceApplyMode = orgForceApplier.linearForceApplyMode;
+                if (orgForceApplier.linearForceApplyMode == ForceApplyMode.OffsetSpace && orgForceApplier.offsetTransform != null && orgForceApplier.offsetTransform.parent == orgForceApplier.transform)
+                {
+                    Transform copyOffset = new GameObject(orgForceApplier.offsetTransform.name).transform;
+                    copyOffset.SetParentOrigin(transform, orgForceApplier.offsetTransform.localPosition, orgForceApplier.offsetTransform.localRotation, orgForceApplier.offsetTransform.localScale);
+                    offsetTransform = copyOffset;
+                }
+                else
+                {
+                    offsetTransform = orgForceApplier.offsetTransform;
+                }
+                linearForceType = orgForceApplier.linearForceType;
+                linearForce = orgForceApplier.linearForce;
+                angularForceActive = orgForceApplier.angularForceActive;
+                angularForceDuration = orgForceApplier.angularForceDuration;
+                localAngularForce = orgForceApplier.localAngularForce;
+                angularForceType = orgForceApplier.angularForceType;
+                angularForce = orgForceApplier.angularForce;
+            }
         }
 
         public void ReparentAlign(Component other) => ((IToolControllable)this).ReparentAlignTransform(other);
 
-        public void Remove()
-        {
-            Destroy(this);
-        }
+        public void Remove() => Destroy(this);
 
         public Transform GetTransform() => transform;
 

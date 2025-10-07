@@ -60,6 +60,8 @@ namespace ThunderRoad
             OnPlayerLoseOwnership = 40,
             OnItemBought = 41,
             OnItemSold = 42,
+            OnItemEnterWater = 43,
+            OnItemExitWater = 44
         }
 
         [System.Serializable]

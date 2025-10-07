@@ -1,7 +1,8 @@
+# Source : https://gist.github.com/nemotoo/b8a1c3a0f1225bb9231979f389fd4f3f
+## Unity ##
 *.cs diff=csharp text
 *.cginc text
 *.shader text
-
 *.mat merge=unityyamlmerge eol=lf
 *.anim merge=unityyamlmerge eol=lf
 *.unity merge=unityyamlmerge eol=lf
@@ -11,3 +12,60 @@
 *.asset merge=unityyamlmerge eol=lf
 *.meta merge=unityyamlmerge eol=lf
 *.controller merge=unityyamlmerge eol=lf
+## git-lfs ##
+#Image
+*.jpg filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+*.png filter=lfs diff=lfs merge=lfs -text
+*.gif filter=lfs diff=lfs merge=lfs -text
+*.psd filter=lfs diff=lfs merge=lfs -text
+*.ai filter=lfs diff=lfs merge=lfs -text
+#Audio
+*.mp3 filter=lfs diff=lfs merge=lfs -text
+*.wav filter=lfs diff=lfs merge=lfs -text
+*.ogg filter=lfs diff=lfs merge=lfs -text
+#Video
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.mov filter=lfs diff=lfs merge=lfs -text
+#3D Object
+*.FBX filter=lfs diff=lfs merge=lfs -text
+*.fbx filter=lfs diff=lfs merge=lfs -text
+*.blend filter=lfs diff=lfs merge=lfs -text
+*.obj filter=lfs diff=lfs merge=lfs -text
+#ETC
+*.a filter=lfs diff=lfs merge=lfs -text
+*.exr filter=lfs diff=lfs merge=lfs -text
+*.tga filter=lfs diff=lfs merge=lfs -text
+*.pdf filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
+*.dll filter=lfs diff=lfs merge=lfs -text
+*.unitypackage filter=lfs diff=lfs merge=lfs -text
+*.aif filter=lfs diff=lfs merge=lfs -text
+*.ttf filter=lfs diff=lfs merge=lfs -text
+*.rns filter=lfs diff=lfs merge=lfs -text
+*.reason filter=lfs diff=lfs merge=lfs -text
+*.lxo filter=lfs diff=lfs merge=lfs -text
+#CUSTOM
+*.exe filter=lfs diff=lfs merge=lfs -text
+*.cubemap merge=unityyamlmerge eol=lf
+*LightingData.asset filter=lfs diff=lfs merge=lfs -text
+*NavMesh.asset filter=lfs diff=lfs merge=lfs -text
+*terrain*.asset filter=lfs diff=lfs merge=lfs -text
+*Meshes*.asset filter=lfs diff=lfs merge=lfs -text
+*.raw filter=lfs diff=lfs merge=lfs -text
+*.pdn filter=lfs diff=lfs merge=lfs -text
+*.svg filter=lfs diff=lfs merge=lfs -text
+*.ico filter=lfs diff=lfs merge=lfs -text
+*.aif filter=lfs diff=lfs merge=lfs -text
+*.flac filter=lfs diff=lfs merge=lfs -text
+*.unitypackage filter=lfs diff=lfs merge=lfs -text
+*ColorTable.asset filter=lfs diff=lfs merge=lfs -text
+#UMA
+*race*.asset filter=lfs diff=lfs merge=lfs -text
+*TPose*.asset filter=lfs diff=lfs merge=lfs -text
+*Slot*.asset filter=lfs diff=lfs merge=lfs -text
+*Overlay*.asset filter=lfs diff=lfs merge=lfs -text
+*AssetIndexer.asset filter=lfs diff=lfs merge=lfs -text
+*.c4d filter=lfs diff=lfs merge=lfs -text
+*PolyMeshAsset.asset filter=lfs diff=lfs merge=lfs -text
+Assets/Experimental/Shadowood/Ocean/OceanExample/HomeExample/Home_Android_Alex_*.unity filter=lfs diff=lfs merge=lfs -text

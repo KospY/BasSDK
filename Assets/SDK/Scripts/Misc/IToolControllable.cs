@@ -8,15 +8,15 @@ namespace ThunderRoad
 
         public void CopyControllableTo(UnityEngine.Object other)
         {
+            if (!IsCopyable())
+            {
+                Debug.LogWarning("Tried to copy a component type that doesn't support copying!");
+                return;
+            }
             GameObject gameObject = other as GameObject ?? (other is Component component ? component.gameObject : null);
             if (gameObject == null)
             {
                 Debug.LogError("Tried to copy a component to an object which isn't in the scene!");
-                return;
-            }
-            if (!IsCopyable())
-            {
-                Debug.LogWarning("Tried to copy a component type that doesn't support copying!");
                 return;
             }
             (gameObject.AddComponent(GetType()) as IToolControllable).CopyFrom(this);

@@ -67,6 +67,11 @@ namespace ThunderRoad
         public int wavesNumberForReward = 1;
         public List<Waves> waves;
 
+        public delegate void WaveComplete(LevelModuleSurvival module, int waveNumber);
+
+        public event WaveComplete waveComplete;
+
+        
         // Text
 #if ODIN_INSPECTOR
         [ValueDropdown(nameof(GetAllTextGroupID))]

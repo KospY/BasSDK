@@ -19,6 +19,10 @@ namespace ThunderRoad
                 {
                     _instance = FindObjectOfType<T>();
                 }
+                if (_instance == null)
+                {
+                    Debug.LogError($"Unable to find instance of singleton {typeof(T).Name} in scene.");
+                }
 #endif //UNITY_EDITOR
 
                 return _instance;

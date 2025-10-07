@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+
 
 
 #if ODIN_INSPECTOR
@@ -11,6 +14,7 @@ using TriInspector;
 
 namespace ThunderRoad
 {
+    [System.Serializable]
     public class BrainModuleSpeak : BrainData.Module
     {
         public bool audioEnabled = true;

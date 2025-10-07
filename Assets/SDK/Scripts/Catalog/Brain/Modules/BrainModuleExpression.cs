@@ -3,14 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 
-#if ODIN_INSPECTOR
-using Sirenix.OdinInspector;
-#else
+
 using TriInspector;
-#endif
+using Newtonsoft.Json;
 
 namespace ThunderRoad
 {
+    [System.Serializable]
     public class BrainModuleExpression : BrainData.Module
     {
         [Serializable]
@@ -19,20 +18,17 @@ namespace ThunderRoad
             public FaceAnimator.Expression expression;
             public List<FaceAnimator.Expression> expressionsActive;
             public float variance = 0.05f;
-            public AnimationCurve weightCurve = new AnimationCurve();
+            public AnimationCurve weightCurve = new();
             public bool factorMood = false;
-#if ODIN_INSPECTOR
             [ShowIf("factorMood")]
-#endif
             public float moodMultiplier = 0.1f;
-#if ODIN_INSPECTOR
             [ShowIf("factorMood")]
-#endif
-            public Vector2 moodFactorMinMax = new Vector2(-10f, 10f);
+            public Vector2 moodFactorMinMax = new(-10f, 10f);
 
             [NonSerialized]
             public float lastValue;
         }
+
         [Header("Mood and microexpressions")]
         public float moodBase = 0f;
         public bool persistantNPCMood = false;
@@ -44,6 +40,7 @@ namespace ThunderRoad
         [Header("Speech")]
         public int defaultSpeakFaceIndex = 0;
         public float neutralExpressionResetTime = 5f;
+        public float delayHideSubtitleDuration = 0.6f;
         [Header("Pain and death")]
         public float painExpressionDuration = 0.3f;
 

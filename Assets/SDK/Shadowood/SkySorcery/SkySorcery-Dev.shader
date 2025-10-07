@@ -26,11 +26,11 @@ Shader "Skybox/SkySorcery-Dev"
 		ENDCG
 		Blend Off
 		AlphaToMask Off
-		Cull Back
+		Cull Off
 		ColorMask RGBA
 		ZWrite Off
 		ZTest LEqual
-		
+		ZClip False
 		
 		
 		Pass

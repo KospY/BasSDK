@@ -2,11 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Shadowood;
-#if ODIN_INSPECTOR
-using Sirenix.OdinInspector;
-#else
 using TriInspector;
-#endif
 #if UNITY_EDITOR && ODIN_INSPECTOR
 using Sirenix.OdinInspector.Editor;
 #endif
@@ -68,6 +64,8 @@ namespace Shadowood
         //[InlineButton("FindOceanSurface")]
         public Transform oceanSurface;
 
+        public bool watchOceanSurfaceTransform = false;
+
         public void FindOceanSurface()
         {
             //TODO FindOceanSurface not implemented
@@ -83,7 +81,7 @@ namespace Shadowood
         [ShowIf("affectUnityFog")] public float skyFogStart = 0, skyFogEnd = 100000;
         */
 
-        [Header("Light Sync")] [GUIColor("@lightTarget ? Color.white : Color.red")] [InlineButton("FindSun")] [InlineButton("SyncWithLight", "Sync")]
+        [Header("Light Sync")] [GUIColor("@lightTarget ? Color.white : Color.red")]
         public Light lightTarget;
 
         public Color lightColorMult = Color.white;
@@ -103,7 +101,7 @@ namespace Shadowood
         {
             get
             {
-                if (!cachedOceanHeight)
+                if (!cachedOceanHeight || watchOceanSurfaceTransform)
                 {
                     _oceanHeight = oceanSurface.position.y;
                     cachedOceanHeight = true;
@@ -119,12 +117,14 @@ namespace Shadowood
             }
         }
 
+        [Button]
         public void FindSun()
         {
             lightTarget = RenderSettings.sun;
             SyncWithLight();
         }
 
+        [Button]
         public void SyncWithLight()
         {
             if (!lightTarget) return;
@@ -192,11 +192,11 @@ namespace Shadowood
         //[Range(0.00001f, 1)] public float fogDensityMult = 1;
 
         [GUIColor("@oceanFogAsset ? Color.white : Color.red")] //
-        [InlineButton("FindOceanFogAsset")]
         [InlineEditor]
         public OceanFogAsset oceanFogAsset;
 
 #if UNITY_EDITOR
+        [Button]
         public void FindOceanFogAsset()
         {
             oceanFogAsset = OceanFogAsset.CreateAsset("");

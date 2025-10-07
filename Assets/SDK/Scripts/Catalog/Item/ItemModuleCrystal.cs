@@ -125,6 +125,8 @@ namespace ThunderRoad
         [NonSerialized]
         public SkillTreeData skillTreeData;
 
+        public bool allowMerge = true;
+
 
 
 

@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff2def284595bc47a2a7ecec031f55e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 1
+  debugCaustics: 0
   texturesPath: Assets\SDK\Shadowood\Ocean\Caustics\C.Sequence\
   causticTextures:
   - {fileID: 2800000, guid: cd849b0e17901c04a82cfc048d6920d9, type: 3}
@@ -388,7 +388,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 55306854034582825}
-  - component: {fileID: 55306854034582824}
   - component: {fileID: 8770897429647703065}
   - component: {fileID: 55306854034582807}
   m_Layer: 0
@@ -413,18 +412,6 @@ Transform:
   m_Father: {fileID: 55306853356412613}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &55306854034582824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 55306854034582805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7090b439a5eabe47a2da1675ad178e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8770897429647703065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,7 +508,9 @@ MonoBehaviour:
   fluidColorTexName: _FluidColor
   fluidVelocityTexName: _FluidVelocity
   depthCacheTex: {fileID: 0}
+  depthCacheTexTemp: {fileID: 0}
   colorCacheTex: {fileID: 0}
+  colorCacheTexTemp: {fileID: 0}
   fluidVelCacheTex: {fileID: 0}
   fluidColCacheTex: {fileID: 0}
   dilationResult: {fileID: 0}
@@ -537,6 +526,8 @@ MonoBehaviour:
   blurColorIteration: 1
   blurBlendMix: 0.52
   blurDepthIteration: 1
+  dilation: 1
+  matDilation: {fileID: 0}
   meshCollidersDebug: []
   applyEveryFrame: 0
 --- !u!64 &55306854034582807
@@ -650,6 +641,7 @@ MonoBehaviour:
   riverCollider: {fileID: 0}
   boundLimit: {fileID: 0}
   oceanSurface: {fileID: 55306854034582825}
+  watchOceanSurfaceTransform: 0
   lightTarget: {fileID: 0}
   lightColorMult: {r: 1, g: 0.7618187, b: 0.5803922, a: 1}
   copyLightIntensity: 1
