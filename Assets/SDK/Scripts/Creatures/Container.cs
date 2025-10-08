@@ -43,6 +43,22 @@ namespace ThunderRoad
 
 #endif
 
+        public void Load()
+        {
+        }
+
+        public void ClearLinkedHolders()
+        {
+        }
+
+        public void LoadFromContainerId()
+        {
+        }
+
+        public void LoadFromPlayerInventory()
+        {
+        }
+
     }
 }
 
