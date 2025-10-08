@@ -8,22 +8,23 @@ using Object = UnityEngine.Object;
 using UnityEditor;
 #endif
 
-#if ODIN_INSPECTOR
-using Sirenix.OdinInspector;
-#else
 using TriInspector;
-#endif
 
 namespace ThunderRoad
 {
+    [DrawWithTriInspector]
+    [HideMonoScript]
     [HelpURL("https://kospy.github.io/BasSDK/Components/ThunderRoad/AdvancedAudioContainer")]
     [CreateAssetMenu(menuName = "ThunderRoad/Audio/Advanced audio container")]
+    [DeclareVerticalGroup("Vert1")]
+    [DeclareHorizontalGroup("Vert1/Horiz")]
+    [DeclareVerticalGroup("Vert2")]
+    [DeclareHorizontalGroup("Vert2/Horiz")]
     public class AdvancedAudioContainer : ScriptableObject
     {
         [Serializable]
         public class AudioClipData
         {
-            [ReadOnly]
             public AudioClip audio;
             public AnimationClip animation;
             public FaceAnimator.Expression dialogExpression;
@@ -34,7 +35,7 @@ namespace ThunderRoad
             public int weight = 1;
 # if UNITY_EDITOR
             [ShowInInspector]
-            public float percent => Mathf.RoundToInt(1000f * ((float)weight / (Mathf.Approximately(totalWeight, 0f) ? weight : totalWeight))) / 10f;
+            public float percent => totalWeight > 0 ? Mathf.RoundToInt(1000f * ((float)weight / (Mathf.Approximately(totalWeight, 0f) ? weight : totalWeight))) / 10f : 0f;
             [ShowInInspector]
             [ReadOnly]
             public string transcriptionText
@@ -62,16 +63,14 @@ namespace ThunderRoad
 
             public AudioClipData(AudioClip aud) => audio = aud;
         }
-#if ODIN_INSPECTOR
-        [HorizontalGroup("Horiz")]
-#endif
+
+        [Group("Vert1/Horiz")]
         public bool useShuffle;
-#if ODIN_INSPECTOR        
-        [HorizontalGroup("Horiz")]
-#endif
+        [Group("Vert1/Horiz")]
         public bool showSubtitles = true;
 #if UNITY_EDITOR
-        [TableList(AlwaysExpanded = true)]
+        [Group("Vert2")]
+        [TableList(AlwaysExpanded = true, Draggable = true)]
         [OnValueChanged(nameof(UpdateWeights))]
 #endif
         public List<AudioClipData> clips = new();
@@ -91,10 +90,7 @@ namespace ThunderRoad
             }
         }
 
-        [Header("Modify Container")]
-        [NonSerialized]
-        public AudioClip newClip;
-
+        [Group("Vert2")]
         [Button]
         public void SetAllExpressions(FaceAnimator.Expression exp)
         {
@@ -104,6 +100,7 @@ namespace ThunderRoad
             }
         }
 
+        [Group("Vert2/Horiz")]
         [Button]
         public void IDFindAndReplace(string find = "", string replace = "")
         {
@@ -122,6 +119,7 @@ namespace ThunderRoad
             }
         }
 
+        [Group("Vert2/Horiz")]
         [Button]
         public void AddTranscriptionIDsToTextJSON(string textID = "English", string groupID = "Dialog")
         {
@@ -142,26 +140,6 @@ namespace ThunderRoad
         private void OnValidate()
         {
             clips ??= new List<AudioClipData>();
-#if UNITY_EDITOR
-            UpdateWeights();
-            if (newClip != null)
-            {
-                foreach (AudioClipData data in clips)
-                {
-                    if (data.audio == newClip)
-                    {
-                        newClip = null;
-                        return;
-                    }
-                }
-                clips.Add(new AudioClipData(newClip));
-            }
-            newClip = null;
-            foreach (var clip in clips)
-            {
-                clip.weightUpdate = UpdateWeights;
-            }
-#endif
         }
 
         public AudioContainer audioContainer
