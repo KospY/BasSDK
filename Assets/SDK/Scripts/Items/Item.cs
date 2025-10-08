@@ -480,6 +480,16 @@ namespace ThunderRoad
 
         public ItemData.CustomSnap GetCustomSnap(string holderName)
         {
+            if (itemId.IsNullOrEmptyOrWhitespace()) return null;
+            var data = Catalog.GetData<ItemData>(itemId);
+            if (data == null) return null;
+            foreach (ItemData.CustomSnap customSnap in data.customSnaps)
+            {
+                if (customSnap.holderName == holderName)
+                {
+                    return customSnap;
+                }
+            }
             return null;
         }
 

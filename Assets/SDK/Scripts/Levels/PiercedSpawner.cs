@@ -100,6 +100,9 @@ namespace ThunderRoad
 
         protected void FindPiercePoint()
         {
+            lastCalcPiercePointStart = transform.position;
+            lastCalcPiercePointRotat = transform.eulerAngles;
+            colliderPiercePoint = transform.forward * raycastDistance;
         }
 
 
