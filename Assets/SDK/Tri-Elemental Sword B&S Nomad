@@ -1,0 +1,205 @@
+(Folder Structure)
+TriElementKatana/
+│
+├── Scripts/
+│   └── ItemModuleTriElementKatana.cs
+│
+├── Items/
+│   └── TriElementKatana.json
+│
+└── Models/
+    └── KatanaStraight.prefab
+
+(C#)
+using ThunderRoad;
+using UnityEngine;
+using System.Collections.Generic;
+
+public class ItemModuleTriElementKatana : ItemModule
+{
+    public List<string> spellIds = new List<string>()
+    {
+        "Fire",
+        "Lightning",
+        "Gravity"
+    };
+
+    public float imbueEnergy = 50f;
+    public float holdCancelTime = 0.4f;
+
+    private int currentIndex = -1;
+    private float altUseTimer;
+    private bool altHeld;
+
+    private Item item;
+
+    public override void OnItemLoaded(Item item)
+    {
+        base.OnItemLoaded(item);
+        this.item = item;
+
+        item.OnHeldActionEvent += OnHeldAction;
+    }
+
+    private void OnHeldAction(RagdollHand hand, Handle handle, Interactable.Action action)
+    {
+        if (action == Interactable.Action.AlternateUseStart)
+        {
+            altHeld = true;
+            altUseTimer = 0f;
+        }
+
+        if (action == Interactable.Action.AlternateUseStop)
+        {
+            if (altUseTimer < holdCancelTime)
+            {
+                CycleElement();
+            }
+            else
+            {
+                ClearImbue();
+            }
+
+            altHeld = false;
+        }
+    }
+
+    public override void Update()
+    {
+        base.Update();
+
+        if (altHeld)
+            altUseTimer += Time.deltaTime;
+    }
+
+    private void CycleElement()
+    {
+        currentIndex++;
+
+        if (currentIndex >= spellIds.Count)
+            currentIndex = 0;
+
+        ApplyImbue(spellIds[currentIndex]);
+    }
+
+    private void ApplyImbue(string spellId)
+    {
+        SpellCastCharge spell = Catalog.GetData<SpellCastCharge>(spellId, true);
+        if (spell == null) return;
+
+        foreach (Imbue imbue in item.imbues)
+        {
+            imbue.Transfer(spell, imbueEnergy);
+        }
+
+        item.data.PlayAudioClip("Imbue");
+    }
+
+    private void ClearImbue()
+    {
+        currentIndex = -1;
+
+        foreach (Imbue imbue in item.imbues)
+        {
+            imbue.Clear();
+        }
+
+        item.data.PlayAudioClip("Disimbue");
+    }
+}
+
+(Item JSON)
+{
+  "id": "Tri-ElementKatana",
+  "type": "Weapon",
+  "category": "Swords",
+  "modules": [
+    {
+      "name": "ItemModuleTri-ElementKatana",
+      "spellIds": [ "Fire", "Lightning", "Gravity" ],
+      "imbueEnergy": 50
+    }
+  ],
+  "imbues": [
+    {
+      "id": "BladeImbue",
+      "maxEnergy": 100
+    }
+  ]
+}
+
+(Lightning ability)
+private void LightningAbility(Creature creature, CollisionInstance collision)
+{
+    if (creature == null || creature.isKilled) return;
+
+    // Apply electrocution visual + effect
+    StatusData electrocute = Catalog.GetData<StatusData>("Electrocute", true);
+    creature.TryPushStatusEffect(electrocute, 10f);
+
+    // Force limp paralysis
+    creature.ragdoll.SetState(Ragdoll.State.Inert);
+
+    // Drop weapons
+    creature.handLeft.TryRelease();
+    creature.handRight.TryRelease();
+
+    // Prevent AI recovery
+    creature.brain.Stop();
+
+    // Restore after 10 seconds
+    creature.StartCoroutine(RestoreFromParalysis(creature, 10f));
+}
+
+(Fire ability)
+private void FireAbility(Creature creature, CollisionInstance collision)
+{
+    if (creature == null || creature.isKilled) return;
+
+    // 1. Small explosion knockback
+    Explosion(
+        collision.contactPoint,
+        3f,     // radius
+        6f      // force
+    );
+
+    // 2. Dismember hit limb
+    if (collision.damageStruct.hitRagdollPart != null)
+    {
+        RagdollPart part = collision.damageStruct.hitRagdollPart;
+
+        if (part.sliceAllowed && part.data.sliceForce > 0)
+        {
+            Vector3 sliceDir = collision.impactVelocity.normalized;
+
+            creature.TrySlice(
+                part,
+                sliceDir,
+                part.data.sliceForce * 2f
+            );
+        }
+    }
+}
+
+(Gravity ability)
+private void GravityAbility(Creature creature, CollisionInstance collision)
+{
+    if (creature == null || creature.isKilled) return;
+
+    // 1. Knockback on hit
+    Vector3 knockDir = collision.impactVelocity.normalized;
+    creature.ragdoll.SetPhysicModifier(
+        this,
+        0.5f,
+        0f,
+        knockDir * 6f,
+        ForceMode.Impulse
+    );
+
+    // 2. Apply gravity (float) effect
+    StatusData gravityStatus = Catalog.GetData<StatusData>("Gravity", true);
+    creature.TryPushStatusEffect(gravityStatus, 5f); // float duration
+
+    // 3. Slam enemy downward after float ends
+    creature.StartCoroutine(GravitySlam(creature, 5f));
+}
