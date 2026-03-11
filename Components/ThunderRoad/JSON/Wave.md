@@ -3,13 +3,13 @@ parent: JSON
 grand_parent: ThunderRoad
 ---
 
-# Wave
+# Waves
 
-The Wave JSON is used to spawn waves of enemies in maps in Blade and Sorcery. 
+A Wave JSON is used to spawn waves of enemies in maps in Blade and Sorcery. 
 
 | Keys                          | Description |
 | ---                           | --- |
-| id                            | ID of the wave. Make sure it is unique so it does not overwrite/conflict with other mods |
+| id                            | The unique ID for the wave |
 | version                       | Version of JSON. MUST be `2` |
 | category                      | What category the wave will come under. If the category doesn't already exist, it will create a new one on the Wave Spawner |
 | localizationID                | ID of the section of the localisation that will change the "title" and "description depending on Language. |

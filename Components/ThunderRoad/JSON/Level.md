@@ -3,14 +3,14 @@ parent: JSON
 grand_parent: ThunderRoad
 ---
 
-# Level
+# Levels
 
-The Level JSON is used to be able to load in to a level. 
+A Level JSON is used to be able to load into a level. 
 
 | Keys                          | Description |
 | ---                           | --- |
-| id                            | Unique Identifier of the level, make sure this is unique so it does not conflict with other levels. |
-| version                       | Version of the json. MUST BE "3" |
+| id                            | The unique ID for the level |
+| version                       | Version of the JSON. Must be **3** |
 | name                          | Name of the level. This appears on the map board as the "name" of the level. Does not have to be unique. |
 | description                   | Description of the level, which will appear on the map board when you click on the level |
 | descriptionLocalizationId     | Description of the level, using the ID to link to the localization files. |

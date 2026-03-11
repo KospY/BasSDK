@@ -6,14 +6,15 @@ title: GameModes
 
 # GameModes
 
-The "GameModes" JSON is used to create game modes in Blade and Sorcery. It allows you to change specific components of the game, as well as allow you to adjust difficulty settings and the Home Level.
+A GameMode JSON is used to create game modes in Blade and Sorcery. It allows you to change specific components of the game, as well as allow you to adjust difficulty settings and the Home Level.
 
 {: .note}
 If you want to change any points regarding already-existing game modes, it is recommended to only reference the ID and the field you have edited, to prevent any file override conflicts.
 
 | Keys                          | Description |
 | ---                           | --- |
-| id                            | ID of the gamemode. Must be unique to avoid conflict of already existing gamemodes. |
+| id                            | The unique ID for the game mode |
+| version                       | Version of the JSON. Must be **0** |
 | name                          | Name of the gamemode that will appear on GameMode Selection |
 | nameLocalizationId            | ID of the localization section for the "name". |
 | warning                       | The text used before you start the game. For example, this would be used if you have Mods instlaled for CrystalHunt |
