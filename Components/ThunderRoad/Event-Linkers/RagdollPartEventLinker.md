@@ -1,5 +1,5 @@
 ---
-parent: Creatures
+parent: Event-Linkers
 grand_parent: ThunderRoad
 ---
 # Ragdoll Part Event Linker

@@ -4,11 +4,9 @@ grand_parent: ThunderRoad
 ---
 # Hinge Drive
 
-{: .note}
 The HingeDrive script is a component which creates a [HingeJoint](https://docs.unity3d.com/Manual/class-HingeJoint.html) on play, and has many features in addition to help with stylised dynamic objects. It includes features such as a motors, latches and [UnityEvents](https://docs.unity3d.com/Manual/UnityEvents.html).
 
-
-## Fields
+![HingeDrive][HingeDrive]
 
 | Field                                       | Description
 | ---                                         | ---
@@ -80,8 +78,6 @@ The HingeJoint component has a number of UnityEvents that are invoked when the c
 | On Player Releasing Latch Button            | Event will play when the hinge latch, which is grabbed by the player, is released.
 | On Latch Break                              | Event will play when the hinge latch is broken
 | On Hinge Hit Threshold                      | Event will play when the hinge hits its velocity threshold (?)
-
-![HingeDrive][HingeDrive]
 
 ### Gizmo
 

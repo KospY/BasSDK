@@ -49,4 +49,4 @@ Generally, you can leave this value at `0`.
 [Handle]:         {{ site.baseurl }}{% link Components/ThunderRoad/Items/Handle.md %}
 [Rope]:           {{ site.baseurl }}{% link Components/ThunderRoad/Levels/Rope.md %}
 [Holder]:         {{ site.baseurl }}{% link Components/ThunderRoad/Items/Holder.md %}
-[Wearable]:       {{ site.baseurl }}{% link Components/ThunderRoad/Items/Wearable.md %}
+[Wearable]:       {{ site.baseurl }}{% link Components/ThunderRoad/Creatures/Wearable.md %}

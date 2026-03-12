@@ -11,6 +11,19 @@ This script also is a dependacy of imbuing weapons, and some fields require inpu
 
 ![Script Preview][SPreview]
 
+| Field | Description |
+| :--- | :--- |
+| imbueEffectRenderer | (Optional) Use a mesh instead of collider(s) to apply imbue vfx and particles effects |
+| imbueEmissionRenderer | (Optional) Set a renderer to apply emission to the object of which it is imbued to. Note that emission must be white in the texture to ensure it gets the correct colours. |
+| imbueShoot | Set the spawn position/direction of spell-based projectiles (e.g. Flamethrower).<br><br>Blue Arrow/Z Axis points forward. |
+| whooshPoint | This point is used to determine the velocity that the whoosh uses. This does not create the whoosh sound, that is used in the Whoosh component.<br><br>If left empty, it will create an object at runtime, located at the position of the colll |
+| imbueCustomFxController | Custom imbue effect |
+| imbueCustomSpellID | Allow a unique spell ID for custom imbue effect |
+| subImbueGroups | List other collider groups here that you want this main collidergroup to share its imbue with.<br><br>For example, if a weapon is a double-sided axe, of which each blade is one different collider group, you can use this to make it so both colliders benefit from Imbue effects. |
+| imbueActivatorHandlesOverride | (Optional) Add handles to this list to override what handles can be used to activate imbues on this collider group. If empty, all handles on the item activate imbues. |
+| allowImbueEffect | Allow the spell to play its imbue effect when imbued |
+| colliderGroupId \[Dropdown\] | The ID this collider group will load when it is enabled |
+
 ## Generate Imbue Mesh Button and the Imbue Effect Renderer
 
 Before all components are filled in, it is recommended to create colliders for the collider group. For example, set up a collider group and colliders for the blade, a different collider group and colliders for the handle, etc. Ensure that these colliders are a child of the collider group.
@@ -39,10 +52,10 @@ It is recommended that there is one mesh per collider group. Do not reference a 
 
 ## Imbue Shoot
 
-The Imbue Shoot transform is to depict where spells shoot from if the weapon is set up like a magic staff. The Z Axis / Blue Arrow points forward as to where the projectile appears from
+The Imbue Shoot transform is to depict where spells shoot from if the weapon is set up like a magic staff. The Z Axis / Blue Arrow points forward as to where the projectile appears from. See the [Creating-Staves]({{ site.baseurl }}{% link Components/Guides/Items/CreatingStaves.md %}) guide for more info.
 
 {: .tip}
-The Magic Staff Collider group reference is referenced in the Item JSON. This will be useless if not set up so.
+The `CrystalStaff` Collider group ID reference is referenced in the Item JSON. This will be useless if not set up so.
 
 
 ## Whoosh Point
@@ -58,15 +71,16 @@ This is your [FX Controller][FXController] if you want to make a custom FX for y
 This is needed to spawn the Imbue Custom Fx Controller, where the ID is the spell that can trigger this FX. (e.g. Fire, Gravity, Lightning)
 
 ## Sub Imbue Groups
-{: .note}
-Picture will be provided soon
+
+![SubImbueGroup]
 
 Sub imbue groups allows you to share an imbue across multiple collider groups. The one that uses the sub imbue groups is seen as a parent imbue, and will share it's imbue across the referenced ones. This allows you to create an item, such as a double sided axe, to have an imbue shared across both blades, despite them being on separate collider groups.
 
 With this, it is also possible to share Imbue across weapon LODs. You can create multiple ColliderGroups that utilise a different Imbue Emission Renderer for each of the LOD, so they share emissions.
 
 [EventLinker]: {{ site.baseurl }}{% link Components/ThunderRoad/Event-Linkers/CollisionEventLinker.md %}
-[Damager]:      {{ site.baseurl }}{% link Components/ThunderRoad/Items/Damager.md %}
+[Damager]:      {{ site.baseurl }}{% link Components/ThunderRoad/Items/Damager.md %}#
+[SubImbueGroup]:     {{ site.baseurl }}/assets/components/ColliderGroup/SubImbueGroup.png
 [SPreview]:     {{ site.baseurl }}/assets/components/ColliderGroup/CollidergroupScript.png
 [ImbueGenMesh]: {{ site.baseurl }}/assets/components/ColliderGroup/ImbueMeshGen.PNG
 [MeshRenderer]: {{ site.baseurl }}/assets/components/ColliderGroup/ImbueMeshDisable.PNG

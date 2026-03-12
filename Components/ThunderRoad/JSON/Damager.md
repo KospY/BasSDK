@@ -11,10 +11,6 @@ A Damager JSON controls properties of a damager component. Read more about damag
 | ---                                       | ---
 | id                                        | The unique ID for the damager
 | version | Version of the JSON. Must be **4** |
-| sensitiveContent                          | Flags that remark what (if any) elements of this data contain content that is sensitive to some users
-| sensitiveContentFlags                     | <details>- None<br>- Blood<br>- Burns<br>- Dismemberment<br>- Desecration<br>- Skeleton<br>- Spider<br>- Insect<br>- Snake<br>- Bird<br>- Fright</details>
-| sensitiveFilterBehavior                   | How this data should be processed if any of the above flags are forbidden by the game
-| sensitiveFilterBehavior \[Flags\]         | <details>- Discard [This data will be skipped]<br>- Keep [This data will be included]</details>
 | damageModifierID                          | The ID of the Damage Modifier Data this damager uses
 | tiers                                     | An ordered list of modifiers to the damager's behavior, respective to the tier of the weapon this damager is attached to
 | velocityDamageCurve                       | Represents a curve which describes the relation between the force of an impact and the damage inflicted

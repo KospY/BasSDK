@@ -29,10 +29,10 @@ The `ThrowSpinner` component can be used to rotate items as they fly, its primar
 - Make the "Rotation Center" GameObject as a child of the fly dir ref, then set the position/rotation of the fly dir ref to `(x0, y0, z0)` (this should make it fly better)
 - You can tweak the allowances and check the physics component snapping relative to mesh rotation and tweak the allowances up/down until you find a good combination of settings. 
 
-![ThrowSpinnerExample]
-
 {: .tip}
 Weapons like axes probably don't want the default settings of 180/15, but maybe something closer to 90/50. Allowances define how far ahead (the x value) in degrees the physics components can be of the mesh, and how far behind (the y value) they can be. For something like the shuriken, the settings are 90/15 since there are piercing components on all sides of the mesh.
+
+![ThrowSpinnerExample]
 
 [Inspector]: {{ site.baseurl }}/assets/components/ThrowSpinner/ThrowSpinner.png
 [ThrowSpinnerExample]: {{ site.baseurl }}/assets/components/ThrowSpinner/ThrowSpinnerExample.gif

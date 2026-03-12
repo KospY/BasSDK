@@ -11,6 +11,20 @@ The script will tell the user what the damager type it is set up for through an 
 
 ![Script Preview][SPreview]
 
+| Field | Description |
+| :--- | :--- |
+| colliderGroup | Specify Collider Group of which this damager will apply to. |
+| colliderOnly | (Optional) Can reference collider inside group if it is only using one collider |
+| direction | Specify which direction the damager will deal damage in.<br>All is best for Blunt Damage.<br>Forward and Back is best for Slash Damage.<br>Forward is best for Piercing Damage.<details>- All<br>- Forward<br>- ForwardAndBackward<br></details> |
+| penetrationLength | Length of which the item can pierce/slash with.<br>Set to 0 for Blunt damage and single-point Pierce damage. |
+
+# Depth
+
+| Field | Description |
+| :--- | :--- |
+| penetrationDepth | Depth of which a damager can deal slash damage.<br>Set to 0 for Blunt damage |
+| penetrationExitOnMaxDepth | Once the Penetration Depth has reached its' max, unpierce from the object |
+
 ## Damager Components
 ### "Collider Group" and "Collider Only"
 The [Collider Group][ColliderGroup] is another script used to reference a set of colliders. If there is one collider referenced, it would be best to reference this one collider in the "Collider Only" field. However, this is not required if it is referenced as a collider group. 

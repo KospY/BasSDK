@@ -4,7 +4,7 @@ grand_parent: ThunderRoad
 ---
 # Handle
 
-#### This component has an [Event Linker][EventLinker].
+##### This component has an [Event Linker][EventLinker].
 
 {: .note }
 This component inherits from [Interactable][Interactable]
@@ -14,49 +14,82 @@ This component inherits from [Interactable][Interactable]
 
 The Handle is a dependacy of an [Item][Item], and is used to be able to grab an item with correct handling. When created, it creates [HandlePose][Handlepose], which are used to adjust hand poses when handling the item.
 
-## Componentss
+![Component]
 
-| Field                       | Description
-| ---                         | ---
-| Interactable ID             | ID of the Interactable JSON. Automatically assigned via json if not placed in scene (e.g. spawned only via item spawner).
-| Allowed Hand Slide          | Choice between `Both`, `Left` and `Right`. Allows handle to only be able to be grabbed by specified hands.
-| Axis Length                 | Axis Length changes the length of the handle, allowing you to slide/grab it further up the handle. When >0, a button appears which allows point-to-point editing of the length.
-| Touch Radius                | Adjusts the `radius` to grab the handle.
-| Artificial Distance         | Creates a distance which shows UI that can be grabbed, however is not in touch radius, and will not grab `[Needs Confirmation]`.
-| Touch Center                | Allows you to offset the touch center from the middle of the handle. If set to `zero`, cannot be held with two hands.
-| Default Grab Axis Ratio     | Allows you to change the position on the `axis length` which is grabbed by default (e.g. when grabbed via telekinesis).
-| Ik Anchor Offset            | Offsets the IkAnchor transform. The X value is inverted when grabbed by the left hand.
-| Orientation Default         | Depicts the default [HandlePose][HandlePose] used when grabbing the weapon.
-| Release Handle              | When assigned with another handle, will ungrab this handle when the Release handle is grabbed.
-| Silent Grab                 | When ticked, no sound plays when the handle is grabbed.
-| Force Auto Drop when Grounded | When ticked, ungrabs the handle when the player is grounded (touching the ground).
-| Reach                       |   Lets AI know how far weapon is away from the player. `Should extend from handle to furthest part of the weapon (aka the tip of the weapon, or bottom of handle).` A button exists which calculates the range depending on the colliders of the weapon.
-| Hand Overlap Colliders      | Disables specified colliders when the handle is grabbed.
-| Custom Rigidbody            | Allows you to add a custom `rigidbody` to the handle (Do not refernece Item, you can leave this blank).
-| Slide to Up Handle          | Allows you to switch to another handle when reaching the `top` of the handle length.
-| Slide to Bottom Handle      | Allows you to switch to another handle when reaching the `bottom` of the handle length.
-| Slide to Handle Offset      | Offset where the "bottom" and "top" is indicated in the handle. Can switch handle when reaching 0.2 meters away from the bottom, for example.
-| Slide Behaviour             | Allows you to enable/disable handle sliding.
-| Move to Handle              | When you slide, and axis length is `zero`, will snap to this handle instead.
-| Move to Handle Axis Pos     | Axis position for the `Move to Handle` handle.
+# Grabbing
+
+| Field | Description |
+| :--- | :--- |
+| defaultGrabAxisRatio | Define where the handle is automatically grabbed along the axis length |
+| ikAnchorOffset |  |
+| silentGrab | When ticked, no sound will play when the handle is grabbed |
+| forceAutoDropWhenGrounded | When ticked, the player will ungrab the handle when grounded (touching the ground) |
+| ignoreClimbingForceOverride | The default handpose to be grabbed (Right Hand) |
+| spellOrbTarget | If the player can cast spells while holding this handle, this transform defines where the orb will appear. |
+| reach | Lets AI know how far the item is away from the player. You can use the button to calculate this automatically, so long as a ColliderGroup is set up with sufficient colliders. |
+| handOverlapColliders | (Optional)Disables listed colliders once the handle is grabbed. |
+| customRigidBody | (Optional) Allows you to add a custom rigidbody to the handle. (Do not reference item!) |
+| twoHandedRequireSamePhysicbody | If set to true, requires that both handlers be grabbing onto the same physicbody to count as two handed grip |
+| slideToUpHandle | (Optional) When player hand reaches the top of the handle via slide, it will switch to listed handle once the top is reached. |
+| slideToBottomHandle | (Optional) When player hand reaches the bottom of the handle via slide, it will switch to listed handle once the bottom is reached. |
+| slideToHandleOffset | (Optional) Offset of the bottom and top slide up handles. Can switch handle when reaching 0.2 meters away from the top/bottom, for example. |
+| slideBehavior | Allows you to enable/disable handle sliding (Only works on handles with a length greater than 0!)<details>- CanSlide<br>- KeepSlide<br>- DisallowSlide<br></details> |
+| moveToHandle | (Optional) When you slide up the handle, and the axis length is 0, sliding will instead snap to the referenced handle. |
+| moveToHandleAxisPos | Axis Position for the "Move To Handle" handle |
+| updatePosesAutomatically | When this box is checked, hand poses will update whenever the target weight changes or whenever the pose data changes. |
+
+# Horiz
+
+| Field | Description |
+| :--- | :--- |
+| orientationDefaultLeft | The default handpose to be grabbed (Left Hand) |
+| orientationDefaultRight | The default handpose to be grabbed (Right Hand) |
+
+# Orientations
+
+| Field | Description |
+| :--- | :--- |
+| allowedOrientations | Legacy method for setting hand poses. This is still functional but is unnecessary to fill.<br><br>You can still use this list to set hand poses: once you're finished, use the "Try Make Default Hand Poses" button above to generate proper hand pose objects. |
+
+# Other Handles
+
+| Field | Description |
+| :--- | :--- |
+| releaseHandle | When linked handle is grabbed, ungrip this handle. |
+| activateHandle | Handle will only activate when the linked handle is grabbed. |
+| AIGrabHandle | NPCs will try to grab this handle if their brain logic tells them to. |
+
+# Data
+
+| Field | Description |
+| :--- | :--- |
+| interactableId \[Dropdown\] | (Only needed for non-json handles)<br>Insert Interactable ID here. |
+| highlighterTransform | The position a highlighter will appear |
+
+# Touch
+
+| Field | Description |
+| :--- | :--- |
+| allowedHandSide | What hand is allowed to grab the handle.<details>- Both<br>- Right<br>- Left<br></details> |
+| axisLength | The length of which the player can grab along.<br>If >0, a button will appear and allow you to adjust the length along its points |
+| touchRadius | The radius of which the player can grab the handle |
+| artificialDistance | When the player's hand is within the range of multiple interactables, the closest one is prioritized. <br> <br>Artifical distance is a fake distance added to the player's hand while checking which interactable is the nearest.<br>Setting this to a high value gives it a low priority when working out which interactable to use, while a low (or negative) value will give it a high priority compared to other interactables. <br> <br> Generally, you can leave this value at 0. |
+| touchCenter | Determines the center of the touchRadius |
 
 {: .tip}
  > The "Update to New Orientations" button upgrades the obsolete "Allowed Orientations" list. Using this button will automatically > spawn a [HandlePose][HandlePose].
  
 > [HandlePose]: {{ site.baseurl }}{% link Components/ThunderRoad/Items/HandlePose.md %}
 
-
-## Picture
-
 ![HandleLength0][HandleLength0]
-This Depicts the gizmo of the handle. The Outer Ring gizmo is the reach, which goes from center to tip of the blade. The Inner White gizmo depicts the Touch radius, and the yellow circle depicts the Touch center.
+<br>This Depicts the gizmo of the handle. The Outer Ring gizmo is the reach, which goes from center to tip of the blade. The Inner White gizmo depicts the Touch radius, and the yellow circle depicts the Touch center.
 
 ![HandleWithLength][HandleWithLength]
-This depicts the handle with a length. The yellow gizmo depicts where the hand would automatically grab when grabbed via telekinesis. The capsule gizmo depicts the length of the handle.
+<br>This depicts the handle with a length. The yellow gizmo depicts where the hand would automatically grab when grabbed via telekinesis. The capsule gizmo depicts the length of the handle.
 
 
 
-
+[Component]: {{ site.baseurl }}/assets/components/Handle/Handle.png
 [HandleWithLength]: {{ site.baseurl }}/assets/components/Handle/HandleWithLength.PNG
 [HandleLength0]: {{ site.baseurl }}/assets/components/Handle/HandleLength0.PNG
 [Item]: {{ site.baseurl }}{% link Components/ThunderRoad/Items/Item.md %}

@@ -4,11 +4,12 @@ grand_parent: ThunderRoad
 ---
 # Skill Tree Crystal
 
+{: .important}
+No matter what Visual Effect asset you use, it **must** have an Intensity float property to avoid errors!
+
 The `SkillTreeCrystal` component is required to make a custom crystal core, used in the skill tree.
 
 ![Inspector]
-
-## Component Properties
 
 | Field                             | Description
 | ---                               | ---
@@ -23,8 +24,5 @@ The `SkillTreeCrystal` component is required to make a custom crystal core, used
 | Tree Name                            | The name of your SkillTree
 | Skill Tree Emission Color            | The emission colour of your SkillTree
 | Override Crystal Colors              | If true, use this to override the colours defined on your material
-
-{: .important}
-No matter what Visual Effect asset you use, it **must** have an Intensity float property!
 
 [Inspector]: {{ site.baseurl }}/assets/components/SkillTreeCrystal/SkillTreeCrystal.png

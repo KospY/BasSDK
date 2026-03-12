@@ -16,12 +16,16 @@ A normal weapon, with all normal orientations, looks something like this with al
 
 ## Components
 
-| Field                       | Description
-|---                          |---
-| Handle                      | Depicts the handle that the handpose applies to. Is automatically assigned if the handpose was created by that handle.
-| Side                        | Picks which hand this handpose applies to.
-| Hand Pose Weighting         | `See Below`
-| [Editor Only Creature]      | Allows you to select a creature to test this handpose on, if handposes are set up correctly for that creature.
+| Field | Description |
+| :--- | :--- |
+| handle | References the handle this handpose is attached to. |
+| side | Depicts which hand this handpose directs to.<details>- Right<br>- Left<br></details> |
+| defaultHandPoseId | ID of the handpose that is set to default if the target weight is zero. |
+| spellOrbTarget | A per-HandlePose override for the Handle's SpellOrbTarget |
+| targetWeight | Blends the "Default" handpose and the "Target" handpose, allowing you to create more unique and fitting handposes without needing to create new ones. |
+| targetHandPoseId | ID of the handpose that is used to blend against the default handpose. Handpose that is used if the target weight is one. |
+| creature | Allows you to select a creature to test the handpose on. |
+| creatureName | Uses the ID of the creature to ensure that the hand bones are correct. |
 
 ## Hand Pose Weighting
 
