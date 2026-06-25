@@ -3,21 +3,21 @@ parent: JSON
 grand_parent: ThunderRoad
 ---
 
-# Item
+# Items
 
-The Item JSON is the primary JSON used to spawn items, from swords and axes to crates and lanterns. 
+An Item JSON is the primary JSON used to spawn items, from swords and axes to crates and lanterns. 
 
 | Keys                          | Description |
 | ---                           | --- |
-| id                            | The Item ID of the Item. Make sure this is unique so that it does not conflict with other items. |
-| sensitiveContent              | Depicts if the item contains sensitive content, disabling it with certain in-game settings. Current functioning sensitiveContent values are: Blood, Dismemberment. |
-| sensitiveFilterBehavior       | Depicts the behavior if it is altered by sensitiveContent. "Discard" removes the item, "Keep" keeps the item. |
-| version                       | Version of JSON. Must be "4" |
+| id                            | The unique ID for the item |
+| version                       | Version of JSON. Must be **"4"** |
+| sensitiveContent              | Depicts if the item contains sensitive content, disabling it with certain in-game settings. Current functioning sensitiveContent values are: Blood, Dismemberment |
+| sensitiveFilterBehavior       | Depicts the behavior if it is altered by sensitiveContent. "Discard" removes the item, "Keep" keeps the item |
 | localizationId                | ID that matches the localization JSON, so it can change the name and description to different languages |
 | displayName                   | The name the item will have in the spawn book and holder UI |
 | description                   | The description the item will have in the Item Spawner book |
 | author                        | The "author" in the Item Spawner book |
-| valueType                     | What currency will be used to buy the item in the shop. This can either be crystalShard or Gold. |
+| valueType                     | What currency will be used to buy the item in the shop. This can either be crystalShard or Gold |
 | value                         | How much the item will cost (by valueType) |
 | rewardValue                   | Utilised by the reward loot tables to define rarity |
 | tier                          | Up to 5, will determine the power of the weapon in its slicing, decapitation and imbue power/strength. |

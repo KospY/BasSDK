@@ -20,6 +20,13 @@ The Light Volume receiver is a component that utilises the Light Probe Volume on
 
 ![Component][Component]
 
+| Field | Description |
+| :--- | :--- |
+| method | The Method of which the Receiver uses.<br><br>GPU Instancing: Uses the GPU instancing to apply the volume.<br>SRPBatching: Uses SRPBatching to apply the volume.<details>- GPUInstancing<br>- SRPBatching<br></details> |
+| volumeDetection | Depicts how the 3D volume is detected.<br><br>Static Per Mesh: Detects it per mesh to apply the volume. Recommended.<br>Dynamic Trigger: Detects the volume dynamicaly, either through events or code.<details>- StaticPerMesh<br>- DynamicTrigger<br></details> |
+| initRenderersOnStart | Initialize the light probe volumes on to the renderers on Start |
+| addMaterialInstances | Add a material instance on to the objects. This is recommended to allow 3D volumes to be added to materials without affecting other ones. |
+
 ## Method
 This field depicts what method the receiver uses to light the object. 
 

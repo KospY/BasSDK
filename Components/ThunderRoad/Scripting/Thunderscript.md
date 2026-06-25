@@ -1,5 +1,6 @@
 ---
-parent: Items
+parent: Scripting
 grand_parent: ThunderRoad
 ---
-# Wearable
+
+# ThunderScript
